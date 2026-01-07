@@ -1,0 +1,10 @@
+{
+  "name": "rs-design-tokens",
+  "version": "1.0.0",
+  "scripts": {
+    "build:themes": "tsx engine/build.ts > ../themes/generated.css"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}

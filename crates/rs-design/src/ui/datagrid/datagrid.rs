@@ -1,0 +1,322 @@
+use leptos::prelude::*;
+use super::types::{ColumnDef, DataGridConfig, SortDirection, SortState, SelectionMode, FilterState};
+use std::collections::HashMap;
+use std::sync::Arc;
+
+/// DataGrid - Enterprise data table
+/// 
+/// **Features:**
+/// - Multi-column sorting (Shift+Click)
+/// - Column filtering
+/// - Pagination
+/// - Row selection
+/// - Custom cell renderers
+#[component]
+pub fn DataGrid<T>(
+    #[prop(into)] data: Signal<Vec<T>>,
+    columns: Vec<ColumnDef<T>>,
+    #[prop(optional)] config: Option<DataGridConfig>,
+    #[prop(optional)] on_row_click: Option<Callback<T>>,
+    #[prop(optional)] on_selection_change: Option<Callback<Vec<usize>>>,
+    #[prop(optional, into)] class: String,
+) -> impl IntoView 
+where
+    T: Clone + Send + Sync + 'static,
+{
+    let config = config.unwrap_or_default();
+    let columns = Arc::new(columns);
+    
+    // State
+    let (sort_states, set_sort_states) = signal(Vec::<SortState>::new());
+    let (filter_states, set_filter_states) = signal(HashMap::<String, FilterState>::new());
+    let (current_page, set_current_page) = signal(0usize);
+    let (selected_rows, set_selected_rows) = signal(Vec::<usize>::new());
+    
+    // Clone columns for each closure BEFORE creating closures
+    let columns_filter = Arc::clone(&columns);
+    let columns_sort = Arc::clone(&columns);
+    let columns_header = Arc::clone(&columns);
+    let columns_body = Arc::clone(&columns);
+    
+    // Filtered data
+    let filtered_data = Signal::derive(move || {
+        let mut rows = data.get();
+        let filters = filter_states.get();
+        
+        if !filters.is_empty() {
+            rows.retain(|row| {
+                filters.values().all(|filter| {
+                    columns_filter.iter()
+                        .find(|c| c.id == filter.column_id)
+                        .map(|col| {
+                            let value = (col.accessor)(row);
+                            value.to_lowercase().contains(&filter.value.to_lowercase())
+                        })
+                        .unwrap_or(true)
+                })
+            });
+        }
+        rows
+    });
+    
+    // Sorted data
+    let sorted_data = Signal::derive(move || {
+        let mut rows = filtered_data.get();
+        let sorts = sort_states.get();
+        
+        if !sorts.is_empty() {
+            rows.sort_by(|a, b| {
+                for sort in &sorts {
+                    if let Some(col) = columns_sort.iter().find(|c| c.id == sort.column_id) {
+                        let val_a = (col.accessor)(a);
+                        let val_b = (col.accessor)(b);
+                        let cmp = match sort.direction {
+                            SortDirection::Ascending => val_a.cmp(&val_b),
+                            SortDirection::Descending => val_b.cmp(&val_a),
+                        };
+                        if cmp != std::cmp::Ordering::Equal {
+                            return cmp;
+                        }
+                    }
+                }
+                std::cmp::Ordering::Equal
+            });
+        }
+        rows
+    });
+    
+    // Paginated data
+    let visible_data = Signal::derive(move || {
+        let rows = sorted_data.get();
+        
+        if config.pagination {
+            let start = current_page.get() * config.page_size;
+            let end = (start + config.page_size).min(rows.len());
+            rows[start..end].to_vec()
+        } else {
+            rows
+        }
+    });
+    
+    let total_pages = Signal::derive(move || {
+        if config.pagination {
+            (sorted_data.get().len() + config.page_size - 1) / config.page_size
+        } else {
+            1
+        }
+    });
+    
+    // Handlers
+    let handle_sort = move |column_id: String, multi: bool| {
+        set_sort_states.update(|states| {
+            if multi {
+                if let Some(idx) = states.iter().position(|s| s.column_id == column_id) {
+                    states[idx].direction = states[idx].direction.toggle();
+                } else {
+                    states.push(SortState { column_id, direction: SortDirection::Ascending });
+                }
+            } else {
+                if states.len() == 1 && states[0].column_id == column_id {
+                    states[0].direction = states[0].direction.toggle();
+                } else {
+                    *states = vec![SortState { column_id, direction: SortDirection::Ascending }];
+                }
+            }
+        });
+    };
+    
+    let handle_filter = move |column_id: String, value: String| {
+        set_filter_states.update(|filters| {
+            if value.is_empty() {
+                filters.remove(&column_id);
+            } else {
+                filters.insert(column_id.clone(), FilterState { column_id, value });
+            }
+        });
+        set_current_page.set(0);
+    };
+    
+    let handle_row_click = move |idx: usize, row: T| {
+        if let Some(cb) = on_row_click {
+            cb.run(row.clone());
+        }
+        
+        match config.selection_mode {
+            SelectionMode::None => {},
+            SelectionMode::Single => {
+                set_selected_rows.set(vec![idx]);
+                if let Some(cb) = on_selection_change {
+                    cb.run(vec![idx]);
+                }
+            },
+            SelectionMode::Multiple => {
+                set_selected_rows.update(|rows| {
+                    if rows.contains(&idx) {
+                        rows.retain(|&i| i != idx);
+                    } else {
+                        rows.push(idx);
+                    }
+                });
+                if let Some(cb) = on_selection_change {
+                    cb.run(selected_rows.get());
+                }
+            },
+        }
+    };
+    
+    view! {
+        <div class=format!("datagrid-container {}", class)>
+            <div class="border rounded-lg overflow-hidden">
+                <div class="overflow-auto" style="max-height: 600px">
+                    <table class="w-full">
+                        <thead class="bg-muted border-b sticky top-0 z-10">
+                            <tr>
+                                {columns_header.iter().map(|col| {
+                                    let col_id = col.id.clone();
+                                    let col_id_sort = col_id.clone();
+                                    let col_id_filter = col_id.clone();
+                                    let is_sortable = col.sortable && config.sortable;
+                                    let is_filterable = col.filterable && config.filterable;
+                                    
+                                    view! {
+                                        <th class="px-4 py-3 text-left text-sm font-semibold bg-muted">
+                                            <div class="flex flex-col gap-2">
+                                                <div 
+                                                    class=if is_sortable { "flex items-center gap-2 cursor-pointer hover:bg-muted/80" } else { "flex items-center gap-2" }
+                                                    on:click=move |ev: web_sys::MouseEvent| {
+                                                        if is_sortable {
+                                                            handle_sort(col_id_sort.clone(), ev.shift_key());
+                                                        }
+                                                    }
+                                                >
+                                                    <span>{col.header.clone()}</span>
+                                                    {move || {
+                                                        let sorts = sort_states.get();
+                                                        sorts.iter().enumerate()
+                                                            .find(|(_, s)| s.column_id == col_id)
+                                                            .map(|(idx, sort)| {
+                                                                let arrow = match sort.direction {
+                                                                    SortDirection::Ascending => "↑",
+                                                                    SortDirection::Descending => "↓",
+                                                                };
+                                                                if sorts.len() > 1 {
+                                                                    view! {
+                                                                        <span class="text-xs bg-primary text-primary-foreground px-1 rounded">
+                                                                            {format!("{}{}", idx + 1, arrow)}
+                                                                        </span>
+                                                                    }.into_any()
+                                                                } else {
+                                                                    view! { <span class="text-xs">{arrow.to_string()}</span> }.into_any()
+                                                                }
+                                                            })
+                                                    }}
+                                                </div>
+                                                {if is_filterable {
+                                                    view! {
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Filter..."
+                                                            class="px-2 py-1 text-xs border rounded"
+                                                            on:input=move |ev| {
+                                                                handle_filter(col_id_filter.clone(), event_target_value(&ev));
+                                                            }
+                                                        />
+                                                    }.into_any()
+                                                } else {
+                                                    view! { <></> }.into_any()
+                                                }}
+                                            </div>
+                                        </th>
+                                    }
+                                }).collect_view()}
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            {move || {
+                                let rows = visible_data.get();
+                                let selected = selected_rows.get();
+                                
+                                if rows.is_empty() {
+                                    view! {
+                                        <tr>
+                                            <td colspan=columns_body.len() class="px-4 py-8 text-center text-muted-foreground">
+                                                "No data"
+                                            </td>
+                                        </tr>
+                                    }.into_any()
+                                } else {
+                                    rows.into_iter().enumerate().map(|(idx, row)| {
+                                        let is_selected = selected.contains(&idx);
+                                        let is_even = idx % 2 == 0;
+                                        let row_clone = row.clone();
+                                        
+                                        view! {
+                                            <tr
+                                                class=move || {
+                                                    let mut classes = vec!["border-b"];
+                                                    if config.hoverable { classes.push("hover:bg-muted/50"); }
+                                                    if config.striped && is_even { classes.push("bg-muted/20"); }
+                                                    if is_selected { classes.push("bg-primary/10"); }
+                                                    if config.selection_mode != SelectionMode::None { classes.push("cursor-pointer"); }
+                                                    classes.join(" ")
+                                                }
+                                                on:click=move |_| handle_row_click(idx, row_clone.clone())
+                                            >
+                                                {columns_body.iter().map(|col| {
+                                                    let value = (col.accessor)(&row);
+                                                    view! {
+                                                        <td class="px-4 py-3 text-sm">
+                                                            {if let Some(renderer) = col.cell_renderer {
+                                                                renderer(&row)
+                                                            } else {
+                                                                view! { <span>{value}</span> }.into_any()
+                                                            }}
+                                                        </td>
+                                                    }
+                                                }).collect_view()}
+                                            </tr>
+                                        }
+                                    }).collect_view().into_any()
+                                }
+                            }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            {move || {
+                if config.pagination && total_pages.get() > 1 {
+                    view! {
+                        <div class="flex items-center justify-between px-4 py-3 border-t">
+                            <div class="text-sm text-muted-foreground">
+                                "Page " {move || current_page.get() + 1} " of " {move || total_pages.get()}
+                                " (" {move || sorted_data.get().len()} " rows)"
+                            </div>
+                            <div class="flex gap-2">
+                                <button
+                                    class=move || if current_page.get() == 0 { "px-3 py-1 text-sm border rounded bg-muted opacity-50 cursor-not-allowed" } else { "px-3 py-1 text-sm border rounded hover:bg-muted cursor-pointer" }
+                                    on:click=move |_| { leptos::logging::log!("Previous clicked, current: {}", current_page.get()); if current_page.get() > 0 { set_current_page.update(|p| *p -= 1); leptos::logging::log!("New page: {}", current_page.get()); } }
+                                >
+                                    "Previous"
+                                </button>
+                                <button
+                                    class=move || if current_page.get() == 0 { "px-3 py-1 text-sm border rounded bg-muted opacity-50 cursor-not-allowed" } else { "px-3 py-1 text-sm border rounded hover:bg-muted cursor-pointer" }
+                                    on:click=move |_| { leptos::logging::log!("Next clicked, current: {}, total: {}", current_page.get(), total_pages.get()); if current_page.get() < total_pages.get() - 1 { set_current_page.update(|p| *p += 1); leptos::logging::log!("New page: {}", current_page.get()); } }
+                                >
+                                    "Next"
+                                </button>
+                            </div>
+                        </div>
+                    }.into_any()
+                } else {
+                    view! {
+                        <div class="px-4 py-2 border-t text-sm text-muted-foreground">
+                            {move || sorted_data.get().len()} " rows total"
+                        </div>
+                    }.into_any()
+                }
+            }}
+        </div>
+    }
+}

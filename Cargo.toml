@@ -1,0 +1,24 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/rs-design",
+    "crates/canonrs-core",
+    "crates/canonrs-ui",
+    "crates/canonrs-blocks",
+    "crates/canonrs-themes",
+    "crates/canonrs-leptos",
+    "examples/leptos-basic",
+    "examples/leptos-ssr",
+    "examples/workbench",
+]
+
+[workspace.package]
+version = "0.1.0-alpha"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+strip = true

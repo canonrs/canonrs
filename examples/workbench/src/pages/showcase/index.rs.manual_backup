@@ -1,0 +1,70 @@
+use leptos::prelude::*;
+use rs_design::components::workflow::WorkflowDemo;
+use rs_design::*;
+use rs_design::ThemeSettingsDropdown;
+use super::{ComponentsSidebar, TokensTable, ComponentsTable, VirtualTableDemo, ThemeDemo, ChecklistTab, WorkflowTab, TreeTab};
+
+#[component]
+pub fn ComponentsPage() -> impl IntoView {
+    let active_tab = RwSignal::new("tokens".to_string());
+    
+    let on_theme_change = Callback::new(move |(mode, preset): (String, String)| {
+        use wasm_bindgen_futures::spawn_local;
+        leptos::logging::log!("🎨 Theme changed: mode={}, preset={}", mode, preset);
+        spawn_local(async move {
+            match crate::theme_server::set_theme_cookie(mode.clone(), preset.clone()).await {
+                Ok(_) => leptos::logging::log!("✅ Cookie saved: mode={}, preset={}", mode, preset),
+                Err(e) => leptos::logging::log!("❌ Error saving cookie: {:?}", e),
+            }
+        });
+    });
+    
+    let on_density_change = Callback::new(move |mode: String| {
+        use wasm_bindgen_futures::spawn_local;
+        leptos::logging::log!("📏 Density changed: {}", mode);
+        spawn_local(async move {
+            match crate::theme_server::set_density_cookie(mode.clone()).await {
+                Ok(_) => leptos::logging::log!("✅ Density cookie saved: {}", mode),
+                Err(e) => leptos::logging::log!("❌ Error saving density: {:?}", e),
+            }
+        });
+    });
+
+    view! {
+        <SidebarProvider default_open=true is_mobile=false>
+            <div class="flex min-h-screen">
+                <ComponentsSidebar />
+                <SidebarInset>
+                    <div class="flex items-center gap-2 border-b px-4 py-2">
+                        <SidebarTrigger />
+                        <Separator orientation="vertical" class="h-4" />
+                        <h1 class="text-xl font-bold">"RS-Design Database"</h1>
+                        <div class="ml-auto">
+                            <ThemeSettingsDropdown on_theme_change=on_theme_change on_density_change=on_density_change />
+                        </div>
+                    </div>
+                    <div class="flex-1 p-6">
+                        <Tabs value=active_tab>
+                            <TabsList>
+                                <TabsTrigger value="tokens">"Tokens"</TabsTrigger>
+                                <TabsTrigger value="theme">"Theme"</TabsTrigger>
+                                <TabsTrigger value="components">"Components"</TabsTrigger>
+                                <TabsTrigger value="checklist">"Checklist"</TabsTrigger>
+                                <TabsTrigger value="virtual">"Virtual Table"</TabsTrigger>
+                                <TabsTrigger value="workflow">"Workflow"</TabsTrigger>
+                                <TabsTrigger value="tree">"Tree"</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="tokens"><TokensTable /></TabsContent>
+                            <TabsContent value="theme"><ThemeDemo /></TabsContent>
+                            <TabsContent value="components"><ComponentsTable /></TabsContent>
+                            <TabsContent value="checklist"><ChecklistTab /></TabsContent>
+                            <TabsContent value="virtual"><VirtualTableDemo /></TabsContent>
+                            <TabsContent value="workflow"><WorkflowTab /></TabsContent>
+                            <TabsContent value="tree"><TreeTab /></TabsContent>
+                        </Tabs>
+                    </div>
+                </SidebarInset>
+            </div>
+        </SidebarProvider>
+    }
+}

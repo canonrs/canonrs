@@ -1,0 +1,7 @@
+Mudar assinatura de:
+    config: &DataGridConfig,
+Para:
+    config: DataGridConfig,
+
+E na chamada, clonar config antes de passar:
+    render_rows(..., config.clone(), ...)

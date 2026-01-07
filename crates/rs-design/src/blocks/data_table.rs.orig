@@ -1,0 +1,270 @@
+use leptos::prelude::*;
+use crate::ui::*;
+use crate::ui::table::*;
+use crate::ui::checkbox::Checkbox;
+use std::sync::Arc;
+use std::collections::HashSet;
+
+pub struct DataTableColumn<T> 
+where
+    T: Clone + Send + Sync + PartialEq + 'static,
+{
+    pub header: String,
+    pub render: Arc<dyn Fn(&T) -> AnyView + Send + Sync>,
+    pub class: String,
+}
+
+impl<T: Clone + Send + Sync + PartialEq + 'static> DataTableColumn<T> {
+    pub fn new(
+        header: impl Into<String>,
+        render: impl Fn(&T) -> AnyView + Send + Sync + 'static,
+    ) -> Self {
+        Self {
+            header: header.into(),
+            render: Arc::new(render),
+            class: String::new(),
+        }
+    }
+
+    pub fn with_class(mut self, class: impl Into<String>) -> Self {
+        self.class = class.into();
+        self
+    }
+}
+
+impl<T: Clone + Send + Sync + PartialEq + 'static> Clone for DataTableColumn<T> {
+    fn clone(&self) -> Self {
+        Self {
+            header: self.header.clone(),
+            render: Arc::clone(&self.render),
+            class: self.class.clone(),
+        }
+    }
+}
+
+#[component]
+pub fn DataTable<T>(
+    data: Vec<T>,
+    columns: Vec<DataTableColumn<T>>,
+    #[prop(optional)] get_id: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
+    #[prop(optional, into)] search_placeholder: String,
+    #[prop(optional)] filter_fn: Option<Arc<dyn Fn(&T, &str) -> bool + Send + Sync>>,
+    #[prop(optional, default = false)] selectable: bool,
+) -> impl IntoView 
+where
+    T: Clone + Send + Sync + PartialEq + 'static,
+{
+    let columns = Arc::new(columns);
+    let get_id = get_id.unwrap_or_else(|| Arc::new(|_| uuid::Uuid::new_v4().to_string()));
+    
+    let current_page = RwSignal::new(0_usize);
+    let search_filter = RwSignal::new(String::new());
+    let selected_rows = RwSignal::new(HashSet::<String>::new());
+    
+    let search_placeholder = if search_placeholder.is_empty() {
+        "Search...".to_string()
+    } else {
+        search_placeholder
+    };
+    
+    let filtered_data = Memo::new(move |_| {
+        let filter = search_filter.get().to_lowercase();
+        if filter.is_empty() {
+            data.clone()
+        } else {
+            data.iter()
+                .filter(|item| {
+                    if let Some(ref f) = filter_fn {
+                        f(item, &filter)
+                    } else {
+                        true
+                    }
+                })
+                .cloned()
+                .collect()
+        }
+    });
+    
+    let page_size = 10_usize;
+    let total_pages = Memo::new(move |_| {
+        let total = filtered_data.get().len();
+        ((total + page_size - 1) / page_size).max(1)
+    });
+    
+    let paginated_data = Memo::new(move |_| {
+        let all_data = filtered_data.get();
+        let page = current_page.get();
+        let start = page * page_size;
+        let end = (start + page_size).min(all_data.len());
+        all_data[start..end].to_vec()
+    });
+
+    let all_page_selected = Memo::new(move |_| {
+        let page_data = paginated_data.get();
+        let selected = selected_rows.get();
+        !page_data.is_empty() && page_data.iter().all(|item| selected.contains(&get_id(item)))
+    });
+
+    let toggle_all = move |_| {
+        let page_data = paginated_data.get();
+        let all_selected = all_page_selected.get();
+        
+        selected_rows.update(|selected| {
+            if all_selected {
+                for item in &page_data {
+                    selected.remove(&get_id(item));
+                }
+            } else {
+                for item in &page_data {
+                    selected.insert(get_id(item));
+                }
+            }
+        });
+    };
+
+    let header_columns = Arc::clone(&columns);
+    let body_columns = Arc::clone(&columns);
+
+    view! {
+        <div class="space-y-4">
+            <div class="flex items-center py-4">
+                <Input
+                    placeholder=search_placeholder
+                    value=search_filter
+                    class="max-w-sm"
+                />
+            </div>
+
+            <div class="overflow-x-auto rounded-md border">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            {move || {
+                                let mut headers = vec![];
+                                
+                                if selectable {
+                                    headers.push(view! {
+                                        <TableHead class="w-12">
+                                            <Checkbox
+                                                checked=all_page_selected.get()
+                                                on_checked_change=Callback::new(toggle_all)
+                                            />
+                                        </TableHead>
+                                    });
+                                }
+                                
+                                headers.extend(header_columns.iter().map(|col| {
+                                    let header_text = col.header.clone();
+                                    let class = col.class.clone();
+                                    view! {
+                                        <TableHead class=class>
+                                            {header_text}
+                                        </TableHead>
+                                    }
+                                }));
+                                
+                                headers.into_iter().collect_view()
+                            }}
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        <For
+                            each=move || paginated_data.get()
+                            key=move |item| get_id(item)
+                            children=move |item: T| {
+                                let row_columns = Arc::clone(&body_columns);
+                                let item_id = get_id(&item);
+                                let is_selected = Memo::new(move |_| {
+                                    selected_rows.get().contains(&item_id)
+                                });
+                                
+                                let toggle_row = {
+                                    let item_id = item_id.clone();
+                                    move |_| {
+                                        selected_rows.update(|selected| {
+                                            if selected.contains(&item_id) {
+                                                selected.remove(&item_id);
+                                            } else {
+                                                selected.insert(item_id.clone());
+                                            }
+                                        });
+                                    }
+                                };
+
+                                view! {
+                                    <TableRow>
+                                        {move || {
+                                            let mut cells = vec![];
+                                            
+                                            if selectable {
+                                                cells.push(view! {
+                                                    <TableCell class="w-12">
+                                                        <Checkbox
+                                                            checked=is_selected.get()
+                                                            on_checked_change=Callback::new(toggle_row)
+                                                        />
+                                                    </TableCell>
+                                                });
+                                            }
+                                            
+                                            cells.extend(row_columns.iter().map(|col| {
+                                                let content = (col.render)(&item);
+                                                let class = col.class.clone();
+                                                view! {
+                                                    <TableCell class=class>
+                                                        {content}
+                                                    </TableCell>
+                                                }
+                                            }));
+                                            
+                                            cells.into_iter().collect_view()
+                                        }}
+                                    </TableRow>
+                                }
+                            }
+                        />
+                    </TableBody>
+                </Table>
+            </div>
+
+            <div class="flex items-center justify-between py-4">
+                <div class="text-sm text-muted-foreground">
+                    {move || {
+                        let selected_count = selected_rows.get().len();
+                        if selected_count > 0 {
+                            format!("{} of {} row(s) selected", selected_count, filtered_data.get().len())
+                        } else {
+                            format!("{} row(s)", filtered_data.get().len())
+                        }
+                    }}
+                </div>
+                <div class="flex items-center space-x-2">
+                    <Button
+                        variant=ButtonVariant::Outline
+                        on:click=move |_| { 
+                            current_page.update(|p| if *p > 0 { *p -= 1 }); 
+                        }
+                    >
+                        Previous
+                    </Button>
+                    <span class="text-sm">
+                        Page {move || current_page.get() + 1} / {move || total_pages.get()}
+                    </span>
+                    <Button
+                        variant=ButtonVariant::Outline
+                        on:click=move |_| { 
+                            let max = total_pages.get_untracked();
+                            current_page.update(|p| { 
+                                if *p + 1 < max { 
+                                    *p += 1; 
+                                } 
+                            }); 
+                        }
+                    >
+                        Next
+                    </Button>
+                </div>
+            </div>
+        </div>
+    }
+}

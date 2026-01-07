@@ -1,0 +1,10 @@
+[package]
+name = "canonrs-ui"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rs-design = { path = "../rs-design" }
+canonrs-core = { path = "../canonrs-core" }
+leptos = { workspace = true }
+serde = { workspace = true }

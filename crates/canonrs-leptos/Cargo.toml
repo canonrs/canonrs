@@ -1,0 +1,10 @@
+[package]
+name = "canonrs-leptos"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+canonrs-core = { path = "../canonrs-core" }
+rs-design = { path = "../rs-design" }
+leptos = { workspace = true }
+serde = { workspace = true }

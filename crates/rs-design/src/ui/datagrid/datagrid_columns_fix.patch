@@ -1,0 +1,9 @@
+Logo após receber columns como parâmetro, criar clones:
+
+let columns_for_filter = columns.clone();
+let columns_for_sort = columns.clone();
+let columns_for_header = columns.clone();
+let columns_for_render1 = columns.clone();
+let columns_for_render2 = columns.clone();
+
+Depois usar cada clone no closure correspondente.

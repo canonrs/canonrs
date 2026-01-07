@@ -1,0 +1,3 @@
+Erro 1: on:input com .into_any() - REMOVER .into_any() do callback
+Erro 2: if/else com tipos diferentes - ADICIONAR .into_any() em AMBOS
+Erro 3: if/else pagination - Ordem errada do .into_any()

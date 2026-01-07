@@ -1,0 +1,150 @@
+/* AUTO-GENERATED - DO NOT EDIT */
+/* Generated from TypeScript theme definitions */
+/* Run: npm run build:themes to regenerate */
+
+/* Amber Minimal - Warm amber accents with minimalist approach */
+[data-theme="amber-minimal"] {
+  --color-background: 0 0% 100% !important;
+  --color-foreground: 0 0% 14.902% !important;
+  --color-card: 0 0% 100% !important;
+  --color-card-foreground: 0 0% 14.902% !important;
+  --color-popover: 0 0% 100% !important;
+  --color-popover-foreground: 0 0% 14.902% !important;
+  --color-primary: 37.6923 92.126% 50.1961% !important;
+  --color-primary-foreground: 0 0% 0% !important;
+  --color-secondary: 220 14.2857% 95.8824% !important;
+  --color-secondary-foreground: 215 13.7931% 34.1176% !important;
+  --color-muted: 210 20% 98.0392% !important;
+  --color-muted-foreground: 220 8.9362% 46.0784% !important;
+  --color-accent: 48 100% 96.0784% !important;
+  --color-accent-foreground: 22.7273 82.5% 31.3725% !important;
+  --color-destructive: 0 84.2365% 60.1961% !important;
+  --color-destructive-foreground: 0 0% 100% !important;
+  --color-border: 220 13.0435% 90.9804% !important;
+  --color-input: 220 13.0435% 90.9804% !important;
+  --color-ring: 37.6923 92.126% 50.1961% !important;
+  --color-chart1: 37.6923 92.126% 50.1961% !important;
+  --color-chart2: 32.1327 94.6188% 43.7255% !important;
+  --color-chart3: 25.9649 90.4762% 37.0588% !important;
+  --color-chart4: 22.7273 82.5% 31.3725% !important;
+  --color-chart5: 21.7143 77.7778% 26.4706% !important;
+  --color-sidebar: 210 20% 98.0392% !important;
+  --color-sidebar-foreground: 0 0% 14.902% !important;
+  --color-sidebar-primary: 37.6923 92.126% 50.1961% !important;
+  --color-sidebar-primary-foreground: 0 0% 100% !important;
+  --color-sidebar-accent: 48 100% 96.0784% !important;
+  --color-sidebar-accent-foreground: 22.7273 82.5% 31.3725% !important;
+  --color-sidebar-border: 220 13.0435% 90.9804% !important;
+  --color-sidebar-ring: 37.6923 92.126% 50.1961% !important;
+  --color-shadow-color: 0 0% 0% !important;
+}
+
+[data-theme="amber-minimal"].dark {
+  --color-background: 0 0% 9.0196% !important;
+  --color-foreground: 0 0% 89.8039% !important;
+  --color-card: 0 0% 14.902% !important;
+  --color-card-foreground: 0 0% 89.8039% !important;
+  --color-popover: 0 0% 14.902% !important;
+  --color-popover-foreground: 0 0% 89.8039% !important;
+  --color-primary: 37.6923 92.126% 50.1961% !important;
+  --color-primary-foreground: 0 0% 0% !important;
+  --color-secondary: 0 0% 14.902% !important;
+  --color-secondary-foreground: 0 0% 89.8039% !important;
+  --color-muted: 0 0% 12.1569% !important;
+  --color-muted-foreground: 0 0% 63.9216% !important;
+  --color-accent: 22.7273 82.5% 31.3725% !important;
+  --color-accent-foreground: 48 96.6387% 76.6667% !important;
+  --color-destructive: 0 84.2365% 60.1961% !important;
+  --color-destructive-foreground: 0 0% 100% !important;
+  --color-border: 0 0% 25.098% !important;
+  --color-input: 0 0% 25.098% !important;
+  --color-ring: 37.6923 92.126% 50.1961% !important;
+  --color-chart1: 43.2558 96.4126% 56.2745% !important;
+  --color-chart2: 32.1327 94.6188% 43.7255% !important;
+  --color-chart3: 22.7273 82.5% 31.3725% !important;
+  --color-chart4: 25.9649 90.4762% 37.0588% !important;
+  --color-chart5: 22.7273 82.5% 31.3725% !important;
+  --color-sidebar: 0 0% 5.8824% !important;
+  --color-sidebar-foreground: 0 0% 89.8039% !important;
+  --color-sidebar-primary: 37.6923 92.126% 50.1961% !important;
+  --color-sidebar-primary-foreground: 0 0% 100% !important;
+  --color-sidebar-accent: 22.7273 82.5% 31.3725% !important;
+  --color-sidebar-accent-foreground: 48 96.6387% 76.6667% !important;
+  --color-sidebar-border: 0 0% 25.098% !important;
+  --color-sidebar-ring: 37.6923 92.126% 50.1961% !important;
+  --color-shadow-color: 0 0% 0% !important;
+}
+
+/* Clean Slate - Modern blue-indigo design system */
+[data-theme="clean-slate"] {
+  --color-background: 210 40% 98.0392% !important;
+  --color-foreground: 217.2414 32.5843% 17.451% !important;
+  --color-card: 0 0% 100% !important;
+  --color-card-foreground: 217.2414 32.5843% 17.451% !important;
+  --color-popover: 0 0% 100% !important;
+  --color-popover-foreground: 217.2414 32.5843% 17.451% !important;
+  --color-primary: 238.7324 83.5294% 66.6667% !important;
+  --color-primary-foreground: 0 0% 100% !important;
+  --color-secondary: 220 13.0435% 90.9804% !important;
+  --color-secondary-foreground: 216.9231 19.1176% 26.6667% !important;
+  --color-muted: 220 14.2857% 95.8824% !important;
+  --color-muted-foreground: 220 8.9362% 46.0784% !important;
+  --color-accent: 226.4516 100% 93.9216% !important;
+  --color-accent-foreground: 216.9231 19.1176% 26.6667% !important;
+  --color-destructive: 0 84.2365% 60.1961% !important;
+  --color-destructive-foreground: 0 0% 100% !important;
+  --color-border: 216 12.1951% 83.9216% !important;
+  --color-input: 216 12.1951% 83.9216% !important;
+  --color-ring: 238.7324 83.5294% 66.6667% !important;
+  --color-chart1: 238.7324 83.5294% 66.6667% !important;
+  --color-chart2: 243.3962 75.3555% 58.6275% !important;
+  --color-chart3: 244.5205 57.9365% 50.5882% !important;
+  --color-chart4: 243.6522 54.5024% 41.3725% !important;
+  --color-chart5: 242.1687 47.4286% 34.3137% !important;
+  --color-sidebar: 220 14.2857% 95.8824% !important;
+  --color-sidebar-foreground: 217.2414 32.5843% 17.451% !important;
+  --color-sidebar-primary: 238.7324 83.5294% 66.6667% !important;
+  --color-sidebar-primary-foreground: 0 0% 100% !important;
+  --color-sidebar-accent: 226.4516 100% 93.9216% !important;
+  --color-sidebar-accent-foreground: 216.9231 19.1176% 26.6667% !important;
+  --color-sidebar-border: 216 12.1951% 83.9216% !important;
+  --color-sidebar-ring: 238.7324 83.5294% 66.6667% !important;
+  --color-shadow-color: 0 0% 0% !important;
+}
+
+[data-theme="clean-slate"].dark {
+  --color-background: 222.2222 47.3684% 11.1765% !important;
+  --color-foreground: 214.2857 31.8182% 91.3725% !important;
+  --color-card: 217.2414 32.5843% 17.451% !important;
+  --color-card-foreground: 214.2857 31.8182% 91.3725% !important;
+  --color-popover: 217.2414 32.5843% 17.451% !important;
+  --color-popover-foreground: 214.2857 31.8182% 91.3725% !important;
+  --color-primary: 234.4538 89.4737% 73.9216% !important;
+  --color-primary-foreground: 222.2222 47.3684% 11.1765% !important;
+  --color-secondary: 217.7778 23.0769% 22.9412% !important;
+  --color-secondary-foreground: 216 12.1951% 83.9216% !important;
+  --color-muted: 217.2414 40.8451% 13.9216% !important;
+  --color-muted-foreground: 217.8947 10.6145% 64.902% !important;
+  --color-accent: 216.9231 19.1176% 26.6667% !important;
+  --color-accent-foreground: 216 12.1951% 83.9216% !important;
+  --color-destructive: 0 84.2365% 60.1961% !important;
+  --color-destructive-foreground: 222.2222 47.3684% 11.1765% !important;
+  --color-border: 215 13.7931% 34.1176% !important;
+  --color-input: 215 13.7931% 34.1176% !important;
+  --color-ring: 234.4538 89.4737% 73.9216% !important;
+  --color-chart1: 234.4538 89.4737% 73.9216% !important;
+  --color-chart2: 238.7324 83.5294% 66.6667% !important;
+  --color-chart3: 243.3962 75.3555% 58.6275% !important;
+  --color-chart4: 244.5205 57.9365% 50.5882% !important;
+  --color-chart5: 243.6522 54.5024% 41.3725% !important;
+  --color-sidebar: 217.2414 32.5843% 17.451% !important;
+  --color-sidebar-foreground: 214.2857 31.8182% 91.3725% !important;
+  --color-sidebar-primary: 234.4538 89.4737% 73.9216% !important;
+  --color-sidebar-primary-foreground: 222.2222 47.3684% 11.1765% !important;
+  --color-sidebar-accent: 216.9231 19.1176% 26.6667% !important;
+  --color-sidebar-accent-foreground: 216 12.1951% 83.9216% !important;
+  --color-sidebar-border: 215 13.7931% 34.1176% !important;
+  --color-sidebar-ring: 234.4538 89.4737% 73.9216% !important;
+  --color-shadow-color: 0 0% 0% !important;
+}
+

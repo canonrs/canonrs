@@ -1,0 +1,5 @@
+1. Linha 254: view! { <></> } retorna () mas precisa retornar View
+   Fix: usar .into_any() em ambos os branches
+
+2. Linhas 280-290: if/else retornam tipos diferentes
+   Fix: usar .into_any() em ambos

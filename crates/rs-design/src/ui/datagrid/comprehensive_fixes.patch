@@ -1,0 +1,8 @@
+Erro 1 (linha 254): if/else tipos incompatíveis no filterable
+Fix: adicionar .into_any() em ambos os branches
+
+Erro 2 (linha 291): if/else tipos incompatíveis no pagination
+Fix: envolver segundo branch em view! também
+
+Erro 3 (linha 376): config sendo moved no closure
+Fix: clonar config antes do closure

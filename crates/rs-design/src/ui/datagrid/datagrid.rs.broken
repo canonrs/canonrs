@@ -1,0 +1,500 @@
+use leptos::prelude::*;
+use super::types::{ColumnDef, DataGridConfig, SortDirection, SortState, SelectionMode, FilterState};
+use wasm_bindgen::JsCast;
+use std::collections::HashMap;
+
+/// DataGrid - Complete implementation
+/// 
+/// **Type:** Stateful Component (Type 2)
+/// **Features:** 
+/// - Virtual scroll (10k+ rows)
+/// - Column sorting (multi-column)
+/// - Column filtering
+/// - Row selection
+/// - Pagination
+/// - Custom cell renderers
+/// - Export (CSV, Excel, PDF) - coming soon
+#[component]
+pub fn DataGrid<T>(
+    /// Data rows
+    #[prop(into)]
+    data: Signal<Vec<T>>,
+    
+    /// Column definitions
+    columns: Vec<ColumnDef<T>>,
+    
+    /// Optional configuration
+    #[prop(optional)]
+    config: Option<DataGridConfig>,
+    
+    /// Optional on row click callback
+    #[prop(optional)]
+    on_row_click: Option<Callback<T>>,
+    
+    /// Optional on selection change callback
+    #[prop(optional)]
+    on_selection_change: Option<Callback<Vec<usize>>>,
+    
+    /// Optional CSS class
+    #[prop(optional, into)]
+    class: String,
+) -> impl IntoView 
+where
+    T: Clone + Send + Sync + 'static,
+{
+    let config = config.unwrap_or_default();
+    
+    // State: Sorting
+    let (sort_states, set_sort_states) = signal(Vec::<SortState>::new());
+    
+    // State: Filtering
+    let (filter_states, set_filter_states) = signal(HashMap::<String, FilterState>::new());
+    
+    // State: Pagination
+    let (current_page, set_current_page) = signal(0usize);
+    
+    // State: Selection
+    let (selected_rows, set_selected_rows) = signal(Vec::<usize>::new());
+    
+    // State: Virtual scroll
+    let (scroll_top, set_scroll_top) = signal(0.0);
+    let row_height: f64 = 48.0; // pixels
+    let viewport_height: f64 = 600.0; // pixels
+    
+    // Computed: filtered data
+    let filtered_data = Signal::derive(move || {
+        let mut rows = data.get();
+        let filters = filter_states.get();
+        
+        if !filters.is_empty() {
+            rows.retain(|row| {
+                filters.values().all(|filter| {
+                    let col = columns.iter().find(|c| c.id == filter.column_id);
+                    if let Some(col) = col {
+                        let value = (col.accessor)(row);
+                        value.to_lowercase().contains(&filter.value.to_lowercase())
+                    } else {
+                        true
+                    }
+                })
+            });
+        }
+        
+        rows
+    });
+    
+    // Computed: sorted data
+    let sorted_data = Signal::derive(move || {
+        let mut rows = filtered_data.get();
+        let sorts = sort_states.get();
+        
+        if !sorts.is_empty() {
+            rows.sort_by(|a, b| {
+                for sort in &sorts {
+                    let col = columns.iter().find(|c| c.id == sort.column_id);
+                    
+                    if let Some(col) = col {
+                        let val_a = (col.accessor)(a);
+                        let val_b = (col.accessor)(b);
+                        
+                        let cmp = match sort.direction {
+                            SortDirection::Ascending => val_a.cmp(&val_b),
+                            SortDirection::Descending => val_b.cmp(&val_a),
+                        };
+                        
+                        if cmp != std::cmp::Ordering::Equal {
+                            return cmp;
+                        }
+                    }
+                }
+                std::cmp::Ordering::Equal
+            });
+        }
+        
+        rows
+    });
+    
+    // Computed: paginated or virtual data
+    let visible_data = Signal::derive(move || {
+        let rows = sorted_data.get();
+        
+        if config.pagination {
+            // Pagination mode
+            let start = current_page.get() * config.page_size;
+            let end = (start + config.page_size).min(rows.len());
+            rows[start..end].to_vec()
+        } else {
+            // Virtual scroll mode
+            let scroll = scroll_top.get();
+            let visible_rows = (viewport_height / row_height).ceil() as f64 as usize;
+            let start_idx = (scroll / row_height).floor() as f64 as usize;
+            let end_idx = (start_idx + visible_rows + 5).min(rows.len()); // +5 for buffer
+            
+            rows[start_idx..end_idx].to_vec()
+        }
+    });
+    
+    // Total pages
+    let total_pages = Signal::derive(move || {
+        if config.pagination {
+            let total_rows = sorted_data.get().len();
+            (total_rows + config.page_size - 1) / config.page_size
+        } else {
+            1
+        }
+    });
+    
+    // Virtual scroll: start index
+    let start_index = Signal::derive(move || {
+        if !config.pagination {
+            (scroll_top.get() / row_height).floor() as f64 as usize
+        } else {
+            0
+        }
+    });
+    
+    // Virtual scroll: total height
+    let total_height = Signal::derive(move || {
+        if !config.pagination {
+            sorted_data.get().len() as f64 * row_height
+        } else {
+            0.0
+        }
+    });
+    
+    // Handle sort
+    let handle_sort = move |column_id: String, multi: bool| {
+        set_sort_states.update(|states| {
+            if multi {
+                // Multi-column sort (Shift+Click)
+                if let Some(idx) = states.iter().position(|s| s.column_id == column_id) {
+                    // Toggle existing
+                    states[idx].direction = states[idx].direction.toggle();
+                } else {
+                    // Add new
+                    states.push(SortState {
+                        column_id,
+                        direction: SortDirection::Ascending,
+                    });
+                }
+            } else {
+                // Single column sort
+                if states.len() == 1 && states[0].column_id == column_id {
+                    // Toggle existing
+                    states[0].direction = states[0].direction.toggle();
+                } else {
+                    // Replace all
+                    *states = vec![SortState {
+                        column_id,
+                        direction: SortDirection::Ascending,
+                    }];
+                }
+            }
+        });
+    };
+    
+    // Handle filter
+    let handle_filter = move |column_id: String, value: String| {
+        set_filter_states.update(|filters| {
+            if value.is_empty() {
+                filters.remove(&column_id);
+            } else {
+                filters.insert(column_id.clone(), FilterState {
+                    column_id,
+                    value,
+                });
+            }
+        });
+        // Reset to page 0 when filtering
+        set_current_page.set(0);
+    };
+    
+    // Handle row selection
+    let handle_row_click = move |idx: usize, row: T| {
+        if let Some(callback) = on_row_click {
+            callback.run(row.clone());
+        }
+        
+        match config.selection_mode {
+            SelectionMode::None => {},
+            SelectionMode::Single => {
+                set_selected_rows.set(vec![idx]);
+                if let Some(callback) = on_selection_change {
+                    callback.run(vec![idx]);
+                }
+            },
+            SelectionMode::Multiple => {
+                set_selected_rows.update(|rows| {
+                    if rows.contains(&idx) {
+                        rows.retain(|&i| i != idx);
+                    } else {
+                        rows.push(idx);
+                    }
+                });
+                if let Some(callback) = on_selection_change {
+                    callback.run(selected_rows.get());
+                }
+            },
+        }
+    };
+    
+    // Handle scroll (for virtual scroll)
+    #[cfg(target_arch = "wasm32")]
+    let handle_scroll = move |ev: web_sys::Event| {
+        if let Some(target) = ev.target() {
+            if let Ok(element) = target.dyn_into::<web_sys::HtmlElement>() {
+                set_scroll_top.set(element.scroll_top() as f64);
+            }
+        }
+    };
+    
+    let columns_clone = columns.clone();
+    let columns_clone2 = columns.clone();
+    
+    view! {
+        <div class=format!("datagrid-container {}", class)>
+            <div class="border rounded-lg overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-muted border-b sticky top-0 z-10">
+                        <tr>
+                            {columns.iter().map(|col| {
+                                let col_id = col.id.clone();
+                                let col_header = col.header.clone();
+                                let is_sortable = col.sortable && config.sortable;
+                                let is_filterable = col.filterable && config.filterable;
+                                
+                                view! {
+                                    <th 
+                                        class=move || {
+                                            let base = "px-4 py-3 text-left text-sm font-semibold bg-muted";
+                                            if is_sortable {
+                                                format!("{} cursor-pointer hover:bg-muted/80", base)
+                                            } else {
+                                                base.to_string()
+                                            }
+                                        }
+                                        style=col.width.clone().map(|w| format!("width: {}", w))
+                                    >
+                                        <div class="flex flex-col gap-2">
+                                            <div 
+                                                class="flex items-center gap-2"
+                                                on:click=move |ev: web_sys::MouseEvent| {
+                                                    if is_sortable {
+                                                        handle_sort(col_id.clone(), ev.shift_key());
+                                                    }
+                                                }
+                                            >
+                                                <span>{col_header.clone()}</span>
+                                                {move || {
+                                                    if is_sortable {
+                                                        let sorts = sort_states.get();
+                                                        if let Some((idx, sort)) = sorts.iter()
+                                                            .enumerate()
+                                                            .find(|(_, s)| s.column_id == col_id)
+                                                        {
+                                                            let arrow = match sort.direction {
+                                                                SortDirection::Ascending => "↑",
+                                                                SortDirection::Descending => "↓",
+                                                            };
+                                                            
+                                                            if sorts.len() > 1 {
+                                                                view! {
+                                                                    <span class="text-xs bg-primary text-primary-foreground px-1 rounded">
+                                                                        {format!("{}{}", idx + 1, arrow)}
+                                                                    </span>
+                                                                }.into_any()
+                                                            } else {
+                                                                view! { <span class="text-xs">{arrow}</span> }.into_any()
+                                                            }
+                                                        } else {
+                                                            view! { <></> }.into_any()
+                                                        }
+                                                    } else {
+                                                        view! { <></> }.into_any()
+                                                    }
+                                                }}
+                                            </div>
+                                            
+                                            {if is_filterable {
+                                                let filter_col_id = col_id.clone();
+                                                view! {
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Filter..."
+                                                        class="px-2 py-1 text-xs border rounded"
+                                                        on:input=move |ev| {
+                                                            let value = event_target_value(&ev);
+                                                            handle_filter(filter_col_id.clone(), value);
+                                                        }
+                                                    />
+                                                }.into_any()
+                                            } else {
+                                                view! { <></> }.into_any()
+                                            }}
+                                        </div>
+                                    </th>
+                                }
+                            }).collect_view()}
+                        </tr>
+                    </thead>
+                </table>
+                
+                <div 
+                    class="overflow-auto"
+                    style=format!("max-height: {}px", viewport_height)
+                    on:scroll=move |ev| {
+                        #[cfg(target_arch = "wasm32")]
+                        handle_scroll(ev.into());
+                    }
+                >
+                    {move || {
+                        if !config.pagination {
+                            // Virtual scroll: spacer
+                            view! {
+                                <div style=format!("height: {}px", total_height.get())>
+                                    <div style=format!("transform: translateY({}px)", start_index.get() as f64 * row_height)>
+                                        {render_rows(
+                                            visible_data.get(),
+                                            start_index.get(),
+                                            &columns_clone,
+                                            config.clone(),
+                                            selected_rows.get(),
+                                            handle_row_click,
+                                        )}
+                                    </div>
+                                </div>
+                            }.into_any()
+                        } else {
+                            // Pagination: normal render
+                            render_rows(
+                                visible_data.get(),
+                                0,
+                                &columns_clone2,
+                                config.clone(),
+                                selected_rows.get(),
+                                handle_row_click,
+                            ).into_any()
+                        }
+                    }}
+                </div>
+            </div>
+            
+            {move || {
+                if config.pagination && total_pages.get() > 1 {
+                    view! {
+                        <div class="flex items-center justify-between px-4 py-3 border-t">
+                            <div class="text-sm text-muted-foreground">
+                                "Page " {move || current_page.get() + 1} " of " {move || total_pages.get()}
+                                " (" {move || sorted_data.get().len()} " rows)"
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button
+                                    class="px-3 py-1 text-sm border rounded hover:bg-muted disabled:opacity-50"
+                                    disabled=move || current_page.get() == 0
+                                    on:click=move |_| set_current_page.update(|p| *p = p.saturating_sub(1))
+                                >
+                                    "Previous"
+                                </button>
+                                
+                                <button
+                                    class="px-3 py-1 text-sm border rounded hover:bg-muted disabled:opacity-50"
+                                    disabled=move || current_page.get() >= total_pages.get() - 1
+                                    on:click=move |_| set_current_page.update(|p| *p += 1)
+                                >
+                                    "Next"
+                                </button>
+                            </div>
+                        </div>
+                    }.into_any()
+                } else if !config.pagination {
+                    view! {
+                        <div class="px-4 py-2 border-t text-sm text-muted-foreground">
+                            {move || format!("{} rows (virtual scroll)", sorted_data.get().len())}
+                        </div>
+                    }.into_any()
+                } else {
+                    view! { <></> }.into_any()
+                }
+            }}
+        </div>
+    }
+}
+
+fn render_rows<T, F>(
+    rows: Vec<T>,
+    start_idx: usize,
+    columns: &[ColumnDef<T>],
+    config: DataGridConfig,
+    selected: Vec<usize>,
+    on_click: F,
+) -> AnyView
+where
+    T: Clone + Send + Sync + 'static,
+    F: Fn(usize, T) + 'static + Clone,
+{
+    if rows.is_empty() {
+        return view! {
+            <table class="w-full">
+                <tbody>
+                    <tr>
+                        <td colspan=columns.len() class="px-4 py-8 text-center text-muted-foreground">
+                            "No data"
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }.into_any();
+    }
+    
+    view! {
+        <table class="w-full">
+            <tbody>
+                {rows.into_iter().enumerate().map(|(rel_idx, row)| {
+                    let abs_idx = start_idx + rel_idx;
+                    let is_selected = selected.contains(&abs_idx);
+                    let is_even = abs_idx % 2 == 0;
+                    let row_clone = row.clone();
+                    let on_click_clone = on_click.clone();
+                    
+                    view! {
+                        <tr
+                            class=move || {
+                                let mut classes = vec!["border-b"];
+                                if config.hoverable {
+                                    classes.push("hover:bg-muted/50");
+                                }
+                                if config.striped && is_even {
+                                    classes.push("bg-muted/20");
+                                }
+                                if is_selected {
+                                    classes.push("bg-primary/10");
+                                }
+                                if config.selection_mode != SelectionMode::None {
+                                    classes.push("cursor-pointer");
+                                }
+                                classes.join(" ")
+                            }
+                            style="height: 48px"
+                            on:click=move |_| on_click_clone(abs_idx, row_clone.clone())
+                        >
+                            {columns.iter().map(|col| {
+                                let value = (col.accessor)(&row);
+                                
+                                view! {
+                                    <td class="px-4 py-3 text-sm">
+                                        {if let Some(renderer) = col.cell_renderer {
+                                            renderer(&row)
+                                        } else {
+                                            view! { <span>{value}</span> }.into_any()
+                                        }}
+                                    </td>
+                                }
+                            }).collect_view()}
+                        </tr>
+                    }
+                }).collect_view()}
+            </tbody>
+        </table>
+    }.into_any()
+}

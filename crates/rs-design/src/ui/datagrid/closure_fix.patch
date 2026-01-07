@@ -1,0 +1,7 @@
+Antes da linha 273 ({move || {), adicionar:
+
+let columns_render = Arc::clone(&columns);
+let config_render = Arc::clone(&config);
+let handle_row_click_clone = handle_row_click.clone();
+
+Depois usar essas variáveis dentro dos closures.

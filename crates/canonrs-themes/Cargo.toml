@@ -1,0 +1,8 @@
+[package]
+name = "canonrs-themes"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rs-design = { path = "../rs-design" }
+serde = { workspace = true }

@@ -1,0 +1,10 @@
+Após definir handle_row_click (linha ~213), envolver em Arc:
+
+let handle_row_click = Arc::new(handle_row_click);
+
+Depois, nas chamadas render_rows, clonar:
+
+render_rows(
+    ...,
+    Arc::clone(&handle_row_click),
+)

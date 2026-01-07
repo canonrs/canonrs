@@ -1,0 +1,18 @@
+[package]
+name = "leptos-basic"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+leptos = { workspace = true }
+rs-design = { path = "../../crates/rs-design" }
+canonrs-ui = { path = "../../crates/canonrs-ui" }
+
+[features]
+default = ["csr"]
+csr = ["leptos/csr"]
+hydrate = ["leptos/hydrate"]
+ssr = ["leptos/ssr"]

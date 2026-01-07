@@ -1,0 +1,9 @@
+Linhas a corrigir:
+
+1. get_value (linha ~42-50)
+2. is_touched (linha ~72-78)  
+3. get_errors (linha ~82-84)
+4. is_field_visible (linha ~131-141)
+5. is_valid (linha ~188-192)
+
+Todas precisam: clonar RwSignals ANTES do closure
