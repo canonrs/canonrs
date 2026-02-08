@@ -14,8 +14,8 @@ pub fn HoverCardPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-hover-card=""
-            attr:data-state={move || if open.get() { "open" } else { "closed" }}
+            data-hover-card=""
+            data-state={move || if open.get() { "open" } else { "closed" }}
             class=class
             id=id
         >
@@ -33,9 +33,9 @@ pub fn HoverCardTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            attr:data-hover-card-trigger=""
+            data-hover-card-trigger=""
             tabindex="0"
-            attr:aria-describedby={describedby_id}
+            aria-describedby={describedby_id}
             class=class
             id=id
         >
@@ -56,9 +56,9 @@ pub fn HoverCardContentPrimitive(
         <div
             role="tooltip"
             id={content_id}
-            attr:data-hover-card-content=""
-            attr:data-side-offset={side_offset}
-            attr:aria-hidden={move || if open.get() { "false" } else { "true" }}
+            data-hover-card-content=""
+            data-side-offset={side_offset}
+            aria-hidden={move || if open.get() { "false" } else { "true" }}
             tabindex="-1"
             class=class
         >

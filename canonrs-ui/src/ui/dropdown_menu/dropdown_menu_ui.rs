@@ -13,13 +13,11 @@ use crate::primitives::{
 #[component]
 pub fn DropdownMenu(
     children: Children,
-    open: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <DropdownMenuPrimitive
-            open=open
             class=class
             id=id
         >
@@ -31,13 +29,11 @@ pub fn DropdownMenu(
 #[component]
 pub fn DropdownMenuTrigger(
     children: Children,
-    open: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <DropdownMenuTriggerPrimitive
-            open=open
             class=class
             id=id
         >

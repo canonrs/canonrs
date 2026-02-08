@@ -14,7 +14,6 @@ pub fn Popover(
 ) -> impl IntoView {
     view! {
         <PopoverPrimitive
-            open=open
             class=class
             id=id
         >

@@ -22,6 +22,8 @@ mod combobox_behavior;
 #[cfg(feature = "hydrate")]
 mod dialog_behavior;
 #[cfg(feature = "hydrate")]
+mod dropdown_menu_behavior;
+#[cfg(feature = "hydrate")]
 mod copy_button_behavior;
 #[cfg(feature = "hydrate")]
 mod datatable_behavior;

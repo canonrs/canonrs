@@ -12,6 +12,9 @@ pub fn generate_workspace(app_dir: &Path, mode: Mode) -> Result<()> {
         .and_then(|n| n.to_str())
         .unwrap_or("app");
 
+    let profile_name = mode.profile_name();
+    let (bin_features, lib_features) = mode.leptos_features();
+
     let workspace_cargo = format!(r#"
 [workspace]
 members = ["app"]
@@ -29,34 +32,48 @@ style-file = "../../style/main.css"
 assets-dir = "../../public"
 site-addr = "127.0.0.1:3000"
 reload-port = 3001
-bin-features = ["ssr"]
-lib-features = ["hydrate"]
+bin-features = ["{}"]
+lib-features = ["{}"]
 lib-profile-release = "wasm-release"
-"#, profiles::generate_profiles_toml(mode), app_name, app_name, app_name);
+bin-profile-release = "{}"
+"#, 
+    profiles::generate_profiles_toml(mode), 
+    app_name, 
+    app_name, 
+    app_name, 
+    bin_features, 
+    lib_features, 
+    profile_name
+);
 
     fs::write(workspace_dir.join("Cargo.toml"), workspace_cargo)?;
 
     let workspace_app_dir = workspace_dir.join("app");
     fs::create_dir_all(&workspace_app_dir)?;
 
-    // Copy and fix Cargo.toml
+    // Copy and adjust Cargo.toml paths
     let cargo_content = fs::read_to_string(app_dir.join("Cargo.toml"))?;
     
-    // Fix canonrs dependency path to absolute
-    let canonrs_abs_path = app_dir.join("../../packages-rust/rs-canonrs/canonrs")
-        .canonicalize()?;
-    
+    // Adjust path: from app root "../../" to workspace/app "../../../../"
     let fixed_cargo = cargo_content.replace(
         r#"path = "../../packages-rust/rs-canonrs/canonrs""#,
-        &format!(r#"path = "{}""#, canonrs_abs_path.display())
+        r#"path = "../../../../packages-rust/rs-canonrs/canonrs""#
     );
-    
+
     fs::write(workspace_app_dir.join("Cargo.toml"), fixed_cargo)?;
 
     copy_dir_recursive(&app_dir.join("src"), &workspace_app_dir.join("src"))?;
 
-    fs::write(app_dir.join(".canonrs/.gitignore"), "*\n")?;
-    fs::write(workspace_dir.join(".gitignore"), "target/\napp/\n")?;
+    // Create .gitignore only if doesn't exist
+    let gitignore_path = app_dir.join(".canonrs/.gitignore");
+    if !gitignore_path.exists() {
+        fs::write(&gitignore_path, "*\n")?;
+    }
+
+    let workspace_gitignore = workspace_dir.join(".gitignore");
+    if !workspace_gitignore.exists() {
+        fs::write(&workspace_gitignore, "target/\napp/\n")?;
+    }
 
     Ok(())
 }

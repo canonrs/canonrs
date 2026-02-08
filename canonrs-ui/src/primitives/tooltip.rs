@@ -13,8 +13,8 @@ pub fn TooltipProviderPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-tooltip-provider=""
-            attr:data-delay={delay_duration}
+            data-tooltip-provider=""
+            data-delay={delay_duration}
             class=class
             id=id
         >
@@ -33,8 +33,8 @@ pub fn TooltipPrimitive(
 {
     view! {
         <div
-            attr:data-tooltip=""
-            attr:data-state={move || if open.get() { "open" } else { "closed" }}
+            data-tooltip=""
+            data-state={move || if open.get() { "open" } else { "closed" }}
             class=class
             id=id
         >
@@ -52,9 +52,9 @@ pub fn TooltipTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-tooltip-trigger=""
+            data-tooltip-trigger=""
             type="button"
-            attr:aria-describedby={describedby_id}
+            aria-describedby={describedby_id}
             class=class
             id=id
         >
@@ -74,12 +74,12 @@ pub fn TooltipContentPrimitive(
         <div
             role="tooltip"
             id={content_id}
-            attr:data-tooltip-content=""
-            attr:data-side-offset={side_offset}
+            data-tooltip-content=""
+            data-side-offset={side_offset}
             class=class
         >
             {children.map(|c| c())}
-            <div attr:data-tooltip-arrow="" />
+            <div data-tooltip-arrow="" />
         </div>
     }
 }

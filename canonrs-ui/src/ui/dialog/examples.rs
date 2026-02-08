@@ -1,7 +1,8 @@
 use leptos::prelude::*;
 use super::dialog_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
             <DialogTrigger target_dialog_id="dialog-ex".to_string()>

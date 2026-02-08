@@ -25,7 +25,6 @@ pub fn execute() -> Result<()> {
 
     let status = Command::new("cargo")
         .current_dir(&workspace_dir)
-        .env("CARGO_PROFILE", mode.profile_name())
         .arg("leptos")
         .arg("watch")
         .status()

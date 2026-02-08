@@ -7,15 +7,14 @@ use leptos::prelude::*;
 #[component]
 pub fn DropdownMenuPrimitive(
     #[prop(optional)] children: Option<Children>,
-    open: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView
 {
     view! {
         <div
-            attr:data-dropdown=""
-            attr:data-state={move || if open.get() { "open" } else { "closed" }}
+            data-dropdown=""
+            data-state="closed"
             class=class
             id=id
         >
@@ -27,17 +26,15 @@ pub fn DropdownMenuPrimitive(
 #[component]
 pub fn DropdownMenuTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    open: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView
 {
     view! {
         <button
-            attr:data-dropdown-trigger=""
+            data-dropdown-trigger=""
             type="button"
-            attr:aria-haspopup="menu"
-            attr:aria-expanded={move || if open.get() { "true" } else { "false" }}
+            aria-haspopup="menu"
             class=class
             id=id
         >
@@ -54,7 +51,7 @@ pub fn DropdownMenuContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dropdown-content=""
+            data-dropdown-content=""
             role="menu"
             class=class
             id=id
@@ -72,7 +69,7 @@ pub fn DropdownMenuGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dropdown-group=""
+            data-dropdown-group=""
             role="group"
             class=class
             id=id
@@ -90,7 +87,7 @@ pub fn DropdownMenuItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-dropdown-item=""
+            data-dropdown-item=""
             type="button"
             role="menuitem"
             class=class
@@ -110,11 +107,11 @@ pub fn DropdownMenuCheckboxItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-dropdown-checkbox-item=""
-            attr:data-checked={if checked { "true" } else { "false" }}
+            data-dropdown-checkbox-item=""
+            data-checked={if checked { "true" } else { "false" }}
             type="button"
             role="menuitemcheckbox"
-            attr:aria-checked={if checked { "true" } else { "false" }}
+            aria-checked={if checked { "true" } else { "false" }}
             class=class
             id=id
         >

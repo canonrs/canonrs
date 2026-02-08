@@ -47,3 +47,13 @@ pub fn detect_mode(app_dir: &Path) -> Result<Mode> {
         _ => Mode::Ssr,
     })
 }
+
+impl Mode {
+    pub fn leptos_features(&self) -> (&'static str, &'static str) {
+        match self {
+            Mode::Ssr => ("ssr", "hydrate"),
+            Mode::Csr => ("csr", "csr"),
+            Mode::Hybrid => ("ssr", "hydrate"),
+        }
+    }
+}

@@ -16,8 +16,8 @@ pub fn ContextMenuPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-context-menu=""
-            attr:data-state={move || if open.get() { "open" } else { "closed" }}
+            data-context-menu=""
+            data-state={move || if open.get() { "open" } else { "closed" }}
             class=class
             id=id
         >
@@ -35,10 +35,10 @@ pub fn ContextMenuTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-context-menu-trigger=""
+            data-context-menu-trigger=""
             type="button"
-            attr:aria-haspopup="menu"
-            attr:aria-controls={controls_id}
+            aria-haspopup="menu"
+            aria-controls={controls_id}
             class=class
             id=id
         >
@@ -55,7 +55,7 @@ pub fn ContextMenuContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-context-menu-content=""
+            data-context-menu-content=""
             tabindex="-1"
             role="menu"
             id={content_id}
@@ -74,7 +74,7 @@ pub fn ContextMenuItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-context-menu-item=""
+            data-context-menu-item=""
             type="button"
             role="menuitem"
             tabindex="-1"
@@ -93,7 +93,7 @@ pub fn ContextMenuSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-context-menu-separator=""
+            data-context-menu-separator=""
             role="separator"
             class=class
             id=id

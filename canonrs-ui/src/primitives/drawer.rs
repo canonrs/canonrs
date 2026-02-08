@@ -14,7 +14,7 @@ pub fn DrawerPrimitive(
     view! {
         <aside
             data-drawer=""
-            attr:data-mode={(!mode.is_empty()).then(|| mode)}
+            data-mode={(!mode.is_empty()).then(|| mode)}
             class={class}
             id={id}
         >
@@ -66,7 +66,7 @@ pub fn DrawerOverlayPrimitive(
     view! {
         <div
             data-drawer-overlay=""
-            attr:aria-hidden="true"
+            aria-hidden="true"
             class={class}
             id={id}
         />

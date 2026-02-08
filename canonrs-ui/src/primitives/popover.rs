@@ -7,15 +7,14 @@ use leptos::prelude::*;
 #[component]
 pub fn PopoverPrimitive(
     #[prop(optional)] children: Option<Children>,
-    open: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView
 {
     view! {
         <div
-            attr:data-popover=""
-            attr:data-state={move || if open.get() { "open" } else { "closed" }}
+            data-popover=""
+            data-state="closed"
             class=class
             id=id
         >
@@ -33,10 +32,10 @@ pub fn PopoverTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-popover-trigger=""
+            data-popover-trigger=""
             type="button"
-            attr:aria-haspopup="dialog"
-            attr:aria-controls={controls_id}
+            aria-haspopup="dialog"
+            aria-controls={controls_id}
             class=class
             id=id
         >
@@ -57,9 +56,9 @@ pub fn PopoverContentPrimitive(
         <div
             role="dialog"
             id={content_id}
-            attr:data-popover-content=""
-            attr:data-align={align}
-            attr:data-side-offset={side_offset}
+            data-popover-content=""
+            data-align={align}
+            data-side-offset={side_offset}
             class=class
         >
             {children.map(|c| c())}

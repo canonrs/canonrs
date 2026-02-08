@@ -4,6 +4,7 @@ use super::*;
 pub fn register_all_behaviors() {
     accordion_behavior::register();
     dialog_behavior::register();
+    dropdown_menu_behavior::register();
     checkbox_behavior::register();
     collapsible_behavior::register();
     switch_behavior::register();
