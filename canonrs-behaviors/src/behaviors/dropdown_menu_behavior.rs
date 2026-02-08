@@ -13,7 +13,7 @@ use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-dropdown", Box::new(|element_id, state| {
+    register_behavior("data-dropdown-menu", Box::new(|element_id, state| {
         let document = window().unwrap().document().unwrap();
         let dropdown = document
             .get_element_by_id(element_id)
@@ -21,8 +21,8 @@ pub fn register() {
 
         let open_signal = state.open;
 
-        // Find trigger
-        let trigger_selector = format!("[data-dropdown-trigger]");
+        // Find trigger by data-dropdown-menu-trigger attribute (like dialog does)
+        let trigger_selector = format!("[data-dropdown-menu-trigger=\"{}\"]", element_id);
         if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
             let dropdown_clone = dropdown.clone();
             let cb = Closure::wrap(Box::new(move |_: MouseEvent| {

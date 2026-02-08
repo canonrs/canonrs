@@ -57,7 +57,7 @@ bin-profile-release = "{}"
     // Adjust path: from app root "../../" to workspace/app "../../../../"
     let fixed_cargo = cargo_content.replace(
         r#"path = "../../packages-rust/rs-canonrs/canonrs""#,
-        r#"path = "../../../../packages-rust/rs-canonrs/canonrs""#
+        r#"path = "../../../../../packages-rust/rs-canonrs/canonrs""#
     );
 
     fs::write(workspace_app_dir.join("Cargo.toml"), fixed_cargo)?;

@@ -29,11 +29,13 @@ pub fn DropdownMenu(
 #[component]
 pub fn DropdownMenuTrigger(
     children: Children,
+    #[prop(into)] target_dropdown_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <DropdownMenuTriggerPrimitive
+            target_dropdown_id=target_dropdown_id
             class=class
             id=id
         >
@@ -117,7 +119,7 @@ pub fn DropdownMenuLabel(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dropdown-label=""
+            data-dropdown-menu-label=""
             class=class
             id=id
         >

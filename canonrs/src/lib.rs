@@ -17,18 +17,12 @@ pub mod ui {
 }
 
 /// =======================================================
-/// UI Interactive — CSR-only by feature
+/// UI Interactive — CSR-only by feature (DISABLED FOR TESTING)
 /// =======================================================
-///
-/// Interactive components with callbacks and client state.
-///
-/// - The MODULE always exists (contract stability)
-/// - The CONTENT only exists when `with-interactive` is enabled
-/// - No stubs, no mocks, no fake implementations
-pub mod ui_interactive {
-    #[cfg(feature = "with-interactive")]
-    pub use canonrs_ui_interactive::ui::*;
-}
+// #[cfg(feature = "with-interactive")]
+// pub mod ui_interactive {
+//     pub use canonrs_ui_interactive::ui::*;
+// }
 
 /// =======================================================
 /// Layouts
@@ -67,7 +61,7 @@ pub mod behaviors {
 }
 
 /// Serve CanonRS CSS bundle
-/// 
+///
 /// Mount this at `/canonrs.css` in your Axum router
 #[cfg(feature = "ssr")]
 pub fn canonrs_css() -> &'static str {

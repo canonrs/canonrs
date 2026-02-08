@@ -1,60 +1,82 @@
-/* ============================================
-   DROPDOWN MENU
-   Family A: Overlay Components
-   ============================================ */
-
+/* DropdownMenu Container */
 [data-dropdown-menu] {
-  position: fixed;
-  top: 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* DropdownMenu Content */
+[data-dropdown-menu-content] {
+  position: absolute;
+  top: calc(100% + var(--space-xs));
   left: 0;
-  z-index: var(--layer-dropdown);
+  z-index: var(--dropdown-menu-z-index);
   
   background: var(--dropdown-menu-bg);
   color: var(--dropdown-menu-fg);
   border: var(--dropdown-menu-border-width) solid var(--dropdown-menu-border-color);
   border-radius: var(--dropdown-menu-radius);
-  padding-block: var(--dropdown-menu-padding-y);
   box-shadow: var(--dropdown-menu-shadow);
   
   min-width: var(--dropdown-menu-min-width);
+  padding: var(--dropdown-menu-padding);
   
-  /* Use transform with CSS vars from floating primitive */
-  transform: translate(var(--floating-x, 0), var(--floating-y, 0));
-  
-  /* Visibility via opacity, NOT display:none */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  display: none;
 }
 
-[data-dropdown-menu][data-state="open"] {
-  opacity: 1;
-  pointer-events: auto;
+[data-dropdown-menu][data-state="open"] [data-dropdown-menu-content] {
+  display: block;
 }
 
-[data-dropdown-menu-content] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--dropdown-menu-item-gap);
+/* Trigger */
+[data-dropdown-menu-trigger] {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--theme-action-primary-bg);
+  color: var(--theme-action-primary-fg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
 }
 
+/* Group */
+[data-dropdown-menu-group] {
+  padding: var(--dropdown-menu-padding-y) 0;
+}
+
+/* Item */
 [data-dropdown-menu-item] {
   display: block;
   width: 100%;
-  text-align: left;
-  padding-inline: var(--dropdown-menu-item-padding-x);
-  padding-block: var(--dropdown-menu-item-padding-y);
-  background: var(--dropdown-menu-item-bg);
-  color: var(--dropdown-menu-item-fg);
+  height: var(--dropdown-menu-item-height);
+  padding: var(--dropdown-menu-item-padding);
+  
+  background: transparent;
   border: none;
+  border-radius: var(--radius-sm);
+  
+  text-align: left;
+  font-size: var(--font-size-sm);
+  color: var(--dropdown-menu-fg);
+  
   cursor: pointer;
-  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+  transition: background var(--motion-duration-fast);
 }
 
 [data-dropdown-menu-item]:hover {
-  background: var(--dropdown-menu-item-bg-hover);
+  background: var(--dropdown-menu-item-hover-bg);
 }
 
-[data-dropdown-menu-item][data-selected="true"] {
-  background: var(--dropdown-menu-item-bg-selected);
+[data-dropdown-menu-item][aria-selected="true"] {
+  background: var(--dropdown-menu-item-selected-bg);
+}
+
+/* Separator */
+[data-dropdown-menu-separator] {
+  height: var(--dropdown-menu-border-width);
+  background: var(--dropdown-menu-separator-color);
+  margin: var(--dropdown-menu-separator-margin-y) 0;
 }

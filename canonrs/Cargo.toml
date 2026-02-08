@@ -5,13 +5,11 @@
 #
 # Purpose: Provides a single entry point that composes all Canon subsystems:
 # - canonrs-ui: SSR-safe markup components
-# - canonrs-ui-interactive: CSR-only behavioral wrappers
 # - canonrs-behaviors: Client-side routing and hydration logic
 # - canonrs-shared: Cross-boundary types and utilities
 #
 # Architecture:
 # - canonrs-ui is ALWAYS available (both SSR and CSR need markup)
-# - canonrs-ui-interactive is OPTIONAL (only CSR needs callbacks/events)
 # - canonrs-behaviors is OPTIONAL (only CSR needs routing/hydration)
 #
 # Feature gates enforce strict SSR/CSR separation:
@@ -34,7 +32,6 @@ canonrs-providers = { path = "../canonrs-providers" }
 
 # Interactive layer - OPTIONAL, only for CSR builds
 # Contains event handlers, callbacks, and stateful behavior
-canonrs-ui-interactive = { path = "../canonrs-ui-interactive", optional = true }
 
 # CSR runtime - OPTIONAL, only for client-side hydration
 # Contains routing, hydration logic, and WASM entry points
@@ -61,9 +58,7 @@ hydrate = [
 # Uses 'dep:' prefix to explicitly enable the optional dependency
 # Propagates 'hydrate' feature to ensure WASM support in interactive components
 with-interactive = [
-  "dep:canonrs-ui-interactive",
   
-  "canonrs-ui-interactive/hydrate",
 ]
 
 # Internal feature: Activates CSR runtime layer
