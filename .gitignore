@@ -2,3 +2,10 @@
 Cargo.lock
 .DS_Store
 *.swp
+
+# Internal development files
+/templates
+/scripts
+/canonrs-ui-interactive/src/components.future
+/canonrs-ui-interactive/src/components
+/canonrs-ui-interactive/src/blocks.future
