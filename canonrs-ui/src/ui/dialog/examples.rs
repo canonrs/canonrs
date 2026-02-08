@@ -5,7 +5,7 @@ pub fn basic_example() -> impl IntoView {
     view! {
         <div>
             <DialogTrigger target_dialog_id="dialog-ex".to_string()>
-                <button data-button data-ui-variant="default">"Open Dialog"</button>
+                "Open Dialog"
             </DialogTrigger>
 
             <Dialog id="dialog-ex".to_string()>
@@ -18,7 +18,7 @@ pub fn basic_example() -> impl IntoView {
                         <p>"Dialog content goes here."</p>
                     </DialogBody>
                     <DialogClose target_dialog_id="dialog-ex".to_string()>
-                        <button data-button data-ui-variant="outline">"Close"</button>
+                        "Close"
                     </DialogClose>
                 </DialogContent>
             </Dialog>

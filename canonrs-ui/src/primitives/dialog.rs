@@ -12,8 +12,8 @@ pub fn DialogPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dialog=""
-            attr:data-state="closed"
+            data-dialog=""
+            data-state="closed"
             class=class
             id=id
         >
@@ -31,7 +31,7 @@ pub fn DialogTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-dialog-trigger={target_dialog_id}
+            data-dialog-trigger={target_dialog_id}
             type="button"
             class=class
             id=id
@@ -48,7 +48,7 @@ pub fn DialogBackdropPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dialog-backdrop=""
+            data-dialog-backdrop=""
             class=class
             id=id
         />
@@ -63,9 +63,9 @@ pub fn DialogPopupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dialog-popup=""
+            data-dialog-popup=""
             role="dialog"
-            attr:aria-modal="true"
+            aria-modal="true"
             class=class
             id=id
         >
@@ -82,7 +82,7 @@ pub fn DialogHeaderPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dialog-header=""
+            data-dialog-header=""
             class=class
             id=id
         >
@@ -112,7 +112,7 @@ pub fn DialogBodyPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-dialog-body=""
+            data-dialog-body=""
             class=class
             id=id
         >
@@ -130,7 +130,7 @@ pub fn DialogClosePrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-dialog-close={target_dialog_id}
+            data-dialog-close={target_dialog_id}
             type="button"
             class=class
             id=id

@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "tools/canonrs-cli",
   "canonrs-tokens",
     "canonrs",
     "canonrs-shared",
