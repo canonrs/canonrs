@@ -1,0 +1,56 @@
+/* ============================================
+   ALERT DIALOG
+   Family F: Overlays & Disclosure / Feedback
+   NOTE: Verify Primitive emits exact data-* attributes
+   ============================================ */
+
+[data-alert-dialog-overlay] {
+  position: fixed;
+  inset: 0;
+  background: var(--alert-dialog-overlay-bg);
+  opacity: var(--alert-dialog-overlay-opacity);
+  backdrop-filter: blur(var(--alert-dialog-overlay-blur));
+  transition: opacity var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease);
+}
+
+[data-alert-dialog-content] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--alert-dialog-content-width);
+  background: var(--alert-dialog-content-bg);
+  border-radius: var(--alert-dialog-content-radius);
+  padding: var(--alert-dialog-content-padding);
+  box-shadow: var(--alert-dialog-content-shadow);
+  transition: opacity var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease);
+}
+
+[data-alert-dialog-header] {
+  display: flex;
+  gap: var(--alert-dialog-header-gap);
+  padding: var(--alert-dialog-header-padding);
+}
+
+[data-alert-dialog-title] {
+  font-size: var(--alert-dialog-title-font-size);
+  font-weight: var(--alert-dialog-title-font-weight);
+  color: var(--alert-dialog-title-fg);
+}
+
+[data-alert-dialog-description] {
+  font-size: var(--alert-dialog-description-font-size);
+  line-height: var(--alert-dialog-description-line-height);
+  color: var(--alert-dialog-description-fg);
+}
+
+[data-alert-dialog-footer] {
+  display: flex;
+  gap: var(--alert-dialog-footer-gap);
+  padding: var(--alert-dialog-footer-padding);
+}
+
+[data-alert-dialog-actions] {
+  display: flex;
+  gap: var(--alert-dialog-action-gap);
+}

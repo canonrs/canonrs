@@ -1,0 +1,35 @@
+/* ============================================================================
+   CANONRS — CARD BLOCK
+   ============================================================================ */
+
+[data-card] {
+  background: var(--theme-surface-bg);
+  border: 1px solid var(--theme-surface-border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+
+[data-card][data-variant="interactive"] {
+  cursor: pointer;
+}
+
+[data-card][data-variant="interactive"]:hover {
+  border-color: var(--theme-action-primary-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-card-header] {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+[data-card-content] {
+  color: var(--theme-surface-fg);
+}
+
+[data-card-footer] {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--theme-surface-border);
+}

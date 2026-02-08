@@ -1,0 +1,8 @@
+/* StatCard - Consumption only */
+[data-block="stat-card"] {
+  background: var(--data-bg);
+  border: 1px solid var(--data-border);
+  border-radius: var(--data-radius);
+  padding: var(--data-spacing);
+  box-shadow: var(--data-shadow);
+}

@@ -1,0 +1,23 @@
+/* ============================================================================
+   CAROUSEL - Interactive Layout
+   ============================================================================ */
+
+[data-carousel] {
+  padding: var(--carousel-padding);
+  background: var(--carousel-bg);
+}
+
+[data-carousel-content] {
+  display: flex;
+  gap: var(--carousel-content-gap);
+  flex-direction: var(--carousel-content-direction);
+  scroll-snap-type: var(--carousel-content-scroll-snap);
+}
+
+[data-carousel-item] {
+  width: var(--carousel-item-width);
+  background: var(--carousel-item-bg);
+  border-radius: var(--carousel-item-radius);
+  box-shadow: var(--carousel-item-shadow);
+  scroll-snap-align: start;
+}

@@ -1,0 +1,10 @@
+/* ======================================================================
+   ROOT TOKENS — Final visual contract
+   This is the ONLY layer allowed to style html/body
+   ====================================================================== */
+
+[data-theme] {
+  --root-bg: var(--theme-surface-bg);
+  --root-fg: var(--theme-surface-fg);
+  --root-border: var(--theme-surface-border);
+}

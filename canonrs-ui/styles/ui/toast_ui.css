@@ -1,0 +1,91 @@
+/* ============================================================================
+   TOAST - Notification
+   ============================================================================ */
+
+[data-toast-viewport] {
+  position: fixed;
+  z-index: var(--toast-z-index);
+  display: flex;
+  flex-direction: column;
+  gap: var(--toast-viewport-gap);
+  max-width: var(--toast-viewport-max-width);
+  padding: var(--toast-viewport-padding);
+}
+
+[data-toast-viewport][data-position="top-right"] {
+  top: 0;
+  right: 0;
+}
+
+[data-toast-viewport][data-position="top-left"] {
+  top: 0;
+  left: 0;
+}
+
+[data-toast-viewport][data-position="bottom-right"] {
+  bottom: 0;
+  right: 0;
+}
+
+[data-toast-viewport][data-position="bottom-left"] {
+  bottom: 0;
+  left: 0;
+}
+
+[data-toast] {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  gap: var(--toast-gap);
+  padding: var(--toast-padding);
+  border-radius: var(--toast-radius);
+  
+  /* Visual */
+  background: var(--toast-bg);
+  border: var(--toast-border-width) solid var(--toast-border-color);
+  box-shadow: var(--toast-shadow);
+  
+  /* Animation */
+  animation: toast-slide-in 0.2s ease-out;
+}
+
+[data-toast][data-state="closed"] {
+  animation: toast-slide-out 0.2s ease-in;
+}
+
+[data-toast][data-variant="success"] {
+  background: var(--toast-success-bg);
+  border-color: var(--toast-success-border);
+}
+
+[data-toast][data-variant="error"] {
+  background: var(--toast-error-bg);
+  border-color: var(--toast-error-border);
+}
+
+[data-toast][data-variant="warning"] {
+  background: var(--toast-warning-bg);
+  border-color: var(--toast-warning-border);
+}
+
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast-slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

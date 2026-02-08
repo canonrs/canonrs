@@ -1,0 +1,35 @@
+/* ============================================================================
+   CANONRS — FOUNDATION TOKENS
+   Physical, mechanical, non-semantic
+   Never vary by theme
+   ============================================================================ */
+
+:root {
+  /* Spacing */
+  --space-xs: var(--primitive-space-xs);
+  --space-sm: var(--primitive-space-sm);
+  --space-md: var(--primitive-space-md);
+  --space-lg: var(--primitive-space-lg);
+  --space-xl: var(--primitive-space-xl);
+
+  /* Radius */
+  --radius-sm: var(--primitive-radius-sm);
+  --radius-md: var(--primitive-radius-md);
+  --radius-lg: var(--primitive-radius-lg);
+  --radius-full: var(--primitive-radius-full);
+
+  /* Shadow */
+  --shadow-sm: var(--primitive-shadow-sm);
+  --shadow-md: var(--primitive-shadow-md);
+  --shadow-lg: var(--primitive-shadow-lg);
+
+  /* Typography */
+  --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --font-weight-medium: var(--primitive-font-weight-medium);
+  --font-weight-semibold: var(--primitive-font-weight-semibold);
+
+  /* Motion */
+  --motion-duration-normal: var(--primitive-motion-duration-normal);
+  --motion-ease-emphasized: var(--primitive-motion-ease-emphasized);
+}

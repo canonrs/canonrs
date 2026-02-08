@@ -1,0 +1,42 @@
+/* ============================================
+   SPINNER
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-spinner] {
+  display: inline-block;
+  animation: spinner-rotate var(--spinner-rotation-duration) var(--spinner-rotation-easing) infinite;
+}
+
+[data-spinner][data-size="small"] {
+  width: var(--spinner-size-small);
+  height: var(--spinner-size-small);
+}
+
+[data-spinner][data-size="medium"] {
+  width: var(--spinner-size-medium);
+  height: var(--spinner-size-medium);
+}
+
+[data-spinner][data-size="large"] {
+  width: var(--spinner-size-large);
+  height: var(--spinner-size-large);
+}
+
+[data-spinner][data-paused="true"] {
+  opacity: var(--spinner-opacity-paused);
+  animation-play-state: paused;
+}
+
+[data-spinner] path {
+  stroke: var(--spinner-color);
+  stroke-width: var(--spinner-stroke-width);
+  stroke-linecap: round;
+  fill: none;
+}
+
+@keyframes spinner-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

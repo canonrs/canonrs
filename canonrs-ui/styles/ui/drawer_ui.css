@@ -1,0 +1,51 @@
+/* ============================================
+   DRAWER / SHEET
+   Family A: Overlays & Disclosure
+   ============================================ */
+
+[data-drawer] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: var(--drawer-z-index);
+  width: var(--drawer-width);
+  background: var(--theme-surface-bg);
+  color: var(--theme-surface-fg);
+  border-right: var(--drawer-border-width) solid var(--theme-surface-border);
+  transform: translateX(-100%);
+  transition: transform var(--drawer-transition-duration) var(--drawer-transition-ease);
+  padding: var(--space-xl);
+  display: none;
+}
+
+[data-drawer][data-state="open"] {
+  display: block;
+  transform: translateX(0);
+}
+
+/* Sheet - lado direito */
+[data-drawer][data-drawer-side="right"] {
+  left: auto;
+  right: 0;
+  transform: translateX(100%);
+  border-left: var(--drawer-border-width) solid var(--theme-surface-border);
+  border-right: none;
+}
+
+[data-drawer][data-drawer-side="right"][data-state="open"] {
+  display: block;
+  transform: translateX(0);
+}
+
+[data-drawer-overlay] {
+  position: fixed;
+  inset: 0;
+  background: var(--drawer-overlay-bg);
+  opacity: 0;
+  transition: opacity var(--drawer-transition-duration) var(--drawer-transition-ease);
+}
+
+[data-drawer-overlay][data-state="open"] {
+  opacity: var(--drawer-overlay-opacity);
+}

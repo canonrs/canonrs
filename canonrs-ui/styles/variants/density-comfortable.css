@@ -1,0 +1,14 @@
+/* ============================================================================
+   CANONRS — DENSITY VARIANT: COMFORTABLE (DEFAULT)
+   ============================================================================ */
+
+:root[data-density="comfortable"] {
+  --button-group-gap: 0.25rem;
+  --toggle-group-gap: 0.25rem;
+  
+  --carousel-content-gap: 0.75rem;
+  --carousel-padding: 0;
+  
+  --scroll-area-padding: 0.75rem;
+  --resizable-panel-padding: 0.75rem;
+}

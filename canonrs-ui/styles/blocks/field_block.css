@@ -1,0 +1,14 @@
+/* ============================================================================
+   FIELD BLOCK
+   ============================================================================ */
+
+[data-block="field"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--field-gap);
+}
+
+[data-block="field"][data-horizontal="true"] {
+  flex-direction: row;
+  align-items: center;
+}

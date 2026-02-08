@@ -1,0 +1,38 @@
+/* ============================================================================
+   PROGRESS - Progress Indicator
+   ============================================================================ */
+
+[data-progress] {
+  /* Layout */
+  position: relative;
+  width: 100%;
+  height: var(--progress-height);
+  overflow: hidden;
+  border-radius: var(--progress-radius);
+  
+  /* Visual */
+  background: var(--progress-bg);
+}
+
+[data-progress-indicator] {
+  /* Layout */
+  height: 100%;
+  transition: width 0.3s ease;
+  
+  /* Visual */
+  background: var(--progress-fg);
+}
+
+/* Estados */
+[data-progress][data-state="indeterminate"] [data-progress-indicator] {
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

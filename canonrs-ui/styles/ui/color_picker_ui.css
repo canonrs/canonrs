@@ -1,0 +1,38 @@
+/* ============================================
+   COLOR PICKER
+   Family C: Forms
+   ============================================ */
+
+[data-color-picker] {
+  width: var(--color-picker-size);
+  height: var(--color-picker-size);
+  border-radius: var(--color-picker-radius);
+  border: var(--color-picker-border-width) solid var(--color-picker-border-color);
+  cursor: pointer;
+}
+
+[data-color-picker-panel] {
+  background: var(--color-picker-panel-bg);
+  padding: var(--color-picker-panel-padding);
+  border-radius: var(--color-picker-panel-radius);
+  box-shadow: var(--color-picker-panel-shadow);
+}
+
+[data-color-picker-trigger] {
+  width: var(--color-picker-trigger-size);
+  height: var(--color-picker-trigger-size);
+  border-radius: var(--color-picker-trigger-radius);
+}
+
+[data-color-swatch] {
+  width: var(--color-picker-swatch-size);
+  height: var(--color-picker-swatch-size);
+  border-radius: var(--color-picker-swatch-radius);
+  border: var(--color-picker-swatch-border-width) solid var(--color-picker-swatch-border-color);
+  cursor: pointer;
+  transition: border-color var(--color-picker-transition-duration) var(--color-picker-transition-ease);
+}
+
+[data-color-swatch][data-selected="true"] {
+  border-color: var(--color-picker-swatch-border-color-selected);
+}

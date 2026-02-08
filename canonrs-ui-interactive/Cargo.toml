@@ -1,0 +1,42 @@
+# canonrs-ui-interactive
+# CSR-ONLY crate.
+# 
+# ⚠️  CRITICAL: This crate must NEVER be depended on by SSR/server binaries.
+# 
+# Purpose: Provides interactive wrappers (*_Interactive components) that add
+# callbacks and event handling to SSR-safe components from canonrs-ui.
+# 
+# Architecture:
+# - canonrs-ui-interactive → canonrs-ui (one-way dependency)
+# - SSR binaries → canonrs-ui (NEVER canonrs-ui-interactive)
+# - WASM/hydrate apps → both crates
+#
+# This separation ensures zero WASM symbol leakage into SSR builds.
+
+[package]
+name = "canonrs-ui-interactive"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+# Future: Uncomment when stabilized to enforce WASM-only usage
+# crate-type = ["cdylib"]
+
+[dependencies]
+leptos = { version = "0.8", default-features = false }
+canonrs-ui = { path = "../canonrs-ui", default-features = false }
+canonrs-shared = { path = "../canonrs-shared" }
+
+[features]
+default = []
+
+# Hydrate feature for CSR/WASM builds
+# Activates Leptos hydration and propagates to canonrs-ui
+hydrate = [
+  "leptos/hydrate",
+  "canonrs-ui/hydrate",
+]
+
+# Note: canonrs-ui/hydrate is included for convenience.
+# For maximum isolation, this can be removed and activated
+# separately in the final app's Cargo.toml.

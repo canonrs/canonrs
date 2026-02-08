@@ -1,0 +1,36 @@
+[package]
+name = "canonrs-behaviors"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+canonrs-providers = { path = "../canonrs-providers", default-features = false }
+web-sys = { version = "0.3", features = [
+    "Window",
+    "Storage",
+    "Document",
+    "Element",
+    "HtmlElement",
+    "NodeList",
+    "Node",
+    "Event",
+    "MouseEvent",
+    "KeyboardEvent",
+    "MutationObserver",
+    "MutationObserverInit",
+    "EventTarget",
+    "HtmlInputElement",
+    "CssStyleDeclaration",
+    "console",
+] }
+leptos = { version = "0.8", default-features = false, features = ["hydrate"] }
+canonrs-shared = { path = "../canonrs-shared" }
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+ctor = { version = "0.2", optional = true }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+hydrate = ["ctor"]

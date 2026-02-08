@@ -1,0 +1,42 @@
+/* ============================================
+   CONTEXT MENU
+   Family D: Navigation
+   ============================================ */
+
+[data-context-menu] {
+  background: var(--context-menu-bg);
+  border: var(--context-menu-border-width) solid var(--context-menu-border-color);
+  border-radius: var(--context-menu-radius);
+  box-shadow: var(--context-menu-shadow);
+  padding: var(--context-menu-padding);
+}
+
+[data-context-menu-item] {
+  display: flex;
+  align-items: center;
+  height: var(--context-menu-item-height);
+  padding-inline: var(--context-menu-item-padding-x);
+  padding-block: var(--context-menu-item-padding-y);
+  color: var(--context-menu-item-fg);
+  cursor: pointer;
+}
+
+[data-context-menu-item]:hover {
+  background: var(--context-menu-item-bg-hover);
+}
+
+[data-context-menu-item]:focus {
+  background: var(--context-menu-item-bg-focus);
+}
+
+[data-context-menu-item][disabled] {
+  background: var(--context-menu-item-bg-disabled);
+  opacity: var(--context-menu-item-opacity-disabled);
+  cursor: not-allowed;
+}
+
+[data-context-menu-separator] {
+  height: var(--context-menu-separator-height);
+  background: var(--context-menu-separator-color);
+  margin-block: var(--context-menu-separator-margin-y);
+}

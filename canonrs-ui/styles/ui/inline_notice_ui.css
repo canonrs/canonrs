@@ -1,0 +1,49 @@
+/* ============================================
+   INLINE NOTICE
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-inline-notice] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--inline-notice-gap);
+  padding-inline: var(--inline-notice-padding-x);
+  padding-block: var(--inline-notice-padding-y);
+  border-radius: var(--inline-notice-radius);
+  border: var(--inline-notice-border-width) solid var(--inline-notice-border-color);
+  color: var(--inline-notice-fg);
+}
+
+[data-inline-notice][data-variant="default"] {
+  background: var(--inline-notice-bg-default);
+}
+
+[data-inline-notice][data-variant="info"] {
+  background: var(--inline-notice-bg-info);
+}
+
+[data-inline-notice][data-variant="success"] {
+  background: var(--inline-notice-bg-success);
+}
+
+[data-inline-notice][data-variant="warning"] {
+  background: var(--inline-notice-bg-warning);
+}
+
+[data-inline-notice][data-variant="error"] {
+  background: var(--inline-notice-bg-error);
+}
+
+[data-inline-notice-icon] {
+  width: var(--inline-notice-icon-size);
+  height: var(--inline-notice-icon-size);
+  color: var(--inline-notice-icon-color);
+  flex-shrink: 0;
+}
+
+[data-inline-notice-content] {
+  flex: 1;
+  font-size: var(--inline-notice-content-font-size);
+  line-height: var(--inline-notice-content-line-height);
+  color: var(--inline-notice-content-fg);
+}

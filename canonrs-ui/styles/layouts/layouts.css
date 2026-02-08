@@ -1,0 +1,16 @@
+/* ============================================================================
+   CANONRS — LAYOUTS IMPORTS
+   ============================================================================
+   APENAS estrutura/regiões
+   ============================================================================ */
+
+@import './page_layout_layout.css';
+@import './page_header_layout.css';
+@import './header_layout_layout.css';
+@import './footer_layout_layout.css';
+@import './sidebar_layout_layout.css';
+@import './section_layout_layout.css';
+@import './app_shell_layout.css';
+@import './dashboard_layout.css';
+@import './fullscreen_layout.css';
+@import './marketing_layout.css';

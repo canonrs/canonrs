@@ -1,0 +1,38 @@
+/* ============================================
+   EMPTY STATE
+   Family B: Lists & Selection
+   ============================================ */
+
+[data-empty-state] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--empty-state-gap);
+  padding-inline: var(--empty-state-padding-x);
+  padding-block: var(--empty-state-padding-y);
+  text-align: center;
+}
+
+[data-empty-state-icon] {
+  width: var(--empty-state-icon-size);
+  height: var(--empty-state-icon-size);
+  color: var(--empty-state-icon-color);
+}
+
+[data-empty-state-title] {
+  font-size: var(--empty-state-title-font-size);
+  font-weight: var(--empty-state-title-font-weight);
+  line-height: var(--empty-state-title-line-height);
+  color: var(--empty-state-title-fg);
+}
+
+[data-empty-state-description] {
+  font-size: var(--empty-state-description-font-size);
+  line-height: var(--empty-state-description-line-height);
+  color: var(--empty-state-description-fg);
+  max-width: var(--empty-state-description-max-width);
+}
+
+[data-empty-state][data-variant="error"] [data-empty-state-icon] {
+  color: var(--empty-state-icon-color-error);
+}

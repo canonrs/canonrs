@@ -1,0 +1,66 @@
+.canon-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-3xl);
+}
+
+.canon-pillars-title {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-default);
+  margin: 0;
+}
+
+.canon-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: var(--space-lg);
+}
+
+.canon-pillar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+
+.canon-pillar-icon {
+  width: 24px;
+  height: 24px;
+}
+
+:where(.dark) .canon-pillar-icon {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.canon-pillar-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-muted);
+  text-align: center;
+}
+
+/* Pillar as button */
+.canon-pillar-item {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.canon-pillar-item:hover {
+  opacity: var(--state-hover-opacity);
+}
+
+.canon-pillar-item:active {
+  opacity: var(--state-active-opacity);
+}
+
+.canon-pillar-item:focus-visible {
+  outline: var(--state-focus-ring) solid var(--color-primary-border);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}

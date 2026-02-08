@@ -1,0 +1,52 @@
+/* ============================================
+   TABLE
+   Family B: Lists & Selection
+   ============================================ */
+
+[data-table] {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+[data-table-header] {
+  background: var(--table-header-bg);
+}
+
+[data-table-row] {
+  border-bottom: var(--table-border-width) solid var(--table-border-color);
+  transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
+}
+
+[data-table-row]:hover {
+  background: var(--table-row-bg-hover);
+}
+
+[data-table-row][data-selected="true"] {
+  background: var(--table-row-bg-selected);
+}
+
+[data-table-head] {
+  height: var(--table-header-height);
+  padding-inline: var(--table-cell-padding-x);
+  padding-block: var(--table-cell-padding-y);
+  text-align: left;
+  font-size: var(--table-header-font-size);
+  font-weight: var(--table-header-font-weight);
+  color: var(--table-header-fg);
+}
+
+[data-table-cell] {
+  height: var(--table-row-height);
+  padding-inline: var(--table-cell-padding-x);
+  padding-block: var(--table-cell-padding-y);
+  font-size: var(--table-cell-font-size);
+  color: var(--table-cell-fg);
+}
+
+[data-table-caption] {
+  padding-block: var(--table-caption-padding-y);
+  font-size: var(--table-caption-font-size);
+  color: var(--table-caption-fg);
+  text-align: left;
+}

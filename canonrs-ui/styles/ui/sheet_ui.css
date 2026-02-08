@@ -1,0 +1,107 @@
+/* ============================================
+   SHEET
+   Family F: Overlays & Disclosure
+   NOTE: Sheet intentionally reuses Dialog surface tokens
+   ============================================ */
+
+[data-sheet] {
+  z-index: var(--dialog-z-index);
+}
+
+[data-sheet-backdrop] {
+  position: fixed;
+  inset: 0;
+  background: var(--dialog-backdrop-bg);
+  backdrop-filter: blur(var(--dialog-backdrop-blur));
+  opacity: var(--dialog-backdrop-opacity);
+  transition: opacity var(--dialog-backdrop-transition-duration) var(--dialog-backdrop-transition-ease);
+}
+
+[data-sheet-content] {
+  position: fixed;
+  width: var(--dialog-width);
+  max-width: var(--dialog-max-width);
+  padding: var(--dialog-padding);
+  background: var(--dialog-bg);
+  color: var(--dialog-fg);
+  border: var(--dialog-border-width) solid var(--dialog-border-color);
+  box-shadow: var(--dialog-shadow);
+  transition: transform var(--sheet-transition-duration) var(--sheet-transition-ease);
+}
+
+[data-sheet-content][data-side="left"] {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+[data-sheet-content][data-side="left"][data-open="true"] {
+  transform: translateX(0);
+}
+
+[data-sheet-content][data-side="right"] {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  transform: translateX(100%);
+}
+
+[data-sheet-content][data-side="right"][data-open="true"] {
+  transform: translateX(0);
+}
+
+[data-sheet-content][data-side="top"] {
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+}
+
+[data-sheet-content][data-side="top"][data-open="true"] {
+  transform: translateY(0);
+}
+
+[data-sheet-content][data-side="bottom"] {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+}
+
+[data-sheet-content][data-side="bottom"][data-open="true"] {
+  transform: translateY(0);
+}
+
+[data-sheet-header] {
+  display: flex;
+  gap: var(--dialog-header-gap);
+  padding: var(--dialog-header-padding);
+}
+
+[data-sheet-title] {
+  flex: 1;
+  font-size: var(--dialog-title-font-size);
+  font-weight: var(--dialog-title-font-weight);
+  color: var(--dialog-title-fg);
+}
+
+[data-sheet-body] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dialog-body-gap);
+  font-size: var(--dialog-body-font-size);
+  line-height: var(--dialog-body-line-height);
+  color: var(--dialog-body-fg);
+}
+
+[data-sheet-close] {
+  width: var(--dialog-close-size);
+  height: var(--dialog-close-size);
+  color: var(--dialog-close-fg);
+  cursor: pointer;
+}
+
+[data-sheet-close]:hover {
+  color: var(--dialog-close-fg-hover);
+}

@@ -1,0 +1,34 @@
+/* FOUNDATION - Core tokens */
+:root {
+  --space-xs: var(--primitive-space-1);
+  --space-sm: var(--primitive-space-2);
+  --space-md: var(--primitive-space-4);
+  --space-lg: var(--primitive-space-6);
+  --space-xl: var(--primitive-space-8);
+  --radius-sm: var(--primitive-radius-1);
+  --radius-md: var(--primitive-radius-2);
+  --radius-lg: var(--primitive-radius-3);
+  --radius-full: var(--primitive-radius-full);
+  --font-family-sans: var(--primitive-font-sans);
+  --font-family-mono: var(--primitive-font-mono);
+  --font-size-sm: var(--primitive-font-size-2);
+  --font-size-md: var(--primitive-font-size-3);
+  --font-size-lg: var(--primitive-font-size-4);
+  --font-weight-regular: var(--primitive-font-weight-400);
+  --font-weight-medium: var(--primitive-font-weight-500);
+  --font-weight-semibold: var(--primitive-font-weight-600);
+  --line-height-tight: var(--primitive-line-height-1);
+  --line-height-normal: var(--primitive-line-height-2);
+  --line-height-relaxed: var(--primitive-line-height-3);
+  --shadow-sm: var(--primitive-shadow-sm);
+  --shadow-md: var(--primitive-shadow-md);
+  --shadow-lg: var(--primitive-shadow-lg);
+  --motion-duration-fast: var(--primitive-motion-duration-fast);
+  --motion-duration-normal: var(--primitive-motion-duration-normal);
+  --motion-duration-slow: var(--primitive-motion-duration-slow);
+  --motion-ease-standard: var(--primitive-motion-ease-standard);
+  --z-base: var(--primitive-z-base);
+  --z-dropdown: var(--primitive-z-dropdown);
+  --z-overlay: var(--primitive-z-overlay);
+  --z-modal: var(--primitive-z-modal);
+}

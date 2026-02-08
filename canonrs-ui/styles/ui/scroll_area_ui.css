@@ -1,0 +1,15 @@
+/* ============================================================================
+   SCROLL_AREA - Container / Surface
+   ============================================================================ */
+
+[data-scroll-area] {
+  /* Layout */
+  padding: var(--scroll-area-padding);
+  max-height: var(--scroll-area-max-height);
+  overflow: auto;
+
+  /* Visual */
+  background: var(--scroll-area-bg);
+  border: var(--scroll-area-border);
+  border-radius: var(--scroll-area-radius);
+}

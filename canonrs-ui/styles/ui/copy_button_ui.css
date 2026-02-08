@@ -1,0 +1,40 @@
+/* ============================================
+   COPY BUTTON
+   Family A: Actions + Family E: Feedback
+   ============================================ */
+
+[data-copy-button] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-gap);
+  height: var(--button-height);
+  padding-inline: var(--button-padding-x);
+  padding-block: var(--button-padding-y);
+  border-radius: var(--button-radius);
+  background: var(--button-ghost-bg);
+  color: var(--button-ghost-fg);
+  cursor: pointer;
+  transition: 
+    background var(--copy-button-transition-duration) var(--copy-button-transition-ease),
+    color var(--copy-button-transition-duration) var(--copy-button-transition-ease);
+}
+
+[data-copy-button]:hover {
+  background: var(--button-ghost-bg-hover);
+}
+
+[data-copy-button][data-copied="true"] {
+  background: var(--copy-button-copied-bg);
+  color: var(--copy-button-copied-fg);
+}
+
+[data-copy-button-icon] {
+  width: var(--copy-button-icon-size);
+  height: var(--copy-button-icon-size);
+  color: var(--copy-button-icon-color);
+}
+
+[data-copy-button][data-copied="true"] [data-copy-button-icon] {
+  color: var(--copy-button-icon-color-copied);
+}

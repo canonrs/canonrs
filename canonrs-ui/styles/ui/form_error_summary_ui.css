@@ -1,0 +1,50 @@
+/* ============================================
+   FORM ERROR SUMMARY
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-form-error-summary] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-error-summary-gap);
+  padding-inline: var(--form-error-summary-padding-x);
+  padding-block: var(--form-error-summary-padding-y);
+  background: var(--form-error-summary-bg);
+  border: var(--form-error-summary-border-width) solid var(--form-error-summary-border-color);
+  border-radius: var(--form-error-summary-radius);
+}
+
+[data-form-error-summary-title] {
+  font-size: var(--form-error-summary-title-font-size);
+  font-weight: var(--form-error-summary-title-font-weight);
+  color: var(--form-error-summary-title-fg);
+}
+
+[data-form-error-summary-list] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-error-summary-list-gap);
+}
+
+[data-form-error-summary-item] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--form-error-summary-item-gap);
+}
+
+[data-form-error-summary-item-icon] {
+  width: var(--form-error-summary-item-icon-size);
+  height: var(--form-error-summary-item-icon-size);
+  color: var(--form-error-summary-item-icon-color);
+  flex-shrink: 0;
+}
+
+[data-form-error-summary-item-link] {
+  font-size: var(--form-error-summary-item-font-size);
+  color: var(--form-error-summary-item-fg);
+  text-decoration: none;
+}
+
+[data-form-error-summary-item-link]:hover {
+  text-decoration: underline;
+}

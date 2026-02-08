@@ -1,0 +1,83 @@
+/* ============================================
+   COMBOBOX
+   Family B: Selection
+   ============================================ */
+
+[data-combobox] {
+  position: relative;
+  background: var(--combobox-bg);
+  border: var(--combobox-border-width) solid var(--combobox-border-color);
+  border-radius: var(--combobox-radius);
+}
+
+[data-combobox-trigger] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--combobox-trigger-height);
+  padding-inline: var(--combobox-trigger-padding-x);
+  padding-block: var(--combobox-trigger-padding-y);
+  color: var(--combobox-trigger-fg);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+[data-combobox-trigger-icon] {
+  width: var(--combobox-trigger-icon-size);
+  height: var(--combobox-trigger-icon-size);
+}
+
+[data-combobox-list] {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--space-xs);
+  background: var(--combobox-popover-bg);
+  border-radius: var(--combobox-popover-radius);
+  box-shadow: var(--combobox-popover-shadow);
+  padding-block: var(--combobox-popover-padding-y);
+  z-index: 50;
+}
+
+[data-combobox][aria-expanded="true"] [data-combobox-list] {
+  display: block;
+}
+
+[data-combobox-item] {
+  display: flex;
+  align-items: center;
+  height: var(--combobox-item-height);
+  padding-inline: var(--combobox-item-padding-x);
+  padding-block: var(--combobox-item-padding-y);
+  color: var(--combobox-item-fg);
+  cursor: pointer;
+  transition: background var(--combobox-transition-duration) var(--combobox-transition-ease);
+}
+
+[data-combobox-item]:hover {
+  background: var(--combobox-item-bg-hover);
+}
+
+[data-combobox-item][aria-selected="true"] {
+  background: var(--combobox-item-bg-selected);
+  color: var(--combobox-item-fg-selected);
+}
+
+[data-combobox-item-icon] {
+  width: var(--combobox-item-icon-size);
+  height: var(--combobox-item-icon-size);
+}
+
+[data-combobox-empty] {
+  color: var(--combobox-empty-fg);
+  padding: var(--combobox-empty-padding);
+}
+
+[data-combobox][data-disabled="true"] {
+  opacity: var(--combobox-disabled-opacity);
+  pointer-events: none;
+}

@@ -1,0 +1,57 @@
+/* ============================================
+   TREE
+   Family B: Lists & Selection
+   ============================================ */
+
+[data-tree] {
+  display: flex;
+  flex-direction: column;
+}
+
+[data-tree-item] {
+  display: flex;
+  align-items: center;
+  gap: var(--tree-item-gap);
+  height: var(--tree-row-height);
+  padding-inline: var(--tree-item-padding-x);
+  padding-block: var(--tree-item-padding-y);
+  cursor: pointer;
+  transition: background var(--tree-item-transition-duration) var(--tree-item-transition-ease);
+}
+
+[data-tree-item]:hover {
+  background: var(--tree-item-bg-hover);
+}
+
+[data-tree-item][data-selected="true"] {
+  background: var(--tree-item-bg-selected);
+}
+
+[data-tree-item][data-depth="1"] {
+  padding-left: var(--tree-indent-depth-1);
+}
+
+[data-tree-item][data-depth="2"] {
+  padding-left: var(--tree-indent-depth-2);
+}
+
+[data-tree-item][data-depth="3"] {
+  padding-left: var(--tree-indent-depth-3);
+}
+
+[data-tree-icon] {
+  width: var(--tree-icon-size);
+  height: var(--tree-icon-size);
+  color: var(--tree-icon-color);
+  transition: transform var(--tree-icon-transition-duration) var(--tree-icon-transition-ease);
+}
+
+[data-tree-item][data-expanded="true"] [data-tree-icon] {
+  transform: rotate(var(--tree-icon-rotation));
+}
+
+[data-tree-label] {
+  flex: 1;
+  font-size: var(--tree-label-font-size);
+  color: var(--tree-label-fg);
+}

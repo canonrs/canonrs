@@ -1,0 +1,38 @@
+/* ============================================
+   PULSE
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-pulse] {
+  position: relative;
+  display: inline-flex;
+  width: var(--pulse-size);
+  height: var(--pulse-size);
+  border-radius: var(--pulse-radius);
+  background: var(--pulse-bg);
+}
+
+[data-pulse]::before,
+[data-pulse]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: pulse-animation var(--pulse-duration) var(--pulse-ease) infinite;
+}
+
+[data-pulse]::after {
+  animation-delay: var(--pulse-delay);
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(var(--pulse-scale));
+    opacity: 0;
+  }
+}

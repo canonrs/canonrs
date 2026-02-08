@@ -1,0 +1,64 @@
+/**
+ * ButtonGroup Block Styles
+ * Token Family: button.*, space.*, state.*
+ */
+
+.canon-button-group {
+  display: inline-flex;
+  gap: var(--button-group-gap, var(--space-xs));
+  border-radius: var(--button-radius, var(--radius-md));
+}
+
+.canon-button-group--horizontal {
+  flex-direction: row;
+  align-items: center;
+}
+
+.canon-button-group--vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Attached variant - buttons connected */
+.canon-button-group--attached {
+  gap: 0;
+}
+
+.canon-button-group--attached > * {
+  border-radius: 0;
+  margin-left: calc(var(--button-border-width, var(--border-width-thin)) * -1);
+}
+
+.canon-button-group--attached.canon-button-group--horizontal > *:first-child {
+  border-top-left-radius: var(--button-radius, var(--radius-md));
+  border-bottom-left-radius: var(--button-radius, var(--radius-md));
+  margin-left: 0;
+}
+
+.canon-button-group--attached.canon-button-group--horizontal > *:last-child {
+  border-top-right-radius: var(--button-radius, var(--radius-md));
+  border-bottom-right-radius: var(--button-radius, var(--radius-md));
+}
+
+.canon-button-group--attached.canon-button-group--vertical > *:first-child {
+  border-top-left-radius: var(--button-radius, var(--radius-md));
+  border-top-right-radius: var(--button-radius, var(--radius-md));
+  margin-left: 0;
+}
+
+.canon-button-group--attached.canon-button-group--vertical > *:last-child {
+  border-bottom-left-radius: var(--button-radius, var(--radius-md));
+  border-bottom-right-radius: var(--button-radius, var(--radius-md));
+}
+
+/* Focus state - bring focused button above siblings */
+.canon-button-group--attached > *:focus {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover state for attached buttons */
+.canon-button-group--attached > *:hover {
+  position: relative;
+  z-index: 1;
+}

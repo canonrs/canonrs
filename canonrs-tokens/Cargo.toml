@@ -1,0 +1,14 @@
+[package]
+name = "canonrs-tokens"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+# Pure data structures - zero dependencies
+
+[[bin]]
+name = "tokens-engine"
+path = "bin/tokens-engine.rs"
+
+[dependencies]
+# Zero dependencies for lib

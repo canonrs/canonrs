@@ -1,0 +1,14 @@
+/* ============================================================================
+   CANONRS — DENSITY VARIANT: SPACIOUS
+   ============================================================================ */
+
+:root[data-density="spacious"] {
+  --button-group-gap: 0.5rem;
+  --toggle-group-gap: 0.5rem;
+  
+  --carousel-content-gap: 1rem;
+  --carousel-padding: 0.5rem;
+  
+  --scroll-area-padding: 1rem;
+  --resizable-panel-padding: 1rem;
+}

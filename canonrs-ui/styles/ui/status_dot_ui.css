@@ -1,0 +1,41 @@
+/* ============================================
+   STATUS DOT
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-status-dot] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--status-dot-gap);
+}
+
+[data-status-dot-indicator] {
+  width: var(--status-dot-size);
+  height: var(--status-dot-size);
+  border-radius: var(--status-dot-radius);
+}
+
+[data-status-dot][data-variant="default"] [data-status-dot-indicator] {
+  background: var(--status-dot-bg-default);
+}
+
+[data-status-dot][data-variant="success"] [data-status-dot-indicator] {
+  background: var(--status-dot-bg-success);
+}
+
+[data-status-dot][data-variant="warning"] [data-status-dot-indicator] {
+  background: var(--status-dot-bg-warning);
+}
+
+[data-status-dot][data-variant="error"] [data-status-dot-indicator] {
+  background: var(--status-dot-bg-error);
+}
+
+[data-status-dot][data-variant="info"] [data-status-dot-indicator] {
+  background: var(--status-dot-bg-info);
+}
+
+[data-status-dot-label] {
+  font-size: var(--status-dot-label-font-size);
+  color: var(--status-dot-label-fg);
+}

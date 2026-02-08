@@ -1,0 +1,33 @@
+/* ============================================
+   RADIO GROUP
+   Family C: Forms
+   ============================================ */
+
+[data-radio-group] {
+  display: flex;
+  gap: var(--radio-group-gap);
+}
+
+[data-radio-group][data-orientation="vertical"] {
+  flex-direction: column;
+}
+
+[data-radio-group][data-orientation="horizontal"] {
+  flex-direction: row;
+}
+
+[data-radio-group-item] {
+  display: flex;
+  align-items: center;
+  gap: var(--radio-group-item-gap);
+}
+
+[data-radio-group-label] {
+  font-size: var(--radio-group-label-font-size);
+  font-weight: var(--radio-group-label-font-weight);
+  color: var(--radio-group-label-fg);
+}
+
+[data-radio-group][data-disabled="true"] [data-radio-group-label] {
+  color: var(--radio-group-label-fg-disabled);
+}

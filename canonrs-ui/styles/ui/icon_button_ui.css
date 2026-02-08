@@ -1,0 +1,47 @@
+/* ============================================
+   ICON BUTTON
+   Family A: Actions
+   NOTE: Requires UI to emit data-size attribute
+   ============================================ */
+
+[data-icon-button] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--icon-button-radius);
+  background: var(--icon-button-bg);
+  color: var(--icon-button-fg);
+  cursor: pointer;
+  transition: background var(--icon-button-transition-duration) var(--icon-button-transition-ease);
+}
+
+[data-icon-button][data-size="sm"] {
+  width: var(--icon-button-size-sm);
+  height: var(--icon-button-size-sm);
+  padding: var(--icon-button-padding-sm);
+}
+
+[data-icon-button][data-size="md"] {
+  width: var(--icon-button-size-md);
+  height: var(--icon-button-size-md);
+  padding: var(--icon-button-padding-md);
+}
+
+[data-icon-button][data-size="lg"] {
+  width: var(--icon-button-size-lg);
+  height: var(--icon-button-size-lg);
+  padding: var(--icon-button-padding-lg);
+}
+
+[data-icon-button]:hover {
+  background: var(--icon-button-bg-hover);
+}
+
+[data-icon-button]:active {
+  background: var(--icon-button-bg-active);
+}
+
+[data-icon-button][disabled] {
+  color: var(--icon-button-fg-disabled);
+  cursor: not-allowed;
+}

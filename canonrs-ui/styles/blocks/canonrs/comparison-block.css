@@ -1,0 +1,74 @@
+/* ═══════════════════════════════════════════════════════════════
+   COMPARISON BLOCK — Architectural Decision Surface
+   ═══════════════════════════════════════════════════════════════ */
+
+.canon-comparison {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.canon-comparison-title {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-fg-default);
+  margin: 0;
+}
+
+.canon-comparison-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.canon-comparison-item {
+  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  background: var(--color-bg-elevated);
+  border: var(--border-width-hairline) solid var(--color-border-muted);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.canon-comparison-aspect {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg-default);
+  align-self: center;
+}
+
+.canon-comparison-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.canon-comparison-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-fg-muted);
+}
+
+.canon-comparison-text {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+.canon-comparison-traditional {
+  color: var(--color-fg-muted);
+}
+
+.canon-comparison-canon {
+  color: var(--color-success-fg);
+  font-weight: var(--font-weight-medium);
+}

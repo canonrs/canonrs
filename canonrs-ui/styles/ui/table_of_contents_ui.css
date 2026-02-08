@@ -1,0 +1,45 @@
+/* ============================================
+   TABLE OF CONTENTS
+   Family G: Data Display
+   ============================================ */
+
+[data-toc] {
+  width: var(--toc-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--toc-gap);
+  background: var(--toc-bg);
+}
+
+[data-toc-title] {
+  font-size: var(--toc-title-font-size);
+  font-weight: var(--toc-title-font-weight);
+  color: var(--toc-title-fg);
+}
+
+[data-toc-item] {
+  font-size: var(--toc-item-font-size);
+  color: var(--toc-item-fg);
+}
+
+[data-toc-item]:hover {
+  color: var(--toc-item-fg-hover);
+}
+
+[data-toc-item][data-active="true"] {
+  color: var(--toc-item-active-fg);
+}
+
+[data-toc-item][data-depth="1"] {
+  padding-left: var(--toc-item-indent-step);
+}
+
+[data-toc-item][data-depth="2"] {
+  padding-left: calc(var(--toc-item-indent-step) * 2);
+}
+
+[data-toc-button] {
+  padding-inline: var(--toc-button-padding-x);
+  padding-block: var(--toc-button-padding-y);
+  border-radius: var(--toc-button-radius);
+}

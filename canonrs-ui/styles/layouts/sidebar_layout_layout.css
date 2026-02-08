@@ -1,0 +1,34 @@
+/* ============================================================================
+   SIDEBAR LAYOUT
+   ============================================================================ */
+
+[data-block="sidebar"] {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: var(--sidebar-border);
+  padding: var(--sidebar-padding);
+}
+
+[data-block="sidebar"][data-position="right"] {
+  border-right: none;
+  border-left: var(--sidebar-border);
+}
+
+.sidebar__header {
+  padding-block-end: var(--sidebar-header-padding);
+  border-bottom: var(--sidebar-header-border);
+  margin-block-end: var(--sidebar-header-margin);
+}
+
+.sidebar__content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar__footer {
+  padding-block-start: var(--sidebar-footer-padding);
+  border-top: var(--sidebar-footer-border);
+  margin-block-start: auto;
+}

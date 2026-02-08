@@ -1,0 +1,36 @@
+/* ============================================
+   TOOLTIP
+   Family A: Overlay Components
+   ============================================ */
+
+[data-tooltip] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--layer-tooltip);
+  
+  background: var(--tooltip-bg);
+  color: var(--tooltip-fg);
+  border-radius: var(--tooltip-radius);
+  padding-inline: var(--tooltip-padding-x);
+  padding-block: var(--tooltip-padding-y);
+  font-size: var(--tooltip-font-size);
+  
+  pointer-events: none;
+  white-space: nowrap;
+  
+  /* Use transform with CSS vars from floating primitive */
+  transform: translate(var(--floating-x, 0), var(--floating-y, 0));
+  
+  /* Visibility via opacity, NOT display:none */
+  opacity: 0;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-tooltip][data-state="open"] {
+  opacity: 1;
+}
+
+[data-tooltip-content] {
+  display: block;
+}

@@ -1,0 +1,11 @@
+/* ============================================================================
+   LAYOUT ROOT — Base Structure
+   ============================================================================ */
+
+[data-layout-root],
+[data-layout="page"],
+[data-layout="app"] {
+  min-height: 100vh;
+  background: var(--theme-surface-bg);
+  color: var(--theme-surface-fg);
+}

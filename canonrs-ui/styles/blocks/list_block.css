@@ -1,0 +1,17 @@
+/* ============================================================================
+   LIST BLOCK
+   ============================================================================ */
+
+[data-block="list"] {
+  display: flex;
+  flex-direction: column;
+}
+
+[data-block="list-item"] {
+  padding: var(--list-item-padding);
+  border-bottom: var(--list-item-border);
+}
+
+[data-block="list-item"]:last-child {
+  border-bottom: none;
+}

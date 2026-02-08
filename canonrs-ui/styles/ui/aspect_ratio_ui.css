@@ -1,0 +1,20 @@
+/* ============================================
+   ASPECT RATIO
+   Family H: Utilities
+   NOTE: Ratio is set via inline style on the primitive (aspect-ratio CSS property)
+   This file exists only for structural layout support
+   ============================================ */
+
+[data-aspect-ratio] {
+  position: relative;
+  width: 100%;
+}
+
+[data-aspect-ratio] > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

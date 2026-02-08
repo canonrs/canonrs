@@ -1,0 +1,31 @@
+/* ============================================================================
+   RESIZABLE - Interactive Layout
+   ============================================================================ */
+
+[data-resizable] {
+  display: flex;
+  gap: var(--resizable-gap);
+  background: var(--resizable-bg);
+  border: var(--resizable-border);
+}
+
+[data-resizable-panel] {
+  background: var(--resizable-panel-bg);
+  padding: var(--resizable-panel-padding);
+  border-radius: var(--resizable-panel-radius);
+}
+
+[data-resizable-handle] {
+  width: var(--resizable-handle-size);
+  background: var(--resizable-handle-bg);
+  cursor: var(--resizable-handle-cursor);
+}
+
+[data-resizable-handle]:hover {
+  background: var(--resizable-handle-hover-bg);
+}
+
+[data-resizable-handle][aria-disabled="true"] {
+  background: var(--resizable-handle-disabled-bg);
+  cursor: default;
+}

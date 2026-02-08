@@ -1,0 +1,84 @@
+# canonrs-ui
+# SSR-SAFE UI components (markup only, no behavior)
+#
+# ⚠️  CRITICAL: This crate is SSR-safe by default.
+# 
+# Purpose: Provides pure UI components (markup + structure) without callbacks
+# or client-side behavior. These components are server-renderable and require
+# NO WASM runtime when used in SSR mode.
+#
+# Architecture:
+# - Default: Pure SSR (no web-sys, no wasm-bindgen)
+# - With 'hydrate': Adds minimal WASM support for client-side hydration
+# - canonrs-ui-interactive depends on this crate for base components
+#
+# This separation ensures UI components can be:
+# - Pre-rendered server-side
+# - Tested in headless environments
+# - Used in pure SSR contexts without browser APIs
+
+[package]
+name = "canonrs-ui"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+canonrs-providers = { path = "../canonrs-providers", default-features = false }
+leptos = { version = "0.8", default-features = false }
+leptos_meta = { version = "0.8", default-features = false }
+leptos_router = { version = "0.8", default-features = false }
+canonrs-shared = { path = "../canonrs-shared" }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Content rendering
+pulldown-cmark = "0.12.2"
+html-escape = "0.2"
+
+# WASM dependencies - OPTIONAL, only for hydrate feature
+web-sys = { version = "0.3", optional = true, features = [
+    "Window",
+    "Document",
+    "Element",
+    "HtmlElement",
+    "DomRect",
+    "CssStyleDeclaration",
+    "Request",
+    "Response",
+    "RequestInit",
+    "RequestMode",
+] }
+wasm-bindgen = { version = "0.2", optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
+
+[features]
+default = []
+
+# SSR feature - pure server-side rendering (NO WASM)
+ssr = [
+  "leptos/ssr",
+  "leptos_meta/ssr",
+  "leptos_router/ssr",
+  "canonrs-shared/ssr",
+]
+
+# Hydrate feature - enables WASM for client-side hydration
+hydrate = [
+  "leptos/hydrate",
+  "canonrs-shared/hydrate",
+  "web-sys",
+  "wasm-bindgen",
+  "wasm-bindgen-futures",
+]
+
+# Note: web-sys, wasm-bindgen, and wasm-bindgen-futures are ONLY
+# included when 'hydrate' feature is explicitly activated.
+# This ensures SSR builds remain pure and WASM-free.
+
+
+[profile.release]
+lto = false
+codegen-units = 16
+strip = false

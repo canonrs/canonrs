@@ -1,0 +1,22 @@
+/* ============================================
+   STAT
+   Family G: Data Display
+   ============================================ */
+
+[data-stat] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stat-gap);
+  align-items: var(--stat-align);
+}
+
+[data-stat-value] {
+  font-size: var(--stat-value-font-size);
+  font-weight: var(--stat-value-font-weight);
+  color: var(--stat-value-fg);
+}
+
+[data-stat-label] {
+  font-size: var(--stat-label-font-size);
+  color: var(--stat-label-fg);
+}

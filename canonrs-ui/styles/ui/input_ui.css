@@ -1,0 +1,70 @@
+/* ============================================================================
+   Input UI Component — CanonRS
+   Family: C (Forms & Actions)
+   ========================================================================= */
+
+[data-input] {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  
+  font-family: var(--input-font-family);
+  font-size: var(--input-font-size);
+  font-weight: var(--input-font-weight);
+  line-height: var(--input-line-height);
+  
+  height: var(--input-height);
+  padding: var(--input-padding-y) var(--input-padding-x);
+  
+  background: var(--input-bg);
+  color: var(--input-fg);
+  
+  border-width: var(--input-border-width);
+  border-style: solid;
+  border-color: var(--input-border-color);
+  border-radius: var(--input-radius);
+  
+  transition:
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    outline var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-input]::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* Size Variants */
+[data-input][data-size="sm"] {
+  height: var(--input-sm-height);
+  font-size: var(--input-sm-font-size);
+}
+
+[data-input][data-size="md"] {
+  height: var(--input-md-height);
+}
+
+[data-input][data-size="lg"] {
+  height: var(--input-lg-height);
+  font-size: var(--input-lg-font-size);
+}
+
+/* Validation Variants */
+[data-input][data-variant="error"] {
+  border-color: var(--input-error-border);
+}
+
+[data-input][data-variant="success"] {
+  border-color: var(--input-success-border);
+}
+
+/* States */
+[data-input]:focus-visible {
+  outline: var(--input-focus-ring);
+  outline-color: var(--input-focus-ring-color);
+  outline-offset: var(--input-focus-ring-offset);
+}
+
+[data-input]:disabled {
+  opacity: var(--input-disabled-opacity);
+  cursor: not-allowed;
+}

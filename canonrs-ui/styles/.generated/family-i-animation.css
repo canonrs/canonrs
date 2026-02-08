@@ -1,0 +1,17 @@
+/* family-i-animation */
+:root {
+  --animate-duration-fast: 150ms;
+  --animate-duration-normal: 300ms;
+  --animate-duration-slow: 500ms;
+  --animate-easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --animate-easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --animate-easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-easing-linear: linear;
+  --animate-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-scale-enter: 0.95;
+  --animate-scale-exit: 0.95;
+  --animate-opacity-enter: 0;
+  --animate-opacity-exit: 0;
+  --animate-translate-enter: -10px;
+  --animate-translate-exit: 10px;
+}

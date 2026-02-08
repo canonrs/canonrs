@@ -1,0 +1,60 @@
+/* ============================================
+   DROPDOWN MENU
+   Family A: Overlay Components
+   ============================================ */
+
+[data-dropdown-menu] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--layer-dropdown);
+  
+  background: var(--dropdown-menu-bg);
+  color: var(--dropdown-menu-fg);
+  border: var(--dropdown-menu-border-width) solid var(--dropdown-menu-border-color);
+  border-radius: var(--dropdown-menu-radius);
+  padding-block: var(--dropdown-menu-padding-y);
+  box-shadow: var(--dropdown-menu-shadow);
+  
+  min-width: var(--dropdown-menu-min-width);
+  
+  /* Use transform with CSS vars from floating primitive */
+  transform: translate(var(--floating-x, 0), var(--floating-y, 0));
+  
+  /* Visibility via opacity, NOT display:none */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-dropdown-menu][data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-dropdown-menu-content] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dropdown-menu-item-gap);
+}
+
+[data-dropdown-menu-item] {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding-inline: var(--dropdown-menu-item-padding-x);
+  padding-block: var(--dropdown-menu-item-padding-y);
+  background: var(--dropdown-menu-item-bg);
+  color: var(--dropdown-menu-item-fg);
+  border: none;
+  cursor: pointer;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-dropdown-menu-item]:hover {
+  background: var(--dropdown-menu-item-bg-hover);
+}
+
+[data-dropdown-menu-item][data-selected="true"] {
+  background: var(--dropdown-menu-item-bg-selected);
+}

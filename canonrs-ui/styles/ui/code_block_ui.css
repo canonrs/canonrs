@@ -1,0 +1,32 @@
+/* ============================================
+   CODE BLOCK
+   Family G: Data Display
+   ============================================ */
+
+[data-code-block] {
+  background: var(--code-block-bg);
+  border-radius: var(--code-block-radius);
+  border: var(--code-block-border-width) solid var(--code-block-border-color);
+  font-family: var(--code-block-font-family);
+  font-size: var(--code-block-font-size);
+  line-height: var(--code-block-line-height);
+}
+
+[data-code-block-header] {
+  display: flex;
+  align-items: center;
+  gap: var(--code-block-header-gap);
+  height: var(--code-block-header-height);
+  background: var(--code-block-header-bg);
+  color: var(--code-block-header-fg);
+}
+
+[data-code-block-language] {
+  font-size: var(--code-block-language-font-size);
+  color: var(--code-block-language-fg);
+}
+
+[data-code-block-content] {
+  padding-inline: var(--code-block-content-padding-x);
+  padding-block: var(--code-block-content-padding-y);
+}

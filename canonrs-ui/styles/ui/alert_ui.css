@@ -1,0 +1,61 @@
+/* ============================================
+   ALERT
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-alert] {
+  display: flex;
+  padding-inline: var(--alert-padding-x);
+  padding-block: var(--alert-padding-y);
+  border-radius: var(--alert-radius);
+  border: var(--alert-border-width) solid var(--alert-border-color);
+  background: var(--alert-bg);
+}
+
+[data-alert][data-variant="default"] {
+  background: var(--alert-bg-default);
+}
+
+[data-alert][data-variant="info"] {
+  background: var(--alert-bg-info);
+}
+
+[data-alert][data-variant="success"] {
+  background: var(--alert-bg-success);
+}
+
+[data-alert][data-variant="warning"] {
+  background: var(--alert-bg-warning);
+}
+
+[data-alert][data-variant="error"] {
+  background: var(--alert-bg-error);
+}
+
+[data-alert-title] {
+  font-size: var(--alert-title-font-size);
+  font-weight: var(--alert-title-font-weight);
+  color: var(--alert-title-fg);
+}
+
+[data-alert-description] {
+  font-size: var(--alert-description-font-size);
+  line-height: var(--alert-description-line-height);
+  color: var(--alert-description-fg);
+}
+
+[data-alert-close] {
+  width: var(--alert-close-size);
+  height: var(--alert-close-size);
+  color: var(--alert-close-fg);
+  cursor: pointer;
+}
+
+[data-alert-close]:hover {
+  color: var(--alert-close-fg-hover);
+}
+
+[data-alert-close][disabled] {
+  opacity: var(--alert-close-opacity-disabled);
+  cursor: not-allowed;
+}

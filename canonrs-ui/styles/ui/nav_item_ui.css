@@ -1,0 +1,60 @@
+/**
+ * NavItem Block Styles
+ * Token Family: nav.item.*, state.*, color.*, space.*
+ *
+ * Consumes tokens:
+ * - nav.item.height, nav.item.padding.*, nav.item.gap
+ * - nav.item.radius, nav.item.font.*
+ * - state.hover.*, state.active.*, state.focus.*
+ * - color.* (fg, bg variants)
+ * - space.* (spacing)
+ */
+
+.canon-nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nav-item-gap, var(--space-xs));
+  height: var(--nav-item-height, 40px);
+  padding: var(--nav-item-padding-y, var(--space-xs)) var(--nav-item-padding-x, var(--space-sm));
+  border-radius: var(--nav-item-radius, var(--radius-sm));
+  font-size: var(--nav-item-font-size, var(--font-size-base));
+  font-weight: var(--nav-item-font-weight, var(--font-weight-medium));
+  color: var(--nav-item-color, var(--theme-surface-fg));
+  text-decoration: none;
+  transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+  cursor: pointer;
+  user-select: none;
+}
+
+.canon-nav-item:hover {
+  background: var(--state-hover-bg, var(--theme-surface-muted));
+  color: var(--state-hover-fg, var(--theme-action-accent-fg));
+}
+
+.canon-nav-item:focus-visible {
+  outline: var(--state-focus-ring);
+  outline-offset: 2px;
+}
+
+.canon-nav-item--active {
+  background: var(--state-active-bg, var(--theme-action-accent-bg));
+  color: var(--state-active-fg, var(--theme-action-primary-bg-foreground));
+  font-weight: var(--nav-item-active-font-weight, var(--font-weight-semibold));
+}
+
+.canon-nav-item--disabled {
+  opacity: var(--state-disabled-opacity, 0.5);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.canon-nav-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--nav-item-icon-size, 1.25em);
+}
+
+.canon-nav-item__label {
+  line-height: var(--nav-item-line-height, var(--line-height-normal));
+}

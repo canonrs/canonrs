@@ -1,0 +1,77 @@
+/* ============================================
+   FIELD
+   Family C: Forms
+   ============================================ */
+
+[data-field] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--field-gap);
+}
+
+[data-field][data-orientation="horizontal"] {
+  flex-direction: row;
+  gap: var(--field-orientation-gap-horizontal);
+  align-items: center;
+}
+
+[data-field][data-orientation="vertical"] {
+  gap: var(--field-orientation-gap-vertical);
+}
+
+[data-field-label] {
+  font-size: var(--field-label-font-size);
+  font-weight: var(--field-label-font-weight);
+  color: var(--field-label-fg);
+}
+
+[data-field-label][disabled] {
+  color: var(--field-label-fg-disabled);
+}
+
+[data-field-description] {
+  font-size: var(--field-description-font-size);
+  line-height: var(--field-description-line-height);
+  color: var(--field-description-fg);
+}
+
+[data-field-error] {
+  font-size: var(--field-error-font-size);
+  color: var(--field-error-fg);
+}
+
+[data-field-error-list] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--field-error-list-gap);
+}
+
+[data-field][disabled] {
+  opacity: var(--field-disabled-opacity);
+}
+
+[data-field][data-validation="success"] [data-field-label],
+[data-field][data-validation="success"] [data-field-description] {
+  color: var(--field-validation-success-fg);
+}
+
+[data-field][data-validation="warning"] [data-field-label],
+[data-field][data-validation="warning"] [data-field-description] {
+  color: var(--field-validation-warning-fg);
+}
+
+[data-field][data-validation="error"] [data-field-label],
+[data-field][data-validation="error"] [data-field-description] {
+  color: var(--field-validation-error-fg);
+}
+
+[data-field-separator] {
+  height: 1px;
+  background: var(--field-separator-color);
+  margin-block: var(--field-separator-margin-y);
+}
+
+[data-field-separator-label] {
+  padding-inline: var(--field-separator-label-padding-x);
+  color: var(--field-separator-label-fg);
+}

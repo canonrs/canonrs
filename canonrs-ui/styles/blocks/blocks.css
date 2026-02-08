@@ -1,0 +1,19 @@
+/* ============================================================================
+   CANONRS — BLOCKS IMPORTS
+   ============================================================================
+   APENAS composição semântica
+   NÃO layouts, NÃO UI components
+   ============================================================================ */
+
+@import './command_panel_block.css';
+@import './dialog_block.css';
+@import './drawer_block.css';
+@import './empty_state_block.css';
+@import './field_block.css';
+@import './form_block.css';
+@import './form_actions_block.css';
+@import './list_block.css';
+@import './skeleton_block.css';
+@import './stat_card_block.css';
+@import './table_block.css';
+@import './card_block.css';

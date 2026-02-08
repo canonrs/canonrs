@@ -1,0 +1,11 @@
+/* ============================================================================
+   FORM_ACTIONS BLOCK
+   ============================================================================ */
+
+[data-block="form-actions"] {
+  display: flex;
+  gap: var(--form-actions-gap);
+  justify-content: var(--form-actions-justify);
+  padding-block-start: var(--form-actions-padding-top);
+  border-top: var(--form-actions-border-top);
+}

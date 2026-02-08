@@ -1,0 +1,57 @@
+/* ============================================================================
+   Textarea UI Component — CanonRS
+   Family: C (Forms & Actions)
+   ========================================================================= */
+
+[data-textarea] {
+  display: block;
+  width: 100%;
+  
+  font-family: var(--input-font-family);
+  font-size: var(--input-font-size);
+  font-weight: var(--input-font-weight);
+  line-height: var(--input-line-height);
+  
+  min-height: var(--textarea-min-height);
+  max-height: var(--textarea-max-height);
+  padding: var(--input-padding-y) var(--input-padding-x);
+  
+  background: var(--input-bg);
+  color: var(--input-fg);
+  
+  border-width: var(--input-border-width);
+  border-style: solid;
+  border-color: var(--input-border-color);
+  border-radius: var(--input-radius);
+  
+  resize: var(--textarea-resize);
+  
+  transition:
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    outline var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-textarea]::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* Validation Variants */
+[data-textarea][data-variant="error"] {
+  border-color: var(--input-error-border);
+}
+
+[data-textarea][data-variant="success"] {
+  border-color: var(--input-success-border);
+}
+
+/* States */
+[data-textarea]:focus-visible {
+  outline: var(--input-focus-ring);
+  outline-color: var(--input-focus-ring-color);
+  outline-offset: var(--input-focus-ring-offset);
+}
+
+[data-textarea]:disabled {
+  opacity: var(--input-disabled-opacity);
+  cursor: not-allowed;
+}

@@ -1,0 +1,40 @@
+/* ============================================
+   PAGE HEADER
+   Family B: Data Display / Layout
+   ============================================ */
+
+[data-page-header] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--page-header-gap);
+  padding: var(--page-header-padding);
+  background: var(--page-header-bg);
+  border-bottom: var(--page-header-border-width) solid var(--page-header-border-color);
+}
+
+[data-page-header-breadcrumbs] {
+  display: flex;
+  gap: var(--page-header-breadcrumbs-gap);
+  color: var(--page-header-breadcrumbs-fg);
+}
+
+[data-page-header-title] {
+  font-size: var(--page-header-title-font-size);
+  font-weight: var(--page-header-title-font-weight);
+  color: var(--page-header-title-fg);
+}
+
+[data-page-header-description] {
+  font-size: var(--page-header-description-font-size);
+  line-height: var(--page-header-description-line-height);
+  color: var(--page-header-description-fg);
+}
+
+[data-page-header-actions] {
+  display: flex;
+  gap: var(--page-header-actions-gap);
+}
+
+[data-page-header-tabs] {
+  margin-top: var(--page-header-tabs-margin-top);
+}

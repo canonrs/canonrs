@@ -1,0 +1,34 @@
+/* ============================================
+   ANIMATE
+   Family H: Utilities
+   ============================================ */
+
+[data-animate] {
+  animation-duration: var(--animate-duration-normal);
+  animation-timing-function: var(--animate-ease-standard);
+  animation-delay: var(--animate-delay-none);
+}
+
+[data-animate][data-duration="fast"] {
+  animation-duration: var(--animate-duration-fast);
+}
+
+[data-animate][data-duration="slow"] {
+  animation-duration: var(--animate-duration-slow);
+}
+
+[data-animate][data-easing="emphasized"] {
+  animation-timing-function: var(--animate-ease-emphasized);
+}
+
+[data-animate][data-easing="linear"] {
+  animation-timing-function: var(--animate-ease-linear);
+}
+
+[data-animate][data-delay="short"] {
+  animation-delay: var(--animate-delay-short);
+}
+
+[data-animate][data-delay="long"] {
+  animation-delay: var(--animate-delay-long);
+}

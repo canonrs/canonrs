@@ -1,0 +1,210 @@
+use crate::design::tokens::FamilyToken;
+
+/// FAMILY F — Data & Media
+/// Components: Card, Table, DataTable, Icon, IconButton, Chart, Kbd, CodeBlock, Avatar, Stat, CopyButton, ScrollArea, ListItem
+/// Scope: Data display, media presentation, code representation
+
+pub const FAMILY_F_DATA: &[FamilyToken] = &[
+    // Data foundation
+    FamilyToken::new("card-bg", "var(--theme-surface-elevated)"),
+    FamilyToken::new("card-border", "var(--theme-surface-border)"),
+    FamilyToken::new("data-radius", "var(--radius-md)"),
+    FamilyToken::new("data-shadow", "var(--shadow-sm)"),
+    FamilyToken::new("data-spacing", "var(--space-md)"),
+
+    // Card
+    FamilyToken::new("card-radius", "var(--radius-md)"),
+    FamilyToken::new("card-shadow", "var(--shadow-sm)"),
+    FamilyToken::new("card-border-width", "1px"),
+    FamilyToken::new("card-padding", "var(--space-lg)"),
+    FamilyToken::new("card-content-gap", "var(--space-md)"),
+    FamilyToken::new("card-header-gap", "var(--space-sm)"),
+    FamilyToken::new("card-header-padding", "0 0 var(--space-md) 0"),
+    FamilyToken::new("card-footer-gap", "var(--space-sm)"),
+    FamilyToken::new("card-footer-padding", "var(--space-md) 0 0 0"),
+    FamilyToken::new("card-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("card-title-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("card-title-font-size", "var(--font-size-lg)"),
+    FamilyToken::new("card-title-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("card-description-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("card-description-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("card-description-line-height", "var(--line-height-tight)"),
+
+    // Table
+    FamilyToken::new("table-border-color", "var(--theme-surface-border)"),
+    FamilyToken::new("table-border-width", "1px"),
+    FamilyToken::new("table-row-height", "var(--space-2xl)"),
+    FamilyToken::new("table-row-bg-hover", "var(--theme-surface-muted)"),
+    FamilyToken::new("table-row-bg-selected", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("table-row-border", "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("table-row-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("table-row-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("table-cell-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("table-cell-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("table-cell-padding", "var(--space-sm) var(--space-md)"),
+    FamilyToken::new("table-cell-padding-x", "var(--space-md)"),
+    FamilyToken::new("table-cell-padding-y", "var(--space-sm)"),
+    FamilyToken::new("table-header-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("table-header-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("table-header-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("table-header-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("table-header-height", "var(--space-xl)"),
+    FamilyToken::new("table-caption-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("table-caption-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("table-caption-padding-y", "var(--space-sm)"),
+
+    // Data Table
+    FamilyToken::new("data-table-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("data-table-radius", "var(--radius-md)"),
+    FamilyToken::new("data-table-border-color", "var(--theme-surface-border)"),
+    FamilyToken::new("data-table-border-width", "1px"),
+    FamilyToken::new("data-table-row-bg", "transparent"),
+    FamilyToken::new("data-table-row-bg-hover", "var(--theme-surface-muted)"),
+    FamilyToken::new("data-table-row-bg-selected", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("data-table-cell-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("data-table-cell-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("data-table-cell-padding-x", "var(--space-md)"),
+    FamilyToken::new("data-table-cell-padding-y", "var(--space-sm)"),
+    FamilyToken::new("data-table-header-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("data-table-header-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("data-table-header-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("data-table-header-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("data-table-checkbox-gap", "var(--space-sm)"),
+    FamilyToken::new("data-table-sort-icon-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("data-table-sort-icon-size", "var(--space-md)"),
+    FamilyToken::new("data-table-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("data-table-transition-ease", "var(--motion-ease-standard)"),
+
+    // Icon
+    FamilyToken::new("icon-size-sm", "var(--space-md)"),
+    FamilyToken::new("icon-size-md", "var(--font-size-xl)"),
+    FamilyToken::new("icon-size-lg", "var(--space-lg)"),
+    FamilyToken::new("icon-color", "var(--theme-surface-fg)"),
+    FamilyToken::new("icon-color-muted", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("icon-color-disabled", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("icon-vertical-align", "middle"),
+
+    // Icon Button
+    FamilyToken::new("icon-button-size-sm", "var(--space-xl)"),
+    FamilyToken::new("icon-button-size-md", "var(--space-2xl)"),
+    FamilyToken::new("icon-button-size-lg", "var(--size-icon-lg)"),
+    FamilyToken::new("icon-button-padding-sm", "var(--space-sm)"),
+    FamilyToken::new("icon-button-padding-md", "var(--space-sm)"),
+    FamilyToken::new("icon-button-padding-lg", "var(--space-sm)"),
+    FamilyToken::new("icon-button-radius", "var(--radius-sm)"),
+    FamilyToken::new("icon-button-bg", "transparent"),
+    FamilyToken::new("icon-button-bg-hover", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("icon-button-bg-active", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("icon-button-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("icon-button-fg-disabled", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("icon-button-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("icon-button-transition-ease", "var(--motion-ease-standard)"),
+
+    // Chart
+    FamilyToken::new("chart-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("chart-padding", "var(--space-md)"),
+    FamilyToken::new("chart-radius", "var(--radius-md)"),
+    FamilyToken::new("chart-grid-color", "var(--theme-surface-border)"),
+    FamilyToken::new("chart-grid-stroke-width", "1px"),
+    FamilyToken::new("chart-axis-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("chart-axis-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("chart-axis-tick-size", "4px"),
+    FamilyToken::new("chart-legend-gap", "var(--space-md)"),
+    FamilyToken::new("chart-legend-item-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("chart-legend-item-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("chart-tooltip-bg", "var(--theme-overlay-bg)"),
+    FamilyToken::new("chart-tooltip-fg", "var(--color-popover-foreground)"),
+    FamilyToken::new("chart-tooltip-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("chart-tooltip-radius", "var(--radius-sm)"),
+    FamilyToken::new("chart-tooltip-shadow", "var(--shadow-md)"),
+
+    // Kbd
+    FamilyToken::new("kbd-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("kbd-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("kbd-padding-x", "var(--space-sm)"),
+    FamilyToken::new("kbd-padding-y", "var(--space-xs)"),
+    FamilyToken::new("kbd-radius", "var(--radius-sm)"),
+    FamilyToken::new("kbd-shadow", "var(--shadow-sm)"),
+    FamilyToken::new("kbd-border-color", "var(--theme-surface-border)"),
+    FamilyToken::new("kbd-border-width", "1px"),
+    FamilyToken::new("kbd-font-family", "monospace"),
+    FamilyToken::new("kbd-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("kbd-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("kbd-line-height", "var(--space-md)"),
+    FamilyToken::new("kbd-muted-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("kbd-muted-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("kbd-inline-gap", "var(--space-xs)"),
+
+    // Code Block
+    FamilyToken::new("code-block-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("code-block-radius", "var(--radius-md)"),
+    FamilyToken::new("code-block-border-color", "var(--theme-surface-border)"),
+    FamilyToken::new("code-block-border-width", "1px"),
+    FamilyToken::new("code-block-content-padding-x", "var(--space-md)"),
+    FamilyToken::new("code-block-content-padding-y", "var(--space-md)"),
+    FamilyToken::new("code-block-font-family", "monospace"),
+    FamilyToken::new("code-block-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("code-block-line-height", "var(--line-height-normal)"),
+    FamilyToken::new("code-block-header-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("code-block-header-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("code-block-header-height", "var(--space-xl)"),
+    FamilyToken::new("code-block-header-gap", "var(--space-sm)"),
+    FamilyToken::new("code-block-language-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("code-block-language-font-size", "var(--font-size-xs)"),
+
+    // Avatar
+    FamilyToken::new("avatar-size-xs", "var(--space-lg)"),
+    FamilyToken::new("avatar-size-sm", "var(--space-xl)"),
+    FamilyToken::new("avatar-size-md", "var(--space-2xl)"),
+    FamilyToken::new("avatar-size-lg", "var(--size-icon-lg)"),
+    FamilyToken::new("avatar-size-xl", "var(--layout-height-header)"),
+    FamilyToken::new("avatar-radius", "var(--radius-full)"),
+    FamilyToken::new("avatar-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("avatar-border-color", "var(--theme-surface-border)"),
+    FamilyToken::new("avatar-border-width", "1px"),
+    FamilyToken::new("avatar-fallback-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("avatar-fallback-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("avatar-fallback-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("avatar-fallback-font-weight", "var(--font-weight-medium)"),
+    FamilyToken::new("avatar-image-fit", "cover"),
+
+    // Stat
+    FamilyToken::new("stat-gap", "var(--space-xs)"),
+    FamilyToken::new("stat-align", "flex-start"),
+    FamilyToken::new("stat-value-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("stat-value-font-size", "var(--font-size-3xl)"),
+    FamilyToken::new("stat-value-font-weight", "var(--font-weight-bold)"),
+    FamilyToken::new("stat-label-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("stat-label-font-size", "var(--font-size-sm)"),
+
+    // Copy Button
+    FamilyToken::new("copy-button-icon-size", "var(--space-md)"),
+    FamilyToken::new("copy-button-icon-color", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("copy-button-icon-color-copied", "var(--color-success)"),
+    FamilyToken::new("copy-button-copied-bg", "var(--theme-state-success-bg)"),
+    FamilyToken::new("copy-button-copied-fg", "var(--color-success)"),
+    FamilyToken::new("copy-button-transition-duration", "var(--motion-duration-normal)"),
+    FamilyToken::new("copy-button-transition-ease", "var(--motion-ease-standard)"),
+
+    // Scroll Area
+    FamilyToken::new("scroll-area-bg", "transparent"),
+    FamilyToken::new("scroll-area-border", "none"),
+    FamilyToken::new("scroll-area-radius", "0"),
+    FamilyToken::new("scroll-area-padding", "0"),
+    FamilyToken::new("scroll-area-max-height", "100%"),
+
+    // List Item
+    FamilyToken::new("list-item-padding", "var(--space-sm) var(--space-md)"),
+    FamilyToken::new("list-item-border", "1px solid var(--theme-surface-border)"),
+    // Avatar (token simplificado faltante)
+    FamilyToken::new("avatar-fg", "var(--theme-surface-fg-muted)"),
+
+    // Card (token simplificado faltante)
+    FamilyToken::new("card-border-color", "var(--theme-surface-border)"),
+
+    // List
+    FamilyToken::new("list-gap", "var(--space-sm)"),
+    FamilyToken::new("list-item-bg-hover", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("list-item-padding-y", "var(--space-sm)"),
+
+];

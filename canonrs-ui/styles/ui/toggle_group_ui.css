@@ -1,0 +1,11 @@
+/* ============================================================================
+   TOGGLE_GROUP - Group Layout Coordinator
+   ============================================================================ */
+
+[data-toggle-group] {
+  /* Layout */
+  display: flex;
+  gap: var(--toggle-group-gap);
+  flex-direction: var(--toggle-group-direction);
+  flex-wrap: var(--toggle-group-wrap);
+}

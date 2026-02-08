@@ -1,0 +1,47 @@
+/* ============================================
+   DATA TABLE
+   Family G: Data Display
+   ============================================ */
+
+[data-data-table] {
+  background: var(--data-table-bg);
+  border: var(--data-table-border-width) solid var(--data-table-border-color);
+  border-radius: var(--data-table-radius);
+}
+
+[data-data-table-header] {
+  background: var(--data-table-header-bg);
+  color: var(--data-table-header-fg);
+  font-size: var(--data-table-header-font-size);
+  font-weight: var(--data-table-header-font-weight);
+}
+
+[data-data-table-row] {
+  background: var(--data-table-row-bg);
+  transition: background var(--data-table-transition-duration) var(--data-table-transition-ease);
+}
+
+[data-data-table-row]:hover {
+  background: var(--data-table-row-bg-hover);
+}
+
+[data-data-table-row][data-selected="true"] {
+  background: var(--data-table-row-bg-selected);
+}
+
+[data-data-table-cell] {
+  padding-inline: var(--data-table-cell-padding-x);
+  padding-block: var(--data-table-cell-padding-y);
+  font-size: var(--data-table-cell-font-size);
+  color: var(--data-table-cell-fg);
+}
+
+[data-data-table-sort-icon] {
+  width: var(--data-table-sort-icon-size);
+  height: var(--data-table-sort-icon-size);
+  color: var(--data-table-sort-icon-fg);
+}
+
+[data-data-table-checkbox] {
+  gap: var(--data-table-checkbox-gap);
+}

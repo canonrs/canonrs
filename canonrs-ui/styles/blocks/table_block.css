@@ -1,0 +1,21 @@
+/* ============================================================================
+   TABLE BLOCK
+   ============================================================================ */
+
+[data-block="table"] {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+[data-block="table-header"] {
+  background: var(--table-header-bg);
+}
+
+[data-block="table-row"] {
+  border-bottom: var(--table-row-border);
+}
+
+[data-block="table-cell"] {
+  padding: var(--table-cell-padding);
+}

@@ -1,0 +1,41 @@
+/* ============================================================================
+   PAGE_LAYOUT - Layout Structure
+   ============================================================================ */
+
+[data-block="page-layout"] {
+  display: grid;
+  gap: var(--page-layout-gap);
+  min-height: 100vh;
+}
+
+[data-block="page-layout"][data-variant="single"] {
+  grid-template-columns: 1fr;
+}
+
+[data-block="page-layout"][data-variant="with-sidebar"] {
+  grid-template-columns: var(--page-layout-sidebar-width) 1fr;
+}
+
+[data-block="page-layout"][data-variant="with-aside"] {
+  grid-template-columns: 1fr var(--page-layout-aside-width);
+}
+
+[data-block="page-layout"][data-variant="sidebar-and-aside"] {
+  grid-template-columns: var(--page-layout-sidebar-width) 1fr var(--page-layout-aside-width);
+}
+
+.page-layout__sidebar {
+  background: var(--page-layout-sidebar-bg);
+  border-right: var(--page-layout-sidebar-border);
+  padding: var(--page-layout-sidebar-padding);
+}
+
+.page-layout__content {
+  padding: var(--page-layout-content-padding);
+}
+
+.page-layout__aside {
+  background: var(--page-layout-aside-bg);
+  border-left: var(--page-layout-aside-border);
+  padding: var(--page-layout-aside-padding);
+}

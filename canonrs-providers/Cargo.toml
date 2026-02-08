@@ -1,0 +1,12 @@
+[package]
+name = "canonrs-providers"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos = { version = "0.8", default-features = false }
+
+[features]
+default = []
+ssr = ["leptos/ssr"]
+hydrate = ["leptos/hydrate"]

@@ -1,0 +1,74 @@
+/* ============================================================================
+   Select UI Component — CanonRS
+   Family: C (Forms & Actions)
+   ========================================================================= */
+
+[data-select-trigger] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--select-gap);
+  width: 100%;
+  
+  height: var(--select-height);
+  padding: 0 var(--select-padding-x);
+  
+  background: var(--select-bg);
+  color: var(--select-fg);
+  
+  border-width: var(--select-border-width);
+  border-style: solid;
+  border-color: var(--select-border-color);
+  border-radius: var(--select-radius);
+  
+  cursor: pointer;
+  transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-select-trigger]:focus-visible {
+  outline: var(--select-focus-ring);
+  outline-color: var(--select-focus-ring-color);
+  outline-offset: var(--select-focus-ring-offset);
+}
+
+[data-select-trigger][data-disabled="true"] {
+  opacity: var(--select-disabled-opacity);
+  cursor: not-allowed;
+}
+
+/* Content (Dropdown) */
+[data-select-content] {
+  background: var(--select-content-bg);
+  border-width: var(--select-content-border-width);
+  border-style: solid;
+  border-color: var(--select-content-border-color);
+  border-radius: var(--select-content-radius);
+  box-shadow: var(--select-content-shadow);
+  padding: var(--select-content-padding-y) 0;
+}
+
+/* Item */
+[data-select-item] {
+  display: flex;
+  align-items: center;
+  height: var(--select-item-height);
+  padding: 0 var(--select-item-padding);
+  cursor: pointer;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-select-item]:hover {
+  background: var(--select-item-hover-bg);
+}
+
+[data-select-item][data-selected="true"] {
+  background: var(--select-item-selected-bg);
+  color: var(--select-item-selected-fg);
+}
+
+/* Separator */
+[data-select-separator] {
+  height: var(--select-separator-height);
+  background: var(--select-separator-color);
+  margin: var(--select-separator-margin-y) 0;
+}

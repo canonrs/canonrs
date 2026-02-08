@@ -1,0 +1,21 @@
+[workspace]
+resolver = "2"
+members = [
+  "canonrs-tokens",
+    "canonrs",
+    "canonrs-shared",
+    "canonrs-ui",
+    "canonrs-ui-interactive",
+    "canonrs-providers",
+    "canonrs-behaviors",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["CanonRS Team"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/your-org/canonrs"
+
+[workspace.dependencies]
+leptos = { version = "0.8", default-features = false }

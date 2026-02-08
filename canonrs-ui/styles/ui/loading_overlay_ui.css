@@ -1,0 +1,30 @@
+/* ============================================
+   LOADING OVERLAY
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-loading-overlay] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--loading-overlay-z-index);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--loading-overlay-bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--loading-overlay-transition-duration) var(--loading-overlay-transition-ease);
+}
+
+[data-loading-overlay][data-loading="true"] {
+  opacity: var(--loading-overlay-opacity);
+  pointer-events: all;
+}
+
+[data-loading-overlay-content] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--loading-overlay-content-gap);
+  color: var(--loading-overlay-content-color);
+}

@@ -1,0 +1,35 @@
+/* ============================================================================
+   TOGGLE - Toggle Button
+   ============================================================================ */
+
+[data-toggle] {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--toggle-padding);
+  border-radius: var(--toggle-radius);
+  
+  /* Visual */
+  background: transparent;
+  border: var(--toggle-border-width) solid transparent;
+  color: var(--toggle-fg);
+  
+  /* Interaction */
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+[data-toggle]:hover {
+  background: var(--toggle-hover-bg);
+}
+
+[data-toggle][data-state="on"] {
+  background: var(--toggle-active-bg);
+  color: var(--toggle-active-fg);
+}
+
+[data-toggle][aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

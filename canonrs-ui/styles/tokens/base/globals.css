@@ -1,0 +1,51 @@
+/* ==========================================================================
+   CANONRS — GLOBAL STYLES
+   Consumes: ROOT tokens only (--root-*)
+   ========================================================================== */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--root-bg);
+  color: var(--root-fg);
+}
+
+html {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-size: var(--font-size-md);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+p {
+  margin: 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--root-border);
+  margin: var(--space-lg) 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--theme-action-focus-ring);
+  outline-offset: 2px;
+}

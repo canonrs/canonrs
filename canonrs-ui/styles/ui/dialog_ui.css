@@ -1,0 +1,196 @@
+/* Dialog Backdrop */
+[data-dialog-backdrop] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--overlay-z-modal);
+  background: rgb(0 0 0 / var(--overlay-backdrop-opacity));
+  backdrop-filter: blur(var(--overlay-backdrop-blur));
+  animation: dialog-backdrop-in var(--motion-duration-normal) var(--motion-ease-emphasized);
+}
+
+[data-dialog-backdrop][data-dismiss="outside"] {
+  cursor: pointer;
+}
+
+@keyframes dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dialog Popup */
+[data-dialog-popup] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--overlay-z-modal);
+
+  width: calc(100% - var(--space-2xl) * 2);
+  max-width: 32rem;
+  max-height: calc(100vh - var(--space-3xl) * 2);
+
+  background: var(--theme-surface-bg);
+  border: var(--border-width-hairline) solid var(--theme-surface-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+
+  padding: var(--space-xl);
+  margin: var(--space-xs);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  overflow-y: auto;
+
+  animation: dialog-popup-in var(--motion-duration-normal) var(--motion-ease-emphasized);
+}
+
+[data-dialog-popup][data-focus-trap="true"] {
+  isolation: isolate;
+}
+
+@keyframes dialog-popup-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Dialog Header */
+[data-dialog-header] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-md);
+  border-bottom: var(--border-width-thin) solid var(--theme-surface-border);
+}
+
+/* Dialog Title */
+[data-dialog-title] {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--theme-surface-fg);
+  margin: 0;
+  padding-right: var(--space-2xl);
+}
+
+/* Dialog Description */
+[data-dialog-description] {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  color: var(--theme-surface-fg-muted);
+  margin: 0;
+}
+
+/* Dialog Body */
+[data-dialog-body] {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg) 0;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--theme-surface-fg);
+}
+
+/* Dialog Footer */
+[data-dialog-footer] {
+  display: flex;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: var(--border-width-hairline) solid var(--theme-surface-border);
+}
+
+/* Dialog Close Button */
+[data-dialog-close] {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+
+  width: var(--field-height);
+  height: var(--field-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+
+  color: var(--theme-surface-fg-muted);
+  font-weight: var(--font-weight-medium);
+
+  cursor: pointer;
+
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-dialog-close]:hover {
+  opacity: var(--state-hover-opacity);
+  background: var(--theme-surface-muted);
+}
+
+[data-dialog-close]:active {
+  opacity: var(--state-active-opacity);
+}
+
+[data-dialog-close]:disabled {
+  opacity: var(--state-disabled-opacity);
+  cursor: not-allowed;
+}
+
+[data-dialog-close]:focus-visible {
+  outline: var(--state-focus-ring) solid var(--theme-action-primary-bg);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Dialog Trigger */
+[data-dialog-trigger] {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Hide dialog when closed */
+[data-dialog]:not(:has([data-dialog-backdrop])) [data-dialog-backdrop],
+[data-dialog]:not(:has([data-dialog-popup])) [data-dialog-popup] {
+  display: none;
+}
+
+/* Hidden state */
+.hidden {
+}
+
+/* Canon Dialog Scroll Container */
+.canon-dialog-scroll {
+  overflow-y: auto;
+  display: block;
+  min-height: 0;
+  height: 100%;
+  contain: none;
+}
+
+/* State management */
+[data-dialog][data-state="closed"] {
+  display: none;
+}
+
+[data-dialog][data-state="open"] {
+  display: block;
+}

@@ -1,0 +1,42 @@
+/* ============================================
+   CHART
+   Family G: Data Display
+   ============================================ */
+
+[data-chart] {
+  background: var(--chart-bg);
+  padding: var(--chart-padding);
+  border-radius: var(--chart-radius);
+}
+
+[data-chart-grid] {
+  stroke: var(--chart-grid-color);
+  stroke-width: var(--chart-grid-stroke-width);
+}
+
+[data-chart-axis] {
+  font-size: var(--chart-axis-font-size);
+  color: var(--chart-axis-fg);
+}
+
+[data-chart-axis-tick] {
+  height: var(--chart-axis-tick-size);
+}
+
+[data-chart-tooltip] {
+  background: var(--chart-tooltip-bg);
+  border-radius: var(--chart-tooltip-radius);
+  box-shadow: var(--chart-tooltip-shadow);
+  font-size: var(--chart-tooltip-font-size);
+  color: var(--chart-tooltip-fg);
+}
+
+[data-chart-legend] {
+  display: flex;
+  gap: var(--chart-legend-gap);
+}
+
+[data-chart-legend-item] {
+  font-size: var(--chart-legend-item-font-size);
+  color: var(--chart-legend-item-fg);
+}

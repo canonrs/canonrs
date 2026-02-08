@@ -1,0 +1,25 @@
+/* ============================================
+   SEPARATOR
+   Family H: Utilities
+   ============================================ */
+
+[data-separator] {
+  background: var(--separator-color);
+  flex-shrink: 0;
+}
+
+[data-separator][data-orientation="horizontal"] {
+  height: var(--separator-thickness);
+  width: var(--separator-length-horizontal);
+  margin-block: var(--separator-margin-y);
+}
+
+[data-separator][data-orientation="vertical"] {
+  width: var(--separator-thickness);
+  height: var(--separator-length-vertical);
+  margin-inline: var(--separator-margin-x);
+}
+
+[data-separator][data-muted="true"] {
+  background: var(--separator-color-muted);
+}

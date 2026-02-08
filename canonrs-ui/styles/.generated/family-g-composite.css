@@ -1,0 +1,47 @@
+/* family-g-composite */
+:root {
+  --composite-gap: var(--space-md);
+  --composite-padding: var(--space-md);
+  --composite-radius: var(--radius-md);
+  --composite-bg: var(--theme-surface-bg);
+  --composite-border-color: var(--theme-surface-border);
+  --composite-border-width: 1px;
+  --composite-active-bg: var(--theme-action-accent-bg);
+  --composite-selected-bg: var(--theme-action-accent-bg);
+  --composite-drag-preview-bg: var(--theme-surface-bg);
+  --composite-dropzone-bg: var(--theme-action-accent-bg);
+  --composite-dropzone-border-width: 2px;
+  --composite-dropzone-border-style: dashed;
+  --composite-dropzone-border-color: var(--theme-action-primary-bg);
+  --composite-transition-duration: var(--motion-duration-normal);
+  --composite-transition-ease: var(--motion-ease-standard);
+  --resizable-bg: var(--theme-surface-bg);
+  --resizable-gap: var(--space-sm);
+  --resizable-border: 1px solid var(--theme-surface-border);
+  --resizable-panel-bg: transparent;
+  --resizable-panel-padding: var(--space-md);
+  --resizable-panel-radius: var(--radius-md);
+  --resizable-handle-size: var(--space-xs);
+  --resizable-handle-cursor: col-resize;
+  --resizable-handle-bg: var(--theme-surface-border);
+  --resizable-handle-hover-bg: var(--theme-action-primary-bg);
+  --resizable-handle-disabled-bg: var(--theme-surface-muted);
+  --carousel-bg: transparent;
+  --carousel-padding: 0;
+  --carousel-content-gap: var(--space-sm);
+  --carousel-content-direction: row;
+  --carousel-content-scroll-snap: x mandatory;
+  --carousel-item-width: auto;
+  --carousel-item-bg: transparent;
+  --carousel-item-radius: var(--radius-md);
+  --carousel-item-shadow: none;
+  --carousel-button-bg: var(--theme-surface-bg);
+  --carousel-button-fg: var(--theme-surface-fg);
+  --carousel-button-size: var(--space-2xl);
+  --carousel-button-radius: var(--radius-full);
+  --carousel-button-shadow: var(--shadow-md);
+  --carousel-indicator-size: var(--space-sm);
+  --carousel-indicator-gap: var(--space-xs);
+  --carousel-indicator-bg: var(--theme-surface-muted);
+  --carousel-indicator-active-bg: var(--theme-action-primary-bg);
+}

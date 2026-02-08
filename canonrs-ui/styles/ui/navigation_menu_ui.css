@@ -1,0 +1,73 @@
+/* ============================================
+   NAVIGATION MENU
+   Family D: Navigation
+   ============================================ */
+
+[data-navigation-menu] {
+  display: flex;
+  gap: var(--navigation-menu-gap);
+  padding: var(--navigation-menu-padding);
+  background: var(--navigation-menu-bg);
+  border: var(--navigation-menu-border-width) solid var(--navigation-menu-border-color);
+}
+
+[data-navigation-menu-item] {
+  display: flex;
+  align-items: center;
+  height: var(--navigation-menu-item-height);
+  padding-inline: var(--navigation-menu-item-padding-x);
+  padding-block: var(--navigation-menu-item-padding-y);
+  color: var(--navigation-menu-item-fg);
+}
+
+[data-navigation-menu-trigger] {
+  display: flex;
+  align-items: center;
+  gap: var(--navigation-menu-trigger-icon-size);
+  color: var(--navigation-menu-trigger-fg);
+  cursor: pointer;
+  transition: background var(--navigation-menu-trigger-transition-duration) var(--navigation-menu-trigger-transition-ease);
+}
+
+[data-navigation-menu-trigger]:hover {
+  background: var(--navigation-menu-trigger-bg-hover);
+}
+
+[data-navigation-menu-trigger][data-open="true"] {
+  background: var(--navigation-menu-trigger-bg-expanded);
+}
+
+[data-navigation-menu-trigger-icon] {
+  width: var(--navigation-menu-trigger-icon-size);
+  height: var(--navigation-menu-trigger-icon-size);
+  transition: transform var(--navigation-menu-trigger-transition-duration) var(--navigation-menu-trigger-transition-ease);
+}
+
+[data-navigation-menu-trigger][data-open="true"] [data-navigation-menu-trigger-icon] {
+  transform: rotate(var(--navigation-menu-trigger-icon-rotation));
+}
+
+[data-navigation-menu-content] {
+  background: var(--navigation-menu-content-bg);
+  border: var(--navigation-menu-content-border-width) solid var(--navigation-menu-content-border-color);
+  border-radius: var(--navigation-menu-content-radius);
+  box-shadow: var(--navigation-menu-content-shadow);
+  padding: var(--navigation-menu-content-padding);
+}
+
+[data-navigation-menu-item]:hover {
+  background: var(--navigation-menu-item-bg-hover);
+}
+
+[data-navigation-menu-item][data-active="true"] {
+  background: var(--navigation-menu-item-bg-active);
+}
+
+[data-navigation-menu-link] {
+  color: var(--navigation-menu-link-fg);
+  text-decoration: var(--navigation-menu-link-text-decoration);
+}
+
+[data-navigation-menu-link]:hover {
+  color: var(--navigation-menu-link-fg-hover);
+}

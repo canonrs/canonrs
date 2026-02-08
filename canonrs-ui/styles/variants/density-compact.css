@@ -1,0 +1,14 @@
+/* ============================================================================
+   CANONRS — DENSITY VARIANT: COMPACT
+   ============================================================================ */
+
+:root[data-density="compact"] {
+  --button-group-gap: 0.125rem;
+  --toggle-group-gap: 0.125rem;
+  
+  --carousel-content-gap: 0.5rem;
+  --carousel-padding: 0;
+  
+  --scroll-area-padding: 0.5rem;
+  --resizable-panel-padding: 0.5rem;
+}

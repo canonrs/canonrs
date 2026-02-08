@@ -1,0 +1,53 @@
+/* ============================================
+   COMMAND LIST & ITEM
+   Family B: Lists & Selection
+   ============================================ */
+
+[data-command-list] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--command-list-gap);
+  overflow-y: auto;
+}
+
+[data-command-item] {
+  display: flex;
+  align-items: center;
+  gap: var(--command-item-gap);
+  height: var(--command-item-height);
+  padding-inline: var(--command-item-padding-x);
+  padding-block: var(--command-item-padding-y);
+  background: var(--command-item-bg);
+  color: var(--command-item-fg);
+  border-left: var(--command-item-border-width) solid transparent;
+  cursor: pointer;
+  transition: 
+    background var(--command-item-transition-duration) var(--command-item-transition-ease),
+    border-color var(--command-item-transition-duration) var(--command-item-transition-ease);
+}
+
+[data-command-item]:hover {
+  background: var(--command-item-bg-hover);
+}
+
+[data-command-item][data-selected="true"] {
+  background: var(--command-item-bg-selected);
+  border-left-color: var(--command-item-border-selected);
+}
+
+[data-command-item][disabled] {
+  opacity: var(--command-item-opacity-disabled);
+  cursor: not-allowed;
+}
+
+[data-command-item-label] {
+  flex: 1;
+  font-size: var(--command-item-font-size);
+  font-weight: var(--command-item-font-weight);
+  line-height: var(--command-item-line-height);
+}
+
+[data-command-item-shortcut] {
+  font-size: var(--command-item-shortcut-font-size);
+  color: var(--command-item-fg-muted);
+}

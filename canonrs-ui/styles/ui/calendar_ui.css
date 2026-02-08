@@ -1,0 +1,52 @@
+/* ============================================
+   CALENDAR
+   Family C: Forms
+   ============================================ */
+
+[data-calendar] {
+  background: var(--calendar-bg);
+  padding: var(--calendar-padding);
+  border: var(--calendar-border-width) solid var(--calendar-border-color);
+  border-radius: var(--calendar-radius);
+}
+
+[data-calendar-header] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--calendar-header-gap);
+  font-size: var(--calendar-header-font-size);
+  font-weight: var(--calendar-header-font-weight);
+  color: var(--calendar-header-fg);
+}
+
+[data-calendar-grid] {
+  display: grid;
+  gap: var(--calendar-grid-gap);
+}
+
+[data-calendar-cell] {
+  width: var(--calendar-cell-size);
+  height: var(--calendar-cell-size);
+  border-radius: var(--calendar-cell-radius);
+  font-size: var(--calendar-cell-font-size);
+  color: var(--calendar-cell-fg);
+  cursor: pointer;
+  transition: background var(--calendar-transition-duration) var(--calendar-transition-ease),
+              color var(--calendar-transition-duration) var(--calendar-transition-ease);
+}
+
+[data-calendar-cell]:hover {
+  background: var(--calendar-cell-bg-hover);
+}
+
+[data-calendar-cell][data-selected="true"] {
+  background: var(--calendar-cell-bg-selected);
+  color: var(--calendar-cell-fg-selected);
+}
+
+[data-calendar-cell][data-disabled="true"] {
+  background: var(--calendar-cell-bg-disabled);
+  color: var(--calendar-cell-fg-disabled);
+  cursor: not-allowed;
+}

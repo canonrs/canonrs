@@ -1,0 +1,77 @@
+/* ============================================
+   SIDEBAR
+   Family D: Navigation
+   ============================================ */
+
+[data-sidebar] {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: var(--sidebar-border-width) solid var(--sidebar-border-color);
+}
+
+[data-sidebar-header] {
+  padding: var(--sidebar-header-padding);
+  border-bottom: var(--sidebar-border-width) solid var(--sidebar-border-color);
+}
+
+[data-sidebar-content] {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sidebar-content-padding);
+}
+
+[data-sidebar-footer] {
+  padding: var(--sidebar-footer-padding);
+  border-top: var(--sidebar-border-width) solid var(--sidebar-border-color);
+}
+
+[data-sidebar-menu] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sidebar-menu-gap);
+}
+
+[data-sidebar-menu-item] {
+  display: flex;
+  align-items: center;
+  gap: var(--sidebar-menu-item-gap);
+  height: var(--sidebar-menu-item-height);
+  padding-inline: var(--sidebar-menu-item-padding-x);
+  padding-block: var(--sidebar-menu-item-padding-y);
+  border-radius: var(--sidebar-menu-item-radius);
+  background: var(--sidebar-menu-item-bg);
+  color: var(--sidebar-menu-item-fg);
+  font-size: var(--sidebar-menu-item-font-size);
+  cursor: pointer;
+  transition: background var(--sidebar-menu-item-transition-duration) var(--sidebar-menu-item-transition-ease);
+}
+
+[data-sidebar-menu-item]:hover {
+  background: var(--sidebar-menu-item-bg-hover);
+}
+
+[data-sidebar-menu-item][data-active="true"] {
+  background: var(--sidebar-menu-item-bg-active);
+  color: var(--sidebar-menu-item-fg-active);
+  font-weight: var(--sidebar-menu-item-font-weight-active);
+}
+
+[data-sidebar-group-label] {
+  padding-inline: var(--sidebar-group-label-padding-x);
+  padding-block: var(--sidebar-group-label-padding-y);
+  font-size: var(--sidebar-group-label-font-size);
+  font-weight: var(--sidebar-group-label-font-weight);
+  color: var(--sidebar-group-label-fg);
+}
+
+[data-sidebar-separator] {
+  height: var(--sidebar-separator-height);
+  background: var(--sidebar-separator-color);
+  margin-block: var(--sidebar-separator-margin-y);
+}
+
+[data-sidebar-inset] {
+  padding-left: var(--sidebar-inset-padding-left);
+}

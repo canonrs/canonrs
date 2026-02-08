@@ -1,0 +1,13 @@
+/* ============================================================================
+   EMPTY_STATE BLOCK
+   ============================================================================ */
+
+[data-block="empty-state"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--empty-state-gap);
+  padding: var(--empty-state-padding);
+  text-align: center;
+}

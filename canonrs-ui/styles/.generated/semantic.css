@@ -1,0 +1,26 @@
+/* SEMANTIC LAYER — Bridge to Theme */
+:root {
+  --color-background: var(--theme-surface-bg);
+  --color-foreground: var(--theme-surface-fg);
+  --color-muted: var(--theme-surface-muted);
+  --color-muted-foreground: var(--theme-surface-fg-muted);
+  --color-border: var(--theme-surface-border);
+  --color-primary: var(--theme-action-primary-bg);
+  --color-primary-foreground: var(--theme-action-primary-fg);
+  --color-secondary: var(--theme-action-secondary-bg);
+  --color-secondary-foreground: var(--theme-action-secondary-fg);
+  --color-accent: var(--theme-action-accent-bg);
+  --color-accent-foreground: var(--theme-action-accent-fg);
+  --color-success: var(--theme-state-success-bg);
+  --color-success-foreground: var(--theme-state-success-fg);
+  --color-warning: var(--theme-state-warning-bg);
+  --color-warning-foreground: var(--theme-state-warning-fg);
+  --color-error: var(--theme-state-error-bg);
+  --color-error-foreground: var(--theme-state-error-fg);
+  --color-info: var(--theme-state-info-bg);
+  --color-info-foreground: var(--theme-state-info-fg);
+  --color-popover: var(--theme-overlay-bg);
+  --color-popover-foreground: var(--theme-overlay-fg);
+  --color-destructive: var(--theme-state-error-bg);
+  --color-destructive-foreground: var(--theme-state-error-fg);
+}

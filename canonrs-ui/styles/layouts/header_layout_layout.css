@@ -1,0 +1,47 @@
+/**
+ * Header Block Styles
+ * Token Family: header.*, nav.*, space.*, color.*, border.*, state.*
+ */
+
+.canon-header {
+  height: var(--header-height, 64px);
+  padding: var(--header-padding-y, var(--space-md)) var(--header-padding-x, var(--space-lg));
+  display: flex;
+  align-items: center;
+  gap: var(--header-gap, var(--space-md));
+  background: var(--header-bg, var(--color-bg-surface));
+  color: var(--header-fg, var(--color-fg-default));
+  border-bottom: var(--header-border-width, var(--border-width-thin)) var(--header-border-style, solid) var(--header-border-color, var(--color-border-default));
+  transition: all var(--motion-duration-normal) var(--motion-ease-standard);
+}
+
+.canon-header-logo {
+  max-width: var(--header-logo-max-width, 200px);
+  display: flex;
+  align-items: var(--header-logo-align, center);
+}
+
+.canon-header-nav {
+  flex: 1;
+  display: flex;
+  gap: var(--header-nav-gap, var(--nav-gap, var(--space-sm)));
+  align-items: var(--header-nav-align, center);
+}
+
+.canon-header-actions {
+  display: flex;
+  gap: var(--header-actions-gap, var(--space-sm));
+  align-items: var(--header-actions-align, center);
+}
+
+.canon-header[data-sticky="true"] {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky, 100);
+  box-shadow: var(--header-state-sticky-shadow, var(--state-elevated-shadow, var(--shadow-md)));
+}
+
+.canon-header[data-scrolled="true"] {
+  background: var(--header-state-scrolled-bg, var(--state-scrolled-bg, var(--color-bg-elevated)));
+  border-bottom-color: var(--state-scrolled-border, var(--color-border-emphasis));
+}

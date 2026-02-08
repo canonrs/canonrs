@@ -1,0 +1,11 @@
+/* family-z-layers */
+:root {
+  --layer-base: 0;
+  --layer-dropdown: 1000;
+  --layer-sticky: 1100;
+  --layer-overlay: 1200;
+  --layer-popover: 1300;
+  --layer-tooltip: 1400;
+  --layer-modal: 1500;
+  --layer-toast: 1600;
+}

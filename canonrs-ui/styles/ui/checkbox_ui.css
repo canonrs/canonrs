@@ -1,0 +1,55 @@
+/* ============================================================================
+   Checkbox UI Component — CanonRS
+   Family: C (Forms & Actions)
+   ========================================================================= */
+
+[data-checkbox] {
+  gap: var(--space-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  
+  background: var(--checkbox-bg);
+  border-width: var(--checkbox-border-width);
+  border-style: solid;
+  border-color: var(--checkbox-border-color);
+  border-radius: var(--checkbox-radius);
+  
+  cursor: pointer;
+  transition:
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-checkbox]:hover {
+  border-color: var(--checkbox-hover-border-color);
+}
+
+[data-checkbox][data-checked="true"] {
+  border-color: var(--checkbox-checked-border-color);
+  background: var(--checkbox-checked-bg);
+}
+
+[data-checkbox]:disabled {
+  opacity: var(--checkbox-disabled-opacity);
+  cursor: not-allowed;
+}
+
+/* Check Indicator */
+[data-checkbox-indicator] {
+  display: none;
+  color: var(--checkbox-check-color);
+  font-size: var(--checkbox-check-font-size);
+}
+
+[data-checkbox][data-checked="true"] [data-checkbox-indicator] {
+  display: block;
+}
+
+/* Spacing between checkbox and adjacent content */
+[data-checkbox] + * {
+  margin-left: var(--space-sm);
+}

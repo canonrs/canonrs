@@ -1,0 +1,76 @@
+/**
+ * Footer Block Styles
+ * Token Family: footer.*, space.*, color.*, border.*, typography.*
+ */
+
+.canon-footer {
+  margin-top: auto;
+  background: var(--footer-bg, var(--color-bg-surface));
+  color: var(--footer-fg, var(--color-fg-default));
+  border-top: var(--footer-border-width, var(--border-width-thin)) var(--footer-border-style, solid) var(--footer-border-color, var(--color-border-default));
+}
+
+.canon-footer-container {
+  max-width: var(--footer-max-width, 1280px);
+  margin: 0 auto;
+  padding: var(--footer-padding-y, var(--space-xl)) var(--footer-padding-x, var(--space-lg));
+}
+
+.canon-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--footer-grid-cols, 4), 1fr);
+  gap: var(--footer-grid-gap, var(--space-lg));
+}
+
+.canon-footer-logo {
+  max-width: var(--footer-logo-max-width, 200px);
+}
+
+.canon-footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--footer-section-gap, var(--space-md));
+}
+
+.canon-footer-section-title {
+  font-size: var(--footer-section-title-size, var(--typography-heading-size-sm, var(--font-size-lg)));
+  font-weight: var(--footer-section-title-weight, var(--typography-heading-weight, var(--font-weight-semibold)));
+  color: var(--footer-section-title-color, var(--color-fg-emphasis));
+  line-height: var(--typography-heading-line-height, var(--line-height-tight));
+}
+
+.canon-footer-section-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.canon-footer-link {
+  font-size: var(--footer-section-link-size, var(--typography-body-size, var(--font-size-base)));
+  color: var(--footer-link-color, var(--color-fg-muted));
+  text-decoration: none;
+  transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.canon-footer-link:hover {
+  color: var(--footer-link-hover-color, var(--color-fg-default));
+  text-decoration: underline;
+}
+
+.canon-footer-copyright {
+  margin-top: var(--footer-copyright-padding-y, var(--space-lg));
+  padding-top: var(--footer-copyright-padding-y, var(--space-lg));
+  border-top: var(--footer-border-width, var(--border-width-thin)) var(--footer-border-style, solid) var(--footer-border-color, var(--color-border-default));
+  text-align: center;
+  font-size: var(--footer-copyright-size, var(--typography-body-size-sm, var(--font-size-sm)));
+  color: var(--color-fg-subtle);
+}
+
+@media (max-width: 768px) {
+  .canon-footer-grid {
+    grid-template-columns: 1fr;
+  }
+}

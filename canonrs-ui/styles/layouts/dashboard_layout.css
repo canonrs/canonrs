@@ -1,0 +1,89 @@
+/**
+ * DashboardLayout - Canonical Layout
+ * 
+ * Zone Contract:
+ * - PAGE: --color-bg-surface
+ * - PANEL (sidebar): --color-bg-muted
+ * - RAIL (main): inherits PAGE
+ *
+ * Tokens:
+ * - sidebar.width / sidebar.width.collapsed
+ * - space.* (not layout.*)
+ * - z.panel (not z.dropdown)
+ */
+
+[data-layout="dashboard"] {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-bg-surface);
+}
+
+.layout-dashboard-body {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+/* PANEL - Sidebar */
+.layout-dashboard-sidebar {
+  width: var(--sidebar-width, 240px);
+  flex-shrink: 0;
+  border-right: var(--border-width-thin) solid var(--color-border-default);
+  background: var(--color-bg-muted);
+  transition: width var(--motion-duration-normal) var(--motion-ease-standard);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+[data-sidebar-collapsed="true"] .layout-dashboard-sidebar {
+  width: var(--sidebar-width-collapsed, 60px);
+}
+
+/* RAIL - Main content area */
+.layout-dashboard-main {
+  flex: 1;
+  padding: var(--space-xl);
+  overflow-x: auto;
+}
+
+/* Responsive: sidebar overlay on mobile */
+@media (max-width: 768px) {
+  .layout-dashboard-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: var(--overlay-z-dropdown);
+    transform: translateX(-100%);
+    transition: transform var(--motion-duration-normal) var(--motion-ease-standard);
+  }
+  
+  [data-sidebar-collapsed="false"] .layout-dashboard-sidebar {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .layout-dashboard-main {
+    padding: var(--space-md);
+  }
+}
+
+/* Sidebar Toggle - Canonical Positioning */
+[data-layout="dashboard"] .sidebar-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+/* Icon transition on collapse */
+[data-sidebar-collapsed="true"] .sidebar-toggle {
+  right: 0.5rem;
+}
+
+/* Hide navigation when collapsed */
+[data-sidebar-collapsed="true"] .layout-dashboard-sidebar nav {
+  display: none;
+}

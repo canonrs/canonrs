@@ -1,0 +1,54 @@
+/* ============================================
+   BANNER
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-banner] {
+  display: flex;
+  align-items: center;
+  gap: var(--banner-gap);
+  padding-inline: var(--banner-padding-x);
+  padding-block: var(--banner-padding-y);
+  border-radius: var(--banner-radius);
+  border: var(--banner-border-width) solid var(--banner-border-color);
+  box-shadow: var(--banner-shadow);
+  color: var(--banner-fg);
+}
+
+[data-banner][data-variant="info"] {
+  background: var(--banner-bg-info);
+}
+
+[data-banner][data-variant="success"] {
+  background: var(--banner-bg-success);
+}
+
+[data-banner][data-variant="warning"] {
+  background: var(--banner-bg-warning);
+}
+
+[data-banner][data-variant="error"] {
+  background: var(--banner-bg-error);
+}
+
+[data-banner-content] {
+  flex: 1;
+  font-size: var(--banner-content-font-size);
+  color: var(--banner-content-fg);
+}
+
+[data-banner-actions] {
+  display: flex;
+  gap: var(--banner-actions-gap);
+}
+
+[data-banner-close] {
+  width: var(--banner-close-size);
+  height: var(--banner-close-size);
+  color: var(--banner-close-fg);
+  cursor: pointer;
+}
+
+[data-banner-close]:hover {
+  color: var(--banner-close-fg-hover);
+}

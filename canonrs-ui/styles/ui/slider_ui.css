@@ -1,0 +1,44 @@
+/* ============================================
+   SLIDER
+   Family C: Forms
+   ============================================ */
+
+[data-slider] {
+  position: relative;
+  height: var(--slider-height);
+  padding: var(--slider-padding);
+}
+
+[data-slider-track] {
+  position: relative;
+  height: var(--slider-track-height);
+  background: var(--slider-track-bg);
+  border-radius: var(--slider-track-radius);
+}
+
+[data-slider-range] {
+  position: absolute;
+  height: 100%;
+  background: var(--slider-range-bg);
+}
+
+[data-slider-thumb] {
+  position: absolute;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  background: var(--slider-thumb-bg);
+  border: var(--slider-thumb-border-width) solid var(--slider-thumb-border-color);
+  border-radius: var(--slider-thumb-radius);
+  cursor: pointer;
+  transition: box-shadow var(--slider-transition-duration) var(--slider-transition-ease);
+}
+
+[data-slider-thumb]:focus {
+  outline: none;
+  box-shadow: 0 0 0 var(--slider-thumb-focus-ring-width) var(--slider-thumb-focus-ring-color);
+}
+
+[data-slider][data-disabled="true"] {
+  opacity: var(--slider-disabled-opacity);
+  pointer-events: none;
+}

@@ -1,0 +1,29 @@
+/* ============================================================================
+   DIALOG BLOCK
+   ============================================================================ */
+
+[data-block="dialog"] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--dialog-z-index);
+  display: grid;
+  place-items: center;
+  padding: var(--dialog-viewport-padding);
+}
+
+[data-block="dialog-backdrop"] {
+  position: fixed;
+  inset: 0;
+  background: var(--dialog-backdrop-bg);
+  backdrop-filter: var(--dialog-backdrop-filter);
+}
+
+[data-block="dialog-content"] {
+  position: relative;
+  z-index: 1;
+  background: var(--dialog-content-bg);
+  border-radius: var(--dialog-content-radius);
+  box-shadow: var(--dialog-content-shadow);
+  max-width: var(--dialog-content-max-width);
+  width: 100%;
+}

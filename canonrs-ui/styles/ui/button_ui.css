@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════════════════════════════
+   BUTTON - Forms & Validation compliant
+   ═══════════════════════════════════════════════════════════════ */
+
+/* BASE (Field-compliant) */
+[data-button] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+
+  height: var(--field-height);
+  padding: var(--field-padding);
+
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+
+  border-radius: var(--radius-md);
+  border: var(--field-border) solid transparent;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+/* SIZES */
+[data-button][data-ui-size="xs"],
+[data-button][data-ui-size="sm"] {
+  height: calc(var(--field-height) - var(--space-xs));
+  font-size: var(--font-size-sm);
+}
+
+[data-button][data-ui-size="lg"],
+[data-button][data-ui-size="xl"] {
+  height: calc(var(--field-height) + var(--space-xs));
+  font-size: var(--font-size-lg);
+}
+
+[data-button][data-ui-size="icon"] {
+  width: var(--field-height);
+  padding: 0;
+}
+
+/* VARIANTS */
+[data-button][data-ui-variant="solid"] {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-fg);
+  border-color: var(--button-primary-bg);
+}
+
+[data-button][data-ui-variant="outline"] {
+  background: transparent;
+  color: var(--button-outline-fg);
+  border-color: var(--button-outline-border);
+}
+
+[data-button][data-ui-variant="ghost"] {
+  background: transparent;
+  color: var(--button-ghost-fg);
+  border-color: transparent;
+}
+
+[data-button][data-ui-variant="danger"] {
+  background: var(--button-danger-bg);
+  color: var(--button-danger-fg);
+  border-color: var(--button-danger-bg);
+}
+
+[data-button][data-ui-variant="success"] {
+  background: var(--button-success-bg);
+  color: var(--button-success-fg);
+  border-color: var(--button-success-bg);
+}
+
+[data-button][data-ui-variant="warning"] {
+  background: var(--button-warning-bg);
+  color: var(--button-warning-fg);
+  border-color: var(--button-warning-bg);
+}
+
+/* STATES */
+[data-button]:hover:not(:disabled) {
+  opacity: var(--state-hover-opacity);
+}
+
+[data-button]:active:not(:disabled) {
+  opacity: var(--state-active-opacity);
+}
+
+[data-button]:disabled {
+  opacity: var(--state-disabled-opacity);
+  cursor: not-allowed;
+}
+
+[data-button]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--state-focus-ring) var(--button-primary-bg);
+}
+
+/* VALIDATION (Forms & Validation tokens) */
+[data-button][data-validation="error"] {
+  box-shadow: 0 0 0 var(--state-focus-ring) var(--validation-error);
+}
+
+[data-button][data-validation="warning"] {
+  box-shadow: 0 0 0 var(--state-focus-ring) var(--validation-warning);
+}
+
+[data-button][data-validation="success"] {
+  box-shadow: 0 0 0 var(--state-focus-ring) var(--validation-success);
+}

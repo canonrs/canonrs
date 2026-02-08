@@ -1,0 +1,50 @@
+/* ============================================
+   MODAL
+   Family F: Overlays & Disclosure
+   ============================================ */
+
+[data-modal-backdrop] {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-backdrop-bg);
+  opacity: var(--modal-backdrop-opacity);
+  backdrop-filter: blur(var(--modal-backdrop-blur));
+  transition: opacity var(--modal-transition-duration) var(--modal-transition-ease);
+}
+
+[data-modal-popup] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--modal-popup-width);
+  background: var(--modal-popup-bg);
+  border-radius: var(--modal-popup-radius);
+  padding: var(--modal-popup-padding);
+  box-shadow: var(--modal-popup-shadow);
+  transition: opacity var(--modal-transition-duration) var(--modal-transition-ease);
+}
+
+[data-modal-header] {
+  display: flex;
+  gap: var(--modal-header-gap);
+  padding: var(--modal-header-padding);
+}
+
+[data-modal-title] {
+  font-size: var(--modal-title-font-size);
+  font-weight: var(--modal-title-font-weight);
+  color: var(--modal-title-fg);
+}
+
+[data-modal-body] {
+  font-size: var(--modal-body-font-size);
+  line-height: var(--modal-body-line-height);
+  color: var(--modal-body-fg);
+}
+
+[data-modal-footer] {
+  display: flex;
+  gap: var(--modal-footer-gap);
+  padding: var(--modal-footer-padding);
+}

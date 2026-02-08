@@ -1,0 +1,51 @@
+/* ============================================================================
+   DRAWER BLOCK
+   ============================================================================ */
+
+[data-block="drawer"] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--drawer-z-index);
+}
+
+[data-block="drawer-backdrop"] {
+  position: fixed;
+  inset: 0;
+  background: var(--drawer-backdrop-bg);
+  backdrop-filter: var(--drawer-backdrop-filter);
+}
+
+[data-block="drawer-content"] {
+  position: fixed;
+  background: var(--drawer-content-bg);
+  box-shadow: var(--drawer-content-shadow);
+  transition: transform 0.3s ease;
+}
+
+[data-block="drawer-content"][data-side="left"] {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--drawer-width);
+}
+
+[data-block="drawer-content"][data-side="right"] {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--drawer-width);
+}
+
+[data-block="drawer-content"][data-side="top"] {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--drawer-height);
+}
+
+[data-block="drawer-content"][data-side="bottom"] {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--drawer-height);
+}

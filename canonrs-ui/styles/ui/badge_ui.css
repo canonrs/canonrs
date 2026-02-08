@@ -1,0 +1,49 @@
+/* ============================================
+   BADGE
+   Family E: Feedback & Status
+   ============================================ */
+
+[data-badge] {
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--badge-padding-x);
+  padding-block: var(--badge-padding-y);
+  border-radius: var(--badge-radius);
+  font-size: var(--badge-font-size);
+  font-weight: var(--badge-font-weight);
+  line-height: var(--badge-line-height);
+  transition: background var(--badge-transition-duration) var(--badge-transition-ease);
+}
+
+[data-badge][data-variant="default"] {
+  background: var(--badge-bg-default);
+  color: var(--badge-fg-default);
+}
+
+[data-badge][data-variant="primary"] {
+  background: var(--badge-bg-primary);
+  color: var(--badge-fg-primary);
+}
+
+[data-badge][data-variant="success"] {
+  background: var(--badge-bg-success);
+  color: var(--badge-fg-success);
+}
+
+[data-badge][data-variant="warning"] {
+  background: var(--badge-bg-warning);
+  color: var(--badge-fg-warning);
+}
+
+[data-badge][data-variant="error"] {
+  background: var(--badge-bg-error);
+  color: var(--badge-fg-error);
+}
+
+[data-badge][data-interactive="true"] {
+  cursor: pointer;
+}
+
+[data-badge][data-interactive="true"]:hover {
+  opacity: var(--badge-hover-opacity);
+}

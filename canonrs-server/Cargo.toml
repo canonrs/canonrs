@@ -1,0 +1,17 @@
+[package]
+name = "canonrs-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.8", optional = true }
+tokio = { version = "1", features = ["full"], optional = true }
+tower = { version = "0.5", optional = true }
+tower-http = { version = "0.6", optional = true }
+leptos_axum = { version = "0.8", optional = true }
+canonrs-ui = { path = "../canonrs-ui", default-features = false }
+canonrs-shared = { path = "../canonrs-shared", default-features = false }
+
+[features]
+default = []
+ssr = ["axum", "tokio", "tower", "tower-http", "leptos_axum", "canonrs-ui/ssr", "canonrs-shared/ssr"]

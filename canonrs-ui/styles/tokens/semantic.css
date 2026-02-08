@@ -1,0 +1,24 @@
+/* ============================================================================
+   CANONRS — SEMANTIC TOKENS
+   Meaning only. No values. No themes.
+   ============================================================================ */
+
+:root {
+  --semantic-background: initial;
+  --semantic-foreground: initial;
+  --semantic-muted: initial;
+  --semantic-muted-foreground: initial;
+
+  --semantic-surface: initial;
+  --semantic-surface-elevated: initial;
+  --semantic-border: initial;
+  --semantic-border-subtle: initial;
+
+  --semantic-primary: initial;
+  --semantic-primary-foreground: initial;
+
+  --semantic-success: initial;
+  --semantic-warning: initial;
+  --semantic-error: initial;
+  --semantic-info: initial;
+}

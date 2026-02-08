@@ -1,0 +1,35 @@
+/* ============================================
+   ICON
+   Family H: Utilities
+   ============================================ */
+
+[data-icon-wrapper] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color);
+  vertical-align: var(--icon-vertical-align);
+}
+
+[data-icon-wrapper][data-size="sm"] {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+
+[data-icon-wrapper][data-size="md"] {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+
+[data-icon-wrapper][data-size="lg"] {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
+
+[data-icon-wrapper][data-muted="true"] {
+  color: var(--icon-color-muted);
+}
+
+[data-icon-wrapper][disabled] {
+  color: var(--icon-color-disabled);
+}

@@ -1,0 +1,37 @@
+/* ============================================
+   BREADCRUMB
+   Family D: Navigation
+   ============================================ */
+
+[data-breadcrumb] {
+  display: flex;
+  align-items: center;
+  gap: var(--breadcrumb-gap);
+  font-size: var(--breadcrumb-font-size);
+}
+
+[data-breadcrumb-item] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--breadcrumb-gap);
+}
+
+[data-breadcrumb-link] {
+  color: var(--breadcrumb-fg);
+  font-weight: var(--breadcrumb-font-weight);
+  text-decoration: none;
+  transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
+}
+
+[data-breadcrumb-link]:hover {
+  color: var(--breadcrumb-fg-hover);
+}
+
+[data-breadcrumb-page] {
+  color: var(--breadcrumb-fg-active);
+  font-weight: var(--breadcrumb-font-weight-active);
+}
+
+[data-breadcrumb-separator] {
+  color: var(--breadcrumb-separator-fg);
+}

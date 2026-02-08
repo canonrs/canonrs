@@ -1,0 +1,48 @@
+/* =================================================================
+   PRIMITIVES - Immutable base values
+   Never reference UI, never vary by theme
+   ================================================================= */
+
+:root {
+  /* Color primitives */
+  --primitive-neutral-950: 220 16% 11%;
+  --primitive-neutral-900: 217 32% 17%;
+  --primitive-neutral-100: 220 14% 96%;
+  --primitive-white: 0 0% 100%;
+  --primitive-black: 0 0% 0%;
+  
+  /* Spacing primitives */
+  --primitive-space-xs: 0.25rem;
+  --primitive-space-sm: 0.5rem;
+  --primitive-space-md: 1rem;
+  --primitive-space-lg: 1.5rem;
+  --primitive-space-xl: 2rem;
+  
+  /* Radius primitives */
+  --primitive-radius-sm: 0.25rem;
+  --primitive-radius-md: 0.375rem;
+  --primitive-radius-lg: 0.5rem;
+  --primitive-radius-full: 9999px;
+  
+  /* Shadow primitives */
+  --primitive-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --primitive-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --primitive-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  
+  /* Motion primitives */
+  --primitive-motion-duration-normal: 150ms;
+  --primitive-motion-ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  
+  /* Z-index primitives */
+  --primitive-z-overlay: 9997;
+  --primitive-z-modal: 9998;
+  --primitive-z-dropdown: 9996;
+  
+  /* Opacity primitives */
+  --primitive-opacity-hover: 0.8;
+  --primitive-opacity-disabled: 0.5;
+  
+  /* Font weight primitives */
+  --primitive-font-weight-medium: 500;
+  --primitive-font-weight-semibold: 600;
+}

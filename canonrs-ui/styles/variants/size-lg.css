@@ -1,0 +1,22 @@
+/* ============================================================================
+   CANONRS — SIZE VARIANT: LARGE
+   ============================================================================ */
+
+:root[data-size="lg"] {
+  --kbd-padding-x: 0.5rem;
+  --kbd-padding-y: 0.1875rem;
+  --kbd-font-size: 0.875rem;
+  --kbd-radius: 0.5rem;
+  
+  --input-otp-slot-size: 3rem;
+  --input-otp-font-size: 1.125rem;
+  
+  --resizable-handle-size: 6px;
+  --resizable-panel-padding: 1rem;
+  
+  --carousel-content-gap: 1rem;
+}
+
+  --progress-height: 0.75rem;
+  --toast-padding: 1.25rem;
+  --toggle-padding: 0.75rem;

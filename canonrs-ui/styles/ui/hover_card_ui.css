@@ -1,0 +1,38 @@
+/* ============================================
+   HOVER CARD
+   Family A: Overlay Components
+   ============================================ */
+
+[data-hover-card] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--layer-popover);
+  
+  background: var(--hover-card-bg);
+  color: var(--hover-card-fg);
+  border: var(--hover-card-border-width) solid var(--hover-card-border-color);
+  border-radius: var(--hover-card-radius);
+  padding: var(--hover-card-padding);
+  box-shadow: var(--hover-card-shadow);
+  
+  min-width: var(--hover-card-min-width);
+  max-width: var(--hover-card-max-width);
+  
+  /* Use transform with CSS vars from floating primitive */
+  transform: translate(var(--floating-x, 0), var(--floating-y, 0));
+  
+  /* Visibility via opacity, NOT display:none */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-duration-normal) var(--motion-ease-standard);
+}
+
+[data-hover-card][data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-hover-card-content] {
+  display: block;
+}
