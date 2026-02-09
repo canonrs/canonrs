@@ -1,182 +1,52 @@
 use leptos::prelude::*;
-use crate::primitives::{
-    DialogPrimitive,
-    DialogTriggerPrimitive,
-    DialogBackdropPrimitive,
-    DialogPopupPrimitive,
-    DialogClosePrimitive,
-    DialogHeaderPrimitive,
-    DialogTitlePrimitive,
-    DialogBodyPrimitive,
-};
+use crate::primitives::{ModalPrimitive, ModalTriggerPrimitive, ModalOverlayPrimitive, ModalContentPrimitive};
 
 #[component]
 pub fn Modal(
-    children: ChildrenFn,
+    children: Children,
     #[prop(into)] id: String,
-    #[prop(optional)] class: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-
     view! {
-        <DialogPrimitive
-            id=id
-            class=class
-        >
+        <ModalPrimitive id=id class=class>
             {children()}
-        </DialogPrimitive>
+        </ModalPrimitive>
     }
 }
 
 #[component]
 pub fn ModalTrigger(
     children: Children,
-    #[prop(into)] target_dialog_id: String,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(into)] target_modal_id: String,
+    #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
     view! {
-        <DialogTriggerPrimitive
-            target_dialog_id=target_dialog_id
-            class=class
-            id=id
-        >
+        <ModalTriggerPrimitive target_modal_id=target_modal_id class=class id=id>
             {children()}
-        </DialogTriggerPrimitive>
+        </ModalTriggerPrimitive>
     }
 }
 
 #[component]
 pub fn ModalOverlay(
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
     view! {
-        <DialogBackdropPrimitive
-            class=class
-            id=id
-        />
+        <ModalOverlayPrimitive class=class id=id />
     }
 }
 
 #[component]
 pub fn ModalContent(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
     view! {
-        <DialogPopupPrimitive
-            class=class
-            id=id
-        >
+        <ModalContentPrimitive class=class id=id>
             {children()}
-        </DialogPopupPrimitive>
-    }
-}
-
-#[component]
-pub fn ModalHeader(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
-    view! {
-        <DialogHeaderPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </DialogHeaderPrimitive>
-    }
-}
-
-#[component]
-pub fn ModalTitle(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
-    view! {
-        <DialogTitlePrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </DialogTitlePrimitive>
-    }
-}
-
-#[component]
-pub fn ModalBody(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
-    view! {
-        <DialogBodyPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </DialogBodyPrimitive>
-    }
-}
-
-#[component]
-pub fn ModalFooter(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
-    view! {
-        <DialogBodyPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </DialogBodyPrimitive>
-    }
-}
-
-#[component]
-pub fn ModalClose(
-    children: Children,
-    #[prop(into)] target_dialog_id: String,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-
-    view! {
-        <DialogClosePrimitive
-            target_dialog_id=target_dialog_id
-            class=class
-            id=id
-        >
-            {children()}
-        </DialogClosePrimitive>
+        </ModalContentPrimitive>
     }
 }

@@ -3,34 +3,46 @@
    Family A: Overlay Components
    ============================================ */
 
+[data-tooltip-provider] {
+  position: relative;
+  display: inline-block;
+}
+
 [data-tooltip] {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--layer-tooltip);
+  position: relative;
+  display: inline-block;
+}
+
+[data-tooltip-trigger] {
+  display: inline-block;
+}
+
+[data-tooltip-content] {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--tooltip-z-index);
   
   background: var(--tooltip-bg);
   color: var(--tooltip-fg);
   border-radius: var(--tooltip-radius);
-  padding-inline: var(--tooltip-padding-x);
-  padding-block: var(--tooltip-padding-y);
+  padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
   font-size: var(--tooltip-font-size);
+  box-shadow: var(--tooltip-shadow);
+  max-width: var(--tooltip-max-width);
   
   pointer-events: none;
   white-space: nowrap;
+  font-weight: 400;
+  line-height: 1.4;
   
-  /* Use transform with CSS vars from floating primitive */
-  transform: translate(var(--floating-x, 0), var(--floating-y, 0));
-  
-  /* Visibility via opacity, NOT display:none */
   opacity: 0;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  visibility: hidden;
+  transition: opacity 0.15s, visibility 0.15s;
 }
 
-[data-tooltip][data-state="open"] {
+[data-tooltip][data-state="open"] [data-tooltip-content] {
   opacity: 1;
-}
-
-[data-tooltip-content] {
-  display: block;
+  visibility: visible;
 }

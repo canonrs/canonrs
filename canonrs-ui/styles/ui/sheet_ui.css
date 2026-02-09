@@ -1,107 +1,77 @@
-/* ============================================
-   SHEET
-   Family F: Overlays & Disclosure
-   NOTE: Sheet intentionally reuses Dialog surface tokens
-   ============================================ */
+/* SHEET - Family A Overlay */
 
 [data-sheet] {
-  z-index: var(--dialog-z-index);
-}
-
-[data-sheet-backdrop] {
   position: fixed;
   inset: 0;
-  background: var(--dialog-backdrop-bg);
-  backdrop-filter: blur(var(--dialog-backdrop-blur));
-  opacity: var(--dialog-backdrop-opacity);
-  transition: opacity var(--dialog-backdrop-transition-duration) var(--dialog-backdrop-transition-ease);
+  z-index: var(--sheet-overlay-z-index);
+  pointer-events: none;
+}
+
+[data-sheet][data-state="open"] {
+  pointer-events: auto;
+}
+
+[data-sheet-overlay] {
+  position: fixed;
+  inset: 0;
+  background: var(--sheet-overlay-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+[data-sheet][data-state="open"] [data-sheet-overlay] {
+  opacity: 1;
+  visibility: visible;
 }
 
 [data-sheet-content] {
-  position: fixed;
-  width: var(--dialog-width);
-  max-width: var(--dialog-max-width);
-  padding: var(--dialog-padding);
-  background: var(--dialog-bg);
-  color: var(--dialog-fg);
-  border: var(--dialog-border-width) solid var(--dialog-border-color);
-  box-shadow: var(--dialog-shadow);
-  transition: transform var(--sheet-transition-duration) var(--sheet-transition-ease);
+  position: absolute;
+  background: var(--sheet-content-bg);
+  color: var(--sheet-content-fg);
+  padding: var(--sheet-content-padding);
+  box-shadow: var(--sheet-content-shadow);
+  overflow-y: auto;
+  z-index: 1;
+  transition: transform 0.3s ease;
 }
 
-[data-sheet-content][data-side="left"] {
+[data-sheet][data-side="right"] [data-sheet-content] {
   top: 0;
-  bottom: 0;
-  left: 0;
-  transform: translateX(-100%);
-}
-
-[data-sheet-content][data-side="left"][data-open="true"] {
-  transform: translateX(0);
-}
-
-[data-sheet-content][data-side="right"] {
-  top: 0;
-  bottom: 0;
   right: 0;
+  bottom: 0;
+  width: var(--sheet-content-width);
   transform: translateX(100%);
 }
 
-[data-sheet-content][data-side="right"][data-open="true"] {
+[data-sheet][data-state="open"][data-side="right"] [data-sheet-content] {
   transform: translateX(0);
-}
-
-[data-sheet-content][data-side="top"] {
-  top: 0;
-  left: 0;
-  right: 0;
-  transform: translateY(-100%);
-}
-
-[data-sheet-content][data-side="top"][data-open="true"] {
-  transform: translateY(0);
-}
-
-[data-sheet-content][data-side="bottom"] {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  transform: translateY(100%);
-}
-
-[data-sheet-content][data-side="bottom"][data-open="true"] {
-  transform: translateY(0);
 }
 
 [data-sheet-header] {
   display: flex;
-  gap: var(--dialog-header-gap);
-  padding: var(--dialog-header-padding);
+  flex-direction: column;
+  gap: var(--sheet-header-gap);
+  margin-bottom: var(--sheet-content-padding);
 }
 
 [data-sheet-title] {
-  flex: 1;
-  font-size: var(--dialog-title-font-size);
-  font-weight: var(--dialog-title-font-weight);
-  color: var(--dialog-title-fg);
+  color: var(--sheet-title-fg);
+  font-size: var(--sheet-title-font-size);
+  font-weight: var(--sheet-title-font-weight);
 }
 
-[data-sheet-body] {
+[data-sheet-description] {
+  color: var(--sheet-description-fg);
+  font-size: var(--sheet-description-font-size);
+}
+
+[data-sheet-footer] {
   display: flex;
-  flex-direction: column;
-  gap: var(--dialog-body-gap);
-  font-size: var(--dialog-body-font-size);
-  line-height: var(--dialog-body-line-height);
-  color: var(--dialog-body-fg);
+  gap: var(--sheet-footer-gap);
+  margin-top: var(--sheet-content-padding);
 }
 
 [data-sheet-close] {
-  width: var(--dialog-close-size);
-  height: var(--dialog-close-size);
-  color: var(--dialog-close-fg);
-  cursor: pointer;
-}
-
-[data-sheet-close]:hover {
-  color: var(--dialog-close-fg-hover);
+  color: var(--sheet-close-fg);
 }

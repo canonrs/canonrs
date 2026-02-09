@@ -1,22 +1,17 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Dialog Primitive - HTML puro + ARIA
+//! Dialog Primitive - HTML puro + ARIA (padrão unificado)
 
 use leptos::prelude::*;
 
 #[component]
 pub fn DialogPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] id: String,
     #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-dialog=""
-            data-state="closed"
-            class=class
-            id=id
-        >
+        <div data-dialog="" data-state="closed" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -30,62 +25,30 @@ pub fn DialogTriggerPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <button
-            data-dialog-trigger={target_dialog_id}
-            type="button"
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
-        </button>
-    }
-}
-
-#[component]
-pub fn DialogBackdropPrimitive(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <div
-            data-dialog-backdrop=""
-            class=class
-            id=id
-        />
-    }
-}
-
-#[component]
-pub fn DialogPopupPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <div
-            data-dialog-popup=""
-            role="dialog"
-            aria-modal="true"
-            class=class
-            id=id
-        >
+        <div data-dialog-trigger={target_dialog_id} class=class id=id>
             {children.map(|c| c())}
         </div>
     }
 }
 
 #[component]
-pub fn DialogHeaderPrimitive(
+pub fn DialogOverlayPrimitive(
+    #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
+) -> impl IntoView {
+    view! {
+        <div data-dialog-overlay="" aria-hidden="true" class=class id=id />
+    }
+}
+
+#[component]
+pub fn DialogContentPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-dialog-header=""
-            class=class
-            id=id
-        >
+        <div data-dialog-content="" role="dialog" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -98,45 +61,9 @@ pub fn DialogTitlePrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-dialog-title="" class=class id=id>
+        <h2 data-dialog-title="" class=class id=id>
             {children.map(|c| c())}
-        </div>
-    }
-}
-
-#[component]
-pub fn DialogBodyPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <div
-            data-dialog-body=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
-        </div>
-    }
-}
-
-#[component]
-pub fn DialogClosePrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into)] target_dialog_id: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <button
-            data-dialog-close={target_dialog_id}
-            type="button"
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
-        </button>
+        </h2>
     }
 }
 
@@ -147,8 +74,8 @@ pub fn DialogDescriptionPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-dialog-description="" class=class id=id>
+        <p data-dialog-description="" class=class id=id>
             {children.map(|c| c())}
-        </div>
+        </p>
     }
 }

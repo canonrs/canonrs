@@ -6,26 +6,16 @@ use crate::primitives::{
     AlertDialogContentPrimitive,
     AlertDialogTitlePrimitive,
     AlertDialogDescriptionPrimitive,
-    AlertDialogPortalPrimitive,
-    AlertDialogHeaderPrimitive,
-    AlertDialogFooterPrimitive,
-    AlertDialogActionPrimitive,
-    AlertDialogCancelPrimitive,
 };
 
 #[component]
 pub fn AlertDialog(
-    children: ChildrenFn,
-    #[prop(optional)] class: Option<String>,
+    children: Children,
     #[prop(into)] id: String,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    
     view! {
-        <AlertDialogPrimitive
-            class=class
-            id=id.clone()
-        >
+        <AlertDialogPrimitive id=id class=class>
             {children()}
         </AlertDialogPrimitive>
     }
@@ -35,102 +25,43 @@ pub fn AlertDialog(
 pub fn AlertDialogTrigger(
     children: Children,
     #[prop(into)] target_dialog_id: String,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
     view! {
-        <AlertDialogTriggerPrimitive
-            target_dialog_id=target_dialog_id
-            class=class
-            id=id
-        >
+        <AlertDialogTriggerPrimitive target_dialog_id=target_dialog_id class=class>
             {children()}
         </AlertDialogTriggerPrimitive>
     }
 }
 
 #[component]
-pub fn AlertDialogPortal(
-    children: Children,
-) -> impl IntoView {
-    view! {
-        <AlertDialogPortalPrimitive>
-            {children()}
-        </AlertDialogPortalPrimitive>
-    }
-}
-
-#[component]
 pub fn AlertDialogOverlay(
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
     view! {
-        <AlertDialogOverlayPrimitive
-            class=class
-            id=id
-        />
+        <AlertDialogOverlayPrimitive class=class />
     }
 }
 
 #[component]
 pub fn AlertDialogContent(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
     view! {
-        <AlertDialogContentPrimitive
-            class=class
-            id=id
-        >
+        <AlertDialogContentPrimitive class=class>
             {children()}
         </AlertDialogContentPrimitive>
     }
 }
 
 #[component]
-pub fn AlertDialogHeader(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
-    view! {
-        <AlertDialogHeaderPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </AlertDialogHeaderPrimitive>
-    }
-}
-
-#[component]
 pub fn AlertDialogTitle(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
     view! {
-        <AlertDialogTitlePrimitive
-            class=class
-            id=id
-        >
+        <AlertDialogTitlePrimitive class=class>
             {children()}
         </AlertDialogTitlePrimitive>
     }
@@ -139,75 +70,11 @@ pub fn AlertDialogTitle(
 #[component]
 pub fn AlertDialogDescription(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
     view! {
-        <AlertDialogDescriptionPrimitive
-            class=class
-            id=id
-        >
+        <AlertDialogDescriptionPrimitive class=class>
             {children()}
         </AlertDialogDescriptionPrimitive>
-    }
-}
-
-#[component]
-pub fn AlertDialogFooter(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
-    view! {
-        <AlertDialogFooterPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </AlertDialogFooterPrimitive>
-    }
-}
-
-#[component]
-pub fn AlertDialogAction(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
-    view! {
-        <AlertDialogActionPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </AlertDialogActionPrimitive>
-    }
-}
-
-#[component]
-pub fn AlertDialogCancel(
-    children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let id = id.unwrap_or_default();
-    
-    view! {
-        <AlertDialogCancelPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </AlertDialogCancelPrimitive>
     }
 }

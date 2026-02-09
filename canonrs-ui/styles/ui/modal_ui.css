@@ -1,50 +1,51 @@
-/* ============================================
-   MODAL
-   Family F: Overlays & Disclosure
-   ============================================ */
+/* MODAL - Family A Overlay */
 
-[data-modal-backdrop] {
+[data-modal] {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-modal][data-state="open"] {
+  pointer-events: auto;
+}
+
+[data-modal-overlay] {
   position: fixed;
   inset: 0;
   background: var(--modal-backdrop-bg);
-  opacity: var(--modal-backdrop-opacity);
-  backdrop-filter: blur(var(--modal-backdrop-blur));
-  transition: opacity var(--modal-transition-duration) var(--modal-transition-ease);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
 }
 
-[data-modal-popup] {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+[data-modal][data-state="open"] [data-modal-overlay] {
+  opacity: 1;
+  visibility: visible;
+}
+
+[data-modal-content] {
+  position: relative;
   width: var(--modal-popup-width);
+  max-width: 90vw;
   background: var(--modal-popup-bg);
-  border-radius: var(--modal-popup-radius);
   padding: var(--modal-popup-padding);
-  box-shadow: var(--modal-popup-shadow);
-  transition: opacity var(--modal-transition-duration) var(--modal-transition-ease);
+  border-radius: var(--modal-popup-radius);
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s, transform 0.3s;
 }
 
-[data-modal-header] {
-  display: flex;
-  gap: var(--modal-header-gap);
-  padding: var(--modal-header-padding);
+[data-modal][data-state="open"] [data-modal-content] {
+  opacity: 1;
+  transform: scale(1);
 }
 
-[data-modal-title] {
-  font-size: var(--modal-title-font-size);
-  font-weight: var(--modal-title-font-weight);
-  color: var(--modal-title-fg);
-}
-
-[data-modal-body] {
-  font-size: var(--modal-body-font-size);
-  line-height: var(--modal-body-line-height);
-  color: var(--modal-body-fg);
-}
-
-[data-modal-footer] {
-  display: flex;
-  gap: var(--modal-footer-gap);
-  padding: var(--modal-footer-padding);
+[data-modal][data-state="closed"] {
+  display: none;
 }

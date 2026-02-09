@@ -4,11 +4,21 @@ use super::*;
 pub fn register_all_behaviors() {
     accordion_behavior::register();
     dialog_behavior::register();
+    drawer_behavior::register();
+    sheet_behavior::register();
+    modal_behavior::register();
     dropdown_menu_behavior::register();
     checkbox_behavior::register();
     collapsible_behavior::register();
     switch_behavior::register();
     theme_toggle_behavior::register();
+    context_menu_behavior::register();
+    tooltip_behavior::register();
+    hover_card_behavior::register();
+    popover_behavior::register();
+    drawer_behavior::register();
+    sheet_behavior::register();
+    modal_behavior::register();
     toggle_behavior::register();
 }
 

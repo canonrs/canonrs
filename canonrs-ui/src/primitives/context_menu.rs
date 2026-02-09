@@ -1,23 +1,19 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! ContextMenu Primitive - HTML puro + ARIA
-//! Base: DropdownMenu com evento contextmenu
-//!
-//! Canon: data-value é fornecido via atributo DOM, não prop Rust
 
 use leptos::prelude::*;
 
 #[component]
 pub fn ContextMenuPrimitive(
     #[prop(optional)] children: Option<Children>,
-    open: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-context-menu=""
-            data-state={move || if open.get() { "open" } else { "closed" }}
+            data-state="closed"
             class=class
             id=id
         >
@@ -29,37 +25,33 @@ pub fn ContextMenuPrimitive(
 #[component]
 pub fn ContextMenuTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] controls_id: String,
+    #[prop(into)] target_context_menu_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <button
-            data-context-menu-trigger=""
-            type="button"
-            aria-haspopup="menu"
-            aria-controls={controls_id}
+        <div
+            data-context-menu-trigger={target_context_menu_id}
             class=class
             id=id
         >
             {children.map(|c| c())}
-        </button>
+        </div>
     }
 }
 
 #[component]
 pub fn ContextMenuContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] content_id: String,
     #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-context-menu-content=""
-            tabindex="-1"
             role="menu"
-            id={content_id}
             class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -75,9 +67,8 @@ pub fn ContextMenuItemPrimitive(
     view! {
         <button
             data-context-menu-item=""
-            type="button"
             role="menuitem"
-            tabindex="-1"
+            type="button"
             class=class
             id=id
         >

@@ -6,6 +6,10 @@ pub mod icon_button;
 pub mod input;
 pub mod link;
 pub mod drawer;
+pub mod sheet;
+pub mod modal;
+pub use sheet::*;
+pub use modal::*;
 pub mod status_dot;
 pub use status_dot::*;
 

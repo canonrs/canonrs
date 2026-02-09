@@ -1,14 +1,20 @@
 use leptos::prelude::*;
 use super::sheet_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <button id="open-sheet-ex" data-button data-ui-variant="default">"Open Sheet"</button>
-            <Sheet id="sheet-ex".to_string() side=SheetSide::Right>
-                <h2>"Sheet Title"</h2>
-                <p>"Sheet content from the right side."</p>
-                <button id="close-sheet-ex" data-button data-ui-variant="outline">"Close"</button>
+            <SheetTrigger target_sheet_id="sheet-ex">
+                <button data-button data-ui-variant="solid">"Open Sheet"</button>
+            </SheetTrigger>
+            <Sheet id="sheet-ex" side=SheetSide::Right>
+                <SheetOverlay />
+                <SheetContent>
+                    <h2>"Sheet Title"</h2>
+                    <p>"Sheet content from the right"</p>
+                    <button data-button data-ui-variant="outline" onclick="document.getElementById('sheet-ex').setAttribute('data-state', 'closed')">"Close"</button>
+                </SheetContent>
             </Sheet>
         </div>
     }

@@ -1,13 +1,21 @@
 use leptos::prelude::*;
 use super::modal_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Modal id="modal-ex".to_string()>
-            <ModalContent>
-                <ModalTitle>"Modal Title"</ModalTitle>
-                <ModalBody>"Modal content"</ModalBody>
-            </ModalContent>
-        </Modal>
+        <div>
+            <ModalTrigger target_modal_id="modal-ex">
+                <button data-button data-ui-variant="solid">"Open Modal"</button>
+            </ModalTrigger>
+            <Modal id="modal-ex">
+                <ModalOverlay />
+                <ModalContent>
+                    <h2>"Modal Title"</h2>
+                    <p>"Modal content"</p>
+                    <button data-button data-ui-variant="outline" onclick="document.getElementById('modal-ex').setAttribute('data-state', 'closed')">"Close"</button>
+                </ModalContent>
+            </Modal>
+        </div>
     }
 }

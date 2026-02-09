@@ -1,42 +1,47 @@
-/* ============================================
-   CONTEXT MENU
-   Family D: Navigation
-   ============================================ */
+/* CONTEXT MENU - Family A Overlay */
 
 [data-context-menu] {
+  position: relative;
+}
+
+[data-context-menu-content] {
+  position: fixed;
+  z-index: var(--context-menu-z-index);
   background: var(--context-menu-bg);
+  color: var(--context-menu-fg);
   border: var(--context-menu-border-width) solid var(--context-menu-border-color);
   border-radius: var(--context-menu-radius);
   box-shadow: var(--context-menu-shadow);
   padding: var(--context-menu-padding);
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+}
+
+[data-context-menu][data-state="open"] [data-context-menu-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
 }
 
 [data-context-menu-item] {
   display: flex;
   align-items: center;
   height: var(--context-menu-item-height);
-  padding-inline: var(--context-menu-item-padding-x);
-  padding-block: var(--context-menu-item-padding-y);
+  padding: var(--context-menu-item-padding);
   color: var(--context-menu-item-fg);
   cursor: pointer;
+  border-radius: calc(var(--context-menu-radius) / 2);
 }
 
 [data-context-menu-item]:hover {
-  background: var(--context-menu-item-bg-hover);
-}
-
-[data-context-menu-item]:focus {
-  background: var(--context-menu-item-bg-focus);
-}
-
-[data-context-menu-item][disabled] {
-  background: var(--context-menu-item-bg-disabled);
-  opacity: var(--context-menu-item-opacity-disabled);
-  cursor: not-allowed;
+  background: var(--context-menu-item-hover-bg);
 }
 
 [data-context-menu-separator] {
-  height: var(--context-menu-separator-height);
-  background: var(--context-menu-separator-color);
-  margin-block: var(--context-menu-separator-margin-y);
+  height: 1px;
+  background: var(--context-menu-border-color);
+  margin: var(--space-xs) 0;
 }

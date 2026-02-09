@@ -10,13 +10,11 @@ use crate::primitives::{
 #[component]
 pub fn ContextMenu(
     children: Children,
-    open: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <ContextMenuPrimitive
-            open=open
             class=class
             id=id
         >
@@ -28,13 +26,13 @@ pub fn ContextMenu(
 #[component]
 pub fn ContextMenuTrigger(
     children: Children,
-    #[prop(default = String::new())] controls_id: String,
+    #[prop(into)] target_context_menu_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <ContextMenuTriggerPrimitive
-            controls_id=controls_id
+            target_context_menu_id=target_context_menu_id
             class=class
             id=id
         >
@@ -46,13 +44,13 @@ pub fn ContextMenuTrigger(
 #[component]
 pub fn ContextMenuContent(
     children: Children,
-    #[prop(default = String::new())] content_id: String,
     #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <ContextMenuContentPrimitive
-            content_id=content_id
             class=class
+            id=id
         >
             {children()}
         </ContextMenuContentPrimitive>

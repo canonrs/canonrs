@@ -13,31 +13,30 @@ use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-dialog", Box::new(|element_id, state| {
+    register_behavior("data-modal", Box::new(|element_id, state| {
         let document = window().unwrap().document().unwrap();
-        let dialog = document.get_element_by_id(element_id)
+        let modal = document.get_element_by_id(element_id)
             .ok_or_else(|| BehaviorError::ElementNotFound { selector: element_id.to_string() })?;
 
         let open_signal = state.open;
-        let trigger_selector = format!("[data-dialog-trigger=\"{}\"]", element_id);
+        let trigger_selector = format!("[data-modal-trigger=\"{}\"]", element_id);
 
         if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
-            let dialog_clone = dialog.clone();
-            let cb_toggle = Closure::wrap(Box::new(move |_: MouseEvent| {
-                let current_state = dialog_clone.get_attribute("data-state").unwrap_or_else(|| "closed".to_string());
-                let is_open = current_state == "open";
+            let modal_clone = modal.clone();
+            let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                let current = modal_clone.get_attribute("data-state").unwrap_or_else(|| "closed".to_string());
+                let is_open = current == "open";
                 open_signal.set(!is_open);
-                dialog_clone.set_attribute("data-state", if !is_open { "open" } else { "closed" }).ok();
+                modal_clone.set_attribute("data-state", if !is_open { "open" } else { "closed" }).ok();
             }) as Box<dyn FnMut(MouseEvent)>);
-            trigger.add_event_listener_with_callback("click", cb_toggle.as_ref().unchecked_ref()).unwrap();
-            cb_toggle.forget();
+            trigger.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).unwrap();
+            cb.forget();
 
-            let overlay_selector = format!("#{} [data-dialog-overlay]", element_id);
-            if let Ok(Some(overlay)) = document.query_selector(&overlay_selector) {
-                let dialog_clone = dialog.clone();
+            if let Ok(Some(overlay)) = document.query_selector(&format!("#{} [data-modal-overlay]", element_id)) {
+                let modal_clone = modal.clone();
                 let cb_close = Closure::wrap(Box::new(move |_: MouseEvent| {
                     open_signal.set(false);
-                    dialog_clone.set_attribute("data-state", "closed").ok();
+                    modal_clone.set_attribute("data-state", "closed").ok();
                 }) as Box<dyn FnMut(MouseEvent)>);
                 overlay.add_event_listener_with_callback("click", cb_close.as_ref().unchecked_ref()).unwrap();
                 cb_close.forget();
@@ -46,6 +45,3 @@ pub fn register() {
         Ok(())
     }));
 }
-
-#[cfg(not(feature = "hydrate"))]
-pub fn register() {}

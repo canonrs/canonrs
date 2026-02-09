@@ -1,16 +1,19 @@
 use leptos::prelude::*;
 use super::hover_card_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <HoverCard open=Signal::from(false) id="hover-card-ex".to_string()>
-                <HoverCardTrigger describedby_id="hover-card-ex".to_string() id="hover-card-trigger-ex".to_string()>
-                    <button data-button data-ui-variant="link">"@username"</button>
+            <HoverCard id="hover-card-ex".to_string()>
+                <HoverCardTrigger target_hover_card_id="hover-card-ex".to_string()>
+                    <span class="text-blue-600 underline cursor-pointer">"@username"</span>
                 </HoverCardTrigger>
-                <HoverCardContent open=Signal::from(false) content_id="hover-card-ex".to_string()>
-                    <h4>"Username"</h4>
-                    <p>"User bio and details."</p>
+                <HoverCardContent>
+                    <div>
+                        <h4 class="font-semibold">"User Profile"</h4>
+                        <p class="text-sm mt-1">"Software developer."</p>
+                    </div>
                 </HoverCardContent>
             </HoverCard>
         </div>

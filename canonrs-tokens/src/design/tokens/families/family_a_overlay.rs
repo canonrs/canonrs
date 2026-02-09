@@ -31,6 +31,12 @@ pub const FAMILY_A_OVERLAY: &[FamilyToken] = &[
     FamilyToken::new("dialog-footer-gap", "var(--space-sm)"),
     FamilyToken::new("dialog-close-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("dialog-close-fg-hover", "var(--theme-surface-fg)"),
+    FamilyToken::new("dialog-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("dialog-width", "var(--layout-width-lg)"),
+    FamilyToken::new("dialog-max-width", "90vw"),
+    FamilyToken::new("dialog-padding", "var(--space-lg)"),
+    FamilyToken::new("dialog-radius", "var(--radius-md)"),
+    FamilyToken::new("dialog-shadow", "var(--shadow-2xl)"),
 
     // Modal (alias for Dialog with specific sizing)
     FamilyToken::new("modal-popup-width", "32rem"),
@@ -44,13 +50,14 @@ pub const FAMILY_A_OVERLAY: &[FamilyToken] = &[
     FamilyToken::new("context-menu-fg", "var(--color-popover-foreground)"),
     FamilyToken::new("context-menu-padding", "var(--space-xs)"),
     FamilyToken::new("context-menu-radius", "var(--radius-md)"),
-    FamilyToken::new("context-menu-shadow", "0 10px 15px -3px rgb(0 0 0 / 0.1)"),
+    FamilyToken::new("context-menu-shadow", "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"),
     FamilyToken::new("context-menu-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("context-menu-border-width", "1px"),
     FamilyToken::new("context-menu-z-index", "var(--layer-overlay)"),
     FamilyToken::new("context-menu-item-height", "var(--space-xl)"),
     FamilyToken::new("context-menu-item-padding", "var(--space-sm)"),
-    FamilyToken::new("context-menu-item-hover-bg", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("context-menu-item-fg", "var(--theme-overlay-fg)"),
+    FamilyToken::new("context-menu-item-hover-bg", "var(--theme-surface-muted)"),
 
     // Sheet
     FamilyToken::new("sheet-overlay-bg", "rgba(0, 0, 0, 0.5)"),
@@ -79,6 +86,8 @@ pub const FAMILY_A_OVERLAY: &[FamilyToken] = &[
     FamilyToken::new("popover-border-width", "1px"),
     FamilyToken::new("popover-z-index", "var(--layer-overlay)"),
     FamilyToken::new("popover-arrow-size", "var(--space-sm)"),
+    FamilyToken::new("popover-min-width", "var(--layout-width-xs)"),
+    FamilyToken::new("popover-max-width", "var(--layout-width-md)"),
 
     // Drawer
     FamilyToken::new("drawer-overlay-bg", "rgba(0, 0, 0, 0.5)"),
@@ -109,10 +118,12 @@ pub const FAMILY_A_OVERLAY: &[FamilyToken] = &[
     FamilyToken::new("hover-card-border-width", "1px"),
     FamilyToken::new("hover-card-z-index", "var(--layer-overlay)"),
     FamilyToken::new("hover-card-arrow-size", "var(--space-sm)"),
+    FamilyToken::new("hover-card-min-width", "var(--layout-width-xs)"),
+    FamilyToken::new("hover-card-max-width", "var(--layout-width-md)"),
 
     // Tooltip
-    FamilyToken::new("tooltip-bg", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("tooltip-fg", "var(--color-primary-foreground)"),
+    FamilyToken::new("tooltip-bg", "var(--color-neutral-900)"),
+    FamilyToken::new("tooltip-fg", "var(--color-neutral-50)"),
     FamilyToken::new("tooltip-padding-x", "var(--space-sm)"),
     FamilyToken::new("tooltip-padding-y", "var(--space-sm)"),
     FamilyToken::new("tooltip-radius", "var(--radius-sm)"),
@@ -139,11 +150,5 @@ pub const FAMILY_A_OVERLAY: &[FamilyToken] = &[
     FamilyToken::new("dropdown-menu-separator-color", "var(--theme-surface-border)"),
     FamilyToken::new("dropdown-menu-separator-margin-y", "var(--space-xs)"),
     FamilyToken::new("dropdown-menu-padding", "var(--space-xs)"),
-    // Dialog (tokens simplificados faltantes)
-    FamilyToken::new("dialog-bg", "var(--theme-surface-bg)"),
-    FamilyToken::new("dialog-width", "var(--layout-width-lg)"),
-    FamilyToken::new("dialog-max-width", "90vw"),
-    FamilyToken::new("dialog-padding", "var(--space-lg)"),
-    FamilyToken::new("dialog-radius", "var(--radius-md)"),
-    FamilyToken::new("dialog-shadow", "var(--shadow-2xl)"),
+
 ];

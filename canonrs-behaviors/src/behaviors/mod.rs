@@ -59,3 +59,12 @@ pub use behavior_registry::*;
 
 #[cfg(feature = "hydrate")]
 pub use auto_init::init_canonrs_behaviors;
+#[cfg(feature = "hydrate")]
+pub mod context_menu_behavior;
+#[cfg(feature = "hydrate")]
+pub mod tooltip_behavior;
+pub mod hover_card_behavior;
+pub mod popover_behavior;
+pub mod drawer_behavior;
+pub mod sheet_behavior;
+pub mod modal_behavior;

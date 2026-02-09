@@ -13,31 +13,31 @@ use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-dialog", Box::new(|element_id, state| {
+    register_behavior("data-sheet", Box::new(|element_id, state| {
         let document = window().unwrap().document().unwrap();
-        let dialog = document.get_element_by_id(element_id)
+        let sheet = document.get_element_by_id(element_id)
             .ok_or_else(|| BehaviorError::ElementNotFound { selector: element_id.to_string() })?;
 
         let open_signal = state.open;
-        let trigger_selector = format!("[data-dialog-trigger=\"{}\"]", element_id);
+        let trigger_selector = format!("[data-sheet-trigger=\"{}\"]", element_id);
 
         if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
-            let dialog_clone = dialog.clone();
+            let sheet_clone = sheet.clone();
             let cb_toggle = Closure::wrap(Box::new(move |_: MouseEvent| {
-                let current_state = dialog_clone.get_attribute("data-state").unwrap_or_else(|| "closed".to_string());
+                let current_state = sheet_clone.get_attribute("data-state").unwrap_or_else(|| "closed".to_string());
                 let is_open = current_state == "open";
                 open_signal.set(!is_open);
-                dialog_clone.set_attribute("data-state", if !is_open { "open" } else { "closed" }).ok();
+                sheet_clone.set_attribute("data-state", if !is_open { "open" } else { "closed" }).ok();
             }) as Box<dyn FnMut(MouseEvent)>);
             trigger.add_event_listener_with_callback("click", cb_toggle.as_ref().unchecked_ref()).unwrap();
             cb_toggle.forget();
 
-            let overlay_selector = format!("#{} [data-dialog-overlay]", element_id);
+            let overlay_selector = format!("#{} [data-sheet-overlay]", element_id);
             if let Ok(Some(overlay)) = document.query_selector(&overlay_selector) {
-                let dialog_clone = dialog.clone();
+                let sheet_clone = sheet.clone();
                 let cb_close = Closure::wrap(Box::new(move |_: MouseEvent| {
                     open_signal.set(false);
-                    dialog_clone.set_attribute("data-state", "closed").ok();
+                    sheet_clone.set_attribute("data-state", "closed").ok();
                 }) as Box<dyn FnMut(MouseEvent)>);
                 overlay.add_event_listener_with_callback("click", cb_close.as_ref().unchecked_ref()).unwrap();
                 cb_close.forget();
@@ -46,6 +46,3 @@ pub fn register() {
         Ok(())
     }));
 }
-
-#[cfg(not(feature = "hydrate"))]
-pub fn register() {}

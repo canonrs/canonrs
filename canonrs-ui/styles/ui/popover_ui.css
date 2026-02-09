@@ -4,35 +4,26 @@
    ============================================ */
 
 [data-popover] {
+  position: relative;
+}
+
+[data-popover-content] {
   position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--layer-popover);
+  z-index: var(--popover-z-index);
   
   background: var(--popover-bg);
   color: var(--popover-fg);
   border: var(--popover-border-width) solid var(--popover-border-color);
   border-radius: var(--popover-radius);
-  padding: var(--popover-padding);
   box-shadow: var(--popover-shadow);
+  padding: var(--popover-padding);
   
   min-width: var(--popover-min-width);
   max-width: var(--popover-max-width);
   
-  /* Use transform with CSS vars from floating primitive */
-  transform: translate(var(--floating-x, 0), var(--floating-y, 0));
-  
-  /* Visibility via opacity, NOT display:none */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  display: none;
 }
 
-[data-popover][data-state="open"] {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-[data-popover-content] {
+[data-popover][data-state="open"] [data-popover-content] {
   display: block;
 }

@@ -23,6 +23,12 @@
   --dialog-footer-gap: var(--space-sm);
   --dialog-close-fg: var(--theme-surface-fg-muted);
   --dialog-close-fg-hover: var(--theme-surface-fg);
+  --dialog-bg: var(--theme-surface-bg);
+  --dialog-width: var(--layout-width-lg);
+  --dialog-max-width: 90vw;
+  --dialog-padding: var(--space-lg);
+  --dialog-radius: var(--radius-md);
+  --dialog-shadow: var(--shadow-2xl);
   --modal-popup-width: 32rem;
   --modal-popup-padding: var(--space-lg);
   --modal-popup-radius: var(--radius-lg);
@@ -32,13 +38,14 @@
   --context-menu-fg: var(--color-popover-foreground);
   --context-menu-padding: var(--space-xs);
   --context-menu-radius: var(--radius-md);
-  --context-menu-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --context-menu-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --context-menu-border-color: var(--theme-surface-border);
   --context-menu-border-width: 1px;
   --context-menu-z-index: var(--layer-overlay);
   --context-menu-item-height: var(--space-xl);
   --context-menu-item-padding: var(--space-sm);
-  --context-menu-item-hover-bg: var(--theme-action-accent-bg);
+  --context-menu-item-fg: var(--theme-overlay-fg);
+  --context-menu-item-hover-bg: var(--theme-surface-muted);
   --sheet-overlay-bg: rgba(0, 0, 0, 0.5);
   --sheet-overlay-z-index: var(--layer-overlay);
   --sheet-content-bg: var(--theme-surface-bg);
@@ -63,6 +70,8 @@
   --popover-border-width: 1px;
   --popover-z-index: var(--layer-overlay);
   --popover-arrow-size: var(--space-sm);
+  --popover-min-width: var(--layout-width-xs);
+  --popover-max-width: var(--layout-width-md);
   --drawer-overlay-bg: rgba(0, 0, 0, 0.5);
   --drawer-overlay-z-index: var(--layer-overlay);
   --drawer-content-bg: var(--theme-surface-bg);
@@ -89,8 +98,10 @@
   --hover-card-border-width: 1px;
   --hover-card-z-index: var(--layer-overlay);
   --hover-card-arrow-size: var(--space-sm);
-  --tooltip-bg: var(--theme-action-primary-bg);
-  --tooltip-fg: var(--color-primary-foreground);
+  --hover-card-min-width: var(--layout-width-xs);
+  --hover-card-max-width: var(--layout-width-md);
+  --tooltip-bg: var(--color-neutral-900);
+  --tooltip-fg: var(--color-neutral-50);
   --tooltip-padding-x: var(--space-sm);
   --tooltip-padding-y: var(--space-sm);
   --tooltip-radius: var(--radius-sm);
@@ -115,10 +126,4 @@
   --dropdown-menu-separator-color: var(--theme-surface-border);
   --dropdown-menu-separator-margin-y: var(--space-xs);
   --dropdown-menu-padding: var(--space-xs);
-  --dialog-bg: var(--theme-surface-bg);
-  --dialog-width: var(--layout-width-lg);
-  --dialog-max-width: 90vw;
-  --dialog-padding: var(--space-lg);
-  --dialog-radius: var(--radius-md);
-  --dialog-shadow: var(--shadow-2xl);
 }
