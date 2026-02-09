@@ -13,3 +13,8 @@ pub fn basic_example() -> impl IntoView {
         </Collapsible>
     }
 }
+
+#[component]
+pub fn BasicExample() -> impl IntoView {
+    basic_example()
+}

@@ -1,7 +1,4 @@
-/* ============================================
-   COLLAPSIBLE
-   Family D: Navigation
-   ============================================ */
+/* COLLAPSIBLE - Family B Selection */
 
 [data-collapsible] {
   display: flex;
@@ -12,30 +9,24 @@
 [data-collapsible-trigger] {
   display: flex;
   align-items: center;
-  color: var(--collapsible-trigger-fg);
-  font-size: var(--collapsible-trigger-font-size);
-  font-weight: var(--collapsible-trigger-font-weight);
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--collapsible-trigger-padding);
+  background: var(--collapsible-trigger-bg);
+  border-radius: var(--collapsible-trigger-radius);
   cursor: pointer;
-  transition: background var(--collapsible-trigger-transition-duration) var(--collapsible-trigger-transition-ease);
+  transition: background var(--collapsible-transition-duration) var(--collapsible-transition-ease);
 }
 
 [data-collapsible-trigger]:hover {
   background: var(--collapsible-trigger-bg-hover);
 }
 
-[data-collapsible-trigger-icon] {
-  width: var(--collapsible-trigger-icon-size);
-  height: var(--collapsible-trigger-icon-size);
-  transition: transform var(--collapsible-trigger-transition-duration) var(--collapsible-trigger-transition-ease);
-}
-
-[data-collapsible][data-state="open"] [data-collapsible-trigger-icon] {
-  transform: rotate(var(--collapsible-trigger-icon-rotation-open));
-}
-
 [data-collapsible-content] {
-  padding-inline: var(--collapsible-content-padding-x);
-  padding-block: var(--collapsible-content-padding-y);
-  color: var(--collapsible-content-fg);
-  background: var(--collapsible-content-bg);
+  padding: var(--collapsible-content-padding);
+  display: none;
+}
+
+[data-collapsible][data-state="open"] [data-collapsible-content] {
+  display: block;
 }

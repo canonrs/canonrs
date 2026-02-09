@@ -15,7 +15,7 @@ pub fn Checkbox(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div class="flex items-center gap-2">
+        <label data-checkbox-wrapper style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
             <CheckboxPrimitive
                 checked=checked
                 disabled=disabled
@@ -27,19 +27,17 @@ pub fn Checkbox(
                 <CheckboxIndicator />
             </CheckboxPrimitive>
             {children.map(|c| c())}
-        </div>
+        </label>
     }
 }
 
 #[component]
 pub fn CheckboxIndicator(
-    #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CheckboxIndicatorPrimitive class=class>
             "✓"
-            {children.map(|c| c())}
         </CheckboxIndicatorPrimitive>
     }
 }

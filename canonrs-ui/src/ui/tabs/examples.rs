@@ -21,3 +21,9 @@ pub fn basic_example() -> impl IntoView {
         </Tabs>
     }
 }
+
+
+#[component]
+pub fn BasicExample() -> impl IntoView {
+    basic_example()
+}

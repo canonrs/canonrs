@@ -1,13 +1,18 @@
-/* ============================================
-   COMBOBOX
-   Family B: Selection
-   ============================================ */
+/* COMBOBOX - Family B Selection */
 
 [data-combobox] {
   position: relative;
   background: var(--combobox-bg);
+  color: var(--combobox-fg);
   border: var(--combobox-border-width) solid var(--combobox-border-color);
   border-radius: var(--combobox-radius);
+  height: var(--combobox-height);
+  padding-inline: var(--combobox-padding-x);
+}
+
+[data-combobox]:focus-within {
+  outline: var(--combobox-focus-ring-width) solid var(--combobox-focus-ring-color);
+  outline-offset: 2px;
 }
 
 [data-combobox-trigger] {
@@ -15,27 +20,16 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: var(--combobox-trigger-height);
-  padding-inline: var(--combobox-trigger-padding-x);
-  padding-block: var(--combobox-trigger-padding-y);
-  color: var(--combobox-trigger-fg);
-  cursor: pointer;
+  height: 100%;
+  gap: var(--combobox-gap);
   background: transparent;
   border: none;
-}
-
-[data-combobox-trigger-icon] {
-  width: var(--combobox-trigger-icon-size);
-  height: var(--combobox-trigger-icon-size);
+  cursor: pointer;
 }
 
 [data-combobox-list] {
   display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  margin-top: var(--space-xs);
+  position: fixed;
   background: var(--combobox-popover-bg);
   border-radius: var(--combobox-popover-radius);
   box-shadow: var(--combobox-popover-shadow);
@@ -43,7 +37,7 @@
   z-index: 50;
 }
 
-[data-combobox][aria-expanded="true"] [data-combobox-list] {
+[data-combobox][data-state="open"] [data-combobox-list] {
   display: block;
 }
 
@@ -51,25 +45,16 @@
   display: flex;
   align-items: center;
   height: var(--combobox-item-height);
-  padding-inline: var(--combobox-item-padding-x);
-  padding-block: var(--combobox-item-padding-y);
-  color: var(--combobox-item-fg);
+  padding: var(--combobox-item-padding);
   cursor: pointer;
-  transition: background var(--combobox-transition-duration) var(--combobox-transition-ease);
 }
 
 [data-combobox-item]:hover {
-  background: var(--combobox-item-bg-hover);
+  background: var(--combobox-item-hover-bg);
 }
 
-[data-combobox-item][aria-selected="true"] {
-  background: var(--combobox-item-bg-selected);
-  color: var(--combobox-item-fg-selected);
-}
-
-[data-combobox-item-icon] {
-  width: var(--combobox-item-icon-size);
-  height: var(--combobox-item-icon-size);
+[data-combobox-item][data-selected="true"] {
+  background: var(--combobox-item-selected-bg);
 }
 
 [data-combobox-empty] {

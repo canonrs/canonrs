@@ -1,7 +1,7 @@
 use crate::design::tokens::FamilyToken;
 
 /// FAMILY C — Forms & Inputs
-/// Components: Button, Field, Input, Select, Checkbox, Switch, Toggle, Slider, Calendar, ColorPicker, Label, RadioGroup, Textarea, Kbd, ButtonGroup
+/// Components: Button, Field, Input, Select, Switch, Toggle, Slider, Calendar, ColorPicker, Label, RadioGroup, Textarea, Kbd, ButtonGroup
 /// Scope: Data entry, validation, form composition
 
 pub const FAMILY_C_FORMS: &[FamilyToken] = &[
@@ -160,19 +160,6 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("select-separator-color", "var(--theme-surface-border)"),
     FamilyToken::new("select-separator-height", "1px"),
     FamilyToken::new("select-separator-margin-y", "var(--space-xs)"),
-
-    // Checkbox
-    FamilyToken::new("checkbox-size", "var(--font-size-xl)"),
-    FamilyToken::new("checkbox-radius", "var(--radius-xs)"),
-    FamilyToken::new("checkbox-bg", "var(--theme-surface-bg)"),
-    FamilyToken::new("checkbox-border-color", "var(--theme-surface-border)"),
-    FamilyToken::new("checkbox-border-width", "1px"),
-    FamilyToken::new("checkbox-checked-bg", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("checkbox-checked-border-color", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("checkbox-hover-border-color", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("checkbox-check-color", "var(--color-primary-foreground)"),
-    FamilyToken::new("checkbox-check-font-size", "var(--font-size-xs)"),
-    FamilyToken::new("checkbox-disabled-opacity", "var(--state-disabled-opacity)"),
 
     // Switch
     FamilyToken::new("switch-width", "var(--size-switch-width)"),

@@ -13,18 +13,21 @@ pub fn CheckboxPrimitive(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
+    let state = if checked { "checked" } else { "unchecked" };
+    let disabled_attr = if disabled { Some("true") } else { None };
+    
     view! {
         <button
-            data-checkbox
+            data-checkbox=""
+            data-state={state}
+            data-disabled={disabled_attr}
+            data-name={name}
+            data-value={value}
             type="button"
             role="checkbox"
             tabindex="0"
             aria-checked={if checked { "true" } else { "false" }}
             aria-disabled={if disabled { "true" } else { "false" }}
-            attr:data-state={if checked { "checked" } else { "unchecked" }}
-            attr:data-disabled={if disabled { Some("true") } else { None }}
-            attr:data-name={name}
-            attr:data-value={value}
             id={id}
             class={class}
         >
@@ -39,10 +42,7 @@ pub fn CheckboxIndicatorPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-checkbox-indicator
-            class={class}
-        >
+        <span data-checkbox-indicator="" class={class}>
             {children.map(|c| c())}
         </span>
     }

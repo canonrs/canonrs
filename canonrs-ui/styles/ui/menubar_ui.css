@@ -1,7 +1,4 @@
-/* ============================================
-   MENUBAR
-   Family D: Navigation
-   ============================================ */
+/* MENUBAR - Family B Selection */
 
 [data-menubar] {
   display: flex;
@@ -9,54 +6,35 @@
   padding: var(--menubar-padding);
   background: var(--menubar-bg);
   border: var(--menubar-border-width) solid var(--menubar-border-color);
-  border-radius: var(--menubar-radius);
 }
 
 [data-menubar-trigger] {
   display: flex;
   align-items: center;
-  gap: var(--menubar-trigger-icon-size);
-  padding-inline: var(--menubar-item-padding-x);
-  padding-block: var(--menubar-item-padding-y);
-  height: var(--menubar-item-height);
-  font-size: var(--menubar-item-font-size);
-  font-weight: var(--menubar-item-font-weight);
+  padding: var(--menubar-trigger-padding);
+  border-radius: var(--menubar-trigger-radius);
   color: var(--menubar-trigger-fg);
   cursor: pointer;
-  transition: background var(--menubar-trigger-transition-duration) var(--menubar-trigger-transition-ease);
 }
 
 [data-menubar-trigger]:hover {
   background: var(--menubar-trigger-bg-hover);
 }
 
-[data-menubar-trigger][data-open="true"] {
+[data-menubar-trigger][data-state="open"] {
   background: var(--menubar-trigger-bg-expanded);
 }
 
 [data-menubar-content] {
+  display: none;
+  position: fixed;
   background: var(--menubar-content-bg);
-  border: var(--menubar-content-border-width) solid var(--menubar-content-border-color);
+  padding-block: var(--menubar-content-padding-y);
   border-radius: var(--menubar-content-radius);
   box-shadow: var(--menubar-content-shadow);
-  padding: var(--menubar-content-padding);
+  min-width: var(--menubar-content-min-width);
 }
 
-[data-menubar-item] {
-  display: flex;
-  align-items: center;
-  height: var(--menubar-item-height);
-  padding-inline: var(--menubar-item-padding-x);
-  padding-block: var(--menubar-item-padding-y);
-  color: var(--menubar-item-fg);
-  cursor: pointer;
-  transition: background var(--menubar-trigger-transition-duration) var(--menubar-trigger-transition-ease);
-}
-
-[data-menubar-item]:hover {
-  background: var(--menubar-item-bg-hover);
-}
-
-[data-menubar-item][data-active="true"] {
-  background: var(--menubar-item-bg-active);
+[data-menubar-content][data-state="open"] {
+  display: block;
 }

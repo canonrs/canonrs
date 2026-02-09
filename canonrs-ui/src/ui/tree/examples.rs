@@ -1,7 +1,6 @@
 use leptos::prelude::*;
 use super::{Tree, TreeNode};
 
-#[component]
 pub fn basic_example() -> impl IntoView {
     let nodes = RwSignal::new(vec![
         TreeNode {
@@ -55,6 +54,10 @@ pub fn basic_example() -> impl IntoView {
 }
 
 #[component]
+pub fn BasicExample() -> impl IntoView {
+    basic_example()
+}
+
 pub fn with_checkboxes_example() -> impl IntoView {
     let nodes = RwSignal::new(vec![
         TreeNode {
@@ -97,7 +100,6 @@ pub fn with_checkboxes_example() -> impl IntoView {
     }
 }
 
-#[component]
 pub fn with_icons_example() -> impl IntoView {
     let nodes = RwSignal::new(vec![
         TreeNode {

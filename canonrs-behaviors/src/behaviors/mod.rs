@@ -18,7 +18,6 @@ mod checkbox_behavior;
 #[cfg(feature = "hydrate")]
 mod collapsible_behavior;
 #[cfg(feature = "hydrate")]
-mod combobox_behavior;
 #[cfg(feature = "hydrate")]
 mod dialog_behavior;
 #[cfg(feature = "hydrate")]
@@ -48,7 +47,6 @@ mod simple_overlay_behavior;
 #[cfg(feature = "hydrate")]
 mod switch_behavior;
 #[cfg(feature = "hydrate")]
-mod tabs_behavior;
 #[cfg(feature = "hydrate")]
 mod theme_toggle_behavior;
 #[cfg(feature = "hydrate")]
@@ -68,3 +66,9 @@ pub mod popover_behavior;
 pub mod drawer_behavior;
 pub mod sheet_behavior;
 pub mod modal_behavior;
+pub mod radio_behavior;
+pub mod tabs_behavior;
+pub mod combobox_behavior;
+pub mod command_behavior;
+pub mod menubar_behavior;
+pub mod tree_behavior;

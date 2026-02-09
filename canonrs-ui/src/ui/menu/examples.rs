@@ -14,3 +14,8 @@ pub fn basic_example() -> impl IntoView {
         </Menu>
     }
 }
+
+#[component]
+pub fn BasicExample() -> impl IntoView {
+    basic_example()
+}

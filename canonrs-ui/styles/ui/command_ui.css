@@ -1,53 +1,69 @@
-/* ============================================
-   COMMAND LIST & ITEM
-   Family B: Lists & Selection
-   ============================================ */
+/* COMMAND - Family B Selection */
 
-[data-command-list] {
+[data-command] {
+  background: var(--command-bg);
+  color: var(--command-fg);
+  border: var(--command-border-width) solid var(--command-border-color);
+  border-radius: var(--command-radius);
+  box-shadow: var(--command-shadow);
+  padding: var(--command-padding);
   display: flex;
   flex-direction: column;
-  gap: var(--command-list-gap);
+  gap: var(--command-gap);
+}
+
+[data-command-input] {
+  height: var(--command-input-height);
+  padding: var(--command-input-padding);
+  font-size: var(--command-input-font-size);
+  border: none;
+  border-bottom: var(--command-input-border-bottom);
+  background: transparent;
+  outline: none;
+}
+
+[data-command-list] {
+  padding: var(--command-list-padding);
+  max-height: var(--command-list-max-height);
   overflow-y: auto;
 }
 
 [data-command-item] {
   display: flex;
   align-items: center;
-  gap: var(--command-item-gap);
   height: var(--command-item-height);
-  padding-inline: var(--command-item-padding-x);
-  padding-block: var(--command-item-padding-y);
-  background: var(--command-item-bg);
-  color: var(--command-item-fg);
-  border-left: var(--command-item-border-width) solid transparent;
+  padding: var(--command-item-padding);
+  border-radius: var(--command-item-radius);
   cursor: pointer;
-  transition: 
-    background var(--command-item-transition-duration) var(--command-item-transition-ease),
-    border-color var(--command-item-transition-duration) var(--command-item-transition-ease);
 }
 
 [data-command-item]:hover {
-  background: var(--command-item-bg-hover);
+  background: var(--command-item-hover-bg);
 }
 
 [data-command-item][data-selected="true"] {
-  background: var(--command-item-bg-selected);
-  border-left-color: var(--command-item-border-selected);
+  background: var(--command-item-selected-bg);
 }
 
-[data-command-item][disabled] {
-  opacity: var(--command-item-opacity-disabled);
-  cursor: not-allowed;
+[data-command-item][data-hidden="true"] {
+  display: none;
 }
 
-[data-command-item-label] {
-  flex: 1;
-  font-size: var(--command-item-font-size);
-  font-weight: var(--command-item-font-weight);
-  line-height: var(--command-item-line-height);
+[data-command-group-heading] {
+  color: var(--command-group-heading-fg);
+  font-size: var(--command-group-heading-font-size);
+  padding: var(--command-group-heading-padding);
+  font-weight: 600;
 }
 
-[data-command-item-shortcut] {
-  font-size: var(--command-item-shortcut-font-size);
-  color: var(--command-item-fg-muted);
+[data-command-separator] {
+  height: 1px;
+  background: var(--command-separator-color);
+  margin: var(--command-separator-margin-y) 0;
+}
+
+[data-command-empty] {
+  color: var(--command-empty-fg);
+  padding: var(--command-empty-padding);
+  text-align: center;
 }

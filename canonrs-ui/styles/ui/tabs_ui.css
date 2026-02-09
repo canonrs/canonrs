@@ -1,51 +1,41 @@
-/* ============================================
-   TABS
-   Family D: Navigation
-   ============================================ */
+/* TABS - Family B Selection */
 
 [data-tabs] {
   display: flex;
   flex-direction: column;
+  gap: var(--tabs-gap);
 }
 
 [data-tabs-list] {
   display: flex;
-  gap: var(--tabs-gap);
-  border-bottom: var(--tabs-border-width) solid var(--tabs-border-color);
+  background: var(--tabs-list-bg);
+  padding: var(--tabs-list-padding);
+  border-radius: var(--tabs-list-radius);
 }
 
-[data-tab] {
-  position: relative;
-  padding-inline: var(--tab-padding-x);
-  padding-block: var(--tab-padding-y);
-  font-size: var(--tab-font-size);
-  font-weight: var(--tab-font-weight);
-  color: var(--tab-fg);
+[data-tabs-trigger] {
+  padding-inline: var(--tabs-trigger-padding-x);
+  padding-block: var(--tabs-trigger-padding-y);
+  border-radius: var(--tabs-trigger-radius);
+  color: var(--tabs-trigger-fg);
+  font-size: var(--tabs-trigger-font-size);
+  font-weight: var(--tabs-trigger-font-weight);
   cursor: pointer;
   background: transparent;
   border: none;
-  transition: color var(--tab-transition-duration) var(--tab-transition-ease);
+  transition: all var(--tabs-trigger-transition-duration);
 }
 
-[data-tab]:hover {
-  color: var(--tab-fg-hover);
+[data-tabs-trigger][data-state="active"] {
+  color: var(--tabs-trigger-fg-active);
+  background: var(--tabs-trigger-bg-active);
 }
 
-[data-tab][data-active="true"] {
-  color: var(--tab-fg-active);
-  font-weight: var(--tab-font-weight-active);
+[data-tabs-content] {
+  padding: var(--tabs-content-padding);
+  display: none;
 }
 
-[data-tab][data-active="true"]::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: var(--tab-indicator-height);
-  background: var(--tab-indicator-color);
-}
-
-[data-tab-content] {
-  padding-block: var(--tab-content-padding-y);
+[data-tabs-content][data-state="active"] {
+  display: block;
 }

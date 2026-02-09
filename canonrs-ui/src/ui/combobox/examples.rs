@@ -18,3 +18,8 @@ pub fn basic_example() -> impl IntoView {
         />
     }
 }
+
+#[component]
+pub fn BasicExample() -> impl IntoView {
+    basic_example()
+}

@@ -1,55 +1,41 @@
-/* ============================================================================
-   Checkbox UI Component — CanonRS
-   Family: C (Forms & Actions)
-   ========================================================================= */
+/* CHECKBOX - Family B Selection */
 
 [data-checkbox] {
-  gap: var(--space-xs);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
   width: var(--checkbox-size);
   height: var(--checkbox-size);
-  
   background: var(--checkbox-bg);
   border-width: var(--checkbox-border-width);
   border-style: solid;
   border-color: var(--checkbox-border-color);
   border-radius: var(--checkbox-radius);
-  
   cursor: pointer;
-  transition:
-    border-color var(--motion-duration-fast) var(--motion-ease-standard),
-    background var(--motion-duration-fast) var(--motion-ease-standard);
+  transition: all var(--checkbox-transition-duration);
+  flex-shrink: 0;
 }
 
 [data-checkbox]:hover {
-  border-color: var(--checkbox-hover-border-color);
+  border-color: var(--checkbox-border-color-checked);
 }
 
-[data-checkbox][data-checked="true"] {
-  border-color: var(--checkbox-checked-border-color);
-  background: var(--checkbox-checked-bg);
+[data-checkbox][data-state="checked"] {
+  border-color: var(--checkbox-border-color-checked);
+  background: var(--checkbox-bg-checked);
 }
 
-[data-checkbox]:disabled {
+[data-checkbox][data-disabled="true"] {
   opacity: var(--checkbox-disabled-opacity);
   cursor: not-allowed;
 }
 
-/* Check Indicator */
 [data-checkbox-indicator] {
   display: none;
-  color: var(--checkbox-check-color);
-  font-size: var(--checkbox-check-font-size);
+  color: var(--checkbox-fg-checked);
+  line-height: 1;
 }
 
-[data-checkbox][data-checked="true"] [data-checkbox-indicator] {
+[data-checkbox][data-state="checked"] [data-checkbox-indicator] {
   display: block;
-}
-
-/* Spacing between checkbox and adjacent content */
-[data-checkbox] + * {
-  margin-left: var(--space-sm);
 }
