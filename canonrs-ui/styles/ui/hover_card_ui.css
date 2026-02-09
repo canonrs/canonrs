@@ -1,42 +1,37 @@
-/* ============================================
-   HOVER CARD
-   Family A: Overlay Components
-   ============================================ */
+/* HOVER CARD - Family A Overlay */
 
 [data-hover-card] {
   position: relative;
-  display: inline-block;
-}
-
-[data-hover-card-trigger] {
-  display: inline-block;
 }
 
 [data-hover-card-content] {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
   z-index: var(--hover-card-z-index);
-  
   background: var(--hover-card-bg);
   color: var(--hover-card-fg);
-  border: var(--hover-card-border-width) solid var(--hover-card-border-color);
-  border-radius: var(--hover-card-radius);
   padding: var(--hover-card-padding);
+  border-radius: var(--hover-card-radius);
+  border: var(--hover-card-border-width) solid var(--hover-card-border-color);
   box-shadow: var(--hover-card-shadow);
-  
   min-width: var(--hover-card-min-width);
   max-width: var(--hover-card-max-width);
-  
-  pointer-events: none;
-  
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.15s, visibility 0.15s;
+  transform: scale(0.95);
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
 [data-hover-card][data-state="open"] [data-hover-card-content] {
   opacity: 1;
   visibility: visible;
+  transform: scale(1);
+}
+
+[data-hover-card-arrow] {
+  position: absolute;
+  width: var(--hover-card-arrow-size);
+  height: var(--hover-card-arrow-size);
+  background: var(--hover-card-bg);
+  transform: rotate(45deg);
+  border: var(--hover-card-border-width) solid var(--hover-card-border-color);
 }

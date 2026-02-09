@@ -1,7 +1,4 @@
-/* ============================================
-   POPOVER
-   Family A: Overlay Components
-   ============================================ */
+/* POPOVER - Family A Overlay */
 
 [data-popover] {
   position: relative;
@@ -9,21 +6,34 @@
 
 [data-popover-content] {
   position: fixed;
+  left: var(--floating-x, 0);
+  top: var(--floating-y, 0);
   z-index: var(--popover-z-index);
-  
   background: var(--popover-bg);
   color: var(--popover-fg);
-  border: var(--popover-border-width) solid var(--popover-border-color);
-  border-radius: var(--popover-radius);
-  box-shadow: var(--popover-shadow);
   padding: var(--popover-padding);
-  
+  border-radius: var(--popover-radius);
+  border: var(--popover-border-width) solid var(--popover-border-color);
+  box-shadow: var(--popover-shadow);
   min-width: var(--popover-min-width);
   max-width: var(--popover-max-width);
-  
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
 [data-popover][data-state="open"] [data-popover-content] {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+[data-popover-arrow] {
+  position: absolute;
+  width: var(--popover-arrow-size);
+  height: var(--popover-arrow-size);
+  background: var(--popover-bg);
+  transform: rotate(45deg);
+  border: var(--popover-border-width) solid var(--popover-border-color);
 }

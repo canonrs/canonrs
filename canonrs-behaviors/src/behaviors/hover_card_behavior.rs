@@ -7,7 +7,7 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use leptos::web_sys::{window, MouseEvent};
+use leptos::web_sys::{window, MouseEvent, HtmlElement};
 #[cfg(feature = "hydrate")]
 use leptos::prelude::Set;
 
@@ -20,24 +20,47 @@ pub fn register() {
 
         let open_signal = state.open;
         let trigger_selector = format!("[data-hover-card-trigger=\"{}\"]", element_id);
-        
+
         if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
+            let content_selector = format!("#{} [data-hover-card-content]", element_id);
+            
             let hover_card_clone = hover_card.clone();
-            let cb_enter = Closure::wrap(Box::new(move |_: MouseEvent| {
+            let document_clone = document.clone();
+            let trigger_selector_clone = trigger_selector.clone();
+            
+            let cb_show = Closure::wrap(Box::new(move |_: MouseEvent| {
                 open_signal.set(true);
                 hover_card_clone.set_attribute("data-state", "open").ok();
+                
+                if let (Ok(Some(content)), Ok(Some(trigger_el))) = (
+                    document_clone.query_selector(&content_selector),
+                    document_clone.query_selector(&trigger_selector_clone)
+                ) {
+                    let trigger_rect = trigger_el.get_bounding_client_rect();
+                    
+                    if let Some(html_content) = content.dyn_ref::<HtmlElement>() {
+                        let style = html_content.style();
+                        let x = trigger_rect.left() + (trigger_rect.width() / 2.0);
+                        let y = trigger_rect.bottom() + 8.0;
+                        
+                        style.set_property("left", &format!("{}px", x)).ok();
+                        style.set_property("top", &format!("{}px", y)).ok();
+                        style.set_property("transform", "translateX(-50%)").ok();
+                    }
+                }
             }) as Box<dyn FnMut(MouseEvent)>);
-            trigger.add_event_listener_with_callback("mouseenter", cb_enter.as_ref().unchecked_ref()).unwrap();
-            cb_enter.forget();
+            trigger.add_event_listener_with_callback("mouseenter", cb_show.as_ref().unchecked_ref()).unwrap();
+            cb_show.forget();
 
             let hover_card_clone = hover_card.clone();
-            let cb_leave = Closure::wrap(Box::new(move |_: MouseEvent| {
+            let cb_hide = Closure::wrap(Box::new(move |_: MouseEvent| {
                 open_signal.set(false);
                 hover_card_clone.set_attribute("data-state", "closed").ok();
             }) as Box<dyn FnMut(MouseEvent)>);
-            trigger.add_event_listener_with_callback("mouseleave", cb_leave.as_ref().unchecked_ref()).unwrap();
-            cb_leave.forget();
+            trigger.add_event_listener_with_callback("mouseleave", cb_hide.as_ref().unchecked_ref()).unwrap();
+            cb_hide.forget();
         }
+
         Ok(())
     }));
 }

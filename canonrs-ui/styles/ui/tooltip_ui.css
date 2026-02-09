@@ -1,42 +1,20 @@
-/* ============================================
-   TOOLTIP
-   Family A: Overlay Components
-   ============================================ */
-
-[data-tooltip-provider] {
-  position: relative;
-  display: inline-block;
-}
+/* TOOLTIP - Family A Overlay */
 
 [data-tooltip] {
   position: relative;
-  display: inline-block;
-}
-
-[data-tooltip-trigger] {
-  display: inline-block;
 }
 
 [data-tooltip-content] {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
   z-index: var(--tooltip-z-index);
-  
   background: var(--tooltip-bg);
   color: var(--tooltip-fg);
-  border-radius: var(--tooltip-radius);
   padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
+  border-radius: var(--tooltip-radius);
   font-size: var(--tooltip-font-size);
   box-shadow: var(--tooltip-shadow);
   max-width: var(--tooltip-max-width);
-  
   pointer-events: none;
-  white-space: nowrap;
-  font-weight: 400;
-  line-height: 1.4;
-  
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.15s, visibility 0.15s;
@@ -45,4 +23,12 @@
 [data-tooltip][data-state="open"] [data-tooltip-content] {
   opacity: 1;
   visibility: visible;
+}
+
+[data-tooltip-arrow] {
+  position: absolute;
+  width: var(--tooltip-arrow-size);
+  height: var(--tooltip-arrow-size);
+  background: var(--tooltip-bg);
+  transform: rotate(45deg);
 }
