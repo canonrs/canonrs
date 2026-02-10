@@ -1,7 +1,8 @@
 use leptos::prelude::*;
-use super::button_ui::*;
+use super::Button;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <Button>"Click me"</Button>
     }

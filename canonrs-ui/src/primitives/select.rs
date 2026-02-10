@@ -15,7 +15,7 @@ pub fn SelectPrimitive(
         <div
             attr:data-select=""
             class=class
-            id=id
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </div>
@@ -39,13 +39,13 @@ pub fn SelectTriggerPrimitive(
             role="button"
             tabindex="0"
             attr:aria-haspopup="listbox"
-            attr:aria-controls={controls_id}
+            attr:aria-controls={if controls_id.is_empty() { None } else { Some(controls_id) }}
             attr:aria-expanded={if expanded { "true" } else { "false" }}
             attr:aria-disabled={if disabled { "true" } else { "false" }}
             attr:data-disabled={if disabled { Some("true") } else { None }}
             attr:data-value-text={value_text}
             class=class
-            id=id
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </button>
@@ -79,7 +79,7 @@ pub fn SelectContentPrimitive(
     view! {
         <div
             role="listbox"
-            id={content_id}
+            id={if content_id.is_empty() { None } else { Some(content_id) }}
             attr:data-select-content=""
             attr:data-state={if open { "open" } else { "closed" }}
             class=class
@@ -110,7 +110,7 @@ pub fn SelectItemPrimitive(
             attr:data-state={if selected { "selected" } else { "unselected" }}
             attr:data-disabled={if disabled { Some("true") } else { None }}
             class=class
-            id=id
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </div>

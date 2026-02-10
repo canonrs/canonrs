@@ -36,7 +36,7 @@ pub fn SliderPrimitive(
             attr:aria-orientation={orientation}
             tabindex={if disabled { "-1" } else { "0" }}
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </div>
@@ -53,7 +53,7 @@ pub fn SliderTrackPrimitive(
         <div
             data-slider-track=""
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </div>
@@ -63,27 +63,17 @@ pub fn SliderTrackPrimitive(
 #[component]
 pub fn SliderRangePrimitive(
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-slider-range=""
-            class={class}
-            id={id}
-        />
+        <div data-slider-range="" class={class} />
     }
 }
 
 #[component]
 pub fn SliderThumbPrimitive(
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-slider-thumb=""
-            class={class}
-            id={id}
-        />
+        <div data-slider-thumb="" class={class} />
     }
 }

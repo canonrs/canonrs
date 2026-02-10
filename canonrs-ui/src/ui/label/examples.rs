@@ -1,8 +1,9 @@
 use leptos::prelude::*;
-use super::label_ui::*;
+use super::Label;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Label for_id="input-example".to_string()>"Username"</Label>
+        <Label for_id="example-input">"Username"</Label>
     }
 }

@@ -1,28 +1,26 @@
 use leptos::prelude::*;
-use crate::primitives::{
-    SwitchPrimitive,
-    SwitchThumbPrimitive,
-};
+use crate::primitives::{SwitchPrimitive, SwitchThumbPrimitive};
 
 #[component]
 pub fn Switch(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
-    #[prop(default = String::new())] name: String,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, optional)] aria_label: Option<String>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <SwitchPrimitive
-            attr:data-checked={if checked { "true" } else { "" }}
-            checked=checked
-            disabled=disabled
-            name=name
-            value=value
-            class=class
-            id=id
+            checked={checked}
+            disabled={disabled}
+            name={name}
+            value={value}
+            aria_label={aria_label.unwrap_or_default()}
+            class={class}
+            id={id.unwrap_or_default()}
         >
             <SwitchThumb />
             {children.map(|c| c())}

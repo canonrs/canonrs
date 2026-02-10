@@ -42,14 +42,35 @@ pub fn basic_example() -> impl IntoView {
             expanded: false,
             checked: false,
             metadata: None,
-            children: vec![],
+            children: vec![
+                TreeNode {
+                    id: "2-1".to_string(),
+                    label: "Vacation.jpg".to_string(),
+                    node_type: "file".to_string(),
+                    icon: None,
+                    expanded: false,
+                    checked: false,
+                    metadata: None,
+                    children: vec![],
+                },
+                TreeNode {
+                    id: "2-2".to_string(),
+                    label: "Profile.png".to_string(),
+                    node_type: "file".to_string(),
+                    icon: None,
+                    expanded: false,
+                    checked: false,
+                    metadata: None,
+                    children: vec![],
+                },
+            ],
         },
     ]);
 
     let selected = RwSignal::new(None);
 
     view! {
-        <Tree nodes=nodes.into() selected_id=selected.into() />
+        <Tree nodes=nodes.into() selected_id=selected.into() id="tree-basic".to_string() />
     }
 }
 
@@ -96,7 +117,7 @@ pub fn with_checkboxes_example() -> impl IntoView {
     let selected = RwSignal::new(None);
 
     view! {
-        <Tree nodes=nodes.into() selected_id=selected.into() show_checkboxes=true />
+        <Tree nodes=nodes.into() selected_id=selected.into() show_checkboxes=true id="tree-checkboxes".to_string() />
     }
 }
 
@@ -128,6 +149,6 @@ pub fn with_icons_example() -> impl IntoView {
     let selected = RwSignal::new(None);
 
     view! {
-        <Tree nodes=nodes.into() selected_id=selected.into() />
+        <Tree nodes=nodes.into() selected_id=selected.into() id="tree-icons".to_string() />
     }
 }

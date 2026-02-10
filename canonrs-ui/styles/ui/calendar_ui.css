@@ -1,12 +1,13 @@
-/* Calendar */
+/* ═══════════════════════════════════════════════════════════════
+   CALENDAR - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-calendar] {
   background: var(--calendar-bg);
   padding: var(--calendar-padding);
   border-radius: var(--calendar-radius);
   border: var(--calendar-border-width) solid var(--calendar-border-color);
-  max-width: 350px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--calendar-shadow);
 }
 
 [data-calendar-header] {
@@ -14,107 +15,80 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--calendar-header-gap);
-  margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--calendar-border-color);
 }
 
 [data-calendar-month-year] {
   color: var(--calendar-header-fg);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--calendar-header-font-size);
+  font-weight: var(--calendar-header-font-weight);
   flex: 1;
   text-align: center;
 }
 
 [data-calendar-nav-button] {
-  width: 36px;
-  height: 36px;
+  width: var(--calendar-nav-size);
+  height: var(--calendar-nav-size);
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: var(--radius-full);
-  background: var(--calendar-cell-bg-hover);
+  border-radius: var(--calendar-nav-radius);
+  background: var(--calendar-nav-bg);
+  color: var(--calendar-nav-fg);
   cursor: pointer;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--calendar-header-fg);
   transition: all var(--calendar-transition-duration) var(--calendar-transition-ease);
 }
 
 [data-calendar-nav-button]:hover {
   background: var(--calendar-cell-bg-selected);
   color: var(--calendar-cell-fg-selected);
-  transform: scale(1.05);
+  transform: scale(var(--calendar-hover-scale));
 }
 
 [data-calendar-grid] {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: var(--calendar-grid-gap);
 }
 
 [data-calendar-weekday] {
-  height: 40px;
+  height: var(--calendar-cell-size);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--calendar-header-fg);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: var(--calendar-cell-font-size);
+  font-weight: var(--calendar-header-font-weight);
 }
 
 [data-calendar-day] {
-  min-width: 40px;
-  height: 40px;
+  width: var(--calendar-cell-size);
+  height: var(--calendar-cell-size);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-md);
+  border-radius: var(--calendar-cell-radius);
   background: transparent;
   color: var(--calendar-cell-fg);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--calendar-cell-font-size);
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   transition: all var(--calendar-transition-duration) var(--calendar-transition-ease);
 }
 
 [data-calendar-day]:hover:not(:disabled) {
   background: var(--calendar-cell-bg-hover);
-  border-color: var(--calendar-border-color);
-  transform: scale(1.05);
+  transform: scale(var(--calendar-hover-scale));
 }
 
 [data-calendar-day]:disabled {
   color: var(--calendar-cell-fg-disabled);
-  background: transparent;
+  background: var(--calendar-cell-bg-disabled);
   cursor: not-allowed;
-  opacity: 0.4;
+  opacity: var(--forms-disabled-opacity);
 }
 
-[data-calendar-day].is-selected {
-  background: var(--calendar-cell-bg-selected) !important;
-  color: var(--calendar-cell-fg-selected) !important;
-  font-weight: var(--font-weight-bold);
-  border-color: var(--calendar-cell-bg-selected) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-[data-calendar-day].is-today:not(.is-selected) {
-  border-color: var(--calendar-cell-bg-selected);
-  font-weight: var(--font-weight-bold);
-}
-
-[data-calendar-selected] {
-  margin-top: var(--space-md);
-  padding-top: var(--space-md);
-  border-top: var(--calendar-border-width) solid var(--calendar-border-color);
-  font-size: var(--font-size-sm);
-  color: var(--calendar-cell-fg-disabled);
-  text-align: center;
-  font-weight: var(--font-weight-medium);
+[data-calendar-day][data-selected="true"] {
+  background: var(--calendar-cell-bg-selected);
+  color: var(--calendar-cell-fg-selected);
 }

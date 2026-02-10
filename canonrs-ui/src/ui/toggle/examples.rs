@@ -1,9 +1,10 @@
 use leptos::prelude::*;
 use super::toggle_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Toggle pressed=false aria_label="Bold".to_string()>
+        <Toggle pressed=false aria_label="Bold">
             "Bold"
         </Toggle>
     }

@@ -1,23 +1,23 @@
 use leptos::prelude::*;
 
 #[component]
-pub fn ButtonPrimitive(
+pub fn ButtonGroupPrimitive(
     #[prop(optional)] id: Option<String>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = false)] attached: bool,
     #[prop(optional)] aria_label: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     view! {
-        <button
-            type="button"
+        <div
             id={id}
             class={class}
-            disabled={disabled}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
+            data-button-group=""
+            attr:data-attached={if attached { Some("true") } else { None }}
+            role="group"
             aria-label={aria_label}
         >
             {children.map(|c| c())}
-        </button>
+        </div>
     }
 }

@@ -1,7 +1,6 @@
 use leptos::prelude::*;
 use crate::primitives::{
     MenubarPrimitive,
-    MenubarItemPrimitive,
     MenubarTriggerPrimitive,
     MenubarContentPrimitive,
     MenubarSubItemPrimitive,
@@ -25,27 +24,8 @@ pub fn Menubar(
 }
 
 #[component]
-pub fn MenubarItem(
-    children: Children,
-    #[prop(default = -1)] tabindex: i32,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <MenubarItemPrimitive
-            tabindex=tabindex
-            class=class
-            id=id
-        >
-            {children()}
-        </MenubarItemPrimitive>
-    }
-}
-
-#[component]
 pub fn MenubarTrigger(
     children: Children,
-    #[prop(default = -1)] tabindex: i32,
     #[prop(default = String::new())] controls_id: String,
     #[prop(default = false)] expanded: bool,
     #[prop(default = String::new())] class: String,
@@ -53,7 +33,6 @@ pub fn MenubarTrigger(
 ) -> impl IntoView {
     view! {
         <MenubarTriggerPrimitive
-            tabindex=tabindex
             controls_id=controls_id
             expanded=expanded
             class=class

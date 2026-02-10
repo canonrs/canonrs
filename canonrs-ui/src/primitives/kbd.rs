@@ -1,18 +1,18 @@
 use leptos::prelude::*;
-use crate::primitives::kbd::KbdPrimitive;
 
 #[component]
-pub fn Kbd(
+pub fn KbdPrimitive(
     #[prop(optional)] id: Option<String>,
     #[prop(default = String::new())] class: String,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     view! {
-        <KbdPrimitive
-            id={id.unwrap_or_default()}
+        <kbd
+            id={id}
             class={class}
+            data-kbd=""
         >
             {children.map(|c| c())}
-        </KbdPrimitive>
+        </kbd>
     }
 }

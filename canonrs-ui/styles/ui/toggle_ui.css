@@ -1,23 +1,18 @@
-/* ============================================================================
-   TOGGLE - Toggle Button
-   ============================================================================ */
+/* ═══════════════════════════════════════════════════════════════
+   TOGGLE - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-toggle] {
-  /* Layout */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: var(--toggle-padding);
   border-radius: var(--toggle-radius);
-  
-  /* Visual */
   background: transparent;
   border: var(--toggle-border-width) solid transparent;
   color: var(--toggle-fg);
-  
-  /* Interaction */
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-toggle]:hover {
@@ -30,6 +25,11 @@
 }
 
 [data-toggle][aria-disabled="true"] {
-  opacity: 0.5;
+  opacity: var(--forms-disabled-opacity);
   cursor: not-allowed;
+}
+
+[data-toggle-group] {
+  display: inline-flex;
+  gap: var(--toggle-group-gap);
 }

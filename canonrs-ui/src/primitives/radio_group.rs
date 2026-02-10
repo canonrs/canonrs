@@ -1,6 +1,3 @@
-//! @canon-level: strict
-//! RadioGroup Primitive - Native HTML radio inputs
-
 use leptos::prelude::*;
 
 #[component]
@@ -11,10 +8,10 @@ pub fn RadioGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-radio-group="" style="display: flex; flex-direction: column; gap: var(--radio-group-gap);"
+            data-radio-group=""
             role="radiogroup"
-            class=class
-            id=id
+            class={class}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </div>
@@ -35,12 +32,12 @@ pub fn RadioGroupItemPrimitive(
         <input
             type="radio"
             data-radio-group-item=""
-            value=value
-            name=name
-            checked=checked
-            disabled=disabled
-            class=class
-            id=id
+            value={value}
+            name={name}
+            checked={checked}
+            disabled={disabled}
+            class={class}
+            id={if id.is_empty() { None } else { Some(id) }}
         />
     }
 }
@@ -51,10 +48,7 @@ pub fn RadioGroupIndicatorPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-radio-group-indicator=""
-            class=class
-        >
+        <span data-radio-group-indicator="" class={class}>
             {children.map(|c| c())}
         </span>
     }

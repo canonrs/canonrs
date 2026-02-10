@@ -2,45 +2,32 @@ use leptos::prelude::*;
 use crate::primitives::InputPrimitive;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub enum InputVariant {
-    Default,
-    Error,
-    Success,
-}
-
+pub enum InputVariant { Default, Error, Success, Warning }
 impl InputVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "default",
             Self::Error => "error",
             Self::Success => "success",
+            Self::Warning => "warning",
         }
     }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub enum InputSize {
-    Sm,
-    Md,
-    Lg,
-}
-
+pub enum InputSize { Sm, Md, Lg }
 impl InputSize {
     pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Sm => "sm",
-            Self::Md => "md",
-            Self::Lg => "lg",
-        }
+        match self { Self::Sm => "sm", Self::Md => "md", Self::Lg => "lg" }
     }
 }
 
 #[component]
 pub fn Input(
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
     #[prop(default = "text".to_string())] input_type: String,
-    #[prop(default = String::new())] name: String,
+    #[prop(into, optional)] name: Option<String>,
     #[prop(default = String::new())] value: String,
     #[prop(default = false)] disabled: bool,
     #[prop(default = InputVariant::Default)] variant: InputVariant,
@@ -48,22 +35,14 @@ pub fn Input(
     #[prop(default = String::new())] placeholder: String,
     #[prop(default = String::new())] aria_label: String,
 ) -> impl IntoView {
-    let base_class = format!(
-        "input variant-{} size-{} {}",
-        variant.as_str(),
-        size.as_str(),
-        class
-    );
-
     view! {
         <InputPrimitive
             attr:data-input=""
             attr:data-variant={variant.as_str()}
             attr:data-size={size.as_str()}
-            class={base_class}
-            id={id}
-            input_type={input_type}
-            name={name}
+            class={class}
+            id={id.unwrap_or_default()}
+            name={name.unwrap_or_default()}
             value={value}
             disabled={disabled}
             placeholder={placeholder}

@@ -4,9 +4,9 @@ use crate::primitives::LabelPrimitive;
 #[component]
 pub fn Label(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] for_id: String,
+    #[prop(into, default = String::new())] for_id: String,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <LabelPrimitive

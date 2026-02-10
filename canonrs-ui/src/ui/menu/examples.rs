@@ -5,7 +5,7 @@ use super::menu_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <Menu id="menu-basic".to_string() aria_label="Main menu".to_string()>
-            <MenuGroup aria_label="Account".to_string()>
+            <MenuGroup>
                 <MenuLabel>"Account"</MenuLabel>
                 <MenuItem>"Profile"</MenuItem>
                 <MenuItem>"Settings"</MenuItem>

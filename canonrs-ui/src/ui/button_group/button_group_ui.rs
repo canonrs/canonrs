@@ -1,19 +1,20 @@
 use leptos::prelude::*;
-use super::button_group_primitive::ButtonGroupPrimitive;
+use crate::primitives::button_group::ButtonGroupPrimitive;
 
 #[component]
 pub fn ButtonGroup(
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
     #[prop(default = String::new())] class: String,
+    #[prop(default = false)] attached: bool,
+    #[prop(into, optional)] aria_label: Option<String>,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let base_class = format!("button-group {}", class);
-
     view! {
         <ButtonGroupPrimitive
-            id={id}
-            class={base_class}
-            role="group".to_string()
+            id={id.unwrap_or_default()}
+            class={class}
+            attached={attached}
+            aria_label={aria_label.unwrap_or_default()}
         >
             {children.map(|c| c())}
         </ButtonGroupPrimitive>

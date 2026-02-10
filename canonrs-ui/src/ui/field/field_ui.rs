@@ -10,14 +10,11 @@ use super::types::FieldLegendVariant;
 #[component]
 pub fn FieldSet(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <FieldSetPrimitive 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
-        >
+        <FieldSetPrimitive class={class} id={id.unwrap_or_default()}>
             {children()}
         </FieldSetPrimitive>
     }
@@ -27,13 +24,13 @@ pub fn FieldSet(
 pub fn FieldLegend(
     children: Children,
     #[prop(default = FieldLegendVariant::Legend)] variant: FieldLegendVariant,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <FieldLegendPrimitive 
-            attr:data-variant={variant.as_str()} 
-            class={class.unwrap_or_default()} 
+        <FieldLegendPrimitive
+            attr:data-variant={variant.as_str()}
+            class={class}
             id={id.unwrap_or_default()}
         >
             {children()}
@@ -44,14 +41,11 @@ pub fn FieldLegend(
 #[component]
 pub fn FieldGroup(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <FieldGroupPrimitive 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
-        >
+        <FieldGroupPrimitive class={class} id={id.unwrap_or_default()}>
             {children()}
         </FieldGroupPrimitive>
     }
@@ -63,15 +57,15 @@ pub fn Field(
     #[prop(default = FieldOrientation::Vertical)] orientation: FieldOrientation,
     #[prop(default = FieldValidation::None)] validation: FieldValidation,
     #[prop(default = false)] disabled: bool,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <FieldPrimitive
             attr:data-orientation={orientation.as_str()}
             attr:data-validation={validation.as_str()}
             attr:data-disabled={if disabled { "true" } else { "false" }}
-            class={class.unwrap_or_default()}
+            class={class}
             id={id.unwrap_or_default()}
         >
             {children()}
@@ -82,14 +76,15 @@ pub fn Field(
 #[component]
 pub fn FieldContent(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
+    let id_str = id.unwrap_or_default();
     view! {
-        <div 
-            attr:data-field-content="" 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
+        <div
+            attr:data-field-content=""
+            class={class}
+            id={if id_str.is_empty() { None } else { Some(id_str) }}
         >
             {children()}
         </div>
@@ -99,14 +94,14 @@ pub fn FieldContent(
 #[component]
 pub fn FieldLabel(
     children: Children,
-    #[prop(optional)] html_for: Option<String>,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(into, optional)] html_for: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <FieldLabelPrimitive 
-            html_for={html_for.unwrap_or_default()} 
-            class={class.unwrap_or_default()} 
+        <FieldLabelPrimitive
+            html_for={html_for.unwrap_or_default()}
+            class={class}
             id={id.unwrap_or_default()}
         >
             {children()}
@@ -117,14 +112,15 @@ pub fn FieldLabel(
 #[component]
 pub fn FieldTitle(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
+    let id_str = id.unwrap_or_default();
     view! {
-        <div 
-            attr:data-field-title="" 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
+        <div
+            attr:data-field-title=""
+            class={class}
+            id={if id_str.is_empty() { None } else { Some(id_str) }}
         >
             {children()}
         </div>
@@ -134,14 +130,11 @@ pub fn FieldTitle(
 #[component]
 pub fn FieldDescription(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <FieldDescriptionPrimitive 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
-        >
+        <FieldDescriptionPrimitive class={class} id={id.unwrap_or_default()}>
             {children()}
         </FieldDescriptionPrimitive>
     }
@@ -152,17 +145,16 @@ pub fn FieldError(
     #[prop(default = vec![])] errors: Vec<String>,
     #[prop(default = FieldValidation::None)] validation: FieldValidation,
     #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     if errors.is_empty() && children.is_none() {
         return view! {}.into_any();
     }
-
     view! {
-        <FieldErrorPrimitive 
-            attr:data-validation={validation.as_str()} 
-            class={class.unwrap_or_default()} 
+        <FieldErrorPrimitive
+            attr:data-validation={validation.as_str()}
+            class={class}
             id={id.unwrap_or_default()}
         >
             {if let Some(child) = children {
@@ -172,9 +164,7 @@ pub fn FieldError(
             } else {
                 view! {
                     <ul data-field-error-list="">
-                        {errors.into_iter().map(|error| view! {
-                            <li>{error}</li>
-                        }).collect_view()}
+                        {errors.into_iter().map(|e| view! { <li>{e}</li> }).collect_view()}
                     </ul>
                 }.into_any()
             }}
@@ -185,11 +175,16 @@ pub fn FieldError(
 #[component]
 pub fn FieldSeparator(
     #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
+    let id_str = id.unwrap_or_default();
     view! {
-        <div attr:data-field-separator-wrapper="" class={class.unwrap_or_default()} id={id.unwrap_or_default()}>
+        <div
+            attr:data-field-separator-wrapper=""
+            class={class}
+            id={if id_str.is_empty() { None } else { Some(id_str) }}
+        >
             <SeparatorPrimitive
                 orientation={"horizontal".to_string()}
                 decorative={true}
@@ -197,9 +192,7 @@ pub fn FieldSeparator(
                 id={String::new()}
             />
             {children.map(|content| view! {
-                <span attr:data-field-separator-content="">
-                    {content()}
-                </span>
+                <span attr:data-field-separator-content="">{content()}</span>
             })}
         </div>
     }

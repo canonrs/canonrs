@@ -47,3 +47,12 @@
 [data-tree-item][data-state="open"] [data-tree-toggle] {
   transform: rotate(var(--tree-icon-rotation));
 }
+
+/* Esconder children quando collapsed */
+[data-tree-item][data-expanded="false"] + [data-tree-group] {
+  display: none;
+}
+
+[data-tree-item][data-expanded="true"] + [data-tree-group] {
+  display: block;
+}

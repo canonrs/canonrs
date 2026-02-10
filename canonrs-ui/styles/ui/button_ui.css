@@ -1,24 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
-   BUTTON - Forms & Validation compliant
+   BUTTON - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-/* BASE (Field-compliant) */
 [data-button] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-xs);
+  gap: var(--button-gap);
 
-  height: var(--field-height);
-  padding: var(--field-padding);
+  height: var(--button-height);
+  padding: var(--button-padding-y) var(--button-padding-x);
 
   font-family: var(--font-family-sans);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-md);
   line-height: var(--line-height-normal);
 
-  border-radius: var(--radius-md);
-  border: var(--field-border) solid transparent;
+  border-radius: var(--button-radius);
+  border: 1px solid transparent;
 
   cursor: pointer;
   user-select: none;
@@ -33,18 +32,18 @@
 /* SIZES */
 [data-button][data-ui-size="xs"],
 [data-button][data-ui-size="sm"] {
-  height: calc(var(--field-height) - var(--space-xs));
+  height: calc(var(--button-height) - var(--space-xs));
   font-size: var(--font-size-sm);
 }
 
 [data-button][data-ui-size="lg"],
 [data-button][data-ui-size="xl"] {
-  height: calc(var(--field-height) + var(--space-xs));
+  height: calc(var(--button-height) + var(--space-xs));
   font-size: var(--font-size-lg);
 }
 
 [data-button][data-ui-size="icon"] {
-  width: var(--field-height);
+  width: var(--button-height);
   padding: 0;
 }
 
@@ -62,9 +61,14 @@
 }
 
 [data-button][data-ui-variant="ghost"] {
-  background: transparent;
+  background: var(--button-ghost-bg);
   color: var(--button-ghost-fg);
   border-color: transparent;
+}
+
+[data-button][data-ui-variant="ghost"]:hover:not(:disabled) {
+  background: var(--button-ghost-bg-hover);
+  opacity: 1;
 }
 
 [data-button][data-ui-variant="danger"] {
@@ -104,7 +108,7 @@
   box-shadow: 0 0 0 var(--state-focus-ring) var(--button-primary-bg);
 }
 
-/* VALIDATION (Forms & Validation tokens) */
+/* VALIDATION */
 [data-button][data-validation="error"] {
   box-shadow: 0 0 0 var(--state-focus-ring) var(--validation-error);
 }

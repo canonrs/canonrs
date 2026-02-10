@@ -17,16 +17,10 @@ pub fn Slider(
     #[prop(default = false)] disabled: bool,
     #[prop(default = Orientation::Horizontal)] orientation: Orientation,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     let clamped = value.clamp(min, max);
     let node_ref = NodeRef::<html::Div>::new();
-
-    let base_class = format!(
-        "slider orientation-{} {}",
-        orientation.as_str(),
-        class
-    );
 
     view! {
         <SliderPrimitive
@@ -37,13 +31,13 @@ pub fn Slider(
             value={clamped}
             orientation={orientation.as_str().to_string()}
             disabled={disabled}
-            class={base_class}
-            id={id}
+            class={class}
+            id={id.unwrap_or_default()}
         >
-            <SliderTrackPrimitive class="slider-track".to_string()>
-                <SliderRangePrimitive class="slider-range".to_string() />
+            <SliderTrackPrimitive>
+                <SliderRangePrimitive />
             </SliderTrackPrimitive>
-            <SliderThumbPrimitive class="slider-thumb".to_string() />
+            <SliderThumbPrimitive />
         </SliderPrimitive>
     }
 }

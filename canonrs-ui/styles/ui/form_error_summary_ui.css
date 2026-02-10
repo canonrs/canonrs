@@ -1,7 +1,6 @@
-/* ============================================
-   FORM ERROR SUMMARY
-   Family E: Feedback & Status
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   FORM ERROR SUMMARY - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-form-error-summary] {
   display: flex;
@@ -30,6 +29,8 @@
   display: flex;
   align-items: flex-start;
   gap: var(--form-error-summary-item-gap);
+  font-size: var(--form-error-summary-item-font-size);
+  color: var(--form-error-summary-item-fg);
 }
 
 [data-form-error-summary-item-icon] {
@@ -40,7 +41,6 @@
 }
 
 [data-form-error-summary-item-link] {
-  font-size: var(--form-error-summary-item-font-size);
   color: var(--form-error-summary-item-fg);
   text-decoration: none;
 }

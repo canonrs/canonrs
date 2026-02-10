@@ -1,64 +1,38 @@
-/**
- * ButtonGroup Block Styles
- * Token Family: button.*, space.*, state.*
- */
+/* ═══════════════════════════════════════════════════════════════
+   BUTTON GROUP - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
-.canon-button-group {
+[data-button-group] {
   display: inline-flex;
-  gap: var(--button-group-gap, var(--space-xs));
-  border-radius: var(--button-radius, var(--radius-md));
+  flex-direction: var(--button-group-direction);
+  align-items: var(--button-group-align);
+  gap: var(--button-group-gap);
+  border-radius: var(--button-radius);
 }
 
-.canon-button-group--horizontal {
-  flex-direction: row;
-  align-items: center;
-}
-
-.canon-button-group--vertical {
-  flex-direction: column;
-  align-items: stretch;
-}
-
-/* Attached variant - buttons connected */
-.canon-button-group--attached {
+/* ATTACHED variant - merged borders */
+[data-button-group][data-attached] {
   gap: 0;
 }
 
-.canon-button-group--attached > * {
-  border-radius: 0;
-  margin-left: calc(var(--button-border-width, var(--border-width-thin)) * -1);
+[data-button-group][data-attached] > [data-button] {
+  border-radius: var(--button-group-radius-merge);
+  margin-left: -1px;
 }
 
-.canon-button-group--attached.canon-button-group--horizontal > *:first-child {
-  border-top-left-radius: var(--button-radius, var(--radius-md));
-  border-bottom-left-radius: var(--button-radius, var(--radius-md));
+[data-button-group][data-attached] > [data-button]:first-child {
+  border-start-start-radius: var(--button-radius);
+  border-end-start-radius: var(--button-radius);
   margin-left: 0;
 }
 
-.canon-button-group--attached.canon-button-group--horizontal > *:last-child {
-  border-top-right-radius: var(--button-radius, var(--radius-md));
-  border-bottom-right-radius: var(--button-radius, var(--radius-md));
+[data-button-group][data-attached] > [data-button]:last-child {
+  border-start-end-radius: var(--button-radius);
+  border-end-end-radius: var(--button-radius);
 }
 
-.canon-button-group--attached.canon-button-group--vertical > *:first-child {
-  border-top-left-radius: var(--button-radius, var(--radius-md));
-  border-top-right-radius: var(--button-radius, var(--radius-md));
-  margin-left: 0;
-}
-
-.canon-button-group--attached.canon-button-group--vertical > *:last-child {
-  border-bottom-left-radius: var(--button-radius, var(--radius-md));
-  border-bottom-right-radius: var(--button-radius, var(--radius-md));
-}
-
-/* Focus state - bring focused button above siblings */
-.canon-button-group--attached > *:focus {
-  position: relative;
-  z-index: 1;
-}
-
-/* Hover state for attached buttons */
-.canon-button-group--attached > *:hover {
+[data-button-group][data-attached] > [data-button]:focus,
+[data-button-group][data-attached] > [data-button]:hover {
   position: relative;
   z-index: 1;
 }

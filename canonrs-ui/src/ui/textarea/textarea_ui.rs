@@ -1,4 +1,5 @@
 use leptos::prelude::*;
+use crate::primitives::TextareaPrimitive;
 
 #[component]
 pub fn Textarea(
@@ -15,22 +16,18 @@ pub fn Textarea(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <textarea
-            attr:data-textarea=""
-            prop:value={value}
+        <TextareaPrimitive
+            value={value}
             placeholder={placeholder}
             name={name}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
-            attr:data-disabled={if disabled { "true" } else { "" }}
-            attr:aria-readonly={if readonly { "true" } else { "false" }}
-            attr:data-readonly={if readonly { "true" } else { "" }}
-            attr:aria-required={if required { "true" } else { "false" }}
-            attr:data-required={if required { "true" } else { "" }}
-            attr:aria-labelledby={labelled_by}
-            attr:aria-describedby={described_by}
-            rows={rows}
-            class=class
-            id=id
+            disabled={disabled}
+            readonly={readonly}
+            required={required}
+            labelled_by={labelled_by.unwrap_or_default()}
+            described_by={described_by.unwrap_or_default()}
+            rows={rows.unwrap_or(3)}
+            class={class}
+            id={id}
         />
     }
 }

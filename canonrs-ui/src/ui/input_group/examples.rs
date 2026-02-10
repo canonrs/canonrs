@@ -1,12 +1,11 @@
 use leptos::prelude::*;
-use super::input_group_ui::*;
-use crate::ui::input::Input;
+use super::InputGroup;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <InputGroup>
-            <span>"$"</span>
-            <Input placeholder="Amount".to_string() />
+            <span>"Input Group Example"</span>
         </InputGroup>
     }
 }

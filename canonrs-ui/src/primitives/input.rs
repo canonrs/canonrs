@@ -1,8 +1,3 @@
-//! @canon-level: strict
-//! @canon-owner: primitives-team
-//! Input Primitive - HTML puro
-//! CANON RULE: value={value} = controlled input (sempre controlado)
-
 use leptos::prelude::*;
 
 #[component]
@@ -20,8 +15,8 @@ pub fn InputPrimitive(
         <input
             type={input_type}
             class={class}
-            id={id}
-            name={name}
+            id={if id.is_empty() { None } else { Some(id.clone()) }}
+            name={if name.is_empty() { None } else { Some(name) }}
             value={value}
             placeholder={if placeholder.is_empty() { None } else { Some(placeholder) }}
             attr:aria-disabled={if disabled { "true" } else { "false" }}

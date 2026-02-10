@@ -1,15 +1,13 @@
-/* ============================================================================
-   INPUT_GROUP - Form Layout Coordinator
-   ============================================================================ */
+/* ═══════════════════════════════════════════════════════════════
+   INPUT GROUP - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-input-group] {
-  /* Layout */
   display: flex;
-  gap: var(--input-group-gap);
   align-items: var(--input-group-align);
+  gap: var(--input-group-gap);
 }
 
-/* Merge borders when needed */
 [data-input-group][data-merge-radius] > * {
   border-radius: var(--input-group-radius-merge);
 }

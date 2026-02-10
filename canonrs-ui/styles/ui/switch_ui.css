@@ -1,19 +1,15 @@
-/* ============================================================================
-   Switch UI Component — CanonRS
-   Family: C (Forms & Actions)
-   ========================================================================= */
+/* ═══════════════════════════════════════════════════════════════
+   SWITCH - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-switch] {
   display: inline-flex;
   align-items: center;
   position: relative;
-  
   width: var(--switch-width);
   height: var(--switch-height);
-  
   background: var(--switch-track-bg);
   border-radius: var(--switch-radius);
-  
   cursor: pointer;
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
@@ -27,15 +23,12 @@
   cursor: not-allowed;
 }
 
-/* Thumb */
 [data-switch-thumb] {
   display: block;
   width: var(--switch-thumb-size);
   height: var(--switch-thumb-size);
-  
   background: var(--switch-thumb-bg);
   border-radius: var(--switch-thumb-radius);
-  
   transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
   transform: translateX(var(--switch-thumb-translate-unchecked));
 }
@@ -44,15 +37,7 @@
   transform: translateX(var(--switch-thumb-translate-checked));
 }
 
-/* Spacing between switch and adjacent content */
-[data-switch] + * {
-  margin-left: var(--space-sm);
-}
-
-[data-switch]:focus {
-  outline: none;
-}
-
 [data-switch]:focus-visible {
-  box-shadow: 0 0 0 2px var(--theme-action-primary-bg);
+  outline: none;
+  box-shadow: 0 0 0 var(--state-focus-ring) var(--switch-track-bg-checked);
 }

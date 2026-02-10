@@ -10,7 +10,7 @@ pub fn SeparatorPrimitive(
     #[prop(default = true)] decorative: bool,
     #[prop(default = String::new())] aria_label: String,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div

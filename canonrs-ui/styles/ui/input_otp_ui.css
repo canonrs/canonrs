@@ -1,9 +1,8 @@
-/* ============================================================================
-   INPUT_OTP - Specialized Form Control
-   ============================================================================ */
+/* ═══════════════════════════════════════════════════════════════
+   INPUT OTP - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-input-otp] {
-  /* Hidden real input */
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -11,32 +10,27 @@
 }
 
 [data-input-otp-slot] {
-  /* Layout */
   width: var(--input-otp-slot-size);
   height: var(--input-otp-slot-size);
   border-radius: var(--input-otp-slot-radius);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* Visual */
   background: var(--input-otp-slot-bg);
   color: var(--input-otp-slot-fg);
   border: var(--input-otp-slot-border);
-
-  /* Typography */
   font-family: var(--input-otp-font-family);
   font-size: var(--input-otp-font-size);
   font-weight: var(--input-otp-font-weight);
 }
 
-/* Estados */
 [data-input-otp-slot][data-active="true"] {
   background: var(--input-otp-slot-active-bg);
   border-color: var(--input-otp-slot-active-border);
 }
 
-[data-input-otp][aria-disabled="true"] ~ [data-input-otp-slot] {
+[data-input-otp-slot][data-disabled="true"] {
   background: var(--input-otp-slot-disabled-bg);
   color: var(--input-otp-slot-disabled-fg);
+  opacity: var(--forms-disabled-opacity);
 }

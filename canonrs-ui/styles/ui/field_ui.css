@@ -1,7 +1,6 @@
-/* ============================================
-   FIELD
-   Family C: Forms
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   FIELD - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-field] {
   display: flex;
@@ -11,12 +10,18 @@
 
 [data-field][data-orientation="horizontal"] {
   flex-direction: row;
-  gap: var(--field-orientation-gap-horizontal);
   align-items: center;
+  gap: var(--field-orientation-gap-horizontal);
 }
 
 [data-field][data-orientation="vertical"] {
   gap: var(--field-orientation-gap-vertical);
+}
+
+[data-field-input] {
+  height: var(--field-height);
+  padding: var(--field-padding);
+  border: var(--field-border);
 }
 
 [data-field-label] {
@@ -50,19 +55,16 @@
   opacity: var(--field-disabled-opacity);
 }
 
-[data-field][data-validation="success"] [data-field-label],
-[data-field][data-validation="success"] [data-field-description] {
-  color: var(--field-validation-success-fg);
+[data-field][data-validation="error"] [data-field-label] {
+  color: var(--field-validation-error-fg);
 }
 
-[data-field][data-validation="warning"] [data-field-label],
-[data-field][data-validation="warning"] [data-field-description] {
+[data-field][data-validation="warning"] [data-field-label] {
   color: var(--field-validation-warning-fg);
 }
 
-[data-field][data-validation="error"] [data-field-label],
-[data-field][data-validation="error"] [data-field-description] {
-  color: var(--field-validation-error-fg);
+[data-field][data-validation="success"] [data-field-label] {
+  color: var(--field-validation-success-fg);
 }
 
 [data-field-separator] {

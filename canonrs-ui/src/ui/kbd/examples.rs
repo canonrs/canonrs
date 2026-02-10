@@ -1,9 +1,10 @@
 use leptos::prelude::*;
-use super::kbd_ui::*;
+use super::Kbd;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <div style="display: flex; gap: 1rem;">
+        <div style="display:flex;gap:0.5rem;align-items:center">
             <Kbd>"Ctrl"</Kbd>
             <span>"+"</span>
             <Kbd>"C"</Kbd>

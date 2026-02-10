@@ -1,10 +1,11 @@
 use leptos::prelude::*;
-use super::button_group_ui::*;
+use super::ButtonGroup;
 use crate::ui::button::Button;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <ButtonGroup>
+        <ButtonGroup aria_label="Actions">
             <Button>"First"</Button>
             <Button>"Second"</Button>
             <Button>"Third"</Button>

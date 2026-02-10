@@ -47,7 +47,7 @@ pub const FAMILY_B_SELECTION: &[FamilyToken] = &[
     FamilyToken::new("tabs-trigger-radius", "var(--radius-sm)"),
     FamilyToken::new("tabs-trigger-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("tabs-trigger-fg-active", "var(--theme-surface-fg)"),
-    FamilyToken::new("tabs-trigger-bg-active", "var(--theme-surface-bg)"),
+    FamilyToken::new("tabs-trigger-bg-active", "var(--theme-action-accent-bg)"),
     FamilyToken::new("tabs-trigger-font-size", "var(--font-size-sm)"),
     FamilyToken::new("tabs-trigger-font-weight", "var(--font-weight-medium)"),
     FamilyToken::new("tabs-trigger-transition-duration", "var(--motion-duration-fast)"),
@@ -155,6 +155,19 @@ pub const FAMILY_B_SELECTION: &[FamilyToken] = &[
     FamilyToken::new("menubar-content-radius", "var(--radius-md)"),
     FamilyToken::new("menubar-content-shadow", "var(--shadow-lg)"),
     FamilyToken::new("menubar-content-min-width", "var(--layout-width-sm)"),
+    
+    // Menubar SubItem
+    FamilyToken::new("menubar-subitem-height", "var(--space-xl)"),
+    FamilyToken::new("menubar-subitem-padding", "var(--space-sm) var(--space-md)"),
+    FamilyToken::new("menubar-subitem-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("menubar-subitem-bg-hover", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("menubar-subitem-radius", "var(--radius-sm)"),
+    FamilyToken::new("menubar-subitem-transition", "var(--motion-duration-fast)"),
+    
+    // Menubar Separator
+    FamilyToken::new("menubar-separator-height", "1px"),
+    FamilyToken::new("menubar-separator-bg", "var(--theme-surface-border)"),
+    FamilyToken::new("menubar-separator-margin", "var(--space-xs) 0"),
 
     // Tree
     FamilyToken::new("tree-gap", "var(--space-xs)"),

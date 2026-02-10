@@ -4,68 +4,75 @@ mod behavior_registry;
 #[cfg(feature = "hydrate")]
 mod auto_init;
 
-// === BEHAVIORS ===
 #[cfg(feature = "hydrate")]
-mod accordion_behavior;
+pub mod accordion_behavior;
 #[cfg(feature = "hydrate")]
-mod breadcrumb_behavior;
+pub mod breadcrumb_behavior;
 #[cfg(feature = "hydrate")]
-mod calendar_behavior;
+pub mod calendar_behavior;
 #[cfg(feature = "hydrate")]
-mod chart_behavior;
+pub mod chart_behavior;
 #[cfg(feature = "hydrate")]
+pub mod collapsible_behavior;
 #[cfg(feature = "hydrate")]
-mod collapsible_behavior;
+pub mod combobox_behavior;
 #[cfg(feature = "hydrate")]
+pub mod command_behavior;
 #[cfg(feature = "hydrate")]
-mod dialog_behavior;
+pub mod context_menu_behavior;
 #[cfg(feature = "hydrate")]
-mod dropdown_menu_behavior;
+pub mod copy_button_behavior;
 #[cfg(feature = "hydrate")]
-mod copy_button_behavior;
+pub mod datatable_behavior;
 #[cfg(feature = "hydrate")]
-mod datatable_behavior;
+pub mod dialog_behavior;
 #[cfg(feature = "hydrate")]
-mod icon_button_behavior;
+pub mod drawer_behavior;
 #[cfg(feature = "hydrate")]
-mod icon_toggle_behavior;
+pub mod dropdown_menu_behavior;
 #[cfg(feature = "hydrate")]
-mod list_item_behavior;
+pub mod hover_card_behavior;
 #[cfg(feature = "hydrate")]
-mod navigation_menu_behavior;
+pub mod icon_button_behavior;
 #[cfg(feature = "hydrate")]
-mod overlay_behavior;
+pub mod icon_toggle_behavior;
 #[cfg(feature = "hydrate")]
-mod pagination_behavior;
+pub mod list_item_behavior;
 #[cfg(feature = "hydrate")]
-mod scroll_area_behavior;
+pub mod menubar_behavior;
 #[cfg(feature = "hydrate")]
-mod sidebar_behavior;
+pub mod modal_behavior;
 #[cfg(feature = "hydrate")]
-mod simple_overlay_behavior;
+pub mod navigation_menu_behavior;
 #[cfg(feature = "hydrate")]
-mod switch_behavior;
+pub mod overlay_behavior;
 #[cfg(feature = "hydrate")]
+pub mod pagination_behavior;
 #[cfg(feature = "hydrate")]
-mod theme_toggle_behavior;
+pub mod popover_behavior;
 #[cfg(feature = "hydrate")]
-mod toggle_behavior;
+pub mod scroll_area_behavior;
+#[cfg(feature = "hydrate")]
+pub mod select_behavior;
+#[cfg(feature = "hydrate")]
+pub mod sheet_behavior;
+#[cfg(feature = "hydrate")]
+pub mod sidebar_behavior;
+#[cfg(feature = "hydrate")]
+pub mod simple_overlay_behavior;
+#[cfg(feature = "hydrate")]
+pub mod switch_behavior;
+#[cfg(feature = "hydrate")]
+pub mod theme_toggle_behavior;
+#[cfg(feature = "hydrate")]
+pub mod toggle_behavior;
+#[cfg(feature = "hydrate")]
+pub mod tooltip_behavior;
+#[cfg(feature = "hydrate")]
+pub mod tree_behavior;
 
 #[cfg(feature = "hydrate")]
 pub use behavior_registry::*;
 
 #[cfg(feature = "hydrate")]
 pub use auto_init::init_canonrs_behaviors;
-#[cfg(feature = "hydrate")]
-pub mod context_menu_behavior;
-#[cfg(feature = "hydrate")]
-pub mod tooltip_behavior;
-pub mod hover_card_behavior;
-pub mod popover_behavior;
-pub mod drawer_behavior;
-pub mod sheet_behavior;
-pub mod modal_behavior;
-pub mod combobox_behavior;
-pub mod command_behavior;
-pub mod menubar_behavior;
-pub mod tree_behavior;

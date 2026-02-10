@@ -1,34 +1,26 @@
-/* ============================================================================
-   KBD - Inline Textual UI
-   ============================================================================ */
+/* ═══════════════════════════════════════════════════════════════
+   KBD - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-kbd] {
-  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding-inline: var(--kbd-padding-x);
   padding-block: var(--kbd-padding-y);
   border-radius: var(--kbd-radius);
-  gap: var(--kbd-inline-gap);
-  
-  /* Visual */
   background: var(--kbd-bg);
   color: var(--kbd-fg);
   border: var(--kbd-border-width) solid var(--kbd-border-color);
-  box-shadow: var(--kbd-shadow);
-  
-  /* Typography */
   font-family: var(--kbd-font-family);
   font-size: var(--kbd-font-size);
   font-weight: var(--kbd-font-weight);
   line-height: var(--kbd-line-height);
-  
-  /* Display */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: var(--kbd-shadow);
 }
 
-/* Estados */
-[data-kbd][data-muted] {
-  background: var(--kbd-muted-bg);
-  color: var(--kbd-muted-fg);
+[data-kbd-group] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kbd-inline-gap);
 }

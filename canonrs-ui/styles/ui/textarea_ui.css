@@ -1,57 +1,39 @@
-/* ============================================================================
-   Textarea UI Component — CanonRS
-   Family: C (Forms & Actions)
-   ========================================================================= */
+/* ═══════════════════════════════════════════════════════════════
+   TEXTAREA - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-textarea] {
   display: block;
   width: 100%;
-  
-  font-family: var(--input-font-family);
-  font-size: var(--input-font-size);
-  font-weight: var(--input-font-weight);
-  line-height: var(--input-line-height);
-  
   min-height: var(--textarea-min-height);
   max-height: var(--textarea-max-height);
   padding: var(--input-padding-y) var(--input-padding-x);
-  
   background: var(--input-bg);
   color: var(--input-fg);
-  
-  border-width: var(--input-border-width);
-  border-style: solid;
-  border-color: var(--input-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-radius);
-  
   resize: var(--textarea-resize);
-  
-  transition:
-    border-color var(--motion-duration-fast) var(--motion-ease-standard),
-    outline var(--motion-duration-fast) var(--motion-ease-standard);
+  transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-textarea]::placeholder {
-  color: var(--input-placeholder);
-}
-
-/* Validation Variants */
 [data-textarea][data-variant="error"] {
-  border-color: var(--input-error-border);
+  border-color: var(--validation-error);
 }
 
 [data-textarea][data-variant="success"] {
-  border-color: var(--input-success-border);
+  border-color: var(--validation-success);
 }
 
-/* States */
+[data-textarea][data-variant="warning"] {
+  border-color: var(--validation-warning);
+}
+
 [data-textarea]:focus-visible {
-  outline: var(--input-focus-ring);
-  outline-color: var(--input-focus-ring-color);
-  outline-offset: var(--input-focus-ring-offset);
+  outline: none;
+  border-color: var(--forms-color);
 }
 
 [data-textarea]:disabled {
-  opacity: var(--input-disabled-opacity);
+  opacity: var(--forms-disabled-opacity);
   cursor: not-allowed;
 }

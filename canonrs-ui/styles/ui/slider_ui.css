@@ -1,7 +1,6 @@
-/* ============================================
-   SLIDER
-   Family C: Forms
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   SLIDER - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-slider] {
   position: relative;
@@ -20,6 +19,8 @@
   position: absolute;
   height: 100%;
   background: var(--slider-range-bg);
+  border-radius: var(--slider-track-radius);
+  transition: width var(--slider-transition-duration) var(--slider-transition-ease);
 }
 
 [data-slider-thumb] {
@@ -33,7 +34,7 @@
   transition: box-shadow var(--slider-transition-duration) var(--slider-transition-ease);
 }
 
-[data-slider-thumb]:focus {
+[data-slider-thumb]:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--slider-thumb-focus-ring-width) var(--slider-thumb-focus-ring-color);
 }

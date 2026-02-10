@@ -1,16 +1,11 @@
-/* RADIO GROUP - Family B Selection */
+/* ═══════════════════════════════════════════════════════════════
+   RADIO GROUP - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-radio-group] {
   display: flex;
   flex-direction: column;
   gap: var(--radio-group-gap);
-}
-
-[data-radio-group-item] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
 }
 
 [data-radio-item-wrapper] {
@@ -20,33 +15,17 @@
   cursor: pointer;
 }
 
-[data-radio-group-indicator] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--radio-size);
-  height: var(--radio-size);
-  border: var(--radio-border-width) solid var(--radio-border-color);
-  border-radius: 50%;
-  background: var(--radio-bg);
-  transition: all var(--radio-transition-duration);
-  flex-shrink: 0;
-  font-size: var(--radio-dot-size);
-  color: transparent;
-}
-
-[data-radio-group-item]:checked + [data-radio-group-indicator] {
-  background: var(--radio-bg-checked);
-  border-color: var(--radio-border-color-checked);
-  color: var(--radio-dot-color);
-}
-
-[data-radio-group-item]:disabled ~ [data-radio-group-indicator] {
-  opacity: var(--radio-disabled-opacity);
+[data-radio-item-wrapper] [data-radio-group-item]:disabled ~ * {
+  opacity: var(--forms-disabled-opacity);
   cursor: not-allowed;
 }
 
-[data-radio-group-item]:focus-visible ~ [data-radio-group-indicator] {
-  outline: var(--state-focus-ring-width) solid var(--state-focus-ring-color);
-  outline-offset: 2px;
+[data-radio-item-label] {
+  color: var(--radio-group-label-fg);
+  font-size: var(--radio-group-label-font-size);
+  font-weight: var(--radio-group-label-font-weight);
+}
+
+[data-radio-group-item]:disabled ~ [data-radio-item-label] {
+  color: var(--radio-group-label-fg-disabled);
 }

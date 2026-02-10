@@ -1,7 +1,3 @@
-//! @canon-level: strict
-//! @canon-owner: primitives-team
-//! Field Primitive - HTML puro para forms
-
 use leptos::prelude::*;
 
 #[component]
@@ -11,7 +7,7 @@ pub fn FieldPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-field="" class={class} id={id}>
+        <div data-field="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </div>
     }
@@ -20,16 +16,16 @@ pub fn FieldPrimitive(
 #[component]
 pub fn FieldLabelPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(optional)] html_for: Option<String>,
+    #[prop(default = String::new())] html_for: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <label
             attr:data-field-label=""
-            for={html_for.unwrap_or_default()}
+            for={if html_for.is_empty() { None } else { Some(html_for) }}
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </label>
@@ -43,7 +39,7 @@ pub fn FieldDescriptionPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-field-description="" class={class} id={id}>
+        <div data-field-description="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </div>
     }
@@ -61,7 +57,7 @@ pub fn FieldErrorPrimitive(
             role="alert"
             attr:aria-live="polite"
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </div>
@@ -75,7 +71,7 @@ pub fn FieldGroupPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-field-group="" class={class} id={id}>
+        <div data-field-group="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </div>
     }
@@ -88,7 +84,7 @@ pub fn FieldSetPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <fieldset data-fieldset="" class={class} id={id}>
+        <fieldset data-fieldset="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </fieldset>
     }
@@ -101,7 +97,7 @@ pub fn FieldLegendPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <legend data-field-legend="" class={class} id={id}>
+        <legend data-field-legend="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </legend>
     }

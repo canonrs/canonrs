@@ -2,11 +2,16 @@ use leptos::prelude::*;
 use super::field_ui::*;
 use crate::ui::input::Input;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <Field>
-            <FieldLabel>"Email"</FieldLabel>
-            <Input placeholder="you@example.com".to_string() />
+            <FieldLabel html_for="field-email".to_string()>"Email"</FieldLabel>
+            <Input
+                id="field-email".to_string()
+                name="email".to_string()
+                placeholder="you@example.com".to_string()
+            />
         </Field>
     }
 }

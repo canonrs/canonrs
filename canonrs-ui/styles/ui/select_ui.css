@@ -1,7 +1,6 @@
-/* ============================================================================
-   Select UI Component — CanonRS
-   Family: C (Forms & Actions)
-   ========================================================================= */
+/* ═══════════════════════════════════════════════════════════════
+   SELECT - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-select-trigger] {
   display: inline-flex;
@@ -9,25 +8,18 @@
   justify-content: space-between;
   gap: var(--select-gap);
   width: 100%;
-  
   height: var(--select-height);
   padding: 0 var(--select-padding-x);
-  
   background: var(--select-bg);
   color: var(--select-fg);
-  
-  border-width: var(--select-border-width);
-  border-style: solid;
-  border-color: var(--select-border-color);
+  border: var(--select-border-width) solid var(--select-border-color);
   border-radius: var(--select-radius);
-  
   cursor: pointer;
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-select-trigger]:focus-visible {
-  outline: var(--select-focus-ring);
-  outline-color: var(--select-focus-ring-color);
+  outline: var(--select-focus-ring-width) solid var(--select-focus-ring-color);
   outline-offset: var(--select-focus-ring-offset);
 }
 
@@ -36,23 +28,19 @@
   cursor: not-allowed;
 }
 
-/* Content (Dropdown) */
 [data-select-content] {
   background: var(--select-content-bg);
-  border-width: var(--select-content-border-width);
-  border-style: solid;
-  border-color: var(--select-content-border-color);
+  border: var(--select-content-border-width) solid var(--select-content-border-color);
   border-radius: var(--select-content-radius);
   box-shadow: var(--select-content-shadow);
-  padding: var(--select-content-padding-y) 0;
+  padding-block: var(--select-content-padding-y);
 }
 
-/* Item */
 [data-select-item] {
   display: flex;
   align-items: center;
   height: var(--select-item-height);
-  padding: 0 var(--select-item-padding);
+  padding: var(--select-item-padding);
   cursor: pointer;
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
@@ -66,9 +54,8 @@
   color: var(--select-item-selected-fg);
 }
 
-/* Separator */
 [data-select-separator] {
   height: var(--select-separator-height);
   background: var(--select-separator-color);
-  margin: var(--select-separator-margin-y) 0;
+  margin-block: var(--select-separator-margin-y);
 }

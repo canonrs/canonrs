@@ -1,16 +1,9 @@
-//! Button UI Component
-
 use leptos::prelude::*;
 use crate::primitives::ButtonPrimitive;
 
 #[derive(Clone, Copy, Debug)]
 pub enum ButtonVariant {
-    Solid,
-    Outline,
-    Ghost,
-    Danger,
-    Success,
-    Warning,
+    Solid, Outline, Ghost, Danger, Success, Warning,
 }
 
 impl ButtonVariant {
@@ -28,11 +21,7 @@ impl ButtonVariant {
 
 #[derive(Clone, Copy, Debug)]
 pub enum ButtonSize {
-    Xs,
-    Sm,
-    Md,
-    Lg,
-    Xl,
+    Xs, Sm, Md, Lg, Xl,
 }
 
 impl ButtonSize {
@@ -54,19 +43,18 @@ pub fn Button(
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
     #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
+    #[prop(optional)] aria_label: Option<String>,
 ) -> impl IntoView {
-    let variant_str = variant.as_str();
-    let size_str = size.as_str();
-
     view! {
         <ButtonPrimitive
             attr:data-button=""
-            attr:data-ui-variant=variant_str
-            attr:data-ui-size=size_str
-            class=class
-            id=id
-            disabled=disabled
+            attr:data-ui-variant={variant.as_str()}
+            attr:data-ui-size={size.as_str()}
+            class={class}
+            id={id.unwrap_or_default()}
+            disabled={disabled}
+            aria_label={aria_label.unwrap_or_default()}
         >
             {children()}
         </ButtonPrimitive>

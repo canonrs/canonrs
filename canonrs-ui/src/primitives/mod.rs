@@ -1,6 +1,9 @@
 pub mod animate;
 pub mod avatar;
 pub mod button;
+pub mod toggle;
+pub mod button_group;
+pub mod kbd;
 pub mod chart;
 pub mod icon_button;
 pub mod input;
@@ -106,7 +109,7 @@ pub use pagination::{
     PaginationNextPrimitive,
     PaginationEllipsisPrimitive,
 };
-pub use menu::{MenuPrimitive, MenuItemPrimitive, MenuGroupPrimitive};
+pub use menu::{MenuPrimitive, MenuItemPrimitive, MenuGroupPrimitive, MenuLabelPrimitive, MenuSeparatorPrimitive};
 pub mod context_menu;
 pub use context_menu::*;
 pub mod hover_card;

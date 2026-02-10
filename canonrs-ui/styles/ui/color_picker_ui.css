@@ -1,7 +1,6 @@
-/* ============================================
-   COLOR PICKER
-   Family C: Forms
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   COLOR PICKER - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-color-picker] {
   width: var(--color-picker-size);
@@ -11,17 +10,19 @@
   cursor: pointer;
 }
 
+[data-color-picker-trigger] {
+  width: var(--color-picker-trigger-size);
+  height: var(--color-picker-trigger-size);
+  border-radius: var(--color-picker-trigger-radius);
+  border: var(--color-picker-border-width) solid var(--color-picker-border-color);
+  cursor: pointer;
+}
+
 [data-color-picker-panel] {
   background: var(--color-picker-panel-bg);
   padding: var(--color-picker-panel-padding);
   border-radius: var(--color-picker-panel-radius);
   box-shadow: var(--color-picker-panel-shadow);
-}
-
-[data-color-picker-trigger] {
-  width: var(--color-picker-trigger-size);
-  height: var(--color-picker-trigger-size);
-  border-radius: var(--color-picker-trigger-radius);
 }
 
 [data-color-swatch] {

@@ -7,7 +7,9 @@ use super::tree_node::TreeNode;
 pub fn TreeNodeItem(
     node: TreeNode,
     depth: usize,
+    level: usize,
     selected: bool,
+    tabindex: i32,
     #[prop(default = false)] show_checkbox: bool,
 ) -> impl IntoView {
     let has_children = node.has_children();
@@ -20,28 +22,31 @@ pub fn TreeNodeItem(
             selected={selected}
             expanded={is_expanded}
             has_children={has_children}
+            tabindex={tabindex}
         >
-            <div attr:data-tree-toggle="">
-                {if has_children {
-                    if is_expanded { "▼" } else { "▶" }
-                } else {
-                    ""
-                }}
-            </div>
+            {has_children.then(|| {
+                view! {
+                    <div data-tree-toggle="">
+                        {if is_expanded { "▼" } else { "▶" }}
+                    </div>
+                }
+            })}
 
             {show_checkbox.then(|| {
                 view! {
-                    <div attr:data-tree-checkbox-wrapper="">
+                    <div data-tree-checkbox-wrapper="">
                         <Checkbox id=format!("tree-checkbox-{}", node.id) checked=is_checked />
                     </div>
                 }
             })}
 
             {node.icon.map(|icon| view! {
-                <span attr:data-tree-icon="">{icon}</span>
+                <span data-tree-icon="">{icon}</span>
             })}
 
-            <span attr:data-tree-label="">{node.label}</span>
+            <span data-tree-label="" attr:aria-level={level.to_string()}>
+                {node.label.clone()}
+            </span>
         </TreeItemPrimitive>
     }
 }
