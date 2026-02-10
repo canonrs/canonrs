@@ -1,9 +1,10 @@
 use leptos::prelude::*;
 use super::tabs_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Tabs>
+        <Tabs id="tabs-basic".to_string()>
             <TabsList>
                 <TabsTrigger value="tab-1".to_string() controls_id="content-1".to_string() selected=true>"Tab 1"</TabsTrigger>
                 <TabsTrigger value="tab-2".to_string() controls_id="content-2".to_string()>"Tab 2"</TabsTrigger>
@@ -20,10 +21,4 @@ pub fn basic_example() -> impl IntoView {
             </TabsContent>
         </Tabs>
     }
-}
-
-
-#[component]
-pub fn BasicExample() -> impl IntoView {
-    basic_example()
 }

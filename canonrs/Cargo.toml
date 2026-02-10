@@ -1,24 +1,5 @@
 # canonrs
 # Facade crate for the Canon UI system
-#
-# ⚠️  CRITICAL: This is an orchestration-only crate. It contains NO implementation.
-#
-# Purpose: Provides a single entry point that composes all Canon subsystems:
-# - canonrs-ui: SSR-safe markup components
-# - canonrs-behaviors: Client-side routing and hydration logic
-# - canonrs-shared: Cross-boundary types and utilities
-#
-# Architecture:
-# - canonrs-ui is ALWAYS available (both SSR and CSR need markup)
-# - canonrs-behaviors is OPTIONAL (only CSR needs routing/hydration)
-#
-# Feature gates enforce strict SSR/CSR separation:
-# - 'ssr' feature → Pure server rendering (zero WASM dependencies)
-# - 'hydrate' feature → Client-side hydration (activates WASM dependencies)
-# - These features are MUTUALLY EXCLUSIVE (enforced via compile_error!)
-#
-# Dependency activation uses explicit 'dep:' syntax to ensure Cargo
-# correctly enables optional crates when their features are requested.
 
 [package]
 name = "canonrs"
@@ -29,52 +10,25 @@ edition = "2021"
 # UI base layer - always available for both SSR and CSR
 canonrs-ui = { path = "../canonrs-ui", default-features = false }
 canonrs-providers = { path = "../canonrs-providers" }
-
-# Interactive layer - OPTIONAL, only for CSR builds
-# Contains event handlers, callbacks, and stateful behavior
-
-# CSR runtime - OPTIONAL, only for client-side hydration
-# Contains routing, hydration logic, and WASM entry points
-canonrs-behaviors = { path = "../canonrs-behaviors", optional = true }
-
-# Shared types - always available for cross-boundary communication
 canonrs-shared = { path = "../canonrs-shared" }
 
+# Interactive layer - OPTIONAL, only for CSR builds
+canonrs-ui-interactive = { path = "../canonrs-ui-interactive", optional = true }
+
+# CSR runtime - OPTIONAL, only for client-side hydration
+canonrs-behaviors = { path = "../canonrs-behaviors", optional = true }
+
+
 [features]
-# Default: Minimal build with no feature activation
-# Useful for library consumers who want explicit feature selection
 default = []
 
 # Hydrate: Full CSR stack with WASM support
-# Activates: interactive components + CSR runtime + UI hydration
-# Use case: Client-side hydration in browser
 hydrate = [
-  "with-interactive",
-  "with-behaviors",
-  "canonrs-ui/hydrate",
-]
-
-# Internal feature: Activates interactive component layer
-# Uses 'dep:' prefix to explicitly enable the optional dependency
-# Propagates 'hydrate' feature to ensure WASM support in interactive components
-with-interactive = [
-  
-]
-
-# Internal feature: Activates CSR runtime layer
-# Uses 'dep:' prefix to explicitly enable the optional dependency
-# Propagates 'hydrate' feature to ensure routing/hydration support
-with-behaviors = [
+  "dep:canonrs-ui-interactive",
   "dep:canonrs-behaviors",
+  "canonrs-ui/hydrate",
   "canonrs-behaviors/hydrate",
 ]
 
 # SSR: Pure server-side rendering
-# Activates ONLY SSR capabilities in UI layer (no WASM, no browser APIs)
-# Use case: Server-side pre-rendering, SEO, initial page load
 ssr = ["canonrs-ui/ssr"]
-
-# Note on mutual exclusivity:
-# The 'ssr' and 'hydrate' features cannot be used together.
-# This is enforced via compile_error! in src/lib.rs to prevent
-# accidental WASM symbol leakage into SSR binaries.

@@ -226,6 +226,12 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("calendar-cell-bg-disabled", "transparent"),
     FamilyToken::new("calendar-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("calendar-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("calendar-shadow", "var(--shadow-sm)"),
+    FamilyToken::new("calendar-hover-scale", "1.05"),
+    FamilyToken::new("calendar-nav-size", "36px"),
+    FamilyToken::new("calendar-nav-radius", "var(--radius-full)"),
+    FamilyToken::new("calendar-nav-bg", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("calendar-nav-fg", "var(--theme-surface-fg)"),
 
     // ColorPicker
     FamilyToken::new("color-picker-size", "var(--size-color-picker)"),

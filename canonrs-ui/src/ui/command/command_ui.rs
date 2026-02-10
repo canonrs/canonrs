@@ -1,125 +1,44 @@
-use crate::primitives::command::*;
 use leptos::prelude::*;
-use crate::primitives::{
-    CommandEmptyPrimitive, CommandGroupPrimitive, CommandItemPrimitive, SeparatorPrimitive,
-};
 
+/// Command - UI Structure (SSR-safe)
+/// No logic, just HTML structure
 #[component]
 pub fn Command(
+    #[prop(into)] id: String,
+    #[prop(optional)] placeholder: Option<String>,
+    #[prop(optional)] value: Option<Signal<String>>,
     children: Children,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
+    let value_signal = value.unwrap_or_else(|| Signal::derive(|| String::new()));
+    
     view! {
-        <CommandPrimitive
-            attr:class={class_name}
-            id={id}
-        >
-            {children()}
-        </CommandPrimitive>
+        <div data-command id=id>
+            <input 
+                data-command-input
+                type="text"
+                placeholder=placeholder.unwrap_or_else(|| "Search...".to_string())
+                prop:value=move || value_signal.get()
+            />
+            <div data-command-list>
+                {children()}
+            </div>
+        </div>
     }
 }
 
 #[component]
-pub fn CommandInputSimple(
-    #[prop(default = String::new())] placeholder: String,
-    #[prop(default = String::new())] value: String,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
+pub fn CommandItem(
+    #[prop(into)] text: String,
+    #[prop(optional)] visible: Option<Signal<bool>>,
 ) -> impl IntoView {
+    let is_visible = visible.unwrap_or_else(|| Signal::derive(|| true));
+    
     view! {
-        <CommandInputPrimitive
-            placeholder={placeholder}
-            value=value
-            attr:class={class_name}
-            id={id}
+        <div 
+            data-command-item
+            style:display=move || if is_visible.get() { "flex" } else { "none" }
         >
-            ""
-        </CommandInputPrimitive>
-    }
-}
-
-#[component]
-pub fn CommandListSimple(
-    children: Children,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <CommandListPrimitive
-            attr:class={class_name}
-            id={id}
-        >
-            {children()}
-        </CommandListPrimitive>
-    }
-}
-
-#[component]
-pub fn CommandEmpty(
-    children: Children,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <CommandEmptyPrimitive
-            attr:class={class_name}
-            id={id}
-        >
-            {children()}
-        </CommandEmptyPrimitive>
-    }
-}
-
-#[component]
-pub fn CommandGroup(
-    children: Children,
-    #[prop(optional)] heading: Option<String>,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <CommandGroupPrimitive
-            heading={heading.unwrap_or_default()}
-            attr:class={class_name}
-            id={id}
-        >
-            {children()}
-        </CommandGroupPrimitive>
-    }
-}
-
-#[component]
-pub fn CommandItemSimple(
-    children: Children,
-    #[prop(optional)] value: Option<String>,
-    #[prop(default = false)] selected: bool,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <CommandItemPrimitive
-            value={value.unwrap_or_default()}
-            selected=selected
-            attr:class={class_name}
-            id={id}
-        >
-            {children()}
-        </CommandItemPrimitive>
-    }
-}
-
-#[component]
-pub fn CommandSeparator(
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <SeparatorPrimitive
-            orientation="horizontal".to_string()
-            decorative=true
-            attr:class={class_name}
-            id={id}
-        />
+            {text}
+        </div>
     }
 }

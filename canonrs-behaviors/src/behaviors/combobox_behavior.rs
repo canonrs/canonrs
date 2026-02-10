@@ -22,7 +22,7 @@ pub fn register() {
         let trigger_selector = format!("#{} [data-combobox-trigger]", element_id);
 
         if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
-            let content_selector = format!("#{} [data-combobox-content]", element_id);
+            let content_selector = format!("#{} [data-combobox-list]", element_id);
             let combobox_clone = combobox.clone();
             let document_clone = document.clone();
             let trigger_selector_clone = trigger_selector.clone();
@@ -62,7 +62,7 @@ pub fn register() {
             let cb_close = Closure::wrap(Box::new(move |e: MouseEvent| {
                 if let Some(target) = e.target() {
                     if let Some(element) = target.dyn_ref::<Element>() {
-                        if element.closest("[data-combobox-content]").ok().flatten().is_none() &&
+                        if element.closest("[data-combobox-list]").ok().flatten().is_none() &&
                            element.closest("[data-combobox-trigger]").ok().flatten().is_none() {
                             open_signal.set(false);
                             combobox_clone.set_attribute("data-state", "closed").ok();

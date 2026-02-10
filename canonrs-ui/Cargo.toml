@@ -23,6 +23,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+cfg-if = "1.0"
 canonrs-providers = { path = "../canonrs-providers", default-features = false }
 leptos = { version = "0.8", default-features = false }
 leptos_meta = { version = "0.8", default-features = false }
@@ -82,3 +83,4 @@ hydrate = [
 lto = false
 codegen-units = 16
 strip = false
+cfg-if = "1.0"

@@ -1,11 +1,15 @@
 use leptos::prelude::*;
-use super::{Command, CommandInputSimple};
+use super::*;
 
 #[component]
-pub fn basic_example() -> impl IntoView {
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Command>
-            <CommandInputSimple placeholder="Type a command...".to_string() />
+        <Command id="command-example">
+            <CommandItem text="Copy" />
+            <CommandItem text="Cut" />
+            <CommandItem text="Paste" />
+            <CommandItem text="Delete" />
+            <CommandItem text="Rename" />
         </Command>
     }
 }

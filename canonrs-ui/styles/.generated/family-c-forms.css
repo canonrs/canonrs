@@ -192,6 +192,12 @@
   --calendar-cell-bg-disabled: transparent;
   --calendar-transition-duration: var(--motion-duration-fast);
   --calendar-transition-ease: var(--motion-ease-standard);
+  --calendar-shadow: var(--shadow-sm);
+  --calendar-hover-scale: 1.05;
+  --calendar-nav-size: 36px;
+  --calendar-nav-radius: var(--radius-full);
+  --calendar-nav-bg: var(--theme-action-accent-bg);
+  --calendar-nav-fg: var(--theme-surface-fg);
   --color-picker-size: var(--size-color-picker);
   --color-picker-radius: var(--radius-md);
   --color-picker-border-color: var(--theme-surface-border);

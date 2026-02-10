@@ -1,9 +1,10 @@
 use leptos::prelude::*;
 use super::menubar_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Menubar>
+        <Menubar id="menubar-basic".to_string()>
             <MenubarItem>
                 <MenubarTrigger controls_id="menubar-file-ex".to_string()>"File"</MenubarTrigger>
                 <MenubarContent content_id="menubar-file-ex".to_string()>
@@ -22,9 +23,4 @@ pub fn basic_example() -> impl IntoView {
             </MenubarItem>
         </Menubar>
     }
-}
-
-#[component]
-pub fn BasicExample() -> impl IntoView {
-    basic_example()
 }

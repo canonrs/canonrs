@@ -29,3 +29,4 @@ pub mod accordion;
 pub mod collapsible;
 pub mod combobox;
 pub mod command;
+pub mod radio_group;

@@ -170,6 +170,10 @@ pub const FAMILY_B_SELECTION: &[FamilyToken] = &[
     FamilyToken::new("tree-icon-rotation", "90deg"),
     FamilyToken::new("tree-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("tree-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("tree-indent-depth-1", "var(--space-lg)"),
+    FamilyToken::new("tree-item-padding-x", "var(--space-sm)"),
+    FamilyToken::new("tree-item-padding-y", "var(--space-xs)"),
+    FamilyToken::new("tree-row-height", "var(--space-2xl)"),
 
     // Command
     FamilyToken::new("command-bg", "var(--theme-overlay-bg)"),
@@ -196,15 +200,8 @@ pub const FAMILY_B_SELECTION: &[FamilyToken] = &[
     FamilyToken::new("command-separator-margin-y", "var(--space-xs)"),
     FamilyToken::new("command-empty-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("command-empty-padding", "var(--space-xl) var(--space-md)"),
-    // Command (tokens simplificados faltantes)
     FamilyToken::new("command-gap", "var(--space-xs)"),
     FamilyToken::new("command-padding", "var(--space-xs)"),
     FamilyToken::new("command-item-bg-hover", "var(--theme-action-accent-bg)"),
-
-    // Tree (tokens faltantes)
-    FamilyToken::new("tree-indent-depth-1", "var(--space-lg)"),
-    FamilyToken::new("tree-item-padding-x", "var(--space-sm)"),
-    FamilyToken::new("tree-item-padding-y", "var(--space-xs)"),
-    FamilyToken::new("tree-row-height", "var(--space-2xl)"),
 
 ];

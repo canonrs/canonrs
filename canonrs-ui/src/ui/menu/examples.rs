@@ -1,9 +1,10 @@
 use leptos::prelude::*;
 use super::menu_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Menu aria_label="Main menu".to_string()>
+        <Menu id="menu-basic".to_string() aria_label="Main menu".to_string()>
             <MenuGroup aria_label="Account".to_string()>
                 <MenuLabel>"Account"</MenuLabel>
                 <MenuItem>"Profile"</MenuItem>
@@ -13,9 +14,4 @@ pub fn basic_example() -> impl IntoView {
             <MenuItem>"Logout"</MenuItem>
         </Menu>
     }
-}
-
-#[component]
-pub fn BasicExample() -> impl IntoView {
-    basic_example()
 }

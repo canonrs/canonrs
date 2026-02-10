@@ -7,13 +7,13 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use leptos::web_sys::{window, KeyboardEvent, Element};
+use leptos::web_sys::{window, Event, HtmlInputElement};
 #[cfg(feature = "hydrate")]
-use leptos::prelude::Set;
+use leptos::prelude::*;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-command", Box::new(|element_id, state| {
+    register_behavior("data-command", Box::new(|element_id, _state| {
         let document = window().unwrap().document().unwrap();
         let command = document.get_element_by_id(element_id)
             .ok_or_else(|| BehaviorError::ElementNotFound { selector: element_id.to_string() })?;
@@ -24,32 +24,31 @@ pub fn register() {
             let document_clone = document.clone();
             let element_id_clone = element_id.to_string();
             
-            let cb_search = Closure::wrap(Box::new(move |e: KeyboardEvent| {
-                if let Some(target) = e.target() {
-                    if let Some(input_el) = target.dyn_ref::<web_sys::HtmlInputElement>() {
-                        let search_value = input_el.value().to_lowercase();
-                        
-                        let item_selector = format!("#{} [data-command-item]", element_id_clone);
-                        if let Ok(items) = document_clone.query_selector_all(&item_selector) {
-                            for i in 0..items.length() {
-                                if let Some(node) = items.get(i) {
-                                    if let Some(item) = node.dyn_ref::<Element>() {
-                                        let item_text = item.text_content().unwrap_or_default().to_lowercase();
-                                        
-                                        if search_value.is_empty() || item_text.contains(&search_value) {
-                                            item.set_attribute("data-hidden", "false").ok();
-                                        } else {
-                                            item.set_attribute("data-hidden", "true").ok();
-                                        }
-                                    }
-                                }
+            let cb = Closure::wrap(Box::new(move |_: Event| {
+                if let Some(input_el) = document_clone.query_selector(&format!("#{} [data-command-input]", element_id_clone))
+                    .ok()
+                    .flatten()
+                    .and_then(|el| el.dyn_into::<HtmlInputElement>().ok()) 
+                {
+                    let search = input_el.value().to_lowercase();
+                    
+                    let items_selector = format!("#{} [data-command-item]", element_id_clone);
+                    if let Ok(items) = document_clone.query_selector_all(&items_selector) {
+                        for i in 0..items.length() {
+                            if let Some(item) = items.get(i).and_then(|n| n.dyn_into::<web_sys::HtmlElement>().ok()) {
+                                let text = item.text_content().unwrap_or_default().to_lowercase();
+                                let matches = search.is_empty() || text.contains(&search);
+                                
+                                let style = item.style();
+                                style.set_property("display", if matches { "flex" } else { "none" }).ok();
                             }
                         }
                     }
                 }
-            }) as Box<dyn FnMut(KeyboardEvent)>);
-            input.add_event_listener_with_callback("input", cb_search.as_ref().unchecked_ref()).unwrap();
-            cb_search.forget();
+            }) as Box<dyn FnMut(Event)>);
+            
+            input.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref()).unwrap();
+            cb.forget();
         }
 
         Ok(())

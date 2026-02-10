@@ -144,6 +144,10 @@
   --tree-icon-rotation: 90deg;
   --tree-transition-duration: var(--motion-duration-fast);
   --tree-transition-ease: var(--motion-ease-standard);
+  --tree-indent-depth-1: var(--space-lg);
+  --tree-item-padding-x: var(--space-sm);
+  --tree-item-padding-y: var(--space-xs);
+  --tree-row-height: var(--space-2xl);
   --command-bg: var(--theme-overlay-bg);
   --command-fg: var(--color-popover-foreground);
   --command-radius: var(--radius-md);
@@ -171,8 +175,4 @@
   --command-gap: var(--space-xs);
   --command-padding: var(--space-xs);
   --command-item-bg-hover: var(--theme-action-accent-bg);
-  --tree-indent-depth-1: var(--space-lg);
-  --tree-item-padding-x: var(--space-sm);
-  --tree-item-padding-y: var(--space-xs);
-  --tree-row-height: var(--space-2xl);
 }

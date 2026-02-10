@@ -1,18 +1,19 @@
 use leptos::prelude::*;
 use super::CalendarInteractive;
-use canonrs_ui::ui::calendar::CalendarDate;
+use time::Date;
 
-pub fn basic_example() -> impl IntoView {
-    let handle_select = Callback::new(|date: CalendarDate| {
-        leptos::logging::log!("Selected date: {}", date.to_string());
-    });
+#[component]
+pub fn BasicExample() -> impl IntoView {
+    view! {
+        <CalendarInteractive />
+    }
+}
+
+#[component]
+pub fn WithInitialDate() -> impl IntoView {
+    let initial = Date::from_calendar_date(2026, time::Month::December, 25).unwrap();
     
     view! {
-        <CalendarInteractive
-            initial_year=2026
-            initial_month=2
-            on_date_select=handle_select
-            today=CalendarDate::new(2026, 2, 6)
-        />
+        <CalendarInteractive initial_date=initial />
     }
 }
