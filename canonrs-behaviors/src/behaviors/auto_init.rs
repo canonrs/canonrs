@@ -8,15 +8,12 @@ pub fn register_all_behaviors() {
     sheet_behavior::register();
     modal_behavior::register();
     dropdown_menu_behavior::register();
-    checkbox_behavior::register();
     collapsible_behavior::register();
     
     tree_behavior::register();
     menubar_behavior::register();
     command_behavior::register();
     combobox_behavior::register();
-    tabs_behavior::register();
-    radio_behavior::register();
     switch_behavior::register();
     theme_toggle_behavior::register();
     context_menu_behavior::register();
