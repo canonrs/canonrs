@@ -11,6 +11,14 @@
   background: var(--tabs-list-bg);
   padding: var(--tabs-list-padding);
   border-radius: var(--tabs-list-radius);
+  gap: var(--tabs-list-gap, 0.25rem);
+}
+
+[data-tabs-input] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 [data-tabs-trigger] {
@@ -24,9 +32,12 @@
   background: transparent;
   border: none;
   transition: all var(--tabs-trigger-transition-duration);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-[data-tabs-trigger][data-state="active"] {
+[data-tabs-input]:checked + [data-tabs-trigger] {
   color: var(--tabs-trigger-fg-active);
   background: var(--tabs-trigger-bg-active);
 }
@@ -36,6 +47,19 @@
   display: none;
 }
 
-[data-tabs-content][data-state="active"] {
+/* Mostrar content quando input correspondente está checked */
+[data-tabs]:has([data-tabs-input][value="tab-1"]:checked) [data-tabs-content][data-value="tab-1"],
+[data-tabs]:has([data-tabs-input][value="tab-2"]:checked) [data-tabs-content][data-value="tab-2"],
+[data-tabs]:has([data-tabs-input][value="tab-3"]:checked) [data-tabs-content][data-value="tab-3"],
+[data-tabs]:has([data-tabs-input][value="home"]:checked) [data-tabs-content][data-value="home"],
+[data-tabs]:has([data-tabs-input][value="profile"]:checked) [data-tabs-content][data-value="profile"],
+[data-tabs]:has([data-tabs-input][value="settings"]:checked) [data-tabs-content][data-value="settings"],
+[data-tabs]:has([data-tabs-input][value="v1"]:checked) [data-tabs-content][data-value="v1"],
+[data-tabs]:has([data-tabs-input][value="v2"]:checked) [data-tabs-content][data-value="v2"],
+[data-tabs]:has([data-tabs-input][value="v3"]:checked) [data-tabs-content][data-value="v3"],
+[data-tabs]:has([data-tabs-input][value="primitive"]:checked) [data-tabs-content][data-value="primitive"],
+[data-tabs]:has([data-tabs-input][value="ui"]:checked) [data-tabs-content][data-value="ui"],
+[data-tabs]:has([data-tabs-input][value="usage"]:checked) [data-tabs-content][data-value="usage"],
+[data-tabs]:has([data-tabs-input][value="contract"]:checked) [data-tabs-content][data-value="contract"] {
   display: block;
 }

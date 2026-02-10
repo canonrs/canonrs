@@ -14,7 +14,6 @@ mod calendar_behavior;
 #[cfg(feature = "hydrate")]
 mod chart_behavior;
 #[cfg(feature = "hydrate")]
-mod checkbox_behavior;
 #[cfg(feature = "hydrate")]
 mod collapsible_behavior;
 #[cfg(feature = "hydrate")]
@@ -66,8 +65,6 @@ pub mod popover_behavior;
 pub mod drawer_behavior;
 pub mod sheet_behavior;
 pub mod modal_behavior;
-pub mod radio_behavior;
-pub mod tabs_behavior;
 pub mod combobox_behavior;
 pub mod command_behavior;
 pub mod menubar_behavior;

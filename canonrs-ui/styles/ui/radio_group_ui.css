@@ -1,33 +1,52 @@
-/* ============================================
-   RADIO GROUP
-   Family C: Forms
-   ============================================ */
+/* RADIO GROUP - Family B Selection */
 
 [data-radio-group] {
   display: flex;
+  flex-direction: column;
   gap: var(--radio-group-gap);
 }
 
-[data-radio-group][data-orientation="vertical"] {
-  flex-direction: column;
-}
-
-[data-radio-group][data-orientation="horizontal"] {
-  flex-direction: row;
-}
-
 [data-radio-group-item] {
-  display: flex;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[data-radio-item-wrapper] {
+  display: inline-flex;
   align-items: center;
   gap: var(--radio-group-item-gap);
+  cursor: pointer;
 }
 
-[data-radio-group-label] {
-  font-size: var(--radio-group-label-font-size);
-  font-weight: var(--radio-group-label-font-weight);
-  color: var(--radio-group-label-fg);
+[data-radio-group-indicator] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--radio-size);
+  height: var(--radio-size);
+  border: var(--radio-border-width) solid var(--radio-border-color);
+  border-radius: 50%;
+  background: var(--radio-bg);
+  transition: all var(--radio-transition-duration);
+  flex-shrink: 0;
+  font-size: var(--radio-dot-size);
+  color: transparent;
 }
 
-[data-radio-group][data-disabled="true"] [data-radio-group-label] {
-  color: var(--radio-group-label-fg-disabled);
+[data-radio-group-item]:checked + [data-radio-group-indicator] {
+  background: var(--radio-bg-checked);
+  border-color: var(--radio-border-color-checked);
+  color: var(--radio-dot-color);
+}
+
+[data-radio-group-item]:disabled ~ [data-radio-group-indicator] {
+  opacity: var(--radio-disabled-opacity);
+  cursor: not-allowed;
+}
+
+[data-radio-group-item]:focus-visible ~ [data-radio-group-indicator] {
+  outline: var(--state-focus-ring-width) solid var(--state-focus-ring-color);
+  outline-offset: 2px;
 }

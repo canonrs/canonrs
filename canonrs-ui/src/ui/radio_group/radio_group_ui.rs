@@ -7,9 +7,9 @@ use crate::primitives::{
 
 #[component]
 pub fn RadioGroup(
+    #[prop(into)] id: String,
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <RadioGroupPrimitive
@@ -23,37 +23,38 @@ pub fn RadioGroup(
 
 #[component]
 pub fn RadioGroupItem(
+    #[prop(into)] id: String,
+    #[prop(into)] name: String,
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] value: String,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
+    let id_clone = id.clone();
     view! {
-        <RadioGroupItemPrimitive
-            tabindex={-1}
-            checked=checked
-            disabled=disabled
-            value=value
-            class=class
-            id=id
-        >
+        <label for=id_clone data-radio-item-wrapper style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <RadioGroupItemPrimitive
+                checked=checked
+                disabled=disabled
+                value=value
+                name=name
+                class=class
+                id=id
+            />
+            <RadioGroupIndicator />
             {children.map(|c| c())}
-        </RadioGroupItemPrimitive>
+        </label>
     }
 }
 
 #[component]
 pub fn RadioGroupIndicator(
-    #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <RadioGroupIndicatorPrimitive
-            class=class
-        >
-            {children.map(|c| c())}
+        <RadioGroupIndicatorPrimitive class=class>
+            "●"
         </RadioGroupIndicatorPrimitive>
     }
 }

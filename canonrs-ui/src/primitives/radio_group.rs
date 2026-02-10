@@ -1,5 +1,5 @@
 //! @canon-level: strict
-//! RadioGroup Primitive - Radio button group component
+//! RadioGroup Primitive - Native HTML radio inputs
 
 use leptos::prelude::*;
 
@@ -11,7 +11,7 @@ pub fn RadioGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-radio-group=""
+            data-radio-group="" style="display: flex; flex-direction: column; gap: var(--radio-group-gap);"
             role="radiogroup"
             class=class
             id=id
@@ -24,29 +24,24 @@ pub fn RadioGroupPrimitive(
 #[component]
 pub fn RadioGroupItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = -1)] tabindex: i32,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] value: String,
+    #[prop(default = String::new())] name: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <button
-            attr:data-radio-group-item=""
-            attr:data-value={value}
-            type="button"
-            role="radio"
-            tabindex={tabindex}
-            attr:aria-checked={if checked { "true" } else { "false" }}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
-            attr:data-state={if checked { "checked" } else { "unchecked" }}
-            attr:data-disabled={if disabled { "true" } else { "" }}
+        <input
+            type="radio"
+            data-radio-group-item=""
+            value=value
+            name=name
+            checked=checked
+            disabled=disabled
             class=class
             id=id
-        >
-            {children.map(|c| c())}
-        </button>
+        />
     }
 }
 
@@ -57,7 +52,7 @@ pub fn RadioGroupIndicatorPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            attr:data-radio-group-indicator=""
+            data-radio-group-indicator=""
             class=class
         >
             {children.map(|c| c())}

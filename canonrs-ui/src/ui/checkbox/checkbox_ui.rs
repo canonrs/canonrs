@@ -6,16 +6,17 @@ use crate::primitives::{
 
 #[component]
 pub fn Checkbox(
+    #[prop(into)] id: String,
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] name: String,
     #[prop(default = String::new())] value: String,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
+    let id_clone = id.clone();
     view! {
-        <label data-checkbox-wrapper style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+        <label for=id_clone data-checkbox-wrapper>
             <CheckboxPrimitive
                 checked=checked
                 disabled=disabled
@@ -23,9 +24,8 @@ pub fn Checkbox(
                 value=value
                 class=class
                 id=id
-            >
-                <CheckboxIndicator />
-            </CheckboxPrimitive>
+            />
+            <CheckboxIndicator />
             {children.map(|c| c())}
         </label>
     }

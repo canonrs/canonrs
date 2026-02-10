@@ -31,18 +31,18 @@ pub fn CodeSectionBlock(
         <section data-code-section="" class="canon-code-section">
             <h3 class="canon-code-section-title">"Code Examples"</h3>
 
-            <Tabs>
+            <Tabs id="code-section-tabs">
                 <TabsList>
-                    <TabsTrigger value="primitive">
+                    <TabsTrigger id="tab-primitive" name="code-tabs" value="primitive" checked=true>
                         "Primitive Layer"
                     </TabsTrigger>
-                    <TabsTrigger value="ui">
+                    <TabsTrigger id="tab-ui" name="code-tabs" value="ui">
                         "UI Layer"
                     </TabsTrigger>
-                    <TabsTrigger value="usage">
+                    <TabsTrigger id="tab-usage" name="code-tabs" value="usage">
                         "Application Usage"
                     </TabsTrigger>
-                    <TabsTrigger value="contract">
+                    <TabsTrigger id="tab-contract" name="code-tabs" value="contract">
                         "Component Contract"
                     </TabsTrigger>
                 </TabsList>

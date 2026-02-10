@@ -3,18 +3,19 @@ use crate::primitives::{
     TabsPrimitive,
     TabsListPrimitive,
     TabsTriggerPrimitive,
+    TabsTriggerLabelPrimitive,
     TabsContentPrimitive,
 };
 
 #[component]
 pub fn Tabs(
+    #[prop(into)] id: String,
     children: Children,
     #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <TabsPrimitive
-            attr:class={class_name}
+            class={class_name}
             id=id
         >
             {children()}
@@ -40,42 +41,41 @@ pub fn TabsList(
 
 #[component]
 pub fn TabsTrigger(
+    #[prop(into)] id: String,
+    #[prop(into)] name: String,
+    #[prop(into)] value: String,
     children: Children,
-    #[prop(default = -1)] tabindex: i32,
-    #[prop(default = String::new())] controls_id: String,
-    #[prop(default = false)] selected: bool,
-    #[prop(into, default = String::new())] value: String,
+    #[prop(default = false)] checked: bool,
     #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
+    let id_clone = id.clone();
     view! {
         <TabsTriggerPrimitive
-            tabindex=tabindex
-            controls_id=controls_id
-            selected=selected
-            value=value
-            attr:class={class_name}
+            name=name
+            value=value.clone()
+            checked=checked
             id=id
+            class={class_name.clone()}
+        />
+        <TabsTriggerLabelPrimitive
+            for_id=id_clone
+            class={class_name}
         >
             {children()}
-        </TabsTriggerPrimitive>
+        </TabsTriggerLabelPrimitive>
     }
 }
 
 #[component]
 pub fn TabsContent(
+    #[prop(into)] value: String,
     children: Children,
-    #[prop(into, default = String::new())] value: String,
-    #[prop(default = String::new())] content_id: String,
-    #[prop(default = String::new())] labelledby: String,
     #[prop(default = String::new())] class_name: String,
 ) -> impl IntoView {
     view! {
         <TabsContentPrimitive
             value=value
-            content_id=content_id
-            labelledby=labelledby
-            attr:class={class_name}
+            class={class_name}
         >
             {children()}
         </TabsContentPrimitive>

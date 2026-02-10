@@ -32,7 +32,7 @@ pub fn TreeNodeItem(
             {show_checkbox.then(|| {
                 view! {
                     <div attr:data-tree-checkbox-wrapper="">
-                        <Checkbox checked=is_checked />
+                        <Checkbox id=format!("tree-checkbox-{}", node.id) checked=is_checked />
                     </div>
                 }
             })}
