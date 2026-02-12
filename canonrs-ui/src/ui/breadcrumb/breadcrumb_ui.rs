@@ -16,23 +16,23 @@ pub fn Breadcrumb(
     items: Vec<BreadcrumbItemData>,
     #[prop(default = String::new())] separator: String,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     let sep = if separator.is_empty() { "/".to_string() } else { separator.clone() };
     let total = items.len();
-
+    
     view! {
-        <BreadcrumbPrimitive class={class} id={id}>
+        <BreadcrumbPrimitive class={class} id={id.unwrap_or_default()}>
             {items.into_iter().enumerate().map(|(idx, item)| {
                 let is_last = idx == total - 1;
                 let label = item.label.clone();
                 let href = item.href.clone();
                 let sep_clone = sep.clone();
-
+                
                 view! {
                     <BreadcrumbItemPrimitive class=String::new()>
                         {if is_last {
-                            view! { <span data-breadcrumb-page="" attr:aria-current="page">{label}</span> }.into_any()
+                            view! { <span data-breadcrumb-page="" aria-current="page">{label}</span> }.into_any()
                         } else {
                             view! { <BreadcrumbLinkPrimitive href=href current={false} class=String::new()>{label}</BreadcrumbLinkPrimitive> }.into_any()
                         }}
@@ -69,7 +69,7 @@ pub fn BreadcrumbSeparator(
 #[component]
 pub fn BreadcrumbEllipsis(
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
-    view! { <BreadcrumbItemPrimitive class={String::new()}><BreadcrumbEllipsisPrimitive class={class} id={id} /></BreadcrumbItemPrimitive> }
+    view! { <BreadcrumbItemPrimitive class={String::new()}><BreadcrumbEllipsisPrimitive class={class} id={id.unwrap_or_default()} /></BreadcrumbItemPrimitive> }
 }

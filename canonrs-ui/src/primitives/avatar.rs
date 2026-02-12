@@ -14,7 +14,7 @@ pub fn AvatarPrimitive(
         <span
             data-avatar=""
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </span>
@@ -23,8 +23,8 @@ pub fn AvatarPrimitive(
 
 #[component]
 pub fn AvatarImagePrimitive(
-    #[prop(default = String::new())] src: String,
-    #[prop(default = String::new())] alt: String,
+    src: String,
+    alt: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -34,7 +34,7 @@ pub fn AvatarImagePrimitive(
             src={src}
             alt={alt}
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         />
     }
 }
@@ -49,7 +49,7 @@ pub fn AvatarFallbackPrimitive(
         <span
             data-avatar-fallback=""
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </span>

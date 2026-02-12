@@ -1,38 +1,53 @@
 use leptos::prelude::*;
-use super::{DataTable, types::DataTableColumn};
-
-#[derive(Clone)]
-struct User {
-    id: String,
-    name: String,
-    email: String,
-}
+use super::{
+    DataTable, DataTableToolbar, DataTableScroll, DataTableTable,
+    DataTableHead, DataTableHeadRow, DataTableHeadCell,
+    DataTableBody, DataTableRow, DataTableCell,
+    DataTablePagination, DataTableEmpty
+};
 
 #[component]
-pub fn basic_example() -> impl IntoView {
-    let data = vec![
-        User { id: "1".to_string(), name: "Alice".to_string(), email: "alice@example.com".to_string() },
-        User { id: "2".to_string(), name: "Bob".to_string(), email: "bob@example.com".to_string() },
-    ];
-
-    let columns = vec![
-        DataTableColumn {
-            id: "name".to_string(),
-            label: "Name".to_string(),
-            render: Box::new(|user: &User| view! { <span>{user.name.clone()}</span> }.into_any()),
-            sortable: true,
-            width: None,
-        },
-        DataTableColumn {
-            id: "email".to_string(),
-            label: "Email".to_string(),
-            render: Box::new(|user: &User| view! { <span>{user.email.clone()}</span> }.into_any()),
-            sortable: true,
-            width: None,
-        },
-    ];
-
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <DataTable data=data columns=columns />
+        <DataTable>
+            <DataTableToolbar>
+                <div>"Search..."</div>
+                <div>"Filters"</div>
+            </DataTableToolbar>
+
+            <DataTableScroll>
+                <DataTableTable>
+                    <DataTableHead>
+                        <DataTableHeadRow>
+                            <DataTableHeadCell sort_key="name">
+                                "Name"
+                            </DataTableHeadCell>
+                            <DataTableHeadCell sort_key="email">
+                                "Email"
+                            </DataTableHeadCell>
+                            <DataTableHeadCell>"Status"</DataTableHeadCell>
+                        </DataTableHeadRow>
+                    </DataTableHead>
+
+                    <DataTableBody>
+                        <DataTableRow id="1".to_string()>
+                            <DataTableCell>"Alice"</DataTableCell>
+                            <DataTableCell>"alice@example.com"</DataTableCell>
+                            <DataTableCell>"Active"</DataTableCell>
+                        </DataTableRow>
+                        <DataTableRow id="2".to_string()>
+                            <DataTableCell>"Bob"</DataTableCell>
+                            <DataTableCell>"bob@example.com"</DataTableCell>
+                            <DataTableCell>"Inactive"</DataTableCell>
+                        </DataTableRow>
+                    </DataTableBody>
+                </DataTableTable>
+            </DataTableScroll>
+
+            <DataTablePagination>
+                <div>"Showing 1-2 of 2"</div>
+                <div>"Prev | Next"</div>
+            </DataTablePagination>
+        </DataTable>
     }
 }

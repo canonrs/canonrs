@@ -15,6 +15,9 @@ pub const CORE_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("space-md", "var(--primitive-space-4)"),
     FamilyToken::new("space-lg", "var(--primitive-space-6)"),
     FamilyToken::new("space-xl", "var(--primitive-space-8)"),
+    FamilyToken::new("space-2xl", "var(--primitive-space-12)"),
+    FamilyToken::new("space-3xl", "var(--primitive-space-16)"),
+    FamilyToken::new("space-4xl", "var(--primitive-space-24)"),
 
     // ======================================================================
     // Radius system
@@ -32,6 +35,7 @@ pub const CORE_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("font-family-sans", "var(--primitive-font-sans)"),
     FamilyToken::new("font-family-mono", "var(--primitive-font-mono)"),
 
+    FamilyToken::new("font-size-xs", "var(--primitive-font-size-1)"),
     FamilyToken::new("font-size-sm", "var(--primitive-font-size-2)"),
     FamilyToken::new("font-size-md", "var(--primitive-font-size-3)"),
     FamilyToken::new("font-size-lg", "var(--primitive-font-size-4)"),

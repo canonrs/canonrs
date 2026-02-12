@@ -2,27 +2,28 @@
    COLOR PICKER - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-color-picker] {
-  width: var(--color-picker-size);
-  height: var(--color-picker-size);
-  border-radius: var(--color-picker-radius);
-  border: var(--color-picker-border-width) solid var(--color-picker-border-color);
-  cursor: pointer;
+[data-color-picker-wrapper] {
+  display: inline-block;
 }
 
-[data-color-picker-trigger] {
+[data-color-picker] {
+  position: relative;
   width: var(--color-picker-trigger-size);
   height: var(--color-picker-trigger-size);
-  border-radius: var(--color-picker-trigger-radius);
   border: var(--color-picker-border-width) solid var(--color-picker-border-color);
+  border-radius: var(--color-picker-trigger-radius);
   cursor: pointer;
+  overflow: hidden;
 }
 
-[data-color-picker-panel] {
-  background: var(--color-picker-panel-bg);
-  padding: var(--color-picker-panel-padding);
-  border-radius: var(--color-picker-panel-radius);
-  box-shadow: var(--color-picker-panel-shadow);
+[data-color-picker-input] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
 [data-color-swatch] {
@@ -31,9 +32,37 @@
   border-radius: var(--color-picker-swatch-radius);
   border: var(--color-picker-swatch-border-width) solid var(--color-picker-swatch-border-color);
   cursor: pointer;
-  transition: border-color var(--color-picker-transition-duration) var(--color-picker-transition-ease);
 }
 
-[data-color-swatch][data-selected="true"] {
+[data-color-swatch][data-selected] {
   border-color: var(--color-picker-swatch-border-color-selected);
+  border-width: calc(var(--color-picker-swatch-border-width) * 2);
+}
+
+/* Example layout */
+[data-color-picker-example] {
+  display: flex;
+  gap: var(--color-picker-example-gap);
+  align-items: flex-start;
+}
+
+[data-color-labels] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--color-picker-labels-gap);
+  font-size: var(--color-picker-label-font-size);
+  font-family: var(--color-picker-label-font-family);
+}
+
+[data-color-label] {
+  display: flex;
+  gap: var(--color-picker-label-gap);
+}
+
+[data-color-label-key] {
+  color: var(--color-picker-label-key-fg);
+}
+
+[data-color-label-value] {
+  color: var(--color-picker-label-value-fg);
 }

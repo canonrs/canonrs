@@ -1,6 +1,6 @@
 #[cfg(target_arch = "wasm32")]
-use web_sys::{Element, HtmlElement, DomRect, window};
-use wasm_bindgen::JsCast;
+use leptos::web_sys::{Element, HtmlElement, DomRect, window};
+use leptos::wasm_bindgen::JsCast;
 use leptos::prelude::*;
 use super::types::*;
 

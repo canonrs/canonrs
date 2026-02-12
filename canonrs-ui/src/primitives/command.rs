@@ -12,7 +12,7 @@ pub fn CommandPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-command=""
+            data-command=""
             role="application"
             class={class}
             id={id}
@@ -36,7 +36,7 @@ pub fn CommandInputPrimitive(
     view! {
         <div data-command-input-wrapper="" class={class_wrapper} id={id_wrapper}>
             <input
-                attr:data-command-input=""
+                data-command-input=""
                 type="text"
                 placeholder={placeholder.unwrap_or_default()}
                 value={value}
@@ -56,7 +56,7 @@ pub fn CommandListPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-command-list=""
+            data-command-list=""
             role="listbox"
             class={class}
             id={id}
@@ -74,7 +74,7 @@ pub fn CommandEmptyPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-command-empty=""
+            data-command-empty=""
             role="status"
             class={class}
             id={id}
@@ -93,7 +93,7 @@ pub fn CommandGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-command-group=""
+            data-command-group=""
             role="group"
             class={class}
             id={id}
@@ -118,7 +118,7 @@ pub fn CommandItemPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-command-item=""
+            data-command-item=""
             attr:data-value={value.unwrap_or_default()}
             attr:data-selected={if selected { "true" } else { "false" }}
             role="option"
@@ -138,7 +138,7 @@ pub fn CommandSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-command-separator=""
+            data-command-separator=""
             role="separator"
             attr:aria-orientation="horizontal"
             class={class}

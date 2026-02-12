@@ -1,11 +1,9 @@
 use leptos::prelude::*;
-use super::toggle_ui::*;
+use super::Toggle;
 
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <Toggle pressed=false aria_label="Bold">
-            "Bold"
-        </Toggle>
+        <Toggle>"Bold"</Toggle>
     }
 }

@@ -1,42 +1,37 @@
 use leptos::prelude::*;
-use crate::shared::{Orientation, DrawerVariant};
-use crate::ui::drawer::{Drawer, DrawerTrigger, DrawerContent};
-use crate::primitives::button::ButtonPrimitive;
-use crate::primitives::label::LabelPrimitive;
-use crate::primitives::separator::SeparatorPrimitive;
+use crate::primitives::{
+    SidebarPrimitive, SidebarHeaderPrimitive, SidebarContentPrimitive,
+    SidebarFooterPrimitive, SidebarMenuPrimitive, SidebarMenuItemPrimitive,
+    SidebarMenuGroupPrimitive, SidebarSeparatorPrimitive, SidebarGroupLabelPrimitive,
+};
 
 #[component]
 pub fn Sidebar(
     #[prop(optional)] children: Option<Children>,
-    open: Signal<bool>,
-    collapsed: Signal<bool>,
-    #[prop(default = DrawerVariant::Persistent)] variant: DrawerVariant,
+    #[prop(into, default = MaybeSignal::Static(false))] collapsed: MaybeSignal<bool>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <Drawer
-            open={open}
-            collapsed={collapsed}
-            variant={variant}
+        <SidebarPrimitive 
             class={class}
-            id={id}
+            class:sidebar-collapsed={move || collapsed.get()}
+            id={id.unwrap_or_default()}
         >
             {children.map(|c| c())}
-        </Drawer>
+        </SidebarPrimitive>
     }
 }
 
 #[component]
-pub fn SidebarTrigger(
+pub fn SidebarHeader(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <DrawerTrigger class={class} id={id}>
+        <SidebarHeaderPrimitive class={class}>
             {children.map(|c| c())}
-        </DrawerTrigger>
+        </SidebarHeaderPrimitive>
     }
 }
 
@@ -44,64 +39,23 @@ pub fn SidebarTrigger(
 pub fn SidebarContent(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <DrawerContent class={class} id={id}>
+        <SidebarContentPrimitive class={class}>
             {children.map(|c| c())}
-        </DrawerContent>
+        </SidebarContentPrimitive>
     }
 }
 
 #[component]
-pub fn SidebarGroup(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] labelledby: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <div
-            attr:data-sidebar-group=""
-            role="group"
-            attr:aria-labelledby={(!labelledby.is_empty()).then(|| labelledby)}
-            class={class}
-            id={id}
-        >
-            {children.map(|c| c())}
-        </div>
-    }
-}
-
-#[component]
-pub fn SidebarGroupLabel(
+pub fn SidebarFooter(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <LabelPrimitive
-            attr:data-sidebar-group-label=""
-            class={class}
-            id={id}
-        >
+        <SidebarFooterPrimitive class={class}>
             {children.map(|c| c())}
-        </LabelPrimitive>
-    }
-}
-
-#[component]
-pub fn SidebarSeparator(
-    #[prop(default = Orientation::Horizontal)] orientation: Orientation,
-    #[prop(default = String::new())] class: String,
-) -> impl IntoView {
-    view! {
-        <SeparatorPrimitive
-            orientation={orientation.as_str().to_string()}
-            decorative={true}
-            class={class}
-            attr:data-sidebar-separator=""
-        />
+        </SidebarFooterPrimitive>
     }
 }
 
@@ -109,16 +63,11 @@ pub fn SidebarSeparator(
 pub fn SidebarMenu(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <nav
-            attr:data-sidebar-menu=""
-            class={class}
-            id={id}
-        >
+        <SidebarMenuPrimitive class={class}>
             {children.map(|c| c())}
-        </nav>
+        </SidebarMenuPrimitive>
     }
 }
 
@@ -126,49 +75,46 @@ pub fn SidebarMenu(
 pub fn SidebarMenuItem(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = String::new())] href: String,
+    #[prop(default = false)] active: bool,
 ) -> impl IntoView {
     view! {
-        <div
-            attr:data-sidebar-menu-item=""
-            class={class}
-            id={id}
-        >
+        <SidebarMenuItemPrimitive class={class} href={href} active={active}>
             {children.map(|c| c())}
-        </div>
+        </SidebarMenuItemPrimitive>
     }
 }
 
 #[component]
-pub fn SidebarMenuButton(
+pub fn SidebarMenuGroup(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] is_active: bool,
-    #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ButtonPrimitive
-            disabled={disabled}
-            class={class}
-            id={id}
-            attr:data-sidebar-menu-button=""
-            attr:data-active={if is_active { "true" } else { "" }}
-        >
+        <SidebarMenuGroupPrimitive class={class} id={id.unwrap_or_default()}>
             {children.map(|c| c())}
-        </ButtonPrimitive>
+        </SidebarMenuGroupPrimitive>
     }
 }
 
 #[component]
-pub fn SidebarInset(
-    #[prop(optional)] children: Option<Children>,
+pub fn SidebarSeparator(
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div attr:data-sidebar-inset="" class={class} id={id}>
+        <SidebarSeparatorPrimitive class={class} />
+    }
+}
+
+#[component]
+pub fn SidebarGroupLabel(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <SidebarGroupLabelPrimitive class={class}>
             {children.map(|c| c())}
-        </div>
+        </SidebarGroupLabelPrimitive>
     }
 }

@@ -15,13 +15,13 @@ pub fn ColorPickerPrimitive(
     view! {
         <input
             type="color"
-            attr:data-color-picker=""
+            data-color-picker=""
             value={value}
             name={name}
             disabled={disabled}
-            attr:aria-label="Color picker"
+            aria-label="Color picker"
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         />
     }
 }
@@ -35,14 +35,14 @@ pub fn ColorPickerTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-color-picker-trigger=""
+            data-color-picker-trigger=""
             type="button"
-            attr:aria-label="Open color picker"
+            aria-label="Open color picker"
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             <div
-                attr:data-color-swatch=""
+                data-color-swatch=""
                 style={format!("background-color: {};", color)}
             />
             {children()}
@@ -59,13 +59,13 @@ pub fn ColorPickerSwatchPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-color-swatch=""
-            attr:data-selected={selected}
+            data-color-swatch=""
+            data-selected={if selected { Some("") } else { None }}
             type="button"
             style={format!("background-color: {};", color)}
-            attr:aria-label={format!("Select color {}", color)}
+            aria-label={format!("Select color {}", color)}
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         />
     }
 }

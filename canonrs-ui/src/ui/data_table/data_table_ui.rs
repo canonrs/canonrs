@@ -1,101 +1,185 @@
 use leptos::prelude::*;
-use crate::ui::table::{Table, TableHeader, TableBody, TableRow, TableHead, TableCell};
-use crate::ui::checkbox::Checkbox;
-use crate::ui::button::{Button, ButtonVariant};
-use super::types::{DataTableColumn, SortDirection};
-use std::collections::HashSet;
-use std::sync::Arc;
+use crate::primitives::{
+    DataTablePrimitive, DataTableToolbarPrimitive, DataTableScrollPrimitive,
+    DataTableTablePrimitive, DataTableHeadPrimitive, DataTableHeadRowPrimitive,
+    DataTableHeadCellPrimitive, DataTableBodyPrimitive, DataTableRowPrimitive,
+    DataTableCellPrimitive, DataTableFooterPrimitive, DataTablePaginationPrimitive,
+    DataTableEmptyPrimitive, DataTableLoadingPrimitive
+};
 
 #[component]
-pub fn DataTable<T>(
-    data: Vec<T>,
-    columns: Vec<DataTableColumn<T>>,
-    #[prop(default = false)] selectable: bool,
-    #[prop(optional)] selected: Option<Signal<HashSet<String>>>,
-    #[prop(optional)] _sort_column: Option<Signal<Option<String>>>,
-    #[prop(optional)] _sort_direction: Option<Signal<SortDirection>>,
+pub fn DataTable(
+    #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-) -> impl IntoView
-where
-    T: Clone + Send + Sync + 'static,
-{
-    let columns = Arc::new(columns);
-    let data_len = data.len();
-
-    let all_selected = Memo::new(move |_| {
-        if let Some(sel) = selected {
-            sel.get().len() == data_len && data_len > 0
-        } else {
-            false
-        }
-    });
-
-    let columns_header = Arc::clone(&columns);
-    let columns_body = Arc::clone(&columns);
-
+    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] density: String,
+) -> impl IntoView {
     view! {
-        <Table class={class}>
-            <TableHeader>
-                <TableRow>
-                    {selectable.then(|| view! {
-                        <TableHead class="w-12".to_string()>
-                            <Checkbox checked=all_selected.get() />
-                        </TableHead>
-                    })}
-                    {columns_header.iter().map(|col| {
-                        let col_label = col.label.clone();
-                        let col_sortable = col.sortable;
-                        let col_width = col.width.clone().unwrap_or_default();
+        <DataTablePrimitive
+            class=class
+            id=id.unwrap_or_default()
+            density=density
+        >
+            {children.map(|c| c())}
+        </DataTablePrimitive>
+    }
+}
 
-                        view! {
-                            <TableHead class={col_width}>
-                                {if col_sortable {
-                                    view! {
-                                        <Button
-                                            variant=ButtonVariant::Ghost
-                                            class="w-full justify-start".to_string()
-                                        >
-                                            {col_label.clone()}
-                                            <span class="ml-2">"⇅"</span>
-                                        </Button>
-                                    }.into_any()
-                                } else {
-                                    view! { {col_label} }.into_any()
-                                }}
-                            </TableHead>
-                        }
-                    }).collect_view()}
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {data.into_iter().enumerate().map(|(idx, item)| {
-                    let row_id = idx.to_string();
-                    let row_id_for_check = row_id.clone();
-                    let cols = Arc::clone(&columns_body);
+#[component]
+pub fn DataTableToolbar(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableToolbarPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableToolbarPrimitive>
+    }
+}
 
-                    let is_selected = move || {
-                        selected.map(|sel| sel.get().contains(&row_id_for_check)).unwrap_or(false)
-                    };
+#[component]
+pub fn DataTableScroll(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableScrollPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableScrollPrimitive>
+    }
+}
 
-                    view! {
-                        <TableRow>
-                            {selectable.then(|| view! {
-                                <TableCell>
-                                    <Checkbox checked=is_selected() />
-                                </TableCell>
-                            })}
-                            {cols.iter().map(|col| {
-                                let rendered = (col.render)(&item);
-                                view! {
-                                    <TableCell>
-                                        {rendered}
-                                    </TableCell>
-                                }
-                            }).collect_view()}
-                        </TableRow>
-                    }
-                }).collect_view()}
-            </TableBody>
-        </Table>
+#[component]
+pub fn DataTableTable(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableTablePrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableTablePrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableHead(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableHeadPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableHeadPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableHeadRow(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableHeadRowPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableHeadRowPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableHeadCell(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] sort_key: String,
+) -> impl IntoView {
+    view! {
+        <DataTableHeadCellPrimitive class=class sort_key=sort_key>
+            {children.map(|c| c())}
+        </DataTableHeadCellPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableBody(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableBodyPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableBodyPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableRow(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
+    #[prop(default = false)] selected: bool,
+) -> impl IntoView {
+    view! {
+        <DataTableRowPrimitive class=class id=id selected=selected>
+            {children.map(|c| c())}
+        </DataTableRowPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableCell(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableCellPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableCellPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableFooter(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableFooterPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableFooterPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTablePagination(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTablePaginationPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTablePaginationPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableEmpty(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableEmptyPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableEmptyPrimitive>
+    }
+}
+
+#[component]
+pub fn DataTableLoading(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <DataTableLoadingPrimitive class=class>
+            {children.map(|c| c())}
+        </DataTableLoadingPrimitive>
     }
 }

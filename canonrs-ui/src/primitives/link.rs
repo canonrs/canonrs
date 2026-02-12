@@ -34,13 +34,13 @@ pub fn LinkPrimitive(
     view! {
         
         <a
-            attr:data-link=""
-            attr:data-variant={variant.as_str()}
-            attr:data-disabled={disabled}
+            data-link=""
+            data-variant={variant.as_str()}
+            data-disabled={disabled}
             href=href
             target={if external { "_blank" } else { "" }}
             rel={if external { "noopener noreferrer" } else { "" }}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
+            aria-disabled={if disabled { "true" } else { "false" }}
             class={class}
             id={id}
         >

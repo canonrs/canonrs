@@ -10,6 +10,7 @@
 @import './animate_ui.css';
 @import './aspect_ratio_ui.css';
 @import './avatar_ui.css';
+@import './avatar_ui.css';
 @import './badge_ui.css';
 @import './banner_ui.css';
 @import './breadcrumb_ui.css';
@@ -78,6 +79,7 @@
 @import './tabs_ui.css';
 @import './textarea_ui.css';
 @import './toast_ui.css';
+@import './toolbar_ui.css';
 @import './toggle_ui.css';
 @import './toggle_group_ui.css';
 @import './tooltip_ui.css';

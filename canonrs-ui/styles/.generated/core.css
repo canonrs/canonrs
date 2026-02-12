@@ -5,12 +5,16 @@
   --space-md: var(--primitive-space-4);
   --space-lg: var(--primitive-space-6);
   --space-xl: var(--primitive-space-8);
+  --space-2xl: var(--primitive-space-12);
+  --space-3xl: var(--primitive-space-16);
+  --space-4xl: var(--primitive-space-24);
   --radius-sm: var(--primitive-radius-1);
   --radius-md: var(--primitive-radius-2);
   --radius-lg: var(--primitive-radius-3);
   --radius-full: var(--primitive-radius-full);
   --font-family-sans: var(--primitive-font-sans);
   --font-family-mono: var(--primitive-font-mono);
+  --font-size-xs: var(--primitive-font-size-1);
   --font-size-sm: var(--primitive-font-size-2);
   --font-size-md: var(--primitive-font-size-3);
   --font-size-lg: var(--primitive-font-size-4);

@@ -138,7 +138,7 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("select-fg", "var(--theme-surface-fg)"),
     FamilyToken::new("select-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("select-border-width", "1px"),
-    FamilyToken::new("select-height", "var(--space-2xl)"),
+    FamilyToken::new("select-height", "var(--space-xl)"),
     FamilyToken::new("select-padding-x", "var(--space-sm)"),
     FamilyToken::new("select-radius", "var(--radius-sm)"),
     FamilyToken::new("select-gap", "var(--space-sm)"),
@@ -162,16 +162,17 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("select-separator-margin-y", "var(--space-xs)"),
 
     // Switch
-    FamilyToken::new("switch-width", "var(--size-switch-width)"),
+    FamilyToken::new("switch-width", "calc(var(--space-lg) * 2)"),
     FamilyToken::new("switch-height", "var(--space-lg)"),
     FamilyToken::new("switch-radius", "var(--radius-full)"),
-    FamilyToken::new("switch-track-bg", "var(--color-input)"),
+    FamilyToken::new("switch-track-bg", "var(--color-secondary)"),
     FamilyToken::new("switch-track-bg-checked", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("switch-thumb-bg", "var(--theme-surface-bg)"),
-    FamilyToken::new("switch-thumb-size", "var(--font-size-xl)"),
+    FamilyToken::new("switch-thumb-bg", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("switch-thumb-bg-checked", "var(--theme-surface-bg)"),
+    FamilyToken::new("switch-thumb-size", "var(--space-md)"),
     FamilyToken::new("switch-thumb-radius", "var(--radius-full)"),
     FamilyToken::new("switch-thumb-translate-unchecked", "var(--space-xs)"),
-    FamilyToken::new("switch-thumb-translate-checked", "var(--size-switch-translate)"),
+    FamilyToken::new("switch-thumb-translate-checked", "var(--space-lg)"),
     FamilyToken::new("switch-disabled-opacity", "var(--state-disabled-opacity)"),
 
     // Toggle
@@ -193,8 +194,8 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("slider-track-height", "var(--space-sm)"),
     FamilyToken::new("slider-track-radius", "var(--radius-full)"),
     FamilyToken::new("slider-range-bg", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("slider-thumb-bg", "var(--theme-surface-bg)"),
-    FamilyToken::new("slider-thumb-size", "var(--font-size-xl)"),
+    FamilyToken::new("slider-thumb-bg", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("slider-thumb-size", "var(--space-md)"),
     FamilyToken::new("slider-thumb-radius", "var(--radius-full)"),
     FamilyToken::new("slider-thumb-border-color", "var(--theme-action-primary-bg)"),
     FamilyToken::new("slider-thumb-border-width", "2px"),
@@ -238,7 +239,7 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("color-picker-radius", "var(--radius-md)"),
     FamilyToken::new("color-picker-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("color-picker-border-width", "1px"),
-    FamilyToken::new("color-picker-trigger-size", "var(--space-2xl)"),
+    FamilyToken::new("color-picker-trigger-size", "var(--space-3xl)"),
     FamilyToken::new("color-picker-trigger-radius", "var(--radius-sm)"),
     FamilyToken::new("color-picker-swatch-size", "var(--size-input-sm)"),
     FamilyToken::new("color-picker-swatch-radius", "var(--radius-xs)"),
@@ -268,6 +269,16 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("radio-group-label-fg-disabled", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("radio-group-label-font-size", "var(--font-size-sm)"),
     FamilyToken::new("radio-group-label-font-weight", "var(--font-weight-medium)"),
+    FamilyToken::new("radio-group-item-indicator-size", "var(--space-xxs)"),
+    
+    // ColorPicker Example Layout tokens
+    FamilyToken::new("color-picker-example-gap", "var(--space-md)"),
+    FamilyToken::new("color-picker-labels-gap", "var(--space-xs)"),
+    FamilyToken::new("color-picker-label-gap", "var(--space-xs)"),
+    FamilyToken::new("color-picker-label-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("color-picker-label-font-family", "var(--font-family-mono)"),
+    FamilyToken::new("color-picker-label-key-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("color-picker-label-value-fg", "var(--theme-surface-fg)"),
 
     // Form
     FamilyToken::new("form-gap", "var(--space-lg)"),
@@ -282,11 +293,11 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("form-error-summary-border-color", "var(--color-destructive)"),
     FamilyToken::new("form-error-summary-border-width", "1px"),
     FamilyToken::new("form-error-summary-gap", "var(--space-sm)"),
-    FamilyToken::new("form-error-summary-title-fg", "var(--color-destructive)"),
+    FamilyToken::new("form-error-summary-title-fg", "var(--color-destructive-foreground)"),
     FamilyToken::new("form-error-summary-title-font-size", "var(--font-size-sm)"),
     FamilyToken::new("form-error-summary-title-font-weight", "var(--font-weight-semibold)"),
     FamilyToken::new("form-error-summary-list-gap", "var(--space-sm)"),
-    FamilyToken::new("form-error-summary-item-fg", "var(--color-destructive)"),
+    FamilyToken::new("form-error-summary-item-fg", "var(--color-destructive-foreground)"),
     FamilyToken::new("form-error-summary-item-font-size", "var(--font-size-sm)"),
     FamilyToken::new("form-error-summary-item-gap", "var(--space-sm)"),
     FamilyToken::new("form-error-summary-item-icon-color", "var(--color-destructive)"),
@@ -294,5 +305,23 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     // Form (tokens simplificados faltantes)
     FamilyToken::new("form-help-text-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("form-label-font-size", "var(--font-size-sm)"),
+    
+    // RadioGroup item (input) tokens
+    FamilyToken::new("radio-group-item-size", "1rem"),
+    FamilyToken::new("radio-group-item-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("radio-group-item-bg-checked", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("radio-group-item-border-color", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("radio-group-item-border-width", "2px"),
+    FamilyToken::new("radio-group-item-indicator-size", "var(--space-xxs)"),
+    
+    // ColorPicker Example Layout tokens
+    FamilyToken::new("color-picker-example-gap", "var(--space-md)"),
+    FamilyToken::new("color-picker-labels-gap", "var(--space-xs)"),
+    FamilyToken::new("color-picker-label-gap", "var(--space-xs)"),
+    FamilyToken::new("color-picker-label-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("color-picker-label-font-family", "var(--font-family-mono)"),
+    FamilyToken::new("color-picker-label-key-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("color-picker-label-value-fg", "var(--theme-surface-fg)"),
 
 ];
+

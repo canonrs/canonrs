@@ -1,54 +1,51 @@
 use leptos::prelude::*;
-use super::Sidebar;
-use crate::shared::DrawerVariant;
+use super::{
+    Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
+    SidebarMenu, SidebarMenuItem, SidebarMenuGroup, 
+    SidebarSeparator, SidebarGroupLabel
+};
+use crate::ui::avatar::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarStatus};
 
 #[component]
-pub fn basic_example() -> impl IntoView {
-    let open = RwSignal::new(false);
-    let collapsed = RwSignal::new(false);
-
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <div>
-            <button on:click=move |_| open.set(!open.get())>
-                "Toggle Sidebar"
-            </button>
-            <Sidebar open=open.into() collapsed=collapsed.into()>
-                <nav>
-                    <a href="/">"Home"</a>
-                    <a href="/about">"About"</a>
-                    <a href="/contact">"Contact"</a>
-                </nav>
-            </Sidebar>
-        </div>
-    }
-}
+        <Sidebar>
+            <SidebarHeader>
+                <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
+                    <Avatar size=AvatarSize::Md status=AvatarStatus::Online>
+                        <AvatarImage 
+                            src="https://i.pravatar.cc/150?img=10".to_string()
+                            alt="User avatar".to_string()
+                        />
+                        <AvatarFallback>"JD"</AvatarFallback>
+                    </Avatar>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-weight: 600; font-size: 0.875rem; truncate: true;">"John Doe"</div>
+                        <div style="font-size: 0.75rem; color: var(--theme-surface-fg-muted); truncate: true;">"john@canonrs.dev"</div>
+                    </div>
+                </div>
+            </SidebarHeader>
 
-#[component]
-pub fn persistent_example() -> impl IntoView {
-    let open = RwSignal::new(true);
-    let collapsed = RwSignal::new(false);
+            <SidebarContent>
+                <SidebarMenu>
+                    <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
+                    <SidebarMenuItem href="/dashboard".to_string() active=true>"Dashboard"</SidebarMenuItem>
+                    <SidebarMenuItem href="/projects".to_string()>"Projects"</SidebarMenuItem>
+                    <SidebarMenuItem href="/tasks".to_string()>"Tasks"</SidebarMenuItem>
+                    
+                    <SidebarSeparator />
+                    
+                    <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
+                    <SidebarMenuItem href="/profile".to_string()>"Profile"</SidebarMenuItem>
+                    <SidebarMenuItem href="/preferences".to_string()>"Preferences"</SidebarMenuItem>
+                </SidebarMenu>
+            </SidebarContent>
 
-    view! {
-        <Sidebar open=open.into() collapsed=collapsed.into() variant=DrawerVariant::Persistent>
-            <nav>
-                <a href="/dashboard">"Dashboard"</a>
-                <a href="/settings">"Settings"</a>
-            </nav>
-        </Sidebar>
-    }
-}
-
-#[component]
-pub fn collapsed_example() -> impl IntoView {
-    let open = RwSignal::new(true);
-    let collapsed = RwSignal::new(true);
-
-    view! {
-        <Sidebar open=open.into() collapsed=collapsed.into()>
-            <nav>
-                <a href="/" title="Home">"🏠"</a>
-                <a href="/settings" title="Settings">"⚙️"</a>
-            </nav>
+            <SidebarFooter>
+                <div style="padding: 0.75rem; font-size: 0.75rem; color: var(--theme-surface-fg-muted);">
+                    "© 2026 CanonRS"
+                </div>
+            </SidebarFooter>
         </Sidebar>
     }
 }

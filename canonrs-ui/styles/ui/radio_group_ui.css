@@ -29,3 +29,24 @@
 [data-radio-group-item]:disabled ~ [data-radio-item-label] {
   color: var(--radio-group-label-fg-disabled);
 }
+
+[data-radio-group-item] {
+  appearance: none;
+  width: var(--radio-group-item-size);
+  height: var(--radio-group-item-size);
+  border: var(--radio-group-item-border-width) solid var(--radio-group-item-border-color);
+  border-radius: 50%;
+  background: var(--radio-group-item-bg);
+  cursor: pointer;
+  transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-radio-group-item]:checked {
+  background: var(--radio-group-item-bg-checked);
+  box-shadow: inset 0 0 0 var(--radio-group-item-indicator-size) var(--theme-surface-bg);
+}
+
+[data-radio-group-item]:disabled {
+  opacity: var(--forms-disabled-opacity);
+  cursor: not-allowed;
+}

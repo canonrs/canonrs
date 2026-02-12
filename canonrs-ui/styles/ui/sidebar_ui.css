@@ -3,12 +3,14 @@
    Family D: Navigation
    ============================================ */
 
+/* Base */
 [data-sidebar] {
   display: flex;
   flex-direction: column;
   width: var(--sidebar-width);
   background: var(--sidebar-bg);
   border-right: var(--sidebar-border-width) solid var(--sidebar-border-color);
+  transition: width 0.2s ease;
 }
 
 [data-sidebar-header] {
@@ -46,6 +48,7 @@
   font-size: var(--sidebar-menu-item-font-size);
   cursor: pointer;
   transition: background var(--sidebar-menu-item-transition-duration) var(--sidebar-menu-item-transition-ease);
+  text-decoration: none;
 }
 
 [data-sidebar-menu-item]:hover {
@@ -74,4 +77,246 @@
 
 [data-sidebar-inset] {
   padding-left: var(--sidebar-inset-padding-left);
+}
+
+/* Collapsed state */
+[data-sidebar].sidebar-collapsed {
+  width: 4rem;
+}
+
+[data-sidebar].sidebar-collapsed [data-sidebar-label] {
+  display: none;
+}
+
+[data-sidebar].sidebar-collapsed [data-sidebar-group-label] {
+  display: none;
+}
+
+[data-sidebar].sidebar-collapsed [data-sidebar-icon] {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+[data-sidebar]:not(.sidebar-collapsed) [data-sidebar-icon] {
+  display: inline-flex;
+  margin-right: var(--space-xs);
+}
+
+/* Accordion dentro do Sidebar */
+[data-sidebar] [data-accordion] {
+  width: 100%;
+}
+
+[data-sidebar] [data-accordion-trigger] {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sidebar-menu-item-gap);
+  padding: var(--sidebar-menu-item-padding-y) var(--sidebar-menu-item-padding-x);
+  background: transparent;
+  border: none;
+  color: var(--sidebar-menu-item-fg);
+  font-size: var(--sidebar-menu-item-font-size);
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--sidebar-menu-item-radius);
+  transition: background var(--sidebar-menu-item-transition-duration) var(--sidebar-menu-item-transition-ease);
+}
+
+[data-sidebar] [data-accordion-trigger]:hover {
+  background: var(--sidebar-menu-item-bg-hover);
+}
+
+[data-sidebar] [data-accordion-content] {
+  padding-left: var(--sidebar-inset-padding-left);
+}
+
+[data-sidebar].sidebar-collapsed [data-accordion-content] {
+  display: none;
+}
+
+[data-sidebar].sidebar-collapsed [data-accordion-trigger] {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+/* Avatar dentro do Sidebar collapsed */
+[data-sidebar].sidebar-collapsed [data-sidebar-header] {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+[data-sidebar].sidebar-collapsed [data-sidebar-header] > div {
+  justify-content: center;
+}
+
+/* Tooltips apenas quando collapsed */
+[data-sidebar]:not(.sidebar-collapsed) [data-tooltip-content] {
+  display: none !important;
+}
+
+/* Badge dentro do Sidebar */
+[data-sidebar-menu-item] [data-badge] {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+[data-sidebar].sidebar-collapsed [data-badge] {
+  display: none;
+}
+
+/* Badge variants no sidebar - usando tokens da family_e_feedback */
+[data-sidebar-menu-item] [data-badge][data-variant="default"] {
+  background: var(--badge-bg-default);
+  color: var(--badge-fg-default);
+}
+
+[data-sidebar-menu-item] [data-badge][data-variant="primary"] {
+  background: var(--badge-bg-primary);
+  color: var(--badge-fg-primary);
+}
+
+[data-sidebar-menu-item] [data-badge][data-variant="success"] {
+  background: var(--badge-bg-success);
+  color: var(--badge-fg-success);
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+[data-sidebar-menu-item] [data-badge][data-variant="warning"] {
+  background: var(--badge-bg-warning);
+  color: var(--badge-fg-warning);
+}
+
+[data-sidebar-menu-item] [data-badge][data-variant="error"] {
+  background: var(--badge-bg-error);
+  color: var(--badge-fg-error);
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+/* Pulse animation para badges importantes */
+@keyframes badge-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ============================================
+   RESPONSIVE SIDEBAR
+   ============================================ */
+
+.responsive-sidebar-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+/* Hamburger button */
+.hamburger-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem;
+  background: var(--theme-surface-bg);
+  border: 1px solid var(--theme-surface-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 1.25rem;
+  display: none;
+}
+
+.responsive-sidebar-container.mode-tablet .hamburger-btn,
+.responsive-sidebar-container.mode-mobile .hamburger-btn {
+  display: block;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+  padding: 0.5rem;
+  background: var(--theme-surface-bg);
+  border: 1px solid var(--theme-surface-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: none;
+}
+
+.responsive-sidebar-container.mode-tablet .close-btn,
+.responsive-sidebar-container.mode-mobile .close-btn {
+  display: block;
+}
+
+/* Overlay */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  display: none;
+}
+
+.responsive-sidebar-container.mode-tablet.is-open .sidebar-overlay,
+.responsive-sidebar-container.mode-mobile.is-open .sidebar-overlay {
+  display: block;
+}
+
+/* Sidebar wrapper */
+.sidebar-wrapper {
+  transition: all 0.3s ease;
+}
+
+/* Desktop mode */
+.responsive-sidebar-container.mode-desktop .sidebar-wrapper {
+  position: relative;
+  width: var(--sidebar-width);
+  height: 100vh;
+}
+
+/* Tablet mode */
+.responsive-sidebar-container.mode-tablet .sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: var(--sidebar-width);
+  height: 100vh;
+  z-index: 50;
+}
+
+.responsive-sidebar-container.mode-tablet.is-open .sidebar-wrapper {
+  left: 0;
+}
+
+/* Mobile mode */
+.responsive-sidebar-container.mode-mobile .sidebar-wrapper {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 80vh;
+  z-index: 50;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.responsive-sidebar-container.mode-mobile.is-open .sidebar-wrapper {
+  bottom: 0;
+}
+
+/* Mobile: esconder sidebar quando fechado */
+.responsive-sidebar-container.mode-mobile:not(.is-open) .sidebar-wrapper {
+  display: none;
+}
+
+/* Tablet: esconder sidebar quando fechado */
+.responsive-sidebar-container.mode-tablet:not(.is-open) .sidebar-wrapper {
+  display: none;
 }

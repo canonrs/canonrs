@@ -4,12 +4,19 @@
 
 [data-slider] {
   position: relative;
+  width: 100%;
   height: var(--slider-height);
   padding: var(--slider-padding);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
 }
 
 [data-slider-track] {
   position: relative;
+  width: 100%;
   height: var(--slider-track-height);
   background: var(--slider-track-bg);
   border-radius: var(--slider-track-radius);
@@ -17,7 +24,10 @@
 
 [data-slider-range] {
   position: absolute;
+  left: 0;
+  top: 0;
   height: 100%;
+  width: 50%;
   background: var(--slider-range-bg);
   border-radius: var(--slider-track-radius);
   transition: width var(--slider-transition-duration) var(--slider-transition-ease);
@@ -25,13 +35,21 @@
 
 [data-slider-thumb] {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: var(--slider-thumb-size);
   height: var(--slider-thumb-size);
   background: var(--slider-thumb-bg);
   border: var(--slider-thumb-border-width) solid var(--slider-thumb-border-color);
   border-radius: var(--slider-thumb-radius);
-  cursor: pointer;
+  cursor: grab;
+  z-index: 2;
   transition: box-shadow var(--slider-transition-duration) var(--slider-transition-ease);
+}
+
+[data-slider-thumb]:active {
+  cursor: grabbing;
 }
 
 [data-slider-thumb]:focus-visible {

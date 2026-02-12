@@ -12,11 +12,11 @@ pub fn FormErrorSummaryPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-form-error-summary=""
+            data-form-error-summary=""
             role="alert"
-            attr:aria-live="polite"
+            aria-live="polite"
             class={class}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
         </div>

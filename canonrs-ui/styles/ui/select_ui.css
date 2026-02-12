@@ -36,6 +36,15 @@
   padding-block: var(--select-content-padding-y);
 }
 
+[data-select-content][data-state="closed"],
+[data-select-content][hidden] {
+  display: none;
+}
+
+[data-select-content][data-state="open"] {
+  display: block;
+}
+
 [data-select-item] {
   display: flex;
   align-items: center;
@@ -49,7 +58,7 @@
   background: var(--select-item-hover-bg);
 }
 
-[data-select-item][data-selected="true"] {
+[data-select-item][data-state="selected"] {
   background: var(--select-item-selected-bg);
   color: var(--select-item-selected-fg);
 }

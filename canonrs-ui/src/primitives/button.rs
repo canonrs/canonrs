@@ -14,7 +14,7 @@ pub fn ButtonPrimitive(
             id={id}
             class={class}
             disabled={disabled}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
+            aria-disabled={if disabled { "true" } else { "false" }}
             aria-label={aria_label}
         >
             {children.map(|c| c())}

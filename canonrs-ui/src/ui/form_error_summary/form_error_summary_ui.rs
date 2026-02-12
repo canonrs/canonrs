@@ -23,13 +23,13 @@ pub fn FormErrorSummary(
     view! {
         {move || has_errors().then(|| view! {
             <FormErrorSummaryPrimitive class={class.get_value()} id={id.get_value()}>
-                <h3 attr:data-form-error-summary-title="">{title.get_value()}</h3>
+                <h3 data-form-error-summary-title="">{title.get_value()}</h3>
 
-                <ul attr:data-form-error-summary-list="">
+                <ul data-form-error-summary-list="">
                     {move || errors.get().into_iter().map(|error| {
                         view! {
-                            <li attr:data-form-error-summary-item="">
-                                <span attr:data-form-error-summary-item-link="">
+                            <li data-form-error-summary-item="">
+                                <span data-form-error-summary-item-link="">
                                     {error.field_label.clone()}{": "}{error.message.clone()}
                                 </span>
                             </li>

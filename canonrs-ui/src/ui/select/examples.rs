@@ -5,9 +5,9 @@ use super::select_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <Select>
+            <Select id="select-basic".to_string()>
                 <SelectTrigger controls_id="select-content-ex" value_text="Select an option">
-                    <SelectValue placeholder="Select an option" />
+                    <SelectValue placeholder="Select an option">"Select an option"</SelectValue>
                 </SelectTrigger>
                 <SelectContent open=false content_id="select-content-ex">
                     <SelectItem value="option-1" selected=true>"Option 1"</SelectItem>

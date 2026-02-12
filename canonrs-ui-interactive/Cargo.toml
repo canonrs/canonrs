@@ -11,6 +11,7 @@ canonrs-ui = { path = "../canonrs-ui", default-features = false }
 canonrs-shared = { path = "../canonrs-shared" }
 time = { version = "0.3", features = ["macros", "formatting", "parsing"] }
 js-sys = "0.3"
+serde = { version = "1.0.228", features = ["derive"] }
 
 [features]
 default = []

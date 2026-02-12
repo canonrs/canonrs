@@ -1,18 +1,18 @@
 use leptos::prelude::*;
-use super::input_group_primitive::InputGroupPrimitive;
+use crate::primitives::InputGroupPrimitive;
 
 #[component]
 pub fn InputGroup(
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
     #[prop(default = String::new())] class: String,
+    #[prop(default = false)] merge_radius: bool,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let base_class = format!("input-group {}", class);
-
     view! {
         <InputGroupPrimitive
-            id={id}
-            class={base_class}
+            id={id.unwrap_or_default()}
+            class={class}
+            merge_radius={merge_radius}
         >
             {children.map(|c| c())}
         </InputGroupPrimitive>

@@ -8,8 +8,8 @@ pub fn BreadcrumbPrimitive(
 ) -> impl IntoView {
     view! {
         <nav
-            attr:data-breadcrumb=""
-            attr:aria-label="Breadcrumb"
+            data-breadcrumb=""
+            aria-label="Breadcrumb"
             class={class}
             id={id}
         >
@@ -25,7 +25,7 @@ pub fn BreadcrumbItemPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            attr:data-breadcrumb-item=""
+            data-breadcrumb-item=""
             class={class}
         >
             {children.map(|c| c())}
@@ -41,7 +41,7 @@ pub fn BreadcrumbLinkPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <a attr:data-breadcrumb-link="" href={href} attr:aria-current={if current { "page" } else { "" }} class={class}>
+        <a data-breadcrumb-link="" href={href} aria-current={if current { "page" } else { "" }} class={class}>
             {children.map(|c| c())}
         </a>
     }
@@ -53,7 +53,7 @@ pub fn BreadcrumbSeparatorPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span attr:data-breadcrumb-separator="" attr:aria-hidden="true" class={class}>
+        <span data-breadcrumb-separator="" aria-hidden="true" class={class}>
             {children.map(|c| c())}
         </span>
     }
@@ -65,7 +65,7 @@ pub fn BreadcrumbEllipsisPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <span attr:data-breadcrumb-ellipsis="" attr:aria-hidden="true" class={class} id={id}>
+        <span data-breadcrumb-ellipsis="" aria-hidden="true" class={class} id={id}>
             "..."
         </span>
     }

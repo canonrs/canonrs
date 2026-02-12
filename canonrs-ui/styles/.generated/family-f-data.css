@@ -1,6 +1,6 @@
 /* family-f-data */
 :root {
-  --card-bg: var(--theme-surface-elevated);
+  --card-bg: var(--theme-surface-bg);
   --card-border: var(--theme-surface-border);
   --data-radius: var(--radius-md);
   --data-shadow: var(--shadow-sm);
@@ -8,6 +8,7 @@
   --card-radius: var(--radius-md);
   --card-shadow: var(--shadow-sm);
   --card-border-width: 1px;
+  --card-border-color: var(--theme-surface-border);
   --card-padding: var(--space-lg);
   --card-content-gap: var(--space-md);
   --card-header-gap: var(--space-sm);
@@ -62,6 +63,15 @@
   --data-table-sort-icon-size: var(--space-md);
   --data-table-transition-duration: var(--motion-duration-fast);
   --data-table-transition-ease: var(--motion-ease-standard);
+  --data-table-density-compact-cell-padding-y: var(--space-xs);
+  --data-table-density-compact-cell-padding-x: var(--space-sm);
+  --data-table-density-compact-font-size: var(--font-size-xs);
+  --data-table-density-comfortable-cell-padding-y: var(--space-sm);
+  --data-table-density-comfortable-cell-padding-x: var(--space-md);
+  --data-table-density-comfortable-font-size: var(--font-size-sm);
+  --data-table-density-spacious-cell-padding-y: var(--space-md);
+  --data-table-density-spacious-cell-padding-x: var(--space-lg);
+  --data-table-density-spacious-font-size: var(--font-size-base);
   --icon-size-sm: var(--space-md);
   --icon-size-md: var(--font-size-xl);
   --icon-size-lg: var(--space-lg);
@@ -129,12 +139,14 @@
   --code-block-header-gap: var(--space-sm);
   --code-block-language-fg: var(--theme-surface-fg-muted);
   --code-block-language-font-size: var(--font-size-xs);
-  --avatar-size-xs: var(--space-lg);
-  --avatar-size-sm: var(--space-xl);
-  --avatar-size-md: var(--space-2xl);
-  --avatar-size-lg: var(--size-icon-lg);
-  --avatar-size-xl: var(--layout-height-header);
+  --avatar-size-xs: 1.5rem;
+  --avatar-size-sm: 2rem;
+  --avatar-size-md: 2.5rem;
+  --avatar-size-lg: 3rem;
+  --avatar-size-xl: 4rem;
   --avatar-radius: var(--radius-full);
+  --avatar-radius-square: var(--radius-xs);
+  --avatar-radius-rounded: var(--radius-lg);
   --avatar-bg: var(--theme-surface-muted);
   --avatar-border-color: var(--theme-surface-border);
   --avatar-border-width: 1px;
@@ -143,6 +155,21 @@
   --avatar-fallback-font-size: var(--font-size-sm);
   --avatar-fallback-font-weight: var(--font-weight-medium);
   --avatar-image-fit: cover;
+  --avatar-fg: var(--theme-surface-fg-muted);
+  --avatar-status-size: 25%;
+  --avatar-status-border-width: 2px;
+  --avatar-status-border-color: var(--theme-surface-bg);
+  --avatar-status-online-bg: var(--color-success);
+  --avatar-status-offline-bg: var(--theme-surface-fg-muted);
+  --avatar-status-busy-bg: var(--color-destructive);
+  --avatar-status-away-bg: var(--color-warning);
+  --avatar-badge-size: var(--space-md);
+  --avatar-badge-offset: -4px;
+  --avatar-badge-bg: var(--color-destructive);
+  --avatar-badge-fg: var(--color-destructive-foreground);
+  --avatar-badge-font-size: var(--font-size-xs);
+  --avatar-badge-font-weight: var(--font-weight-semibold);
+  --avatar-group-overlap: -0.5rem;
   --stat-gap: var(--space-xs);
   --stat-align: flex-start;
   --stat-value-fg: var(--theme-surface-fg);
@@ -162,11 +189,13 @@
   --scroll-area-radius: 0;
   --scroll-area-padding: 0;
   --scroll-area-max-height: 100%;
-  --list-item-padding: var(--space-sm) var(--space-md);
-  --list-item-border: 1px solid var(--theme-surface-border);
-  --avatar-fg: var(--theme-surface-fg-muted);
-  --card-border-color: var(--theme-surface-border);
   --list-gap: var(--space-sm);
-  --list-item-bg-hover: var(--theme-action-accent-bg);
+  --list-item-padding: var(--space-sm) var(--space-md);
   --list-item-padding-y: var(--space-sm);
+  --list-item-border: 1px solid var(--theme-surface-border);
+  --list-item-bg-hover: var(--theme-action-accent-bg);
+  --data-table-zebra-odd-bg: color-mix(in srgb, var(--theme-surface-fg) 16%, transparent);
+  --data-table-zebra-even-bg: var(--data-table-bg);
+  --data-table-header-sticky-top: 0;
+  --data-table-header-z-index: 10;
 }

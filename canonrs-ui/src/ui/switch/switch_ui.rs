@@ -8,7 +8,6 @@ pub fn Switch(
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
-    #[prop(into, optional)] aria_label: Option<String>,
     #[prop(default = String::new())] class: String,
     #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -18,7 +17,6 @@ pub fn Switch(
             disabled={disabled}
             name={name}
             value={value}
-            aria_label={aria_label.unwrap_or_default()}
             class={class}
             id={id.unwrap_or_default()}
         >

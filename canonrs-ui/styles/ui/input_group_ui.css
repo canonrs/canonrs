@@ -11,3 +11,24 @@
 [data-input-group][data-merge-radius] > * {
   border-radius: var(--input-group-radius-merge);
 }
+
+[data-input-group-addon] {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--input-padding-y) var(--input-padding-x);
+  background: var(--theme-surface-bg-subtle);
+  border: var(--input-border-width) solid var(--input-border-color);
+  color: var(--theme-surface-fg-muted);
+  white-space: nowrap;
+}
+
+[data-input-group][data-merge-radius] > [data-input-group-addon]:first-child {
+  border-top-left-radius: var(--input-radius);
+  border-bottom-left-radius: var(--input-radius);
+  border-right: 0;
+}
+
+[data-input-group][data-merge-radius] > [data-input]:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

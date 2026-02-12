@@ -14,11 +14,23 @@
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-switch][data-checked="true"] {
+[data-switch] input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[data-switch] input:checked ~ [data-switch-thumb] {
+  background: var(--switch-thumb-bg-checked);
+  transform: translateX(var(--switch-thumb-translate-checked));
+}
+
+[data-switch]:has(input:checked) {
   background: var(--switch-track-bg-checked);
 }
 
-[data-switch][data-disabled="true"] {
+[data-switch]:has(input:disabled) {
   opacity: var(--switch-disabled-opacity);
   cursor: not-allowed;
 }
@@ -33,11 +45,7 @@
   transform: translateX(var(--switch-thumb-translate-unchecked));
 }
 
-[data-switch][data-checked="true"] [data-switch-thumb] {
-  transform: translateX(var(--switch-thumb-translate-checked));
-}
-
-[data-switch]:focus-visible {
+[data-switch]:focus-within {
   outline: none;
-  box-shadow: 0 0 0 var(--state-focus-ring) var(--switch-track-bg-checked);
+  box-shadow: 0 0 0 var(--state-focus-ring-width) var(--switch-track-bg-checked);
 }

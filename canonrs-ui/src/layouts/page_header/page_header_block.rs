@@ -15,7 +15,7 @@ pub fn PageHeader(
     view! {
         <div
             class={format!("page-header {}", class)}
-            id={id}
+            id={if id.is_empty() { None } else { Some(id.clone()) }}
             data-layout="page-header"
         >
             {breadcrumb.map(|bc| view! {

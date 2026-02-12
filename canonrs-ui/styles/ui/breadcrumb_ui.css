@@ -35,3 +35,47 @@
 [data-breadcrumb-separator] {
   color: var(--breadcrumb-separator-fg);
 }
+
+/* Collapsible breadcrumb */
+[data-breadcrumb-collapse] {
+  display: inline-flex;
+  position: relative;
+}
+
+[data-breadcrumb-ellipsis-trigger] {
+  color: var(--breadcrumb-fg);
+  font-weight: var(--breadcrumb-font-weight);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
+}
+
+[data-breadcrumb-ellipsis-trigger]:hover {
+  color: var(--breadcrumb-fg-hover);
+}
+
+[data-breadcrumb-ellipsis-trigger]::marker {
+  content: none;
+}
+
+[data-breadcrumb-collapse-content] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  min-width: var(--breadcrumb-collapse-min-width);
+  max-width: var(--breadcrumb-collapse-max-width);
+  margin-top: var(--breadcrumb-gap);
+  padding: var(--breadcrumb-gap);
+  background: var(--theme-surface-bg);
+  border: 1px solid var(--theme-surface-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+[data-breadcrumb-collapse][open] [data-breadcrumb-collapse-content] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--breadcrumb-gap);
+}

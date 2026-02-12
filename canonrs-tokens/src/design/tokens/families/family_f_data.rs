@@ -6,7 +6,7 @@ use crate::design::tokens::FamilyToken;
 
 pub const FAMILY_F_DATA: &[FamilyToken] = &[
     // Data foundation
-    FamilyToken::new("card-bg", "var(--theme-surface-elevated)"),
+    FamilyToken::new("card-bg", "var(--theme-surface-bg)"),
     FamilyToken::new("card-border", "var(--theme-surface-border)"),
     FamilyToken::new("data-radius", "var(--radius-md)"),
     FamilyToken::new("data-shadow", "var(--shadow-sm)"),
@@ -16,6 +16,7 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("card-radius", "var(--radius-md)"),
     FamilyToken::new("card-shadow", "var(--shadow-sm)"),
     FamilyToken::new("card-border-width", "1px"),
+    FamilyToken::new("card-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("card-padding", "var(--space-lg)"),
     FamilyToken::new("card-content-gap", "var(--space-md)"),
     FamilyToken::new("card-header-gap", "var(--space-sm)"),
@@ -53,7 +54,7 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("table-caption-font-size", "var(--font-size-sm)"),
     FamilyToken::new("table-caption-padding-y", "var(--space-sm)"),
 
-    // Data Table
+    // Data Table — Base
     FamilyToken::new("data-table-bg", "var(--theme-surface-bg)"),
     FamilyToken::new("data-table-radius", "var(--radius-md)"),
     FamilyToken::new("data-table-border-color", "var(--theme-surface-border)"),
@@ -74,6 +75,17 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("data-table-sort-icon-size", "var(--space-md)"),
     FamilyToken::new("data-table-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("data-table-transition-ease", "var(--motion-ease-standard)"),
+
+    // Data Table — Density Tokens
+    FamilyToken::new("data-table-density-compact-cell-padding-y", "var(--space-xs)"),
+    FamilyToken::new("data-table-density-compact-cell-padding-x", "var(--space-sm)"),
+    FamilyToken::new("data-table-density-compact-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("data-table-density-comfortable-cell-padding-y", "var(--space-sm)"),
+    FamilyToken::new("data-table-density-comfortable-cell-padding-x", "var(--space-md)"),
+    FamilyToken::new("data-table-density-comfortable-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("data-table-density-spacious-cell-padding-y", "var(--space-md)"),
+    FamilyToken::new("data-table-density-spacious-cell-padding-x", "var(--space-lg)"),
+    FamilyToken::new("data-table-density-spacious-font-size", "var(--font-size-base)"),
 
     // Icon
     FamilyToken::new("icon-size-sm", "var(--space-md)"),
@@ -153,12 +165,14 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("code-block-language-font-size", "var(--font-size-xs)"),
 
     // Avatar
-    FamilyToken::new("avatar-size-xs", "var(--space-lg)"),
-    FamilyToken::new("avatar-size-sm", "var(--space-xl)"),
-    FamilyToken::new("avatar-size-md", "var(--space-2xl)"),
-    FamilyToken::new("avatar-size-lg", "var(--size-icon-lg)"),
-    FamilyToken::new("avatar-size-xl", "var(--layout-height-header)"),
+    FamilyToken::new("avatar-size-xs", "1.5rem"),
+    FamilyToken::new("avatar-size-sm", "2rem"),
+    FamilyToken::new("avatar-size-md", "2.5rem"),
+    FamilyToken::new("avatar-size-lg", "3rem"),
+    FamilyToken::new("avatar-size-xl", "4rem"),
     FamilyToken::new("avatar-radius", "var(--radius-full)"),
+    FamilyToken::new("avatar-radius-square", "var(--radius-xs)"),
+    FamilyToken::new("avatar-radius-rounded", "var(--radius-lg)"),
     FamilyToken::new("avatar-bg", "var(--theme-surface-muted)"),
     FamilyToken::new("avatar-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("avatar-border-width", "1px"),
@@ -167,6 +181,21 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("avatar-fallback-font-size", "var(--font-size-sm)"),
     FamilyToken::new("avatar-fallback-font-weight", "var(--font-weight-medium)"),
     FamilyToken::new("avatar-image-fit", "cover"),
+    FamilyToken::new("avatar-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("avatar-status-size", "25%"),
+    FamilyToken::new("avatar-status-border-width", "2px"),
+    FamilyToken::new("avatar-status-border-color", "var(--theme-surface-bg)"),
+    FamilyToken::new("avatar-status-online-bg", "var(--color-success)"),
+    FamilyToken::new("avatar-status-offline-bg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("avatar-status-busy-bg", "var(--color-destructive)"),
+    FamilyToken::new("avatar-status-away-bg", "var(--color-warning)"),
+    FamilyToken::new("avatar-badge-size", "var(--space-md)"),
+    FamilyToken::new("avatar-badge-offset", "-4px"),
+    FamilyToken::new("avatar-badge-bg", "var(--color-destructive)"),
+    FamilyToken::new("avatar-badge-fg", "var(--color-destructive-foreground)"),
+    FamilyToken::new("avatar-badge-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("avatar-badge-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("avatar-group-overlap", "-0.5rem"),
 
     // Stat
     FamilyToken::new("stat-gap", "var(--space-xs)"),
@@ -193,18 +222,14 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("scroll-area-padding", "0"),
     FamilyToken::new("scroll-area-max-height", "100%"),
 
-    // List Item
-    FamilyToken::new("list-item-padding", "var(--space-sm) var(--space-md)"),
-    FamilyToken::new("list-item-border", "1px solid var(--theme-surface-border)"),
-    // Avatar (token simplificado faltante)
-    FamilyToken::new("avatar-fg", "var(--theme-surface-fg-muted)"),
-
-    // Card (token simplificado faltante)
-    FamilyToken::new("card-border-color", "var(--theme-surface-border)"),
-
     // List
     FamilyToken::new("list-gap", "var(--space-sm)"),
-    FamilyToken::new("list-item-bg-hover", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("list-item-padding", "var(--space-sm) var(--space-md)"),
     FamilyToken::new("list-item-padding-y", "var(--space-sm)"),
-
+    FamilyToken::new("list-item-border", "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("list-item-bg-hover", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("data-table-zebra-odd-bg", "color-mix(in srgb, var(--theme-surface-fg) 16%, transparent)"),
+    FamilyToken::new("data-table-zebra-even-bg", "var(--data-table-bg)"),
+    FamilyToken::new("data-table-header-sticky-top", "0"),
+    FamilyToken::new("data-table-header-z-index", "10"),
 ];

@@ -1,276 +1,313 @@
-use leptos::prelude::*;
-use leptos::leptos_dom::helpers::window;
-use web_sys::{Document, EventTarget, HtmlInputElement, Element, HtmlElement, Node, NodeList, CssStyleDeclaration};
-use wasm_bindgen::{prelude::*, JsCast};
+#[cfg(feature = "hydrate")]
+use leptos::leptos_dom::helpers::document;
+#[cfg(feature = "hydrate")]
+use wasm_bindgen::JsCast;
+#[cfg(feature = "hydrate")]
+use super::register_behavior;
+#[cfg(feature = "hydrate")]
+use canonrs_shared::BehaviorResult;
+#[cfg(feature = "hydrate")]
+use std::cell::RefCell;
+#[cfg(feature = "hydrate")]
+use std::rc::Rc;
 
-/// DataTable behavior - filter, sort, column toggle, and row actions
-pub struct DataTableBehavior {
-    filter_id: String,
-    sort_id: String,
-    tbody_id: String,
-    col_ids: Vec<String>,
+#[cfg(feature = "hydrate")]
+struct DataTableState {
+    all_rows: Vec<leptos::web_sys::Element>,
+    current_page: usize,
+    page_size: usize,
+    filter_query: String,
+    sort_column: Option<String>,
+    sort_ascending: bool,
 }
 
-impl DataTableBehavior {
-    pub fn new(filter: &str, sort: &str, tbody: &str, columns: Vec<&str>) -> Self {
-        Self {
-            filter_id: filter.to_string(),
-            sort_id: sort.to_string(),
-            tbody_id: tbody.to_string(),
-            col_ids: columns.iter().map(|s| s.to_string()).collect(),
+#[cfg(feature = "hydrate")]
+pub fn register() {
+    register_behavior("data-datatable", Box::new(|element_id, _state| -> BehaviorResult<()> {
+        let doc = document();
+        if let Some(datatable_el) = doc.get_element_by_id(element_id) {
+            
+            // Capture original rows ONCE
+            let tbody = datatable_el.query_selector("[data-datatable-body]").ok().flatten();
+            let mut all_rows = Vec::new();
+            
+            if let Some(tbody_el) = tbody {
+                let rows = tbody_el.query_selector_all("[data-datatable-row]").ok();
+                if let Some(rows_list) = rows {
+                    for i in 0..rows_list.length() {
+                        if let Some(row) = rows_list.get(i) {
+                            all_rows.push(row.unchecked_into());
+                        }
+                    }
+                }
+            }
+            
+            let state = Rc::new(RefCell::new(DataTableState {
+                all_rows,
+                current_page: 1,
+                page_size: 5,
+                filter_query: String::new(),
+                sort_column: None,
+                sort_ascending: true,
+            }));
+            
+            setup_sort(&datatable_el, state.clone());
+            setup_search(&datatable_el, state.clone());
+            setup_pagination_buttons(&datatable_el, state.clone());
+            
+            render_table(&datatable_el, &state.borrow());
+        }
+        
+        Ok(())
+    }));
+}
+
+#[cfg(feature = "hydrate")]
+fn setup_sort(datatable: &leptos::web_sys::Element, state: Rc<RefCell<DataTableState>>) {
+    use leptos::web_sys::Element;
+    
+    let headers = datatable.query_selector_all("[data-datatable-head-cell][data-sort-key]").ok();
+    if let Some(headers_list) = headers {
+        for i in 0..headers_list.length() {
+            if let Some(header) = headers_list.get(i) {
+                let header_el: Element = header.unchecked_into();
+                let sort_key = header_el.get_attribute("data-sort-key").unwrap_or_default();
+                
+                if !sort_key.is_empty() {
+                    let datatable_clone = datatable.clone();
+                    let state_clone = state.clone();
+                    let key = sort_key.clone();
+                    
+                    let closure = wasm_bindgen::closure::Closure::wrap(Box::new(move |_e: leptos::web_sys::Event| {
+                        let mut s = state_clone.borrow_mut();
+                        
+                        if s.sort_column.as_ref() == Some(&key) {
+                            s.sort_ascending = !s.sort_ascending;
+                        } else {
+                            s.sort_column = Some(key.clone());
+                            s.sort_ascending = true;
+                        }
+                        
+                        drop(s);
+                        render_table(&datatable_clone, &state_clone.borrow());
+                    }) as Box<dyn FnMut(_)>);
+                    
+                    header_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref()).ok();
+                    closure.forget();
+                    
+                    let doc = document();
+                    let icon = doc.create_element("span").ok();
+                    if let Some(icon_el) = icon {
+                        icon_el.set_attribute("class", "sort-icon").ok();
+                        icon_el.set_inner_html(" ⇅");
+                        header_el.append_child(&icon_el).ok();
+                    }
+                }
+            }
         }
     }
+}
 
-    pub fn attach(&self) {
-        let filter_id = self.filter_id.clone();
-        let sort_id = self.sort_id.clone();
-        let tbody_id = self.tbody_id.clone();
-        let col_ids = self.col_ids.clone();
+#[cfg(feature = "hydrate")]
+fn setup_search(datatable: &leptos::web_sys::Element, state: Rc<RefCell<DataTableState>>) {
+    let search_input = datatable.query_selector("[data-datatable-search]").ok().flatten();
+    
+    if let Some(input_el) = search_input {
+        let datatable_clone = datatable.clone();
+        let state_clone = state.clone();
+        
+        let closure = wasm_bindgen::closure::Closure::wrap(Box::new(move |e: leptos::web_sys::Event| {
+            let target = e.target().unwrap();
+            let input: &leptos::web_sys::HtmlInputElement = target.unchecked_ref();
+            let value = input.value();
+            
+            state_clone.borrow_mut().filter_query = value;
+            state_clone.borrow_mut().current_page = 1;
+            
+            render_table(&datatable_clone, &state_clone.borrow());
+        }) as Box<dyn FnMut(_)>);
+        
+        input_el.add_event_listener_with_callback("input", closure.as_ref().unchecked_ref()).ok();
+        closure.forget();
+    }
+}
 
-        Effect::new(move |_| {
-            let document: Document = window().document().expect("document");
-
-            // Initialize column checkboxes
-            for col_id in &col_ids {
-                let checkbox: Element = match document.get_element_by_id(col_id) {
-                    Some(el) => el,
-                    None => continue,
-                };
-
-                let input: &HtmlInputElement = match checkbox.dyn_ref::<HtmlInputElement>() {
-                    Some(inp) => inp,
-                    None => continue,
-                };
-
-                input.set_checked(true);
+#[cfg(feature = "hydrate")]
+fn setup_pagination_buttons(datatable: &leptos::web_sys::Element, state: Rc<RefCell<DataTableState>>) {
+    let prev_btn = datatable.query_selector("[data-datatable-prev]").ok().flatten();
+    let next_btn = datatable.query_selector("[data-datatable-next]").ok().flatten();
+    
+    if let Some(prev_el) = prev_btn {
+        let datatable_clone = datatable.clone();
+        let state_clone = state.clone();
+        
+        let closure = wasm_bindgen::closure::Closure::wrap(Box::new(move |_e: leptos::web_sys::Event| {
+            let mut s = state_clone.borrow_mut();
+            if s.current_page > 1 {
+                s.current_page -= 1;
             }
-
-            // Column visibility toggles
-            for col_id in &col_ids {
-                let checkbox: Element = match document.get_element_by_id(col_id) {
-                    Some(el) => el,
-                    None => continue,
-                };
-
-                let doc: Document = document.clone();
-                let col_class: String = format!(".{}", col_id);
-
-                let closure = Closure::wrap(Box::new(move |e: leptos::web_sys::Event| {
-                    let target_et: EventTarget = match e.target() {
-                        Some(t) => t,
-                        None => return,
-                    };
-
-                    let input: HtmlInputElement = match target_et.dyn_into() {
-                        Ok(inp) => inp,
-                        Err(_) => return,
-                    };
-
-                    let checked: bool = input.checked();
-                    let display: &str = if checked { "table-cell" } else { "none" };
-
-                    let cells: NodeList = match doc.query_selector_all(&col_class) {
-                        Ok(c) => c,
-                        Err(_) => return,
-                    };
-
-                    let length: u32 = cells.length();
-                    for i in 0..length {
-                        let node: Node = match cells.item(i) {
-                            Some(n) => n,
-                            None => continue,
-                        };
-
-                        let cell: &HtmlElement = match node.dyn_ref::<HtmlElement>() {
-                            Some(c) => c,
-                            None => continue,
-                        };
-
-                        let style: CssStyleDeclaration = cell.style();
-                        let _ = style.set_property("display", display);
-                    }
-                }) as Box<dyn FnMut(_)>);
-
-                let target: &EventTarget = checkbox.as_ref();
-                let _ = target.add_event_listener_with_callback("change", closure.as_ref().unchecked_ref());
-                closure.forget();
+            drop(s);
+            render_table(&datatable_clone, &state_clone.borrow());
+        }) as Box<dyn FnMut(_)>);
+        
+        prev_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref()).ok();
+        closure.forget();
+    }
+    
+    if let Some(next_el) = next_btn {
+        let datatable_clone = datatable.clone();
+        let state_clone = state.clone();
+        
+        let closure = wasm_bindgen::closure::Closure::wrap(Box::new(move |_e: leptos::web_sys::Event| {
+            let s = state_clone.borrow();
+            let filtered = compute_filtered(&s);
+            let total_pages = ((filtered.len() as f32) / (s.page_size as f32)).ceil() as usize;
+            
+            drop(s);
+            
+            let mut s = state_clone.borrow_mut();
+            if s.current_page < total_pages {
+                s.current_page += 1;
             }
+            drop(s);
+            
+            render_table(&datatable_clone, &state_clone.borrow());
+        }) as Box<dyn FnMut(_)>);
+        
+        next_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref()).ok();
+        closure.forget();
+    }
+}
 
-            // Filter
-            let filter_input: Element = match document.get_element_by_id(&filter_id) {
-                Some(el) => el,
-                None => return,
-            };
+#[cfg(feature = "hydrate")]
+fn render_table(datatable: &leptos::web_sys::Element, state: &DataTableState) {
+    let tbody = datatable.query_selector("[data-datatable-body]").ok().flatten();
+    if let Some(tbody_el) = tbody {
+        // Step 1: Filter
+        let filtered = compute_filtered(state);
+        
+        // Step 2: Sort
+        let sorted = compute_sorted(datatable, &filtered, state);
+        
+        // Step 3: Paginate
+        let total = sorted.len();
+        let start = (state.current_page - 1) * state.page_size;
+        let end = (start + state.page_size).min(total);
+        let paginated: Vec<_> = sorted.into_iter().skip(start).take(end - start).collect();
+        
+        // Step 4: Render (single source of truth)
+        // First, hide ALL rows
+        for row in &state.all_rows {
+            let style = row.dyn_ref::<leptos::web_sys::HtmlElement>().unwrap();
+            style.style().set_property("display", "none").ok();
+        }
+        
+        // Then, show and reorder only paginated rows
+        for row in &paginated {
+            let style = row.dyn_ref::<leptos::web_sys::HtmlElement>().unwrap();
+            style.style().set_property("display", "").ok();
+            tbody_el.append_child(row).ok();
+        }
+        
+        // Update UI
+        update_pagination_info(datatable, start + 1, end, total);
+        update_sort_icons(datatable, state);
+    }
+}
 
-            let doc: Document = document.clone();
+#[cfg(feature = "hydrate")]
+fn compute_filtered(state: &DataTableState) -> Vec<leptos::web_sys::Element> {
+    state.all_rows.iter()
+        .filter(|row| {
+            let text = row.text_content().unwrap_or_default();
+            state.filter_query.is_empty() || 
+            text.to_lowercase().contains(&state.filter_query.to_lowercase())
+        })
+        .cloned()
+        .collect()
+}
 
-            let filter_closure = Closure::wrap(Box::new(move |e: leptos::web_sys::Event| {
-                let target_et: EventTarget = match e.target() {
-                    Some(t) => t,
-                    None => return,
-                };
-
-                let input: HtmlInputElement = match target_et.dyn_into() {
-                    Ok(inp) => inp,
-                    Err(_) => return,
-                };
-
-                let filter_value: String = input.value().to_lowercase();
-
-                let rows: NodeList = match doc.query_selector_all("[data-data-table-row]") {
-                    Ok(r) => r,
-                    Err(_) => return,
-                };
-
-                let length: u32 = rows.length();
-                for i in 0..length {
-                    let node: Node = match rows.item(i) {
-                        Some(n) => n,
-                        None => continue,
-                    };
-
-                    let row: &Element = match node.dyn_ref::<Element>() {
-                        Some(r) => r,
-                        None => continue,
-                    };
-
-                    let product: String = row.get_attribute("data-product").unwrap_or_default();
-                    let matches: bool = product.to_lowercase().contains(&filter_value);
-
-                    let html_row: &HtmlElement = match row.dyn_ref::<HtmlElement>() {
-                        Some(hr) => hr,
-                        None => continue,
-                    };
-
-                    let style: CssStyleDeclaration = html_row.style();
-                    let display: &str = if matches { "table-row" } else { "none" };
-                    let _ = style.set_property("display", display);
-                }
-            }) as Box<dyn FnMut(_)>);
-
-            let target: &EventTarget = filter_input.as_ref();
-            let _ = target.add_event_listener_with_callback("input", filter_closure.as_ref().unchecked_ref());
-            filter_closure.forget();
-
-            // Sort
-            let sort_btn: Element = match document.get_element_by_id(&sort_id) {
-                Some(el) => el,
-                None => return,
-            };
-
-            let doc2: Document = document.clone();
-            let tbody: String = tbody_id.clone();
-            let sort_asc = std::rc::Rc::new(std::cell::Cell::new(true));
-
-            let sort_closure = Closure::wrap(Box::new(move |_: leptos::web_sys::Event| {
-                let asc: bool = sort_asc.get();
-                sort_asc.set(!asc);
-
-                let tbody_elem: Element = match doc2.get_element_by_id(&tbody) {
-                    Some(el) => el,
-                    None => return,
-                };
-
-                let rows: NodeList = match tbody_elem.query_selector_all("[data-data-table-row]") {
-                    Ok(r) => r,
-                    Err(_) => return,
-                };
-
-                let mut row_vec: Vec<Element> = vec![];
-                let length: u32 = rows.length();
-
-                for i in 0..length {
-                    let node: Node = match rows.item(i) {
-                        Some(n) => n,
-                        None => continue,
-                    };
-
-                    let elem: &Element = match node.dyn_ref::<Element>() {
-                        Some(e) => e,
-                        None => continue,
-                    };
-
-                    row_vec.push(elem.clone());
-                }
-
-                row_vec.sort_by(|a: &Element, b: &Element| {
-                    let a_val: String = a.get_attribute("data-product").unwrap_or_default();
-                    let b_val: String = b.get_attribute("data-product").unwrap_or_default();
-                    if asc {
-                        a_val.cmp(&b_val)
-                    } else {
-                        b_val.cmp(&a_val)
-                    }
-                });
-
-                for row in row_vec {
-                    let _ = tbody_elem.append_child(&row);
-                }
-            }) as Box<dyn FnMut(_)>);
-
-            let target2: &EventTarget = sort_btn.as_ref();
-            let _ = target2.add_event_listener_with_callback("click", sort_closure.as_ref().unchecked_ref());
-            sort_closure.forget();
-
-            // Row actions
-            let buttons: NodeList = match document.query_selector_all("[data-action]") {
-                Ok(b) => b,
-                Err(_) => return,
-            };
-
-            let length: u32 = buttons.length();
-            for i in 0..length {
-                let node: Node = match buttons.item(i) {
-                    Some(n) => n,
-                    None => continue,
-                };
-
-                let doc3: Document = document.clone();
-
-                let action_closure = Closure::wrap(Box::new(move |e: leptos::web_sys::Event| {
-                    let target_et: EventTarget = match e.current_target() {
-                        Some(t) => t,
-                        None => return,
-                    };
-
-                    let element: Element = match target_et.dyn_into() {
-                        Ok(el) => el,
-                        Err(_) => return,
-                    };
-
-                    let action: String = element.get_attribute("data-action").unwrap_or_default();
-                    let row_id: String = element.get_attribute("data-row").unwrap_or_default();
-
-                    let row: Element = match doc3.query_selector(&format!("[data-row-id='{}']", row_id)) {
-                        Ok(Some(r)) => r,
-                        _ => return,
-                    };
-
-                    let w = window();
-                    match action.as_str() {
-                        "view-product" => {
-                            let product: String = row.get_attribute("data-product").unwrap_or_default();
-                            let _ = w.alert_with_message(&format!("Product: {}", product));
-                        }
-                        "view-price" => {
-                            let price: String = row.get_attribute("data-price").unwrap_or_default();
-                            let _ = w.alert_with_message(&format!("Price: ${}", price));
-                        }
-                        "copy-row" => {
-                            let product: String = row.get_attribute("data-product").unwrap_or_default();
-                            let price: String = row.get_attribute("data-price").unwrap_or_default();
-                            let stock: String = row.get_attribute("data-stock").unwrap_or_default();
-                            let text: String = format!("{} | ${} | {} units", product, price, stock);
-                            let _ = w.alert_with_message(&format!("Copied: {}", text));
-                        }
-                        _ => {}
-                    }
-                }) as Box<dyn FnMut(_)>);
-
-                let target3: &EventTarget = node.as_ref();
-                let _ = target3.add_event_listener_with_callback("click", action_closure.as_ref().unchecked_ref());
-                action_closure.forget();
-            }
+#[cfg(feature = "hydrate")]
+fn compute_sorted(datatable: &leptos::web_sys::Element, rows: &[leptos::web_sys::Element], state: &DataTableState) -> Vec<leptos::web_sys::Element> {
+    let mut sorted = rows.to_vec();
+    
+    if let Some(ref sort_col) = state.sort_column {
+        let col_idx = get_column_index(datatable, sort_col);
+        sorted.sort_by(|a, b| {
+            let val_a = get_cell_text(a, col_idx);
+            let val_b = get_cell_text(b, col_idx);
+            if state.sort_ascending { val_a.cmp(&val_b) } else { val_b.cmp(&val_a) }
         });
+    }
+    
+    sorted
+}
+
+#[cfg(feature = "hydrate")]
+fn get_column_index(datatable: &leptos::web_sys::Element, sort_key: &str) -> usize {
+    use leptos::web_sys::Element;
+    
+    let headers = datatable.query_selector_all("[data-datatable-head-cell]").ok();
+    if let Some(headers_list) = headers {
+        for i in 0..headers_list.length() {
+            if let Some(header) = headers_list.get(i) {
+                let header_el: Element = header.unchecked_into();
+                if header_el.get_attribute("data-sort-key").as_deref() == Some(sort_key) {
+                    return i as usize;
+                }
+            }
+        }
+    }
+    0
+}
+
+#[cfg(feature = "hydrate")]
+fn get_cell_text(row: &leptos::web_sys::Element, col_idx: usize) -> String {
+    let cells = row.query_selector_all("[data-datatable-cell]").ok();
+    if let Some(cells_list) = cells {
+        if let Some(cell) = cells_list.get(col_idx as u32) {
+            return cell.text_content().unwrap_or_default().trim().to_lowercase();
+        }
+    }
+    String::new()
+}
+
+#[cfg(feature = "hydrate")]
+fn update_pagination_info(datatable: &leptos::web_sys::Element, start: usize, end: usize, total: usize) {
+    let info = datatable.query_selector("[data-datatable-info]").ok().flatten();
+    if let Some(info_el) = info {
+        let s = if total == 0 { 0 } else { start };
+        info_el.set_inner_html(&format!("Showing {}-{} of {}", s, end, total));
+    }
+}
+
+#[cfg(feature = "hydrate")]
+fn update_sort_icons(datatable: &leptos::web_sys::Element, state: &DataTableState) {
+    use leptos::web_sys::Element;
+    
+    let headers = datatable.query_selector_all("[data-datatable-head-cell][data-sort-key]").ok();
+    if let Some(headers_list) = headers {
+        for i in 0..headers_list.length() {
+            if let Some(header) = headers_list.get(i) {
+                let header_el: Element = header.unchecked_into();
+                let sort_key = header_el.get_attribute("data-sort-key").unwrap_or_default();
+                
+                if let Some(icon) = header_el.query_selector(".sort-icon").ok().flatten() {
+                    let icon_text = if Some(sort_key.as_str()) == state.sort_column.as_deref() {
+                        if state.sort_ascending { " ▲" } else { " ▼" }
+                    } else {
+                        " ⇅"
+                    };
+                    icon.set_inner_html(icon_text);
+                }
+                
+                let aria = if Some(sort_key.as_str()) == state.sort_column.as_deref() {
+                    if state.sort_ascending { "ascending" } else { "descending" }
+                } else {
+                    "none"
+                };
+                header_el.set_attribute("aria-sort", aria).ok();
+            }
+        }
     }
 }

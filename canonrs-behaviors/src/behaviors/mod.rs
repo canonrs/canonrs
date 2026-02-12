@@ -54,6 +54,7 @@ pub mod popover_behavior;
 pub mod scroll_area_behavior;
 #[cfg(feature = "hydrate")]
 pub mod select_behavior;
+pub mod slider_behavior;
 #[cfg(feature = "hydrate")]
 pub mod sheet_behavior;
 #[cfg(feature = "hydrate")]

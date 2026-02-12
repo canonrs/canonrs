@@ -19,7 +19,7 @@ pub fn InputPrimitive(
             name={if name.is_empty() { None } else { Some(name) }}
             value={value}
             placeholder={if placeholder.is_empty() { None } else { Some(placeholder) }}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
+            attr:aria-disabled={if disabled { Some("true") } else { None }}
             attr:data-disabled={if disabled { Some("true") } else { None }}
             attr:aria-label={if aria_label.is_empty() { None } else { Some(aria_label) }}
         />

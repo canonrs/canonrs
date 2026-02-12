@@ -36,8 +36,8 @@ pub fn Slider(
         >
             <SliderTrackPrimitive>
                 <SliderRangePrimitive />
+                <SliderThumbPrimitive />
             </SliderTrackPrimitive>
-            <SliderThumbPrimitive />
         </SliderPrimitive>
     }
 }
