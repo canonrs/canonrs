@@ -4,22 +4,46 @@
 
 use leptos::prelude::*;
 
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
+pub enum ToastVariant {
+    #[default]
+    Default,
+    Success,
+    Warning,
+    Error,
+    Info,
+}
+
+impl ToastVariant {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Default => "default",
+            Self::Success => "success",
+            Self::Warning => "warning",
+            Self::Error => "error",
+            Self::Info => "info",
+        }
+    }
+}
+
 #[component]
 pub fn ToastPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = ToastVariant::Default)] variant: ToastVariant,
     #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-toast=""
+            data-variant={variant.as_str()}
+            data-state={if open { "open" } else { "closed" }}
             role="status"
-            attr:aria-live="polite"
-            attr:aria-atomic="true"
-            attr:data-state={if open { "open" } else { "closed" }}
-            class={class}
-            id={id}
+            aria-live="polite"
+            aria-atomic="true"
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -29,14 +53,14 @@ pub fn ToastPrimitive(
 #[component]
 pub fn ToastViewportPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-toast-viewport=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -46,14 +70,14 @@ pub fn ToastViewportPrimitive(
 #[component]
 pub fn ToastTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-toast-title=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -63,14 +87,14 @@ pub fn ToastTitlePrimitive(
 #[component]
 pub fn ToastDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-toast-description=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -80,14 +104,14 @@ pub fn ToastDescriptionPrimitive(
 #[component]
 pub fn ToastActionPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-toast-action=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -97,15 +121,16 @@ pub fn ToastActionPrimitive(
 #[component]
 pub fn ToastClosePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <button
             type="button"
             data-toast-close=""
-            class={class}
-            id={id}
+            aria-label="Close"
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </button>

@@ -191,11 +191,6 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
 
     // Status Dot
     FamilyToken::new("status-dot-size", "var(--space-sm)"),
-    FamilyToken::new("status-dot-radius", "var(--radius-full)"),
-    FamilyToken::new("status-dot-bg-default", "var(--theme-surface-muted)"),
-    FamilyToken::new("status-dot-bg-success", "var(--theme-state-success-bg)"),
-    FamilyToken::new("status-dot-bg-warning", "var(--theme-state-warning-bg)"),
-    FamilyToken::new("status-dot-bg-error", "var(--theme-state-error-bg)"),
     FamilyToken::new("status-dot-bg-info", "var(--theme-state-info-bg)"),
 
     // Spinner

@@ -1,41 +1,43 @@
 /* ============================================
    STATUS DOT
-   Family E: Feedback & Status
+   Domain: User Presence
    ============================================ */
 
 [data-status-dot] {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--status-dot-gap);
-}
-
-[data-status-dot-indicator] {
+  display: inline-block;
   width: var(--status-dot-size);
   height: var(--status-dot-size);
   border-radius: var(--status-dot-radius);
 }
 
-[data-status-dot][data-variant="default"] [data-status-dot-indicator] {
-  background: var(--status-dot-bg-default);
+/* Presence States → Semantic Color Mapping */
+[data-status-dot][data-variant="online"] {
+  background: var(--color-success);
+  animation: status-dot-pulse var(--motion-duration-slow) var(--motion-ease-standard) infinite;
 }
 
-[data-status-dot][data-variant="success"] [data-status-dot-indicator] {
-  background: var(--status-dot-bg-success);
+[data-status-dot][data-variant="offline"] {
+  background: var(--color-muted);
 }
 
-[data-status-dot][data-variant="warning"] [data-status-dot-indicator] {
-  background: var(--status-dot-bg-warning);
+[data-status-dot][data-variant="away"] {
+  background: var(--color-warning);
 }
 
-[data-status-dot][data-variant="error"] [data-status-dot-indicator] {
-  background: var(--status-dot-bg-error);
+[data-status-dot][data-variant="busy"] {
+  background: var(--color-destructive);
 }
 
-[data-status-dot][data-variant="info"] [data-status-dot-indicator] {
-  background: var(--status-dot-bg-info);
+[data-status-dot][data-variant="donotdisturb"] {
+  background: var(--color-destructive);
 }
 
-[data-status-dot-label] {
-  font-size: var(--status-dot-label-font-size);
-  color: var(--status-dot-label-fg);
+/* Pulse Animation (only for online) */
+@keyframes status-dot-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
