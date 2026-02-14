@@ -12,7 +12,7 @@ use crate::primitives::{
 pub fn AlertDialog(
     children: Children,
     #[prop(into)] id: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <AlertDialogPrimitive id=id class=class>
@@ -25,7 +25,7 @@ pub fn AlertDialog(
 pub fn AlertDialogTrigger(
     children: Children,
     #[prop(into)] target_dialog_id: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <AlertDialogTriggerPrimitive target_dialog_id=target_dialog_id class=class>
@@ -36,7 +36,7 @@ pub fn AlertDialogTrigger(
 
 #[component]
 pub fn AlertDialogOverlay(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <AlertDialogOverlayPrimitive class=class />
@@ -46,10 +46,16 @@ pub fn AlertDialogOverlay(
 #[component]
 pub fn AlertDialogContent(
     children: Children,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] labelledby: Option<String>,
+    #[prop(optional, into)] describedby: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertDialogContentPrimitive class=class>
+        <AlertDialogContentPrimitive
+            class=class
+            labelledby=labelledby.unwrap_or_default()
+            describedby=describedby.unwrap_or_default()
+        >
             {children()}
         </AlertDialogContentPrimitive>
     }
@@ -58,10 +64,11 @@ pub fn AlertDialogContent(
 #[component]
 pub fn AlertDialogTitle(
     children: Children,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertDialogTitlePrimitive class=class>
+        <AlertDialogTitlePrimitive class=class id=id.unwrap_or_default()>
             {children()}
         </AlertDialogTitlePrimitive>
     }
@@ -70,11 +77,29 @@ pub fn AlertDialogTitle(
 #[component]
 pub fn AlertDialogDescription(
     children: Children,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertDialogDescriptionPrimitive class=class>
+        <AlertDialogDescriptionPrimitive class=class id=id.unwrap_or_default()>
             {children()}
         </AlertDialogDescriptionPrimitive>
+    }
+}
+
+#[component]
+pub fn AlertDialogClose(
+    children: Children,
+    #[prop(into)] target_dialog_id: String,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <button
+            data-dialog-close=target_dialog_id
+            type="button"
+            class=class
+        >
+            {children()}
+        </button>
     }
 }
