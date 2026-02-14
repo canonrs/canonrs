@@ -7,36 +7,17 @@ use crate::primitives::{
     EmptyStateActionPrimitive,
 };
 
-#[derive(Clone, Copy, PartialEq)]
-pub enum EmptyStateVariant {
-    Default,
-    NoData,
-    NoResults,
-    Error,
-}
-
-impl EmptyStateVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            EmptyStateVariant::Default => "default",
-            EmptyStateVariant::NoData => "no-data",
-            EmptyStateVariant::NoResults => "no-results",
-            EmptyStateVariant::Error => "error",
-        }
-    }
-}
+pub use crate::primitives::EmptyStateVariant;
 
 #[component]
 pub fn EmptyState(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = EmptyStateVariant::Default)] variant: EmptyStateVariant,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
-    let base_class = format!("empty-state variant-{} {}", variant.as_str(), class);
-
     view! {
-        <EmptyStatePrimitive class={base_class} id={id}>
+        <EmptyStatePrimitive variant=variant class=class id=id>
             {children.map(|c| c())}
         </EmptyStatePrimitive>
     }
@@ -45,11 +26,11 @@ pub fn EmptyState(
 #[component]
 pub fn EmptyStateIcon(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateIconPrimitive class={class} id={id}>
+        <EmptyStateIconPrimitive class=class id=id>
             {children.map(|c| c())}
         </EmptyStateIconPrimitive>
     }
@@ -58,11 +39,11 @@ pub fn EmptyStateIcon(
 #[component]
 pub fn EmptyStateTitle(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateTitlePrimitive class={class} id={id}>
+        <EmptyStateTitlePrimitive class=class id=id>
             {children.map(|c| c())}
         </EmptyStateTitlePrimitive>
     }
@@ -71,11 +52,11 @@ pub fn EmptyStateTitle(
 #[component]
 pub fn EmptyStateDescription(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateDescriptionPrimitive class={class} id={id}>
+        <EmptyStateDescriptionPrimitive class=class id=id>
             {children.map(|c| c())}
         </EmptyStateDescriptionPrimitive>
     }
@@ -84,11 +65,11 @@ pub fn EmptyStateDescription(
 #[component]
 pub fn EmptyStateAction(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateActionPrimitive class={class} id={id}>
+        <EmptyStateActionPrimitive class=class id=id>
             {children.map(|c| c())}
         </EmptyStateActionPrimitive>
     }

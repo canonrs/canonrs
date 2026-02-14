@@ -4,17 +4,39 @@
 
 use leptos::prelude::*;
 
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
+pub enum EmptyStateVariant {
+    #[default]
+    Default,
+    NoData,
+    NoResults,
+    Error,
+}
+
+impl EmptyStateVariant {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Default => "default",
+            Self::NoData => "no-data",
+            Self::NoResults => "no-results",
+            Self::Error => "error",
+        }
+    }
+}
+
 #[component]
 pub fn EmptyStatePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = EmptyStateVariant::Default)] variant: EmptyStateVariant,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-empty-state=""
-            class={class}
-            id={id}
+            data-variant={variant.as_str()}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -24,15 +46,15 @@ pub fn EmptyStatePrimitive(
 #[component]
 pub fn EmptyStateIconPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-empty-state-icon=""
-            attr:aria-hidden="true"
-            class={class}
-            id={id}
+            aria-hidden="true"
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -42,14 +64,14 @@ pub fn EmptyStateIconPrimitive(
 #[component]
 pub fn EmptyStateTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <h3
             data-empty-state-title=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </h3>
@@ -59,14 +81,14 @@ pub fn EmptyStateTitlePrimitive(
 #[component]
 pub fn EmptyStateDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <p
             data-empty-state-description=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </p>
@@ -76,14 +98,14 @@ pub fn EmptyStateDescriptionPrimitive(
 #[component]
 pub fn EmptyStateActionPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-empty-state-action=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
