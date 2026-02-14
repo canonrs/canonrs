@@ -1,3 +1,6 @@
+//! @canon-level: ui
+//! Alert - Declarative UI wrapper
+
 use leptos::prelude::*;
 use crate::primitives::{AlertPrimitive, AlertTitlePrimitive, AlertDescriptionPrimitive, AlertVariant};
 
@@ -5,7 +8,7 @@ use crate::primitives::{AlertPrimitive, AlertTitlePrimitive, AlertDescriptionPri
 pub fn Alert(
     children: Children,
     #[prop(default = AlertVariant::Default)] variant: AlertVariant,
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional, into)] class: Option<String>,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -18,7 +21,7 @@ pub fn Alert(
 #[component]
 pub fn AlertTitle(
     children: Children,
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional, into)] class: Option<String>,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -31,7 +34,7 @@ pub fn AlertTitle(
 #[component]
 pub fn AlertDescription(
     children: Children,
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional, into)] class: Option<String>,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -44,14 +47,14 @@ pub fn AlertDescription(
 #[component]
 pub fn AlertCloseButton(
     children: Children,
-    #[prop(optional)] class: Option<String>,
+    #[prop(optional, into)] class: Option<String>,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-alert-close=""
+            data-alert-close=""
             type="button"
-            attr:aria-label="Close alert"
+            aria-label="Close alert"
             class={class.unwrap_or_default()}
             id={id.unwrap_or_default()}
         >

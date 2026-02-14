@@ -32,11 +32,11 @@ pub fn AlertPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-alert=""
-            attr:data-variant={variant.as_str()}
+            data-alert=""
+            data-variant={variant.as_str()}
             role="alert"
-            attr:aria-live="polite"
-            attr:aria-atomic="true"
+            aria-live="polite"
+            aria-atomic="true"
             class={class}
             id={id}
         >

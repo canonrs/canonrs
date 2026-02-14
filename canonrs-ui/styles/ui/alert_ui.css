@@ -5,6 +5,8 @@
 
 [data-alert] {
   display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
   padding-inline: var(--alert-padding-x);
   padding-block: var(--alert-padding-y);
   border-radius: var(--alert-radius);
@@ -16,10 +18,6 @@
   background: var(--alert-bg-default);
 }
 
-[data-alert][data-variant="info"] {
-  background: var(--alert-bg-info);
-}
-
 [data-alert][data-variant="success"] {
   background: var(--alert-bg-success);
 }
@@ -28,7 +26,7 @@
   background: var(--alert-bg-warning);
 }
 
-[data-alert][data-variant="error"] {
+[data-alert][data-variant="destructive"] {
   background: var(--alert-bg-error);
 }
 
