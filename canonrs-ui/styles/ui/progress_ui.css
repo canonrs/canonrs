@@ -20,7 +20,7 @@
   transition: width 0.3s ease;
   
   /* Visual */
-  background: var(--progress-fg);
+  background: var(--progress-fill-bg);
 }
 
 /* Estados */

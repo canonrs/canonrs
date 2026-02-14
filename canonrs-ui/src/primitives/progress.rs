@@ -8,8 +8,8 @@ use leptos::prelude::*;
 pub fn ProgressPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = 0.0)] value: f64,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     let clamped_value = value.clamp(0.0, 100.0);
 
@@ -17,11 +17,11 @@ pub fn ProgressPrimitive(
         <div
             data-progress=""
             role="progressbar"
-            attr:aria-valuemin="0"
-            attr:aria-valuemax="100"
-            attr:aria-valuenow={clamped_value.to_string()}
-            class={class}
-            id={id}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow=clamped_value
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -30,16 +30,16 @@ pub fn ProgressPrimitive(
 
 #[component]
 pub fn ProgressIndicatorPrimitive(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] style: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
+    #[prop(into, default = String::new())] style: String,
 ) -> impl IntoView {
     view! {
         <div
             data-progress-indicator=""
-            class={class}
-            id={id}
-            style={style}
+            class=class
+            id=id
+            style=style
         />
     }
 }
