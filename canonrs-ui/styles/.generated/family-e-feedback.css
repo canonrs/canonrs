@@ -82,8 +82,12 @@
   --badge-fg-success: var(--theme-state-success-fg);
   --badge-fg-warning: var(--theme-state-warning-fg);
   --badge-fg-error: var(--theme-state-error-fg);
+  --badge-bg-outline: transparent;
+  --badge-fg-outline: var(--theme-text-primary);
+  --badge-border-outline: var(--theme-border-primary);
   --badge-transition-duration: var(--motion-duration-fast);
   --badge-transition-ease: var(--motion-ease-standard);
+  --badge-hover-opacity: 0.8;
   --toast-bg: var(--theme-surface-bg);
   --toast-padding: var(--space-md);
   --toast-radius: var(--radius-lg);

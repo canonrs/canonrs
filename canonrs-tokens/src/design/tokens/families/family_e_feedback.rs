@@ -96,8 +96,12 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("badge-fg-success", "var(--theme-state-success-fg)"),
     FamilyToken::new("badge-fg-warning", "var(--theme-state-warning-fg)"),
     FamilyToken::new("badge-fg-error", "var(--theme-state-error-fg)"),
+    FamilyToken::new("badge-bg-outline", "transparent"),
+    FamilyToken::new("badge-fg-outline", "var(--theme-text-primary)"),
+    FamilyToken::new("badge-border-outline", "var(--theme-border-primary)"),
     FamilyToken::new("badge-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("badge-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("badge-hover-opacity", "0.8"),
 
     // Toast
     FamilyToken::new("toast-bg", "var(--theme-surface-bg)"),
