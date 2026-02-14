@@ -1,63 +1,18 @@
 use leptos::prelude::*;
-use crate::primitives::{
-    BannerPrimitive,
-    BannerContentPrimitive,
-    BannerActionsPrimitive,
-    BannerClosePrimitive,
-};
+use crate::primitives::{BannerPrimitive, BannerClosePrimitive, BannerContentPrimitive, BannerActionsPrimitive};
 
-#[derive(Clone, Copy, PartialEq)]
-pub enum BannerVariant {
-    Info,
-    Success,
-    Warning,
-    Error,
-}
-
-impl BannerVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            BannerVariant::Info => "info",
-            BannerVariant::Success => "success",
-            BannerVariant::Warning => "warning",
-            BannerVariant::Error => "error",
-        }
-    }
-}
-
-#[derive(Clone, Copy, PartialEq)]
-pub enum BannerPosition {
-    Top,
-    Bottom,
-}
-
-impl BannerPosition {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            BannerPosition::Top => "top",
-            BannerPosition::Bottom => "bottom",
-        }
-    }
-}
+pub use crate::primitives::BannerVariant;
 
 #[component]
 pub fn Banner(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = BannerVariant::Info)] variant: BannerVariant,
-    #[prop(default = BannerPosition::Top)] position: BannerPosition,
     #[prop(default = true)] open: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
-    let base_class = format!(
-        "banner variant-{} position-{} {}",
-        variant.as_str(),
-        position.as_str(),
-        class
-    );
-
     view! {
-        <BannerPrimitive open={open} class={base_class} id={id}>
+        <BannerPrimitive variant=variant open=open class=class id=id>
             {children.map(|c| c())}
         </BannerPrimitive>
     }
@@ -66,11 +21,11 @@ pub fn Banner(
 #[component]
 pub fn BannerContent(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <BannerContentPrimitive class={class} id={id}>
+        <BannerContentPrimitive class=class id=id>
             {children.map(|c| c())}
         </BannerContentPrimitive>
     }
@@ -79,11 +34,11 @@ pub fn BannerContent(
 #[component]
 pub fn BannerActions(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <BannerActionsPrimitive class={class} id={id}>
+        <BannerActionsPrimitive class=class id=id>
             {children.map(|c| c())}
         </BannerActionsPrimitive>
     }
@@ -92,11 +47,14 @@ pub fn BannerActions(
 #[component]
 pub fn BannerClose(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] on_close: Option<Callback<()>>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
+    let callback = on_close.unwrap_or_else(|| Callback::new(|_| {}));
+    
     view! {
-        <BannerClosePrimitive class={class} id={id}>
+        <BannerClosePrimitive on_close=callback class=class id=id>
             {children.map(|c| c())}
         </BannerClosePrimitive>
     }

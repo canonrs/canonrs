@@ -1,20 +1,42 @@
 use leptos::prelude::*;
 
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
+pub enum BannerVariant {
+    #[default]
+    Info,
+    Success,
+    Warning,
+    Error,
+}
+
+impl BannerVariant {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Info => "info",
+            Self::Success => "success",
+            Self::Warning => "warning",
+            Self::Error => "error",
+        }
+    }
+}
+
 #[component]
 pub fn BannerPrimitive(
     #[prop(optional)] children: Option<Children>,
+    #[prop(default = BannerVariant::Info)] variant: BannerVariant,
     #[prop(default = false)] open: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-banner=""
+            data-variant={variant.as_str()}
+            data-state={if open { "open" } else { "closed" }}
             role="region"
-            attr:aria-live="polite"
-            attr:data-state={if open { "open" } else { "closed" }}
-            class={class}
-            id={id}
+            aria-live="polite"
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -24,16 +46,18 @@ pub fn BannerPrimitive(
 #[component]
 pub fn BannerClosePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = Callback::new(|_| {}))] on_close: Callback<()>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <button
             type="button"
             data-banner-close=""
-            attr:aria-label="Close banner"
-            class={class}
-            id={id}
+            aria-label="Close banner"
+            on:click=move |_| on_close.run(())
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </button>
@@ -43,15 +67,11 @@ pub fn BannerClosePrimitive(
 #[component]
 pub fn BannerContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-banner-content=""
-            class={class}
-            id={id}
-        >
+        <div data-banner-content="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -60,15 +80,11 @@ pub fn BannerContentPrimitive(
 #[component]
 pub fn BannerActionsPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-banner-actions=""
-            class={class}
-            id={id}
-        >
+        <div data-banner-actions="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
