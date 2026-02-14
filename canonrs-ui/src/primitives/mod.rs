@@ -28,6 +28,7 @@ pub mod drawer;
 pub mod dropdown_menu;
 pub mod empty_state;
 pub mod error_state;
+pub use error_state::*;
 pub mod field;
 pub mod floating;
 pub mod form_error_summary;

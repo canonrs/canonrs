@@ -1,11 +1,16 @@
 use leptos::prelude::*;
-use super::error_state_ui::*;
+use super::{ErrorState, ErrorStateTitle, ErrorStateDescription, ErrorStateActions};
+use crate::ui::button::{Button, ButtonVariant};
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <ErrorState
-            title="Something went wrong".to_string()
-            message="We encountered an error. Please try again.".to_string()
-        />
+        <ErrorState>
+            <ErrorStateTitle>"Something went wrong"</ErrorStateTitle>
+            <ErrorStateDescription>"We encountered an error. Please try again."</ErrorStateDescription>
+            <ErrorStateActions>
+                <Button variant=ButtonVariant::Solid>"Retry"</Button>
+            </ErrorStateActions>
+        </ErrorState>
     }
 }
