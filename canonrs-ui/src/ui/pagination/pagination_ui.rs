@@ -12,7 +12,7 @@ use crate::primitives::{
 #[component]
 pub fn Pagination(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
@@ -25,7 +25,7 @@ pub fn Pagination(
 #[component]
 pub fn PaginationContent(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
@@ -38,7 +38,7 @@ pub fn PaginationContent(
 #[component]
 pub fn PaginationItem(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
@@ -51,9 +51,9 @@ pub fn PaginationItem(
 #[component]
 pub fn PaginationLink(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] href: String,
+    #[prop(into, default = String::new())] href: String,
     #[prop(default = false)] is_active: bool,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
@@ -66,12 +66,13 @@ pub fn PaginationLink(
 #[component]
 pub fn PaginationPrevious(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] href: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationPreviousPrimitive href={href} class={class} id={id}>
+        <PaginationPreviousPrimitive href={href} disabled=disabled class={class} id={id}>
             {children.map(|c| c())}
         </PaginationPreviousPrimitive>
     }
@@ -80,12 +81,13 @@ pub fn PaginationPrevious(
 #[component]
 pub fn PaginationNext(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] href: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationNextPrimitive href={href} class={class} id={id}>
+        <PaginationNextPrimitive href={href} disabled=disabled class={class} id={id}>
             {children.map(|c| c())}
         </PaginationNextPrimitive>
     }
@@ -93,7 +95,7 @@ pub fn PaginationNext(
 
 #[component]
 pub fn PaginationEllipsis(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {

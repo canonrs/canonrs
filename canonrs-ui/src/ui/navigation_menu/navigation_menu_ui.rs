@@ -1,6 +1,12 @@
+//! @canon-level: ui
+//! NavigationMenu - Declarative UI wrapper
+
 use leptos::prelude::*;
+
+fn oc(s: Option<String>) -> String { s.unwrap_or_default() }
 use crate::primitives::{
     NavigationMenuPrimitive,
+    NavigationMenuListPrimitive,
     NavigationMenuItemPrimitive,
     NavigationMenuTriggerPrimitive,
     NavigationMenuContentPrimitive,
@@ -11,14 +17,10 @@ use crate::primitives::{
 #[component]
 pub fn NavigationMenu(
     children: Children,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional, into)] class_name: Option<String>,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuPrimitive
-            attr:class={class_name}
-            id=id
-        >
+        <NavigationMenuPrimitive class=oc(class_name)>
             {children()}
         </NavigationMenuPrimitive>
     }
@@ -27,28 +29,22 @@ pub fn NavigationMenu(
 #[component]
 pub fn NavigationMenuList(
     children: Children,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] _id: String,
+    #[prop(optional, into)] class_name: Option<String>,
 ) -> impl IntoView {
     view! {
-            attr:class={class_name}
-            id=id
-        >
+        <NavigationMenuListPrimitive class=oc(class_name)>
             {children()}
+        </NavigationMenuListPrimitive>
     }
 }
 
 #[component]
 pub fn NavigationMenuItem(
     children: Children,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional, into)] class_name: Option<String>,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuItemPrimitive
-            attr:class={class_name}
-            id=id
-        >
+        <NavigationMenuItemPrimitive class=oc(class_name)>
             {children()}
         </NavigationMenuItemPrimitive>
     }
@@ -57,19 +53,15 @@ pub fn NavigationMenuItem(
 #[component]
 pub fn NavigationMenuTrigger(
     children: Children,
-    #[prop(default = -1)] tabindex: i32,
-    #[prop(default = String::new())] controls_id: String,
+    #[prop(into, default = String::new())] controls_id: String,
     #[prop(default = false)] expanded: bool,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional, into)] class_name: Option<String>,
 ) -> impl IntoView {
     view! {
         <NavigationMenuTriggerPrimitive
-            tabindex=tabindex
             controls_id=controls_id
             expanded=expanded
-            attr:class={class_name}
-            id=id
+            class=oc(class_name)
         >
             {children()}
         </NavigationMenuTriggerPrimitive>
@@ -79,14 +71,11 @@ pub fn NavigationMenuTrigger(
 #[component]
 pub fn NavigationMenuContent(
     children: Children,
-    #[prop(default = String::new())] content_id: String,
-    #[prop(default = String::new())] class_name: String,
+    #[prop(into, default = String::new())] content_id: String,
+    #[prop(optional, into)] class_name: Option<String>,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuContentPrimitive
-            content_id=content_id
-            attr:class={class_name}
-        >
+        <NavigationMenuContentPrimitive content_id=content_id class=oc(class_name)>
             {children()}
         </NavigationMenuContentPrimitive>
     }
@@ -95,16 +84,11 @@ pub fn NavigationMenuContent(
 #[component]
 pub fn NavigationMenuLink(
     children: Children,
-    #[prop(default = String::new())] href: String,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(optional, into)] class_name: Option<String>,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuLinkPrimitive
-            href=href
-            attr:class={class_name}
-            id=id
-        >
+        <NavigationMenuLinkPrimitive href=href class=oc(class_name)>
             {children()}
         </NavigationMenuLinkPrimitive>
     }
@@ -113,14 +97,10 @@ pub fn NavigationMenuLink(
 #[component]
 pub fn NavigationMenuSubItem(
     children: Children,
-    #[prop(default = String::new())] class_name: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional, into)] class_name: Option<String>,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuSubItemPrimitive
-            attr:class={class_name}
-            id=id
-        >
+        <NavigationMenuSubItemPrimitive class=oc(class_name)>
             {children()}
         </NavigationMenuSubItemPrimitive>
     }
