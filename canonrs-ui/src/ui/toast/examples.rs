@@ -1,6 +1,8 @@
 use leptos::prelude::*;
 use super::{Toast, ToastTitle, ToastDescription, ToastClose, ToastVariant};
 
+/// BasicExample - Stateless structure demonstration
+/// Shows all variants without interactive behavior
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
