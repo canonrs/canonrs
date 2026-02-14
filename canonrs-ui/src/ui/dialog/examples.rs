@@ -5,15 +5,21 @@ use super::dialog_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <DialogTrigger target_dialog_id="dialog-ex">
-                <button data-button data-ui-variant="solid">"Open Dialog"</button>
-            </DialogTrigger>
-            <Dialog id="dialog-ex".to_string()>
+            <DialogTrigger target_dialog_id="dialog-basic">"Open Dialog"</DialogTrigger>
+            <Dialog id="dialog-basic">
                 <DialogOverlay />
-                <DialogContent>
-                    <h2>"Dialog Title"</h2>
-                    <p>"Dialog content"</p>
-                    <button data-button data-ui-variant="outline" onclick="document.getElementById('dialog-ex').setAttribute('data-state', 'closed')">"Close"</button>
+                <DialogContent
+                    labelledby="dialog-basic-title"
+                    describedby="dialog-basic-desc"
+                >
+                    <DialogTitle id="dialog-basic-title">"Confirm Action"</DialogTitle>
+                    <DialogDescription id="dialog-basic-desc">
+                        "Are you sure you want to proceed? This action cannot be undone."
+                    </DialogDescription>
+                    <div style="display:flex;gap:0.5rem;margin-top:1rem;">
+                        <DialogClose target_dialog_id="dialog-basic">"Cancel"</DialogClose>
+                        <button data-button data-ui-variant="solid">"Confirm"</button>
+                    </div>
                 </DialogContent>
             </Dialog>
         </div>
