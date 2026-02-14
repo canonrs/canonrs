@@ -243,5 +243,8 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("spinner-size-small", "var(--space-md)"),
     FamilyToken::new("spinner-size-medium", "var(--space-lg)"),
     FamilyToken::new("spinner-size-large", "var(--space-xl)"),
+    FamilyToken::new("spinner-rotation-duration", "var(--motion-duration-normal)"),
+    FamilyToken::new("spinner-rotation-easing", "var(--motion-ease-linear)"),
+    FamilyToken::new("spinner-opacity-paused", "0.5"),
 
 ];

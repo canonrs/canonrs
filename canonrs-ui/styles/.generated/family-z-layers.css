@@ -1,11 +1,12 @@
 /* family-z-layers */
 [data-theme] {
   --layer-base: 0;
+  --layer-header: 100;
+  --layer-sticky: 200;
   --layer-dropdown: 1000;
-  --layer-sticky: 1100;
-  --layer-overlay: 1200;
-  --layer-popover: 1300;
-  --layer-tooltip: 1400;
-  --layer-modal: 1500;
-  --layer-toast: 1600;
+  --layer-popover: 1100;
+  --layer-overlay: 2000;
+  --layer-modal: 2100;
+  --layer-tooltip: 3000;
+  --layer-toast: 4000;
 }

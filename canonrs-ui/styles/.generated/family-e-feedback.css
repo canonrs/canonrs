@@ -200,4 +200,7 @@
   --spinner-size-small: var(--space-md);
   --spinner-size-medium: var(--space-lg);
   --spinner-size-large: var(--space-xl);
+  --spinner-rotation-duration: var(--motion-duration-normal);
+  --spinner-rotation-easing: var(--motion-ease-linear);
+  --spinner-opacity-paused: 0.5;
 }

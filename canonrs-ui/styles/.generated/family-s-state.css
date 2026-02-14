@@ -1,14 +1,11 @@
 /* family-s-state */
 [data-theme] {
-  --state-hover-opacity: 0.9;
-  --state-active-opacity: 0.85;
-  --state-disabled-opacity: 0.5;
+  --state-opacity-hover: 0.92;
+  --state-opacity-active: 0.85;
+  --state-opacity-disabled: 0.5;
   --state-focus-ring-width: 2px;
-  --state-focus-ring-color: var(--color-ring);
   --state-focus-ring-offset: 2px;
   --state-focus-ring-style: solid;
   --state-transition-duration: var(--motion-duration-fast);
   --state-transition-ease: var(--motion-ease-standard);
-  --active: 1;
-  --disabled: 1;
 }
