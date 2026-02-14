@@ -6,40 +6,17 @@ use crate::primitives::{
     CalloutDescriptionPrimitive,
 };
 
-#[derive(Clone, Copy, PartialEq)]
-pub enum CalloutVariant {
-    Default,
-    Info,
-    Success,
-    Warning,
-    Error,
-}
-
-impl CalloutVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            CalloutVariant::Default => "default",
-            CalloutVariant::Info => "info",
-            CalloutVariant::Success => "success",
-            CalloutVariant::Warning => "warning",
-            CalloutVariant::Error => "error",
-        }
-    }
-}
+pub use crate::primitives::CalloutVariant;
 
 #[component]
 pub fn Callout(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = CalloutVariant::Default)] variant: CalloutVariant,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <CalloutPrimitive
-            attr:data-variant={variant.as_str()}
-            class={class}
-            id={id}
-        >
+        <CalloutPrimitive variant=variant class=class id=id>
             {children.map(|c| c())}
         </CalloutPrimitive>
     }
@@ -48,11 +25,11 @@ pub fn Callout(
 #[component]
 pub fn CalloutIcon(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <CalloutIconPrimitive class={class} id={id}>
+        <CalloutIconPrimitive class=class id=id>
             {children.map(|c| c())}
         </CalloutIconPrimitive>
     }
@@ -61,11 +38,11 @@ pub fn CalloutIcon(
 #[component]
 pub fn CalloutTitle(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <CalloutTitlePrimitive class={class} id={id}>
+        <CalloutTitlePrimitive class=class id=id>
             {children.map(|c| c())}
         </CalloutTitlePrimitive>
     }
@@ -74,11 +51,11 @@ pub fn CalloutTitle(
 #[component]
 pub fn CalloutDescription(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <CalloutDescriptionPrimitive class={class} id={id}>
+        <CalloutDescriptionPrimitive class=class id=id>
             {children.map(|c| c())}
         </CalloutDescriptionPrimitive>
     }

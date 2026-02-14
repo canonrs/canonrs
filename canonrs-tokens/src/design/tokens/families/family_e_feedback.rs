@@ -62,7 +62,7 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("callout-radius", "var(--radius-lg)"),
     FamilyToken::new("callout-border-width", "1px"),
     FamilyToken::new("callout-icon-size", "var(--font-size-xl)"),
-    FamilyToken::new("callout-bg-default", "var(--theme-surface-muted)"),
+    FamilyToken::new("callout-bg-default", "var(--theme-action-secondary-bg)"),
     FamilyToken::new("callout-bg-info", "var(--theme-state-info-bg)"),
     FamilyToken::new("callout-bg-success", "var(--theme-state-success-bg)"),
     FamilyToken::new("callout-bg-warning", "var(--theme-state-warning-bg)"),

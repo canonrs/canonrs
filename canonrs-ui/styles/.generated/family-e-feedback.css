@@ -50,7 +50,7 @@
   --callout-radius: var(--radius-lg);
   --callout-border-width: 1px;
   --callout-icon-size: var(--font-size-xl);
-  --callout-bg-default: var(--theme-surface-muted);
+  --callout-bg-default: var(--theme-action-secondary-bg);
   --callout-bg-info: var(--theme-state-info-bg);
   --callout-bg-success: var(--theme-state-success-bg);
   --callout-bg-warning: var(--theme-state-warning-bg);
