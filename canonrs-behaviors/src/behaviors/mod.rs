@@ -23,9 +23,12 @@ pub mod context_menu_behavior;
 #[cfg(feature = "hydrate")]
 pub mod copy_button_behavior;
 #[cfg(feature = "hydrate")]
-pub mod datatable_behavior;
 #[cfg(feature = "hydrate")]
 pub mod dialog_behavior;
+pub mod drag_drop_behavior;
+#[cfg(feature = "hydrate")]
+pub mod resize_handle_behavior;
+#[cfg(feature = "hydrate")]
 #[cfg(feature = "hydrate")]
 pub mod drawer_behavior;
 #[cfg(feature = "hydrate")]

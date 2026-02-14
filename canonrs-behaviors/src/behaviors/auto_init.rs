@@ -8,6 +8,8 @@ pub fn register_all_behaviors() {
     command_behavior::register();
     context_menu_behavior::register();
     dialog_behavior::register();
+    drag_drop_behavior::register();
+    resize_handle_behavior::register();
     drawer_behavior::register();
     dropdown_menu_behavior::register();
     hover_card_behavior::register();
@@ -15,7 +17,6 @@ pub fn register_all_behaviors() {
     modal_behavior::register();
     popover_behavior::register();
     select_behavior::register();
-    datatable_behavior::register();
     slider_behavior::register();
     sheet_behavior::register();
     switch_behavior::register();

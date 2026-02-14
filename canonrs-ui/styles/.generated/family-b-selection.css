@@ -1,5 +1,5 @@
 /* family-b-selection */
-:root {
+[data-theme] {
   --selection-color: var(--theme-action-primary-bg);
   --selection-spacing: var(--space-sm);
   --selection-hover-opacity: var(--state-hover-opacity);

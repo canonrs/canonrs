@@ -59,9 +59,10 @@ pub fn DataTableTablePrimitive(
 pub fn DataTableHeadPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <thead data-datatable-head="" class=class>
+        <thead data-datatable-head="" data-resize-container="" class=class id={id}>
             {children.map(|c| c())}
         </thead>
     }
@@ -84,16 +85,14 @@ pub fn DataTableHeadCellPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] sort_key: String,
+    #[prop(into, optional)] style: Option<MaybeSignal<String>>,
 ) -> impl IntoView {
     let sortable = !sort_key.is_empty();
     view! {
         <th
             data-datatable-head-cell=""
+            style={move || style.as_ref().map(|s| s.get()).filter(|s| !s.is_empty())}
             data-sort-key=sort_key
-            data-sortable=sortable
-            aria-sort="none"
-            role="columnheader"
-            class=class
         >
             {children.map(|c| c())}
         </th>
@@ -145,9 +144,10 @@ pub fn DataTableRowPrimitive(
 pub fn DataTableCellPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] style: Option<MaybeSignal<String>>,
 ) -> impl IntoView {
     view! {
-        <td data-datatable-cell="" role="cell" class=class>
+        <td data-datatable-cell="" role="cell" class=class style=move || style.as_ref().map(|s| s.get()).filter(|s| !s.is_empty())>
             {children.map(|c| c())}
         </td>
     }

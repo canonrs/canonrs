@@ -1,5 +1,5 @@
 /* family-h-layout */
-:root {
+[data-theme] {
   --layout-gap: var(--space-md);
   --layout-padding: var(--space-md);
   --layout-max-width: var(--layout-content-max-width);

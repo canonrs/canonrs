@@ -78,7 +78,7 @@ fn generate_core(output_dir: &Path) {
 }
 
 fn generate_family(name: &str, tokens: &[canonrs_tokens::design::tokens::FamilyToken], output_dir: &Path) {
-    let mut css = format!("/* {} */\n:root {{\n", name);
+    let mut css = format!("/* {} */\n[data-theme] {{\n", name);
     for token in tokens {
         css.push_str(&format!("  --{}: {};\n", token.name, token.value));
     }

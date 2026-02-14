@@ -1,23 +1,22 @@
 /**
- * NavItem Block Styles
- * Token Family: nav.item.*, state.*, color.*, space.*
- *
- * Consumes tokens:
- * - nav.item.height, nav.item.padding.*, nav.item.gap
- * - nav.item.radius, nav.item.font.*
- * - state.hover.*, state.active.*, state.focus.*
- * - color.* (fg, bg variants)
- * - space.* (spacing)
+ * NavItem Styles
+ * Contrato: data-nav-item, data-active, data-disabled
  */
 
-.canon-nav-item {
+[data-nav-group] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nav-item-gap, var(--space-xs));
+}
+
+[data-nav-item] {
   display: inline-flex;
   align-items: center;
   gap: var(--nav-item-gap, var(--space-xs));
-  height: var(--nav-item-height, 40px);
+  height: var(--nav-item-height, var(--space-2xl));
   padding: var(--nav-item-padding-y, var(--space-xs)) var(--nav-item-padding-x, var(--space-sm));
   border-radius: var(--nav-item-radius, var(--radius-sm));
-  font-size: var(--nav-item-font-size, var(--font-size-base));
+  font-size: var(--nav-item-font-size, var(--font-size-sm));
   font-weight: var(--nav-item-font-weight, var(--font-weight-medium));
   color: var(--nav-item-color, var(--theme-surface-fg));
   text-decoration: none;
@@ -26,35 +25,35 @@
   user-select: none;
 }
 
-.canon-nav-item:hover {
+[data-nav-item]:hover {
   background: var(--state-hover-bg, var(--theme-surface-muted));
   color: var(--state-hover-fg, var(--theme-action-accent-fg));
 }
 
-.canon-nav-item:focus-visible {
+[data-nav-item]:focus-visible {
   outline: var(--state-focus-ring);
   outline-offset: 2px;
 }
 
-.canon-nav-item--active {
+[data-nav-item][data-active="true"] {
   background: var(--state-active-bg, var(--theme-action-accent-bg));
   color: var(--state-active-fg, var(--theme-action-primary-bg-foreground));
   font-weight: var(--nav-item-active-font-weight, var(--font-weight-semibold));
 }
 
-.canon-nav-item--disabled {
+[data-nav-item][data-disabled="true"] {
   opacity: var(--state-disabled-opacity, 0.5);
   cursor: not-allowed;
   pointer-events: none;
 }
 
-.canon-nav-item__icon {
+[data-nav-item-icon] {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--nav-item-icon-size, 1.25em);
 }
 
-.canon-nav-item__label {
+[data-nav-item-label] {
   line-height: var(--nav-item-line-height, var(--line-height-normal));
 }

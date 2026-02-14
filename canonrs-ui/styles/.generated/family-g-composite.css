@@ -1,5 +1,5 @@
 /* family-g-composite */
-:root {
+[data-theme] {
   --composite-gap: var(--space-md);
   --composite-padding: var(--space-md);
   --composite-radius: var(--radius-md);

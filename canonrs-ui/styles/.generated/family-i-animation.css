@@ -1,5 +1,5 @@
 /* family-i-animation */
-:root {
+[data-theme] {
   --animate-duration-fast: 150ms;
   --animate-duration-normal: 300ms;
   --animate-duration-slow: 500ms;

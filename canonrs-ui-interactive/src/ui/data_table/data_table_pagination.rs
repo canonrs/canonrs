@@ -5,7 +5,6 @@ use canonrs_ui::primitives::DataTablePaginationPrimitive;
 pub fn DataTablePagination(
     current_page: RwSignal<usize>,
     total: RwSignal<usize>,
-    data_len: RwSignal<usize>,
     page_size: usize,
 ) -> impl IntoView {
     let handle_prev = move |_| {
@@ -28,9 +27,8 @@ pub fn DataTablePagination(
                 {move || {
                     let t = total.get();
                     let page = current_page.get();
-                    let len = data_len.get();
                     let start = (page - 1) * page_size + 1;
-                    let end = (start + len).saturating_sub(1).min(t);
+                    let end = (start + page_size).saturating_sub(1).min(t);
                     format!("Showing {}-{} of {}", start, end, t)
                 }}
             </div>

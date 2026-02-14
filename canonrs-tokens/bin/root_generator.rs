@@ -4,16 +4,16 @@ use std::path::Path;
 pub fn generate(output_dir: &Path) {
     let css = r#"/* ======================================================================
    ROOT TOKENS — Final visual contract
-   This is the ONLY layer allowed to style html/body
+   Consumes semantic layer, never theme directly
    ====================================================================== */
 
 [data-theme] {
-  --root-bg: var(--theme-surface-bg);
-  --root-fg: var(--theme-surface-fg);
-  --root-border: var(--theme-surface-border);
+  --root-bg: var(--color-background);
+  --root-fg: var(--color-foreground);
+  --root-border: var(--color-border);
 }
 "#;
 
     fs::write(output_dir.join("root.css"), css).ok();
-    println!("  ✓ root.css");
+    println!("  ✓ root.css (via semantic)");
 }

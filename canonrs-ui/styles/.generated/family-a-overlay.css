@@ -1,5 +1,5 @@
 /* family-a-overlay */
-:root {
+[data-theme] {
   --overlay-z-index: var(--layer-overlay);
   --overlay-backdrop-bg: rgba(0, 0, 0, 0.5);
   --overlay-backdrop-blur: 4px;

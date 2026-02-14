@@ -216,5 +216,4 @@ pub const FAMILY_B_SELECTION: &[FamilyToken] = &[
     FamilyToken::new("command-gap", "var(--space-xs)"),
     FamilyToken::new("command-padding", "var(--space-xs)"),
     FamilyToken::new("command-item-bg-hover", "var(--theme-action-accent-bg)"),
-
 ];

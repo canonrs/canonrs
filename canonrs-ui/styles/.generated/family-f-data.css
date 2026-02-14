@@ -1,5 +1,5 @@
 /* family-f-data */
-:root {
+[data-theme] {
   --card-bg: var(--theme-surface-bg);
   --card-border: var(--theme-surface-border);
   --data-radius: var(--radius-md);
@@ -63,6 +63,13 @@
   --data-table-sort-icon-size: var(--space-md);
   --data-table-transition-duration: var(--motion-duration-fast);
   --data-table-transition-ease: var(--motion-ease-standard);
+  --data-table-resize-handle-width: 4px;
+  --data-table-resize-handle-bg: transparent;
+  --data-table-resize-handle-bg-hover: hsl(221.2 83.2% 53.3%);
+  --data-table-resize-handle-bg-active: hsl(221.2 83.2% 53.3%);
+  --data-table-resize-handle-cursor: col-resize;
+  --data-table-resize-handle-opacity: 0.3;
+  --data-table-resize-handle-opacity-hover: 0.6;
   --data-table-density-compact-cell-padding-y: var(--space-xs);
   --data-table-density-compact-cell-padding-x: var(--space-sm);
   --data-table-density-compact-font-size: var(--font-size-xs);

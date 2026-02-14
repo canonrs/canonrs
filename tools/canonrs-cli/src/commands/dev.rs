@@ -5,11 +5,24 @@ use crate::{detect, validate, workspace};
 
 pub fn execute() -> Result<()> {
     let app_dir = std::env::current_dir()?;
-
     validate::check_no_profiles_in_app(&app_dir)?;
 
-    println!("{}", "🔧 Preparing workspace...".cyan());
+    println!("{}", "🎨 Running tokens-engine...".cyan());
+    let tokens_dir = super::canonrs_root()?.join("canonrs-tokens");
+    let tokens_status = Command::new("cargo")
+        .arg("run")
+        .arg("--bin")
+        .arg("tokens-engine")
+        .current_dir(&tokens_dir)
+        .status()
+        .context("Failed to run tokens-engine")?;
 
+    if !tokens_status.success() {
+        anyhow::bail!("tokens-engine failed");
+    }
+    println!("{}", "  ✓ CSS generated".green());
+
+    println!("{}", "🔧 Preparing workspace...".cyan());
     let mode = detect::detect_mode(&app_dir)?;
     println!("   Mode: {}", mode.as_str().yellow());
 
@@ -22,7 +35,6 @@ pub fn execute() -> Result<()> {
     }
 
     println!("{}", "🚀 Starting dev server...".green());
-
     let status = Command::new("cargo")
         .current_dir(&workspace_dir)
         .arg("leptos")
@@ -33,13 +45,8 @@ pub fn execute() -> Result<()> {
     if !status.success() {
         eprintln!();
         eprintln!("{}", "❌ Build failed in CanonRS pipeline".red().bold());
-        eprintln!();
         eprintln!("{}", "This is NOT your fault.".yellow());
-        eprintln!("{}", "This is a known limitation of the Rust + LLVM toolchain in SSR contexts.".yellow());
-        eprintln!();
-        eprintln!("{}", "Report at:".cyan());
-        eprintln!("{}", "https://github.com/canonrs/canonrs/issues".cyan().underline());
-        eprintln!();
+        eprintln!("{}", "Report at: https://github.com/canonrs/canonrs/issues".cyan());
         anyhow::bail!("Dev server exited with error");
     }
 

@@ -1,14 +1,14 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Tabs Primitive - CSS puro com radio inputs
+//! Tabs Primitive - CSS puro com radio inputs + ARIA completo
 
 use leptos::prelude::*;
 
 #[component]
 pub fn TabsPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
@@ -24,8 +24,8 @@ pub fn TabsPrimitive(
 #[component]
 pub fn TabsListPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
@@ -41,11 +41,12 @@ pub fn TabsListPrimitive(
 
 #[component]
 pub fn TabsTriggerPrimitive(
-    #[prop(default = String::new())] name: String,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] value: String,
     #[prop(default = false)] checked: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
+    
 ) -> impl IntoView {
     view! {
         <input
@@ -56,6 +57,7 @@ pub fn TabsTriggerPrimitive(
             checked=checked
             class=class
             id=id
+            
         />
     }
 }
@@ -63,13 +65,20 @@ pub fn TabsTriggerPrimitive(
 #[component]
 pub fn TabsTriggerLabelPrimitive(
     children: Children,
-    #[prop(default = String::new())] for_id: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] for_id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] selected: bool,
+    #[prop(into, default = String::new())] id: String,
+    #[prop(into, default = String::new())] controls: String,
 ) -> impl IntoView {
     view! {
         <label
             for=for_id
             data-tabs-trigger=""
+            role="tab"
+            id=id
+            attr:aria-controls=controls
+            attr:aria-selected=selected.to_string()
             class=class
         >
             {children()}
@@ -80,13 +89,18 @@ pub fn TabsTriggerLabelPrimitive(
 #[component]
 pub fn TabsContentPrimitive(
     children: Children,
-    #[prop(default = String::new())] value: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
+    #[prop(into, default = String::new())] labelledby: String,
 ) -> impl IntoView {
     view! {
         <div
             data-tabs-content=""
             data-value=value
+            role="tabpanel"
+            attr:aria-labelledby=labelledby
+            id=id
             class=class
         >
             {children()}

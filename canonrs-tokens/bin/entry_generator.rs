@@ -14,7 +14,13 @@ pub fn generate(_generated_dir: &Path, styles_dir: &Path) -> std::io::Result<()>
 /* 2. FOUNDATION */
 @import \"./.generated/core.css\";
 
-/* 3. FAMILIES */
+/* 3. THEMES */
+@import \"./.generated/themes.css\";
+
+/* 4. SEMANTIC */
+@import \"./.generated/semantic.css\";
+
+/* 5. FAMILIES */
 ");
 
     let families = [
@@ -28,8 +34,6 @@ pub fn generate(_generated_dir: &Path, styles_dir: &Path) -> std::io::Result<()>
         content.push_str(&format!("@import \"./.generated/{}.css\";\n", family));
     }
 
-    content.push_str("\n/* 4. SEMANTIC */\n@import \"./.generated/semantic.css\";\n");
-    content.push_str("\n/* 5. THEMES */\n@import \"./.generated/themes.css\";\n");
     content.push_str("\n/* 6. ROOT */\n@import \"./.generated/root.css\";\n");
 
     content.push_str("\n/* 7. VARIANTS */\n");
@@ -45,14 +49,12 @@ pub fn generate(_generated_dir: &Path, styles_dir: &Path) -> std::io::Result<()>
         }
     }
 
-    // Import aggregated UI, Blocks, Layouts (not individual files)
     content.push_str("\n/* 8. UI COMPONENTS */\n@import \"./ui/ui.css\";\n");
     content.push_str("\n/* 9. BLOCKS */\n@import \"./blocks/blocks.css\";\n");
     content.push_str("\n/* 10. LAYOUTS */\n@import \"./layouts/layouts.css\";\n");
-
     content.push_str("\n/* 11. GLOBALS (FINAL) */\n@import \"./tokens/base/globals.css\";\n");
 
     fs::write(&output, content)?;
-    println!("  ✓ canonrs.css");
+    println!("  ✓ canonrs.css (ordem canônica corrigida)");
     Ok(())
 }

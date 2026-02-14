@@ -180,4 +180,35 @@ pub const FAMILY_D_NAVIGATION: &[FamilyToken] = &[
     FamilyToken::new("menu-item-padding-x", "var(--space-sm)"),
     FamilyToken::new("menu-item-padding-y", "var(--space-sm)"),
 
-];
+    // NavItem
+    FamilyToken::new("nav-item-height", "var(--space-2xl)"),
+    FamilyToken::new("nav-item-padding-x", "var(--space-sm)"),
+    FamilyToken::new("nav-item-padding-y", "var(--space-xs)"),
+    FamilyToken::new("nav-item-gap", "var(--space-xs)"),
+    FamilyToken::new("nav-item-radius", "var(--radius-sm)"),
+    FamilyToken::new("nav-item-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("nav-item-font-weight", "var(--font-weight-medium)"),
+    FamilyToken::new("nav-item-active-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("nav-item-color", "var(--theme-surface-fg)"),
+    FamilyToken::new("nav-item-icon-size", "1.25em"),
+    FamilyToken::new("nav-item-line-height", "var(--line-height-normal)"),
+
+
+        // PageHeader
+    FamilyToken::new("page-header-gap", "var(--space-sm)"),
+    FamilyToken::new("page-header-padding", "var(--space-md) var(--space-lg)"),
+    FamilyToken::new("page-header-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("page-header-border-width", "1px"),
+    FamilyToken::new("page-header-border-color", "var(--theme-surface-border)"),
+    FamilyToken::new("page-header-breadcrumbs-gap", "var(--space-xs)"),
+    FamilyToken::new("page-header-breadcrumbs-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("page-header-title-font-size", "var(--font-size-xl)"),
+    FamilyToken::new("page-header-title-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("page-header-title-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("page-header-description-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("page-header-description-line-height", "var(--line-height-normal)"),
+    FamilyToken::new("page-header-description-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("page-header-actions-gap", "var(--space-sm)"),
+    FamilyToken::new("page-header-tabs-margin-top", "var(--space-sm)"),
+
+    ];

@@ -1,5 +1,5 @@
 /* SEMANTIC LAYER — Bridge to Theme */
-:root {
+[data-theme] {
   --color-background: var(--theme-surface-bg);
   --color-foreground: var(--theme-surface-fg);
   --color-muted: var(--theme-surface-muted);

@@ -1,5 +1,5 @@
 /* family-s-state */
-:root {
+[data-theme] {
   --state-hover-opacity: 0.9;
   --state-active-opacity: 0.85;
   --state-disabled-opacity: 0.5;

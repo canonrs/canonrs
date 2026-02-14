@@ -53,19 +53,23 @@
 /* Scroll Container */
 [data-datatable][data-sticky-header="true"] [data-datatable-scroll] {
   max-height: 400px;
+  overflow-x: auto;
   overflow-y: auto;
 }
 
 [data-datatable-scroll] {
   overflow-x: auto;
+  position: relative;
   border: var(--data-table-border-width) solid var(--data-table-border-color);
   border-radius: var(--data-table-radius);
 }
 
 /* Table */
 [data-datatable-table] {
-  width: 100%;
-  border-collapse: collapse;
+  table-layout: fixed;
+  width: max-content;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 /* Header */
@@ -179,4 +183,137 @@
     flex-direction: column;
     gap: var(--space-sm);
   }
+}
+
+/* ============================================
+   DATA TABLE - RESIZE HANDLE
+   ============================================ */
+
+[data-datatable-head-cell] {
+  position: relative;
+}
+
+[data-resize-handle] {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: var(--data-table-resize-handle-width);
+  background: var(--data-table-resize-handle-bg-hover);
+  cursor: var(--data-table-resize-handle-cursor);
+  z-index: 10;
+  user-select: none;
+  touch-action: none;
+  opacity: var(--data-table-resize-handle-opacity-hover);
+  transition: opacity 0.2s;
+}
+
+[data-resize-handle]:hover,
+[data-resize-handle]:active {
+  background: var(--data-table-resize-handle-bg-hover);
+  opacity: var(--data-table-resize-handle-opacity-hover);
+}
+
+[data-resize-handle] {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: var(--data-table-resize-handle-width);
+  background: var(--data-table-resize-handle-bg-hover);
+  cursor: var(--data-table-resize-handle-cursor);
+  z-index: 10;
+  user-select: none;
+  touch-action: none;
+  opacity: var(--data-table-resize-handle-opacity-hover);
+  transition: opacity 0.2s;
+}
+
+/* Mostrar handle quando resize está ativo */
+[data-resize-handle] {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: var(--data-table-resize-handle-width);
+  background: var(--data-table-resize-handle-bg-hover);
+  cursor: var(--data-table-resize-handle-cursor);
+  z-index: 10;
+  user-select: none;
+  touch-action: none;
+  opacity: var(--data-table-resize-handle-opacity-hover);
+  transition: opacity 0.2s;
+}
+
+[data-resize-handle] {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: var(--data-table-resize-handle-width);
+  background: var(--data-table-resize-handle-bg-hover);
+  cursor: var(--data-table-resize-handle-cursor);
+  z-index: 10;
+  user-select: none;
+  touch-action: none;
+  opacity: var(--data-table-resize-handle-opacity-hover);
+  transition: opacity 0.2s;
+}
+
+
+/* DATA TABLE - RESIZE HANDLE */
+
+[data-datatable-head-cell] {
+  position: relative;
+}
+
+[data-resize-handle] {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: var(--data-table-resize-handle-width);
+  background: var(--data-table-resize-handle-bg-hover);
+  cursor: var(--data-table-resize-handle-cursor);
+  z-index: 10;
+  user-select: none;
+  touch-action: none;
+  opacity: var(--data-table-resize-handle-opacity-hover);
+  transition: opacity 0.2s, background 0.2s;
+}
+
+[data-resize-handle]:hover,
+[data-resize-handle]:active {
+  opacity: 1;
+  background: var(--data-table-resize-handle-bg-active);
+}
+
+/* Column Pin — sticky cells */
+[data-datatable-head-cell][style*="sticky"],
+[data-datatable-cell][style*="sticky"] {
+  position: sticky !important;
+  z-index: 2;
+  background: var(--data-table-header-bg);
+  will-change: transform;
+}
+
+[data-datatable-cell][style*="sticky"] {
+  background: var(--data-table-bg, var(--color-background));
+  z-index: 1;
+}
+
+/* Column Pin — stacking isolation */
+[data-datatable-head-cell],
+[data-datatable-cell] {
+  background-clip: padding-box;
+}
+
+[data-datatable-head-cell][style*="sticky"] {
+  z-index: 5 !important;
+  background: var(--data-table-header-bg) !important;
+}
+
+[data-datatable-cell][style*="sticky"] {
+  z-index: 3 !important;
+  background: var(--data-table-bg, var(--color-background)) !important;
 }

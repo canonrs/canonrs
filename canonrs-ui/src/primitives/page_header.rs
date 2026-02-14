@@ -8,13 +8,13 @@ use leptos::prelude::*;
 pub fn PageHeaderPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <header
             data-page-header=""
             class={class}
-            id={id}
+            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
             {children.map(|c| c())}
         </header>
@@ -25,14 +25,14 @@ pub fn PageHeaderPrimitive(
 pub fn PageHeaderBreadcrumbsPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <nav
             data-page-header-breadcrumbs=""
             attr:aria-label="Breadcrumb"
             class={class}
-            id={id}
+            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
             {children.map(|c| c())}
         </nav>
@@ -43,13 +43,13 @@ pub fn PageHeaderBreadcrumbsPrimitive(
 pub fn PageHeaderContentPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-page-header-content=""
             class={class}
-            id={id}
+            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
             {children.map(|c| c())}
         </div>
@@ -60,13 +60,13 @@ pub fn PageHeaderContentPrimitive(
 pub fn PageHeaderTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <h1
             data-page-header-title=""
             class={class}
-            id={id}
+            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
             {children.map(|c| c())}
         </h1>
@@ -77,13 +77,13 @@ pub fn PageHeaderTitlePrimitive(
 pub fn PageHeaderDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <p
             data-page-header-description=""
             class={class}
-            id={id}
+            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
             {children.map(|c| c())}
         </p>
@@ -94,13 +94,13 @@ pub fn PageHeaderDescriptionPrimitive(
 pub fn PageHeaderActionsPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-page-header-actions=""
             class={class}
-            id={id}
+            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
             {children.map(|c| c())}
         </div>
@@ -111,13 +111,13 @@ pub fn PageHeaderActionsPrimitive(
 pub fn PageHeaderTabsPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-page-header-tabs=""
             class={class}
-            id={id}
+            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
             {children.map(|c| c())}
         </div>

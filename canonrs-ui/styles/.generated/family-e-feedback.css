@@ -1,5 +1,5 @@
 /* family-e-feedback */
-:root {
+[data-theme] {
   --feedback-color: var(--theme-action-primary-bg);
   --feedback-transition-duration: var(--motion-duration-normal);
   --feedback-radius: var(--radius-lg);

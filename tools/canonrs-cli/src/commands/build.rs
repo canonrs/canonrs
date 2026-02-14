@@ -3,12 +3,28 @@ use anyhow::{Result, Context};
 use colored::*;
 use crate::{detect, validate};
 
+
 pub fn execute() -> Result<()> {
     let app_dir = std::env::current_dir()?;
     validate::check_no_profiles_in_app(&app_dir)?;
 
-    println!("{}", "🔧 Building for production...".cyan());
+    println!("{}", "🎨 Running tokens-engine...".cyan());
+    let tokens_dir = super::canonrs_root()?.join("canonrs-tokens");
+    let tokens_status = Command::new("cargo")
+        .arg("run")
+        .arg("--release")
+        .arg("--bin")
+        .arg("tokens-engine")
+        .current_dir(&tokens_dir)
+        .status()
+        .context("Failed to run tokens-engine")?;
 
+    if !tokens_status.success() {
+        anyhow::bail!("tokens-engine failed");
+    }
+    println!("{}", "  ✓ CSS generated".green());
+
+    println!("{}", "🔧 Building for production...".cyan());
     let mode = detect::detect_mode(&app_dir)?;
     println!("   Mode: {}", mode.as_str().yellow());
 

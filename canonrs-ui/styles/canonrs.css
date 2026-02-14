@@ -7,7 +7,13 @@
 /* 2. FOUNDATION */
 @import "./.generated/core.css";
 
-/* 3. FAMILIES */
+/* 3. THEMES */
+@import "./.generated/themes.css";
+
+/* 4. SEMANTIC */
+@import "./.generated/semantic.css";
+
+/* 5. FAMILIES */
 @import "./.generated/family-a-overlay.css";
 @import "./.generated/family-b-selection.css";
 @import "./.generated/family-c-forms.css";
@@ -19,12 +25,6 @@
 @import "./.generated/family-i-animation.css";
 @import "./.generated/family-s-state.css";
 @import "./.generated/family-z-layers.css";
-
-/* 4. SEMANTIC */
-@import "./.generated/semantic.css";
-
-/* 5. THEMES */
-@import "./.generated/themes.css";
 
 /* 6. ROOT */
 @import "./.generated/root.css";

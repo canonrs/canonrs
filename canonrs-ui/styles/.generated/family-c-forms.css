@@ -1,5 +1,5 @@
 /* family-c-forms */
-:root {
+[data-theme] {
   --forms-color: var(--theme-action-primary-bg);
   --forms-radius: var(--radius-sm);
   --forms-padding-y: var(--space-sm);

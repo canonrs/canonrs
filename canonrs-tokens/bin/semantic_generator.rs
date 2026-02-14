@@ -1,9 +1,9 @@
 use std::fs;
 use std::path::Path;
-use canonrs_tokens::design::tokens::semantics::{SEMANTIC_BRIDGES, SemanticBridge};
+use canonrs_tokens::design::tokens::semantics::SEMANTIC_BRIDGES;
 
 pub fn generate(output_dir: &Path) {
-    let mut css = String::from("/* SEMANTIC LAYER — Bridge to Theme */\n:root {\n");
+    let mut css = String::from("/* SEMANTIC LAYER — Bridge to Theme */\n[data-theme] {\n");
 
     for bridge in SEMANTIC_BRIDGES {
         css.push_str(&format!("  --{}: {};\n", bridge.token, bridge.theme_ref));
@@ -12,5 +12,5 @@ pub fn generate(output_dir: &Path) {
     css.push_str("}\n");
 
     fs::write(output_dir.join("semantic.css"), css).ok();
-    println!("  ✓ semantic.css (complete)");
+    println!("  ✓ semantic.css (scoped to [data-theme])");
 }

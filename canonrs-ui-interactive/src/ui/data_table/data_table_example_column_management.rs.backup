@@ -1,0 +1,637 @@
+use leptos::prelude::*;
+use canonrs_ui::ui::dropdown_menu::{DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator};
+use canonrs_ui::ui::button::{Button, ButtonVariant};
+use super::{DataTableInteractive, ColumnDef, DataTableRequest, DataTableResponse};
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct Product {
+    pub id: u32,
+    pub name: String,
+    pub category: String,
+    pub price: f64,
+    pub stock: u32,
+    pub status: String,
+}
+
+#[component]
+pub fn DataTableColumnManagementExample() -> impl IntoView {
+    let visible_columns = RwSignal::new(vec![
+        ("name", true),
+        ("category", true),
+        ("price", true),
+        ("stock", true),
+        ("status", true),
+    ]);
+
+    let density_mode   = RwSignal::new("comfortable");
+    let zebra_mode     = RwSignal::new(false);
+    let hover_mode     = RwSignal::new(true);
+    let sticky_mode    = RwSignal::new(false);
+    let column_drag_mode = RwSignal::new(false);
+    
+
+    let fetch_products = move |req: DataTableRequest| -> Result<DataTableResponse<Product>, String> {
+        let mut all_products = vec![
+            Product { id: 1, name: "Laptop Pro".to_string(), category: "Electronics".to_string(), price: 1299.99, stock: 15, status: "Active".to_string() },
+            Product { id: 2, name: "Wireless Mouse".to_string(), category: "Accessories".to_string(), price: 29.99, stock: 150, status: "Active".to_string() },
+            Product { id: 3, name: "USB-C Cable".to_string(), category: "Accessories".to_string(), price: 12.99, stock: 0, status: "Out of Stock".to_string() },
+            Product { id: 4, name: "Monitor 27\"".to_string(), category: "Electronics".to_string(), price: 349.99, stock: 8, status: "Active".to_string() },
+            Product { id: 5, name: "Keyboard Mechanical".to_string(), category: "Accessories".to_string(), price: 89.99, stock: 42, status: "Active".to_string() },
+            Product { id: 6, name: "Webcam HD".to_string(), category: "Electronics".to_string(), price: 79.99, stock: 23, status: "Active".to_string() },
+            Product { id: 7, name: "Headphones".to_string(), category: "Audio".to_string(), price: 149.99, stock: 67, status: "Active".to_string() },
+            Product { id: 9, name: "USB Hub".to_string(), category: "Accessories".to_string(), price: 49.99, stock: 30, status: "Active".to_string() },
+            Product { id: 10, name: "SSD 1TB".to_string(), category: "Storage".to_string(), price: 89.99, stock: 12, status: "Active".to_string() },
+            Product { id: 11, name: "Mouse Pad".to_string(), category: "Accessories".to_string(), price: 19.99, stock: 200, status: "Active".to_string() },
+            Product { id: 12, name: "Desk Lamp".to_string(), category: "Office".to_string(), price: 34.99, stock: 5, status: "Low Stock".to_string() },
+        ];
+
+        if !req.filter_query.is_empty() {
+            let query = req.filter_query.to_lowercase();
+            all_products.retain(|p| {
+                p.name.to_lowercase().contains(&query) ||
+                p.category.to_lowercase().contains(&query) ||
+                p.status.to_lowercase().contains(&query)
+            });
+        }
+
+        if let Some(ref col) = req.sort_column {
+            all_products.sort_by(|a, b| {
+                let cmp = match col.as_str() {
+                    "name"     => a.name.cmp(&b.name),
+                    "category" => a.category.cmp(&b.category),
+                    "price"    => a.price.partial_cmp(&b.price).unwrap_or(std::cmp::Ordering::Equal),
+                    "stock"    => a.stock.cmp(&b.stock),
+                    "status"   => a.status.cmp(&b.status),
+                    _ => std::cmp::Ordering::Equal,
+                };
+                if req.sort_ascending { cmp } else { cmp.reverse() }
+            });
+        }
+
+        let total = all_products.len();
+        let start = (req.page - 1) * req.page_size;
+        let end = (start + req.page_size).min(total);
+        let data = all_products.into_iter().skip(start).take(end - start).collect();
+
+        Ok(DataTableResponse { data, total, page: req.page, page_size: req.page_size })
+    };
+
+    let columns_signal = Signal::derive(move || {
+        let vis = visible_columns.get();
+        let mut cols = Vec::new();
+        for (col_id, visible) in vis {
+            if !visible { continue; }
+            match col_id {
+                "name"     => cols.push(ColumnDef::new("name", "Product Name", |p: &Product| p.name.clone()).width("w-64")),
+                "category" => cols.push(ColumnDef::new("category", "Category", |p: &Product| p.category.clone()).width("w-32")),
+                "price"    => cols.push(ColumnDef::new("price", "Price", |p: &Product| format!("${:.2}", p.price)).width("w-24")),
+                "stock"    => cols.push(ColumnDef::new("stock", "Stock", |p: &Product| p.stock.to_string()).width("w-20")),
+                "status"   => cols.push(ColumnDef::new("status", "Status", |p: &Product| p.status.clone()).width("w-32")),
+                _ => {}
+            }
+        }
+        cols
+    });
+
+    let toggle_column = move |col_id: &'static str| {
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+        visible_columns.update(|cols| {
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+            if let Some(pos) = cols.iter().position(|(id, _)| *id == col_id) {
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+                cols[pos].1 = !cols[pos].1;
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+            }
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+        });
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+    };
+
+    // Handler reativo para reordenar colunas
+    #[cfg(feature = "hydrate")]
+    {
+        use wasm_bindgen::{closure::Closure, JsCast};
+        use leptos::leptos_dom::helpers::document;
+        
+        create_effect(move |_| {
+            if !column_drag_mode.get() { return; }
+            
+            let doc = document();
+            if let Some(container) = doc.get_element_by_id("column-drag-container") {
+                let closure = Closure::wrap(Box::new(move |ev: web_sys::Event| {
+                    if let (Ok(from_val), Ok(to_val)) = (
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragFrom")),
+                        js_sys::Reflect::get(&ev, &wasm_bindgen::JsValue::from_str("dragTo"))
+                    ) {
+                        if let (Some(from), Some(to)) = (from_val.as_f64(), to_val.as_f64()) {
+                            let from_idx = from as usize;
+                            let to_idx = to as usize;
+                            leptos::logging::log!("🔥 Reorder handler: from={} to={}", from_idx, to_idx);
+                            let to_idx = to as usize;
+                            
+                            visible_columns.update(|cols| {
+                                if from_idx < cols.len() && to_idx < cols.len() {
+                                    let item = cols.remove(from_idx);
+                                    cols.insert(to_idx, item);
+                                }
+                            });
+                        }
+                    }
+                }) as Box<dyn FnMut(_)>);
+                
+                let _ = container.add_event_listener_with_callback(
+                    "canon:reorder",
+                    closure.as_ref().unchecked_ref()
+                );
+                closure.forget();
+            }
+        });
+    }
+
+    view! {
+        <div class="space-y-4">
+            <div class="flex flex-wrap gap-4 items-center p-4 border rounded">
+                <div class="font-semibold">"Tier 1: Column Management"</div>
+
+                // Columns toggle
+                <DropdownMenu id="columns-dropdown".to_string()>
+                    <DropdownMenuTrigger target_dropdown_id="columns-dropdown">
+                        <Button variant=ButtonVariant::Outline>"Columns ▼"</Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuLabel>"Toggle Columns"</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <div class="p-2 space-y-2">
+                            {move || {
+                                visible_columns.get().iter().map(|(col_id, visible)| {
+                                    let id = *col_id;
+                                    let is_checked = *visible;
+                                    view! {
+                                        <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-muted rounded">
+                                            <input
+                                                type="checkbox"
+                                                id=format!("col-{}", id)
+                                                prop:checked=is_checked
+                                                on:change=move |_| toggle_column(id)
+                                                style="cursor: pointer;"
+                                            />
+                                            <label for=format!("col-{}", id) style="cursor: pointer;">
+                                                {id}
+                                            </label>
+                                        </div>
+                                    }
+                                }).collect_view()
+                            }}
+                        </div>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
+                // Density
+                <div class="flex gap-1">
+                    {move || {
+                        let d = density_mode.get();
+                        view! {
+                            <>
+                                <div on:click=move |_| density_mode.set("compact")>
+                                    <Button variant=if d == "compact" { ButtonVariant::Solid } else { ButtonVariant::Ghost }>"Compact"</Button>
+                                </div>
+                                <div on:click=move |_| density_mode.set("comfortable")>
+                                    <Button variant=if d == "comfortable" { ButtonVariant::Solid } else { ButtonVariant::Ghost }>"Comfortable"</Button>
+                                </div>
+                                <div on:click=move |_| density_mode.set("spacious")>
+                                    <Button variant=if d == "spacious" { ButtonVariant::Solid } else { ButtonVariant::Ghost }>"Spacious"</Button>
+                                </div>
+                            </>
+                        }
+                    }}
+                </div>
+
+                // Zebra
+                <div class="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="zebra-toggle"
+                        prop:checked=move || zebra_mode.get()
+                        on:change=move |_| zebra_mode.update(|v| *v = !*v)
+                        style="cursor: pointer;"
+                    />
+                    <label for="zebra-toggle" style="cursor: pointer;">"Zebra"</label>
+                </div>
+
+                // Row Hover
+                <div class="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="hover-toggle"
+                        prop:checked=move || hover_mode.get()
+                        on:change=move |_| hover_mode.update(|v| *v = !*v)
+                        style="cursor: pointer;"
+                    />
+                    <label for="hover-toggle" style="cursor: pointer;">"Row Hover"</label>
+                </div>
+
+                // Sticky Header
+                <div class="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="sticky-toggle"
+                        prop:checked=move || sticky_mode.get()
+                        on:change=move |_| sticky_mode.update(|v| *v = !*v)
+                        style="cursor: pointer;"
+                    />
+                    <label for="sticky-toggle" style="cursor: pointer;">"Sticky Header"</label>
+
+                // Column Drag
+                <div class="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        id="drag-toggle"
+                        prop:checked=move || column_drag_mode.get()
+                        on:change=move |_| column_drag_mode.update(|v| *v = !*v)
+                        style="cursor: pointer;"
+                    />
+                    <label for="drag-toggle" style="cursor: pointer;">"Column Drag"</label>
+                </div>
+                </div>
+            </div>
+
+            <DataTableInteractive
+                columns=columns_signal
+                fetch_data=fetch_products
+                page_size=10
+                id="products-table"
+                density=Signal::derive(move || density_mode.get().to_string())
+                zebra=Signal::derive(move || zebra_mode.get())
+                row_hover=Signal::derive(move || hover_mode.get())
+                sticky_header=Signal::derive(move || sticky_mode.get())
+                draggable=Signal::derive(move || column_drag_mode.get())
+            />
+        </div>
+    }
+}

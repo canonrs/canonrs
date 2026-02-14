@@ -1,5 +1,5 @@
 /* family-z-layers */
-:root {
+[data-theme] {
   --layer-base: 0;
   --layer-dropdown: 1000;
   --layer-sticky: 1100;

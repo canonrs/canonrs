@@ -76,6 +76,15 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("data-table-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("data-table-transition-ease", "var(--motion-ease-standard)"),
 
+    // Data Table — Resize Handle
+    FamilyToken::new("data-table-resize-handle-width", "4px"),
+    FamilyToken::new("data-table-resize-handle-bg", "transparent"),
+    FamilyToken::new("data-table-resize-handle-bg-hover", "hsl(221.2 83.2% 53.3%)"),
+    FamilyToken::new("data-table-resize-handle-bg-active", "hsl(221.2 83.2% 53.3%)"),
+    FamilyToken::new("data-table-resize-handle-cursor", "col-resize"),
+    FamilyToken::new("data-table-resize-handle-opacity", "0.3"),
+    FamilyToken::new("data-table-resize-handle-opacity-hover", "0.6"),
+
     // Data Table — Density Tokens
     FamilyToken::new("data-table-density-compact-cell-padding-y", "var(--space-xs)"),
     FamilyToken::new("data-table-density-compact-cell-padding-x", "var(--space-sm)"),

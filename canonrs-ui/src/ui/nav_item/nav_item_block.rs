@@ -1,4 +1,8 @@
+//! @canon-level: ui
+//! NavItem - Declarative UI wrapper over NavItemPrimitive
+
 use leptos::prelude::*;
+use crate::primitives::NavItemPrimitive;
 
 #[component]
 pub fn NavItem(
@@ -6,22 +10,20 @@ pub fn NavItem(
     #[prop(optional, into)] href: Option<String>,
     #[prop(default = false)] active: bool,
     #[prop(default = false)] disabled: bool,
-    #[prop(optional, into)] icon: Option<Children>,
-    #[prop(default = String::new(), into)] class: String,
+    #[prop(optional)] icon: Option<Children>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <a 
-            href=href.unwrap_or_else(|| "#".to_string()) 
-            class=move || format!(
-                "canon-nav-item {} {} {}", 
-                if active { "canon-nav-item--active" } else { "" }, 
-                if disabled { "canon-nav-item--disabled" } else { "" }, 
-                class
-            ) 
-            data-block="nav-item"
+        <NavItemPrimitive
+            href=href.unwrap_or_else(|| "#".to_string())
+            active=active
+            disabled=disabled
+            class=class
+            id=id.unwrap_or_default()
         >
-            {icon.map(|i| view! { <span class="canon-nav-item__icon">{i()}</span> })}
-            <span class="canon-nav-item__label">{label}</span>
-        </a>
+            {icon.map(|i| view! { <span data-nav-item-icon="">{i()}</span> })}
+            <span data-nav-item-label="">{label}</span>
+        </NavItemPrimitive>
     }
 }
