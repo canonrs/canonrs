@@ -5,38 +5,17 @@ use crate::primitives::{
     InlineNoticeContentPrimitive,
 };
 
-#[derive(Clone, Copy, PartialEq)]
-pub enum InlineNoticeVariant {
-    Default,
-    Info,
-    Success,
-    Warning,
-    Error,
-}
-
-impl InlineNoticeVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            InlineNoticeVariant::Default => "default",
-            InlineNoticeVariant::Info => "info",
-            InlineNoticeVariant::Success => "success",
-            InlineNoticeVariant::Warning => "warning",
-            InlineNoticeVariant::Error => "error",
-        }
-    }
-}
+pub use crate::primitives::InlineNoticeVariant;
 
 #[component]
 pub fn InlineNotice(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = InlineNoticeVariant::Default)] variant: InlineNoticeVariant,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
-    let base_class = format!("inline-notice variant-{} {}", variant.as_str(), class);
-
     view! {
-        <InlineNoticePrimitive class={base_class} id={id}>
+        <InlineNoticePrimitive variant=variant class=class id=id>
             {children.map(|c| c())}
         </InlineNoticePrimitive>
     }
@@ -45,11 +24,11 @@ pub fn InlineNotice(
 #[component]
 pub fn InlineNoticeIcon(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <InlineNoticeIconPrimitive class={class} id={id}>
+        <InlineNoticeIconPrimitive class=class id=id>
             {children.map(|c| c())}
         </InlineNoticeIconPrimitive>
     }
@@ -58,11 +37,11 @@ pub fn InlineNoticeIcon(
 #[component]
 pub fn InlineNoticeContent(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <InlineNoticeContentPrimitive class={class} id={id}>
+        <InlineNoticeContentPrimitive class=class id=id>
             {children.map(|c| c())}
         </InlineNoticeContentPrimitive>
     }

@@ -4,17 +4,41 @@
 
 use leptos::prelude::*;
 
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
+pub enum InlineNoticeVariant {
+    #[default]
+    Default,
+    Info,
+    Success,
+    Warning,
+    Error,
+}
+
+impl InlineNoticeVariant {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Default => "default",
+            Self::Info => "info",
+            Self::Success => "success",
+            Self::Warning => "warning",
+            Self::Error => "error",
+        }
+    }
+}
+
 #[component]
 pub fn InlineNoticePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = InlineNoticeVariant::Default)] variant: InlineNoticeVariant,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-inline-notice=""
-            class={class}
-            id={id}
+            data-variant={variant.as_str()}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -24,15 +48,15 @@ pub fn InlineNoticePrimitive(
 #[component]
 pub fn InlineNoticeIconPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <span
             data-inline-notice-icon=""
-            attr:aria-hidden="true"
-            class={class}
-            id={id}
+            aria-hidden="true"
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </span>
@@ -42,14 +66,14 @@ pub fn InlineNoticeIconPrimitive(
 #[component]
 pub fn InlineNoticeContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <span
             data-inline-notice-content=""
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </span>
