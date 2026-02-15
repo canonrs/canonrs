@@ -1,47 +1,104 @@
-# WASM Optimization Guide
+# WASM Optimization Guide — CanonRS
 
-## Requirements
+## Resultados Atuais
 
-### 1. Workspace Profile
-Add to root `Cargo.toml`:
+| Ambiente | Tamanho em disco | Transferido (Brotli) |
+|----------|-----------------|----------------------|
+| `make dev` | ~16MB | ~16MB (sem compressão) |
+| `make build` | ~4.1MB | ~1MB |
+
+---
+
+## Configurações Aplicadas
+
+### 1. Profile `wasm-release` — Produção
 ```toml
 [profile.wasm-release]
 inherits = "release"
-opt-level = "z"
-lto = "fat"
-codegen-units = 1
-panic = "abort"
-strip = "symbols"
+opt-level = "z"       # Otimiza tamanho agressivo
+lto = "fat"           # Link Time Optimization completo
+codegen-units = 1     # Necessário para LTO funcionar
+panic = "abort"       # Remove panic handling — menor binário
+strip = "symbols"     # Remove símbolos de debug
 ```
 
-### 2. Leptos Metadata
-Add to root `Cargo.toml`:
+Ativado via:
 ```toml
-[[workspace.metadata.leptos]]
-# ... other config
 lib-profile-release = "wasm-release"
-wasm-opt = true
-wasm-opt-features = ["-Oz", "--enable-bulk-memory", "--enable-nontrapping-float-to-int"]
 ```
 
-### 3. Install wasm-opt
-```bash
-cargo install wasm-opt
+### 2. wasm-opt — Pós-processamento
+```toml
+wasm-opt = ["-Oz", "--enable-bulk-memory", "--enable-nontrapping-float-to-int"]
 ```
 
-### 4. Build Commands
-```bash
-# Production
-cargo leptos build --release
+- `-Oz` → otimização máxima de tamanho
+- `--enable-bulk-memory` → operações de memória em batch
+- `--enable-nontrapping-float-to-int` → instruções WASM mais eficientes
 
-# Dev (optimized)
-cargo leptos watch --release
+### 3. Profile `wasm-dev` — Desenvolvimento
+```toml
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = "s"       # Reduz dev de 31MB → 16MB sem perder hot-reload
 ```
 
-## Results
-- Target: <3MB WASM
-- Actual: ~1.5MB with current setup
+Ativado via:
+```toml
+lib-profile-dev = "wasm-dev"
+```
 
-## Known Issues
-- `cargo-leptos 0.3.2`: watch mode ignores wasm-opt without `--release` flag
-- Always use `--release` flag even in dev mode
+### 4. Compressão Brotli/Gzip — Runtime
+
+Adicionado `CompressionLayer` no servidor Axum:
+```rust
+use tower_http::compression::CompressionLayer;
+
+let app = Router::new()
+    // ...rotas...
+    .layer(CompressionLayer::new())
+    .with_state(leptos_options);
+```
+
+Dependência em `Cargo.toml`:
+```toml
+tower-http = { version = "0.6", features = ["fs", "compression-br", "compression-gzip"] }
+```
+
+O browser recebe o header `Content-Encoding: br` — 4.1MB comprime para ~1MB em transferência.
+
+### 5. syntect — Grammars Sob Demanda
+
+O highlighter SSR usa `OnceLock` para carregar o `SyntaxSet` apenas uma vez:
+```rust
+static SYNTAX_SET: OnceLock<SyntaxSet> = OnceLock::new();
+
+fn get_syntax_set() -> &'static SyntaxSet {
+    SYNTAX_SET.get_or_init(|| SyntaxSet::load_defaults_newlines())
+}
+```
+
+---
+
+## Workflow
+```
+Durante o dia   →  make dev    →  16MB dev build, hot-reload
+Fim do dia      →  make build  →  4.1MB release, wasm-opt, Brotli
+```
+
+---
+
+## O que NÃO fazer
+
+- ❌ Usar debug build em produção (186MB)
+- ❌ Usar `load_defaults_newlines()` sem `OnceLock` — recarrega grammars a cada request
+- ❌ Servir WASM sem compressão em produção
+
+---
+
+## Próximos Passos (futuro)
+
+- [ ] Code splitting via `cargo leptos build --split`
+- [ ] Carregar apenas grammars necessárias no syntect (reduz ~2-3MB)
+- [ ] Streaming compilation (browser feature, sem ação necessária)
+- [ ] pre-compress `.wasm.br` no build para servir arquivo já comprimido

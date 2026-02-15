@@ -26,6 +26,7 @@ pub fn register_all_behaviors() {
     tree_behavior::register();
     data_table_behavior::register();
     copy_button_behavior::register();
+    markdown_behavior::register();
 }
 pub fn init_canonrs_behaviors() {
     register_all_behaviors();

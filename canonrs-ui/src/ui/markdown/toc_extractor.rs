@@ -1,5 +1,5 @@
 use pulldown_cmark::{Parser, Event, Tag, TagEnd, HeadingLevel};
-use crate::shared::TocItem;
+use canonrs_shared::TocItem;
 
 pub struct TocExtractor;
 
@@ -17,7 +17,7 @@ impl TocExtractor {
                 Event::Start(Tag::Heading { level, .. }) => {
                     in_heading = true;
                     current_level = match level {
-                        HeadingLevel::H1 => 2,
+                        HeadingLevel::H1 => 1,
                         HeadingLevel::H2 => 2,
                         HeadingLevel::H3 => 3,
                         HeadingLevel::H4 => 4,
@@ -33,13 +33,7 @@ impl TocExtractor {
                         } else {
                             slugify(&current_text)
                         };
-
-                        toc_items.push(TocItem {
-                            id,
-                            text: current_text.clone(),
-                            level: current_level,
-                        });
-
+                        toc_items.push(TocItem::new(id, current_text.clone(), current_level));
                         heading_counter += 1;
                         in_heading = false;
                     }
@@ -55,7 +49,7 @@ impl TocExtractor {
     }
 }
 
-fn slugify(text: &str) -> String {
+pub fn slugify(text: &str) -> String {
     text.to_lowercase()
         .chars()
         .map(|c| {

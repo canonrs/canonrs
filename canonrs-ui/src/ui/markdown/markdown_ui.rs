@@ -1,4 +1,5 @@
 use leptos::prelude::*;
+use canonrs_shared::TocItem;
 use crate::primitives::markdown::*;
 
 #[derive(Clone, Debug)]
@@ -7,38 +8,78 @@ pub struct RenderedMarkdown {
     pub toc: Vec<TocItem>,
 }
 
-#[derive(Clone, Debug)]
-pub struct TocItem {
-    pub id: String,
-    pub title: String,
-    pub level: u8,
+#[component]
+pub fn TableOfContents(
+    items: Vec<TocItem>,
+    #[prop(into, default = String::new())] id: String,
+) -> impl IntoView {
+    view! {
+        <nav data-toc="" id=id>
+            <ul data-toc-list="">
+                {items.into_iter().map(|item| {
+                    let href = format!("#{}", item.id);
+                    view! {
+                        <MarkdownTocItemPrimitive
+                            href=href
+                            text=item.text
+                            level=item.level
+                        />
+                    }
+                }).collect::<Vec<_>>()}
+            </ul>
+        </nav>
+    }
 }
 
 #[component]
 pub fn MarkdownSurface(
     rendered: RenderedMarkdown,
     #[prop(default = true)] show_toc: bool,
+    #[prop(default = true)] show_toolbar: bool,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     let has_toc = !rendered.toc.is_empty() && show_toc;
+    let toc_id = format!("{}-toc", id);
     let rendered = StoredValue::new(rendered);
 
     view! {
-        <MarkdownPrimitive>
-            <Show when=move || has_toc>
-                <MarkdownTocPrimitive>
-                    <h3 data-md-toc-title="">"Contents"</h3>
-                    <ul data-md-toc-list="">
-                        {move || rendered.get_value().toc.iter().map(|item| {
-                            let title = item.title.clone();
-                            let href = format!("#{}", item.id);
-                            let depth = item.level.to_string();
-                            view! { <li attr:data-markdown-toc-item="" attr:data-depth=depth><a href=href data-md-toc-link="">{title}</a></li> }
-                        }).collect_view()}
-                    </ul>
-                </MarkdownTocPrimitive>
-            </Show>
+        <MarkdownPrimitive id=id.clone()>
+            {show_toolbar.then(|| view! {
+                <MarkdownToolbarPrimitive>
+                    {has_toc.then(|| view! {
+                        <MarkdownToolbarItemPrimitive action="toggle-toc">
+                            "Contents"
+                        </MarkdownToolbarItemPrimitive>
+                    })}
+                </MarkdownToolbarPrimitive>
+            })}
+
+            {has_toc.then(|| {
+                let toc_id = toc_id.clone();
+                let items = rendered.get_value().toc.clone();
+                view! {
+                    <MarkdownTocPrimitive state="open">
+                        <ul data-toc-list="">
+                            {items.into_iter().map(|item| {
+                                let href = format!("#{}", item.id);
+                                view! {
+                                    <MarkdownTocItemPrimitive
+                                        href=href
+                                        text=item.text
+                                        level=item.level
+                                    />
+                                }
+                            }).collect::<Vec<_>>()}
+                        </ul>
+                    </MarkdownTocPrimitive>
+                }
+            })}
+
             <MarkdownContentPrimitive>
-                <div data-md-content="" inner_html={move || rendered.get_value().html}></div>
+                <div
+                    data-md-content=""
+                    inner_html={move || rendered.get_value().html}
+                ></div>
             </MarkdownContentPrimitive>
         </MarkdownPrimitive>
     }
