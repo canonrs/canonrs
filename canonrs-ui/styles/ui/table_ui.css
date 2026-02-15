@@ -1,19 +1,23 @@
 /* ============================================
    TABLE
-   Family B: Lists & Selection
+   Family F: Data Display - Enterprise Foundation
    ============================================ */
 
 [data-table] {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
+  display: block;
+  overflow-x: auto;
 }
 
 [data-table-header] {
   background: var(--table-header-bg);
+  border-bottom: var(--table-border-width) solid var(--table-border-color);
 }
 
 [data-table-row] {
+  height: var(--table-row-height);
   border-bottom: var(--table-border-width) solid var(--table-border-color);
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
@@ -22,7 +26,7 @@
   background: var(--table-row-bg-hover);
 }
 
-[data-table-row][data-selected="true"] {
+[data-table-row][data-state="selected"] {
   background: var(--table-row-bg-selected);
 }
 
@@ -37,7 +41,6 @@
 }
 
 [data-table-cell] {
-  height: var(--table-row-height);
   padding-inline: var(--table-cell-padding-x);
   padding-block: var(--table-cell-padding-y);
   font-size: var(--table-cell-font-size);
@@ -49,4 +52,13 @@
   font-size: var(--table-caption-font-size);
   color: var(--table-caption-fg);
   text-align: left;
+}
+
+/* Striped variant (optional) */
+[data-table][data-striped="true"] [data-table-body] [data-table-row]:nth-child(odd) {
+  background: var(--table-row-bg-striped);
+}
+
+[data-table][data-striped="true"] [data-table-body] [data-table-row]:nth-child(odd):hover {
+  background: var(--table-row-bg-hover);
 }

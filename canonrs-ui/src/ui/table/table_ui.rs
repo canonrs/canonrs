@@ -1,23 +1,24 @@
 use leptos::prelude::*;
-use crate::primitives::table::{
+use crate::primitives::{
     TablePrimitive,
     TableHeaderPrimitive,
     TableBodyPrimitive,
+    TableFooterPrimitive,
     TableRowPrimitive,
     TableHeadPrimitive,
     TableCellPrimitive,
-    TableFooterPrimitive,
     TableCaptionPrimitive,
 };
 
 #[component]
 pub fn Table(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] striped: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TablePrimitive class={class} id={id}>
+        <TablePrimitive striped=striped class=class id=id>
             {children.map(|c| c())}
         </TablePrimitive>
     }
@@ -26,10 +27,11 @@ pub fn Table(
 #[component]
 pub fn TableHeader(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableHeaderPrimitive class={class}>
+        <TableHeaderPrimitive class=class id=id>
             {children.map(|c| c())}
         </TableHeaderPrimitive>
     }
@@ -38,23 +40,38 @@ pub fn TableHeader(
 #[component]
 pub fn TableBody(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableBodyPrimitive class={class}>
+        <TableBodyPrimitive class=class id=id>
             {children.map(|c| c())}
         </TableBodyPrimitive>
     }
 }
 
 #[component]
-pub fn TableRow(
+pub fn TableFooter(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableRowPrimitive class={class} id={id}>
+        <TableFooterPrimitive class=class id=id>
+            {children.map(|c| c())}
+        </TableFooterPrimitive>
+    }
+}
+
+#[component]
+pub fn TableRow(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = false)] selected: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
+) -> impl IntoView {
+    view! {
+        <TableRowPrimitive selected=selected class=class id=id>
             {children.map(|c| c())}
         </TableRowPrimitive>
     }
@@ -63,10 +80,11 @@ pub fn TableRow(
 #[component]
 pub fn TableHead(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableHeadPrimitive class={class}>
+        <TableHeadPrimitive class=class id=id>
             {children.map(|c| c())}
         </TableHeadPrimitive>
     }
@@ -75,34 +93,24 @@ pub fn TableHead(
 #[component]
 pub fn TableCell(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableCellPrimitive class={class}>
+        <TableCellPrimitive class=class id=id>
             {children.map(|c| c())}
         </TableCellPrimitive>
     }
 }
 
 #[component]
-pub fn TableFooter(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-) -> impl IntoView {
-    view! {
-        <TableFooterPrimitive class={class}>
-            {children.map(|c| c())}
-        </TableFooterPrimitive>
-    }
-}
-
-#[component]
 pub fn TableCaption(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableCaptionPrimitive class={class}>
+        <TableCaptionPrimitive class=class id=id>
             {children.map(|c| c())}
         </TableCaptionPrimitive>
     }
