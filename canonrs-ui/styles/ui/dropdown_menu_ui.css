@@ -47,3 +47,25 @@
   background: var(--dropdown-menu-separator-color);
   margin: var(--dropdown-menu-separator-margin-y) 0;
 }
+
+[data-dropdown-menu-checkbox-item] {
+  display: flex;
+  align-items: center;
+  height: var(--dropdown-menu-item-height);
+  padding: 0 var(--dropdown-menu-item-padding);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+
+[data-dropdown-menu-checkbox-item]:hover {
+  background: var(--dropdown-menu-item-hover-bg);
+}
+
+[data-dropdown-menu-checkbox-item][aria-checked="true"] {
+  background: var(--dropdown-menu-item-selected-bg);
+}

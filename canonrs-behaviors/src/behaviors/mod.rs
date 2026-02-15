@@ -80,3 +80,5 @@ pub use behavior_registry::*;
 
 #[cfg(feature = "hydrate")]
 pub use auto_init::init_canonrs_behaviors;
+#[cfg(feature = "hydrate")]
+pub mod data_table_behavior;

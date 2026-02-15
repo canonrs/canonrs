@@ -164,4 +164,19 @@
   --table-caption-font-size: var(--font-size-sm);
   --table-caption-padding-y: var(--space-sm);
   --table-row-bg-striped: color-mix(in srgb, var(--theme-surface-fg) 3%, transparent);
+  --datatable-border-color: var(--table-border-color);
+  --datatable-header-bg: var(--table-header-bg);
+  --datatable-row-bg-hover: var(--table-row-bg-hover);
+  --datatable-row-bg-selected: var(--table-row-bg-selected);
+  --datatable-toolbar-gap: var(--space-sm);
+  --datatable-toolbar-padding-y: var(--space-sm);
+  --datatable-toolbar-padding-x: var(--space-sm);
+  --datatable-filter-max-width: 300px;
+  --datatable-filter-max-width: 300px;
+  --datatable-density-compact-padding-y: var(--space-xs);
+  --datatable-density-compact-padding-x: var(--space-sm);
+  --datatable-density-comfortable-padding-y: var(--space-sm);
+  --datatable-density-comfortable-padding-x: var(--space-md);
+  --datatable-density-spacious-padding-y: var(--space-md);
+  --datatable-density-spacious-padding-x: var(--space-lg);
 }

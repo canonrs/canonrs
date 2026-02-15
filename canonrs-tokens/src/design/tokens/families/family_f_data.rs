@@ -202,4 +202,23 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("table-caption-font-size", "var(--font-size-sm)"),
     FamilyToken::new("table-caption-padding-y", "var(--space-sm)"),
     FamilyToken::new("table-row-bg-striped", "color-mix(in srgb, var(--theme-surface-fg) 3%, transparent)"),
+
+    // DataTable - Enterprise DataGrid
+    FamilyToken::new("datatable-border-color", "var(--table-border-color)"),
+    FamilyToken::new("datatable-header-bg", "var(--table-header-bg)"),
+    FamilyToken::new("datatable-row-bg-hover", "var(--table-row-bg-hover)"),
+    FamilyToken::new("datatable-row-bg-selected", "var(--table-row-bg-selected)"),
+    FamilyToken::new("datatable-toolbar-gap", "var(--space-sm)"),
+    FamilyToken::new("datatable-toolbar-padding-y", "var(--space-sm)"),
+    FamilyToken::new("datatable-toolbar-padding-x", "var(--space-sm)"),
+    FamilyToken::new("datatable-filter-max-width", "300px"),
+    FamilyToken::new("datatable-filter-max-width", "300px"),
+    
+    // Density variants
+    FamilyToken::new("datatable-density-compact-padding-y", "var(--space-xs)"),
+    FamilyToken::new("datatable-density-compact-padding-x", "var(--space-sm)"),
+    FamilyToken::new("datatable-density-comfortable-padding-y", "var(--space-sm)"),
+    FamilyToken::new("datatable-density-comfortable-padding-x", "var(--space-md)"),
+    FamilyToken::new("datatable-density-spacious-padding-y", "var(--space-md)"),
+    FamilyToken::new("datatable-density-spacious-padding-x", "var(--space-lg)"),
 ];
