@@ -8,15 +8,16 @@ use leptos::prelude::*;
 pub fn LoadingOverlayPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] loading: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-loading-overlay=""
-            attr:aria-busy={if loading { "true" } else { "false" }}
-            class={class}
-            id={id}
+            data-loading={if loading { "true" } else { "false" }}
+            aria-busy={if loading { "true" } else { "false" }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>

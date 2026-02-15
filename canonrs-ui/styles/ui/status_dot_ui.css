@@ -10,26 +10,26 @@
   border-radius: var(--status-dot-radius);
 }
 
-/* Presence States → Semantic Color Mapping */
+/* Presence States → Token Mapping */
 [data-status-dot][data-variant="online"] {
-  background: var(--color-success);
+  background: var(--status-dot-bg-online);
   animation: status-dot-pulse var(--motion-duration-slow) var(--motion-ease-standard) infinite;
 }
 
 [data-status-dot][data-variant="offline"] {
-  background: var(--color-muted);
+  background: var(--status-dot-bg-offline);
 }
 
 [data-status-dot][data-variant="away"] {
-  background: var(--color-warning);
+  background: var(--status-dot-bg-away);
 }
 
 [data-status-dot][data-variant="busy"] {
-  background: var(--color-destructive);
+  background: var(--status-dot-bg-busy);
 }
 
-[data-status-dot][data-variant="donotdisturb"] {
-  background: var(--color-destructive);
+[data-status-dot][data-variant="do-not-disturb"] {
+  background: var(--status-dot-bg-donotdisturb);
 }
 
 /* Pulse Animation (only for online) */

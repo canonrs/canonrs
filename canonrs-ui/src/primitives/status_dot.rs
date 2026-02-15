@@ -1,6 +1,12 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! StatusDot Primitive - User presence indicator
+//! 
+//! StatusDot Primitive - User Presence Indicator
+//! 
+//! Domain: User presence/availability ONLY
+//! NOT semantic feedback (success/error/warning)
+//! Use Badge for semantic states
+//! Use InlineNotice for feedback states
 
 use leptos::prelude::*;
 
@@ -21,7 +27,7 @@ impl StatusDotVariant {
             Self::Offline => "offline",
             Self::Away => "away",
             Self::Busy => "busy",
-            Self::DoNotDisturb => "donotdisturb",
+            Self::DoNotDisturb => "do-not-disturb",
         }
     }
 }
@@ -30,7 +36,6 @@ impl StatusDotVariant {
 pub fn StatusDotPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = StatusDotVariant::Offline)] variant: StatusDotVariant,
-    #[prop(into, default = String::new())] aria_label: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
@@ -38,8 +43,7 @@ pub fn StatusDotPrimitive(
         <span
             data-status-dot=""
             data-variant={variant.as_str()}
-            role="img"
-            aria-label=aria_label
+            aria-hidden="true"
             class=class
             id=id
         >

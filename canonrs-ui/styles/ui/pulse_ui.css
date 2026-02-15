@@ -1,17 +1,49 @@
 /* ============================================
    PULSE
-   Family E: Feedback & Status
+   Family E: Motion Indicator (Enterprise Elite)
    ============================================ */
 
 [data-pulse] {
   position: relative;
   display: inline-flex;
-  width: var(--pulse-size);
-  height: var(--pulse-size);
   border-radius: var(--pulse-radius);
-  background: var(--pulse-bg);
+  --pulse-duration: var(--pulse-duration-normal); /* Fallback default */
 }
 
+/* Sizes */
+[data-pulse][data-size="small"] {
+  width: var(--pulse-size-small);
+  height: var(--pulse-size-small);
+}
+
+[data-pulse][data-size="medium"] {
+  width: var(--pulse-size);
+  height: var(--pulse-size);
+}
+
+[data-pulse][data-size="large"] {
+  width: var(--pulse-size-large);
+  height: var(--pulse-size-large);
+}
+
+/* Variants - Base solid (no opacity modulation) */
+[data-pulse][data-variant="subtle"] {
+  background: var(--pulse-bg-subtle);
+  --pulse-scale: var(--pulse-scale-subtle);
+}
+
+[data-pulse][data-variant="default"] {
+  background: var(--pulse-bg-default);
+  --pulse-scale: var(--pulse-scale-default);
+}
+
+[data-pulse][data-variant="emphasized"] {
+  background: var(--pulse-bg-emphasized);
+  box-shadow: var(--pulse-shadow-emphasized) var(--pulse-shadow-color-emphasized);
+  --pulse-scale: var(--pulse-scale-emphasized);
+}
+
+/* Ripple rings - inherit background, animate independently */
 [data-pulse]::before,
 [data-pulse]::after {
   content: "";
@@ -19,14 +51,30 @@
   inset: 0;
   border-radius: inherit;
   background: inherit;
-  animation: pulse-animation var(--pulse-duration) var(--pulse-ease) infinite;
+  animation: pulse-ripple var(--pulse-duration) var(--pulse-ease) infinite;
+  pointer-events: none;
 }
 
+/* Second ring delayed */
 [data-pulse]::after {
   animation-delay: var(--pulse-delay);
 }
 
-@keyframes pulse-animation {
+/* Speed control - override default duration */
+[data-pulse][data-speed="slow"] {
+  --pulse-duration: var(--pulse-duration-slow);
+}
+
+[data-pulse][data-speed="normal"] {
+  --pulse-duration: var(--pulse-duration-normal);
+}
+
+[data-pulse][data-speed="fast"] {
+  --pulse-duration: var(--pulse-duration-fast);
+}
+
+/* Single keyframe - uses variant-specific scale */
+@keyframes pulse-ripple {
   0% {
     transform: scale(1);
     opacity: 1;

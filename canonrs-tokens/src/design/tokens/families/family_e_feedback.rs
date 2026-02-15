@@ -242,4 +242,50 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("spinner-rotation-easing", "var(--motion-ease-linear)"),
     FamilyToken::new("spinner-opacity-paused", "0.5"),
 
+
+    // Pulse
+    FamilyToken::new("pulse-size", "var(--space-sm)"),
+    FamilyToken::new("pulse-delay", "calc(var(--motion-duration-slow) / 2)"),
+    FamilyToken::new("pulse-size-small", "var(--space-xs)"),
+    FamilyToken::new("pulse-size-large", "var(--space-md)"),
+    FamilyToken::new("pulse-bg-subtle", "var(--theme-action-secondary-bg)"),
+    FamilyToken::new("pulse-bg-emphasized", "var(--theme-action-primary-bg)"),
+
+    // LoadingOverlay
+    FamilyToken::new("loading-overlay-z-index", "var(--layer-overlay)"),
+    FamilyToken::new("loading-overlay-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("loading-overlay-opacity", "0.8"),
+    FamilyToken::new("loading-overlay-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("loading-overlay-transition-ease", "var(--motion-ease-standard)"),
+
+    // Pulse - Motion Indicator with Visual Hierarchy
+    FamilyToken::new("pulse-size", "var(--space-sm)"),
+    FamilyToken::new("pulse-delay", "calc(var(--motion-duration-slow) / 2)"),
+
+    // Pulse - Motion Indicator (Enterprise)
+    FamilyToken::new("pulse-size", "var(--space-sm)"),
+    FamilyToken::new("pulse-size-small", "var(--space-xs)"),
+    FamilyToken::new("pulse-size-large", "var(--space-md)"),
+    FamilyToken::new("pulse-radius", "var(--radius-full)"),
+    
+    // Variants - Base colors (no opacity modulation)
+    FamilyToken::new("pulse-bg-subtle", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("pulse-bg-default", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("pulse-bg-emphasized", "var(--color-success)"),
+    
+    // Variants - Ripple scales
+    FamilyToken::new("pulse-scale-subtle", "1.3"),
+    FamilyToken::new("pulse-scale-default", "1.5"),
+    FamilyToken::new("pulse-scale-emphasized", "1.8"),
+    
+    // Emphasized - Glow effect (pre-calculated)
+    FamilyToken::new("pulse-shadow-emphasized", "0 0 8px 2px"),
+    FamilyToken::new("pulse-shadow-color-emphasized", "hsl(142 71% 45% / 0.4)"),
+    
+    // Motion tokens (Family I)
+    FamilyToken::new("pulse-duration-slow", "var(--motion-duration-deliberate)"),
+    FamilyToken::new("pulse-duration-normal", "var(--motion-duration-slow)"),
+    FamilyToken::new("pulse-duration-fast", "var(--motion-duration-fast)"),
+    FamilyToken::new("pulse-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("pulse-delay", "calc(var(--motion-duration-slow) / 2)"),
 ];
