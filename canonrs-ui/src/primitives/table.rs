@@ -5,6 +5,19 @@
 use leptos::prelude::*;
 
 #[component]
+pub fn TableWrapperPrimitive(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: String,
+) -> impl IntoView {
+    view! {
+        <div data-table-wrapper="" class=class id=id>
+            {children.map(|c| c())}
+        </div>
+    }
+}
+
+#[component]
 pub fn TablePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] striped: bool,

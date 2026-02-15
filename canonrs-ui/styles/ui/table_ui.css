@@ -3,12 +3,15 @@
    Family F: Data Display - Enterprise Foundation
    ============================================ */
 
+[data-table-wrapper] {
+  width: 100%;
+  overflow-x: auto;
+}
+
 [data-table] {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  display: block;
-  overflow-x: auto;
 }
 
 [data-table-header] {

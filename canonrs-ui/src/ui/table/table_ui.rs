@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use crate::primitives::{
+    TableWrapperPrimitive,
     TablePrimitive,
     TableHeaderPrimitive,
     TableBodyPrimitive,
@@ -18,9 +19,11 @@ pub fn Table(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TablePrimitive striped=striped class=class id=id>
-            {children.map(|c| c())}
-        </TablePrimitive>
+        <TableWrapperPrimitive class=class id=id>
+            <TablePrimitive striped=striped>
+                {children.map(|c| c())}
+            </TablePrimitive>
+        </TableWrapperPrimitive>
     }
 }
 
