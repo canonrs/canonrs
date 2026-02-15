@@ -54,33 +54,34 @@ pub fn MarkdownSurface(
                 </MarkdownToolbarPrimitive>
             })}
 
-            {has_toc.then(|| {
-                let toc_id = toc_id.clone();
-                let items = rendered.get_value().toc.clone();
-                view! {
-                    <MarkdownTocPrimitive state="open">
-                        <ul data-toc-list="">
-                            {items.into_iter().map(|item| {
-                                let href = format!("#{}", item.id);
-                                view! {
-                                    <MarkdownTocItemPrimitive
-                                        href=href
-                                        text=item.text
-                                        level=item.level
-                                    />
-                                }
-                            }).collect::<Vec<_>>()}
-                        </ul>
-                    </MarkdownTocPrimitive>
-                }
-            })}
+            <div data-md-layout="">
+                {has_toc.then(|| {
+                    let items = rendered.get_value().toc.clone();
+                    view! {
+                        <MarkdownTocPrimitive state="closed">
+                            <ul data-toc-list="">
+                                {items.into_iter().map(|item| {
+                                    let href = format!("#{}", item.id);
+                                    view! {
+                                        <MarkdownTocItemPrimitive
+                                            href=href
+                                            text=item.text
+                                            level=item.level
+                                        />
+                                    }
+                                }).collect::<Vec<_>>()}
+                            </ul>
+                        </MarkdownTocPrimitive>
+                    }
+                })}
 
-            <MarkdownContentPrimitive>
-                <div
-                    data-md-content=""
-                    inner_html={move || rendered.get_value().html}
-                ></div>
-            </MarkdownContentPrimitive>
+                <MarkdownContentPrimitive>
+                    <div
+                        data-md-content=""
+                        inner_html={move || rendered.get_value().html}
+                    ></div>
+                </MarkdownContentPrimitive>
+            </div>
         </MarkdownPrimitive>
     }
 }
