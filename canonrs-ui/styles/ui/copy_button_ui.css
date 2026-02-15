@@ -1,6 +1,6 @@
 /* ============================================
    COPY BUTTON
-   Family A: Actions + Family E: Feedback
+   Family F: Data Display
    ============================================ */
 
 [data-copy-button] {
@@ -12,10 +12,11 @@
   padding-inline: var(--button-padding-x);
   padding-block: var(--button-padding-y);
   border-radius: var(--button-radius);
+  border: none;
   background: var(--button-ghost-bg);
   color: var(--button-ghost-fg);
   cursor: pointer;
-  transition: 
+  transition:
     background var(--copy-button-transition-duration) var(--copy-button-transition-ease),
     color var(--copy-button-transition-duration) var(--copy-button-transition-ease);
 }
@@ -24,17 +25,35 @@
   background: var(--button-ghost-bg-hover);
 }
 
-[data-copy-button][data-copied="true"] {
+[data-copy-button][data-state="copied"] {
   background: var(--copy-button-copied-bg);
   color: var(--copy-button-copied-fg);
 }
 
-[data-copy-button-icon] {
+/* Icons */
+[data-copy-icon],
+[data-copied-icon] {
   width: var(--copy-button-icon-size);
   height: var(--copy-button-icon-size);
+  flex-shrink: 0;
+}
+
+[data-copy-icon] {
   color: var(--copy-button-icon-color);
 }
 
-[data-copy-button][data-copied="true"] [data-copy-button-icon] {
+[data-copy-button][data-state="copied"] [data-copy-icon] {
   color: var(--copy-button-icon-color-copied);
+}
+
+/* State: idle — show copy, hide copied */
+[data-copy-button][data-state="idle"] [data-copied-icon],
+[data-copy-button][data-state="idle"] [data-copied-text-label] {
+  display: none;
+}
+
+/* State: copied — show copied, hide copy */
+[data-copy-button][data-state="copied"] [data-copy-icon],
+[data-copy-button][data-state="copied"] [data-copy-text-label] {
+  display: none;
 }

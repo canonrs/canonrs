@@ -25,6 +25,7 @@ pub fn register_all_behaviors() {
     tooltip_behavior::register();
     tree_behavior::register();
     data_table_behavior::register();
+    copy_button_behavior::register();
 }
 pub fn init_canonrs_behaviors() {
     register_all_behaviors();

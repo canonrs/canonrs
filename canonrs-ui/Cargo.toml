@@ -36,6 +36,7 @@ serde_json = "1.0"
 
 # Content rendering
 pulldown-cmark = "0.12.2"
+syntect = { version = "5.2", default-features = false, features = ["default-syntaxes", "default-themes", "html", "regex-fancy"] }
 html-escape = "0.2"
 
 # WASM dependencies - OPTIONAL, only for hydrate feature
