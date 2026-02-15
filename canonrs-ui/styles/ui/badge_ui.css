@@ -35,9 +35,9 @@
   color: var(--badge-fg-warning);
 }
 
-[data-badge][data-variant="error"] {
-  background: var(--badge-bg-error);
-  color: var(--badge-fg-error);
+[data-badge][data-variant="destructive"] {
+  background: var(--badge-bg-destructive);
+  color: var(--badge-fg-destructive);
 }
 
 [data-badge][data-interactive="true"] {

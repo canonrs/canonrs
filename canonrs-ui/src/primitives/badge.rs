@@ -10,7 +10,7 @@ pub enum BadgeVariant {
     Primary,
     Success,
     Warning,
-    Error,
+    Destructive,
     Outline,
 }
 
@@ -21,7 +21,7 @@ impl BadgeVariant {
             BadgeVariant::Primary => "primary",
             BadgeVariant::Success => "success",
             BadgeVariant::Warning => "warning",
-            BadgeVariant::Error => "error",
+            BadgeVariant::Destructive => "destructive",
             BadgeVariant::Outline => "outline",
         }
     }

@@ -7,6 +7,17 @@ use crate::design::tokens::FamilyToken;
 pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     // Feedback foundation
     FamilyToken::new("feedback-color", "var(--theme-action-primary-bg)"),
+
+    // StatusDot - User Presence (NOT semantic feedback)
+    FamilyToken::new("status-dot-size", "var(--space-sm)"),
+    FamilyToken::new("status-dot-radius", "var(--radius-full)"),
+    FamilyToken::new("status-dot-bg-online", "var(--color-success)"),
+    FamilyToken::new("status-dot-bg-offline", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("status-dot-bg-away", "var(--color-warning)"),
+    FamilyToken::new("status-dot-bg-busy", "var(--theme-state-error-bg)"),
+    FamilyToken::new("status-dot-bg-do-not-disturb", "var(--theme-state-error-bg)"),
+
+    // StatusDot - User Presence (NOT semantic feedback)
     FamilyToken::new("feedback-transition-duration", "var(--motion-duration-normal)"),
     FamilyToken::new("feedback-radius", "var(--radius-lg)"),
 
@@ -90,12 +101,12 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("badge-bg-primary", "var(--theme-action-primary-bg)"),
     FamilyToken::new("badge-bg-success", "var(--theme-state-success-bg)"),
     FamilyToken::new("badge-bg-warning", "var(--theme-state-warning-bg)"),
-    FamilyToken::new("badge-bg-error", "var(--theme-state-error-bg)"),
+    FamilyToken::new("badge-bg-destructive", "var(--theme-state-error-bg)"),
     FamilyToken::new("badge-fg-default", "var(--theme-action-secondary-fg)"),
     FamilyToken::new("badge-fg-primary", "var(--theme-action-primary-fg)"),
     FamilyToken::new("badge-fg-success", "var(--theme-state-success-fg)"),
     FamilyToken::new("badge-fg-warning", "var(--theme-state-warning-fg)"),
-    FamilyToken::new("badge-fg-error", "var(--theme-state-error-fg)"),
+    FamilyToken::new("badge-fg-destructive", "var(--theme-state-error-fg)"),
     FamilyToken::new("badge-bg-outline", "transparent"),
     FamilyToken::new("badge-fg-outline", "var(--theme-text-primary)"),
     FamilyToken::new("badge-border-outline", "var(--theme-border-primary)"),
@@ -190,8 +201,6 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("error-state-actions-gap", "var(--space-sm)"),
 
     // Status Dot
-    FamilyToken::new("status-dot-size", "var(--space-sm)"),
-    FamilyToken::new("status-dot-bg-info", "var(--theme-state-info-bg)"),
 
     // Spinner
     FamilyToken::new("spinner-size", "var(--space-lg)"),
@@ -288,4 +297,14 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("pulse-duration-fast", "var(--motion-duration-fast)"),
     FamilyToken::new("pulse-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("pulse-delay", "calc(var(--motion-duration-slow) / 2)"),
+
+    // EmptyTable - Empty state for tables
+    FamilyToken::new("empty-table-padding", "var(--space-xl)"),
+    FamilyToken::new("empty-table-content-gap", "var(--space-sm)"),
+    FamilyToken::new("empty-table-title-font-size", "var(--font-size-lg)"),
+    FamilyToken::new("empty-table-title-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("empty-table-title-fg", "var(--theme-text-primary)"),
+    FamilyToken::new("empty-table-description-font-size", "var(--font-size-sm)"),
+    FamilyToken::new("empty-table-description-line-height", "var(--line-height-relaxed)"),
+    FamilyToken::new("empty-table-description-fg", "var(--theme-text-secondary)"),
 ];

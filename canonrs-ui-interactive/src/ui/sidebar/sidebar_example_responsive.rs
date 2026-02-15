@@ -116,7 +116,7 @@ pub fn SidebarResponsive() -> impl IntoView {
                             <SidebarMenuItem href="/tasks".to_string()>
                                 <span data-sidebar-icon>"✓"</span>
                                 <span data-sidebar-label>"Tasks"</span>
-                                <Badge variant=BadgeVariant::Error>"5"</Badge>
+                                <Badge variant=BadgeVariant::Destructive>"5"</Badge>
                             </SidebarMenuItem>
                             <SidebarSeparator />
                             <SidebarGroupLabel>"Settings"</SidebarGroupLabel>

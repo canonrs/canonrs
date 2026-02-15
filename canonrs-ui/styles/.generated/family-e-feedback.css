@@ -1,6 +1,13 @@
 /* family-e-feedback */
 [data-theme] {
   --feedback-color: var(--theme-action-primary-bg);
+  --status-dot-size: var(--space-sm);
+  --status-dot-radius: var(--radius-full);
+  --status-dot-bg-online: var(--color-success);
+  --status-dot-bg-offline: var(--theme-surface-fg-muted);
+  --status-dot-bg-away: var(--color-warning);
+  --status-dot-bg-busy: var(--theme-state-error-bg);
+  --status-dot-bg-do-not-disturb: var(--theme-state-error-bg);
   --feedback-transition-duration: var(--motion-duration-normal);
   --feedback-radius: var(--radius-lg);
   --alert-bg: var(--theme-surface-bg);
@@ -76,12 +83,12 @@
   --badge-bg-primary: var(--theme-action-primary-bg);
   --badge-bg-success: var(--theme-state-success-bg);
   --badge-bg-warning: var(--theme-state-warning-bg);
-  --badge-bg-error: var(--theme-state-error-bg);
+  --badge-bg-destructive: var(--theme-state-error-bg);
   --badge-fg-default: var(--theme-action-secondary-fg);
   --badge-fg-primary: var(--theme-action-primary-fg);
   --badge-fg-success: var(--theme-state-success-fg);
   --badge-fg-warning: var(--theme-state-warning-fg);
-  --badge-fg-error: var(--theme-state-error-fg);
+  --badge-fg-destructive: var(--theme-state-error-fg);
   --badge-bg-outline: transparent;
   --badge-fg-outline: var(--theme-text-primary);
   --badge-border-outline: var(--theme-border-primary);
@@ -164,8 +171,6 @@
   --error-state-description-fg: var(--theme-surface-fg-muted);
   --error-state-description-font-size: var(--font-size-sm);
   --error-state-actions-gap: var(--space-sm);
-  --status-dot-size: var(--space-sm);
-  --status-dot-bg-info: var(--theme-state-info-bg);
   --spinner-size: var(--space-lg);
   --spinner-border-width: 2px;
   --spinner-color: var(--theme-action-primary-bg);
@@ -228,4 +233,12 @@
   --pulse-duration-fast: var(--motion-duration-fast);
   --pulse-ease: var(--motion-ease-standard);
   --pulse-delay: calc(var(--motion-duration-slow) / 2);
+  --empty-table-padding: var(--space-xl);
+  --empty-table-content-gap: var(--space-sm);
+  --empty-table-title-font-size: var(--font-size-lg);
+  --empty-table-title-font-weight: var(--font-weight-semibold);
+  --empty-table-title-fg: var(--theme-text-primary);
+  --empty-table-description-font-size: var(--font-size-sm);
+  --empty-table-description-line-height: var(--line-height-relaxed);
+  --empty-table-description-fg: var(--theme-text-secondary);
 }

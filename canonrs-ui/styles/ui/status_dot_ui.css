@@ -29,7 +29,7 @@
 }
 
 [data-status-dot][data-variant="do-not-disturb"] {
-  background: var(--status-dot-bg-donotdisturb);
+  background: var(--status-dot-bg-do-not-disturb);
 }
 
 /* Pulse Animation (only for online) */

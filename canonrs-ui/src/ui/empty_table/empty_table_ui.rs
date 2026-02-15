@@ -1,7 +1,12 @@
 //! EmptyTable UI Component
-//! Padronização de estados vazios em tabelas
+//! Empty state for tables (Family E: Feedback)
 
 use leptos::prelude::*;
+use crate::primitives::{
+    EmptyTablePrimitive,
+    EmptyTableTitlePrimitive,
+    EmptyTableDescriptionPrimitive,
+};
 
 #[component]
 pub fn EmptyTable(
@@ -13,14 +18,10 @@ pub fn EmptyTable(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <tr data-empty-table-row="" class=class id=id>
-            <td colspan=colspan>
-                <div data-empty-table-content="">
-                    <div data-empty-table-title="">{title}</div>
-                    <div data-empty-table-description="">{description}</div>
-                    {children.map(|c| c())}
-                </div>
-            </td>
-        </tr>
+        <EmptyTablePrimitive colspan=colspan class=class id=id>
+            <EmptyTableTitlePrimitive>{title}</EmptyTableTitlePrimitive>
+            <EmptyTableDescriptionPrimitive>{description}</EmptyTableDescriptionPrimitive>
+            {children.map(|c| c())}
+        </EmptyTablePrimitive>
     }
 }

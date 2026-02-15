@@ -8,7 +8,7 @@ pub fn basic_example() -> impl IntoView {
             <Badge variant=BadgeVariant::Primary>"Primary"</Badge>
             <Badge variant=BadgeVariant::Success>"Success"</Badge>
             <Badge variant=BadgeVariant::Warning>"Warning"</Badge>
-            <Badge variant=BadgeVariant::Error>"Error"</Badge>
+            <Badge variant=BadgeVariant::Destructive>"Destructive"</Badge>
             <Badge variant=BadgeVariant::Outline>"Outline"</Badge>
             <Badge variant=BadgeVariant::Primary interactive=true>"Interactive"</Badge>
         </div>

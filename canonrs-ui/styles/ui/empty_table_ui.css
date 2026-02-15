@@ -1,35 +1,29 @@
 /* ============================================
    EMPTY TABLE
-   Family B: Data Display + Empty State
-   NOTE: Reuses empty.state.* tokens
+   Family E: Feedback - Empty State for Tables
    ============================================ */
 
-[data-empty-table] {
+[data-empty-table-row] {
+  /* Row is just structural, no special styling */
+}
+
+[data-empty-table-content] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: var(--empty-table-padding-y);
+  gap: var(--empty-table-content-gap);
+  padding: var(--empty-table-padding);
+  text-align: center;
 }
 
-[data-empty-table] [data-empty-state-icon] {
-  width: var(--empty-state-icon-size);
-  height: var(--empty-state-icon-size);
-  color: var(--empty-state-icon-color);
+[data-empty-table-title] {
+  font-size: var(--empty-table-title-font-size);
+  font-weight: var(--empty-table-title-font-weight);
+  color: var(--empty-table-title-fg);
 }
 
-[data-empty-table] [data-empty-state-title] {
-  font-size: var(--empty-state-title-font-size);
-  font-weight: var(--empty-state-title-font-weight);
-  color: var(--empty-state-title-fg);
-}
-
-[data-empty-table] [data-empty-state-description] {
-  font-size: var(--empty-state-description-font-size);
-  line-height: var(--empty-state-description-line-height);
-  color: var(--empty-state-description-fg);
-}
-
-[data-empty-table-actions] {
-  display: flex;
-  gap: var(--empty-state-actions-gap);
+[data-empty-table-description] {
+  font-size: var(--empty-table-description-font-size);
+  line-height: var(--empty-table-description-line-height);
+  color: var(--empty-table-description-fg);
 }

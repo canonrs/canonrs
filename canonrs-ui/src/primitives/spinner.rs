@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Spinner Primitive - SVG puro
+//! Spinner Primitive - Loading indicator
 
 use leptos::prelude::*;
 
@@ -27,7 +27,7 @@ pub fn SpinnerPrimitive(
     #[prop(default = SpinnerSize::Medium)] size: SpinnerSize,
     #[prop(default = false)] paused: bool,
     #[prop(into, default = "Loading".to_string())] aria_label: String,
-    #[prop(into, default = String::new())] style: String,
+    #[prop(into, optional)] style: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
@@ -40,8 +40,6 @@ pub fn SpinnerPrimitive(
             aria-label=aria_label
             aria-busy="true"
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
