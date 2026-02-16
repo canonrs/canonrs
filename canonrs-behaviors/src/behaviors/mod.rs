@@ -24,6 +24,7 @@ pub mod context_menu_behavior;
 pub mod copy_button_behavior;
 pub mod markdown_behavior;
 pub mod toc_behavior;
+pub mod doc_progress_behavior;
 #[cfg(feature = "hydrate")]
 #[cfg(feature = "hydrate")]
 pub mod dialog_behavior;

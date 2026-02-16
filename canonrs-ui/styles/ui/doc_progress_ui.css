@@ -1,0 +1,27 @@
+/* =============================================================================
+   DocProgress UI - Reading Progress Indicator
+   Family D: Navigation
+   ============================================================================= */
+
+[data-doc-progress] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--doc-progress-height);
+  background: var(--doc-progress-bg);
+  z-index: var(--doc-progress-z-index);
+  overflow: hidden;
+}
+
+[data-doc-progress-bar] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--doc-progress-bar-bg);
+  width: 0%;
+  transition: var(--doc-progress-transition);
+  transform-origin: left;
+  will-change: width;
+}

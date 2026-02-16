@@ -257,4 +257,10 @@ pub const FAMILY_D_NAVIGATION: &[FamilyToken] = &[
     FamilyToken::new("page-header-actions-gap", "var(--space-sm)"),
     FamilyToken::new("page-header-tabs-margin-top", "var(--space-sm)"),
 
-    ];
+        // ── DocProgress (Reading progress indicator) ─────────────────────────────
+    FamilyToken::new("doc-progress-height",     "3px"),
+    FamilyToken::new("doc-progress-bg",         "var(--theme-surface-border-muted)"),
+    FamilyToken::new("doc-progress-bar-bg",     "var(--theme-action-primary-bg)"),
+    FamilyToken::new("doc-progress-z-index",    "1000"),
+    FamilyToken::new("doc-progress-transition", "width var(--motion-duration-normal) var(--motion-ease-standard)"),
+];

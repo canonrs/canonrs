@@ -206,4 +206,9 @@
   --page-header-description-fg: var(--theme-surface-fg-muted);
   --page-header-actions-gap: var(--space-sm);
   --page-header-tabs-margin-top: var(--space-sm);
+  --doc-progress-height: 3px;
+  --doc-progress-bg: var(--theme-surface-border-muted);
+  --doc-progress-bar-bg: var(--theme-action-primary-bg);
+  --doc-progress-z-index: 1000;
+  --doc-progress-transition: width var(--motion-duration-normal) var(--motion-ease-standard);
 }

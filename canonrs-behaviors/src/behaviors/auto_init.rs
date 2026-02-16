@@ -28,6 +28,7 @@ pub fn register_all_behaviors() {
     copy_button_behavior::register();
     markdown_behavior::register();
 toc_behavior::register();
+    doc_progress_behavior::register();
 }
 pub fn init_canonrs_behaviors() {
     register_all_behaviors();

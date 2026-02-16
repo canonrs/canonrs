@@ -8,6 +8,7 @@ pub mod status_variant;
 pub use status_variant::StatusVariant;
 
 pub mod toc_types;
+pub mod navigation_context;
 pub use toc_types::TocItem;
 
 pub mod behavior_error;

@@ -67,6 +67,8 @@ pub mod status_dot;
 pub mod switch;
 pub mod table;
 pub mod tabs;
+pub mod table_of_contents;
+pub mod doc_progress;
 pub mod textarea;
 pub mod toast;
 pub mod toggle;

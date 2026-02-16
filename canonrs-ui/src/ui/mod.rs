@@ -135,3 +135,5 @@ pub mod separator;
 pub use separator::*;
 pub mod aspect_ratio;
 pub use aspect_ratio::*;
+pub mod doc_progress;
+pub use doc_progress::DocProgress;

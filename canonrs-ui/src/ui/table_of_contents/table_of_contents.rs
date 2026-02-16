@@ -1,16 +1,17 @@
-//! TableOfContents - Enterprise standalone component
+//! TableOfContents UI - Enterprise component using primitives
 //! 3 modes: simple | expand | nested
 //! SSR-safe, behavior-driven scroll-spy
 
 use leptos::prelude::*;
 use canonrs_shared::TocItem;
+use crate::primitives::table_of_contents::*;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub enum TocMode {
     #[default]
-    Simple,    // flat list, scroll-spy only
-    Expand,    // flat list + auto-expand sub-levels on parent active
-    Nested,    // hierarchical tree, collapsible sub-levels
+    Simple,
+    Expand,
+    Nested,
 }
 
 impl TocMode {
@@ -34,19 +35,20 @@ pub fn TableOfContents(
     #[prop(into, default = "On this page".to_string())] title: String,
 ) -> impl IntoView {
     view! {
-        <nav
-            data-toc=""
-            data-toc-mode=mode.as_str()
+        <TocPrimitive
             id=id
             class=class
+            data_toc_mode=mode.as_str().to_string()
         >
-            <p data-toc-title="">{title}</p>
+            <TocTitlePrimitive>
+                {title}
+            </TocTitlePrimitive>
             {match mode {
                 TocMode::Simple  => render_simple(items).into_any(),
                 TocMode::Expand  => render_expand(items).into_any(),
                 TocMode::Nested  => render_nested(items).into_any(),
             }}
-        </nav>
+        </TocPrimitive>
     }
 }
 
@@ -54,22 +56,23 @@ pub fn TableOfContents(
 
 fn render_simple(items: Vec<TocItem>) -> impl IntoView {
     view! {
-        <ul data-toc-list="">
+        <TocListPrimitive>
             {items.into_iter().map(|item| {
                 view! {
-                    <li
-                        data-toc-item=""
-                        data-level=item.level.to_string()
-                        data-state="idle"
-                        data-target=item.id.clone()
+                    <TocItemPrimitive
+                        data_level=item.level.to_string()
+                        data_target=item.id.clone()
+                        data_state="idle".to_string()
+                        data_child="false".to_string()
+                        data_has_children="false".to_string()
                     >
-                        <a data-toc-link="" href=format!("#{}", item.id)>
+                        <TocLinkPrimitive href=format!("#{}", item.id)>
                             {item.text}
-                        </a>
-                    </li>
+                        </TocLinkPrimitive>
+                    </TocItemPrimitive>
                 }
             }).collect::<Vec<_>>()}
-        </ul>
+        </TocListPrimitive>
     }
 }
 
@@ -77,24 +80,24 @@ fn render_simple(items: Vec<TocItem>) -> impl IntoView {
 
 fn render_expand(items: Vec<TocItem>) -> impl IntoView {
     view! {
-        <ul data-toc-list="">
+        <TocListPrimitive>
             {items.into_iter().map(|item| {
                 let is_child = item.level > 2;
                 view! {
-                    <li
-                        data-toc-item=""
-                        data-level=item.level.to_string()
-                        data-state="idle"
-                        data-target=item.id.clone()
-                        data-child=if is_child { "true" } else { "false" }
+                    <TocItemPrimitive
+                        data_level=item.level.to_string()
+                        data_target=item.id.clone()
+                        data_state="idle".to_string()
+                        data_child=if is_child { "true".to_string() } else { "false".to_string() }
+                        data_has_children="false".to_string()
                     >
-                        <a data-toc-link="" href=format!("#{}", item.id)>
+                        <TocLinkPrimitive href=format!("#{}", item.id)>
                             {item.text}
-                        </a>
-                    </li>
+                        </TocLinkPrimitive>
+                    </TocItemPrimitive>
                 }
             }).collect::<Vec<_>>()}
-        </ul>
+        </TocListPrimitive>
     }
 }
 
@@ -103,9 +106,9 @@ fn render_expand(items: Vec<TocItem>) -> impl IntoView {
 fn render_nested(items: Vec<TocItem>) -> impl IntoView {
     let tree = build_tree(items);
     view! {
-        <ul data-toc-list="" data-toc-tree="">
+        <TocListPrimitive>
             {render_tree_nodes(tree)}
-        </ul>
+        </TocListPrimitive>
     }
 }
 
@@ -117,13 +120,12 @@ struct TocNode {
 
 fn build_tree(items: Vec<TocItem>) -> Vec<TocNode> {
     let mut roots: Vec<TocNode> = Vec::new();
-    let mut stack: Vec<(u8, usize)> = Vec::new(); // (level, index in roots/children)
+    let mut stack: Vec<(u8, usize)> = Vec::new();
 
     for item in items {
         let node = TocNode { item: item.clone(), children: Vec::new() };
         let level = item.level;
 
-        // Pop stack until we find a parent
         while stack.last().map(|(l, _)| *l >= level).unwrap_or(false) {
             stack.pop();
         }
@@ -132,7 +134,6 @@ fn build_tree(items: Vec<TocItem>) -> Vec<TocNode> {
             roots.push(node);
             stack.push((level, roots.len() - 1));
         } else {
-            // Navigate to parent and push child
             let path: Vec<usize> = stack.iter().map(|(_, i)| *i).collect();
             let parent = get_node_mut(&mut roots, &path);
             if let Some(p) = parent {
@@ -162,31 +163,25 @@ fn render_tree_nodes(nodes: Vec<TocNode>) -> Vec<AnyView> {
         let children = node.children;
 
         view! {
-            <li
-                data-toc-item=""
-                data-level=item.level.to_string()
-                data-state="idle"
-                data-target=item.id.clone()
-                attr:data-has-children={has_children.then(|| "true")}
+            <TocItemPrimitive
+                data_level=item.level.to_string()
+                data_target=item.id.clone()
+                data_state="idle".to_string()
+                data_child="false".to_string()
+                data_has_children=if has_children { "true".to_string() } else { "false".to_string() }
             >
                 {has_children.then(|| view! {
-                    <button
-                        type="button"
-                        data-toc-expand-btn=""
-                        aria-expanded="false"
-                    >
-                        "›"
-                    </button>
+                    <TocExpandButtonPrimitive aria_expanded="false".to_string() />
                 })}
-                <a data-toc-link="" href=format!("#{}", item.id)>
+                <TocLinkPrimitive href=format!("#{}", item.id)>
                     {item.text}
-                </a>
+                </TocLinkPrimitive>
                 {has_children.then(|| view! {
-                    <ul data-toc-subtree="" data-state="closed">
+                    <TocSubtreePrimitive data_state="closed".to_string()>
                         {render_tree_nodes(children)}
-                    </ul>
+                    </TocSubtreePrimitive>
                 })}
-            </li>
+            </TocItemPrimitive>
         }.into_any()
     }).collect()
 }

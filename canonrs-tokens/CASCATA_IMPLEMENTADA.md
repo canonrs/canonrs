@@ -14,19 +14,23 @@ Token Cascade canônica totalmente implementada com:
    ↓
 2. FOUNDATION     → Core tokens (--space-*, --radius-*)
    ↓
-3. FAMILIES       → Vocabulário componentes (--button-*, --field-*)
+3. THEMES         → Decisões visuais (--theme-surface-*, --theme-action-*)
    ↓
 4. SEMANTIC       → Bridge (--color-* → --theme-*)
    ↓
-5. THEMES         → Decisões visuais (--theme-surface-*, --theme-action-*)
+5. FAMILIES       → Vocabulário componentes (--button-*, --field-*)
    ↓
-6. BASE           → Ajustes manuais (globals.css)
+6. ROOT           → CSS vars root scope
    ↓
 7. VARIANTS       → Responsivo (size, density)
    ↓
 8. UI             → Componentes (.css)
    ↓
 9. BLOCKS         → Composições semânticas
+   ↓
+10. LAYOUTS       → Layout primitives
+   ↓
+11. GLOBALS       → Ajustes finais (base/globals.css)
 ```
 
 ## 🔒 VOCABULÁRIO NORMALIZADO
@@ -100,15 +104,23 @@ cd canonrs-tokens
 cargo run --bin tokens-engine
 ```
 
-### Execução
+### Execução (8 Steps)
 ```
-Step 1: Primitives     → primitives.css (200 tokens)
-Step 2: Foundation     → core.css (80 tokens)
-Step 3: Families       → family-*.css (11 arquivos)
-Step 4: Semantic       → semantic.css (60+ mappings)
-Step 5: Themes         → themes.css (3 temas normalizados)
-Step 6: Entry          → canonrs.css (ordem canônica)
-Step 7: Bundle         → canonrs.bundle.css (11242 linhas)
+Step 1: Primitives     → .generated/primitives.css (200 tokens HSL)
+Step 2: Foundation     → .generated/core.css (80 foundation tokens)
+Step 3: Families       → .generated/family-*.css (11 arquivos)
+Step 4: Semantic       → .generated/semantic.css (60+ mappings)
+Step 5: Themes         → .generated/themes.css (3 temas normalizados)
+Step 6: Root           → .generated/root.css (CSS root scope)
+Step 7: Entry          → styles/canonrs.css (ordem canônica com @imports)
+Step 8: Bundle         → styles/canonrs.bundle.css (tudo concatenado)
+```
+
+### Destinos
+```
+../canonrs-ui/styles/.generated/     → Arquivos individuais
+../canonrs-ui/styles/canonrs.css     → Entry point (usado pelos apps)
+../canonrs-ui/styles/canonrs.bundle.css → Bundle completo (opcional)
 ```
 
 ## 🚫 REGRAS INVIOLÁVEIS
@@ -141,10 +153,15 @@ FamilyToken::new("space-md", "1rem")  // Não-temático OK
 ```
 
 ## 📊 ARQUIVOS GERADOS
+
+### .generated/ (Gerados pelo tokens-engine)
 ```
 .generated/
 ├── primitives.css          200 tokens HSL puros
 ├── core.css                80 foundation tokens
+├── root.css                CSS root scope
+├── themes.css              3 temas normalizados
+├── semantic.css            60+ --color-* mappings
 ├── family-a-overlay.css    Overlays (dialog, popover)
 ├── family-b-selection.css  Selection (tabs, menu)
 ├── family-c-forms.css      Forms (button, input)
@@ -155,9 +172,71 @@ FamilyToken::new("space-md", "1rem")  // Não-temático OK
 ├── family-h-layout.css     Layout (grid, separator)
 ├── family-i-animation.css  Animation (motion tokens)
 ├── family-s-state.css      States (hover, focus)
-├── family-z-layers.css     Layers (z-index)
-├── semantic.css            60+ --color-* mappings
-└── themes.css              3 themes normalized
+└── family-z-layers.css     Layers (z-index)
+```
+
+### styles/ (Entry points)
+```
+styles/
+├── canonrs.css            Entry com @imports (USADO PELOS APPS)
+└── canonrs.bundle.css     Bundle concatenado (opcional)
+```
+
+## 📦 CONSUMO NOS APPS
+
+### 1. Import no CSS principal
+```css
+/* style/main.css */
+@import "canonrs.css";  /* ← Entry point do design system */
+@import "./site.css";   /* Custom styles do app */
+@import "tailwindcss";
+```
+
+### 2. PostCSS resolve o path
+```js
+// postcss.config.cjs
+module.exports = {
+  plugins: {
+    'postcss-import': {
+      path: [
+        path.resolve(__dirname, '../../packages-rust/rs-canonrs/canonrs-ui/styles')
+      ]
+    },
+    '@tailwindcss/postcss': {},
+    autoprefixer: {}
+  }
+};
+```
+
+### 3. Tailwind consome os tokens
+```js
+// tailwind.config.cjs
+module.exports = {
+  darkMode: "class",
+  corePlugins: {
+    preflight: false  // CanonRS controla o reset
+  },
+  theme: {
+    extend: {
+      colors: {
+        background: "hsl(var(--color-background))",
+        foreground: "hsl(var(--color-foreground))",
+        primary: "hsl(var(--color-primary))",
+        muted: "hsl(var(--color-muted))"
+      }
+    }
+  }
+};
+```
+
+### 4. Build flow
+```
+1. PostCSS lê main.css
+2. Resolve @import "canonrs.css"
+3. canonrs.css importa 11 layers via @import
+4. PostCSS concatena tudo
+5. Tailwind injeta utilities
+6. Output final em output.css
 ```
 
 ## 🎯 RESULTADO
@@ -177,6 +256,9 @@ FamilyToken::new("space-md", "1rem")  // Não-temático OK
 ✅ Core: apenas foundation
 ✅ Fluxo unidirecional
 ✅ Vocabulário normalizado
+✅ Consumo via canonrs.css entry
+✅ PostCSS resolve imports
+✅ Tailwind consome tokens
 ```
 
 ## 🧠 BENEFÍCIOS ARQUITETURAIS
@@ -186,6 +268,8 @@ FamilyToken::new("space-md", "1rem")  // Não-temático OK
 3. **Temas substituíveis** - Trocar theme não quebra nada
 4. **Auditável** - Cada token rastreável até primitives
 5. **Type-safe** - Gerado de Rust (futuro: validação compile-time)
+6. **Single source of truth** - Um único import nos apps
+7. **Build-time resolution** - PostCSS concatena no build
 
 ## 📝 PRÓXIMOS PASSOS (OPCIONAL)
 
