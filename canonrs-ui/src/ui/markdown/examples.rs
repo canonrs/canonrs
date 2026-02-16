@@ -1,37 +1,135 @@
 use leptos::prelude::*;
-use super::markdown_ui::MarkdownSurface;
+use super::markdown_ui::{MarkdownSurface, TocPosition};
 use super::renderer::render_markdown;
 
-pub fn basic_example() -> impl IntoView {
-    let markdown = r#"
-# CanonRS Markdown
+fn enterprise_markdown() -> &'static str {
+    r#"
+# CanonRS Framework
 
-Este é um exemplo de **Markdown** renderizado server-side com `syntect`.
+CanonRS is an enterprise-grade UI framework built with **Rust** and **Leptos**.
+SSR-first, behavior-driven, and 100% token-based.
 
-## Código
+## Getting Started
+
+Add CanonRS to your project and configure the build pipeline.
+
+### Installation
+
+Add the dependency to your `Cargo.toml`:
+```toml
+[dependencies]
+canonrs = { path = "../canonrs" }
+```
+
+### Configuration
+
+Configure your workspace profiles for optimized WASM builds:
+```toml
+[profile.wasm-release]
+inherits = "release"
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+```
+
+#### Environment Variables
+
+Set up your development environment:
+```bash
+export LEPTOS_ENV=DEV
+export LEPTOS_SITE_ADDR=0.0.0.0:3000
+```
+
+## Architecture
+
+CanonRS follows a strict separation of concerns across 4 layers.
+
+### Core Concepts
+
+Every component is built from the same 4 primitives.
+
+#### Primitives
+
+Pure HTML with `data-*` attributes. Zero logic, zero state.
 ```rust
-fn main() {
-    println!("Hello, CanonRS!");
+#[component]
+pub fn ButtonPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! {
+        <button data-button="" type="button">
+            {children()}
+        </button>
+    }
 }
 ```
 
-## Lista
+#### Behaviors
 
-- Item 1
-- Item 2
-- Item 3
+Client-side JS that attaches after hydration via `IntersectionObserver` and DOM events.
 
-## Tabela
+#### Design Tokens
 
-| Nome | Valor |
-|------|-------|
-| A    | 1     |
-| B    | 2     |
-"#;
+CSS custom properties generated from Rust token definitions at compile time.
 
-    let rendered = render_markdown(markdown);
+#### SSR Pipeline
+```
+Request
+  → Server renders HTML
+  → Tokens applied via CSS
+  → Behaviors hydrate
+  → Zero layout shift
+```
 
+## API Reference
+
+Complete component documentation with examples.
+
+### Components
+
+All components follow the Canon pattern: primitive → UI → behavior.
+
+#### DataTable
+
+Enterprise data grid with sort, filter, pagination, and density controls.
+
+#### CodeBlock
+
+SSR syntax highlighting via syntect. Copy button via behavior.
+
+#### Markdown
+
+This very component. SSR rendering with TOC extraction and scroll-spy.
+
+## Contributing
+
+We welcome contributions. Please read the architecture guide first.
+"#
+}
+
+pub fn basic_example() -> impl IntoView {
+    let rendered = render_markdown(enterprise_markdown());
     view! {
-        <MarkdownSurface rendered=rendered />
+        <MarkdownSurface
+            rendered=rendered
+            show_toc=true
+            show_toolbar=true
+            toc_position=TocPosition::Top
+            id="markdown-top-example"
+        />
+    }
+}
+
+pub fn sidebar_example() -> impl IntoView {
+    let rendered = render_markdown(enterprise_markdown());
+    view! {
+        <MarkdownSurface
+            rendered=rendered
+            show_toc=true
+            show_toolbar=false
+            toc_position=TocPosition::Sidebar
+            id="markdown-sidebar-example"
+        />
     }
 }

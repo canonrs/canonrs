@@ -246,3 +246,25 @@
 [data-markdown] [data-code-block] {
   margin-bottom: var(--space-lg);
 }
+
+/* ── Layout ──────────────────────────────────────────────────────────────────── */
+
+[data-md-layout] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+[data-markdown][data-toc-position="sidebar"] [data-md-layout] {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+[data-md-toc-sidebar] {
+  position: sticky;
+  top: var(--space-xl);
+  max-height: calc(100vh - var(--space-3xl));
+  overflow-y: auto;
+}
