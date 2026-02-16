@@ -294,3 +294,58 @@ html { scroll-behavior: smooth; }
   color: var(--theme-surface-fg-muted);
   margin-bottom: var(--space-sm);
 }
+
+/* Markdown Toolbar */
+[data-markdown-toolbar] {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: var(--theme-surface-elevated);
+  border-bottom: 1px solid var(--theme-surface-border);
+}
+
+[data-toolbar-toggle] {
+  padding: var(--space-2) var(--space-4);
+  background: var(--theme-surface-bg);
+  border: 1px solid var(--theme-surface-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--motion-duration-fast);
+  font-size: var(--font-size-3);
+}
+
+[data-toolbar-toggle]:hover {
+  background: var(--theme-surface-elevated);
+}
+
+[data-toolbar-toggle][data-active="false"] {
+  opacity: 0.5;
+}
+
+/* Hide TOC when toggled */
+[data-hide-toc="true"] aside[data-md-toc-sidebar] {
+  display: none;
+}
+
+
+/* Line Numbers via CSS */
+[data-show-line-numbers="true"] [data-md-content] pre {
+  padding-left: 4em;
+  background-image: 
+    linear-gradient(to bottom, var(--theme-surface-border) 1px, transparent 1px);
+  background-size: 100% 1.5em;
+  background-position: 0 0;
+  counter-reset: line;
+  position: relative;
+}
+
+[data-show-line-numbers="true"] [data-md-content] pre::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3.5em;
+  height: 100%;
+  background: var(--theme-surface-muted);
+  border-right: 1px solid var(--theme-surface-border);
+}
