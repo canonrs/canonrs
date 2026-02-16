@@ -23,6 +23,7 @@ pub mod context_menu_behavior;
 #[cfg(feature = "hydrate")]
 pub mod copy_button_behavior;
 pub mod markdown_behavior;
+pub mod toc_behavior;
 #[cfg(feature = "hydrate")]
 #[cfg(feature = "hydrate")]
 pub mod dialog_behavior;

@@ -99,21 +99,67 @@ pub const FAMILY_D_NAVIGATION: &[FamilyToken] = &[
     FamilyToken::new("pagination-item-transition-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("pagination-ellipsis-fg", "var(--theme-surface-fg-muted)"),
 
-    // Table of Contents
-    FamilyToken::new("toc-width", "var(--layout-width-toc)"),
-    FamilyToken::new("toc-bg", "transparent"),
-    FamilyToken::new("toc-gap", "var(--space-sm)"),
-    FamilyToken::new("toc-title-fg", "var(--theme-surface-fg)"),
-    FamilyToken::new("toc-title-font-size", "var(--font-size-sm)"),
-    FamilyToken::new("toc-title-font-weight", "var(--font-weight-semibold)"),
-    FamilyToken::new("toc-item-fg", "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("toc-item-fg-hover", "var(--theme-surface-fg)"),
-    FamilyToken::new("toc-item-active-fg", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("toc-item-font-size", "var(--font-size-sm)"),
-    FamilyToken::new("toc-item-indent-step", "var(--space-md)"),
-    FamilyToken::new("toc-button-padding-x", "var(--space-sm)"),
-    FamilyToken::new("toc-button-padding-y", "var(--space-sm)"),
-    FamilyToken::new("toc-button-radius", "var(--radius-sm)"),
+    // ── Table of Contents ─────────────────────────────────────────────────────
+    FamilyToken::new("toc-width",                    "var(--layout-width-toc)"),
+    FamilyToken::new("toc-bg",                       "transparent"),
+    FamilyToken::new("toc-gap",                      "var(--space-xs)"),
+
+    // TOC Title
+    FamilyToken::new("toc-title-fg",                 "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("toc-title-font-size",          "var(--font-size-xs)"),
+    FamilyToken::new("toc-title-font-weight",        "var(--font-weight-bold)"),
+    FamilyToken::new("toc-title-letter-spacing",     "0.06em"),
+
+    // TOC Link
+    FamilyToken::new("toc-link-fg",                  "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("toc-link-fg-hover",            "var(--theme-surface-fg)"),
+    FamilyToken::new("toc-link-bg-hover",            "var(--theme-surface-muted)"),
+    FamilyToken::new("toc-link-font-size",           "var(--font-size-sm)"),
+    FamilyToken::new("toc-link-padding-x",           "var(--space-sm)"),
+    FamilyToken::new("toc-link-padding-y",           "var(--space-xs)"),
+    FamilyToken::new("toc-link-radius",              "var(--radius-sm)"),
+    FamilyToken::new("toc-link-border-width",        "2px"),
+
+    // TOC Active State
+    FamilyToken::new("toc-link-fg-active",           "var(--theme-action-primary-bg)"),
+    FamilyToken::new("toc-link-bg-active",           "var(--theme-surface-muted)"),
+    FamilyToken::new("toc-link-border-active",       "var(--theme-action-primary-bg)"),
+    FamilyToken::new("toc-link-font-weight-active",  "var(--font-weight-semibold)"),
+
+    // TOC Indentation
+    FamilyToken::new("toc-indent-l3",                "var(--space-md)"),
+    FamilyToken::new("toc-indent-l4",                "var(--space-lg)"),
+    FamilyToken::new("toc-indent-l5",                "var(--space-xl)"),
+
+    // TOC Expand Button (mode: nested)
+    FamilyToken::new("toc-expand-btn-size",          "var(--space-md)"),
+    FamilyToken::new("toc-expand-btn-fg",            "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("toc-expand-btn-radius",        "var(--radius-sm)"),
+
+    // TOC Subtree (mode: nested)
+    FamilyToken::new("toc-subtree-transition-duration", "var(--motion-duration-normal)"),
+    FamilyToken::new("toc-subtree-transition-ease",     "var(--motion-ease-standard)"),
+
+    // TOC Child visibility (mode: expand)
+    FamilyToken::new("toc-child-transition-duration", "var(--motion-duration-normal)"),
+    FamilyToken::new("toc-child-transition-ease",     "var(--motion-ease-standard)"),
+
+    // TOC Sticky Sidebar
+    FamilyToken::new("toc-sticky-top",               "var(--space-xl)"),
+    FamilyToken::new("toc-sticky-padding",           "var(--space-md)"),
+    FamilyToken::new("toc-sticky-border-color",      "var(--theme-surface-border-muted)"),
+    FamilyToken::new("toc-sticky-border-radius",     "var(--radius-md)"),
+    FamilyToken::new("toc-sticky-bg",                "var(--theme-surface-bg)"),
+
+    // TOC legacy (kept for compat)
+    FamilyToken::new("toc-item-fg",                  "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("toc-item-fg-hover",            "var(--theme-surface-fg)"),
+    FamilyToken::new("toc-item-active-fg",           "var(--theme-action-primary-bg)"),
+    FamilyToken::new("toc-item-font-size",           "var(--font-size-sm)"),
+    FamilyToken::new("toc-item-indent-step",         "var(--space-md)"),
+    FamilyToken::new("toc-button-padding-x",         "var(--space-sm)"),
+    FamilyToken::new("toc-button-padding-y",         "var(--space-sm)"),
+    FamilyToken::new("toc-button-radius",            "var(--radius-sm)"),
 
     // Tabs
     FamilyToken::new("tabs-gap", "var(--space-sm)"),
