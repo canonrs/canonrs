@@ -76,7 +76,6 @@ fn render_simple(items: Vec<TocItem>) -> impl IntoView {
 // ── Mode 2: Expand ────────────────────────────────────────────────────────────
 
 fn render_expand(items: Vec<TocItem>) -> impl IntoView {
-    // Group items — children (level > 2) start collapsed, expand when parent active
     view! {
         <ul data-toc-list="">
             {items.into_iter().map(|item| {
@@ -87,7 +86,7 @@ fn render_expand(items: Vec<TocItem>) -> impl IntoView {
                         data-level=item.level.to_string()
                         data-state="idle"
                         data-target=item.id.clone()
-                        attr:data-child={is_child.then(|| "true")}
+                        data-child=if is_child { "true" } else { "false" }
                     >
                         <a data-toc-link="" href=format!("#{}", item.id)>
                             {item.text}

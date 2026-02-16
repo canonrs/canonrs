@@ -168,3 +168,26 @@
   border-radius: var(--radius-md);
   background: var(--theme-surface-bg);
 }
+
+/* ── Ancestor State ──────────────────────────────────────────────────────────── */
+
+[data-toc-item][data-state="ancestor"] > [data-toc-link] {
+  color: var(--theme-surface-fg);
+  font-weight: var(--font-weight-medium);
+  opacity: 0.8;
+}
+
+/* ── Auto-collapse refinement ────────────────────────────────────────────────── */
+
+/* In expand mode, smoother transitions */
+[data-toc][data-toc-mode="expand"] [data-toc-item][data-child="true"] {
+  transition:
+    max-height var(--motion-duration-normal) var(--motion-ease-standard),
+    opacity var(--motion-duration-normal) var(--motion-ease-standard),
+    margin var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-toc][data-toc-mode="expand"] [data-toc-item][data-child="true"]:not([data-visible="true"]) {
+  margin: 0;
+  padding: 0;
+}

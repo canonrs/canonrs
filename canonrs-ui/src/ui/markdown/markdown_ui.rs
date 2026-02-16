@@ -46,7 +46,7 @@ pub fn MarkdownSurface(
                             <MarkdownTocPrimitive state="closed">
                                 <TableOfContents
                                     items=items
-                                    mode=TocMode::Simple
+                                    mode=TocMode::Expand
                                     id=format!("{}-toc", id)
                                 />
                             </MarkdownTocPrimitive>
@@ -71,7 +71,7 @@ pub fn MarkdownSurface(
                             <aside data-md-toc-sidebar="">
                                 <TableOfContents
                                     items=items
-                                    mode=TocMode::Simple
+                                    mode=TocMode::Expand
                                     id=format!("{}-toc", id)
                                     title="On this page"
                                 />

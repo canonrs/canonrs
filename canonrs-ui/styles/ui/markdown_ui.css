@@ -99,12 +99,6 @@
   background: var(--markdown-toc-link-bg-hover);
 }
 
-[data-toc-item][data-state="active"] [data-toc-link] {
-  color: var(--markdown-toc-link-fg-active);
-  background: var(--markdown-toc-link-bg-active);
-  border-left-color: var(--markdown-toc-link-border-active);
-  font-weight: var(--markdown-toc-link-font-weight-active);
-}
 
 /* ── Content ────────────────────────────────────────────────────────────────── */
 
@@ -287,10 +281,6 @@
 
 /* ── Ancestor State ──────────────────────────────────────────────────────────── */
 
-[data-toc-item][data-state="ancestor"] [data-toc-link] {
-  color: var(--theme-surface-fg-muted);
-  font-weight: var(--font-weight-medium);
-}
 
 /* ── Smooth Scroll ───────────────────────────────────────────────────────────── */
 
