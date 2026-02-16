@@ -1,13 +1,12 @@
 use leptos::prelude::*;
 use super::markdown_ui::{MarkdownSurface, TocPosition};
-use super::renderer::render_markdown;
+use super::renderer::render_markdown_with_prefix;
 
 fn enterprise_markdown() -> &'static str {
     r#"
 # CanonRS Framework
 
-CanonRS is an enterprise-grade UI framework built with **Rust** and **Leptos**.
-SSR-first, behavior-driven, and 100% token-based.
+CanonRS is an enterprise-grade UI framework built with **Rust** and **Leptos**. SSR-first, behavior-driven, and 100% token-based.
 
 ## Getting Started
 
@@ -109,7 +108,7 @@ We welcome contributions. Please read the architecture guide first.
 }
 
 pub fn basic_example() -> impl IntoView {
-    let rendered = render_markdown(enterprise_markdown());
+    let rendered = render_markdown_with_prefix(enterprise_markdown(), "md-top");
     view! {
         <MarkdownSurface
             rendered=rendered
@@ -122,7 +121,7 @@ pub fn basic_example() -> impl IntoView {
 }
 
 pub fn sidebar_example() -> impl IntoView {
-    let rendered = render_markdown(enterprise_markdown());
+    let rendered = render_markdown_with_prefix(enterprise_markdown(), "md-sidebar");
     view! {
         <MarkdownSurface
             rendered=rendered

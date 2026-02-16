@@ -78,7 +78,7 @@
 }
 
 [data-toc-item][data-level="1"] { padding-left: 0; }
-[data-toc-item][data-level="2"] { padding-left: 0; }
+[data-toc-item][data-level="2"] { padding-left: var(--space-sm); }
 [data-toc-item][data-level="3"] { padding-left: var(--markdown-toc-indent-l3); }
 [data-toc-item][data-level="4"] { padding-left: var(--markdown-toc-indent-l4); }
 [data-toc-item][data-level="5"] { padding-left: var(--markdown-toc-indent-l5); }
@@ -264,7 +264,43 @@
 
 [data-md-toc-sidebar] {
   position: sticky;
-  top: var(--space-xl);
+  top: var(--space-2xl);
   max-height: calc(100vh - var(--space-3xl));
   overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-surface-border-muted) transparent;
+}
+
+[data-md-toc-sidebar]::-webkit-scrollbar {
+  width: 6px;
+}
+
+[data-md-toc-sidebar]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-md-toc-sidebar]::-webkit-scrollbar-thumb {
+  background: var(--theme-surface-border-muted);
+  border-radius: var(--radius-full);
+}
+
+/* ── Ancestor State ──────────────────────────────────────────────────────────── */
+
+[data-toc-item][data-state="ancestor"] [data-toc-link] {
+  color: var(--theme-surface-fg-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Smooth Scroll ───────────────────────────────────────────────────────────── */
+
+html { scroll-behavior: smooth; }
+
+[data-md-toc-title] {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--theme-surface-fg-muted);
+  margin-bottom: var(--space-sm);
 }

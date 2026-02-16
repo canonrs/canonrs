@@ -6,7 +6,15 @@ use super::markdown_ui::RenderedMarkdown;
 use super::toc_extractor::{TocExtractor, slugify};
 
 pub fn render_markdown(markdown: &str) -> RenderedMarkdown {
-    let toc = TocExtractor::extract_toc(markdown);
+    render_markdown_with_prefix(markdown, "")
+}
+
+pub fn render_markdown_with_prefix(markdown: &str, id_prefix: &str) -> RenderedMarkdown {
+    let toc = if id_prefix.is_empty() {
+        TocExtractor::extract_toc(markdown)
+    } else {
+        TocExtractor::extract_toc_with_prefix(markdown, id_prefix)
+    };
 
     let mut options = Options::empty();
     options.insert(Options::ENABLE_TABLES);
@@ -34,10 +42,15 @@ pub fn render_markdown(markdown: &str) -> RenderedMarkdown {
             }
             Event::End(TagEnd::Heading(_)) => {
                 in_heading = false;
-                let id = if heading_text.is_empty() {
+                let slug = if heading_text.is_empty() {
                     format!("heading-{}", heading_counter)
                 } else {
                     slugify(&heading_text)
+                };
+                let id = if id_prefix.is_empty() {
+                    slug
+                } else {
+                    format!("{}-{}", id_prefix, slug)
                 };
                 heading_counter += 1;
                 let tag = heading_tag(heading_level);

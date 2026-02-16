@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use canonrs_shared::TocItem;
 use crate::primitives::markdown::*;
+use crate::ui::table_of_contents::{TableOfContents, TocMode};
 
 #[derive(Clone, Debug)]
 pub struct RenderedMarkdown {
@@ -11,36 +12,9 @@ pub struct RenderedMarkdown {
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub enum TocPosition {
     #[default]
-    Top,     // colapsável no topo com toolbar toggle
-    Sidebar, // sidebar lateral sticky, sem toolbar
+    Top,
+    Sidebar,
 }
-
-// ── Standalone TableOfContents ────────────────────────────────────────────────
-
-#[component]
-pub fn TableOfContents(
-    items: Vec<TocItem>,
-    #[prop(into, default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <nav data-toc="" id=id>
-            <ul data-toc-list="">
-                {items.into_iter().map(|item| {
-                    let href = format!("#{}", item.id);
-                    view! {
-                        <MarkdownTocItemPrimitive
-                            href=href
-                            text=item.text
-                            level=item.level
-                        />
-                    }
-                }).collect::<Vec<_>>()}
-            </ul>
-        </nav>
-    }
-}
-
-// ── MarkdownSurface ───────────────────────────────────────────────────────────
 
 #[component]
 pub fn MarkdownSurface(
@@ -70,18 +44,11 @@ pub fn MarkdownSurface(
                         let items = rendered.get_value().toc.clone();
                         view! {
                             <MarkdownTocPrimitive state="closed">
-                                <ul data-toc-list="">
-                                    {items.into_iter().map(|item| {
-                                        let href = format!("#{}", item.id);
-                                        view! {
-                                            <MarkdownTocItemPrimitive
-                                                href=href
-                                                text=item.text
-                                                level=item.level
-                                            />
-                                        }
-                                    }).collect::<Vec<_>>()}
-                                </ul>
+                                <TableOfContents
+                                    items=items
+                                    mode=TocMode::Simple
+                                    id=format!("{}-toc", id)
+                                />
                             </MarkdownTocPrimitive>
                         }
                     })}
@@ -102,21 +69,12 @@ pub fn MarkdownSurface(
                         let items = rendered.get_value().toc.clone();
                         view! {
                             <aside data-md-toc-sidebar="">
-                                <nav data-md-toc="" data-state="open">
-                                    <p data-md-toc-title="">"On this page"</p>
-                                    <ul data-toc-list="">
-                                        {items.into_iter().map(|item| {
-                                            let href = format!("#{}", item.id);
-                                            view! {
-                                                <MarkdownTocItemPrimitive
-                                                    href=href
-                                                    text=item.text
-                                                    level=item.level
-                                                />
-                                            }
-                                        }).collect::<Vec<_>>()}
-                                    </ul>
-                                </nav>
+                                <TableOfContents
+                                    items=items
+                                    mode=TocMode::Simple
+                                    id=format!("{}-toc", id)
+                                    title="On this page"
+                                />
                             </aside>
                         }
                     })}

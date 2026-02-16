@@ -79,7 +79,7 @@ fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
             let Some(id): Option<String> = target.get_attribute("id") else { continue };
             if id.is_empty() { continue }
 
-            // Remove active from all toc links
+            // Remove active AND ancestor from all toc items
             if let Ok(all_links) = container_clone.query_selector_all("[data-toc-link]") {
                 for j in 0..all_links.length() {
                     if let Some(link) = all_links.item(j) {
@@ -97,6 +97,39 @@ fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
             if let Ok(Some(link)) = container_clone.query_selector(&selector) {
                 if let Some(li) = link.parent_element() {
                     let _ = li.set_attribute("data-state", "active");
+
+                    // Set ancestor state: mark last seen item at each parent level
+                    if let Some(level_str) = li.get_attribute("data-level") {
+                        if let Ok(current_level) = level_str.parse::<i32>() {
+                            let mut last_at_level: [Option<Element>; 6] = Default::default();
+                            
+                            if let Ok(all_items) = container_clone.query_selector_all("[data-toc-item]") {
+                                for j in 0..all_items.length() {
+                                    if let Some(item) = all_items.item(j) {
+                                        if let Ok(el) = item.dyn_into::<Element>() {
+                                            if el.is_same_node(Some(&li)) {
+                                                for parent_level in 1..current_level {
+                                                    if let Some(ancestor) = &last_at_level[parent_level as usize] {
+                                                        let _ = ancestor.set_attribute("data-state", "ancestor");
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                            
+                                            if let Some(lvl_str) = el.get_attribute("data-level") {
+                                                if let Ok(lvl) = lvl_str.parse::<i32>() {
+                                                    if lvl > 0 && lvl < 6 {
+                                                        last_at_level[lvl as usize] = Some(el.clone());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                 }
             }
         }

@@ -79,7 +79,39 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
             if let Ok(Some(item)) = toc_clone.query_selector(&selector) {
                 let _ = item.set_attribute("data-state", "active");
 
-                // Mode: expand — reveal siblings (same parent level)
+                // ── ANCESTOR LOGIC ────────────────────────────────────────
+                if let Some(active_level_str) = item.get_attribute("data-level") {
+                    if let Ok(active_level) = active_level_str.parse::<i32>() {
+                        let mut last_at_level: [Option<Element>; 7] = Default::default();
+                        
+                        if let Ok(all_items) = toc_clone.query_selector_all("[data-toc-item]") {
+                            for j in 0..all_items.length() {
+                                if let Some(toc_item) = all_items.item(j) {
+                                    if let Ok(el) = toc_item.dyn_into::<Element>() {
+                                        if el.is_same_node(Some(&item)) {
+                                            for parent_level in 1..active_level {
+                                                if let Some(ancestor) = &last_at_level[parent_level as usize] {
+                                                    let _ = ancestor.set_attribute("data-state", "ancestor");
+                                                }
+                                            }
+                                            break;
+                                        }
+                                        
+                                        if let Some(lvl_str) = el.get_attribute("data-level") {
+                                            if let Ok(lvl) = lvl_str.parse::<i32>() {
+                                                if lvl > 0 && lvl < 7 {
+                                                    last_at_level[lvl as usize] = Some(el.clone());
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Mode: expand
                 if mode_owned == "expand" {
                     reveal_siblings_expand(&toc_clone, &item);
                 }
