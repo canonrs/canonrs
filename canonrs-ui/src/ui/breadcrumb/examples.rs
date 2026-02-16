@@ -64,3 +64,58 @@ pub fn BasicExample() -> impl IntoView {
         </div>
     }
 }
+
+#[component]
+pub fn AutoExample() -> impl IntoView {
+    use super::{NavigationProvider, BreadcrumbAuto};
+    use canonrs_shared::shared::navigation_context::{NavigationState, HeadingHierarchy, HeadingNode};
+    use std::collections::HashMap;
+    
+    // Mock heading hierarchy
+    let mock_state = {
+        let mut state = NavigationState::new();
+        
+        let headings = vec![
+            HeadingNode {
+                id: "introduction".to_string(),
+                text: "Introduction".to_string(),
+                level: 1,
+                parent_id: None,
+                children_ids: vec!["getting-started".to_string()],
+            },
+            HeadingNode {
+                id: "getting-started".to_string(),
+                text: "Getting Started".to_string(),
+                level: 2,
+                parent_id: Some("introduction".to_string()),
+                children_ids: vec!["installation".to_string()],
+            },
+            HeadingNode {
+                id: "installation".to_string(),
+                text: "Installation".to_string(),
+                level: 3,
+                parent_id: Some("getting-started".to_string()),
+                children_ids: vec![],
+            },
+        ];
+        
+        let mut id_to_index = HashMap::new();
+        for (idx, node) in headings.iter().enumerate() {
+            id_to_index.insert(node.id.clone(), idx);
+        }
+        
+        state.heading_hierarchy = HeadingHierarchy { headings, id_to_index };
+        state.current_heading_id = Some("installation".to_string());
+        state
+    };
+    
+    let state_signal = RwSignal::new(mock_state);
+    provide_context(state_signal);
+    
+    view! {
+        <div>
+            <h4>"Auto Breadcrumb (from NavigationContext)"</h4>
+            <BreadcrumbAuto />
+        </div>
+    }
+}

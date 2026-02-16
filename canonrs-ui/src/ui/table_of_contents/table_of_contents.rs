@@ -4,6 +4,7 @@
 
 use leptos::prelude::*;
 use canonrs_shared::TocItem;
+use canonrs_shared::shared::navigation_context::{NavigationState, HeadingHierarchy};
 use crate::primitives::table_of_contents::*;
 
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
@@ -34,6 +35,14 @@ pub fn TableOfContents(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = "On this page".to_string())] title: String,
 ) -> impl IntoView {
+    // Populate NavigationContext from TOC items
+    if let Some(nav_state) = use_context::<RwSignal<NavigationState>>() {
+        let hierarchy = HeadingHierarchy::from_toc_items(&items);
+        nav_state.update(|s| {
+            s.heading_hierarchy = hierarchy;
+        });
+    }
+
     view! {
         <TocPrimitive
             id=id
