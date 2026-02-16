@@ -2,7 +2,6 @@ use leptos::prelude::*;
 use super::{MarkdownSurface, TocPosition, RenderedMarkdown};
 use super::renderer::{render_markdown, render_markdown_with_prefix as render_with_prefix};
 
-
 fn enterprise_markdown() -> &'static str {
     r#"
 # CanonRS Framework
@@ -69,6 +68,7 @@ pub fn sidebar_example() -> impl IntoView {
 pub fn toc_with_breadcrumb_example() -> impl IntoView {
     use crate::ui::breadcrumb::{NavigationProvider, BreadcrumbAuto};
     use super::markdown_toolbar::{MarkdownToolbar, MarkdownToolbarState};
+    use crate::ui::code_block::CodeBlock;
     
     let rendered = render_with_prefix(enterprise_markdown(), "md-nav");
     let toolbar_state = MarkdownToolbarState::default();
@@ -98,6 +98,19 @@ pub fn toc_with_breadcrumb_example() -> impl IntoView {
                     toc_position=TocPosition::Sidebar
                     id="markdown-nav-example"
                 />
+                
+                {move || {
+                    view! {
+                        <div style="margin-top: 2rem; padding: 0 2rem;">
+                            <h3>"Code Block with Line Numbers Toggle"</h3>
+                            <CodeBlock
+                                code="cargo add canonrs\ncd my-project\ncargo build\ncargo run".to_string()
+                                language="bash".to_string()
+                                show_line_numbers=toolbar_state.show_line_numbers.get()
+                            />
+                        </div>
+                    }
+                }}
             </div>
         </NavigationProvider>
     }

@@ -30,3 +30,24 @@
   padding-inline: var(--code-block-content-padding-x);
   padding-block: var(--code-block-content-padding-y);
 }
+
+
+/* Line Numbers */
+[data-code-block][data-line-numbers="true"] [data-code-block-content] {
+  counter-reset: line;
+}
+
+[data-code-block][data-line-numbers="true"] [data-code-line] {
+  display: grid;
+  grid-template-columns: 3em 1fr;
+  gap: var(--space-3);
+}
+
+[data-code-block][data-line-numbers="true"] [data-code-line]::before {
+  content: attr(data-line-number);
+  text-align: right;
+  color: var(--theme-surface-fg-muted);
+  padding-right: var(--space-2);
+  border-right: 1px solid var(--theme-surface-border);
+  user-select: none;
+}

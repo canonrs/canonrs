@@ -5,12 +5,14 @@ use leptos::prelude::*;
 #[derive(Clone, Copy)]
 pub struct MarkdownToolbarState {
     pub show_breadcrumb: RwSignal<bool>,
+    pub show_line_numbers: RwSignal<bool>,
 }
 
 impl Default for MarkdownToolbarState {
     fn default() -> Self {
         Self {
             show_breadcrumb: RwSignal::new(true),
+            show_line_numbers: RwSignal::new(false),
         }
     }
 }
@@ -56,7 +58,8 @@ pub fn MarkdownToolbar(
                 data-toolbar-toggle=""
                 data-action="toggle-line-numbers"
                 data-target={target_id}
-                data-active="false"
+                data-active={move || state.show_line_numbers.get()}
+                on:click=move |_| state.show_line_numbers.update(|v| *v = !*v)
                 title="Toggle Line Numbers"
             >
                 "🔢"
