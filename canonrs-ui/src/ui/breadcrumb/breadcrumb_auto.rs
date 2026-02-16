@@ -1,7 +1,7 @@
 //! BreadcrumbAuto - Automatic breadcrumb from NavigationContext
 
 use leptos::prelude::*;
-use crate::primitives::{BreadcrumbPrimitive, BreadcrumbItemPrimitive, BreadcrumbLinkPrimitive};
+use crate::primitives::{BreadcrumbPrimitive, BreadcrumbItemPrimitive, BreadcrumbLinkPrimitive, BreadcrumbSeparatorPrimitive};
 use super::navigation_provider::use_navigation_state;
 
 #[component]
@@ -23,28 +23,30 @@ pub fn BreadcrumbAuto(
     
     view! {
         <BreadcrumbPrimitive class={class} id={id}>
-            <For
-                each=breadcrumb_items
-                key=|(id, _)| id.clone()
-                children=move |(id, text)| {
-                    let id_clone = id.clone();
-                    let is_last = move || {
-                        let items = breadcrumb_items();
-                        items.last().map(|(last_id, _)| last_id == &id_clone).unwrap_or(false)
-                    };
+            {move || {
+                let items = breadcrumb_items();
+                let len = items.len();
+                
+                items.into_iter().enumerate().map(|(idx, (id, text))| {
+                    let is_last = idx == len - 1;
                     
                     view! {
-                        <BreadcrumbItemPrimitive>
-                            <BreadcrumbLinkPrimitive 
-                                href={format!("#{}", id)}
-                                current={is_last()}
-                            >
-                                {text}
-                            </BreadcrumbLinkPrimitive>
-                        </BreadcrumbItemPrimitive>
+                        <>
+                            <BreadcrumbItemPrimitive>
+                                <BreadcrumbLinkPrimitive 
+                                    href={format!("#{}", id)}
+                                    current={is_last}
+                                >
+                                    {text}
+                                </BreadcrumbLinkPrimitive>
+                            </BreadcrumbItemPrimitive>
+                            {(!is_last).then(|| view! {
+                                <BreadcrumbSeparatorPrimitive>"/"</BreadcrumbSeparatorPrimitive>
+                            })}
+                        </>
                     }
-                }
-            />
+                }).collect_view()
+            }}
         </BreadcrumbPrimitive>
     }
 }

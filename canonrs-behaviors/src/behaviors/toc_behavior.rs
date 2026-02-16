@@ -78,6 +78,7 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
             let selector = format!("[data-toc-item][data-target='{}']", id);
             if let Ok(Some(item)) = toc_clone.query_selector(&selector) {
                 let _ = item.set_attribute("data-state", "active");
+                let _ = toc_clone.set_attribute("data-active-heading", &id);
 
                 // ── ANCESTOR LOGIC ────────────────────────────────────────
                 if let Some(active_level_str) = item.get_attribute("data-level") {

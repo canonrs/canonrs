@@ -40,7 +40,36 @@ pub fn TableOfContents(
         let hierarchy = HeadingHierarchy::from_toc_items(&items);
         nav_state.update(|s| {
             s.heading_hierarchy = hierarchy;
+            // Initialize with first heading
+            if let Some(first) = items.first() {
+                s.current_heading_id = Some(first.id.clone());
+            }
         });
+
+        // Poll for data-active-heading changes
+        #[cfg(feature = "hydrate")]
+        {
+            use leptos::leptos_dom::helpers::{document, set_interval_with_handle};
+            use std::time::Duration;
+            
+            let toc_id = id.clone();
+            let _ = set_interval_with_handle(
+                move || {
+                    if let Some(toc_el) = document().get_element_by_id(&toc_id) {
+                        if let Some(active_id) = toc_el.get_attribute("data-active-heading") {
+                            if !active_id.is_empty() {
+                                nav_state.update(|s| {
+                                    if s.current_heading_id.as_ref() != Some(&active_id) {
+                                        s.current_heading_id = Some(active_id);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                Duration::from_millis(200)
+            );
+        }
     }
 
     view! {

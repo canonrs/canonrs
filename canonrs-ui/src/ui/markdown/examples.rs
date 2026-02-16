@@ -1,114 +1,47 @@
 use leptos::prelude::*;
-use super::markdown_ui::{MarkdownSurface, TocPosition};
-use super::renderer::render_markdown_with_prefix;
+use super::{MarkdownSurface, TocPosition, RenderedMarkdown};
+use super::renderer::{render_markdown, render_markdown_with_prefix as render_with_prefix};
+
 
 fn enterprise_markdown() -> &'static str {
     r#"
 # CanonRS Framework
 
-CanonRS is an enterprise-grade UI framework built with **Rust** and **Leptos**. SSR-first, behavior-driven, and 100% token-based.
+A modern, enterprise-grade component library.
 
 ## Getting Started
 
-Add CanonRS to your project and configure the build pipeline.
+Learn how to install and configure CanonRS.
 
 ### Installation
-
-Add the dependency to your `Cargo.toml`:
-```toml
-[dependencies]
-canonrs = { path = "../canonrs" }
+```bash
+cargo add canonrs
 ```
 
 ### Configuration
 
-Configure your workspace profiles for optimized WASM builds:
-```toml
-[profile.wasm-release]
-inherits = "release"
-opt-level = "z"
-lto = "fat"
-codegen-units = 1
-panic = "abort"
-```
-
-#### Environment Variables
-
-Set up your development environment:
-```bash
-export LEPTOS_ENV=DEV
-export LEPTOS_SITE_ADDR=0.0.0.0:3000
-```
+Set up your project with the CanonRS design system.
 
 ## Architecture
 
-CanonRS follows a strict separation of concerns across 4 layers.
+Understanding the core concepts.
 
-### Core Concepts
+### Component Model
 
-Every component is built from the same 4 primitives.
+SSR-first, behavior-driven components.
 
-#### Primitives
+### Token System
 
-Pure HTML with `data-*` attributes. Zero logic, zero state.
-```rust
-#[component]
-pub fn ButtonPrimitive(
-    children: Children,
-) -> impl IntoView {
-    view! {
-        <button data-button="" type="button">
-            {children()}
-        </button>
-    }
-}
-```
+Design tokens for consistency.
 
-#### Behaviors
+## Examples
 
-Client-side JS that attaches after hydration via `IntersectionObserver` and DOM events.
-
-#### Design Tokens
-
-CSS custom properties generated from Rust token definitions at compile time.
-
-#### SSR Pipeline
-```
-Request
-  → Server renders HTML
-  → Tokens applied via CSS
-  → Behaviors hydrate
-  → Zero layout shift
-```
-
-## API Reference
-
-Complete component documentation with examples.
-
-### Components
-
-All components follow the Canon pattern: primitive → UI → behavior.
-
-#### DataTable
-
-Enterprise data grid with sort, filter, pagination, and density controls.
-
-#### CodeBlock
-
-SSR syntax highlighting via syntect. Copy button via behavior.
-
-#### Markdown
-
-This very component. SSR rendering with TOC extraction and scroll-spy.
-
-## Contributing
-
-We welcome contributions. Please read the architecture guide first.
+Practical examples and patterns.
 "#
 }
 
 pub fn basic_example() -> impl IntoView {
-    let rendered = render_markdown_with_prefix(enterprise_markdown(), "md-top");
+    let rendered = render_with_prefix(enterprise_markdown(), "md-top");
     view! {
         <MarkdownSurface
             rendered=rendered
@@ -121,7 +54,7 @@ pub fn basic_example() -> impl IntoView {
 }
 
 pub fn sidebar_example() -> impl IntoView {
-    let rendered = render_markdown_with_prefix(enterprise_markdown(), "md-sidebar");
+    let rendered = render_with_prefix(enterprise_markdown(), "md-sidebar");
     view! {
         <MarkdownSurface
             rendered=rendered
@@ -130,5 +63,28 @@ pub fn sidebar_example() -> impl IntoView {
             toc_position=TocPosition::Sidebar
             id="markdown-sidebar-example"
         />
+    }
+}
+
+pub fn toc_with_breadcrumb_example() -> impl IntoView {
+    use crate::ui::breadcrumb::{NavigationProvider, BreadcrumbAuto};
+    
+    let rendered = render_with_prefix(enterprise_markdown(), "md-nav");
+    
+    view! {
+        <NavigationProvider>
+            <div style="display: flex; flex-direction: column;">
+                <div class="breadcrumb-sticky">
+                    <BreadcrumbAuto />
+                </div>
+                <MarkdownSurface
+                    rendered=rendered
+                    show_toc=true
+                    show_toolbar=false
+                    toc_position=TocPosition::Sidebar
+                    id="markdown-nav-example"
+                />
+            </div>
+        </NavigationProvider>
     }
 }
