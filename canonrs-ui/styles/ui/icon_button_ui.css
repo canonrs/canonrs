@@ -1,20 +1,24 @@
 /* ============================================
-   ICON BUTTON
-   Family A: Actions
-   NOTE: Requires UI to emit data-size attribute
+   ICON BUTTON — Enterprise Action Button
+   Family F: Data
    ============================================ */
 
 [data-icon-button] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  
+  border: none;
   border-radius: var(--icon-button-radius);
-  background: var(--icon-button-bg);
-  color: var(--icon-button-fg);
+  
   cursor: pointer;
-  transition: background var(--icon-button-transition-duration) var(--icon-button-transition-ease);
+  transition: 
+    background var(--icon-button-transition-duration) var(--icon-button-transition-ease),
+    border-color var(--icon-button-transition-duration) var(--icon-button-transition-ease),
+    box-shadow var(--icon-button-transition-duration) var(--icon-button-transition-ease);
 }
 
+/* Sizes */
 [data-icon-button][data-size="sm"] {
   width: var(--icon-button-size-sm);
   height: var(--icon-button-size-sm);
@@ -33,15 +37,77 @@
   padding: var(--icon-button-padding-lg);
 }
 
-[data-icon-button]:hover {
+/* Variant: default (transparent with hover) */
+[data-icon-button][data-variant="default"] {
+  background: var(--icon-button-bg);
+  color: var(--icon-button-fg);
+}
+
+[data-icon-button][data-variant="default"]:hover:not(:disabled) {
   background: var(--icon-button-bg-hover);
 }
 
-[data-icon-button]:active {
+[data-icon-button][data-variant="default"]:active:not(:disabled) {
   background: var(--icon-button-bg-active);
 }
 
-[data-icon-button][disabled] {
-  color: var(--icon-button-fg-disabled);
+/* Variant: ghost */
+[data-icon-button][data-variant="ghost"] {
+  background: transparent;
+  color: var(--icon-button-fg);
+}
+
+[data-icon-button][data-variant="ghost"]:hover:not(:disabled) {
+  background: var(--icon-button-ghost-bg-hover);
+}
+
+/* Variant: outline */
+[data-icon-button][data-variant="outline"] {
+  background: transparent;
+  color: var(--icon-button-fg);
+  border: 1px solid var(--icon-button-outline-border);
+}
+
+[data-icon-button][data-variant="outline"]:hover:not(:disabled) {
+  background: var(--icon-button-bg-hover);
+}
+
+/* Variant: solid */
+[data-icon-button][data-variant="solid"] {
+  background: var(--icon-button-solid-bg);
+  color: var(--icon-button-solid-fg);
+}
+
+[data-icon-button][data-variant="solid"]:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Variant: destructive */
+[data-icon-button][data-variant="destructive"] {
+  background: var(--icon-button-destructive-bg);
+  color: var(--icon-button-destructive-fg);
+}
+
+[data-icon-button][data-variant="destructive"]:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Focus-visible (enterprise requirement) */
+[data-icon-button]:focus-visible {
+  outline: none;
+  box-shadow: var(--icon-button-focus-ring);
+}
+
+/* Disabled state */
+[data-icon-button]:disabled {
   cursor: not-allowed;
+  color: var(--icon-button-fg-disabled);
+  opacity: 0.5;
+}
+
+/* Loading state */
+[data-icon-button][data-loading][aria-busy="true"] {
+  cursor: wait;
+  opacity: var(--icon-button-loading-opacity);
+  pointer-events: none;
 }

@@ -1,22 +1,110 @@
 /* ============================================
-   STAT
-   Family G: Data Display
+   STAT — Enterprise Dashboard Level
+   Family F: Data
    ============================================ */
 
 [data-stat] {
+  display: block;
+}
+
+[data-stat-wrapper] {
   display: flex;
   flex-direction: column;
   gap: var(--stat-gap);
-  align-items: var(--stat-align);
 }
 
+/* Alignment */
+[data-stat-wrapper][data-align="start"] { align-items: flex-start; }
+[data-stat-wrapper][data-align="center"] { align-items: center; }
+[data-stat-wrapper][data-align="end"] { align-items: flex-end; }
+
+/* Header */
+[data-stat-header] {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Body */
+[data-stat-body] {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+/* Label */
+[data-stat-label] {
+  font-size: var(--stat-label-font-size);
+  font-weight: var(--stat-label-font-weight);
+  color: var(--stat-label-fg);
+}
+
+/* Value - tabular nums for financial dashboards */
 [data-stat-value] {
   font-size: var(--stat-value-font-size);
   font-weight: var(--stat-value-font-weight);
   color: var(--stat-value-fg);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
 }
 
-[data-stat-label] {
-  font-size: var(--stat-label-font-size);
-  color: var(--stat-label-fg);
+/* Size variants */
+[data-stat-wrapper][data-size="sm"] [data-stat-value] {
+  font-size: var(--stat-size-sm-value);
+}
+
+[data-stat-wrapper][data-size="md"] [data-stat-value] {
+  font-size: var(--stat-size-md-value);
+}
+
+[data-stat-wrapper][data-size="lg"] [data-stat-value] {
+  font-size: var(--stat-size-lg-value);
+}
+
+/* Delta (trend indicator) */
+[data-stat-delta] {
+  font-size: var(--stat-delta-font-size);
+  font-weight: var(--stat-delta-font-weight);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-stat-wrapper][data-trend="increase"] [data-stat-delta] {
+  color: var(--stat-trend-increase-color);
+}
+
+[data-stat-wrapper][data-trend="decrease"] [data-stat-delta] {
+  color: var(--stat-trend-decrease-color);
+}
+
+[data-stat-wrapper][data-trend="neutral"] [data-stat-delta] {
+  color: var(--stat-trend-neutral-color);
+}
+
+/* Icon */
+[data-stat-icon] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--stat-icon-size);
+  height: var(--stat-icon-size);
+  flex-shrink: 0;
+}
+
+/* Loading state - skeleton with aria-busy */
+[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-value],
+[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-label] {
+  background: var(--stat-skeleton-bg);
+  color: transparent;
+  border-radius: var(--radius-sm);
+  animation: stat-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes stat-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-delta],
+[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-icon] {
+  opacity: 0.3;
 }

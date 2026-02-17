@@ -42,6 +42,8 @@ pub mod input;
 pub mod input_group;
 pub mod kbd;
 pub mod kbd_group;
+pub mod list;
+pub use list::*;
 pub use kbd_group::*;
 pub mod label;
 pub mod link;
