@@ -88,3 +88,4 @@ pub use auto_init::init_canonrs_behaviors;
 pub mod data_table_behavior;
 mod markdown_toolbar_behavior;
 pub mod list_behavior;
+pub mod carousel_behavior;

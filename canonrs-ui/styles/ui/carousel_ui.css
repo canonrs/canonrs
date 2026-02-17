@@ -1,23 +1,112 @@
-/* ============================================================================
-   CAROUSEL - Interactive Layout
-   ============================================================================ */
+/* ============================================
+   CAROUSEL — Enterprise Level
+   Family G: Composite
+   ============================================ */
 
 [data-carousel] {
-  padding: var(--carousel-padding);
-  background: var(--carousel-bg);
+  position: relative;
+  overflow: hidden;
 }
 
-[data-carousel-content] {
+[data-carousel-wrapper] {
+  position: relative;
+  width: 100%;
+}
+
+/* Track - horizontal container */
+[data-carousel-track] {
   display: flex;
-  gap: var(--carousel-content-gap);
-  flex-direction: var(--carousel-content-direction);
-  scroll-snap-type: var(--carousel-content-scroll-snap);
+  transition: transform var(--motion-duration-normal) var(--motion-ease-standard);
+  width: 100%;
+  position: relative;
 }
 
+/* Items - slides */
 [data-carousel-item] {
-  width: var(--carousel-item-width);
-  background: var(--carousel-item-bg);
-  border-radius: var(--carousel-item-radius);
-  box-shadow: var(--carousel-item-shadow);
-  scroll-snap-align: start;
+  flex: 0 0 100%;
+  width: 100%;
+  display: none;
+}
+
+[data-carousel-item][data-active] {
+  display: block;
+}
+
+/* Controls - prev/next buttons */
+[data-carousel-prev],
+[data-carousel-next] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  
+  width: var(--carousel-button-size);
+  height: var(--carousel-button-size);
+  
+  background: var(--carousel-button-bg);
+  color: var(--carousel-button-fg);
+  border: none;
+  border-radius: var(--carousel-button-radius);
+  box-shadow: var(--carousel-button-shadow);
+  
+  font-size: var(--font-size-2xl);
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-carousel-prev]:hover,
+[data-carousel-next]:hover {
+  opacity: 0.9;
+}
+
+[data-carousel-prev] {
+  left: var(--space-md);
+}
+
+[data-carousel-next] {
+  right: var(--space-md);
+}
+
+/* Indicators - dots */
+[data-carousel-indicators] {
+  position: absolute;
+  bottom: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  
+  display: flex;
+  gap: var(--carousel-indicator-gap);
+}
+
+[data-carousel-dot] {
+  width: var(--carousel-indicator-size);
+  height: var(--carousel-indicator-size);
+  
+  background: var(--carousel-indicator-bg);
+  border: none;
+  border-radius: var(--radius-full);
+  
+  cursor: pointer;
+  transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+  padding: 0;
+}
+
+[data-carousel-dot][data-active] {
+  background: var(--carousel-indicator-active-bg);
+  width: calc(var(--carousel-indicator-size) * 2);
+}
+
+[data-carousel-dot]:hover {
+  opacity: 0.8;
+}
+
+/* Accessibility */
+[data-carousel-item][aria-hidden="true"] {
+  visibility: hidden;
 }
