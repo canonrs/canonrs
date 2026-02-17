@@ -22,6 +22,7 @@ pub fn register() {
         setup_selection(&container)?;
         setup_density(&container)?;
         setup_expand(&container)?;
+        setup_chart_sync(&container)?;
         let all_rows = get_all_rows(&container);
         let page_size = container.get_attribute("data-page-size")
             .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(10);
@@ -541,6 +542,91 @@ fn setup_expand(container: &Element) -> BehaviorResult<()> {
             .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
+    Ok(())
+}
+
+#[cfg(feature = "hydrate")]
+fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
+    let Some(chart_id) = container.get_attribute("data-table-sync-chart") else { return Ok(()); };
+    if chart_id.is_empty() { return Ok(()); }
+    if container.get_attribute("data-sync-table-attached").as_deref() == Some("1") { return Ok(()); }
+    let _ = container.set_attribute("data-sync-table-attached", "1");
+
+    let rows = container.query_selector_all("[data-datatable-row]")
+        .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "rows query failed".into() })?;
+
+    for i in 0..rows.length() {
+        let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<Element>().ok()) else { continue };
+        let chart_id_c = chart_id.clone();
+        let row_c = row.clone();
+
+        let enter = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
+            let idx = row_c.get_attribute("data-row-index")
+                .and_then(|v| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
+            if idx == usize::MAX { return; }
+            let f = js_sys::Function::new_with_args(
+                "name,detail",
+                "document.dispatchEvent(new CustomEvent(name, {bubbles:true, detail:detail}));"
+            );
+            let detail = js_sys::Object::new();
+            js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("index"), &wasm_bindgen::JsValue::from_f64(idx as f64)).ok();
+            js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("chartId"), &wasm_bindgen::JsValue::from_str(&chart_id_c)).ok();
+            f.call2(&wasm_bindgen::JsValue::NULL, &wasm_bindgen::JsValue::from_str("canon:datatable:hover"), &detail).ok();
+        }) as Box<dyn FnMut(_)>);
+
+        let chart_id_c2 = chart_id.clone();
+        let leave = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
+            let f = js_sys::Function::new_with_args(
+                "name",
+                "document.dispatchEvent(new CustomEvent(name, {bubbles:true}));"
+            );
+            f.call1(&wasm_bindgen::JsValue::NULL, &wasm_bindgen::JsValue::from_str("canon:datatable:leave")).ok();
+        }) as Box<dyn FnMut(_)>);
+
+        row.add_event_listener_with_callback("mouseenter", enter.as_ref().unchecked_ref())
+            .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "listener failed".into() })?;
+        row.add_event_listener_with_callback("mouseleave", leave.as_ref().unchecked_ref())
+            .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "listener failed".into() })?;
+        enter.forget();
+        leave.forget();
+    }
+
+    // Escuta canon:chart:hover → highlight row
+    let container_c = container.clone();
+    let on_hover = Closure::wrap(Box::new(move |e: web_sys::CustomEvent| {
+        let detail = e.detail();
+        let idx = js_sys::Reflect::get(&detail, &wasm_bindgen::JsValue::from_str("index"))
+            .ok().and_then(|v| v.as_f64()).map(|f| f as usize).unwrap_or(usize::MAX);
+        let Ok(rows) = container_c.query_selector_all("[data-datatable-row]") else { return };
+        for i in 0..rows.length() {
+            let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<Element>().ok()) else { continue };
+            let row_idx = row.get_attribute("data-row-index")
+                .and_then(|v| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
+            if row_idx == idx {
+                row.set_attribute("data-chart-highlight", "").ok();
+            } else {
+                row.remove_attribute("data-chart-highlight").ok();
+            }
+        }
+    }) as Box<dyn FnMut(_)>);
+
+    let container_c2 = container.clone();
+    let on_leave = Closure::wrap(Box::new(move |_: web_sys::Event| {
+        let Ok(rows) = container_c2.query_selector_all("[data-datatable-row][data-chart-highlight]") else { return };
+        for i in 0..rows.length() {
+            if let Some(r) = rows.item(i).and_then(|r| r.dyn_into::<Element>().ok()) {
+                r.remove_attribute("data-chart-highlight").ok();
+            }
+        }
+    }) as Box<dyn FnMut(_)>);
+
+    document().add_event_listener_with_callback("canon:chart:hover", on_hover.as_ref().unchecked_ref())
+        .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "listener failed".into() })?;
+    document().add_event_listener_with_callback("canon:chart:leave", on_leave.as_ref().unchecked_ref())
+        .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "listener failed".into() })?;
+    on_hover.forget();
+    on_leave.forget();
+
     Ok(())
 }
 #[cfg(not(feature = "hydrate"))]

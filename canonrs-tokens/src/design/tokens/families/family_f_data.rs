@@ -113,6 +113,12 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("chart-tooltip-font-size",   "var(--font-size-sm)"),
     FamilyToken::new("chart-tooltip-radius",      "var(--radius-sm)"),
     FamilyToken::new("chart-tooltip-shadow",      "var(--shadow-md)"),
+    FamilyToken::new("chart-tooltip-padding",     "var(--space-sm) var(--space-md)"),
+    FamilyToken::new("chart-crosshair-color",     "var(--theme-surface-border)"),
+    FamilyToken::new("chart-crosshair-width",     "1px"),
+    FamilyToken::new("chart-legend-dot-size",     "10px"),
+    FamilyToken::new("chart-sync-highlight-bg",   "var(--theme-primary-subtle, rgba(99,102,241,0.08))"),
+    FamilyToken::new("chart-overlay-z",           "10"),
 
     // ── Kbd ───────────────────────────────────────────────────────────────────
     FamilyToken::new("kbd-bg",           "var(--theme-surface-muted)"),

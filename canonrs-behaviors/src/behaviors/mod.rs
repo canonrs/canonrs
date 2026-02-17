@@ -12,6 +12,7 @@ pub mod breadcrumb_behavior;
 pub mod calendar_behavior;
 #[cfg(feature = "hydrate")]
 pub mod chart_behavior;
+pub mod chart_sync_behavior;
 #[cfg(feature = "hydrate")]
 pub mod collapsible_behavior;
 #[cfg(feature = "hydrate")]

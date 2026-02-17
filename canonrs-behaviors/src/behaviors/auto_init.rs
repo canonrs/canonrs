@@ -28,6 +28,8 @@ pub fn register_all_behaviors() {
     copy_button_behavior::register();
     markdown_behavior::register();
 toc_behavior::register();
+    chart_behavior::register();
+    chart_sync_behavior::register();
     markdown_toolbar_behavior::register();
     doc_progress_behavior::register();
 }

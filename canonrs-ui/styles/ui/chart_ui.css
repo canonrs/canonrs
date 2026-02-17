@@ -1,14 +1,70 @@
 /* ============================================
    CHART
-   Family G: Data Display
+   Family F: Data Display
    ============================================ */
 
 [data-chart] {
+  position: relative;
   background: var(--chart-bg);
   padding: var(--chart-padding);
   border-radius: var(--chart-radius);
 }
 
+/* Canvas */
+[data-chart-canvas] {
+  display: block;
+  width: 100%;
+}
+
+/* Overlay (tooltip + crosshair layer) */
+[data-chart-overlay] {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--chart-overlay-z);
+}
+
+/* Tooltip */
+[data-chart-tooltip-el] {
+  position: absolute;
+  background: var(--chart-tooltip-bg);
+  color: var(--chart-tooltip-fg);
+  font-size: var(--chart-tooltip-font-size);
+  padding: var(--chart-tooltip-padding);
+  border-radius: var(--chart-tooltip-radius);
+  box-shadow: var(--chart-tooltip-shadow);
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.1s ease;
+}
+
+[data-chart-tooltip-el][data-state="hidden"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+[data-chart-tooltip-el][data-state="visible"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Crosshair */
+[data-chart-crosshair] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--chart-crosshair-width);
+  background: var(--chart-crosshair-color);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+[data-chart-crosshair][data-state="visible"] {
+  opacity: 1;
+}
+
+/* Grid / Axis */
 [data-chart-grid] {
   stroke: var(--chart-grid-color);
   stroke-width: var(--chart-grid-stroke-width);
@@ -23,20 +79,38 @@
   height: var(--chart-axis-tick-size);
 }
 
-[data-chart-tooltip] {
-  background: var(--chart-tooltip-bg);
-  border-radius: var(--chart-tooltip-radius);
-  box-shadow: var(--chart-tooltip-shadow);
-  font-size: var(--chart-tooltip-font-size);
-  color: var(--chart-tooltip-fg);
-}
-
-[data-chart-legend] {
+/* Legend */
+[data-chart-legend-el] {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--chart-legend-gap);
+  padding-top: var(--space-sm);
 }
 
 [data-chart-legend-item] {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
   font-size: var(--chart-legend-item-font-size);
   color: var(--chart-legend-item-fg);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+[data-chart-legend-item][data-state="inactive"] {
+  opacity: 0.35;
+}
+
+[data-chart-legend-dot] {
+  width: var(--chart-legend-dot-size);
+  height: var(--chart-legend-dot-size);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Sync highlight — row no datatable */
+[data-datatable-row][data-chart-highlight] {
+  background: var(--chart-sync-highlight-bg);
+  box-shadow: inset 3px 0 0 #6366f1;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
 }

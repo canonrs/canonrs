@@ -25,6 +25,9 @@ web-sys = { version = "0.3", features = [
     "IntersectionObserver",
     "IntersectionObserverInit",
     "IntersectionObserverEntry",
+    "HtmlCanvasElement",
+    "CanvasRenderingContext2d",
+    "DomRect",
 ] }
 leptos = { version = "0.8", default-features = false, features = ["hydrate"] }
 canonrs-shared = { path = "../canonrs-shared" }

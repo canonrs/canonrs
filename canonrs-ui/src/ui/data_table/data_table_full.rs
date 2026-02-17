@@ -23,6 +23,7 @@ pub fn DataTableFull<T>(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = 10)] page_size: usize,
     #[prop(default = false)] selectable: bool,
+    #[prop(into, default = String::new())] sync_chart: String,
     #[prop(default = false)] show_density: bool,
     #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
 ) -> impl IntoView
@@ -50,6 +51,7 @@ where
             current_page="1".to_string()
             total_pages=total_pages.to_string()
             attr:data-selectable={selectable.then(|| "true")}
+            sync_chart=sync_chart.clone()
         >
             <DataTableToolbarPrimitive>
                 <input

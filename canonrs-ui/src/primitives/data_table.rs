@@ -27,6 +27,7 @@ pub fn DataTablePrimitive(
     #[prop(default = String::new())] page_size: String,
     #[prop(default = String::new())] current_page: String,
     #[prop(default = String::new())] total_pages: String,
+    #[prop(default = String::new())] sync_chart: String,
 ) -> impl IntoView {
     view! {
         <div
@@ -37,6 +38,7 @@ pub fn DataTablePrimitive(
             data-total-pages=total_pages
             class=class
             id=id
+            data-table-sync-chart=sync_chart
         >
             {children.map(|c| c())}
         </div>
@@ -174,9 +176,10 @@ pub fn DataTableRowPrimitive(
     view! {
         <tr
             data-datatable-row=""
-            attr:data-row-id={(!row_id.is_empty()).then(|| row_id)}
-            attr:data-state={selected.then(|| "selected")}
-            attr:aria-rowindex={row_index.map(|i| (i + 1).to_string())}
+            data-row-id={(!row_id.is_empty()).then(|| row_id)}
+            data-state={selected.then(|| "selected")}
+            aria-rowindex={row_index.map(|i| (i + 1).to_string())}
+            data-row-index={row_index.map(|i| i.to_string())}
             id={(!id.is_empty()).then(|| id)}
             class=class
         >

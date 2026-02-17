@@ -93,6 +93,12 @@
   --chart-tooltip-font-size: var(--font-size-sm);
   --chart-tooltip-radius: var(--radius-sm);
   --chart-tooltip-shadow: var(--shadow-md);
+  --chart-tooltip-padding: var(--space-sm) var(--space-md);
+  --chart-crosshair-color: var(--theme-surface-border);
+  --chart-crosshair-width: 1px;
+  --chart-legend-dot-size: 10px;
+  --chart-sync-highlight-bg: var(--theme-surface-muted);
+  --chart-overlay-z: 10;
   --kbd-bg: var(--theme-surface-muted);
   --kbd-fg: var(--theme-surface-fg);
   --kbd-padding-x: var(--space-sm);
