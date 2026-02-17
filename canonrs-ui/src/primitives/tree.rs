@@ -28,12 +28,6 @@ pub fn TreeItem(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
-    let aria_expanded = if has_children {
-        Some(expanded.to_string())
-    } else {
-        None
-    };
-    
     view! {
         <div
             data-tree-item=""
@@ -43,8 +37,8 @@ pub fn TreeItem(
             data-has-children={has_children.to_string()}
             role="treeitem"
             tabindex={tabindex}
-            attr:aria-selected={selected.to_string()}
-            attr:aria-expanded={aria_expanded}
+            aria-selected={selected.to_string()}
+            aria-expanded={if has_children { Some(expanded.to_string()) } else { None }}
             class={class}
             id={id}
         >

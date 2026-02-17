@@ -44,6 +44,8 @@ pub mod kbd;
 pub mod kbd_group;
 pub mod list;
 pub mod carousel;
+pub mod resizable;
+pub use resizable::*;
 pub use carousel::*;
 pub use list::*;
 pub use kbd_group::*;

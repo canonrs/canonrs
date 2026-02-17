@@ -19,8 +19,10 @@
 @import './calendar_ui.css';
 @import './callout_ui.css';
 @import './carousel_ui.css';
+@import './resizable_ui.css';
 @import './card_ui.css';
 @import './carousel_ui.css';
+@import './resizable_ui.css';
 @import './chart_ui.css';
 @import './checkbox_ui.css';
 @import './code_block_ui.css';

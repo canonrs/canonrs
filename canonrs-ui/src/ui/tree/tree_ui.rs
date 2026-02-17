@@ -40,14 +40,30 @@ fn render_node_recursive(
     is_first: bool,
 ) -> Vec<AnyView> {
     let node_id = node.id.clone();
+    let node_id_for_closure = node_id.clone();
     let children = node.children.clone();
     let is_expanded = node.expanded;
     let has_children = !children.is_empty();
-    let is_selected = move || selected_id.get().as_ref() == Some(&node_id);
-    
-    let tabindex = if is_first { 0 } else { -1 };
+    let is_selected = move || selected_id.get().as_ref() == Some(&node_id_for_closure);
 
-    let mut views = vec![
+    let tabindex = if is_first { 0 } else { -1 };
+    
+    // Generate unique group ID for aria-controls
+    let group_id = format!("tree-group-{}", node_id);
+
+    let item_view = if has_children {
+        view! {
+            <TreeNodeItem
+                node={node}
+                depth={level - 1}
+                level={level}
+                selected={is_selected()}
+                show_checkbox={show_checkboxes}
+                tabindex={tabindex}
+                group_id={group_id.clone()}
+            />
+        }
+    } else {
         view! {
             <TreeNodeItem
                 node={node}
@@ -57,14 +73,16 @@ fn render_node_recursive(
                 show_checkbox={show_checkboxes}
                 tabindex={tabindex}
             />
-        }.into_any()
-    ];
+        }
+    };
 
-    // SEMPRE renderizar TreeGroup se has_children, CSS esconde
+    let mut views = vec![item_view.into_any()];
+
+    // Render TreeGroup if has_children
     if has_children {
         views.push(
             view! {
-                <TreeGroup>
+                <TreeGroup id={group_id}>
                     {children.into_iter().flat_map(|child| {
                         render_node_recursive(
                             child,

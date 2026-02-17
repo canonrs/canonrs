@@ -1,4 +1,7 @@
-/* TREE - Family B Selection */
+/* ============================================
+   TREE — Enterprise Level
+   Family B: Selection
+   ============================================ */
 
 [data-tree] {
   display: flex;
@@ -9,7 +12,7 @@
 [data-tree-item] {
   display: flex;
   align-items: center;
-  height: var(--tree-item-height);
+  min-height: var(--tree-item-height);
   padding: var(--tree-item-padding);
   border-radius: var(--tree-item-radius);
   color: var(--tree-item-fg);
@@ -26,6 +29,16 @@
   background: var(--tree-item-bg-selected);
 }
 
+[data-tree-item]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+}
+
+/* Indentation by depth */
+[data-tree-item][data-depth="0"] {
+  padding-left: var(--tree-item-padding-x, var(--space-sm));
+}
+
 [data-tree-item][data-depth="1"] {
   padding-left: var(--tree-indent-depth-1);
 }
@@ -38,21 +51,55 @@
   padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent) * 2);
 }
 
+[data-tree-item][data-depth="4"] {
+  padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent) * 3);
+}
+
+/* Toggle button */
 [data-tree-toggle] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: var(--tree-icon-size);
   height: var(--tree-icon-size);
+  margin-right: var(--space-xs);
+  background: transparent;
+  border: none;
+  color: var(--tree-item-fg);
+  cursor: pointer;
   transition: transform var(--tree-transition-duration) var(--tree-transition-ease);
+  padding: 0;
 }
 
-[data-tree-item][data-state="open"] [data-tree-toggle] {
-  transform: rotate(var(--tree-icon-rotation));
+[data-tree-toggle]:hover {
+  opacity: 0.8;
 }
 
-/* Esconder children quando collapsed */
+/* Icon, checkbox, label */
+[data-tree-icon] {
+  margin-right: var(--space-xs);
+}
+
+[data-tree-checkbox-wrapper] {
+  margin-right: var(--space-xs);
+}
+
+[data-tree-label] {
+  flex: 1;
+}
+
+/* Tree group - children container */
+[data-tree-group] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tree-gap);
+}
+
+/* Hide collapsed children */
 [data-tree-item][data-expanded="false"] + [data-tree-group] {
   display: none;
 }
 
 [data-tree-item][data-expanded="true"] + [data-tree-group] {
-  display: block;
+  display: flex;
 }

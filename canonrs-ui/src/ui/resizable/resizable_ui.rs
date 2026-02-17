@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::resizable_primitive::ResizablePrimitive;
+use crate::primitives::{ResizablePrimitive, ResizablePanelPrimitive, ResizableHandlePrimitive};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum ResizableDirection {
@@ -18,20 +18,56 @@ impl ResizableDirection {
 
 #[component]
 pub fn Resizable(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = ResizableDirection::Horizontal)] direction: ResizableDirection,
     #[prop(optional)] children: Option<Children>,
+    #[prop(default = ResizableDirection::Horizontal)] direction: ResizableDirection,
+    #[prop(default = 20)] min_size: u32,
+    #[prop(default = 80)] max_size: u32,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
-    let base_class = format!("resizable {}", class);
-
     view! {
         <ResizablePrimitive
-            id={id}
-            class={base_class}
-            direction={direction.as_str().to_string()}
+            class={class}
+            id={id.unwrap_or_default()}
         >
-            {children.map(|c| c())}
+            <div
+                data-resizable-wrapper=""
+                data-direction={direction.as_str()}
+                data-min-size={min_size.to_string()}
+                data-max-size={max_size.to_string()}
+            >
+                {children.map(|c| c())}
+            </div>
         </ResizablePrimitive>
+    }
+}
+
+#[component]
+pub fn ResizablePanel(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(default = 50)] default_size: u32,
+    #[prop(default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
+) -> impl IntoView {
+    view! {
+        <ResizablePanelPrimitive
+            class={class}
+            id={id.unwrap_or_default()}
+        >
+            <div
+                data-resizable-panel-content=""
+                data-size={default_size.to_string()}
+                style={format!("flex-basis: {}%", default_size)}
+            >
+                {children.map(|c| c())}
+            </div>
+        </ResizablePanelPrimitive>
+    }
+}
+
+#[component]
+pub fn ResizableHandle() -> impl IntoView {
+    view! {
+        <ResizableHandlePrimitive />
     }
 }

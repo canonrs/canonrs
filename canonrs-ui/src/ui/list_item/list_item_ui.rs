@@ -7,7 +7,7 @@ pub enum ListSelectionMode { None, Single, Multiple }
 #[component]
 pub fn List(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = ListSelectionMode::None)] selection_mode: ListSelectionMode,
+    #[prop(default = ListSelectionMode::None)] _selection_mode: ListSelectionMode,
     #[prop(default = String::new())] class: String,
     #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {

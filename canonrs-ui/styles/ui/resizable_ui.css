@@ -1,31 +1,81 @@
-/* ============================================================================
-   RESIZABLE - Interactive Layout
-   ============================================================================ */
+/* ============================================
+   RESIZABLE — Enterprise Level
+   Family G: Composite
+   ============================================ */
 
 [data-resizable] {
+  width: 100%;
+  height: 100%;
+}
+
+[data-resizable-wrapper] {
   display: flex;
-  gap: var(--resizable-gap);
-  background: var(--resizable-bg);
-  border: var(--resizable-border);
+  width: 100%;
+  height: 100%;
 }
 
+[data-resizable-wrapper][data-direction="horizontal"] {
+  flex-direction: row;
+}
+
+[data-resizable-wrapper][data-direction="vertical"] {
+  flex-direction: column;
+}
+
+/* Panels */
 [data-resizable-panel] {
-  background: var(--resizable-panel-bg);
-  padding: var(--resizable-panel-padding);
-  border-radius: var(--resizable-panel-radius);
+  overflow: auto;
 }
 
+[data-resizable-panel-content] {
+  width: 100%;
+  height: 100%;
+}
+
+/* Handle */
 [data-resizable-handle] {
-  width: var(--resizable-handle-size);
-  background: var(--resizable-handle-bg);
-  cursor: var(--resizable-handle-cursor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--theme-surface-border);
+  cursor: col-resize;
+  position: relative;
+  z-index: 10;
+}
+
+[data-resizable-wrapper][data-direction="horizontal"] [data-resizable-handle] {
+  width: var(--space-xs);
+  cursor: col-resize;
+}
+
+[data-resizable-wrapper][data-direction="vertical"] [data-resizable-handle] {
+  height: var(--space-xs);
+  cursor: row-resize;
 }
 
 [data-resizable-handle]:hover {
-  background: var(--resizable-handle-hover-bg);
+  background: var(--theme-action-primary-bg);
 }
 
-[data-resizable-handle][aria-disabled="true"] {
-  background: var(--resizable-handle-disabled-bg);
-  cursor: default;
+[data-resizable-handle]:focus-visible {
+  outline: none;
+  background: var(--theme-action-primary-bg);
+  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+}
+
+/* Handle bar */
+[data-resizable-handle-bar] {
+  background: var(--theme-surface-fg-muted);
+  border-radius: var(--radius-full);
+}
+
+[data-resizable-wrapper][data-direction="horizontal"] [data-resizable-handle-bar] {
+  width: 2px;
+  height: var(--space-lg);
+}
+
+[data-resizable-wrapper][data-direction="vertical"] [data-resizable-handle-bar] {
+  width: var(--space-lg);
+  height: 2px;
 }
