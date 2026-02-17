@@ -179,6 +179,14 @@
   --scroll-area-radius: 0;
   --scroll-area-padding: 0;
   --scroll-area-max-height: 100%;
+  --scrollbar-size: 8px;
+  --scrollbar-radius: var(--radius-full);
+  --scrollbar-track-bg: transparent;
+  --scrollbar-thumb-bg: var(--theme-surface-border);
+  --scrollbar-thumb-hover-bg: var(--theme-surface-fg-muted);
+  --scrollbar-thumb-active-bg: var(--theme-surface-fg);
+  --scrollbar-transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+  --scrollbar-thumb-min-size: 40px;
   --list-gap: var(--space-sm);
   --list-item-padding: var(--space-sm) var(--space-md);
   --list-item-padding-y: var(--space-sm);

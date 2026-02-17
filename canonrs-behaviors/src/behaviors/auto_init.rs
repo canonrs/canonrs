@@ -29,6 +29,7 @@ pub fn register_all_behaviors() {
     markdown_behavior::register();
 toc_behavior::register();
     chart_behavior::register();
+    scroll_area_behavior::register();
     chart_sync_behavior::register();
     markdown_toolbar_behavior::register();
     doc_progress_behavior::register();

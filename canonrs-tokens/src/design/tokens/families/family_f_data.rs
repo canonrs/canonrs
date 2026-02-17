@@ -206,11 +206,19 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("copy-button-transition-ease",    "var(--motion-ease-standard)"),
 
     // ── Scroll Area ───────────────────────────────────────────────────────────
-    FamilyToken::new("scroll-area-bg",         "transparent"),
-    FamilyToken::new("scroll-area-border",     "none"),
-    FamilyToken::new("scroll-area-radius",     "0"),
-    FamilyToken::new("scroll-area-padding",    "0"),
-    FamilyToken::new("scroll-area-max-height", "100%"),
+    FamilyToken::new("scroll-area-bg",                  "transparent"),
+    FamilyToken::new("scroll-area-border",              "none"),
+    FamilyToken::new("scroll-area-radius",              "0"),
+    FamilyToken::new("scroll-area-padding",             "0"),
+    FamilyToken::new("scroll-area-max-height",          "100%"),
+    FamilyToken::new("scrollbar-size",                  "8px"),
+    FamilyToken::new("scrollbar-radius",                "var(--radius-full)"),
+    FamilyToken::new("scrollbar-track-bg",              "transparent"),
+    FamilyToken::new("scrollbar-thumb-bg",              "var(--theme-surface-border)"),
+    FamilyToken::new("scrollbar-thumb-hover-bg",        "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("scrollbar-thumb-active-bg",       "var(--theme-surface-fg)"),
+    FamilyToken::new("scrollbar-transition",            "background var(--motion-duration-fast) var(--motion-ease-standard)"),
+    FamilyToken::new("scrollbar-thumb-min-size",        "40px"),
 
     // ── List ──────────────────────────────────────────────────────────────────
     FamilyToken::new("list-gap",            "var(--space-sm)"),
