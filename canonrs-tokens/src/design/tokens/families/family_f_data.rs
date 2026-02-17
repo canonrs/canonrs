@@ -79,8 +79,13 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("icon-color-muted",   "var(--theme-surface-fg-muted)"),
     FamilyToken::new("icon-color-disabled","var(--theme-surface-fg-muted)"),
     FamilyToken::new("icon-vertical-align","middle"),
+    FamilyToken::new("icon-color-primary",     "var(--color-primary)"),
+    FamilyToken::new("icon-color-destructive", "var(--color-destructive)"),
+    FamilyToken::new("icon-color-success",     "var(--color-success)"),
+    FamilyToken::new("icon-color-warning",     "var(--color-warning)"),
+    FamilyToken::new("icon-stroke-width",      "2"),
 
-    // ── Icon Button ───────────────────────────────────────────────────────────
+    // ── IconButton ────────────────────────────────────────────────────────────
     FamilyToken::new("icon-button-size-sm",           "var(--space-xl)"),
     FamilyToken::new("icon-button-size-md",           "var(--space-2xl)"),
     FamilyToken::new("icon-button-size-lg",           "var(--size-icon-lg)"),
@@ -150,7 +155,7 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("kbd-size-sm-padding-x","var(--space-xs)"),
     FamilyToken::new("kbd-size-sm-padding-y","2px"),
 
-    // ── Code Block ────────────────────────────────────────────────────────────
+    // ── CodeBlock ─────────────────────────────────────────────────────────────
     FamilyToken::new("code-block-bg",                  "var(--theme-surface-muted)"),
     FamilyToken::new("code-block-radius",              "var(--radius-md)"),
     FamilyToken::new("code-block-border-color",        "var(--theme-surface-border)"),
@@ -202,7 +207,7 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
 
     // ── Stat ──────────────────────────────────────────────────────────────────
     FamilyToken::new("stat-gap",               "var(--space-xs)"),
-    FamilyToken::new("stat-align",             "flex-start"),
+    FamilyToken::new("stat-align",             "flex-start)"),
     FamilyToken::new("stat-value-fg",          "var(--theme-surface-fg)"),
     FamilyToken::new("stat-value-font-size",   "var(--font-size-3xl)"),
     FamilyToken::new("stat-value-font-weight", "var(--font-weight-bold)"),
@@ -220,7 +225,7 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("stat-icon-size",         "var(--space-lg)"),
     FamilyToken::new("stat-skeleton-bg",       "var(--theme-surface-muted)"),
 
-    // ── Copy Button ───────────────────────────────────────────────────────────
+    // ── CopyButton ────────────────────────────────────────────────────────────
     FamilyToken::new("copy-button-icon-size",          "var(--space-md)"),
     FamilyToken::new("copy-button-icon-color",         "var(--theme-surface-fg-muted)"),
     FamilyToken::new("copy-button-icon-color-copied",  "var(--color-success)"),
@@ -239,7 +244,7 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("copy-button-transition-duration","var(--motion-duration-normal)"),
     FamilyToken::new("copy-button-transition-ease",    "var(--motion-ease-standard)"),
 
-    // ── Scroll Area ───────────────────────────────────────────────────────────
+    // ── ScrollArea ────────────────────────────────────────────────────────────
     FamilyToken::new("scroll-area-bg",                  "transparent"),
     FamilyToken::new("scroll-area-border",              "none"),
     FamilyToken::new("scroll-area-radius",              "0"),
@@ -254,7 +259,7 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("scrollbar-transition",            "background var(--motion-duration-fast) var(--motion-ease-standard)"),
     FamilyToken::new("scrollbar-thumb-min-size",        "40px"),
 
-    // ── List ──────────────────────────────────────────────────────────────────
+    // ── ListItem ──────────────────────────────────────────────────────────────
     FamilyToken::new("list-gap",            "var(--space-sm)"),
     FamilyToken::new("list-item-padding",   "var(--space-sm) var(--space-md)"),
     FamilyToken::new("list-item-padding-y", "var(--space-sm)"),
@@ -286,8 +291,6 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("markdown-inline-code-bg",     "var(--theme-surface-muted)"),
     FamilyToken::new("markdown-inline-code-fg",     "var(--color-destructive)"),
     FamilyToken::new("markdown-inline-code-radius", "var(--radius-sm)"),
-
-    // ── Markdown Toolbar ──────────────────────────────────────────────────────
     FamilyToken::new("markdown-toolbar-gap",             "var(--space-xs)"),
     FamilyToken::new("markdown-toolbar-padding-x",       "var(--space-sm)"),
     FamilyToken::new("markdown-toolbar-padding-y",       "var(--space-xs)"),
@@ -299,8 +302,6 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("markdown-toolbar-item-fg-hover",   "var(--theme-surface-fg)"),
     FamilyToken::new("markdown-toolbar-item-bg-hover",   "var(--theme-surface-muted)"),
     FamilyToken::new("markdown-toolbar-item-border-color","var(--theme-surface-border-muted)"),
-
-    // ── Markdown TOC ──────────────────────────────────────────────────────────
     FamilyToken::new("markdown-toc-border-color",        "var(--theme-surface-border-muted)"),
     FamilyToken::new("markdown-toc-border-radius",       "var(--radius-md)"),
     FamilyToken::new("markdown-toc-padding",             "var(--space-md)"),
@@ -317,9 +318,4 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("markdown-toc-indent-l3",           "var(--space-md)"),
     FamilyToken::new("markdown-toc-indent-l4",           "var(--space-lg)"),
     FamilyToken::new("markdown-toc-indent-l5",           "var(--space-xl)"),
-    FamilyToken::new("icon-color-primary",     "var(--color-primary)"),
-    FamilyToken::new("icon-color-destructive", "var(--color-destructive)"),
-    FamilyToken::new("icon-color-success",     "var(--color-success)"),
-    FamilyToken::new("icon-color-warning",     "var(--color-warning)"),
-    FamilyToken::new("icon-stroke-width",      "2"),
 ];

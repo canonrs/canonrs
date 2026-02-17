@@ -1,9 +1,13 @@
 use leptos::prelude::*;
 use crate::primitives::{ListPrimitive, ListItemPrimitive, ListItemTitlePrimitive, ListItemDescriptionPrimitive};
 
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum ListSelectionMode { None, Single, Multiple }
+
 #[component]
 pub fn List(
     #[prop(optional)] children: Option<Children>,
+    #[prop(default = ListSelectionMode::None)] selection_mode: ListSelectionMode,
     #[prop(default = String::new())] class: String,
     #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -24,6 +28,7 @@ pub fn ListItem(
     #[prop(into, optional)] id: Option<String>,
     #[prop(default = false)] selectable: bool,
     #[prop(default = false)] selected: bool,
+    #[prop(default = false)] disabled: bool,
 ) -> impl IntoView {
     view! {
         <ListItemPrimitive
@@ -34,8 +39,10 @@ pub fn ListItem(
                 data-list-item-content=""
                 data-selectable={selectable.then_some("")}
                 data-selected={selected.then_some("")}
-                tabindex={if selectable { Some("0") } else { None }}
+                data-disabled={disabled.then_some("")}
+                tabindex={if selectable && !disabled { Some("0") } else { None }}
                 aria-selected={if selectable { Some(selected.to_string()) } else { None }}
+                aria-disabled={if disabled { Some("true") } else { None }}
             >
                 {children.map(|c| c())}
             </div>

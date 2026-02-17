@@ -87,3 +87,4 @@ pub use auto_init::init_canonrs_behaviors;
 #[cfg(feature = "hydrate")]
 pub mod data_table_behavior;
 mod markdown_toolbar_behavior;
+pub mod list_behavior;

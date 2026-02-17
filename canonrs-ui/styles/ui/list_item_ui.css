@@ -3,7 +3,17 @@
    Family F: Data
    ============================================ */
 
+[data-list] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--list-gap);
+}
+
 [data-list-item] {
+  display: block;
+}
+
+[data-list-item-content] {
   display: flex;
   flex-direction: column;
   padding: var(--list-item-padding);
@@ -11,23 +21,31 @@
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/* Selectable items */
-[data-list-item][data-selectable] {
+/* Selectable */
+[data-list-item-content][data-selectable] {
   cursor: pointer;
   border-radius: var(--list-item-radius);
 }
 
-[data-list-item][data-selectable]:hover {
+[data-list-item-content][data-selectable]:hover:not([data-disabled]) {
   background: var(--list-item-bg-hover);
 }
 
-/* Selected state */
-[data-list-item][data-selected] {
+/* Selected */
+[data-list-item-content][data-selected] {
   background: var(--list-item-bg-selected);
 }
 
-/* Focus (keyboard nav) */
-[data-list-item][data-selectable]:focus-visible {
+/* Disabled */
+[data-list-item-content][data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background: var(--list-item-bg-disabled);
+  color: var(--list-item-fg-disabled);
+}
+
+/* Focus-visible */
+[data-list-item-content][data-selectable]:focus-visible {
   outline: none;
   box-shadow: var(--list-item-focus-ring);
 }
@@ -43,11 +61,4 @@
 [data-list-item-description] {
   font-size: var(--list-description-font-size);
   color: var(--list-description-color);
-}
-
-/* List Container */
-[data-list] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--list-gap);
 }

@@ -63,6 +63,11 @@
   --icon-color-muted: var(--theme-surface-fg-muted);
   --icon-color-disabled: var(--theme-surface-fg-muted);
   --icon-vertical-align: middle;
+  --icon-color-primary: var(--color-primary);
+  --icon-color-destructive: var(--color-destructive);
+  --icon-color-success: var(--color-success);
+  --icon-color-warning: var(--color-warning);
+  --icon-stroke-width: 2;
   --icon-button-size-sm: var(--space-xl);
   --icon-button-size-md: var(--space-2xl);
   --icon-button-size-lg: var(--size-icon-lg);
@@ -174,7 +179,7 @@
   --avatar-badge-font-weight: var(--font-weight-semibold);
   --avatar-group-overlap: -0.5rem;
   --stat-gap: var(--space-xs);
-  --stat-align: flex-start;
+  --stat-align: flex-start);
   --stat-value-fg: var(--theme-surface-fg);
   --stat-value-font-size: var(--font-size-3xl);
   --stat-value-font-weight: var(--font-weight-bold);
@@ -277,9 +282,4 @@
   --markdown-toc-indent-l3: var(--space-md);
   --markdown-toc-indent-l4: var(--space-lg);
   --markdown-toc-indent-l5: var(--space-xl);
-  --icon-color-primary: var(--color-primary);
-  --icon-color-destructive: var(--color-destructive);
-  --icon-color-success: var(--color-success);
-  --icon-color-warning: var(--color-warning);
-  --icon-stroke-width: 2;
 }
