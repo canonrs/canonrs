@@ -33,11 +33,16 @@ pub mod field;
 pub mod floating;
 pub mod form_error_summary;
 pub mod hover_card;
+pub mod icon;
+pub use icon::*;
+
 pub mod icon_button;
 pub mod inline_notice;
 pub mod input;
 pub mod input_group;
 pub mod kbd;
+pub mod kbd_group;
+pub use kbd_group::*;
 pub mod label;
 pub mod link;
 pub mod loading_overlay;

@@ -114,6 +114,11 @@
   --kbd-muted-bg: var(--theme-surface-muted);
   --kbd-muted-fg: var(--theme-surface-fg-muted);
   --kbd-inline-gap: var(--space-xs);
+  --kbd-gap: var(--space-xs);
+  --kbd-separator-color: var(--theme-surface-fg-muted);
+  --kbd-size-sm-font: var(--font-size-2xs);
+  --kbd-size-sm-padding-x: var(--space-xs);
+  --kbd-size-sm-padding-y: 2px;
   --code-block-bg: var(--theme-surface-muted);
   --code-block-radius: var(--radius-md);
   --code-block-border-color: var(--theme-surface-border);
@@ -170,6 +175,16 @@
   --copy-button-icon-size: var(--space-md);
   --copy-button-icon-color: var(--theme-surface-fg-muted);
   --copy-button-icon-color-copied: var(--color-success);
+  --copy-button-success-bg: var(--color-success);
+  --copy-button-success-fg: var(--color-success-foreground);
+  --copy-button-success-border: var(--color-success);
+  --copy-button-error-bg: var(--color-destructive);
+  --copy-button-error-fg: var(--color-destructive-foreground);
+  --copy-button-error-border: var(--color-destructive);
+  --copy-button-bg: transparent;
+  --copy-button-fg: var(--theme-surface-fg);
+  --copy-button-border: var(--theme-surface-border);
+  --copy-button-bg-hover: var(--theme-surface-muted);
   --copy-button-copied-bg: var(--theme-state-success-bg);
   --copy-button-copied-fg: var(--color-success);
   --copy-button-transition-duration: var(--motion-duration-normal);
@@ -233,4 +248,9 @@
   --markdown-toc-indent-l3: var(--space-md);
   --markdown-toc-indent-l4: var(--space-lg);
   --markdown-toc-indent-l5: var(--space-xl);
+  --icon-color-primary: var(--color-primary);
+  --icon-color-destructive: var(--color-destructive);
+  --icon-color-success: var(--color-success);
+  --icon-color-warning: var(--color-warning);
+  --icon-stroke-width: 2;
 }

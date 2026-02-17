@@ -49,38 +49,61 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
         let text = btn_clone.get_attribute("data-copy-text")
             .filter(|t| !t.is_empty())
             .or_else(|| {
-                btn_clone.get_attribute("data-copy-target").and_then(|target_id| {
-                    document().get_element_by_id(&target_id)
+                btn_clone.get_attribute("data-copy-target").and_then(|target| {
+                    // Support both "#id" and "id" formats
+                    let selector = if target.starts_with('#') { 
+                        target.clone() 
+                    } else { 
+                        format!("#{}", target) 
+                    };
+                    
+                    document().query_selector(&selector).ok()
+                        .flatten()
                         .and_then(|el| el.text_content())
                 })
             })
             .unwrap_or_default();
+
+        if text.is_empty() {
+            let _ = btn_clone.set_attribute("data-state", "error");
+            reset_after(&btn_clone, 2000);
+            return;
+        }
 
         CLIPBOARD.with(|clip| {
             let _ = clip.write_text(&text);
         });
 
         let _ = btn_clone.set_attribute("data-state", "copied");
-
-        // Reset after 2s
-        let btn_reset = btn_clone.clone();
-        let timeout = Closure::once(Box::new(move || {
-            let _ = btn_reset.set_attribute("data-state", "idle");
-        }) as Box<dyn FnOnce()>);
-
-        let _ = web_sys::window()
-            .unwrap()
-            .set_timeout_with_callback_and_timeout_and_arguments_0(
-                timeout.as_ref().unchecked_ref(),
-                2000,
-            );
-        timeout.forget();
+        
+        let delay = btn_clone.get_attribute("data-reset-delay")
+            .and_then(|d| d.parse::<i32>().ok())
+            .unwrap_or(2000);
+        
+        reset_after(&btn_clone, delay);
     }) as Box<dyn FnMut(_)>);
 
     btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "listener failed".into() })?;
+        .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "click listener".into() })?;
+    
     closure.forget();
     Ok(())
+}
+
+#[cfg(feature = "hydrate")]
+fn reset_after(btn: &Element, delay: i32) {
+    let btn_reset = btn.clone();
+    let timeout = Closure::once(Box::new(move || {
+        let _ = btn_reset.set_attribute("data-state", "idle");
+    }) as Box<dyn FnOnce()>);
+
+    let _ = web_sys::window()
+        .unwrap()
+        .set_timeout_with_callback_and_timeout_and_arguments_0(
+            timeout.as_ref().unchecked_ref(),
+            delay,
+        );
+    timeout.forget();
 }
 
 #[cfg(not(feature = "hydrate"))]

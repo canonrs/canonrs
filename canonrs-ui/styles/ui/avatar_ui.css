@@ -120,3 +120,14 @@
   border-radius: var(--avatar-radius);
   line-height: 1;
 }
+
+/* Fallback — oculto quando imagem carrega */
+
+/* Pulse animation */
+@keyframes avatar-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--avatar-status-online-bg) 60%, transparent); }
+  50%       { box-shadow: 0 0 0 4px color-mix(in srgb, var(--avatar-status-online-bg) 0%, transparent); }
+}
+[data-avatar-status][data-pulse] {
+  animation: avatar-pulse 2s ease-in-out infinite;
+}

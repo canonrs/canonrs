@@ -1,5 +1,5 @@
 /* ============================================
-   SCROLL AREA
+   SCROLL AREA — Infrastructure Level
    Family F: Data Display
    ============================================ */
 
@@ -10,100 +10,82 @@
   border-radius: var(--scroll-area-radius);
   padding: var(--scroll-area-padding);
   overflow: hidden;
+  height: 100%;
 }
 
-/* Viewport — scroll real acontece aqui */
+/* ── Viewport ────────────────────────────────── */
 [data-scroll-viewport] {
   width: 100%;
   height: 100%;
   overflow: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+[data-scroll-viewport]::-webkit-scrollbar { display: none; }
 
-[data-scroll-area][data-orientation="vertical"] [data-scroll-viewport] {
-  max-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
+[data-scroll-area][data-orientation="vertical"]    [data-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
+[data-scroll-area][data-orientation="horizontal"]  [data-scroll-viewport] { overflow-x: auto;   overflow-y: hidden; height: auto; }
+[data-scroll-area][data-orientation="both"]        [data-scroll-viewport] { overflow: auto; }
 
-[data-scroll-area][data-orientation="horizontal"] [data-scroll-viewport] {
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: auto;
-  width: 100%;
-}
-
-[data-scroll-area][data-orientation="both"] [data-scroll-viewport] {
-  overflow: auto;
-}
-
-[data-scroll-area] {
-  height: 100%;
-}
-
-[data-scroll-viewport]::-webkit-scrollbar {
-  display: none; /* Chrome/Safari — scrollbar nativa oculta */
-}
-
-/* Scrollbar custom */
+/* ── Scrollbar ───────────────────────────────── */
 [data-scrollbar] {
   position: absolute;
-  background: var(--scrollbar-track-bg);
-  border-radius: var(--scrollbar-radius);
-  transition: opacity 0.2s ease;
   z-index: 10;
+  transition: opacity 0.2s ease;
 }
 
 [data-scrollbar][data-orientation="vertical"] {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
+  top: 2px; right: 2px; bottom: 2px;
   width: var(--scrollbar-size);
 }
 
 [data-scrollbar][data-orientation="horizontal"] {
-  left: 2px;
-  right: 2px;
-  bottom: 2px;
+  left: 2px; right: 2px; bottom: 2px;
   height: var(--scrollbar-size);
 }
 
-/* Auto-hide */
-[data-scroll-area][data-auto-hide="true"] [data-scrollbar] {
-  opacity: 0;
+/* auto-hide */
+[data-scroll-area][data-auto-hide="true"] [data-scrollbar] { opacity: 0; }
+[data-scroll-area][data-auto-hide="true"]:hover [data-scrollbar] { opacity: 1; }
+[data-scroll-area][data-auto-hide="true"] [data-scrollbar][data-state="dragging"] { opacity: 1; }
+
+/* ── Track ───────────────────────────────────── */
+[data-scroll-track] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--scrollbar-track-bg);
+  border-radius: var(--scrollbar-radius);
+  overflow: hidden;
 }
 
-[data-scroll-area][data-auto-hide="true"]:hover [data-scrollbar],
-[data-scroll-area][data-auto-hide="true"] [data-scrollbar][data-state="dragging"] {
-  opacity: 1;
-}
-
-/* Thumb */
+/* ── Thumb ───────────────────────────────────── */
 [data-scroll-thumb] {
   position: absolute;
   background: var(--scrollbar-thumb-bg);
   border-radius: var(--scrollbar-radius);
-  min-height: var(--scrollbar-thumb-min-size);
-  min-width: var(--scrollbar-thumb-min-size);
-  cursor: pointer;
-  transition: var(--scrollbar-transition);
+  will-change: transform;
+  transition: var(--scrollbar-transition), opacity 0.15s ease;
+  cursor: grab;
 }
 
 [data-scroll-thumb][data-orientation="vertical"] {
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
+  min-height: var(--scrollbar-thumb-min-size);
+  height: var(--scroll-thumb-size, 40px);
+  transform: translateY(var(--scroll-thumb-offset, 0px));
 }
 
 [data-scroll-thumb][data-orientation="horizontal"] {
-  top: 0;
-  bottom: 0;
+  top: 0; bottom: 0;
+  min-width: var(--scrollbar-thumb-min-size);
+  width: var(--scroll-thumb-size, 40px);
+  transform: translateX(var(--scroll-thumb-offset, 0px));
 }
 
-[data-scroll-thumb]:hover {
-  background: var(--scrollbar-thumb-hover-bg);
-}
-
+[data-scroll-thumb][data-state="hidden"] { opacity: 0; pointer-events: none; }
+[data-scroll-thumb]:hover                { background: var(--scrollbar-thumb-hover-bg); }
 [data-scroll-thumb][data-state="dragging"] {
   background: var(--scrollbar-thumb-active-bg);
+  cursor: grabbing;
 }

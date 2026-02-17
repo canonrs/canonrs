@@ -1,35 +1,64 @@
 /* ============================================
-   ICON
-   Family H: Utilities
+   ICON — Enterprise Level
+   Family F: Data
    ============================================ */
 
-[data-icon-wrapper] {
+[data-icon] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--icon-color);
+  color: var(--icon-color, currentColor);
   vertical-align: var(--icon-vertical-align);
 }
 
-[data-icon-wrapper][data-size="sm"] {
+/* Sizes */
+[data-icon][data-size="sm"] {
   width: var(--icon-size-sm);
   height: var(--icon-size-sm);
 }
 
-[data-icon-wrapper][data-size="md"] {
+[data-icon][data-size="md"] {
   width: var(--icon-size-md);
   height: var(--icon-size-md);
 }
 
-[data-icon-wrapper][data-size="lg"] {
+[data-icon][data-size="lg"] {
   width: var(--icon-size-lg);
   height: var(--icon-size-lg);
 }
 
-[data-icon-wrapper][data-muted="true"] {
-  color: var(--icon-color-muted);
+/* Variants */
+[data-icon][data-variant="default"] { color: var(--icon-color); }
+[data-icon][data-variant="muted"] { color: var(--icon-color-muted); }
+[data-icon][data-variant="primary"] { color: var(--icon-color-primary); }
+[data-icon][data-variant="destructive"] { color: var(--icon-color-destructive); }
+[data-icon][data-variant="success"] { color: var(--icon-color-success); }
+[data-icon][data-variant="warning"] { color: var(--icon-color-warning); }
+
+/* Inner wrapper — SVG container */
+[data-icon-inner] {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
-[data-icon-wrapper][disabled] {
+[data-icon-inner] svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: var(--icon-stroke-width);
+}
+
+/* Spin animation — enterprise tokenized */
+@keyframes icon-spin {
+  to { transform: rotate(360deg); }
+}
+
+[data-icon][data-spin] [data-icon-inner] {
+  animation: icon-spin var(--motion-duration-slow) linear infinite;
+}
+
+/* Disabled state */
+[data-icon][disabled] {
   color: var(--icon-color-disabled);
+  pointer-events: none;
 }

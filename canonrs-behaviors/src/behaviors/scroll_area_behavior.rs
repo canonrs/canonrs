@@ -32,6 +32,9 @@ fn setup_scrollbar(root: &web_sys::Element, viewport: &web_sys::HtmlElement, ori
     let Some(scrollbar) = root.query_selector(&selector).ok().flatten() else { return Ok(()); };
     let thumb_sel = format!("[data-scroll-thumb][data-orientation='{}']", orientation);
     let Some(thumb) = root.query_selector(&thumb_sel).ok().flatten() else { return Ok(()); };
+    // track para click-to-jump
+    let track_sel = format!("[data-scrollbar][data-orientation='{}'] [data-scroll-track]", orientation);
+    let track = root.query_selector(&track_sel).ok().flatten();
     let thumb_el: web_sys::HtmlElement = thumb.clone().dyn_into().unwrap();
     let is_vertical = orientation == "vertical";
 
@@ -57,7 +60,9 @@ fn setup_scrollbar(root: &web_sys::Element, viewport: &web_sys::HtmlElement, ori
     setup_drag(&thumb_el, viewport, is_vertical)?;
 
     // Click on track → jump
-    setup_track_click(&scrollbar, viewport, &thumb_el, is_vertical)?;
+    if let Some(ref track_el) = track {
+        setup_track_click(track_el, viewport, &thumb_el, is_vertical)?;
+    }
 
     Ok(())
 }
@@ -65,38 +70,73 @@ fn setup_scrollbar(root: &web_sys::Element, viewport: &web_sys::HtmlElement, ori
 #[cfg(feature = "hydrate")]
 fn update_thumb(viewport: &web_sys::HtmlElement, scrollbar: &web_sys::Element, thumb: &web_sys::HtmlElement, is_vertical: bool) {
     if is_vertical {
-        let scroll_h  = viewport.scroll_height() as f64;
-        let client_h  = viewport.client_height() as f64;
-        let scroll_top= viewport.scroll_top() as f64;
-        let bar_h     = scrollbar.client_height() as f64;
+        let scroll_h   = viewport.scroll_height() as f64;
+        let client_h   = viewport.client_height() as f64;
+        let scroll_top = viewport.scroll_top() as f64;
+        let bar_h      = scrollbar.client_height() as f64;
 
-        if scroll_h <= client_h { thumb.style().set_property("display", "none").ok(); return; }
-        thumb.style().set_property("display", "").ok();
+        if scroll_h <= client_h {
+            let _ = thumb.set_attribute("data-state", "hidden");
+            return;
+        }
+        let _ = thumb.remove_attribute("data-state");
 
         let ratio      = client_h / scroll_h;
         let thumb_h    = (bar_h * ratio).max(40.0);
         let max_scroll = scroll_h - client_h;
-        let thumb_top  = (scroll_top / max_scroll) * (bar_h - thumb_h);
+        let thumb_top  = if max_scroll > 0.0 { (scroll_top / max_scroll) * (bar_h - thumb_h) } else { 0.0 };
+        let ratio_pos  = if max_scroll > 0.0 { scroll_top / max_scroll } else { 0.0 };
 
-        thumb.style().set_property("height", &format!("{}px", thumb_h)).ok();
-        thumb.style().set_property("top",    &format!("{}px", thumb_top)).ok();
+        // CSS custom properties — zero layout thrash
+        thumb.unchecked_ref::<web_sys::HtmlElement>().style()
+            .set_property("--scroll-thumb-size", &format!("{}px", thumb_h)).ok();
+        thumb.unchecked_ref::<web_sys::HtmlElement>().style()
+            .set_property("--scroll-thumb-offset", &format!("{}px", thumb_top)).ok();
+
+        // Dispatch canon:scroll
+        dispatch_scroll_event(viewport, scroll_top, 0.0, max_scroll, 0.0, ratio_pos, 0.0);
     } else {
-        let scroll_w   = viewport.scroll_width() as f64;
-        let client_w   = viewport.client_width() as f64;
-        let scroll_left= viewport.scroll_left() as f64;
-        let bar_w      = scrollbar.client_width() as f64;
+        let scroll_w    = viewport.scroll_width() as f64;
+        let client_w    = viewport.client_width() as f64;
+        let scroll_left = viewport.scroll_left() as f64;
+        let bar_w       = scrollbar.client_width() as f64;
 
-        if scroll_w <= client_w { thumb.style().set_property("display", "none").ok(); return; }
-        thumb.style().set_property("display", "").ok();
+        if scroll_w <= client_w {
+            let _ = thumb.set_attribute("data-state", "hidden");
+            return;
+        }
+        let _ = thumb.remove_attribute("data-state");
 
         let ratio      = client_w / scroll_w;
         let thumb_w    = (bar_w * ratio).max(40.0);
         let max_scroll = scroll_w - client_w;
-        let thumb_left = (scroll_left / max_scroll) * (bar_w - thumb_w);
+        let thumb_left = if max_scroll > 0.0 { (scroll_left / max_scroll) * (bar_w - thumb_w) } else { 0.0 };
+        let ratio_pos  = if max_scroll > 0.0 { scroll_left / max_scroll } else { 0.0 };
 
-        thumb.style().set_property("width", &format!("{}px", thumb_w)).ok();
-        thumb.style().set_property("left",  &format!("{}px", thumb_left)).ok();
+        thumb.unchecked_ref::<web_sys::HtmlElement>().style()
+            .set_property("--scroll-thumb-size", &format!("{}px", thumb_w)).ok();
+        thumb.unchecked_ref::<web_sys::HtmlElement>().style()
+            .set_property("--scroll-thumb-offset", &format!("{}px", thumb_left)).ok();
+
+        dispatch_scroll_event(viewport, 0.0, scroll_left, 0.0, max_scroll, 0.0, ratio_pos);
     }
+}
+
+#[cfg(feature = "hydrate")]
+fn dispatch_scroll_event(viewport: &web_sys::HtmlElement, scroll_top: f64, scroll_left: f64, max_v: f64, max_h: f64, ratio_v: f64, ratio_h: f64) {
+    let detail = js_sys::Object::new();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("scrollTop"),   &JsValue::from_f64(scroll_top)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("scrollLeft"),  &JsValue::from_f64(scroll_left)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("maxScrollV"),  &JsValue::from_f64(max_v)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("maxScrollH"),  &JsValue::from_f64(max_h)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("ratioV"),      &JsValue::from_f64(ratio_v)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("ratioH"),      &JsValue::from_f64(ratio_h)).ok();
+
+    let f = js_sys::Function::new_with_args(
+        "el,detail",
+        "el.dispatchEvent(new CustomEvent('canon:scroll', {bubbles:true, detail:detail}));"
+    );
+    f.call2(&JsValue::NULL, viewport, &detail).ok();
 }
 
 #[cfg(feature = "hydrate")]

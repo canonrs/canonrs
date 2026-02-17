@@ -1,5 +1,5 @@
 //! @canon-level: strict
-//! ScrollArea Primitive - Viewport + Scrollbar + Thumb enterprise architecture
+//! ScrollArea Primitive - Viewport + Track + Thumb enterprise architecture
 
 use leptos::prelude::*;
 
@@ -46,13 +46,17 @@ pub fn ScrollAreaPrimitive(
 
             {show_v.then(|| view! {
                 <div data-scrollbar="" data-orientation="vertical">
-                    <div data-scroll-thumb="" data-orientation="vertical" />
+                    <div data-scroll-track="">
+                        <div data-scroll-thumb="" data-orientation="vertical" />
+                    </div>
                 </div>
             })}
 
             {show_h.then(|| view! {
                 <div data-scrollbar="" data-orientation="horizontal">
-                    <div data-scroll-thumb="" data-orientation="horizontal" />
+                    <div data-scroll-track="">
+                        <div data-scroll-thumb="" data-orientation="horizontal" />
+                    </div>
                 </div>
             })}
         </div>
