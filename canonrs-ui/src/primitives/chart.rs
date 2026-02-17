@@ -16,6 +16,7 @@ pub fn ChartPrimitive(
     #[prop(default = true)] show_tooltip: bool,
     #[prop(default = true)] animate: bool,
     #[prop(into, default = String::new())] sync_table: String,
+    #[prop(into, default = String::new())] sync_scope: String,
 ) -> impl IntoView {
     let canvas_id  = format!("{}-canvas", id);
     let tooltip_id = format!("{}-tooltip", id);
@@ -32,6 +33,7 @@ pub fn ChartPrimitive(
             data-chart-tooltip={show_tooltip.to_string()}
             data-chart-animate={animate.to_string()}
             data-chart-sync-table={sync_table}
+            data-sync-scope={sync_scope}
         >
             <canvas id={canvas_id} data-chart-canvas="" />
 

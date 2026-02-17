@@ -28,6 +28,7 @@ pub fn DataTablePrimitive(
     #[prop(default = String::new())] current_page: String,
     #[prop(default = String::new())] total_pages: String,
     #[prop(default = String::new())] sync_chart: String,
+    #[prop(default = String::new())] sync_scope: String,
 ) -> impl IntoView {
     view! {
         <div

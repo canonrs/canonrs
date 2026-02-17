@@ -547,8 +547,10 @@ fn setup_expand(container: &Element) -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
-    let Some(chart_id) = container.get_attribute("data-table-sync-chart") else { return Ok(()); };
-    if chart_id.is_empty() { return Ok(()); }
+    let chart_id = container.get_attribute("data-table-sync-chart").unwrap_or_default();
+    let scope    = container.get_attribute("data-sync-scope").unwrap_or_default();
+    // Requer pelo menos um dos dois
+    if chart_id.is_empty() && scope.is_empty() { return Ok(()); }
     if container.get_attribute("data-sync-table-attached").as_deref() == Some("1") { return Ok(()); }
     let _ = container.set_attribute("data-sync-table-attached", "1");
 
@@ -593,8 +595,18 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
 
     // Escuta canon:chart:hover → highlight row
     let container_c = container.clone();
+    let scope_c   = scope.clone();
+    let chart_id_c_hover = chart_id.clone();
     let on_hover = Closure::wrap(Box::new(move |e: web_sys::CustomEvent| {
         let detail = e.detail();
+        // Filtrar por scope ou sourceId
+        let ev_scope = js_sys::Reflect::get(&detail, &wasm_bindgen::JsValue::from_str("scope"))
+            .ok().and_then(|v| v.as_string()).unwrap_or_default();
+        let ev_source = js_sys::Reflect::get(&detail, &wasm_bindgen::JsValue::from_str("sourceId"))
+            .ok().and_then(|v| v.as_string()).unwrap_or_default();
+        let scope_match  = !scope_c.is_empty() && ev_scope == scope_c;
+        let id_match     = !chart_id_c_hover.is_empty() && ev_source == chart_id_c_hover;
+        if !scope_match && !id_match { return; }
         let idx = js_sys::Reflect::get(&detail, &wasm_bindgen::JsValue::from_str("index"))
             .ok().and_then(|v| v.as_f64()).map(|f| f as usize).unwrap_or(usize::MAX);
         let Ok(rows) = container_c.query_selector_all("[data-datatable-row]") else { return };

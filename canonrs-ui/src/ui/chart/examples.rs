@@ -75,14 +75,14 @@ pub fn chart_datatable_sync_example() -> impl IntoView {
                 data={data}
                 chart_type={ChartType::Line}
                 height={320}
-                sync_table="datatable-sync".to_string()
+                sync_scope="revenue-2026".to_string()
             />
             <DataTableFull
                 id="datatable-sync"
                 data={rows}
                 columns={columns}
                 page_size={6}
-                sync_chart="chart-sync".to_string()
+                sync_scope="revenue-2026".to_string()
             />
         </div>
     }

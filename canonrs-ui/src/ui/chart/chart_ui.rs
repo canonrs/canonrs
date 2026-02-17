@@ -68,6 +68,7 @@ pub fn Chart(
     #[prop(default = true)] animate: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] sync_table: String,
+    #[prop(into, default = String::new())] sync_scope: String,
 ) -> impl IntoView {
     let json = data.to_json();
 
@@ -83,6 +84,7 @@ pub fn Chart(
             show_tooltip={show_tooltip}
             animate={animate}
             sync_table={sync_table}
+            sync_scope={sync_scope}
         />
     }
 }

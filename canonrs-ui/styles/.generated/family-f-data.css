@@ -97,7 +97,7 @@
   --chart-crosshair-color: var(--theme-surface-border);
   --chart-crosshair-width: 1px;
   --chart-legend-dot-size: 10px;
-  --chart-sync-highlight-bg: var(--theme-surface-muted);
+  --chart-sync-highlight-bg: var(--theme-primary-subtle, rgba(99,102,241,0.08));
   --chart-overlay-z: 10;
   --kbd-bg: var(--theme-surface-muted);
   --kbd-fg: var(--theme-surface-fg);
