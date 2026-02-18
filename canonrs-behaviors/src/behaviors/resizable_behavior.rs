@@ -10,6 +10,10 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
 use web_sys::Element;
+#[cfg(feature = "hydrate")]
+use std::cell::RefCell;
+#[cfg(feature = "hydrate")]
+use std::rc::Rc;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
@@ -53,58 +57,73 @@ fn setup_resizable(resizable: &Element) -> BehaviorResult<()> {
     let resizable_clone = resizable.clone();
     let is_horizontal = direction == "horizontal";
     
-    let on_pointerdown = Closure::wrap(Box::new(move |e: web_sys::PointerEvent| {
+    let is_dragging = Rc::new(RefCell::new(false));
+    let is_dragging_down = is_dragging.clone();
+    let is_dragging_move = is_dragging.clone();
+    let is_dragging_up = is_dragging.clone();
+    
+    let container_rect = Rc::new(RefCell::new((0.0, 0.0, 0.0)));
+    let container_rect_down = container_rect.clone();
+    let container_rect_move = container_rect.clone();
+    
+    let resizable_for_down = resizable_clone.clone();
+    let on_down = Closure::wrap(Box::new(move |e: web_sys::PointerEvent| {
         e.prevent_default();
+        *is_dragging_down.borrow_mut() = true;
         
-        let container: web_sys::HtmlElement = resizable_clone.clone().dyn_into().unwrap();
+        let container: web_sys::HtmlElement = resizable_for_down.clone().dyn_into().unwrap();
         let rect = container.get_bounding_client_rect();
-        
-        let container_size = if is_horizontal { rect.width() } else { rect.height() };
+        let size = if is_horizontal { rect.width() } else { rect.height() };
         let offset = if is_horizontal { rect.left() } else { rect.top() };
-
-        let resizable_for_move = resizable_clone.clone();
         
-        let on_move = Closure::wrap(Box::new(move |e: web_sys::PointerEvent| {
-            let current_pos = if is_horizontal {
-                e.client_x() as f64
-            } else {
-                e.client_y() as f64
-            };
-
-            let relative_pos = current_pos - offset;
-            let percentage = (relative_pos / container_size * 100.0).max(min_size).min(max_size);
-            
-            // Update panels
-            if let Ok(panels) = resizable_for_move.query_selector_all("[data-resizable-panel-content]") {
-                if let Some(node) = panels.item(0) {
-                    if let Ok(panel) = node.dyn_into::<web_sys::HtmlElement>() {
-                        let _ = panel.style().set_property("flex-basis", &format!("{}%", percentage));
-                    }
-                }
-                if let Some(node) = panels.item(1) {
-                    if let Ok(panel) = node.dyn_into::<web_sys::HtmlElement>() {
-                        let _ = panel.style().set_property("flex-basis", &format!("{}%", 100.0 - percentage));
-                    }
-                }
-            }
-        }) as Box<dyn FnMut(_)>);
-
-        let on_up = Closure::wrap(Box::new(move |_: web_sys::PointerEvent| {
-            // Cleanup
-        }) as Box<dyn FnMut(_)>);
-
-        let _ = document().add_event_listener_with_callback("pointermove", on_move.as_ref().unchecked_ref());
-        let _ = document().add_event_listener_with_callback("pointerup", on_up.as_ref().unchecked_ref());
-        
-        on_move.forget();
-        on_up.forget();
-        
+        *container_rect_down.borrow_mut() = (size, offset, 0.0);
     }) as Box<dyn FnMut(_)>);
 
-    handle.add_event_listener_with_callback("pointerdown", on_pointerdown.as_ref().unchecked_ref())
+    handle.add_event_listener_with_callback("pointerdown", on_down.as_ref().unchecked_ref())
         .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "pointerdown".into() })?;
+    on_down.forget();
     
-    on_pointerdown.forget();
+    let resizable_for_move = resizable_clone.clone();
+    let on_move = Closure::wrap(Box::new(move |e: web_sys::PointerEvent| {
+        if !*is_dragging_move.borrow() {
+            return;
+        }
+        
+        let (size, offset, _) = *container_rect_move.borrow();
+        let current_pos = if is_horizontal {
+            e.client_x() as f64
+        } else {
+            e.client_y() as f64
+        };
+
+        let relative_pos = current_pos - offset;
+        let percentage = (relative_pos / size * 100.0).max(min_size).min(max_size);
+        
+        if let Ok(panels) = resizable_for_move.query_selector_all("[data-resizable-panel]") {
+            if let Some(node) = panels.item(0) {
+                if let Ok(panel) = node.dyn_into::<web_sys::HtmlElement>() {
+                    panel.style().set_property("flex-basis", &format!("{}%", percentage)).ok();
+                }
+            }
+            if let Some(node) = panels.item(1) {
+                if let Ok(panel) = node.dyn_into::<web_sys::HtmlElement>() {
+                    panel.style().set_property("flex-basis", &format!("{}%", 100.0 - percentage)).ok();
+                }
+            }
+        }
+    }) as Box<dyn FnMut(_)>);
+
+    document().add_event_listener_with_callback("pointermove", on_move.as_ref().unchecked_ref())
+        .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "pointermove".into() })?;
+    on_move.forget();
+    
+    let on_up = Closure::wrap(Box::new(move |_: web_sys::PointerEvent| {
+        *is_dragging_up.borrow_mut() = false;
+    }) as Box<dyn FnMut(_)>);
+
+    document().add_event_listener_with_callback("pointerup", on_up.as_ref().unchecked_ref())
+        .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "pointerup".into() })?;
+    on_up.forget();
 
     Ok(())
 }
