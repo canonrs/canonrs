@@ -1,20 +1,46 @@
 /* ============================================
    ASPECT RATIO
    Family H: Utilities
-   NOTE: Ratio is set via inline style on the primitive (aspect-ratio CSS property)
-   This file exists only for structural layout support
    ============================================ */
 
 [data-aspect-ratio] {
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
-[data-aspect-ratio] > * {
+/* Common ratios */
+[data-aspect-ratio][data-ratio="16/9"] {
+  aspect-ratio: 16 / 9;
+}
+
+[data-aspect-ratio][data-ratio="4/3"] {
+  aspect-ratio: 4 / 3;
+}
+
+[data-aspect-ratio][data-ratio="1/1"] {
+  aspect-ratio: 1 / 1;
+}
+
+[data-aspect-ratio][data-ratio="21/9"] {
+  aspect-ratio: 21 / 9;
+}
+
+[data-aspect-ratio][data-ratio="3/2"] {
+  aspect-ratio: 3 / 2;
+}
+
+[data-aspect-ratio][data-ratio="2/3"] {
+  aspect-ratio: 2 / 3;
+}
+
+/* Content wrapper */
+[data-aspect-content] {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
