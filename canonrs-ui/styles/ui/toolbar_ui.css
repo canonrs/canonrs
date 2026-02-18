@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   TOOLBAR - Family D Navigation tokens compliant
+   TOOLBAR - Family E Navigation tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-toolbar] {
@@ -11,4 +11,35 @@
   border-width: 1px;
   border-style: solid;
   border-color: var(--theme-surface-border);
+  border-radius: var(--radius-md);
+}
+
+[data-toolbar][aria-orientation="vertical"] {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Separator */
+[data-toolbar-separator] {
+  flex-shrink: 0;
+  background: var(--theme-surface-border);
+}
+
+[data-toolbar][aria-orientation="horizontal"] [data-toolbar-separator] {
+  width: 1px;
+  height: var(--space-lg);
+  align-self: stretch;
+}
+
+[data-toolbar][aria-orientation="vertical"] [data-toolbar-separator] {
+  width: 100%;
+  height: 1px;
+}
+
+/* Focus management for keyboard nav */
+[data-toolbar] > *:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+  position: relative;
+  z-index: 1;
 }

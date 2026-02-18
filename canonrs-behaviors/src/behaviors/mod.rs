@@ -90,3 +90,4 @@ mod markdown_toolbar_behavior;
 pub mod list_behavior;
 pub mod carousel_behavior;
 pub mod resizable_behavior;
+pub mod toolbar_behavior;
