@@ -6,18 +6,18 @@ use crate::shared::Orientation;
 pub fn Separator(
     #[prop(default = Orientation::Horizontal)] orientation: Orientation,
     #[prop(default = true)] decorative: bool,
-    #[prop(default = String::new())] aria_label: String,
+    #[prop(into, default = String::new())] aria_label: String,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
-    let base_class = format!("separator orientation-{} {}", orientation.as_str(), class);
-
     view! {
-        <SeparatorPrimitive
-            orientation={orientation.as_str().to_string()}
-            decorative={decorative}
-            aria_label={aria_label}
-            class={base_class}
+        <div
+            data-separator=""
+            data-orientation={orientation.as_str()}
+            role={if decorative { "presentation" } else { "separator" }}
+            aria-orientation={if !decorative { Some(orientation.as_str()) } else { None }}
+            aria-label={if !decorative && !aria_label.is_empty() { Some(aria_label) } else { None }}
+            class={class}
             id={id}
         />
     }
