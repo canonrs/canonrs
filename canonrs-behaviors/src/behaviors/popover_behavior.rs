@@ -1,77 +1,64 @@
 #[cfg(feature = "hydrate")]
-use super::*;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_shared::{BehaviorResult, BehaviorError};
+use canonrs_shared::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use leptos::web_sys::{window, MouseEvent, HtmlElement};
+use web_sys::{HtmlElement, MouseEvent};
 #[cfg(feature = "hydrate")]
 use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-popover", Box::new(|element_id, state| {
-        let document = window().unwrap().document().unwrap();
-        let popover = document.get_element_by_id(element_id)
-            .ok_or_else(|| BehaviorError::ElementNotFound { selector: element_id.to_string() })?;
+    register_behavior("data-popover", Box::new(|id: &str, state: &ComponentState| -> BehaviorResult<()> {
+        use leptos::leptos_dom::helpers::document;
+
+        let Some(popover) = document().get_element_by_id(id) else { return Ok(()); };
+        if popover.get_attribute("data-popover-attached").as_deref() == Some("1") { return Ok(()); }
+        popover.set_attribute("data-popover-attached", "1").ok();
 
         let open_signal = state.open;
-        let trigger_selector = format!("[data-popover-trigger=\"{}\"]", element_id);
+        let popover_id = id.to_string();
 
-        if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
-            let content_selector = format!("#{} [data-popover-content]", element_id);
-            
+        if let Some(trigger) = document().query_selector(&format!("[data-popover-trigger='{}']", popover_id)).ok().flatten() {
             let popover_clone = popover.clone();
-            let document_clone = document.clone();
-            
-            let cb_toggle = Closure::wrap(Box::new(move |_: MouseEvent| {
-                let current_state = popover_clone.get_attribute("data-state").unwrap_or_else(|| "closed".to_string());
-                let is_open = current_state == "open";
-                let new_state = !is_open;
-                
-                open_signal.set(new_state);
-                popover_clone.set_attribute("data-state", if new_state { "open" } else { "closed" }).ok();
-                
-                if new_state {
-                    // Calcular posição manualmente
-                    if let (Ok(Some(content)), Ok(Some(trigger_el))) = (
-                        document_clone.query_selector(&content_selector),
-                        document_clone.query_selector(&trigger_selector)
-                    ) {
-                        let trigger_rect = trigger_el.get_bounding_client_rect();
-                        
-                        if let Some(html_content) = content.dyn_ref::<HtmlElement>() {
-                            let style = html_content.style();
-                            let x = trigger_rect.left();
-                            let y = trigger_rect.bottom() + 8.0;
-                            
-                            style.set_property("left", &format!("{}px", x)).ok();
-                            style.set_property("top", &format!("{}px", y)).ok();
+            let trigger_clone = trigger.clone();
+            let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                let is_open = popover_clone.get_attribute("data-state").as_deref() == Some("open");
+                if is_open {
+                    open_signal.set(false);
+                    popover_clone.set_attribute("data-state", "closed").ok();
+                } else {
+                    open_signal.set(true);
+                    popover_clone.set_attribute("data-state", "open").ok();
+                    if let Some(content) = popover_clone.query_selector("[data-popover-content]").ok().flatten() {
+                        if let (Ok(c), Some(t)) = (content.dyn_into::<HtmlElement>(), trigger_clone.dyn_ref::<HtmlElement>()) {
+                            let rect = t.get_bounding_client_rect();
+                            c.style().set_property("left", &format!("{}px", rect.left())).ok();
+                            c.style().set_property("top", &format!("{}px", rect.bottom() + 8.0)).ok();
                         }
                     }
                 }
-            }) as Box<dyn FnMut(MouseEvent)>);
-            trigger.add_event_listener_with_callback("click", cb_toggle.as_ref().unchecked_ref()).unwrap();
-            cb_toggle.forget();
-
-            let popover_clone = popover.clone();
-            let cb_close = Closure::wrap(Box::new(move |e: MouseEvent| {
-                if let Some(target) = e.target() {
-                    if let Some(element) = target.dyn_ref::<web_sys::Element>() {
-                        if element.closest("[data-popover-content]").ok().flatten().is_none() &&
-                           element.closest("[data-popover-trigger]").ok().flatten().is_none() {
-                            open_signal.set(false);
-                            popover_clone.set_attribute("data-state", "closed").ok();
-                        }
-                    }
-                }
-            }) as Box<dyn FnMut(MouseEvent)>);
-            document.add_event_listener_with_callback("click", cb_close.as_ref().unchecked_ref()).unwrap();
-            cb_close.forget();
+            }) as Box<dyn FnMut(_)>);
+            trigger.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+            cb.forget();
         }
+
+        let popover_clone = popover.clone();
+        let cb_outside = Closure::wrap(Box::new(move |e: MouseEvent| {
+            if popover_clone.get_attribute("data-state").as_deref() != Some("open") { return; }
+            if let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) {
+                if target.closest(&format!("#{}", popover_id)).ok().flatten().is_none() {
+                    open_signal.set(false);
+                    popover_clone.set_attribute("data-state", "closed").ok();
+                }
+            }
+        }) as Box<dyn FnMut(_)>);
+        document().add_event_listener_with_callback("click", cb_outside.as_ref().unchecked_ref()).ok();
+        cb_outside.forget();
 
         Ok(())
     }));

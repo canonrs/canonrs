@@ -13,15 +13,15 @@ pub fn Accordion(
     children: Children,
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
     #[prop(default = true)] collapsible: bool,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <AccordionPrimitive
             selection={selection}
             collapsible={collapsible}
-            class={class.unwrap_or_default()}
-            id={id.unwrap_or_default()}
+            class={class}
+            id={id}
         >
             {children()}
         </AccordionPrimitive>
@@ -35,22 +35,22 @@ thread_local! {
 #[component]
 pub fn AccordionItem(
     children: Children,
-    #[prop(optional)] class: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     let (trigger_id, content_id) = gen_accordion_item_ids();
-    
+
     CURRENT_ITEM_ID.with(|id| {
         *id.borrow_mut() = Some((trigger_id, content_id));
     });
-    
+
     let content = children();
-    
+
     CURRENT_ITEM_ID.with(|id| {
         *id.borrow_mut() = None;
     });
-    
+
     view! {
-        <AccordionItemPrimitive class={class.unwrap_or_default()}>
+        <AccordionItemPrimitive class={class}>
             {content}
         </AccordionItemPrimitive>
     }
@@ -59,37 +59,34 @@ pub fn AccordionItem(
 #[component]
 pub fn AccordionTrigger(
     children: Children,
-    #[prop(optional)] class: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     let (trigger_id, content_id) = CURRENT_ITEM_ID.with(|id| id.borrow().clone().unwrap_or_default());
-    
+
     view! {
-        <button
-            data-accordion-trigger={content_id.clone()}
-            type="button"
-            aria-expanded="false"
-            class={class.unwrap_or_default()}
+        <AccordionTriggerPrimitive
+            id={trigger_id}
+            controls={content_id}
+            class={class}
         >
             {children()}
-        </button>
+        </AccordionTriggerPrimitive>
     }
 }
 
 #[component]
 pub fn AccordionContent(
     children: Children,
-    #[prop(optional)] class: Option<String>,
+    #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let (trigger_id, content_id) = CURRENT_ITEM_ID.with(|id| id.borrow().clone().unwrap_or_default());
-    
+    let (_trigger_id, content_id) = CURRENT_ITEM_ID.with(|id| id.borrow().clone().unwrap_or_default());
+
     view! {
-        <div
-            data-accordion-content={content_id}
-            aria-hidden="true"
-            hidden=true
-            class={class.unwrap_or_default()}
+        <AccordionContentPrimitive
+            id={content_id}
+            class={class}
         >
             {children()}
-        </div>
+        </AccordionContentPrimitive>
     }
 }

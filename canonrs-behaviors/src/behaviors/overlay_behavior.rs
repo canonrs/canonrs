@@ -1,111 +1,92 @@
-//! OverlayBehavior - Auto-discovery via [data-overlay]
-//! Configuração via data-attributes no HTML:
-//!   data-overlay                        — marca o overlay
-//!   data-overlay-trigger="id"           — id do elemento trigger
-//!   data-overlay-trigger-type="click|hover"
-//!   data-overlay-close-on-outside="true|false"
-//! Estado vive no Signal. DOM reage via Effect.
-//! POSICIONAMENTO é calculado via CSS/data-attributes (não aqui).
-
-use leptos::prelude::*;
-use leptos::leptos_dom::helpers::window;
-use web_sys::{EventTarget, Element, Document};
-use wasm_bindgen::{prelude::*, JsCast};
-use super::behavior_registry::{register_behavior, ComponentState};
+#[cfg(feature = "hydrate")]
+use super::{register_behavior, ComponentState};
+#[cfg(feature = "hydrate")]
 use canonrs_shared::BehaviorResult;
+#[cfg(feature = "hydrate")]
+use wasm_bindgen::prelude::*;
+#[cfg(feature = "hydrate")]
+use wasm_bindgen::JsCast;
+#[cfg(feature = "hydrate")]
+use web_sys::{HtmlElement, MouseEvent};
+#[cfg(feature = "hydrate")]
+use leptos::prelude::Set;
 
-#[derive(Clone, Copy)]
-pub enum TriggerType {
-    Click,
-    Hover,
-}
-
-fn parse_trigger_type(s: &str) -> TriggerType {
-    match s {
-        "click" => TriggerType::Click,
-        "hover" => TriggerType::Hover,
-        _ => TriggerType::Click,
-    }
-}
-
-pub fn init_overlay_behavior() {
+#[cfg(feature = "hydrate")]
+pub fn register() {
     register_behavior("data-overlay", Box::new(|id: &str, state: &ComponentState| -> BehaviorResult<()> {
-        let overlay_id = id.to_string();
+        use leptos::leptos_dom::helpers::document;
+
+        let Some(overlay) = document().get_element_by_id(id) else { return Ok(()); };
+        if overlay.get_attribute("data-overlay-attached").as_deref() == Some("1") { return Ok(()); }
+        overlay.set_attribute("data-overlay-attached", "1").ok();
+
         let open_signal = state.open;
+        let trigger_id = overlay.get_attribute("data-overlay-trigger").unwrap_or_default();
+        let trigger_type = overlay.get_attribute("data-overlay-trigger-type").unwrap_or_else(|| "click".into());
+        let close_on_outside = overlay.get_attribute("data-overlay-close-on-outside").as_deref() == Some("true");
+        let overlay_id = id.to_string();
 
-        let doc: Document = window().document().expect("document");
-        let element: Element = doc.get_element_by_id(&overlay_id).expect("overlay element");
-
-        let trigger_id = element.get_attribute("data-overlay-trigger").unwrap_or_default();
-        let trigger_type = parse_trigger_type(
-            &element.get_attribute("data-overlay-trigger-type").unwrap_or("click".to_string())
-        );
-        let close_on_outside = element
-            .get_attribute("data-overlay-close-on-outside")
-            .unwrap_or("false".to_string()) == "true";
-
-        // Effect reativo: Signal → DOM
-        let ov_id = overlay_id.clone();
-        Effect::new(move |_| {
-            let d: Document = window().document().expect("document");
-            if let Some(overlay_elem) = d.get_element_by_id(&ov_id) {
-                let state = if open_signal.get() { "open" } else { "closed" };
-                let _ = overlay_elem.set_attribute("data-state", state);
+        let open_overlay = {
+            let overlay_clone = overlay.clone();
+            move || {
+                open_signal.set(true);
+                overlay_clone.set_attribute("data-state", "open").ok();
+                overlay_clone.set_attribute("aria-hidden", "false").ok();
             }
-        });
+        };
+        let close_overlay = {
+            let overlay_clone = overlay.clone();
+            move || {
+                open_signal.set(false);
+                overlay_clone.set_attribute("data-state", "closed").ok();
+                overlay_clone.set_attribute("aria-hidden", "true").ok();
+            }
+        };
 
-        // Trigger events
-        if let Ok(Some(trigger)) = doc.query_selector(&format!("#{}", trigger_id)) {
-            match trigger_type {
-                TriggerType::Click => {
-                    let closure = Closure::wrap(Box::new(move |_: leptos::web_sys::Event| {
-                        open_signal.update(|v| *v = !*v);
-                    }) as Box<dyn FnMut(_)>);
-                    let target: &EventTarget = trigger.as_ref();
-                    let _ = target.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref());
-                    closure.forget();
-                }
-                TriggerType::Hover => {
-                    let open_sig = open_signal;
-                    let enter = Closure::wrap(Box::new(move |_: leptos::web_sys::Event| {
-                        open_sig.set(true);
-                    }) as Box<dyn FnMut(_)>);
-                    let leave = Closure::wrap(Box::new(move |_: leptos::web_sys::Event| {
-                        open_signal.set(false);
-                    }) as Box<dyn FnMut(_)>);
-                    let target: &EventTarget = trigger.as_ref();
-                    let _ = target.add_event_listener_with_callback("mouseenter", enter.as_ref().unchecked_ref());
-                    let _ = target.add_event_listener_with_callback("mouseleave", leave.as_ref().unchecked_ref());
-                    enter.forget();
-                    leave.forget();
+        if !trigger_id.is_empty() {
+            if let Some(trigger) = document().get_element_by_id(&trigger_id) {
+                match trigger_type.as_str() {
+                    "hover" => {
+                        let open_clone = open_overlay.clone();
+                        let close_clone = close_overlay.clone();
+                        let enter = Closure::wrap(Box::new(move |_: MouseEvent| { open_clone(); }) as Box<dyn FnMut(_)>);
+                        let leave = Closure::wrap(Box::new(move |_: MouseEvent| { close_clone(); }) as Box<dyn FnMut(_)>);
+                        trigger.add_event_listener_with_callback("mouseenter", enter.as_ref().unchecked_ref()).ok();
+                        trigger.add_event_listener_with_callback("mouseleave", leave.as_ref().unchecked_ref()).ok();
+                        enter.forget();
+                        leave.forget();
+                    }
+                    _ => {
+                        let overlay_clone = overlay.clone();
+                        let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                            let is_open = overlay_clone.get_attribute("data-state").as_deref() == Some("open");
+                            if is_open { close_overlay(); } else { open_overlay(); }
+                        }) as Box<dyn FnMut(_)>);
+                        trigger.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+                        cb.forget();
+                    }
                 }
             }
         }
 
-        // Close on outside click
         if close_on_outside {
-            let body: web_sys::HtmlElement = doc.body().expect("body");
-            let closure = Closure::wrap(Box::new(move |e: leptos::web_sys::Event| {
-                let target_et: EventTarget = match e.target() {
-                    Some(t) => t,
-                    None => return,
-                };
-                let target_el: Element = match target_et.dyn_into() {
-                    Ok(el) => el,
-                    Err(_) => return,
-                };
-                let d: Document = window().document().expect("document");
-                if let Some(overlay_elem) = d.get_element_by_id(&overlay_id) {
-                    if !overlay_elem.contains(Some(&target_el)) {
+            let overlay_clone = overlay.clone();
+            let cb = Closure::wrap(Box::new(move |e: MouseEvent| {
+                if overlay_clone.get_attribute("data-state").as_deref() != Some("open") { return; }
+                if let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) {
+                    if target.closest(&format!("#{}", overlay_id)).ok().flatten().is_none() {
                         open_signal.set(false);
+                        overlay_clone.set_attribute("data-state", "closed").ok();
                     }
                 }
             }) as Box<dyn FnMut(_)>);
-            let target: &EventTarget = body.as_ref();
-            let _ = target.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref());
-            closure.forget();
+            document().add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+            cb.forget();
         }
 
         Ok(())
     }));
 }
+
+#[cfg(not(feature = "hydrate"))]
+pub fn register() {}

@@ -26,3 +26,5 @@ pub use page_layout::{PageLayout, PageLayoutVariant};
 
 pub mod section;
 pub use section::Section;
+
+pub use page_layout::{MockSidebar, MockAside, MockMain};

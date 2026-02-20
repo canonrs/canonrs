@@ -2,6 +2,8 @@
 use super::*;
 pub fn register_all_behaviors() {
     accordion_behavior::register();
+    overlay_behavior::register();
+    simple_overlay_behavior::register();
     breadcrumb_behavior::register();
     collapsible_behavior::register();
     combobox_behavior::register();

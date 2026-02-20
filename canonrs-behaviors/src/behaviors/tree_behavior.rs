@@ -321,24 +321,24 @@ fn dispatch_select_event(item: &Element) {
     if let Some(id) = item.get_attribute("id") {
         js_sys::Reflect::set(&detail, &JsValue::from_str("itemId"), &JsValue::from_str(&id)).ok();
     }
-
-    let f = js_sys::Function::new_with_args(
-        "el,detail",
-        "el.dispatchEvent(new CustomEvent('canon:tree-select', {bubbles:true, detail:detail}));"
-    );
-    f.call2(&JsValue::NULL, item, &detail).ok();
+    let mut init = web_sys::CustomEventInit::new();
+    init.bubbles(true);
+    init.detail(&detail);
+    if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:tree-select", &init) {
+        item.dispatch_event(&ev).ok();
+    }
 }
 
 #[cfg(feature = "hydrate")]
 fn dispatch_expand_event(item: &Element, expanded: bool) {
     let detail = js_sys::Object::new();
     js_sys::Reflect::set(&detail, &JsValue::from_str("expanded"), &JsValue::from_bool(expanded)).ok();
-
-    let f = js_sys::Function::new_with_args(
-        "el,detail",
-        "el.dispatchEvent(new CustomEvent('canon:tree-expand', {bubbles:true, detail:detail}));"
-    );
-    f.call2(&JsValue::NULL, item, &detail).ok();
+    let mut init = web_sys::CustomEventInit::new();
+    init.bubbles(true);
+    init.detail(&detail);
+    if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:tree-expand", &init) {
+        item.dispatch_event(&ev).ok();
+    }
 }
 
 #[cfg(not(feature = "hydrate"))]

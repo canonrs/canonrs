@@ -40,11 +40,13 @@ pub fn ResizablePanelPrimitive(
 
 #[component]
 pub fn ResizableHandlePrimitive(
+    #[prop(default = String::new())] id: String,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-resizable-handle=""
+            id={id}
             role="separator"
             tabindex="0"
             class={class}

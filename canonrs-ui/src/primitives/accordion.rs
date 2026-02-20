@@ -3,7 +3,6 @@
 //! Accordion Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::utils::id_gen::gen_accordion_id;
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum AccordionSelection {
@@ -29,15 +28,13 @@ pub fn AccordionPrimitive(
     #[prop(default = String::new())] id: String,
     #[prop(optional)] role: Option<String>,
 ) -> impl IntoView {
-    let resolved_id = if id.is_empty() { gen_accordion_id() } else { id };
-
     view! {
         <div
-            data-accordion
+            data-accordion=""
             data-selection={selection.as_str()}
             data-accordion-collapsible={if collapsible { "true" } else { "false" }}
             class={class}
-            id={resolved_id}
+            id={id}
             role={role.unwrap_or_else(|| "region".to_string())}
         >
             {children.map(|c| c())}
@@ -52,12 +49,7 @@ pub fn AccordionItemPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-accordion-item
-            data-state="closed"
-            class={class}
-            id={id}
-        >
+        <div data-accordion-item="" data-state="closed" class={class} id={id}>
             {children.map(|c| c())}
         </div>
     }
@@ -68,12 +60,14 @@ pub fn AccordionTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    #[prop(default = String::new())] controls: String,
 ) -> impl IntoView {
     view! {
         <button
-            data-accordion-trigger
+            data-accordion-trigger=""
             type="button"
             aria-expanded="false"
+            aria-controls={(!controls.is_empty()).then(|| controls)}
             class={class}
             id={id}
         >
@@ -86,13 +80,15 @@ pub fn AccordionTriggerPrimitive(
 pub fn AccordionContentPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
+    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
-            data-accordion-content
+            data-accordion-content=""
             aria-hidden="true"
             hidden=true
             class={class}
+            id={id}
         >
             {children.map(|c| c())}
         </div>

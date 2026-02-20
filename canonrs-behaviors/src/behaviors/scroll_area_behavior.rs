@@ -125,18 +125,18 @@ fn update_thumb(viewport: &web_sys::HtmlElement, scrollbar: &web_sys::Element, t
 #[cfg(feature = "hydrate")]
 fn dispatch_scroll_event(viewport: &web_sys::HtmlElement, scroll_top: f64, scroll_left: f64, max_v: f64, max_h: f64, ratio_v: f64, ratio_h: f64) {
     let detail = js_sys::Object::new();
-    js_sys::Reflect::set(&detail, &JsValue::from_str("scrollTop"),   &JsValue::from_f64(scroll_top)).ok();
-    js_sys::Reflect::set(&detail, &JsValue::from_str("scrollLeft"),  &JsValue::from_f64(scroll_left)).ok();
-    js_sys::Reflect::set(&detail, &JsValue::from_str("maxScrollV"),  &JsValue::from_f64(max_v)).ok();
-    js_sys::Reflect::set(&detail, &JsValue::from_str("maxScrollH"),  &JsValue::from_f64(max_h)).ok();
-    js_sys::Reflect::set(&detail, &JsValue::from_str("ratioV"),      &JsValue::from_f64(ratio_v)).ok();
-    js_sys::Reflect::set(&detail, &JsValue::from_str("ratioH"),      &JsValue::from_f64(ratio_h)).ok();
-
-    let f = js_sys::Function::new_with_args(
-        "el,detail",
-        "el.dispatchEvent(new CustomEvent('canon:scroll', {bubbles:true, detail:detail}));"
-    );
-    f.call2(&JsValue::NULL, viewport, &detail).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("scrollTop"),  &JsValue::from_f64(scroll_top)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("scrollLeft"), &JsValue::from_f64(scroll_left)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("maxScrollV"), &JsValue::from_f64(max_v)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("maxScrollH"), &JsValue::from_f64(max_h)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("ratioV"),     &JsValue::from_f64(ratio_v)).ok();
+    js_sys::Reflect::set(&detail, &JsValue::from_str("ratioH"),     &JsValue::from_f64(ratio_h)).ok();
+    let mut init = web_sys::CustomEventInit::new();
+    init.bubbles(true);
+    init.detail(&detail);
+    if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:scroll", &init) {
+        viewport.dispatch_event(&ev).ok();
+    }
 }
 
 #[cfg(feature = "hydrate")]

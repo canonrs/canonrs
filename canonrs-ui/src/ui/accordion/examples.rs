@@ -4,7 +4,7 @@ use crate::primitives::AccordionSelection;
 
 pub fn basic_example() -> impl IntoView {
     view! {
-        <Accordion selection=AccordionSelection::Single collapsible=true>
+        <Accordion id="accordion-demo".to_string() selection=AccordionSelection::Single collapsible=true>
             <AccordionItem>
                 <AccordionTrigger>"Item 1"</AccordionTrigger>
                 <AccordionContent>

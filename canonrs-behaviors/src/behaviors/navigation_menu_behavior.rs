@@ -1,61 +1,59 @@
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
+#[cfg(feature = "hydrate")]
+use wasm_bindgen::JsCast;
+#[cfg(feature = "hydrate")]
+use web_sys::HtmlElement;
+#[cfg(feature = "hydrate")]
+use super::{register_behavior, ComponentState};
+#[cfg(feature = "hydrate")]
+use canonrs_shared::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
-pub fn init_navigation_menu() {
-    use leptos::prelude::*;
-    use leptos::leptos_dom::helpers::window;
-    use web_sys::{Document, HtmlElement, Node, NodeList, Element, EventTarget};
-    use wasm_bindgen::JsCast;
+pub fn register() {
+    register_behavior("data-navigation-menu", Box::new(|id: &str, _state: &ComponentState| -> BehaviorResult<()> {
+        use leptos::leptos_dom::helpers::document;
 
-    Effect::new(move |_| {
-        let document: Document = window().document().expect("document");
+        let Some(root) = document().get_element_by_id(id) else { return Ok(()); };
+        if root.get_attribute("data-navigation-menu-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-navigation-menu-attached", "1").ok();
 
-        let triggers: NodeList = match document.query_selector_all("[data-nav-trigger]") {
-            Ok(list) => list,
-            Err(_) => return,
-        };
-        let length: u32 = triggers.length();
+        let triggers = root.query_selector_all("[data-nav-trigger]")
+            .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "query triggers".into() })?;
 
-        for i in 0..length {
-            let node: Node = match triggers.item(i) {
-                Some(n) => n,
-                None => continue,
-            };
+        for i in 0..triggers.length() {
+            let node = match triggers.item(i) { Some(n) => n, None => continue };
+            let trigger = match node.dyn_into::<HtmlElement>() { Ok(el) => el, Err(_) => continue };
 
-            let trigger_el: &HtmlElement = match node.dyn_ref::<HtmlElement>() {
-                Some(el) => el,
-                None => continue,
-            };
+            if trigger.get_attribute("data-nav-initialized").is_some() { continue; }
+            trigger.set_attribute("data-nav-initialized", "1").ok();
 
-            let trigger_id: String = trigger_el.get_attribute("data-nav-trigger").unwrap_or_default();
+            let trigger_id = trigger.get_attribute("data-nav-trigger").unwrap_or_default();
+            let doc = document();
 
-            let closure = Closure::wrap(Box::new(move |_: leptos::web_sys::Event| {
-                let doc: Document = window().document().expect("document");
-
-                let content: Element = match doc.query_selector(&format!("[data-nav-content='{}']", trigger_id)) {
-                    Ok(Some(c)) => c,
-                    _ => return,
-                };
-
-                let content_el: &HtmlElement = match content.dyn_ref::<HtmlElement>() {
-                    Some(el) => el,
-                    None => return,
-                };
-
+            let closure = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
+                let Some(content) = doc.query_selector(&format!("[data-nav-content='{}']", trigger_id)).ok().flatten() else { return; };
+                let Ok(content_el) = content.dyn_into::<HtmlElement>() else { return; };
                 if content_el.has_attribute("hidden") {
-                    let _ = content_el.remove_attribute("hidden");
+                    content_el.remove_attribute("hidden").ok();
+                    content_el.set_attribute("aria-hidden", "false").ok();
                 } else {
-                    let _ = content_el.set_attribute("hidden", "");
+                    content_el.set_attribute("hidden", "").ok();
+                    content_el.set_attribute("aria-hidden", "true").ok();
                 }
             }) as Box<dyn FnMut(_)>);
 
-            let target: &EventTarget = trigger_el.as_ref();
-            let _ = target.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref());
+            trigger.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref()).ok();
             closure.forget();
         }
-    });
+        Ok(())
+    }));
 }
 
+#[cfg(not(feature = "hydrate"))]
+pub fn register() {}
+
+#[cfg(feature = "hydrate")]
+pub fn init_navigation_menu() { register(); }
 #[cfg(not(feature = "hydrate"))]
 pub fn init_navigation_menu() {}

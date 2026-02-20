@@ -22,14 +22,11 @@ pub fn Resizable(
     #[prop(default = ResizableDirection::Horizontal)] direction: ResizableDirection,
     #[prop(default = 20)] min_size: u32,
     #[prop(default = 80)] max_size: u32,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <ResizablePrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-        >
+        <ResizablePrimitive class={class} id={id}>
             <div
                 data-resizable-wrapper=""
                 data-direction={direction.as_str()}
@@ -46,18 +43,14 @@ pub fn Resizable(
 pub fn ResizablePanel(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = 50)] default_size: u32,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <ResizablePanelPrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-        >
+        <ResizablePanelPrimitive class={class} id={id}>
             <div
                 data-resizable-panel-content=""
                 data-size={default_size.to_string()}
-                style={format!("flex-basis: {}%", default_size)}
             >
                 {children.map(|c| c())}
             </div>
@@ -66,8 +59,10 @@ pub fn ResizablePanel(
 }
 
 #[component]
-pub fn ResizableHandle() -> impl IntoView {
+pub fn ResizableHandle(
+    #[prop(into, default = String::new())] id: String,
+) -> impl IntoView {
     view! {
-        <ResizableHandlePrimitive />
+        <ResizableHandlePrimitive id={id} />
     }
 }

@@ -1,59 +1,54 @@
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
+#[cfg(feature = "hydrate")]
+use wasm_bindgen::JsCast;
+#[cfg(feature = "hydrate")]
+use web_sys::HtmlElement;
+#[cfg(feature = "hydrate")]
+use super::{register_behavior, ComponentState};
+#[cfg(feature = "hydrate")]
+use canonrs_shared::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
-pub fn init_sidebar() {
-    use leptos::prelude::*;
-    use leptos::leptos_dom::helpers::window;
-    use web_sys::{Document, HtmlElement, Node, NodeList, Element, EventTarget};
-    use wasm_bindgen::JsCast;
+pub fn register() {
+    register_behavior("data-sidebar", Box::new(|id: &str, _state: &ComponentState| -> BehaviorResult<()> {
+        use leptos::leptos_dom::helpers::document;
 
-    Effect::new(move |_| {
-        let document: Document = window().document().expect("document");
+        let Some(root) = document().get_element_by_id(id) else { return Ok(()); };
+        if root.get_attribute("data-sidebar-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-sidebar-attached", "1").ok();
 
-        let toggles: NodeList = match document.query_selector_all("[data-sidebar-toggle]") {
-            Ok(list) => list,
-            Err(_) => return,
-        };
-        let length: u32 = toggles.length();
+        let toggles = root.query_selector_all("[data-sidebar-toggle]")
+            .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "query toggles".into() })?;
 
-        for i in 0..length {
-            let node: Node = match toggles.item(i) {
-                Some(n) => n,
-                None => continue,
-            };
+        for i in 0..toggles.length() {
+            let node = match toggles.item(i) { Some(n) => n, None => continue };
+            let toggle = match node.dyn_into::<HtmlElement>() { Ok(el) => el, Err(_) => continue };
 
-            let toggle_el: &HtmlElement = match node.dyn_ref::<HtmlElement>() {
-                Some(el) => el,
-                None => continue,
-            };
-
-            let closure = Closure::wrap(Box::new(move |_: leptos::web_sys::Event| {
-                let doc: Document = window().document().expect("document");
-
-                let sidebar: Element = match doc.query_selector("[data-sidebar]") {
-                    Ok(Some(s)) => s,
-                    _ => return,
-                };
-
-                let sidebar_el: &HtmlElement = match sidebar.dyn_ref::<HtmlElement>() {
-                    Some(el) => el,
-                    None => return,
-                };
-
-                if sidebar_el.has_attribute("data-collapsed") {
-                    let _ = sidebar_el.remove_attribute("data-collapsed");
+            let sidebar_id = id.to_string();
+            let closure = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
+                let Some(sidebar) = document().get_element_by_id(&sidebar_id)
+                    .and_then(|el| el.dyn_into::<HtmlElement>().ok()) else { return; };
+                if sidebar.has_attribute("data-collapsed") {
+                    sidebar.remove_attribute("data-collapsed").ok();
+                    sidebar.set_attribute("aria-expanded", "true").ok();
                 } else {
-                    let _ = sidebar_el.set_attribute("data-collapsed", "true");
+                    sidebar.set_attribute("data-collapsed", "true").ok();
+                    sidebar.set_attribute("aria-expanded", "false").ok();
                 }
             }) as Box<dyn FnMut(_)>);
 
-            let target: &EventTarget = toggle_el.as_ref();
-            let _ = target.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref());
+            toggle.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref()).ok();
             closure.forget();
         }
-    });
+        Ok(())
+    }));
 }
 
+#[cfg(not(feature = "hydrate"))]
+pub fn register() {}
+
+#[cfg(feature = "hydrate")]
+pub fn init_sidebar() { register(); }
 #[cfg(not(feature = "hydrate"))]
 pub fn init_sidebar() {}
