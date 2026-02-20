@@ -1,12 +1,19 @@
 use leptos::prelude::*;
 use super::separator_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <div>
-            <p>"Above separator"</p>
-            <Separator />
-            <p>"Below separator"</p>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+                <p>"Section A"</p>
+                <Separator />
+                <p>"Section B"</p>
+            </div>
+            <div>
+                <p>"Horizontal (default)"</p>
+                <Separator decorative=true />
+            </div>
         </div>
     }
 }

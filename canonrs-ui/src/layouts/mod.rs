@@ -22,7 +22,7 @@ pub mod page_header;
 pub use page_header::PageHeader;
 
 pub mod page_layout;
-pub use page_layout::PageLayout;
+pub use page_layout::{PageLayout, PageLayoutVariant};
 
 pub mod section;
 pub use section::Section;
