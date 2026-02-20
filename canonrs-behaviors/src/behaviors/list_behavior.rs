@@ -14,10 +14,8 @@ use web_sys::Element;
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-list", Box::new(|element_id, _state| {
-        web_sys::console::log_1(&format!("🔵 List behavior init: {}", element_id).into());
         
         let Some(list) = document().get_element_by_id(element_id) else {
-            web_sys::console::log_1(&"❌ List element not found".into());
             return Ok(());
         };
         
@@ -29,7 +27,6 @@ pub fn register() {
 #[cfg(feature = "hydrate")]
 fn setup_list(list: &Element) -> BehaviorResult<()> {
     if list.get_attribute("data-list-attached").as_deref() == Some("1") {
-        web_sys::console::log_1(&"⚠️ List already attached".into());
         return Ok(());
     }
     let _ = list.set_attribute("data-list-attached", "1");
@@ -37,7 +34,6 @@ fn setup_list(list: &Element) -> BehaviorResult<()> {
     let items = list.query_selector_all("[data-list-item-content][data-selectable]")
         .map_err(|_| canonrs_shared::BehaviorError::JsError { message: "query items".into() })?;
 
-    web_sys::console::log_1(&format!("📋 Found {} selectable items", items.length()).into());
 
     for i in 0..items.length() {
         if let Some(item) = items.item(i) {
@@ -57,11 +53,9 @@ fn setup_list_item(item: &web_sys::Node) -> BehaviorResult<()> {
         return Ok(());
     }
 
-    web_sys::console::log_1(&"✅ Attaching handlers to item".into());
 
     let item_clone = item_el.clone();
     let on_click = Closure::wrap(Box::new(move |_: web_sys::Event| {
-        web_sys::console::log_1(&"🖱️ Click detected!".into());
         toggle_selection(&item_clone);
     }) as Box<dyn FnMut(_)>);
 
@@ -73,7 +67,6 @@ fn setup_list_item(item: &web_sys::Node) -> BehaviorResult<()> {
     let on_keydown = Closure::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
         let key = e.key();
         if key == "Enter" || key == " " {
-            web_sys::console::log_1(&format!("⌨️ Key: {}", key).into());
             e.prevent_default();
             toggle_selection(&item_clone2);
         }
@@ -90,7 +83,6 @@ fn setup_list_item(item: &web_sys::Node) -> BehaviorResult<()> {
 fn toggle_selection(item: &web_sys::HtmlElement) {
     let is_selected = item.has_attribute("data-selected");
     
-    web_sys::console::log_1(&format!("🔄 Toggle selection: {} -> {}", is_selected, !is_selected).into());
     
     if is_selected {
         let _ = item.remove_attribute("data-selected");
@@ -114,7 +106,6 @@ fn dispatch_select_event(item: &web_sys::HtmlElement, selected: bool) {
     );
     f.call2(&JsValue::NULL, item, &detail).ok();
     
-    web_sys::console::log_1(&"📡 Event dispatched: canon:list-select".into());
 }
 
 #[cfg(not(feature = "hydrate"))]
