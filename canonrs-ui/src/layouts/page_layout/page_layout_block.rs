@@ -5,10 +5,10 @@ use leptos::prelude::*;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum PageLayoutVariant {
-    Single,           // Apenas content
-    WithSidebar,      // Sidebar esquerda + content
-    WithAside,        // Content + aside direita
-    SidebarAndAside,  // Sidebar + content + aside
+    Single,
+    WithSidebar,
+    WithAside,
+    SidebarAndAside,
 }
 
 impl PageLayoutVariant {
@@ -25,8 +25,8 @@ impl PageLayoutVariant {
 #[component]
 pub fn PageLayout(
     children: Children,
-    #[prop(optional)] sidebar: Option<Children>,
-    #[prop(optional)] aside: Option<Children>,
+    #[prop(optional)] sidebar: Option<ChildrenFn>,
+    #[prop(optional)] aside: Option<ChildrenFn>,
     #[prop(default = PageLayoutVariant::Single)] variant: PageLayoutVariant,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,

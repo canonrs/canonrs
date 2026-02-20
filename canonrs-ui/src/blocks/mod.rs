@@ -4,8 +4,6 @@ pub mod footer;
 pub use footer::Footer;
 
 // CanonRS blocks
-pub mod canonrs;
-pub use canonrs::*;
 
 // Core blocks
 pub mod card;
@@ -71,3 +69,6 @@ pub use table::*;
 
 pub mod toolbar;
 pub use toolbar::*;
+
+pub mod page_header;
+pub use page_header::*;

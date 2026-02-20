@@ -5,3 +5,4 @@
 //! - Comportamento ativa apenas em hydrate
 
 pub mod ui;
+pub use ui::LayoutBuilderInteractive;

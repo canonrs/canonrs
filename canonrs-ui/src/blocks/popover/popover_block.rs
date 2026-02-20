@@ -27,12 +27,13 @@ pub fn PopoverBlock(
     #[prop(into)] open: MaybeSignal<bool>,
     #[prop(optional)] on_close: Option<Callback<()>>,
     #[prop(default = PopoverPlacement::Bottom)] placement: PopoverPlacement,
-    #[prop(optional)] title: Option<Children>,
+    #[prop(optional)] title: Option<ChildrenFn>,
+    #[prop(optional)] close_button: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
     children: Children,
 ) -> impl IntoView {
     view! {
-        <div 
+        <div
             class=move || format!(
                 "canon-popover canon-popover--{} {} {}",
                 placement.as_str(),
@@ -44,19 +45,12 @@ pub fn PopoverBlock(
             {title.map(|t| view! {
                 <div class="canon-popover__header">
                     <div class="canon-popover__title">{t()}</div>
-                    <button 
-                        class="canon-popover__close"
-                        attr:data-popover_block-action="click" on:click=move |_| {
-                            if let Some(cb) = on_close {
-                                cb.run(());
-                            }
-                        }
-                    >
-                        "×"
-                    </button>
+                    {close_button.map(|btn| view! {
+                        <div class="canon-popover__close">{btn()}</div>
+                    })}
                 </div>
             })}
-            
+
             <div class="canon-popover__content">
                 {children()}
             </div>

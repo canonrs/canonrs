@@ -26,13 +26,13 @@ pub fn CommandPanelBlock(
                 if open.get() { "canon-command-panel-overlay--open" } else { "" }
             )
             attr:data-block="command-panel"
-            attr:data-command-panel-action="close-backdrop" on:click=handle_backdrop_click
+            attr:data-action="close-backdrop" on:click=handle_backdrop_click
         >
             <div class="canon-command-panel__backdrop" />
             
             <div 
                 class=format!("canon-command-panel {}", class)
-                attr:data-command-panel-action="prevent-close" on:click=|e| e.stop_propagation()
+                attr:data-action="prevent-close" on:click=|e| e.stop_propagation()
             >
                 <div class="canon-command-panel__search">
                     <input 
@@ -63,7 +63,7 @@ pub fn CommandPanelItem(
     view! {
         <button 
             class=format!("canon-command-panel__item {}", class)
-            attr:data-command-panel-action="select-item" on:click=move |_| {
+            attr:data-action="select-item" on:click=move |_| {
                 if let Some(cb) = on_select {
                     cb.run(());
                 }

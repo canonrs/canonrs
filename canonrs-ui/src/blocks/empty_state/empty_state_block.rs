@@ -5,10 +5,10 @@ use leptos::prelude::*;
 
 #[component]
 pub fn EmptyState(
-    #[prop(optional)] icon: Option<Children>,
+    #[prop(optional)] icon: Option<ChildrenFn>,
     #[prop(optional, into)] title: Option<String>,
     #[prop(optional, into)] description: Option<String>,
-    #[prop(optional)] action: Option<Children>,
+    #[prop(optional)] action: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {

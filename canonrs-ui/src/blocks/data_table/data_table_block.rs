@@ -5,18 +5,13 @@ use leptos::prelude::*;
 
 #[component]
 pub fn DataTableBlock(
-    #[prop(optional)] header: Option<Children>,
-    #[prop(default = false)] _selectable: bool,
-    #[prop(default = false)] _sortable: bool,
-    #[prop(optional)] pagination: Option<Children>,
-    #[prop(optional)] _on_select: Option<Callback<Vec<usize>>>,
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] pagination: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
     children: Children,
 ) -> impl IntoView {
-    let _selected_rows = RwSignal::new(Vec::<usize>::new());
-
     view! {
-        <div 
+        <div
             class=format!("canon-data-table {}", class)
             attr:data-block="data-table"
         >
@@ -30,11 +25,9 @@ pub fn DataTableBlock(
                     </tbody>
                 </table>
             </div>
-            
+
             {pagination.map(|p| view! {
-                <div class="canon-data-table__pagination">
-                    {p()}
-                </div>
+                <div class="canon-data-table__pagination">{p()}</div>
             })}
         </div>
     }
@@ -42,20 +35,19 @@ pub fn DataTableBlock(
 
 #[component]
 pub fn DataTableRow(
-    #[prop(optional, into)] _row_id: Option<usize>,
     #[prop(default = false)] selected: bool,
     #[prop(optional)] on_select: Option<Callback<bool>>,
     #[prop(default = String::new(), into)] class: String,
     children: Children,
 ) -> impl IntoView {
     view! {
-        <tr 
+        <tr
             class=move || format!(
                 "canon-data-table__row {} {}",
                 if selected { "canon-data-table__row--selected" } else { "" },
                 class
             )
-            attr:data-data-table-block-action="select-row" on:click=move |_| {
+            attr:data-action="select-row" on:click=move |_| {
                 if let Some(cb) = on_select {
                     cb.run(!selected);
                 }
@@ -76,9 +68,9 @@ pub fn DataTableCell(
 ) -> impl IntoView {
     if header {
         view! {
-            <th 
+            <th
                 class=format!("canon-data-table__cell canon-data-table__cell--header {} {}", if sortable { "canon-data-table__cell--sortable" } else { "" }, class)
-                attr:data-data-table-block-action="sort-column" on:click=move |_| {
+                attr:data-action="sort-column" on:click=move |_| {
                     if sortable {
                         if let Some(cb) = on_sort {
                             cb.run(());

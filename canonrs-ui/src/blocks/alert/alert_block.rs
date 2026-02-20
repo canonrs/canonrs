@@ -25,20 +25,20 @@ impl AlertVariant {
 #[component]
 pub fn AlertBlock(
     #[prop(default = AlertVariant::Info)] variant: AlertVariant,
-    #[prop(optional)] title: Option<Children>,
+    #[prop(optional)] title: Option<ChildrenFn>,
     #[prop(optional, into)] open: Option<MaybeSignal<bool>>,
     #[prop(optional)] on_dismiss: Option<Callback<()>>,
     #[prop(default = false)] dismissible: bool,
+    #[prop(optional)] close_button: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
     children: Children,
 ) -> impl IntoView {
-    let internal_open = RwSignal::new(true);
-    let is_open = move || open.as_ref().map(|o| o.get()).unwrap_or_else(|| internal_open.get());
+    let is_open = move || open.as_ref().map(|o| o.get()).unwrap_or(true);
 
     view! {
-        <div 
-            class=move || format!("canon-alert canon-alert--{} {}{}", 
-                variant.as_str(), 
+        <div
+            class=move || format!("canon-alert canon-alert--{} {}{}",
+                variant.as_str(),
                 class,
                 if is_open() { "" } else { " canon-alert--hidden" }
             )
@@ -48,26 +48,25 @@ pub fn AlertBlock(
             {title.map(|t| view! {
                 <div class="canon-alert__title">{t()}</div>
             })}
-            
+
             <div class="canon-alert__content">
                 {children()}
             </div>
-            
-            <Show when=move || dismissible>
-                <button 
-                    class="canon-alert__close" 
-                    attr:data-alert_block-action="click" on:click=move |_| {
-                        if open.is_none() {
-                            internal_open.set(false);
+
+            {dismissible.then(|| {
+                close_button.map(|btn| view! {
+                    <div
+                        class="canon-alert__close"
+                        attr:data-action="dismiss" on:click=move |_| {
+                            if let Some(cb) = on_dismiss {
+                                cb.run(());
+                            }
                         }
-                        if let Some(cb) = on_dismiss {
-                            cb.run(());
-                        }
-                    }
-                >
-                    "×"
-                </button>
-            </Show>
+                    >
+                        {btn()}
+                    </div>
+                })
+            })}
         </div>
     }
 }

@@ -22,27 +22,16 @@ impl CalloutType {
             CalloutType::Error => "error",
         }
     }
-
-    fn icon(&self) -> &'static str {
-        match self {
-            CalloutType::Default => "📝",
-            CalloutType::Info => "ℹ️",
-            CalloutType::Success => "✅",
-            CalloutType::Warning => "⚠️",
-            CalloutType::Error => "🚫",
-        }
-    }
 }
 
 #[component]
 pub fn CalloutBlock(
     #[prop(default = CalloutType::Info)] variant: CalloutType,
     #[prop(optional, into)] title: Option<String>,
-    /// Container class for layout integration only (not for styling the block)
+    #[prop(optional)] icon: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] container_class: String,
     children: Children,
 ) -> impl IntoView {
-    let icon = variant.icon();
     let variant_str = variant.as_str();
 
     view! {
@@ -51,9 +40,11 @@ pub fn CalloutBlock(
             data-callout=""
             data-variant=variant_str
         >
-            <div data-callout-icon="">{icon}</div>
+            {icon.map(|i| view! {
+                <div data-callout-icon="">{i()}</div>
+            })}
             <div>
-                {title.map(|t| view! { 
+                {title.map(|t| view! {
                     <div data-callout-title="">{t}</div>
                 })}
                 <div data-callout-description="">

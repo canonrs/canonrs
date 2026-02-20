@@ -5,14 +5,14 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ToolbarBlock(
-    #[prop(optional)] left: Option<Children>,
-    #[prop(optional)] center: Option<Children>,
-    #[prop(optional)] right: Option<Children>,
+    #[prop(optional)] left: Option<ChildrenFn>,
+    #[prop(optional)] center: Option<ChildrenFn>,
+    #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
     children: Children,
 ) -> impl IntoView {
     view! {
-        <div 
+        <div
             class=format!("canon-toolbar {}", class)
             attr:data-block="toolbar"
             role="toolbar"
@@ -22,17 +22,17 @@ pub fn ToolbarBlock(
                     {l()}
                 </div>
             })}
-            
+
             {center.map(|c| view! {
                 <div class="canon-toolbar__section canon-toolbar__section--center">
                     {c()}
                 </div>
             })}
-            
+
             <div class="canon-toolbar__section canon-toolbar__section--main">
                 {children()}
             </div>
-            
+
             {right.map(|r| view! {
                 <div class="canon-toolbar__section canon-toolbar__section--right">
                     {r()}

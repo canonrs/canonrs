@@ -9,10 +9,10 @@ use leptos::prelude::*;
 
 #[component]
 pub fn Header(
-    #[prop(optional)] logo: Option<Children>,
-    #[prop(optional)] primary_nav: Option<Children>,
-    #[prop(optional)] actions: Option<Children>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] logo: Option<ChildrenFn>,
+    #[prop(optional)] primary_nav: Option<ChildrenFn>,
+    #[prop(optional)] actions: Option<ChildrenFn>,
+    #[prop(optional)] children: Option<ChildrenFn>,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {

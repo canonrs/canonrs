@@ -41,7 +41,7 @@ pub fn ListItem(
     view! {
         <li
             class=format!("canon-list__item {} {}", if selected { "canon-list__item--selected" } else { "" }, class)
-            attr:data-list-action="click"
+            attr:data-action="click"
             attr:data-list-item-id=item_id
         >
             {children()}

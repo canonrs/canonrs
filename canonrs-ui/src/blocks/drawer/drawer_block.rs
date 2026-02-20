@@ -27,8 +27,9 @@ pub fn DrawerBlock(
     #[prop(into)] open: MaybeSignal<bool>,
     #[prop(optional)] on_close: Option<Callback<()>>,
     #[prop(default = DrawerPosition::Right)] position: DrawerPosition,
-    #[prop(optional)] header: Option<Children>,
-    #[prop(optional)] footer: Option<Children>,
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
+    #[prop(optional)] close_button: Option<ChildrenFn>,
     #[prop(default = true)] backdrop: bool,
     #[prop(default = true)] close_on_backdrop: bool,
     #[prop(default = String::new(), into)] class: String,
@@ -43,42 +44,35 @@ pub fn DrawerBlock(
     };
 
     view! {
-        <div 
+        <div
             class=move || format!(
                 "canon-drawer-overlay {}",
                 if open.get() { "canon-drawer-overlay--open" } else { "" }
             )
             attr:data-block="drawer"
-            attr:data-drawer-action="close-backdrop" on:click=handle_backdrop_click
+            attr:data-action="close-backdrop" on:click=handle_backdrop_click
         >
             {backdrop.then(|| view! {
                 <div class="canon-drawer__backdrop" />
             })}
-            
-            <div 
+
+            <div
                 class=format!("canon-drawer canon-drawer--{} {}", position.as_str(), class)
-                attr:data-drawer-action="prevent-close" on:click=|e| e.stop_propagation()
+                attr:data-action="prevent-close" on:click=|e| e.stop_propagation()
             >
                 {header.map(|h| view! {
                     <div class="canon-drawer__header">
                         {h()}
-                        <button 
-                            class="canon-drawer__close"
-                            attr:data-drawer-action="close" on:click=move |_| {
-                                if let Some(cb) = on_close {
-                                    cb.run(());
-                                }
-                            }
-                        >
-                            "×"
-                        </button>
+                        {close_button.map(|btn| view! {
+                            <div class="canon-drawer__close">{btn()}</div>
+                        })}
                     </div>
                 })}
-                
+
                 <div class="canon-drawer__content">
                     {children()}
                 </div>
-                
+
                 {footer.map(|f| view! {
                     <div class="canon-drawer__footer">{f()}</div>
                 })}

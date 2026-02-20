@@ -9,7 +9,7 @@ pub fn StatCard(
     #[prop(into)] value: String,
     #[prop(optional, into)] change: Option<String>,
     #[prop(optional, into)] trend: Option<String>, // "up", "down", "neutral"
-    #[prop(optional)] icon: Option<Children>,
+    #[prop(optional)] icon: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {

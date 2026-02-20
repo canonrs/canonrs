@@ -10,9 +10,9 @@ use leptos::prelude::*;
 
 #[component]
 pub fn Footer(
-    #[prop(optional)] left: Option<Children>,
-    #[prop(optional)] center: Option<Children>,
-    #[prop(optional)] right: Option<Children>,
+    #[prop(optional)] left: Option<ChildrenFn>,
+    #[prop(optional)] center: Option<ChildrenFn>,
+    #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {

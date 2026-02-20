@@ -20,9 +20,9 @@ pub fn Card(
     #[prop(default = CardVariant::Default)]
     variant: CardVariant,
     #[prop(optional)]
-    header: Option<Children>,
+    header: Option<ChildrenFn>,
     #[prop(optional)]
-    footer: Option<Children>,
+    footer: Option<ChildrenFn>,
     #[prop(optional)]
     card_id: Option<String>,
     #[prop(default = String::new(), into)]
