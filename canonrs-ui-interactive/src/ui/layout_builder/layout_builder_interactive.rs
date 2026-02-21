@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use leptos::prelude::Effect;
-use super::types::{ActiveLayout, Node, DragContext, all_blocks, init_slots};
+use super::types::{ActiveLayout, Node, DragContext, CanvasMode, all_blocks, init_slots};
 use super::layout_canvas::LayoutCanvas;
 
 #[component]
@@ -9,6 +9,8 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
     let slots: RwSignal<Vec<Node>> = RwSignal::new(init_slots(&ActiveLayout::Dashboard));
     let tree: RwSignal<Vec<Node>> = RwSignal::new(vec![]);
     let drag_ctx = RwSignal::new(DragContext::empty());
+    let selected_id: RwSignal<Option<uuid::Uuid>> = RwSignal::new(None);
+    let canvas_mode = RwSignal::new(CanvasMode::Builder);
 
     // Cursor global durante drag
     Effect::new(move |_| {
@@ -67,14 +69,84 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
             <div
                 style="flex: 1; overflow: auto; padding: 1rem; background: var(--theme-page-bg);"
                 data-builder-panel="canvas"
+                on:click=move |ev| { use leptos::wasm_bindgen::JsCast; if let Some(t) = ev.target() { if t.unchecked_ref::<web_sys::Element>().closest("[data-block-preview]").ok().flatten().is_none() { selected_id.set(None); } } }
             >
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem; gap: 0.5rem;">
+                    <button
+                        on:click=move |_| canvas_mode.set(CanvasMode::Builder)
+                        style=move || format!(
+                            "padding: 0.25rem 0.75rem; font-size: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--theme-surface-border); cursor: pointer; background: {}; color: {};",
+                            if canvas_mode.get() == CanvasMode::Builder { "var(--theme-action-primary-bg)" } else { "var(--theme-surface-bg)" },
+                            if canvas_mode.get() == CanvasMode::Builder { "var(--theme-action-primary-fg)" } else { "var(--theme-surface-fg)" }
+                        )
+                    >"Builder"</button>
+                    <button
+                        on:click=move |_| canvas_mode.set(CanvasMode::Preview)
+                        style=move || format!(
+                            "padding: 0.25rem 0.75rem; font-size: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--theme-surface-border); cursor: pointer; background: {}; color: {};",
+                            if canvas_mode.get() == CanvasMode::Preview { "var(--theme-action-primary-bg)" } else { "var(--theme-surface-bg)" },
+                            if canvas_mode.get() == CanvasMode::Preview { "var(--theme-action-primary-fg)" } else { "var(--theme-surface-fg)" }
+                        )
+                    >"Preview"</button>
+                </div>
                 {move || view! {
                     <LayoutCanvas
                         layout=active_layout.get()
                         tree=tree
                         drag_ctx=drag_ctx
                         slots=slots
+                        selected_id=selected_id
+                        canvas_mode=canvas_mode
                     />
+                }}
+            </div>
+
+            // INSPECTOR — reativo ao selected_id
+            <div style="width: 220px; flex-shrink: 0; border-left: 1px solid var(--theme-surface-border); overflow-y: auto; background: var(--theme-surface-bg);" data-builder-panel="inspector">
+                <div style="padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--theme-surface-fg-muted); border-bottom: 1px solid var(--theme-surface-border);">
+                    "Inspector"
+                </div>
+                {move || {
+                    let sel = selected_id.get();
+                    let node = sel.and_then(|id| tree.get().into_iter().find(|n| n.id == id));
+                    match node {
+                        None => view! {
+                            <div style="padding: 1rem; font-size: 0.75rem; color: var(--theme-surface-fg-muted); text-align: center;">
+                                "Select a block to inspect"
+                            </div>
+                        }.into_any(),
+                        Some(n) => {
+                            let (label, category, is_container) = match &n.kind {
+                                super::types::NodeKind::Block { def } => (
+                                    def.label,
+                                    format!("{:?}", def.category),
+                                    def.is_container,
+                                ),
+                                super::types::NodeKind::Slot { name } => (*name, "Slot".to_string(), true),
+                            };
+                            let node_id = n.id;
+                            view! {
+                                <div style="padding: 0.75rem 1rem;">
+                                    <div style="font-size: 0.85rem; font-weight: 600; color: var(--theme-surface-fg); margin-bottom: 0.75rem;">{label}</div>
+                                    <div style="font-size: 0.7rem; color: var(--theme-surface-fg-muted); margin-bottom: 0.25rem;">"Category"</div>
+                                    <div style="font-size: 0.75rem; background: var(--theme-surface-muted); border-radius: var(--radius-sm); padding: 0.25rem 0.5rem; margin-bottom: 0.75rem; font-family: monospace;">{category}</div>
+                                    <div style="font-size: 0.7rem; color: var(--theme-surface-fg-muted); margin-bottom: 0.25rem;">"Container"</div>
+                                    <div style="font-size: 0.75rem; margin-bottom: 0.75rem;">{if is_container { "Yes" } else { "No" }}</div>
+                                    <div style="font-size: 0.7rem; color: var(--theme-surface-fg-muted); margin-bottom: 0.25rem;">"Node ID"</div>
+                                    <div style="font-size: 0.65rem; font-family: monospace; color: var(--theme-surface-fg-muted); word-break: break-all; margin-bottom: 1rem;">{node_id.to_string()}</div>
+                                    <button
+                                        on:click=move |_| {
+                                            tree.update(|t| super::types::remove_node(t, node_id));
+                                            selected_id.set(None);
+                                        }
+                                        style="width: 100%; padding: 0.4rem; font-size: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--theme-destructive-bg, #ef4444); background: transparent; color: var(--theme-destructive-bg, #ef4444); cursor: pointer;"
+                                    >
+                                        "Remove block"
+                                    </button>
+                                </div>
+                            }.into_any()
+                        }
+                    }
                 }}
             </div>
 

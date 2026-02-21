@@ -224,6 +224,14 @@ pub fn init_slots(layout: &ActiveLayout) -> Vec<Node> {
     }).collect()
 }
 
+// ─── Canvas Mode ─────────────────────────────────────────────────────────────
+
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum CanvasMode {
+    Builder,
+    Preview,
+}
+
 // ─── DragContext ───────────────────────────────────────────────────────────────
 
 #[derive(Clone, Debug)]

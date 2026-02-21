@@ -1,15 +1,17 @@
 use leptos::prelude::*;
-use super::types::{Node, NodeKind, BlockDef, DragContext, children_of, insert_node, remove_node};
+use super::types::{Node, NodeKind, BlockDef, DragContext, CanvasMode, children_of, insert_node, remove_node};
 use super::block_preview::BlockPreview;
 
 #[component]
 pub fn DropZone(
-    /// ID do nó pai (Slot ou Block container)
     parent_id: uuid::Uuid,
     tree: RwSignal<Vec<Node>>,
     drag_ctx: RwSignal<DragContext>,
+    selected_id: RwSignal<Option<uuid::Uuid>>,
+    canvas_mode: RwSignal<CanvasMode>,
     #[prop(optional)] slot_label: Option<&'static str>,
 ) -> impl IntoView {
+    let is_builder = move || canvas_mode.get() == CanvasMode::Builder;
     let hover = RwSignal::new(false);
     let insert_index: RwSignal<usize> = RwSignal::new(0);
     let is_dragging = move || drag_ctx.get().is_dragging();
@@ -73,9 +75,10 @@ pub fn DropZone(
             data-drop-zone=""
             attr:data-hover=move || if hover.get() { "true" } else { "false" }
             attr:data-dragging=move || if is_dragging() { "true" } else { "false" }
-            on:pointermove=handle_pointermove
-            on:pointerup=handle_pointerup
-            on:pointerleave=handle_pointerleave
+            attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
+            on:pointermove=move |ev| { if is_builder() { handle_pointermove(ev); } }
+            on:pointerup=move |ev| { if is_builder() { handle_pointerup(ev); } }
+            on:pointerleave=move |ev| { if is_builder() { handle_pointerleave(ev); } }
         >
             {move || {
                 let nodes = get_children();
@@ -99,7 +102,7 @@ pub fn DropZone(
                     vec![
                         line,
                         Some(view! {
-                            <BlockPreview node=n tree=tree drag_ctx=drag_ctx />
+                            <BlockPreview node=n tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode />
                         }.into_any()),
                     ].into_iter().flatten()
                 }).chain(if hovering && idx >= get_children().len() {

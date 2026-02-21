@@ -102,3 +102,31 @@
   padding-left: var(--builder-container-indent);
   border-left: 2px solid var(--composite-border-color);
 }
+
+/* ── Selection State ───────────────────────── */
+[data-block-preview][data-selected="true"] > [data-block-inner],
+[data-block-preview][data-selected="true"] > .data-card {
+  outline: 2px solid var(--theme-action-primary-bg);
+  outline-offset: 2px;
+}
+
+[data-block-preview][data-selected="true"] > [data-block-remove] {
+  opacity: 1;
+}
+
+/* ── Preview Mode — hide builder UI ───────── */
+[data-drop-zone][data-mode="preview"] {
+  border: none;
+  min-height: unset;
+  background: transparent;
+  padding: 0;
+}
+
+[data-block-preview][data-mode="preview"] {
+  cursor: default;
+}
+
+[data-block-children][data-mode="preview"] {
+  border-left: none;
+  padding-left: 0;
+}
