@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::types::{Node, NodeKind, BlockDef, DragContext, CanvasMode, children_of, insert_node, remove_node};
+use super::types::{Node, DragContext, CanvasMode, children_of, insert_node, remove_node};
 use super::block_preview::BlockPreview;
 
 #[component]
@@ -43,7 +43,6 @@ pub fn DropZone(
         if !ctx.is_dragging() || !hover.get() { return; }
         let block = match ctx.block_def { Some(b) => b, None => return };
 
-        // Constraint Engine: valida se este container aceita o bloco
         let parent_node = tree.get().iter().find(|n| n.id == parent_id).cloned();
         if let Some(ref p) = parent_node {
             if !p.accepts(&block) {
@@ -83,33 +82,55 @@ pub fn DropZone(
             {move || {
                 let nodes = get_children();
                 let idx = insert_index.get();
-                let hovering = hover.get();
+                let hovering = hover.get() && is_builder();
 
                 if nodes.is_empty() {
-                    return view! {
-                        <div data-drop-zone-empty="">
-                            {format!("Drop here → {}", label)}
-                        </div>
-                    }.into_any();
+                    return if is_builder() {
+                        view! { <div data-drop-zone-empty="">{format!("Drop here → {}", label)}</div> }.into_any()
+                    } else {
+                        view! { <div /> }.into_any()
+                    };
                 }
 
+                // Linha de inserção simples — sem closure reativa por item
+                let insert_line = view! {
+                    <div style=move || if hover.get() && is_builder() {
+                        format!("height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;")
+                    } else {
+                        "height: 2px; background: transparent; margin: 1px 0; pointer-events: none;".to_string()
+                    } />
+                };
+
                 nodes.into_iter().enumerate().flat_map(|(i, n)| {
-                    let line = if hovering && idx == i {
+                    let show_line_before = hovering && idx == i;
+                    let line = if show_line_before {
                         Some(view! {
-                            <div style="height: 3px; background: #6366f1; border-radius: 2px; margin: 2px 0; pointer-events: none;" />
+                            <div style="height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;" />
                         }.into_any())
-                    } else { None };
+                    } else {
+                        Some(view! {
+                            <div style="height: 2px; background: transparent; margin: 1px 0; pointer-events: none;" />
+                        }.into_any())
+                    };
                     vec![
                         line,
                         Some(view! {
-                            <BlockPreview node=n tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode />
+                            <BlockPreview
+                                node=n
+                                tree=tree
+                                drag_ctx=drag_ctx
+                                selected_id=selected_id
+                                canvas_mode=canvas_mode
+                            />
                         }.into_any()),
                     ].into_iter().flatten()
-                }).chain(if hovering && idx >= get_children().len() {
-                    Some(view! {
-                        <div data-insert-line="" />
-                    }.into_any())
-                } else { None })
+                }).chain(
+                    Some(if hovering && idx >= get_children().len() {
+                        view! { <div style="height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;" /> }.into_any()
+                    } else {
+                        view! { <div style="height: 2px; background: transparent; margin: 1px 0; pointer-events: none;" /> }.into_any()
+                    })
+                )
                 .collect_view()
                 .into_any()
             }}

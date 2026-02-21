@@ -130,3 +130,18 @@
   border-left: none;
   padding-left: 0;
 }
+
+/* ── Drop Line ─────────────────────────────── */
+[data-drop-line] {
+  height: 2px;
+  background: transparent;
+  border-radius: 2px;
+  margin: 1px 0;
+  pointer-events: none;
+  transition: height 0.1s, background 0.1s;
+}
+
+[data-drop-line][data-active="true"] {
+  height: 4px;
+  background: var(--builder-insert-line-color);
+}
