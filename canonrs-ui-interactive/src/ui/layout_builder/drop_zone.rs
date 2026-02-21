@@ -17,34 +17,64 @@ pub fn DropZone(
     let is_dragging = move || drag_ctx.get().is_dragging();
     let get_children = move || children_of(&tree.get(), parent_id);
 
-    let handle_pointermove = move |ev: leptos::ev::PointerEvent| {
-        if !is_dragging() { return; }
-        hover.set(true);
+    // ── Virtual Drop Targets Cache ─────────────────────────────────────────────
+    // Armazena midpoints dos blocos filhos — calculado UMA vez por drag session
+    // pointermove só faz lookup em memória, zero DOM query
+    let rect_cache: RwSignal<Vec<f64>> = RwSignal::new(vec![]);
+    let cache_valid = RwSignal::new(false);
+    let zone_el: NodeRef<leptos::html::Div> = NodeRef::new();
+
+    // Invalida cache quando tree ou drag muda
+    Effect::new(move |_| {
+        let _ = tree.get();
+        let _ = drag_ctx.get();
+        cache_valid.set(false);
+    });
+
+    let build_cache = move || {
         #[cfg(target_arch = "wasm32")]
         {
             use leptos::wasm_bindgen::JsCast;
-            let client_y = ev.client_y() as f64;
-            if let Some(target) = ev.current_target() {
-                let el: web_sys::Element = target.unchecked_into();
-                // Pega blocos filhos diretos via data-block-preview
-                if let Ok(children) = el.query_selector_all(":scope > [data-block-preview], :scope > div > [data-block-preview]") {
+            if let Some(el) = zone_el.get() {
+                let el: web_sys::Element = el.unchecked_into();
+                if let Ok(children) = el.query_selector_all(":scope > [data-block-preview]") {
                     let len = children.length() as usize;
-                    let mut idx = len; // default: inserir no final
+                    let mut mids = Vec::with_capacity(len);
                     for i in 0..len {
                         if let Some(child) = children.item(i as u32) {
                             let child_el: web_sys::Element = child.unchecked_into();
                             let rect = child_el.get_bounding_client_rect();
-                            let mid = rect.top() + rect.height() / 2.0;
-                            if client_y < mid {
-                                idx = i;
-                                break;
-                            }
+                            mids.push(rect.top() + rect.height() / 2.0);
                         }
                     }
-                    insert_index.set(idx);
+                    rect_cache.set(mids);
+                    cache_valid.set(true);
                 }
             }
         }
+    };
+
+    let handle_pointermove = move |ev: leptos::ev::PointerEvent| {
+        if !is_dragging() { return; }
+        hover.set(true);
+
+        // Constrói cache se inválido
+        if !cache_valid.get() {
+            build_cache();
+        }
+
+        // Lookup em memória — zero DOM query
+        let client_y = ev.client_y() as f64;
+        let mids = rect_cache.get();
+        let len = mids.len();
+        let mut idx = len;
+        for (i, &mid) in mids.iter().enumerate() {
+            if client_y < mid {
+                idx = i;
+                break;
+            }
+        }
+        insert_index.set(idx);
     };
 
     let handle_pointerup = move |ev: leptos::ev::PointerEvent| {
@@ -63,13 +93,13 @@ pub fn DropZone(
 
         let idx = insert_index.get();
         if let Some(src_id) = ctx.node_id {
-            // Reorder atômico — remove e insere mantendo índices consistentes
             tree.update(|t| move_node(t, src_id, parent_id, idx));
         } else {
             let node = Node::block(block, parent_id, idx);
             tree.update(|t| insert_node(t, node));
         }
 
+        cache_valid.set(false);
         hover.set(false);
         drag_ctx.set(DragContext::empty());
     };
@@ -82,6 +112,7 @@ pub fn DropZone(
 
     view! {
         <div
+            node_ref=zone_el
             data-drop-zone=""
             attr:data-hover=move || if hover.get() { "true" } else { "false" }
             attr:data-dragging=move || if is_dragging() { "true" } else { "false" }
@@ -103,47 +134,38 @@ pub fn DropZone(
                     };
                 }
 
-                // Linha de inserção simples — sem closure reativa por item
-                let insert_line = view! {
-                    <div style=move || if hover.get() && is_builder() {
-                        format!("height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;")
-                    } else {
-                        "height: 2px; background: transparent; margin: 1px 0; pointer-events: none;".to_string()
-                    } />
-                };
+                let mut views: Vec<AnyView> = Vec::new();
 
-                nodes.into_iter().enumerate().flat_map(|(i, n)| {
-                    let show_line_before = hovering && idx == i;
-                    let line = if show_line_before {
-                        Some(view! {
-                            <div style="height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;" />
-                        }.into_any())
+                // Drop line antes do primeiro bloco
+                views.push(view! {
+                    <div style=move || if hovering && idx == 0 {
+                        "height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;"
                     } else {
-                        Some(view! {
-                            <div style="height: 2px; background: transparent; margin: 1px 0; pointer-events: none;" />
-                        }.into_any())
-                    };
-                    vec![
-                        line,
-                        Some(view! {
-                            <BlockPreview
-                                node=n
-                                tree=tree
-                                drag_ctx=drag_ctx
-                                selected_id=selected_id
-                                canvas_mode=canvas_mode
-                            />
-                        }.into_any()),
-                    ].into_iter().flatten()
-                }).chain(
-                    Some(if hovering && idx >= get_children().len() {
-                        view! { <div style="height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;" /> }.into_any()
-                    } else {
-                        view! { <div style="height: 2px; background: transparent; margin: 1px 0; pointer-events: none;" /> }.into_any()
-                    })
-                )
-                .collect_view()
-                .into_any()
+                        "height: 2px; background: transparent; margin: 1px 0; pointer-events: none;"
+                    } />
+                }.into_any());
+
+                for (i, n) in nodes.into_iter().enumerate() {
+                    let after = i + 1;
+                    views.push(view! {
+                        <BlockPreview
+                            node=n
+                            tree=tree
+                            drag_ctx=drag_ctx
+                            selected_id=selected_id
+                            canvas_mode=canvas_mode
+                        />
+                    }.into_any());
+                    views.push(view! {
+                        <div style=move || if hovering && idx == after {
+                            "height: 4px; background: var(--builder-insert-line-color); border-radius: 2px; margin: 2px 0; pointer-events: none;"
+                        } else {
+                            "height: 2px; background: transparent; margin: 1px 0; pointer-events: none;"
+                        } />
+                    }.into_any());
+                }
+
+                views.into_iter().collect_view().into_any()
             }}
         </div>
     }

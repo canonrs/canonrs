@@ -1,4 +1,5 @@
 pub mod types;
+pub mod canon_ast;
 pub mod block_preview;
 pub mod drop_zone;
 pub mod layout_canvas;

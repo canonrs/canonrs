@@ -11,11 +11,12 @@ canonrs-ui = { path = "../canonrs-ui", default-features = false }
 canonrs-shared = { path = "../canonrs-shared" }
 time = { version = "0.3", features = ["macros", "formatting", "parsing"] }
 js-sys = "0.3"
-uuid = { version = "1", features = ["v4", "js"] }
+uuid = { version = "1", features = ["v4", "js", "serde"] }
 web-sys = { version = "0.3", features = ["Element", "NodeList", "DomRect"] }
 serde = { version = "1.0.228", features = ["derive"] }
 gloo-timers = { version = "0.3.0", features = ["futures"] }
 wasm-bindgen-futures = "0.4.58"
+serde_json = "1.0.149"
 
 [features]
 default = []
