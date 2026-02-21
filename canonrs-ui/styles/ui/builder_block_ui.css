@@ -1,0 +1,104 @@
+/* ============================================
+   LAYOUT BUILDER
+   Family G: Composite Systems
+   ============================================ */
+
+/* ── Drop Zone ─────────────────────────────── */
+[data-drop-zone] {
+  min-height: 60px;
+  border: var(--composite-dropzone-border-width) var(--composite-dropzone-border-style) var(--composite-dropzone-border-color);
+  border-radius: var(--builder-block-radius);
+  padding: var(--composite-padding);
+  background: transparent;
+  position: relative;
+  touch-action: none;
+  transition:
+    border-color var(--composite-transition-duration) var(--composite-transition-ease),
+    background var(--composite-transition-duration) var(--composite-transition-ease);
+}
+
+[data-drop-zone][data-hover="true"] {
+  border-color: var(--builder-dropzone-active-border);
+  background: var(--builder-dropzone-hover-bg);
+}
+
+[data-drop-zone][data-dragging="true"] {
+  border-color: var(--builder-dropzone-drag-border);
+  background: var(--builder-dropzone-drag-bg);
+}
+
+[data-drop-zone-empty] {
+  font-size: 0.7rem;
+  color: var(--theme-surface-fg-muted);
+  text-align: center;
+  padding: var(--composite-padding);
+  pointer-events: none;
+}
+
+/* ── Insert Line ───────────────────────────── */
+[data-insert-line] {
+  height: var(--builder-insert-line-height);
+  background: var(--builder-insert-line-color);
+  border-radius: 2px;
+  margin: 2px 0;
+  pointer-events: none;
+}
+
+/* ── Block Preview ─────────────────────────── */
+[data-block-preview] {
+  position: relative;
+  margin-bottom: var(--builder-block-gap);
+  cursor: grab;
+  touch-action: none;
+  transition: opacity var(--composite-transition-duration) var(--composite-transition-ease);
+}
+
+[data-block-preview][data-dragging="true"] {
+  opacity: var(--builder-block-drag-opacity);
+}
+
+[data-block-preview]:hover > [data-block-remove] {
+  opacity: 1;
+}
+
+/* ── Block Inner ───────────────────────────── */
+[data-block-inner] {
+  padding: var(--builder-block-padding);
+  background: var(--builder-block-bg);
+  border: var(--builder-block-border);
+  border-radius: var(--builder-block-radius);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: var(--builder-block-gap);
+}
+
+/* ── Remove Button ─────────────────────────── */
+[data-block-remove] {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: var(--builder-remove-size);
+  height: var(--builder-remove-size);
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--builder-remove-bg);
+  color: white;
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  z-index: var(--z-overlay);
+  opacity: 0;
+  transition: opacity var(--composite-transition-duration) var(--composite-transition-ease);
+}
+
+/* ── Container Indent ──────────────────────── */
+[data-block-children] {
+  margin-top: var(--builder-container-indent);
+  padding-left: var(--builder-container-indent);
+  border-left: 2px solid var(--composite-border-color);
+}

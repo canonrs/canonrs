@@ -1,35 +1,43 @@
 use leptos::prelude::*;
 use canonrs_ui::blocks::{Card, AlertBlock, AlertVariant};
-use super::types::{BlockDef, DroppedBlock, LayoutRegion, DragContext};
+use super::types::{Node, NodeKind, DragContext, remove_node};
+use super::drop_zone::DropZone;
 
 #[component]
 pub fn BlockPreview(
-    instance_id: uuid::Uuid,
-    block: BlockDef,
-    region: LayoutRegion,
-    dropped: RwSignal<Vec<DroppedBlock>>,
+    node: Node,
+    tree: RwSignal<Vec<Node>>,
     drag_ctx: RwSignal<DragContext>,
 ) -> impl IntoView {
-    let block_id = block.id;
-    let block_label = block.label;
-    let block_icon = block.icon;
-    let is_dragging = move || drag_ctx.get().instance_id == Some(instance_id);
+    let node_id = node.id;
+    let parent_id = node.parent_id;
+    let is_container = node.is_container();
+    let is_dragging_this = move || drag_ctx.get().node_id == Some(node_id);
 
-    let remove = move |_| {
-        dropped.update(|v| {
-            if let Some(pos) = v.iter().position(|d| d.instance_id == instance_id) {
-                v.remove(pos);
-            }
-        });
+    let (block_id, block_label, block_icon) = match &node.kind {
+        NodeKind::Block { def } => (def.id, def.label, def.icon),
+        NodeKind::Slot { name } => (*name, *name, "▤"),
+    };
+
+    let block_def = match node.kind.clone() {
+        NodeKind::Block { def } => Some(def),
+        _ => None,
+    };
+
+    let remove = move |ev: leptos::ev::MouseEvent| {
+        ev.stop_propagation();
+        tree.update(|t| remove_node(t, node_id));
     };
 
     let on_pointerdown = move |ev: leptos::ev::PointerEvent| {
         ev.prevent_default();
-        drag_ctx.set(DragContext {
-            instance_id: Some(instance_id),
-            block_def: Some(block.clone()),
-            source_region: Some(region),
-        });
+        ev.stop_propagation();
+        if let Some(def) = block_def.clone() {
+            drag_ctx.set(DragContext {
+                node_id: Some(node_id),
+                block_def: Some(def),
+            });
+        }
     };
 
     let inner = match block_id {
@@ -42,26 +50,31 @@ pub fn BlockPreview(
             <AlertBlock variant=AlertVariant::Info>"Alert message"</AlertBlock>
         }.into_any(),
         _ => view! {
-            <div style="padding: 0.5rem 0.75rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+            <div data-block-inner="">
                 <span>{block_icon}</span>
-                <span style="color: var(--theme-surface-fg);">{block_label}</span>
+                <span>{block_label}</span>
             </div>
         }.into_any(),
     };
 
     view! {
         <div
-            style=move || format!(
-                "position: relative; margin-bottom: 0.375rem; cursor: grab; opacity: {}; touch-action: none;",
-                if is_dragging() { "0.4" } else { "1.0" }
-            )
+            data-block-preview=""
+            attr:data-dragging=move || if is_dragging_this() { "true" } else { "false" }
             on:pointerdown=on_pointerdown
         >
             {inner}
+            {move || if is_container {
+                Some(view! {
+                    <div data-block-children="" on:pointermove=move |ev| ev.stop_propagation()>
+                        <DropZone parent_id=node_id tree=tree drag_ctx=drag_ctx slot_label="children" />
+                    </div>
+                }.into_any())
+            } else { None }}
             <button
+                data-block-remove=""
                 on:click=remove
                 on:pointerdown=move |ev| ev.stop_propagation()
-                style="position: absolute; top: 4px; right: 4px; width: 18px; height: 18px; border-radius: 50%; border: none; background: var(--theme-destructive-bg, #ef4444); color: white; font-size: 0.65rem; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; padding: 0; z-index: 10;"
             >
                 "×"
             </button>

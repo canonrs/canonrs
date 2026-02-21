@@ -44,4 +44,20 @@
   --carousel-indicator-gap: var(--space-xs);
   --carousel-indicator-bg: var(--theme-surface-muted);
   --carousel-indicator-active-bg: var(--theme-action-primary-bg);
+  --builder-block-bg: var(--theme-surface-bg);
+  --builder-block-border: 1px solid var(--theme-surface-border);
+  --builder-block-radius: var(--radius-sm);
+  --builder-block-padding: var(--space-sm) var(--space-md);
+  --builder-block-gap: var(--space-xs);
+  --builder-block-hover-border: 1px solid var(--theme-action-primary-bg);
+  --builder-block-drag-opacity: 0.4;
+  --builder-remove-size: 18px;
+  --builder-remove-bg: var(--theme-destructive-bg, #ef4444);
+  --builder-insert-line-color: var(--theme-action-primary-bg);
+  --builder-insert-line-height: 3px;
+  --builder-dropzone-active-border: var(--theme-action-primary-bg);
+  --builder-dropzone-hover-bg: rgba(99,102,241,0.12);
+  --builder-dropzone-drag-bg: rgba(99,102,241,0.06);
+  --builder-dropzone-drag-border: #a5b4fc;
+  --builder-container-indent: var(--space-sm);
 }

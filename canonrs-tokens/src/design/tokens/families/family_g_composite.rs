@@ -62,4 +62,22 @@ pub const FAMILY_G_COMPOSITE: &[FamilyToken] = &[
     FamilyToken::new("carousel-indicator-gap", "var(--space-xs)"),
     FamilyToken::new("carousel-indicator-bg", "var(--theme-surface-muted)"),
     FamilyToken::new("carousel-indicator-active-bg", "var(--theme-action-primary-bg)"),
+
+    // Layout Builder
+    FamilyToken::new("builder-block-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("builder-block-border", "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("builder-block-radius", "var(--radius-sm)"),
+    FamilyToken::new("builder-block-padding", "var(--space-sm) var(--space-md)"),
+    FamilyToken::new("builder-block-gap", "var(--space-xs)"),
+    FamilyToken::new("builder-block-hover-border", "1px solid var(--theme-action-primary-bg)"),
+    FamilyToken::new("builder-block-drag-opacity", "0.4"),
+    FamilyToken::new("builder-remove-size", "18px"),
+    FamilyToken::new("builder-remove-bg", "var(--theme-destructive-bg, #ef4444)"),
+    FamilyToken::new("builder-insert-line-color", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("builder-insert-line-height", "3px"),
+    FamilyToken::new("builder-dropzone-active-border", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("builder-dropzone-hover-bg", "rgba(99,102,241,0.12)"),
+    FamilyToken::new("builder-dropzone-drag-bg", "rgba(99,102,241,0.06)"),
+    FamilyToken::new("builder-dropzone-drag-border", "#a5b4fc"),
+    FamilyToken::new("builder-container-indent", "var(--space-sm)"),
 ];
