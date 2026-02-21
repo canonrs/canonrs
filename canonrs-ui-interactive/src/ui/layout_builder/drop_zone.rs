@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::types::{Node, DragContext, CanvasMode, children_of, insert_node, remove_node};
+use super::types::{Node, DragContext, CanvasMode, children_of, insert_node, remove_node, move_node};
 use super::block_preview::BlockPreview;
 
 #[component]
@@ -26,13 +26,23 @@ pub fn DropZone(
             let client_y = ev.client_y() as f64;
             if let Some(target) = ev.current_target() {
                 let el: web_sys::Element = target.unchecked_into();
-                let rect = el.get_bounding_client_rect();
-                let rel_y = (client_y - rect.top()).max(0.0);
-                let zone_h = rect.height().max(1.0);
-                let ratio = (rel_y / zone_h).clamp(0.0, 1.0);
-                let len = get_children().len();
-                let idx = ((ratio * len as f64).round() as usize).min(len);
-                insert_index.set(idx);
+                // Pega blocos filhos diretos via data-block-preview
+                if let Ok(children) = el.query_selector_all(":scope > [data-block-preview], :scope > div > [data-block-preview]") {
+                    let len = children.length() as usize;
+                    let mut idx = len; // default: inserir no final
+                    for i in 0..len {
+                        if let Some(child) = children.item(i as u32) {
+                            let child_el: web_sys::Element = child.unchecked_into();
+                            let rect = child_el.get_bounding_client_rect();
+                            let mid = rect.top() + rect.height() / 2.0;
+                            if client_y < mid {
+                                idx = i;
+                                break;
+                            }
+                        }
+                    }
+                    insert_index.set(idx);
+                }
             }
         }
     };
@@ -51,13 +61,14 @@ pub fn DropZone(
             }
         }
 
-        if let Some(src_id) = ctx.node_id {
-            tree.update(|t| remove_node(t, src_id));
-        }
-
         let idx = insert_index.get();
-        let node = Node::block(block, parent_id, idx);
-        tree.update(|t| insert_node(t, node));
+        if let Some(src_id) = ctx.node_id {
+            // Reorder atômico — remove e insere mantendo índices consistentes
+            tree.update(|t| move_node(t, src_id, parent_id, idx));
+        } else {
+            let node = Node::block(block, parent_id, idx);
+            tree.update(|t| insert_node(t, node));
+        }
 
         hover.set(false);
         drag_ctx.set(DragContext::empty());

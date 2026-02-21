@@ -145,3 +145,53 @@
   height: 4px;
   background: var(--builder-insert-line-color);
 }
+
+/* ── Selection Highlight ───────────────────── */
+[data-block-preview][data-selected="true"] {
+  border-radius: var(--builder-block-radius);
+  outline: 2px solid var(--theme-action-primary-bg);
+  outline-offset: 2px;
+}
+
+[data-block-preview][data-selected="true"] > [data-block-remove] {
+  opacity: 1;
+}
+
+/* ── Dragging vs Selected ──────────────────── */
+[data-block-preview][data-dragging="true"] {
+  opacity: 0.4;
+  outline: none;
+}
+
+[data-block-preview][data-dragging="true"] > [data-block-remove] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Preview Mode — remove all builder UI ─── */
+[data-drop-zone][data-mode="preview"] {
+  border: none !important;
+  min-height: unset !important;
+  background: transparent !important;
+  padding: 0 !important;
+  pointer-events: none;
+}
+
+[data-drop-zone][data-mode="preview"] [data-drop-zone-empty] {
+  display: none;
+}
+
+[data-block-preview][data-mode="preview"] {
+  cursor: default;
+  outline: none !important;
+}
+
+[data-block-preview][data-mode="preview"] > [data-block-remove] {
+  display: none !important;
+}
+
+[data-block-children][data-mode="preview"] {
+  border-left: none;
+  padding-left: 0;
+  margin-top: 0;
+}

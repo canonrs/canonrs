@@ -196,15 +196,20 @@ pub fn children_of(tree: &[Node], parent_id: Uuid) -> Vec<Node> {
 }
 
 pub fn insert_node(tree: &mut Vec<Node>, node: Node) {
-    let siblings: Vec<usize> = tree.iter().enumerate()
-        .filter(|(_, n)| n.parent_id == node.parent_id && n.index >= node.index)
-        .map(|(i, _)| i)
-        .collect();
-    for i in siblings { tree[i].index += 1; }
+    // Incrementa índices dos irmãos na posição de inserção
+    for n in tree.iter_mut() {
+        if n.parent_id == node.parent_id && n.index >= node.index {
+            n.index += 1;
+        }
+    }
     tree.push(node);
 }
 
 pub fn remove_node(tree: &mut Vec<Node>, id: Uuid) {
+    // Coleta nó removido para reajustar irmãos
+    let removed = tree.iter().find(|n| n.id == id).cloned();
+
+    // Coleta todos os descendentes
     let mut to_remove = vec![id];
     loop {
         let before = to_remove.len();
@@ -216,6 +221,35 @@ pub fn remove_node(tree: &mut Vec<Node>, id: Uuid) {
         if to_remove.len() == before { break; }
     }
     tree.retain(|n| !to_remove.contains(&n.id));
+
+    // Reajusta índices dos irmãos após remoção
+    if let Some(removed) = removed {
+        for n in tree.iter_mut() {
+            if n.parent_id == removed.parent_id && n.index > removed.index {
+                n.index -= 1;
+            }
+        }
+    }
+}
+
+/// Move nó para nova posição (reorder atômico)
+pub fn move_node(tree: &mut Vec<Node>, node_id: Uuid, new_parent_id: Uuid, new_index: usize) {
+    let node = match tree.iter().find(|n| n.id == node_id).cloned() {
+        Some(n) => n,
+        None => return,
+    };
+
+    // Remove da posição atual (reajusta irmãos origem)
+    remove_node(tree, node_id);
+
+    // Insere na nova posição
+    let new_node = Node {
+        id: node_id,
+        kind: node.kind,
+        parent_id: Some(new_parent_id),
+        index: new_index,
+    };
+    insert_node(tree, new_node);
 }
 
 pub fn init_slots(layout: &ActiveLayout) -> Vec<Node> {

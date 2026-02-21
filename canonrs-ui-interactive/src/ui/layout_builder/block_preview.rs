@@ -12,10 +12,9 @@ pub fn BlockPreview(
     canvas_mode: RwSignal<CanvasMode>,
 ) -> impl IntoView {
     let node_id = node.id;
+    let parent_id = node.parent_id;
     let is_builder = move || canvas_mode.get() == CanvasMode::Builder;
     let is_selected = move || selected_id.get() == Some(node_id);
-    let node_id = node.id;
-    let parent_id = node.parent_id;
     let is_container = node.is_container();
     let is_dragging_this = move || drag_ctx.get().node_id == Some(node_id);
 
@@ -34,10 +33,14 @@ pub fn BlockPreview(
         tree.update(|t| remove_node(t, node_id));
     };
 
+    let on_click = move |ev: leptos::ev::MouseEvent| {
+        ev.stop_propagation();
+        selected_id.set(Some(node_id));
+    };
+
     let on_pointerdown = move |ev: leptos::ev::PointerEvent| {
         ev.prevent_default();
         ev.stop_propagation();
-        selected_id.set(Some(node_id));
         if let Some(def) = block_def.clone() {
             drag_ctx.set(DragContext {
                 node_id: Some(node_id),
@@ -69,6 +72,7 @@ pub fn BlockPreview(
             attr:data-dragging=move || if is_dragging_this() { "true" } else { "false" }
             attr:data-selected=move || if is_selected() { "true" } else { "false" }
             attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
+            on:click=on_click
             on:pointerdown=on_pointerdown
         >
             {inner}
