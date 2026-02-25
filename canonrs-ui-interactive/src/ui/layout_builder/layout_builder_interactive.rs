@@ -1,18 +1,43 @@
 use leptos::prelude::*;
+use crate::application::builder_controller::BuilderController;
 use leptos::prelude::Effect;
-use super::types::{ActiveLayout, Node, DragContext, CanvasMode, all_blocks, init_slots};
+use super::types::{ActiveLayout, Node, NodeKind, DragContext, CanvasMode, all_blocks, init_slots};
+use super::state::builder_engine::BuilderEngine;
+use rs_canonrs::domain::CanonDocument;
+use rs_canonrs::application::Command;
+use super::blocks_panel::BlocksPanel;
 use super::layout_canvas::LayoutCanvas;
 use super::inspector::Inspector;
 use super::canvas_toolbar::CanvasToolbar;
+use super::preview_protocol::{init_preview_listener, send_preview, PreviewState, retry_if_needed};
+use super::ui::drop_zone::DragVisualState;
+use crate::ui::theme_workspace::theme_workspace::ThemeWorkspace;
 
 #[component]
 pub fn LayoutBuilderInteractive() -> impl IntoView {
     let active_layout = RwSignal::new(ActiveLayout::Dashboard);
     let slots: RwSignal<Vec<Node>> = RwSignal::new(init_slots(&ActiveLayout::Dashboard));
     let tree: RwSignal<Vec<Node>> = RwSignal::new(vec![]);
+    let engine: RwSignal<BuilderEngine> = RwSignal::new(BuilderEngine::new(CanonDocument::new("dashboard")));
     let drag_ctx = RwSignal::new(DragContext::empty());
     let selected_id: RwSignal<Option<uuid::Uuid>> = RwSignal::new(None);
     let canvas_mode = RwSignal::new(CanvasMode::Builder);
+    let preview_state = RwSignal::new(PreviewState::Idle);
+    let last_doc_json: RwSignal<Option<String>> = RwSignal::new(None);
+    let is_dirty: RwSignal<bool> = RwSignal::new(false);
+    let last_saved_hash: RwSignal<Option<String>> = RwSignal::new(None);
+    let drag_visual: RwSignal<DragVisualState> = RwSignal::new(DragVisualState::empty());
+    let builder_mode: RwSignal<&'static str> = RwSignal::new("builder");
+    let controller = BuilderController::new(engine, tree, selected_id, is_dirty);
+    use crate::infra::app_state::global_theme;
+    let theme = global_theme();
+
+    // Inicializa protocolo READY/DOC/ACK — listener permanente
+    #[cfg(target_arch = "wasm32")]
+    init_preview_listener(slots, tree, active_layout, preview_state, last_doc_json);
+
+    // Trigger de envio inicial — quando entra em Preview pela primeira vez
+    // Update em tempo real (split view) será implementado na Fase 6
 
     // Cursor global durante drag
     Effect::new(move |_| {
@@ -26,6 +51,56 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                 } else {
                     let _ = doc.style().remove_property("cursor");
                     let _ = doc.style().remove_property("user-select");
+                }
+            }
+        }
+    });
+
+    let canvas_ref: NodeRef<leptos::html::Div> = NodeRef::new();
+
+
+
+    // ── Keyboard Shortcuts ───────────────────────────────────────────────────
+    #[cfg(target_arch = "wasm32")]
+    crate::infra::web_keyboard::register_keyboard_shortcuts(
+        move || { controller.undo(); },
+        move || { controller.redo(); },
+        move || { controller.delete_selected(); },
+    );
+
+    // ── Pointer Listener ─────────────────────────────────────────────────────
+    #[cfg(target_arch = "wasm32")]
+    crate::infra::web_pointer::register_pointer_listener(move |ev| {
+        use leptos::wasm_bindgen::JsCast;
+        if !drag_ctx.get_untracked().is_dragging() { return; }
+        let mut new_active: Option<web_sys::Element> = None;
+        if let Some(target) = ev.target() {
+            let mut el: web_sys::Element = target.unchecked_into();
+            loop {
+                if el.has_attribute("data-drop-zone") { new_active = Some(el); break; }
+                match el.parent_element() { Some(p) => el = p, None => break }
+            }
+        }
+        if let Some(el) = new_active {
+            let _ = el.set_attribute("data-drop-zone-active", "true");
+            let client_y = ev.client_y() as f64;
+            let mut idx = 0usize;
+            if let Ok(blocks) = el.query_selector_all(":scope > [data-block-preview]") {
+                let len = blocks.length() as usize; idx = len;
+                let mut vi = 0usize;
+                for i in 0..len {
+                    if let Some(b) = blocks.item(i as u32) {
+                        let be: web_sys::Element = b.unchecked_into();
+                        if be.get_attribute("data-dragging").as_deref() == Some("true") { continue; }
+                        let rect = be.get_bounding_client_rect();
+                        if client_y < rect.top() + rect.height() / 2.0 { idx = vi; break; }
+                        vi += 1; idx = vi;
+                    }
+                }
+            }
+            if let Some(zone_id_str) = el.get_attribute("data-zone-id") {
+                if let Ok(zone_uuid) = uuid::Uuid::parse_str(&zone_id_str) {
+                    drag_visual.set(DragVisualState { active_zone_id: Some(zone_uuid), insert_index: idx });
                 }
             }
         }
@@ -69,55 +144,64 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
 
             // CANVAS
             <div
-                style="flex: 1; overflow: auto; padding: 1rem; background: var(--theme-page-bg);"
+                style="flex: 1; overflow: hidden; display: flex; flex-direction: column; background: var(--theme-page-bg);"
                 data-builder-panel="canvas"
-                on:click=move |ev| { use leptos::wasm_bindgen::JsCast; if let Some(t) = ev.target() { if t.unchecked_ref::<web_sys::Element>().closest("[data-block-preview]").ok().flatten().is_none() { selected_id.set(None); } } }
             >
-                <CanvasToolbar canvas_mode=canvas_mode />
-                {move || view! {
-                    <LayoutCanvas
-                        layout=active_layout.get()
-                        tree=tree
-                        drag_ctx=drag_ctx
-                        slots=slots
-                        selected_id=selected_id
-                        canvas_mode=canvas_mode
-                    />
-                }}
+                // Mode toggle bar
+                <div style="display:flex;gap:0.5rem;padding:0.5rem 1rem;border-bottom:1px solid var(--theme-surface-border);background:var(--theme-surface-bg);flex-shrink:0;">
+                    <button
+                        on:click=move |_| builder_mode.set("builder")
+                        style=move || format!("padding:0.3rem 0.8rem;border-radius:4px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;background:{};color:{};",
+                            if builder_mode.get()=="builder" {"var(--theme-primary-bg)"} else {"transparent"},
+                            if builder_mode.get()=="builder" {"var(--theme-primary-fg)"} else {"var(--theme-surface-fg)"})
+                    >"🧱 Builder"</button>
+                    <button
+                        on:click=move |_| builder_mode.set("theme")
+                        style=move || format!("padding:0.3rem 0.8rem;border-radius:4px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;background:{};color:{};",
+                            if builder_mode.get()=="theme" {"var(--theme-primary-bg)"} else {"transparent"},
+                            if builder_mode.get()=="theme" {"var(--theme-primary-fg)"} else {"var(--theme-surface-fg)"})
+                    >"🎨 Theme Engine"</button>
+                </div>
+                // Content
+                <div style="flex:1;overflow:auto;padding:1rem;"
+                    on:click=move |ev| {
+                        use leptos::wasm_bindgen::JsCast;
+                        if let Some(t) = ev.target() {
+                            if t.unchecked_ref::<web_sys::Element>().closest("[data-block-preview]").ok().flatten().is_none() {
+                                selected_id.set(None);
+                            }
+                        }
+                    }
+                >
+                    {move || -> leptos::prelude::AnyView {
+                        if builder_mode.get() == "theme" {
+                            view! { <ThemeWorkspace controller=controller theme=theme.clone() /> }.into_any()
+                        } else if canvas_mode.get() == CanvasMode::Preview {
+                            view! {
+                                <iframe id="canon-preview-frame" src="/preview"
+                                    style="width:100%;height:100%;border:none;min-height:600px;" />
+                            }.into_any()
+                        } else {
+                            view! {
+                                <div>
+                                    <CanvasToolbar canvas_mode=canvas_mode slots=slots tree=tree active_layout=active_layout engine=engine is_dirty=is_dirty />
+                                    <LayoutCanvas
+                                        layout=active_layout.get()
+                                        engine=engine tree=tree drag_ctx=drag_ctx
+                                        slots=slots selected_id=selected_id
+                                        canvas_mode=canvas_mode drag_visual=drag_visual
+                                    />
+                                </div>
+                            }.into_any()
+                        }
+                    }}
+                </div>
             </div>
 
-            <Inspector tree=tree selected_id=selected_id />
+            <Inspector engine=engine tree=tree selected_id=selected_id />
 
             // ASIDE — Blocks
-            <div style="width: 200px; flex-shrink: 0; border-left: 1px solid var(--theme-surface-border); overflow-y: auto; background: var(--theme-surface-bg);" data-builder-panel="blocks">
-                <div style="padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--theme-surface-fg-muted); border-bottom: 1px solid var(--theme-surface-border);">
-                    "Blocks"
-                </div>
-                <div style="padding: 0.5rem;">
-                    {all_blocks().into_iter().map(|block| {
-                        let id = block.id;
-                        let label = block.label;
-                        let icon = block.icon;
-                        view! {
-                            <div
-                                on:pointerdown=move |ev| {
-                                    ev.prevent_default();
-                                    if let Some(block) = all_blocks().into_iter().find(|b| b.id == id) {
-                                        drag_ctx.set(DragContext {
-                                            node_id: None,
-                                            block_def: Some(block),
-                                        });
-                                    }
-                                }
-                                style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; margin-bottom: 0.25rem; border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: grab; background: var(--theme-page-bg); font-size: 0.8rem; user-select: none; touch-action: none;"
-                                data-builder-block=id
-                            >
-                                <span>{icon}</span><span>{label}</span>
-                            </div>
-                        }
-                    }).collect_view()}
-                </div>
-            </div>
+            <BlocksPanel tree=tree selected_id=selected_id drag_ctx=drag_ctx />
         </div>
     }
 }

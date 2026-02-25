@@ -25,18 +25,18 @@ pub fn SliderPrimitive(
         <div
             node_ref=node_ref
             data-slider=""
-            attr:data-orientation={orientation.clone()}
-            attr:data-disabled={if disabled { "true" } else { "" }}
-            attr:data-value={clamped_value.to_string()}
-            attr:data-percent={percent.to_string()}
+            data-orientation=orientation.clone()
+            data-disabled=if disabled { "true" } else { "" }
+            data-value=clamped_value.to_string()
+            data-percent=percent.to_string()
             role="slider"
-            attr:aria-valuemin={min.to_string()}
-            attr:aria-valuemax={max.to_string()}
-            attr:aria-valuenow={clamped_value.to_string()}
-            attr:aria-orientation={orientation}
-            tabindex={if disabled { "-1" } else { "0" }}
-            class={class}
-            id={if id.is_empty() { None } else { Some(id) }}
+            aria-valuemin=min.to_string()
+            aria-valuemax=max.to_string()
+            aria-valuenow=clamped_value.to_string()
+            aria-orientation=orientation
+            tabindex=if disabled { "-1" } else { "0" }
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -52,8 +52,8 @@ pub fn SliderTrackPrimitive(
     view! {
         <div
             data-slider-track=""
-            class={class}
-            id={if id.is_empty() { None } else { Some(id) }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -65,7 +65,7 @@ pub fn SliderRangePrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-slider-range="" class={class} />
+        <div data-slider-range="" class=class />
     }
 }
 
@@ -74,6 +74,6 @@ pub fn SliderThumbPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-slider-thumb="" class={class} />
+        <div data-slider-thumb="" class=class />
     }
 }

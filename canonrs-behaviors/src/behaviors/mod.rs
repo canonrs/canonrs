@@ -100,3 +100,5 @@ pub use behavior_registry::*;
 
 #[cfg(feature = "hydrate")]
 pub use auto_init::init_canonrs_behaviors;
+
+pub mod tabs_behavior;

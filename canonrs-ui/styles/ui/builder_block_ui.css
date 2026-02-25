@@ -141,7 +141,8 @@
   transition: height 0.1s, background 0.1s;
 }
 
-[data-drop-line][data-active="true"] {
+/* Linha ativa APENAS quando a zone pai tem data-drop-zone-active */
+[data-drop-zone][data-drop-zone-active="true"] [data-drop-line][data-insert-active="true"] {
   height: 4px;
   background: var(--builder-insert-line-color);
 }
@@ -194,4 +195,197 @@
   border-left: none;
   padding-left: 0;
   margin-top: 0;
+}
+
+/* ── Children Container Highlight ─────────── */
+[data-block-children][data-drag-active="true"] {
+  border-left: 2px solid var(--builder-dropzone-active-border);
+  background: var(--builder-dropzone-drag-bg);
+  border-radius: var(--builder-block-radius);
+}
+
+[data-block-children][data-drag-active="true"] [data-drop-zone] {
+  border-color: var(--builder-dropzone-active-border);
+}
+
+/* ── Canon Preview Blocks ──────────────────── */
+[data-canon-slot] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+
+[data-canon-block] {
+  display: block;
+}
+
+[data-canon-block="card"] {
+  padding: 1rem;
+  background: var(--theme-surface-bg);
+  border: 1px solid var(--theme-surface-border);
+  border-radius: var(--radius-md);
+}
+
+[data-canon-block="header"] {
+  padding: 1rem;
+  background: var(--theme-surface-bg);
+  border-bottom: 1px solid var(--theme-surface-border);
+}
+
+[data-canon-block="form"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ============================================
+   MICROINTERAÇÕES — Nível Figma
+   Transform + opacity only — zero reflow
+   ============================================ */
+
+/* ── Hover suave nos blocos ─────────────────── */
+[data-block-preview] {
+  transition:
+    opacity 120ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 120ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-block-preview]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+[data-block-preview]:hover > [data-block-inner] {
+  border-color: var(--theme-action-primary-bg);
+}
+
+/* ── Drag handle sutil ──────────────────────── */
+[data-block-preview]::before {
+  content: "⠿";
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--theme-surface-fg-muted);
+  opacity: 0;
+  transition: opacity 120ms ease;
+  cursor: grab;
+  pointer-events: none;
+}
+
+[data-block-preview]:hover::before {
+  opacity: 0.5;
+}
+
+/* ── Seleção com outline animado ────────────── */
+[data-block-preview][data-selected="true"] {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px var(--theme-action-primary-bg), 0 2px 12px rgba(0,0,0,0.1);
+  outline: none;
+}
+
+[data-block-preview][data-selected="true"] > [data-block-inner] {
+  outline: none;
+  border-color: var(--theme-action-primary-bg);
+}
+
+/* ── Dragging state refinado ────────────────── */
+[data-block-preview][data-dragging="true"] {
+  opacity: 0.35;
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+/* ── Drop zone highlight animado ────────────── */
+[data-drop-zone] {
+  transition:
+    border-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
+    background 120ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-drop-zone][data-drop-zone-active="true"] {
+  border-color: var(--builder-dropzone-active-border);
+  background: var(--builder-dropzone-hover-bg);
+  box-shadow: inset 0 0 0 1px var(--builder-dropzone-active-border);
+}
+
+/* ── Insert line animada ────────────────────── */
+[data-drop-zone] div[style*="4px"] {
+  transition: height 80ms cubic-bezier(0.4, 0, 0.2, 1),
+              background 80ms ease;
+  border-radius: 2px;
+  box-shadow: 0 0 4px var(--builder-insert-line-color);
+}
+
+/* ── Remove button refinado ─────────────────── */
+[data-block-remove] {
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    background 120ms ease;
+  transform: scale(0.8);
+}
+
+[data-block-preview]:hover > [data-block-remove] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+[data-block-remove]:hover {
+  background: var(--theme-action-danger-bg, #e53e3e) !important;
+  transform: scale(1.1);
+}
+
+/* ── Block inner hover glow ─────────────────── */
+[data-block-inner] {
+  transition:
+    border-color 120ms ease,
+    background 120ms ease,
+    box-shadow 120ms ease;
+}
+
+/* ── Cursor inteligente ─────────────────────── */
+[data-block-preview][data-mode="builder"] {
+  cursor: grab;
+}
+
+[data-block-preview][data-dragging="true"] {
+  cursor: grabbing;
+}
+
+/* ── Empty zone pulse sutil ─────────────────── */
+[data-drop-zone-empty] {
+  transition: opacity 150ms ease;
+}
+
+[data-drop-zone][data-drop-zone-active="true"] [data-drop-zone-empty] {
+  opacity: 0.4;
+}
+
+/* ── Block Regions ─────────────────────────────── */
+[data-block-region],
+[data-region-preview] {
+  margin-top: 0.125rem;
+  min-height: 28px;
+}
+
+[data-region-preview] [data-block-preview] {
+  display: block;
+  min-height: 24px;
+}
+
+[data-block-region] [data-drop-zone] {
+  min-height: 28px;
+  padding: 0.2rem 0.35rem;
+  border-style: dashed;
+  border-width: 1px;
+}
+
+[data-block-region] [data-drop-zone-empty] {
+  font-size: 0.65rem;
+  padding: 0.2rem;
 }

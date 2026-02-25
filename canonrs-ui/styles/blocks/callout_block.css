@@ -1,0 +1,35 @@
+/* ============================================================================
+   CANONRS — CALLOUT BLOCK
+   Family E: Feedback
+   ============================================================================ */
+
+[data-callout],
+[data-canon-block="callout"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--callout-gap);
+  padding: var(--callout-padding-y) var(--callout-padding-x);
+  border-radius: var(--callout-radius);
+  border: var(--callout-border-width) solid var(--callout-border-default);
+  background: var(--callout-bg-default);
+}
+
+[data-canon-block="callout"][data-variant="info"] {
+  background: var(--callout-bg-info);
+  border-color: var(--callout-border-info);
+}
+
+[data-canon-block="callout"][data-variant="success"] {
+  background: var(--callout-bg-success);
+  border-color: var(--callout-border-success);
+}
+
+[data-canon-block="callout"][data-variant="warning"] {
+  background: var(--callout-bg-warning);
+  border-color: var(--callout-border-warning);
+}
+
+[data-callout-icon],
+[data-canon-block="callout"] [data-callout-icon] {
+  font-size: var(--callout-icon-size);
+}

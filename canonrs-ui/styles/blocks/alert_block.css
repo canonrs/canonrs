@@ -1,0 +1,35 @@
+/* ============================================================================
+   CANONRS — ALERT BLOCK
+   Family E: Feedback
+   ============================================================================ */
+
+[data-alert],
+[data-canon-block="alert"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--alert-padding-y) var(--alert-padding-x);
+  border-radius: var(--alert-radius);
+  border: var(--alert-border-width) solid var(--alert-border-color);
+  background: var(--alert-bg);
+}
+
+[data-canon-block="alert"][data-variant="default"] { background: var(--alert-bg-default); }
+[data-canon-block="alert"][data-variant="info"]    { background: var(--alert-bg-info); }
+[data-canon-block="alert"][data-variant="success"] { background: var(--alert-bg-success); }
+[data-canon-block="alert"][data-variant="warning"] { background: var(--alert-bg-warning); }
+[data-canon-block="alert"][data-variant="error"]   { background: var(--alert-bg-error); }
+
+[data-alert-title],
+[data-canon-block="alert"] [data-alert-title] {
+  font-size: var(--alert-title-font-size);
+  font-weight: var(--alert-title-font-weight);
+  color: var(--alert-title-fg);
+}
+
+[data-alert-description],
+[data-canon-block="alert"] [data-alert-description] {
+  font-size: var(--alert-description-font-size);
+  line-height: var(--alert-description-line-height);
+  color: var(--alert-description-fg);
+}

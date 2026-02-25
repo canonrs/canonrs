@@ -1,0 +1,18 @@
+/* ============================================================================
+   CANONRS — POPOVER BLOCK
+   Family A: Overlay
+   ============================================================================ */
+
+[data-popover-content],
+[data-canon-block="popover"] {
+  display: inline-flex;
+  flex-direction: column;
+  padding: var(--popover-padding);
+  background: var(--popover-bg);
+  border: var(--popover-border-width) solid var(--popover-border-color);
+  border-radius: var(--popover-radius);
+  box-shadow: var(--popover-shadow);
+  min-width: var(--popover-min-width);
+  max-width: var(--popover-max-width);
+  z-index: var(--popover-z-index);
+}

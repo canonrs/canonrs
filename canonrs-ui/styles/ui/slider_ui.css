@@ -27,7 +27,7 @@
   left: 0;
   top: 0;
   height: 100%;
-  width: 50%;
+  width: var(--slider-percent, 50%);
   background: var(--slider-range-bg);
   border-radius: var(--slider-track-radius);
   transition: width var(--slider-transition-duration) var(--slider-transition-ease);
@@ -36,7 +36,7 @@
 [data-slider-thumb] {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: var(--slider-percent, 50%);
   transform: translate(-50%, -50%);
   width: var(--slider-thumb-size);
   height: var(--slider-thumb-size);

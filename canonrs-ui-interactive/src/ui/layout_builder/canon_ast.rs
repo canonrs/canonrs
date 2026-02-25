@@ -237,7 +237,7 @@ pub fn build_tree(flat: &[Node]) -> Vec<CanonNode> {
         .collect();
 
     let mut sorted_roots: Vec<&Node> = roots;
-    sorted_roots.sort_by_key(|n| n.index);
+    // sort por index removido — ordem é posição no vec
 
     sorted_roots.iter().map(|root| build_canon_node(root, flat)).collect()
 }
@@ -246,16 +246,22 @@ fn build_canon_node(node: &Node, flat: &[Node]) -> CanonNode {
     let block = match &node.kind {
         NodeKind::Slot { name } => CanonBlockType::Slot { name: name.to_string() },
         NodeKind::Block { def } => CanonBlockType::from_id(def.id)
-            .unwrap_or(CanonBlockType::Section),
+            .expect("Unknown block type — registry mismatch"),
+        NodeKind::Region { region_id, .. } => CanonBlockType::Slot { name: region_id.to_string() },
+        NodeKind::Component { def } => CanonBlockType::from_id(def.id)
+            .expect("Unknown block type — registry mismatch"),
+        NodeKind::Text { variant, .. } => CanonBlockType::from_id(variant.tag())
+            .expect("Unknown block type — registry mismatch"),
     };
 
     let mut canon = CanonNode::with_id(node.id, block);
 
     // Filhos ordenados por index
+    let node_id = node.id;
     let mut children: Vec<&Node> = flat.iter()
-        .filter(|n| n.parent_id == Some(node.id))
+        .filter(|n| n.parent_id == Some(node_id))
         .collect();
-    children.sort_by_key(|n| n.index);
+    // sort por index removido — ordem é posição no vec
 
     canon.children = children.iter().map(|c| build_canon_node(c, flat)).collect();
     canon
@@ -273,7 +279,7 @@ pub fn flatten_tree(nodes: &[CanonNode]) -> Vec<Node> {
 fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, index: usize, flat: &mut Vec<Node>) {
     let kind = match &canon.block {
         CanonBlockType::Slot { name } => {
-            NodeKind::Slot { name: string_to_static(name) }
+            NodeKind::Slot { name: name.clone() }
         },
         block_type => {
             use super::types::{BlockDef, NodeCategory};
@@ -285,12 +291,13 @@ fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, index: usize, flat: 
                     icon: "▭",
                     category: NodeCategory::Content,
                     is_container: !canon.children.is_empty(),
+                    regions: &[],
                 }
             }
         }
     };
 
-    let node = Node { id: canon.id, kind, parent_id, index };
+    let node = Node { id: canon.id, kind, parent_id };
     flat.push(node);
 
     for (i, child) in canon.children.iter().enumerate() {
@@ -300,6 +307,3 @@ fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, index: usize, flat: 
 
 /// Helper — converte String para &'static str via leak
 /// Usado apenas no flatten, que é operação ocasional
-fn string_to_static(s: &str) -> &'static str {
-    Box::leak(s.to_string().into_boxed_str())
-}

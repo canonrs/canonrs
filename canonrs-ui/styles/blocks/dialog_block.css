@@ -1,29 +1,45 @@
 /* ============================================================================
-   DIALOG BLOCK
+   CANONRS — DIALOG BLOCK
+   Family A: Overlay
    ============================================================================ */
 
-[data-block="dialog"] {
-  position: fixed;
-  inset: 0;
-  z-index: var(--dialog-z-index);
-  display: grid;
-  place-items: center;
-  padding: var(--dialog-viewport-padding);
-}
-
-[data-block="dialog-backdrop"] {
-  position: fixed;
-  inset: 0;
-  background: var(--dialog-backdrop-bg);
-  backdrop-filter: var(--dialog-backdrop-filter);
-}
-
-[data-block="dialog-content"] {
-  position: relative;
-  z-index: 1;
+[data-dialog-content],
+[data-canon-block="dialog"] {
   background: var(--dialog-content-bg);
+  color: var(--dialog-content-fg);
+  padding: var(--dialog-content-padding);
   border-radius: var(--dialog-content-radius);
   box-shadow: var(--dialog-content-shadow);
   max-width: var(--dialog-content-max-width);
-  width: 100%;
+  width: var(--dialog-content-width);
+  border: 1px solid var(--theme-surface-border);
+}
+
+[data-dialog-header],
+[data-canon-block="dialog"] [data-dialog-header] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dialog-header-gap);
+  margin-bottom: var(--space-md);
+}
+
+[data-dialog-title],
+[data-canon-block="dialog"] [data-dialog-title] {
+  font-size: var(--dialog-title-font-size);
+  font-weight: var(--dialog-title-font-weight);
+  color: var(--dialog-title-fg);
+}
+
+[data-dialog-description],
+[data-canon-block="dialog"] [data-dialog-description] {
+  font-size: var(--dialog-description-font-size);
+  color: var(--dialog-description-fg);
+}
+
+[data-dialog-footer],
+[data-canon-block="dialog"] [data-dialog-footer] {
+  display: flex;
+  gap: var(--dialog-footer-gap);
+  justify-content: flex-end;
+  margin-top: var(--space-md);
 }

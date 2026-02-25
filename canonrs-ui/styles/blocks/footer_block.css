@@ -1,0 +1,17 @@
+/* ============================================================================
+   CANONRS — FOOTER BLOCK
+   Family H: Layout
+   ============================================================================ */
+
+[data-footer],
+[data-canon-block="footer"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--footer-padding);
+  background: var(--footer-bg);
+  border-top: var(--footer-border);
+}
+
+[data-footer-start] { display: flex; gap: var(--footer-start-gap); }
+[data-footer-end]   { display: flex; gap: var(--footer-end-gap); }

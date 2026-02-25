@@ -1,19 +1,41 @@
 /* ============================================================================
-   CANONRS — BLOCKS IMPORTS
-   ============================================================================
-   APENAS composição semântica
-   NÃO layouts, NÃO UI components
+   CANONRS — BLOCKS
+   Entry point for all block-level component styles
    ============================================================================ */
 
-@import './command_panel_block.css';
-@import './dialog_block.css';
-@import './drawer_block.css';
-@import './empty_state_block.css';
+/* ── Family A — Overlay ─────────────────────────────────────────────────────── */
+@import './popover_block.css';
+
+/* ── Family C — Forms ───────────────────────────────────────────────────────── */
 @import './field_block.css';
 @import './form_block.css';
 @import './form_actions_block.css';
-@import './list_block.css';
+
+/* ── Family D — Navigation ──────────────────────────────────────────────────── */
+@import './breadcrumb_block.css';
+@import './button_group_block.css';
+@import './toolbar_block.css';
+
+/* ── Family E — Feedback ────────────────────────────────────────────────────── */
+@import './alert_block.css';
+@import './callout_block.css';
+@import './empty_state_block.css';
 @import './skeleton_block.css';
+
+/* ── Family F — Data ────────────────────────────────────────────────────────── */
+@import './code_block_block.css';
+@import './list_block.css';
 @import './stat_card_block.css';
 @import './table_block.css';
+
+/* ── Family G — Composite ───────────────────────────────────────────────────── */
 @import './card_block.css';
+@import './dialog_block.css';
+@import './drawer_block.css';
+
+/* ── Family H — Layout ──────────────────────────────────────────────────────── */
+@import './header_block.css';
+@import './footer_block.css';
+@import './section_block.css';
+@import './layout_block.css';
+@import './page_header_block.css';

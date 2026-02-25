@@ -1,12 +1,15 @@
 /* ============================================================================
    CANONRS — CARD BLOCK
+   Family F: Data
    ============================================================================ */
 
 [data-card] {
-  background: var(--theme-surface-bg);
-  border: 1px solid var(--theme-surface-border);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
+  background: var(--card-bg);
+  border: var(--card-border-width) solid var(--card-border-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  box-shadow: var(--card-shadow);
+  color: var(--card-fg);
   transition: all 0.2s;
 }
 
@@ -16,20 +19,47 @@
 
 [data-card][data-variant="interactive"]:hover {
   border-color: var(--theme-action-primary-bg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 [data-card-header] {
-  margin-bottom: 1rem;
-  font-weight: 600;
+  padding: var(--card-header-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-header-gap);
+}
+
+[data-card-title] {
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  color: var(--card-title-fg);
+}
+
+[data-card-description] {
+  font-size: var(--card-description-font-size);
+  line-height: var(--card-description-line-height);
+  color: var(--card-description-fg);
 }
 
 [data-card-content] {
-  color: var(--theme-surface-fg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-content-gap);
 }
 
 [data-card-footer] {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--theme-surface-border);
+  padding: var(--card-footer-padding);
+  display: flex;
+  gap: var(--card-footer-gap);
+  border-top: var(--card-border-width) solid var(--card-border-color);
+}
+
+/* ── Canon Preview ─────────────────────────────────────────────────────────── */
+[data-canon-block="card"] {
+  background: var(--card-bg);
+  border: var(--card-border-width) solid var(--card-border-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  box-shadow: var(--card-shadow);
+  color: var(--card-fg);
 }

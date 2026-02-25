@@ -1,51 +1,50 @@
 /* ============================================================================
-   DRAWER BLOCK
+   CANONRS — DRAWER BLOCK
+   Family A: Overlay
    ============================================================================ */
 
-[data-block="drawer"] {
-  position: fixed;
-  inset: 0;
-  z-index: var(--drawer-z-index);
-}
-
-[data-block="drawer-backdrop"] {
-  position: fixed;
-  inset: 0;
-  background: var(--drawer-backdrop-bg);
-  backdrop-filter: var(--drawer-backdrop-filter);
-}
-
-[data-block="drawer-content"] {
-  position: fixed;
+[data-drawer-content],
+[data-canon-block="drawer"] {
   background: var(--drawer-content-bg);
+  color: var(--drawer-content-fg);
+  padding: var(--drawer-content-padding);
+  width: var(--drawer-content-width);
   box-shadow: var(--drawer-content-shadow);
-  transition: transform 0.3s ease;
+  border: 1px solid var(--theme-surface-border);
 }
 
-[data-block="drawer-content"][data-side="left"] {
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: var(--drawer-width);
+[data-drawer-header],
+[data-canon-block="drawer"] [data-drawer-header] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--drawer-header-gap);
+  margin-bottom: var(--space-md);
 }
 
-[data-block="drawer-content"][data-side="right"] {
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: var(--drawer-width);
+[data-drawer-title],
+[data-canon-block="drawer"] [data-drawer-title] {
+  font-size: var(--drawer-title-font-size);
+  font-weight: var(--drawer-title-font-weight);
+  color: var(--drawer-title-fg);
 }
 
-[data-block="drawer-content"][data-side="top"] {
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--drawer-height);
+[data-drawer-description],
+[data-canon-block="drawer"] [data-drawer-description] {
+  color: var(--drawer-description-fg);
 }
 
-[data-block="drawer-content"][data-side="bottom"] {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: var(--drawer-height);
+[data-drawer-footer],
+[data-canon-block="drawer"] [data-drawer-footer] {
+  display: flex;
+  gap: var(--drawer-footer-gap);
+  justify-content: flex-end;
+  margin-top: var(--space-md);
+}
+
+[data-drawer-handle] {
+  background: var(--drawer-handle-bg);
+  width: var(--drawer-handle-width);
+  height: var(--drawer-handle-height);
+  border-radius: var(--drawer-handle-radius);
+  margin: 0 auto var(--space-md);
 }

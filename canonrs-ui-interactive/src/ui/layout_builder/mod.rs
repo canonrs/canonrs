@@ -1,10 +1,15 @@
-pub mod types;
-pub mod canon_ast;
-pub mod block_preview;
-pub mod drop_zone;
-pub mod layout_canvas;
-pub mod layout_builder_interactive;
-pub mod inspector;
+pub mod domain;
+pub mod state;
+pub mod ui;
+pub mod application;
 pub mod canvas_toolbar;
-
-pub use layout_builder_interactive::LayoutBuilderInteractive;
+pub mod codegen;
+pub mod renderer;
+pub mod preview_protocol;
+pub mod layout_builder_interactive;
+pub mod builder_workspace;
+pub mod workspace_root;
+pub mod types;
+pub mod blocks_panel;
+pub mod inspector;
+pub mod layout_canvas;

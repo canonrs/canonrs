@@ -1,0 +1,15 @@
+/* ============================================================================
+   CANONRS — LAYOUT BLOCK
+   Family H: Layout
+   ============================================================================ */
+
+[data-layout],
+[data-canon-block="layout"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap);
+  min-height: var(--layout-min-height);
+  max-width: var(--layout-max-width);
+  background: var(--layout-bg);
+  padding: var(--layout-padding);
+}

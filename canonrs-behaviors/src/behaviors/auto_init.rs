@@ -28,6 +28,7 @@ pub fn register_all_behaviors() {
     tree_behavior::register();
     resizable_behavior::register();
     data_table_behavior::register();
+    tabs_behavior::register();
     copy_button_behavior::register();
     markdown_behavior::register();
 toc_behavior::register();

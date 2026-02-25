@@ -4,5 +4,7 @@
 //! - Componentes renderizam em ambos
 //! - Comportamento ativa apenas em hydrate
 
+pub mod infra;
+pub mod application;
 pub mod ui;
 pub use ui::LayoutBuilderInteractive;

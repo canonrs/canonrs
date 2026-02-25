@@ -1,29 +1,39 @@
 /* ============================================================================
-   COMMAND_PANEL BLOCK
+   CANONRS — COMMAND PANEL BLOCK
+   Family B: Selection
    ============================================================================ */
 
-[data-block="command-panel"] {
-  position: fixed;
-  inset: 0;
-  z-index: var(--command-panel-z-index);
-  display: grid;
-  place-items: center;
-  padding: var(--command-panel-viewport-padding);
+[data-command],
+[data-canon-block="command-panel"] {
+  background: var(--command-bg);
+  border: var(--command-border-width) solid var(--command-border-color);
+  border-radius: var(--command-radius);
+  box-shadow: var(--command-shadow);
+  overflow: hidden;
 }
 
-[data-block="command-panel-backdrop"] {
-  position: fixed;
-  inset: 0;
-  background: var(--command-panel-backdrop-bg);
-  backdrop-filter: var(--command-panel-backdrop-filter);
-}
-
-[data-block="command-panel-content"] {
-  position: relative;
-  z-index: 1;
-  background: var(--command-panel-content-bg);
-  border-radius: var(--command-panel-content-radius);
-  box-shadow: var(--command-panel-content-shadow);
-  max-width: var(--command-panel-content-max-width);
+[data-command-input],
+[data-canon-block="command-panel"] [data-command-input] {
+  height: var(--command-input-height);
+  padding: var(--command-input-padding);
+  font-size: var(--command-input-font-size);
+  border-bottom: var(--command-input-border-bottom);
+  background: transparent;
+  color: var(--command-fg);
   width: 100%;
+}
+
+[data-command-list],
+[data-canon-block="command-panel"] [data-command-list] {
+  padding: var(--command-list-padding);
+  max-height: var(--command-list-max-height);
+  overflow-y: auto;
+}
+
+[data-command-item],
+[data-canon-block="command-panel"] [data-command-item] {
+  height: var(--command-item-height);
+  padding: var(--command-item-padding);
+  border-radius: var(--command-item-radius);
+  cursor: pointer;
 }

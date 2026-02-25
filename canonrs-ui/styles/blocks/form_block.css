@@ -1,9 +1,29 @@
 /* ============================================================================
-   FORM BLOCK
+   CANONRS — FORM BLOCK
+   Family C: Forms
    ============================================================================ */
 
-[data-block="form"] {
+[data-form],
+[data-canon-block="form"] {
   display: flex;
   flex-direction: column;
   gap: var(--form-gap);
+}
+
+[data-form-actions],
+[data-canon-block="form-actions"] {
+  display: flex;
+  gap: var(--form-actions-gap);
+  justify-content: var(--form-actions-justify);
+  padding-top: var(--form-actions-padding-top);
+  border-top: var(--form-actions-border-top);
+}
+
+[data-form-error-summary],
+[data-canon-block="form"] [data-form-error-summary] {
+  background: var(--form-error-summary-bg);
+  padding: var(--form-error-summary-padding-y) var(--form-error-summary-padding-x);
+  border-radius: var(--form-error-summary-radius);
+  border: var(--form-error-summary-border-width) solid var(--form-error-summary-border-color);
+  gap: var(--form-error-summary-gap);
 }

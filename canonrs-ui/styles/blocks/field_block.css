@@ -1,14 +1,42 @@
 /* ============================================================================
-   FIELD BLOCK
+   CANONRS — FIELD BLOCK
+   Family C: Forms
    ============================================================================ */
 
-[data-block="field"] {
+[data-field],
+[data-canon-block="field"] {
   display: flex;
   flex-direction: column;
   gap: var(--field-gap);
 }
 
-[data-block="field"][data-horizontal="true"] {
-  flex-direction: row;
-  align-items: center;
+[data-field-label],
+[data-canon-block="field"] label {
+  font-size: var(--field-label-font-size);
+  font-weight: var(--field-label-font-weight);
+  color: var(--field-label-fg);
+}
+
+[data-field-description],
+[data-canon-block="field"] [data-field-description] {
+  font-size: var(--field-description-font-size);
+  line-height: var(--field-description-line-height);
+  color: var(--field-description-fg);
+}
+
+[data-field-error],
+[data-canon-block="field"] [data-field-error] {
+  font-size: var(--field-error-font-size);
+  color: var(--field-error-fg);
+}
+
+[data-canon-block="field"] input {
+  height: var(--field-height);
+  padding: var(--field-padding);
+  border: var(--field-border);
+  border-radius: var(--radius-sm);
+  background: var(--theme-surface-bg);
+  color: var(--theme-surface-fg);
+  font-size: var(--font-size-sm);
+  width: 100%;
 }

@@ -1,8 +1,11 @@
 use leptos::prelude::*;
-use super::types::{Node, NodeKind, remove_node};
+use super::types::{Node, NodeKind};
+use super::state::builder_engine::BuilderEngine;
+use rs_canonrs::application::Command;
 
 #[component]
 pub fn Inspector(
+    engine: RwSignal<BuilderEngine>,
     tree: RwSignal<Vec<Node>>,
     selected_id: RwSignal<Option<uuid::Uuid>>,
 ) -> impl IntoView {
@@ -26,11 +29,14 @@ pub fn Inspector(
                     Some(n) => {
                         let (label, category, is_container) = match &n.kind {
                             NodeKind::Block { def } => (def.label, format!("{:?}", def.category), def.is_container),
-                            NodeKind::Slot { name } => (*name, "Slot".to_string(), true),
+                            NodeKind::Slot { name } => (name.as_str(), "Slot".to_string(), true),
+                            NodeKind::Region { label, .. } => (label.as_str(), "Region".to_string(), true),
+                            NodeKind::Component { def } => (def.label, def.description.to_string(), false),
+                            NodeKind::Text { variant, content } => (variant.label(), variant.label().to_string(), false),
                         };
                         let node_id = n.id;
                         let parent_id = n.parent_id;
-                        let index = n.index;
+                        let index = 0usize; // index removido
                         view! {
                             <div style="padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
 
@@ -71,7 +77,9 @@ pub fn Inspector(
                                 <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--theme-surface-border);">
                                     <button
                                         on:click=move |_| {
-                                            tree.update(|t| remove_node(t, node_id));
+                                            engine.update(|e| { let _ = e.execute(Command::Remove { node_id }); });
+                                            let flat = engine.get_untracked().sync_flat();
+                                            tree.set(flat);
                                             selected_id.set(None);
                                         }
                                         style="width: 100%; padding: 0.4rem; font-size: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--theme-destructive-bg, #ef4444); background: transparent; color: var(--theme-destructive-bg, #ef4444); cursor: pointer;"

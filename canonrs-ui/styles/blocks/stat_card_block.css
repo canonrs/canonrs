@@ -1,8 +1,51 @@
-/* StatCard - Consumption only */
-[data-block="stat-card"] {
-  background: var(--data-bg);
-  border: 1px solid var(--data-border);
-  border-radius: var(--data-radius);
-  padding: var(--data-spacing);
-  box-shadow: var(--data-shadow);
+/* ============================================================================
+   CANONRS — STAT CARD BLOCK
+   Family F: Data
+   ============================================================================ */
+
+[data-stat-card],
+[data-canon-block="stat-card"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stat-gap);
+  padding: var(--card-padding);
+  background: var(--card-bg);
+  border: var(--card-border-width) solid var(--card-border-color);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+[data-stat-label],
+[data-canon-block="stat-card"] [data-stat-label] {
+  font-size: var(--stat-label-font-size);
+  font-weight: var(--stat-label-font-weight);
+  color: var(--stat-label-fg);
+}
+
+[data-stat-value],
+[data-canon-block="stat-card"] [data-stat-value] {
+  font-size: var(--stat-value-font-size);
+  font-weight: var(--stat-value-font-weight);
+  color: var(--stat-value-fg);
+}
+
+[data-stat-trend="increase"],
+[data-canon-block="stat-card"] [data-stat-trend="increase"] {
+  font-size: var(--stat-delta-font-size);
+  font-weight: var(--stat-delta-font-weight);
+  color: var(--stat-trend-increase-color);
+}
+
+[data-stat-trend="decrease"],
+[data-canon-block="stat-card"] [data-stat-trend="decrease"] {
+  font-size: var(--stat-delta-font-size);
+  font-weight: var(--stat-delta-font-weight);
+  color: var(--stat-trend-decrease-color);
+}
+
+[data-stat-trend="neutral"],
+[data-canon-block="stat-card"] [data-stat-trend="neutral"] {
+  font-size: var(--stat-delta-font-size);
+  font-weight: var(--stat-delta-font-weight);
+  color: var(--stat-trend-neutral-color);
 }

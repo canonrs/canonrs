@@ -1,17 +1,46 @@
 /* ============================================================================
-   LIST BLOCK
+   CANONRS — LIST BLOCK
+   Family F: Data
    ============================================================================ */
 
-[data-block="list"] {
+[data-list],
+[data-canon-block="list"] {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
+  gap: var(--list-gap);
 }
 
-[data-block="list-item"] {
+[data-list-item],
+[data-canon-block="list"] li {
   padding: var(--list-item-padding);
   border-bottom: var(--list-item-border);
+  border-radius: var(--list-item-radius);
+  color: var(--table-cell-fg);
+  font-size: var(--list-title-font-size);
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-block="list-item"]:last-child {
+[data-list-item]:last-child,
+[data-canon-block="list"] li:last-child {
   border-bottom: none;
+}
+
+[data-list-item]:hover,
+[data-canon-block="list"] li:hover {
+  background: var(--list-item-bg-hover);
+}
+
+[data-list-item][data-selected="true"],
+[data-canon-block="list"] li[data-selected="true"] {
+  background: var(--list-item-bg-selected);
+  color: var(--list-item-fg-selected);
+}
+
+[data-list-item][data-disabled="true"],
+[data-canon-block="list"] li[data-disabled="true"] {
+  background: var(--list-item-bg-disabled);
+  color: var(--list-item-fg-disabled);
 }

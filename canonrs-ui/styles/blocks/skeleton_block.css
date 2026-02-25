@@ -1,18 +1,23 @@
 /* ============================================================================
-   SKELETON BLOCK
+   CANONRS — SKELETON BLOCK
+   Family E: Feedback
    ============================================================================ */
 
-[data-block="skeleton"] {
+[data-skeleton],
+[data-canon-block="skeleton"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+[data-skeleton-line],
+[data-canon-block="skeleton"] > div {
   background: var(--skeleton-bg);
   border-radius: var(--skeleton-radius);
-  animation: skeleton-pulse 2s ease-in-out infinite;
+  animation: skeleton-pulse var(--skeleton-pulse-duration) var(--skeleton-pulse-ease) infinite;
 }
 
 @keyframes skeleton-pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
 }

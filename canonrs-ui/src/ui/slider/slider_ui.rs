@@ -1,4 +1,6 @@
 use leptos::prelude::*;
+use leptos::wasm_bindgen::JsCast;
+use leptos::wasm_bindgen::closure::Closure;
 use leptos::html;
 use crate::shared::Orientation;
 use crate::primitives::{
@@ -18,9 +20,27 @@ pub fn Slider(
     #[prop(default = Orientation::Horizontal)] orientation: Orientation,
     #[prop(default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(optional)] on_change: Option<Callback<f64>>,
 ) -> impl IntoView {
     let clamped = value.clamp(min, max);
     let node_ref = NodeRef::<html::Div>::new();
+
+    if on_change.is_some() {
+        leptos::prelude::Effect::new(move |_| {
+            let Some(el) = node_ref.get() else { return };
+            use leptos::wasm_bindgen::JsCast;
+            let html_el = el.unchecked_ref::<leptos::web_sys::HtmlElement>();
+            let cb = on_change.clone();
+            let closure = Closure::wrap(Box::new(move |e: leptos::web_sys::CustomEvent| {
+                if let Some(cb) = &cb {
+                    let val = e.detail().as_f64().unwrap_or(0.0);
+                    cb.run(val);
+                }
+            }) as Box<dyn FnMut(leptos::web_sys::CustomEvent)>);
+            html_el.add_event_listener_with_callback("slider-change", closure.as_ref().unchecked_ref()).ok();
+            closure.forget();
+        });
+    }
 
     view! {
         <SliderPrimitive
