@@ -22,7 +22,9 @@ pub fn BuilderWorkspace(
     drag_ctx: RwSignal<DragContext>,
     canvas_mode: RwSignal<CanvasMode>,
     drag_visual: RwSignal<DragVisualState>,
+    viewport: RwSignal<crate::ui::theme_workspace::viewport::Viewport>,
 ) -> impl IntoView {
+    use crate::ui::layout_builder::types::ActiveLayout;
     let selected_id: RwSignal<Option<uuid::Uuid>> = RwSignal::new(None);
     let preview_state = RwSignal::new(PreviewState::Idle);
     let last_doc_json: RwSignal<Option<String>> = RwSignal::new(None);
@@ -68,6 +70,47 @@ pub fn BuilderWorkspace(
 
     // ── Pointer Listener ─────────────────────────────────────────────────────
     #[cfg(target_arch = "wasm32")]
+    crate::infra::web_pointer::register_pointerup_listener(move |ev| {
+        use leptos::wasm_bindgen::JsCast;
+        leptos::logging::log!("[pointerup] fired, dragging={}", drag_ctx.get_untracked().is_dragging());
+        if !drag_ctx.get_untracked().is_dragging() { return; }
+        // Encontra drop zone sob o pointer
+        let mut target_zone: Option<(uuid::Uuid, usize)> = None;
+        if let Some(window) = web_sys::window() {
+            if let Some(doc) = window.document() {
+                let el_at_point = doc.element_from_point(ev.client_x() as f32, ev.client_y() as f32);
+                        leptos::logging::log!("[pointerup] element_from_point at ({},{}) = {:?}", ev.client_x(), ev.client_y(), el_at_point.as_ref().map(|e| e.tag_name()));
+                        if let Some(el) = el_at_point {
+                    let mut cur: web_sys::Element = el;
+                        leptos::logging::log!("[pointerup] starting walk from tag={} has-drop-zone={}", cur.tag_name(), cur.has_attribute("data-drop-zone"));
+                    loop {
+                        if cur.has_attribute("data-drop-zone") {
+                            if let Some(id_str) = cur.get_attribute("data-zone-id") {
+                                if let Ok(uuid) = uuid::Uuid::parse_str(&id_str) {
+                                    let idx = drag_visual.get_untracked().insert_index;
+                                    target_zone = Some((uuid, idx));
+                                }
+                            }
+                            break;
+                        }
+                        match cur.parent_element() { Some(p) => cur = p, None => break }
+                    }
+                }
+            }
+        }
+        if let Some((parent_id, _)) = target_zone {
+            use crate::ui::layout_builder::ui::drop_handler::handle_drop;
+            handle_drop(ev, parent_id, engine, tree, drag_ctx, drag_visual);
+        } else {
+            use crate::ui::layout_builder::state::drop_zone_types::DragVisualState;
+            use crate::ui::layout_builder::types::DragContext;
+            batch(move || {
+                drag_visual.set(DragVisualState::empty());
+                drag_ctx.set(DragContext::empty());
+            });
+        }
+    });
+
     crate::infra::web_pointer::register_pointer_listener(move |ev| {
         use leptos::wasm_bindgen::JsCast;
         if !drag_ctx.get_untracked().is_dragging() { return; }
@@ -120,8 +163,7 @@ pub fn BuilderWorkspace(
                         <button
                             on:click=move |_| {
                                 active_layout.set(layout);
-                                slots.set(init_slots(&layout));
-                                tree.set(vec![]);
+                                crate::infra::app_state::bootstrap_engine_with_layout(&layout);
                             }
                             style=move || format!(
                                 "width: 100%; text-align: left; padding: 0.75rem 1rem; border: none; cursor: pointer; border-bottom: 1px solid var(--theme-surface-border); background: {}; transition: background 0.15s;",
@@ -162,12 +204,14 @@ pub fn BuilderWorkspace(
                         }.into_any()
                     } else {
                         view! {
-                            <LayoutCanvas
-                                layout=active_layout.get()
-                                engine=engine tree=tree drag_ctx=drag_ctx
-                                slots=slots selected_id=selected_id
-                                canvas_mode=canvas_mode drag_visual=drag_visual
-                            />
+                            <div style=move || format!("margin:0 auto;width:{}px;min-height:{}px;transition:width 0.3s;overflow:hidden;", viewport.get().width, viewport.get().height)>
+                                <LayoutCanvas
+                                    layout=active_layout.get()
+                                    engine=engine tree=tree drag_ctx=drag_ctx
+                                    slots=slots selected_id=selected_id
+                                    canvas_mode=canvas_mode drag_visual=drag_visual
+                                />
+                            </div>
                         }.into_any()
                     }
                 }}

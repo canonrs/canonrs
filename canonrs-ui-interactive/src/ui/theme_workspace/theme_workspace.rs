@@ -7,16 +7,16 @@ use crate::ui::theme_engine::token_controls::TokenControls;
 use crate::ui::theme_engine::live_preview::LivePreview;
 
 #[component]
-pub fn ThemeWorkspace(controller: BuilderController, theme: crate::ui::theme_engine::ThemeState) -> impl IntoView {
-    let viewport = RwSignal::new(Viewport::desktop());
+pub fn ThemeWorkspace(controller: BuilderController, theme: crate::ui::theme_engine::ThemeState, viewport: RwSignal<crate::ui::theme_workspace::viewport::Viewport>) -> impl IntoView {
+
     let show_tokens = RwSignal::new(true);
-    let root_ref = NodeRef::<leptos::html::Div>::new();
+    let preview_ref = NodeRef::<leptos::html::Div>::new();
     let theme2 = theme.clone();
     let theme3 = theme.clone();
 
     Effect::new(move |_| {
         let state = theme.clone();
-        let Some(el) = root_ref.get() else { return };
+        let Some(el) = preview_ref.get() else { return };
         use leptos::wasm_bindgen::JsCast;
         let html_el: &leptos::web_sys::HtmlElement = el.unchecked_ref();
         let style = html_el.style();
@@ -33,7 +33,7 @@ pub fn ThemeWorkspace(controller: BuilderController, theme: crate::ui::theme_eng
     };
 
     view! {
-        <div node_ref=root_ref data-canon-runtime="isolated" id="theme-preview-root" style="display:flex;flex-direction:column;height:100%;min-height:600px;">
+        <div data-canon-runtime="isolated" id="theme-preview-root" style="display:flex;flex-direction:column;height:100%;min-height:600px;">
             <ThemeToolbar viewport=viewport on_generate=on_generate />
             {move || has_doc.get().then(|| view! {
                 <div style="padding:0.35rem 1rem;background:#166534;color:white;font-size:0.75rem;flex-shrink:0;">
@@ -59,10 +59,12 @@ pub fn ThemeWorkspace(controller: BuilderController, theme: crate::ui::theme_eng
                     on:click=move |_| show_tokens.set(true)
                 >"Tokens"</button>
                 <div style="flex:1;overflow:auto;background:#e5e7eb;display:flex;justify-content:center;padding:2rem;">
-                    <div style=move || format!(
-                        "width:{}px;min-height:{}px;background:white;box-shadow:0 4px 24px rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;transition:width 0.3s;",
-                        viewport.get().width, viewport.get().height
-                    )>
+                    <div
+                        node_ref=preview_ref
+                        style=move || format!(
+                            "width:{}px;min-height:{}px;background:white;box-shadow:0 4px 24px rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;transition:width 0.3s;",
+                            viewport.get().width, viewport.get().height
+                        )>
                         <LivePreview theme=theme3 />
                     </div>
                 </div>

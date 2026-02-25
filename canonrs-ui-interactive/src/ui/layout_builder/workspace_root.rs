@@ -2,6 +2,7 @@ use leptos::prelude::*;
 use super::builder_workspace::BuilderWorkspace;
 use crate::application::builder_controller::BuilderController;
 use crate::ui::theme_workspace::theme_workspace::ThemeWorkspace;
+use crate::ui::theme_workspace::viewport::Viewport;
 use crate::infra::app_state::*;
 use crate::infra::persistence::{load_theme_into, persist_theme};
 use crate::infra::export::{export_css, export_json, export_builder, import_builder};
@@ -24,12 +25,29 @@ fn trigger_download(filename: &str, content: &str) {
     let _ = Url::revoke_object_url(&url);
 }
 
+fn vp_btn(label: &'static str, vp: Viewport, current: RwSignal<Viewport>) -> impl IntoView {
+    let is_active = move || current.get() == vp;
+    view! {
+        <button
+            on:click=move |_| current.set(vp)
+            style=move || format!(
+                "padding:0.25rem 0.6rem;border-radius:4px;border:1px solid var(--theme-surface-border);cursor:pointer;font-size:0.75rem;background:{};color:{};",
+                if is_active() {"var(--theme-primary-bg)"} else {"transparent"},
+                if is_active() {"var(--theme-primary-fg)"} else {"var(--theme-surface-fg)"}
+            )
+        >{label}</button>
+    }
+}
+
 #[component]
 pub fn LayoutBuilderInteractive() -> impl IntoView {
     let mode = global_workspace_mode();
+    let viewport = RwSignal::new(Viewport::desktop());
     let theme = global_theme();
     load_theme_into(&theme);
     persist_theme(theme.clone());
+    // Bootstrap engine com layout inicial
+    crate::infra::app_state::bootstrap_engine_with_layout(&global_active_layout().get_untracked());
     let engine = global_engine();
     let tree = global_tree();
     let selected_id = global_selected();
@@ -80,7 +98,9 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
 
     view! {
         <div style="display:flex;flex-direction:column;height:100%;min-height:600px;border:1px solid var(--theme-surface-border);border-radius:var(--radius-md);overflow:hidden;">
-            <div style="display:flex;gap:0.5rem;padding:0.4rem 1rem;border-bottom:1px solid var(--theme-surface-border);background:var(--theme-surface-bg);flex-shrink:0;">
+            // BARRA GLOBAL
+            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;border-bottom:1px solid var(--theme-surface-border);background:var(--theme-surface-bg);flex-shrink:0;">
+                // Esquerda — modo
                 <button
                     on:click=move |_| mode.set(WorkspaceMode::Builder)
                     style=move || format!("padding:0.25rem 0.75rem;border-radius:4px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;background:{};color:{};",
@@ -93,6 +113,15 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                         if mode.get()==WorkspaceMode::Theme {"var(--theme-primary-bg)"} else {"transparent"},
                         if mode.get()==WorkspaceMode::Theme {"var(--theme-primary-fg)"} else {"var(--theme-surface-fg)"}
                     )>"🎨 Theme Engine"</button>
+
+                // Centro — viewport
+                <div style="flex:1;display:flex;justify-content:center;gap:0.4rem;">
+                    {vp_btn("🖥 Desktop", Viewport::desktop(), viewport)}
+                    {vp_btn("📱 Tablet",  Viewport::tablet(),  viewport)}
+                    {vp_btn("📲 Mobile",  Viewport::mobile(),  viewport)}
+                </div>
+
+                // Direita — export
                 <button on:click=on_export_css
                     style="padding:0.25rem 0.75rem;border-radius:4px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;background:transparent;color:var(--theme-surface-fg);"
                 >"📋 CSS"</button>
@@ -107,8 +136,9 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                     <input type="file" accept=".json" style="display:none;" on:change=on_load_builder />
                 </label>
             </div>
+
             <div style=move || if mode.get()==WorkspaceMode::Theme { "flex:1;overflow:hidden;" } else { "display:none;" }>
-                <ThemeWorkspace controller=controller theme=theme.clone() />
+                <ThemeWorkspace controller=controller theme=theme.clone() viewport=viewport />
             </div>
             <div style=move || if mode.get()==WorkspaceMode::Builder { "flex:1;overflow:hidden;" } else { "display:none;" }>
                 <BuilderWorkspace
@@ -120,6 +150,7 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                     drag_ctx=drag_ctx
                     canvas_mode=canvas_mode
                     drag_visual=drag_visual
+                    viewport=viewport
                 />
             </div>
         </div>

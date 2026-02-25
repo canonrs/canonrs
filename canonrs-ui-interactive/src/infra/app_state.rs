@@ -7,6 +7,8 @@ use crate::ui::layout_builder::types::{DragContext, CanvasMode, ActiveLayout, in
 use crate::ui::layout_builder::state::drop_zone_types::DragVisualState;
 use crate::ui::layout_builder::domain::node::Node;
 use uuid::Uuid;
+use rs_canonrs::domain::CanonNode;
+use rs_canonrs::domain::CanonBlockType;
 
 static APP_OWNER: OnceLock<Owner> = OnceLock::new();
 static THEME_STATE: OnceLock<ThemeState> = OnceLock::new();
@@ -61,4 +63,29 @@ pub fn global_canvas_mode() -> RwSignal<CanvasMode> {
 }
 pub fn global_drag_visual() -> RwSignal<DragVisualState> {
     *BUILDER_DRAG_VIS.get_or_init(|| app_owner().with(|| RwSignal::new(DragVisualState::empty())))
+}
+
+pub fn bootstrap_engine_with_layout(layout: &crate::ui::layout_builder::types::ActiveLayout) {
+    let engine = global_engine();
+    let slots_signal = global_slots();
+    let tree = global_tree();
+
+    // Cria slots com UUIDs fixos para o layout
+    let slot_nodes: Vec<crate::ui::layout_builder::domain::node::Node> =
+        layout.slots().into_iter()
+            .map(|name| crate::ui::layout_builder::domain::node::Node::slot(name))
+            .collect();
+
+    // Cria documento com os mesmos slots como CanonNodes
+    let mut doc = CanonDocument::new(format!("{:?}", layout).to_lowercase());
+    for slot in &slot_nodes {
+        doc.nodes.push(CanonNode::with_id(
+            slot.id,
+            CanonBlockType::Slot { name: slot.label().to_string() },
+        ));
+    }
+
+    engine.update(|e| *e = BuilderEngine::new(doc));
+    slots_signal.set(slot_nodes);
+    tree.set(vec![]);
 }

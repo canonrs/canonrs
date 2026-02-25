@@ -16,7 +16,8 @@ pub fn handle_drop(
     drag_visual: RwSignal<DragVisualState>,
 ) {
     ev.stop_propagation();
-    let ctx = drag_ctx.get();
+    let ctx = drag_ctx.get_untracked();
+    leptos::logging::log!("[handle_drop] parent_id={} is_dragging={} block={:?} comp={:?} node={:?}", parent_id, ctx.is_dragging(), ctx.block_def.as_ref().map(|b| b.id), ctx.component_def.as_ref().map(|c| c.id), ctx.node_id);
     if !ctx.is_dragging() { return; }
     let idx = drag_visual.get_untracked().insert_index;
 
@@ -28,19 +29,19 @@ pub fn handle_drop(
             .map(|p: &Node| p.accepts(&block)).unwrap_or(true);
         if ok {
             let node_id = Uuid::new_v4();
-            let block_type = CanonBlockType::from_id(block.id).expect("Unknown block type — registry mismatch");
+            let Some(block_type) = CanonBlockType::from_id(block.id) else { drag_visual.set(DragVisualState::empty()); drag_ctx.set(DragContext::empty()); return; };
             let mut canon = CanonNode::with_id(node_id, block_type);
             for r in block.regions {
                 canon.add_child(CanonNode::new(CanonBlockType::Slot { name: r.id.to_string() }));
             }
-            engine.update(|e| { let _ = e.execute(Command::Insert { parent_id, node: canon, index: idx }); });
+            engine.update(|e| { match e.execute(Command::Insert { parent_id, node: canon, index: idx }) { Ok(_) => leptos::logging::log!("[drop] Insert OK"), Err(err) => leptos::logging::log!("[drop] Insert ERR: {:?}", err) } });
         }
     } else if let Some(comp) = ctx.component_def {
         let ok = tree.get_untracked().iter()
             .find(|n| n.id == parent_id)
             .map(|p: &Node| p.accepts_component(&comp)).unwrap_or(true);
         if ok {
-            let block_type = CanonBlockType::from_id(comp.id).expect("Unknown block type — registry mismatch");
+            let Some(block_type) = CanonBlockType::from_id(comp.id) else { drag_visual.set(DragVisualState::empty()); drag_ctx.set(DragContext::empty()); return; };
             let canon = CanonNode::new(block_type);
             engine.update(|e| { let _ = e.execute(Command::Insert { parent_id, node: canon, index: idx }); });
         }
@@ -48,6 +49,7 @@ pub fn handle_drop(
 
     // Sincronizar engine → tree após comando
     let flat = engine.get_untracked().sync_flat();
+    leptos::logging::log!("[handle_drop] sync_flat result: {} nodes", flat.len());
     tree.set(flat);
 
     batch(move || {

@@ -175,7 +175,7 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                 >
                     {move || -> leptos::prelude::AnyView {
                         if builder_mode.get() == "theme" {
-                            view! { <ThemeWorkspace controller=controller theme=theme.clone() /> }.into_any()
+                            view! { <ThemeWorkspace controller=controller theme=theme.clone() viewport=RwSignal::new(crate::ui::theme_workspace::viewport::Viewport::desktop()) /> }.into_any()
                         } else if canvas_mode.get() == CanvasMode::Preview {
                             view! {
                                 <iframe id="canon-preview-frame" src="/preview"
