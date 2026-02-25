@@ -4,7 +4,7 @@ pub mod live_preview;
 
 use leptos::prelude::*;
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct HslColor {
     pub h: f32,
     pub s: f32,
@@ -16,7 +16,7 @@ impl HslColor {
     pub fn to_css(&self) -> String { format!("hsl({} {}% {}%)", self.h, self.s, self.l) }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct ThemeTokens {
     pub surface_bg:           HslColor,
     pub surface_fg:           HslColor,
@@ -185,7 +185,7 @@ impl ThemeTokens {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Copy)]
+#[derive(Clone, Debug, PartialEq, Copy, serde::Serialize, serde::Deserialize)]
 pub enum ActiveMode { Light, Dark }
 
 /// ThemeState com sub-signals — cada parte tem owner global independente

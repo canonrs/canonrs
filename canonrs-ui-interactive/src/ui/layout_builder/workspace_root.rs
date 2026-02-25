@@ -3,11 +3,33 @@ use super::builder_workspace::BuilderWorkspace;
 use crate::application::builder_controller::BuilderController;
 use crate::ui::theme_workspace::theme_workspace::ThemeWorkspace;
 use crate::infra::app_state::*;
+use crate::infra::persistence::{load_theme_into, persist_theme};
+use crate::infra::export::{export_css, export_json, export_builder, import_builder};
+
+fn trigger_download(filename: &str, content: &str) {
+    use leptos::wasm_bindgen::JsValue;
+    use web_sys::{Blob, Url, HtmlAnchorElement};
+    use leptos::wasm_bindgen::JsCast;
+    let Some(window) = web_sys::window() else { return };
+    let Some(document) = window.document() else { return };
+    let arr = js_sys::Array::new();
+    arr.push(&JsValue::from_str(content));
+    let Ok(blob) = Blob::new_with_str_sequence(&arr) else { return };
+    let Ok(url) = Url::create_object_url_with_blob(&blob) else { return };
+    let Ok(el) = document.create_element("a") else { return };
+    let anchor: HtmlAnchorElement = el.unchecked_into();
+    anchor.set_href(&url);
+    anchor.set_download(filename);
+    anchor.click();
+    let _ = Url::revoke_object_url(&url);
+}
 
 #[component]
 pub fn LayoutBuilderInteractive() -> impl IntoView {
     let mode = global_workspace_mode();
     let theme = global_theme();
+    load_theme_into(&theme);
+    persist_theme(theme.clone());
     let engine = global_engine();
     let tree = global_tree();
     let selected_id = global_selected();
@@ -17,6 +39,42 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
     let drag_ctx = global_drag_ctx();
     let canvas_mode = global_canvas_mode();
     let drag_visual = global_drag_visual();
+
+    let theme_css  = theme.clone();
+    let theme_json = theme.clone();
+
+    let on_export_css = move |_: leptos::ev::MouseEvent| {
+        trigger_download("canonrs.custom.css", &export_css(&theme_css));
+    };
+    let on_export_json = move |_: leptos::ev::MouseEvent| {
+        trigger_download("theme.json", &export_json(&theme_json));
+    };
+    let on_export_builder = move |_: leptos::ev::MouseEvent| {
+        let t = tree.get();
+        let layout = format!("{:?}", active_layout.get());
+        trigger_download("builder.json", &export_builder(&t, &layout));
+    };
+    let on_load_builder = move |e: leptos::ev::Event| {
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::wasm_bindgen::closure::Closure;
+        use leptos::wasm_bindgen::JsValue;
+        let input = e.target().unwrap().unchecked_into::<web_sys::HtmlInputElement>();
+        let Some(file) = input.files().and_then(|f| f.get(0)) else { return };
+        let reader = web_sys::FileReader::new().unwrap();
+        let reader2 = reader.clone();
+        let tree2 = tree;
+        let closure = Closure::once(move |_: JsValue| {
+            let result = reader2.result().unwrap();
+            if let Some(text) = result.as_string() {
+                if let Some(nodes) = import_builder(&text) {
+                    tree2.set(nodes);
+                }
+            }
+        });
+        reader.set_onload(Some(closure.as_ref().unchecked_ref()));
+        closure.forget();
+        let _ = reader.read_as_text(&file);
+    };
 
     let controller = BuilderController::new(engine, tree, selected_id, is_dirty);
 
@@ -35,6 +93,19 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                         if mode.get()==WorkspaceMode::Theme {"var(--theme-primary-bg)"} else {"transparent"},
                         if mode.get()==WorkspaceMode::Theme {"var(--theme-primary-fg)"} else {"var(--theme-surface-fg)"}
                     )>"🎨 Theme Engine"</button>
+                <button on:click=on_export_css
+                    style="padding:0.25rem 0.75rem;border-radius:4px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;background:transparent;color:var(--theme-surface-fg);"
+                >"📋 CSS"</button>
+                <button on:click=on_export_json
+                    style="padding:0.25rem 0.75rem;border-radius:4px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;background:transparent;color:var(--theme-surface-fg);"
+                >"📦 JSON"</button>
+                <button on:click=on_export_builder
+                    style="padding:0.25rem 0.75rem;border-radius:4px;border:none;cursor:pointer;font-size:0.8rem;font-weight:600;background:transparent;color:var(--theme-surface-fg);"
+                >"📐 Layout"</button>
+                <label style="padding:0.25rem 0.75rem;border-radius:4px;cursor:pointer;font-size:0.8rem;font-weight:600;background:transparent;color:var(--theme-surface-fg);">
+                    "📂 Load"
+                    <input type="file" accept=".json" style="display:none;" on:change=on_load_builder />
+                </label>
             </div>
             <div style=move || if mode.get()==WorkspaceMode::Theme { "flex:1;overflow:hidden;" } else { "display:none;" }>
                 <ThemeWorkspace controller=controller theme=theme.clone() />
