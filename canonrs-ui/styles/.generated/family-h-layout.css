@@ -111,4 +111,17 @@
   --header-padding: 0 var(--space-lg);
   --header-start-gap: var(--space-md);
   --header-end-gap: var(--space-md);
+  --layout-height-header: 56px;
+  --layout-height-footer: 56px;
+  --layout-sidebar-width: 240px;
+  --layout-sidebar-width-collapsed: 60px;
+  --layout-content-max-width: 1280px;
+  --layout-width-xs: 200px;
+  --layout-width-sm: 280px;
+  --layout-width-md: 380px;
+  --layout-width-lg: 560px;
+  --layout-width-xl: 720px;
+  --layout-width-dialog: 480px;
+  --layout-width-toc: 220px;
+  --layout-aside-width: 280px;
 }

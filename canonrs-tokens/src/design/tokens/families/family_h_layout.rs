@@ -137,4 +137,20 @@ pub const FAMILY_H_LAYOUT: &[FamilyToken] = &[
     FamilyToken::new("header-padding", "0 var(--space-lg)"),
     FamilyToken::new("header-start-gap", "var(--space-md)"),
     FamilyToken::new("header-end-gap", "var(--space-md)"),
+    // Layout dimension primitives — valores reais
+    FamilyToken::new("layout-height-header", "56px"),
+    FamilyToken::new("layout-height-footer", "56px"),
+    FamilyToken::new("layout-sidebar-width", "240px"),
+    FamilyToken::new("layout-sidebar-width-collapsed", "60px"),
+    FamilyToken::new("layout-content-max-width", "1280px"),
+    FamilyToken::new("layout-width-xs", "200px"),
+    FamilyToken::new("layout-width-sm", "280px"),
+    FamilyToken::new("layout-width-md", "380px"),
+    FamilyToken::new("layout-width-lg", "560px"),
+    FamilyToken::new("layout-width-xl", "720px"),
+    FamilyToken::new("layout-width-dialog", "480px"),
+    FamilyToken::new("layout-width-toc", "220px"),
+    FamilyToken::new("layout-aside-width", "280px"),
+
 ];
+// ─── Layout Dimension Primitives (valores reais) ─────────────────────────────

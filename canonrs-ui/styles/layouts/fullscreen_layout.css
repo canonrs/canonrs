@@ -1,44 +1,24 @@
-/**
- * FullscreenLayout Styles
- * 
- * Token Family: Layout (layout.fullscreen.*)
- * 
- * Consumes tokens:
- * - layout.fullscreen.header.height
- * - layout.fullscreen.padding
- */
-
 [data-layout="fullscreen"] {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
+  background: var(--layout-bg);
 }
 
-.layout-fullscreen-header {
-  height: var(--layout-fullscreen-header-height, 48px);
+[data-layout="fullscreen"] [data-layout-region="header"] {
+  height: var(--layout-header-height);
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  padding: 0 var(--space-md);
-  border-bottom: var(--border-width-hairline) solid var(--color-border-default);
-  background: var(--color-bg-surface);
+  padding: var(--header-padding);
+  border-bottom: var(--header-border);
+  background: var(--header-bg);
 }
 
-.layout-fullscreen-content {
+[data-layout="fullscreen"] [data-layout-region="main"] {
   flex: 1;
   overflow: auto;
-  position: relative;
-  background: var(--color-bg-surface);
-}
-
-/* When no header, content is truly fullscreen */
-[data-has-header="false"] .layout-fullscreen-content {
-  height: 100vh;
-}
-
-/* Optional padding variant */
-.layout-fullscreen-content[data-padded="true"] {
-  padding: var(--layout-fullscreen-padding, var(--space-md));
+  background: var(--layout-bg);
 }

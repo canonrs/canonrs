@@ -1,43 +1,27 @@
-/* ============================================================================
-   LAYOUT — SECTION
-   ============================================================================
-   Responsável APENAS por estrutura de regiões
-   Header / Content / Footer
-   Tokens: layout + blocks
-   ============================================================================ */
-
-[data-layout="section"],
-.layout-section {
+[data-layout="section"] {
   display: flex;
   flex-direction: column;
   gap: var(--layout-region-gap);
   padding: var(--layout-region-padding);
 }
 
-/* HEADER */
-
-.layout-section__header {
+[data-layout="section"] [data-layout-region="header"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--block-header-gap);
   padding-bottom: var(--page-header-padding-bottom);
   border-bottom: var(--page-header-border);
 }
 
-/* CONTENT */
-
-.layout-section__content {
-  display: block;
+[data-layout="section"] [data-layout-region="main"] {
+  flex: 1;
 }
 
-/* FOOTER */
-
-.layout-section__footer {
+[data-layout="section"] [data-layout-region="footer"] {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--block-footer-gap);
   padding-top: var(--block-footer-padding);
   border-top: var(--block-footer-border);
+  gap: var(--block-footer-gap);
 }

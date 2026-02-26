@@ -1,0 +1,26 @@
+[data-layout="split-view"] {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: var(--layout-min-height);
+}
+
+[data-layout="split-view"][data-split-ratio="40-60"] {
+  grid-template-columns: 2fr 3fr;
+}
+
+[data-layout="split-view"][data-split-ratio="60-40"] {
+  grid-template-columns: 3fr 2fr;
+}
+
+[data-layout="split-view"] [data-layout-region="left"] {
+  background: var(--sidebar-bg);
+  padding: var(--layout-padding);
+  border-right: var(--sidebar-border);
+  overflow-y: auto;
+}
+
+[data-layout="split-view"] [data-layout-region="right"] {
+  background: var(--layout-bg);
+  padding: var(--layout-padding);
+  overflow-y: auto;
+}
