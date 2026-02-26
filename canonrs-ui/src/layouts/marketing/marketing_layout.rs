@@ -1,4 +1,4 @@
-//! # MarketingLayout — Regions: header, hero, main, footer
+//! # MarketingLayout — Regions: header, hero, main, footer (always rendered)
 use leptos::prelude::*;
 
 #[component]
@@ -10,16 +10,30 @@ pub fn MarketingLayout(
 ) -> impl IntoView {
     view! {
         <div class="layout-marketing" data-layout="marketing" data-layout-version="1">
-            {header.map(|h| view! {
-                <header class="layout-marketing-header" data-layout-region="header">{h()}</header>
-            })}
-            {hero.map(|h| view! {
-                <section class="layout-marketing-hero" data-layout-region="hero">{h()}</section>
-            })}
-            <main class="layout-marketing-main" data-layout-region="main">{children()}</main>
-            {footer.map(|f| view! {
-                <footer class="layout-marketing-footer" data-layout-region="footer">{f()}</footer>
-            })}
+            <header class="layout-marketing-header"
+                data-layout-region="header"
+                data-region-hint="Drop logo, nav or actions"
+                data-region-meta="Nav · max 1">
+                {header.map(|h| h())}
+            </header>
+            <section class="layout-marketing-hero"
+                data-layout-region="hero"
+                data-region-hint="Drop hero banner"
+                data-region-meta="Any · max 1">
+                {hero.map(|h| h())}
+            </section>
+            <main class="layout-marketing-main"
+                data-layout-region="main"
+                data-region-hint="Drop page sections"
+                data-region-meta="Content · ∞">
+                {children()}
+            </main>
+            <footer class="layout-marketing-footer"
+                data-layout-region="footer"
+                data-region-hint="Drop footer links"
+                data-region-meta="Nav · max 1">
+                {footer.map(|f| f())}
+            </footer>
         </div>
     }
 }

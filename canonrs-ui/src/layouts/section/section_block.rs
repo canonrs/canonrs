@@ -1,4 +1,4 @@
-//! # Section — Regions: header, main, footer
+//! # Section — Regions: header, main, footer (always rendered)
 use leptos::prelude::*;
 
 #[component]
@@ -13,15 +13,27 @@ pub fn Section(
         <section
             id={if id.is_empty() { None } else { Some(id) }}
             class={format!("layout-section {}", class)}
-            data-layout="section" data-layout-version="1"
+            data-layout="section"
+            data-layout-version="1"
         >
-            {header.map(|h| view! {
-                <div class="layout-section-header" data-layout-region="header">{h()}</div>
-            })}
-            <div class="layout-section-main" data-layout-region="main">{children()}</div>
-            {footer.map(|f| view! {
-                <div class="layout-section-footer" data-layout-region="footer">{f()}</div>
-            })}
+            <div class="layout-section-header"
+                data-layout-region="header"
+                data-region-hint="Drop section title"
+                data-region-meta="Content · max 1">
+                {header.map(|h| h())}
+            </div>
+            <div class="layout-section-main"
+                data-layout-region="main"
+                data-region-hint="Drop section content"
+                data-region-meta="Content · ∞">
+                {children()}
+            </div>
+            <div class="layout-section-footer"
+                data-layout-region="footer"
+                data-region-hint="Drop section footer"
+                data-region-meta="Content · max 1">
+                {footer.map(|f| f())}
+            </div>
         </section>
     }
 }

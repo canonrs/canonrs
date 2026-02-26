@@ -1,0 +1,136 @@
+/* ============================================
+   STRUCTURAL OVERLAY — Builder Mode
+   Mostra contrato estrutural sobre cada região
+   ============================================ */
+
+/* ── Região sempre posicionada ──────────────── */
+[data-layout-region] {
+  position: relative;
+}
+
+/* ── Label da região (sempre visível em builder) */
+[data-canvas-mode="builder"] [data-layout-region]::before {
+  content: attr(data-layout-region);
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--builder-region-label-color, #6366f1);
+  background: var(--builder-region-label-bg, rgba(99,102,241,0.08));
+  padding: 2px 6px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 10;
+  line-height: 1.4;
+}
+
+/* ── Borda estrutural da região ─────────────── */
+[data-canvas-mode="builder"] [data-layout-region] {
+  outline: 1px dashed var(--builder-region-border, rgba(99,102,241,0.25));
+  outline-offset: -1px;
+  min-height: 60px;
+  transition: outline-color 150ms ease, background 150ms ease;
+}
+
+/* ── Hover na região ────────────────────────── */
+[data-canvas-mode="builder"] [data-layout-region]:hover {
+  outline-color: var(--builder-region-border-hover, rgba(99,102,241,0.6));
+  background: var(--builder-region-hover-bg, rgba(99,102,241,0.03));
+}
+
+/* ── Região vazia — placeholder contextual ──── */
+[data-canvas-mode="builder"] [data-layout-region]:empty::after,
+[data-canvas-mode="builder"] [data-layout-region][data-region-empty="true"]::after {
+  content: attr(data-region-hint);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--theme-surface-fg-muted);
+  pointer-events: none;
+  padding-top: 28px;
+}
+
+/* ── Badge AcceptRule + max_children ───────── */
+[data-canvas-mode="builder"] [data-layout-region]::after {
+  content: attr(data-region-meta);
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--builder-region-meta-color, rgba(99,102,241,0.5));
+  pointer-events: none;
+  z-index: 10;
+  letter-spacing: 0.04em;
+}
+
+/* ── Drop PERMITIDO ─────────────────────────── */
+[data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="true"] {
+  outline-color: #22c55e;
+  background: rgba(34,197,94,0.04);
+}
+
+[data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="true"]::before {
+  color: #16a34a;
+  background: rgba(34,197,94,0.1);
+}
+
+/* ── Drop PROIBIDO ──────────────────────────── */
+[data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="false"] {
+  outline-color: #ef4444;
+  background: rgba(239,68,68,0.04);
+}
+
+[data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="false"]::before {
+  color: #dc2626;
+  background: rgba(239,68,68,0.1);
+}
+
+/* ── Wireframe Mode ─────────────────────────── */
+[data-canvas-mode="wireframe"] [data-layout-region] {
+  outline: 2px solid rgba(99,102,241,0.5);
+  background: rgba(99,102,241,0.04);
+  min-height: 80px;
+}
+
+[data-canvas-mode="wireframe"] [data-layout-region]::before {
+  content: attr(data-layout-region);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(99,102,241,0.5);
+  background: none;
+  padding: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+[data-canvas-mode="wireframe"] [data-layout-region]::after {
+  display: none;
+}
+
+[data-canvas-mode="wireframe"] [data-block-preview],
+[data-canvas-mode="wireframe"] [data-drop-zone-empty] {
+  display: none;
+}
+
+/* ── Preview Mode — sem overlay ─────────────── */
+[data-canvas-mode="preview"] [data-layout-region]::before,
+[data-canvas-mode="preview"] [data-layout-region]::after {
+  display: none;
+}
+
+[data-canvas-mode="preview"] [data-layout-region] {
+  outline: none;
+}

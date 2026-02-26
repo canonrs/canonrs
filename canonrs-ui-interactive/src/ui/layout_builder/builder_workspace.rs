@@ -85,10 +85,9 @@ pub fn BuilderWorkspace(
                         } else {
                             let layout = active_layout.get();
                             view! {
-                                <div style=move || format!(
-                                    "width:{}px;min-height:{}px;background:white;box-shadow:0 4px 24px rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;transition:width 0.3s;",
-                                    viewport.get().width, viewport.get().height
-                                )>
+                                <div
+                                    attr:data-canvas-mode=move || match canvas_mode.get() { CanvasMode::Builder => "builder", CanvasMode::Preview => "preview", CanvasMode::Wireframe => "wireframe" }
+                                >
                                     <LayoutCanvas
                                         layout=layout
                                         engine=engine tree=tree drag_ctx=drag_ctx

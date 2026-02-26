@@ -3,7 +3,7 @@ use super::super::types::ActiveLayout;
 use uuid::Uuid;
 
 #[derive(Clone, Copy, PartialEq, Debug)]
-pub enum CanvasMode { Builder, Preview }
+pub enum CanvasMode { Builder, Preview, Wireframe }
 
 #[derive(Clone, Debug)]
 pub enum DragPayload {
