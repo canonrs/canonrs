@@ -1,6 +1,6 @@
 use uuid::Uuid;
 use rs_canonrs::domain::{CanonDocument, CanonNode, CanonBlockType};
-use crate::ui::layout_builder::domain::layout_definitions::get_layout_def;
+use rs_canonrs::domain::get_layout_def;
 
 pub struct WizardConfig {
     pub layout: String,
@@ -81,7 +81,7 @@ pub fn migrate_document(doc: CanonDocument) -> CanonDocument {
 
 fn apply_migration(
     mut doc: CanonDocument,
-    def: &crate::ui::layout_builder::domain::layout_definitions::LayoutDef,
+    def: &rs_canonrs::domain::LayoutDef,
 ) -> CanonDocument {
     use std::collections::HashSet;
 
