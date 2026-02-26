@@ -1,21 +1,17 @@
-//! # FullscreenLayout
-//! **Purpose:** Focused experiences, builders, editors, tools
-//! **Token Family:** Layout (layout.fullscreen.*)
-
+//! # FullscreenLayout — Regions: header, main
 use leptos::prelude::*;
 
 #[component]
 pub fn FullscreenLayout(
-    #[prop(optional)]
-    header: Option<ChildrenFn>,
+    #[prop(optional)] header: Option<ChildrenFn>,
     children: Children,
 ) -> impl IntoView {
     view! {
-        <div class="layout-fullscreen" attr:data-layout="fullscreen">
+        <div class="layout-fullscreen" data-layout="fullscreen" data-layout-version="1">
             {header.map(|h| view! {
-                <header class="layout-fullscreen-header" attr:data-layout-region="header">{h()}</header>
+                <header class="layout-fullscreen-header" data-layout-region="header">{h()}</header>
             })}
-            <main class="layout-fullscreen-content" attr:data-layout-region="content">{children()}</main>
+            <main class="layout-fullscreen-main" data-layout-region="main">{children()}</main>
         </div>
     }
 }

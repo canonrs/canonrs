@@ -1,4 +1,5 @@
 use super::super::domain::constraints::{BlockDef, ComponentDef, NodeCategory};
+use super::super::types::ActiveLayout;
 use uuid::Uuid;
 
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -30,12 +31,13 @@ pub struct DragContext {
     pub node_id: Option<Uuid>,
     pub block_def: Option<BlockDef>,
     pub component_def: Option<ComponentDef>,
+    pub layout_def: Option<ActiveLayout>,
 }
 
 impl DragContext {
-    pub fn empty() -> Self { Self { node_id: None, block_def: None, component_def: None } }
+    pub fn empty() -> Self { Self { node_id: None, block_def: None, component_def: None, layout_def: None } }
     pub fn is_dragging(&self) -> bool {
-        self.block_def.is_some() || self.component_def.is_some() || self.node_id.is_some()
+        self.block_def.is_some() || self.component_def.is_some() || self.node_id.is_some() || self.layout_def.is_some()
     }
     pub fn payload(&self) -> Option<DragPayload> {
         if let Some(b) = &self.block_def { return Some(DragPayload::Block(b.clone())); }

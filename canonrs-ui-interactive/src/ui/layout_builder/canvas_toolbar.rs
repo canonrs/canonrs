@@ -84,7 +84,7 @@ pub fn CanvasToolbar(
                 combined.extend(tree.get());
                 combined
             };
-            let doc = CanonDocument {
+            let doc = CanonDocument { layout_version: 1,
                 id: uuid::Uuid::new_v4(),
                 layout: format!("{:?}", active_layout.get()),
                 version: 1,
@@ -125,7 +125,7 @@ pub fn CanvasToolbar(
                 combined.extend(tree.get());
                 combined
             };
-            let doc = CanonDocument {
+            let doc = CanonDocument { layout_version: 1,
                 id: uuid::Uuid::parse_str(&doc_id.get()).unwrap_or_else(|_| uuid::Uuid::new_v4()),
                 layout: format!("{:?}", active_layout.get()),
                 version: doc_version.get() as u32,

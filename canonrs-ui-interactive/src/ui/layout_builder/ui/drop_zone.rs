@@ -100,7 +100,7 @@ pub fn DropZone(
                 data-zone-id=parent_id.to_string()
                 attr:data-dragging=move || if is_dragging() { "true" } else { "false" }
                 attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
-                on:pointerup=move |ev| { if is_builder() { handle_drop(ev, parent_id, engine, tree, drag_ctx, drag_visual); } }
+
             >
                 {move || if should_virt() {
                     let top = offsets.get().first().copied().unwrap_or(0.0);

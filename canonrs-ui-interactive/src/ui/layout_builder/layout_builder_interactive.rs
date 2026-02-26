@@ -201,7 +201,7 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
             <Inspector engine=engine tree=tree selected_id=selected_id />
 
             // ASIDE — Blocks
-            <BlocksPanel tree=tree selected_id=selected_id drag_ctx=drag_ctx />
+            <BlocksPanel tree=tree selected_id=selected_id drag_ctx=drag_ctx active_layout=active_layout engine=engine />
         </div>
     }
 }

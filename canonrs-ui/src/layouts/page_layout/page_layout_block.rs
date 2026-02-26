@@ -1,6 +1,4 @@
-//! PageLayout Block
-//! Padrões de layout enterprise (sidebar + content + aside)
-
+//! # PageLayout — cada variante é um layout distinto (sem data-variant)
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -14,44 +12,36 @@ pub enum PageLayoutVariant {
 impl PageLayoutVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Single => "single",
-            Self::WithSidebar => "with-sidebar",
-            Self::WithAside => "with-aside",
-            Self::SidebarAndAside => "sidebar-and-aside",
+            Self::Single          => "page-single",
+            Self::WithSidebar     => "page-with-sidebar",
+            Self::WithAside       => "page-with-aside",
+            Self::SidebarAndAside => "page-sidebar-and-aside",
         }
     }
 }
 
 #[component]
 pub fn PageLayout(
-    children: Children,
     #[prop(optional)] sidebar: Option<ChildrenFn>,
     #[prop(optional)] aside: Option<ChildrenFn>,
     #[prop(default = PageLayoutVariant::Single)] variant: PageLayoutVariant,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    children: Children,
 ) -> impl IntoView {
+    let layout_id = variant.as_str();
     view! {
         <div
-            class={format!("page-layout {}", class)}
+            class={format!("layout-page {}", class)}
             id={id}
-            data-block="page-layout"
-            data-variant={variant.as_str()}
+            data-layout={layout_id} data-layout-version="1"
         >
-            {sidebar.map(|sb| view! {
-                <aside class="page-layout__sidebar">
-                    {sb()}
-                </aside>
+            {sidebar.map(|s| view! {
+                <aside class="layout-page-sidebar" data-layout-region="sidebar">{s()}</aside>
             })}
-
-            <main class="page-layout__content">
-                {children()}
-            </main>
-
+            <main class="layout-page-main" data-layout-region="main">{children()}</main>
             {aside.map(|a| view! {
-                <aside class="page-layout__aside">
-                    {a()}
-                </aside>
+                <aside class="layout-page-aside" data-layout-region="aside">{a()}</aside>
             })}
         </div>
     }

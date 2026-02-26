@@ -1,63 +1,25 @@
-//! # WizardLayout
-//! 
-//! **Purpose:** Step-oriented processes, guided flows
-//! **Coverage:** Setup, Onboarding, Multi-step forms, Configurations
-//! 
-//! **Structure:**
-//! ```
-//! Header (branding)
-//! Stepper (progress indicator)
-//! Content (current step)
-//! Footer (navigation actions)
-//! ```
-//! 
-//! **Token Family:** Layout (layout.wizard.*)
-
+//! # WizardLayout — Regions: header, stepper, main, footer
 use leptos::prelude::*;
 
 #[component]
 pub fn WizardLayout(
-    /// Header content (branding, title)
-    header: Children,
-    /// Stepper/progress indicator
-    stepper: Children,
-    /// Current step content
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] stepper: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
     children: Children,
-    /// Footer actions (Back, Next, Cancel)
-    footer: Children,
 ) -> impl IntoView {
     view! {
-        <div
-            class="layout-wizard"
-            attr:data-layout="wizard"
-        >
-            <header
-                class="layout-wizard-header"
-                attr:data-layout-region="header"
-            >
-                {header()}
-            </header>
-
-            <div
-                class="layout-wizard-stepper"
-                attr:data-layout-region="stepper"
-            >
-                {stepper()}
-            </div>
-
-            <main
-                class="layout-wizard-content"
-                attr:data-layout-region="content"
-            >
-                {children()}
-            </main>
-
-            <footer
-                class="layout-wizard-footer"
-                attr:data-layout-region="footer"
-            >
-                {footer()}
-            </footer>
+        <div class="layout-wizard" data-layout="wizard" data-layout-version="1">
+            {header.map(|h| view! {
+                <header class="layout-wizard-header" data-layout-region="header">{h()}</header>
+            })}
+            {stepper.map(|s| view! {
+                <div class="layout-wizard-stepper" data-layout-region="stepper">{s()}</div>
+            })}
+            <main class="layout-wizard-main" data-layout-region="main">{children()}</main>
+            {footer.map(|f| view! {
+                <footer class="layout-wizard-footer" data-layout-region="footer">{f()}</footer>
+            })}
         </div>
     }
 }

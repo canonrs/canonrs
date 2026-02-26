@@ -28,6 +28,7 @@ pub fn BlockPreview(
         NodeKind::Region { region_id, label, .. } => (region_id.to_string(), label.to_string(), "▤".to_string()),
         NodeKind::Component { def } => (def.id.to_string(), def.label.to_string(), def.icon.to_string()),
         NodeKind::Text { variant, .. } => (variant.tag().to_string(), variant.label().to_string(), "T".to_string()),
+        NodeKind::Layout { id, label } => (id.clone(), label.clone(), "📐".to_string()),
     };
     let block_id = block_id_owned.as_str();
     let block_label = block_label_owned.as_str();
@@ -148,7 +149,7 @@ pub fn BlockPreview(
                 } else if let Some(def) = cd2.clone() {
                     (None, Some(def))
                 } else { (None, None) };
-                drag_ctx.set(DragContext { node_id: Some(node_id), block_def: bd, component_def: cd });
+                drag_ctx.set(DragContext { node_id: Some(node_id), block_def: bd, component_def: cd, layout_def: None });
                 pending_drag.set(None);
             }
         }

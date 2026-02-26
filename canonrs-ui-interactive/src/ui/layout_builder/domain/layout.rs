@@ -7,6 +7,15 @@ pub enum ActiveLayout {
 }
 
 impl ActiveLayout {
+    pub fn id(&self) -> &'static str {
+        match self {
+            Self::Dashboard => "dashboard", Self::Marketing => "marketing",
+            Self::Fullscreen => "fullscreen", Self::SplitView => "split-view",
+            Self::Wizard => "wizard", Self::Section => "section",
+            Self::PageSingle => "page-single", Self::PageWithSidebar => "page-with-sidebar",
+            Self::PageWithAside => "page-with-aside", Self::PageSidebarAndAside => "page-sidebar-and-aside",
+        }
+    }
     pub fn label(&self) -> &'static str {
         match self {
             Self::Dashboard => "Dashboard", Self::Marketing => "Marketing",

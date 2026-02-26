@@ -82,7 +82,7 @@ pub fn send_preview(
 
         let canon_nodes = build_tree(&all_nodes);
         let doc_id = uuid::Uuid::new_v4();
-        let doc = CanonDocument {
+        let doc = CanonDocument { layout_version: 1,
             id: doc_id,
             layout: format!("{:?}", active_layout),
             version: 1,

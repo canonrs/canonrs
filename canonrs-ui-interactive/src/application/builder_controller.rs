@@ -3,6 +3,7 @@ use uuid::Uuid;
 use rs_canonrs::application::Command;
 use crate::ui::layout_builder::domain::node::Node;
 use crate::ui::layout_builder::state::builder_engine::BuilderEngine;
+use crate::application::wizard_service::{validate_document, migrate_document, check_invariants, structural_fingerprint};
 
 #[derive(Clone, Copy)]
 pub struct BuilderController {
@@ -51,6 +52,15 @@ impl BuilderController {
     }
 
     pub fn load_document(&self, doc: rs_canonrs::domain::CanonDocument) {
+        let doc = migrate_document(doc);
+        if let Err(errs) = check_invariants(&doc) {
+            leptos::logging::warn!("[BuilderController] Invariant violations: {:?}", errs);
+        }
+        if let Err(errs) = validate_document(&doc) {
+            leptos::logging::warn!("[BuilderController] Invalid document: {:?}", errs);
+        }
+        let fp = structural_fingerprint(&doc);
+        leptos::logging::log!("[BuilderController] Loading doc fingerprint={:016x}", fp);
         self.engine.update(|e| { e.load_document(doc.clone()); });
         self.tree.set(self.engine.get_untracked().sync_flat());
         self.is_dirty.set(false);

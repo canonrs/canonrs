@@ -198,6 +198,7 @@ impl CanonNode {
 pub struct CanonDocument {
     pub id: Uuid,
     pub layout: String,
+    pub layout_version: u32,
     pub version: u32,
     pub nodes: Vec<CanonNode>, // raízes (slots do layout)
 }
@@ -207,6 +208,7 @@ impl CanonDocument {
         Self {
             id: Uuid::new_v4(),
             layout: layout.into(),
+            layout_version: 1,
             version: 1,
             nodes: vec![],
         }

@@ -48,6 +48,8 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
     persist_theme(theme.clone());
     // Bootstrap engine com layout inicial
     crate::infra::app_state::bootstrap_engine_with_layout(&global_active_layout().get_untracked());
+    // Listeners globais de pointer (registro único)
+    crate::infra::app_state::init_global_pointer_listeners();
     let engine = global_engine();
     let tree = global_tree();
     let selected_id = global_selected();

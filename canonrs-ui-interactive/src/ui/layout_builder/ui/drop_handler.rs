@@ -17,6 +17,18 @@ pub fn handle_drop(
 ) {
     ev.stop_propagation();
     let ctx = drag_ctx.get_untracked();
+
+    // Layout drop — substitui layout atual
+    if let Some(layout) = ctx.layout_def {
+        let active_layout = crate::infra::app_state::global_active_layout();
+        active_layout.set(layout);
+        crate::infra::app_state::drop_layout(&layout);
+        batch(move || {
+            drag_visual.set(DragVisualState::empty());
+            drag_ctx.set(DragContext::empty());
+        });
+        return;
+    }
     leptos::logging::log!("[handle_drop] parent_id={} is_dragging={} block={:?} comp={:?} node={:?}", parent_id, ctx.is_dragging(), ctx.block_def.as_ref().map(|b| b.id), ctx.component_def.as_ref().map(|c| c.id), ctx.node_id);
     if !ctx.is_dragging() { return; }
     let idx = drag_visual.get_untracked().insert_index;

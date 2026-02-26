@@ -51,7 +51,7 @@ pub fn SplitViewLayout(
     view! {
         <div
             class="layout-split-view"
-            attr:data-layout="split-view"
+            attr:data-layout="split-view" data-layout-version="1"
             attr:data-split-ratio=ratio.as_str()
         >
             <div

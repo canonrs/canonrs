@@ -46,6 +46,7 @@ pub fn export_builder(tree: &[Node], active_layout: &str) -> String {
             NodeKind::Region { block_id, region_id, .. } => serde_json::json!({ "type": "region", "block_id": block_id, "region_id": region_id }),
             NodeKind::Component { def } => serde_json::json!({ "type": "component", "id": def.id }),
             NodeKind::Text { content, variant } => serde_json::json!({ "type": "text", "variant": format!("{:?}", variant), "content": content }),
+            NodeKind::Layout { id, .. } => serde_json::json!({ "type": "layout", "id": id }),
         };
         ExportNode { id: n.id.to_string(), parent_id: n.parent_id.map(|p| p.to_string()), kind }
     }).collect();
@@ -103,6 +104,11 @@ pub fn import_builder(json: &str) -> Option<Vec<Node>> {
                     _           => TextVariant::Caption,
                 };
                 NodeKind::Text { content, variant }
+            }
+            "layout" => {
+                let id = kind_obj["id"].as_str()?.to_string();
+                let label = id.clone();
+                NodeKind::Layout { id, label }
             }
             _ => return None,
         };

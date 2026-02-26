@@ -119,257 +119,257 @@
 
 /* canonrs-theme - Normalized vocabulary */
 [data-theme="canonrs-theme"] {
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
-  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-surface-fg: hsl(0 0% 14.902%);
+  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
   --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
-  --theme-surface-muted: hsl(210 20% 98.0392%);
-  --theme-overlay-fg: hsl(0 0% 14.902%);
-  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-fg: hsl(0 0% 14.902%);
-  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
-  --theme-surface-bg: hsl(0 0% 100%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
   --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-overlay-bg: hsl(0 0% 100%);
   --theme-action-accent-bg: hsl(48 100% 96.0784%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-muted: hsl(210 20% 98.0392%);
+  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
+  --theme-surface-bg: hsl(0 0% 100%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
   --theme-surface-border: hsl(220 13.0435% 90.9804%);
   --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-bg: hsl(210 20% 98.0392%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
-  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
   --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-surface-fg: hsl(0 0% 14.902%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-sidebar-fg: hsl(0 0% 14.902%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
+  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
   --theme-surface-elevated-fg: hsl(0 0% 14.902%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-overlay-fg: hsl(0 0% 14.902%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-sidebar-bg: hsl(210 20% 98.0392%);
 }
 
 [data-theme="canonrs-theme"].dark {
-  --theme-overlay-bg: hsl(0 0% 14.902%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-action-secondary-bg: hsl(0 0% 14.902%);
-  --theme-surface-elevated: hsl(0 0% 14.902%);
-  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-surface-muted: hsl(0 0% 12.1569%);
-  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
-  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-sidebar-bg: hsl(0 0% 5.8824%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
   --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-surface-bg: hsl(0 0% 9.0196%);
-  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-sidebar-fg: hsl(0 0% 89.8039%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-state-info-bg: hsl(221 83% 53%);
   --theme-overlay-fg: hsl(0 0% 89.8039%);
-  --theme-surface-fg: hsl(0 0% 89.8039%);
+  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-state-error-fg: hsl(0 0% 100%);
   --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
-  --theme-sidebar-border: hsl(0 0% 25.098%);
+  --theme-overlay-bg: hsl(0 0% 14.902%);
+  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-sidebar-bg: hsl(0 0% 5.8824%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
+  --theme-surface-muted: hsl(0 0% 12.1569%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-surface-fg: hsl(0 0% 89.8039%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-action-secondary-bg: hsl(0 0% 14.902%);
+  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
+  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
   --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
+  --theme-surface-elevated: hsl(0 0% 14.902%);
+  --theme-sidebar-fg: hsl(0 0% 89.8039%);
+  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-bg: hsl(0 0% 9.0196%);
+  --theme-sidebar-border: hsl(0 0% 25.098%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
 }
 
 /* clean-slate - Normalized vocabulary */
 [data-theme="clean-slate"] {
-  --theme-action-focus-ring: hsl(238.7324 83.5294% 66.6667%);
-  --theme-action-primary-fg: hsl(0 0% 100%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-sidebar-border: hsl(216 12.1951% 83.9216%);
-  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
   --theme-overlay-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
-  --theme-chart-5: hsl(242.1687 47.4286% 34.3137%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
-  --theme-chart-1: hsl(238.7324 83.5294% 66.6667%);
-  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
-  --theme-sidebar-accent-bg: hsl(226.4516 100% 93.9216%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
-  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
-  --theme-sidebar-ring: hsl(238.7324 83.5294% 66.6667%);
-  --theme-sidebar-accent-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-action-focus-ring: hsl(238.7324 83.5294% 66.6667%);
   --theme-surface-bg: hsl(210 40% 98.0392%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
-  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
   --theme-sidebar-fg: hsl(217.2414 32.5843% 17.451%);
   --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
+  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
+  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
   --theme-sidebar-bg: hsl(220 14.2857% 95.8824%);
-  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
   --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
+  --theme-chart-5: hsl(242.1687 47.4286% 34.3137%);
+  --theme-action-primary-fg: hsl(0 0% 100%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-chart-1: hsl(238.7324 83.5294% 66.6667%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-sidebar-accent-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-sidebar-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-sidebar-ring: hsl(238.7324 83.5294% 66.6667%);
+  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-sidebar-border: hsl(216 12.1951% 83.9216%);
 }
 
 [data-theme="clean-slate"].dark {
-  --theme-chart-3: hsl(243.3962 75.3555% 58.6275%);
-  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
-  --theme-surface-border: hsl(215 13.7931% 34.1176%);
-  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
-  --theme-surface-fg-muted: hsl(217.8947 10.6145% 64.902%);
-  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
-  --theme-state-error-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-sidebar-border: hsl(215 13.7931% 34.1176%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
+  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
+  --theme-overlay-bg: hsl(217.2414 32.5843% 17.451%);
   --theme-action-accent-fg: hsl(216 12.1951% 83.9216%);
-  --theme-action-focus-ring: hsl(234.4538 89.4737% 73.9216%);
-  --theme-action-secondary-bg: hsl(217.7778 23.0769% 22.9412%);
-  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-chart-5: hsl(243.6522 54.5024% 41.3725%);
-  --theme-sidebar-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
+  --theme-sidebar-border: hsl(215 13.7931% 34.1176%);
+  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
+  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
   --theme-state-info-fg: hsl(0 0% 100%);
   --theme-sidebar-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
-  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
-  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
-  --theme-overlay-bg: hsl(217.2414 32.5843% 17.451%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
-  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
   --theme-surface-elevated: hsl(217.2414 32.5843% 17.451%);
-  --theme-sidebar-primary-bg: hsl(234.4538 89.4737% 73.9216%);
-  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
-  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
+  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
+  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-chart-5: hsl(243.6522 54.5024% 41.3725%);
+  --theme-state-error-fg: hsl(222.2222 47.3684% 11.1765%);
   --theme-overlay-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
+  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-sidebar-primary-bg: hsl(234.4538 89.4737% 73.9216%);
+  --theme-chart-3: hsl(243.3962 75.3555% 58.6275%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-sidebar-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-action-secondary-bg: hsl(217.7778 23.0769% 22.9412%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-action-focus-ring: hsl(234.4538 89.4737% 73.9216%);
+  --theme-surface-fg-muted: hsl(217.8947 10.6145% 64.902%);
+  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
 }
 
 /* amber-minimal - Normalized vocabulary */
 [data-theme="amber-minimal"] {
-  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-surface-bg: hsl(0 0% 100%);
-  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-overlay-fg: hsl(0 0% 14.902%);
-  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-action-accent-bg: hsl(48 100% 96.0784%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-state-error-fg: hsl(0 0% 100%);
   --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
-  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-surface-elevated-fg: hsl(0 0% 14.902%);
   --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
   --theme-surface-muted: hsl(210 20% 98.0392%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
   --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-overlay-fg: hsl(0 0% 14.902%);
   --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-action-accent-bg: hsl(48 100% 96.0784%);
+  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-sidebar-bg: hsl(210 20% 98.0392%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-fg: hsl(0 0% 14.902%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-sidebar-fg: hsl(0 0% 14.902%);
+  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
   --theme-state-warning-fg: hsl(0 0% 0%);
   --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-surface-fg: hsl(0 0% 14.902%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-sidebar-fg: hsl(0 0% 14.902%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-surface-bg: hsl(0 0% 100%);
   --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-bg: hsl(210 20% 98.0392%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-elevated-fg: hsl(0 0% 14.902%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
 }
 
 [data-theme="amber-minimal"].dark {
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-surface-bg: hsl(0 0% 9.0196%);
-  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
-  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
-  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
-  --theme-overlay-bg: hsl(0 0% 14.902%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-surface-fg: hsl(0 0% 89.8039%);
-  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-surface-elevated: hsl(0 0% 14.902%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-muted: hsl(0 0% 12.1569%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-overlay-fg: hsl(0 0% 89.8039%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-sidebar-border: hsl(0 0% 25.098%);
-  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-sidebar-fg: hsl(0 0% 89.8039%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
   --theme-action-secondary-bg: hsl(0 0% 14.902%);
-  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-overlay-fg: hsl(0 0% 89.8039%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-surface-bg: hsl(0 0% 9.0196%);
   --theme-sidebar-bg: hsl(0 0% 5.8824%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-state-info-fg: hsl(0 0% 100%);
   --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-sidebar-fg: hsl(0 0% 89.8039%);
+  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
+  --theme-sidebar-border: hsl(0 0% 25.098%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-overlay-bg: hsl(0 0% 14.902%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
+  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-surface-muted: hsl(0 0% 12.1569%);
+  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
+  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
+  --theme-surface-fg: hsl(0 0% 89.8039%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-elevated: hsl(0 0% 14.902%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
 }
 
 
@@ -9459,511 +9459,7 @@ html { scroll-behavior: smooth; }
 }
 
 /* 10. LAYOUTS */
-/* Bundled: ./layouts/layouts.css */
-/* ============================================================================
-   CANONRS — LAYOUTS IMPORTS
-   ============================================================================
-   APENAS estrutura/regiões
-   ============================================================================ */
-
-/* Bundled: ./page_layout_layout.css */
-/* ============================================================================
-   PAGE_LAYOUT - Layout Structure
-   ============================================================================ */
-
-[data-block="page-layout"] {
-  display: grid;
-  gap: var(--page-layout-gap);
-  min-height: 100vh;
-}
-
-[data-block="page-layout"][data-variant="single"] {
-  grid-template-columns: 1fr;
-}
-
-[data-block="page-layout"][data-variant="with-sidebar"] {
-  grid-template-columns: var(--page-layout-sidebar-width) 1fr;
-}
-
-[data-block="page-layout"][data-variant="with-aside"] {
-  grid-template-columns: 1fr var(--page-layout-aside-width);
-}
-
-[data-block="page-layout"][data-variant="sidebar-and-aside"] {
-  grid-template-columns: var(--page-layout-sidebar-width) 1fr var(--page-layout-aside-width);
-}
-
-.page-layout__sidebar {
-  background: var(--page-layout-sidebar-bg);
-  border-right: var(--page-layout-sidebar-border);
-  padding: var(--page-layout-sidebar-padding);
-}
-
-.page-layout__content {
-  padding: var(--page-layout-content-padding);
-}
-
-.page-layout__aside {
-  background: var(--page-layout-aside-bg);
-  border-left: var(--page-layout-aside-border);
-  padding: var(--page-layout-aside-padding);
-}
-/* Bundled: ./page_header_layout.css */
-/* ============================================================================
-   PAGE_HEADER BLOCK
-   ============================================================================ */
-
-[data-block="page-header"] {
-  padding-block-end: var(--page-header-padding-bottom);
-  margin-block-end: var(--page-header-margin-bottom);
-  border-bottom: var(--page-header-border);
-}
-
-.page-header__breadcrumb {
-  margin-block-end: var(--page-header-breadcrumb-spacing);
-}
-
-.page-header__content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--page-header-content-gap);
-}
-
-.page-header__text {
-  flex: 1;
-}
-
-.page-header__title {
-  font-size: var(--page-header-title-size);
-  font-weight: var(--page-header-title-weight);
-  line-height: var(--page-header-title-line-height);
-  color: var(--page-header-title-color);
-}
-
-.page-header__subtitle {
-  margin-block-start: var(--page-header-subtitle-spacing);
-  color: var(--page-header-subtitle-color);
-  font-size: var(--page-header-subtitle-size);
-}
-
-.page-header__actions {
-  display: flex;
-  gap: var(--page-header-actions-gap);
-}
-/* Bundled: ./header_layout_layout.css */
-/**
- * Header Block Styles
- * Token Family: header.*, nav.*, space.*, color.*, border.*, state.*
- */
-
-.canon-header {
-  height: var(--header-height, 64px);
-  padding: var(--header-padding-y, var(--space-md)) var(--header-padding-x, var(--space-lg));
-  display: flex;
-  align-items: center;
-  gap: var(--header-gap, var(--space-md));
-  background: var(--header-bg, var(--color-bg-surface));
-  color: var(--header-fg, var(--color-fg-default));
-  border-bottom: var(--header-border-width, var(--border-width-thin)) var(--header-border-style, solid) var(--header-border-color, var(--color-border-default));
-  transition: all var(--motion-duration-normal) var(--motion-ease-standard);
-}
-
-.canon-header-logo {
-  max-width: var(--header-logo-max-width, 200px);
-  display: flex;
-  align-items: var(--header-logo-align, center);
-}
-
-.canon-header-nav {
-  flex: 1;
-  display: flex;
-  gap: var(--header-nav-gap, var(--nav-gap, var(--space-sm)));
-  align-items: var(--header-nav-align, center);
-}
-
-.canon-header-actions {
-  display: flex;
-  gap: var(--header-actions-gap, var(--space-sm));
-  align-items: var(--header-actions-align, center);
-}
-
-.canon-header[data-sticky="true"] {
-  position: sticky;
-  top: 0;
-  z-index: var(--z-sticky, 100);
-  box-shadow: var(--header-state-sticky-shadow, var(--state-elevated-shadow, var(--shadow-md)));
-}
-
-.canon-header[data-scrolled="true"] {
-  background: var(--header-state-scrolled-bg, var(--state-scrolled-bg, var(--color-bg-elevated)));
-  border-bottom-color: var(--state-scrolled-border, var(--color-border-emphasis));
-}
-/* Bundled: ./footer_layout_layout.css */
-/**
- * Footer Block Styles
- * Token Family: footer.*, space.*, color.*, border.*, typography.*
- */
-
-.canon-footer {
-  margin-top: auto;
-  background: var(--footer-bg, var(--color-bg-surface));
-  color: var(--footer-fg, var(--color-fg-default));
-  border-top: var(--footer-border-width, var(--border-width-thin)) var(--footer-border-style, solid) var(--footer-border-color, var(--color-border-default));
-}
-
-.canon-footer-container {
-  max-width: var(--footer-max-width, 1280px);
-  margin: 0 auto;
-  padding: var(--footer-padding-y, var(--space-xl)) var(--footer-padding-x, var(--space-lg));
-}
-
-.canon-footer-grid {
-  display: grid;
-  grid-template-columns: repeat(var(--footer-grid-cols, 4), 1fr);
-  gap: var(--footer-grid-gap, var(--space-lg));
-}
-
-.canon-footer-logo {
-  max-width: var(--footer-logo-max-width, 200px);
-}
-
-.canon-footer-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--footer-section-gap, var(--space-md));
-}
-
-.canon-footer-section-title {
-  font-size: var(--footer-section-title-size, var(--typography-heading-size-sm, var(--font-size-lg)));
-  font-weight: var(--footer-section-title-weight, var(--typography-heading-weight, var(--font-weight-semibold)));
-  color: var(--footer-section-title-color, var(--color-fg-emphasis));
-  line-height: var(--typography-heading-line-height, var(--line-height-tight));
-}
-
-.canon-footer-section-links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.canon-footer-link {
-  font-size: var(--footer-section-link-size, var(--typography-body-size, var(--font-size-base)));
-  color: var(--footer-link-color, var(--color-fg-muted));
-  text-decoration: none;
-  transition: color var(--motion-duration-fast) var(--motion-ease-standard);
-}
-
-.canon-footer-link:hover {
-  color: var(--footer-link-hover-color, var(--color-fg-default));
-  text-decoration: underline;
-}
-
-.canon-footer-copyright {
-  margin-top: var(--footer-copyright-padding-y, var(--space-lg));
-  padding-top: var(--footer-copyright-padding-y, var(--space-lg));
-  border-top: var(--footer-border-width, var(--border-width-thin)) var(--footer-border-style, solid) var(--footer-border-color, var(--color-border-default));
-  text-align: center;
-  font-size: var(--footer-copyright-size, var(--typography-body-size-sm, var(--font-size-sm)));
-  color: var(--color-fg-subtle);
-}
-
-@media (max-width: 768px) {
-  .canon-footer-grid {
-    grid-template-columns: 1fr;
-  }
-}
-/* Bundled: ./sidebar_layout_layout.css */
-/* ============================================================================
-   SIDEBAR LAYOUT
-   ============================================================================ */
-
-[data-block="sidebar"] {
-  display: flex;
-  flex-direction: column;
-  width: var(--sidebar-width);
-  background: var(--sidebar-bg);
-  border-right: var(--sidebar-border);
-  padding: var(--sidebar-padding);
-}
-
-[data-block="sidebar"][data-position="right"] {
-  border-right: none;
-  border-left: var(--sidebar-border);
-}
-
-.sidebar__header {
-  padding-block-end: var(--sidebar-header-padding);
-  border-bottom: var(--sidebar-header-border);
-  margin-block-end: var(--sidebar-header-margin);
-}
-
-.sidebar__content {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.sidebar__footer {
-  padding-block-start: var(--sidebar-footer-padding);
-  border-top: var(--sidebar-footer-border);
-  margin-block-start: auto;
-}
-/* Bundled: ./section_layout_layout.css */
-/* ============================================================================
-   LAYOUT — SECTION
-   ============================================================================
-   Responsável APENAS por estrutura de regiões
-   Header / Content / Footer
-   Tokens: layout + blocks
-   ============================================================================ */
-
-[data-layout="section"],
-.layout-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--layout-region-gap);
-  padding: var(--layout-region-padding);
-}
-
-/* HEADER */
-
-.layout-section__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--block-header-gap);
-  padding-bottom: var(--page-header-padding-bottom);
-  border-bottom: var(--page-header-border);
-}
-
-/* CONTENT */
-
-.layout-section__content {
-  display: block;
-}
-
-/* FOOTER */
-
-.layout-section__footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--block-footer-gap);
-  padding-top: var(--block-footer-padding);
-  border-top: var(--block-footer-border);
-}
-/* Bundled: ./app_shell_layout.css */
-/**
- * AppShellLayout Styles
- * 
- * Token Family: Layout (layout.app.*)
- * 
- * Consumes tokens:
- * - layout.app.header.height
- * - layout.app.content.padding
- * - layout.app.content.max-width
- * - layout.app.footer.height
- * - layout.app.gap
- */
-
-[data-layout="app-shell"] {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.layout-app-content {
-  flex: 1;
-  max-width: var(--layout-app-content-max-width, 1440px);
-  margin: 0 auto;
-  width: 100%;
-  padding: var(--layout-app-content-padding, 2rem);
-  display: flex;
-  flex-direction: column;
-  gap: var(--layout-app-gap, 2rem);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .layout-app-content {
-    padding: var(--space-md, 1rem);
-  }
-}
-/* Bundled: ./dashboard_layout.css */
-/**
- * DashboardLayout - Canonical Layout
- * 
- * Zone Contract:
- * - PAGE: --color-bg-surface
- * - PANEL (sidebar): --color-bg-muted
- * - RAIL (main): inherits PAGE
- *
- * Tokens:
- * - sidebar.width / sidebar.width.collapsed
- * - space.* (not layout.*)
- * - z.panel (not z.dropdown)
- */
-
-[data-layout="dashboard"] {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: var(--color-bg-surface);
-}
-
-.layout-dashboard-body {
-  display: flex;
-  flex: 1;
-  position: relative;
-}
-
-/* PANEL - Sidebar */
-.layout-dashboard-sidebar {
-  width: var(--sidebar-width, 240px);
-  flex-shrink: 0;
-  border-right: var(--border-width-thin) solid var(--color-border-default);
-  background: var(--color-bg-muted);
-  transition: width var(--motion-duration-normal) var(--motion-ease-standard);
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-[data-sidebar-collapsed="true"] .layout-dashboard-sidebar {
-  width: var(--sidebar-width-collapsed, 60px);
-}
-
-/* RAIL - Main content area */
-.layout-dashboard-main {
-  flex: 1;
-  padding: var(--space-xl);
-  overflow-x: auto;
-}
-
-/* Responsive: sidebar overlay on mobile */
-@media (max-width: 768px) {
-  .layout-dashboard-sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: var(--overlay-z-dropdown);
-    transform: translateX(-100%);
-    transition: transform var(--motion-duration-normal) var(--motion-ease-standard);
-  }
-  
-  [data-sidebar-collapsed="false"] .layout-dashboard-sidebar {
-    transform: translateX(0);
-    box-shadow: var(--shadow-lg);
-  }
-  
-  .layout-dashboard-main {
-    padding: var(--space-md);
-  }
-}
-
-/* Sidebar Toggle - Canonical Positioning */
-[data-layout="dashboard"] .sidebar-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-}
-
-/* Icon transition on collapse */
-[data-sidebar-collapsed="true"] .sidebar-toggle {
-  right: 0.5rem;
-}
-
-/* Hide navigation when collapsed */
-[data-sidebar-collapsed="true"] .layout-dashboard-sidebar nav {
-  display: none;
-}
-/* Bundled: ./fullscreen_layout.css */
-/**
- * FullscreenLayout Styles
- * 
- * Token Family: Layout (layout.fullscreen.*)
- * 
- * Consumes tokens:
- * - layout.fullscreen.header.height
- * - layout.fullscreen.padding
- */
-
-[data-layout="fullscreen"] {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.layout-fullscreen-header {
-  height: var(--layout-fullscreen-header-height, 48px);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding: 0 var(--space-md);
-  border-bottom: var(--border-width-hairline) solid var(--color-border-default);
-  background: var(--color-bg-surface);
-}
-
-.layout-fullscreen-content {
-  flex: 1;
-  overflow: auto;
-  position: relative;
-  background: var(--color-bg-surface);
-}
-
-/* When no header, content is truly fullscreen */
-[data-has-header="false"] .layout-fullscreen-content {
-  height: 100vh;
-}
-
-/* Optional padding variant */
-.layout-fullscreen-content[data-padded="true"] {
-  padding: var(--layout-fullscreen-padding, var(--space-md));
-}
-/* Bundled: ./marketing_layout.css */
-/**
- * MarketingLayout Styles
- * 
- * Token Family: D (Navigation), F (Media)
- * 
- * Consumes tokens:
- * - layout.marketing.max-width
- * - layout.marketing.hero.height
- * - layout.marketing.section.gap
- * - layout.marketing.content.padding
- */
-
-[data-layout="marketing"] {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.layout-marketing-hero {
-  min-height: var(--layout-marketing-hero-height, 400px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--layout-marketing-content-padding, 2rem);
-}
-
-.layout-marketing-content {
-  flex: 1;
-  max-width: var(--layout-marketing-max-width, 1280px);
-  margin: 0 auto;
-  width: 100%;
-  padding: var(--layout-marketing-content-padding, 2rem);
-  display: flex;
-  flex-direction: column;
-  gap: var(--layout-marketing-section-gap, 3rem);
-}
+/* Missing: ./layouts/layouts.css */
 
 /* 11. GLOBALS (FINAL) */
 /* Bundled: ./tokens/base/globals.css */

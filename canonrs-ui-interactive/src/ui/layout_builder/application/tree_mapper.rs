@@ -15,6 +15,7 @@ impl FlatNode for Node {
             NodeKind::Region { region_id, .. } => CanonBlockType::Slot { name: region_id.to_string() },
             NodeKind::Component { def } => CanonBlockType::from_id(def.id).expect("Unknown block type — registry mismatch"),
             NodeKind::Text { variant, .. } => CanonBlockType::from_id(variant.tag()).expect("Unknown block type — registry mismatch"),
+            NodeKind::Layout { .. } => CanonBlockType::Layout,
         }
     }
 }
@@ -30,13 +31,22 @@ pub fn flatten_tree(nodes: &[CanonNode]) -> Vec<Node> {
 
 fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, _index: usize, flat: &mut Vec<Node>) {
     let kind = match &canon.block {
+        CanonBlockType::Layout => NodeKind::Layout { id: "layout".to_string(), label: "Layout".to_string() },
         CanonBlockType::Slot { name } => NodeKind::Slot { name: name.clone() },
-        block_type => NodeKind::Block {
-            def: BlockDef {
-                id: block_type.to_id(), label: block_type.to_id(), icon: "▭",
-                category: NodeCategory::Content,
-                is_container: !canon.children.is_empty(),
-                regions: &[],
+        block_type => {
+            use crate::ui::layout_builder::domain::blocks::BLOCK_REGISTRY;
+            let registry_def = BLOCK_REGISTRY.values().find(|b| b.id == block_type.to_id()).cloned();
+            if let Some(def) = registry_def {
+                NodeKind::Block { def }
+            } else {
+                NodeKind::Block {
+                    def: BlockDef {
+                        id: block_type.to_id(), label: block_type.to_id(), icon: "▭",
+                        category: NodeCategory::Content,
+                        is_container: !canon.children.is_empty(),
+                        regions: &[],
+                    }
+                }
             }
         }
     };

@@ -6,7 +6,7 @@ use canonrs_ui::layouts::{
     PageLayout, PageLayoutVariant,
 };
 use leptos::children::ToChildren;
-use super::types::{ActiveLayout, Node, DragContext, CanvasMode, init_slots};
+use super::types::{ActiveLayout, Node, NodeKind, DragContext, CanvasMode};
 use super::ui::drop_zone::DropZone;
 
 #[component]
@@ -25,119 +25,113 @@ pub fn LayoutCanvas(
         slots.get().iter().find(|s| s.label() == n).map(|s| s.id)
     };
 
+    let layout_node_id = move || {
+        tree.get().iter().find(|n| matches!(&n.kind, NodeKind::Layout { .. })).map(|n| n.id)
+    };
+
+    macro_rules! dz {
+        ($slot:expr) => {
+            move || slot_id($slot).map(|id| view! {
+                <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx
+                    selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual
+                    slot_label=$slot.to_string() />
+            })
+        };
+        ($slot:expr, virt) => {
+            move || slot_id($slot).map(|id| view! {
+                <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx
+                    selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual
+                    slot_label=$slot.to_string() virtualize=true />
+            })
+        };
+    }
+
     match layout {
         ActiveLayout::Dashboard => view! {
-            <DashboardLayout>
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+            <DashboardLayout
+                header=ToChildren::to_children(dz!("header"))
+                sidebar=ToChildren::to_children(dz!("sidebar"))
+            >
+                {dz!("main", virt)()}
             </DashboardLayout>
         }.into_any(),
 
         ActiveLayout::Marketing => view! {
             <MarketingLayout
-                header_logo=ToChildren::to_children(|| view! { <div class="mock-region mock-region--header">"Logo"</div> })
-                header_nav=ToChildren::to_children(|| view! { <div class="mock-region mock-region--header">"Nav"</div> })
-                header_actions=ToChildren::to_children(|| view! { <div class="mock-region mock-region--header">"Actions"</div> })
-                hero=ToChildren::to_children(move || view! {
-                    {move || slot_id("hero").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="hero".to_string() /> })}
-                })
-                footer=ToChildren::to_children(move || view! {
-                    {move || slot_id("footer").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="footer".to_string() /> })}
-                })
+                header=ToChildren::to_children(dz!("header"))
+                hero=ToChildren::to_children(dz!("hero"))
+                footer=ToChildren::to_children(dz!("footer"))
             >
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </MarketingLayout>
         }.into_any(),
 
         ActiveLayout::Fullscreen => view! {
             <FullscreenLayout
-                header=ToChildren::to_children(move || view! {
-                    {move || slot_id("header").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="header".to_string() /> })}
-                })
+                header=ToChildren::to_children(dz!("header"))
             >
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </FullscreenLayout>
         }.into_any(),
 
         ActiveLayout::SplitView => view! {
             <SplitViewLayout
                 ratio=SplitRatio::Equal
-                left=ToChildren::to_children(move || view! {
-                    {move || slot_id("left").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="left".to_string() /> })}
-                })
-                right=ToChildren::to_children(move || view! {
-                    {move || slot_id("right").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="right".to_string() /> })}
-                })
+                left=ToChildren::to_children(dz!("left"))
+                right=ToChildren::to_children(dz!("right"))
             />
         }.into_any(),
 
         ActiveLayout::Wizard => view! {
             <WizardLayout
-                header=ToChildren::to_children(move || view! {
-                    {move || slot_id("header").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="header".to_string() /> })}
-                })
-                stepper=ToChildren::to_children(move || view! {
-                    {move || slot_id("stepper").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="stepper".to_string() /> })}
-                })
-                footer=ToChildren::to_children(move || view! {
-                    {move || slot_id("footer").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="footer".to_string() /> })}
-                })
+                header=ToChildren::to_children(dz!("header"))
+                stepper=ToChildren::to_children(dz!("stepper"))
+                footer=ToChildren::to_children(dz!("footer"))
             >
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </WizardLayout>
         }.into_any(),
 
         ActiveLayout::Section => view! {
             <Section
-                header=ToChildren::to_children(move || view! {
-                    {move || slot_id("header").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="header".to_string() /> })}
-                })
-                footer=ToChildren::to_children(move || view! {
-                    {move || slot_id("footer").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="footer".to_string() /> })}
-                })
+                header=ToChildren::to_children(dz!("header"))
+                footer=ToChildren::to_children(dz!("footer"))
             >
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </Section>
         }.into_any(),
 
         ActiveLayout::PageSingle => view! {
             <PageLayout variant=PageLayoutVariant::Single>
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </PageLayout>
         }.into_any(),
 
         ActiveLayout::PageWithSidebar => view! {
             <PageLayout
                 variant=PageLayoutVariant::WithSidebar
-                sidebar=ToChildren::to_children(move || view! {
-                    {move || slot_id("sidebar").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="sidebar".to_string() /> })}
-                })
+                sidebar=ToChildren::to_children(dz!("sidebar"))
             >
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </PageLayout>
         }.into_any(),
 
         ActiveLayout::PageWithAside => view! {
             <PageLayout
                 variant=PageLayoutVariant::WithAside
-                aside=ToChildren::to_children(move || view! {
-                    {move || slot_id("aside").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="aside".to_string() /> })}
-                })
+                aside=ToChildren::to_children(dz!("aside"))
             >
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </PageLayout>
         }.into_any(),
 
         ActiveLayout::PageSidebarAndAside => view! {
             <PageLayout
                 variant=PageLayoutVariant::SidebarAndAside
-                sidebar=ToChildren::to_children(move || view! {
-                    {move || slot_id("sidebar").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="sidebar".to_string() /> })}
-                })
-                aside=ToChildren::to_children(move || view! {
-                    {move || slot_id("aside").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="aside".to_string() /> })}
-                })
+                sidebar=ToChildren::to_children(dz!("sidebar"))
+                aside=ToChildren::to_children(dz!("aside"))
             >
-                {move || slot_id("main").map(|id| view! { <DropZone parent_id=id engine=engine tree=tree drag_ctx=drag_ctx selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual slot_label="main".to_string() virtualize=true /> })}
+                {dz!("main", virt)()}
             </PageLayout>
         }.into_any(),
     }

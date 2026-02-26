@@ -25,6 +25,7 @@ impl TextVariant {
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum NodeKind {
+    Layout { id: String, label: String },
     Slot { name: String },
     Block { def: BlockDef },
     Region { block_id: String, region_id: String, label: String },
@@ -41,6 +42,9 @@ pub struct Node {
 }
 
 impl Node {
+    pub fn layout(layout: &super::layout::ActiveLayout) -> Self {
+        Self { id: Uuid::new_v4(), kind: NodeKind::Layout { id: layout.id().to_string(), label: layout.label().to_string() }, parent_id: None }
+    }
     pub fn slot(name: &str) -> Self {
         Self { id: Uuid::new_v4(), kind: NodeKind::Slot { name: name.to_string() }, parent_id: None }
     }
@@ -62,13 +66,14 @@ impl Node {
     }
     pub fn is_container(&self) -> bool {
         match &self.kind {
-            NodeKind::Slot { .. } | NodeKind::Region { .. } => true,
+            NodeKind::Layout { .. } | NodeKind::Slot { .. } | NodeKind::Region { .. } => true,
             NodeKind::Block { def } => def.is_container && def.regions.is_empty(),
             _ => false,
         }
     }
     pub fn label(&self) -> &str {
         match &self.kind {
+            NodeKind::Layout { label, .. } => label,
             NodeKind::Slot { name } => name,
             NodeKind::Block { def } => def.label,
             NodeKind::Region { label, .. } => label,
@@ -78,6 +83,7 @@ impl Node {
     }
     pub fn accepts(&self, child: &BlockDef) -> bool {
         match &self.kind {
+            NodeKind::Layout { .. } => true,
             NodeKind::Slot { .. } => slot_accepts(child.category),
             NodeKind::Block { def } => def.can_accept(child.category),
             NodeKind::Region { block_id, region_id, .. } => {
