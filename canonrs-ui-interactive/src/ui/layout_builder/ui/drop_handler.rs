@@ -21,7 +21,7 @@ pub fn handle_drop(
     // Layout drop — substitui layout atual
     if let Some(layout) = ctx.layout_def {
         let active_layout = crate::infra::app_state::global_active_layout();
-        active_layout.set(layout);
+        active_layout.set(Some(layout));
         crate::infra::app_state::drop_layout(&layout);
         batch(move || {
             drag_visual.set(DragVisualState::empty());

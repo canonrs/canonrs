@@ -21,6 +21,7 @@ pub fn DropZone(
 ) -> impl IntoView {
     let is_builder   = move || canvas_mode.get() == CanvasMode::Builder;
     let is_dragging  = move || drag_ctx.get().is_dragging();
+    let is_layout_drag = move || drag_ctx.get().layout_def.is_some();
     let is_active    = move || drag_visual.get().active_zone_id == Some(parent_id);
     let insert_idx   = move || drag_visual.get().insert_index;
     let label = slot_label.unwrap_or_else(|| "drop".to_string());
@@ -98,7 +99,7 @@ pub fn DropZone(
                 node_ref=zone_el
                 data-drop-zone=""
                 data-zone-id=parent_id.to_string()
-                attr:data-dragging=move || if is_dragging() { "true" } else { "false" }
+                attr:data-dragging=move || if is_dragging() && !is_layout_drag() { "true" } else { "false" }
                 attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
 
             >

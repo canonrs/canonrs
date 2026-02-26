@@ -15,8 +15,8 @@ use crate::ui::theme_workspace::theme_workspace::ThemeWorkspace;
 
 #[component]
 pub fn LayoutBuilderInteractive() -> impl IntoView {
-    let active_layout = RwSignal::new(ActiveLayout::Dashboard);
-    let slots: RwSignal<Vec<Node>> = RwSignal::new(init_slots(&ActiveLayout::Dashboard));
+    let active_layout: RwSignal<Option<ActiveLayout>> = RwSignal::new(None);
+    let slots: RwSignal<Vec<Node>> = RwSignal::new(vec![]);
     let tree: RwSignal<Vec<Node>> = RwSignal::new(vec![]);
     let engine: RwSignal<BuilderEngine> = RwSignal::new(BuilderEngine::new(CanonDocument::new("dashboard")));
     let drag_ctx = RwSignal::new(DragContext::empty());
@@ -117,11 +117,11 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                     "Layouts"
                 </div>
                 {ActiveLayout::all().into_iter().map(|layout| {
-                    let is_active = move || active_layout.get() == layout;
+                    let is_active = move || active_layout.get() == Some(layout);
                     view! {
                         <button
                             on:click=move |_| {
-                                active_layout.set(layout);
+                                active_layout.set(Some(layout));
                                 slots.set(init_slots(&layout));
                                 tree.set(vec![]);
                             }
@@ -184,13 +184,22 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
                         } else {
                             view! {
                                 <div>
-                                    <CanvasToolbar canvas_mode=canvas_mode slots=slots tree=tree active_layout=active_layout engine=engine is_dirty=is_dirty />
-                                    <LayoutCanvas
-                                        layout=active_layout.get()
-                                        engine=engine tree=tree drag_ctx=drag_ctx
-                                        slots=slots selected_id=selected_id
-                                        canvas_mode=canvas_mode drag_visual=drag_visual
-                                    />
+                                    <Show when=move || slots.get().is_empty()>
+                                        <div style="display:flex;align-items:center;justify-content:center;height:60vh;color:var(--theme-surface-fg-muted);font-size:1rem;">
+                                            "← Selecione um layout para começar"
+                                        </div>
+                                    </Show>
+                                    <Show when=move || !slots.get().is_empty()>
+                                        <div>
+                                            <CanvasToolbar canvas_mode=canvas_mode slots=slots tree=tree active_layout=active_layout engine=engine is_dirty=is_dirty />
+                                            <LayoutCanvas
+                                                layout=active_layout.get().unwrap_or(ActiveLayout::Dashboard)
+                                                engine=engine tree=tree drag_ctx=drag_ctx
+                                                slots=slots selected_id=selected_id
+                                                canvas_mode=canvas_mode drag_visual=drag_visual
+                                            />
+                                        </div>
+                                    </Show>
                                 </div>
                             }.into_any()
                         }

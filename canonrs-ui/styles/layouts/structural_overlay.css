@@ -134,3 +134,10 @@
 [data-canvas-mode="preview"] [data-layout-region] {
   outline: none;
 }
+
+/* Suprimir interação das regiões durante drag de layout */
+[data-layout-dragging="true"] [data-layout-region] {
+  pointer-events: none !important;
+  outline-color: transparent !important;
+  background: transparent !important;
+}

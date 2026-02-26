@@ -135,7 +135,7 @@ pub fn retry_if_needed(
 pub fn init_preview_listener(
     slots: RwSignal<Vec<Node>>,
     tree: RwSignal<Vec<Node>>,
-    active_layout: RwSignal<ActiveLayout>,
+    active_layout: RwSignal<Option<ActiveLayout>>,
     preview_state: RwSignal<PreviewState>,
     last_doc_json: RwSignal<Option<String>>,
 ) {
@@ -193,7 +193,7 @@ pub fn init_preview_listener(
                                     preview_state.set(PreviewState::Sending { retries: 0 });
                                 }
                             } else {
-                                send_preview(slots, tree, active_layout.get(), preview_state, last_doc_json);
+                                send_preview(slots, tree, active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard), preview_state, last_doc_json);
                             }
                         }
                         PreviewMessage::Ack { id, version } => {

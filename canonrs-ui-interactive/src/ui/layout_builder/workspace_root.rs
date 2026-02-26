@@ -47,8 +47,13 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
     load_theme_into(&theme);
     persist_theme(theme.clone());
     // Bootstrap engine com layout inicial
-    crate::infra::app_state::bootstrap_engine_with_layout(&global_active_layout().get_untracked());
+    // Bootstrap apenas se já havia layout selecionado (reload com estado salvo)
+    #[cfg(target_arch = "wasm32")]
+    if let Some(layout) = global_active_layout().get_untracked() {
+        crate::infra::app_state::bootstrap_engine_with_layout(&layout);
+    }
     // Listeners globais de pointer (registro único)
+    #[cfg(target_arch = "wasm32")]
     crate::infra::app_state::init_global_pointer_listeners();
     let engine = global_engine();
     let tree = global_tree();
@@ -71,7 +76,7 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
     };
     let on_export_builder = move |_: leptos::ev::MouseEvent| {
         let t = tree.get();
-        let layout = format!("{:?}", active_layout.get());
+        let layout = format!("{:?}", active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard));
         trigger_download("builder.json", &export_builder(&t, &layout));
     };
     let on_load_builder = move |e: leptos::ev::Event| {

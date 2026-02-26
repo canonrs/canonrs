@@ -58,8 +58,8 @@ impl ActiveLayout {
     }
     pub fn slots(&self) -> Vec<&'static str> {
         match self {
-            Self::Dashboard => vec!["main"],
-            Self::Marketing => vec!["hero", "main", "footer"],
+            Self::Dashboard => vec!["header", "sidebar", "main"],
+            Self::Marketing => vec!["header", "hero", "main", "footer"],
             Self::Fullscreen => vec!["header", "main"],
             Self::SplitView => vec!["left", "right"],
             Self::Wizard => vec!["header", "stepper", "main", "footer"],

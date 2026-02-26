@@ -8,7 +8,7 @@ pub fn BlocksPanel(
     tree: RwSignal<Vec<Node>>,
     selected_id: RwSignal<Option<uuid::Uuid>>,
     drag_ctx: RwSignal<DragContext>,
-    active_layout: RwSignal<ActiveLayout>,
+    active_layout: RwSignal<Option<ActiveLayout>>,
     engine: RwSignal<BuilderEngine>,
 ) -> impl IntoView {
 

@@ -12,7 +12,7 @@ use super::ui::drop_zone::DragVisualState;
 #[component]
 pub fn BuilderWorkspace(
     controller: crate::application::builder_controller::BuilderController,
-    active_layout: RwSignal<ActiveLayout>,
+    active_layout: RwSignal<Option<ActiveLayout>>,
     slots: RwSignal<Vec<Node>>,
     tree: RwSignal<Vec<Node>>,
     engine: RwSignal<BuilderEngine>,
@@ -82,18 +82,44 @@ pub fn BuilderWorkspace(
                                 <iframe id="canon-preview-frame" src="/preview"
                                     style="width:100%;height:100%;border:none;min-height:600px;" />
                             }.into_any()
+                        } else if active_layout.get().is_none() {
+                            view! {
+                                <div style="display:flex;align-items:center;justify-content:center;height:60vh;color:#94a3b8;font-size:1rem;">
+                                    "← Drop a layout to get started"
+                                </div>
+                            }.into_any()
                         } else {
-                            let layout = active_layout.get();
+                            let layout = active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard);
                             view! {
                                 <div
                                     attr:data-canvas-mode=move || match canvas_mode.get() { CanvasMode::Builder => "builder", CanvasMode::Preview => "preview", CanvasMode::Wireframe => "wireframe" }
+                                    attr:data-layout-dragging=move || if drag_ctx.get().layout_def.is_some() { "true" } else { "false" }
+                                    style=move || format!("width:{}px;min-height:{}px;box-shadow:0 4px 24px rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;color-scheme:light;--theme-surface-bg:#ffffff;--theme-surface-fg:#0f172a;--theme-surface-border:#e2e8f0;--color-bg-surface:#ffffff;--color-bg-muted:#f8fafc;--color-border-default:#e2e8f0;{}", viewport.get().width, viewport.get().height, if drag_ctx.get().layout_def.is_some() { "opacity:0.15;pointer-events:none;" } else { "" })
                                 >
-                                    <LayoutCanvas
-                                        layout=layout
-                                        engine=engine tree=tree drag_ctx=drag_ctx
-                                        slots=slots selected_id=selected_id
-                                        canvas_mode=canvas_mode drag_visual=drag_visual
-                                    />
+                                    <div style="position:relative;">
+                                        <button
+                                            on:click=move |_| {
+                                                active_layout.set(None);
+                                                crate::infra::app_state::global_slots().set(vec![]);
+                                                crate::infra::app_state::global_tree().set(vec![]);
+                                            }
+                                            style="position:absolute;top:8px;right:8px;z-index:100;width:24px;height:24px;border-radius:50%;border:none;cursor:pointer;background:#ef4444;color:white;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1;"
+                                            title="Remove layout"
+                                        >
+                                            "✕"
+                                        </button>
+                                        {move || {
+                                            let layout = active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard);
+                                            view! {
+                                                <LayoutCanvas
+                                                    layout=layout
+                                                    engine=engine tree=tree drag_ctx=drag_ctx
+                                                    slots=slots selected_id=selected_id
+                                                    canvas_mode=canvas_mode drag_visual=drag_visual
+                                                />
+                                            }
+                                        }}
+                                    </div>
                                 </div>
                             }.into_any()
                         }

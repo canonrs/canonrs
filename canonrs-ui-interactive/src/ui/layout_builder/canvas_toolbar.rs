@@ -14,7 +14,7 @@ pub fn CanvasToolbar(
     canvas_mode: RwSignal<CanvasMode>,
     slots: RwSignal<Vec<Node>>,
     tree: RwSignal<Vec<Node>>,
-    active_layout: RwSignal<ActiveLayout>,
+    active_layout: RwSignal<Option<ActiveLayout>>,
     engine: RwSignal<BuilderEngine>,
     is_dirty: RwSignal<bool>,
 ) -> impl IntoView {
@@ -25,16 +25,48 @@ pub fn CanvasToolbar(
     let doc_version: RwSignal<i64> = RwSignal::new(1);
 
     let on_undo = move |_: leptos::ev::MouseEvent| {
+        let before = engine.get_untracked().can_undo();
         engine.update(|e| { e.undo(); });
-        let flat = engine.get_untracked().sync_flat();
+        let (flat, doc_layout, doc_nodes_empty) = engine.with_untracked(|e| {
+            let flat = e.sync_flat();
+            let doc_layout = e.document().layout.clone();
+            let empty = e.document().nodes.is_empty();
+            (flat, doc_layout, empty)
+        });
+        leptos::logging::log!("[undo] can_undo_before={} doc_layout={:?} nodes_empty={}", before, doc_layout, doc_nodes_empty);
+        let slot_nodes: Vec<super::types::Node> = flat.iter().filter(|n| matches!(n.kind, super::types::NodeKind::Slot { .. })).cloned().collect();
         tree.set(flat);
+        if doc_nodes_empty {
+            active_layout.set(None);
+            slots.set(vec![]);
+        } else if let Some(layout) = super::types::ActiveLayout::all().into_iter().find(|l| l.id() == doc_layout) {
+            leptos::logging::log!("[undo] setting layout={:?} slots={}", layout, slot_nodes.len());
+            active_layout.set(Some(layout));
+            slots.set(slot_nodes);
+        } else {
+            leptos::logging::log!("[undo] layout not found for id={}", doc_layout);
+        }
         is_dirty.set(true);
     };
 
     let on_redo = move |_: leptos::ev::MouseEvent| {
         engine.update(|e| { e.redo(); });
-        let flat = engine.get_untracked().sync_flat();
+        let (flat, doc_layout, doc_nodes_empty) = engine.with_untracked(|e| {
+            let flat = e.sync_flat();
+            let doc_layout = e.document().layout.clone();
+            let empty = e.document().nodes.is_empty();
+            (flat, doc_layout, empty)
+        });
+        let slot_nodes: Vec<super::types::Node> = flat.iter().filter(|n| matches!(n.kind, super::types::NodeKind::Slot { .. })).cloned().collect();
+        leptos::logging::log!("[redo] tree.set nodes={}", flat.len());
         tree.set(flat);
+        if doc_nodes_empty || doc_layout.is_empty() {
+            active_layout.set(None);
+            slots.set(vec![]);
+        } else if let Some(layout) = super::types::ActiveLayout::all().into_iter().find(|l| l.id() == doc_layout) {
+            active_layout.set(Some(layout));
+            slots.set(slot_nodes);
+        }
         is_dirty.set(true);
     };
     let doc_id: RwSignal<String> = RwSignal::new(uuid::Uuid::new_v4().to_string());
@@ -86,7 +118,7 @@ pub fn CanvasToolbar(
             };
             let doc = CanonDocument { layout_version: 1,
                 id: uuid::Uuid::new_v4(),
-                layout: format!("{:?}", active_layout.get()),
+                layout: format!("{:?}", active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard)),
                 version: 1,
                 nodes: build_tree(&all_nodes),
             };
@@ -127,7 +159,7 @@ pub fn CanvasToolbar(
             };
             let doc = CanonDocument { layout_version: 1,
                 id: uuid::Uuid::parse_str(&doc_id.get()).unwrap_or_else(|_| uuid::Uuid::new_v4()),
-                layout: format!("{:?}", active_layout.get()),
+                layout: format!("{:?}", active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard)),
                 version: doc_version.get() as u32,
                 nodes: build_tree(&all_nodes),
             };
@@ -200,7 +232,7 @@ pub fn CanvasToolbar(
                             slots.set(new_slots);
                             tree.set(new_tree);
                             if let Some(layout) = parse_layout(&layout_str) {
-                                active_layout.set(layout);
+                                active_layout.set(Some(layout));
                             }
                             doc_id.set(id_clone);
                             doc_version.set(v);

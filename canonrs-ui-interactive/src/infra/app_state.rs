@@ -16,7 +16,7 @@ static BUILDER_ENGINE:   OnceLock<RwSignal<BuilderEngine>>   = OnceLock::new();
 static BUILDER_TREE:     OnceLock<RwSignal<Vec<Node>>>       = OnceLock::new();
 static BUILDER_SELECTED: OnceLock<RwSignal<Option<Uuid>>>    = OnceLock::new();
 static BUILDER_DIRTY:    OnceLock<RwSignal<bool>>            = OnceLock::new();
-static BUILDER_LAYOUT:   OnceLock<RwSignal<ActiveLayout>>    = OnceLock::new();
+static BUILDER_LAYOUT:   OnceLock<RwSignal<Option<ActiveLayout>>>    = OnceLock::new();
 static BUILDER_SLOTS:    OnceLock<RwSignal<Vec<Node>>>       = OnceLock::new();
 static BUILDER_DRAG_CTX: OnceLock<RwSignal<DragContext>>     = OnceLock::new();
 static BUILDER_CANVAS:   OnceLock<RwSignal<CanvasMode>>      = OnceLock::new();
@@ -38,7 +38,7 @@ pub fn global_workspace_mode() -> RwSignal<WorkspaceMode> {
     *WORKSPACE_MODE.get_or_init(|| app_owner().with(|| RwSignal::new(WorkspaceMode::Builder)))
 }
 pub fn global_engine() -> RwSignal<BuilderEngine> {
-    *BUILDER_ENGINE.get_or_init(|| app_owner().with(|| RwSignal::new(BuilderEngine::new(CanonDocument::new("dashboard")))))
+    *BUILDER_ENGINE.get_or_init(|| app_owner().with(|| RwSignal::new(BuilderEngine::new(CanonDocument::new("")))))
 }
 pub fn global_tree() -> RwSignal<Vec<Node>> {
     *BUILDER_TREE.get_or_init(|| app_owner().with(|| RwSignal::new(vec![])))
@@ -49,11 +49,11 @@ pub fn global_selected() -> RwSignal<Option<Uuid>> {
 pub fn global_dirty() -> RwSignal<bool> {
     *BUILDER_DIRTY.get_or_init(|| app_owner().with(|| RwSignal::new(false)))
 }
-pub fn global_active_layout() -> RwSignal<ActiveLayout> {
-    *BUILDER_LAYOUT.get_or_init(|| app_owner().with(|| RwSignal::new(ActiveLayout::Dashboard)))
+pub fn global_active_layout() -> RwSignal<Option<ActiveLayout>> {
+    *BUILDER_LAYOUT.get_or_init(|| app_owner().with(|| RwSignal::new(None)))
 }
 pub fn global_slots() -> RwSignal<Vec<Node>> {
-    *BUILDER_SLOTS.get_or_init(|| app_owner().with(|| RwSignal::new(init_slots(&ActiveLayout::Dashboard))))
+    *BUILDER_SLOTS.get_or_init(|| app_owner().with(|| RwSignal::new(vec![])))
 }
 pub fn global_drag_ctx() -> RwSignal<DragContext> {
     *BUILDER_DRAG_CTX.get_or_init(|| app_owner().with(|| RwSignal::new(DragContext::empty())))
@@ -86,7 +86,7 @@ pub fn bootstrap_engine_with_layout(layout: &crate::ui::layout_builder::types::A
         ));
     }
 
-    engine.update(|e| *e = BuilderEngine::new(doc));
+    engine.update(|e| e.load_document(doc));
     slots_signal.set(slot_nodes);
     tree.set(vec![]);
 }
@@ -123,11 +123,12 @@ pub fn drop_layout(layout: &crate::ui::layout_builder::types::ActiveLayout) {
     let mut flat_tree = vec![layout_node];
     flat_tree.extend(slot_nodes.clone());
 
-    engine.update(|e| *e = BuilderEngine::new(doc));
+    engine.update(|e| e.replace_document_preserving_history(doc));
     slots_signal.set(slot_nodes);
     tree.set(flat_tree);
 }
 
+#[cfg(target_arch = "wasm32")]
 pub fn init_global_pointer_listeners() {
     use crate::ui::layout_builder::state::drop_zone_types::DragVisualState;
     use crate::ui::layout_builder::types::DragContext;
@@ -160,7 +161,11 @@ pub fn init_global_pointer_listeners() {
                 }
             }
         }
-        if let Some(parent_id) = target_zone {
+        if drag_ctx.get_untracked().layout_def.is_some() {
+            // Layout drag always replaces — ignore existing drop zones
+            leptos::logging::log!("[pointerup] layout_def detected — bypassing zones");
+            handle_drop(ev, uuid::Uuid::nil(), engine, tree, drag_ctx, drag_visual);
+        } else if let Some(parent_id) = target_zone {
             handle_drop(ev, parent_id, engine, tree, drag_ctx, drag_visual);
         } else {
             batch(move || {
@@ -176,6 +181,7 @@ pub fn init_global_pointer_listeners() {
     crate::infra::web_pointer::register_pointer_listener(move |ev| {
         use leptos::wasm_bindgen::JsCast;
         if !drag_ctx2.get_untracked().is_dragging() { return; }
+        if drag_ctx2.get_untracked().layout_def.is_some() { return; }
         let mut new_active: Option<web_sys::Element> = None;
         if let Some(target) = ev.target() {
             let mut el: web_sys::Element = target.unchecked_into();

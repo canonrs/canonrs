@@ -52,6 +52,13 @@ impl BuilderEngine {
 
     pub fn sync_flat(&self) -> Vec<Node> { self.flat_cache.clone() }
 
+    /// Troca o documento preservando o histórico de undo
+    pub fn replace_document_preserving_history(&mut self, doc: CanonDocument) {
+        let snapshot = self.engine.document.clone();
+        self.engine.replace_document(doc);
+        self.rebuild_cache();
+    }
+
     fn rebuild_cache(&mut self) {
         self.flat_cache = flatten_tree(&self.engine.document.nodes);
     }
