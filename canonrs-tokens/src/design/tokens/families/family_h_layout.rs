@@ -152,5 +152,20 @@ pub const FAMILY_H_LAYOUT: &[FamilyToken] = &[
     FamilyToken::new("layout-width-toc", "220px"),
     FamilyToken::new("layout-aside-width", "280px"),
 
+    // Builder Mode
+    FamilyToken::new("builder-region-border",        "rgba(99,102,241,0.2)"),
+    FamilyToken::new("builder-region-border-hover",  "rgba(99,102,241,0.45)"),
+    FamilyToken::new("builder-region-bg-hover",      "rgba(99,102,241,0.025)"),
+    FamilyToken::new("builder-region-bg-active",     "rgba(99,102,241,0.05)"),
+    FamilyToken::new("builder-region-bg-pulse",      "rgba(99,102,241,0.10)"),
+    FamilyToken::new("builder-region-label-color",   "rgba(99,102,241,0.5)"),
+    FamilyToken::new("builder-region-label-bg",      "rgba(99,102,241,0.06)"),
+    FamilyToken::new("builder-region-meta-color",    "rgba(99,102,241,0.35)"),
+    FamilyToken::new("builder-insert-line-color",    "#6366f1"),
+    FamilyToken::new("builder-placeholder-color",    "rgba(99,102,241,0.35)"),
+    FamilyToken::new("builder-transition-duration",  "var(--motion-duration-fast)"),
+    FamilyToken::new("builder-transition-ease",      "var(--motion-ease-standard)"),
+    FamilyToken::new("builder-pulse-duration",       "var(--motion-duration-slow)"),
+
 ];
 // ─── Layout Dimension Primitives (valores reais) ─────────────────────────────

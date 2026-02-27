@@ -1,107 +1,141 @@
 /* ============================================
    STRUCTURAL OVERLAY — Builder Mode
-   Mostra contrato estrutural sobre cada região
    ============================================ */
 
-/* ── Região sempre posicionada ──────────────── */
 [data-layout-region] {
   position: relative;
 }
 
-/* ── Label da região (sempre visível em builder) */
+[data-layout-region="header"] {
+  border-bottom: var(--header-border);
+}
+
+/* ── Borda estrutural ───────────────────────── */
+[data-canvas-mode="builder"] [data-layout-region] {
+  outline: 1px dashed var(--builder-region-border);
+  outline-offset: -1px;
+  min-height: 60px;
+  transition: outline-color var(--builder-transition-duration) var(--builder-transition-ease),
+              background   var(--builder-transition-duration) var(--builder-transition-ease);
+}
+
+[data-canvas-mode="builder"] [data-layout-region="header"] {
+  outline: none;
+  border: 1px dashed var(--builder-region-border);
+  border-bottom: var(--header-border);
+  transition: border-color var(--builder-transition-duration) var(--builder-transition-ease),
+              background   var(--builder-transition-duration) var(--builder-transition-ease);
+}
+
+[data-layout-region="header"][data-layout-region] {
+  border-bottom: var(--header-border);
+}
+
+/* ── Label ──────────────────────────────────── */
 [data-canvas-mode="builder"] [data-layout-region]::before {
   content: attr(data-layout-region);
   position: absolute;
   top: 6px;
   left: 8px;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--builder-region-label-color, #6366f1);
-  background: var(--builder-region-label-bg, rgba(99,102,241,0.08));
-  padding: 2px 6px;
-  border-radius: 4px;
+  letter-spacing: 0.1em;
+  color: var(--builder-region-label-color);
+  background: var(--builder-region-label-bg);
+  padding: 2px 5px;
+  border-radius: 3px;
   pointer-events: none;
   z-index: 10;
   line-height: 1.4;
 }
 
-/* ── Borda estrutural da região ─────────────── */
-[data-canvas-mode="builder"] [data-layout-region] {
-  outline: 1px dashed var(--builder-region-border, rgba(99,102,241,0.25));
-  outline-offset: -1px;
-  min-height: 60px;
-  transition: outline-color 150ms ease, background 150ms ease;
-}
-
-/* ── Header preserva border-bottom ─────────── */
-[data-canvas-mode="builder"] [data-layout-region="header"] {
-  outline: none;
-  border: 1px dashed var(--builder-region-border, rgba(99,102,241,0.25));
-}
-
-/* ── Hover na região ────────────────────────── */
-[data-canvas-mode="builder"] [data-layout-region]:hover {
-  outline-color: var(--builder-region-border-hover, rgba(99,102,241,0.6));
-  background: var(--builder-region-hover-bg, rgba(99,102,241,0.03));
-}
-
-/* ── Região vazia — placeholder contextual ──── */
-[data-canvas-mode="builder"] [data-layout-region]:empty::after,
-[data-canvas-mode="builder"] [data-layout-region][data-region-empty="true"]::after {
-  content: attr(data-region-hint);
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: var(--theme-surface-fg-muted);
-  pointer-events: none;
-  padding-top: 28px;
-}
-
-/* ── Badge AcceptRule + max_children ───────── */
+/* ── Badge meta ─────────────────────────────── */
 [data-canvas-mode="builder"] [data-layout-region]::after {
   content: attr(data-region-meta);
   position: absolute;
   top: 6px;
   right: 8px;
   font-size: 9px;
-  font-weight: 600;
-  color: var(--builder-region-meta-color, rgba(99,102,241,0.5));
+  font-weight: 500;
+  color: var(--builder-region-meta-color);
   pointer-events: none;
   z-index: 10;
   letter-spacing: 0.04em;
 }
 
-/* ── Drop PERMITIDO ─────────────────────────── */
+/* ── Hover ──────────────────────────────────── */
+[data-canvas-mode="builder"] [data-layout-region]:hover {
+  outline-color: var(--builder-region-border-hover);
+  background: var(--builder-region-bg-hover);
+}
+
+[data-canvas-mode="builder"] [data-layout-region="header"]:hover {
+  border-color: var(--builder-region-border-hover);
+  border-bottom-color: var(--theme-surface-border);
+  background: var(--builder-region-bg-hover);
+}
+
+/* ── Drag active — pulse ────────────────────── */
+[data-canvas-mode="builder"] [data-layout-region][data-dragging="true"] {
+  outline-color: var(--builder-insert-line-color);
+  background: var(--builder-region-bg-active);
+  animation: region-pulse var(--builder-pulse-duration) ease infinite;
+}
+
+[data-canvas-mode="builder"] [data-layout-region="header"][data-dragging="true"] {
+  border-color: var(--builder-insert-line-color);
+  border-bottom-color: var(--theme-surface-border);
+  background: var(--builder-region-bg-active);
+  animation: region-pulse var(--builder-pulse-duration) ease infinite;
+}
+
+@keyframes region-pulse {
+  0%, 100% { background: var(--builder-region-bg-active); }
+  50%       { background: var(--builder-region-bg-pulse); }
+}
+
+/* ── Placeholder ────────────────────────────── */
+[data-canvas-mode="builder"] [data-drop-zone-empty] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  pointer-events: none;
+  padding-top: 20px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--builder-placeholder-color);
+}
+
+[data-canvas-mode="builder"] [data-drop-zone-empty]::before {
+  content: "+";
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--builder-placeholder-color);
+  line-height: 1;
+}
+
+/* ── Drop permitido/proibido ────────────────── */
 [data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="true"] {
   outline-color: #22c55e;
   background: rgba(34,197,94,0.04);
 }
 
-[data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="true"]::before {
-  color: #16a34a;
-  background: rgba(34,197,94,0.1);
-}
-
-/* ── Drop PROIBIDO ──────────────────────────── */
 [data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="false"] {
   outline-color: #ef4444;
   background: rgba(239,68,68,0.04);
 }
 
-[data-canvas-mode="builder"] [data-layout-region][data-drop-allowed="false"]::before {
-  color: #dc2626;
-  background: rgba(239,68,68,0.1);
-}
-
-/* ── Wireframe Mode ─────────────────────────── */
+/* ── Wireframe ──────────────────────────────── */
 [data-canvas-mode="wireframe"] [data-layout-region] {
-  outline: 2px solid rgba(99,102,241,0.5);
-  background: rgba(99,102,241,0.04);
+  outline: 2px solid rgba(99,102,241,0.4);
+  background: rgba(99,102,241,0.03);
   min-height: 80px;
 }
 
@@ -111,27 +145,22 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgba(99,102,241,0.5);
+  color: rgba(99,102,241,0.4);
   background: none;
   padding: 0;
-  pointer-events: none;
-  z-index: 10;
 }
 
-[data-canvas-mode="wireframe"] [data-layout-region]::after {
-  display: none;
-}
-
+[data-canvas-mode="wireframe"] [data-layout-region]::after,
 [data-canvas-mode="wireframe"] [data-block-preview],
 [data-canvas-mode="wireframe"] [data-drop-zone-empty] {
   display: none;
 }
 
-/* ── Preview Mode — sem overlay ─────────────── */
+/* ── Preview ────────────────────────────────── */
 [data-canvas-mode="preview"] [data-layout-region]::before,
 [data-canvas-mode="preview"] [data-layout-region]::after {
   display: none;
@@ -141,20 +170,14 @@
   outline: none;
 }
 
-/* Suprimir interação das regiões durante drag de layout */
+/* ── Layout drag — suprimir regiões ────────── */
 [data-layout-dragging="true"] [data-layout-region] {
   pointer-events: none !important;
   outline-color: transparent !important;
   background: transparent !important;
 }
 
-/* ── Região como drop zone nativa (data-drop-zone direto na região) ── */
-[data-canvas-mode="builder"] [data-layout-region][data-drop-zone][data-dragging="true"] {
-  outline-color: var(--builder-insert-line-color, #6366f1);
-  background: rgba(99,102,241,0.06);
-}
-
-/* ── Insert line dentro de região nativa ── */
+/* ── Flex nas regiões drop zone ─────────────── */
 [data-canvas-mode="builder"] [data-layout-region][data-drop-zone] {
   display: flex;
   flex-direction: column;

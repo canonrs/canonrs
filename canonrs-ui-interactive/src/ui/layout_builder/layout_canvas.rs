@@ -73,7 +73,7 @@ fn region_children(
                 />
                 {move || if children_memo.get().is_empty() && is_builder() {
                     Some(view! {
-                        <div data-drop-zone-empty="" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;opacity:0.4;font-size:0.75rem;pointer-events:none;">
+                        <div data-drop-zone-empty="">
                             {slot_name}
                         </div>
                     })

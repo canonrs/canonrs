@@ -168,7 +168,20 @@ pub fn init_global_pointer_listeners() {
         } else if let Some(parent_id) = target_zone {
             handle_drop(ev, parent_id, engine, tree, drag_ctx, drag_visual);
         } else {
-            batch(move || {
+            #[cfg(target_arch = "wasm32")]
+        if let Some(window) = web_sys::window() {
+            if let Some(doc) = window.document() {
+                if let Ok(els) = doc.query_selector_all("[data-dragging='true']") {
+                    for i in 0..els.length() {
+                        if let Some(el) = els.item(i) {
+                            let el: web_sys::Element = leptos::wasm_bindgen::JsCast::unchecked_into(el);
+                            let _ = el.remove_attribute("data-dragging");
+                        }
+                    }
+                }
+            }
+        }
+        batch(move || {
                 drag_visual.set(DragVisualState::empty());
                 drag_ctx.set(DragContext::empty());
             });
@@ -192,6 +205,7 @@ pub fn init_global_pointer_listeners() {
         }
         if let Some(el) = new_active {
             let _ = el.set_attribute("data-drop-zone-active", "true");
+            let _ = el.set_attribute("data-dragging", "true");
             let client_y = ev.client_y() as f64;
             let mut idx = 0usize;
             if let Ok(blocks) = el.query_selector_all(":scope > [data-block-preview]") {
