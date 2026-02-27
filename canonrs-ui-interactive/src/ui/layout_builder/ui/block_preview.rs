@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use crate::ui::layout_builder::state::builder_engine::BuilderEngine;
-use canonrs_ui::blocks::{Card, AlertBlock, AlertVariant};
+use canonrs_ui::blocks::{Card, AlertBlock, AlertVariant, StatCard, CalloutBlock, CalloutType, EmptyState, ToolbarBlock, PageHeader, Breadcrumb, BreadcrumbItem, ButtonGroupBlock, FormBlock, FieldBlock, FormActionsBlock, DataTableBlock, List, ListItem, Table, CodeBlockBlock};
 use crate::ui::layout_builder::types::{Node, NodeKind, DragContext, CanvasMode};
 use rs_canonrs::application::Command;
 use super::drop_zone::DropZone;
@@ -43,47 +43,22 @@ pub fn BlockPreview(
 
     // IDs dos nós de região — lidos uma vez do estado atual da tree
     // Se não existirem ainda, serão criados atomicamente
-    let region_node_ids: Vec<uuid::Uuid> = if has_regions {
-        let t = tree.get_untracked();
-        let existing: Vec<uuid::Uuid> = regions.iter().filter_map(|(rid, _)| {
+    let block_id_for_regions = block_id_owned.clone();
+    let region_nodes_memo = Memo::new(move |_| {
+        if !has_regions { return vec![]; }
+        let t = tree.get();
+        leptos::logging::log!("[region_memo] tree={} node_id={} regions={}", t.len(), node_id, regions.len());
+        for n in t.iter().filter(|n| n.parent_id == Some(node_id)) {
+            leptos::logging::log!("[region_memo] child: {:?}", n.kind);
+        }
+        regions.iter().filter_map(|(rid, rlabel)| {
             t.iter().find(|n|
                 n.parent_id == Some(node_id) &&
-                matches!(&n.kind, NodeKind::Region { region_id, .. } if *region_id == *rid)
-            ).map(|n| n.id)
-        }).collect();
+                matches!(&n.kind, crate::ui::layout_builder::types::NodeKind::Region { region_id, .. } if region_id == *rid)
+            ).cloned()
+        }).collect::<Vec<_>>()
+    });
 
-        if existing.len() == regions.len() {
-            existing
-        } else {
-            // Cria regiões faltantes atomicamente
-            if let Some(def) = crate::ui::layout_builder::domain::blocks::get_block(block_id).cloned() {
-                let new_nodes: Vec<Node> = def.regions.iter().enumerate()
-                    .filter(|(_, r)| !t.iter().any(|n|
-                        n.parent_id == Some(node_id) &&
-                        matches!(&n.kind, NodeKind::Region { region_id, .. } if *region_id == r.id)
-                    ))
-                    .map(|(i, r)| Node::region(block_id, r, node_id))
-                    .collect();
-                let new_ids: Vec<uuid::Uuid> = new_nodes.iter().map(|n| n.id).collect();
-                // Só cria regiões se o nó pai ainda existe na tree
-                // regiões criadas apenas no drop_handler
-                // Relê da tree após criação
-                let t2 = tree.get_untracked();
-                regions.iter().filter_map(|(rid, _)| {
-                    t2.iter().find(|n|
-                        n.parent_id == Some(node_id) &&
-                        matches!(&n.kind, NodeKind::Region { region_id, .. } if *region_id == *rid)
-                    ).map(|n| n.id)
-                }).collect()
-            } else { vec![] }
-        }
-    } else { vec![] };
-
-    // Nós de região estáticos para o view
-    let region_nodes: Vec<Node> = {
-        let t = tree.get_untracked();
-        region_node_ids.iter().filter_map(|id| t.iter().find(|n| n.id == *id).cloned()).collect()
-    };
 
     let bd1 = match node.kind.clone() { NodeKind::Block { def } => Some(def), _ => None };
     let bd2 = bd1.clone();
@@ -207,13 +182,109 @@ pub fn BlockPreview(
         }.into_any()
     } else {
         match block_id {
-            "card" => view! {
-                <Card>
-                    <div style="padding: 0.5rem; font-size: 0.8rem; color: var(--theme-surface-fg-muted);">"Card content"</div>
-                </Card>
-            }.into_any(),
+            "card" => {
+                let region_ids: Vec<(String, uuid::Uuid)> = region_nodes_memo.get()
+                    .iter()
+                    .filter_map(|n| match &n.kind {
+                        crate::ui::layout_builder::types::NodeKind::Region { region_id, .. } => Some((region_id.clone(), n.id)),
+                        _ => None,
+                    })
+                    .collect();
+                let get_zone = move |rid: &str| region_ids.iter().find(|(r,_)| r == rid).map(|(_,id)| *id);
+                let header_id = get_zone("header");
+                let content_id = get_zone("content");
+                let footer_id = get_zone("footer");
+                view! {
+                    <div data-block="card" data-block-version="1" data-variant="default">
+                        <div data-block-region="header">
+                            {header_id.map(|pid| view! {
+                                <DropZone parent_id=pid engine=engine tree=tree drag_ctx=drag_ctx
+                                    selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual
+                                    slot_label="header".to_string() />
+                            })}
+                        </div>
+                        <div data-block-region="content">
+                            {content_id.map(|pid| view! {
+                                <DropZone parent_id=pid engine=engine tree=tree drag_ctx=drag_ctx
+                                    selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual
+                                    slot_label="content".to_string() />
+                            })}
+                        </div>
+                        <div data-block-region="footer">
+                            {footer_id.map(|pid| view! {
+                                <DropZone parent_id=pid engine=engine tree=tree drag_ctx=drag_ctx
+                                    selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual
+                                    slot_label="footer".to_string() />
+                            })}
+                        </div>
+                    </div>
+                }.into_any()
+            },
             "alert" => view! {
                 <AlertBlock variant=AlertVariant::Info>"Alert message"</AlertBlock>
+            }.into_any(),
+            "stat-card" => view! {
+                <StatCard label="Metric".to_string() value="1,234".to_string() change="↑ 12%".to_string() />
+            }.into_any(),
+            "callout" => view! {
+                <CalloutBlock variant=CalloutType::Info title="Callout".to_string()>
+                    "Callout message"
+                </CalloutBlock>
+            }.into_any(),
+            "empty-state" => view! {
+                <EmptyState title="No data yet".to_string() description="Drop content here".to_string() />
+            }.into_any(),
+            "toolbar" => view! {
+                <ToolbarBlock>
+                    <span style="font-size:0.8rem;color:var(--theme-surface-fg-muted);">"Toolbar"</span>
+                </ToolbarBlock>
+            }.into_any(),
+            "page-header" => view! {
+                <PageHeader title="Page Title".to_string() subtitle="Page description".to_string() />
+            }.into_any(),
+            "breadcrumb" => view! {
+                <Breadcrumb items=vec![
+                    BreadcrumbItem { label: "Home".to_string(), href: Some("#".to_string()) },
+                    BreadcrumbItem { label: "Page".to_string(), href: Some("#".to_string()) },
+                    BreadcrumbItem { label: "Current".to_string(), href: None },
+                ] />
+            }.into_any(),
+            "button-group" => view! {
+                <ButtonGroupBlock>
+                    <button class="canon-btn">"Action 1"</button>
+                    <button class="canon-btn">"Action 2"</button>
+                </ButtonGroupBlock>
+            }.into_any(),
+            "form" => view! {
+                <FormBlock>
+                    <div style="font-size:0.8rem;color:var(--theme-surface-fg-muted);padding:0.5rem;">"Drop fields here"</div>
+                </FormBlock>
+            }.into_any(),
+            "field" => view! {
+                <FieldBlock label="Field Label".to_string()>
+                    <input type="text" placeholder="Value..." style="width:100%;padding:0.4rem 0.6rem;border:1px solid var(--theme-surface-border);border-radius:var(--radius-sm);background:var(--theme-surface-bg);color:var(--theme-surface-fg);font-size:0.85rem;" />
+                </FieldBlock>
+            }.into_any(),
+            "form-actions" => view! {
+                <FormActionsBlock>
+                    <button class="canon-btn canon-btn--ghost">"Cancel"</button>
+                    <button class="canon-btn canon-btn--primary">"Submit"</button>
+                </FormActionsBlock>
+            }.into_any(),
+            "data-table" | "table" => view! {
+                <DataTableBlock>
+                    <div style="font-size:0.75rem;color:var(--theme-surface-fg-muted);padding:0.5rem;">"Table data"</div>
+                </DataTableBlock>
+            }.into_any(),
+            "list" => view! {
+                <List>
+                    <ListItem>"Item 1"</ListItem>
+                    <ListItem>"Item 2"</ListItem>
+                    <ListItem>"Item 3"</ListItem>
+                </List>
+            }.into_any(),
+            "code-block" => view! {
+                <CodeBlockBlock language="rust".to_string() code={"fn main() { println!(\"Hello!\"); }"} />
             }.into_any(),
             _ => view! {
                 <div data-block-inner="">
@@ -226,10 +297,10 @@ pub fn BlockPreview(
 
     view! {
         <div
-            data-block-preview=""
-            attr:data-dragging=move || if is_dragging_this() { "true" } else { "false" }
-            attr:data-selected=move || if is_selected() { "true" } else { "false" }
-            attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
+            attr:data-block-preview=move || if is_builder() { Some("") } else { None }
+            attr:data-dragging=move || if is_builder() && is_dragging_this() { Some("true") } else { None }
+            attr:data-selected=move || if is_builder() && is_selected() { Some("true") } else { None }
+            style="position:relative;"
             on:click=on_click
             on:pointerdown=move |ev| { if !is_region { on_pointerdown(ev); } else { ev.stop_propagation(); } }
             on:pointermove=move |ev| { if !is_region { on_pointermove_block(ev); } }
@@ -238,14 +309,16 @@ pub fn BlockPreview(
             {inner}
 
             // Regiões estáticas — IDs capturados no mount
-            {region_nodes.into_iter().map(|n| view! {
-                <RegionPreview node=n engine=engine tree=tree
-                    drag_ctx=drag_ctx
-                    selected_id=selected_id
-                    canvas_mode=canvas_mode
-                    drag_visual=drag_visual
-                />
-            }.into_any()).collect_view()}
+            {move || if !has_regions {
+                region_nodes_memo.get().into_iter().map(|n| view! {
+                    <RegionPreview node=n engine=engine tree=tree
+                        drag_ctx=drag_ctx
+                        selected_id=selected_id
+                        canvas_mode=canvas_mode
+                        drag_visual=drag_visual
+                    />
+                }.into_any()).collect::<Vec<_>>()
+            } else { vec![] }}
 
             {move || if is_container && !has_regions {
                 Some(view! {
@@ -255,7 +328,7 @@ pub fn BlockPreview(
                         attr:data-drag-active=move || if drag_ctx.get().is_dragging() { "true" } else { "false" }
                         style=move || if drag_ctx.get().is_dragging() && is_builder() {
                             "margin-top: 0.25rem; border: 2px solid var(--builder-dropzone-active-border); border-radius: var(--builder-block-radius); background: var(--builder-dropzone-hover-bg); padding: 0.25rem;"
-                        } else { "margin-top: 0.25rem;" }
+                        } else if is_builder() { "margin-top: 0.25rem;" } else { "" }
                         on:pointermove=move |ev| ev.stop_propagation()
                     >
                         <DropZone parent_id=node_id engine=engine tree=tree

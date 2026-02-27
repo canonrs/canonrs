@@ -273,15 +273,22 @@ fn build_canon_node(node: &Node, flat: &[Node]) -> CanonNode {
 pub fn flatten_tree(nodes: &[CanonNode]) -> Vec<Node> {
     let mut flat = vec![];
     for (i, node) in nodes.iter().enumerate() {
-        flatten_node(node, None, i, &mut flat);
+        flatten_node(node, None, None, i, &mut flat);
     }
     flat
 }
 
-fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, index: usize, flat: &mut Vec<Node>) {
+fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, parent_block_id: Option<&str>, index: usize, flat: &mut Vec<Node>) {
     let kind = match &canon.block {
         CanonBlockType::Slot { name } => {
-            NodeKind::Slot { name: name.clone() }
+            match parent_block_id {
+                Some(bid) => NodeKind::Region {
+                    block_id: bid.to_string(),
+                    region_id: name.clone(),
+                    label: name.clone(),
+                },
+                None => NodeKind::Slot { name: name.clone() },
+            }
         },
         block_type => {
             use super::types::{BlockDef, NodeCategory};
@@ -299,11 +306,16 @@ fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, index: usize, flat: 
         }
     };
 
+    let current_block_id = match &canon.block {
+        CanonBlockType::Slot { .. } => None,
+        b => Some(b.to_id()),
+    };
+
     let node = Node { id: canon.id, kind, parent_id };
     flat.push(node);
 
     for (i, child) in canon.children.iter().enumerate() {
-        flatten_node(child, Some(canon.id), i, flat);
+        flatten_node(child, Some(canon.id), current_block_id, i, flat);
     }
 }
 

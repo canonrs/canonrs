@@ -389,3 +389,98 @@
   font-size: 0.65rem;
   padding: 0.2rem;
 }
+
+/* ── Block com Regiões — Builder Compacto ──── */
+[data-block-preview] [data-region-preview] [data-drop-zone] {
+  min-height: 32px;
+  padding: 0.15rem 0.35rem;
+  border-style: dashed;
+  border-width: 1px;
+}
+
+[data-block-preview] [data-region-preview] [data-drop-zone-empty] {
+  font-size: 0.6rem;
+  padding: 0.15rem;
+}
+
+[data-region-preview] {
+  margin-top: 0.1rem;
+}
+
+/* ── Builder Mode — affordance visual para regiões vazias ── */
+[data-canvas-mode="builder"] [data-block-region] {
+  min-height: 32px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+[data-canvas-mode="builder"] [data-block-region="footer"] {
+  min-height: 32px;
+}
+
+[data-canvas-mode="builder"] [data-block-region]:has([data-drop-zone]:not(:has([data-block-preview])))::after {
+  content: attr(data-region-hint);
+  display: block;
+  font-size: 0.6rem;
+  color: var(--builder-placeholder-color);
+  text-align: center;
+  padding: 0.25rem;
+  pointer-events: none;
+}
+
+/* ── Card Regions — compact drop zones ──────── */
+[data-card] [data-block-region] [data-drop-zone] {
+  min-height: 32px;
+  padding: 0.15rem 0.25rem;
+  border-style: dashed;
+  border-width: 1px;
+}
+
+[data-block-region="header"] [data-drop-zone],
+[data-block-region="footer"] [data-drop-zone] {
+  min-height: 32px;
+}
+
+[data-block-region="content"] [data-drop-zone] {
+  min-height: 48px;
+}
+
+[data-card] [data-block-region] {
+  min-height: unset;
+  padding: 0.1rem 0;
+}
+
+/* ── Insert line — via atributo, sem inline style ── */
+[data-insert-line] {
+  height: 2px;
+  background: transparent;
+  margin: 1px 0;
+  pointer-events: none;
+  transition: height 80ms ease, background 80ms ease;
+}
+
+[data-insert-line][data-active="true"] {
+  height: 4px;
+  background: var(--builder-insert-line-color);
+  border-radius: 2px;
+  box-shadow: 0 0 4px var(--builder-insert-line-color);
+}
+
+/* ── Drop zone scroll wrapper ── */
+[data-drop-zone-scroll] {
+  overflow-y: auto;
+  max-height: 100%;
+  height: 100%;
+}
+
+/* ── Block regions — colapso semântico no builder ── */
+[data-canvas-mode="builder"] [data-block-region="header"]:empty,
+[data-canvas-mode="builder"] [data-block-region="footer"]:empty {
+  min-height: 0;
+}
+
+[data-canvas-mode="builder"] [data-block-region="content"]:empty,
+[data-canvas-mode="builder"] [data-block-region="main"]:empty,
+[data-canvas-mode="builder"] [data-block-region="body"]:empty {
+  min-height: 24px;
+}

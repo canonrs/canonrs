@@ -1,15 +1,10 @@
 //! # Form Block
-//! Form container with layout and spacing
 
 use leptos::prelude::*;
 use leptos::ev;
 
 #[derive(Clone, Copy, PartialEq)]
-pub enum FormLayout {
-    Vertical,
-    Horizontal,
-    Inline,
-}
+pub enum FormLayout { Vertical, Horizontal, Inline }
 
 impl FormLayout {
     fn as_str(&self) -> &'static str {
@@ -30,18 +25,18 @@ pub fn FormBlock(
 ) -> impl IntoView {
     let handle_submit = move |ev: ev::SubmitEvent| {
         ev.prevent_default();
-        if let Some(cb) = on_submit {
-            cb.run(ev);
-        }
+        if let Some(cb) = on_submit { cb.run(ev); }
     };
 
     view! {
         <form
             class=format!("canon-form canon-form--{} {}", layout.as_str(), class)
-            attr:data-block="form"
+            data-block="form"
+            data-block-version="1"
             on:submit=handle_submit
         >
-            {children()}
+            <div data-block-region="fields">{children()}</div>
+            <div data-block-region="actions"></div>
         </form>
     }
 }

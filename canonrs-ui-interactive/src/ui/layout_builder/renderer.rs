@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use canonrs_ui::blocks::{Card, AlertBlock, AlertVariant};
+use canonrs_ui::blocks::{Card, AlertBlock, AlertVariant, StatCard, CalloutBlock, CalloutType, EmptyState, ToolbarBlock, PageHeader, Breadcrumb, BreadcrumbItem, ButtonGroupBlock, FormBlock, FieldBlock, FormActionsBlock, DataTableBlock, List, ListItem, CodeBlockBlock};
 use rs_canonrs::domain::{CanonNode, CanonBlockType};
 
 /// Renderiza um CanonNode recursivamente.
@@ -38,17 +38,11 @@ pub fn render_node(node: &CanonNode) -> AnyView {
         }.into_any(),
 
         CanonBlockType::Header => view! {
-            <div data-canon-block="header" style="padding: 1rem; background: var(--theme-surface-bg); border-bottom: 1px solid var(--theme-surface-border);">
-                "Header"
-                {children_views}
-            </div>
+            <header data-canon-block="header" class="canon-header">{children_views}</header>
         }.into_any(),
 
         CanonBlockType::Footer => view! {
-            <div data-canon-block="footer" style="padding: 1rem; background: var(--theme-surface-bg); border-top: 1px solid var(--theme-surface-border);">
-                "Footer"
-                {children_views}
-            </div>
+            <footer data-canon-block="footer" class="canon-footer">{children_views}</footer>
         }.into_any(),
 
         CanonBlockType::Section => view! {
@@ -99,24 +93,15 @@ pub fn render_node(node: &CanonNode) -> AnyView {
         }.into_any(),
 
         CanonBlockType::StatCard => view! {
-            <div data-canon-block="stat-card" style="padding: 1rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-md);">
-                <div style="font-size: 0.75rem; color: var(--theme-surface-fg-muted); margin-bottom: 0.25rem;">"Metric"</div>
-                <div style="font-size: 1.75rem; font-weight: 700; color: var(--theme-surface-fg);">"1,234"</div>
-                <div style="font-size: 0.75rem; color: var(--theme-action-success-fg, #16a34a); margin-top: 0.25rem;">"↑ 12%"</div>
-            </div>
+            <StatCard label="Metric".to_string() value="1,234".to_string() change="↑ 12%".to_string() />
         }.into_any(),
 
         CanonBlockType::Callout => view! {
-            <div data-canon-block="callout" style="padding: 0.75rem 1rem; background: var(--theme-action-accent-bg); border-left: 3px solid var(--theme-action-primary-bg); border-radius: var(--radius-sm); font-size: 0.85rem;">
-                "💬 Callout message"
-            </div>
+            <CalloutBlock variant=CalloutType::Info title="Callout".to_string()>"Callout message"</CalloutBlock>
         }.into_any(),
 
         CanonBlockType::EmptyState => view! {
-            <div data-canon-block="empty-state" style="padding: 2rem; text-align: center; color: var(--theme-surface-fg-muted); border: 1px dashed var(--theme-surface-border); border-radius: var(--radius-md);">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">"○"</div>
-                <div style="font-size: 0.85rem;">"No data yet"</div>
-            </div>
+            <EmptyState title="No data yet".to_string() description="Add content here".to_string() />
         }.into_any(),
 
         CanonBlockType::Skeleton => view! {
@@ -155,12 +140,7 @@ pub fn render_node(node: &CanonNode) -> AnyView {
         }.into_any(),
 
         CanonBlockType::PageHeader => view! {
-            <div data-canon-block="page-header" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--theme-surface-border); margin-bottom: 1rem;">
-                <div>
-                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--theme-surface-fg);">"Page Title"</div>
-                    <div style="font-size: 0.8rem; color: var(--theme-surface-fg-muted);">"Page description"</div>
-                </div>
-            </div>
+            <PageHeader title="Page Title".to_string() subtitle="Description".to_string() />
         }.into_any(),
 
         CanonBlockType::ButtonGroup => view! {

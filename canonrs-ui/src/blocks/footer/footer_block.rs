@@ -1,10 +1,5 @@
 //! # Footer Block
-//!
-//! Canon Rule:
-//! - Footer é BLOCK
-//! - Slots explícitos
-//! - ZERO layout
-//! - ZERO lógica
+//! Canon Rule: Footer é BLOCK — slots explícitos, zero layout, zero lógica
 
 use leptos::prelude::*;
 
@@ -13,24 +8,17 @@ pub fn Footer(
     #[prop(optional)] left: Option<ChildrenFn>,
     #[prop(optional)] center: Option<ChildrenFn>,
     #[prop(optional)] right: Option<ChildrenFn>,
-    #[prop(default = String::new())] class: String,
+    #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
         <footer
-            class={format!("block-footer {}", class)}
+            class=format!("block-footer {}", class)
             data-block="footer"
+            data-block-version="1"
         >
-            {left.map(|l| view! {
-                <div data-slot="left">{l()}</div>
-            })}
-
-            {center.map(|c| view! {
-                <div data-slot="center">{c()}</div>
-            })}
-
-            {right.map(|r| view! {
-                <div data-slot="right">{r()}</div>
-            })}
+            <div data-block-region="left">{left.map(|l| l())}</div>
+            <div data-block-region="center">{center.map(|c| c())}</div>
+            <div data-block-region="right">{right.map(|r| r())}</div>
         </footer>
     }
 }

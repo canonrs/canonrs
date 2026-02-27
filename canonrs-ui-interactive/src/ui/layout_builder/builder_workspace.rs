@@ -4,6 +4,7 @@ use super::types::{ActiveLayout, Node, DragContext, CanvasMode};
 use super::state::builder_engine::BuilderEngine;
 use super::blocks_panel::BlocksPanel;
 use super::layout_canvas::LayoutCanvas;
+use super::builder_overlay::BuilderOverlay;
 use super::inspector::Inspector;
 use super::canvas_toolbar::CanvasToolbar;
 use super::preview_protocol::{init_preview_listener, PreviewState};
@@ -92,10 +93,11 @@ pub fn BuilderWorkspace(
                             let layout = active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard);
                             view! {
                                 <div
-                                    attr:data-canvas-mode=move || match canvas_mode.get() { CanvasMode::Builder => "builder", CanvasMode::Preview => "preview", CanvasMode::Wireframe => "wireframe" }
+                                    data-canvas-mode=move || match canvas_mode.get() { CanvasMode::Builder => "builder", CanvasMode::Preview => "preview", CanvasMode::Wireframe => "wireframe" }
                                     attr:data-layout-dragging=move || if drag_ctx.get().layout_def.is_some() { "true" } else { "false" }
                                     style=move || format!("position:relative;width:{}px;min-height:{}px;box-shadow:0 4px 24px rgba(0,0,0,0.12);border-radius:8px;overflow:visible;color-scheme:light;--theme-surface-bg:#ffffff;--theme-surface-fg:#0f172a;--theme-surface-border:#e2e8f0;--color-bg-surface:#ffffff;--color-bg-muted:#f8fafc;--color-border-default:#e2e8f0;{}", viewport.get().width, viewport.get().height, if drag_ctx.get().layout_def.is_some() { "opacity:0.15;pointer-events:none;" } else { "" })
                                 >
+                                        <BuilderOverlay drag_visual=drag_visual canvas_mode=canvas_mode slots=slots />
                                         <button
                                             on:click=move |_| {
                                                 active_layout.set(None);
@@ -107,6 +109,7 @@ pub fn BuilderWorkspace(
                                         >
                                             "✕"
                                         </button>
+                
                                         {move || {
                                             let layout = active_layout.get().unwrap_or(crate::ui::layout_builder::domain::layout::ActiveLayout::Dashboard);
                                             view! {

@@ -1,6 +1,4 @@
 //! # Breadcrumb Block
-//! Navigation breadcrumb trail
-
 use leptos::prelude::*;
 
 #[derive(Clone)]
@@ -16,33 +14,27 @@ pub fn Breadcrumb(
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <nav 
+        <nav
             class=format!("canon-breadcrumb {}", class)
-            attr:data-block="breadcrumb"
-            attr:aria-label="Breadcrumb"
+            data-block="breadcrumb"
+            data-block-version="1"
+            aria-label="Breadcrumb"
         >
             <ol class="canon-breadcrumb__list">
                 {items.iter().enumerate().map(|(idx, item)| {
                     let is_last = idx == items.len() - 1;
                     let item_clone = item.clone();
-                    
                     view! {
                         <li class="canon-breadcrumb__item">
                             {if is_last {
                                 view! {
-                                    <span 
-                                        class="canon-breadcrumb__link canon-breadcrumb__link--current"
-                                        attr:aria-current="page"
-                                    >
+                                    <span class="canon-breadcrumb__link canon-breadcrumb__link--current" aria-current="page">
                                         {item_clone.label}
                                     </span>
                                 }.into_any()
                             } else {
                                 view! {
-                                    <a 
-                                        href=item_clone.href.unwrap_or_else(|| "#".to_string())
-                                        class="canon-breadcrumb__link"
-                                    >
+                                    <a href=item_clone.href.unwrap_or_else(|| "#".to_string()) class="canon-breadcrumb__link">
                                         {item_clone.label}
                                     </a>
                                     <span class="canon-breadcrumb__separator">{separator.clone()}</span>

@@ -6,7 +6,6 @@ use super::drop_zone_virt::{VirtState, VIRT_THRESHOLD, compute_offsets, compute_
 use super::drop_handler::handle_drop;
 use crate::ui::layout_builder::state::builder_engine::BuilderEngine;
 
-
 #[component]
 pub fn DropZone(
     parent_id: uuid::Uuid,
@@ -19,12 +18,12 @@ pub fn DropZone(
     #[prop(optional)] slot_label: Option<String>,
     #[prop(optional)] virtualize: bool,
 ) -> impl IntoView {
-    let is_builder   = move || canvas_mode.get() == CanvasMode::Builder;
-    let is_dragging  = move || drag_ctx.get().is_dragging();
+    let is_builder     = move || canvas_mode.get() == CanvasMode::Builder;
+    let is_dragging    = move || drag_ctx.get().is_dragging();
     let is_layout_drag = move || drag_ctx.get().layout_def.is_some();
-    let is_active    = move || drag_visual.get().active_zone_id == Some(parent_id);
-    let insert_idx   = move || drag_visual.get().insert_index;
-    let label = slot_label.unwrap_or_else(|| "drop".to_string());
+    let is_active      = move || drag_visual.get().active_zone_id == Some(parent_id);
+    let insert_idx     = move || drag_visual.get().insert_index;
+    let _label = slot_label.unwrap_or_else(|| "drop".to_string());
 
     let children_memo = Memo::new(move |_| children_of(&tree.get(), parent_id));
     let virt = VirtState::new();
@@ -82,64 +81,82 @@ pub fn DropZone(
     });
 
     let insert_line = move |pos: usize| view! {
-        <div style=move || if is_active() && is_builder() && insert_idx() == pos {
-            "height:4px;background:var(--builder-insert-line-color);border-radius:2px;margin:2px 0;pointer-events:none;"
-        } else {
-            "height:2px;background:transparent;margin:1px 0;pointer-events:none;"
-        } />
+        <div
+            data-insert-line=""
+            attr:data-active=move || if is_active() && is_builder() && insert_idx() == pos { "true" } else { "false" }
+        />
     };
 
     view! {
-        <div
-            node_ref=scroll_el
-            style=move || if should_virt() { "overflow-y:auto;max-height:100%;height:100%;" } else { "" }
-            on:scroll=handle_scroll
-        >
-            <div
-                node_ref=zone_el
-                data-drop-zone=""
-                data-zone-id=parent_id.to_string()
-                attr:data-dragging=move || if is_dragging() && !is_layout_drag() { "true" } else { "false" }
-                attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
-            >
-                {move || if should_virt() {
-                    let top = offsets.get().first().copied().unwrap_or(0.0);
-                    Some(view! { <div style=move || format!("height:{top}px;pointer-events:none;") /> })
-                } else { None }}
-
-                {insert_line(0)}
-
-                <For
-                    each=move || {
-                        let ch = children_memo.get();
-                        if should_virt() {
-                            let (s, e) = visible_range.get();
-                            ch.into_iter().skip(s).take(e.saturating_sub(s)).collect()
-                        } else { ch }
-                    }
-                    key=|n| n.id
-                    children=move |n| {
-                        let pos = children_memo.get().iter().position(|c| c.id == n.id).unwrap_or(0);
-                        view! {
-                            <BlockPreview node=n engine=engine tree=tree drag_ctx=drag_ctx
-                                selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual />
-                            {insert_line(pos + 1)}
+        {move || if should_virt() {
+            view! {
+                <div
+                    node_ref=scroll_el
+                    data-drop-zone-scroll=""
+                    on:scroll=handle_scroll
+                >
+                    <div
+                        node_ref=zone_el
+                        data-drop-zone=""
+                        data-zone-id=parent_id.to_string()
+                        attr:data-dragging=move || if is_dragging() && !is_layout_drag() { "true" } else { "false" }
+                        attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
+                    >
+                        {move || {
+                            let top = offsets.get().first().copied().unwrap_or(0.0);
+                            view! { <div style=move || format!("height:{top}px;pointer-events:none;") /> }
+                        }}
+                        {insert_line(0)}
+                        <For
+                            each=move || {
+                                let ch = children_memo.get();
+                                let (s, e) = visible_range.get();
+                                ch.into_iter().skip(s).take(e.saturating_sub(s)).collect::<Vec<_>>()
+                            }
+                            key=|n| n.id
+                            children=move |n| {
+                                let pos = children_memo.get().iter().position(|c| c.id == n.id).unwrap_or(0);
+                                view! {
+                                    <BlockPreview node=n engine=engine tree=tree drag_ctx=drag_ctx
+                                        selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual />
+                                    {insert_line(pos + 1)}
+                                }
+                            }
+                        />
+                        {move || {
+                            let acc = offsets.get();
+                            let n = acc.len().saturating_sub(1);
+                            let (_, end) = visible_range.get();
+                            let bot = acc.get(n).copied().unwrap_or(0.0) - acc.get(end).copied().unwrap_or(0.0);
+                            view! { <div style=move || format!("height:{bot}px;pointer-events:none;") /> }
+                        }}
+                    </div>
+                </div>
+            }.into_any()
+        } else {
+            view! {
+                <div
+                    node_ref=zone_el
+                    data-drop-zone=""
+                    data-zone-id=parent_id.to_string()
+                    attr:data-dragging=move || if is_dragging() && !is_layout_drag() { "true" } else { "false" }
+                    attr:data-mode=move || if is_builder() { "builder" } else { "preview" }
+                >
+                    {insert_line(0)}
+                    <For
+                        each=move || children_memo.get()
+                        key=|n| n.id
+                        children=move |n| {
+                            let pos = children_memo.get().iter().position(|c| c.id == n.id).unwrap_or(0);
+                            view! {
+                                <BlockPreview node=n engine=engine tree=tree drag_ctx=drag_ctx
+                                    selected_id=selected_id canvas_mode=canvas_mode drag_visual=drag_visual />
+                                {insert_line(pos + 1)}
+                            }
                         }
-                    }
-                />
-
-                {move || if should_virt() {
-                    let acc = offsets.get();
-                    let n = acc.len().saturating_sub(1);
-                    let (_, end) = visible_range.get();
-                    let bot = acc.get(n).copied().unwrap_or(0.0) - acc.get(end).copied().unwrap_or(0.0);
-                    Some(view! { <div style=move || format!("height:{bot}px;pointer-events:none;") /> })
-                } else { None }}
-
-                {move || if children_memo.get().is_empty() && is_builder() {
-                    Some(view! { <div data-drop-zone-empty="">{format!("Drop here → {label}")}</div> })
-                } else { None }}
-            </div>
-        </div>
+                    />
+                </div>
+            }.into_any()
+        }}
     }
 }

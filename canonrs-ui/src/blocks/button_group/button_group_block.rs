@@ -1,13 +1,8 @@
 //! # ButtonGroup Block
-//! Group of related buttons
-
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq)]
-pub enum ButtonGroupOrientation {
-    Horizontal,
-    Vertical,
-}
+pub enum ButtonGroupOrientation { Horizontal, Vertical }
 
 impl ButtonGroupOrientation {
     fn as_str(&self) -> &'static str {
@@ -26,17 +21,15 @@ pub fn ButtonGroupBlock(
     children: Children,
 ) -> impl IntoView {
     view! {
-        <div 
-            class=format!(
-                "canon-button-group canon-button-group--{} {} {}",
-                orientation.as_str(),
-                if attached { "canon-button-group--attached" } else { "" },
-                class
-            )
-            attr:data-block="button-group"
+        <div
+            class=format!("canon-button-group canon-button-group--{} {} {}", orientation.as_str(), if attached { "canon-button-group--attached" } else { "" }, class)
+            data-block="button-group"
+            data-block-version="1"
             role="group"
         >
-            {children()}
+            <div data-block-region="buttons">
+                {children()}
+            </div>
         </div>
     }
 }

@@ -1,15 +1,8 @@
 //! # FormActions Block
-//! Action buttons container for forms
-
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq)]
-pub enum FormActionsAlignment {
-    Left,
-    Center,
-    Right,
-    Between,
-}
+pub enum FormActionsAlignment { Left, Center, Right, Between }
 
 impl FormActionsAlignment {
     fn as_str(&self) -> &'static str {
@@ -29,11 +22,14 @@ pub fn FormActionsBlock(
     children: Children,
 ) -> impl IntoView {
     view! {
-        <div 
+        <div
             class=format!("canon-form-actions canon-form-actions--{} {}", alignment.as_str(), class)
-            attr:data-block="form-actions"
+            data-block="form-actions"
+            data-block-version="1"
         >
-            {children()}
+            <div data-block-region="actions">
+                {children()}
+            </div>
         </div>
     }
 }

@@ -26,6 +26,7 @@ pub fn flatten_tree(nodes: &[CanonNode]) -> Vec<Node> {
     for (i, node) in nodes.iter().enumerate() {
         flatten_node(node, None, i, &mut flat);
     }
+    resolve_regions(&mut flat);
     flat
 }
 
@@ -56,6 +57,29 @@ fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, _index: usize, flat:
     }
 }
 
+/// Pós-processamento: converte Slot filhos de Block em Region
+fn resolve_regions(flat: &mut Vec<Node>) {
+    let parent_kinds: std::collections::HashMap<Uuid, String> = flat.iter()
+        .filter_map(|n| match &n.kind {
+            NodeKind::Block { def } => Some((n.id, def.id.to_string())),
+            _ => None,
+        })
+        .collect();
+
+    for node in flat.iter_mut() {
+        if let NodeKind::Slot { name } = &node.kind {
+            if let Some(parent_id) = node.parent_id {
+                if let Some(block_id) = parent_kinds.get(&parent_id) {
+                    node.kind = NodeKind::Region {
+                        block_id: block_id.clone(),
+                        region_id: name.clone(),
+                        label: name.clone(),
+                    };
+                }
+            }
+        }
+    }
+}
 
 pub fn build_tree(flat: &[crate::ui::layout_builder::domain::node::Node]) -> Vec<rs_canonrs::domain::CanonNode> {
     build_tree_core(flat)

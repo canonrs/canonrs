@@ -204,30 +204,84 @@ pub fn init_global_pointer_listeners() {
             }
         }
         if let Some(el) = new_active {
-            let _ = el.set_attribute("data-drop-zone-active", "true");
-            let _ = el.set_attribute("data-dragging", "true");
+            let client_x = ev.client_x() as f64;
             let client_y = ev.client_y() as f64;
+            let region_rect = el.get_bounding_client_rect();
+
+            // Detectar orientação da região
+            let orientation_str = el.get_attribute("data-layout-region").unwrap_or_default();
+            let is_row = matches!(orientation_str.as_str(), "header" | "footer" | "stepper");
+
+            // Calcular insert index e posição do marker
             let mut idx = 0usize;
+            let mut insert_pos = 0.0f64;
+
             if let Ok(blocks) = el.query_selector_all(":scope > [data-block-preview]") {
-                let len = blocks.length() as usize; idx = len;
+                let len = blocks.length() as usize;
+                idx = len;
                 let mut vi = 0usize;
                 for i in 0..len {
                     if let Some(b) = blocks.item(i as u32) {
                         let be: web_sys::Element = b.unchecked_into();
                         if be.get_attribute("data-dragging").as_deref() == Some("true") { continue; }
                         let rect = be.get_bounding_client_rect();
-                        if client_y < rect.top() + rect.height() / 2.0 { idx = vi; break; }
-                        vi += 1; idx = vi;
+                        if is_row {
+                            if client_x < rect.left() + rect.width() / 2.0 {
+                                idx = vi;
+                                insert_pos = rect.left() - region_rect.left();
+                                break;
+                            }
+                            vi += 1;
+                            idx = vi;
+                            insert_pos = rect.right() - region_rect.left();
+                        } else {
+                            if client_y < rect.top() + rect.height() / 2.0 {
+                                idx = vi;
+                                insert_pos = rect.top() - region_rect.top();
+                                break;
+                            }
+                            vi += 1;
+                            idx = vi;
+                            insert_pos = rect.bottom() - region_rect.top();
+                        }
                     }
                 }
             }
+
+            // Calcular rect relativo ao canvas — buscar elemento com data-layout
+            let canvas_rect = el.closest("[data-layout]")
+                .ok().flatten()
+                .and_then(|layout| layout.parent_element())
+                .map(|c| c.get_bounding_client_rect())
+                .unwrap_or_else(|| region_rect.clone());
+
+            use crate::ui::layout_builder::state::drop_zone_types::{RegionRect, RegionOrientation};
+            // Ajustar scroll do container pai
+            let scroll_top = el.closest("[data-canvas-mode]").ok().flatten()
+                .and_then(|c| c.parent_element())
+                .map(|p| p.scroll_top() as f64)
+                .unwrap_or(0.0);
+            let scroll_left = el.closest("[data-canvas-mode]").ok().flatten()
+                .and_then(|c| c.parent_element())
+                .map(|p| p.scroll_left() as f64)
+                .unwrap_or(0.0);
+            let rel_rect = RegionRect {
+                top: region_rect.top() - canvas_rect.top() + scroll_top,
+                left: region_rect.left() - canvas_rect.left() + scroll_left,
+                width: region_rect.width(),
+                height: region_rect.height(),
+            };
+
             if let Some(zone_id_str) = el.get_attribute("data-zone-id") {
-                leptos::logging::log!("[pointermove] zone_id={} idx={}", zone_id_str, idx);
                 if let Ok(zone_uuid) = uuid::Uuid::parse_str(&zone_id_str) {
-                    drag_visual2.set(DragVisualState { active_zone_id: Some(zone_uuid), insert_index: idx });
+                    drag_visual2.set(crate::ui::layout_builder::state::drop_zone_types::DragVisualState {
+                        active_zone_id: Some(zone_uuid),
+                        insert_index: idx,
+                        region_rect: Some(rel_rect),
+                        orientation: if is_row { RegionOrientation::Row } else { RegionOrientation::Column },
+                        insert_pos,
+                    });
                 }
-            } else {
-                leptos::logging::log!("[pointermove] no zone_id found on element tag={}", el.tag_name());
             }
         }
     });

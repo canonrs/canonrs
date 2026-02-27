@@ -1,6 +1,4 @@
 //! # Table Block
-//! Basic table with styling
-
 use leptos::prelude::*;
 
 #[component]
@@ -13,21 +11,14 @@ pub fn Table(
     children: Children,
 ) -> impl IntoView {
     view! {
-        <div class="canon-table-wrapper">
-            <table 
-                class=move || format!(
-                    "canon-table {} {} {} {}",
-                    if striped { "canon-table--striped" } else { "" },
-                    if bordered { "canon-table--bordered" } else { "" },
-                    if hoverable { "canon-table--hoverable" } else { "" },
-                    class
-                )
-                attr:data-block="table"
+        <div class="canon-table-wrapper" data-block="table" data-block-version="1">
+            <div data-block-region="header">
+                {header.map(|h| view! { <thead class="canon-table__head">{h()}</thead> })}
+            </div>
+            <table
+                class=move || format!("canon-table {} {} {} {}", if striped { "canon-table--striped" } else { "" }, if bordered { "canon-table--bordered" } else { "" }, if hoverable { "canon-table--hoverable" } else { "" }, class)
             >
-                {header.map(|h| view! {
-                    <thead class="canon-table__head">{h()}</thead>
-                })}
-                <tbody class="canon-table__body">
+                <tbody data-block-region="body" class="canon-table__body">
                     {children()}
                 </tbody>
             </table>

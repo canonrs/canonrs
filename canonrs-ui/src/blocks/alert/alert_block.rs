@@ -1,15 +1,8 @@
-//! # AlertBlock / Callout
-//! Important messages, warnings, contextual information
-
+//! # AlertBlock
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq)]
-pub enum AlertVariant {
-    Info,
-    Success,
-    Warning,
-    Error,
-}
+pub enum AlertVariant { Info, Success, Warning, Error }
 
 impl AlertVariant {
     fn as_str(&self) -> &'static str {
@@ -34,39 +27,27 @@ pub fn AlertBlock(
     children: Children,
 ) -> impl IntoView {
     let is_open = move || open.as_ref().map(|o| o.get()).unwrap_or(true);
-
     view! {
         <div
-            class=move || format!("canon-alert canon-alert--{} {}{}",
-                variant.as_str(),
-                class,
-                if is_open() { "" } else { " canon-alert--hidden" }
-            )
-            attr:data-block="alert"
-            attr:data-variant=variant.as_str()
+            class=move || format!("canon-alert canon-alert--{} {}{}", variant.as_str(), class, if is_open() { "" } else { " canon-alert--hidden" })
+            data-block="alert"
+            data-block-version="1"
+            data-variant=variant.as_str()
         >
-            {title.map(|t| view! {
-                <div class="canon-alert__title">{t()}</div>
-            })}
-
-            <div class="canon-alert__content">
+            <div data-block-region="title">
+                {title.map(|t| view! { <div class="canon-alert__title">{t()}</div> })}
+            </div>
+            <div data-block-region="content" class="canon-alert__content">
                 {children()}
             </div>
-
-            {dismissible.then(|| {
-                close_button.map(|btn| view! {
-                    <div
-                        class="canon-alert__close"
-                        attr:data-action="dismiss" on:click=move |_| {
-                            if let Some(cb) = on_dismiss {
-                                cb.run(());
-                            }
-                        }
-                    >
+            <div data-block-region="actions">
+                {dismissible.then(|| close_button.map(|btn| view! {
+                    <div class="canon-alert__close" data-action="dismiss"
+                        on:click=move |_| { if let Some(cb) = on_dismiss { cb.run(()); } }>
                         {btn()}
                     </div>
-                })
-            })}
+                }))}
+            </div>
         </div>
     }
 }

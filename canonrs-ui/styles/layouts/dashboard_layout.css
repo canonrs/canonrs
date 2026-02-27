@@ -12,6 +12,7 @@
   align-items: center;
   padding: var(--header-padding);
   background: var(--header-bg);
+  border-bottom: var(--header-border);
 }
 
 .layout-dashboard-body {

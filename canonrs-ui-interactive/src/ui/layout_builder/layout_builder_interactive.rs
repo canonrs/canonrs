@@ -100,7 +100,7 @@ pub fn LayoutBuilderInteractive() -> impl IntoView {
             }
             if let Some(zone_id_str) = el.get_attribute("data-zone-id") {
                 if let Ok(zone_uuid) = uuid::Uuid::parse_str(&zone_id_str) {
-                    drag_visual.set(DragVisualState { active_zone_id: Some(zone_uuid), insert_index: idx });
+                    drag_visual.set(DragVisualState { active_zone_id: Some(zone_uuid), insert_index: idx, region_rect: None, orientation: crate::ui::layout_builder::state::drop_zone_types::RegionOrientation::Column, insert_pos: 0.0 });
                 }
             }
         }

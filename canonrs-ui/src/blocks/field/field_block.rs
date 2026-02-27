@@ -1,15 +1,8 @@
 //! # Field Block
-//! Form field with label, input, and validation
-
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq)]
-pub enum FieldValidation {
-    None,
-    Success,
-    Warning,
-    Error,
-}
+pub enum FieldValidation { None, Success, Warning, Error }
 
 impl FieldValidation {
     fn as_str(&self) -> &'static str {
@@ -33,30 +26,28 @@ pub fn FieldBlock(
     children: Children,
 ) -> impl IntoView {
     view! {
-        <div 
+        <div
             class=format!("canon-field canon-field--{} {}", validation.as_str(), class)
-            attr:data-block="field"
+            data-block="field"
+            data-block-version="1"
         >
-            {label.map(|l| view! {
-                <label class="canon-field__label">
-                    {l}
-                    {required.then(|| view! {
-                        <span class="canon-field__required">"*"</span>
-                    })}
-                </label>
-            })}
-            
-            <div class="canon-field__input">
+            <div data-block-region="label">
+                {label.map(|l| view! {
+                    <label class="canon-field__label">
+                        {l}
+                        {required.then(|| view! { <span class="canon-field__required">"*"</span> })}
+                    </label>
+                })}
+            </div>
+            <div data-block-region="input" class="canon-field__input">
                 {children()}
             </div>
-            
-            {description.map(|d| view! {
-                <div class="canon-field__description">{d}</div>
-            })}
-            
-            {error.map(|e| view! {
-                <div class="canon-field__error">{e}</div>
-            })}
+            <div data-block-region="description">
+                {description.map(|d| view! { <div class="canon-field__description">{d}</div> })}
+            </div>
+            <div data-block-region="error">
+                {error.map(|e| view! { <div class="canon-field__error">{e}</div> })}
+            </div>
         </div>
     }
 }

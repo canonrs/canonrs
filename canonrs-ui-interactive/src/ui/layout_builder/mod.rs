@@ -13,3 +13,4 @@ pub mod types;
 pub mod blocks_panel;
 pub mod inspector;
 pub mod layout_canvas;
+pub mod builder_overlay;

@@ -3,7 +3,7 @@
    Family F: Data
    ============================================================================ */
 
-[data-card] {
+[data-block="card"] {
   background: var(--card-bg);
   border: var(--card-border-width) solid var(--card-border-color);
   border-radius: var(--card-radius);
@@ -13,16 +13,16 @@
   transition: all 0.2s;
 }
 
-[data-card][data-variant="interactive"] {
+[data-block="card"][data-variant="interactive"] {
   cursor: pointer;
 }
 
-[data-card][data-variant="interactive"]:hover {
+[data-block="card"][data-variant="interactive"]:hover {
   border-color: var(--theme-action-primary-bg);
   box-shadow: var(--shadow-md);
 }
 
-[data-card-header] {
+[data-block="card"] [data-block-region="header"] {
   padding: var(--card-header-padding);
   display: flex;
   flex-direction: column;
@@ -41,13 +41,13 @@
   color: var(--card-description-fg);
 }
 
-[data-card-content] {
+[data-block="card"] [data-block-region="content"] {
   display: flex;
   flex-direction: column;
   gap: var(--card-content-gap);
 }
 
-[data-card-footer] {
+[data-block="card"] [data-block-region="footer"] {
   padding: var(--card-footer-padding);
   display: flex;
   gap: var(--card-footer-gap);

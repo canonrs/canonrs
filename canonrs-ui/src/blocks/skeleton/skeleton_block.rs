@@ -1,14 +1,8 @@
 //! # Skeleton Block
-//! Loading placeholder with animation
-
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq)]
-pub enum SkeletonVariant {
-    Text,
-    Circle,
-    Rectangle,
-}
+pub enum SkeletonVariant { Text, Circle, Rectangle }
 
 impl SkeletonVariant {
     fn as_str(&self) -> &'static str {
@@ -29,19 +23,15 @@ pub fn Skeleton(
 ) -> impl IntoView {
     let style = move || {
         let mut s = String::new();
-        if let Some(w) = &width {
-            s.push_str(&format!("width: {}; ", w));
-        }
-        if let Some(h) = &height {
-            s.push_str(&format!("height: {}; ", h));
-        }
+        if let Some(w) = &width { s.push_str(&format!("width:{};", w)); }
+        if let Some(h) = &height { s.push_str(&format!("height:{};", h)); }
         s
     };
-
     view! {
-        <div 
+        <div
             class=format!("canon-skeleton canon-skeleton--{} {}", variant.as_str(), class)
-            attr:data-block="skeleton"
+            data-block="skeleton"
+            data-block-version="1"
             style=style
         />
     }

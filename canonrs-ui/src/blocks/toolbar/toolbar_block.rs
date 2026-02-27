@@ -14,30 +14,14 @@ pub fn ToolbarBlock(
     view! {
         <div
             class=format!("canon-toolbar {}", class)
-            attr:data-block="toolbar"
+            data-block="toolbar"
+            data-block-version="1"
             role="toolbar"
         >
-            {left.map(|l| view! {
-                <div class="canon-toolbar__section canon-toolbar__section--left">
-                    {l()}
-                </div>
-            })}
-
-            {center.map(|c| view! {
-                <div class="canon-toolbar__section canon-toolbar__section--center">
-                    {c()}
-                </div>
-            })}
-
-            <div class="canon-toolbar__section canon-toolbar__section--main">
-                {children()}
-            </div>
-
-            {right.map(|r| view! {
-                <div class="canon-toolbar__section canon-toolbar__section--right">
-                    {r()}
-                </div>
-            })}
+            <div data-block-region="left">{left.map(|l| l())}</div>
+            <div data-block-region="center">{center.map(|c| c())}</div>
+            <div data-block-region="main">{children()}</div>
+            <div data-block-region="right">{right.map(|r| r())}</div>
         </div>
     }
 }
