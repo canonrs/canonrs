@@ -1,4 +1,4 @@
-//! # Section — Regions: header, main, footer (always rendered)
+//! # Section — Regions: header, main, footer
 use leptos::prelude::*;
 
 #[component]
@@ -7,6 +7,9 @@ pub fn Section(
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] id: String,
+    #[prop(default = Signal::derive(|| String::new()))] header_zone_id: Signal<String>,
+    #[prop(default = Signal::derive(|| String::new()))] main_zone_id: Signal<String>,
+    #[prop(default = Signal::derive(|| String::new()))] footer_zone_id: Signal<String>,
     children: Children,
 ) -> impl IntoView {
     view! {
@@ -14,24 +17,26 @@ pub fn Section(
             id={if id.is_empty() { None } else { Some(id) }}
             class={format!("layout-section {}", class)}
             data-layout="section"
-            data-layout-version="1"
-        >
+            data-layout-version="1">
             <div class="layout-section-header"
                 data-layout-region="header"
                 data-region-hint="Drop section title"
-                data-region-meta="Content · max 1">
+                data-drop-zone=move || (!header_zone_id.get().is_empty()).then_some("")
+                data-zone-id=move || (!header_zone_id.get().is_empty()).then(|| header_zone_id.get())>
                 {header.map(|h| h())}
             </div>
             <div class="layout-section-main"
                 data-layout-region="main"
                 data-region-hint="Drop section content"
-                data-region-meta="Content · ∞">
+                data-drop-zone=move || (!main_zone_id.get().is_empty()).then_some("")
+                data-zone-id=move || (!main_zone_id.get().is_empty()).then(|| main_zone_id.get())>
                 {children()}
             </div>
             <div class="layout-section-footer"
                 data-layout-region="footer"
                 data-region-hint="Drop section footer"
-                data-region-meta="Content · max 1">
+                data-drop-zone=move || (!footer_zone_id.get().is_empty()).then_some("")
+                data-zone-id=move || (!footer_zone_id.get().is_empty()).then(|| footer_zone_id.get())>
                 {footer.map(|f| f())}
             </div>
         </section>

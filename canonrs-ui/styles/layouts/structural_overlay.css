@@ -35,6 +35,12 @@
   transition: outline-color 150ms ease, background 150ms ease;
 }
 
+/* ── Header preserva border-bottom ─────────── */
+[data-canvas-mode="builder"] [data-layout-region="header"] {
+  outline: none;
+  border: 1px dashed var(--builder-region-border, rgba(99,102,241,0.25));
+}
+
 /* ── Hover na região ────────────────────────── */
 [data-canvas-mode="builder"] [data-layout-region]:hover {
   outline-color: var(--builder-region-border-hover, rgba(99,102,241,0.6));
@@ -140,4 +146,21 @@
   pointer-events: none !important;
   outline-color: transparent !important;
   background: transparent !important;
+}
+
+/* ── Região como drop zone nativa (data-drop-zone direto na região) ── */
+[data-canvas-mode="builder"] [data-layout-region][data-drop-zone][data-dragging="true"] {
+  outline-color: var(--builder-insert-line-color, #6366f1);
+  background: rgba(99,102,241,0.06);
+}
+
+/* ── Insert line dentro de região nativa ── */
+[data-canvas-mode="builder"] [data-layout-region][data-drop-zone] {
+  display: flex;
+  flex-direction: column;
+}
+
+[data-canvas-mode="builder"] [data-layout-region="header"][data-drop-zone] {
+  flex-direction: column;
+  justify-content: center;
 }

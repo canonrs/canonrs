@@ -94,16 +94,15 @@ pub fn BuilderWorkspace(
                                 <div
                                     attr:data-canvas-mode=move || match canvas_mode.get() { CanvasMode::Builder => "builder", CanvasMode::Preview => "preview", CanvasMode::Wireframe => "wireframe" }
                                     attr:data-layout-dragging=move || if drag_ctx.get().layout_def.is_some() { "true" } else { "false" }
-                                    style=move || format!("width:{}px;min-height:{}px;box-shadow:0 4px 24px rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;color-scheme:light;--theme-surface-bg:#ffffff;--theme-surface-fg:#0f172a;--theme-surface-border:#e2e8f0;--color-bg-surface:#ffffff;--color-bg-muted:#f8fafc;--color-border-default:#e2e8f0;{}", viewport.get().width, viewport.get().height, if drag_ctx.get().layout_def.is_some() { "opacity:0.15;pointer-events:none;" } else { "" })
+                                    style=move || format!("position:relative;width:{}px;min-height:{}px;box-shadow:0 4px 24px rgba(0,0,0,0.12);border-radius:8px;overflow:visible;color-scheme:light;--theme-surface-bg:#ffffff;--theme-surface-fg:#0f172a;--theme-surface-border:#e2e8f0;--color-bg-surface:#ffffff;--color-bg-muted:#f8fafc;--color-border-default:#e2e8f0;{}", viewport.get().width, viewport.get().height, if drag_ctx.get().layout_def.is_some() { "opacity:0.15;pointer-events:none;" } else { "" })
                                 >
-                                    <div style="position:relative;">
                                         <button
                                             on:click=move |_| {
                                                 active_layout.set(None);
                                                 crate::infra::app_state::global_slots().set(vec![]);
                                                 crate::infra::app_state::global_tree().set(vec![]);
                                             }
-                                            style="position:absolute;top:8px;right:8px;z-index:100;width:24px;height:24px;border-radius:50%;border:none;cursor:pointer;background:#ef4444;color:white;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1;"
+                                            style="position:absolute;top:8px;right:8px;z-index:200;width:24px;height:24px;border-radius:50%;border:2px solid white;cursor:pointer;background:#ef4444;color:white;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1;"
                                             title="Remove layout"
                                         >
                                             "✕"
@@ -119,7 +118,6 @@ pub fn BuilderWorkspace(
                                                 />
                                             }
                                         }}
-                                    </div>
                                 </div>
                             }.into_any()
                         }

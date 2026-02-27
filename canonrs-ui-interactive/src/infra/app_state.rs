@@ -208,9 +208,12 @@ pub fn init_global_pointer_listeners() {
                 }
             }
             if let Some(zone_id_str) = el.get_attribute("data-zone-id") {
+                leptos::logging::log!("[pointermove] zone_id={} idx={}", zone_id_str, idx);
                 if let Ok(zone_uuid) = uuid::Uuid::parse_str(&zone_id_str) {
                     drag_visual2.set(DragVisualState { active_zone_id: Some(zone_uuid), insert_index: idx });
                 }
+            } else {
+                leptos::logging::log!("[pointermove] no zone_id found on element tag={}", el.tag_name());
             }
         }
     });
