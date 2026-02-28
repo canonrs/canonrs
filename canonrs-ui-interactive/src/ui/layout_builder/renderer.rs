@@ -170,6 +170,7 @@ pub fn render_node(node: &CanonNode) -> AnyView {
             </div>
         }.into_any(),
 
+        CanonBlockType::Component { id } => super::ui::component_preview::render_component_preview(id.as_str()),
         CanonBlockType::CommandPanel => view! {
             <div data-canon-block="command-panel" style="border: 1px solid var(--theme-surface-border); border-radius: var(--radius-md); overflow: hidden; background: var(--theme-surface-bg);">
                 <div style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--theme-surface-border); font-size: 0.8rem; color: var(--theme-surface-fg-muted);">"⌘ Search commands..."</div>

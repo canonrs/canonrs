@@ -484,3 +484,20 @@
 [data-canvas-mode="builder"] [data-block-region="body"]:empty {
   min-height: 24px;
 }
+
+/* ── Figma-level: regiões colapsam quando drop-zone está vazia ── */
+[data-canvas-mode="builder"] [data-block-region="header"]:has([data-drop-zone]:not(:has([data-block-preview]))),
+[data-canvas-mode="builder"] [data-block-region="footer"]:has([data-drop-zone]:not(:has([data-block-preview]))) {
+  min-height: 0 !important;
+}
+
+[data-canvas-mode="builder"] [data-block-region="header"]:has([data-drop-zone]:not(:has([data-block-preview]))) [data-drop-zone],
+[data-canvas-mode="builder"] [data-block-region="footer"]:has([data-drop-zone]:not(:has([data-block-preview]))) [data-drop-zone] {
+  min-height: 0 !important;
+  padding: 0 !important;
+  border-color: transparent !important;
+}
+
+[data-canvas-mode="builder"] [data-block-region="content"]:has([data-drop-zone]:not(:has([data-block-preview]))) [data-drop-zone] {
+  min-height: 24px !important;
+}

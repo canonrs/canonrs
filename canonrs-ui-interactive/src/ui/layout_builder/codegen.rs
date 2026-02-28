@@ -62,6 +62,7 @@ fn render_node_rs(node: &CanonNode, depth: usize, out: &mut String) {
         CanonBlockType::Skeleton => render_leaf(depth, out, "<Skeleton />"),
         CanonBlockType::Table => render_leaf(depth, out, "<Table columns=vec![] rows=vec![] />"),
         CanonBlockType::CommandPanel => render_leaf(depth, out, "<CommandPanel placeholder=\"Search...\" items=vec![] />"),
+        CanonBlockType::Component { id } => render_leaf(depth, out, &format!("<{} />", id)),
     }
 }
 

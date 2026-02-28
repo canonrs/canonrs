@@ -4,6 +4,7 @@ pub mod drop_handler;
 pub mod block_preview;
 pub mod block_inner;
 pub mod region_preview;
+pub mod component_preview;
 pub mod text_block;
 
 pub use drop_zone::*;

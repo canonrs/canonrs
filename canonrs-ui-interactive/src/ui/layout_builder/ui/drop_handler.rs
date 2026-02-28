@@ -22,6 +22,7 @@ pub fn handle_drop(
     if let Some(layout) = ctx.layout_def {
         let active_layout = crate::infra::app_state::global_active_layout();
         active_layout.set(Some(layout));
+        leptos::logging::log!("[handle_drop] layout drop — resetting ctx");
         crate::infra::app_state::drop_layout(&layout);
         batch(move || {
             drag_visual.set(DragVisualState::empty());
@@ -53,17 +54,67 @@ pub fn handle_drop(
             .find(|n| n.id == parent_id)
             .map(|p: &Node| p.accepts_component(&comp)).unwrap_or(true);
         if ok {
-            let Some(block_type) = CanonBlockType::from_id(comp.id) else { drag_visual.set(DragVisualState::empty()); drag_ctx.set(DragContext::empty()); return; };
+            let block_type = CanonBlockType::Component { id: comp.id.to_string() };
             let canon = CanonNode::new(block_type);
-            engine.update(|e| { let _ = e.execute(Command::Insert { parent_id, node: canon, index: idx }); });
+            engine.update(|e| { match e.execute(Command::Insert { parent_id, node: canon, index: idx }) { Ok(_) => leptos::logging::log!("[drop comp] Insert OK"), Err(e) => leptos::logging::log!("[drop comp] Insert ERR: {:?}", e) } });
         }
     }
 
     // Sincronizar engine → tree após comando
     let flat = engine.get_untracked().sync_flat();
     leptos::logging::log!("[handle_drop] sync_flat result: {} nodes", flat.len());
+    for n in &flat { leptos::logging::log!("[flat] id={} parent={:?} kind={:?}", n.id, n.parent_id, n.kind); }
     tree.set(flat);
 
+    batch(move || {
+        drag_visual.set(DragVisualState::empty());
+        drag_ctx.set(DragContext::empty());
+    });
+}
+
+pub fn execute_drop(
+    parent_id: Uuid,
+    idx: usize,
+    engine: RwSignal<BuilderEngine>,
+    tree: RwSignal<Vec<Node>>,
+    drag_ctx: RwSignal<DragContext>,
+    drag_visual: RwSignal<DragVisualState>,
+) {
+    let ctx = drag_ctx.get_untracked();
+    if !ctx.is_dragging() { return; }
+
+    if let Some(src_id) = ctx.node_id {
+        engine.update(|e| { let _ = e.execute(Command::Move { node_id: src_id, new_parent: parent_id, index: idx }); });
+    } else if let Some(block) = ctx.block_def {
+        let ok = tree.get_untracked().iter()
+            .find(|n| n.id == parent_id)
+            .map(|p: &Node| p.accepts(&block)).unwrap_or(true);
+        if ok {
+            let node_id = Uuid::new_v4();
+            let Some(block_type) = CanonBlockType::from_id(block.id) else {
+                batch(move || { drag_visual.set(DragVisualState::empty()); drag_ctx.set(DragContext::empty()); });
+                return;
+            };
+            let mut canon = CanonNode::with_id(node_id, block_type);
+            for r in block.regions {
+                canon.add_child(CanonNode::new(CanonBlockType::Slot { name: r.id.to_string() }));
+            }
+            engine.update(|e| { let _ = e.execute(Command::Insert { parent_id, node: canon, index: idx }); });
+        }
+    } else if let Some(comp) = ctx.component_def {
+        let ok = tree.get_untracked().iter()
+            .find(|n| n.id == parent_id)
+            .map(|p: &Node| p.accepts_component(&comp)).unwrap_or(true);
+        leptos::logging::log!("[drop comp] parent_id={} ok={}", parent_id, ok);
+        if ok {
+            let block_type = CanonBlockType::Component { id: comp.id.to_string() };
+            let canon = CanonNode::new(block_type);
+            engine.update(|e| { match e.execute(Command::Insert { parent_id, node: canon, index: idx }) { Ok(_) => leptos::logging::log!("[drop comp] Insert OK"), Err(e) => leptos::logging::log!("[drop comp] Insert ERR: {:?}", e) } });
+        }
+    }
+
+    let flat = engine.get_untracked().sync_flat();
+    tree.set(flat);
     batch(move || {
         drag_visual.set(DragVisualState::empty());
         drag_ctx.set(DragContext::empty());

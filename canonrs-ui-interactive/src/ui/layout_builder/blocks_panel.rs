@@ -141,6 +141,7 @@ pub fn BlocksPanel(
                                 <div
                                     on:pointerdown=move |ev| {
                                         ev.prevent_default();
+                                        ev.stop_propagation();
                                         drag_ctx.set(DragContext { node_id: None, block_def: None, component_def: None, layout_def: Some(layout) });
                                     }
                                     title=desc
@@ -168,6 +169,7 @@ pub fn BlocksPanel(
                                 <div
                                     on:pointerdown=move |ev| {
                                         ev.prevent_default();
+                                        leptos::logging::log!("[block pointerdown] id={:?}", id);
                                         if let Some(b) = super::domain::blocks::get_block(id).cloned() {
                                             drag_ctx.set(DragContext { node_id: None, block_def: Some(b), component_def: None, layout_def: None });
                                         }

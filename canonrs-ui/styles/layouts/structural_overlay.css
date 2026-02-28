@@ -111,3 +111,11 @@
   min-height: inherit;
   height: 100%;
 }
+
+/* ── Drop zone dentro de layout-region — sem borda própria (overlay cuida) ── */
+[data-canvas-mode="builder"] [data-layout-region] [data-drop-zone],
+[data-canvas-mode="builder"] [data-block-region] [data-drop-zone] {
+  border: none !important;
+  background: transparent !important;
+  min-height: 0 !important;
+}

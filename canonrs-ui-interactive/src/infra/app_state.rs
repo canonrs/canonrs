@@ -141,7 +141,9 @@ pub fn init_global_pointer_listeners() {
 
     crate::infra::web_pointer::register_pointerup_listener(move |ev| {
         use leptos::wasm_bindgen::JsCast;
-        if !drag_ctx.get_untracked().is_dragging() { return; }
+        let dbg = drag_ctx.get_untracked();
+        leptos::logging::log!("[pointerup global] is_dragging={} layout={} block={} node={}", dbg.is_dragging(), dbg.layout_def.is_some(), dbg.block_def.is_some(), dbg.node_id.is_some());
+        if !drag_ctx.get_untracked().is_dragging() { leptos::logging::log!("[pointerup global] SKIPPED — not dragging"); return; }
         let mut target_zone: Option<uuid::Uuid> = None;
         if let Some(window) = web_sys::window() {
             if let Some(doc) = window.document() {
@@ -165,9 +167,13 @@ pub fn init_global_pointer_listeners() {
             // Layout drag always replaces — ignore existing drop zones
             leptos::logging::log!("[pointerup] layout_def detected — bypassing zones");
             handle_drop(ev, uuid::Uuid::nil(), engine, tree, drag_ctx, drag_visual);
-        } else if let Some(parent_id) = target_zone {
+        } else {
+        // Fallback: usa zona ativa do drag_visual se element_from_point falhou
+        let target_zone = target_zone.or_else(|| drag_visual.get_untracked().active_zone_id);
+        if let Some(parent_id) = target_zone {
             handle_drop(ev, parent_id, engine, tree, drag_ctx, drag_visual);
         } else {
+            leptos::logging::log!("[pointerup global] no target_zone — resetting");
             #[cfg(target_arch = "wasm32")]
         if let Some(window) = web_sys::window() {
             if let Some(doc) = window.document() {
@@ -185,6 +191,7 @@ pub fn init_global_pointer_listeners() {
                 drag_visual.set(DragVisualState::empty());
                 drag_ctx.set(DragContext::empty());
             });
+        }
         }
     });
 
