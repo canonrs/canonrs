@@ -34,6 +34,19 @@ fn flatten_node(canon: &CanonNode, parent_id: Option<Uuid>, _index: usize, flat:
     let kind = match &canon.block {
         CanonBlockType::Layout => NodeKind::Layout { id: "layout".to_string(), label: "Layout".to_string() },
         CanonBlockType::Slot { name } => NodeKind::Slot { name: name.clone() },
+        CanonBlockType::Component { id } => {
+            use crate::ui::layout_builder::domain::blocks::COMPONENT_REGISTRY;
+            let def = COMPONENT_REGISTRY.get(id.as_str()).cloned().unwrap_or_else(|| {
+                crate::ui::layout_builder::domain::constraints::ComponentDef {
+                    id: Box::leak(id.clone().into_boxed_str()),
+                    label: Box::leak(id.clone().into_boxed_str()),
+                    icon: "◻",
+                    category: crate::ui::layout_builder::domain::constraints::NodeCategory::Content,
+                    description: "",
+                }
+            });
+            NodeKind::Component { def }
+        },
         block_type => {
             use crate::ui::layout_builder::domain::blocks::BLOCK_REGISTRY;
             let registry_def = BLOCK_REGISTRY.values().find(|b| b.id == block_type.to_id()).cloned();

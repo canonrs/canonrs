@@ -295,6 +295,14 @@ pub fn BlockPreview(
         }
     };
 
+    // Se for Component, substituir inner pelo preview real
+    let inner = if let NodeKind::Component { ref def } = node.kind {
+        let comp_id = def.id.to_string();
+        super::component_preview::render_component_preview(&comp_id)
+    } else {
+        inner
+    };
+
     view! {
         <div
             attr:data-block-preview=move || if is_builder() { Some("") } else { None }

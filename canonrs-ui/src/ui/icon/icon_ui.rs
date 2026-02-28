@@ -48,3 +48,8 @@ pub fn Icon(
         </span>
     }
 }
+
+#[component]
+pub fn IconPreview() -> impl IntoView {
+    view! { <Icon size=IconSize::Md variant=IconVariant::Default>"★"</Icon> }
+}

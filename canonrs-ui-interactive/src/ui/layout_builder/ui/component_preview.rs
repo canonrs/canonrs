@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use canonrs_ui::ui::button::button_ui::{Button, ButtonVariant, ButtonSize};
 use canonrs_ui::ui::badge::badge_ui::{Badge, BadgeVariant};
+use canonrs_ui::ui::icon::icon_ui::IconPreview;
 use canonrs_ui::ui::separator::separator_ui::Separator;
 use canonrs_ui::ui::spinner::spinner_ui::Spinner;
 use canonrs_ui::ui::label::label_ui::Label;
@@ -13,6 +14,8 @@ use canonrs_ui::primitives::SpinnerSize;
 pub fn ComponentPreview(id: String) -> impl IntoView {
     if id == "button" {
         view! { <Button variant=ButtonVariant::Solid size=ButtonSize::Md>"Button"</Button> }.into_any()
+    } else if id == "icon" {
+        view! { <IconPreview /> }.into_any()
     } else if id == "badge" {
         view! { <Badge variant=BadgeVariant::Default>"Badge"</Badge> }.into_any()
     } else if id == "separator" {
