@@ -4,14 +4,27 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+cfg-if = "1.0"
 axum = { version = "0.8", optional = true }
 tokio = { version = "1", features = ["full"], optional = true }
 tower = { version = "0.5", optional = true }
 tower-http = { version = "0.6", optional = true }
 leptos_axum = { version = "0.8", optional = true }
-canonrs-ui = { path = "../canonrs-ui", default-features = false }
-canonrs-shared = { path = "../canonrs-shared", default-features = false }
+leptos = { version = "0.8", default-features = false }
+leptos_meta = { version = "0.8", default-features = false }
+leptos_router = { version = "0.8", default-features = false }
+canonrs-core = { path = "../canonrs-core" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+pulldown-cmark = { version = "0.12.2", optional = true }
+syntect = { version = "5.2", default-features = false, features = ["default-syntaxes", "default-themes", "html", "regex-fancy"], optional = true }
+html-escape = { version = "0.2", optional = true }
+web-sys = { version = "0.3", optional = true, features = ["Window","Document","Element","HtmlElement","DomRect","CssStyleDeclaration","Request","Response","RequestInit","RequestMode","MutationObserver","MutationObserverInit","MutationRecord"] }
+wasm-bindgen = { version = "0.2", optional = true }
+js-sys = { version = "0.3", optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
 
 [features]
 default = []
-ssr = ["axum", "tokio", "tower", "tower-http", "leptos_axum", "canonrs-ui/ssr", "canonrs-shared/ssr"]
+ssr = ["axum", "tokio", "tower", "tower-http", "leptos_axum", "leptos/ssr", "leptos_meta/ssr", "leptos_router/ssr", "canonrs-core/ssr", "syntect", "pulldown-cmark", "html-escape"]
+hydrate = ["leptos/hydrate", "canonrs-core/hydrate"]

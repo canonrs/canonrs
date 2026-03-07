@@ -1,34 +1,14 @@
-# canonrs
-# Facade crate for the Canon UI system
-
 [package]
 name = "canonrs"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-# UI base layer - always available for both SSR and CSR
-canonrs-ui = { path = "../canonrs-ui", default-features = false }
-canonrs-providers = { path = "../canonrs-providers" }
-canonrs-shared = { path = "../canonrs-shared" }
-
-# Interactive layer - OPTIONAL, only for CSR builds
-canonrs-ui-interactive = { path = "../canonrs-ui-interactive", optional = true }
-
-# CSR runtime - OPTIONAL, only for client-side hydration
-canonrs-behaviors = { path = "../canonrs-behaviors", optional = true }
-
+canonrs-core = { path = "../canonrs-core" }
+canonrs-server = { path = "../canonrs-server", default-features = false, optional = true }
+canonrs-client = { path = "../canonrs-client", optional = true }
 
 [features]
 default = []
-
-# Hydrate: Full CSR stack with WASM support
-hydrate = [
-  "dep:canonrs-ui-interactive",
-  "dep:canonrs-behaviors",
-  "canonrs-ui/hydrate",
-  "canonrs-behaviors/hydrate",
-]
-
-# SSR: Pure server-side rendering
-ssr = ["canonrs-ui/ssr"]
+ssr = ["dep:canonrs-server", "canonrs-server/ssr", "canonrs-core/ssr"]
+hydrate = ["dep:canonrs-server", "canonrs-server/hydrate", "dep:canonrs-client", "canonrs-client/hydrate", "canonrs-core/hydrate"]

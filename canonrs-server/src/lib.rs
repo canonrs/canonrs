@@ -1,6 +1,11 @@
-//! CanonRS Server - SSR runtime, Axum integration, IO
+//! CanonRS Server — SSR UI components + Axum integration
 
-#[cfg(feature = "ssr")]
-pub mod server {
-    // Future: Axum routes, middleware, loaders
-}
+pub mod ui;
+pub mod blocks;
+pub mod layouts;
+pub mod pages;
+pub mod providers;
+pub mod primitives;
+
+pub use ui::*;
+pub use layouts::*;

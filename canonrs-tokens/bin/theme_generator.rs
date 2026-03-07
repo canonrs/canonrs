@@ -181,7 +181,7 @@ pub fn generate_css_theme(theme_name: &str, colors: &ThemeColors) -> String {
 }
 
 pub fn generate_themes(output_dir: &Path) {
-    let themes_dir = Path::new("../canonrs-ui/themes-engine/ingest/css");
+    let themes_dir = Path::new("../canonrs-server/themes-engine/ingest/css");
     if !themes_dir.exists() {
         println!("  ⚠ No themes directory found, skipping");
         return;

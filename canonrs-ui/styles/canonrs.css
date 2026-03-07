@@ -30,12 +30,6 @@
 @import "./.generated/root.css";
 
 /* 7. VARIANTS */
-@import "./variants/size-sm.css";
-@import "./variants/density-comfortable.css";
-@import "./variants/density-spacious.css";
-@import "./variants/density-compact.css";
-@import "./variants/size-md.css";
-@import "./variants/size-lg.css";
 
 /* 8. UI COMPONENTS */
 @import "./ui/ui.css";

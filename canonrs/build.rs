@@ -16,7 +16,7 @@ fn main() {
     }
     
     // 2. COPIAR CSS gerado
-    let css_source = PathBuf::from("../canonrs-ui/styles/canonrs.bundle.css");
+    let css_source = PathBuf::from("../canonrs-server/styles/canonrs.bundle.css");
     
     if !css_source.exists() {
         panic!("CSS not found after tokens-engine ran!");
@@ -32,5 +32,5 @@ fn main() {
     
     // 3. Rerun se tokens mudam
     println!("cargo:rerun-if-changed=../canonrs-tokens/src");
-    println!("cargo:rerun-if-changed=../canonrs-ui/styles");
+    println!("cargo:rerun-if-changed=../canonrs-server/styles");
 }

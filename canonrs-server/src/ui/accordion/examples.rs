@@ -1,0 +1,33 @@
+use leptos::prelude::*;
+use super::accordion_ui::*;
+use canonrs_core::primitives::AccordionSelection;
+
+pub fn basic_example() -> impl IntoView {
+    view! {
+        <Accordion id="accordion-demo".to_string() selection=AccordionSelection::Single collapsible=true>
+            <AccordionItem>
+                <AccordionTrigger>"Item 1"</AccordionTrigger>
+                <AccordionContent>
+                    <p>"Content of item 1."</p>
+                </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+                <AccordionTrigger>"Item 2"</AccordionTrigger>
+                <AccordionContent>
+                    <p>"Content of item 2."</p>
+                </AccordionContent>
+            </AccordionItem>
+            <AccordionItem>
+                <AccordionTrigger>"Item 3"</AccordionTrigger>
+                <AccordionContent>
+                    <p>"Content of item 3."</p>
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    }
+}
+
+#[component]
+pub fn BasicExample() -> impl IntoView {
+    basic_example()
+}

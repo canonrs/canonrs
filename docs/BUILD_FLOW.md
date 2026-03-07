@@ -1,109 +1,70 @@
 # CanonRS Build Flow
 
-**Version:** 3.0.0 (Feb 2026)
+## CSS Pipeline
+
+The CSS bundle is generated at compile time via `canonrs/build.rs` and embedded into the binary.
+```
+canonrs-tokens/src/design/  →  tokens-engine binary  →  canonrs-server/styles/canonrs.bundle.css
+                                                                    ↓
+                                                    canonrs/build.rs (embed via include_str!)
+                                                                    ↓
+                                                         canonrs::canonrs_css() → &'static str
+```
+
+### Regenerate CSS manually
+```bash
+cd packages-rust/rs-canonrs
+cargo run -p canonrs-tokens --bin tokens-engine
+```
+
+Output: `canonrs-server/styles/canonrs.bundle.css`
 
 ---
 
-## Quick Start
+## App Build (canonrs-builder)
 ```bash
-# Build CSS completo
-cd /opt/docker/monorepo/packages-rust/rs-canonrs
-./scripts/core/generate-families.sh  # Gera families CSS
-./scripts/core/bundle-css.sh         # Bundle final
+cd products/canonrs-builder
 
-# Build site
-cd /opt/docker/monorepo/products/canonrs-site
-make build
+# Development
+make dev
+
+# SSR binary
+cargo build --features ssr
+
+# WASM (hydrate)
+cargo build --target wasm32-unknown-unknown --features hydrate
 ```
-
----
-
-## Build Steps
-
-### 1. Generate Families (Rust → CSS)
-```bash
-cd canonrs-tokens
-cargo run
-```
-
-**Input:** `canonrs-shared/src/design/tokens/families/*.rs`  
-**Output:** `canonrs-ui/styles/.generated/family-*.css`
-
-10 families generated:
-- overlay, selection, forms, navigation, feedback
-- data, composite, layout, state, layers
-
----
-
-### 2. Bundle CSS
-```bash
-./scripts/core/bundle-css.sh
-```
-
-**Output:** `canonrs-ui/styles/canonrs.bundle.css`
-
----
-
-### 3. Build Site
-```bash
-cd products/canonrs-site
-
-# CSS
-npm run build:css
-
-# SSR bin
-cargo build --bin canonrs-site-ssr --release --features ssr
-
-# CSR bin (WASM)
-cargo build --bin canonrs-site-csr \
-  --target wasm32-unknown-unknown \
-  --release --features hydrate
-
-# Optimize WASM
-wasm-opt -Oz target/wasm32-unknown-unknown/release/deps/canonrs_site_csr-*.wasm \
-  -o public/pkg/app.wasm
-```
-
-**Final sizes:**
-- WASM: ~3-5MB (optimized)
-- CSS: ~300KB (bundled)
 
 ---
 
 ## Validation
 ```bash
-make validate  # Check architecture rules
-```
+# Check SSR compiles clean
+cargo check -p canonrs-builder --features ssr
 
-Validates:
-- No `axum` in WASM
-- No `tokio` in WASM
-- Correct bin separation
+# Check hydrate compiles clean (no syntect/pulldown in graph)
+cargo check -p canonrs-builder --features hydrate
 
----
-
-## Development
-```bash
-cd products/canonrs-site
-make dev  # Watch mode
+# Check server crate standalone
+cargo check -p canonrs-server --features hydrate
 ```
 
 ---
 
-## Token Flow
+## CSS in Production
+
+The CSS is served via a dedicated route registered in `main.rs`:
+```rust
+.route("/canonrs.css", axum::routing::get(|| async {
+    ([(header::CONTENT_TYPE, "text/css")], canonrs::canonrs_css())
+}))
 ```
-tokens-engine (Rust - Complete CSS Cascade)
-    ↓
-families/*.rs → .generated/family-*.css
-    ↓
-bundle-css.sh → canonrs.bundle.css
-    ↓
-PostCSS (site) → output.css
-```
+
+No external CSS files needed. The bundle is embedded in the binary at compile time.
 
 ---
 
 ## See Also
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - System design
-- [Makefile](../../products/canonrs-site/Makefile) - Build commands
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — System design
+- [canonrs-tokens/README.md](../canonrs-tokens/README.md) — Token pipeline
