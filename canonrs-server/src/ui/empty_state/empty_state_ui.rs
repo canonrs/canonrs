@@ -74,3 +74,8 @@ pub fn EmptyStateAction(
         </EmptyStateActionPrimitive>
     }
 }
+
+#[component]
+pub fn EmptyStatePreview() -> impl IntoView {
+    view! { <EmptyState>"No data"</EmptyState> }
+}

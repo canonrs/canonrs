@@ -60,3 +60,8 @@ pub fn CalloutDescription(
         </CalloutDescriptionPrimitive>
     }
 }
+
+#[component]
+pub fn CalloutPreview() -> impl IntoView {
+    view! { <Callout>"Callout message"</Callout> }
+}

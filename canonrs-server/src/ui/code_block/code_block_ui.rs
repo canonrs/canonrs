@@ -64,3 +64,8 @@ pub fn CodeBlock(
         </CodeBlockPrimitive>
     }
 }
+
+#[component]
+pub fn CodeBlockPreview() -> impl IntoView {
+    view! { <CodeBlock code="fn main() {}".to_string() language="rust".to_string() /> }
+}

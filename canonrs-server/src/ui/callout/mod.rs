@@ -3,3 +3,4 @@ pub use callout_ui::*;
 
 pub mod examples;
 pub use examples::*;
+pub use callout_ui::CalloutPreview;

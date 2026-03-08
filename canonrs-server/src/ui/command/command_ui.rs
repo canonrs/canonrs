@@ -42,3 +42,8 @@ pub fn CommandItem(
         </div>
     }
 }
+
+#[component]
+pub fn CommandPreview() -> impl IntoView {
+    view! { <Command id="command-preview".to_string()>"Search..."</Command> }
+}

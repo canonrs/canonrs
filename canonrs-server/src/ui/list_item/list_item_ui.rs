@@ -73,3 +73,8 @@ pub fn ListItemDescription(
         </ListItemDescriptionPrimitive>
     }
 }
+
+#[component]
+pub fn ListItemPreview() -> impl IntoView {
+    view! { <List>"Item"</List> }
+}

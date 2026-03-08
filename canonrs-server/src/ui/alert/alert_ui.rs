@@ -62,3 +62,8 @@ pub fn AlertCloseButton(
         </button>
     }
 }
+
+#[component]
+pub fn AlertPreview() -> impl IntoView {
+    view! { <Alert>"Alert message"</Alert> }
+}

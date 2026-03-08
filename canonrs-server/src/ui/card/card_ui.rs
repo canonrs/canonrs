@@ -105,3 +105,8 @@ pub fn CardFooter(
         </CardFooterPrimitive>
     }
 }
+
+#[component]
+pub fn CardPreview() -> impl IntoView {
+    view! { <Card>"Card content"</Card> }
+}

@@ -5,6 +5,9 @@
 
 [data-chart] {
   position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 100%;
   background: var(--chart-bg);
   padding: var(--chart-padding);
   border-radius: var(--chart-radius);
@@ -14,6 +17,7 @@
 [data-chart-canvas] {
   display: block;
   width: 100%;
+  max-width: 100%;
 }
 
 /* Overlay (tooltip + crosshair layer) */

@@ -73,3 +73,11 @@ pub fn BreadcrumbEllipsis(
 ) -> impl IntoView {
     view! { <BreadcrumbItemPrimitive class={String::new()}><BreadcrumbEllipsisPrimitive class={class} id={id.unwrap_or_default()} /></BreadcrumbItemPrimitive> }
 }
+#[component]
+pub fn BreadcrumbPreview() -> impl IntoView {
+    let items = vec![
+        BreadcrumbItemData { label: "Home".to_string(), href: "#".to_string(), is_current: false },
+        BreadcrumbItemData { label: "Page".to_string(), href: "".to_string(), is_current: true },
+    ];
+    view! { <Breadcrumb items=items /> }
+}

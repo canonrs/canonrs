@@ -95,3 +95,8 @@ pub fn DialogClose(
         </button>
     }
 }
+
+#[component]
+pub fn DialogPreview() -> impl IntoView {
+    view! { <Dialog id="dialog-preview".to_string()>"Content"</Dialog> }
+}

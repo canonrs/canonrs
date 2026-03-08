@@ -54,3 +54,8 @@ pub fn PopoverContent(
         </PopoverContentPrimitive>
     }
 }
+
+#[component]
+pub fn PopoverPreview() -> impl IntoView {
+    view! { <Popover id="popover-preview".to_string()>"Content"</Popover> }
+}

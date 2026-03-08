@@ -17,6 +17,7 @@ pub fn ChartPrimitive(
     #[prop(default = true)] animate: bool,
     #[prop(into, default = String::new())] sync_table: String,
     #[prop(into, default = String::new())] sync_scope: String,
+    #[prop(default = 0u32)] max_width: u32,
 ) -> impl IntoView {
     let canvas_id  = format!("{}-canvas", id);
     let tooltip_id = format!("{}-tooltip", id);
@@ -34,6 +35,7 @@ pub fn ChartPrimitive(
             data-chart-animate={animate.to_string()}
             data-chart-sync-table={sync_table}
             data-sync-scope={sync_scope}
+            data-chart-max-width={if max_width > 0 { max_width.to_string() } else { String::new() }}
         >
             <canvas id={canvas_id} data-chart-canvas="" />
 

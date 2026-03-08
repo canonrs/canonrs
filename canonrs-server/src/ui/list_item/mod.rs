@@ -3,3 +3,4 @@ pub mod examples;
 
 pub use list_item_ui::{List, ListSelectionMode, ListItem, ListItemTitle, ListItemDescription};
 pub use examples::*;
+pub use list_item_ui::ListItemPreview;

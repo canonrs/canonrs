@@ -63,3 +63,8 @@ pub fn DrawerOverlay(
         />
     }
 }
+
+#[component]
+pub fn DrawerPreview() -> impl IntoView {
+    view! { <Drawer id="drawer-preview".to_string()>"Content"</Drawer> }
+}

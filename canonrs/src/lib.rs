@@ -20,14 +20,17 @@ pub mod providers {
     }
 }
 
+#[cfg(any(feature = "ssr", feature = "hydrate"))]
 pub mod ui {
     pub use canonrs_server::ui::*;
 }
 
+#[cfg(any(feature = "ssr", feature = "hydrate"))]
 pub mod layouts {
     pub use canonrs_server::layouts::*;
 }
 
+#[cfg(any(feature = "ssr", feature = "hydrate"))]
 pub mod blocks {
     pub use canonrs_server::blocks::*;
 }

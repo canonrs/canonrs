@@ -67,6 +67,7 @@ pub fn Chart(
     #[prop(default = true)] show_tooltip: bool,
     #[prop(default = true)] animate: bool,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] max_width: Option<u32>,
     #[prop(into, default = String::new())] sync_table: String,
     #[prop(into, default = String::new())] sync_scope: String,
 ) -> impl IntoView {
@@ -83,8 +84,18 @@ pub fn Chart(
             show_legend={show_legend}
             show_tooltip={show_tooltip}
             animate={animate}
+            max_width={max_width.unwrap_or(0)}
             sync_table={sync_table}
             sync_scope={sync_scope}
         />
     }
+}
+
+#[component]
+pub fn ChartPreview() -> impl IntoView {
+    let data = ChartData {
+        labels: vec!["A".to_string(), "B".to_string(), "C".to_string()],
+        series: vec![ChartSeries { name: "Series".to_string(), data: vec![10.0, 20.0, 15.0], color: None }],
+    };
+    view! { <Chart id="chart-preview".to_string() data=data height=120u32 max_width=300u32 />}
 }

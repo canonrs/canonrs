@@ -37,16 +37,27 @@ pub fn register() {
         let canvas: web_sys::HtmlCanvasElement = canvas_el.dyn_into()
             .map_err(|_| canonrs_core::BehaviorError::JsError { message: "canvas cast".into() })?;
 
-        // DPI scaling
-        set_canvas_dpi(&canvas, &root, height);
-
         let parsed = parse_chart_data(&data_json);
         let (labels, series) = match parsed {
             Some(d) => d,
             None => return Ok(()),
         };
 
-        draw_chart(&canvas, &chart_type, &labels, &series, show_grid, height);
+        // rAF: aguarda layout estabilizar antes de calcular largura
+        {
+            let canvas_raf = canvas.clone();
+            let root_raf   = root.clone();
+            let labels_raf = labels.clone();
+            let series_raf = series.clone();
+            let chart_type_raf = chart_type.clone();
+            let cb = Closure::once(move || {
+                set_canvas_dpi(&canvas_raf, &root_raf, height);
+                draw_chart(&canvas_raf, &chart_type_raf, &labels_raf, &series_raf, show_grid, height);
+            });
+            web_sys::window().unwrap()
+                .request_animation_frame(cb.as_ref().unchecked_ref()).ok();
+            cb.forget();
+        }
 
         if show_legend {
             if let Some(legend_el) = root.query_selector("[data-chart-legend-el]").ok().flatten() {
@@ -88,8 +99,13 @@ fn read_chart_data(root: &web_sys::Element) -> String {
 fn set_canvas_dpi(canvas: &web_sys::HtmlCanvasElement, root: &web_sys::Element, height: f64) {
     let window = web_sys::window().unwrap();
     let dpr = window.device_pixel_ratio();
-    let parent_width = root.client_width() as f64;
-    let w = if parent_width > 0.0 { parent_width } else { 600.0 };
+    let max_width = root.get_attribute("data-chart-max-width")
+        .and_then(|v| if v.is_empty() { None } else { v.parse::<f64>().ok() });
+    let parent_width = root.get_bounding_client_rect().width();
+    let w = match max_width {
+        Some(mw) if mw > 0.0 => parent_width.min(mw),
+        _ => if parent_width > 0.0 { parent_width } else { 600.0 },
+    };
 
     canvas.set_width((w * dpr) as u32);
     canvas.set_height((height * dpr) as u32);

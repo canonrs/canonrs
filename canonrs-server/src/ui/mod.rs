@@ -1,9 +1,12 @@
 // UI Components - Family A: Overlays only (for testing)
 
 pub mod dialog;
+pub use dialog::*;
 pub mod sheet;
 pub mod drawer;
+pub use drawer::*;
 pub mod popover;
+pub use popover::*;
 pub mod hover_card;
 pub mod tooltip;
 pub mod dropdown_menu;
@@ -14,6 +17,7 @@ pub mod modal;
 pub mod button;
 pub mod tabs;
 pub mod code_block;
+pub use code_block::*;
 pub mod badge;
 pub mod input;
 
@@ -29,12 +33,15 @@ pub mod accordion;
 pub mod collapsible;
 pub mod combobox;
 pub mod command;
+pub use command::*;
 pub mod radio_group;
 pub mod radio;
 pub mod kbd;
 pub mod button_group;
+pub use button_group::*;
 pub mod color_picker;
 pub mod form_error_summary;
+pub use form_error_summary::*;
 pub mod field;
 pub mod input_group;
 pub mod input_otp;
@@ -71,6 +78,8 @@ pub mod alert;
 pub use alert::*;
 pub mod alert_dialog;
 pub use alert_dialog::*;
+pub mod confirm_dialog;
+pub use confirm_dialog::*;
 pub mod progress;
 pub use progress::*;
 pub mod pulse;

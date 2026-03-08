@@ -40,3 +40,9 @@ pub fn FormErrorSummary(
         })}
     }
 }
+
+#[component]
+pub fn FormErrorSummaryPreview() -> impl IntoView {
+    let errors = Signal::derive(|| vec![]);
+    view! { <FormErrorSummary errors=errors /> }
+}

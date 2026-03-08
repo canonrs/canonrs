@@ -20,3 +20,8 @@ pub fn ButtonGroup(
         </ButtonGroupPrimitive>
     }
 }
+
+#[component]
+pub fn ButtonGroupPreview() -> impl IntoView {
+    view! { <ButtonGroup>"Buttons"</ButtonGroup> }
+}

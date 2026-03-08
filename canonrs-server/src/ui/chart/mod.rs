@@ -3,3 +3,4 @@ pub mod examples;
 
 pub use chart_ui::*;
 pub use examples::*;
+pub use chart_ui::ChartPreview;
