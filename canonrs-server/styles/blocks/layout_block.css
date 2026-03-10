@@ -3,7 +3,6 @@
    Family H: Layout
    ============================================================================ */
 
-[data-layout],
 [data-canon-block="layout"] {
   display: flex;
   flex-direction: column;

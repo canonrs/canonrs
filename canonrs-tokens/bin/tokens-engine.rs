@@ -11,8 +11,9 @@ use std::fs;
 use std::path::Path;
 
 fn main() {
-    let generated_path = Path::new("../canonrs-ui/styles/.generated");
-    let styles_path = Path::new("../canonrs-ui/styles");
+    let generated_path = Path::new("../canonrs-server/styles/.generated");
+    let styles_path = Path::new("../canonrs-server/styles");
+    let bundle_output_path = Path::new("../canonrs-server/styles");
 
     fs::create_dir_all(generated_path).expect("Failed to create dir");
 
@@ -49,7 +50,7 @@ fn main() {
         .expect("Failed to generate entry");
 
     println!("\n🔧 Step 8: Bundling canonrs.bundle.css...");
-    bundler::generate(styles_path)
+    bundler::generate(styles_path, bundle_output_path)
         .expect("Failed to bundle");
 
     println!("\n✅ Complete! All CSS generated.");

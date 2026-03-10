@@ -32,13 +32,13 @@
 /* 7. VARIANTS */
 
 /* 8. UI COMPONENTS */
-@import "./ui/ui.css";
+@import "../canonrs-server/styles/ui/ui.css";
 
 /* 9. BLOCKS */
-@import "./blocks/blocks.css";
+@import "../canonrs-server/styles/blocks/blocks.css";
 
 /* 10. LAYOUTS */
-@import "./layouts/layouts.css";
+@import "../canonrs-server/styles/layouts/layouts.css";
 
 /* 11. GLOBALS (FINAL) */
-@import "./tokens/base/globals.css";
+@import "../canonrs-server/styles/tokens/base/globals.css";
