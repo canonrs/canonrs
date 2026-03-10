@@ -473,36 +473,28 @@
   height: 100%;
 }
 
-/* ── Block regions — colapso semântico no builder ── */
-[data-canvas-mode="builder"] [data-block-region="header"]:empty,
-[data-canvas-mode="builder"] [data-block-region="footer"]:empty {
-  min-height: 0;
+/* Regiões header/footer garantem area clicável no builder */
+[data-canvas-mode="builder"] [data-block-region="header"],
+[data-canvas-mode="builder"] [data-block-region="footer"] {
+  min-height: 32px;
 }
 
-[data-canvas-mode="builder"] [data-block-region="content"]:empty,
-[data-canvas-mode="builder"] [data-block-region="main"]:empty,
-[data-canvas-mode="builder"] [data-block-region="body"]:empty {
-  min-height: 24px;
+/* Regiões sempre visíveis no builder — min-height garantida */
+[data-canvas-mode="builder"] [data-block-region="header"] [data-drop-zone],
+[data-canvas-mode="builder"] [data-block-region="footer"] [data-drop-zone] {
+  min-height: 32px;
 }
 
-/* ── Figma-level: regiões colapsam quando drop-zone está vazia ── */
-[data-canvas-mode="builder"] [data-block-region="header"]:has([data-drop-zone]:not(:has([data-block-preview]))),
-[data-canvas-mode="builder"] [data-block-region="footer"]:has([data-drop-zone]:not(:has([data-block-preview]))) {
-  min-height: 0 !important;
-}
-
-[data-canvas-mode="builder"] [data-block-region="header"]:has([data-drop-zone]:not(:has([data-block-preview]))) [data-drop-zone],
-[data-canvas-mode="builder"] [data-block-region="footer"]:has([data-drop-zone]:not(:has([data-block-preview]))) [data-drop-zone] {
-  min-height: 0 !important;
-  padding: 0 !important;
-  border-color: transparent !important;
-}
-
-[data-canvas-mode="builder"] [data-block-region="content"]:has([data-drop-zone]:not(:has([data-block-preview]))) [data-drop-zone] {
-  min-height: 24px !important;
+[data-canvas-mode="builder"] [data-block-region="content"] [data-drop-zone] {
+  min-height: 48px;
 }
 
 /* ── Builder UI Panel Scroll ── */
 .builder-ui-scroll {
     height: calc(100vh - 155px) !important;
+}
+
+/* ── Builder only — garante área de drop nas regiões de layout ── */
+[data-builder-panel="canvas"] [data-layout-region] {
+  min-height: 60px;
 }
