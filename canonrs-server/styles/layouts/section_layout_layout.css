@@ -1,4 +1,6 @@
 [data-layout="section"] {
+  container-type: inline-size;
+  container-name: section;
   display: flex;
   flex-direction: column;
   gap: var(--layout-region-gap);

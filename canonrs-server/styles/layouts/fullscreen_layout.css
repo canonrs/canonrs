@@ -1,4 +1,6 @@
 [data-layout="fullscreen"] {
+  container-type: inline-size;
+  container-name: fullscreen;
   display: flex;
   flex-direction: column;
   width: 100%;

@@ -1,4 +1,6 @@
 [data-layout="page-single"] {
+  container-type: inline-size;
+  container-name: page-single;
   display: grid;
   grid-template-columns: 1fr;
   min-height: var(--layout-min-height);

@@ -1,4 +1,6 @@
 [data-layout="wizard"] {
+  container-type: inline-size;
+  container-name: wizard;
   display: flex;
   flex-direction: column;
   min-height: var(--layout-min-height);

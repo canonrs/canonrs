@@ -1,4 +1,6 @@
 [data-layout="marketing"] {
+  container-type: inline-size;
+  container-name: marketing;
   display: flex;
   flex-direction: column;
   min-height: var(--layout-min-height);
