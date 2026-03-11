@@ -47,3 +47,28 @@
   min-width: 0;
   min-height: 0;
 }
+
+[data-layout="dashboard"] [data-layout-region="header"] [data-drop-zone],
+[data-layout="dashboard"] [data-layout-region="header"] > * {
+  width: 100%;
+  flex: 1;
+}
+
+.layout-dashboard-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Builder canvas override — min-height 100vh quebra dentro do canvas */
+[data-canvas-mode="builder"] [data-layout="dashboard"] {
+  min-height: 100%;
+  height: 100%;
+}
+
+[data-canvas-mode="builder"] .layout-dashboard-body {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}

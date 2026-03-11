@@ -1,0 +1,19 @@
+/* ============================================================================
+   CANONRS — MARKDOWN BLOCK
+   Family J: Content Blocks
+   ============================================================================ */
+
+[data-block="markdown"] {
+  color: var(--markdown-color);
+  line-height: var(--markdown-line-height);
+  display: flex;
+  flex-direction: column;
+  gap: var(--markdown-gap);
+}
+
+[data-block="markdown"] code {
+  background: var(--markdown-code-bg);
+  border-radius: var(--markdown-code-radius);
+  padding: 0.1em 0.4em;
+  font-size: 0.875em;
+}

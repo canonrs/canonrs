@@ -7,6 +7,7 @@ pub mod family_f_data;
 pub mod family_g_composite;
 pub mod family_h_layout;
 pub mod family_i_animation;
+pub mod family_j_blocks;
 pub mod family_s_state;
 pub mod family_z_layers;
 
@@ -19,5 +20,6 @@ pub use family_f_data::FAMILY_F_DATA;
 pub use family_g_composite::FAMILY_G_COMPOSITE;
 pub use family_h_layout::FAMILY_H_LAYOUT;
 pub use family_i_animation::FAMILY_I_ANIMATION;
+pub use family_j_blocks::FAMILY_J_BLOCKS;
 pub use family_s_state::FAMILY_S_STATE;
 pub use family_z_layers::FAMILY_Z_LAYERS;

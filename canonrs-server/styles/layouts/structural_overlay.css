@@ -119,3 +119,13 @@
   background: transparent !important;
   min-height: 0 !important;
 }
+
+/* ── Region border via outline — zero coordenadas ───────────────────────── */
+[data-canvas-mode="builder"] [data-layout-region] {
+  outline: 2px dashed var(--builder-region-border);
+  outline-offset: -1px;
+}
+
+[data-canvas-mode="builder"] [data-layout-region]:hover {
+  outline-color: color-mix(in srgb, var(--builder-region-border) 80%, white);
+}

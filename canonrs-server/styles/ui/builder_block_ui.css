@@ -5,6 +5,7 @@
 
 /* ── Drop Zone ─────────────────────────────── */
 [data-drop-zone] {
+  width: 100%;
   min-height: 60px;
   border: var(--composite-dropzone-border-width) var(--composite-dropzone-border-style) var(--composite-dropzone-border-color);
   border-radius: var(--builder-block-radius);
@@ -497,4 +498,38 @@
 /* ── Builder only — garante área de drop nas regiões de layout ── */
 [data-builder-panel="canvas"] [data-layout-region] {
   min-height: 60px;
+}
+
+/* ── Grid Block ─────────────────────────────── */
+[data-block="grid"],
+[data-block="columns"] {
+  width: 100%;
+  display: block;
+}
+
+[data-block="grid"] [data-drop-zone],
+[data-block="columns"] [data-drop-zone] {
+  min-height: 80px;
+  width: 100%;
+}
+
+/* ── Region Layout via data-layout ──────────── */
+[data-drop-zone][data-layout="horizontal"] {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+[data-drop-zone][data-layout="grid"] {
+  display: grid;
+  grid-template-columns: repeat(var(--dz-cols, 3), 1fr);
+  gap: var(--dz-gap, 12px);
+  width: 100%;
+}
+
+[data-drop-zone][data-layout="vertical"] {
+  display: flex;
+  flex-direction: column;
 }

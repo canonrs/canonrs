@@ -1,0 +1,13 @@
+/* ============================================================================
+   CANONRS — CONTAINER BLOCK
+   Family J: Content Blocks
+   ============================================================================ */
+
+[data-block="container"] {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding: var(--container-padding);
+  background: var(--container-bg);
+  border-radius: var(--container-radius);
+}

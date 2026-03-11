@@ -1,0 +1,43 @@
+/* ============================================================================
+   CANONRS — TEXT BLOCKS
+   Family J: Content Blocks
+   ============================================================================ */
+
+[data-block="text-h1"] {
+  font-size: var(--text-h1-size);
+  font-weight: var(--text-h1-weight);
+  color: var(--text-h1-color);
+  line-height: var(--text-h1-line-height);
+}
+
+[data-block="text-h2"] {
+  font-size: var(--text-h2-size);
+  font-weight: var(--text-h2-weight);
+  color: var(--text-h2-color);
+  line-height: var(--text-h2-line-height);
+}
+
+[data-block="text-h3"] {
+  font-size: var(--text-h3-size);
+  font-weight: var(--text-h3-weight);
+  color: var(--text-h3-color);
+  line-height: var(--text-h3-line-height);
+}
+
+[data-block="text-p"] {
+  font-size: var(--text-p-size);
+  color: var(--text-p-color);
+  line-height: var(--text-p-line-height);
+}
+
+[data-block="text-caption"] {
+  font-size: var(--text-caption-size);
+  color: var(--text-caption-color);
+  line-height: var(--text-caption-line-height);
+}
+
+[data-block="text-label"] {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  color: var(--text-label-color);
+}

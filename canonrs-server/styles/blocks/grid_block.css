@@ -1,0 +1,14 @@
+/* ============================================================================
+   CANONRS — GRID BLOCK
+   Family J: Content Blocks
+   ============================================================================ */
+
+[data-block="grid"] {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-col-width), 1fr));
+  gap: var(--grid-gap);
+  padding: var(--grid-padding);
+  background: var(--grid-bg);
+  border-radius: var(--grid-radius);
+}

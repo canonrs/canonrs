@@ -33,6 +33,7 @@ fn main() {
     generate_family("family-g-composite", &FAMILY_G_COMPOSITE, generated_path);
     generate_family("family-h-layout", &FAMILY_H_LAYOUT, generated_path);
     generate_family("family-i-animation", &FAMILY_I_ANIMATION, generated_path);
+    generate_family("family-j-blocks", &FAMILY_J_BLOCKS, generated_path);
     generate_family("family-s-state", &FAMILY_S_STATE, generated_path);
     generate_family("family-z-layers", &FAMILY_Z_LAYERS, generated_path);
 

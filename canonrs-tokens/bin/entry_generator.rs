@@ -26,7 +26,7 @@ pub fn generate(_generated_dir: &Path, styles_dir: &Path) -> std::io::Result<()>
     let families = [
         "family-a-overlay", "family-b-selection", "family-c-forms",
         "family-d-navigation", "family-e-feedback", "family-f-data",
-        "family-g-composite", "family-h-layout", "family-i-animation",
+        "family-g-composite", "family-h-layout", "family-i-animation", "family-j-blocks",
         "family-s-state", "family-z-layers",
     ];
 
