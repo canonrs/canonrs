@@ -158,7 +158,7 @@ pub const FAMILY_H_LAYOUT: &[FamilyToken] = &[
     FamilyToken::new("builder-region-border",        "var(--theme-action-primary-bg)"),
     FamilyToken::new("builder-region-border-hover",  "color-mix(in srgb, var(--theme-action-primary-bg) 60%, transparent)"),
     FamilyToken::new("builder-region-bg-hover",      "color-mix(in srgb, var(--theme-action-primary-bg) 5%, transparent)"),
-    FamilyToken::new("builder-region-bg-active",     "color-mix(in srgb, var(--theme-action-primary-bg) 10%, transparent)"),
+    FamilyToken::new("builder-region-bg-active",     "color-mix(in srgb, var(--theme-action-primary-bg) 20%, transparent)"),
     FamilyToken::new("builder-region-bg-pulse",      "color-mix(in srgb, var(--theme-action-primary-bg) 18%, transparent)"),
     FamilyToken::new("builder-region-label-color",   "color-mix(in srgb, var(--theme-action-primary-bg) 70%, transparent)"),
     FamilyToken::new("builder-region-label-bg",      "color-mix(in srgb, var(--theme-action-primary-bg) 12%, transparent)"),
