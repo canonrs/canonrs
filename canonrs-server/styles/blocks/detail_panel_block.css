@@ -1,0 +1,18 @@
+[data-block="detail-panel"] {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+[data-block="detail-panel"] [data-block-region="aside"] {
+  width: var(--detail-panel-aside-width);
+  flex-shrink: 0;
+  border-right: var(--detail-panel-aside-border);
+  padding: var(--detail-panel-padding);
+  overflow-y: auto;
+}
+[data-block="detail-panel"] [data-block-region="content"] {
+  flex: 1;
+  min-width: 0;
+  padding: var(--detail-panel-padding);
+  overflow-y: auto;
+}

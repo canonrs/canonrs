@@ -61,4 +61,40 @@ pub const FAMILY_J_BLOCKS: &[FamilyToken] = &[
     FamilyToken::new("markdown-gap",         "var(--space-md)"),
     FamilyToken::new("markdown-code-bg",     "var(--theme-surface-muted)"),
     FamilyToken::new("markdown-code-radius", "var(--radius-sm)"),
+
+    // Sidebar Layout Block
+    FamilyToken::new("sidebar-layout-nav-width",    "240px"),
+    FamilyToken::new("sidebar-layout-nav-bg",       "var(--theme-surface-muted)"),
+    FamilyToken::new("sidebar-layout-nav-border",   "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("sidebar-layout-main-padding", "var(--space-lg)"),
+
+    // Split Block
+    FamilyToken::new("split-gap",        "var(--space-md)"),
+    FamilyToken::new("split-padding",    "0"),
+    FamilyToken::new("split-bg",         "transparent"),
+
+    // Detail Panel Block
+    FamilyToken::new("detail-panel-aside-width",  "320px"),
+    FamilyToken::new("detail-panel-aside-border", "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("detail-panel-padding",      "var(--space-md)"),
+
+    // Timeline Block
+    FamilyToken::new("timeline-gap",          "var(--space-lg)"),
+    FamilyToken::new("timeline-line-color",   "var(--theme-surface-border)"),
+    FamilyToken::new("timeline-line-width",   "2px"),
+    FamilyToken::new("timeline-dot-size",     "12px"),
+    FamilyToken::new("timeline-dot-color",    "var(--theme-primary-bg)"),
+
+    // Wizard Block
+    FamilyToken::new("wizard-steps-bg",      "var(--theme-surface-muted)"),
+    FamilyToken::new("wizard-steps-padding", "var(--space-md)"),
+    FamilyToken::new("wizard-body-padding",  "var(--space-lg)"),
+    FamilyToken::new("wizard-actions-gap",   "var(--space-sm)"),
+
+    // Filter Bar Block
+    FamilyToken::new("filter-bar-gap",        "var(--space-sm)"),
+    FamilyToken::new("filter-bar-padding",    "var(--space-sm) var(--space-md)"),
+    FamilyToken::new("filter-bar-bg",         "var(--theme-surface-muted)"),
+    FamilyToken::new("filter-bar-border",     "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("filter-bar-radius",     "var(--radius-md)"),
 ];

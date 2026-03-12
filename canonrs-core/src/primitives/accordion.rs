@@ -47,9 +47,10 @@ pub fn AccordionItemPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    #[prop(default = false)] default_open: bool,
 ) -> impl IntoView {
     view! {
-        <div data-accordion-item="" data-state="closed" class={class} id={id}>
+        <div data-accordion-item="" data-state={if default_open { "open" } else { "closed" }} class={class} id={id}>
             {children.map(|c| c())}
         </div>
     }
@@ -61,12 +62,13 @@ pub fn AccordionTriggerPrimitive(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
     #[prop(default = String::new())] controls: String,
+    #[prop(default = false)] default_open: bool,
 ) -> impl IntoView {
     view! {
         <button
             data-accordion-trigger=""
             type="button"
-            aria-expanded="false"
+            aria-expanded={if default_open { "true" } else { "false" }}
             aria-controls={(!controls.is_empty()).then(|| controls)}
             class={class}
             id={id}
@@ -81,12 +83,13 @@ pub fn AccordionContentPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    #[prop(default = false)] default_open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-accordion-content=""
-            aria-hidden="true"
-            hidden=true
+            aria-hidden={if default_open { "false" } else { "true" }}
+            hidden=(!default_open)
             class={class}
             id={id}
         >

@@ -1,0 +1,18 @@
+[data-block="sidebar-layout"] {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+[data-block="sidebar-layout"] [data-block-region="nav"] {
+  width: var(--sidebar-layout-nav-width);
+  flex-shrink: 0;
+  background: var(--sidebar-layout-nav-bg);
+  border-right: var(--sidebar-layout-nav-border);
+  overflow-y: auto;
+}
+[data-block="sidebar-layout"] [data-block-region="main"] {
+  flex: 1;
+  min-width: 0;
+  padding: var(--sidebar-layout-main-padding);
+  overflow-y: auto;
+}

@@ -119,257 +119,257 @@
 
 /* canonrs-theme - Normalized vocabulary */
 [data-theme="canonrs-theme"] {
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
-  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
-  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-surface-muted: hsl(210 20% 98.0392%);
-  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-action-accent-bg: hsl(48 100% 96.0784%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-bg: hsl(0 0% 100%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
   --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-sidebar-bg: hsl(210 20% 98.0392%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-overlay-fg: hsl(0 0% 14.902%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-surface-elevated-fg: hsl(0 0% 14.902%);
-  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-surface-fg: hsl(0 0% 14.902%);
-  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
-  --theme-sidebar-fg: hsl(0 0% 14.902%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
   --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-action-accent-bg: hsl(48 100% 96.0784%);
+  --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
+  --theme-surface-bg: hsl(0 0% 100%);
+  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
+  --theme-surface-fg: hsl(0 0% 14.902%);
+  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
+  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-surface-muted: hsl(210 20% 98.0392%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-sidebar-bg: hsl(210 20% 98.0392%);
+  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-overlay-fg: hsl(0 0% 14.902%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-elevated-fg: hsl(0 0% 14.902%);
+  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
+  --theme-sidebar-fg: hsl(0 0% 14.902%);
+  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
 }
 
 [data-theme="canonrs-theme"].dark {
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-surface-fg: hsl(0 0% 89.8039%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
-  --theme-surface-bg: hsl(0 0% 9.0196%);
-  --theme-state-info-fg: hsl(0 0% 100%);
   --theme-action-secondary-fg: hsl(0 0% 89.8039%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
-  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
-  --theme-sidebar-fg: hsl(0 0% 89.8039%);
-  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
+  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
+  --theme-state-info-fg: hsl(0 0% 100%);
   --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-action-secondary-bg: hsl(0 0% 14.902%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-elevated: hsl(0 0% 14.902%);
-  --theme-sidebar-border: hsl(0 0% 25.098%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-overlay-bg: hsl(0 0% 14.902%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-sidebar-bg: hsl(0 0% 5.8824%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-surface-muted: hsl(0 0% 12.1569%);
-  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
-  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
   --theme-overlay-fg: hsl(0 0% 89.8039%);
+  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
+  --theme-surface-muted: hsl(0 0% 12.1569%);
+  --theme-surface-fg: hsl(0 0% 89.8039%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-sidebar-border: hsl(0 0% 25.098%);
+  --theme-surface-elevated: hsl(0 0% 14.902%);
   --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-sidebar-bg: hsl(0 0% 5.8824%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-sidebar-fg: hsl(0 0% 89.8039%);
+  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-overlay-bg: hsl(0 0% 14.902%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-action-secondary-bg: hsl(0 0% 14.902%);
+  --theme-surface-bg: hsl(0 0% 9.0196%);
+  --theme-surface-border: hsl(0 0% 25.098%);
 }
 
 /* clean-slate - Normalized vocabulary */
 [data-theme="clean-slate"] {
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
   --theme-sidebar-border: hsl(216 12.1951% 83.9216%);
-  --theme-sidebar-ring: hsl(238.7324 83.5294% 66.6667%);
   --theme-chart-5: hsl(242.1687 47.4286% 34.3137%);
-  --theme-overlay-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-surface-bg: hsl(210 40% 98.0392%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
-  --theme-sidebar-accent-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-primary-fg: hsl(0 0% 100%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
-  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
-  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
-  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
-  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
-  --theme-sidebar-accent-bg: hsl(226.4516 100% 93.9216%);
-  --theme-action-focus-ring: hsl(238.7324 83.5294% 66.6667%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
-  --theme-sidebar-bg: hsl(220 14.2857% 95.8824%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
-  --theme-chart-1: hsl(238.7324 83.5294% 66.6667%);
-  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
   --theme-sidebar-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
+  --theme-sidebar-ring: hsl(238.7324 83.5294% 66.6667%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
+  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
+  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
+  --theme-overlay-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-chart-1: hsl(238.7324 83.5294% 66.6667%);
+  --theme-action-primary-fg: hsl(0 0% 100%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-surface-bg: hsl(210 40% 98.0392%);
+  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
   --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-sidebar-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-sidebar-accent-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-sidebar-bg: hsl(220 14.2857% 95.8824%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-action-focus-ring: hsl(238.7324 83.5294% 66.6667%);
+  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-overlay-bg: hsl(0 0% 100%);
 }
 
 [data-theme="clean-slate"].dark {
+  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-action-secondary-bg: hsl(217.7778 23.0769% 22.9412%);
+  --theme-action-accent-fg: hsl(216 12.1951% 83.9216%);
+  --theme-surface-elevated: hsl(217.2414 32.5843% 17.451%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
   --theme-chart-3: hsl(243.3962 75.3555% 58.6275%);
   --theme-overlay-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
   --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
-  --theme-surface-elevated: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-overlay-bg: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-focus-ring: hsl(234.4538 89.4737% 73.9216%);
-  --theme-surface-border: hsl(215 13.7931% 34.1176%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
-  --theme-action-secondary-bg: hsl(217.7778 23.0769% 22.9412%);
-  --theme-chart-5: hsl(243.6522 54.5024% 41.3725%);
-  --theme-action-accent-fg: hsl(216 12.1951% 83.9216%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
   --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-state-error-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-sidebar-border: hsl(215 13.7931% 34.1176%);
-  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
-  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
-  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
   --theme-surface-fg-muted: hsl(217.8947 10.6145% 64.902%);
-  --theme-surface-border: hsl(215 13.7931% 34.1176%);
-  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
+  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
   --theme-sidebar-primary-bg: hsl(234.4538 89.4737% 73.9216%);
+  --theme-sidebar-border: hsl(215 13.7931% 34.1176%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
+  --theme-state-error-fg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-chart-5: hsl(243.6522 54.5024% 41.3725%);
+  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
+  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
+  --theme-overlay-bg: hsl(217.2414 32.5843% 17.451%);
+  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
   --theme-sidebar-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
+  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
+  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
+  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
+  --theme-action-focus-ring: hsl(234.4538 89.4737% 73.9216%);
   --theme-sidebar-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-surface-border: hsl(215 13.7931% 34.1176%);
 }
 
 /* amber-minimal - Normalized vocabulary */
 [data-theme="amber-minimal"] {
-  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
-  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
   --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-fg: hsl(0 0% 14.902%);
-  --theme-surface-bg: hsl(0 0% 100%);
+  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
   --theme-overlay-fg: hsl(0 0% 14.902%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
   --theme-surface-border: hsl(220 13.0435% 90.9804%);
   --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
-  --theme-surface-muted: hsl(210 20% 98.0392%);
-  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
   --theme-surface-fg: hsl(0 0% 14.902%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
-  --theme-action-accent-bg: hsl(48 100% 96.0784%);
-  --theme-sidebar-bg: hsl(210 20% 98.0392%);
-  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
+  --theme-state-success-fg: hsl(0 0% 100%);
   --theme-surface-elevated-fg: hsl(0 0% 14.902%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-action-accent-bg: hsl(48 100% 96.0784%);
+  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
   --theme-shadow-color: hsl(0 0% 0%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
+  --theme-surface-muted: hsl(210 20% 98.0392%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-sidebar-fg: hsl(0 0% 14.902%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-bg: hsl(0 0% 100%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-sidebar-bg: hsl(210 20% 98.0392%);
+  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
   --theme-surface-elevated: hsl(0 0% 100%);
 }
 
 [data-theme="amber-minimal"].dark {
-  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-surface-muted: hsl(0 0% 12.1569%);
-  --theme-action-secondary-bg: hsl(0 0% 14.902%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-fg: hsl(0 0% 89.8039%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-surface-elevated: hsl(0 0% 14.902%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
   --theme-sidebar-border: hsl(0 0% 25.098%);
-  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-surface-elevated: hsl(0 0% 14.902%);
+  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-overlay-bg: hsl(0 0% 14.902%);
   --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
   --theme-surface-fg: hsl(0 0% 89.8039%);
   --theme-overlay-fg: hsl(0 0% 89.8039%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-muted: hsl(0 0% 12.1569%);
   --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-sidebar-fg: hsl(0 0% 89.8039%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-state-info-fg: hsl(0 0% 100%);
   --theme-surface-bg: hsl(0 0% 9.0196%);
-  --theme-overlay-bg: hsl(0 0% 14.902%);
-  --theme-sidebar-bg: hsl(0 0% 5.8824%);
-  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-action-secondary-bg: hsl(0 0% 14.902%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
+  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
   --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-bg: hsl(0 0% 5.8824%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-border: hsl(0 0% 25.098%);
 }
 
 
@@ -2011,6 +2011,30 @@
   --markdown-gap: var(--space-md);
   --markdown-code-bg: var(--theme-surface-muted);
   --markdown-code-radius: var(--radius-sm);
+  --sidebar-layout-nav-width: 240px;
+  --sidebar-layout-nav-bg: var(--theme-surface-muted);
+  --sidebar-layout-nav-border: 1px solid var(--theme-surface-border);
+  --sidebar-layout-main-padding: var(--space-lg);
+  --split-gap: var(--space-md);
+  --split-padding: 0;
+  --split-bg: transparent;
+  --detail-panel-aside-width: 320px;
+  --detail-panel-aside-border: 1px solid var(--theme-surface-border);
+  --detail-panel-padding: var(--space-md);
+  --timeline-gap: var(--space-lg);
+  --timeline-line-color: var(--theme-surface-border);
+  --timeline-line-width: 2px;
+  --timeline-dot-size: 12px;
+  --timeline-dot-color: var(--theme-primary-bg);
+  --wizard-steps-bg: var(--theme-surface-muted);
+  --wizard-steps-padding: var(--space-md);
+  --wizard-body-padding: var(--space-lg);
+  --wizard-actions-gap: var(--space-sm);
+  --filter-bar-gap: var(--space-sm);
+  --filter-bar-padding: var(--space-sm) var(--space-md);
+  --filter-bar-bg: var(--theme-surface-muted);
+  --filter-bar-border: 1px solid var(--theme-surface-border);
+  --filter-bar-radius: var(--radius-md);
 }
 /* Bundled: ./.generated/family-s-state.css */
 /* family-s-state */
@@ -8345,7 +8369,7 @@ html { scroll-behavior: smooth; }
    Entry point for all block-level component styles
    ============================================================================ */
 
-/* ── Family A — Overlay ─────────────────────────────────────────────────────── */
+/* ── Overlay ─────────────────────────────────────────────────────── */
 /* Bundled: ./popover_block.css */
 /* ============================================================================
    CANONRS — POPOVER BLOCK
@@ -8365,51 +8389,145 @@ html { scroll-behavior: smooth; }
   max-width: var(--popover-max-width);
   z-index: var(--popover-z-index);
 }
-
-/* ── Family C — Forms ───────────────────────────────────────────────────────── */
-/* Bundled: ./field_block.css */
+/* Bundled: ./dialog_block.css */
 /* ============================================================================
-   CANONRS — FIELD BLOCK
-   Family C: Forms
+   CANONRS — DIALOG BLOCK
+   Family A: Overlay
    ============================================================================ */
 
-[data-field],
-[data-canon-block="field"] {
+[data-dialog-content],
+[data-canon-block="dialog"] {
+  background: var(--dialog-content-bg);
+  color: var(--dialog-content-fg);
+  padding: var(--dialog-content-padding);
+  border-radius: var(--dialog-content-radius);
+  box-shadow: var(--dialog-content-shadow);
+  max-width: var(--dialog-content-max-width);
+  width: var(--dialog-content-width);
+  border: 1px solid var(--theme-surface-border);
+}
+
+[data-dialog-header],
+[data-canon-block="dialog"] [data-dialog-header] {
   display: flex;
   flex-direction: column;
-  gap: var(--field-gap);
+  gap: var(--dialog-header-gap);
+  margin-bottom: var(--space-md);
 }
 
-[data-field-label],
-[data-canon-block="field"] label {
-  font-size: var(--field-label-font-size);
-  font-weight: var(--field-label-font-weight);
-  color: var(--field-label-fg);
+[data-dialog-title],
+[data-canon-block="dialog"] [data-dialog-title] {
+  font-size: var(--dialog-title-font-size);
+  font-weight: var(--dialog-title-font-weight);
+  color: var(--dialog-title-fg);
 }
 
-[data-field-description],
-[data-canon-block="field"] [data-field-description] {
-  font-size: var(--field-description-font-size);
-  line-height: var(--field-description-line-height);
-  color: var(--field-description-fg);
+[data-dialog-description],
+[data-canon-block="dialog"] [data-dialog-description] {
+  font-size: var(--dialog-description-font-size);
+  color: var(--dialog-description-fg);
 }
 
-[data-field-error],
-[data-canon-block="field"] [data-field-error] {
-  font-size: var(--field-error-font-size);
-  color: var(--field-error-fg);
+[data-dialog-footer],
+[data-canon-block="dialog"] [data-dialog-footer] {
+  display: flex;
+  gap: var(--dialog-footer-gap);
+  justify-content: flex-end;
+  margin-top: var(--space-md);
+}
+/* Bundled: ./drawer_block.css */
+/* ============================================================================
+   CANONRS — DRAWER BLOCK
+   Family A: Overlay
+   ============================================================================ */
+
+[data-drawer-content],
+[data-canon-block="drawer"] {
+  background: var(--drawer-content-bg);
+  color: var(--drawer-content-fg);
+  padding: var(--drawer-content-padding);
+  width: var(--drawer-content-width);
+  box-shadow: var(--drawer-content-shadow);
+  border: 1px solid var(--theme-surface-border);
 }
 
-[data-canon-block="field"] input {
-  height: var(--field-height);
-  padding: var(--field-padding);
-  border: var(--field-border);
-  border-radius: var(--radius-sm);
-  background: var(--theme-surface-bg);
-  color: var(--theme-surface-fg);
-  font-size: var(--font-size-sm);
+[data-drawer-header],
+[data-canon-block="drawer"] [data-drawer-header] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--drawer-header-gap);
+  margin-bottom: var(--space-md);
+}
+
+[data-drawer-title],
+[data-canon-block="drawer"] [data-drawer-title] {
+  font-size: var(--drawer-title-font-size);
+  font-weight: var(--drawer-title-font-weight);
+  color: var(--drawer-title-fg);
+}
+
+[data-drawer-description],
+[data-canon-block="drawer"] [data-drawer-description] {
+  color: var(--drawer-description-fg);
+}
+
+[data-drawer-footer],
+[data-canon-block="drawer"] [data-drawer-footer] {
+  display: flex;
+  gap: var(--drawer-footer-gap);
+  justify-content: flex-end;
+  margin-top: var(--space-md);
+}
+
+[data-drawer-handle] {
+  background: var(--drawer-handle-bg);
+  width: var(--drawer-handle-width);
+  height: var(--drawer-handle-height);
+  border-radius: var(--drawer-handle-radius);
+  margin: 0 auto var(--space-md);
+}
+/* Bundled: ./command_panel_block.css */
+/* ============================================================================
+   CANONRS — COMMAND PANEL BLOCK
+   Family B: Selection
+   ============================================================================ */
+
+[data-command],
+[data-canon-block="command-panel"] {
+  background: var(--command-bg);
+  border: var(--command-border-width) solid var(--command-border-color);
+  border-radius: var(--command-radius);
+  box-shadow: var(--command-shadow);
+  overflow: hidden;
+}
+
+[data-command-input],
+[data-canon-block="command-panel"] [data-command-input] {
+  height: var(--command-input-height);
+  padding: var(--command-input-padding);
+  font-size: var(--command-input-font-size);
+  border-bottom: var(--command-input-border-bottom);
+  background: transparent;
+  color: var(--command-fg);
   width: 100%;
 }
+
+[data-command-list],
+[data-canon-block="command-panel"] [data-command-list] {
+  padding: var(--command-list-padding);
+  max-height: var(--command-list-max-height);
+  overflow-y: auto;
+}
+
+[data-command-item],
+[data-canon-block="command-panel"] [data-command-item] {
+  height: var(--command-item-height);
+  padding: var(--command-item-padding);
+  border-radius: var(--command-item-radius);
+  cursor: pointer;
+}
+
+/* ── Forms ───────────────────────────────────────────────────────── */
 /* Bundled: ./form_block.css */
 /* ============================================================================
    CANONRS — FORM BLOCK
@@ -8440,70 +8558,8 @@ html { scroll-behavior: smooth; }
   border: var(--form-error-summary-border-width) solid var(--form-error-summary-border-color);
   gap: var(--form-error-summary-gap);
 }
-/* Bundled: ./form_actions_block.css */
-/* ============================================================================
-   FORM_ACTIONS BLOCK
-   ============================================================================ */
 
-[data-block="form-actions"] {
-  display: flex;
-  gap: var(--form-actions-gap);
-  justify-content: var(--form-actions-justify);
-  padding-block-start: var(--form-actions-padding-top);
-  border-top: var(--form-actions-border-top);
-}
-
-/* ── Family D — Navigation ──────────────────────────────────────────────────── */
-/* Bundled: ./breadcrumb_block.css */
-/* ============================================================================
-   CANONRS — BREADCRUMB BLOCK
-   Family D: Navigation
-   ============================================================================ */
-
-[data-breadcrumb],
-[data-canon-block="breadcrumb"] {
-  display: flex;
-  align-items: center;
-  gap: var(--breadcrumb-gap);
-  font-size: var(--breadcrumb-font-size);
-  font-weight: var(--breadcrumb-font-weight);
-  color: var(--breadcrumb-fg);
-}
-
-[data-breadcrumb-item],
-[data-canon-block="breadcrumb"] span {
-  color: var(--breadcrumb-item-fg);
-  transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
-}
-
-[data-breadcrumb-item]:hover,
-[data-canon-block="breadcrumb"] span:hover {
-  color: var(--breadcrumb-item-fg-hover);
-}
-
-[data-breadcrumb-item][data-active="true"],
-[data-canon-block="breadcrumb"] span[data-active="true"] {
-  color: var(--breadcrumb-fg-active);
-  font-weight: var(--breadcrumb-font-weight-active);
-}
-
-[data-breadcrumb-separator],
-[data-canon-block="breadcrumb"] [data-breadcrumb-separator] {
-  color: var(--breadcrumb-separator-fg);
-}
-/* Bundled: ./button_group_block.css */
-/* ============================================================================
-   CANONRS — BUTTON GROUP BLOCK
-   Family C: Forms
-   ============================================================================ */
-
-[data-button-group],
-[data-canon-block="button-group"] {
-  display: flex;
-  flex-direction: var(--button-group-direction);
-  align-items: var(--button-group-align);
-  gap: var(--button-group-gap);
-}
+/* ── Navigation ──────────────────────────────────────────────────── */
 /* Bundled: ./toolbar_block.css */
 /* ============================================================================
    CANONRS — TOOLBAR BLOCK
@@ -8521,79 +8577,7 @@ html { scroll-behavior: smooth; }
   border-radius: var(--radius-sm);
 }
 
-/* ── Family E — Feedback ────────────────────────────────────────────────────── */
-/* Bundled: ./alert_block.css */
-/* ============================================================================
-   CANONRS — ALERT BLOCK
-   Family E: Feedback
-   ============================================================================ */
-
-[data-alert],
-[data-canon-block="alert"] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  padding: var(--alert-padding-y) var(--alert-padding-x);
-  border-radius: var(--alert-radius);
-  border: var(--alert-border-width) solid var(--alert-border-color);
-  background: var(--alert-bg);
-}
-
-[data-canon-block="alert"][data-variant="default"] { background: var(--alert-bg-default); }
-[data-canon-block="alert"][data-variant="info"]    { background: var(--alert-bg-info); }
-[data-canon-block="alert"][data-variant="success"] { background: var(--alert-bg-success); }
-[data-canon-block="alert"][data-variant="warning"] { background: var(--alert-bg-warning); }
-[data-canon-block="alert"][data-variant="error"]   { background: var(--alert-bg-error); }
-
-[data-alert-title],
-[data-canon-block="alert"] [data-alert-title] {
-  font-size: var(--alert-title-font-size);
-  font-weight: var(--alert-title-font-weight);
-  color: var(--alert-title-fg);
-}
-
-[data-alert-description],
-[data-canon-block="alert"] [data-alert-description] {
-  font-size: var(--alert-description-font-size);
-  line-height: var(--alert-description-line-height);
-  color: var(--alert-description-fg);
-}
-/* Bundled: ./callout_block.css */
-/* ============================================================================
-   CANONRS — CALLOUT BLOCK
-   Family E: Feedback
-   ============================================================================ */
-
-[data-callout],
-[data-canon-block="callout"] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--callout-gap);
-  padding: var(--callout-padding-y) var(--callout-padding-x);
-  border-radius: var(--callout-radius);
-  border: var(--callout-border-width) solid var(--callout-border-default);
-  background: var(--callout-bg-default);
-}
-
-[data-canon-block="callout"][data-variant="info"] {
-  background: var(--callout-bg-info);
-  border-color: var(--callout-border-info);
-}
-
-[data-canon-block="callout"][data-variant="success"] {
-  background: var(--callout-bg-success);
-  border-color: var(--callout-border-success);
-}
-
-[data-canon-block="callout"][data-variant="warning"] {
-  background: var(--callout-bg-warning);
-  border-color: var(--callout-border-warning);
-}
-
-[data-callout-icon],
-[data-canon-block="callout"] [data-callout-icon] {
-  font-size: var(--callout-icon-size);
-}
+/* ── Feedback ────────────────────────────────────────────────────── */
 /* Bundled: ./empty_state_block.css */
 /* ============================================================================
    CANONRS — EMPTY STATE BLOCK
@@ -8637,32 +8621,8 @@ html { scroll-behavior: smooth; }
   display: flex;
   gap: var(--empty-state-actions-gap);
 }
-/* Bundled: ./skeleton_block.css */
-/* ============================================================================
-   CANONRS — SKELETON BLOCK
-   Family E: Feedback
-   ============================================================================ */
 
-[data-skeleton],
-[data-canon-block="skeleton"] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-[data-skeleton-line],
-[data-canon-block="skeleton"] > div {
-  background: var(--skeleton-bg);
-  border-radius: var(--skeleton-radius);
-  animation: skeleton-pulse var(--skeleton-pulse-duration) var(--skeleton-pulse-ease) infinite;
-}
-
-@keyframes skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
-}
-
-/* ── Family F — Data ────────────────────────────────────────────────────────── */
+/* ── Data ────────────────────────────────────────────────────────── */
 /* Bundled: ./code_block_block.css */
 /* ============================================================================
    CANONRS — CODE BLOCK
@@ -8805,53 +8765,8 @@ html { scroll-behavior: smooth; }
   font-weight: var(--stat-delta-font-weight);
   color: var(--stat-trend-neutral-color);
 }
-/* Bundled: ./table_block.css */
-/* ============================================================================
-   CANONRS — TABLE BLOCK
-   Family F: Data
-   ============================================================================ */
 
-[data-table-wrapper],
-[data-canon-block="table"],
-[data-canon-block="data-table"] {
-  border: var(--table-border-width) solid var(--table-border-color);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-[data-table],
-[data-canon-block="table"] table,
-[data-canon-block="data-table"] table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-[data-table-header],
-[data-canon-block="table"] [data-table-header] {
-  background: var(--table-header-bg);
-  color: var(--table-header-fg);
-  font-size: var(--table-header-font-size);
-  font-weight: var(--table-header-font-weight);
-  height: var(--table-header-height);
-  padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
-}
-
-[data-table-cell],
-[data-canon-block="table"] [data-table-cell] {
-  padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
-  font-size: var(--table-cell-font-size);
-  color: var(--table-cell-fg);
-  border-top: var(--table-border-width) solid var(--table-border-color);
-  height: var(--table-row-height);
-}
-
-[data-table-row]:hover,
-[data-canon-block="table"] tr:hover {
-  background: var(--table-row-bg-hover);
-  transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
-}
-
-/* ── Family G — Composite ───────────────────────────────────────────────────── */
+/* ── Composite ───────────────────────────────────────────────────── */
 /* Bundled: ./card_block.css */
 /* ============================================================================
    CANONRS — CARD BLOCK
@@ -8918,105 +8833,8 @@ html { scroll-behavior: smooth; }
   box-shadow: var(--card-shadow);
   color: var(--card-fg);
 }
-/* Bundled: ./dialog_block.css */
-/* ============================================================================
-   CANONRS — DIALOG BLOCK
-   Family A: Overlay
-   ============================================================================ */
 
-[data-dialog-content],
-[data-canon-block="dialog"] {
-  background: var(--dialog-content-bg);
-  color: var(--dialog-content-fg);
-  padding: var(--dialog-content-padding);
-  border-radius: var(--dialog-content-radius);
-  box-shadow: var(--dialog-content-shadow);
-  max-width: var(--dialog-content-max-width);
-  width: var(--dialog-content-width);
-  border: 1px solid var(--theme-surface-border);
-}
-
-[data-dialog-header],
-[data-canon-block="dialog"] [data-dialog-header] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--dialog-header-gap);
-  margin-bottom: var(--space-md);
-}
-
-[data-dialog-title],
-[data-canon-block="dialog"] [data-dialog-title] {
-  font-size: var(--dialog-title-font-size);
-  font-weight: var(--dialog-title-font-weight);
-  color: var(--dialog-title-fg);
-}
-
-[data-dialog-description],
-[data-canon-block="dialog"] [data-dialog-description] {
-  font-size: var(--dialog-description-font-size);
-  color: var(--dialog-description-fg);
-}
-
-[data-dialog-footer],
-[data-canon-block="dialog"] [data-dialog-footer] {
-  display: flex;
-  gap: var(--dialog-footer-gap);
-  justify-content: flex-end;
-  margin-top: var(--space-md);
-}
-/* Bundled: ./drawer_block.css */
-/* ============================================================================
-   CANONRS — DRAWER BLOCK
-   Family A: Overlay
-   ============================================================================ */
-
-[data-drawer-content],
-[data-canon-block="drawer"] {
-  background: var(--drawer-content-bg);
-  color: var(--drawer-content-fg);
-  padding: var(--drawer-content-padding);
-  width: var(--drawer-content-width);
-  box-shadow: var(--drawer-content-shadow);
-  border: 1px solid var(--theme-surface-border);
-}
-
-[data-drawer-header],
-[data-canon-block="drawer"] [data-drawer-header] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--drawer-header-gap);
-  margin-bottom: var(--space-md);
-}
-
-[data-drawer-title],
-[data-canon-block="drawer"] [data-drawer-title] {
-  font-size: var(--drawer-title-font-size);
-  font-weight: var(--drawer-title-font-weight);
-  color: var(--drawer-title-fg);
-}
-
-[data-drawer-description],
-[data-canon-block="drawer"] [data-drawer-description] {
-  color: var(--drawer-description-fg);
-}
-
-[data-drawer-footer],
-[data-canon-block="drawer"] [data-drawer-footer] {
-  display: flex;
-  gap: var(--drawer-footer-gap);
-  justify-content: flex-end;
-  margin-top: var(--space-md);
-}
-
-[data-drawer-handle] {
-  background: var(--drawer-handle-bg);
-  width: var(--drawer-handle-width);
-  height: var(--drawer-handle-height);
-  border-radius: var(--drawer-handle-radius);
-  margin: 0 auto var(--space-md);
-}
-
-/* ── Family H — Layout ──────────────────────────────────────────────────────── */
+/* ── Layout ──────────────────────────────────────────────────────── */
 /* Bundled: ./header_block.css */
 /* ============================================================================
    CANONRS — HEADER BLOCK
@@ -9051,54 +8869,6 @@ html { scroll-behavior: smooth; }
 
 [data-footer-start] { display: flex; gap: var(--footer-start-gap); }
 [data-footer-end]   { display: flex; gap: var(--footer-end-gap); }
-/* Bundled: ./section_block.css */
-/* ============================================================================
-   CANONRS — SECTION BLOCK
-   Family H: Layout
-   ============================================================================ */
-
-[data-section],
-[data-canon-block="section"] {
-  padding: var(--section-padding);
-  background: var(--section-card-bg);
-  border: var(--section-card-border);
-  border-radius: var(--section-card-radius);
-  box-shadow: var(--section-card-shadow);
-}
-
-[data-section-header],
-[data-canon-block="section"] [data-section-header] {
-  margin: var(--section-header-margin);
-}
-
-[data-section-title],
-[data-canon-block="section"] [data-section-title] {
-  font-size: var(--section-title-size);
-  font-weight: var(--section-title-weight);
-  color: var(--section-title-color);
-}
-
-[data-section-description],
-[data-canon-block="section"] [data-section-description] {
-  font-size: var(--section-description-size);
-  color: var(--section-description-color);
-  margin: var(--section-description-margin);
-}
-/* Bundled: ./layout_block.css */
-/* ============================================================================
-   CANONRS — LAYOUT BLOCK
-   Family H: Layout
-   ============================================================================ */
-
-[data-canon-block="layout"] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--layout-gap);
-  min-height: var(--layout-min-height);
-  max-width: var(--layout-max-width);
-  background: var(--layout-bg);
-  padding: var(--layout-padding);
-}
 /* Bundled: ./page_header_block.css */
 /* ============================================================================
    CANONRS — PAGE HEADER BLOCK
@@ -9148,8 +8918,6 @@ html { scroll-behavior: smooth; }
   display: flex;
   gap: var(--page-header-actions-gap);
 }
-
-/* ── Family J — Content Blocks ───────────────────────────────────────────── */
 /* Bundled: ./grid_block.css */
 /* ============================================================================
    CANONRS — GRID BLOCK
@@ -9208,50 +8976,6 @@ html { scroll-behavior: smooth; }
   padding: var(--stack-padding);
   background: var(--stack-bg);
 }
-/* Bundled: ./text_block.css */
-/* ============================================================================
-   CANONRS — TEXT BLOCKS
-   Family J: Content Blocks
-   ============================================================================ */
-
-[data-block="text-h1"] {
-  font-size: var(--text-h1-size);
-  font-weight: var(--text-h1-weight);
-  color: var(--text-h1-color);
-  line-height: var(--text-h1-line-height);
-}
-
-[data-block="text-h2"] {
-  font-size: var(--text-h2-size);
-  font-weight: var(--text-h2-weight);
-  color: var(--text-h2-color);
-  line-height: var(--text-h2-line-height);
-}
-
-[data-block="text-h3"] {
-  font-size: var(--text-h3-size);
-  font-weight: var(--text-h3-weight);
-  color: var(--text-h3-color);
-  line-height: var(--text-h3-line-height);
-}
-
-[data-block="text-p"] {
-  font-size: var(--text-p-size);
-  color: var(--text-p-color);
-  line-height: var(--text-p-line-height);
-}
-
-[data-block="text-caption"] {
-  font-size: var(--text-caption-size);
-  color: var(--text-caption-color);
-  line-height: var(--text-caption-line-height);
-}
-
-[data-block="text-label"] {
-  font-size: var(--text-label-size);
-  font-weight: var(--text-label-weight);
-  color: var(--text-label-color);
-}
 /* Bundled: ./markdown_block.css */
 /* ============================================================================
    CANONRS — MARKDOWN BLOCK
@@ -9271,6 +8995,127 @@ html { scroll-behavior: smooth; }
   border-radius: var(--markdown-code-radius);
   padding: 0.1em 0.4em;
   font-size: 0.875em;
+}
+
+/* ── New Blocks ──────────────────────────────────────────────────── */
+/* Bundled: ./sidebar_layout_block.css */
+[data-block="sidebar-layout"] {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+[data-block="sidebar-layout"] [data-block-region="nav"] {
+  width: var(--sidebar-layout-nav-width);
+  flex-shrink: 0;
+  background: var(--sidebar-layout-nav-bg);
+  border-right: var(--sidebar-layout-nav-border);
+  overflow-y: auto;
+}
+[data-block="sidebar-layout"] [data-block-region="main"] {
+  flex: 1;
+  min-width: 0;
+  padding: var(--sidebar-layout-main-padding);
+  overflow-y: auto;
+}
+/* Bundled: ./split_block.css */
+[data-block="split"] {
+  display: flex;
+  width: 100%;
+  gap: var(--split-gap);
+  padding: var(--split-padding);
+  background: var(--split-bg);
+}
+[data-block="split"] [data-block-region="aside"],
+[data-block="split"] [data-block-region="main"] {
+  flex: 1;
+  min-width: 0;
+}
+/* Bundled: ./detail_panel_block.css */
+[data-block="detail-panel"] {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+[data-block="detail-panel"] [data-block-region="aside"] {
+  width: var(--detail-panel-aside-width);
+  flex-shrink: 0;
+  border-right: var(--detail-panel-aside-border);
+  padding: var(--detail-panel-padding);
+  overflow-y: auto;
+}
+[data-block="detail-panel"] [data-block-region="content"] {
+  flex: 1;
+  min-width: 0;
+  padding: var(--detail-panel-padding);
+  overflow-y: auto;
+}
+/* Bundled: ./timeline_block.css */
+[data-block="timeline"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--timeline-gap);
+  padding-left: var(--space-lg);
+  border-left: var(--timeline-line-width) solid var(--timeline-line-color);
+  position: relative;
+}
+[data-block="timeline"] [data-block-region="items"] > * {
+  position: relative;
+}
+[data-block="timeline"] [data-block-region="items"] > *::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--space-lg) - var(--timeline-line-width) / 2);
+  top: 4px;
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  border-radius: 50%;
+  background: var(--timeline-dot-color);
+  transform: translateX(-50%);
+}
+/* Bundled: ./wizard_block.css */
+[data-block="wizard"] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+[data-block="wizard"] [data-block-region="steps"] {
+  background: var(--wizard-steps-bg);
+  padding: var(--wizard-steps-padding);
+  display: flex;
+  gap: var(--space-sm);
+  border-bottom: 1px solid var(--theme-surface-border);
+}
+[data-block="wizard"] [data-block-region="body"] {
+  flex: 1;
+  padding: var(--wizard-body-padding);
+}
+[data-block="wizard"] [data-block-region="actions"] {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--wizard-actions-gap);
+  padding: var(--space-md);
+  border-top: 1px solid var(--theme-surface-border);
+}
+/* Bundled: ./filter_bar_block.css */
+[data-block="filter-bar"] {
+  display: flex;
+  align-items: center;
+  gap: var(--filter-bar-gap);
+  padding: var(--filter-bar-padding);
+  background: var(--filter-bar-bg);
+  border: var(--filter-bar-border);
+  border-radius: var(--filter-bar-radius);
+}
+[data-block="filter-bar"] [data-block-region="filters"] {
+  display: flex;
+  flex: 1;
+  gap: var(--filter-bar-gap);
+  flex-wrap: wrap;
+}
+[data-block="filter-bar"] [data-block-region="actions"] {
+  display: flex;
+  gap: var(--filter-bar-gap);
+  flex-shrink: 0;
 }
 
 /* 10. LAYOUTS */
@@ -9341,15 +9186,28 @@ html { scroll-behavior: smooth; }
 
 /* Builder canvas override — min-height 100vh quebra dentro do canvas */
 [data-canvas-mode="builder"] [data-layout="dashboard"] {
-  min-height: 100%;
-  height: 100%;
+  min-height: 900px;
+  height: auto;
 }
 
 [data-canvas-mode="builder"] .layout-dashboard-body {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
+  min-height: 800px;
+  overflow: visible;
+  height: auto;
 }
+
+[data-canvas-mode="builder"] [data-layout="dashboard"] [data-layout-region="main"] {
+  overflow: visible;
+  height: auto;
+  min-height: 0;
+}
+
+[data-canvas-mode="builder"] [data-layout="dashboard"] [data-layout-region="sidebar"] {
+  overflow-y: visible;
+  height: auto;
+}
+
+
 /* Bundled: ./marketing_layout.css */
 [data-layout="marketing"] {
   container-type: inline-size;

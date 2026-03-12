@@ -29,18 +29,19 @@ pub fn Accordion(
 }
 
 thread_local! {
-    static CURRENT_ITEM_ID: std::cell::RefCell<Option<(String, String)>> = std::cell::RefCell::new(None);
+    static CURRENT_ITEM_ID: std::cell::RefCell<Option<(String, String, bool)>> = std::cell::RefCell::new(None);
 }
 
 #[component]
 pub fn AccordionItem(
     children: Children,
     #[prop(default = String::new())] class: String,
+    #[prop(default = false)] default_open: bool,
 ) -> impl IntoView {
     let (trigger_id, content_id) = gen_accordion_item_ids();
 
     CURRENT_ITEM_ID.with(|id| {
-        *id.borrow_mut() = Some((trigger_id, content_id));
+        *id.borrow_mut() = Some((trigger_id.clone(), content_id.clone(), default_open));
     });
 
     let content = children();
@@ -50,7 +51,7 @@ pub fn AccordionItem(
     });
 
     view! {
-        <AccordionItemPrimitive class={class}>
+        <AccordionItemPrimitive class={class} default_open={default_open}>
             {content}
         </AccordionItemPrimitive>
     }
@@ -61,13 +62,14 @@ pub fn AccordionTrigger(
     children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let (trigger_id, content_id) = CURRENT_ITEM_ID.with(|id| id.borrow().clone().unwrap_or_default());
+    let (trigger_id, content_id, default_open) = CURRENT_ITEM_ID.with(|id| id.borrow().clone().unwrap_or_default());
 
     view! {
         <AccordionTriggerPrimitive
             id={trigger_id}
             controls={content_id}
             class={class}
+            default_open={default_open}
         >
             {children()}
         </AccordionTriggerPrimitive>
@@ -79,12 +81,13 @@ pub fn AccordionContent(
     children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let (_trigger_id, content_id) = CURRENT_ITEM_ID.with(|id| id.borrow().clone().unwrap_or_default());
+    let (_trigger_id, content_id, default_open) = CURRENT_ITEM_ID.with(|id| id.borrow().clone().unwrap_or_default());
 
     view! {
         <AccordionContentPrimitive
             id={content_id}
             class={class}
+            default_open={default_open}
         >
             {children()}
         </AccordionContentPrimitive>

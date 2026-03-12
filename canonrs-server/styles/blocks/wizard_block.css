@@ -1,0 +1,23 @@
+[data-block="wizard"] {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+[data-block="wizard"] [data-block-region="steps"] {
+  background: var(--wizard-steps-bg);
+  padding: var(--wizard-steps-padding);
+  display: flex;
+  gap: var(--space-sm);
+  border-bottom: 1px solid var(--theme-surface-border);
+}
+[data-block="wizard"] [data-block-region="body"] {
+  flex: 1;
+  padding: var(--wizard-body-padding);
+}
+[data-block="wizard"] [data-block-region="actions"] {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--wizard-actions-gap);
+  padding: var(--space-md);
+  border-top: 1px solid var(--theme-surface-border);
+}

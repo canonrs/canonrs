@@ -1,0 +1,20 @@
+[data-block="filter-bar"] {
+  display: flex;
+  align-items: center;
+  gap: var(--filter-bar-gap);
+  padding: var(--filter-bar-padding);
+  background: var(--filter-bar-bg);
+  border: var(--filter-bar-border);
+  border-radius: var(--filter-bar-radius);
+}
+[data-block="filter-bar"] [data-block-region="filters"] {
+  display: flex;
+  flex: 1;
+  gap: var(--filter-bar-gap);
+  flex-wrap: wrap;
+}
+[data-block="filter-bar"] [data-block-region="actions"] {
+  display: flex;
+  gap: var(--filter-bar-gap);
+  flex-shrink: 0;
+}

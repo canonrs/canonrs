@@ -1,0 +1,12 @@
+[data-block="split"] {
+  display: flex;
+  width: 100%;
+  gap: var(--split-gap);
+  padding: var(--split-padding);
+  background: var(--split-bg);
+}
+[data-block="split"] [data-block-region="aside"],
+[data-block="split"] [data-block-region="main"] {
+  flex: 1;
+  min-width: 0;
+}

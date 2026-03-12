@@ -1,0 +1,22 @@
+[data-block="timeline"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--timeline-gap);
+  padding-left: var(--space-lg);
+  border-left: var(--timeline-line-width) solid var(--timeline-line-color);
+  position: relative;
+}
+[data-block="timeline"] [data-block-region="items"] > * {
+  position: relative;
+}
+[data-block="timeline"] [data-block-region="items"] > *::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--space-lg) - var(--timeline-line-width) / 2);
+  top: 4px;
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  border-radius: 50%;
+  background: var(--timeline-dot-color);
+  transform: translateX(-50%);
+}
