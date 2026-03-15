@@ -53,6 +53,23 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("button-warning-bg", "var(--color-warning)"),
     FamilyToken::new("button-warning-fg", "var(--theme-surface-fg)"),
 
+    // Button variants — extended
+    FamilyToken::new("button-secondary-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("button-secondary-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("button-secondary-border", "var(--theme-surface-border)"),
+    FamilyToken::new("button-link-bg", "transparent"),
+    FamilyToken::new("button-link-fg", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("button-info-bg", "var(--color-info)"),
+    FamilyToken::new("button-info-fg", "var(--color-info-foreground)"),
+    FamilyToken::new("button-subtle-bg", "var(--theme-surface-accent)"),
+    FamilyToken::new("button-subtle-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("button-muted-bg", "transparent"),
+    FamilyToken::new("button-muted-fg", "var(--theme-surface-muted-fg)"),
+    FamilyToken::new("button-outline-bg", "transparent"),
+    FamilyToken::new("button-default-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("button-default-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("button-default-border", "var(--theme-surface-border)"),
+
     // Button Group
     FamilyToken::new("button-group-gap", "var(--space-xs)"),
     FamilyToken::new("button-group-direction", "row"),

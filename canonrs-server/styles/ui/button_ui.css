@@ -1,7 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════
-   BUTTON - Family C Forms tokens compliant
+   BUTTON — Family C Forms tokens compliant
+   All variants use design tokens — zero hardcoded values
    ═══════════════════════════════════════════════════════════════ */
 
+/* BASE */
 [data-button] {
   display: inline-flex;
   align-items: center;
@@ -21,24 +23,37 @@
 
   cursor: pointer;
   user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
 
   transition:
     background-color var(--motion-duration-fast) var(--motion-ease-standard),
     color var(--motion-duration-fast) var(--motion-ease-standard),
     border-color var(--motion-duration-fast) var(--motion-ease-standard),
-    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/* SIZES */
-[data-button][data-ui-size="xs"],
+/* ── SIZES ──────────────────────────────────────────────────── */
+[data-button][data-ui-size="xs"] {
+  height: calc(var(--button-height) - var(--space-sm));
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-xs);
+}
+
 [data-button][data-ui-size="sm"] {
   height: calc(var(--button-height) - var(--space-xs));
   font-size: var(--font-size-sm);
 }
 
-[data-button][data-ui-size="lg"],
-[data-button][data-ui-size="xl"] {
+[data-button][data-ui-size="lg"] {
   height: calc(var(--button-height) + var(--space-xs));
+  font-size: var(--font-size-lg);
+}
+
+[data-button][data-ui-size="xl"] {
+  height: calc(var(--button-height) + var(--space-sm));
+  padding: var(--button-padding-y) var(--space-xl);
   font-size: var(--font-size-lg);
 }
 
@@ -47,15 +62,22 @@
   padding: 0;
 }
 
-/* VARIANTS */
+/* ── CORE VARIANTS ──────────────────────────────────────────── */
+[data-button][data-ui-variant="primary"],
 [data-button][data-ui-variant="solid"] {
   background: var(--button-primary-bg);
   color: var(--button-primary-fg);
   border-color: var(--button-primary-bg);
 }
 
+[data-button][data-ui-variant="secondary"] {
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-fg);
+  border-color: var(--button-secondary-border);
+}
+
 [data-button][data-ui-variant="outline"] {
-  background: transparent;
+  background: var(--button-outline-bg);
   color: var(--button-outline-fg);
   border-color: var(--button-outline-border);
 }
@@ -71,6 +93,20 @@
   opacity: 1;
 }
 
+[data-button][data-ui-variant="link"] {
+  background: var(--button-link-bg);
+  color: var(--button-link-fg);
+  border-color: transparent;
+  text-decoration: underline;
+  height: auto;
+  padding: 0;
+}
+
+[data-button][data-ui-variant="link"]:hover:not(:disabled) {
+  opacity: var(--state-hover-opacity);
+}
+
+/* ── SEMANTIC VARIANTS ──────────────────────────────────────── */
 [data-button][data-ui-variant="danger"] {
   background: var(--button-danger-bg);
   color: var(--button-danger-fg);
@@ -89,18 +125,45 @@
   border-color: var(--button-warning-bg);
 }
 
-/* STATES */
-[data-button]:hover:not(:disabled) {
+[data-button][data-ui-variant="info"] {
+  background: var(--button-info-bg);
+  color: var(--button-info-fg);
+  border-color: var(--button-info-bg);
+}
+
+/* ── NEUTRAL VARIANTS ───────────────────────────────────────── */
+[data-button][data-ui-variant="default"] {
+  background: var(--button-default-bg);
+  color: var(--button-default-fg);
+  border-color: var(--button-default-border);
+}
+
+[data-button][data-ui-variant="subtle"] {
+  background: var(--button-subtle-bg);
+  color: var(--button-subtle-fg);
+  border-color: transparent;
+}
+
+[data-button][data-ui-variant="muted"] {
+  background: var(--button-muted-bg);
+  color: var(--button-muted-fg);
+  border-color: transparent;
+}
+
+/* ── STATES ─────────────────────────────────────────────────── */
+[data-button]:hover:not(:disabled):not([data-ui-variant="ghost"]):not([data-ui-variant="link"]) {
   opacity: var(--state-hover-opacity);
 }
 
 [data-button]:active:not(:disabled) {
   opacity: var(--state-active-opacity);
+  transform: translateY(1px);
 }
 
 [data-button]:disabled {
   opacity: var(--state-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 [data-button]:focus-visible {
@@ -108,7 +171,7 @@
   box-shadow: 0 0 0 var(--state-focus-ring) var(--button-primary-bg);
 }
 
-/* VALIDATION */
+/* ── VALIDATION ─────────────────────────────────────────────── */
 [data-button][data-validation="error"] {
   box-shadow: 0 0 0 var(--state-focus-ring) var(--validation-error);
 }

@@ -3,3 +3,5 @@ pub use page_layout_block::{PageLayout, PageLayoutVariant};
 
 pub mod mock;
 pub use mock::{MockSidebar, MockAside, MockMain};
+
+pub mod examples;

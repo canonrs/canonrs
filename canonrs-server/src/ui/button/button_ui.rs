@@ -3,18 +3,31 @@ use canonrs_core::primitives::ButtonPrimitive;
 
 #[derive(Clone, Copy, Debug)]
 pub enum ButtonVariant {
-    Solid, Outline, Ghost, Danger, Success, Warning,
+    // Core
+    Primary,
+    #[allow(dead_code)] Solid,   // alias for Primary — backwards compat
+    Secondary, Outline, Ghost, Link,
+    // Semantic
+    Danger, Success, Warning, Info,
+    // Neutral
+    Default, Subtle, Muted,
 }
 
 impl ButtonVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Solid => "solid",
-            Self::Outline => "outline",
-            Self::Ghost => "ghost",
-            Self::Danger => "danger",
-            Self::Success => "success",
-            Self::Warning => "warning",
+            Self::Primary | Self::Solid => "primary",
+            Self::Secondary => "secondary",
+            Self::Outline   => "outline",
+            Self::Ghost     => "ghost",
+            Self::Link      => "link",
+            Self::Danger    => "danger",
+            Self::Success   => "success",
+            Self::Warning   => "warning",
+            Self::Info      => "info",
+            Self::Default   => "default",
+            Self::Subtle    => "subtle",
+            Self::Muted     => "muted",
         }
     }
 }
@@ -39,7 +52,7 @@ impl ButtonSize {
 #[component]
 pub fn Button(
     children: Children,
-    #[prop(default = ButtonVariant::Solid)] variant: ButtonVariant,
+    #[prop(default = ButtonVariant::Primary)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
     #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] class: String,

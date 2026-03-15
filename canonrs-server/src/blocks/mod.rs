@@ -76,3 +76,6 @@ pub mod detail_panel; pub use detail_panel::*;
 pub mod timeline; pub use timeline::*;
 pub mod wizard; pub use wizard::*;
 pub mod filter_bar; pub use filter_bar::*;
+
+pub mod list;
+pub use list::*;

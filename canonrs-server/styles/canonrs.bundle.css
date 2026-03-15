@@ -119,257 +119,257 @@
 
 /* canonrs-theme - Normalized vocabulary */
 [data-theme="canonrs-theme"] {
-  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
-  --theme-surface-elevated-fg: hsl(0 0% 14.902%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-action-accent-bg: hsl(48 100% 96.0784%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-fg: hsl(0 0% 14.902%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
   --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
   --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-surface-elevated-fg: hsl(0 0% 14.902%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-sidebar-fg: hsl(0 0% 14.902%);
   --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
-  --theme-surface-fg: hsl(0 0% 14.902%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-surface-bg: hsl(0 0% 100%);
   --theme-overlay-fg: hsl(0 0% 14.902%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
+  --theme-surface-muted: hsl(210 20% 98.0392%);
+  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-action-accent-bg: hsl(48 100% 96.0784%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
   --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
   --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-surface-muted: hsl(210 20% 98.0392%);
   --theme-sidebar-bg: hsl(210 20% 98.0392%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
-  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
-  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-bg: hsl(0 0% 100%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
   --theme-shadow-color: hsl(0 0% 0%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-fg: hsl(0 0% 14.902%);
 }
 
 [data-theme="canonrs-theme"].dark {
-  --theme-surface-fg: hsl(0 0% 89.8039%);
-  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-sidebar-bg: hsl(0 0% 5.8824%);
-  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
-  --theme-action-secondary-bg: hsl(0 0% 14.902%);
-  --theme-surface-elevated: hsl(0 0% 14.902%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-sidebar-fg: hsl(0 0% 89.8039%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-surface-bg: hsl(0 0% 9.0196%);
-  --theme-overlay-bg: hsl(0 0% 14.902%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-sidebar-border: hsl(0 0% 25.098%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-surface-muted: hsl(0 0% 12.1569%);
-  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
   --theme-overlay-fg: hsl(0 0% 89.8039%);
-  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
   --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-overlay-bg: hsl(0 0% 14.902%);
+  --theme-surface-muted: hsl(0 0% 12.1569%);
   --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-surface-fg: hsl(0 0% 89.8039%);
+  --theme-surface-elevated: hsl(0 0% 14.902%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-sidebar-bg: hsl(0 0% 5.8824%);
   --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
+  --theme-sidebar-fg: hsl(0 0% 89.8039%);
+  --theme-surface-border: hsl(0 0% 25.098%);
   --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
+  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
+  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-sidebar-border: hsl(0 0% 25.098%);
+  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-shadow-color: hsl(0 0% 0%);
   --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-surface-bg: hsl(0 0% 9.0196%);
+  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
+  --theme-action-secondary-bg: hsl(0 0% 14.902%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
 }
 
 /* clean-slate - Normalized vocabulary */
 [data-theme="clean-slate"] {
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-surface-bg: hsl(210 40% 98.0392%);
-  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
-  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-sidebar-bg: hsl(220 14.2857% 95.8824%);
+  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
   --theme-overlay-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-surface-bg: hsl(210 40% 98.0392%);
+  --theme-sidebar-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
+  --theme-sidebar-ring: hsl(238.7324 83.5294% 66.6667%);
+  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-action-primary-fg: hsl(0 0% 100%);
+  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
+  --theme-sidebar-bg: hsl(220 14.2857% 95.8824%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-sidebar-border: hsl(216 12.1951% 83.9216%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-action-focus-ring: hsl(238.7324 83.5294% 66.6667%);
+  --theme-surface-elevated: hsl(0 0% 100%);
   --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-sidebar-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-chart-5: hsl(242.1687 47.4286% 34.3137%);
+  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
   --theme-sidebar-accent-fg: hsl(216.9231 19.1176% 26.6667%);
   --theme-chart-1: hsl(238.7324 83.5294% 66.6667%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
-  --theme-action-focus-ring: hsl(238.7324 83.5294% 66.6667%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
-  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
-  --theme-action-primary-fg: hsl(0 0% 100%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
-  --theme-sidebar-accent-bg: hsl(226.4516 100% 93.9216%);
-  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
-  --theme-sidebar-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
-  --theme-chart-5: hsl(242.1687 47.4286% 34.3137%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-sidebar-border: hsl(216 12.1951% 83.9216%);
-  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-sidebar-ring: hsl(238.7324 83.5294% 66.6667%);
 }
 
 [data-theme="clean-slate"].dark {
-  --theme-overlay-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
-  --theme-surface-border: hsl(215 13.7931% 34.1176%);
-  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
-  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
-  --theme-chart-3: hsl(243.3962 75.3555% 58.6275%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
-  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
-  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-accent-fg: hsl(216 12.1951% 83.9216%);
-  --theme-sidebar-border: hsl(215 13.7931% 34.1176%);
-  --theme-sidebar-fg: hsl(214.2857 31.8182% 91.3725%);
   --theme-action-secondary-bg: hsl(217.7778 23.0769% 22.9412%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-sidebar-primary-bg: hsl(234.4538 89.4737% 73.9216%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-overlay-bg: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
+  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
+  --theme-chart-3: hsl(243.3962 75.3555% 58.6275%);
   --theme-sidebar-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-chart-5: hsl(243.6522 54.5024% 41.3725%);
-  --theme-surface-elevated: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-state-error-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
   --theme-surface-fg-muted: hsl(217.8947 10.6145% 64.902%);
+  --theme-sidebar-border: hsl(215 13.7931% 34.1176%);
+  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
+  --theme-state-error-fg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-overlay-bg: hsl(217.2414 32.5843% 17.451%);
+  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
   --theme-action-focus-ring: hsl(234.4538 89.4737% 73.9216%);
+  --theme-chart-5: hsl(243.6522 54.5024% 41.3725%);
+  --theme-sidebar-primary-bg: hsl(234.4538 89.4737% 73.9216%);
+  --theme-surface-elevated: hsl(217.2414 32.5843% 17.451%);
+  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
+  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-action-accent-fg: hsl(216 12.1951% 83.9216%);
+  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
+  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-sidebar-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-overlay-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
+  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
 }
 
 /* amber-minimal - Normalized vocabulary */
 [data-theme="amber-minimal"] {
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
-  --theme-sidebar-bg: hsl(210 20% 98.0392%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
-  --theme-sidebar-fg: hsl(0 0% 14.902%);
-  --theme-overlay-fg: hsl(0 0% 14.902%);
-  --theme-surface-fg: hsl(0 0% 14.902%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
-  --theme-surface-bg: hsl(0 0% 100%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-state-success-bg: hsl(142 76% 36%);
   --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
+  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-surface-fg: hsl(0 0% 14.902%);
+  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
   --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-surface-elevated: hsl(0 0% 100%);
   --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-overlay-fg: hsl(0 0% 14.902%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
   --theme-action-accent-bg: hsl(48 100% 96.0784%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-info-fg: hsl(0 0% 100%);
   --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
+  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
   --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
   --theme-surface-elevated-fg: hsl(0 0% 14.902%);
-  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
   --theme-surface-muted: hsl(210 20% 98.0392%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-sidebar-bg: hsl(210 20% 98.0392%);
+  --theme-state-success-bg: hsl(142 76% 36%);
   --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-bg: hsl(0 0% 100%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
+  --theme-sidebar-fg: hsl(0 0% 14.902%);
 }
 
 [data-theme="amber-minimal"].dark {
-  --theme-sidebar-bg: hsl(0 0% 5.8824%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
-  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-overlay-fg: hsl(0 0% 89.8039%);
   --theme-surface-fg: hsl(0 0% 89.8039%);
-  --theme-surface-muted: hsl(0 0% 12.1569%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-surface-bg: hsl(0 0% 9.0196%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-elevated: hsl(0 0% 14.902%);
   --theme-surface-fg-muted: hsl(0 0% 63.9216%);
   --theme-action-secondary-fg: hsl(0 0% 89.8039%);
-  --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-border: hsl(0 0% 25.098%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
   --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
-  --theme-sidebar-fg: hsl(0 0% 89.8039%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-bg: hsl(0 0% 9.0196%);
+  --theme-sidebar-border: hsl(0 0% 25.098%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
   --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-overlay-bg: hsl(0 0% 14.902%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-surface-elevated: hsl(0 0% 14.902%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-action-secondary-bg: hsl(0 0% 14.902%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-sidebar-bg: hsl(0 0% 5.8824%);
+  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
   --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-muted: hsl(0 0% 12.1569%);
+  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
   --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-overlay-bg: hsl(0 0% 14.902%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-state-info-fg: hsl(0 0% 100%);
   --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-overlay-fg: hsl(0 0% 89.8039%);
+  --theme-action-secondary-bg: hsl(0 0% 14.902%);
+  --theme-sidebar-fg: hsl(0 0% 89.8039%);
+  --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
 }
 
 
@@ -762,6 +762,21 @@
   --button-success-fg: var(--color-success-foreground);
   --button-warning-bg: var(--color-warning);
   --button-warning-fg: var(--theme-surface-fg);
+  --button-secondary-bg: var(--theme-surface-bg);
+  --button-secondary-fg: var(--theme-surface-fg);
+  --button-secondary-border: var(--theme-surface-border);
+  --button-link-bg: transparent;
+  --button-link-fg: var(--theme-action-primary-bg);
+  --button-info-bg: var(--color-info);
+  --button-info-fg: var(--color-info-foreground);
+  --button-subtle-bg: var(--theme-surface-accent);
+  --button-subtle-fg: var(--theme-surface-fg);
+  --button-muted-bg: transparent;
+  --button-muted-fg: var(--theme-surface-muted-fg);
+  --button-outline-bg: transparent;
+  --button-default-bg: var(--theme-surface-bg);
+  --button-default-fg: var(--theme-surface-fg);
+  --button-default-border: var(--theme-surface-border);
   --button-group-gap: var(--space-xs);
   --button-group-direction: row;
   --button-group-align: center;
@@ -2899,9 +2914,11 @@
 }
 /* Bundled: ./button_ui.css */
 /* ═══════════════════════════════════════════════════════════════
-   BUTTON - Family C Forms tokens compliant
+   BUTTON — Family C Forms tokens compliant
+   All variants use design tokens — zero hardcoded values
    ═══════════════════════════════════════════════════════════════ */
 
+/* BASE */
 [data-button] {
   display: inline-flex;
   align-items: center;
@@ -2921,24 +2938,37 @@
 
   cursor: pointer;
   user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
 
   transition:
     background-color var(--motion-duration-fast) var(--motion-ease-standard),
     color var(--motion-duration-fast) var(--motion-ease-standard),
     border-color var(--motion-duration-fast) var(--motion-ease-standard),
-    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/* SIZES */
-[data-button][data-ui-size="xs"],
+/* ── SIZES ──────────────────────────────────────────────────── */
+[data-button][data-ui-size="xs"] {
+  height: calc(var(--button-height) - var(--space-sm));
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-xs);
+}
+
 [data-button][data-ui-size="sm"] {
   height: calc(var(--button-height) - var(--space-xs));
   font-size: var(--font-size-sm);
 }
 
-[data-button][data-ui-size="lg"],
-[data-button][data-ui-size="xl"] {
+[data-button][data-ui-size="lg"] {
   height: calc(var(--button-height) + var(--space-xs));
+  font-size: var(--font-size-lg);
+}
+
+[data-button][data-ui-size="xl"] {
+  height: calc(var(--button-height) + var(--space-sm));
+  padding: var(--button-padding-y) var(--space-xl);
   font-size: var(--font-size-lg);
 }
 
@@ -2947,15 +2977,22 @@
   padding: 0;
 }
 
-/* VARIANTS */
+/* ── CORE VARIANTS ──────────────────────────────────────────── */
+[data-button][data-ui-variant="primary"],
 [data-button][data-ui-variant="solid"] {
   background: var(--button-primary-bg);
   color: var(--button-primary-fg);
   border-color: var(--button-primary-bg);
 }
 
+[data-button][data-ui-variant="secondary"] {
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-fg);
+  border-color: var(--button-secondary-border);
+}
+
 [data-button][data-ui-variant="outline"] {
-  background: transparent;
+  background: var(--button-outline-bg);
   color: var(--button-outline-fg);
   border-color: var(--button-outline-border);
 }
@@ -2971,6 +3008,20 @@
   opacity: 1;
 }
 
+[data-button][data-ui-variant="link"] {
+  background: var(--button-link-bg);
+  color: var(--button-link-fg);
+  border-color: transparent;
+  text-decoration: underline;
+  height: auto;
+  padding: 0;
+}
+
+[data-button][data-ui-variant="link"]:hover:not(:disabled) {
+  opacity: var(--state-hover-opacity);
+}
+
+/* ── SEMANTIC VARIANTS ──────────────────────────────────────── */
 [data-button][data-ui-variant="danger"] {
   background: var(--button-danger-bg);
   color: var(--button-danger-fg);
@@ -2989,18 +3040,45 @@
   border-color: var(--button-warning-bg);
 }
 
-/* STATES */
-[data-button]:hover:not(:disabled) {
+[data-button][data-ui-variant="info"] {
+  background: var(--button-info-bg);
+  color: var(--button-info-fg);
+  border-color: var(--button-info-bg);
+}
+
+/* ── NEUTRAL VARIANTS ───────────────────────────────────────── */
+[data-button][data-ui-variant="default"] {
+  background: var(--button-default-bg);
+  color: var(--button-default-fg);
+  border-color: var(--button-default-border);
+}
+
+[data-button][data-ui-variant="subtle"] {
+  background: var(--button-subtle-bg);
+  color: var(--button-subtle-fg);
+  border-color: transparent;
+}
+
+[data-button][data-ui-variant="muted"] {
+  background: var(--button-muted-bg);
+  color: var(--button-muted-fg);
+  border-color: transparent;
+}
+
+/* ── STATES ─────────────────────────────────────────────────── */
+[data-button]:hover:not(:disabled):not([data-ui-variant="ghost"]):not([data-ui-variant="link"]) {
   opacity: var(--state-hover-opacity);
 }
 
 [data-button]:active:not(:disabled) {
   opacity: var(--state-active-opacity);
+  transform: translateY(1px);
 }
 
 [data-button]:disabled {
   opacity: var(--state-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 [data-button]:focus-visible {
@@ -3008,7 +3086,7 @@
   box-shadow: 0 0 0 var(--state-focus-ring) var(--button-primary-bg);
 }
 
-/* VALIDATION */
+/* ── VALIDATION ─────────────────────────────────────────────── */
 [data-button][data-validation="error"] {
   box-shadow: 0 0 0 var(--state-focus-ring) var(--validation-error);
 }
