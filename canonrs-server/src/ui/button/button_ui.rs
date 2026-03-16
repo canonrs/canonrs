@@ -3,13 +3,10 @@ use canonrs_core::primitives::ButtonPrimitive;
 
 #[derive(Clone, Copy, Debug)]
 pub enum ButtonVariant {
-    // Core
     Primary,
-    #[allow(dead_code)] Solid,   // alias for Primary — backwards compat
+    #[allow(dead_code)] Solid,
     Secondary, Outline, Ghost, Link,
-    // Semantic
     Danger, Success, Warning, Info,
-    // Neutral
     Default, Subtle, Muted,
 }
 
@@ -61,13 +58,12 @@ pub fn Button(
 ) -> impl IntoView {
     view! {
         <ButtonPrimitive
-            attr:data-button=""
-            attr:data-ui-variant={variant.as_str()}
-            attr:data-ui-size={size.as_str()}
             class={class}
             id={id.unwrap_or_default()}
             disabled={disabled}
             aria_label={aria_label.unwrap_or_default()}
+            data_variant={variant.as_str().to_string()}
+            data_size={size.as_str().to_string()}
         >
             {children()}
         </ButtonPrimitive>
