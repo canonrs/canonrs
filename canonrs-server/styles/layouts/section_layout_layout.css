@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: var(--layout-region-gap);
   padding: var(--layout-region-padding);
+  background: var(--layout-bg);
 }
 
 [data-layout="section"] [data-layout-region="header"] {

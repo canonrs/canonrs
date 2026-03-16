@@ -4,24 +4,28 @@
   display: grid;
   grid-template-columns: 1fr;
   min-height: var(--layout-min-height);
+  background: var(--layout-bg);
 }
 
 [data-layout="page-with-sidebar"] {
   display: grid;
   grid-template-columns: var(--page-layout-sidebar-width) 1fr;
   min-height: var(--layout-min-height);
+  background: var(--layout-bg);
 }
 
 [data-layout="page-with-aside"] {
   display: grid;
   grid-template-columns: 1fr var(--page-layout-aside-width);
   min-height: var(--layout-min-height);
+  background: var(--layout-bg);
 }
 
 [data-layout="page-sidebar-and-aside"] {
   display: grid;
   grid-template-columns: var(--page-layout-sidebar-width) 1fr var(--page-layout-aside-width);
   min-height: var(--layout-min-height);
+  background: var(--layout-bg);
 }
 
 [data-layout^="page"] [data-layout-region="sidebar"] {

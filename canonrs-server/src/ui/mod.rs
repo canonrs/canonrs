@@ -52,6 +52,7 @@ pub mod switch;
 pub mod select;
 pub use select::*;
 pub mod toggle;
+pub mod toggle_group;
 
 // Family D - Navigation
 pub mod link;
