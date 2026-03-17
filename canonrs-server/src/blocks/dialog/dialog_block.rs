@@ -4,7 +4,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn DialogBlock(
-    #[prop(into)] open: MaybeSignal<bool>,
+    #[prop(into)] open: Signal<bool>,
     #[prop(optional)] on_close: Option<Callback<()>>,
     #[prop(optional)] title: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,

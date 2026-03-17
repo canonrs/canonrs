@@ -4,8 +4,8 @@ use leptos::prelude::*;
 pub fn RadioPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
+    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
     #[prop(default = String::new())] name: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
@@ -15,7 +15,7 @@ pub fn RadioPrimitive(
             <input
                 type="radio"
                 data-radio=""
-                value={value}
+                prop:value=move || value.get()
                 name={name}
                 checked={checked}
                 disabled={disabled}

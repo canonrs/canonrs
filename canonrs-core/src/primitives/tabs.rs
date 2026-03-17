@@ -53,7 +53,7 @@ pub fn TabsTriggerPrimitive(
             type="radio"
             data-tabs-input=""
             name=name
-            value=value
+            value={value}
             checked=checked
             class=class
             id=id
@@ -97,7 +97,7 @@ pub fn TabsContentPrimitive(
     view! {
         <div
             data-tabs-content=""
-            data-value=value
+            data-value={value}
             role="tabpanel"
             attr:aria-labelledby=labelledby
             id=id

@@ -12,7 +12,7 @@ pub fn NavItemPrimitive(
     #[prop(optional)] id: Option<String>,
     #[prop(optional)] aria_label: Option<String>,
     #[prop(default = false)] active: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
 ) -> impl IntoView {
     let data_active = if active { Some("true") } else { None };
     let data_disabled = if disabled.get() { Some("true") } else { None };

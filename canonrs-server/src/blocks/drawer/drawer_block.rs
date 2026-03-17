@@ -13,7 +13,7 @@ impl DrawerPosition {
 
 #[component]
 pub fn DrawerBlock(
-    #[prop(into)] open: MaybeSignal<bool>,
+    #[prop(into)] open: Signal<bool>,
     #[prop(optional)] on_close: Option<Callback<()>>,
     #[prop(default = DrawerPosition::Right)] position: DrawerPosition,
     #[prop(optional)] header: Option<ChildrenFn>,

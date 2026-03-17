@@ -128,7 +128,7 @@ pub fn CalendarCellPrimitive(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
     #[prop(default = false)] selected: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = "-1".to_string())] tabindex: String,
 ) -> impl IntoView {
     view! {

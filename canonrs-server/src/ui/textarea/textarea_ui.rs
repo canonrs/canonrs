@@ -3,10 +3,10 @@ use canonrs_core::primitives::TextareaPrimitive;
 
 #[component]
 pub fn Textarea(
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
     #[prop(default = String::new())] placeholder: String,
     #[prop(default = String::new())] name: String,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = false)] readonly: bool,
     #[prop(default = false)] required: bool,
     #[prop(optional, into)] labelled_by: Option<String>,
@@ -17,17 +17,17 @@ pub fn Textarea(
 ) -> impl IntoView {
     view! {
         <TextareaPrimitive
-            value={value}
-            placeholder={placeholder}
-            name={name}
+            value=move || value.get()
+            placeholder=placeholder
+            name=name
             disabled=disabled
-            readonly={readonly}
-            required={required}
-            labelled_by={labelled_by.unwrap_or_default()}
-            described_by={described_by.unwrap_or_default()}
-            rows={rows.unwrap_or(3)}
-            class={class}
-            id={id}
+            readonly=readonly
+            required=required
+            labelled_by=labelled_by.unwrap_or_default()
+            described_by=described_by.unwrap_or_default()
+            rows=rows.unwrap_or(3)
+            class=class
+            id=id
         />
     }
 }

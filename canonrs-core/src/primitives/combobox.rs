@@ -8,7 +8,7 @@ use leptos::prelude::*;
 pub fn ComboboxPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] expanded: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -30,7 +30,7 @@ pub fn ComboboxPrimitive(
 #[component]
 pub fn ComboboxTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -70,7 +70,7 @@ pub fn ComboboxListPrimitive(
 pub fn ComboboxItemPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] selected: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {

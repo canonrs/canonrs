@@ -26,7 +26,7 @@ pub fn MenuPrimitive(
 #[component]
 pub fn MenuItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = false)] selected: bool,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,

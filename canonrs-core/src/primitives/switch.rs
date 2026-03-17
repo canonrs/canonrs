@@ -4,9 +4,9 @@ use leptos::prelude::*;
 pub fn SwitchPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] name: String,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -17,7 +17,7 @@ pub fn SwitchPrimitive(
                 checked={checked}
                 disabled={disabled}
                 name={if name.is_empty() { None } else { Some(name) }}
-                value={if value.is_empty() { None } else { Some(value) }}
+                prop:value=move || value.get()
                 id={if id.is_empty() { None } else { Some(id) }}
             />
             {children.map(|c| c())}

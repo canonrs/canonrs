@@ -8,7 +8,7 @@ use leptos::prelude::*;
 pub fn ColorPickerPrimitive(
     #[prop(default = "#000000".to_string())] value: String,
     #[prop(default = String::new())] name: String,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {

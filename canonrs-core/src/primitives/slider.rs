@@ -14,7 +14,7 @@ pub fn SliderPrimitive(
     #[prop(default = 1.0)] _step: f64,
     #[prop(default = 0.0)] value: f64,
     #[prop(default = "horizontal".to_string())] orientation: String,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {

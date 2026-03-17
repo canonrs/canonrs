@@ -79,7 +79,7 @@ pub fn PaginationLinkPrimitive(
 pub fn PaginationPreviousPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] href: String,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -107,7 +107,7 @@ pub fn PaginationPreviousPrimitive(
 pub fn PaginationNextPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] href: String,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {

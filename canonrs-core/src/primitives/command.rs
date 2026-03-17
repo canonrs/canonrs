@@ -26,7 +26,7 @@ pub fn CommandPrimitive(
 pub fn CommandInputPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(optional)] placeholder: Option<String>,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -39,7 +39,7 @@ pub fn CommandInputPrimitive(
                 data-command-input=""
                 type="text"
                 placeholder={placeholder.unwrap_or_default()}
-                value={value}
+                prop:value=move || value.get()
                 class={class}
                 id={id}
             />

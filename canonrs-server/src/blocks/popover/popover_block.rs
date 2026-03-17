@@ -13,7 +13,7 @@ impl PopoverPlacement {
 
 #[component]
 pub fn PopoverBlock(
-    #[prop(into)] open: MaybeSignal<bool>,
+    #[prop(into)] open: Signal<bool>,
     #[prop(optional)] on_close: Option<Callback<()>>,
     #[prop(default = PopoverPlacement::Bottom)] placement: PopoverPlacement,
     #[prop(optional)] title: Option<ChildrenFn>,

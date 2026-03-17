@@ -12,18 +12,18 @@ pub fn DataTableHeader<T: Clone + PartialEq + Send + Sync + 'static>(
     sort_column: RwSignal<Option<String>>,
     sort_ascending: RwSignal<bool>,
     current_page: RwSignal<usize>,
-    #[prop(into)] draggable: MaybeSignal<bool>,
-    #[prop(into, optional)] resizable: Option<MaybeSignal<bool>>,
+    #[prop(into)] draggable: Signal<bool>,
+    #[prop(into, optional)] resizable: Option<Signal<bool>>,
     #[prop(default = RwSignal::new(std::collections::HashMap::new()))] column_widths: RwSignal<std::collections::HashMap<String, u32>>,
     #[prop(into, default = "datatable".to_string())] table_id: String,
-    #[prop(into, optional)] pinnable: Option<MaybeSignal<bool>>,
+    #[prop(into, optional)] pinnable: Option<Signal<bool>>,
     #[prop(optional)] pinned_columns: Option<RwSignal<std::collections::HashMap<String, PinPosition>>>,
     #[prop(optional)] pin_offsets: Option<Signal<std::collections::HashMap<String, u32>>>,
     // "center" | "left" | "right" — define ícone e estado inicial do pin button
     #[prop(default = "center")] panel: &'static str,
 ) -> impl IntoView {
-    let resizable_signal = resizable.unwrap_or_else(|| MaybeSignal::Static(false));
-    let pinnable_signal  = pinnable.unwrap_or_else(|| MaybeSignal::Static(false));
+    let resizable_signal = resizable.unwrap_or_else(|| Signal::derive(|| false));
+    let pinnable_signal  = pinnable.unwrap_or_else(|| Signal::derive(|| false));
 
     let handle_sort = move |col: String| {
         if sort_column.get().as_ref() == Some(&col) {

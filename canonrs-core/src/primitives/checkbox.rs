@@ -7,9 +7,9 @@ use leptos::prelude::*;
 pub fn CheckboxPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] name: String,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -20,7 +20,7 @@ pub fn CheckboxPrimitive(
             checked=checked
             disabled=disabled
             name=name
-            value=value
+            prop:value=move || value.get()
             class=class
             id=id
         />

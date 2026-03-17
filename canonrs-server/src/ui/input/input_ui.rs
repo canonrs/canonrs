@@ -6,10 +6,8 @@ pub enum InputVariant { Default, Error, Success, Warning }
 impl InputVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Default => "default",
-            Self::Error => "error",
-            Self::Success => "success",
-            Self::Warning => "warning",
+            Self::Default => "default", Self::Error => "error",
+            Self::Success => "success", Self::Warning => "warning",
         }
     }
 }
@@ -28,7 +26,7 @@ pub fn Input(
     #[prop(into, optional)] id: Option<String>,
     #[prop(default = "text".to_string())] input_type: String,
     #[prop(into, optional)] name: Option<String>,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
     #[prop(default = false)] disabled: bool,
     #[prop(default = InputVariant::Default)] variant: InputVariant,
     #[prop(default = InputSize::Md)] size: InputSize,
@@ -37,21 +35,20 @@ pub fn Input(
 ) -> impl IntoView {
     view! {
         <InputPrimitive
-            attr:data-input=""
-            attr:data-variant={variant.as_str()}
-            attr:data-size={size.as_str()}
             class={class}
             id={id.unwrap_or_default()}
             name={name.unwrap_or_default()}
-            value={value}
-            disabled={disabled}
+            value=value
+            disabled=Signal::derive(move || disabled)
             placeholder={placeholder}
             aria_label={aria_label}
+            data_variant={variant.as_str().to_string()}
+            data_size={size.as_str().to_string()}
         />
     }
 }
 
 #[component]
 pub fn InputPreview() -> leptos::prelude::AnyView {
-    view! { <InputPrimitive attr:data-input="" attr:data-variant="default" attr:data-size="md" class="".to_string() id="".to_string() name="".to_string() value="".to_string() disabled=false placeholder="Input...".to_string() aria_label="".to_string() /> }.into_any()
+    view! { <Input placeholder="Input...".to_string() /> }.into_any()
 }

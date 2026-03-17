@@ -8,7 +8,7 @@ use canonrs_core::primitives::{
 #[component]
 pub fn Sidebar(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = MaybeSignal::Static(false))] collapsed: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] collapsed: Signal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {

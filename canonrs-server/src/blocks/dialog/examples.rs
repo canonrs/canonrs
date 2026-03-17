@@ -4,7 +4,7 @@ use super::DialogBlock;
 
 pub fn basic_example() -> impl IntoView {
     view! {
-        <DialogBlock open=MaybeSignal::Static(true)
+        <DialogBlock open=Signal::derive(|| true)
             title=leptos::children::ToChildren::to_children(|| view!{ <span>"Dialog Title"</span> })
             footer=leptos::children::ToChildren::to_children(|| view!{ <button>"Confirm"</button> })
         >

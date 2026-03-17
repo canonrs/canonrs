@@ -25,7 +25,7 @@ pub fn SelectPrimitive(
 #[component]
 pub fn SelectTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] controls_id: String,
     #[prop(default = false)] expanded: bool,
     #[prop(default = String::new())] value_text: String,
@@ -95,15 +95,15 @@ pub fn SelectItemPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = -1)] tabindex: i32,
     #[prop(default = false)] selected: bool,
-    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
+    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-select-item=""
-            attr:data-value={value}
+            attr:data-prop:value=move || value.get()
             role="option"
             tabindex={tabindex}
             attr:aria-selected={if selected { "true" } else { "false" }}

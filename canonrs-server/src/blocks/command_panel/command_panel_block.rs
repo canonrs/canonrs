@@ -4,7 +4,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn CommandPanelBlock(
-    #[prop(into)] open: MaybeSignal<bool>,
+    #[prop(into)] open: Signal<bool>,
     #[prop(optional)] on_close: Option<Callback<()>>,
     #[prop(optional, into)] placeholder: Option<String>,
     #[prop(default = String::new(), into)] class: String,
