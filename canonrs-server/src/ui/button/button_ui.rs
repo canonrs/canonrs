@@ -51,7 +51,7 @@ pub fn Button(
     children: Children,
     #[prop(default = ButtonVariant::Primary)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
     #[prop(optional)] aria_label: Option<String>,
@@ -60,7 +60,7 @@ pub fn Button(
         <ButtonPrimitive
             class={class}
             id={id.unwrap_or_default()}
-            disabled={disabled}
+            disabled=disabled
             aria_label={aria_label.unwrap_or_default()}
             data_variant={variant.as_str().to_string()}
             data_size={size.as_str().to_string()}

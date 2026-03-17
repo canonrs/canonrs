@@ -8,7 +8,7 @@ use leptos::prelude::*;
 pub fn ComboboxPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] expanded: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -17,7 +17,7 @@ pub fn ComboboxPrimitive(
             data-combobox
             role="combobox"
             aria-expanded={if expanded { "true" } else { "false" }}
-            aria-disabled={if disabled { "true" } else { "false" }}
+            aria-disabled={if disabled.get() { "true" } else { "false" }}
             aria-haspopup="listbox"
             class={class}
             id={id}
@@ -30,7 +30,7 @@ pub fn ComboboxPrimitive(
 #[component]
 pub fn ComboboxTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -39,7 +39,7 @@ pub fn ComboboxTriggerPrimitive(
             data-combobox-trigger
             type="button"
             role="button"
-            aria-disabled={if disabled { "true" } else { "false" }}
+            aria-disabled={if disabled.get() { "true" } else { "false" }}
             class={class}
             id={id}
         >
@@ -70,7 +70,7 @@ pub fn ComboboxListPrimitive(
 pub fn ComboboxItemPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] selected: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -79,7 +79,7 @@ pub fn ComboboxItemPrimitive(
             data-combobox-item
             role="option"
             aria-selected={if selected { "true" } else { "false" }}
-            aria-disabled={if disabled { "true" } else { "false" }}
+            aria-disabled={if disabled.get() { "true" } else { "false" }}
             class={class}
             id={id}
         >

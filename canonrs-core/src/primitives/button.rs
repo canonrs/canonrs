@@ -4,7 +4,7 @@ use leptos::prelude::*;
 pub fn ButtonPrimitive(
     #[prop(optional)] id: Option<String>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(optional)] aria_label: Option<String>,
     #[prop(default = String::new())] data_variant: String,
     #[prop(default = String::new())] data_size: String,
@@ -15,8 +15,8 @@ pub fn ButtonPrimitive(
             type="button"
             id=id
             class=class
-            disabled=disabled
-            aria-disabled=move || if disabled { "true" } else { "false" }
+            disabled=move || disabled.get()
+            aria-disabled=move || if disabled.get() { "true" } else { "false" }
             aria-label=aria_label
             data-button=""
             data-ui-variant=data_variant

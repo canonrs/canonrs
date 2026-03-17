@@ -26,7 +26,7 @@ pub fn MenuPrimitive(
 #[component]
 pub fn MenuItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = false)] selected: bool,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
@@ -34,7 +34,7 @@ pub fn MenuItemPrimitive(
     view! {
         <button
             data-menu-item=""
-            attr:data-disabled={disabled.to_string()}
+            attr:data-disabled={disabled.get().to_string()}
             attr:data-selected={selected.to_string()}
             type="button"
             disabled={disabled}

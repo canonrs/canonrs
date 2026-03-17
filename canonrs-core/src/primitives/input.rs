@@ -7,7 +7,7 @@ pub fn InputPrimitive(
     #[prop(default = "text".to_string())] input_type: String,
     #[prop(default = String::new())] name: String,
     #[prop(default = String::new())] value: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] placeholder: String,
     #[prop(default = String::new())] aria_label: String,
 ) -> impl IntoView {
@@ -19,8 +19,8 @@ pub fn InputPrimitive(
             name={if name.is_empty() { None } else { Some(name) }}
             value={value}
             placeholder={if placeholder.is_empty() { None } else { Some(placeholder) }}
-            attr:aria-disabled={if disabled { Some("true") } else { None }}
-            attr:data-disabled={if disabled { Some("true") } else { None }}
+            attr:aria-disabled={if disabled.get() { Some("true") } else { None }}
+            attr:data-disabled={if disabled.get() { Some("true") } else { None }}
             attr:aria-label={if aria_label.is_empty() { None } else { Some(aria_label) }}
         />
     }

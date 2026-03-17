@@ -1,7 +1,5 @@
 //! @canon-level: strict
 //! Textarea Primitive - HTML textarea + ARIA
-//! Canon: NO disabled/readonly/required HTML, apenas ARIA
-//! Canon: NO tabindex em elementos nativamente focáveis
 
 use leptos::prelude::*;
 
@@ -10,8 +8,8 @@ pub fn TextareaPrimitive(
     #[prop(default = String::new())] value: String,
     #[prop(default = String::new())] placeholder: String,
     #[prop(default = String::new())] name: String,
-    #[prop(default = false)] disabled: bool,
-    #[prop(default = false)] readonly: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
+    #[prop(into, default = MaybeSignal::Static(false))] readonly: MaybeSignal<bool>,
     #[prop(default = false)] required: bool,
     #[prop(optional)] labelled_by: Option<String>,
     #[prop(optional)] described_by: Option<String>,
@@ -25,10 +23,10 @@ pub fn TextareaPrimitive(
             prop:value={value}
             placeholder={placeholder}
             name={name}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
-            attr:data-disabled={if disabled { Some("true") } else { None }}
-            attr:aria-readonly={if readonly { "true" } else { "false" }}
-            attr:data-readonly={if readonly { Some("true") } else { None }}
+            attr:aria-disabled=move || if disabled.get() { "true" } else { "false" }
+            attr:data-disabled=move || if disabled.get() { Some("true") } else { None }
+            attr:aria-readonly={if readonly.get() { "true" } else { "false" }}
+            attr:data-readonly={if readonly.get() { Some("true") } else { None }}
             attr:aria-required={if required { "true" } else { "false" }}
             attr:data-required={if required { Some("true") } else { None }}
             attr:aria-labelledby={labelled_by}

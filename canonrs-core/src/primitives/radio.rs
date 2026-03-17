@@ -4,7 +4,7 @@ use leptos::prelude::*;
 pub fn RadioPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] value: String,
     #[prop(default = String::new())] name: String,
     #[prop(default = String::new())] class: String,

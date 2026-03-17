@@ -128,7 +128,7 @@ pub fn CalendarCellPrimitive(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
     #[prop(default = false)] selected: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = "-1".to_string())] tabindex: String,
 ) -> impl IntoView {
     view! {
@@ -136,9 +136,9 @@ pub fn CalendarCellPrimitive(
             data-calendar-cell=""
             role="gridcell"
             attr:aria-selected={if selected { "true" } else { "false" }}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
+            attr:aria-disabled={if disabled.get() { "true" } else { "false" }}
             attr:data-selected={if selected { Some("true") } else { None }}
-            attr:data-disabled={if disabled { Some("true") } else { None }}
+            attr:data-disabled={if disabled.get() { Some("true") } else { None }}
             tabindex={tabindex}
             class={class}
             id={id}

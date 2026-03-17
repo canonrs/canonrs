@@ -12,13 +12,13 @@ pub fn NavItemPrimitive(
     #[prop(optional)] id: Option<String>,
     #[prop(optional)] aria_label: Option<String>,
     #[prop(default = false)] active: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
 ) -> impl IntoView {
     let data_active = if active { Some("true") } else { None };
-    let data_disabled = if disabled { Some("true") } else { None };
+    let data_disabled = if disabled.get() { Some("true") } else { None };
     let aria_current = if active { Some("page") } else { None };
-    let aria_disabled = if disabled { Some("true") } else { None };
-    let resolved_href = if disabled { "#".to_string() } else { href };
+    let aria_disabled = if disabled.get() { Some("true") } else { None };
+    let resolved_href = if disabled.get() { "#".to_string() } else { href };
 
     view! {
         <a

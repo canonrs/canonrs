@@ -14,7 +14,7 @@ pub fn SliderPrimitive(
     #[prop(default = 1.0)] _step: f64,
     #[prop(default = 0.0)] value: f64,
     #[prop(default = "horizontal".to_string())] orientation: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -26,7 +26,7 @@ pub fn SliderPrimitive(
             node_ref=node_ref
             data-slider=""
             data-orientation=orientation.clone()
-            data-disabled=if disabled { "true" } else { "" }
+            data-disabled=if disabled.get() { "true" } else { "" }
             data-value=clamped_value.to_string()
             data-percent=percent.to_string()
             role="slider"
@@ -34,7 +34,7 @@ pub fn SliderPrimitive(
             aria-valuemax=max.to_string()
             aria-valuenow=clamped_value.to_string()
             aria-orientation=orientation
-            tabindex=if disabled { "-1" } else { "0" }
+            tabindex=if disabled.get() { "-1" } else { "0" }
             class=class
             id=id
         >

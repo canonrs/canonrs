@@ -79,13 +79,13 @@ pub fn PaginationLinkPrimitive(
 pub fn PaginationPreviousPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let data_disabled = if disabled { Some("true") } else { None };
-    let aria_disabled = if disabled { Some("true") } else { None };
-    let resolved_href = if disabled { "#".to_string() } else { href };
+    let data_disabled = if disabled.get() { Some("true") } else { None };
+    let aria_disabled = if disabled.get() { Some("true") } else { None };
+    let resolved_href = if disabled.get() { "#".to_string() } else { href };
 
     view! {
         <a
@@ -107,13 +107,13 @@ pub fn PaginationPreviousPrimitive(
 pub fn PaginationNextPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let data_disabled = if disabled { Some("true") } else { None };
-    let aria_disabled = if disabled { Some("true") } else { None };
-    let resolved_href = if disabled { "#".to_string() } else { href };
+    let data_disabled = if disabled.get() { Some("true") } else { None };
+    let aria_disabled = if disabled.get() { Some("true") } else { None };
+    let resolved_href = if disabled.get() { "#".to_string() } else { href };
 
     view! {
         <a

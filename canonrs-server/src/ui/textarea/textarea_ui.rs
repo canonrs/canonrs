@@ -6,7 +6,7 @@ pub fn Textarea(
     #[prop(default = String::new())] value: String,
     #[prop(default = String::new())] placeholder: String,
     #[prop(default = String::new())] name: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = false)] readonly: bool,
     #[prop(default = false)] required: bool,
     #[prop(optional, into)] labelled_by: Option<String>,
@@ -20,7 +20,7 @@ pub fn Textarea(
             value={value}
             placeholder={placeholder}
             name={name}
-            disabled={disabled}
+            disabled=disabled
             readonly={readonly}
             required={required}
             labelled_by={labelled_by.unwrap_or_default()}

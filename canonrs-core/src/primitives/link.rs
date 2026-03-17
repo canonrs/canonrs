@@ -26,7 +26,7 @@ pub fn LinkPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] href: String,
     #[prop(default = LinkVariant::Default)] variant: LinkVariant,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = false)] external: bool,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
@@ -40,7 +40,7 @@ pub fn LinkPrimitive(
             href=href
             target={if external { "_blank" } else { "" }}
             rel={if external { "noopener noreferrer" } else { "" }}
-            aria-disabled={if disabled { "true" } else { "false" }}
+            aria-disabled={if disabled.get() { "true" } else { "false" }}
             class={class}
             id={id}
         >

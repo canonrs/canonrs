@@ -25,7 +25,7 @@ pub fn SelectPrimitive(
 #[component]
 pub fn SelectTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] controls_id: String,
     #[prop(default = false)] expanded: bool,
     #[prop(default = String::new())] value_text: String,
@@ -41,8 +41,8 @@ pub fn SelectTriggerPrimitive(
             attr:aria-haspopup="listbox"
             attr:aria-controls={if controls_id.is_empty() { None } else { Some(controls_id) }}
             attr:aria-expanded={if expanded { "true" } else { "false" }}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
-            attr:data-disabled={if disabled { Some("true") } else { None }}
+            attr:aria-disabled={if disabled.get() { "true" } else { "false" }}
+            attr:data-disabled={if disabled.get() { Some("true") } else { None }}
             attr:data-value-text={value_text}
             class=class
             id={if id.is_empty() { None } else { Some(id) }}
@@ -95,7 +95,7 @@ pub fn SelectItemPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = -1)] tabindex: i32,
     #[prop(default = false)] selected: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = MaybeSignal::Static(false))] disabled: MaybeSignal<bool>,
     #[prop(default = String::new())] value: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
@@ -107,9 +107,9 @@ pub fn SelectItemPrimitive(
             role="option"
             tabindex={tabindex}
             attr:aria-selected={if selected { "true" } else { "false" }}
-            attr:aria-disabled={if disabled { "true" } else { "false" }}
+            attr:aria-disabled={if disabled.get() { "true" } else { "false" }}
             attr:data-state={if selected { "selected" } else { "unselected" }}
-            attr:data-disabled={if disabled { Some("true") } else { None }}
+            attr:data-disabled={if disabled.get() { Some("true") } else { None }}
             class=class
             id={if id.is_empty() { None } else { Some(id) }}
         >
