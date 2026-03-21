@@ -9,3 +9,5 @@ Cargo.lock
 /canonrs-ui-interactive/src/components.future
 /canonrs-ui-interactive/src/components
 /canonrs-ui-interactive/src/blocks.future
+canonrs-server/styles/.generated/
+canonrs-server/styles/canonrs.bundle.css
