@@ -32,7 +32,7 @@ pub fn AlertPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-alert=""
+            data-rs-alert=""
             data-variant={variant.as_str()}
             role="alert"
             aria-live="polite"
@@ -52,7 +52,7 @@ pub fn AlertTitlePrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <h5 data-alert-title="" class={class} id={id}>
+        <h5 data-rs-alert-title="" class={class} id={id}>
             {children.map(|c| c())}
         </h5>
     }
@@ -65,7 +65,7 @@ pub fn AlertDescriptionPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-alert-description="" class={class} id={id}>
+        <div data-rs-alert-description="" class={class} id={id}>
             {children.map(|c| c())}
         </div>
     }

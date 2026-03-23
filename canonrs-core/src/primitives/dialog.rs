@@ -33,7 +33,7 @@ pub fn DialogTriggerPrimitive(
         <button
             data-dialog-trigger=target_dialog_id
             type="button"
-            data-button=""
+            data-rs-button=""
             data-ui-variant="solid"
             aria-haspopup="dialog"
             class=class
@@ -51,7 +51,7 @@ pub fn DialogOverlayPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dialog-overlay=""
+            data-rs-dialog-overlay=""
             aria-hidden="true"
             class=class
             id=id
@@ -69,7 +69,7 @@ pub fn DialogContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dialog-content=""
+            data-rs-dialog-content=""
             role="dialog"
             aria-modal="true"
             aria-labelledby={if labelledby.is_empty() { None } else { Some(labelledby.clone()) }}
@@ -90,7 +90,7 @@ pub fn DialogTitlePrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <h2 data-dialog-title="" class=class id=id>
+        <h2 data-rs-dialog-title="" class=class id=id>
             {children.map(|c| c())}
         </h2>
     }
@@ -103,7 +103,7 @@ pub fn DialogDescriptionPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <p data-dialog-description="" class=class id=id>
+        <p data-rs-dialog-description="" class=class id=id>
             {children.map(|c| c())}
         </p>
     }

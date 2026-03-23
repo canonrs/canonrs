@@ -17,7 +17,7 @@ pub fn AnimatePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-animate=""
+            attr:data-rs-animate=""
             attr:data-animation={animation}
             attr:data-duration={duration}
             attr:data-easing={easing}

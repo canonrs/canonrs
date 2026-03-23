@@ -15,7 +15,7 @@ pub fn CalendarPrimitive(
     view! {
         <div
             node_ref=node_ref
-            data-calendar=""
+            data-rs-calendar=""
             class={class}
             id={id}
         >
@@ -32,7 +32,7 @@ pub fn CalendarHeaderPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-calendar-header=""
+            data-rs-calendar-header=""
             class={class}
             id={id}
         >
@@ -50,7 +50,7 @@ pub fn CalendarGridPrimitive(
 ) -> impl IntoView {
     view! {
         <table
-            data-calendar-grid=""
+            data-rs-calendar-grid=""
             role="grid"
             class={class}
             id={id}
@@ -68,7 +68,7 @@ pub fn CalendarGridHeadPrimitive(
 ) -> impl IntoView {
     view! {
         <thead
-            data-calendar-grid-head=""
+            data-rs-calendar-grid-head=""
             class={class}
         >
             {children.map(|c| c())}
@@ -83,7 +83,7 @@ pub fn CalendarGridBodyPrimitive(
 ) -> impl IntoView {
     view! {
         <tbody
-            data-calendar-grid-body=""
+            data-rs-calendar-grid-body=""
             class={class}
         >
             {children.map(|c| c())}
@@ -98,7 +98,7 @@ pub fn CalendarGridRowPrimitive(
 ) -> impl IntoView {
     view! {
         <tr
-            data-calendar-grid-row=""
+            data-rs-calendar-grid-row=""
             class={class}
         >
             {children.map(|c| c())}
@@ -113,7 +113,7 @@ pub fn CalendarHeadCellPrimitive(
 ) -> impl IntoView {
     view! {
         <th
-            data-calendar-head-cell=""
+            data-rs-calendar-head-cell=""
             scope="col"
             class={class}
         >
@@ -133,7 +133,7 @@ pub fn CalendarCellPrimitive(
 ) -> impl IntoView {
     view! {
         <td
-            data-calendar-cell=""
+            data-rs-calendar-cell=""
             role="gridcell"
             attr:aria-selected={if selected { "true" } else { "false" }}
             attr:aria-disabled={if disabled.get() { "true" } else { "false" }}

@@ -16,7 +16,7 @@ pub fn CheckboxPrimitive(
     view! {
         <input
             type="checkbox"
-            data-checkbox-input=""
+            data-rs-checkbox-input=""
             checked=checked
             disabled=disabled
             name=name
@@ -33,7 +33,7 @@ pub fn CheckboxIndicatorPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-checkbox-indicator="" class=class>
+        <span data-rs-checkbox-indicator="" class=class>
             {children.map(|c| c())}
         </span>
     }

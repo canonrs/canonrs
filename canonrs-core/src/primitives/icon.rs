@@ -10,7 +10,7 @@ pub fn IconPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <span data-icon="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
+        <span data-rs-icon="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </span>
     }

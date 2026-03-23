@@ -12,7 +12,7 @@ pub fn ButtonGroupPrimitive(
         <div
             id={id}
             class={class}
-            data-button-group=""
+            data-rs-button-group=""
             attr:data-attached={if attached { Some("true") } else { None }}
             role="group"
             aria-label={aria_label}

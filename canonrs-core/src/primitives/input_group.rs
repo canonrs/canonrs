@@ -11,7 +11,7 @@ pub fn InputGroupPrimitive(
         <div
             id={if id.is_empty() { None } else { Some(id) }}
             class={class}
-            data-input-group=""
+            data-rs-input-group=""
             data-merge-radius={if merge_radius { Some("") } else { None }}
         >
             {children.map(|c| c())}

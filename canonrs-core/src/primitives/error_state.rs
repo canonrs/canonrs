@@ -12,7 +12,7 @@ pub fn ErrorStatePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-error-state=""
+            data-rs-error-state=""
             class=class
             id=id
         >
@@ -29,7 +29,7 @@ pub fn ErrorStateIconPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-error-state-icon=""
+            data-rs-error-state-icon=""
             aria-hidden="true"
             class=class
             id=id
@@ -47,7 +47,7 @@ pub fn ErrorStateTitlePrimitive(
 ) -> impl IntoView {
     view! {
         <h3
-            data-error-state-title=""
+            data-rs-error-state-title=""
             class=class
             id=id
         >
@@ -64,7 +64,7 @@ pub fn ErrorStateDescriptionPrimitive(
 ) -> impl IntoView {
     view! {
         <p
-            data-error-state-description=""
+            data-rs-error-state-description=""
             class=class
             id=id
         >
@@ -81,7 +81,7 @@ pub fn ErrorStateActionsPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-error-state-actions=""
+            data-rs-error-state-actions=""
             class=class
             id=id
         >

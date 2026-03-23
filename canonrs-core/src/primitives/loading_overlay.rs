@@ -13,7 +13,7 @@ pub fn LoadingOverlayPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-loading-overlay=""
+            data-rs-loading-overlay=""
             data-loading={if loading { "true" } else { "false" }}
             aria-busy={if loading { "true" } else { "false" }}
             class=class

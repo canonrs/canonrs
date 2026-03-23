@@ -13,7 +13,7 @@ pub fn ToolbarPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-toolbar=""
+            data-rs-toolbar=""
             role="toolbar"
             aria-label={aria_label}
             aria-orientation={orientation}
@@ -31,7 +31,7 @@ pub fn ToolbarSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-toolbar-separator=""
+            data-rs-toolbar-separator=""
             role="separator"
             aria-orientation="vertical"
             class={class}

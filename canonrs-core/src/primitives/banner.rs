@@ -30,7 +30,7 @@ pub fn BannerPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-banner=""
+            data-rs-banner=""
             data-variant={variant.as_str()}
             data-state={if open { "open" } else { "closed" }}
             role="region"
@@ -53,7 +53,7 @@ pub fn BannerClosePrimitive(
     view! {
         <button
             type="button"
-            data-banner-close=""
+            data-rs-banner-close=""
             aria-label="Close banner"
             on:click=move |_| on_close.run(())
             class=class
@@ -71,7 +71,7 @@ pub fn BannerContentPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-banner-content="" class=class id=id>
+        <div data-rs-banner-content="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -84,7 +84,7 @@ pub fn BannerActionsPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-banner-actions="" class=class id=id>
+        <div data-rs-banner-actions="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

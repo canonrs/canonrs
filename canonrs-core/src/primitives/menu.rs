@@ -13,7 +13,7 @@ pub fn MenuPrimitive(
 ) -> impl IntoView {
     view! {
         <nav
-            data-menu=""
+            data-rs-menu=""
             attr:aria-label={aria_label.unwrap_or_default()}
             class={class}
             id={id}
@@ -33,7 +33,7 @@ pub fn MenuItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-menu-item=""
+            data-rs-menu-item=""
             attr:data-disabled={disabled.get().to_string()}
             attr:data-selected={selected.to_string()}
             type="button"
@@ -53,7 +53,7 @@ pub fn MenuGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-menu-group=""
+            data-rs-menu-group=""
             class={class}
         >
             {children.map(|c| c())}
@@ -68,7 +68,7 @@ pub fn MenuLabelPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-menu-label=""
+            data-rs-menu-label=""
             class={class}
         >
             {children.map(|c| c())}
@@ -82,7 +82,7 @@ pub fn MenuSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-menu-separator=""
+            data-rs-menu-separator=""
             role="separator"
             class={class}
         />

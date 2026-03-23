@@ -36,7 +36,7 @@ pub fn ToastPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-toast=""
+            data-rs-toast=""
             data-variant={variant.as_str()}
             data-state={if open { "open" } else { "closed" }}
             role="status"
@@ -58,7 +58,7 @@ pub fn ToastViewportPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-toast-viewport=""
+            data-rs-toast-viewport=""
             class=class
             id=id
         >
@@ -75,7 +75,7 @@ pub fn ToastTitlePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-toast-title=""
+            data-rs-toast-title=""
             class=class
             id=id
         >
@@ -92,7 +92,7 @@ pub fn ToastDescriptionPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-toast-description=""
+            data-rs-toast-description=""
             class=class
             id=id
         >
@@ -109,7 +109,7 @@ pub fn ToastActionPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-toast-action=""
+            data-rs-toast-action=""
             class=class
             id=id
         >
@@ -127,7 +127,7 @@ pub fn ToastClosePrimitive(
     view! {
         <button
             type="button"
-            data-toast-close=""
+            data-rs-toast-close=""
             aria-label="Close"
             class=class
             id=id

@@ -12,7 +12,7 @@ pub fn ContextMenuPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-context-menu=""
+            data-rs-context-menu=""
             data-state="closed"
             class=class
             id=id
@@ -48,7 +48,7 @@ pub fn ContextMenuContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-context-menu-content=""
+            data-rs-context-menu-content=""
             role="menu"
             class=class
             id=id
@@ -66,7 +66,7 @@ pub fn ContextMenuItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-context-menu-item=""
+            data-rs-context-menu-item=""
             role="menuitem"
             type="button"
             class=class
@@ -84,7 +84,7 @@ pub fn ContextMenuSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-context-menu-separator=""
+            data-rs-context-menu-separator=""
             role="separator"
             class=class
             id=id

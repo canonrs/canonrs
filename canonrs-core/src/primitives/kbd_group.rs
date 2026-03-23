@@ -11,7 +11,7 @@ pub fn KbdGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-kbd-group=""
+            data-rs-kbd-group=""
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
@@ -23,6 +23,6 @@ pub fn KbdGroupPrimitive(
 #[component]
 pub fn KbdSeparatorPrimitive() -> impl IntoView {
     view! {
-        <span data-kbd-separator="">"+"</span>
+        <span data-rs-kbd-separator="">"+"</span>
     }
 }

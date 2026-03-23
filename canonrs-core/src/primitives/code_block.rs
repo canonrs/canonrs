@@ -13,7 +13,7 @@ pub fn CodeBlockPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-code-block=""
+            data-rs-code-block=""
             data-language=language
             class=class
             id=id
@@ -29,7 +29,7 @@ pub fn CodeBlockHeaderPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-code-header="" class=class>
+        <div data-rs-code-header="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -41,7 +41,7 @@ pub fn CodeBlockLanguagePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-code-language="" class=class>
+        <span data-rs-code-language="" class=class>
             {language}
         </span>
     }
@@ -53,7 +53,7 @@ pub fn CodeBlockFilenamePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-code-filename="" class=class>
+        <span data-rs-code-filename="" class=class>
             {filename}
         </span>
     }
@@ -66,11 +66,11 @@ pub fn CodeBlockCopyButtonPrimitive(
     view! {
         <button
             type="button"
-            data-code-copy-btn=""
+            data-rs-code-copy-btn=""
             aria-label="Copy code"
             class=class
         >
-            <span data-code-copy-label="">"Copy"</span>
+            <span data-rs-code-copy-label="">"Copy"</span>
         </button>
     }
 }
@@ -81,7 +81,7 @@ pub fn CodeBlockPrePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <pre data-code-pre="" class=class>
+        <pre data-rs-code-pre="" class=class>
             {children.map(|c| c())}
         </pre>
     }
@@ -95,7 +95,7 @@ pub fn CodeBlockLinePrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-code-line=""
+            data-rs-code-line=""
             data-line-number=line_number.to_string()
             attr:data-diff={if diff.is_empty() { None } else { Some(diff) }}
             inner_html=html

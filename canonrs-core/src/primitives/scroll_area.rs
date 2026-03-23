@@ -7,7 +7,7 @@ pub fn ScrollArea(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     view! {
-        <div id={id} class={class} attr:data-scroll-area="">
+        <div id={id} class={class} attr:data-rs-scroll-area="">
             {children.map(|c| c())}
         </div>
     }

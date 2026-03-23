@@ -7,7 +7,7 @@ pub fn ResizablePrimitive(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     view! {
-        <div id={id} class={class} data-resizable="">
+        <div id={id} class={class} data-rs-resizable="">
             {children.map(|c| c())}
         </div>
     }
@@ -32,6 +32,6 @@ pub fn ResizableHandlePrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div id={id} class={class} data-resizable-handle="" aria-disabled="false"></div>
+        <div id={id} class={class} data-rs-resizable-handle="" aria-disabled="false"></div>
     }
 }

@@ -12,7 +12,7 @@ pub fn SheetPrimitive(
     #[prop(default = String::from("right"))] side: String,
 ) -> impl IntoView {
     view! {
-        <div data-sheet="" data-state="closed" data-side={side} class=class id=id>
+        <div data-rs-sheet="" data-state="closed" data-side={side} class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -39,7 +39,7 @@ pub fn SheetContentPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-sheet-content="" role="dialog" class=class id=id>
+        <div data-rs-sheet-content="" role="dialog" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -51,6 +51,6 @@ pub fn SheetOverlayPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-sheet-overlay="" aria-hidden="true" class=class id=id />
+        <div data-rs-sheet-overlay="" aria-hidden="true" class=class id=id />
     }
 }

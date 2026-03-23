@@ -11,7 +11,7 @@ pub fn SwitchPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <label data-switch="" class={class}>
+        <label data-rs-switch="" class={class}>
             <input
                 type="checkbox"
                 checked={checked}
@@ -30,6 +30,6 @@ pub fn SwitchThumbPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-switch-thumb="" class={class} />
+        <span data-rs-switch-thumb="" class={class} />
     }
 }

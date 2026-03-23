@@ -12,7 +12,7 @@ pub fn PaginationPrimitive(
 ) -> impl IntoView {
     view! {
         <nav
-            data-pagination=""
+            data-rs-pagination=""
             
             attr:aria-label="Page navigation"
             class={if class.is_empty() { None } else { Some(class) }}
@@ -30,7 +30,7 @@ pub fn PaginationContentPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ul data-pagination-content="" class={if class.is_empty() { None } else { Some(class) }} id=id>
+        <ul data-rs-pagination-content="" class={if class.is_empty() { None } else { Some(class) }} id=id>
             {children.map(|c| c())}
         </ul>
     }
@@ -43,7 +43,7 @@ pub fn PaginationItemPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <li data-pagination-item="" class={if class.is_empty() { None } else { Some(class) }} id=id>
+        <li data-rs-pagination-item="" class={if class.is_empty() { None } else { Some(class) }} id=id>
             {children.map(|c| c())}
         </li>
     }
@@ -63,7 +63,7 @@ pub fn PaginationLinkPrimitive(
     view! {
         
         <a
-            data-pagination-link=""
+            data-rs-pagination-link=""
             attr:data-active=data_active
             attr:aria-current=aria_current
             href=href
@@ -90,7 +90,7 @@ pub fn PaginationPreviousPrimitive(
     view! {
         <a
         
-            data-pagination-previous=""
+            data-rs-pagination-previous=""
             attr:data-disabled=data_disabled
             attr:aria-disabled=aria_disabled
             attr:aria-label="Go to previous page"
@@ -118,7 +118,7 @@ pub fn PaginationNextPrimitive(
     view! {
         <a
         
-            data-pagination-next=""
+            data-rs-pagination-next=""
             attr:data-disabled=data_disabled
             attr:aria-disabled=aria_disabled
             attr:aria-label="Go to next page"
@@ -137,7 +137,7 @@ pub fn PaginationEllipsisPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <span data-pagination-ellipsis="" aria-hidden="true" class={if class.is_empty() { None } else { Some(class) }} id=id>
+        <span data-rs-pagination-ellipsis="" aria-hidden="true" class={if class.is_empty() { None } else { Some(class) }} id=id>
             "…"
             <span class="sr-only">"More pages"</span>
         </span>

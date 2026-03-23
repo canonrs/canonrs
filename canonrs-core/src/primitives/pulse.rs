@@ -69,7 +69,7 @@ pub fn PulsePrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-pulse=""
+            data-rs-pulse=""
             data-variant={variant.as_str()}
             data-size={size.as_str()}
             data-speed={speed.as_str()}

@@ -13,7 +13,7 @@ pub fn DocProgressPrimitive(
     
     view! {
         <div
-            data-doc-progress=""
+            data-rs-doc-progress=""
             id={id}
             class={class}
             data-progress={data_progress}
@@ -23,7 +23,7 @@ pub fn DocProgressPrimitive(
             aria-valuenow={progress_value}
             aria-label="Reading progress"
         >
-            <div data-doc-progress-bar=""></div>
+            <div data-rs-doc-progress-bar=""></div>
         </div>
     }
 }

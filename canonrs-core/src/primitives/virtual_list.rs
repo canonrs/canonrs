@@ -12,7 +12,7 @@ pub fn VirtualList(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-virtual-list=""
+            attr:data-rs-virtual-list=""
             role="list"
             class={class}
             id={id}
@@ -30,7 +30,7 @@ pub fn VirtualListViewport(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-virtual-list-viewport=""
+            attr:data-rs-virtual-list-viewport=""
             role="presentation"
             tabindex="0"
             attr:aria-label="Scrollable content"
@@ -50,7 +50,7 @@ pub fn VirtualListContent(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-virtual-list-content=""
+            attr:data-rs-virtual-list-content=""
             role="presentation"
             class={class}
             id={id}
@@ -69,7 +69,7 @@ pub fn VirtualListItem(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-virtual-list-item=""
+            attr:data-rs-virtual-list-item=""
             attr:data-index={index.to_string()}
             role="listitem"
             attr:aria-setsize="-1"

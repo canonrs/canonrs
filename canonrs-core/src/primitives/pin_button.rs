@@ -17,7 +17,7 @@ pub fn PinButtonPrimitive(
 
     view! {
         <button
-            data-pin-button=""
+            data-rs-pin-button=""
             data-pin-col-id={if col_id.is_empty() { None } else { Some(col_id) }}
             data-pin-state=initial_state
             type="button"

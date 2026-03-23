@@ -18,7 +18,7 @@ pub fn SeparatorPrimitive(
 
     view! {
         <div
-            data-separator=""
+            data-rs-separator=""
             data-orientation={orientation}
             role={role}
             aria-orientation={aria_orientation}

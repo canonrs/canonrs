@@ -12,7 +12,7 @@ pub fn TooltipPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-tooltip=""
+            data-rs-tooltip=""
             data-state="closed"
             class=class
             id=id
@@ -48,7 +48,7 @@ pub fn TooltipContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-tooltip-content=""
+            data-rs-tooltip-content=""
             role="tooltip"
             class=class
             id=id
@@ -64,7 +64,7 @@ pub fn TooltipProviderPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-tooltip-provider="" class=class>
+        <div data-rs-tooltip-provider="" class=class>
             {children.map(|c| c())}
         </div>
     }

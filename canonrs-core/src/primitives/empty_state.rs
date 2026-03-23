@@ -33,7 +33,7 @@ pub fn EmptyStatePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-empty-state=""
+            data-rs-empty-state=""
             data-variant={variant.as_str()}
             class=class
             id=id
@@ -51,7 +51,7 @@ pub fn EmptyStateIconPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-empty-state-icon=""
+            data-rs-empty-state-icon=""
             aria-hidden="true"
             class=class
             id=id
@@ -69,7 +69,7 @@ pub fn EmptyStateTitlePrimitive(
 ) -> impl IntoView {
     view! {
         <h3
-            data-empty-state-title=""
+            data-rs-empty-state-title=""
             class=class
             id=id
         >
@@ -86,7 +86,7 @@ pub fn EmptyStateDescriptionPrimitive(
 ) -> impl IntoView {
     view! {
         <p
-            data-empty-state-description=""
+            data-rs-empty-state-description=""
             class=class
             id=id
         >
@@ -103,7 +103,7 @@ pub fn EmptyStateActionPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-empty-state-action=""
+            data-rs-empty-state-action=""
             class=class
             id=id
         >

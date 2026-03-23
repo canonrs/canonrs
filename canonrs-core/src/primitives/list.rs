@@ -11,7 +11,7 @@ pub fn ListPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-list=""
+            data-rs-list=""
             role="listbox"
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
@@ -29,7 +29,7 @@ pub fn ListItemPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-list-item=""
+            data-rs-list-item=""
             role="option"
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
@@ -45,7 +45,7 @@ pub fn ListItemTitlePrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-list-item-title="" class={class}>
+        <div data-rs-list-item-title="" class={class}>
             {children.map(|c| c())}
         </div>
     }
@@ -57,7 +57,7 @@ pub fn ListItemDescriptionPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-list-item-description="" class={class}>
+        <div data-rs-list-item-description="" class={class}>
             {children.map(|c| c())}
         </div>
     }

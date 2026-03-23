@@ -12,7 +12,7 @@ pub fn DropdownMenuPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dropdown-menu=""
+            data-rs-dropdown-menu=""
             data-state="closed"
             class=class
             id=id
@@ -50,7 +50,7 @@ pub fn DropdownMenuContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dropdown-menu-content=""
+            data-rs-dropdown-menu-content=""
             role="menu"
             class=class
             id=id
@@ -68,7 +68,7 @@ pub fn DropdownMenuGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dropdown-menu-group=""
+            data-rs-dropdown-menu-group=""
             role="group"
             class=class
             id=id
@@ -86,7 +86,7 @@ pub fn DropdownMenuItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-dropdown-menu-item=""
+            data-rs-dropdown-menu-item=""
             type="button"
             role="menuitem"
             class=class
@@ -104,7 +104,7 @@ pub fn DropdownMenuSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dropdown-menu-separator=""
+            data-rs-dropdown-menu-separator=""
             role="separator"
             class=class
             id=id
@@ -121,7 +121,7 @@ pub fn DropdownMenuCheckboxItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-dropdown-menu-checkbox-item=""
+            data-rs-dropdown-menu-checkbox-item=""
             role="menuitemcheckbox"
             aria-checked={if checked { "true" } else { "false" }}
             type="button"
@@ -141,7 +141,7 @@ pub fn DropdownMenuLabelPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dropdown-menu-label=""
+            data-rs-dropdown-menu-label=""
             class=class
             id=id
         >

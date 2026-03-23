@@ -30,7 +30,7 @@ pub fn AccordionPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-accordion=""
+            data-rs-accordion=""
             data-selection={selection.as_str()}
             data-accordion-collapsible={if collapsible { "true" } else { "false" }}
             class={class}
@@ -50,7 +50,7 @@ pub fn AccordionItemPrimitive(
     #[prop(default = false)] default_open: bool,
 ) -> impl IntoView {
     view! {
-        <div data-accordion-item="" data-state={if default_open { "open" } else { "closed" }} class={class} id={id}>
+        <div data-rs-accordion-item="" data-state={if default_open { "open" } else { "closed" }} class={class} id={id}>
             {children.map(|c| c())}
         </div>
     }
@@ -66,7 +66,7 @@ pub fn AccordionTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-accordion-trigger=""
+            data-rs-accordion-trigger=""
             type="button"
             aria-expanded={if default_open { "true" } else { "false" }}
             aria-controls={(!controls.is_empty()).then(|| controls)}
@@ -87,7 +87,7 @@ pub fn AccordionContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-accordion-content=""
+            data-rs-accordion-content=""
             aria-hidden={if default_open { "false" } else { "true" }}
             hidden=(!default_open)
             class={class}

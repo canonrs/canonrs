@@ -11,7 +11,7 @@ pub fn ResizablePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-resizable=""
+            data-rs-resizable=""
             role="group"
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
@@ -29,7 +29,7 @@ pub fn ResizablePanelPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-resizable-panel=""
+            data-rs-resizable-panel=""
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
@@ -45,13 +45,13 @@ pub fn ResizableHandlePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-resizable-handle=""
+            data-rs-resizable-handle=""
             id={id}
             role="separator"
             tabindex="0"
             class={class}
         >
-            <div data-resizable-handle-bar=""></div>
+            <div data-rs-resizable-handle-bar=""></div>
         </div>
     }
 }

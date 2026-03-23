@@ -12,7 +12,7 @@ pub fn AvatarPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-avatar=""
+            data-rs-avatar=""
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
@@ -30,7 +30,7 @@ pub fn AvatarImagePrimitive(
 ) -> impl IntoView {
     view! {
         <img
-            data-avatar-image=""
+            data-rs-avatar-image=""
             src={src}
             alt={alt}
             class={class}
@@ -47,7 +47,7 @@ pub fn AvatarFallbackPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-avatar-fallback=""
+            data-rs-avatar-fallback=""
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >

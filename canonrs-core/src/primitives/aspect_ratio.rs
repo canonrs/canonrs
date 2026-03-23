@@ -13,12 +13,12 @@ pub fn AspectRatioPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-aspect-ratio=""
+            data-rs-aspect-ratio=""
             data-ratio={ratio}
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
-            <div data-aspect-content="">
+            <div data-rs-aspect-content="">
                 {children.map(|c| c())}
             </div>
         </div>

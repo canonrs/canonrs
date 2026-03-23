@@ -24,7 +24,7 @@ pub fn AlertDialogContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-dialog-content=""
+            data-rs-dialog-content=""
             role="alertdialog"
             aria-modal="true"
             aria-live="assertive"

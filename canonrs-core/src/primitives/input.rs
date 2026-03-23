@@ -15,7 +15,7 @@ pub fn InputPrimitive(
 ) -> impl IntoView {
     view! {
         <input
-            data-input=""
+            data-rs-input=""
             data-variant={if data_variant.is_empty() { None } else { Some(data_variant) }}
             data-size={if data_size.is_empty() { None } else { Some(data_size) }}
             type={input_type}

@@ -12,7 +12,7 @@ pub fn CardPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-card=""
+            data-rs-card=""
             class={class}
             id={id}
         >
@@ -29,7 +29,7 @@ pub fn CardHeaderPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-card-header=""
+            data-rs-card-header=""
             class={class}
             id={id}
         >
@@ -46,7 +46,7 @@ pub fn CardTitlePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-card-title=""
+            data-rs-card-title=""
             class={class}
             id={id}
         >
@@ -63,7 +63,7 @@ pub fn CardDescriptionPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-card-description=""
+            data-rs-card-description=""
             class={class}
             id={id}
         >
@@ -80,7 +80,7 @@ pub fn CardContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-card-content=""
+            data-rs-card-content=""
             class={class}
             id={id}
         >
@@ -97,7 +97,7 @@ pub fn CardFooterPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-card-footer=""
+            data-rs-card-footer=""
             class={class}
             id={id}
         >

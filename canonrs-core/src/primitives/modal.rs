@@ -11,7 +11,7 @@ pub fn ModalPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-modal="" data-state="closed" class=class id=id>
+        <div data-rs-modal="" data-state="closed" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -37,7 +37,7 @@ pub fn ModalOverlayPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-modal-overlay="" aria-hidden="true" class=class id=id />
+        <div data-rs-modal-overlay="" aria-hidden="true" class=class id=id />
     }
 }
 
@@ -48,7 +48,7 @@ pub fn ModalContentPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-modal-content="" role="dialog" class=class id=id>
+        <div data-rs-modal-content="" role="dialog" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

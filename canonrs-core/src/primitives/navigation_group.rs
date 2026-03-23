@@ -13,7 +13,7 @@ pub fn NavigationGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-navigation-group=""
+            data-rs-navigation-group=""
             role="group"
             attr:aria-labelledby={(!labelledby.is_empty()).then(|| labelledby)}
             class={class}
@@ -32,7 +32,7 @@ pub fn NavigationGroupLabelPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-navigation-group-label=""
+            data-rs-navigation-group-label=""
             class={class}
             id={id}
         >

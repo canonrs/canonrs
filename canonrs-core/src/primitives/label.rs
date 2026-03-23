@@ -12,7 +12,7 @@ pub fn LabelPrimitive(
             id={id}
             class={class}
             for={for_id}
-            attr:data-label=""
+            attr:data-rs-label=""
         >
             {children.map(|c| c())}
         </label>

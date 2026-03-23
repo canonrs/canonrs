@@ -13,7 +13,7 @@ pub fn SelectPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-select=""
+            data-rs-select=""
             class=class
             id={if id.is_empty() { None } else { Some(id) }}
         >
@@ -34,7 +34,7 @@ pub fn SelectTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-select-trigger=""
+            data-rs-select-trigger=""
             type="button"
             role="button"
             tabindex="0"
@@ -60,7 +60,7 @@ pub fn SelectValuePrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-select-value=""
+            data-rs-select-value=""
             attr:data-placeholder={placeholder}
             class=class
         >
@@ -80,7 +80,7 @@ pub fn SelectContentPrimitive(
         <div
             role="listbox"
             id={if content_id.is_empty() { None } else { Some(content_id) }}
-            data-select-content=""
+            data-rs-select-content=""
             attr:data-state={if open { "open" } else { "closed" }}
             hidden={if !open { Some(true) } else { None }}
             class=class
@@ -102,7 +102,7 @@ pub fn SelectItemPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-select-item=""
+            data-rs-select-item=""
             attr:data-prop:value=move || value.get()
             role="option"
             tabindex={tabindex}
@@ -124,7 +124,7 @@ pub fn SelectSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-select-separator=""
+            data-rs-select-separator=""
             role="separator"
             class=class
         />

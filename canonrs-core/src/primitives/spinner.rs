@@ -33,7 +33,7 @@ pub fn SpinnerPrimitive(
 ) -> impl IntoView {
     view! {
         <svg
-            data-spinner=""
+            data-rs-spinner=""
             data-size={size.as_str()}
             data-paused={if paused { "true" } else { "false" }}
             role="status"

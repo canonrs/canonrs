@@ -11,7 +11,7 @@ pub fn CarouselPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-carousel=""
+            data-rs-carousel=""
             role="region"
             aria-roledescription="carousel"
             class={class}
@@ -29,7 +29,7 @@ pub fn CarouselTrackPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-carousel-track=""
+            data-rs-carousel-track=""
             class={class}
         >
             {children.map(|c| c())}
@@ -45,7 +45,7 @@ pub fn CarouselItemPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-carousel-item=""
+            data-rs-carousel-item=""
             role="group"
             aria-roledescription="slide"
             class={class}
@@ -63,7 +63,7 @@ pub fn CarouselPrevPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-carousel-prev=""
+            data-rs-carousel-prev=""
             type="button"
             aria-label="Previous slide"
             class={class}
@@ -80,7 +80,7 @@ pub fn CarouselNextPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-carousel-next=""
+            data-rs-carousel-next=""
             type="button"
             aria-label="Next slide"
             class={class}
@@ -97,7 +97,7 @@ pub fn CarouselIndicatorsPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-carousel-indicators=""
+            data-rs-carousel-indicators=""
             role="group"
             aria-label="Slide indicators"
             class={class}
@@ -113,7 +113,7 @@ pub fn CarouselDotPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-carousel-dot=""
+            data-rs-carousel-dot=""
             type="button"
             class={class}
         />

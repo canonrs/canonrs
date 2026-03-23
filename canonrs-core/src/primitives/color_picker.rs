@@ -15,7 +15,7 @@ pub fn ColorPickerPrimitive(
     view! {
         <input
             type="color"
-            data-color-picker=""
+            data-rs-color-picker=""
             value={value}
             name={name}
             disabled={disabled}
@@ -35,14 +35,14 @@ pub fn ColorPickerTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-color-picker-trigger=""
+            data-rs-color-picker-trigger=""
             type="button"
             aria-label="Open color picker"
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
             <div
-                data-color-swatch=""
+                data-rs-color-swatch=""
                 style={format!("background-color: {};", color)}
             />
             {children()}
@@ -59,7 +59,7 @@ pub fn ColorPickerSwatchPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-color-swatch=""
+            data-rs-color-swatch=""
             data-selected={if selected { Some("") } else { None }}
             type="button"
             style={format!("background-color: {};", color)}

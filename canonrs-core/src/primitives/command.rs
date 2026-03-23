@@ -12,7 +12,7 @@ pub fn CommandPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-command=""
+            data-rs-command=""
             role="application"
             class={class}
             id={id}
@@ -34,9 +34,9 @@ pub fn CommandInputPrimitive(
     let id_wrapper = id.clone();
     
     view! {
-        <div data-command-input-wrapper="" class={class_wrapper} id={id_wrapper}>
+        <div data-rs-command-input-wrapper="" class={class_wrapper} id={id_wrapper}>
             <input
-                data-command-input=""
+                data-rs-command-input=""
                 type="text"
                 placeholder={placeholder.unwrap_or_default()}
                 prop:value=move || value.get()
@@ -56,7 +56,7 @@ pub fn CommandListPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-command-list=""
+            data-rs-command-list=""
             role="listbox"
             class={class}
             id={id}
@@ -74,7 +74,7 @@ pub fn CommandEmptyPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-command-empty=""
+            data-rs-command-empty=""
             role="status"
             class={class}
             id={id}
@@ -93,13 +93,13 @@ pub fn CommandGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-command-group=""
+            data-rs-command-group=""
             role="group"
             class={class}
             id={id}
         >
             {heading.map(|h| view! {
-                <div data-command-group-heading="">
+                <div data-rs-command-group-heading="">
                     {h}
                 </div>
             })}
@@ -118,7 +118,7 @@ pub fn CommandItemPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-command-item=""
+            data-rs-command-item=""
             attr:data-value={value.unwrap_or_default()}
             attr:data-selected={if selected { "true" } else { "false" }}
             role="option"
@@ -138,7 +138,7 @@ pub fn CommandSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-command-separator=""
+            data-rs-command-separator=""
             role="separator"
             attr:aria-orientation="horizontal"
             class={class}

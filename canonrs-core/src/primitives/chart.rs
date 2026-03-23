@@ -26,7 +26,7 @@ pub fn ChartPrimitive(
         <div
             id={id}
             class={class}
-            data-chart=""
+            data-rs-chart=""
             data-chart-type={chart_type}
             data-chart-height={height.to_string()}
             data-chart-grid={show_grid.to_string()}
@@ -37,18 +37,18 @@ pub fn ChartPrimitive(
             data-sync-scope={sync_scope}
             data-chart-max-width={if max_width > 0 { max_width.to_string() } else { String::new() }}
         >
-            <canvas id={canvas_id} data-chart-canvas="" />
+            <canvas id={canvas_id} data-rs-chart-canvas="" />
 
-            <div data-chart-overlay="">
-                <div id={tooltip_id} data-chart-tooltip-el="" data-state="hidden" />
-                <div data-chart-crosshair="" data-state="hidden" />
+            <div data-rs-chart-overlay="">
+                <div id={tooltip_id} data-rs-chart-tooltip-el="" data-state="hidden" />
+                <div data-rs-chart-crosshair="" data-state="hidden" />
             </div>
 
-            <div data-chart-legend-el="" />
+            <div data-rs-chart-legend-el="" />
 
             <script
                 type="application/json"
-                data-chart-data=""
+                data-rs-chart-data=""
                 inner_html={data}
             />
         </div>

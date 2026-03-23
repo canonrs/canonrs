@@ -12,7 +12,7 @@ pub fn PageHeaderPrimitive(
 ) -> impl IntoView {
     view! {
         <header
-            data-page-header=""
+            data-rs-page-header=""
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
@@ -29,7 +29,7 @@ pub fn PageHeaderBreadcrumbsPrimitive(
 ) -> impl IntoView {
     view! {
         <nav
-            data-page-header-breadcrumbs=""
+            data-rs-page-header-breadcrumbs=""
             attr:aria-label="Breadcrumb"
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
@@ -47,7 +47,7 @@ pub fn PageHeaderContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-page-header-content=""
+            data-rs-page-header-content=""
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
@@ -64,7 +64,7 @@ pub fn PageHeaderTitlePrimitive(
 ) -> impl IntoView {
     view! {
         <h1
-            data-page-header-title=""
+            data-rs-page-header-title=""
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
@@ -81,7 +81,7 @@ pub fn PageHeaderDescriptionPrimitive(
 ) -> impl IntoView {
     view! {
         <p
-            data-page-header-description=""
+            data-rs-page-header-description=""
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
@@ -98,7 +98,7 @@ pub fn PageHeaderActionsPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-page-header-actions=""
+            data-rs-page-header-actions=""
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >
@@ -115,7 +115,7 @@ pub fn PageHeaderTabsPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-page-header-tabs=""
+            data-rs-page-header-tabs=""
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >

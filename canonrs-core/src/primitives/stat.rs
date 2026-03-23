@@ -12,7 +12,7 @@ pub fn StatPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-stat=""
+            data-rs-stat=""
             class={class}
             id={id}
         >
@@ -29,7 +29,7 @@ pub fn StatValuePrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-stat-value=""
+            data-rs-stat-value=""
             class={class}
             id={id}
         >
@@ -46,7 +46,7 @@ pub fn StatLabelPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-stat-label=""
+            data-rs-stat-label=""
             class={class}
             id={id}
         >
@@ -63,7 +63,7 @@ pub fn StatDeltaPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-stat-delta=""
+            data-rs-stat-delta=""
             class={class}
             id={id}
         >
@@ -80,7 +80,7 @@ pub fn StatIconPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-stat-icon=""
+            data-rs-stat-icon=""
             class={class}
             id={id}
         >
@@ -97,7 +97,7 @@ pub fn StatHeaderPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-stat-header=""
+            data-rs-stat-header=""
             class={class}
             id={id}
         >
@@ -114,7 +114,7 @@ pub fn StatBodyPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-stat-body=""
+            data-rs-stat-body=""
             class={class}
             id={id}
         >

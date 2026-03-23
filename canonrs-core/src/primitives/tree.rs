@@ -11,7 +11,7 @@ pub fn Tree(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-tree="" role="tree" class={class} id={id}>
+        <div data-rs-tree="" role="tree" class={class} id={id}>
             {children.map(|c| c())}
         </div>
     }
@@ -30,7 +30,7 @@ pub fn TreeItem(
 ) -> impl IntoView {
     view! {
         <div
-            data-tree-item=""
+            data-rs-tree-item=""
             data-depth={depth.to_string()}
             data-selected={selected.to_string()}
             data-expanded={expanded.to_string()}
@@ -54,7 +54,7 @@ pub fn TreeGroup(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-tree-group="" role="group" class={class} id={id}>
+        <div data-rs-tree-group="" role="group" class={class} id={id}>
             {children.map(|c| c())}
         </div>
     }

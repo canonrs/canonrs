@@ -41,7 +41,7 @@ pub fn StatusDotPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-status-dot=""
+            data-rs-status-dot=""
             data-variant={variant.as_str()}
             aria-hidden="true"
             class=class

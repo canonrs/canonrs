@@ -14,7 +14,7 @@ pub fn TocPrimitive(
 ) -> impl IntoView {
     view! {
         <nav
-            data-toc=""
+            data-rs-toc=""
             data-toc-mode={data_toc_mode}
             id={id}
             class={class}
@@ -33,7 +33,7 @@ pub fn TocTitlePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <p data-toc-title="" class={class}>
+        <p data-rs-toc-title="" class={class}>
             {children.map(|c| c())}
         </p>
     }
@@ -47,7 +47,7 @@ pub fn TocListPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ul data-toc-list="" class={class}>
+        <ul data-rs-toc-list="" class={class}>
             {children.map(|c| c())}
         </ul>
     }
@@ -63,7 +63,7 @@ pub fn TocSubtreePrimitive(
 ) -> impl IntoView {
     view! {
         <ul
-            data-toc-subtree=""
+            data-rs-toc-subtree=""
             data-state={data_state}
             class={class}
         >
@@ -86,7 +86,7 @@ pub fn TocItemPrimitive(
 ) -> impl IntoView {
     view! {
         <li
-            data-toc-item=""
+            data-rs-toc-item=""
             data-level={data_level}
             data-target={data_target}
             data-state={data_state}
@@ -108,7 +108,7 @@ pub fn TocLinkPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <a data-toc-link="" href={href} class={class}>
+        <a data-rs-toc-link="" href={href} class={class}>
             {children.map(|c| c())}
         </a>
     }
@@ -125,7 +125,7 @@ pub fn TocExpandButtonPrimitive(
     view! {
         <button
             type="button"
-            data-toc-expand-btn=""
+            data-rs-toc-expand-btn=""
             aria-expanded={aria_expanded}
             class={class}
         >

@@ -12,9 +12,9 @@ pub fn EmptyTablePrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <tr data-empty-table-row="" role="row" class=class id=id>
+        <tr data-rs-empty-table-row="" role="row" class=class id=id>
             <td colspan=colspan role="cell">
-                <div data-empty-table-content="" role="status" aria-live="polite">
+                <div data-rs-empty-table-content="" role="status" aria-live="polite">
                     {children.map(|c| c())}
                 </div>
             </td>
@@ -27,7 +27,7 @@ pub fn EmptyTableTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     view! {
-        <div data-empty-table-title="">
+        <div data-rs-empty-table-title="">
             {children.map(|c| c())}
         </div>
     }
@@ -38,7 +38,7 @@ pub fn EmptyTableDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     view! {
-        <div data-empty-table-description="">
+        <div data-rs-empty-table-description="">
             {children.map(|c| c())}
         </div>
     }

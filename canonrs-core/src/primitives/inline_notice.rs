@@ -35,7 +35,7 @@ pub fn InlineNoticePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-inline-notice=""
+            data-rs-inline-notice=""
             data-variant={variant.as_str()}
             class=class
             id=id
@@ -53,7 +53,7 @@ pub fn InlineNoticeIconPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-inline-notice-icon=""
+            data-rs-inline-notice-icon=""
             aria-hidden="true"
             class=class
             id=id
@@ -71,7 +71,7 @@ pub fn InlineNoticeContentPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-inline-notice-content=""
+            data-rs-inline-notice-content=""
             class=class
             id=id
         >

@@ -24,7 +24,7 @@ pub fn SliderPrimitive(
     view! {
         <div
             node_ref=node_ref
-            data-slider=""
+            data-rs-slider=""
             data-orientation=orientation.clone()
             data-disabled=if disabled.get() { "true" } else { "" }
             data-value=clamped_value.to_string()
@@ -51,7 +51,7 @@ pub fn SliderTrackPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-slider-track=""
+            data-rs-slider-track=""
             class=class
             id=id
         >
@@ -65,7 +65,7 @@ pub fn SliderRangePrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-slider-range="" class=class />
+        <div data-rs-slider-range="" class=class />
     }
 }
 
@@ -74,6 +74,6 @@ pub fn SliderThumbPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-slider-thumb="" class=class />
+        <div data-rs-slider-thumb="" class=class />
     }
 }

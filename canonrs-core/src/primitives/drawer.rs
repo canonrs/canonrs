@@ -11,7 +11,7 @@ pub fn DrawerPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-drawer="" data-state="closed" class=class id=id>
+        <div data-rs-drawer="" data-state="closed" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -38,7 +38,7 @@ pub fn DrawerContentPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-drawer-content="" role="dialog" class=class id=id>
+        <div data-rs-drawer-content="" role="dialog" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -50,6 +50,6 @@ pub fn DrawerOverlayPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-drawer-overlay="" aria-hidden="true" class=class id=id />
+        <div data-rs-drawer-overlay="" aria-hidden="true" class=class id=id />
     }
 }

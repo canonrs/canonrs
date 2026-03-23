@@ -15,7 +15,7 @@ pub fn ProgressPrimitive(
 
     view! {
         <div
-            data-progress=""
+            data-rs-progress=""
             role="progressbar"
             aria-valuemin="0"
             aria-valuemax="100"
@@ -36,7 +36,7 @@ pub fn ProgressIndicatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-progress-indicator=""
+            data-rs-progress-indicator=""
             class=class
             id=id
             style=style

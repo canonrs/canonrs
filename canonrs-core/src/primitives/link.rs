@@ -34,7 +34,7 @@ pub fn LinkPrimitive(
     view! {
         
         <a
-            data-link=""
+            data-rs-link=""
             data-variant={variant.as_str()}
             data-disabled={disabled}
             href=href

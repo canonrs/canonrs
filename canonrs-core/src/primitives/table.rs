@@ -11,7 +11,7 @@ pub fn TableWrapperPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-table-wrapper="" class=class id=id>
+        <div data-rs-table-wrapper="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -26,7 +26,7 @@ pub fn TablePrimitive(
 ) -> impl IntoView {
     view! {
         <table 
-            data-table="" 
+            data-rs-table="" 
             attr:data-striped={striped.then(|| "true")}
             class=class 
             id=id
@@ -43,7 +43,7 @@ pub fn TableHeaderPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <thead data-table-header="" class=class id=id>
+        <thead data-rs-table-header="" class=class id=id>
             {children.map(|c| c())}
         </thead>
     }
@@ -56,7 +56,7 @@ pub fn TableBodyPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <tbody data-table-body="" class=class id=id>
+        <tbody data-rs-table-body="" class=class id=id>
             {children.map(|c| c())}
         </tbody>
     }
@@ -69,7 +69,7 @@ pub fn TableFooterPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <tfoot data-table-footer="" class=class id=id>
+        <tfoot data-rs-table-footer="" class=class id=id>
             {children.map(|c| c())}
         </tfoot>
     }
@@ -84,7 +84,7 @@ pub fn TableRowPrimitive(
 ) -> impl IntoView {
     view! {
         <tr 
-            data-table-row="" 
+            data-rs-table-row="" 
             attr:data-state={selected.then(|| "selected")}
             class=class 
             id=id
@@ -101,7 +101,7 @@ pub fn TableHeadPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <th data-table-head="" scope="col" class=class id=id>
+        <th data-rs-table-head="" scope="col" class=class id=id>
             {children.map(|c| c())}
         </th>
     }
@@ -114,7 +114,7 @@ pub fn TableCellPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <td data-table-cell="" class=class id=id>
+        <td data-rs-table-cell="" class=class id=id>
             {children.map(|c| c())}
         </td>
     }
@@ -127,7 +127,7 @@ pub fn TableCaptionPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <caption data-table-caption="" class=class id=id>
+        <caption data-rs-table-caption="" class=class id=id>
             {children.map(|c| c())}
         </caption>
     }

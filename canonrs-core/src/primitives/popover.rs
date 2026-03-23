@@ -13,7 +13,7 @@ pub fn PopoverPrimitive(
 {
     view! {
         <div
-            data-popover=""
+            data-rs-popover=""
             data-state="closed"
             class=class
             id=id
@@ -50,7 +50,7 @@ pub fn PopoverContentPrimitive(
     view! {
         <div
             role="dialog"
-            data-popover-content=""
+            data-rs-popover-content=""
             class=class
             id=id
         >

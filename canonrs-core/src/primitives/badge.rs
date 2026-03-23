@@ -38,7 +38,7 @@ pub fn BadgePrimitive(
     let data_interactive = if interactive { Some("true") } else { None };
     view! {
         <span
-            data-badge=""
+            data-rs-badge=""
             data-variant={variant.as_str()}
             data-interactive=data_interactive
             class=class

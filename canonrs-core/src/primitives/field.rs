@@ -7,7 +7,7 @@ pub fn FieldPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-field="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
+        <div data-rs-field="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </div>
     }
@@ -22,7 +22,7 @@ pub fn FieldLabelPrimitive(
 ) -> impl IntoView {
     view! {
         <label
-            attr:data-field-label=""
+            attr:data-rs-field-label=""
             for={if html_for.is_empty() { None } else { Some(html_for) }}
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
@@ -39,7 +39,7 @@ pub fn FieldDescriptionPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-field-description="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
+        <div data-rs-field-description="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </div>
     }
@@ -53,7 +53,7 @@ pub fn FieldErrorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-field-error=""
+            attr:data-rs-field-error=""
             role="alert"
             attr:aria-live="polite"
             class={class}
@@ -71,7 +71,7 @@ pub fn FieldGroupPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-field-group="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
+        <div data-rs-field-group="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </div>
     }
@@ -84,7 +84,7 @@ pub fn FieldSetPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <fieldset data-fieldset="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
+        <fieldset data-rs-fieldset="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </fieldset>
     }
@@ -97,7 +97,7 @@ pub fn FieldLegendPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <legend data-field-legend="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
+        <legend data-rs-field-legend="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
             {children.map(|c| c())}
         </legend>
     }

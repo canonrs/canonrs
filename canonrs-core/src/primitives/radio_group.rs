@@ -8,7 +8,7 @@ pub fn RadioGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-radio-group=""
+            data-rs-radio-group=""
             role="radiogroup"
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
@@ -31,7 +31,7 @@ pub fn RadioGroupItemPrimitive(
     view! {
         <input
             type="radio"
-            data-radio-group-item=""
+            data-rs-radio-group-item=""
             prop:value=move || value.get()
             name={name}
             checked={checked}
@@ -48,7 +48,7 @@ pub fn RadioGroupIndicatorPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-radio-group-indicator="" class={class}>
+        <span data-rs-radio-group-indicator="" class={class}>
             {children.map(|c| c())}
         </span>
     }

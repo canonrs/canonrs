@@ -11,7 +11,7 @@ pub fn NavigationMenuPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <nav data-navigation-menu="" class=class id=id>
+        <nav data-rs-navigation-menu="" class=class id=id>
             {children()}
         </nav>
     }
@@ -24,7 +24,7 @@ pub fn NavigationMenuListPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ul data-navigation-menu-list="" role="menubar" aria-orientation="horizontal" class=class id=id>
+        <ul data-rs-navigation-menu-list="" role="menubar" aria-orientation="horizontal" class=class id=id>
             {children()}
         </ul>
     }
@@ -37,7 +37,7 @@ pub fn NavigationMenuItemPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <li data-navigation-menu-item="" class=class id=id>
+        <li data-rs-navigation-menu-item="" class=class id=id>
             {children()}
         </li>
     }
@@ -54,7 +54,7 @@ pub fn NavigationMenuTriggerPrimitive(
     let aria_controls = if controls_id.is_empty() { None } else { Some(controls_id) };
     view! {
         <button
-            data-navigation-menu-trigger=""
+            data-rs-navigation-menu-trigger=""
             type="button"
             attr:aria-haspopup="menu"
             attr:aria-controls=aria_controls
@@ -75,7 +75,7 @@ pub fn NavigationMenuContentPrimitive(
 ) -> impl IntoView {
     let id_val = if content_id.is_empty() { None } else { Some(content_id) };
     view! {
-        <div data-navigation-menu-content="" role="menu" id=id_val class=class>
+        <div data-rs-navigation-menu-content="" role="menu" id=id_val class=class>
             {children()}
         </div>
     }
@@ -89,7 +89,7 @@ pub fn NavigationMenuLinkPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <a data-navigation-menu-link="" role="menuitem" href=href class=class id=id>
+        <a data-rs-navigation-menu-link="" role="menuitem" href=href class=class id=id>
             {children()}
         </a>
     }
@@ -102,7 +102,7 @@ pub fn NavigationMenuSubItemPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-navigation-menu-subitem="" class=class id=id>
+        <div data-rs-navigation-menu-subitem="" class=class id=id>
             {children()}
         </div>
     }

@@ -12,7 +12,7 @@ pub fn TabsPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-tabs=""
+            data-rs-tabs=""
             class=class
             id=id
         >
@@ -29,7 +29,7 @@ pub fn TabsListPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-tabs-list=""
+            data-rs-tabs-list=""
             role="tablist"
             class=class
             id=id
@@ -51,7 +51,7 @@ pub fn TabsTriggerPrimitive(
     view! {
         <input
             type="radio"
-            data-tabs-input=""
+            data-rs-tabs-input=""
             name=name
             value={value}
             checked=checked
@@ -74,7 +74,7 @@ pub fn TabsTriggerLabelPrimitive(
     view! {
         <label
             for=for_id
-            data-tabs-trigger=""
+            data-rs-tabs-trigger=""
             role="tab"
             id=id
             attr:aria-controls=controls
@@ -96,7 +96,7 @@ pub fn TabsContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-tabs-content=""
+            data-rs-tabs-content=""
             data-value={value}
             role="tabpanel"
             attr:aria-labelledby=labelledby

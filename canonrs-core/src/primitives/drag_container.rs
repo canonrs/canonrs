@@ -12,7 +12,7 @@ pub fn DragContainerPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-drag-container=""
+            data-rs-drag-container=""
             role="list"
             class={class}
             id={id}

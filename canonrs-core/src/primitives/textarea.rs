@@ -19,7 +19,7 @@ pub fn TextareaPrimitive(
 ) -> impl IntoView {
     view! {
         <textarea
-            data-textarea=""
+            data-rs-textarea=""
             prop:value=move || value.get()
             placeholder={placeholder}
             name={name}

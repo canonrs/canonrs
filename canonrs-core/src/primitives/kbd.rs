@@ -10,7 +10,7 @@ pub fn KbdPrimitive(
         <kbd
             id={id}
             class={class}
-            data-kbd=""
+            data-rs-kbd=""
         >
             {children.map(|c| c())}
         </kbd>

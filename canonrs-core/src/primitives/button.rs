@@ -18,7 +18,7 @@ pub fn ButtonPrimitive(
             disabled=move || disabled.get()
             aria-disabled=move || if disabled.get() { "true" } else { "false" }
             aria-label=aria_label
-            data-button=""
+            data-rs-button=""
             data-ui-variant=data_variant
             data-ui-size=data_size
         >

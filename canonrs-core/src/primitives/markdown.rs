@@ -11,7 +11,7 @@ pub fn MarkdownPrimitive(
     #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-markdown="" class=class id=id>
+        <div data-rs-markdown="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -23,7 +23,7 @@ pub fn MarkdownToolbarPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-md-toolbar="" class=class>
+        <div data-rs-md-toolbar="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -38,7 +38,7 @@ pub fn MarkdownToolbarItemPrimitive(
     view! {
         <button
             type="button"
-            data-md-toolbar-item=""
+            data-rs-md-toolbar-item=""
             data-action=action
             class=class
         >
@@ -54,7 +54,7 @@ pub fn MarkdownTocPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <nav data-md-toc="" data-state=state class=class>
+        <nav data-rs-md-toc="" data-state=state class=class>
             {children.map(|c| c())}
         </nav>
     }
@@ -67,8 +67,8 @@ pub fn MarkdownTocItemPrimitive(
     #[prop(default = 2u8)] level: u8,
 ) -> impl IntoView {
     view! {
-        <li data-toc-item="" data-level=level.to_string() data-state="idle">
-            <a data-toc-link="" href=href>{text}</a>
+        <li data-rs-toc-item="" data-level=level.to_string() data-state="idle">
+            <a data-rs-toc-link="" href=href>{text}</a>
         </li>
     }
 }
@@ -79,7 +79,7 @@ pub fn MarkdownContentPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-md-content="" class=class>
+        <div data-rs-md-content="" class=class>
             {children.map(|c| c())}
         </div>
     }

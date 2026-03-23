@@ -35,7 +35,7 @@ pub fn CalloutPrimitive(
 ) -> impl IntoView {
     view! {
         <aside
-            data-callout=""
+            data-rs-callout=""
             data-variant={variant.as_str()}
             class=class
             id=id
@@ -53,7 +53,7 @@ pub fn CalloutIconPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-callout-icon=""
+            data-rs-callout-icon=""
             aria-hidden="true"
             class=class
             id=id
@@ -71,7 +71,7 @@ pub fn CalloutTitlePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-callout-title=""
+            data-rs-callout-title=""
             class=class
             id=id
         >
@@ -88,7 +88,7 @@ pub fn CalloutDescriptionPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-callout-description=""
+            data-rs-callout-description=""
             class=class
             id=id
         >

@@ -12,7 +12,7 @@ pub fn ResizeHandlePrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-resize-handle=""
+            data-rs-resize-handle=""
             data-resize-col-id={if col_id.is_empty() { None } else { Some(col_id) }}
             role="separator"
             aria-orientation="vertical"

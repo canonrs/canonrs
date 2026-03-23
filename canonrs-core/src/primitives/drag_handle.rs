@@ -12,7 +12,7 @@ pub fn DragHandlePrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-drag-handle=""
+            data-rs-drag-handle=""
             role="button"
             tabindex="0"
             aria-label="Drag to reorder"

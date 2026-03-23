@@ -11,17 +11,17 @@ pub fn RadioPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <label data-radio-wrapper="" class={class}>
+        <label data-rs-radio-wrapper="" class={class}>
             <input
                 type="radio"
-                data-radio=""
+                data-rs-radio=""
                 prop:value=move || value.get()
                 name={name}
                 checked={checked}
                 disabled={disabled}
                 id={if id.is_empty() { None } else { Some(id) }}
             />
-            <span data-radio-indicator=""></span>
+            <span data-rs-radio-indicator=""></span>
             {children.map(|c| c())}
         </label>
     }

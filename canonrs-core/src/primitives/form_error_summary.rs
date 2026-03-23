@@ -12,7 +12,7 @@ pub fn FormErrorSummaryPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-form-error-summary=""
+            data-rs-form-error-summary=""
             role="alert"
             aria-live="polite"
             class={class}

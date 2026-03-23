@@ -12,7 +12,7 @@ pub fn SkeletonPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-skeleton=""
+            data-rs-skeleton=""
             aria-busy="true"
             aria-live="polite"
             class={class}

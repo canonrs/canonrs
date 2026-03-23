@@ -32,7 +32,7 @@ pub fn DataTablePrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-datatable=""
+            data-rs-datatable=""
             data-density={density.as_str()}
             data-page-size=page_size
             data-current-page=current_page
@@ -52,7 +52,7 @@ pub fn DataTableToolbarPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-datatable-toolbar="" class=class>
+        <div data-rs-datatable-toolbar="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -64,7 +64,7 @@ pub fn DataTableScrollPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-datatable-scroll="" class=class>
+        <div data-rs-datatable-scroll="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -76,7 +76,7 @@ pub fn DataTableTablePrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <table data-datatable-table="" class=class>
+        <table data-rs-datatable-table="" class=class>
             {children.map(|c| c())}
         </table>
     }
@@ -89,7 +89,7 @@ pub fn DataTableHeadPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <thead data-datatable-head="" data-resize-container="" class=class id=id>
+        <thead data-rs-datatable-head="" data-rs-resize-container="" class=class id=id>
             {children.map(|c| c())}
         </thead>
     }
@@ -101,7 +101,7 @@ pub fn DataTableHeadRowPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <tr data-datatable-head-row="" class=class>
+        <tr data-rs-datatable-head-row="" class=class>
             {children.map(|c| c())}
         </tr>
     }
@@ -135,7 +135,7 @@ pub fn DataTableHeadCellPrimitive(
 ) -> impl IntoView {
     view! {
         <th
-            data-datatable-head-cell=""
+            data-rs-datatable-head-cell=""
             scope="col"
             aria-sort="none"
             data-sort-key=sort_key
@@ -154,7 +154,7 @@ pub fn DataTableBodyPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <tbody data-datatable-body="" class=class>
+        <tbody data-rs-datatable-body="" class=class>
             {children.map(|c| c())}
         </tbody>
     }
@@ -176,7 +176,7 @@ pub fn DataTableRowPrimitive(
 
     view! {
         <tr
-            data-datatable-row=""
+            data-rs-datatable-row=""
             data-row-id={(!row_id.is_empty()).then(|| row_id)}
             data-state={selected.then(|| "selected")}
             aria-rowindex={row_index.map(|i| (i + 1).to_string())}
@@ -198,7 +198,7 @@ pub fn DataTableCellPrimitive(
 ) -> impl IntoView {
     view! {
         <td
-            data-datatable-cell=""
+            data-rs-datatable-cell=""
             data-col-index=col_index
             class=class
             style={(!style.is_empty()).then(|| style.clone())}
@@ -214,7 +214,7 @@ pub fn DataTableFooterPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <tfoot data-datatable-footer="" class=class>
+        <tfoot data-rs-datatable-footer="" class=class>
             {children.map(|c| c())}
         </tfoot>
     }
@@ -226,7 +226,7 @@ pub fn DataTablePaginationPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-datatable-pagination="" class=class>
+        <div data-rs-datatable-pagination="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -238,7 +238,7 @@ pub fn DataTableEmptyPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-datatable-empty="" data-empty="true" class=class>
+        <div data-rs-datatable-empty="" data-empty="true" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -250,7 +250,7 @@ pub fn DataTableLoadingPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-datatable-loading="" data-loading="true" class=class>
+        <div data-rs-datatable-loading="" data-loading="true" class=class>
             {children.map(|c| c())}
         </div>
     }

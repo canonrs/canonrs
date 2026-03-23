@@ -12,7 +12,7 @@ pub fn MenubarPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-menubar=""
+            data-rs-menubar=""
             role="menubar"
             class=class
             id=id
@@ -33,7 +33,7 @@ pub fn MenubarTriggerPrimitive(
     let controls_id_clone = controls_id.clone();
     view! {
         <button
-            data-menubar-trigger=""
+            data-rs-menubar-trigger=""
             data-target={controls_id}
             type="button"
             role="menuitem"
@@ -57,7 +57,7 @@ pub fn MenubarContentPrimitive(
     let content_id_clone = content_id.clone();
     view! {
         <div
-            data-menubar-content=""
+            data-rs-menubar-content=""
             data-menu={content_id}
             role="menu"
             id=content_id_clone
@@ -76,7 +76,7 @@ pub fn MenubarSubItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-menubar-subitem=""
+            data-rs-menubar-subitem=""
             type="button"
             role="menuitem"
             class=class
@@ -93,7 +93,7 @@ pub fn MenubarSeparatorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-menubar-separator=""
+            data-rs-menubar-separator=""
             role="separator"
             class=class
         />

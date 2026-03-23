@@ -12,7 +12,7 @@ pub fn HoverCardPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            data-hover-card=""
+            data-rs-hover-card=""
             data-state="closed"
             class=class
             id=id
@@ -50,7 +50,7 @@ pub fn HoverCardContentPrimitive(
     view! {
         <div
             role="tooltip"
-            data-hover-card-content=""
+            data-rs-hover-card-content=""
             class=class
             id=id
         >
