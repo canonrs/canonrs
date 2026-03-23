@@ -53,7 +53,7 @@ where
             total_pages=total_pages.to_string()
             attr:data-selectable={selectable.then(|| "true")}
             sync_chart=sync_chart.clone()
-            sync_scope=sync_scope.clone()
+            _sync_scope=sync_scope.clone()
         >
             <DataTableToolbarPrimitive>
                 <input
@@ -120,7 +120,7 @@ where
                                 view! {
                                     <DataTableHeadCellPrimitive
                                         sort_key=key
-                                        sort_direction=SortDirection::None
+                                        _sort_direction=SortDirection::None
                                         col_index=idx.to_string()
                                     >
                                         <span data-datatable-head-label="">{label}</span>

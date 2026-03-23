@@ -28,7 +28,7 @@ pub fn DataTablePrimitive(
     #[prop(default = String::new())] current_page: String,
     #[prop(default = String::new())] total_pages: String,
     #[prop(default = String::new())] sync_chart: String,
-    #[prop(default = String::new())] sync_scope: String,
+    #[prop(default = String::new())] _sync_scope: String,
 ) -> impl IntoView {
     view! {
         <div
@@ -129,7 +129,7 @@ pub fn DataTableHeadCellPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] sort_key: String,
-    #[prop(default = SortDirection::None)] sort_direction: SortDirection,
+    #[prop(default = SortDirection::None)] _sort_direction: SortDirection,
     #[prop(default = String::new())] col_index: String,
     #[prop(into, default = String::new())] style: String,
 ) -> impl IntoView {
@@ -177,11 +177,11 @@ pub fn DataTableRowPrimitive(
     view! {
         <tr
             data-rs-datatable-row=""
-            data-row-id={(!row_id.is_empty()).then(|| row_id)}
-            data-state={selected.then(|| "selected")}
+            data-row-id={(!row_id.is_empty()).then_some(row_id)}
+            data-state={selected.then_some("selected")}
             aria-rowindex={row_index.map(|i| (i + 1).to_string())}
             data-row-index={row_index.map(|i| i.to_string())}
-            id={(!id.is_empty()).then(|| id)}
+            id={(!id.is_empty()).then_some(id)}
             class=class
         >
             {children.map(|c| c())}

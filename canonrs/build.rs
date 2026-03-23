@@ -6,6 +6,7 @@ fn main() {
 
     let status = Command::new("cargo")
         .args(["run", "--bin", "tokens-engine"])
+        .env("CARGO_INCREMENTAL", "0")
         .current_dir("../canonrs-tokens")
         .status()
         .expect("Failed to run tokens-engine");

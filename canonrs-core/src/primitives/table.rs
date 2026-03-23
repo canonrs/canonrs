@@ -27,7 +27,7 @@ pub fn TablePrimitive(
     view! {
         <table 
             data-rs-table="" 
-            attr:data-striped={striped.then(|| "true")}
+            attr:data-striped={striped.then_some("true")}
             class=class 
             id=id
         >
@@ -85,7 +85,7 @@ pub fn TableRowPrimitive(
     view! {
         <tr 
             data-rs-table-row="" 
-            data-rs-state={selected.then(|| "selected")}
+            data-rs-state={selected.then_some("selected")}
             class=class 
             id=id
         >

@@ -27,7 +27,7 @@ pub fn execute() -> Result<()> {
     }
 
     print!("  wasm32 target... ");
-    match Command::new("rustup").args(&["target", "list", "--installed"]).output() {
+    match Command::new("rustup").args(["target", "list", "--installed"]).output() {
         Ok(output) => {
             let targets = String::from_utf8_lossy(&output.stdout);
             if targets.contains("wasm32-unknown-unknown") {

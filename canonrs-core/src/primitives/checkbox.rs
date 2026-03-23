@@ -5,7 +5,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn CheckboxPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] _children: Option<Children>,
     #[prop(default = false)] checked: bool,
     #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(default = String::new())] name: String,

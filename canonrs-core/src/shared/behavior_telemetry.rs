@@ -58,6 +58,12 @@ pub struct TelemetryCollector {
     events: std::sync::Mutex<Vec<TelemetryEvent>>,
 }
 
+impl Default for TelemetryCollector {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TelemetryCollector {
     pub fn new() -> Self {
         Self {

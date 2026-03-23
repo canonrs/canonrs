@@ -69,7 +69,7 @@ pub fn AccordionTriggerPrimitive(
             data-rs-accordion-trigger=""
             type="button"
             aria-expanded={if default_open { "true" } else { "false" }}
-            aria-controls={(!controls.is_empty()).then(|| controls)}
+            aria-controls={(!controls.is_empty()).then_some(controls)}
             class={class}
             id={id}
         >
@@ -89,7 +89,7 @@ pub fn AccordionContentPrimitive(
         <div
             data-rs-accordion-content=""
             aria-hidden={if default_open { "false" } else { "true" }}
-            hidden=(!default_open)
+            hidden=!default_open
             class={class}
             id={id}
         >

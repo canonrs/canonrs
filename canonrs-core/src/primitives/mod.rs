@@ -179,9 +179,7 @@ pub use data_table::*;
 pub mod resize_handle;
 pub mod pin_button;
 pub use resize_handle::*;
-pub use resize_handle::*;
 pub use pin_button::PinButtonPrimitive;
-pub use spinner::*;
 
 pub mod empty_table;
 pub use empty_table::*;

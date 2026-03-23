@@ -1,5 +1,7 @@
 #[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Default)]
 pub enum DrawerVariant {
+    #[default]
     Persistent,
     Modal,
 }
@@ -13,8 +15,3 @@ impl DrawerVariant {
     }
 }
 
-impl Default for DrawerVariant {
-    fn default() -> Self {
-        Self::Persistent
-    }
-}

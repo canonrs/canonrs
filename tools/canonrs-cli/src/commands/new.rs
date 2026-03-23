@@ -75,7 +75,7 @@ fn create_structure(app_dir: &Path, name: &str) -> Result<()> {
     fs::write(app_dir.join("postcss.config.cjs"), postcss_config())
         .context("Failed to write postcss.config.cjs")?;
 
-    println!("  {} {}", "✓".green(), "project structure created");
+    println!("  {} project structure created", "✓".green());
     Ok(())
 }
 

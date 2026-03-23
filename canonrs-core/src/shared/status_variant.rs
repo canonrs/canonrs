@@ -1,9 +1,11 @@
 #[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Default)]
 pub enum StatusVariant {
     Online,
     Offline,
     Warning,
     Error,
+    #[default]
     Idle,
 }
 
@@ -19,8 +21,3 @@ impl StatusVariant {
     }
 }
 
-impl Default for StatusVariant {
-    fn default() -> Self {
-        Self::Idle
-    }
-}

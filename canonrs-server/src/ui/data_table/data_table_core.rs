@@ -46,7 +46,7 @@ where
                                 view! {
                                     <DataTableHeadCellPrimitive
                                         sort_key=key
-                                        sort_direction=canonrs_core::primitives::SortDirection::None
+                                        _sort_direction=canonrs_core::primitives::SortDirection::None
                                     >
                                         {label}
                                     </DataTableHeadCellPrimitive>

@@ -20,7 +20,7 @@ pub fn RadioGroupPrimitive(
 
 #[component]
 pub fn RadioGroupItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] _children: Option<Children>,
     #[prop(default = false)] checked: bool,
     #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
     #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
