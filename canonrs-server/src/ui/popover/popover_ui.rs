@@ -24,13 +24,11 @@ pub fn Popover(
 #[component]
 pub fn PopoverTrigger(
     children: Children,
-    #[prop(into)] target_popover_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <PopoverTriggerPrimitive
-            target_popover_id=target_popover_id
             class=class
             id=id
         >

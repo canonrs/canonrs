@@ -25,13 +25,11 @@ pub fn DialogPrimitive(
 #[component]
 pub fn DialogTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] target_dialog_id: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <button
-            data-dialog-trigger=target_dialog_id
             type="button"
             data-rs-button=""
             data-ui-variant="solid"

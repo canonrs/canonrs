@@ -20,12 +20,11 @@ pub fn DrawerPrimitive(
 #[component]
 pub fn DrawerTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] target_drawer_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-drawer-trigger={target_drawer_id} class=class id=id>
+        <div data-rs-trigger="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

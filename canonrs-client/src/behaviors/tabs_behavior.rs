@@ -1,80 +1,103 @@
 #[cfg(feature = "hydrate")]
-use super::*;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorResult, BehaviorError};
+use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use leptos::web_sys::{window, MouseEvent, HtmlElement};
+use web_sys::{HtmlElement, MouseEvent, KeyboardEvent};
 
 #[cfg(feature = "hydrate")]
-fn activate_tab(tabs: &web_sys::Element, value: &str) {
-    if let Ok(triggers) = tabs.query_selector_all("[data-tabs-trigger]") {
+fn activate_tab(root: &web_sys::Element, value: &str) {
+    if let Ok(triggers) = root.query_selector_all("[data-rs-tabs-trigger]") {
         for i in 0..triggers.length() {
             let Some(node) = triggers.item(i) else { continue };
             let Ok(el) = node.dyn_into::<web_sys::Element>() else { continue };
-            let v = el.get_attribute("data-tabs-value").unwrap_or_default();
-            if v == value {
-                el.set_attribute("data-state", "active").ok();
-                el.set_attribute("aria-selected", "true").ok();
-            } else {
-                el.set_attribute("data-state", "inactive").ok();
-                el.set_attribute("aria-selected", "false").ok();
-            }
+            let v = el.get_attribute("data-rs-value").unwrap_or_default();
+            let active = v == value;
+            el.set_attribute("data-rs-state", if active { "active" } else { "inactive" }).ok();
+            el.set_attribute("aria-selected", if active { "true" } else { "false" }).ok();
         }
     }
-    if let Ok(contents) = tabs.query_selector_all("[data-tabs-content]") {
+    if let Ok(contents) = root.query_selector_all("[data-rs-tabs-content]") {
         for i in 0..contents.length() {
             let Some(node) = contents.item(i) else { continue };
             let Ok(el) = node.dyn_into::<web_sys::Element>() else { continue };
-            let v = el.get_attribute("data-value").unwrap_or_default();
-            if v == value {
-                el.set_attribute("data-state", "active").ok();
-            } else {
-                el.set_attribute("data-state", "inactive").ok();
-            }
+            let v = el.get_attribute("data-rs-value").unwrap_or_default();
+            el.set_attribute("data-rs-state", if v == value { "active" } else { "inactive" }).ok();
         }
     }
 }
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-tabs", Box::new(|element_id, _state| -> BehaviorResult<()> {
-        let document = window().unwrap().document().unwrap();
-        let tabs = document.get_element_by_id(element_id)
-            .ok_or_else(|| BehaviorError::ElementNotFound { selector: element_id.to_string() })?;
+    register_behavior("data-rs-tabs", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
 
-        if tabs.get_attribute("data-tabs-attached").as_deref() == Some("1") { return Ok(()); }
-        tabs.set_attribute("data-tabs-attached", "1").ok();
+        if root.get_attribute("data-rs-tabs-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-tabs-attached", "1").ok();
 
-        let default_val = tabs.get_attribute("data-default").unwrap_or_default();
+        let default_val = root.get_attribute("data-rs-default").unwrap_or_default();
         if !default_val.is_empty() {
-            activate_tab(&tabs, &default_val);
+            activate_tab(root, &default_val);
         }
 
-        let triggers = tabs.query_selector_all("[data-tabs-trigger]")
-            .map_err(|_| BehaviorError::JsError { message: "query triggers".into() })?;
+        let triggers = root.query_selector_all("[data-rs-tabs-trigger]")
+            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query triggers".into() })?;
 
         for i in 0..triggers.length() {
             let Some(node) = triggers.item(i) else { continue };
             let Ok(btn) = node.dyn_into::<HtmlElement>() else { continue };
 
-            let tabs_id = element_id.to_string();
-            let cb = Closure::wrap(Box::new(move |e: MouseEvent| {
-                let doc = window().unwrap().document().unwrap();
-                let target = e.current_target()
-                    .and_then(|t| t.dyn_into::<web_sys::Element>().ok());
-                let Some(target) = target else { return };
-                let value = target.get_attribute("data-tabs-value").unwrap_or_default();
-                if value.is_empty() { return; }
-                let Some(tabs_el) = doc.get_element_by_id(&tabs_id) else { return };
-                activate_tab(&tabs_el, &value);
-            }) as Box<dyn FnMut(MouseEvent)>);
+            if btn.get_attribute("data-rs-trigger-initialized").is_some() { continue; }
+            btn.set_attribute("data-rs-trigger-initialized", "1").ok();
 
+            let root_click = root.clone();
+            let cb = Closure::wrap(Box::new(move |e: MouseEvent| {
+                let target = e.current_target().and_then(|t| t.dyn_into::<web_sys::Element>().ok());
+                let Some(target) = target else { return };
+                let value = target.get_attribute("data-rs-value").unwrap_or_default();
+                if value.is_empty() { return; }
+                activate_tab(&root_click, &value);
+            }) as Box<dyn FnMut(_)>);
             btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
             cb.forget();
+
+            let root_key = root.clone();
+            let btn_key = btn.clone();
+            let key_cb = Closure::wrap(Box::new(move |e: KeyboardEvent| {
+                match e.key().as_str() {
+                    "Enter" | " " => { e.prevent_default(); btn_key.click(); }
+                    "ArrowRight" | "ArrowLeft" => {
+                        e.prevent_default();
+                        let win = match web_sys::window() { Some(w) => w, None => return };
+                        let doc = match win.document() { Some(d) => d, None => return };
+                        if let Ok(all) = root_key.query_selector_all("[data-rs-tabs-trigger]") {
+                            let len = all.length();
+                            let mut cur: Option<u32> = None;
+                            for j in 0..len {
+                                if let Some(n) = all.item(j) {
+                                    if let Ok(el) = n.dyn_into::<HtmlElement>() {
+                                        if doc.active_element().map(|a| a == *el.as_ref()) == Some(true) {
+                                            cur = Some(j); break;
+                                        }
+                                    }
+                                }
+                            }
+                            if let Some(idx) = cur {
+                                let next = if e.key() == "ArrowRight" { (idx + 1) % len } else { (idx + len - 1) % len };
+                                if let Some(n) = all.item(next) {
+                                    if let Ok(el) = n.dyn_into::<HtmlElement>() { el.focus().ok(); el.click(); }
+                                }
+                            }
+                        }
+                    }
+                    _ => {}
+                }
+            }) as Box<dyn FnMut(_)>);
+            btn.add_event_listener_with_callback("keydown", key_cb.as_ref().unchecked_ref()).ok();
+            key_cb.forget();
         }
 
         Ok(())

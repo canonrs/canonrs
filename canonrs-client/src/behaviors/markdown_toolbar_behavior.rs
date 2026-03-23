@@ -1,64 +1,58 @@
 //! Markdown Toolbar Behavior
-//! Handles toggle actions for TOC and line numbers
-
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
-#[cfg(feature = "hydrate")]
-use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
+#[cfg(feature = "hydrate")]
+use web_sys::HtmlElement;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-toolbar-toggle", Box::new(|element_id, _state| {
-        let Some(btn) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
+    register_behavior("data-rs-md-toolbar", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
 
-        let Some(action) = btn.get_attribute("data-action") else {
-            return Ok(());
-        };
+        if root.get_attribute("data-rs-md-toolbar-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-md-toolbar-attached", "1").ok();
 
-        let Some(target_id) = btn.get_attribute("data-target") else {
-            return Ok(());
-        };
+        let buttons = root.query_selector_all("[data-rs-md-toolbar-item]")
+            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query buttons".into() })?;
 
-        let action_owned = action.clone();
-        let target_id_owned = target_id.clone();
-        let btn_clone = btn.clone();
-        
-        let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
-            if let Some(target) = document().get_element_by_id(&target_id_owned) {
-                match action_owned.as_str() {
+        for i in 0..buttons.length() {
+            let node = match buttons.item(i) { Some(n) => n, None => continue };
+            let btn = match node.dyn_into::<HtmlElement>() { Ok(el) => el, Err(_) => continue };
+
+            let action = match btn.get_attribute("data-action") { Some(a) => a, None => continue };
+            let target_id = match btn.get_attribute("data-target") { Some(t) => t, None => continue };
+            let btn_clone = btn.clone();
+
+            let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
+                let doc = web_sys::window().unwrap().document().unwrap();
+                let target = match doc.get_element_by_id(&target_id) { Some(t) => t, None => return };
+                match action.as_str() {
                     "toggle-toc" => {
-                        let current = target.get_attribute("data-hide-toc")
-                            .unwrap_or_else(|| "false".to_string());
+                        let current = target.get_attribute("data-hide-toc").unwrap_or_else(|| "false".to_string());
                         let new_val = if current == "true" { "false" } else { "true" };
-                        let _ = target.set_attribute("data-hide-toc", &new_val);
-                        let _ = btn_clone.set_attribute("data-active", if new_val == "false" { "true" } else { "false" });
-                    },
+                        target.set_attribute("data-hide-toc", new_val).ok();
+                        btn_clone.set_attribute("data-active", if new_val == "false" { "true" } else { "false" }).ok();
+                    }
                     "toggle-line-numbers" => {
-                        let current = target.get_attribute("data-show-line-numbers")
-                            .unwrap_or_else(|| "false".to_string());
+                        let current = target.get_attribute("data-show-line-numbers").unwrap_or_else(|| "false".to_string());
                         let new_val = if current == "true" { "false" } else { "true" };
-                        let _ = target.set_attribute("data-show-line-numbers", &new_val);
-                        let _ = btn_clone.set_attribute("data-active", &new_val);
-                    },
+                        target.set_attribute("data-show-line-numbers", new_val).ok();
+                        btn_clone.set_attribute("data-active", new_val).ok();
+                    }
                     _ => {}
                 }
-            }
-        }) as Box<dyn FnMut(_)>);
+            }) as Box<dyn FnMut(_)>);
 
-        btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { 
-                message: "toolbar listener failed".into() 
-            })?;
-        
-        closure.forget();
+            btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
+                .map_err(|_| canonrs_core::BehaviorError::JsError { message: "toolbar listener failed".into() })?;
+            closure.forget();
+        }
+
         Ok(())
     }));
 }

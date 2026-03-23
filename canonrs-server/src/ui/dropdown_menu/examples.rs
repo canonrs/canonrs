@@ -10,7 +10,6 @@ pub fn BasicExample() -> impl IntoView {
         <div>
             <DropdownMenu id="dropdown-ex".to_string()>
                 <DropdownMenuTrigger
-                    target_dropdown_id="dropdown-ex".to_string()
                     id="dropdown-trigger-ex".to_string()
                 >
                     "Options ▼"
@@ -57,7 +56,6 @@ pub fn CheckboxExample() -> impl IntoView {
         <div>
             <DropdownMenu id="dropdown-checkbox-ex".to_string()>
                 <DropdownMenuTrigger
-                    target_dropdown_id="dropdown-checkbox-ex".to_string()
                     id="dropdown-checkbox-trigger-ex".to_string()
                 >
                     "Columns ▼"

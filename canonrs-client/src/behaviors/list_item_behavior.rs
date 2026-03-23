@@ -8,7 +8,7 @@ use canonrs_core::BehaviorResult;
 /// Este behavior existe para compatibilidade com o registry.
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-list-item", Box::new(|_id: &str, _state: &ComponentState| -> BehaviorResult<()> {
+    register_behavior("data-list-item", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         // Controlado pelo list_behavior via root [data-list]
         Ok(())
     }));

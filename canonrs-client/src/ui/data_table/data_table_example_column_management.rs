@@ -162,7 +162,7 @@ pub fn DataTableColumnManagementExample() -> impl IntoView {
                 <div class="font-semibold">"Column Management"</div>
 
                 <DropdownMenu>
-                    <DropdownMenuTrigger target_dropdown_id="columns-dropdown".to_string()>
+                    <DropdownMenuTrigger>
                         <Button variant=ButtonVariant::Outline>"Columns ▼"</Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>

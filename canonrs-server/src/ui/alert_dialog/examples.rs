@@ -5,7 +5,7 @@ use super::alert_dialog_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <AlertDialogTrigger target_dialog_id="alert-dialog-basic">
+            <AlertDialogTrigger>
                 "Delete Account"
             </AlertDialogTrigger>
             <AlertDialog id="alert-dialog-basic">
@@ -21,7 +21,7 @@ pub fn BasicExample() -> impl IntoView {
                         "This action cannot be undone. This will permanently delete your account and remove your data from our servers."
                     </AlertDialogDescription>
                     <div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:flex-end;">
-                        <AlertDialogClose target_dialog_id="alert-dialog-basic">
+                        <AlertDialogClose>
                             "Cancel"
                         </AlertDialogClose>
                         <button data-button data-ui-variant="solid" data-variant="destructive">

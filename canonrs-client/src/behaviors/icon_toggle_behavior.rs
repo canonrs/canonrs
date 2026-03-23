@@ -11,10 +11,8 @@ use canonrs_core::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-icon-toggle", Box::new(|id: &str, _state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::document;
-
-        let Some(el) = document().get_element_by_id(id) else { return Ok(()); };
+    register_behavior("data-icon-toggle", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+        let el = root.clone();
         if el.get_attribute("data-icon-toggle-attached").as_deref() == Some("1") { return Ok(()); }
         el.set_attribute("data-icon-toggle-attached", "1").ok();
 

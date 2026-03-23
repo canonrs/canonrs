@@ -25,13 +25,12 @@ pub fn DropdownMenuPrimitive(
 #[component]
 pub fn DropdownMenuTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] target_dropdown_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <button
-            data-dropdown-menu-trigger={target_dropdown_id}
+            data-rs-trigger=""
             type="button"
             aria-haspopup="menu"
             class=class

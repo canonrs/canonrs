@@ -13,19 +13,17 @@ use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-menubar", Box::new(|element_id, _state| {
-        let document = window().unwrap().document().unwrap();
-        let menubar = document.get_element_by_id(element_id)
-            .ok_or_else(|| BehaviorError::ElementNotFound { selector: element_id.to_string() })?;
+    register_behavior("data-menubar", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        let menubar = root;
+        let document = web_sys::window().unwrap().document().unwrap();
+        let trigger_selector = "[data-rs-menubar-trigger]";
 
-        let trigger_selector = format!("#{} [data-menubar-trigger]", element_id);
-
-        if let Ok(triggers) = document.query_selector_all(&trigger_selector) {
+        if let Ok(triggers) = root.query_selector_all(trigger_selector) {
             for i in 0..triggers.length() {
                 if let Some(node) = triggers.get(i) {
                     if let Some(trigger) = node.dyn_ref::<Element>() {
                         let document_clone = document.clone();
-                        let element_id_clone = element_id.to_string();
+                        let element_id_clone = "menubar".to_string();
                         let trigger_clone = trigger.clone();
 
                         let cb_toggle = Closure::wrap(Box::new(move |_: MouseEvent| {
@@ -45,7 +43,7 @@ pub fn register() {
                                 for j in 0..all_triggers.length() {
                                     if let Some(n) = all_triggers.get(j) {
                                         if let Some(t) = n.dyn_ref::<Element>() {
-                                            t.set_attribute("data-state", "closed").ok();
+                                            t.set_attribute("data-rs-state", "closed").ok();
                                             t.set_attribute("aria-expanded", "false").ok();
                                         }
                                     }
@@ -56,7 +54,7 @@ pub fn register() {
                                 for j in 0..all_menus.length() {
                                     if let Some(n) = all_menus.get(j) {
                                         if let Some(m) = n.dyn_ref::<Element>() {
-                                            m.set_attribute("data-state", "closed").ok();
+                                            m.set_attribute("data-rs-state", "closed").ok();
                                         }
                                     }
                                 }
@@ -64,12 +62,12 @@ pub fn register() {
 
                             // Abrir se necessário
                             if should_open {
-                                trigger_clone.set_attribute("data-state", "open").ok();
+                                trigger_clone.set_attribute("data-rs-state", "open").ok();
                                 trigger_clone.set_attribute("aria-expanded", "true").ok();
 
                                 let menu_selector = format!("#{} [data-menubar-content][data-menu='{}']", element_id_clone, target_menu);
                                 if let Ok(Some(menu)) = document_clone.query_selector(&menu_selector) {
-                                    menu.set_attribute("data-state", "open").ok();
+                                    menu.set_attribute("data-rs-state", "open").ok();
 
                                     if let Some(html_menu) = menu.dyn_ref::<HtmlElement>() {
                                         let trigger_rect = trigger_clone.get_bounding_client_rect();
@@ -90,7 +88,7 @@ pub fn register() {
 
         // Click outside listener
         let document_clone = document.clone();
-        let element_id_clone = element_id.to_string();
+        let element_id_clone = "menubar".to_string();
         let cb_outside = Closure::wrap(Box::new(move |e: MouseEvent| {
             if let Some(target) = e.target() {
                 if let Some(element) = target.dyn_ref::<Element>() {
@@ -102,7 +100,7 @@ pub fn register() {
                             for j in 0..all_triggers.length() {
                                 if let Some(n) = all_triggers.get(j) {
                                     if let Some(t) = n.dyn_ref::<Element>() {
-                                        t.set_attribute("data-state", "closed").ok();
+                                        t.set_attribute("data-rs-state", "closed").ok();
                                         t.set_attribute("aria-expanded", "false").ok();
                                     }
                                 }
@@ -112,7 +110,7 @@ pub fn register() {
                             for j in 0..all_menus.length() {
                                 if let Some(n) = all_menus.get(j) {
                                     if let Some(m) = n.dyn_ref::<Element>() {
-                                        m.set_attribute("data-state", "closed").ok();
+                                        m.set_attribute("data-rs-state", "closed").ok();
                                     }
                                 }
                             }
@@ -126,13 +124,13 @@ pub fn register() {
 
         // Scroll listener - fechar menu ao rolar
         let document_clone = document.clone();
-        let element_id_clone = element_id.to_string();
+        let element_id_clone = "menubar".to_string();
         let cb_scroll = Closure::wrap(Box::new(move |_: Event| {
             if let Ok(all_triggers) = document_clone.query_selector_all(&format!("#{} [data-menubar-trigger]", element_id_clone)) {
                 for j in 0..all_triggers.length() {
                     if let Some(n) = all_triggers.get(j) {
                         if let Some(t) = n.dyn_ref::<Element>() {
-                            t.set_attribute("data-state", "closed").ok();
+                            t.set_attribute("data-rs-state", "closed").ok();
                             t.set_attribute("aria-expanded", "false").ok();
                         }
                     }
@@ -142,7 +140,7 @@ pub fn register() {
                 for j in 0..all_menus.length() {
                     if let Some(n) = all_menus.get(j) {
                         if let Some(m) = n.dyn_ref::<Element>() {
-                            m.set_attribute("data-state", "closed").ok();
+                            m.set_attribute("data-rs-state", "closed").ok();
                         }
                     }
                 }

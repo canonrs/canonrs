@@ -25,13 +25,12 @@ pub fn HoverCardPrimitive(
 #[component]
 pub fn HoverCardTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] target_hover_card_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <span
-            data-hover-card-trigger={target_hover_card_id}
+            data-rs-trigger=""
             tabindex="0"
             class=class
             id=id

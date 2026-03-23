@@ -39,13 +39,11 @@ pub fn Tooltip(
 #[component]
 pub fn TooltipTrigger(
     children: Children,
-    #[prop(into)] target_tooltip_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <TooltipTriggerPrimitive
-            target_tooltip_id=target_tooltip_id
             class=class
             id=id
         >
@@ -75,7 +73,7 @@ pub fn TooltipPreview() -> impl IntoView {
     view! {
         <TooltipProvider>
             <Tooltip>
-                <TooltipTrigger target_tooltip_id="tp-preview".to_string()>"Hover me"</TooltipTrigger>
+                <TooltipTrigger>"Hover me"</TooltipTrigger>
                 <TooltipContent>"Tooltip"</TooltipContent>
             </Tooltip>
         </TooltipProvider>

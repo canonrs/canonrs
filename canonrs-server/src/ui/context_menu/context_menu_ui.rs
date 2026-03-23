@@ -26,14 +26,12 @@ pub fn ContextMenu(
 #[component]
 pub fn ContextMenuTrigger(
     children: Children,
-    #[prop(into)] target_context_menu_id: String,
-    #[prop(default = String::new())] class: String,
+        #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <ContextMenuTriggerPrimitive
-            target_context_menu_id=target_context_menu_id
-            class=class
+                        class=class
             id=id
         >
             {children()}
@@ -90,7 +88,7 @@ pub fn ContextMenuSeparator(
 pub fn ContextMenuPreview() -> impl IntoView {
     view! {
         <ContextMenu id="cm-preview".to_string()>
-            <ContextMenuTrigger target_context_menu_id="cm-preview".to_string()>
+            <ContextMenuTrigger>
                 <span>"Right-click"</span>
             </ContextMenuTrigger>
             <ContextMenuContent id="cm-content-preview".to_string()>

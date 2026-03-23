@@ -23,7 +23,7 @@ pub struct ComponentState {
 }
 
 #[cfg(feature = "hydrate")]
-pub type BehaviorFn = Box<dyn Fn(&str, &ComponentState) -> BehaviorResult<()>>;
+pub type BehaviorFn = Box<dyn Fn(&web_sys::Element, &ComponentState) -> BehaviorResult<()>>;
 
 #[cfg(feature = "hydrate")]
 thread_local! {
@@ -137,7 +137,7 @@ fn scan_and_attach(document: &Document) -> BehaviorResult<()> {
                         reg.lock().unwrap().insert(id.clone(), state.clone());
                     });
 
-                    if let Err(e) = handler(&id, &state) {
+                    if let Err(e) = handler(&element, &state) {
                         web_sys::console::error_1(&format!("Behavior error on {}: {}", id, e).into());
                     }
                 }

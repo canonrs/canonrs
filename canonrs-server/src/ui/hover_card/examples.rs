@@ -6,7 +6,7 @@ pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
             <HoverCard id="hover-card-ex".to_string()>
-                <HoverCardTrigger target_hover_card_id="hover-card-ex".to_string()>
+                <HoverCardTrigger>
                     <span class="text-blue-600 underline cursor-pointer">"@username"</span>
                 </HoverCardTrigger>
                 <HoverCardContent>

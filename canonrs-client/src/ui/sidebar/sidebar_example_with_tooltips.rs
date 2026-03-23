@@ -46,7 +46,7 @@ pub fn SidebarWithTooltips(
                             <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
                             
                             <Tooltip id="tooltip-dashboard".to_string()>
-                                <TooltipTrigger target_tooltip_id="tooltip-dashboard".to_string()>
+                                <TooltipTrigger>
                                     <SidebarMenuItem href="/dashboard".to_string() active=true>
                                         <span data-sidebar-icon>"📊"</span>
                                         <span data-sidebar-label>"Dashboard"</span>
@@ -60,7 +60,7 @@ pub fn SidebarWithTooltips(
                             <Accordion selection=AccordionSelection::Single collapsible=true>
                                 <AccordionItem>
                                 <Tooltip id="tooltip-projects".to_string()>
-                                    <TooltipTrigger target_tooltip_id="tooltip-projects".to_string()>
+                                    <TooltipTrigger>
                                     <AccordionTrigger>
                                         <span data-sidebar-icon>"📁"</span>
                                         <span data-sidebar-label>"Projects"</span>
@@ -72,7 +72,7 @@ pub fn SidebarWithTooltips(
                                 </Tooltip>
                                     <AccordionContent>
                                         <Tooltip id="tooltip-web".to_string()>
-                                            <TooltipTrigger target_tooltip_id="tooltip-web".to_string()>
+                                            <TooltipTrigger>
                                                 <SidebarMenuItem href="/projects/web".to_string()>
                                                     <span data-sidebar-label>"Web App"</span>
                                                 </SidebarMenuItem>
@@ -83,7 +83,7 @@ pub fn SidebarWithTooltips(
                                         </Tooltip>
                                         
                                         <Tooltip id="tooltip-mobile".to_string()>
-                                            <TooltipTrigger target_tooltip_id="tooltip-mobile".to_string()>
+                                            <TooltipTrigger>
                                                 <SidebarMenuItem href="/projects/mobile".to_string()>
                                                     <span data-sidebar-label>"Mobile App"</span>
                                                 </SidebarMenuItem>
@@ -94,7 +94,7 @@ pub fn SidebarWithTooltips(
                                         </Tooltip>
                                         
                                         <Tooltip id="tooltip-api".to_string()>
-                                            <TooltipTrigger target_tooltip_id="tooltip-api".to_string()>
+                                            <TooltipTrigger>
                                                 <SidebarMenuItem href="/projects/api".to_string()>
                                                     <span data-sidebar-label>"API"</span>
                                                 </SidebarMenuItem>
@@ -108,7 +108,7 @@ pub fn SidebarWithTooltips(
                             </Accordion>
                             
                             <Tooltip id="tooltip-tasks".to_string()>
-                                <TooltipTrigger target_tooltip_id="tooltip-tasks".to_string()>
+                                <TooltipTrigger>
                                     <SidebarMenuItem href="/tasks".to_string()>
                                         <span data-sidebar-icon>"✓"</span>
                                         <span data-sidebar-label>"Tasks"</span>
@@ -124,7 +124,7 @@ pub fn SidebarWithTooltips(
                             <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
                             
                             <Tooltip id="tooltip-profile".to_string()>
-                                <TooltipTrigger target_tooltip_id="tooltip-profile".to_string()>
+                                <TooltipTrigger>
                                     <SidebarMenuItem href="/profile".to_string()>
                                         <span data-sidebar-icon>"👤"</span>
                                         <span data-sidebar-label>"Profile"</span>

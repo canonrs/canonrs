@@ -20,11 +20,10 @@ pub fn Dialog(
 #[component]
 pub fn DialogTrigger(
     children: Children,
-    #[prop(into)] target_dialog_id: String,
-    #[prop(into, default = String::new())] class: String,
+        #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogTriggerPrimitive target_dialog_id=target_dialog_id class=class>
+        <DialogTriggerPrimitive class=class>
             {children()}
         </DialogTriggerPrimitive>
     }
@@ -82,12 +81,11 @@ pub fn DialogDescription(
 #[component]
 pub fn DialogClose(
     children: Children,
-    #[prop(into)] target_dialog_id: String,
-    #[prop(into, default = String::new())] class: String,
+        #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <button
-            data-dialog-close=target_dialog_id
+            data-rs-close=""
             type="button"
             class=class
         >

@@ -3,11 +3,9 @@
 //! Zero acoplamento direto entre componentes
 
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
-#[cfg(feature = "hydrate")]
-use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -16,8 +14,8 @@ use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
 pub fn register() {
     // Chart → Table: escuta canon:chart:hover e destaca row
-    register_behavior("data-chart", Box::new(|element_id, _state| {
-        let Some(root) = document().get_element_by_id(element_id) else { return Ok(()); };
+    register_behavior("data-chart", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        
         let Some(table_id) = root.get_attribute("data-chart-sync-table") else { return Ok(()); };
         if table_id.is_empty() { return Ok(()); }
         if root.get_attribute("data-sync-chart-attached").as_deref() == Some("1") { return Ok(()); }
@@ -30,13 +28,12 @@ pub fn register() {
             let idx = js_sys::Reflect::get(&detail, &JsValue::from_str("index"))
                 .ok().and_then(|v| v.as_f64()).map(|f| f as usize)
                 .unwrap_or(usize::MAX);
-
-            let Some(table) = document().get_element_by_id(&table_id_c) else { return };
-            let Ok(rows) = table.query_selector_all("[data-datatable-row]") else { return };
+            let doc = web_sys::window().unwrap().document().unwrap();
+            let Ok(rows) = doc.query_selector_all(&format!("[data-rs-datatable] [data-rs-datatable-row]")) else { return };
             for i in 0..rows.length() {
-                let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) else { continue };
+                let Some(row): Option<web_sys::Element> = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) else { continue };
                 let row_idx = row.get_attribute("data-row-index")
-                    .and_then(|v| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
+                    .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
                 if row_idx == idx {
                     row.set_attribute("data-chart-highlight", "").ok();
                     // Scroll suave para a row visível
@@ -47,7 +44,7 @@ pub fn register() {
             }
         }) as Box<dyn FnMut(_)>);
 
-        document().add_event_listener_with_callback(
+        web_sys::window().unwrap().document().unwrap().add_event_listener_with_callback(
             "canon:chart:hover",
             on_chart_hover.as_ref().unchecked_ref()
         ).ok();
@@ -56,8 +53,8 @@ pub fn register() {
         // Escuta canon:chart:leave → remove highlights
         let table_id_c2 = table_id.clone();
         let on_chart_leave = Closure::wrap(Box::new(move |_: web_sys::Event| {
-            let Some(table) = document().get_element_by_id(&table_id_c2) else { return };
-            let Ok(rows) = table.query_selector_all("[data-datatable-row][data-chart-highlight]") else { return };
+            let doc = web_sys::window().unwrap().document().unwrap();
+            let Ok(rows): Result<web_sys::NodeList, _> = doc.query_selector_all(&format!("[data-rs-datatable] [data-rs-datatable-row][data-chart-highlight]")) else { return };
             for i in 0..rows.length() {
                 if let Some(r) = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) {
                     r.remove_attribute("data-chart-highlight").ok();
@@ -65,7 +62,7 @@ pub fn register() {
             }
         }) as Box<dyn FnMut(_)>);
 
-        document().add_event_listener_with_callback(
+        web_sys::window().unwrap().document().unwrap().add_event_listener_with_callback(
             "canon:chart:leave",
             on_chart_leave.as_ref().unchecked_ref()
         ).ok();
@@ -75,24 +72,24 @@ pub fn register() {
     }));
 
     // DataTable → Chart: escuta hover nas rows e dispara canon:datatable:hover
-    register_behavior("data-datatable", Box::new(|element_id, _state| {
-        let Some(table) = document().get_element_by_id(element_id) else { return Ok(()); };
+    register_behavior("data-datatable", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        let table: &web_sys::Element = root;
         let Some(chart_id) = table.get_attribute("data-table-sync-chart") else { return Ok(()); };
         if chart_id.is_empty() { return Ok(()); }
         if table.get_attribute("data-sync-table-attached").as_deref() == Some("1") { return Ok(()); }
         table.set_attribute("data-sync-table-attached", "1").ok();
 
-        let Ok(rows) = table.query_selector_all("[data-datatable-row]") else { return Ok(()); };
+        let Ok(rows): Result<web_sys::NodeList, _> = table.query_selector_all("[data-rs-datatable-row]") else { return Ok(()); };
 
         for i in 0..rows.length() {
-            let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) else { continue };
+            let Some(row): Option<web_sys::Element> = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) else { continue };
             let chart_id_c = chart_id.clone();
-            let row_c = row.clone();
+            let row_c: web_sys::Element = row.clone();
 
             // mouseenter → dispara canon:datatable:hover
             let enter = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
                 let idx = row_c.get_attribute("data-row-index")
-                    .and_then(|v| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
+                    .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
                 if idx == usize::MAX { return; }
 
                 let detail = js_sys::Object::new();

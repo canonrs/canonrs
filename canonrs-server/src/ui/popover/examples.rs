@@ -6,7 +6,7 @@ pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
             <Popover id="popover-ex".to_string()>
-                <PopoverTrigger target_popover_id="popover-ex".to_string()>
+                <PopoverTrigger>
                     <button data-button data-ui-variant="solid">"Open Popover"</button>
                 </PopoverTrigger>
                 <PopoverContent>

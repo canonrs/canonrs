@@ -25,13 +25,11 @@ pub fn TooltipPrimitive(
 #[component]
 pub fn TooltipTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] target_tooltip_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
-            data-tooltip-trigger={target_tooltip_id}
             class=class
             id=id
         >

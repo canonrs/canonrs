@@ -11,10 +11,7 @@ use canonrs_core::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-pagination", Box::new(|id: &str, _state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::document;
-
-        let Some(root) = document().get_element_by_id(id) else { return Ok(()); };
+    register_behavior("data-pagination", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         if root.get_attribute("data-pagination-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-pagination-attached", "1").ok();
 

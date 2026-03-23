@@ -1,5 +1,5 @@
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -22,10 +22,10 @@ fn update_slider_ui(slider_el: &web_sys::Element, percent: f64) {
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-slider", Box::new(|id: &str, _state| -> BehaviorResult<()> {
+    register_behavior("data-slider", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         use leptos::leptos_dom::helpers::document;
 
-        let Some(slider_el) = document().get_element_by_id(id) else { return Ok(()); };
+        let slider_el = root;
         if slider_el.get_attribute("data-slider-attached").as_deref() == Some("1") { return Ok(()); }
         slider_el.set_attribute("data-slider-attached", "1").ok();
 

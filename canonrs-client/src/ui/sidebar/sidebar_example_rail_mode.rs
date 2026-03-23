@@ -51,7 +51,7 @@ pub fn SidebarRailMode() -> impl IntoView {
                             <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
                             
                             <Tooltip id="tooltip-dashboard-rail".to_string()>
-                                <TooltipTrigger target_tooltip_id="tooltip-dashboard-rail".to_string()>
+                                <TooltipTrigger>
                                     <SidebarMenuItem href="/dashboard".to_string() active=true>
                                         <span data-sidebar-icon>"📊"</span>
                                         <span data-sidebar-label>"Dashboard"</span>
@@ -80,7 +80,7 @@ pub fn SidebarRailMode() -> impl IntoView {
                             </Accordion>
                             
                             <Tooltip id="tooltip-tasks-rail".to_string()>
-                                <TooltipTrigger target_tooltip_id="tooltip-tasks-rail".to_string()>
+                                <TooltipTrigger>
                                     <SidebarMenuItem href="/tasks".to_string()>
                                         <span data-sidebar-icon>"✓"</span>
                                         <span data-sidebar-label>"Tasks"</span>
@@ -96,7 +96,7 @@ pub fn SidebarRailMode() -> impl IntoView {
                             <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
                             
                             <Tooltip id="tooltip-profile-rail".to_string()>
-                                <TooltipTrigger target_tooltip_id="tooltip-profile-rail".to_string()>
+                                <TooltipTrigger>
                                     <SidebarMenuItem href="/profile".to_string()>
                                         <span data-sidebar-icon>"👤"</span>
                                         <span data-sidebar-label>"Profile"</span>

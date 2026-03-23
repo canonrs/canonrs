@@ -13,25 +13,20 @@ use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-dropdown-menu", Box::new(|id: &str, state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::document;
-
-        let Some(dropdown) = document().get_element_by_id(id) else {
-            return Err(BehaviorError::ElementNotFound { selector: id.into() });
-        };
-        if dropdown.get_attribute("data-dropdown-attached").as_deref() == Some("1") { return Ok(()); }
-        dropdown.set_attribute("data-dropdown-attached", "1").ok();
+    register_behavior("data-dropdown-menu", Box::new(|root: &web_sys::Element, state: &ComponentState| -> BehaviorResult<()> {
+        if root.get_attribute("data-rs-dropdown-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-dropdown-attached", "1").ok();
+        let dropdown = root;
 
         let open_signal = state.open;
-        let dropdown_id = id.to_string();
-
-        if let Some(trigger) = document().query_selector(&format!("[data-dropdown-menu-trigger='{}']", dropdown_id)).ok().flatten() {
-            let dropdown_clone = dropdown.clone();
+        
+        if let Ok(Some(trigger)) = root.query_selector("[data-rs-trigger]") {
+            let dropdown_clone = root.clone();
             let trigger_clone = trigger.clone();
             let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-                let is_open = dropdown_clone.get_attribute("data-state").as_deref() == Some("open");
+                let is_open = dropdown_clone.get_attribute("data-rs-state").as_deref() == Some("open");
                 open_signal.set(!is_open);
-                dropdown_clone.set_attribute("data-state", if !is_open { "open" } else { "closed" }).ok();
+                dropdown_clone.set_attribute("data-rs-state", if !is_open { "open" } else { "closed" }).ok();
                 if !is_open {
                     if let Some(content) = dropdown_clone.query_selector("[data-dropdown-menu-content]").ok().flatten() {
                         if let (Ok(c), Some(t)) = (content.dyn_into::<HtmlElement>(), trigger_clone.dyn_ref::<HtmlElement>()) {
@@ -46,17 +41,17 @@ pub fn register() {
             cb.forget();
         }
 
-        let dropdown_clone = dropdown.clone();
+        let dropdown_clone = root.clone();
         let cb_outside = Closure::wrap(Box::new(move |e: MouseEvent| {
-            if dropdown_clone.get_attribute("data-state").as_deref() != Some("open") { return; }
+            if dropdown_clone.get_attribute("data-rs-state").as_deref() != Some("open") { return; }
             if let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) {
-                if target.closest(&format!("#{}", dropdown_id)).ok().flatten().is_none() {
+                if target.closest("[data-rs-dropdown-menu]").ok().flatten().is_none() {
                     open_signal.set(false);
-                    dropdown_clone.set_attribute("data-state", "closed").ok();
+                    dropdown_clone.set_attribute("data-rs-state", "closed").ok();
                 }
             }
         }) as Box<dyn FnMut(_)>);
-        document().add_event_listener_with_callback("click", cb_outside.as_ref().unchecked_ref()).ok();
+        web_sys::window().unwrap().document().unwrap().add_event_listener_with_callback("click", cb_outside.as_ref().unchecked_ref()).ok();
         cb_outside.forget();
 
         Ok(())

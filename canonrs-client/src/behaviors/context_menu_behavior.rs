@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorResult, BehaviorError};
+use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -13,42 +13,38 @@ use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-context-menu", Box::new(|id: &str, state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::document;
+    register_behavior("data-rs-context-menu", Box::new(|root: &web_sys::Element, state: &ComponentState| -> BehaviorResult<()> {
 
-        let Some(ctx) = document().get_element_by_id(id) else {
-            return Err(BehaviorError::ElementNotFound { selector: id.into() });
-        };
-        if ctx.get_attribute("data-context-menu-attached").as_deref() == Some("1") { return Ok(()); }
-        ctx.set_attribute("data-context-menu-attached", "1").ok();
+        if root.get_attribute("data-rs-context-menu-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-context-menu-attached", "1").ok();
 
         let open_signal = state.open;
-        let ctx_id = id.to_string();
+        let doc = web_sys::window().unwrap().document().unwrap();
 
-        if let Some(trigger) = document().query_selector(&format!("[data-context-menu-trigger='{}']", ctx_id)).ok().flatten() {
-            let ctx_clone = ctx.clone();
+        if let Ok(Some(trigger)) = root.query_selector("[data-rs-trigger]") {
+            let root_clone = root.clone();
             let cb_open = Closure::wrap(Box::new(move |e: MouseEvent| {
                 e.prevent_default();
-                if let Some(content) = ctx_clone.query_selector("[data-context-menu-content]").ok().flatten() {
+                if let Ok(Some(content)) = root_clone.query_selector("[data-rs-context-menu-content]") {
                     if let Ok(c) = content.dyn_into::<HtmlElement>() {
                         c.style().set_property("left", &format!("{}px", e.client_x())).ok();
                         c.style().set_property("top", &format!("{}px", e.client_y())).ok();
                     }
                 }
                 open_signal.set(true);
-                ctx_clone.set_attribute("data-state", "open").ok();
+                root_clone.set_attribute("data-rs-state", "open").ok();
             }) as Box<dyn FnMut(_)>);
             trigger.add_event_listener_with_callback("contextmenu", cb_open.as_ref().unchecked_ref()).ok();
             cb_open.forget();
         }
 
-        let ctx_clone = ctx.clone();
+        let root_close = root.clone();
         let cb_close = Closure::wrap(Box::new(move |_: MouseEvent| {
-            if ctx_clone.get_attribute("data-state").as_deref() != Some("open") { return; }
+            if root_close.get_attribute("data-rs-state").as_deref() != Some("open") { return; }
             open_signal.set(false);
-            ctx_clone.set_attribute("data-state", "closed").ok();
+            root_close.set_attribute("data-rs-state", "closed").ok();
         }) as Box<dyn FnMut(_)>);
-        document().add_event_listener_with_callback("click", cb_close.as_ref().unchecked_ref()).ok();
+        doc.add_event_listener_with_callback("click", cb_close.as_ref().unchecked_ref()).ok();
         cb_close.forget();
 
         Ok(())

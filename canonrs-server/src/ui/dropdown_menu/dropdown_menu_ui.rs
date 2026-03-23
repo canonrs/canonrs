@@ -29,13 +29,11 @@ pub fn DropdownMenu(
 #[component]
 pub fn DropdownMenuTrigger(
     children: Children,
-    #[prop(into)] target_dropdown_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <DropdownMenuTriggerPrimitive
-            target_dropdown_id=target_dropdown_id
             class=class
             id=id
         >
@@ -150,7 +148,7 @@ pub fn DropdownMenuSeparator(
 pub fn DropdownMenuPreview() -> impl IntoView {
     view! {
         <DropdownMenu id="dm-preview".to_string()>
-            <DropdownMenuTrigger target_dropdown_id="dm-preview".to_string()>"Options ▼"</DropdownMenuTrigger>
+            <DropdownMenuTrigger>"Options ▼"</DropdownMenuTrigger>
             <DropdownMenuContent id="dm-content-preview".to_string()>
                 <DropdownMenuItem>"Item"</DropdownMenuItem>
             </DropdownMenuContent>

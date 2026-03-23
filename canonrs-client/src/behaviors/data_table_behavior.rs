@@ -1,5 +1,5 @@
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -11,23 +11,20 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-datatable", Box::new(|element_id, _state| {
-        let Some(container) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
-        setup_filter(&container)?;
-        setup_sorting(&container)?;
-        setup_pagination(&container)?;
-        setup_column_toggle(&container)?;
-        setup_selection(&container)?;
-        setup_density(&container)?;
-        setup_expand(&container)?;
-        setup_chart_sync(&container)?;
-        let all_rows = get_all_rows(&container);
-        let page_size = container.get_attribute("data-page-size")
+    register_behavior("data-datatable", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        setup_filter(root)?;
+        setup_sorting(root)?;
+        setup_pagination(root)?;
+        setup_column_toggle(root)?;
+        setup_selection(root)?;
+        setup_density(root)?;
+        setup_expand(root)?;
+        setup_chart_sync(root)?;
+        let all_rows = get_all_rows(root);
+        let page_size = root.get_attribute("data-page-size")
             .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(10);
         apply_pagination_vec(&all_rows, 1, page_size);
-        update_pagination_ui(&container);
+        update_pagination_ui(root);
         Ok(())
     }));
 }

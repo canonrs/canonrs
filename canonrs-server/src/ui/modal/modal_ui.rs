@@ -17,12 +17,11 @@ pub fn Modal(
 #[component]
 pub fn ModalTrigger(
     children: Children,
-    #[prop(into)] target_modal_id: String,
-    #[prop(default = String::new())] class: String,
+        #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <ModalTriggerPrimitive target_modal_id=target_modal_id class=class id=id>
+        <ModalTriggerPrimitive class=class id=id>
             {children()}
         </ModalTriggerPrimitive>
     }

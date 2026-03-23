@@ -11,10 +11,8 @@ use web_sys::MouseEvent;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-icon-button", Box::new(|id: &str, _state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::document;
-
-        let Some(el) = document().get_element_by_id(id) else { return Ok(()); };
+    register_behavior("data-icon-button", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+        let el = root;
         if el.get_attribute("data-icon-button-attached").as_deref() == Some("1") { return Ok(()); }
         el.set_attribute("data-icon-button-attached", "1").ok();
 

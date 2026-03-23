@@ -6,7 +6,7 @@ pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
             <ContextMenu id="context-menu-ex".to_string()>
-                <ContextMenuTrigger target_context_menu_id="context-menu-ex".to_string()>
+                <ContextMenuTrigger>
                     <div class="p-4 border rounded">"Right-click me"</div>
                 </ContextMenuTrigger>
                 <ContextMenuContent>

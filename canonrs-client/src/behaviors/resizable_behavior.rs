@@ -1,9 +1,7 @@
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
-#[cfg(feature = "hydrate")]
-use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -17,11 +15,8 @@ use std::rc::Rc;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-resizable", Box::new(|element_id, _state| {
-        let Some(resizable) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
-        setup_resizable(&resizable)?;
+    register_behavior("data-resizable", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        setup_resizable(root)?;
         Ok(())
     }));
 }

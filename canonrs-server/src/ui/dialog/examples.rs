@@ -5,7 +5,7 @@ use super::dialog_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <DialogTrigger target_dialog_id="dialog-basic">"Open Dialog"</DialogTrigger>
+            <DialogTrigger>"Open Dialog"</DialogTrigger>
             <Dialog id="dialog-basic">
                 <DialogOverlay />
                 <DialogContent
@@ -17,7 +17,7 @@ pub fn BasicExample() -> impl IntoView {
                         "Are you sure you want to proceed? This action cannot be undone."
                     </DialogDescription>
                     <div style="display:flex;gap:0.5rem;margin-top:1rem;">
-                        <DialogClose target_dialog_id="dialog-basic">"Cancel"</DialogClose>
+                        <DialogClose>"Cancel"</DialogClose>
                         <button data-button data-ui-variant="solid">"Confirm"</button>
                     </div>
                 </DialogContent>

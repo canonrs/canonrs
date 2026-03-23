@@ -5,7 +5,7 @@ use super::modal_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <ModalTrigger target_modal_id="modal-ex">
+            <ModalTrigger>
                 <button data-button data-ui-variant="solid">"Open Modal"</button>
             </ModalTrigger>
             <Modal id="modal-ex">

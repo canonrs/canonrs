@@ -1,17 +1,15 @@
 #[cfg(feature = "hydrate")]
-use leptos::leptos_dom::helpers::document;
-#[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-select", Box::new(|element_id, _state| -> BehaviorResult<()> {
-        let doc = document();
-        if let Some(select_el) = doc.get_element_by_id(element_id) {
+    register_behavior("data-select", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+        let select_el = root;
+        {
             let trigger = select_el.query_selector("[data-select-trigger]").ok().flatten();
             let content = select_el.query_selector("[data-select-content]").ok().flatten();
 
@@ -104,7 +102,7 @@ pub fn register() {
                         }
                     }
                 }) as Box<dyn FnMut(_)>);
-                doc.add_event_listener_with_callback("click", outside_closure.as_ref().unchecked_ref()).ok();
+                web_sys::window().unwrap().document().unwrap().add_event_listener_with_callback("click", outside_closure.as_ref().unchecked_ref()).ok();
                 outside_closure.forget();
             }
         }

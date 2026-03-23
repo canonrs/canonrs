@@ -1,5 +1,5 @@
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -25,11 +25,8 @@ extern "C" {
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-copy-button", Box::new(|element_id, _state| {
-        let Some(btn) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
-        setup_copy_button(&btn)?;
+    register_behavior("data-copy-button", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        setup_copy_button(root)?;
         Ok(())
     }));
 }

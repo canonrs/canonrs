@@ -24,11 +24,10 @@ pub fn AlertDialog(
 #[component]
 pub fn AlertDialogTrigger(
     children: Children,
-    #[prop(into)] target_dialog_id: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AlertDialogTriggerPrimitive target_dialog_id=target_dialog_id class=class>
+        <AlertDialogTriggerPrimitive class=class>
             {children()}
         </AlertDialogTriggerPrimitive>
     }
@@ -90,12 +89,11 @@ pub fn AlertDialogDescription(
 #[component]
 pub fn AlertDialogClose(
     children: Children,
-    #[prop(into)] target_dialog_id: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <button
-            data-dialog-close=target_dialog_id
+            data-rs-close=""
             type="button"
             class=class
         >

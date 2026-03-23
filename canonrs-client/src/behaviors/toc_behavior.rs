@@ -3,7 +3,7 @@
 //! Scroll-spy via IntersectionObserver
 
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -17,18 +17,14 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-toc", Box::new(|element_id, _state| {
-        let Some(toc) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
-
-        let mode = toc.get_attribute("data-toc-mode")
+    register_behavior("data-toc", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        let mode = root.get_attribute("data-toc-mode")
             .unwrap_or_else(|| "simple".to_string());
 
-        setup_scroll_spy(&toc, &mode)?;
+        setup_scroll_spy(root, &mode)?;
 
         if mode == "nested" {
-            setup_nested_expand(&toc)?;
+            setup_nested_expand(root)?;
         }
 
         Ok(())

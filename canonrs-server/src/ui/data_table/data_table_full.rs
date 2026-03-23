@@ -79,7 +79,6 @@ where
                 })}
                 <DropdownMenu id=dropdown_id.clone()>
                     <DropdownMenuTrigger
-                        target_dropdown_id=dropdown_id.clone()
                         id=trigger_id
                     >
                         "Columns ▾"

@@ -24,13 +24,11 @@ pub fn HoverCard(
 #[component]
 pub fn HoverCardTrigger(
     children: Children,
-    #[prop(into)] target_hover_card_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <HoverCardTriggerPrimitive
-            target_hover_card_id=target_hover_card_id
             class=class
             id=id
         >
@@ -59,7 +57,7 @@ pub fn HoverCardContent(
 pub fn HoverCardPreview() -> impl IntoView {
     view! {
         <HoverCard>
-            <HoverCardTrigger target_hover_card_id="hc-preview".to_string()>"Hover"</HoverCardTrigger>
+            <HoverCardTrigger>"Hover"</HoverCardTrigger>
             <HoverCardContent>"Card content"</HoverCardContent>
         </HoverCard>
     }

@@ -11,17 +11,17 @@ use web_sys::MouseEvent;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-theme-toggle", Box::new(|id: &str, _state: &ComponentState| -> BehaviorResult<()> {
+    register_behavior("data-theme-toggle", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         use leptos::leptos_dom::helpers::{document, window};
 
-        let Some(el) = document().get_element_by_id(id) else { return Ok(()); };
+        let el = root;
         if el.get_attribute("data-theme-toggle-attached").as_deref() == Some("1") { return Ok(()); }
         el.set_attribute("data-theme-toggle-attached", "1").ok();
 
         // Aplicar tema inicial do localStorage
         if let Some(storage) = window().local_storage().ok().flatten() {
             if let Ok(Some(theme)) = storage.get_item("canonrs-theme") {
-                if let Some(root) = document().document_element() {
+                if let Some(root) = web_sys::window().unwrap().document().unwrap().document_element() {
                     if theme == "dark" {
                         root.class_list().add_1("dark").ok();
                     } else {
@@ -32,7 +32,7 @@ pub fn register() {
         }
 
         let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-            let Some(root) = document().document_element() else { return; };
+            let Some(root) = web_sys::window().unwrap().document().unwrap().document_element() else { return; };
             let is_dark = root.class_list().contains("dark");
             if is_dark {
                 root.class_list().remove_1("dark").ok();

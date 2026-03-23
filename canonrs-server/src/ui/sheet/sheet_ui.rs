@@ -39,12 +39,11 @@ pub fn Sheet(
 #[component]
 pub fn SheetTrigger(
     children: Children,
-    #[prop(into)] target_sheet_id: String,
-    #[prop(default = String::new())] class: String,
+        #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <SheetTriggerPrimitive target_sheet_id=target_sheet_id class=class id=id>
+        <SheetTriggerPrimitive class=class id=id>
             {children()}
         </SheetTriggerPrimitive>
     }

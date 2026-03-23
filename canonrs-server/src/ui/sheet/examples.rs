@@ -5,7 +5,7 @@ use super::sheet_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <SheetTrigger target_sheet_id="sheet-ex">
+            <SheetTrigger>
                 <button data-button data-ui-variant="solid">"Open Sheet"</button>
             </SheetTrigger>
             <Sheet id="sheet-ex" side=SheetSide::Right>

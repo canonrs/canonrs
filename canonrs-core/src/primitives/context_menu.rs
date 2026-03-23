@@ -25,13 +25,12 @@ pub fn ContextMenuPrimitive(
 #[component]
 pub fn ContextMenuTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] target_context_menu_id: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
-            data-context-menu-trigger={target_context_menu_id}
+            data-rs-trigger=""
             class=class
             id=id
         >

@@ -1,9 +1,7 @@
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
-#[cfg(feature = "hydrate")]
-use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -13,12 +11,9 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-markdown", Box::new(|element_id, _state| {
-        let Some(container) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
-        setup_toc_toggle(&container)?;
-        setup_scroll_spy(&container)?;
+    register_behavior("data-markdown", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        setup_toc_toggle(root)?;
+        setup_scroll_spy(root)?;
         Ok(())
     }));
 }

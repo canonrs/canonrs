@@ -7,7 +7,7 @@ pub fn BasicExample() -> impl IntoView {
         <div>
             <TooltipProvider>
                 <Tooltip id="tooltip-ex".to_string()>
-                    <TooltipTrigger target_tooltip_id="tooltip-ex".to_string()>
+                    <TooltipTrigger>
                         <button data-button data-ui-variant="solid">"Hover me"</button>
                     </TooltipTrigger>
                     <TooltipContent>

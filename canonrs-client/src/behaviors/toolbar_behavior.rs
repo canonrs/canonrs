@@ -1,5 +1,5 @@
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -13,12 +13,8 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-toolbar", Box::new(|element_id, _state| {
-        let Some(toolbar) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
-        
-        setup_toolbar(&toolbar)?;
+    register_behavior("data-toolbar", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        setup_toolbar(root)?;
         Ok(())
     }));
 }

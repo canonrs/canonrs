@@ -13,16 +13,14 @@ use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-combobox", Box::new(|element_id, state| {
-        let document = window().unwrap().document().unwrap();
-        let combobox = document.get_element_by_id(element_id)
-            .ok_or_else(|| BehaviorError::ElementNotFound { selector: element_id.to_string() })?;
-
+    register_behavior("data-combobox", Box::new(|root: &web_sys::Element, state: &ComponentState| {
+        let combobox = root;
+        let document = web_sys::window().unwrap().document().unwrap();
         let open_signal = state.open;
-        let trigger_selector = format!("#{} [data-combobox-trigger]", element_id);
+        let trigger_selector = format!("[data-rs-data-combobox-trigger]");
 
         if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
-            let content_selector = format!("#{} [data-combobox-list]", element_id);
+            let content_selector = format!("[data-rs-data-combobox-list]");
             let combobox_clone = combobox.clone();
             let document_clone = document.clone();
             let trigger_selector_clone = trigger_selector.clone();

@@ -2,7 +2,7 @@
 //! DPI scaling, ResizeObserver, token-based tooltip/legend, Chart↔DataTable sync
 
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -14,10 +14,7 @@ use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-chart", Box::new(|element_id, _state| {
-        let Some(root) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
+    register_behavior("data-rs-chart", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
 
         let chart_type = root.get_attribute("data-chart-type").unwrap_or_else(|| "line".to_string());
         let height: f64 = root.get_attribute("data-chart-height")
@@ -30,9 +27,18 @@ pub fn register() {
         // Read data from <script type="application/json" data-chart-data>
         let data_json = read_chart_data(&root);
 
+        let element_id = root.get_attribute("id").unwrap_or_else(|| format!("chart-{}", js_sys::Math::random().to_string().replace("0.", "")));
         let canvas_id = format!("{}-canvas", element_id);
-        let Some(canvas_el) = document().get_element_by_id(&canvas_id) else {
-            return Ok(());
+        let canvas_el = match root.query_selector(&format!("#{}", canvas_id)).ok().flatten()
+            .or_else(|| {
+                let el = web_sys::window().unwrap().document().unwrap().create_element("canvas").ok()?;
+                el.set_attribute("id", &canvas_id).ok()?;
+                el.set_attribute("data-chart-canvas", "").ok()?;
+                root.append_child(&el).ok()?;
+                Some(el)
+            }) {
+            Some(el) => el,
+            None => return Ok(()),
         };
         let canvas: web_sys::HtmlCanvasElement = canvas_el.dyn_into()
             .map_err(|_| canonrs_core::BehaviorError::JsError { message: "canvas cast".into() })?;
@@ -302,8 +308,8 @@ fn setup_tooltip(
 
         // Sync datatable highlight
         if let Some(ref table_id) = sync_c {
-            if let Some(table) = document().get_element_by_id(table_id) {
-                let rows = table.query_selector_all("[data-datatable-row]").unwrap();
+            if let Ok(rows) = web_sys::window().unwrap().document().unwrap()
+                .query_selector_all(&format!("[data-rs-datatable='{}'] [data-rs-datatable-row]", table_id)) {
                 for i in 0..rows.length() {
                     if let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) {
                         let row_idx = row.get_attribute("data-row-index")
@@ -337,8 +343,8 @@ fn setup_tooltip(
             c.set_attribute("data-state", "hidden").ok();
         }
         if let Some(ref table_id) = sync_c2 {
-            if let Some(table) = document().get_element_by_id(table_id) {
-                let rows = table.query_selector_all("[data-datatable-row][data-chart-highlight]").unwrap();
+            if let Ok(rows) = web_sys::window().unwrap().document().unwrap()
+                .query_selector_all(&format!("[data-rs-datatable] [data-rs-datatable-row]")) {
                 for i in 0..rows.length() {
                     if let Some(r) = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) {
                         r.remove_attribute("data-chart-highlight").ok();

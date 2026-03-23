@@ -20,14 +20,12 @@ pub fn Drawer(
 #[component]
 pub fn DrawerTrigger(
     children: Children,
-    #[prop(into)] target_drawer_id: String,
-    #[prop(default = String::new())] class: String,
+        #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <DrawerTriggerPrimitive
-            target_drawer_id=target_drawer_id
-            class=class
+                        class=class
             id=id
         >
             {children()}

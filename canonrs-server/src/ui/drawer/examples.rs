@@ -5,7 +5,7 @@ use super::drawer_ui::*;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <div>
-            <DrawerTrigger target_drawer_id="drawer-ex">
+            <DrawerTrigger>
                 <button data-button data-ui-variant="solid">"Open Drawer"</button>
             </DrawerTrigger>
             <Drawer id="drawer-ex".to_string()>

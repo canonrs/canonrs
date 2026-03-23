@@ -7,78 +7,69 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use web_sys::{HtmlElement, MouseEvent, KeyboardEvent};
+use web_sys::{MouseEvent, KeyboardEvent};
 #[cfg(feature = "hydrate")]
 use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-modal", Box::new(|id: &str, state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::document;
+    register_behavior("data-rs-modal", Box::new(|root: &web_sys::Element, state: &ComponentState| -> BehaviorResult<()> {
 
-        let Some(modal) = document().get_element_by_id(id) else { return Ok(()); };
-        if modal.get_attribute("data-modal-attached").as_deref() == Some("1") { return Ok(()); }
-        modal.set_attribute("data-modal-attached", "1").ok();
+        if root.get_attribute("data-rs-modal-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-modal-attached", "1").ok();
 
         let open_signal = state.open;
-        let modal_id = id.to_string();
+        let doc = web_sys::window().unwrap().document().unwrap();
 
-        let close = {
-            let modal_clone = modal.clone();
-            let modal_id = modal_id.clone();
-            move || {
-                open_signal.set(false);
-                modal_clone.set_attribute("data-state", "closed").ok();
-                modal_clone.set_attribute("aria-hidden", "true").ok();
-                if let Some(trigger) = document().query_selector(&format!("[data-modal-trigger='{}']", modal_id)).ok().flatten() {
-                    if let Ok(el) = trigger.dyn_into::<HtmlElement>() { el.focus().ok(); }
-                }
-            }
-        };
-
-        // Trigger
-        if let Some(trigger) = document().query_selector(&format!("[data-modal-trigger='{}']", modal_id)).ok().flatten() {
-            let modal_clone = modal.clone();
+        if let Ok(Some(trigger)) = root.query_selector("[data-rs-trigger]") {
+            let root_clone = root.clone();
             let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-                let is_open = modal_clone.get_attribute("data-state").as_deref() == Some("open");
+                let is_open = root_clone.get_attribute("data-rs-state").as_deref() == Some("open");
                 if is_open {
                     open_signal.set(false);
-                    modal_clone.set_attribute("data-state", "closed").ok();
-                    modal_clone.set_attribute("aria-hidden", "true").ok();
+                    root_clone.set_attribute("data-rs-state", "closed").ok();
+                    root_clone.set_attribute("aria-hidden", "true").ok();
                 } else {
                     open_signal.set(true);
-                    modal_clone.set_attribute("data-state", "open").ok();
-                    modal_clone.set_attribute("aria-hidden", "false").ok();
+                    root_clone.set_attribute("data-rs-state", "open").ok();
+                    root_clone.set_attribute("aria-hidden", "false").ok();
                 }
             }) as Box<dyn FnMut(_)>);
             trigger.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
             cb.forget();
         }
 
-        // Overlay click
-        if let Some(overlay) = modal.query_selector("[data-modal-overlay]").ok().flatten() {
-            let close_clone = close.clone();
-            let cb = Closure::wrap(Box::new(move |_: MouseEvent| { close_clone(); }) as Box<dyn FnMut(_)>);
+        if let Ok(Some(overlay)) = root.query_selector("[data-rs-overlay]") {
+            let root_clone = root.clone();
+            let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                open_signal.set(false);
+                root_clone.set_attribute("data-rs-state", "closed").ok();
+                root_clone.set_attribute("aria-hidden", "true").ok();
+            }) as Box<dyn FnMut(_)>);
             overlay.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
             cb.forget();
         }
 
-        // Close button
-        if let Some(btn) = modal.query_selector("[data-modal-close]").ok().flatten() {
-            let close_clone = close.clone();
-            let cb = Closure::wrap(Box::new(move |_: MouseEvent| { close_clone(); }) as Box<dyn FnMut(_)>);
-            btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+        if let Ok(Some(close_btn)) = root.query_selector("[data-rs-close]") {
+            let root_clone = root.clone();
+            let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                open_signal.set(false);
+                root_clone.set_attribute("data-rs-state", "closed").ok();
+                root_clone.set_attribute("aria-hidden", "true").ok();
+            }) as Box<dyn FnMut(_)>);
+            close_btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
             cb.forget();
         }
 
-        // ESC key
-        let modal_clone = modal.clone();
+        let root_esc = root.clone();
         let cb_esc = Closure::wrap(Box::new(move |e: KeyboardEvent| {
-            if e.key() == "Escape" && modal_clone.get_attribute("data-state").as_deref() == Some("open") {
-                close();
+            if e.key() == "Escape" && root_esc.get_attribute("data-rs-state").as_deref() == Some("open") {
+                open_signal.set(false);
+                root_esc.set_attribute("data-rs-state", "closed").ok();
+                root_esc.set_attribute("aria-hidden", "true").ok();
             }
         }) as Box<dyn FnMut(_)>);
-        document().add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref()).ok();
+        doc.add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref()).ok();
         cb_esc.forget();
 
         Ok(())

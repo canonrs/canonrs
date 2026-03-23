@@ -2,7 +2,7 @@
 //! Calculates and updates reading progress based on scroll position
 
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -14,12 +14,8 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-doc-progress", Box::new(|element_id, _state| {
-        let Some(progress_el) = document().get_element_by_id(element_id) else {
-            return Ok(());
-        };
-
-        setup_scroll_tracking(&progress_el)?;
+    register_behavior("data-doc-progress", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        setup_scroll_tracking(root)?;
         Ok(())
     }));
 }

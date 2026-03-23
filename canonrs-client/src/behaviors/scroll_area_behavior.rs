@@ -2,11 +2,9 @@
 //! Thumb sync, drag, auto-hide, vertical + horizontal
 
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
-#[cfg(feature = "hydrate")]
-use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -14,8 +12,7 @@ use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-scroll-area", Box::new(|element_id, _state| {
-        let Some(root) = document().get_element_by_id(element_id) else { return Ok(()); };
+    register_behavior("data-scroll-area", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
         let Some(viewport) = root.query_selector("[data-scroll-viewport]").ok().flatten() else { return Ok(()); };
         let viewport_el: web_sys::HtmlElement = viewport.clone().dyn_into().unwrap();
 
@@ -175,7 +172,7 @@ fn setup_drag(thumb: &web_sys::HtmlElement, viewport: &web_sys::HtmlElement, is_
             thumb_up.set_attribute("data-state", "idle").ok();
         }) as Box<dyn FnMut(_)>);
 
-        let doc = document();
+        let doc = web_sys::window().unwrap().document().unwrap();
         doc.add_event_listener_with_callback("mousemove", on_mousemove.as_ref().unchecked_ref()).ok();
         doc.add_event_listener_with_callback("mouseup",   on_mouseup.as_ref().unchecked_ref()).ok();
         on_mousemove.forget();

@@ -1,9 +1,9 @@
 #[cfg(feature = "hydrate")]
-use leptos::leptos_dom::helpers::{document, window};
+use leptos::leptos_dom::helpers::window;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::{JsCast, closure::Closure, JsValue};
 #[cfg(feature = "hydrate")]
-use super::register_behavior;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
@@ -15,11 +15,8 @@ use std::cell::RefCell;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-resize-container", Box::new(|element_id, _state| -> BehaviorResult<()> {
-        let doc = document();
-        if let Some(container_el) = doc.get_element_by_id(element_id) {
-            setup_resize(&container_el)?;
-        }
+    register_behavior("data-resize-container", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+        setup_resize(root)?;
         Ok(())
     }));
 }

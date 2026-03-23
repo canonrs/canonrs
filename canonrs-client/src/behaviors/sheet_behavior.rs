@@ -1,50 +1,66 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorResult, BehaviorError};
+use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use web_sys::MouseEvent;
+use web_sys::{MouseEvent, KeyboardEvent};
 #[cfg(feature = "hydrate")]
 use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-sheet", Box::new(|id: &str, state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::document;
+    register_behavior("data-rs-sheet", Box::new(|root: &web_sys::Element, state: &ComponentState| -> BehaviorResult<()> {
 
-        let Some(sheet) = document().get_element_by_id(id) else {
-            return Err(BehaviorError::ElementNotFound { selector: id.into() });
-        };
-        if sheet.get_attribute("data-sheet-attached").as_deref() == Some("1") { return Ok(()); }
-        sheet.set_attribute("data-sheet-attached", "1").ok();
+        if root.get_attribute("data-rs-sheet-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-sheet-attached", "1").ok();
 
         let open_signal = state.open;
-        let sheet_id = id.to_string();
+        let doc = web_sys::window().unwrap().document().unwrap();
 
-        if let Some(trigger) = document().query_selector(&format!("[data-sheet-trigger='{}']", sheet_id)).ok().flatten() {
-            let sheet_clone = sheet.clone();
+        if let Ok(Some(trigger)) = root.query_selector("[data-rs-trigger]") {
+            let root_clone = root.clone();
             let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-                let is_open = sheet_clone.get_attribute("data-state").as_deref() == Some("open");
+                let is_open = root_clone.get_attribute("data-rs-state").as_deref() == Some("open");
                 open_signal.set(!is_open);
-                sheet_clone.set_attribute("data-state", if !is_open { "open" } else { "closed" }).ok();
+                root_clone.set_attribute("data-rs-state", if !is_open { "open" } else { "closed" }).ok();
             }) as Box<dyn FnMut(_)>);
             trigger.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
             cb.forget();
         }
 
-        if let Some(overlay) = sheet.query_selector("[data-sheet-overlay]").ok().flatten() {
-            let sheet_clone = sheet.clone();
+        if let Ok(Some(overlay)) = root.query_selector("[data-rs-overlay]") {
+            let root_clone = root.clone();
             let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
                 open_signal.set(false);
-                sheet_clone.set_attribute("data-state", "closed").ok();
+                root_clone.set_attribute("data-rs-state", "closed").ok();
             }) as Box<dyn FnMut(_)>);
             overlay.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
             cb.forget();
         }
+
+        if let Ok(Some(close_btn)) = root.query_selector("[data-rs-close]") {
+            let root_clone = root.clone();
+            let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                open_signal.set(false);
+                root_clone.set_attribute("data-rs-state", "closed").ok();
+            }) as Box<dyn FnMut(_)>);
+            close_btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+            cb.forget();
+        }
+
+        let root_esc = root.clone();
+        let cb_esc = Closure::wrap(Box::new(move |e: KeyboardEvent| {
+            if e.key() == "Escape" && root_esc.get_attribute("data-rs-state").as_deref() == Some("open") {
+                open_signal.set(false);
+                root_esc.set_attribute("data-rs-state", "closed").ok();
+            }
+        }) as Box<dyn FnMut(_)>);
+        doc.add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref()).ok();
+        cb_esc.forget();
 
         Ok(())
     }));
