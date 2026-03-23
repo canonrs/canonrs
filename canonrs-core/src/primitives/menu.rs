@@ -34,8 +34,8 @@ pub fn MenuItemPrimitive(
     view! {
         <button
             data-rs-menu-item=""
-            attr:data-disabled={disabled.get().to_string()}
-            attr:data-selected={selected.to_string()}
+            data-rs-disabled={disabled.get().to_string()}
+            data-rs-state={if selected { "active" } else { "inactive" }}
             type="button"
             disabled={disabled}
             class={class}

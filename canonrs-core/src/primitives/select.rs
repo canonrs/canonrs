@@ -42,7 +42,7 @@ pub fn SelectTriggerPrimitive(
             attr:aria-controls={if controls_id.is_empty() { None } else { Some(controls_id) }}
             attr:aria-expanded={if expanded { "true" } else { "false" }}
             attr:aria-disabled={if disabled.get() { "true" } else { "false" }}
-            attr:data-disabled={if disabled.get() { Some("true") } else { None }}
+            data-rs-disabled={if disabled.get() { Some("true") } else { None }}
             attr:data-value-text={value_text}
             class=class
             id={if id.is_empty() { None } else { Some(id) }}
@@ -81,7 +81,7 @@ pub fn SelectContentPrimitive(
             role="listbox"
             id={if content_id.is_empty() { None } else { Some(content_id) }}
             data-rs-select-content=""
-            attr:data-state={if open { "open" } else { "closed" }}
+            data-rs-state={if open { "open" } else { "closed" }}
             hidden={if !open { Some(true) } else { None }}
             class=class
         >
@@ -108,8 +108,8 @@ pub fn SelectItemPrimitive(
             tabindex={tabindex}
             attr:aria-selected={if selected { "true" } else { "false" }}
             attr:aria-disabled={if disabled.get() { "true" } else { "false" }}
-            attr:data-state={if selected { "selected" } else { "unselected" }}
-            attr:data-disabled={if disabled.get() { Some("true") } else { None }}
+            data-rs-state={if selected { "selected" } else { "unselected" }}
+            data-rs-disabled={if disabled.get() { Some("true") } else { None }}
             class=class
             id={if id.is_empty() { None } else { Some(id) }}
         >

@@ -120,7 +120,7 @@ pub fn CommandItemPrimitive(
         <div
             data-rs-command-item=""
             attr:data-value={value.unwrap_or_default()}
-            attr:data-selected={if selected { "true" } else { "false" }}
+            data-rs-state={if selected { "active" } else { "inactive" }}
             role="option"
             attr:aria-selected={if selected { "true" } else { "false" }}
             class={class}

@@ -91,7 +91,7 @@ pub fn PaginationPreviousPrimitive(
         <a
         
             data-rs-pagination-previous=""
-            attr:data-disabled=data_disabled
+            data-rs-disabled=data_disabled
             attr:aria-disabled=aria_disabled
             attr:aria-label="Go to previous page"
             href=resolved_href
@@ -119,7 +119,7 @@ pub fn PaginationNextPrimitive(
         <a
         
             data-rs-pagination-next=""
-            attr:data-disabled=data_disabled
+            data-rs-disabled=data_disabled
             attr:aria-disabled=aria_disabled
             attr:aria-label="Go to next page"
             href=resolved_href

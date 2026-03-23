@@ -32,8 +32,8 @@ pub fn TreeItem(
         <div
             data-rs-tree-item=""
             data-depth={depth.to_string()}
-            data-selected={selected.to_string()}
-            data-expanded={expanded.to_string()}
+            data-rs-selected={if selected { "true" } else { "false" }}
+            data-rs-expanded={if expanded { "true" } else { "false" }}
             data-has-children={has_children.to_string()}
             role="treeitem"
             tabindex={tabindex}

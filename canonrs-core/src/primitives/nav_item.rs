@@ -26,7 +26,7 @@ pub fn NavItemPrimitive(
         
             data-rs-nav-item=""
             attr:data-active=data_active
-            attr:data-disabled=data_disabled
+            data-rs-disabled=data_disabled
             attr:aria-current=aria_current
             attr:aria-disabled=aria_disabled
             attr:aria-label=aria_label

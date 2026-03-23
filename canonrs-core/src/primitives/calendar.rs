@@ -137,8 +137,8 @@ pub fn CalendarCellPrimitive(
             role="gridcell"
             attr:aria-selected={if selected { "true" } else { "false" }}
             attr:aria-disabled={if disabled.get() { "true" } else { "false" }}
-            attr:data-selected={if selected { Some("true") } else { None }}
-            attr:data-disabled={if disabled.get() { Some("true") } else { None }}
+            data-rs-state={if selected { "active" } else { "inactive" }}
+            data-rs-disabled={if disabled.get() { Some("true") } else { None }}
             tabindex={tabindex}
             class={class}
             id={id}

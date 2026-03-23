@@ -85,7 +85,7 @@ pub fn TableRowPrimitive(
     view! {
         <tr 
             data-rs-table-row="" 
-            attr:data-state={selected.then(|| "selected")}
+            data-rs-state={selected.then(|| "selected")}
             class=class 
             id=id
         >
