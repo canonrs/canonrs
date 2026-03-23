@@ -2,11 +2,11 @@
    COLOR PICKER - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-color-picker-wrapper] {
+[data-rs-color-picker-wrapper] {
   display: inline-block;
 }
 
-[data-color-picker] {
+[data-rs-color-picker] {
   position: relative;
   width: var(--color-picker-trigger-size);
   height: var(--color-picker-trigger-size);
@@ -16,7 +16,7 @@
   overflow: hidden;
 }
 
-[data-color-picker-input] {
+[data-rs-color-picker-input] {
   position: absolute;
   top: 0;
   left: 0;
@@ -26,7 +26,7 @@
   cursor: pointer;
 }
 
-[data-color-swatch] {
+[data-rs-color-swatch] {
   width: var(--color-picker-swatch-size);
   height: var(--color-picker-swatch-size);
   border-radius: var(--color-picker-swatch-radius);
@@ -34,19 +34,19 @@
   cursor: pointer;
 }
 
-[data-color-swatch][data-selected] {
+[data-rs-color-swatch][data-rs-selected] {
   border-color: var(--color-picker-swatch-border-color-selected);
   border-width: calc(var(--color-picker-swatch-border-width) * 2);
 }
 
 /* Example layout */
-[data-color-picker-example] {
+[data-rs-color-picker-example] {
   display: flex;
   gap: var(--color-picker-example-gap);
   align-items: flex-start;
 }
 
-[data-color-labels] {
+[data-rs-color-labels] {
   display: flex;
   flex-direction: column;
   gap: var(--color-picker-labels-gap);
@@ -54,15 +54,15 @@
   font-family: var(--color-picker-label-font-family);
 }
 
-[data-color-label] {
+[data-rs-color-label] {
   display: flex;
   gap: var(--color-picker-label-gap);
 }
 
-[data-color-label-key] {
+[data-rs-color-label-key] {
   color: var(--color-picker-label-key-fg);
 }
 
-[data-color-label-value] {
+[data-rs-color-label-value] {
   color: var(--color-picker-label-value-fg);
 }

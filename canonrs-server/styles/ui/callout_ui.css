@@ -3,7 +3,7 @@
    Family E: Feedback & Status
    ============================================ */
 
-[data-callout] {
+[data-rs-callout] {
   display: flex;
   gap: var(--callout-gap);
   padding-inline: var(--callout-padding-x);
@@ -12,44 +12,44 @@
   border-radius: var(--callout-radius);
 }
 
-[data-callout][data-variant="default"] {
+[data-rs-callout][data-variant="default"] {
   background: var(--callout-bg-default);
   border-color: var(--callout-border-default);
 }
 
-[data-callout][data-variant="info"] {
+[data-rs-callout][data-variant="info"] {
   background: var(--callout-bg-info);
   border-color: var(--callout-border-info);
 }
 
-[data-callout][data-variant="success"] {
+[data-rs-callout][data-variant="success"] {
   background: var(--callout-bg-success);
   border-color: var(--callout-border-success);
 }
 
-[data-callout][data-variant="warning"] {
+[data-rs-callout][data-variant="warning"] {
   background: var(--callout-bg-warning);
   border-color: var(--callout-border-warning);
 }
 
-[data-callout][data-variant="error"] {
+[data-rs-callout][data-variant="error"] {
   background: var(--callout-bg-error);
   border-color: var(--callout-border-error);
 }
 
-[data-callout-icon] {
+[data-rs-callout-icon] {
   width: var(--callout-icon-size);
   height: var(--callout-icon-size);
   flex-shrink: 0;
 }
 
-[data-callout-title] {
+[data-rs-callout-title] {
   font-size: var(--callout-title-font-size);
   font-weight: var(--callout-title-font-weight);
   color: var(--callout-title-fg);
 }
 
-[data-callout-description] {
+[data-rs-callout-description] {
   font-size: var(--callout-description-font-size);
   line-height: var(--callout-description-line-height);
   color: var(--callout-description-fg);

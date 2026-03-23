@@ -3,13 +3,13 @@
    Family B: Selection
    ============================================ */
 
-[data-tree] {
+[data-rs-tree] {
   display: flex;
   flex-direction: column;
   gap: var(--tree-gap);
 }
 
-[data-tree-item] {
+[data-rs-tree-item] {
   display: flex;
   align-items: center;
   min-height: var(--tree-item-height);
@@ -21,42 +21,42 @@
   transition: background var(--tree-transition-duration) var(--tree-transition-ease);
 }
 
-[data-tree-item]:hover {
+[data-rs-tree-item]:hover {
   background: var(--tree-item-bg-hover);
 }
 
-[data-tree-item][data-selected="true"] {
+[data-rs-tree-item][data-selected="true"] {
   background: var(--tree-item-bg-selected);
 }
 
-[data-tree-item]:focus-visible {
+[data-rs-tree-item]:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
 }
 
 /* Indentation by depth */
-[data-tree-item][data-depth="0"] {
+[data-rs-tree-item][data-depth="0"] {
   padding-left: var(--tree-item-padding-x, var(--space-sm));
 }
 
-[data-tree-item][data-depth="1"] {
+[data-rs-tree-item][data-depth="1"] {
   padding-left: var(--tree-indent-depth-1);
 }
 
-[data-tree-item][data-depth="2"] {
+[data-rs-tree-item][data-depth="2"] {
   padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent));
 }
 
-[data-tree-item][data-depth="3"] {
+[data-rs-tree-item][data-depth="3"] {
   padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent) * 2);
 }
 
-[data-tree-item][data-depth="4"] {
+[data-rs-tree-item][data-depth="4"] {
   padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent) * 3);
 }
 
 /* Toggle button */
-[data-tree-toggle] {
+[data-rs-tree-toggle] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -71,35 +71,35 @@
   padding: 0;
 }
 
-[data-tree-toggle]:hover {
+[data-rs-tree-toggle]:hover {
   opacity: 0.8;
 }
 
 /* Icon, checkbox, label */
-[data-tree-icon] {
+[data-rs-tree-icon] {
   margin-right: var(--space-xs);
 }
 
-[data-tree-checkbox-wrapper] {
+[data-rs-tree-checkbox-wrapper] {
   margin-right: var(--space-xs);
 }
 
-[data-tree-label] {
+[data-rs-tree-label] {
   flex: 1;
 }
 
 /* Tree group - children container */
-[data-tree-group] {
+[data-rs-tree-group] {
   display: flex;
   flex-direction: column;
   gap: var(--tree-gap);
 }
 
 /* Hide collapsed children */
-[data-tree-item][data-expanded="false"] + [data-tree-group] {
+[data-rs-tree-item][data-expanded="false"] + [data-rs-tree-group] {
   display: none;
 }
 
-[data-tree-item][data-expanded="true"] + [data-tree-group] {
+[data-rs-tree-item][data-expanded="true"] + [data-rs-tree-group] {
   display: flex;
 }

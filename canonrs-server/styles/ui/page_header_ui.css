@@ -3,7 +3,7 @@
    Family B: Data Display / Layout
    ============================================ */
 
-[data-page-header] {
+[data-rs-page-header] {
   display: flex;
   flex-direction: column;
   gap: var(--page-header-gap);
@@ -12,29 +12,29 @@
   border-bottom: var(--page-header-border-width) solid var(--page-header-border-color);
 }
 
-[data-page-header-breadcrumbs] {
+[data-rs-page-header-breadcrumbs] {
   display: flex;
   gap: var(--page-header-breadcrumbs-gap);
   color: var(--page-header-breadcrumbs-fg);
 }
 
-[data-page-header-title] {
+[data-rs-page-header-title] {
   font-size: var(--page-header-title-font-size);
   font-weight: var(--page-header-title-font-weight);
   color: var(--page-header-title-fg);
 }
 
-[data-page-header-description] {
+[data-rs-page-header-description] {
   font-size: var(--page-header-description-font-size);
   line-height: var(--page-header-description-line-height);
   color: var(--page-header-description-fg);
 }
 
-[data-page-header-actions] {
+[data-rs-page-header-actions] {
   display: flex;
   gap: var(--page-header-actions-gap);
 }
 
-[data-page-header-tabs] {
+[data-rs-page-header-tabs] {
   margin-top: var(--page-header-tabs-margin-top);
 }

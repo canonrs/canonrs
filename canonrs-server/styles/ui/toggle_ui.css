@@ -2,7 +2,7 @@
    TOGGLE - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-toggle] {
+[data-rs-toggle] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -10,14 +10,14 @@
   cursor: pointer;
 }
 
-[data-toggle] input {
+[data-rs-toggle] input {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-[data-toggle-content] {
+[data-rs-toggle-content] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -29,23 +29,23 @@
 }
 
 /* Hover quando NÃO checked */
-[data-toggle]:hover:not(:has(input:checked)) [data-toggle-content] {
+[data-rs-toggle]:hover:not(:has(input:checked)) [data-rs-toggle-content] {
   background: var(--toggle-hover-bg);
 }
 
 /* Checked state */
-[data-toggle] input:checked + [data-toggle-content] {
+[data-rs-toggle] input:checked + [data-rs-toggle-content] {
   background: var(--toggle-active-bg);
   color: var(--toggle-active-fg);
 }
 
 /* Checked + Hover (mantém fundo ativo) */
-[data-toggle]:has(input:checked):hover [data-toggle-content] {
+[data-rs-toggle]:has(input:checked):hover [data-rs-toggle-content] {
   background: var(--toggle-active-bg);
 }
 
 /* Focus */
-[data-toggle]:focus-within [data-toggle-content] {
+[data-rs-toggle]:focus-within [data-rs-toggle-content] {
   outline: none;
   box-shadow: 0 0 0 var(--state-focus-ring-width) var(--toggle-active-bg);
 }

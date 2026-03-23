@@ -2,13 +2,13 @@
    FORM - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-form] {
+[data-rs-form] {
   display: flex;
   flex-direction: column;
   gap: var(--form-gap);
 }
 
-[data-form-actions] {
+[data-rs-form-actions] {
   display: flex;
   justify-content: var(--form-actions-justify);
   gap: var(--form-actions-gap);
@@ -16,12 +16,12 @@
   border-top: var(--form-actions-border-top);
 }
 
-[data-form-help-text] {
+[data-rs-form-help-text] {
   font-size: var(--form-label-font-size);
   color: var(--form-help-text-fg);
 }
 
-[data-form-input] {
+[data-rs-form-input] {
   border-radius: var(--forms-radius);
   padding-block: var(--forms-padding-y);
 }

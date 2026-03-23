@@ -3,13 +3,13 @@
    Family D: Navigation
    ============================================ */
 
-[data-navigation-menu] {
+[data-rs-navigation-menu] {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-[data-navigation-menu-list] {
+[data-rs-navigation-menu-list] {
   display: flex;
   align-items: center;
   gap: var(--navigation-menu-gap);
@@ -21,13 +21,13 @@
   margin: 0;
 }
 
-[data-navigation-menu-item] {
+[data-rs-navigation-menu-item] {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-[data-navigation-menu-trigger] {
+[data-rs-navigation-menu-trigger] {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -44,13 +44,13 @@
   transition: background var(--navigation-menu-trigger-transition-duration) var(--motion-ease-standard);
 }
 
-[data-navigation-menu-trigger]:hover,
-[data-navigation-menu-trigger][aria-expanded="true"] {
+[data-rs-navigation-menu-trigger]:hover,
+[data-rs-navigation-menu-trigger][aria-expanded="true"] {
   background: var(--navigation-menu-trigger-bg-hover);
 }
 
 /* Invisible bridge to prevent gap between trigger and content */
-[data-navigation-menu-item]::after {
+[data-rs-navigation-menu-item]::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -60,11 +60,11 @@
   display: none;
 }
 
-[data-navigation-menu-item]:hover::after {
+[data-rs-navigation-menu-item]:hover::after {
   display: block;
 }
 
-[data-navigation-menu-content] {
+[data-rs-navigation-menu-content] {
   position: absolute;
   top: calc(100% + var(--space-sm));
   left: 0;
@@ -80,16 +80,16 @@
   gap: var(--space-xs);
 }
 
-[data-navigation-menu-item]:hover [data-navigation-menu-content],
-[data-navigation-menu-item]:focus-within [data-navigation-menu-content] {
+[data-rs-navigation-menu-item]:hover [data-rs-navigation-menu-content],
+[data-rs-navigation-menu-item]:focus-within [data-rs-navigation-menu-content] {
   display: flex;
 }
 
-[data-navigation-menu-subitem] {
+[data-rs-navigation-menu-subitem] {
   display: flex;
 }
 
-[data-navigation-menu-link] {
+[data-rs-navigation-menu-link] {
   display: block;
   padding: var(--space-xs) var(--space-sm);
   color: var(--navigation-menu-link-fg);
@@ -99,7 +99,7 @@
   white-space: nowrap;
 }
 
-[data-navigation-menu-link]:hover {
+[data-rs-navigation-menu-link]:hover {
   background: var(--navigation-menu-trigger-bg-hover);
   color: var(--navigation-menu-link-fg-hover);
 }

@@ -3,7 +3,7 @@
    Family F: Data
    ============================================ */
 
-[data-kbd] {
+[data-rs-kbd] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -24,25 +24,25 @@
 }
 
 /* Sizes */
-[data-kbd][data-size="sm"] {
+[data-rs-kbd][data-size="sm"] {
   font-size: var(--kbd-size-sm-font);
   padding: var(--kbd-size-sm-padding-y) var(--kbd-size-sm-padding-x);
 }
 
 /* Variants */
-[data-kbd][data-variant="muted"] {
+[data-rs-kbd][data-variant="muted"] {
   background: var(--kbd-muted-bg);
   color: var(--kbd-muted-fg);
 }
 
 /* Group */
-[data-kbd-group] {
+[data-rs-kbd-group] {
   display: inline-flex;
   align-items: center;
   gap: var(--kbd-gap);
 }
 
-[data-kbd-separator] {
+[data-rs-kbd-separator] {
   color: var(--kbd-separator-color);
   user-select: none;
 }

@@ -3,7 +3,7 @@
    Family F: Data Display
    ============================================ */
 
-[data-chart] {
+[data-rs-chart] {
   position: relative;
   container-type: inline-size;
   width: 100%;
@@ -14,14 +14,14 @@
 }
 
 /* Canvas */
-[data-chart-canvas] {
+[data-rs-chart-canvas] {
   display: block;
   width: 100%;
   max-width: 100%;
 }
 
 /* Overlay (tooltip + crosshair layer) */
-[data-chart-overlay] {
+[data-rs-chart-overlay] {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -29,7 +29,7 @@
 }
 
 /* Tooltip */
-[data-chart-tooltip-el] {
+[data-rs-chart-tooltip-el] {
   position: absolute;
   background: var(--chart-tooltip-bg);
   color: var(--chart-tooltip-fg);
@@ -42,18 +42,18 @@
   transition: opacity 0.1s ease;
 }
 
-[data-chart-tooltip-el][data-state="hidden"] {
+[data-rs-chart-tooltip-el][data-state="hidden"] {
   opacity: 0;
   visibility: hidden;
 }
 
-[data-chart-tooltip-el][data-state="visible"] {
+[data-rs-chart-tooltip-el][data-state="visible"] {
   opacity: 1;
   visibility: visible;
 }
 
 /* Crosshair */
-[data-chart-crosshair] {
+[data-rs-chart-crosshair] {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -64,34 +64,34 @@
   transition: opacity 0.1s ease;
 }
 
-[data-chart-crosshair][data-state="visible"] {
+[data-rs-chart-crosshair][data-state="visible"] {
   opacity: 1;
 }
 
 /* Grid / Axis */
-[data-chart-grid] {
+[data-rs-chart-grid] {
   stroke: var(--chart-grid-color);
   stroke-width: var(--chart-grid-stroke-width);
 }
 
-[data-chart-axis] {
+[data-rs-chart-axis] {
   font-size: var(--chart-axis-font-size);
   color: var(--chart-axis-fg);
 }
 
-[data-chart-axis-tick] {
+[data-rs-chart-axis-tick] {
   height: var(--chart-axis-tick-size);
 }
 
 /* Legend */
-[data-chart-legend-el] {
+[data-rs-chart-legend-el] {
   display: flex;
   flex-wrap: wrap;
   gap: var(--chart-legend-gap);
   padding-top: var(--space-sm);
 }
 
-[data-chart-legend-item] {
+[data-rs-chart-legend-item] {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
@@ -101,11 +101,11 @@
   transition: opacity 0.15s ease;
 }
 
-[data-chart-legend-item][data-state="inactive"] {
+[data-rs-chart-legend-item][data-state="inactive"] {
   opacity: 0.35;
 }
 
-[data-chart-legend-dot] {
+[data-rs-chart-legend-dot] {
   width: var(--chart-legend-dot-size);
   height: var(--chart-legend-dot-size);
   border-radius: 50%;
@@ -113,7 +113,7 @@
 }
 
 /* Sync highlight — row no datatable */
-[data-datatable-row][data-chart-highlight] {
+[data-rs-datatable-row][data-rs-chart-highlight] {
   background: var(--chart-sync-highlight-bg);
   box-shadow: inset 3px 0 0 #6366f1;
   transition: background 0.15s ease, box-shadow 0.15s ease;

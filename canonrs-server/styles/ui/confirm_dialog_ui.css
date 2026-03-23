@@ -4,35 +4,35 @@
    NOTE: Inherits all dialog.* tokens
    ============================================ */
 
-[data-confirm-dialog-title] {
+[data-rs-confirm-dialog-title] {
   color: var(--confirm-dialog-title-fg);
 }
 
-[data-confirm-dialog-message] {
+[data-rs-confirm-dialog-message] {
   font-size: var(--confirm-dialog-message-font-size);
   color: var(--confirm-dialog-message-fg);
 }
 
-[data-confirm-dialog-actions] {
+[data-rs-confirm-dialog-actions] {
   display: flex;
   gap: var(--confirm-dialog-actions-gap);
   margin-top: var(--confirm-dialog-actions-margin-top);
 }
 
-[data-confirm-button] {
+[data-rs-confirm-button] {
   background: var(--confirm-dialog-confirm-bg);
   color: var(--confirm-dialog-confirm-fg);
 }
 
-[data-confirm-button]:hover {
+[data-rs-confirm-button]:hover {
   background: var(--confirm-dialog-confirm-bg-hover);
 }
 
-[data-confirm-button][data-variant="destructive"] {
+[data-rs-confirm-button][data-variant="destructive"] {
   background: var(--confirm-dialog-destructive-bg);
   color: var(--confirm-dialog-destructive-fg);
 }
 
-[data-confirm-button][data-variant="destructive"]:hover {
+[data-rs-confirm-button][data-variant="destructive"]:hover {
   background: var(--confirm-dialog-destructive-bg-hover);
 }

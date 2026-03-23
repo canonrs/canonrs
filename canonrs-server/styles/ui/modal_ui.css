@@ -1,6 +1,6 @@
 /* MODAL - Family A Overlay */
 
-[data-modal] {
+[data-rs-modal] {
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -10,11 +10,11 @@
   justify-content: center;
 }
 
-[data-modal][data-state="open"] {
+[data-rs-modal][data-state="open"] {
   pointer-events: auto;
 }
 
-[data-modal-overlay] {
+[data-rs-modal-overlay] {
   position: fixed;
   inset: 0;
   background: var(--modal-backdrop-bg);
@@ -23,12 +23,12 @@
   transition: opacity 0.3s, visibility 0.3s;
 }
 
-[data-modal][data-state="open"] [data-modal-overlay] {
+[data-rs-modal][data-state="open"] [data-rs-modal-overlay] {
   opacity: 1;
   visibility: visible;
 }
 
-[data-modal-content] {
+[data-rs-modal-content] {
   position: relative;
   width: var(--modal-popup-width);
   max-width: 90vw;
@@ -41,11 +41,11 @@
   transition: opacity 0.3s, transform 0.3s;
 }
 
-[data-modal][data-state="open"] [data-modal-content] {
+[data-rs-modal][data-state="open"] [data-rs-modal-content] {
   opacity: 1;
   transform: scale(1);
 }
 
-[data-modal][data-state="closed"] {
+[data-rs-modal][data-state="closed"] {
   display: none;
 }

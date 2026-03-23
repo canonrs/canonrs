@@ -2,7 +2,7 @@
    PROGRESS - Progress Indicator
    ============================================================================ */
 
-[data-progress] {
+[data-rs-progress] {
   /* Layout */
   position: relative;
   width: 100%;
@@ -14,7 +14,7 @@
   background: var(--progress-bg);
 }
 
-[data-progress-indicator] {
+[data-rs-progress-indicator] {
   /* Layout */
   height: 100%;
   transition: width 0.3s ease;
@@ -24,7 +24,7 @@
 }
 
 /* Estados */
-[data-progress][data-state="indeterminate"] [data-progress-indicator] {
+[data-rs-progress][data-state="indeterminate"] [data-rs-progress-indicator] {
   animation: progress-indeterminate 1.5s ease-in-out infinite;
 }
 

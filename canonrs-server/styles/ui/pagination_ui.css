@@ -3,13 +3,13 @@
    Family A: Actions
    ============================================ */
 
-[data-pagination] {
+[data-rs-pagination] {
   display: flex;
   align-items: center;
   gap: var(--pagination-gap);
 }
 
-[data-pagination-item] {
+[data-rs-pagination-item] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -25,22 +25,22 @@
   transition: background var(--pagination-item-transition-duration) var(--pagination-item-transition-ease);
 }
 
-[data-pagination-item]:hover {
+[data-rs-pagination-item]:hover {
   background: var(--pagination-item-bg-hover);
 }
 
-[data-pagination-item][data-active="true"] {
+[data-rs-pagination-item][data-active="true"] {
   background: var(--pagination-item-bg-active);
   color: var(--pagination-item-fg-active);
   font-weight: var(--pagination-item-font-weight-active);
 }
 
-[data-pagination-item][data-disabled="true"] {
+[data-rs-pagination-item][data-disabled="true"] {
   opacity: var(--pagination-item-disabled-opacity);
   cursor: not-allowed;
 }
 
-[data-pagination-ellipsis] {
+[data-rs-pagination-ellipsis] {
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -3,7 +3,7 @@
    Family F: Data Display
    ============================================ */
 
-[data-scroll-area] {
+[data-rs-scroll-area] {
   position: relative;
   background: var(--scroll-area-bg);
   border: var(--scroll-area-border);
@@ -17,7 +17,7 @@
 }
 
 /* ── Viewport ────────────────────────────────── */
-[data-scroll-viewport] {
+[data-rs-scroll-viewport] {
   width: 100%;
   height: 100%;
   flex: 1;
@@ -26,36 +26,36 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-[data-scroll-viewport]::-webkit-scrollbar { display: none; }
+[data-rs-scroll-viewport]::-webkit-scrollbar { display: none; }
 
-[data-scroll-area][data-orientation="vertical"]    [data-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
-[data-scroll-area][data-orientation="horizontal"]  [data-scroll-viewport] { overflow-x: auto;   overflow-y: hidden; height: auto; }
-[data-scroll-area][data-orientation="both"]        [data-scroll-viewport] { overflow: auto; }
+[data-rs-scroll-area][data-orientation="vertical"]    [data-rs-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
+[data-rs-scroll-area][data-orientation="horizontal"]  [data-rs-scroll-viewport] { overflow-x: auto;   overflow-y: hidden; height: auto; }
+[data-rs-scroll-area][data-orientation="both"]        [data-rs-scroll-viewport] { overflow: auto; }
 
 /* ── Scrollbar ───────────────────────────────── */
-[data-scrollbar] {
+[data-rs-scrollbar] {
   position: absolute;
   z-index: 10;
   transition: opacity 0.2s ease;
 }
 
-[data-scrollbar][data-orientation="vertical"] {
+[data-rs-scrollbar][data-orientation="vertical"] {
   top: 2px; right: 2px; bottom: 2px;
   width: var(--scrollbar-size);
 }
 
-[data-scrollbar][data-orientation="horizontal"] {
+[data-rs-scrollbar][data-orientation="horizontal"] {
   left: 2px; right: 2px; bottom: 2px;
   height: var(--scrollbar-size);
 }
 
 /* auto-hide */
-[data-scroll-area][data-auto-hide="true"] [data-scrollbar] { opacity: 0; }
-[data-scroll-area][data-auto-hide="true"]:hover [data-scrollbar] { opacity: 1; }
-[data-scroll-area][data-auto-hide="true"] [data-scrollbar][data-state="dragging"] { opacity: 1; }
+[data-rs-scroll-area][data-auto-hide="true"] [data-rs-scrollbar] { opacity: 0; }
+[data-rs-scroll-area][data-auto-hide="true"]:hover [data-rs-scrollbar] { opacity: 1; }
+[data-rs-scroll-area][data-auto-hide="true"] [data-rs-scrollbar][data-state="dragging"] { opacity: 1; }
 
 /* ── Track ───────────────────────────────────── */
-[data-scroll-track] {
+[data-rs-scroll-track] {
   position: relative;
   width: 100%;
   height: 100%;
@@ -65,7 +65,7 @@
 }
 
 /* ── Thumb ───────────────────────────────────── */
-[data-scroll-thumb] {
+[data-rs-scroll-thumb] {
   position: absolute;
   background: var(--scrollbar-thumb-bg);
   border-radius: var(--scrollbar-radius);
@@ -74,23 +74,23 @@
   cursor: grab;
 }
 
-[data-scroll-thumb][data-orientation="vertical"] {
+[data-rs-scroll-thumb][data-orientation="vertical"] {
   left: 0; right: 0;
   min-height: var(--scrollbar-thumb-min-size);
   height: var(--scroll-thumb-size, 40px);
   transform: translateY(var(--scroll-thumb-offset, 0px));
 }
 
-[data-scroll-thumb][data-orientation="horizontal"] {
+[data-rs-scroll-thumb][data-orientation="horizontal"] {
   top: 0; bottom: 0;
   min-width: var(--scrollbar-thumb-min-size);
   width: var(--scroll-thumb-size, 40px);
   transform: translateX(var(--scroll-thumb-offset, 0px));
 }
 
-[data-scroll-thumb][data-state="hidden"] { opacity: 0; pointer-events: none; }
-[data-scroll-thumb]:hover                { background: var(--scrollbar-thumb-hover-bg); }
-[data-scroll-thumb][data-state="dragging"] {
+[data-rs-scroll-thumb][data-state="hidden"] { opacity: 0; pointer-events: none; }
+[data-rs-scroll-thumb]:hover                { background: var(--scrollbar-thumb-hover-bg); }
+[data-rs-scroll-thumb][data-state="dragging"] {
   background: var(--scrollbar-thumb-active-bg);
   cursor: grabbing;
 }

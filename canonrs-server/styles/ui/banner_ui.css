@@ -3,7 +3,7 @@
    Family E: Feedback & Status
    ============================================ */
 
-[data-banner] {
+[data-rs-banner] {
   display: flex;
   align-items: center;
   gap: var(--banner-gap);
@@ -15,40 +15,40 @@
   color: var(--banner-fg);
 }
 
-[data-banner][data-variant="info"] {
+[data-rs-banner][data-variant="info"] {
   background: var(--banner-bg-info);
 }
 
-[data-banner][data-variant="success"] {
+[data-rs-banner][data-variant="success"] {
   background: var(--banner-bg-success);
 }
 
-[data-banner][data-variant="warning"] {
+[data-rs-banner][data-variant="warning"] {
   background: var(--banner-bg-warning);
 }
 
-[data-banner][data-variant="error"] {
+[data-rs-banner][data-variant="error"] {
   background: var(--banner-bg-error);
 }
 
-[data-banner-content] {
+[data-rs-banner-content] {
   flex: 1;
   font-size: var(--banner-content-font-size);
   color: var(--banner-content-fg);
 }
 
-[data-banner-actions] {
+[data-rs-banner-actions] {
   display: flex;
   gap: var(--banner-actions-gap);
 }
 
-[data-banner-close] {
+[data-rs-banner-close] {
   width: var(--banner-close-size);
   height: var(--banner-close-size);
   color: var(--banner-close-fg);
   cursor: pointer;
 }
 
-[data-banner-close]:hover {
+[data-rs-banner-close]:hover {
   color: var(--banner-close-fg-hover);
 }

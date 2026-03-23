@@ -1,12 +1,12 @@
 /* COLLAPSIBLE - Family B Selection */
 
-[data-collapsible] {
+[data-rs-collapsible] {
   display: flex;
   flex-direction: column;
   gap: var(--collapsible-gap);
 }
 
-[data-collapsible-trigger] {
+[data-rs-collapsible-trigger] {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,15 +18,15 @@
   transition: background var(--collapsible-transition-duration) var(--collapsible-transition-ease);
 }
 
-[data-collapsible-trigger]:hover {
+[data-rs-collapsible-trigger]:hover {
   background: var(--collapsible-trigger-bg-hover);
 }
 
-[data-collapsible-content] {
+[data-rs-collapsible-content] {
   padding: var(--collapsible-content-padding);
   display: none;
 }
 
-[data-collapsible][data-state="open"] [data-collapsible-content] {
+[data-rs-collapsible][data-state="open"] [data-rs-collapsible-content] {
   display: block;
 }

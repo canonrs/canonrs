@@ -1,6 +1,6 @@
 /* COMMAND - Family B Selection */
 
-[data-command] {
+[data-rs-command] {
   background: var(--command-bg);
   color: var(--command-fg);
   border: var(--command-border-width) solid var(--command-border-color);
@@ -12,7 +12,7 @@
   gap: var(--command-gap);
 }
 
-[data-command-input] {
+[data-rs-command-input] {
   height: var(--command-input-height);
   padding: var(--command-input-padding);
   font-size: var(--command-input-font-size);
@@ -22,13 +22,13 @@
   outline: none;
 }
 
-[data-command-list] {
+[data-rs-command-list] {
   padding: var(--command-list-padding);
   max-height: var(--command-list-max-height);
   overflow-y: auto;
 }
 
-[data-command-item] {
+[data-rs-command-item] {
   display: flex;
   align-items: center;
   height: var(--command-item-height);
@@ -37,32 +37,32 @@
   cursor: pointer;
 }
 
-[data-command-item]:hover {
+[data-rs-command-item]:hover {
   background: var(--command-item-hover-bg);
 }
 
-[data-command-item][data-selected="true"] {
+[data-rs-command-item][data-selected="true"] {
   background: var(--command-item-selected-bg);
 }
 
-[data-command-item][data-hidden="true"] {
+[data-rs-command-item][data-hidden="true"] {
   display: none;
 }
 
-[data-command-group-heading] {
+[data-rs-command-group-heading] {
   color: var(--command-group-heading-fg);
   font-size: var(--command-group-heading-font-size);
   padding: var(--command-group-heading-padding);
   font-weight: 600;
 }
 
-[data-command-separator] {
+[data-rs-command-separator] {
   height: 1px;
   background: var(--command-separator-color);
   margin: var(--command-separator-margin-y) 0;
 }
 
-[data-command-empty] {
+[data-rs-command-empty] {
   color: var(--command-empty-fg);
   padding: var(--command-empty-padding);
   text-align: center;

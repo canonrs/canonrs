@@ -3,11 +3,11 @@
    Family E: Feedback & Status
    ============================================ */
 
-[data-loading-overlay] {
+[data-rs-loading-overlay] {
   position: relative;
 }
 
-[data-loading-overlay]::before {
+[data-rs-loading-overlay]::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -18,11 +18,11 @@
   transition: opacity var(--loading-overlay-transition-duration) var(--loading-overlay-transition-ease);
 }
 
-[data-loading-overlay][data-loading="true"]::before {
+[data-rs-loading-overlay][data-loading="true"]::before {
   opacity: var(--loading-overlay-opacity);
   pointer-events: all;
 }
 
-[data-loading-overlay][data-loading="true"] {
+[data-rs-loading-overlay][data-loading="true"] {
   pointer-events: none;
 }

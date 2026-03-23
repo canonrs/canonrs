@@ -2,17 +2,17 @@
    INPUT GROUP - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-input-group] {
+[data-rs-input-group] {
   display: flex;
   align-items: var(--input-group-align);
   gap: var(--input-group-gap);
 }
 
-[data-input-group][data-merge-radius] > * {
+[data-rs-input-group][data-rs-merge-radius] > * {
   border-radius: var(--input-group-radius-merge);
 }
 
-[data-input-group-addon] {
+[data-rs-input-group-addon] {
   display: inline-flex;
   align-items: center;
   padding: var(--input-padding-y) var(--input-padding-x);
@@ -22,13 +22,13 @@
   white-space: nowrap;
 }
 
-[data-input-group][data-merge-radius] > [data-input-group-addon]:first-child {
+[data-rs-input-group][data-rs-merge-radius] > [data-rs-input-group-addon]:first-child {
   border-top-left-radius: var(--input-radius);
   border-bottom-left-radius: var(--input-radius);
   border-right: 0;
 }
 
-[data-input-group][data-merge-radius] > [data-input]:last-child {
+[data-rs-input-group][data-rs-merge-radius] > [data-rs-input]:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }

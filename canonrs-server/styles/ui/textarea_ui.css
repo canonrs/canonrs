@@ -2,7 +2,7 @@
    TEXTAREA - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-textarea] {
+[data-rs-textarea] {
   display: block;
   width: 100%;
   min-height: var(--textarea-min-height);
@@ -16,24 +16,24 @@
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-textarea][data-variant="error"] {
+[data-rs-textarea][data-variant="error"] {
   border-color: var(--validation-error);
 }
 
-[data-textarea][data-variant="success"] {
+[data-rs-textarea][data-variant="success"] {
   border-color: var(--validation-success);
 }
 
-[data-textarea][data-variant="warning"] {
+[data-rs-textarea][data-variant="warning"] {
   border-color: var(--validation-warning);
 }
 
-[data-textarea]:focus-visible {
+[data-rs-textarea]:focus-visible {
   outline: none;
   border-color: var(--forms-color);
 }
 
-[data-textarea]:disabled {
+[data-rs-textarea]:disabled {
   opacity: var(--forms-disabled-opacity);
   cursor: not-allowed;
 }

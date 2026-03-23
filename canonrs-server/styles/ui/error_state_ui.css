@@ -3,7 +3,7 @@
    Family E: Feedback & Status
    ============================================ */
 
-[data-error-state] {
+[data-rs-error-state] {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,26 +13,26 @@
   text-align: center;
 }
 
-[data-error-state-icon] {
+[data-rs-error-state-icon] {
   width: var(--error-state-icon-size);
   height: var(--error-state-icon-size);
   color: var(--error-state-icon-color);
 }
 
-[data-error-state-title] {
+[data-rs-error-state-title] {
   font-size: var(--error-state-title-font-size);
   font-weight: var(--error-state-title-font-weight);
   color: var(--error-state-title-fg);
 }
 
-[data-error-state-description] {
+[data-rs-error-state-description] {
   font-size: var(--error-state-description-font-size);
   line-height: var(--error-state-description-line-height);
   color: var(--error-state-description-fg);
   max-width: var(--error-state-description-max-width);
 }
 
-[data-error-state-actions] {
+[data-rs-error-state-actions] {
   display: flex;
   gap: var(--error-state-actions-gap);
   margin-top: var(--error-state-actions-margin-top);

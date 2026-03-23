@@ -3,11 +3,11 @@
    Family E: Feedback - Empty State for Tables
    ============================================ */
 
-[data-empty-table-row] {
+[data-rs-empty-table-row] {
   /* Row is just structural, no special styling */
 }
 
-[data-empty-table-content] {
+[data-rs-empty-table-content] {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,13 +16,13 @@
   text-align: center;
 }
 
-[data-empty-table-title] {
+[data-rs-empty-table-title] {
   font-size: var(--empty-table-title-font-size);
   font-weight: var(--empty-table-title-font-weight);
   color: var(--empty-table-title-fg);
 }
 
-[data-empty-table-description] {
+[data-rs-empty-table-description] {
   font-size: var(--empty-table-description-font-size);
   line-height: var(--empty-table-description-line-height);
   color: var(--empty-table-description-fg);

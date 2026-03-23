@@ -3,7 +3,7 @@
    Family B: Lists & Selection
    ============================================ */
 
-[data-empty-state] {
+[data-rs-empty-state] {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,26 +13,26 @@
   text-align: center;
 }
 
-[data-empty-state-icon] {
+[data-rs-empty-state-icon] {
   width: var(--empty-state-icon-size);
   height: var(--empty-state-icon-size);
   color: var(--empty-state-icon-color);
 }
 
-[data-empty-state-title] {
+[data-rs-empty-state-title] {
   font-size: var(--empty-state-title-font-size);
   font-weight: var(--empty-state-title-font-weight);
   line-height: var(--empty-state-title-line-height);
   color: var(--empty-state-title-fg);
 }
 
-[data-empty-state-description] {
+[data-rs-empty-state-description] {
   font-size: var(--empty-state-description-font-size);
   line-height: var(--empty-state-description-line-height);
   color: var(--empty-state-description-fg);
   max-width: var(--empty-state-description-max-width);
 }
 
-[data-empty-state][data-variant="error"] [data-empty-state-icon] {
+[data-rs-empty-state][data-variant="error"] [data-rs-empty-state-icon] {
   color: var(--empty-state-icon-color-error);
 }

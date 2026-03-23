@@ -6,14 +6,14 @@
 
 /* ── Base ────────────────────────────────────────────────────────────────────── */
 
-[data-toc] {
+[data-rs-toc] {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
   width: 100%;
 }
 
-[data-toc-title] {
+[data-rs-toc-title] {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
   color: var(--theme-surface-fg-muted);
@@ -23,7 +23,7 @@
   padding: 0 var(--space-sm);
 }
 
-[data-toc-list] {
+[data-rs-toc-list] {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -34,13 +34,13 @@
 
 /* ── Item ────────────────────────────────────────────────────────────────────── */
 
-[data-toc-item] {
+[data-rs-toc-item] {
   list-style: none;
   list-style-type: none;
   position: relative;
 }
 
-[data-toc-link] {
+[data-rs-toc-link] {
   display: block;
   font-size: var(--font-size-sm);
   line-height: var(--line-height-normal);
@@ -55,12 +55,12 @@
   text-overflow: ellipsis;
 }
 
-[data-toc-link]:hover {
+[data-rs-toc-link]:hover {
   color: var(--markdown-toc-link-fg-hover);
   background: var(--markdown-toc-link-bg-hover);
 }
 
-[data-toc-item][data-state="active"] > [data-toc-link] {
+[data-rs-toc-item][data-state="active"] > [data-rs-toc-link] {
   color: var(--markdown-toc-link-fg-active);
   background: var(--markdown-toc-link-bg-active);
   border-left-color: var(--markdown-toc-link-border-active);
@@ -69,15 +69,15 @@
 
 /* ── Indentation by level ────────────────────────────────────────────────────── */
 
-[data-toc-item][data-level="1"] > [data-toc-link] { padding-left: var(--space-sm); }
-[data-toc-item][data-level="2"] > [data-toc-link] { padding-left: var(--space-sm); }
-[data-toc-item][data-level="3"] > [data-toc-link] { padding-left: var(--markdown-toc-indent-l3); }
-[data-toc-item][data-level="4"] > [data-toc-link] { padding-left: var(--markdown-toc-indent-l4); }
-[data-toc-item][data-level="5"] > [data-toc-link] { padding-left: var(--markdown-toc-indent-l5); }
+[data-rs-toc-item][data-level="1"] > [data-rs-toc-link] { padding-left: var(--space-sm); }
+[data-rs-toc-item][data-level="2"] > [data-rs-toc-link] { padding-left: var(--space-sm); }
+[data-rs-toc-item][data-level="3"] > [data-rs-toc-link] { padding-left: var(--markdown-toc-indent-l3); }
+[data-rs-toc-item][data-level="4"] > [data-rs-toc-link] { padding-left: var(--markdown-toc-indent-l4); }
+[data-rs-toc-item][data-level="5"] > [data-rs-toc-link] { padding-left: var(--markdown-toc-indent-l5); }
 
 /* ── Mode: Simple ────────────────────────────────────────────────────────────── */
 
-[data-toc][data-toc-mode="simple"] [data-toc-item] {
+[data-rs-toc][data-toc-mode="simple"] [data-rs-toc-item] {
   list-style: none;
   list-style-type: none;
   display: block;
@@ -86,7 +86,7 @@
 /* ── Mode: Expand ────────────────────────────────────────────────────────────── */
 
 /* Children hidden by default — behavior reveals on parent active */
-[data-toc][data-toc-mode="expand"] [data-toc-item][data-child="true"] {
+[data-rs-toc][data-toc-mode="expand"] [data-rs-toc-item][data-child="true"] {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -95,25 +95,25 @@
     opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-toc][data-toc-mode="expand"] [data-toc-item][data-child="true"][data-visible="true"] {
+[data-rs-toc][data-toc-mode="expand"] [data-rs-toc-item][data-child="true"][data-visible="true"] {
   max-height: 40px;
   opacity: 1;
 }
 
 /* ── Mode: Nested ────────────────────────────────────────────────────────────── */
 
-[data-toc][data-toc-mode="nested"] [data-toc-item] {
+[data-rs-toc][data-toc-mode="nested"] [data-rs-toc-item] {
   list-style: none;
   list-style-type: none;
   display: flex;
   flex-direction: column;
 }
 
-[data-toc][data-toc-mode="nested"] [data-toc-item][data-has-children] {
+[data-rs-toc][data-toc-mode="nested"] [data-rs-toc-item][data-rs-has-children] {
   position: relative;
 }
 
-[data-toc-expand-btn] {
+[data-rs-toc-expand-btn] {
   position: absolute;
   left: 0;
   top: 50%;
@@ -134,15 +134,15 @@
   z-index: 1;
 }
 
-[data-toc-expand-btn][aria-expanded="true"] {
+[data-rs-toc-expand-btn][aria-expanded="true"] {
   transform: translateY(-50%) rotate(90deg);
 }
 
-[data-toc][data-toc-mode="nested"] [data-toc-item][data-has-children] > [data-toc-link] {
+[data-rs-toc][data-toc-mode="nested"] [data-rs-toc-item][data-rs-has-children] > [data-rs-toc-link] {
   padding-left: var(--space-lg);
 }
 
-[data-toc-subtree] {
+[data-rs-toc-subtree] {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -152,19 +152,19 @@
     opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-toc-subtree][data-state="closed"] {
+[data-rs-toc-subtree][data-state="closed"] {
   max-height: 0;
   opacity: 0;
 }
 
-[data-toc-subtree][data-state="open"] {
+[data-rs-toc-subtree][data-state="open"] {
   max-height: 1000px;
   opacity: 1;
 }
 
 /* ── Sticky sidebar variant ──────────────────────────────────────────────────── */
 
-[data-toc-sticky] {
+[data-rs-toc-sticky] {
   position: sticky;
   top: var(--space-xl);
   max-height: calc(100vh - var(--space-3xl));
@@ -177,7 +177,7 @@
 
 /* ── Ancestor State ──────────────────────────────────────────────────────────── */
 
-[data-toc-item][data-state="ancestor"] > [data-toc-link] {
+[data-rs-toc-item][data-state="ancestor"] > [data-rs-toc-link] {
   color: var(--theme-surface-fg);
   font-weight: var(--font-weight-medium);
   opacity: 0.8;
@@ -186,21 +186,21 @@
 /* ── Auto-collapse refinement ────────────────────────────────────────────────── */
 
 /* In expand mode, smoother transitions */
-[data-toc][data-toc-mode="expand"] [data-toc-item][data-child="true"] {
+[data-rs-toc][data-toc-mode="expand"] [data-rs-toc-item][data-child="true"] {
   transition:
     max-height var(--motion-duration-normal) var(--motion-ease-standard),
     opacity var(--motion-duration-normal) var(--motion-ease-standard),
     margin var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-toc][data-toc-mode="expand"] [data-toc-item][data-child="true"]:not([data-visible="true"]) {
+[data-rs-toc][data-toc-mode="expand"] [data-rs-toc-item][data-child="true"]:not([data-visible="true"]) {
   margin: 0;
   padding: 0;
 }
 
 /* ── Force remove list markers ───────────────────────────────────────────── */
 
-[data-toc-item]::marker {
+[data-rs-toc-item]::marker {
   content: none;
   display: none;
 }

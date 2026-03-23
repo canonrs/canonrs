@@ -2,14 +2,14 @@
    RADIO - Family B Selection tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-radio-wrapper] {
+[data-rs-radio-wrapper] {
   display: inline-flex;
   align-items: center;
   gap: var(--radio-group-item-gap);
   cursor: pointer;
 }
 
-[data-radio] {
+[data-rs-radio] {
   appearance: none;
   width: var(--radio-size);
   height: var(--radio-size);
@@ -21,12 +21,12 @@
   position: relative;
 }
 
-[data-radio]:checked {
+[data-rs-radio]:checked {
   background: var(--radio-bg-checked);
   border-color: var(--radio-border-color-checked);
 }
 
-[data-radio]:checked::after {
+[data-rs-radio]:checked::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -38,11 +38,11 @@
   background: var(--radio-dot-color);
 }
 
-[data-radio]:disabled {
+[data-rs-radio]:disabled {
   opacity: var(--radio-disabled-opacity);
   cursor: not-allowed;
 }
 
-[data-radio-indicator] {
+[data-rs-radio-indicator] {
   display: none;
 }

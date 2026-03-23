@@ -1,10 +1,10 @@
 /* TOOLTIP - Family A Overlay */
 
-[data-tooltip] {
+[data-rs-tooltip] {
   position: relative;
 }
 
-[data-tooltip-content] {
+[data-rs-tooltip-content] {
   position: fixed;
   z-index: var(--tooltip-z-index);
   background: var(--tooltip-bg);
@@ -20,12 +20,12 @@
   transition: opacity 0.15s, visibility 0.15s;
 }
 
-[data-tooltip][data-state="open"] [data-tooltip-content] {
+[data-rs-tooltip][data-state="open"] [data-rs-tooltip-content] {
   opacity: 1;
   visibility: visible;
 }
 
-[data-tooltip-arrow] {
+[data-rs-tooltip-arrow] {
   position: absolute;
   width: var(--tooltip-arrow-size);
   height: var(--tooltip-arrow-size);

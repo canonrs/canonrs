@@ -3,46 +3,46 @@
    Family D: Navigation
    ============================================ */
 
-[data-breadcrumb] {
+[data-rs-breadcrumb] {
   display: flex;
   align-items: center;
   gap: var(--breadcrumb-gap);
   font-size: var(--breadcrumb-font-size);
 }
 
-[data-breadcrumb-item] {
+[data-rs-breadcrumb-item] {
   display: inline-flex;
   align-items: center;
   gap: var(--breadcrumb-gap);
 }
 
-[data-breadcrumb-link] {
+[data-rs-breadcrumb-link] {
   color: var(--breadcrumb-fg);
   font-weight: var(--breadcrumb-font-weight);
   text-decoration: none;
   transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
 }
 
-[data-breadcrumb-link]:hover {
+[data-rs-breadcrumb-link]:hover {
   color: var(--breadcrumb-fg-hover);
 }
 
-[data-breadcrumb-page] {
+[data-rs-breadcrumb-page] {
   color: var(--breadcrumb-fg-active);
   font-weight: var(--breadcrumb-font-weight-active);
 }
 
-[data-breadcrumb-separator] {
+[data-rs-breadcrumb-separator] {
   color: var(--breadcrumb-separator-fg);
 }
 
 /* Collapsible breadcrumb */
-[data-breadcrumb-collapse] {
+[data-rs-breadcrumb-collapse] {
   display: inline-flex;
   position: relative;
 }
 
-[data-breadcrumb-ellipsis-trigger] {
+[data-rs-breadcrumb-ellipsis-trigger] {
   color: var(--breadcrumb-fg);
   font-weight: var(--breadcrumb-font-weight);
   cursor: pointer;
@@ -50,15 +50,15 @@
   transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
 }
 
-[data-breadcrumb-ellipsis-trigger]:hover {
+[data-rs-breadcrumb-ellipsis-trigger]:hover {
   color: var(--breadcrumb-fg-hover);
 }
 
-[data-breadcrumb-ellipsis-trigger]::marker {
+[data-rs-breadcrumb-ellipsis-trigger]::marker {
   content: none;
 }
 
-[data-breadcrumb-collapse-content] {
+[data-rs-breadcrumb-collapse-content] {
   position: absolute;
   top: 100%;
   left: 0;
@@ -73,7 +73,7 @@
   box-shadow: var(--shadow-md);
 }
 
-[data-breadcrumb-collapse][open] [data-breadcrumb-collapse-content] {
+[data-rs-breadcrumb-collapse][open] [data-rs-breadcrumb-collapse-content] {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

@@ -4,7 +4,7 @@
    ============================================ */
 
 /* ── Drop Zone ─────────────────────────────── */
-[data-drop-zone] {
+[data-rs-drop-zone] {
   width: 100%;
   min-height: 60px;
   border: var(--composite-dropzone-border-width) var(--composite-dropzone-border-style) var(--composite-dropzone-border-color);
@@ -18,17 +18,17 @@
     background var(--composite-transition-duration) var(--composite-transition-ease);
 }
 
-[data-drop-zone][data-hover="true"] {
+[data-rs-drop-zone][data-hover="true"] {
   border-color: var(--builder-dropzone-active-border);
   background: var(--builder-dropzone-hover-bg);
 }
 
-[data-drop-zone][data-dragging="true"] {
+[data-rs-drop-zone][data-dragging="true"] {
   border-color: var(--builder-dropzone-drag-border);
   background: var(--builder-dropzone-drag-bg);
 }
 
-[data-drop-zone-empty] {
+[data-rs-drop-zone-empty] {
   font-size: 0.7rem;
   color: var(--theme-surface-fg-muted);
   text-align: center;
@@ -37,7 +37,7 @@
 }
 
 /* ── Insert Line ───────────────────────────── */
-[data-insert-line] {
+[data-rs-insert-line] {
   height: var(--builder-insert-line-height);
   background: var(--builder-insert-line-color);
   border-radius: 2px;
@@ -46,7 +46,7 @@
 }
 
 /* ── Block Preview ─────────────────────────── */
-[data-block-preview] {
+[data-rs-block-preview] {
   position: relative;
   margin-bottom: var(--builder-block-gap);
   cursor: grab;
@@ -54,16 +54,16 @@
   transition: opacity var(--composite-transition-duration) var(--composite-transition-ease);
 }
 
-[data-block-preview][data-dragging="true"] {
+[data-rs-block-preview][data-dragging="true"] {
   opacity: var(--builder-block-drag-opacity);
 }
 
-[data-block-preview]:hover > [data-block-remove] {
+[data-rs-block-preview]:hover > [data-rs-block-remove] {
   opacity: 1;
 }
 
 /* ── Block Inner ───────────────────────────── */
-[data-block-inner] {
+[data-rs-block-inner] {
   padding: var(--builder-block-padding);
   background: var(--builder-block-bg);
   border: var(--builder-block-border);
@@ -75,7 +75,7 @@
 }
 
 /* ── Remove Button ─────────────────────────── */
-[data-block-remove] {
+[data-rs-block-remove] {
   position: absolute;
   top: 4px;
   right: 4px;
@@ -98,42 +98,42 @@
 }
 
 /* ── Container Indent ──────────────────────── */
-[data-block-children] {
+[data-rs-block-children] {
   margin-top: var(--builder-container-indent);
   padding-left: var(--builder-container-indent);
   border-left: 2px solid var(--composite-border-color);
 }
 
 /* ── Selection State ───────────────────────── */
-[data-block-preview][data-selected="true"] > [data-block-inner],
-[data-block-preview][data-selected="true"] > .data-card {
+[data-rs-block-preview][data-selected="true"] > [data-rs-block-inner],
+[data-rs-block-preview][data-selected="true"] > .data-card {
   outline: 2px solid var(--theme-action-primary-bg);
   outline-offset: 2px;
 }
 
-[data-block-preview][data-selected="true"] > [data-block-remove] {
+[data-rs-block-preview][data-selected="true"] > [data-rs-block-remove] {
   opacity: 1;
 }
 
 /* ── Preview Mode — hide builder UI ───────── */
-[data-drop-zone][data-mode="preview"] {
+[data-rs-drop-zone][data-mode="preview"] {
   border: none;
   min-height: unset;
   background: transparent;
   padding: 0;
 }
 
-[data-block-preview][data-mode="preview"] {
+[data-rs-block-preview][data-mode="preview"] {
   cursor: default;
 }
 
-[data-block-children][data-mode="preview"] {
+[data-rs-block-children][data-mode="preview"] {
   border-left: none;
   padding-left: 0;
 }
 
 /* ── Drop Line ─────────────────────────────── */
-[data-drop-line] {
+[data-rs-drop-line] {
   height: 2px;
   background: transparent;
   border-radius: 2px;
@@ -143,35 +143,35 @@
 }
 
 /* Linha ativa APENAS quando a zone pai tem data-drop-zone-active */
-[data-drop-zone][data-drop-zone-active="true"] [data-drop-line][data-insert-active="true"] {
+[data-rs-drop-zone][data-drop-zone-active="true"] [data-rs-drop-line][data-insert-active="true"] {
   height: 4px;
   background: var(--builder-insert-line-color);
 }
 
 /* ── Selection Highlight ───────────────────── */
-[data-block-preview][data-selected="true"] {
+[data-rs-block-preview][data-selected="true"] {
   border-radius: var(--builder-block-radius);
   outline: 2px solid var(--theme-action-primary-bg);
   outline-offset: 2px;
 }
 
-[data-block-preview][data-selected="true"] > [data-block-remove] {
+[data-rs-block-preview][data-selected="true"] > [data-rs-block-remove] {
   opacity: 1;
 }
 
 /* ── Dragging vs Selected ──────────────────── */
-[data-block-preview][data-dragging="true"] {
+[data-rs-block-preview][data-dragging="true"] {
   opacity: 0.4;
   outline: none;
 }
 
-[data-block-preview][data-dragging="true"] > [data-block-remove] {
+[data-rs-block-preview][data-dragging="true"] > [data-rs-block-remove] {
   opacity: 0;
   pointer-events: none;
 }
 
 /* ── Preview Mode — remove all builder UI ─── */
-[data-drop-zone][data-mode="preview"] {
+[data-rs-drop-zone][data-mode="preview"] {
   border: none !important;
   min-height: unset !important;
   background: transparent !important;
@@ -179,45 +179,45 @@
   pointer-events: none;
 }
 
-[data-drop-zone][data-mode="preview"] [data-drop-zone-empty] {
+[data-rs-drop-zone][data-mode="preview"] [data-rs-drop-zone-empty] {
   display: none;
 }
 
-[data-block-preview][data-mode="preview"] {
+[data-rs-block-preview][data-mode="preview"] {
   cursor: default;
   outline: none !important;
 }
 
-[data-block-preview][data-mode="preview"] > [data-block-remove] {
+[data-rs-block-preview][data-mode="preview"] > [data-rs-block-remove] {
   display: none !important;
 }
 
-[data-block-children][data-mode="preview"] {
+[data-rs-block-children][data-mode="preview"] {
   border-left: none;
   padding-left: 0;
   margin-top: 0;
 }
 
 /* ── Children Container Highlight ─────────── */
-[data-block-children][data-drag-active="true"] {
+[data-rs-block-children][data-drag-active="true"] {
   border-left: 2px solid var(--builder-dropzone-active-border);
   background: var(--builder-dropzone-drag-bg);
   border-radius: var(--builder-block-radius);
 }
 
-[data-block-children][data-drag-active="true"] [data-drop-zone] {
+[data-rs-block-children][data-drag-active="true"] [data-rs-drop-zone] {
   border-color: var(--builder-dropzone-active-border);
 }
 
 /* ── Canon Preview Blocks ──────────────────── */
-[data-canon-slot] {
+[data-rs-canon-slot] {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
   padding: var(--space-md);
 }
 
-[data-canon-block] {
+[data-rs-canon-block] {
   display: block;
 }
 
@@ -246,24 +246,24 @@
    ============================================ */
 
 /* ── Hover suave nos blocos ─────────────────── */
-[data-block-preview] {
+[data-rs-block-preview] {
   transition:
     opacity 120ms cubic-bezier(0.4, 0, 0.2, 1),
     transform 120ms cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-block-preview]:hover {
+[data-rs-block-preview]:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-[data-block-preview]:hover > [data-block-inner] {
+[data-rs-block-preview]:hover > [data-rs-block-inner] {
   border-color: var(--theme-action-primary-bg);
 }
 
 /* ── Drag handle sutil ──────────────────────── */
-[data-block-preview]::before {
+[data-rs-block-preview]::before {
   content: "⠿";
   position: absolute;
   left: -16px;
@@ -277,45 +277,45 @@
   pointer-events: none;
 }
 
-[data-block-preview]:hover::before {
+[data-rs-block-preview]:hover::before {
   opacity: 0.5;
 }
 
 /* ── Seleção com outline animado ────────────── */
-[data-block-preview][data-selected="true"] {
+[data-rs-block-preview][data-selected="true"] {
   transform: translateY(-1px);
   box-shadow: 0 0 0 2px var(--theme-action-primary-bg), 0 2px 12px rgba(0,0,0,0.1);
   outline: none;
 }
 
-[data-block-preview][data-selected="true"] > [data-block-inner] {
+[data-rs-block-preview][data-selected="true"] > [data-rs-block-inner] {
   outline: none;
   border-color: var(--theme-action-primary-bg);
 }
 
 /* ── Dragging state refinado ────────────────── */
-[data-block-preview][data-dragging="true"] {
+[data-rs-block-preview][data-dragging="true"] {
   opacity: 0.35;
   transform: scale(0.98);
   box-shadow: none;
 }
 
 /* ── Drop zone highlight animado ────────────── */
-[data-drop-zone] {
+[data-rs-drop-zone] {
   transition:
     border-color 120ms cubic-bezier(0.4, 0, 0.2, 1),
     background 120ms cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-drop-zone][data-drop-zone-active="true"] {
+[data-rs-drop-zone][data-drop-zone-active="true"] {
   border-color: var(--builder-dropzone-active-border);
   background: var(--builder-dropzone-hover-bg);
   box-shadow: inset 0 0 0 1px var(--builder-dropzone-active-border);
 }
 
 /* ── Insert line animada ────────────────────── */
-[data-drop-zone] div[style*="4px"] {
+[data-rs-drop-zone] div[style*="4px"] {
   transition: height 80ms cubic-bezier(0.4, 0, 0.2, 1),
               background 80ms ease;
   border-radius: 2px;
@@ -323,7 +323,7 @@
 }
 
 /* ── Remove button refinado ─────────────────── */
-[data-block-remove] {
+[data-rs-block-remove] {
   transition:
     opacity 120ms ease,
     transform 120ms ease,
@@ -331,18 +331,18 @@
   transform: scale(0.8);
 }
 
-[data-block-preview]:hover > [data-block-remove] {
+[data-rs-block-preview]:hover > [data-rs-block-remove] {
   opacity: 1;
   transform: scale(1);
 }
 
-[data-block-remove]:hover {
+[data-rs-block-remove]:hover {
   background: var(--theme-action-danger-bg, #e53e3e) !important;
   transform: scale(1.1);
 }
 
 /* ── Block inner hover glow ─────────────────── */
-[data-block-inner] {
+[data-rs-block-inner] {
   transition:
     border-color 120ms ease,
     background 120ms ease,
@@ -350,66 +350,66 @@
 }
 
 /* ── Cursor inteligente ─────────────────────── */
-[data-block-preview][data-mode="builder"] {
+[data-rs-block-preview][data-mode="builder"] {
   cursor: grab;
 }
 
-[data-block-preview][data-dragging="true"] {
+[data-rs-block-preview][data-dragging="true"] {
   cursor: grabbing;
 }
 
 /* ── Empty zone pulse sutil ─────────────────── */
-[data-drop-zone-empty] {
+[data-rs-drop-zone-empty] {
   transition: opacity 150ms ease;
 }
 
-[data-drop-zone][data-drop-zone-active="true"] [data-drop-zone-empty] {
+[data-rs-drop-zone][data-drop-zone-active="true"] [data-rs-drop-zone-empty] {
   opacity: 0.4;
 }
 
 /* ── Block Regions ─────────────────────────────── */
-[data-block-region],
-[data-region-preview] {
+[data-rs-block-region],
+[data-rs-region-preview] {
   margin-top: 0.125rem;
   min-height: 28px;
 }
 
-[data-region-preview] [data-block-preview] {
+[data-rs-region-preview] [data-rs-block-preview] {
   display: block;
   min-height: 24px;
 }
 
-[data-block-region] [data-drop-zone] {
+[data-rs-block-region] [data-rs-drop-zone] {
   min-height: 28px;
   padding: 0.2rem 0.35rem;
   border-style: dashed;
   border-width: 1px;
 }
 
-[data-block-region] [data-drop-zone-empty] {
+[data-rs-block-region] [data-rs-drop-zone-empty] {
   font-size: 0.65rem;
   padding: 0.2rem;
 }
 
 /* ── Block com Regiões — Builder Compacto ──── */
-[data-block-preview] [data-region-preview] [data-drop-zone] {
+[data-rs-block-preview] [data-rs-region-preview] [data-rs-drop-zone] {
   min-height: 32px;
   padding: 0.15rem 0.35rem;
   border-style: dashed;
   border-width: 1px;
 }
 
-[data-block-preview] [data-region-preview] [data-drop-zone-empty] {
+[data-rs-block-preview] [data-rs-region-preview] [data-rs-drop-zone-empty] {
   font-size: 0.6rem;
   padding: 0.15rem;
 }
 
-[data-region-preview] {
+[data-rs-region-preview] {
   margin-top: 0.1rem;
 }
 
 /* ── Builder Mode — affordance visual para regiões vazias ── */
-[data-canvas-mode="builder"] [data-block-region] {
+[data-canvas-mode="builder"] [data-rs-block-region] {
   min-height: 32px;
   position: relative;
   box-sizing: border-box;
@@ -419,7 +419,7 @@
   min-height: 32px;
 }
 
-[data-canvas-mode="builder"] [data-block-region]:has([data-drop-zone]:not(:has([data-block-preview])))::after {
+[data-canvas-mode="builder"] [data-rs-block-region]:has([data-rs-drop-zone]:not(:has([data-rs-block-preview])))::after {
   content: attr(data-region-hint);
   display: block;
   font-size: 0.6rem;
@@ -430,29 +430,29 @@
 }
 
 /* ── Card Regions — compact drop zones ──────── */
-[data-card] [data-block-region] [data-drop-zone] {
+[data-rs-card] [data-rs-block-region] [data-rs-drop-zone] {
   min-height: 32px;
   padding: 0.15rem 0.25rem;
   border-style: dashed;
   border-width: 1px;
 }
 
-[data-block-region="header"] [data-drop-zone],
-[data-block-region="footer"] [data-drop-zone] {
+[data-block-region="header"] [data-rs-drop-zone],
+[data-block-region="footer"] [data-rs-drop-zone] {
   min-height: 32px;
 }
 
-[data-block-region="content"] [data-drop-zone] {
+[data-block-region="content"] [data-rs-drop-zone] {
   min-height: 48px;
 }
 
-[data-card] [data-block-region] {
+[data-rs-card] [data-rs-block-region] {
   min-height: unset;
   padding: 0.1rem 0;
 }
 
 /* ── Insert line — via atributo, sem inline style ── */
-[data-insert-line] {
+[data-rs-insert-line] {
   height: 2px;
   background: transparent;
   margin: 1px 0;
@@ -460,7 +460,7 @@
   transition: height 80ms ease, background 80ms ease;
 }
 
-[data-insert-line][data-active="true"] {
+[data-rs-insert-line][data-active="true"] {
   height: 4px;
   background: var(--builder-insert-line-color);
   border-radius: 2px;
@@ -468,7 +468,7 @@
 }
 
 /* ── Drop zone scroll wrapper ── */
-[data-drop-zone-scroll] {
+[data-rs-drop-zone-scroll] {
   overflow-y: auto;
   max-height: 100%;
   height: 100%;
@@ -481,12 +481,12 @@
 }
 
 /* Regiões sempre visíveis no builder — min-height garantida */
-[data-canvas-mode="builder"] [data-block-region="header"] [data-drop-zone],
-[data-canvas-mode="builder"] [data-block-region="footer"] [data-drop-zone] {
+[data-canvas-mode="builder"] [data-block-region="header"] [data-rs-drop-zone],
+[data-canvas-mode="builder"] [data-block-region="footer"] [data-rs-drop-zone] {
   min-height: 32px;
 }
 
-[data-canvas-mode="builder"] [data-block-region="content"] [data-drop-zone] {
+[data-canvas-mode="builder"] [data-block-region="content"] [data-rs-drop-zone] {
   min-height: 48px;
 }
 
@@ -496,7 +496,7 @@
 }
 
 /* ── Builder only — garante área de drop nas regiões de layout ── */
-[data-builder-panel="canvas"] [data-layout-region] {
+[data-builder-panel="canvas"] [data-rs-layout-region] {
   min-height: 60px;
 }
 
@@ -507,14 +507,14 @@
   display: block;
 }
 
-[data-block="grid"] [data-drop-zone],
-[data-block="columns"] [data-drop-zone] {
+[data-block="grid"] [data-rs-drop-zone],
+[data-block="columns"] [data-rs-drop-zone] {
   min-height: 80px;
   width: 100%;
 }
 
 /* ── Region Layout via data-layout ──────────── */
-[data-drop-zone][data-layout="horizontal"] {
+[data-rs-drop-zone][data-layout="horizontal"] {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -522,14 +522,14 @@
   flex-wrap: wrap;
 }
 
-[data-drop-zone][data-layout="grid"] {
+[data-rs-drop-zone][data-layout="grid"] {
   display: grid;
   grid-template-columns: repeat(var(--dz-cols, 3), 1fr);
   gap: var(--dz-gap, 12px);
   width: 100%;
 }
 
-[data-drop-zone][data-layout="vertical"] {
+[data-rs-drop-zone][data-layout="vertical"] {
   display: flex;
   flex-direction: column;
 }

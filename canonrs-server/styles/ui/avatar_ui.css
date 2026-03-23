@@ -4,7 +4,7 @@
    ============================================ */
 
 /* Base */
-[data-avatar] {
+[data-rs-avatar] {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -16,53 +16,53 @@
 }
 
 /* Sizes */
-[data-avatar].avatar-size-xs {
+[data-rs-avatar].avatar-size-xs {
   width: var(--avatar-size-xs);
   height: var(--avatar-size-xs);
 }
 
-[data-avatar].avatar-size-sm {
+[data-rs-avatar].avatar-size-sm {
   width: var(--avatar-size-sm);
   height: var(--avatar-size-sm);
 }
 
-[data-avatar].avatar-size-md {
+[data-rs-avatar].avatar-size-md {
   width: var(--avatar-size-md);
   height: var(--avatar-size-md);
 }
 
-[data-avatar].avatar-size-lg {
+[data-rs-avatar].avatar-size-lg {
   width: var(--avatar-size-lg);
   height: var(--avatar-size-lg);
 }
 
-[data-avatar].avatar-size-xl {
+[data-rs-avatar].avatar-size-xl {
   width: var(--avatar-size-xl);
   height: var(--avatar-size-xl);
 }
 
 /* Shapes */
-[data-avatar].avatar-shape-circle {
+[data-rs-avatar].avatar-shape-circle {
   border-radius: var(--avatar-radius);
 }
 
-[data-avatar].avatar-shape-square {
+[data-rs-avatar].avatar-shape-square {
   border-radius: var(--avatar-radius-square);
 }
 
-[data-avatar].avatar-shape-rounded {
+[data-rs-avatar].avatar-shape-rounded {
   border-radius: var(--avatar-radius-rounded);
 }
 
 /* Image */
-[data-avatar-image] {
+[data-rs-avatar-image] {
   width: 100%;
   height: 100%;
   object-fit: var(--avatar-image-fit);
 }
 
 /* Fallback */
-[data-avatar-fallback] {
+[data-rs-avatar-fallback] {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,7 +76,7 @@
 }
 
 /* Status Indicator */
-[data-avatar-status] {
+[data-rs-avatar-status] {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -86,24 +86,24 @@
   border: var(--avatar-status-border-width) solid var(--avatar-status-border-color);
 }
 
-[data-avatar-status][data-status="online"] {
+[data-rs-avatar-status][data-status="online"] {
   background: var(--avatar-status-online-bg);
 }
 
-[data-avatar-status][data-status="offline"] {
+[data-rs-avatar-status][data-status="offline"] {
   background: var(--avatar-status-offline-bg);
 }
 
-[data-avatar-status][data-status="busy"] {
+[data-rs-avatar-status][data-status="busy"] {
   background: var(--avatar-status-busy-bg);
 }
 
-[data-avatar-status][data-status="away"] {
+[data-rs-avatar-status][data-status="away"] {
   background: var(--avatar-status-away-bg);
 }
 
 /* Badge */
-[data-avatar-badge] {
+[data-rs-avatar-badge] {
   position: absolute;
   top: var(--avatar-badge-offset);
   right: var(--avatar-badge-offset);
@@ -128,6 +128,6 @@
   0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--avatar-status-online-bg) 60%, transparent); }
   50%       { box-shadow: 0 0 0 4px color-mix(in srgb, var(--avatar-status-online-bg) 0%, transparent); }
 }
-[data-avatar-status][data-pulse] {
+[data-rs-avatar-status][data-rs-pulse] {
   animation: avatar-pulse 2s ease-in-out infinite;
 }

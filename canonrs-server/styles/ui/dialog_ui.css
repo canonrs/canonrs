@@ -1,6 +1,6 @@
 /* DIALOG - Family A Overlay */
 
-[data-dialog] {
+[data-rs-dialog] {
   position: fixed;
   inset: 0;
   z-index: var(--dialog-overlay-z-index);
@@ -10,11 +10,11 @@
   justify-content: center;
 }
 
-[data-dialog][data-state="open"] {
+[data-rs-dialog][data-state="open"] {
   pointer-events: auto;
 }
 
-[data-dialog-overlay] {
+[data-rs-dialog-overlay] {
   position: fixed;
   inset: 0;
   background: var(--dialog-overlay-bg);
@@ -23,12 +23,12 @@
   transition: opacity 0.3s, visibility 0.3s;
 }
 
-[data-dialog][data-state="open"] [data-dialog-overlay] {
+[data-rs-dialog][data-state="open"] [data-rs-dialog-overlay] {
   opacity: 1;
   visibility: visible;
 }
 
-[data-dialog-content] {
+[data-rs-dialog-content] {
   position: relative;
   width: var(--dialog-content-width);
   max-width: var(--dialog-content-max-width);
@@ -43,23 +43,23 @@
   transition: opacity 0.3s, transform 0.3s;
 }
 
-[data-dialog][data-state="open"] [data-dialog-content] {
+[data-rs-dialog][data-state="open"] [data-rs-dialog-content] {
   opacity: 1;
   transform: scale(1);
 }
 
-[data-dialog][data-state="closed"] {
+[data-rs-dialog][data-state="closed"] {
   display: none;
 }
 
-[data-dialog-title] {
+[data-rs-dialog-title] {
   color: var(--dialog-title-fg);
   font-size: var(--dialog-title-font-size);
   font-weight: var(--dialog-title-font-weight);
   margin-bottom: var(--dialog-header-gap);
 }
 
-[data-dialog-description] {
+[data-rs-dialog-description] {
   color: var(--dialog-description-fg);
   font-size: var(--dialog-description-font-size);
 }

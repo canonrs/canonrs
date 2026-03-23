@@ -3,7 +3,7 @@
    Family E: Feedback & Status
    ============================================ */
 
-[data-alert] {
+[data-rs-alert] {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
@@ -14,46 +14,46 @@
   background: var(--alert-bg);
 }
 
-[data-alert][data-variant="default"] {
+[data-rs-alert][data-variant="default"] {
   background: var(--alert-bg-default);
 }
 
-[data-alert][data-variant="success"] {
+[data-rs-alert][data-variant="success"] {
   background: var(--alert-bg-success);
 }
 
-[data-alert][data-variant="warning"] {
+[data-rs-alert][data-variant="warning"] {
   background: var(--alert-bg-warning);
 }
 
-[data-alert][data-variant="destructive"] {
+[data-rs-alert][data-variant="destructive"] {
   background: var(--alert-bg-error);
 }
 
-[data-alert-title] {
+[data-rs-alert-title] {
   font-size: var(--alert-title-font-size);
   font-weight: var(--alert-title-font-weight);
   color: var(--alert-title-fg);
 }
 
-[data-alert-description] {
+[data-rs-alert-description] {
   font-size: var(--alert-description-font-size);
   line-height: var(--alert-description-line-height);
   color: var(--alert-description-fg);
 }
 
-[data-alert-close] {
+[data-rs-alert-close] {
   width: var(--alert-close-size);
   height: var(--alert-close-size);
   color: var(--alert-close-fg);
   cursor: pointer;
 }
 
-[data-alert-close]:hover {
+[data-rs-alert-close]:hover {
   color: var(--alert-close-fg-hover);
 }
 
-[data-alert-close][disabled] {
+[data-rs-alert-close][disabled] {
   opacity: var(--alert-close-opacity-disabled);
   cursor: not-allowed;
 }

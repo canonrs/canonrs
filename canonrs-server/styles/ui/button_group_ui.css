@@ -2,7 +2,7 @@
    BUTTON GROUP - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-button-group] {
+[data-rs-button-group] {
   display: inline-flex;
   flex-direction: var(--button-group-direction);
   align-items: var(--button-group-align);
@@ -11,28 +11,28 @@
 }
 
 /* ATTACHED variant - merged borders */
-[data-button-group][data-attached] {
+[data-rs-button-group][data-rs-attached] {
   gap: 0;
 }
 
-[data-button-group][data-attached] > [data-button] {
+[data-rs-button-group][data-rs-attached] > [data-rs-button] {
   border-radius: var(--button-group-radius-merge);
   margin-left: -1px;
 }
 
-[data-button-group][data-attached] > [data-button]:first-child {
+[data-rs-button-group][data-rs-attached] > [data-rs-button]:first-child {
   border-start-start-radius: var(--button-radius);
   border-end-start-radius: var(--button-radius);
   margin-left: 0;
 }
 
-[data-button-group][data-attached] > [data-button]:last-child {
+[data-rs-button-group][data-rs-attached] > [data-rs-button]:last-child {
   border-start-end-radius: var(--button-radius);
   border-end-end-radius: var(--button-radius);
 }
 
-[data-button-group][data-attached] > [data-button]:focus,
-[data-button-group][data-attached] > [data-button]:hover {
+[data-rs-button-group][data-rs-attached] > [data-rs-button]:focus,
+[data-rs-button-group][data-rs-attached] > [data-rs-button]:hover {
   position: relative;
   z-index: 1;
 }

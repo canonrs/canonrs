@@ -3,44 +3,44 @@
    Family F: Data
    ============================================ */
 
-[data-stat] {
+[data-rs-stat] {
   display: block;
 }
 
-[data-stat-wrapper] {
+[data-rs-stat-wrapper] {
   display: flex;
   flex-direction: column;
   gap: var(--stat-gap);
 }
 
 /* Alignment */
-[data-stat-wrapper][data-align="start"] { align-items: flex-start; }
-[data-stat-wrapper][data-align="center"] { align-items: center; }
-[data-stat-wrapper][data-align="end"] { align-items: flex-end; }
+[data-rs-stat-wrapper][data-align="start"] { align-items: flex-start; }
+[data-rs-stat-wrapper][data-align="center"] { align-items: center; }
+[data-rs-stat-wrapper][data-align="end"] { align-items: flex-end; }
 
 /* Header */
-[data-stat-header] {
+[data-rs-stat-header] {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
 /* Body */
-[data-stat-body] {
+[data-rs-stat-body] {
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
 }
 
 /* Label */
-[data-stat-label] {
+[data-rs-stat-label] {
   font-size: var(--stat-label-font-size);
   font-weight: var(--stat-label-font-weight);
   color: var(--stat-label-fg);
 }
 
 /* Value - tabular nums for financial dashboards */
-[data-stat-value] {
+[data-rs-stat-value] {
   font-size: var(--stat-value-font-size);
   font-weight: var(--stat-value-font-weight);
   color: var(--stat-value-fg);
@@ -49,39 +49,39 @@
 }
 
 /* Size variants */
-[data-stat-wrapper][data-size="sm"] [data-stat-value] {
+[data-rs-stat-wrapper][data-size="sm"] [data-rs-stat-value] {
   font-size: var(--stat-size-sm-value);
 }
 
-[data-stat-wrapper][data-size="md"] [data-stat-value] {
+[data-rs-stat-wrapper][data-size="md"] [data-rs-stat-value] {
   font-size: var(--stat-size-md-value);
 }
 
-[data-stat-wrapper][data-size="lg"] [data-stat-value] {
+[data-rs-stat-wrapper][data-size="lg"] [data-rs-stat-value] {
   font-size: var(--stat-size-lg-value);
 }
 
 /* Delta (trend indicator) */
-[data-stat-delta] {
+[data-rs-stat-delta] {
   font-size: var(--stat-delta-font-size);
   font-weight: var(--stat-delta-font-weight);
   font-variant-numeric: tabular-nums;
 }
 
-[data-stat-wrapper][data-trend="increase"] [data-stat-delta] {
+[data-rs-stat-wrapper][data-trend="increase"] [data-rs-stat-delta] {
   color: var(--stat-trend-increase-color);
 }
 
-[data-stat-wrapper][data-trend="decrease"] [data-stat-delta] {
+[data-rs-stat-wrapper][data-trend="decrease"] [data-rs-stat-delta] {
   color: var(--stat-trend-decrease-color);
 }
 
-[data-stat-wrapper][data-trend="neutral"] [data-stat-delta] {
+[data-rs-stat-wrapper][data-trend="neutral"] [data-rs-stat-delta] {
   color: var(--stat-trend-neutral-color);
 }
 
 /* Icon */
-[data-stat-icon] {
+[data-rs-stat-icon] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -91,8 +91,8 @@
 }
 
 /* Loading state - skeleton with aria-busy */
-[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-value],
-[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-label] {
+[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-value],
+[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-label] {
   background: var(--stat-skeleton-bg);
   color: transparent;
   border-radius: var(--radius-sm);
@@ -104,7 +104,7 @@
   50% { opacity: 0.5; }
 }
 
-[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-delta],
-[data-stat-wrapper][data-loading][aria-busy="true"] [data-stat-icon] {
+[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-delta],
+[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-icon] {
   opacity: 0.3;
 }

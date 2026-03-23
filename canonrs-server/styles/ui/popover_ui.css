@@ -1,10 +1,10 @@
 /* POPOVER - Family A Overlay */
 
-[data-popover] {
+[data-rs-popover] {
   position: relative;
 }
 
-[data-popover-content] {
+[data-rs-popover-content] {
   position: fixed;
   left: var(--floating-x, 0);
   top: var(--floating-y, 0);
@@ -23,13 +23,13 @@
   transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
-[data-popover][data-state="open"] [data-popover-content] {
+[data-rs-popover][data-state="open"] [data-rs-popover-content] {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
 }
 
-[data-popover-arrow] {
+[data-rs-popover-arrow] {
   position: absolute;
   width: var(--popover-arrow-size);
   height: var(--popover-arrow-size);

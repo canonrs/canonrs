@@ -3,37 +3,37 @@
    Family F: Data Display - Enterprise Foundation
    ============================================ */
 
-[data-table-wrapper] {
+[data-rs-table-wrapper] {
   width: 100%;
   overflow-x: auto;
 }
 
-[data-table] {
+[data-rs-table] {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-[data-table-header] {
+[data-rs-table-header] {
   background: var(--table-header-bg);
   border-bottom: var(--table-border-width) solid var(--table-border-color);
 }
 
-[data-table-row] {
+[data-rs-table-row] {
   height: var(--table-row-height);
   border-bottom: var(--table-border-width) solid var(--table-border-color);
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
-[data-table-row]:hover {
+[data-rs-table-row]:hover {
   background: var(--table-row-bg-hover);
 }
 
-[data-table-row][data-state="selected"] {
+[data-rs-table-row][data-state="selected"] {
   background: var(--table-row-bg-selected);
 }
 
-[data-table-head] {
+[data-rs-table-head] {
   height: var(--table-header-height);
   padding-inline: var(--table-cell-padding-x);
   padding-block: var(--table-cell-padding-y);
@@ -43,14 +43,14 @@
   color: var(--table-header-fg);
 }
 
-[data-table-cell] {
+[data-rs-table-cell] {
   padding-inline: var(--table-cell-padding-x);
   padding-block: var(--table-cell-padding-y);
   font-size: var(--table-cell-font-size);
   color: var(--table-cell-fg);
 }
 
-[data-table-caption] {
+[data-rs-table-caption] {
   padding-block: var(--table-caption-padding-y);
   font-size: var(--table-caption-font-size);
   color: var(--table-caption-fg);
@@ -58,10 +58,10 @@
 }
 
 /* Striped variant (optional) */
-[data-table][data-striped="true"] [data-table-body] [data-table-row]:nth-child(odd) {
+[data-rs-table][data-striped="true"] [data-rs-table-body] [data-rs-table-row]:nth-child(odd) {
   background: var(--table-row-bg-striped);
 }
 
-[data-table][data-striped="true"] [data-table-body] [data-table-row]:nth-child(odd):hover {
+[data-rs-table][data-striped="true"] [data-rs-table-body] [data-rs-table-row]:nth-child(odd):hover {
   background: var(--table-row-bg-hover);
 }

@@ -1,20 +1,20 @@
 /* CHECKBOX - Family B Selection */
 
-[data-checkbox-input] {
+[data-rs-checkbox-input] {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-[data-checkbox-wrapper] {
+[data-rs-checkbox-wrapper] {
   display: inline-flex;
   align-items: center;
   gap: var(--checkbox-gap, 0.5rem);
   cursor: pointer;
 }
 
-[data-checkbox-indicator] {
+[data-rs-checkbox-indicator] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,18 +27,18 @@
   transition: all var(--checkbox-transition-duration);
 }
 
-[data-checkbox-input]:checked + [data-checkbox-indicator] {
+[data-rs-checkbox-input]:checked + [data-rs-checkbox-indicator] {
   background: var(--checkbox-bg-checked);
   border-color: var(--checkbox-border-color-checked);
   color: var(--checkbox-fg-checked);
 }
 
-[data-checkbox-input]:disabled ~ [data-checkbox-indicator] {
+[data-rs-checkbox-input]:disabled ~ [data-rs-checkbox-indicator] {
   opacity: var(--checkbox-disabled-opacity);
   cursor: not-allowed;
 }
 
-[data-checkbox-input]:focus-visible ~ [data-checkbox-indicator] {
+[data-rs-checkbox-input]:focus-visible ~ [data-rs-checkbox-indicator] {
   outline: var(--checkbox-focus-ring-width) solid var(--checkbox-focus-ring-color);
   outline-offset: 2px;
 }

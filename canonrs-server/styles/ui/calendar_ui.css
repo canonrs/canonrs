@@ -2,7 +2,7 @@
    CALENDAR - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-calendar] {
+[data-rs-calendar] {
   background: var(--calendar-bg);
   padding: var(--calendar-padding);
   border-radius: var(--calendar-radius);
@@ -10,14 +10,14 @@
   box-shadow: var(--calendar-shadow);
 }
 
-[data-calendar-header] {
+[data-rs-calendar-header] {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--calendar-header-gap);
 }
 
-[data-calendar-month-year] {
+[data-rs-calendar-month-year] {
   color: var(--calendar-header-fg);
   font-size: var(--calendar-header-font-size);
   font-weight: var(--calendar-header-font-weight);
@@ -25,7 +25,7 @@
   text-align: center;
 }
 
-[data-calendar-nav-button] {
+[data-rs-calendar-nav-button] {
   width: var(--calendar-nav-size);
   height: var(--calendar-nav-size);
   display: flex;
@@ -39,19 +39,19 @@
   transition: all var(--calendar-transition-duration) var(--calendar-transition-ease);
 }
 
-[data-calendar-nav-button]:hover {
+[data-rs-calendar-nav-button]:hover {
   background: var(--calendar-cell-bg-selected);
   color: var(--calendar-cell-fg-selected);
   transform: scale(var(--calendar-hover-scale));
 }
 
-[data-calendar-grid] {
+[data-rs-calendar-grid] {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--calendar-grid-gap);
 }
 
-[data-calendar-weekday] {
+[data-rs-calendar-weekday] {
   height: var(--calendar-cell-size);
   display: flex;
   align-items: center;
@@ -61,7 +61,7 @@
   font-weight: var(--calendar-header-font-weight);
 }
 
-[data-calendar-day] {
+[data-rs-calendar-day] {
   width: var(--calendar-cell-size);
   height: var(--calendar-cell-size);
   display: flex;
@@ -76,19 +76,19 @@
   transition: all var(--calendar-transition-duration) var(--calendar-transition-ease);
 }
 
-[data-calendar-day]:hover:not(:disabled) {
+[data-rs-calendar-day]:hover:not(:disabled) {
   background: var(--calendar-cell-bg-hover);
   transform: scale(var(--calendar-hover-scale));
 }
 
-[data-calendar-day]:disabled {
+[data-rs-calendar-day]:disabled {
   color: var(--calendar-cell-fg-disabled);
   background: var(--calendar-cell-bg-disabled);
   cursor: not-allowed;
   opacity: var(--forms-disabled-opacity);
 }
 
-[data-calendar-day][data-selected="true"] {
+[data-rs-calendar-day][data-selected="true"] {
   background: var(--calendar-cell-bg-selected);
   color: var(--calendar-cell-fg-selected);
 }

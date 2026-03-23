@@ -1,10 +1,10 @@
 /* CONTEXT MENU - Family A Overlay */
 
-[data-context-menu] {
+[data-rs-context-menu] {
   position: relative;
 }
 
-[data-context-menu-content] {
+[data-rs-context-menu-content] {
   position: fixed;
   z-index: var(--context-menu-z-index);
   background: var(--context-menu-bg);
@@ -20,13 +20,13 @@
   transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
-[data-context-menu][data-state="open"] [data-context-menu-content] {
+[data-rs-context-menu][data-state="open"] [data-rs-context-menu-content] {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
 }
 
-[data-context-menu-item] {
+[data-rs-context-menu-item] {
   display: flex;
   align-items: center;
   height: var(--context-menu-item-height);
@@ -36,11 +36,11 @@
   border-radius: calc(var(--context-menu-radius) / 2);
 }
 
-[data-context-menu-item]:hover {
+[data-rs-context-menu-item]:hover {
   background: var(--context-menu-item-hover-bg);
 }
 
-[data-context-menu-separator] {
+[data-rs-context-menu-separator] {
   height: 1px;
   background: var(--context-menu-border-color);
   margin: var(--space-xs) 0;

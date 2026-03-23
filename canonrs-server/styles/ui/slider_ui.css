@@ -2,7 +2,7 @@
    SLIDER - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-slider] {
+[data-rs-slider] {
   position: relative;
   width: 100%;
   height: var(--slider-height);
@@ -14,7 +14,7 @@
   touch-action: none;
 }
 
-[data-slider-track] {
+[data-rs-slider-track] {
   position: relative;
   width: 100%;
   height: var(--slider-track-height);
@@ -22,7 +22,7 @@
   border-radius: var(--slider-track-radius);
 }
 
-[data-slider-range] {
+[data-rs-slider-range] {
   position: absolute;
   left: 0;
   top: 0;
@@ -33,7 +33,7 @@
   transition: width var(--slider-transition-duration) var(--slider-transition-ease);
 }
 
-[data-slider-thumb] {
+[data-rs-slider-thumb] {
   position: absolute;
   top: 50%;
   left: var(--slider-percent, 50%);
@@ -48,16 +48,16 @@
   transition: box-shadow var(--slider-transition-duration) var(--slider-transition-ease);
 }
 
-[data-slider-thumb]:active {
+[data-rs-slider-thumb]:active {
   cursor: grabbing;
 }
 
-[data-slider-thumb]:focus-visible {
+[data-rs-slider-thumb]:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--slider-thumb-focus-ring-width) var(--slider-thumb-focus-ring-color);
 }
 
-[data-slider][data-disabled="true"] {
+[data-rs-slider][data-disabled="true"] {
   opacity: var(--slider-disabled-opacity);
   pointer-events: none;
 }

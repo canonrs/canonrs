@@ -2,78 +2,78 @@
    FIELD - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-field] {
+[data-rs-field] {
   display: flex;
   flex-direction: column;
   gap: var(--field-gap);
 }
 
-[data-field][data-orientation="horizontal"] {
+[data-rs-field][data-orientation="horizontal"] {
   flex-direction: row;
   align-items: center;
   gap: var(--field-orientation-gap-horizontal);
 }
 
-[data-field][data-orientation="vertical"] {
+[data-rs-field][data-orientation="vertical"] {
   gap: var(--field-orientation-gap-vertical);
 }
 
-[data-field-input] {
+[data-rs-field-input] {
   height: var(--field-height);
   padding: var(--field-padding);
   border: var(--field-border);
 }
 
-[data-field-label] {
+[data-rs-field-label] {
   font-size: var(--field-label-font-size);
   font-weight: var(--field-label-font-weight);
   color: var(--field-label-fg);
 }
 
-[data-field-label][disabled] {
+[data-rs-field-label][disabled] {
   color: var(--field-label-fg-disabled);
 }
 
-[data-field-description] {
+[data-rs-field-description] {
   font-size: var(--field-description-font-size);
   line-height: var(--field-description-line-height);
   color: var(--field-description-fg);
 }
 
-[data-field-error] {
+[data-rs-field-error] {
   font-size: var(--field-error-font-size);
   color: var(--field-error-fg);
 }
 
-[data-field-error-list] {
+[data-rs-field-error-list] {
   display: flex;
   flex-direction: column;
   gap: var(--field-error-list-gap);
 }
 
-[data-field][disabled] {
+[data-rs-field][disabled] {
   opacity: var(--field-disabled-opacity);
 }
 
-[data-field][data-validation="error"] [data-field-label] {
+[data-rs-field][data-validation="error"] [data-rs-field-label] {
   color: var(--field-validation-error-fg);
 }
 
-[data-field][data-validation="warning"] [data-field-label] {
+[data-rs-field][data-validation="warning"] [data-rs-field-label] {
   color: var(--field-validation-warning-fg);
 }
 
-[data-field][data-validation="success"] [data-field-label] {
+[data-rs-field][data-validation="success"] [data-rs-field-label] {
   color: var(--field-validation-success-fg);
 }
 
-[data-field-separator] {
+[data-rs-field-separator] {
   height: 1px;
   background: var(--field-separator-color);
   margin-block: var(--field-separator-margin-y);
 }
 
-[data-field-separator-label] {
+[data-rs-field-separator-label] {
   padding-inline: var(--field-separator-label-padding-x);
   color: var(--field-separator-label-fg);
 }

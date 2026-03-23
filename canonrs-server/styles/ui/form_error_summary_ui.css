@@ -2,7 +2,7 @@
    FORM ERROR SUMMARY - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-form-error-summary] {
+[data-rs-form-error-summary] {
   display: flex;
   flex-direction: column;
   gap: var(--form-error-summary-gap);
@@ -13,19 +13,19 @@
   border-radius: var(--form-error-summary-radius);
 }
 
-[data-form-error-summary-title] {
+[data-rs-form-error-summary-title] {
   font-size: var(--form-error-summary-title-font-size);
   font-weight: var(--form-error-summary-title-font-weight);
   color: var(--form-error-summary-title-fg);
 }
 
-[data-form-error-summary-list] {
+[data-rs-form-error-summary-list] {
   display: flex;
   flex-direction: column;
   gap: var(--form-error-summary-list-gap);
 }
 
-[data-form-error-summary-item] {
+[data-rs-form-error-summary-item] {
   display: flex;
   align-items: flex-start;
   gap: var(--form-error-summary-item-gap);
@@ -33,18 +33,18 @@
   color: var(--form-error-summary-item-fg);
 }
 
-[data-form-error-summary-item-icon] {
+[data-rs-form-error-summary-item-icon] {
   width: var(--form-error-summary-item-icon-size);
   height: var(--form-error-summary-item-icon-size);
   color: var(--form-error-summary-item-icon-color);
   flex-shrink: 0;
 }
 
-[data-form-error-summary-item-link] {
+[data-rs-form-error-summary-item-link] {
   color: var(--form-error-summary-item-fg);
   text-decoration: none;
 }
 
-[data-form-error-summary-item-link]:hover {
+[data-rs-form-error-summary-item-link]:hover {
   text-decoration: underline;
 }

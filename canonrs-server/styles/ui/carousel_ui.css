@@ -3,18 +3,18 @@
    Family G: Composite
    ============================================ */
 
-[data-carousel] {
+[data-rs-carousel] {
   position: relative;
   overflow: hidden;
 }
 
-[data-carousel-wrapper] {
+[data-rs-carousel-wrapper] {
   position: relative;
   width: 100%;
 }
 
 /* Track - horizontal container */
-[data-carousel-track] {
+[data-rs-carousel-track] {
   display: flex;
   transition: transform var(--motion-duration-normal) var(--motion-ease-standard);
   width: 100%;
@@ -22,19 +22,19 @@
 }
 
 /* Items - slides */
-[data-carousel-item] {
+[data-rs-carousel-item] {
   flex: 0 0 100%;
   width: 100%;
   display: none;
 }
 
-[data-carousel-item][data-active] {
+[data-rs-carousel-item][data-rs-active] {
   display: block;
 }
 
 /* Controls - prev/next buttons */
-[data-carousel-prev],
-[data-carousel-next] {
+[data-rs-carousel-prev],
+[data-rs-carousel-next] {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -59,21 +59,21 @@
   transition: all var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-carousel-prev]:hover,
-[data-carousel-next]:hover {
+[data-rs-carousel-prev]:hover,
+[data-rs-carousel-next]:hover {
   opacity: 0.9;
 }
 
-[data-carousel-prev] {
+[data-rs-carousel-prev] {
   left: var(--space-md);
 }
 
-[data-carousel-next] {
+[data-rs-carousel-next] {
   right: var(--space-md);
 }
 
 /* Indicators - dots */
-[data-carousel-indicators] {
+[data-rs-carousel-indicators] {
   position: absolute;
   bottom: var(--space-md);
   left: 50%;
@@ -84,7 +84,7 @@
   gap: var(--carousel-indicator-gap);
 }
 
-[data-carousel-dot] {
+[data-rs-carousel-dot] {
   width: var(--carousel-indicator-size);
   height: var(--carousel-indicator-size);
   
@@ -97,16 +97,16 @@
   padding: 0;
 }
 
-[data-carousel-dot][data-active] {
+[data-rs-carousel-dot][data-rs-active] {
   background: var(--carousel-indicator-active-bg);
   width: calc(var(--carousel-indicator-size) * 2);
 }
 
-[data-carousel-dot]:hover {
+[data-rs-carousel-dot]:hover {
   opacity: 0.8;
 }
 
 /* Accessibility */
-[data-carousel-item][aria-hidden="true"] {
+[data-rs-carousel-item][aria-hidden="true"] {
   visibility: hidden;
 }

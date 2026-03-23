@@ -1,6 +1,6 @@
 /* MENU - Family B Selection */
 
-[data-menu] {
+[data-rs-menu] {
   background: var(--menu-bg);
   padding: var(--menu-padding);
   display: flex;
@@ -8,7 +8,7 @@
   gap: var(--menu-gap);
 }
 
-[data-menu-item] {
+[data-rs-menu-item] {
   display: flex;
   align-items: center;
   width: 100%;
@@ -24,28 +24,28 @@
   transition: background var(--menu-item-transition-duration) var(--menu-item-transition-ease);
 }
 
-[data-menu-item]:hover {
+[data-rs-menu-item]:hover {
   background: var(--menu-item-bg-hover);
 }
 
-[data-menu-item][data-active="true"] {
+[data-rs-menu-item][data-active="true"] {
   background: var(--menu-item-bg-active);
 }
 
-[data-menu-group] {
+[data-rs-menu-group] {
   display: flex;
   flex-direction: column;
   gap: var(--menu-gap);
 }
 
-[data-menu-label] {
+[data-rs-menu-label] {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--menu-item-fg);
   padding: var(--space-xs) var(--space-sm);
 }
 
-[data-menu-separator] {
+[data-rs-menu-separator] {
   height: 1px;
   background: var(--theme-surface-border);
   margin: var(--space-xs) 0;

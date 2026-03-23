@@ -2,7 +2,7 @@
    TOGGLE_GROUP - Group Layout Coordinator
    ============================================================================ */
 
-[data-toggle-group] {
+[data-rs-toggle-group] {
   /* Layout */
   display: flex;
   gap: var(--toggle-group-gap);

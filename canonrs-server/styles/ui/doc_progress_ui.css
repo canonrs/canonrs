@@ -3,7 +3,7 @@
    Family D: Navigation
    ============================================================================= */
 
-[data-doc-progress] {
+[data-rs-doc-progress] {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@
   overflow: hidden;
 }
 
-[data-doc-progress-bar] {
+[data-rs-doc-progress-bar] {
   position: absolute;
   top: 0;
   left: 0;

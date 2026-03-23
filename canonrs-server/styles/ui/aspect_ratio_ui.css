@@ -3,39 +3,39 @@
    Family H: Utilities
    ============================================ */
 
-[data-aspect-ratio] {
+[data-rs-aspect-ratio] {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
 
 /* Common ratios */
-[data-aspect-ratio][data-ratio="16/9"] {
+[data-rs-aspect-ratio][data-ratio="16/9"] {
   aspect-ratio: 16 / 9;
 }
 
-[data-aspect-ratio][data-ratio="4/3"] {
+[data-rs-aspect-ratio][data-ratio="4/3"] {
   aspect-ratio: 4 / 3;
 }
 
-[data-aspect-ratio][data-ratio="1/1"] {
+[data-rs-aspect-ratio][data-ratio="1/1"] {
   aspect-ratio: 1 / 1;
 }
 
-[data-aspect-ratio][data-ratio="21/9"] {
+[data-rs-aspect-ratio][data-ratio="21/9"] {
   aspect-ratio: 21 / 9;
 }
 
-[data-aspect-ratio][data-ratio="3/2"] {
+[data-rs-aspect-ratio][data-ratio="3/2"] {
   aspect-ratio: 3 / 2;
 }
 
-[data-aspect-ratio][data-ratio="2/3"] {
+[data-rs-aspect-ratio][data-ratio="2/3"] {
   aspect-ratio: 2 / 3;
 }
 
 /* Content wrapper */
-[data-aspect-content] {
+[data-rs-aspect-content] {
   position: absolute;
   inset: 0;
   width: 100%;

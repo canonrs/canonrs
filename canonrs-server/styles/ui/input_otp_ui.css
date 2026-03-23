@@ -2,14 +2,14 @@
    INPUT OTP - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-input-otp] {
+[data-rs-input-otp] {
   position: absolute;
   inset: 0;
   opacity: 0;
   pointer-events: none;
 }
 
-[data-input-otp-slot] {
+[data-rs-input-otp-slot] {
   width: var(--input-otp-slot-size);
   height: var(--input-otp-slot-size);
   border-radius: var(--input-otp-slot-radius);
@@ -24,12 +24,12 @@
   font-weight: var(--input-otp-font-weight);
 }
 
-[data-input-otp-slot][data-active="true"] {
+[data-rs-input-otp-slot][data-active="true"] {
   background: var(--input-otp-slot-active-bg);
   border-color: var(--input-otp-slot-active-border);
 }
 
-[data-input-otp-slot][data-disabled="true"] {
+[data-rs-input-otp-slot][data-disabled="true"] {
   background: var(--input-otp-slot-disabled-bg);
   color: var(--input-otp-slot-disabled-fg);
   opacity: var(--forms-disabled-opacity);

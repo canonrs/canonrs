@@ -2,7 +2,7 @@
    INPUT - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-input] {
+[data-rs-input] {
   display: inline-flex;
   align-items: center;
   width: 100%;
@@ -19,42 +19,42 @@
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-input]::placeholder {
+[data-rs-input]::placeholder {
   color: var(--input-placeholder);
 }
 
-[data-input][data-size="sm"] {
+[data-rs-input][data-size="sm"] {
   height: var(--input-sm-height);
   font-size: var(--input-sm-font-size);
 }
 
-[data-input][data-size="md"] {
+[data-rs-input][data-size="md"] {
   height: var(--input-md-height);
 }
 
-[data-input][data-size="lg"] {
+[data-rs-input][data-size="lg"] {
   height: var(--input-lg-height);
   font-size: var(--input-lg-font-size);
 }
 
-[data-input][data-variant="error"] {
+[data-rs-input][data-variant="error"] {
   border-color: var(--input-error-border);
 }
 
-[data-input][data-variant="success"] {
+[data-rs-input][data-variant="success"] {
   border-color: var(--input-success-border);
 }
 
-[data-input][data-variant="warning"] {
+[data-rs-input][data-variant="warning"] {
   border-color: var(--validation-warning);
 }
 
-[data-input]:focus-visible {
+[data-rs-input]:focus-visible {
   outline: var(--input-focus-ring-width) solid var(--input-focus-ring-color);
   outline-offset: var(--input-focus-ring-offset);
 }
 
-[data-input]:disabled {
+[data-rs-input]:disabled {
   opacity: var(--input-disabled-opacity);
   cursor: not-allowed;
 }

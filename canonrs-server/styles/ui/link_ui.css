@@ -3,7 +3,7 @@
    Family D: Navigation
    ============================================ */
 
-[data-link] {
+[data-rs-link] {
   color: var(--link-fg);
   font-weight: var(--link-font-weight);
   cursor: pointer;
@@ -11,45 +11,45 @@
               text-decoration var(--link-transition-duration) var(--link-transition-ease);
 }
 
-[data-link]:hover {
+[data-rs-link]:hover {
   color: var(--link-fg-hover);
 }
 
-[data-link]:active {
+[data-rs-link]:active {
   color: var(--link-fg-active);
 }
 
 /* Variant: Default */
-[data-link][data-variant="default"] {
+[data-rs-link][data-variant="default"] {
   text-decoration: var(--link-default-decoration);
 }
 
-[data-link][data-variant="default"]:hover {
+[data-rs-link][data-variant="default"]:hover {
   text-decoration: var(--link-default-decoration-hover);
 }
 
 /* Variant: Muted */
-[data-link][data-variant="muted"] {
+[data-rs-link][data-variant="muted"] {
   color: var(--link-muted-fg);
   text-decoration: var(--link-muted-decoration);
 }
 
-[data-link][data-variant="muted"]:hover {
+[data-rs-link][data-variant="muted"]:hover {
   color: var(--link-fg-hover);
   text-decoration: var(--link-muted-decoration-hover);
 }
 
 /* Variant: Underline */
-[data-link][data-variant="underline"] {
+[data-rs-link][data-variant="underline"] {
   text-decoration: var(--link-underline-decoration);
 }
 
-[data-link][data-variant="underline"]:hover {
+[data-rs-link][data-variant="underline"]:hover {
   text-decoration: var(--link-underline-decoration-hover);
 }
 
 /* Disabled */
-[data-link][data-disabled="true"] {
+[data-rs-link][data-disabled="true"] {
   opacity: var(--link-disabled-opacity);
   cursor: not-allowed;
   pointer-events: none;

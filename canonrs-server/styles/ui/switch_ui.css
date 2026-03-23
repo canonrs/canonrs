@@ -2,7 +2,7 @@
    SWITCH - Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
-[data-switch] {
+[data-rs-switch] {
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -14,28 +14,28 @@
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-switch] input {
+[data-rs-switch] input {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-[data-switch] input:checked ~ [data-switch-thumb] {
+[data-rs-switch] input:checked ~ [data-rs-switch-thumb] {
   background: var(--switch-thumb-bg-checked);
   transform: translateX(var(--switch-thumb-translate-checked));
 }
 
-[data-switch]:has(input:checked) {
+[data-rs-switch]:has(input:checked) {
   background: var(--switch-track-bg-checked);
 }
 
-[data-switch]:has(input:disabled) {
+[data-rs-switch]:has(input:disabled) {
   opacity: var(--switch-disabled-opacity);
   cursor: not-allowed;
 }
 
-[data-switch-thumb] {
+[data-rs-switch-thumb] {
   display: block;
   width: var(--switch-thumb-size);
   height: var(--switch-thumb-size);
@@ -45,7 +45,7 @@
   transform: translateX(var(--switch-thumb-translate-unchecked));
 }
 
-[data-switch]:focus-within {
+[data-rs-switch]:focus-within {
   outline: none;
   box-shadow: 0 0 0 var(--state-focus-ring-width) var(--switch-track-bg-checked);
 }
