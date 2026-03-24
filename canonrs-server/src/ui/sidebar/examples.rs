@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::{
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarMenuGroup, 
+    SidebarMenu, SidebarMenuItem, 
     SidebarSeparator, SidebarGroupLabel
 };
 use crate::ui::avatar::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarStatus};

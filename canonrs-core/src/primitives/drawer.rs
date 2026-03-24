@@ -7,11 +7,16 @@ use leptos::prelude::*;
 #[component]
 pub fn DrawerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-drawer="" data-state="closed" class=class id=id>
+        <div
+            data-rs-drawer=""
+            data-rs-state="closed"
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
         </div>
     }
@@ -20,35 +25,54 @@ pub fn DrawerPrimitive(
 #[component]
 pub fn DrawerTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-trigger="" class=class id=id>
+        <button
+            type="button"
+            data-rs-drawer-trigger=""
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
-        </div>
+        </button>
+    }
+}
+
+#[component]
+pub fn DrawerOverlayPrimitive(
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-drawer-overlay=""
+            aria-hidden="true"
+            class=class
+            id=id
+        />
     }
 }
 
 #[component]
 pub fn DrawerContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-drawer-content="" role="dialog" class=class id=id>
+        <div
+            data-rs-drawer-content=""
+            role="dialog"
+            aria-modal="true"
+            tabindex="-1"
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
         </div>
-    }
-}
-
-#[component]
-pub fn DrawerOverlayPrimitive(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <div data-rs-drawer-overlay="" aria-hidden="true" class=class id=id />
     }
 }

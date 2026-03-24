@@ -10,12 +10,12 @@ pub fn ButtonGroupPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            id={id}
-            class={class}
             data-rs-button-group=""
-            attr:data-attached={if attached { Some("true") } else { None }}
+            data-rs-attached={if attached { Some("true") } else { None }}
             role="group"
-            aria-label={aria_label}
+            aria-label=aria_label
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>

@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::SeparatorPrimitive;
 use canonrs_core::shared::Orientation;
 
 #[component]

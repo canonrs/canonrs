@@ -4,8 +4,9 @@
 
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum AlertVariant {
+    #[default]
     Default,
     Destructive,
     Warning,
@@ -27,18 +28,18 @@ impl AlertVariant {
 pub fn AlertPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = AlertVariant::Default)] variant: AlertVariant,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-alert=""
-            data-variant={variant.as_str()}
+            data-rs-variant=variant.as_str()
             role="alert"
             aria-live="polite"
             aria-atomic="true"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -48,11 +49,11 @@ pub fn AlertPrimitive(
 #[component]
 pub fn AlertTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <h5 data-rs-alert-title="" class={class} id={id}>
+        <h5 data-rs-alert-title="" class=class id=id>
             {children.map(|c| c())}
         </h5>
     }
@@ -61,11 +62,11 @@ pub fn AlertTitlePrimitive(
 #[component]
 pub fn AlertDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-alert-description="" class={class} id={id}>
+        <div data-rs-alert-description="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

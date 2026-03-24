@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Pagination Primitive - Navigation for paginated content
+//! Pagination Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 
@@ -11,13 +11,7 @@ pub fn PaginationPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <nav
-            data-rs-pagination=""
-            
-            attr:aria-label="Page navigation"
-            class={if class.is_empty() { None } else { Some(class) }}
-            id=id
-        >
+        <nav data-rs-pagination="" aria-label="Page navigation" class=class id=id>
             {children.map(|c| c())}
         </nav>
     }
@@ -30,7 +24,7 @@ pub fn PaginationContentPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ul data-rs-pagination-content="" class={if class.is_empty() { None } else { Some(class) }} id=id>
+        <ul data-rs-pagination-content="" class=class id=id>
             {children.map(|c| c())}
         </ul>
     }
@@ -43,7 +37,7 @@ pub fn PaginationItemPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <li data-rs-pagination-item="" class={if class.is_empty() { None } else { Some(class) }} id=id>
+        <li data-rs-pagination-item="" class=class id=id>
             {children.map(|c| c())}
         </li>
     }
@@ -57,17 +51,14 @@ pub fn PaginationLinkPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let data_active = if is_active { Some("true") } else { None };
     let aria_current = if is_active { Some("page") } else { None };
-
     view! {
-        
         <a
             data-rs-pagination-link=""
-            attr:data-active=data_active
-            attr:aria-current=aria_current
+            data-rs-state={if is_active { "active" } else { "inactive" }}
+            aria-current=aria_current
             href=href
-            class={if class.is_empty() { None } else { Some(class) }}
+            class=class
             id=id
         >
             {children.map(|c| c())}
@@ -83,19 +74,15 @@ pub fn PaginationPreviousPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let data_disabled = if disabled.get() { Some("true") } else { None };
-    let aria_disabled = if disabled.get() { Some("true") } else { None };
-    let resolved_href = if disabled.get() { "#".to_string() } else { href };
-
+    let aria_label = "Go to previous page";
     view! {
         <a
-        
             data-rs-pagination-previous=""
-            data-rs-disabled=data_disabled
-            attr:aria-disabled=aria_disabled
-            attr:aria-label="Go to previous page"
-            href=resolved_href
-            class={if class.is_empty() { None } else { Some(class) }}
+            data-rs-state={move || if disabled.get() { "disabled" } else { "default" }}
+            aria-disabled={move || if disabled.get() { "true" } else { "false" }}
+            aria-label=aria_label
+            href=href
+            class=class
             id=id
         >
             {children.map(|c| c())}
@@ -111,19 +98,15 @@ pub fn PaginationNextPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let data_disabled = if disabled.get() { Some("true") } else { None };
-    let aria_disabled = if disabled.get() { Some("true") } else { None };
-    let resolved_href = if disabled.get() { "#".to_string() } else { href };
-
+    let aria_label = "Go to next page";
     view! {
         <a
-        
             data-rs-pagination-next=""
-            data-rs-disabled=data_disabled
-            attr:aria-disabled=aria_disabled
-            attr:aria-label="Go to next page"
-            href=resolved_href
-            class={if class.is_empty() { None } else { Some(class) }}
+            data-rs-state={move || if disabled.get() { "disabled" } else { "default" }}
+            aria-disabled={move || if disabled.get() { "true" } else { "false" }}
+            aria-label=aria_label
+            href=href
+            class=class
             id=id
         >
             {children.map(|c| c())}
@@ -137,7 +120,7 @@ pub fn PaginationEllipsisPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <span data-rs-pagination-ellipsis="" aria-hidden="true" class={if class.is_empty() { None } else { Some(class) }} id=id>
+        <span data-rs-pagination-ellipsis="" aria-hidden="true" class=class id=id>
             "…"
             <span class="sr-only">"More pages"</span>
         </span>

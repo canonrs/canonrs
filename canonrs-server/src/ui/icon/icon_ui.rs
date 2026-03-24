@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::IconPrimitive;
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum IconSize { Sm, Md, Lg }

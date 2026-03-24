@@ -37,8 +37,8 @@ pub fn ToastPrimitive(
     view! {
         <div
             data-rs-toast=""
-            data-variant={variant.as_str()}
-            data-state={if open { "open" } else { "closed" }}
+            data-rs-variant={variant.as_str()}
+            data-rs-state={if open { "open" } else { "closed" }}
             role="status"
             aria-live="polite"
             aria-atomic="true"
@@ -108,13 +108,14 @@ pub fn ToastActionPrimitive(
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
+        <button
+            type="button"
             data-rs-toast-action=""
             class=class
             id=id
         >
             {children.map(|c| c())}
-        </div>
+        </button>
     }
 }
 

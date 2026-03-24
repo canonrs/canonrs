@@ -1,22 +1,21 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorResult, BehaviorError};
+use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use web_sys::{MouseEvent, HtmlElement};
-#[cfg(feature = "hydrate")]
 use leptos::prelude::Set;
+#[cfg(feature = "hydrate")]
+use web_sys::{MouseEvent, HtmlElement};
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-dropdown-menu", Box::new(|root: &web_sys::Element, state: &ComponentState| -> BehaviorResult<()> {
         if root.get_attribute("data-rs-dropdown-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-dropdown-attached", "1").ok();
-        let dropdown = root;
 
         let open_signal = state.open;
         

@@ -19,7 +19,7 @@ pub struct ChartData {
 impl ChartData {
     pub fn to_json(&self) -> String {
         let labels = self.labels.iter()
-            .map(|l| format!("\"{}\"", l))
+            .map(|l| format!("{:?}", l))
             .collect::<Vec<_>>()
             .join(",");
 
@@ -58,7 +58,7 @@ impl ChartType {
 
 #[component]
 pub fn Chart(
-    #[prop(into)] id: String,
+    #[prop(optional)] id: Option<String>,
     data: ChartData,
     #[prop(default = ChartType::Line)] chart_type: ChartType,
     #[prop(default = 320u32)] height: u32,
@@ -75,19 +75,24 @@ pub fn Chart(
 
     view! {
         <ChartPrimitive
-            id={id}
-            class={class}
-            chart_type={chart_type.as_str().to_string()}
-            data={json}
-            height={height}
-            show_grid={show_grid}
-            show_legend={show_legend}
-            show_tooltip={show_tooltip}
-            animate={animate}
-            max_width={max_width.unwrap_or(0)}
-            sync_table={sync_table}
-            sync_scope={sync_scope}
-        />
+            id=id.unwrap_or_default()
+            class=class
+            chart_type=chart_type.as_str().to_string()
+            height=height
+        >
+            <script
+                type="application/json"
+                data-rs-chart-data=""
+                data-rs-chart-grid=show_grid.to_string()
+                data-rs-chart-legend=show_legend.to_string()
+                data-rs-chart-tooltip=show_tooltip.to_string()
+                data-rs-chart-animate=animate.to_string()
+                data-rs-chart-sync-table=sync_table
+                data-rs-chart-sync-scope=sync_scope
+                data-rs-chart-max-width=max_width.unwrap_or(0).to_string()
+                inner_html=json
+            />
+        </ChartPrimitive>
     }
 }
 
@@ -97,5 +102,5 @@ pub fn ChartPreview() -> impl IntoView {
         labels: vec!["A".to_string(), "B".to_string(), "C".to_string()],
         series: vec![ChartSeries { name: "Series".to_string(), data: vec![10.0, 20.0, 15.0], color: None }],
     };
-    view! { <Chart id="chart-preview".to_string() data=data height=120u32 max_width=300u32 />}
+    view! { <Chart data=data height=120u32 /> }
 }

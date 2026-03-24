@@ -1,18 +1,17 @@
+//! @canon-level: strict
+//! @canon-owner: primitives-team
+//! Breadcrumb Primitive - HTML puro + ARIA
+
 use leptos::prelude::*;
 
 #[component]
 pub fn BreadcrumbPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <nav
-            data-rs-breadcrumb=""
-            aria-label="Breadcrumb"
-            class={class}
-            id={id}
-        >
+        <nav data-rs-breadcrumb="" aria-label="Breadcrumb" class=class id=id>
             {children.map(|c| c())}
         </nav>
     }
@@ -21,13 +20,10 @@ pub fn BreadcrumbPrimitive(
 #[component]
 pub fn BreadcrumbItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-rs-breadcrumb-item=""
-            class={class}
-        >
+        <span data-rs-breadcrumb-item="" class=class>
             {children.map(|c| c())}
         </span>
     }
@@ -36,12 +32,18 @@ pub fn BreadcrumbItemPrimitive(
 #[component]
 pub fn BreadcrumbLinkPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] href: String,
+    #[prop(into, default = String::new())] href: String,
     #[prop(default = false)] current: bool,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <a data-rs-breadcrumb-link="" href={href} aria-current={if current { "page" } else { "" }} class={class}>
+        <a
+            data-rs-breadcrumb-link=""
+            data-rs-current={if current { "true" } else { "false" }}
+            href=href
+            aria-current={if current { Some("page") } else { None }}
+            class=class
+        >
             {children.map(|c| c())}
         </a>
     }
@@ -50,10 +52,10 @@ pub fn BreadcrumbLinkPrimitive(
 #[component]
 pub fn BreadcrumbSeparatorPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-rs-breadcrumb-separator="" aria-hidden="true" class={class}>
+        <span data-rs-breadcrumb-separator="" aria-hidden="true" class=class>
             {children.map(|c| c())}
         </span>
     }
@@ -61,11 +63,11 @@ pub fn BreadcrumbSeparatorPrimitive(
 
 #[component]
 pub fn BreadcrumbEllipsisPrimitive(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <span data-rs-breadcrumb-ellipsis="" aria-hidden="true" class={class} id={id}>
+        <span data-rs-breadcrumb-ellipsis="" aria-hidden="true" class=class id=id>
             "..."
         </span>
     }

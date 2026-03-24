@@ -8,7 +8,7 @@ pub fn use_column_pin<F>(
 ) where
     F: Fn(String, PinPosition) + 'static + Clone,
 {
-    create_effect(move |_| {
+    Effect::new(move |_| {
         enabled.track();
 
         if !enabled.get() {

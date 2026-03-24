@@ -13,7 +13,7 @@ pub fn TooltipPrimitive(
     view! {
         <div
             data-rs-tooltip=""
-            data-state="closed"
+            data-rs-state="closed"
             class=class
             id=id
         >
@@ -29,12 +29,14 @@ pub fn TooltipTriggerPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
+        <button
+            type="button"
+            data-rs-tooltip-trigger=""
             class=class
             id=id
         >
             {children.map(|c| c())}
-        </div>
+        </button>
     }
 }
 

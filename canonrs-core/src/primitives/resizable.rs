@@ -1,4 +1,5 @@
 //! @canon-level: strict
+//! @canon-owner: primitives-team
 //! Resizable Primitives - Split panels with draggable divider
 
 use leptos::prelude::*;
@@ -6,15 +7,17 @@ use leptos::prelude::*;
 #[component]
 pub fn ResizablePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
+    #[prop(into, default = "horizontal".to_string())] orientation: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-resizable=""
+            data-rs-orientation=orientation
             role="group"
-            class={class}
-            id={if id.is_empty() { None } else { Some(id) }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -24,14 +27,14 @@ pub fn ResizablePrimitive(
 #[component]
 pub fn ResizablePanelPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-resizable-panel=""
-            class={class}
-            id={if id.is_empty() { None } else { Some(id) }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -40,18 +43,21 @@ pub fn ResizablePanelPrimitive(
 
 #[component]
 pub fn ResizableHandlePrimitive(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
+    #[prop(into, default = "horizontal".to_string())] orientation: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-resizable-handle=""
-            id={id}
+            data-rs-state="inactive"
             role="separator"
+            aria-orientation=orientation
             tabindex="0"
-            class={class}
+            class=class
+            id=id
         >
-            <div data-rs-resizable-handle-bar=""></div>
+            <div data-rs-resizable-handle-bar="" />
         </div>
     }
 }

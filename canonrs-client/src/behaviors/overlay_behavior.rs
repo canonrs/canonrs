@@ -7,7 +7,7 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use web_sys::{HtmlElement, MouseEvent};
+use web_sys::MouseEvent;
 #[cfg(feature = "hydrate")]
 use leptos::prelude::Set;
 

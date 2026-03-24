@@ -7,6 +7,7 @@ use syntect::parsing::SyntaxSet;
 use syntect::util::LinesWithEndings;
 use std::sync::OnceLock;
 
+#[allow(dead_code)]
 pub struct HighlightResult {
     pub lines: Vec<String>,
     pub language: String,

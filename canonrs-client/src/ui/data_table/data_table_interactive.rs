@@ -85,7 +85,7 @@ where
     // 5. Fetch
     let fetch_data = std::sync::Arc::new(fetch_data);
     let fetch_data_effect = fetch_data.clone();
-    create_effect(move |_| {
+    Effect::new(move |_| {
         columns.track();
         state.current_page.track();
         state.sort_column.track();
@@ -127,7 +127,7 @@ where
         move |col_id, width| { widths.update(|m| { m.insert(col_id, width); }); }
     });
     // limpar pins quando feature é desabilitada
-    create_effect(move |_| {
+    Effect::new(move |_| {
         if !pinnable_signal.get() {
             pinned_columns_signal.update(|m| m.clear());
         }

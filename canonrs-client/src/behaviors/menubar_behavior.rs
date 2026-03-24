@@ -1,7 +1,6 @@
 #[cfg(feature = "hydrate")]
 use super::*;
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorResult, BehaviorError};
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -9,12 +8,11 @@ use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
 use leptos::web_sys::{window, MouseEvent, Element, HtmlElement, Event};
 #[cfg(feature = "hydrate")]
-use leptos::prelude::Set;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-menubar", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
-        let menubar = root;
+        let _menubar = root;
         let document = web_sys::window().unwrap().document().unwrap();
         let trigger_selector = "[data-rs-menubar-trigger]";
 

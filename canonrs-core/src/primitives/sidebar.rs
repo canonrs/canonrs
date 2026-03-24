@@ -1,3 +1,7 @@
+//! @canon-level: strict
+//! @canon-owner: primitives-team
+//! Sidebar Primitive - HTML puro + ARIA
+
 use leptos::prelude::*;
 
 #[component]
@@ -10,9 +14,9 @@ pub fn SidebarPrimitive(
     view! {
         <aside
             data-rs-sidebar=""
+            data-rs-state={move || if collapsed.get() { "collapsed" } else { "expanded" }}
             role="complementary"
-            data-state={move || if collapsed.get() { "collapsed" } else { "expanded" }}
-            class={class}
+            class=class
             id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
@@ -26,7 +30,7 @@ pub fn SidebarHeaderPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sidebar-header="" class={class}>
+        <div data-rs-sidebar-header="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -38,7 +42,7 @@ pub fn SidebarContentPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sidebar-content="" class={class}>
+        <div data-rs-sidebar-content="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -50,7 +54,7 @@ pub fn SidebarFooterPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sidebar-footer="" class={class}>
+        <div data-rs-sidebar-footer="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -62,7 +66,7 @@ pub fn SidebarMenuPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <nav data-rs-sidebar-menu="" role="navigation" class={class}>
+        <nav data-rs-sidebar-menu="" role="navigation" class=class>
             {children.map(|c| c())}
         </nav>
     }
@@ -75,10 +79,16 @@ pub fn SidebarMenuItemPrimitive(
     #[prop(default = String::new())] href: String,
     #[prop(default = false)] active: bool,
 ) -> impl IntoView {
+    let state = if active { "active" } else { "inactive" };
     view! {
-        <a data-rs-sidebar-menu-item="" data-active={if active { "true" } else { "false" }} href={href} class={class}>
+        <div
+            data-rs-sidebar-menu-item=""
+            data-rs-state=state
+            data-href=href
+            class=class
+        >
             {children.map(|c| c())}
-        </a>
+        </div>
     }
 }
 
@@ -89,7 +99,11 @@ pub fn SidebarMenuGroupPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sidebar-menu-group="" class={class} id={if id.is_empty() { None } else { Some(id) }}>
+        <div
+            data-rs-sidebar-menu-group=""
+            class=class
+            id={if id.is_empty() { None } else { Some(id) }}
+        >
             {children.map(|c| c())}
         </div>
     }
@@ -100,7 +114,12 @@ pub fn SidebarSeparatorPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sidebar-separator="" role="separator" aria-orientation="horizontal" class={class} />
+        <div
+            data-rs-sidebar-separator=""
+            role="separator"
+            aria-orientation="horizontal"
+            class=class
+        />
     }
 }
 
@@ -110,7 +129,7 @@ pub fn SidebarGroupLabelPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sidebar-group-label="" class={class}>
+        <div data-rs-sidebar-group-label="" class=class>
             {children.map(|c| c())}
         </div>
     }

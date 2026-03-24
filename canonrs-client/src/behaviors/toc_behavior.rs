@@ -121,11 +121,11 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
         }
     }) as Box<dyn FnMut(js_sys::Array, web_sys::IntersectionObserver)>);
 
-    let mut opts = web_sys::IntersectionObserverInit::new();
-    opts.root_margin("-20% 0px -70% 0px");
+    let opts = web_sys::IntersectionObserverInit::new();
+    opts.set_root_margin("-20% 0px -70% 0px");
     let threshold = js_sys::Array::new();
     threshold.push(&JsValue::from_f64(0.0));
-    opts.threshold(&threshold);
+    opts.set_threshold(&threshold);
 
     let observer = web_sys::IntersectionObserver::new_with_options(
         callback.as_ref().unchecked_ref(),

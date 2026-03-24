@@ -4,7 +4,7 @@ use canonrs_core::primitives::ButtonPrimitive;
 #[derive(Clone, Copy, Debug)]
 pub enum ButtonVariant {
     Primary,
-    #[allow(dead_code)] Solid,
+    Solid,
     Secondary, Outline, Ghost, Link,
     Danger, Success, Warning, Info,
     Default, Subtle, Muted,
@@ -59,11 +59,11 @@ pub fn Button(
     view! {
         <ButtonPrimitive
             class={class}
-            id={id.unwrap_or_default()}
-            disabled=disabled
-            aria_label={aria_label.unwrap_or_default()}
-            data_variant={variant.as_str().to_string()}
-            data_size={size.as_str().to_string()}
+            id=id.unwrap_or_default()
+            disabled=disabled.get()
+            aria_label=aria_label.unwrap_or_default()
+            variant={variant.as_str().to_string()}
+            size={size.as_str().to_string()}
         >
             {children()}
         </ButtonPrimitive>

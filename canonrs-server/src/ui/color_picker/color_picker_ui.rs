@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use leptos::ev::Event;
 
+#[allow(unused_variables)]
 #[component]
 pub fn ColorPicker(
     value: Signal<String>,

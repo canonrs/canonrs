@@ -7,7 +7,7 @@ pub fn use_column_resize<F>(
 ) where
     F: Fn(String, u32) + 'static + Clone,
 {
-    create_effect(move |_| {
+    Effect::new(move |_| {
         enabled.track();
 
         if !enabled.get() {

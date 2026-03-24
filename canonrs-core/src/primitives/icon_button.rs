@@ -10,12 +10,12 @@ pub fn IconButtonPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            attr:data-rs-icon-button=""
             type="button"
-            disabled={disabled}
-            attr:aria-label={aria_label}
-            class={class}
-            id={id}
+            data-rs-icon-button=""
+            disabled=move || disabled.get()
+            aria-label=aria_label
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </button>

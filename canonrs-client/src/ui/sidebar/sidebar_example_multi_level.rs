@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use canonrs_core::{
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator
+    SidebarMenu, SidebarMenuItem, SidebarGroupLabel
 };
 use crate::ui::avatar::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarStatus};
 use canonrs_core::{Accordion, AccordionItem, AccordionTrigger, AccordionContent};

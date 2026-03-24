@@ -37,8 +37,8 @@ where
         + if selectable { 1 } else { 0 }
         + if expand_render.is_some() { 1 } else { 0 };
     let visible_data = data.into_iter().enumerate().collect::<Vec<_>>();
-    let cols = store_value(columns.clone());
-    let expand_render = store_value(expand_render);
+    let cols = StoredValue::new(columns.clone());
+    let expand_render = StoredValue::new(expand_render);
     let dropdown_id = format!("{}-columns", id);
     let trigger_id = format!("{}-columns-trigger", id);
     let initial_density = density.as_str();
@@ -48,12 +48,12 @@ where
             density=density
             id=id.clone()
             class=class
-            page_size=page_size.to_string()
-            current_page="1".to_string()
-            total_pages=total_pages.to_string()
-            attr:data-selectable={selectable.then(|| "true")}
-            sync_chart=sync_chart.clone()
-            _sync_scope=sync_scope.clone()
+            attr:data-rs-page-size=page_size.to_string()
+            attr:data-rs-current-page="1"
+            attr:data-rs-total-pages=total_pages.to_string()
+            attr:data-rs-selectable={selectable.then(|| "true")}
+            attr:data-rs-chart-sync=sync_chart.clone()
+            attr:data-rs-chart-sync-scope=sync_scope.clone()
         >
             <DataTableToolbarPrimitive>
                 <input
@@ -120,7 +120,7 @@ where
                                 view! {
                                     <DataTableHeadCellPrimitive
                                         sort_key=key
-                                        _sort_direction=SortDirection::None
+                                        sort_direction=SortDirection::None
                                         col_index=idx.to_string()
                                     >
                                         <span data-datatable-head-label="">{label}</span>

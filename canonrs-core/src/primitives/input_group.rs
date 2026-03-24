@@ -12,7 +12,7 @@ pub fn InputGroupPrimitive(
             id={if id.is_empty() { None } else { Some(id) }}
             class={class}
             data-rs-input-group=""
-            data-merge-radius={if merge_radius { Some("") } else { None }}
+            data-rs-merge-radius={if merge_radius { Some("") } else { None }}
         >
             {children.map(|c| c())}
         </div>

@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Menu Primitive - HTML puro sem ARIA widget
+//! Menu Primitive - HTML puro
 
 use leptos::prelude::*;
 
@@ -12,12 +12,7 @@ pub fn MenuPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <nav
-            data-rs-menu=""
-            attr:aria-label={aria_label.unwrap_or_default()}
-            class={class}
-            id={id}
-        >
+        <nav data-rs-menu="" aria-label=aria_label class=class id=id>
             {children.map(|c| c())}
         </nav>
     }
@@ -33,13 +28,12 @@ pub fn MenuItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-rs-menu-item=""
-            data-rs-disabled={disabled.get().to_string()}
-            data-rs-state={if selected { "active" } else { "inactive" }}
             type="button"
-            disabled={disabled}
-            class={class}
-            id={id}
+            data-rs-menu-item=""
+            data-rs-state={if selected { "active" } else { "inactive" }}
+            disabled={move || disabled.get()}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </button>
@@ -52,10 +46,7 @@ pub fn MenuGroupPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-menu-group=""
-            class={class}
-        >
+        <div data-rs-menu-group="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -67,10 +58,7 @@ pub fn MenuLabelPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-rs-menu-label=""
-            class={class}
-        >
+        <span data-rs-menu-label="" class=class>
             {children.map(|c| c())}
         </span>
     }
@@ -81,10 +69,6 @@ pub fn MenuSeparatorPrimitive(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-menu-separator=""
-            role="separator"
-            class={class}
-        />
+        <div data-rs-menu-separator="" role="separator" class=class />
     }
 }

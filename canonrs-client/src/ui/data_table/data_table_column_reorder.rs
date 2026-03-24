@@ -9,7 +9,7 @@ pub fn use_column_reorder<F>(
 {
     let on_reorder_outer = on_reorder.clone();
 
-    create_effect(move |_| {
+    Effect::new(move |_| {
         if !enabled.get() {
             return;
         }

@@ -31,18 +31,19 @@ pub fn LinkPrimitive(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
+    let target = if external { "_blank" } else { "" };
+    let rel = if external { "noopener noreferrer" } else { "" };
     view! {
-        
         <a
             data-rs-link=""
-            data-variant={variant.as_str()}
-            data-disabled={disabled}
+            data-rs-variant={variant.as_str()}
+            data-rs-state={move || if disabled.get() { "disabled" } else { "default" }}
             href=href
-            target={if external { "_blank" } else { "" }}
-            rel={if external { "noopener noreferrer" } else { "" }}
-            aria-disabled={if disabled.get() { "true" } else { "false" }}
-            class={class}
-            id={id}
+            target=target
+            rel=rel
+            aria-disabled={move || if disabled.get() { "true" } else { "false" }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </a>

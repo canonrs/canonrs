@@ -13,9 +13,10 @@ pub fn DragContainerPrimitive(
     view! {
         <div
             data-rs-drag-container=""
+            data-rs-state="closed"
             role="list"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>

@@ -1,6 +1,7 @@
 mod breadcrumb_ui;
 mod breadcrumb_auto;
 mod navigation_provider;
+#[cfg(feature = "examples")]
 pub mod examples;
 
 pub use breadcrumb_ui::*;

@@ -22,7 +22,7 @@ pub fn FieldLabelPrimitive(
 ) -> impl IntoView {
     view! {
         <label
-            attr:data-rs-field-label=""
+            data-rs-field-label=""
             for={if html_for.is_empty() { None } else { Some(html_for) }}
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
@@ -53,9 +53,9 @@ pub fn FieldErrorPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-rs-field-error=""
+            data-rs-field-error=""
             role="alert"
-            attr:aria-live="polite"
+            aria-live="polite"
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >

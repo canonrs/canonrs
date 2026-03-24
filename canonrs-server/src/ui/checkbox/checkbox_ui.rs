@@ -9,19 +9,17 @@ pub fn Checkbox(
     #[prop(into)] id: String,
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(default = false)] disabled: bool,
-    #[prop(default = String::new())] name: String,
-    #[prop(default = String::new())] value: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let id_clone = id.clone();
     view! {
-        <label for=id_clone data-checkbox-wrapper>
+        <label for=id_clone data-rs-checkbox-wrapper="">
             <CheckboxPrimitive
                 checked=checked
-                disabled=disabled
+                disabled=disabled.get()
                 name=name
-                value=value
                 class=class
                 id=id
             />
@@ -33,7 +31,7 @@ pub fn Checkbox(
 
 #[component]
 pub fn CheckboxIndicator(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CheckboxIndicatorPrimitive class=class>

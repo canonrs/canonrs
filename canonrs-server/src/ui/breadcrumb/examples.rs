@@ -67,7 +67,7 @@ pub fn BasicExample() -> impl IntoView {
 
 #[component]
 pub fn AutoExample() -> impl IntoView {
-    use super::{NavigationProvider, BreadcrumbAuto};
+    use super::BreadcrumbAuto;
     use canonrs_core::shared::navigation_context::{NavigationState, HeadingHierarchy, HeadingNode};
     use std::collections::HashMap;
     

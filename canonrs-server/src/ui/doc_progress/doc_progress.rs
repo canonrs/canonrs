@@ -6,14 +6,14 @@ use canonrs_core::primitives::doc_progress::DocProgressPrimitive;
 
 #[component]
 pub fn DocProgress(
-    #[prop(into, default = "doc-progress".to_string())] id: String,
+    #[prop(optional)] id: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <DocProgressPrimitive
-            id=id
+            id=id.unwrap_or_default()
             class=class
-            data_progress="0".to_string()
+            progress=0u8
         />
     }
 }

@@ -1,7 +1,7 @@
 use leptos::web_sys;
 use leptos::prelude::*;
 use canonrs_core::{
-    CommandPrimitive, CommandInputPrimitive, CommandListPrimitive,
+    CommandPrimitive, CommandListPrimitive,
     CommandItemPrimitive, CommandEmptyPrimitive,
 };
 

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::{MarkdownSurface, TocPosition, RenderedMarkdown};
+use super::{MarkdownSurface, TocPosition};
 use super::render_with_prefix;
 
 fn enterprise_markdown() -> &'static str {

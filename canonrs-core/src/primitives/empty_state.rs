@@ -29,12 +29,15 @@ pub fn EmptyStatePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = EmptyStateVariant::Default)] variant: EmptyStateVariant,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-empty-state=""
-            data-variant={variant.as_str()}
+            data-rs-variant=variant.as_str()
+            data-rs-state="closed" data-rs-empty="true"
+            role="status"
+            aria-live="polite"
             class=class
             id=id
         >
@@ -47,7 +50,7 @@ pub fn EmptyStatePrimitive(
 pub fn EmptyStateIconPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
@@ -65,14 +68,10 @@ pub fn EmptyStateIconPrimitive(
 pub fn EmptyStateTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <h3
-            data-rs-empty-state-title=""
-            class=class
-            id=id
-        >
+        <h3 data-rs-empty-state-title="" class=class id=id>
             {children.map(|c| c())}
         </h3>
     }
@@ -82,14 +81,10 @@ pub fn EmptyStateTitlePrimitive(
 pub fn EmptyStateDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <p
-            data-rs-empty-state-description=""
-            class=class
-            id=id
-        >
+        <p data-rs-empty-state-description="" class=class id=id>
             {children.map(|c| c())}
         </p>
     }
@@ -99,14 +94,10 @@ pub fn EmptyStateDescriptionPrimitive(
 pub fn EmptyStateActionPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-empty-state-action=""
-            class=class
-            id=id
-        >
+        <div data-rs-empty-state-action="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

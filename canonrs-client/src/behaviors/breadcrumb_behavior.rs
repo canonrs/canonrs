@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
-use web_sys::{Document, Element, Event, HtmlElement, NodeList};
 use wasm_bindgen::JsCast;
+use web_sys::{Element, HtmlElement, Event};
 
 #[wasm_bindgen]
 pub fn register() {

@@ -37,6 +37,7 @@ pub enum TelemetryEventType {
 #[derive(Debug)]
 pub struct PerformanceTracker {
     start: Instant,
+    #[allow(dead_code)]
     operation: String,
 }
 

@@ -20,6 +20,7 @@ impl InputSize {
     }
 }
 
+#[allow(unused_variables)]
 #[component]
 pub fn Input(
     #[prop(default = String::new())] class: String,

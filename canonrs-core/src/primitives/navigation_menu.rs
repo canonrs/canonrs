@@ -24,7 +24,13 @@ pub fn NavigationMenuListPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ul data-rs-navigation-menu-list="" role="menubar" aria-orientation="horizontal" class=class id=id>
+        <ul
+            data-rs-navigation-menu-list=""
+            role="menubar"
+            aria-orientation="horizontal"
+            class=class
+            id=id
+        >
             {children()}
         </ul>
     }
@@ -51,14 +57,14 @@ pub fn NavigationMenuTriggerPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let aria_controls = if controls_id.is_empty() { None } else { Some(controls_id) };
     view! {
         <button
-            data-rs-navigation-menu-trigger=""
             type="button"
-            attr:aria-haspopup="menu"
-            attr:aria-controls=aria_controls
-            attr:aria-expanded=if expanded { "true" } else { "false" }
+            data-rs-navigation-menu-trigger=""
+            data-rs-state={if expanded { "open" } else { "closed" }}
+            aria-haspopup="menu"
+            aria-controls={if controls_id.is_empty() { None } else { Some(controls_id) }}
+            aria-expanded={if expanded { "true" } else { "false" }}
             class=class
             id=id
         >
@@ -73,9 +79,13 @@ pub fn NavigationMenuContentPrimitive(
     #[prop(into, default = String::new())] content_id: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let id_val = if content_id.is_empty() { None } else { Some(content_id) };
     view! {
-        <div data-rs-navigation-menu-content="" role="menu" id=id_val class=class>
+        <div
+            data-rs-navigation-menu-content=""
+            role="menu"
+            id={if content_id.is_empty() { None } else { Some(content_id) }}
+            class=class
+        >
             {children()}
         </div>
     }
@@ -86,10 +96,17 @@ pub fn NavigationMenuLinkPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
+    let id_val = if id.is_empty() { None } else { Some(id) };
     view! {
-        <a data-rs-navigation-menu-link="" role="menuitem" href=href class=class id=id>
+        <a
+            data-rs-navigation-menu-link=""
+            role="menuitem"
+            href=href
+            class=class
+            id=id_val
+        >
             {children()}
         </a>
     }

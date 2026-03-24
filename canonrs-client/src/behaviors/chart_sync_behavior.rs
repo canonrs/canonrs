@@ -5,7 +5,6 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -22,7 +21,6 @@ pub fn register() {
         root.set_attribute("data-sync-chart-attached", "1").ok();
 
         // Escuta canon:chart:hover → highlight row na tabela
-        let table_id_c = table_id.clone();
         let on_chart_hover = Closure::wrap(Box::new(move |e: web_sys::CustomEvent| {
             let detail = e.detail();
             let idx = js_sys::Reflect::get(&detail, &JsValue::from_str("index"))
@@ -51,7 +49,6 @@ pub fn register() {
         on_chart_hover.forget();
 
         // Escuta canon:chart:leave → remove highlights
-        let table_id_c2 = table_id.clone();
         let on_chart_leave = Closure::wrap(Box::new(move |_: web_sys::Event| {
             let doc = web_sys::window().unwrap().document().unwrap();
             let Ok(rows): Result<web_sys::NodeList, _> = doc.query_selector_all(&format!("[data-rs-datatable] [data-rs-datatable-row][data-chart-highlight]")) else { return };

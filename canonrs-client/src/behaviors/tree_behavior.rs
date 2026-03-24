@@ -316,9 +316,9 @@ fn dispatch_select_event(item: &Element) {
     if let Some(id) = item.get_attribute("id") {
         js_sys::Reflect::set(&detail, &JsValue::from_str("itemId"), &JsValue::from_str(&id)).ok();
     }
-    let mut init = web_sys::CustomEventInit::new();
-    init.bubbles(true);
-    init.detail(&detail);
+    let init = web_sys::CustomEventInit::new();
+    init.set_bubbles(true);
+    init.set_detail(&detail);
     if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:tree-select", &init) {
         item.dispatch_event(&ev).ok();
     }
@@ -328,9 +328,9 @@ fn dispatch_select_event(item: &Element) {
 fn dispatch_expand_event(item: &Element, expanded: bool) {
     let detail = js_sys::Object::new();
     js_sys::Reflect::set(&detail, &JsValue::from_str("expanded"), &JsValue::from_bool(expanded)).ok();
-    let mut init = web_sys::CustomEventInit::new();
-    init.bubbles(true);
-    init.detail(&detail);
+    let init = web_sys::CustomEventInit::new();
+    init.set_bubbles(true);
+    init.set_detail(&detail);
     if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:tree-expand", &init) {
         item.dispatch_event(&ev).ok();
     }

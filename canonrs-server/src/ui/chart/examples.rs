@@ -1,7 +1,8 @@
 use leptos::prelude::*;
 use super::chart_ui::{Chart, ChartData, ChartSeries, ChartType};
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     let data = ChartData {
         labels: vec![
             "Jan".into(), "Feb".into(), "Mar".into(),
@@ -23,15 +24,16 @@ pub fn basic_example() -> impl IntoView {
 
     view! {
         <Chart
-            id="chart-basic"
-            data={data}
-            chart_type={ChartType::Line}
-            height={320}
+            id="chart-basic".to_string()
+            data=data
+            chart_type=ChartType::Line
+            height=320u32
         />
     }
 }
 
-pub fn chart_datatable_sync_example() -> impl IntoView {
+#[component]
+pub fn ChartDatatableSyncExample() -> impl IntoView {
     use crate::ui::data_table::{DataTableFull, DataTableColumn};
 
     #[derive(Clone)]
@@ -57,7 +59,7 @@ pub fn chart_datatable_sync_example() -> impl IntoView {
     let data = ChartData {
         labels,
         series: vec![
-            ChartSeries { name: "Revenue".into(),  data: rev, color: None },
+            ChartSeries { name: "Revenue".into(),  data: rev,  color: None },
             ChartSeries { name: "Expenses".into(), data: exp, color: None },
         ],
     };
@@ -71,17 +73,17 @@ pub fn chart_datatable_sync_example() -> impl IntoView {
     view! {
         <div style="display:flex;flex-direction:column;gap:1.5rem;">
             <Chart
-                id="chart-sync"
-                data={data}
-                chart_type={ChartType::Line}
-                height={320}
+                id="chart-sync".to_string()
+                data=data
+                chart_type=ChartType::Line
+                height=320u32
                 sync_scope="revenue-2026".to_string()
             />
             <DataTableFull
-                id="datatable-sync"
-                data={rows}
-                columns={columns}
-                page_size={6}
+                id="datatable-sync".to_string()
+                data=rows
+                columns=columns
+                page_size=6usize
                 sync_scope="revenue-2026".to_string()
             />
         </div>

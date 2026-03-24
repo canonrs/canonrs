@@ -7,13 +7,13 @@ use leptos::prelude::*;
 #[component]
 pub fn ContextMenuPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-context-menu=""
-            data-state="closed"
+            data-rs-state="closed"
             class=class
             id=id
         >
@@ -25,12 +25,12 @@ pub fn ContextMenuPrimitive(
 #[component]
 pub fn ContextMenuTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            data-rs-trigger=""
+            data-rs-context-menu-trigger=""
             class=class
             id=id
         >
@@ -42,8 +42,8 @@ pub fn ContextMenuTriggerPrimitive(
 #[component]
 pub fn ContextMenuContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
@@ -60,14 +60,14 @@ pub fn ContextMenuContentPrimitive(
 #[component]
 pub fn ContextMenuItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <button
+            type="button"
             data-rs-context-menu-item=""
             role="menuitem"
-            type="button"
             class=class
             id=id
         >
@@ -78,8 +78,8 @@ pub fn ContextMenuItemPrimitive(
 
 #[component]
 pub fn ContextMenuSeparatorPrimitive(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div

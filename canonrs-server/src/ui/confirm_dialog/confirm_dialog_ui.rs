@@ -31,7 +31,7 @@ pub fn ConfirmDialog(
     view! {
         <DialogPrimitive class=class id=id.clone()>
             <DialogOverlayPrimitive />
-            <DialogContentPrimitive labelledby=format!("{}-title", id) describedby=format!("{}-desc", id)>
+            <DialogContentPrimitive aria_labelledby=format!("{}-title", id) aria_describedby=format!("{}-desc", id)>
                 <div class="flex items-center justify-between mb-4">
                     <DialogTitlePrimitive id=format!("{}-title", id)>{move || title.get_value()}</DialogTitlePrimitive>
                     <button data-dialog-close=id.clone() type="button">"×"</button>

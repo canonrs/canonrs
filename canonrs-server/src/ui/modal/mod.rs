@@ -1,4 +1,5 @@
 pub mod modal_ui;
+#[cfg(feature = "examples")]
 pub mod examples;
 
 pub use modal_ui::*;

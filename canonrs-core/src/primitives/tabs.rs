@@ -46,18 +46,16 @@ pub fn TabsTriggerPrimitive(
     #[prop(default = false)] checked: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] id: String,
-    
 ) -> impl IntoView {
     view! {
         <input
             type="radio"
             data-rs-tabs-input=""
             name=name
-            value={value}
+            value=value
             checked=checked
             class=class
             id=id
-            
         />
     }
 }
@@ -66,20 +64,21 @@ pub fn TabsTriggerPrimitive(
 pub fn TabsTriggerLabelPrimitive(
     children: Children,
     #[prop(into, default = String::new())] for_id: String,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(default = false)] selected: bool,
-    #[prop(into, default = String::new())] id: String,
     #[prop(into, default = String::new())] controls: String,
+    #[prop(default = false)] selected: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <label
             for=for_id
             data-rs-tabs-trigger=""
+            data-rs-state={if selected { "active" } else { "inactive" }}
             role="tab"
-            id=id
-            attr:aria-controls=controls
-            attr:aria-selected=selected.to_string()
+            aria-selected=selected.to_string()
+            aria-controls=controls
             class=class
+            id=id
         >
             {children()}
         </label>
@@ -90,18 +89,18 @@ pub fn TabsTriggerLabelPrimitive(
 pub fn TabsContentPrimitive(
     children: Children,
     #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] labelledby: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] id: String,
-    #[prop(into, default = String::new())] labelledby: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-tabs-content=""
-            data-value={value}
+            data-rs-value=value
             role="tabpanel"
-            attr:aria-labelledby=labelledby
-            id=id
+            aria-labelledby=labelledby
             class=class
+            id=id
         >
             {children()}
         </div>

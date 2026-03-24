@@ -4,8 +4,9 @@
 
 use leptos::prelude::*;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum BadgeVariant {
+    #[default]
     Default,
     Primary,
     Success,
@@ -17,12 +18,12 @@ pub enum BadgeVariant {
 impl BadgeVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            BadgeVariant::Default => "default",
-            BadgeVariant::Primary => "primary",
-            BadgeVariant::Success => "success",
-            BadgeVariant::Warning => "warning",
-            BadgeVariant::Destructive => "destructive",
-            BadgeVariant::Outline => "outline",
+            Self::Default => "default",
+            Self::Primary => "primary",
+            Self::Success => "success",
+            Self::Warning => "warning",
+            Self::Destructive => "destructive",
+            Self::Outline => "outline",
         }
     }
 }
@@ -33,14 +34,13 @@ pub fn BadgePrimitive(
     #[prop(default = BadgeVariant::Default)] variant: BadgeVariant,
     #[prop(default = false)] interactive: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let data_interactive = if interactive { Some("true") } else { None };
     view! {
         <span
             data-rs-badge=""
-            data-variant={variant.as_str()}
-            data-interactive=data_interactive
+            data-rs-variant=variant.as_str()
+            data-rs-interactive={if interactive { Some("true") } else { None }}
             class=class
             id=id
         >

@@ -9,12 +9,12 @@ pub fn CodeBlockPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] language: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-code-block=""
-            data-language=language
+            data-rs-language=language
             class=class
             id=id
         >
@@ -96,8 +96,8 @@ pub fn CodeBlockLinePrimitive(
     view! {
         <span
             data-rs-code-line=""
-            data-line-number=line_number.to_string()
-            attr:data-diff={if diff.is_empty() { None } else { Some(diff) }}
+            data-rs-line-number=line_number.to_string()
+            data-rs-diff={if diff.is_empty() { None } else { Some(diff) }}
             inner_html=html
         ></span>
     }

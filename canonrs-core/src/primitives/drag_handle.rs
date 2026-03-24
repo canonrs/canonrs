@@ -11,15 +11,15 @@ pub fn DragHandlePrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <span
+        <button
+            type="button"
             data-rs-drag-handle=""
-            role="button"
-            tabindex="0"
+            data-rs-state="closed"
             aria-label="Drag to reorder"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
-        </span>
+        </button>
     }
 }

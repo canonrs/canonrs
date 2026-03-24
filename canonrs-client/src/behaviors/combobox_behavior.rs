@@ -1,13 +1,12 @@
 #[cfg(feature = "hydrate")]
 use super::*;
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorResult, BehaviorError};
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use leptos::web_sys::{window, MouseEvent, Element, HtmlElement};
+use leptos::web_sys::{MouseEvent, Element, HtmlElement};
 #[cfg(feature = "hydrate")]
 use leptos::prelude::Set;
 

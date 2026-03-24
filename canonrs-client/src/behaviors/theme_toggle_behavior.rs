@@ -12,7 +12,7 @@ use web_sys::MouseEvent;
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-theme-toggle", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
-        use leptos::leptos_dom::helpers::{document, window};
+        use leptos::leptos_dom::helpers::window;
 
         let el = root;
         if el.get_attribute("data-theme-toggle-attached").as_deref() == Some("1") { return Ok(()); }

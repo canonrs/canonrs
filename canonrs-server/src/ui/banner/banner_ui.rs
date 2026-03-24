@@ -51,10 +51,12 @@ pub fn BannerClose(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
-    let callback = on_close.unwrap_or_else(|| Callback::new(|_| {}));
-    
     view! {
-        <BannerClosePrimitive on_close=callback class=class id=id>
+        <BannerClosePrimitive
+            class=class
+            id=id
+            on:click=move |_| { if let Some(cb) = on_close { cb.run(()); } }
+        >
             {children.map(|c| c())}
         </BannerClosePrimitive>
     }

@@ -20,8 +20,8 @@ pub fn InteractiveToast(
     let (open, set_open) = signal(true);
     
     // Store strings in signals for reactive access
-    let title = store_value(title);
-    let description = store_value(description);
+    let title = StoredValue::new(title);
+    let description = StoredValue::new(description);
 
     // Auto-dismiss (wasm32 only, deterministic)
     #[cfg(target_arch = "wasm32")]

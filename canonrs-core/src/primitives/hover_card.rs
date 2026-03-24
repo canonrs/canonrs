@@ -13,7 +13,7 @@ pub fn HoverCardPrimitive(
     view! {
         <div
             data-rs-hover-card=""
-            data-state="closed"
+            data-rs-state="closed"
             class=class
             id=id
         >
@@ -30,7 +30,7 @@ pub fn HoverCardTriggerPrimitive(
 ) -> impl IntoView {
     view! {
         <span
-            data-rs-trigger=""
+            data-rs-hover-card-trigger=""
             tabindex="0"
             class=class
             id=id

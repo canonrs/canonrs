@@ -1,3 +1,7 @@
+//! @canon-level: strict
+//! @canon-owner: primitives-team
+//! DataTable Primitive - HTML puro
+
 use leptos::prelude::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
@@ -22,24 +26,15 @@ impl DataTableDensity {
 pub fn DataTablePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = DataTableDensity::Comfortable)] density: DataTableDensity,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] page_size: String,
-    #[prop(default = String::new())] current_page: String,
-    #[prop(default = String::new())] total_pages: String,
-    #[prop(default = String::new())] sync_chart: String,
-    #[prop(default = String::new())] _sync_scope: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-datatable=""
-            data-density={density.as_str()}
-            data-page-size=page_size
-            data-current-page=current_page
-            data-total-pages=total_pages
+            data-rs-density=density.as_str()
             class=class
             id=id
-            data-table-sync-chart=sync_chart
         >
             {children.map(|c| c())}
         </div>
@@ -49,7 +44,7 @@ pub fn DataTablePrimitive(
 #[component]
 pub fn DataTableToolbarPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-toolbar="" class=class>
@@ -61,7 +56,7 @@ pub fn DataTableToolbarPrimitive(
 #[component]
 pub fn DataTableScrollPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-scroll="" class=class>
@@ -73,7 +68,7 @@ pub fn DataTableScrollPrimitive(
 #[component]
 pub fn DataTableTablePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <table data-rs-datatable-table="" class=class>
@@ -85,8 +80,8 @@ pub fn DataTableTablePrimitive(
 #[component]
 pub fn DataTableHeadPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <thead data-rs-datatable-head="" data-rs-resize-container="" class=class id=id>
@@ -98,7 +93,7 @@ pub fn DataTableHeadPrimitive(
 #[component]
 pub fn DataTableHeadRowPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <tr data-rs-datatable-head-row="" class=class>
@@ -107,19 +102,20 @@ pub fn DataTableHeadRowPrimitive(
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SortDirection {
     Ascending,
     Descending,
+    #[default]
     None,
 }
 
 impl SortDirection {
-    pub fn as_str(&self) -> Option<&'static str> {
+    pub fn as_aria_str(&self) -> &'static str {
         match self {
-            Self::Ascending => Some("ascending"),
-            Self::Descending => Some("descending"),
-            Self::None => None,
+            Self::Ascending => "ascending",
+            Self::Descending => "descending",
+            Self::None => "none",
         }
     }
 }
@@ -127,20 +123,20 @@ impl SortDirection {
 #[component]
 pub fn DataTableHeadCellPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] sort_key: String,
-    #[prop(default = SortDirection::None)] _sort_direction: SortDirection,
-    #[prop(default = String::new())] col_index: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] sort_key: String,
+    #[prop(default = SortDirection::None)] sort_direction: SortDirection,
+    #[prop(into, default = String::new())] col_index: String,
     #[prop(into, default = String::new())] style: String,
 ) -> impl IntoView {
     view! {
         <th
             data-rs-datatable-head-cell=""
             scope="col"
-            aria-sort="none"
-            data-sort-key=sort_key
-            data-col-index=col_index
-            style={(!style.is_empty()).then(|| style.clone())}
+            aria-sort=sort_direction.as_aria_str()
+            data-rs-sort-key=sort_key
+            data-rs-col-index=col_index
+            style={(!style.is_empty()).then(|| style)}
             class=class
         >
             {children.map(|c| c())}
@@ -151,7 +147,7 @@ pub fn DataTableHeadCellPrimitive(
 #[component]
 pub fn DataTableBodyPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <tbody data-rs-datatable-body="" class=class>
@@ -163,12 +159,12 @@ pub fn DataTableBodyPrimitive(
 #[component]
 pub fn DataTableRowPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] row_id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] row_id: String,
     #[prop(default = false)] selected: bool,
     #[prop(optional)] row_index: Option<usize>,
 ) -> impl IntoView {
-    let id = if !row_id.is_empty() && !row_id.starts_with("row-") {
+    let dom_id = if !row_id.is_empty() && !row_id.starts_with("row-") {
         format!("row-{}", row_id)
     } else {
         row_id.clone()
@@ -177,11 +173,12 @@ pub fn DataTableRowPrimitive(
     view! {
         <tr
             data-rs-datatable-row=""
-            data-row-id={(!row_id.is_empty()).then_some(row_id)}
-            data-state={selected.then_some("selected")}
+            data-rs-row-id={(!row_id.is_empty()).then_some(row_id)}
+            data-rs-selected={if selected { "true" } else { "false" }}
+            aria-selected={if selected { "true" } else { "false" }}
             aria-rowindex={row_index.map(|i| (i + 1).to_string())}
-            data-row-index={row_index.map(|i| i.to_string())}
-            id={(!id.is_empty()).then_some(id)}
+            data-rs-row-index={row_index.map(|i| i.to_string())}
+            id={(!dom_id.is_empty()).then_some(dom_id)}
             class=class
         >
             {children.map(|c| c())}
@@ -192,16 +189,16 @@ pub fn DataTableRowPrimitive(
 #[component]
 pub fn DataTableCellPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] col_index: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] col_index: String,
     #[prop(into, default = String::new())] style: String,
 ) -> impl IntoView {
     view! {
         <td
             data-rs-datatable-cell=""
-            data-col-index=col_index
+            data-rs-col-index=col_index
+            style={(!style.is_empty()).then(|| style)}
             class=class
-            style={(!style.is_empty()).then(|| style.clone())}
         >
             {children.map(|c| c())}
         </td>
@@ -211,7 +208,7 @@ pub fn DataTableCellPrimitive(
 #[component]
 pub fn DataTableFooterPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <tfoot data-rs-datatable-footer="" class=class>
@@ -223,7 +220,7 @@ pub fn DataTableFooterPrimitive(
 #[component]
 pub fn DataTablePaginationPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-pagination="" class=class>
@@ -235,10 +232,10 @@ pub fn DataTablePaginationPrimitive(
 #[component]
 pub fn DataTableEmptyPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-datatable-empty="" data-empty="true" class=class>
+        <div data-rs-datatable-empty="" data-rs-empty="true" role="status" aria-live="polite" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -247,10 +244,10 @@ pub fn DataTableEmptyPrimitive(
 #[component]
 pub fn DataTableLoadingPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-datatable-loading="" data-loading="true" class=class>
+        <div data-rs-datatable-loading="" data-rs-loading="true" role="status" aria-live="polite" class=class>
             {children.map(|c| c())}
         </div>
     }

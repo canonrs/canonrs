@@ -30,16 +30,15 @@ pub fn MenubarTriggerPrimitive(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
-    let controls_id_clone = controls_id.clone();
     view! {
         <button
-            data-rs-menubar-trigger=""
-            data-target={controls_id}
             type="button"
+            data-rs-menubar-trigger=""
             role="menuitem"
-            attr:aria-haspopup="menu"
-            attr:aria-controls={controls_id_clone}
-            attr:aria-expanded={expanded.to_string()}
+            aria-haspopup="menu"
+            aria-controls={if controls_id.is_empty() { None } else { Some(controls_id) }}
+            aria-expanded={expanded.to_string()}
+            data-rs-state={if expanded { "open" } else { "closed" }}
             class=class
             id=id
         >
@@ -54,13 +53,11 @@ pub fn MenubarContentPrimitive(
     #[prop(default = String::new())] content_id: String,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    let content_id_clone = content_id.clone();
     view! {
         <div
             data-rs-menubar-content=""
-            data-menu={content_id}
             role="menu"
-            id=content_id_clone
+            id={if content_id.is_empty() { None } else { Some(content_id) }}
             class=class
         >
             {children.map(|c| c())}
@@ -76,8 +73,8 @@ pub fn MenubarSubItemPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-rs-menubar-subitem=""
             type="button"
+            data-rs-menubar-subitem=""
             role="menuitem"
             class=class
             id=id

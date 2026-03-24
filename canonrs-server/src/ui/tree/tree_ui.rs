@@ -42,7 +42,7 @@ fn render_node_recursive(
     let node_id = node.id.clone();
     let node_id_for_closure = node_id.clone();
     let children = node.children.clone();
-    let is_expanded = node.expanded;
+    let _is_expanded = node.expanded;
     let has_children = !children.is_empty();
     let is_selected = move || selected_id.get().as_ref() == Some(&node_id_for_closure);
 

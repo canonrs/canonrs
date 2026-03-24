@@ -12,7 +12,13 @@ pub fn SheetPrimitive(
     #[prop(default = String::from("right"))] side: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sheet="" data-state="closed" data-side={side} class=class id=id>
+        <div
+            data-rs-sheet=""
+            data-rs-state="closed"
+            data-rs-side=side
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
         </div>
     }
@@ -25,9 +31,14 @@ pub fn SheetTriggerPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-trigger="" class=class id=id>
+        <button
+            type="button"
+            data-rs-sheet-trigger=""
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
-        </div>
+        </button>
     }
 }
 
@@ -38,7 +49,14 @@ pub fn SheetContentPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sheet-content="" role="dialog" class=class id=id>
+        <div
+            data-rs-sheet-content=""
+            role="dialog"
+            aria-modal="true"
+            tabindex="-1"
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
         </div>
     }

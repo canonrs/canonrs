@@ -42,5 +42,7 @@ toc_behavior::register();
 }
 pub fn init_canonrs_behaviors() {
     register_all_behaviors();
-    behavior_registry::init_behavior_registry();
+    if let Err(e) = behavior_registry::init_behavior_registry() {
+        web_sys::console::warn_1(&format!("behavior_registry init failed: {:?}", e).into());
+    }
 }

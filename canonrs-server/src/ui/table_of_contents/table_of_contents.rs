@@ -53,7 +53,7 @@ pub fn TableOfContents(
             use std::time::Duration;
             
             let toc_id = id.clone();
-            let _ = set_interval_with_handle(
+            let _interval = set_interval_with_handle(
                 move || {
                     if let Some(toc_el) = document().get_element_by_id(&toc_id) {
                         if let Some(active_id) = toc_el.get_attribute("data-active-heading") {

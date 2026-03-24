@@ -1,21 +1,22 @@
 //! @canon-level: strict
-//! Carousel Primitives - Interactive slideshow
+//! @canon-owner: primitives-team
+//! Carousel Primitive - Interactive slideshow
 
 use leptos::prelude::*;
 
 #[component]
 pub fn CarouselPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-carousel=""
             role="region"
             aria-roledescription="carousel"
-            class={class}
-            id={if id.is_empty() { None } else { Some(id) }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -25,13 +26,10 @@ pub fn CarouselPrimitive(
 #[component]
 pub fn CarouselTrackPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-carousel-track=""
-            class={class}
-        >
+        <div data-rs-carousel-track="" class=class>
             {children.map(|c| c())}
         </div>
     }
@@ -40,16 +38,18 @@ pub fn CarouselTrackPrimitive(
 #[component]
 pub fn CarouselItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] active: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-carousel-item=""
+            data-rs-active={if active { "true" } else { "false" }}
             role="group"
             aria-roledescription="slide"
-            class={class}
-            id={if id.is_empty() { None } else { Some(id) }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -59,14 +59,14 @@ pub fn CarouselItemPrimitive(
 #[component]
 pub fn CarouselPrevPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <button
-            data-rs-carousel-prev=""
             type="button"
+            data-rs-carousel-prev=""
             aria-label="Previous slide"
-            class={class}
+            class=class
         >
             {children.map(|c| c())}
         </button>
@@ -76,14 +76,14 @@ pub fn CarouselPrevPrimitive(
 #[component]
 pub fn CarouselNextPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <button
-            data-rs-carousel-next=""
             type="button"
+            data-rs-carousel-next=""
             aria-label="Next slide"
-            class={class}
+            class=class
         >
             {children.map(|c| c())}
         </button>
@@ -93,14 +93,14 @@ pub fn CarouselNextPrimitive(
 #[component]
 pub fn CarouselIndicatorsPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-carousel-indicators=""
             role="group"
             aria-label="Slide indicators"
-            class={class}
+            class=class
         >
             {children.map(|c| c())}
         </div>
@@ -109,13 +109,18 @@ pub fn CarouselIndicatorsPrimitive(
 
 #[component]
 pub fn CarouselDotPrimitive(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] aria_label: String,
+    #[prop(default = false)] active: bool,
 ) -> impl IntoView {
     view! {
         <button
-            data-rs-carousel-dot=""
             type="button"
-            class={class}
+            data-rs-carousel-dot=""
+            data-rs-active={if active { "true" } else { "false" }}
+            aria-label=aria_label
+            aria-current={if active { "true" } else { "false" }}
+            class=class
         />
     }
 }

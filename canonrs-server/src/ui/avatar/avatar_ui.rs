@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::{AvatarPrimitive, AvatarImagePrimitive, AvatarFallbackPrimitive};
+use canonrs_core::primitives::AvatarPrimitive;
 
 #[derive(Clone, Copy, Debug)]
 struct AvatarImageError(RwSignal<bool>);

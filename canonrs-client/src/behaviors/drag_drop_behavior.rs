@@ -5,11 +5,9 @@ use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
 use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
-use web_sys::{Element, Event, HtmlElement, MutationObserver, MutationObserverInit};
+use web_sys::{Element, Event, MutationObserver, MutationObserverInit};
 #[cfg(feature = "hydrate")]
-use std::rc::Rc;
 #[cfg(feature = "hydrate")]
-use std::cell::RefCell;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
@@ -140,9 +138,9 @@ fn install_mutation_observer(container: &Element) {
     }) as Box<dyn FnMut(_, _)>);
 
     if let Ok(observer) = MutationObserver::new(cb.as_ref().unchecked_ref()) {
-        let mut init = MutationObserverInit::new();
-        init.child_list(true);
-        init.subtree(true);
+        let init = MutationObserverInit::new();
+        init.set_child_list(true);
+        init.set_subtree(true);
         let _ = observer.observe_with_options(container, &init);
         cb.forget();
         std::mem::forget(observer);

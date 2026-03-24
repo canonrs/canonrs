@@ -30,7 +30,7 @@ pub fn PageHeaderBreadcrumbsPrimitive(
     view! {
         <nav
             data-rs-page-header-breadcrumbs=""
-            attr:aria-label="Breadcrumb"
+            aria-label="Breadcrumb"
             class={class}
             id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
         >

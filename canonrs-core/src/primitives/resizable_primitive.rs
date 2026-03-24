@@ -1,37 +1,9 @@
-use leptos::prelude::*;
+//! @canon-level: strict
+//! @canon-owner: primitives-team
+//! Resizable Primitive - Base re-export para compatibilidade
 
-#[component]
-pub fn ResizablePrimitive(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] children: Option<Children>,
-) -> impl IntoView {
-    view! {
-        <div id={id} class={class} data-rs-resizable="">
-            {children.map(|c| c())}
-        </div>
-    }
-}
-
-#[component]
-pub fn ResizablePanelPrimitive(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] children: Option<Children>,
-) -> impl IntoView {
-    view! {
-        <div id={id} class={class}>
-            {children.map(|c| c())}
-        </div>
-    }
-}
-
-#[component]
-pub fn ResizableHandlePrimitive(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
-) -> impl IntoView {
-    view! {
-        <div id={id} class={class} data-rs-resizable-handle="" aria-disabled="false"></div>
-    }
-}
+pub use super::resizable::{
+    ResizablePrimitive,
+    ResizablePanelPrimitive,
+    ResizableHandlePrimitive,
+};

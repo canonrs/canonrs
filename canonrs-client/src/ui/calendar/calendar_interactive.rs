@@ -119,7 +119,7 @@ fn generate_calendar_days(year: i32, month: u8) -> Vec<Option<Date>> {
     
     let mut days = vec![None; first_weekday as usize];
     
-    let days_in_month = time::util::days_in_year_month(year, Month::try_from(month).unwrap());
+    let days_in_month = Month::try_from(month).unwrap().length(year);
     for day in 1..=days_in_month {
         if let Ok(date) = Date::from_calendar_date(year, Month::try_from(month).unwrap(), day) {
             days.push(Some(date));

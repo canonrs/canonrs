@@ -1,3 +1,7 @@
+//! @canon-level: strict
+//! @canon-owner: primitives-team
+//! Banner Primitive - HTML puro
+
 use leptos::prelude::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
@@ -18,6 +22,20 @@ impl BannerVariant {
             Self::Error => "error",
         }
     }
+
+    pub fn role(&self) -> &'static str {
+        match self {
+            Self::Error => "alert",
+            _ => "status",
+        }
+    }
+
+    pub fn aria_live(&self) -> &'static str {
+        match self {
+            Self::Error => "assertive",
+            _ => "polite",
+        }
+    }
 }
 
 #[component]
@@ -26,15 +44,17 @@ pub fn BannerPrimitive(
     #[prop(default = BannerVariant::Info)] variant: BannerVariant,
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let role = variant.role();
+    let aria_live = variant.aria_live();
     view! {
         <div
             data-rs-banner=""
-            data-variant={variant.as_str()}
-            data-state={if open { "open" } else { "closed" }}
-            role="region"
-            aria-live="polite"
+            data-rs-variant=variant.as_str()
+            data-rs-state={if open { "open" } else { "closed" }}
+            role=role
+            aria-live=aria_live
             class=class
             id=id
         >
@@ -46,16 +66,14 @@ pub fn BannerPrimitive(
 #[component]
 pub fn BannerClosePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = Callback::new(|_| {}))] on_close: Callback<()>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <button
             type="button"
             data-rs-banner-close=""
             aria-label="Close banner"
-            on:click=move |_| on_close.run(())
             class=class
             id=id
         >
@@ -68,7 +86,7 @@ pub fn BannerClosePrimitive(
 pub fn BannerContentPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div data-rs-banner-content="" class=class id=id>
@@ -81,7 +99,7 @@ pub fn BannerContentPrimitive(
 pub fn BannerActionsPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div data-rs-banner-actions="" class=class id=id>

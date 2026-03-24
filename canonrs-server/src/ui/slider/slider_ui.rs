@@ -1,6 +1,6 @@
 use leptos::prelude::*;
-use leptos::wasm_bindgen::JsCast;
 use leptos::wasm_bindgen::closure::Closure;
+use leptos::wasm_bindgen::JsCast;
 use leptos::html;
 use canonrs_core::shared::Orientation;
 use canonrs_core::primitives::{
@@ -28,8 +28,7 @@ pub fn Slider(
     if on_change.is_some() {
         leptos::prelude::Effect::new(move |_| {
             let Some(el) = node_ref.get() else { return };
-            use leptos::wasm_bindgen::JsCast;
-            let html_el = el.unchecked_ref::<leptos::web_sys::HtmlElement>();
+                        let html_el = el.unchecked_ref::<leptos::web_sys::HtmlElement>();
             let cb = on_change.clone();
             let closure = Closure::wrap(Box::new(move |e: leptos::web_sys::CustomEvent| {
                 if let Some(cb) = &cb {

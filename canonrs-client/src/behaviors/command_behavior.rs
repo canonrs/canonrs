@@ -1,25 +1,19 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorResult, BehaviorError};
+#[cfg(feature = "hydrate")]
+use web_sys::{Event, HtmlInputElement};
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
-#[cfg(feature = "hydrate")]
-use leptos::web_sys::{window, Event, HtmlInputElement};
-#[cfg(feature = "hydrate")]
-use leptos::prelude::*;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-command", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
-        let command = root;
         let document = web_sys::window().unwrap().document().unwrap();
-        let input_selector = format!("[data-command-input]");
         
-        if let Ok(Some(input)) = document.query_selector(&input_selector) {
-            let document_clone = document.clone();
+        if let Ok(Some(input)) = document.query_selector("[data-command-input]") {
                         
             let cb = Closure::wrap(Box::new(move |_: Event| {
                 if let Some(input_el) = root.query_selector("[data-command-input]")
@@ -30,7 +24,7 @@ pub fn register() {
                     let search = input_el.value().to_lowercase();
                     
                     let items_selector = format!("[data-command-item]");
-                    if let Ok(items) = document_clone.query_selector_all(&items_selector) {
+                    if let Ok(items) = document.query_selector_all(&items_selector) {
                         for i in 0..items.length() {
                             if let Some(item) = items.get(i).and_then(|n| n.dyn_into::<web_sys::HtmlElement>().ok()) {
                                 let text = item.text_content().unwrap_or_default().to_lowercase();

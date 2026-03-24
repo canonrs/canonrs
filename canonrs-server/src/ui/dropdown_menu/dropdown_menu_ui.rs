@@ -111,7 +111,7 @@ pub fn DropdownMenuCheckboxItem(
 #[component]
 pub fn DropdownMenuLabel(
     children: Children,
-    #[prop(default = String::new())] html_for: String,
+    #[prop(default = String::new())] _html_for: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {

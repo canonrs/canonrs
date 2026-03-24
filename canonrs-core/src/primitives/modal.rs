@@ -11,7 +11,12 @@ pub fn ModalPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-modal="" data-state="closed" class=class id=id>
+        <div
+            data-rs-modal=""
+            data-rs-state="closed"
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
         </div>
     }
@@ -24,9 +29,14 @@ pub fn ModalTriggerPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-trigger="" class=class id=id>
+        <button
+            type="button"
+            data-rs-modal-trigger=""
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
-        </div>
+        </button>
     }
 }
 
@@ -47,7 +57,14 @@ pub fn ModalContentPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-modal-content="" role="dialog" class=class id=id>
+        <div
+            data-rs-modal-content=""
+            role="dialog"
+            aria-modal="true"
+            tabindex="-1"
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
         </div>
     }

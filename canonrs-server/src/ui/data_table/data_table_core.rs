@@ -32,7 +32,7 @@ pub fn DataTableCore<T>(
 where
     T: Clone + Send + Sync + 'static,
 {
-    let stored_columns = store_value(columns);
+    let stored_columns = StoredValue::new(columns);
     
     view! {
         <DataTablePrimitive density=density id=id class=class>
@@ -46,7 +46,7 @@ where
                                 view! {
                                     <DataTableHeadCellPrimitive
                                         sort_key=key
-                                        _sort_direction=canonrs_core::primitives::SortDirection::None
+                                        sort_direction=canonrs_core::primitives::SortDirection::None
                                     >
                                         {label}
                                     </DataTableHeadCellPrimitive>

@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use leptos::reactive::wrappers::read::MaybeSignal;
 use super::{CommandPanelBlock, CommandPanelItem};
 
 pub fn basic_example() -> impl IntoView {

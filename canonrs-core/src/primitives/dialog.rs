@@ -1,21 +1,21 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Dialog Primitive v2 - HTML puro + ARIA completo
+//! Dialog Primitive - HTML puro + ARIA completo
 
 use leptos::prelude::*;
 
 #[component]
 pub fn DialogPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into)] id: String,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            data-dialog=id.clone()
-            id=id
-            data-state="closed"
+            data-rs-dialog=""
+            data-rs-state="closed"
             class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -31,8 +31,7 @@ pub fn DialogTriggerPrimitive(
     view! {
         <button
             type="button"
-            data-rs-button=""
-            data-ui-variant="solid"
+            data-rs-dialog-trigger=""
             aria-haspopup="dialog"
             class=class
             id=id
@@ -62,16 +61,16 @@ pub fn DialogContentPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
-    #[prop(into, default = String::new())] labelledby: String,
-    #[prop(into, default = String::new())] describedby: String,
+    #[prop(optional)] aria_labelledby: Option<String>,
+    #[prop(optional)] aria_describedby: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dialog-content=""
             role="dialog"
             aria-modal="true"
-            aria-labelledby={if labelledby.is_empty() { None } else { Some(labelledby.clone()) }}
-            aria-describedby={if describedby.is_empty() { None } else { Some(describedby.clone()) }}
+            aria-labelledby=aria_labelledby
+            aria-describedby=aria_describedby
             tabindex="-1"
             class=class
             id=id

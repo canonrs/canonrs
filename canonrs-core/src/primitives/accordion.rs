@@ -4,8 +4,9 @@
 
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default)]
 pub enum AccordionSelection {
+    #[default]
     Single,
     Multiple,
 }
@@ -24,18 +25,17 @@ pub fn AccordionPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
     #[prop(default = true)] collapsible: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(optional)] role: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-accordion=""
-            data-selection={selection.as_str()}
-            data-accordion-collapsible={if collapsible { "true" } else { "false" }}
-            class={class}
-            id={id}
-            role={role.unwrap_or_else(|| "region".to_string())}
+            data-rs-selection=selection.as_str()
+            data-rs-collapsible={if collapsible { "true" } else { "false" }}
+            role="region"
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -45,12 +45,17 @@ pub fn AccordionPrimitive(
 #[component]
 pub fn AccordionItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = false)] default_open: bool,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-accordion-item="" data-state={if default_open { "open" } else { "closed" }} class={class} id={id}>
+        <div
+            data-rs-accordion-item=""
+            data-rs-state={if open { "open" } else { "closed" }}
+            class=class
+            id=id
+        >
             {children.map(|c| c())}
         </div>
     }
@@ -59,19 +64,19 @@ pub fn AccordionItemPrimitive(
 #[component]
 pub fn AccordionTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] controls: String,
-    #[prop(default = false)] default_open: bool,
+    #[prop(default = false)] open: bool,
+    #[prop(optional)] controls: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <button
-            data-rs-accordion-trigger=""
             type="button"
-            aria-expanded={if default_open { "true" } else { "false" }}
-            aria-controls={(!controls.is_empty()).then_some(controls)}
-            class={class}
-            id={id}
+            data-rs-accordion-trigger=""
+            aria-expanded={if open { "true" } else { "false" }}
+            aria-controls=controls
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </button>
@@ -81,17 +86,18 @@ pub fn AccordionTriggerPrimitive(
 #[component]
 pub fn AccordionContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = false)] default_open: bool,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-accordion-content=""
-            aria-hidden={if default_open { "false" } else { "true" }}
-            hidden=!default_open
-            class={class}
-            id={id}
+            data-rs-state={if open { "open" } else { "closed" }}
+            aria-hidden={if open { "false" } else { "true" }}
+            hidden=!open
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>

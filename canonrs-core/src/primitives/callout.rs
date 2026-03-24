@@ -31,12 +31,12 @@ pub fn CalloutPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = CalloutVariant::Default)] variant: CalloutVariant,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <aside
             data-rs-callout=""
-            data-variant={variant.as_str()}
+            data-rs-variant=variant.as_str()
             class=class
             id=id
         >
@@ -49,7 +49,7 @@ pub fn CalloutPrimitive(
 pub fn CalloutIconPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
@@ -67,14 +67,10 @@ pub fn CalloutIconPrimitive(
 pub fn CalloutTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-callout-title=""
-            class=class
-            id=id
-        >
+        <div data-rs-callout-title="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -84,14 +80,10 @@ pub fn CalloutTitlePrimitive(
 pub fn CalloutDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-callout-description=""
-            class=class
-            id=id
-        >
+        <div data-rs-callout-description="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

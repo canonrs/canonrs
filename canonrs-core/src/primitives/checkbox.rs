@@ -1,17 +1,16 @@
 //! @canon-level: strict
+//! @canon-owner: primitives-team
 //! Checkbox Primitive - Native HTML input + CSS
 
 use leptos::prelude::*;
 
 #[component]
 pub fn CheckboxPrimitive(
-    #[prop(optional)] _children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
-    #[prop(default = String::new())] name: String,
-    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <input
@@ -20,7 +19,6 @@ pub fn CheckboxPrimitive(
             checked=checked
             disabled=disabled
             name=name
-            prop:value=move || value.get()
             class=class
             id=id
         />
@@ -30,7 +28,7 @@ pub fn CheckboxPrimitive(
 #[component]
 pub fn CheckboxIndicatorPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <span data-rs-checkbox-indicator="" class=class>

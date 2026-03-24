@@ -1,6 +1,7 @@
 //! Chart Behavior - Enterprise Canvas Engine
 //! DPI scaling, ResizeObserver, token-based tooltip/legend, Chart↔DataTable sync
 
+#[allow(unused_variables)]
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
@@ -170,6 +171,7 @@ fn parse_chart_data(json: &str) -> Option<(Vec<String>, Vec<(String, Vec<f64>, S
 // ─── LEGEND (token-based, interactive) ───────────────────────────────────────
 
 #[cfg(feature = "hydrate")]
+#[allow(unused_variables)]
 fn draw_legend(
     legend_el: &web_sys::Element,
     series: &[(String, Vec<f64>, String, bool)],
@@ -203,12 +205,12 @@ fn draw_legend(
         let canvas_c    = canvas.clone();
         let root_c      = root.clone();
         let chart_type_c= chart_type.to_string();
-        let labels_c    = labels.to_vec();
+        let _labels_c    = labels.to_vec();
         let item_c      = item.clone();
         let legend_c    = legend_el.clone();
 
         let closure = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            let idx = item_c.get_attribute("data-series-index")
+            let _idx = item_c.get_attribute("data-series-index")
                 .and_then(|v| v.parse::<usize>().ok()).unwrap_or(0);
             let current = item_c.get_attribute("data-state").unwrap_or_default();
             let new_state = if current == "active" { "inactive" } else { "active" };
@@ -239,6 +241,7 @@ fn draw_legend(
 // ─── TOOLTIP (data-state, sem inline styles de posição exceto left/top) ──────
 
 #[cfg(feature = "hydrate")]
+#[allow(unused_variables)]
 fn setup_tooltip(
     canvas: &web_sys::HtmlCanvasElement,
     root: &web_sys::Element,
@@ -360,6 +363,7 @@ fn setup_tooltip(
 // ─── DATATABLE → CHART SYNC ──────────────────────────────────────────────────
 
 #[cfg(feature = "hydrate")]
+#[allow(unused_variables)]
 fn setup_datatable_to_chart_sync(
     root: &web_sys::Element,
     canvas: &web_sys::HtmlCanvasElement,
@@ -460,6 +464,7 @@ fn draw_crosshair_on_canvas(
 // ─── RESIZE OBSERVER ─────────────────────────────────────────────────────────
 
 #[cfg(feature = "hydrate")]
+#[allow(unused_variables)]
 fn setup_resize_observer(
     canvas: &web_sys::HtmlCanvasElement,
     root: &web_sys::Element,
@@ -625,6 +630,7 @@ fn draw_area(canvas: &web_sys::HtmlCanvasElement, labels: &[String], series: &[(
 // ─── DONUT ───────────────────────────────────────────────────────────────────
 
 #[cfg(feature = "hydrate")]
+#[allow(unused_variables)]
 fn draw_donut(canvas: &web_sys::HtmlCanvasElement, labels: &[String], series: &[(String, Vec<f64>, String, bool)], height: f64) {
     let Some(ctx) = get_context(canvas) else { return };
     let w = canvas.unchecked_ref::<web_sys::HtmlElement>().offset_width() as f64;
@@ -667,6 +673,7 @@ fn draw_donut(canvas: &web_sys::HtmlCanvasElement, labels: &[String], series: &[
 // ─── GRID HELPER ─────────────────────────────────────────────────────────────
 
 #[cfg(feature = "hydrate")]
+#[allow(unused_variables)]
 fn draw_grid(ctx: &web_sys::CanvasRenderingContext2d, labels: &[String], max_v: f64, min_v: f64, range: f64, w: f64, h: f64, pl: f64, pr: f64, pt: f64, pb: f64, ch: f64, sx: f64) {
     ctx.set_stroke_style_str("#e5e7eb");
     ctx.set_line_width(1.0);

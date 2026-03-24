@@ -1,6 +1,7 @@
 pub mod tree_ui;
 mod tree_node;
 mod tree_node_item;
+#[cfg(feature = "examples")]
 pub mod examples;
 
 pub use tree_ui::*;

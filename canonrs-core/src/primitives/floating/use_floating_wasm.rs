@@ -66,7 +66,9 @@ fn calculate_position(
     viewport_height: f64,
     config: FloatingConfig,
 ) -> FloatingPosition {
+    #[allow(unused_assignments)]
     let mut x = 0.0;
+    #[allow(unused_assignments)]
     let mut y = 0.0;
     let mut placement = config.placement;
 

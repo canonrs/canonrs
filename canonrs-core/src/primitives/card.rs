@@ -7,15 +7,11 @@ use leptos::prelude::*;
 #[component]
 pub fn CardPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-card=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-card="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -24,15 +20,11 @@ pub fn CardPrimitive(
 #[component]
 pub fn CardHeaderPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-card-header=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-card-header="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -41,15 +33,11 @@ pub fn CardHeaderPrimitive(
 #[component]
 pub fn CardTitlePrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-card-title=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-card-title="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -58,15 +46,11 @@ pub fn CardTitlePrimitive(
 #[component]
 pub fn CardDescriptionPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-card-description=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-card-description="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -75,15 +59,11 @@ pub fn CardDescriptionPrimitive(
 #[component]
 pub fn CardContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-card-content=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-card-content="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -92,15 +72,11 @@ pub fn CardContentPrimitive(
 #[component]
 pub fn CardFooterPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-card-footer=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-card-footer="" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

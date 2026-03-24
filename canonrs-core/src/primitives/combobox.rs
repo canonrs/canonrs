@@ -8,19 +8,20 @@ use leptos::prelude::*;
 pub fn ComboboxPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] expanded: bool,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            data-combobox
+            data-rs-combobox=""
+            data-rs-state={if expanded { "open" } else { "closed" }}
             role="combobox"
             aria-expanded={if expanded { "true" } else { "false" }}
-            aria-disabled={if disabled.get() { "true" } else { "false" }}
+            aria-disabled={if disabled { "true" } else { "false" }}
             aria-haspopup="listbox"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -30,18 +31,20 @@ pub fn ComboboxPrimitive(
 #[component]
 pub fn ComboboxTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] expanded: bool,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <button
-            data-combobox-trigger
             type="button"
-            role="button"
-            aria-disabled={if disabled.get() { "true" } else { "false" }}
-            class={class}
-            id={id}
+            data-rs-combobox-trigger=""
+            aria-haspopup="listbox"
+            aria-expanded={if expanded { "true" } else { "false" }}
+            aria-disabled={if disabled { "true" } else { "false" }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </button>
@@ -51,15 +54,15 @@ pub fn ComboboxTriggerPrimitive(
 #[component]
 pub fn ComboboxListPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            data-combobox-list
+            data-rs-combobox-list=""
             role="listbox"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -70,18 +73,20 @@ pub fn ComboboxListPrimitive(
 pub fn ComboboxItemPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] selected: bool,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            data-combobox-item
+            data-rs-combobox-item=""
+            data-rs-state={if disabled { "disabled" } else { "closed" }}
+            data-rs-selected={if selected { "true" } else { "false" }}
             role="option"
             aria-selected={if selected { "true" } else { "false" }}
-            aria-disabled={if disabled.get() { "true" } else { "false" }}
-            class={class}
-            id={id}
+            aria-disabled={if disabled { "true" } else { "false" }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>

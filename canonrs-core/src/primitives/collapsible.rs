@@ -3,24 +3,20 @@
 //! Collapsible Primitive - HTML puro
 
 use leptos::prelude::*;
-use crate::utils::id_gen::gen_collapsible_id;
 
 #[component]
 pub fn CollapsiblePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] open: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let resolved_id = if id.is_empty() { gen_collapsible_id() } else { id };
-
     view! {
         <div
-            data-collapsible
-            data-slot="collapsible"
-            data-state={if open { "open" } else { "closed" }}
-            class={class}
-            id={resolved_id}
+            data-rs-collapsible=""
+            data-rs-state={if open { "open" } else { "closed" }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -30,17 +26,17 @@ pub fn CollapsiblePrimitive(
 #[component]
 pub fn CollapsibleTriggerPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <button
-            data-collapsible-trigger
-            data-slot="collapsible-trigger"
             type="button"
-            aria-expanded="false"
-            class={class}
-            id={id}
+            data-rs-collapsible-trigger=""
+            aria-expanded={if open { "true" } else { "false" }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </button>
@@ -50,17 +46,18 @@ pub fn CollapsibleTriggerPrimitive(
 #[component]
 pub fn CollapsibleContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            data-collapsible-content
-            data-slot="collapsible-content"
+            data-rs-collapsible-content=""
+            data-rs-state={if open { "open" } else { "closed" }}
             role="region"
-            aria-hidden="true"
-            class={class}
-            id={id}
+            aria-hidden={if open { "false" } else { "true" }}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>

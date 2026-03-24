@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 
+#[allow(unused_variables)]
 #[component]
 pub fn LanguageProvider(lang_code: String, children: Children) -> impl IntoView {
     #[cfg(feature = "hydrate")]

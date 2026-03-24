@@ -1,5 +1,6 @@
 //! @canon-level: strict
-//! Toolbar Primitives - Application toolbar container
+//! @canon-owner: primitives-team
+//! Toolbar Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 
@@ -15,9 +16,9 @@ pub fn ToolbarPrimitive(
         <div
             data-rs-toolbar=""
             role="toolbar"
-            aria-label={aria_label}
-            aria-orientation={orientation}
-            class={class}
+            aria-label=aria_label
+            aria-orientation=orientation
+            class=class
             id={if id.is_empty() { None } else { Some(id) }}
         >
             {children.map(|c| c())}
@@ -34,7 +35,7 @@ pub fn ToolbarSeparatorPrimitive(
             data-rs-toolbar-separator=""
             role="separator"
             aria-orientation="vertical"
-            class={class}
+            class=class
         />
     }
 }

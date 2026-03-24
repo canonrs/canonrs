@@ -4,8 +4,8 @@ use super::theme_types::{ThemeContext, ThemeMode};
 #[component]
 pub fn ThemeProvider(children: Children) -> impl IntoView {
     // Sempre cria signals (funciona em SSR)
-    let mode = create_rw_signal(ThemeMode::Dark);
-    let preset = create_rw_signal("canonrs".to_string());
+    let mode = RwSignal::new(ThemeMode::Dark);
+    let preset = RwSignal::new("canonrs".to_string());
     
     provide_context(ThemeContext { mode, preset });
     

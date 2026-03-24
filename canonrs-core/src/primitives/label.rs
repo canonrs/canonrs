@@ -9,10 +9,10 @@ pub fn LabelPrimitive(
 ) -> impl IntoView {
     view! {
         <label
-            id={id}
-            class={class}
-            for={for_id}
-            attr:data-rs-label=""
+            data-rs-label=""
+            for=for_id
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </label>

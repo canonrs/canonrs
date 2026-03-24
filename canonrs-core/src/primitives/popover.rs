@@ -9,12 +9,11 @@ pub fn PopoverPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
-) -> impl IntoView
-{
+) -> impl IntoView {
     view! {
         <div
             data-rs-popover=""
-            data-state="closed"
+            data-rs-state="closed"
             class=class
             id=id
         >
@@ -30,12 +29,15 @@ pub fn PopoverTriggerPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
+        <button
+            type="button"
+            data-rs-popover-trigger=""
+            aria-haspopup="dialog"
             class=class
             id=id
         >
             {children.map(|c| c())}
-        </div>
+        </button>
     }
 }
 
@@ -47,8 +49,10 @@ pub fn PopoverContentPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            role="dialog"
             data-rs-popover-content=""
+            role="dialog"
+            aria-modal="false"
+            tabindex="-1"
             class=class
             id=id
         >

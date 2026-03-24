@@ -22,7 +22,7 @@ pub fn SidebarResponsive() -> impl IntoView {
     use leptos::wasm_bindgen::closure::Closure;
     use leptos::wasm_bindgen::JsCast;
 
-    create_effect(move |_| {
+    Effect::new(move |_| {
         if let Some(win) = window() {
             let win_clone = win.clone();
             

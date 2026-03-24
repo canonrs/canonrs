@@ -6,51 +6,36 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ChartPrimitive(
-    #[prop(into)] id: String,
+    #[prop(optional)] id: Option<String>,
     #[prop(into, default = String::new())] class: String,
     #[prop(into)] chart_type: String,
-    #[prop(into)] data: String,
     #[prop(default = 320u32)] height: u32,
-    #[prop(default = true)] show_grid: bool,
-    #[prop(default = true)] show_legend: bool,
-    #[prop(default = true)] show_tooltip: bool,
-    #[prop(default = true)] animate: bool,
-    #[prop(into, default = String::new())] sync_table: String,
-    #[prop(into, default = String::new())] sync_scope: String,
-    #[prop(default = 0u32)] max_width: u32,
+    #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
-    let canvas_id  = format!("{}-canvas", id);
-    let tooltip_id = format!("{}-tooltip", id);
-
     view! {
         <div
-            id={id}
-            class={class}
+            id=id
+            class=class
             data-rs-chart=""
-            data-chart-type={chart_type}
-            data-chart-height={height.to_string()}
-            data-chart-grid={show_grid.to_string()}
-            data-chart-legend={show_legend.to_string()}
-            data-chart-tooltip={show_tooltip.to_string()}
-            data-chart-animate={animate.to_string()}
-            data-chart-sync-table={sync_table}
-            data-sync-scope={sync_scope}
-            data-chart-max-width={if max_width > 0 { max_width.to_string() } else { String::new() }}
+            data-rs-chart-type=chart_type
+            data-rs-chart-height=height.to_string()
         >
-            <canvas id={canvas_id} data-rs-chart-canvas="" />
+            <canvas data-rs-chart-canvas="" />
 
             <div data-rs-chart-overlay="">
-                <div id={tooltip_id} data-rs-chart-tooltip-el="" data-state="hidden" />
-                <div data-rs-chart-crosshair="" data-state="hidden" />
+                <div
+                    data-rs-chart-tooltip=""
+                    data-rs-state="closed"
+                />
+                <div
+                    data-rs-chart-crosshair=""
+                    data-rs-state="closed"
+                />
             </div>
 
-            <div data-rs-chart-legend-el="" />
+            <div data-rs-chart-legend="" />
 
-            <script
-                type="application/json"
-                data-rs-chart-data=""
-                inner_html={data}
-            />
+            {children.map(|c| c())}
         </div>
     }
 }

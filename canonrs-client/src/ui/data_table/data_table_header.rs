@@ -6,6 +6,7 @@ use canonrs_core::{
 use super::types::ColumnDef;
 use super::PinPosition;
 
+#[allow(unused_variables)]
 #[component]
 pub fn DataTableHeader<T: Clone + PartialEq + Send + Sync + 'static>(
     columns: Signal<Vec<ColumnDef<T>>>,

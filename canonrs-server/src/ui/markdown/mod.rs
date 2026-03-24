@@ -4,12 +4,14 @@ pub mod markdown_toolbar;
 mod renderer;
 #[cfg(feature = "ssr")]
 mod toc_extractor;
+#[cfg(feature = "examples")]
 pub mod examples;
 
 pub use markdown_ui::*;
 pub use markdown_toolbar::*;
 pub use markdown_ui::MarkdownPreview;
 pub use markdown_ui::RenderedMarkdown;
+#[cfg(feature = "examples")]
 pub use examples::markdown_basic_example;
 
 #[cfg(feature = "ssr")]

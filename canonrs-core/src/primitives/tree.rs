@@ -11,7 +11,7 @@ pub fn Tree(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-tree="" role="tree" class={class} id={id}>
+        <div data-rs-tree="" role="tree" class=class id=id>
             {children.map(|c| c())}
         </div>
     }
@@ -31,16 +31,16 @@ pub fn TreeItem(
     view! {
         <div
             data-rs-tree-item=""
-            data-depth={depth.to_string()}
-            data-rs-selected={if selected { "true" } else { "false" }}
+            data-rs-state={if selected { "selected" } else { "unselected" }}
             data-rs-expanded={if expanded { "true" } else { "false" }}
-            data-has-children={has_children.to_string()}
+            data-rs-depth=depth.to_string()
+            data-rs-has-children=has_children.to_string()
             role="treeitem"
-            tabindex={tabindex}
-            aria-selected={selected.to_string()}
+            tabindex=tabindex
+            aria-selected=selected.to_string()
             aria-expanded={if has_children { Some(expanded.to_string()) } else { None }}
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -54,7 +54,7 @@ pub fn TreeGroup(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-tree-group="" role="group" class={class} id={id}>
+        <div data-rs-tree-group="" role="group" class=class id=id>
             {children.map(|c| c())}
         </div>
     }

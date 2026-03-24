@@ -51,7 +51,7 @@ pub fn AccordionItem(
     });
 
     view! {
-        <AccordionItemPrimitive class={class} default_open={default_open}>
+        <AccordionItemPrimitive class={class} open={default_open}>
             {content}
         </AccordionItemPrimitive>
     }
@@ -69,7 +69,7 @@ pub fn AccordionTrigger(
             id={trigger_id}
             controls={content_id}
             class={class}
-            default_open={default_open}
+            open={default_open}
         >
             {children()}
         </AccordionTriggerPrimitive>
@@ -87,7 +87,7 @@ pub fn AccordionContent(
         <AccordionContentPrimitive
             id={content_id}
             class={class}
-            default_open={default_open}
+            open={default_open}
         >
             {children()}
         </AccordionContentPrimitive>

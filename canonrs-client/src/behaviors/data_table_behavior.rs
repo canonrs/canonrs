@@ -573,7 +573,7 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
             f.call2(&wasm_bindgen::JsValue::NULL, &wasm_bindgen::JsValue::from_str("canon:datatable:hover"), &detail).ok();
         }) as Box<dyn FnMut(_)>);
 
-        let chart_id_c2 = chart_id.clone();
+        let _chart_id_c2 = chart_id.clone();
         let leave = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
             let f = js_sys::Function::new_with_args(
                 "name",

@@ -46,7 +46,7 @@ pub fn DialogContent(
     #[prop(optional, into)] describedby: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogContentPrimitive class=class labelledby=labelledby.unwrap_or_default() describedby=describedby.unwrap_or_default()>
+        <DialogContentPrimitive class=class aria_labelledby=labelledby.unwrap_or_default() aria_describedby=describedby.unwrap_or_default()>
             {children()}
         </DialogContentPrimitive>
     }

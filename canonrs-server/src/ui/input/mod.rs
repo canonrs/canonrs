@@ -5,6 +5,7 @@ pub mod variants;
 
 pub use input_ui::*;
 pub use masked_input_ui::*;
+#[cfg(feature = "examples")]
 pub mod examples;
 
 pub use input_ui::InputPreview;

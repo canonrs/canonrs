@@ -14,7 +14,7 @@ impl PopoverPlacement {
 #[component]
 pub fn PopoverBlock(
     #[prop(into)] open: Signal<bool>,
-    #[prop(optional)] on_close: Option<Callback<()>>,
+    #[prop(optional)] _on_close: Option<Callback<()>>,
     #[prop(default = PopoverPlacement::Bottom)] placement: PopoverPlacement,
     #[prop(optional)] title: Option<ChildrenFn>,
     #[prop(optional)] close_button: Option<ChildrenFn>,

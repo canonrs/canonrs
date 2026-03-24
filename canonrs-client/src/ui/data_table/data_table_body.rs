@@ -13,7 +13,7 @@ pub fn DataTableBody<T: Clone + PartialEq + Send + Sync + 'static>(
     data: RwSignal<Vec<T>>,
     loading: RwSignal<bool>,
     error: RwSignal<Option<String>>,
-    #[prop(optional)] column_widths: Option<RwSignal<std::collections::HashMap<String, u32>>>,
+    #[prop(optional)] _column_widths: Option<RwSignal<std::collections::HashMap<String, u32>>>,
     #[prop(optional)] pinned_columns: Option<RwSignal<std::collections::HashMap<String, PinPosition>>>,
     #[prop(optional)] pin_offsets: Option<Signal<std::collections::HashMap<String, u32>>>,
 ) -> impl IntoView {

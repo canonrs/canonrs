@@ -14,7 +14,7 @@ pub fn LoadingOverlayPrimitive(
     view! {
         <div
             data-rs-loading-overlay=""
-            data-loading={if loading { "true" } else { "false" }}
+            data-rs-state={if loading { "loading" } else { "idle" }}
             aria-busy={if loading { "true" } else { "false" }}
             class=class
             id=id

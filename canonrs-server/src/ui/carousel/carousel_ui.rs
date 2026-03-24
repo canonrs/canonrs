@@ -2,7 +2,7 @@ use leptos::prelude::*;
 use canonrs_core::primitives::{
     CarouselPrimitive, CarouselTrackPrimitive, CarouselItemPrimitive,
     CarouselPrevPrimitive, CarouselNextPrimitive, 
-    CarouselIndicatorsPrimitive, CarouselDotPrimitive
+    CarouselIndicatorsPrimitive
 };
 
 #[component]

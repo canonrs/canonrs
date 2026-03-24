@@ -128,9 +128,9 @@ fn dispatch_scroll_event(viewport: &web_sys::HtmlElement, scroll_top: f64, scrol
     js_sys::Reflect::set(&detail, &JsValue::from_str("maxScrollH"), &JsValue::from_f64(max_h)).ok();
     js_sys::Reflect::set(&detail, &JsValue::from_str("ratioV"),     &JsValue::from_f64(ratio_v)).ok();
     js_sys::Reflect::set(&detail, &JsValue::from_str("ratioH"),     &JsValue::from_f64(ratio_h)).ok();
-    let mut init = web_sys::CustomEventInit::new();
-    init.bubbles(true);
-    init.detail(&detail);
+    let init = web_sys::CustomEventInit::new();
+    init.set_bubbles(true);
+    init.set_detail(&detail);
     if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:scroll", &init) {
         viewport.dispatch_event(&ev).ok();
     }
@@ -153,7 +153,7 @@ fn setup_drag(thumb: &web_sys::HtmlElement, viewport: &web_sys::HtmlElement, is_
         thumb_c.set_attribute("data-state", "dragging").ok();
 
         let viewport_move = viewport_c.clone();
-        let thumb_move    = thumb_c.clone();
+        let _thumb_move    = thumb_c.clone();
 
         let on_mousemove = Closure::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let pos   = if is_vertical { e.client_y() as f64 } else { e.client_x() as f64 };
@@ -197,7 +197,7 @@ fn setup_track_click(scrollbar: &web_sys::Element, viewport: &web_sys::HtmlEleme
         let rect       = thumb_c.get_bounding_client_rect();
         let click_pos  = if is_vertical { e.client_y() as f64 } else { e.client_x() as f64 };
         let thumb_mid  = if is_vertical { rect.top() + rect.height() / 2.0 } else { rect.left() + rect.width() / 2.0 };
-        let scroll_size= if is_vertical { viewport_c.scroll_height() as f64 } else { viewport_c.scroll_width() as f64 };
+        let _scroll_size= if is_vertical { viewport_c.scroll_height() as f64 } else { viewport_c.scroll_width() as f64 };
         let client_size= if is_vertical { viewport_c.client_height() as f64 } else { viewport_c.client_width() as f64 };
         let page       = client_size * 0.9;
         let direction  = if click_pos > thumb_mid { 1.0 } else { -1.0 };

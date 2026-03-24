@@ -5,17 +5,17 @@
 use leptos::prelude::*;
 
 #[component]
-pub fn VirtualList(
+pub fn VirtualListPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-rs-virtual-list=""
+            data-rs-virtual-list=""
             role="list"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -23,19 +23,19 @@ pub fn VirtualList(
 }
 
 #[component]
-pub fn VirtualListViewport(
+pub fn VirtualListViewportPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-rs-virtual-list-viewport=""
+            data-rs-virtual-list-viewport=""
             role="presentation"
+            aria-label="Scrollable content"
             tabindex="0"
-            attr:aria-label="Scrollable content"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -43,17 +43,17 @@ pub fn VirtualListViewport(
 }
 
 #[component]
-pub fn VirtualListContent(
+pub fn VirtualListContentPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-rs-virtual-list-content=""
+            data-rs-virtual-list-content=""
             role="presentation"
-            class={class}
-            id={id}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>
@@ -61,21 +61,21 @@ pub fn VirtualListContent(
 }
 
 #[component]
-pub fn VirtualListItem(
+pub fn VirtualListItemPrimitive(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = 0)] index: usize,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = 0usize)] index: usize,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
-            attr:data-rs-virtual-list-item=""
-            attr:data-index={index.to_string()}
+            data-rs-virtual-list-item=""
+            data-rs-index=index.to_string()
             role="listitem"
-            attr:aria-setsize="-1"
-            attr:aria-posinset={(index + 1).to_string()}
-            class={class}
-            id={id}
+            aria-setsize="-1"
+            aria-posinset={(index + 1).to_string()}
+            class=class
+            id=id
         >
             {children.map(|c| c())}
         </div>

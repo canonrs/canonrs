@@ -15,7 +15,7 @@ pub fn TocPrimitive(
     view! {
         <nav
             data-rs-toc=""
-            data-toc-mode={data_toc_mode}
+            data-rs-mode=data_toc_mode
             id={id}
             class={class}
             aria-label="Table of contents"
@@ -64,7 +64,7 @@ pub fn TocSubtreePrimitive(
     view! {
         <ul
             data-rs-toc-subtree=""
-            data-state={data_state}
+            data-rs-state=data_state
             class={class}
         >
             {children.map(|c| c())}
@@ -87,11 +87,11 @@ pub fn TocItemPrimitive(
     view! {
         <li
             data-rs-toc-item=""
-            data-level={data_level}
-            data-target={data_target}
-            data-state={data_state}
-            data-child={data_child}
-            data-has-children={data_has_children}
+            data-rs-level=data_level
+            data-rs-target=data_target
+            data-rs-state=data_state
+            data-rs-child=data_child
+            data-rs-has-children=data_has_children
             class={class}
         >
             {children.map(|c| c())}
