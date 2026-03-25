@@ -41,11 +41,11 @@
   background: var(--command-item-hover-bg);
 }
 
-[data-rs-command-item][data-selected="true"] {
+[data-rs-command-item][data-rs-selected="true"] {
   background: var(--command-item-selected-bg);
 }
 
-[data-rs-command-item][data-hidden="true"] {
+[data-rs-command-item][data-rs-hidden="true"] {
   display: none;
 }
 

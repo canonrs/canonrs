@@ -1,43 +1,48 @@
+//! @canon-level: ui
+//! Menubar - attribute-driven
+//! Relação trigger↔content via MenubarMenu container (DOM traversal)
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     MenubarPrimitive,
+    MenubarMenuPrimitive,
     MenubarTriggerPrimitive,
     MenubarContentPrimitive,
-    MenubarSubItemPrimitive,
+    MenubarItemPrimitive,
     MenubarSeparatorPrimitive,
 };
 
 #[component]
 pub fn Menubar(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <MenubarPrimitive
-            class=class
-            id=id
-        >
+        <MenubarPrimitive class=class>
             {children()}
         </MenubarPrimitive>
     }
 }
 
 #[component]
-pub fn MenubarTrigger(
+pub fn MenubarMenu(
     children: Children,
-    #[prop(default = String::new())] controls_id: String,
-    #[prop(default = false)] expanded: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <MenubarTriggerPrimitive
-            controls_id=controls_id
-            expanded=expanded
-            class=class
-            id=id
-        >
+        <MenubarMenuPrimitive class=class>
+            {children()}
+        </MenubarMenuPrimitive>
+    }
+}
+
+#[component]
+pub fn MenubarTrigger(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <MenubarTriggerPrimitive class=class>
             {children()}
         </MenubarTriggerPrimitive>
     }
@@ -46,54 +51,57 @@ pub fn MenubarTrigger(
 #[component]
 pub fn MenubarContent(
     children: Children,
-    #[prop(default = String::new())] content_id: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <MenubarContentPrimitive
-            content_id=content_id
-            class=class
-        >
+        <MenubarContentPrimitive class=class>
             {children()}
         </MenubarContentPrimitive>
     }
 }
 
 #[component]
-pub fn MenubarSubItem(
+pub fn MenubarItem(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <MenubarSubItemPrimitive
-            class=class
-            id=id
-        >
+        <MenubarItemPrimitive class=class>
             {children()}
-        </MenubarSubItemPrimitive>
+        </MenubarItemPrimitive>
     }
 }
 
 #[component]
 pub fn MenubarSeparator(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <MenubarSeparatorPrimitive
-            class=class
-        />
+        <MenubarSeparatorPrimitive class=class />
     }
 }
 
 #[component]
 pub fn MenubarPreview() -> impl IntoView {
     view! {
-        <Menubar id="mb-preview".to_string()>
-            <MenubarTrigger controls_id="mb-file".to_string()>"File"</MenubarTrigger>
-            <MenubarContent content_id="mb-file".to_string()>
-                <MenubarSubItem>"New"</MenubarSubItem>
-            </MenubarContent>
+        <Menubar>
+            <MenubarMenu>
+                <MenubarTrigger>"File"</MenubarTrigger>
+                <MenubarContent>
+                    <MenubarItem>"New"</MenubarItem>
+                    <MenubarItem>"Open"</MenubarItem>
+                    <MenubarSeparator />
+                    <MenubarItem>"Exit"</MenubarItem>
+                </MenubarContent>
+            </MenubarMenu>
+            <MenubarMenu>
+                <MenubarTrigger>"Edit"</MenubarTrigger>
+                <MenubarContent>
+                    <MenubarItem>"Cut"</MenubarItem>
+                    <MenubarItem>"Copy"</MenubarItem>
+                    <MenubarItem>"Paste"</MenubarItem>
+                </MenubarContent>
+            </MenubarMenu>
         </Menubar>
     }
 }

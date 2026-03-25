@@ -88,7 +88,13 @@
   opacity: var(--forms-disabled-opacity);
 }
 
-[data-rs-calendar-day][data-selected="true"] {
+[data-rs-calendar-day][data-selected="true"],
+[data-rs-calendar-day].is-selected {
   background: var(--calendar-cell-bg-selected);
   color: var(--calendar-cell-fg-selected);
+}
+
+[data-rs-calendar-day].is-today {
+  border-color: var(--calendar-cell-bg-selected);
+  font-weight: var(--font-weight-semibold);
 }

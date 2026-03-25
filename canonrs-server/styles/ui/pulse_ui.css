@@ -11,33 +11,33 @@
 }
 
 /* Sizes */
-[data-rs-pulse][data-size="small"] {
+[data-rs-pulse][data-rs-size="small"] {
   width: var(--pulse-size-small);
   height: var(--pulse-size-small);
 }
 
-[data-rs-pulse][data-size="medium"] {
+[data-rs-pulse][data-rs-size="medium"] {
   width: var(--pulse-size);
   height: var(--pulse-size);
 }
 
-[data-rs-pulse][data-size="large"] {
+[data-rs-pulse][data-rs-size="large"] {
   width: var(--pulse-size-large);
   height: var(--pulse-size-large);
 }
 
 /* Variants - Base solid (no opacity modulation) */
-[data-rs-pulse][data-variant="subtle"] {
+[data-rs-pulse][data-rs-variant="subtle"] {
   background: var(--pulse-bg-subtle);
   --pulse-scale: var(--pulse-scale-subtle);
 }
 
-[data-rs-pulse][data-variant="default"] {
+[data-rs-pulse][data-rs-variant="default"] {
   background: var(--pulse-bg-default);
   --pulse-scale: var(--pulse-scale-default);
 }
 
-[data-rs-pulse][data-variant="emphasized"] {
+[data-rs-pulse][data-rs-variant="emphasized"] {
   background: var(--pulse-bg-emphasized);
   box-shadow: var(--pulse-shadow-emphasized) var(--pulse-shadow-color-emphasized);
   --pulse-scale: var(--pulse-scale-emphasized);
@@ -61,15 +61,15 @@
 }
 
 /* Speed control - override default duration */
-[data-rs-pulse][data-speed="slow"] {
+[data-rs-pulse][data-rs-speed="slow"] {
   --pulse-duration: var(--pulse-duration-slow);
 }
 
-[data-rs-pulse][data-speed="normal"] {
+[data-rs-pulse][data-rs-speed="normal"] {
   --pulse-duration: var(--pulse-duration-normal);
 }
 
-[data-rs-pulse][data-speed="fast"] {
+[data-rs-pulse][data-rs-speed="fast"] {
   --pulse-duration: var(--pulse-duration-fast);
 }
 

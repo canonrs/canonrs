@@ -1,75 +1,81 @@
 #[cfg(feature = "hydrate")]
-use super::*;
+use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
+use canonrs_core::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use leptos::web_sys::{MouseEvent, Element, HtmlElement};
-#[cfg(feature = "hydrate")]
-use leptos::prelude::Set;
+use web_sys::{HtmlElement, MouseEvent, Element};
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-combobox", Box::new(|root: &web_sys::Element, state: &ComponentState| {
-        let combobox = root;
-        let document = web_sys::window().unwrap().document().unwrap();
-        let open_signal = state.open;
-        let trigger_selector = format!("[data-rs-data-combobox-trigger]");
+    register_behavior("data-rs-combobox", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
 
-        if let Ok(Some(trigger)) = document.query_selector(&trigger_selector) {
-            let content_selector = format!("[data-rs-data-combobox-list]");
-            let combobox_clone = combobox.clone();
-            let document_clone = document.clone();
-            let trigger_selector_clone = trigger_selector.clone();
-            
-            let cb_toggle = Closure::wrap(Box::new(move |_: MouseEvent| {
-                let current_state = combobox_clone.get_attribute("data-state").unwrap_or_else(|| "closed".to_string());
-                let is_open = current_state == "open";
-                let new_state = !is_open;
-                
-                open_signal.set(new_state);
-                combobox_clone.set_attribute("data-state", if new_state { "open" } else { "closed" }).ok();
-                
-                if new_state {
-                    if let (Ok(Some(content)), Ok(Some(trigger_el))) = (
-                        document_clone.query_selector(&content_selector),
-                        document_clone.query_selector(&trigger_selector_clone)
-                    ) {
-                        let trigger_rect = trigger_el.get_bounding_client_rect();
-                        
-                        if let Some(html_content) = content.dyn_ref::<HtmlElement>() {
-                            let style = html_content.style();
-                            let x = trigger_rect.left();
-                            let y = trigger_rect.bottom() + 4.0;
-                            let width = trigger_rect.width();
-                            
-                            style.set_property("left", &format!("{}px", x)).ok();
-                            style.set_property("top", &format!("{}px", y)).ok();
-                            style.set_property("width", &format!("{}px", width)).ok();
-                        }
+        if root.get_attribute("data-rs-combobox-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-combobox-attached", "1").ok();
+
+        let Ok(Some(trigger_el)) = root.query_selector("[data-rs-combobox-trigger]") else { return Ok(()); };
+        let Ok(trigger) = trigger_el.dyn_into::<HtmlElement>() else { return Ok(()); };
+
+        // toggle open/close
+        let root_toggle = root.clone();
+        let cb_toggle = Closure::wrap(Box::new(move |_: MouseEvent| {
+            let is_open = root_toggle.get_attribute("data-rs-state").as_deref() == Some("open");
+            if is_open {
+                root_toggle.set_attribute("data-rs-state", "closed").ok();
+                root_toggle.set_attribute("aria-expanded", "false").ok();
+            } else {
+                // posicionar lista via floating-x/y
+                if let Ok(Some(list_el)) = root_toggle.query_selector("[data-rs-combobox-list]") {
+                    if let Ok(list) = list_el.dyn_into::<HtmlElement>() {
+                        let rect = root_toggle.get_bounding_client_rect();
+                        let x = rect.left();
+                        let y = rect.bottom() + 4.0;
+                        let w = rect.width();
+                        list.style().set_property("left", &format!("{}px", x)).ok();
+                        list.style().set_property("top", &format!("{}px", y)).ok();
+                        list.style().set_property("width", &format!("{}px", w)).ok();
                     }
                 }
-            }) as Box<dyn FnMut(MouseEvent)>);
-            trigger.add_event_listener_with_callback("click", cb_toggle.as_ref().unchecked_ref()).unwrap();
-            cb_toggle.forget();
+                root_toggle.set_attribute("data-rs-state", "open").ok();
+                root_toggle.set_attribute("aria-expanded", "true").ok();
+            }
+        }) as Box<dyn FnMut(_)>);
+        trigger.add_event_listener_with_callback("click", cb_toggle.as_ref().unchecked_ref()).ok();
+        cb_toggle.forget();
 
-            let combobox_clone = combobox.clone();
-            let cb_close = Closure::wrap(Box::new(move |e: MouseEvent| {
-                if let Some(target) = e.target() {
-                    if let Some(element) = target.dyn_ref::<Element>() {
-                        if element.closest("[data-combobox-list]").ok().flatten().is_none() &&
-                           element.closest("[data-combobox-trigger]").ok().flatten().is_none() {
-                            open_signal.set(false);
-                            combobox_clone.set_attribute("data-state", "closed").ok();
-                        }
+        // fechar ao clicar fora
+        let root_outside = root.clone();
+        let cb_outside = Closure::wrap(Box::new(move |e: MouseEvent| {
+            if let Some(target) = e.target() {
+                if let Some(el) = target.dyn_ref::<Element>() {
+                    let inside_list    = el.closest("[data-rs-combobox-list]").ok().flatten().is_some();
+                    let inside_trigger = el.closest("[data-rs-combobox-trigger]").ok().flatten().is_some();
+                    let inside_root    = el.closest("[data-rs-combobox]").ok().flatten().is_some();
+                    if !inside_list && !inside_trigger && !inside_root {
+                        root_outside.set_attribute("data-rs-state", "closed").ok();
+                        root_outside.set_attribute("aria-expanded", "false").ok();
                     }
                 }
-            }) as Box<dyn FnMut(MouseEvent)>);
-            document.add_event_listener_with_callback("click", cb_close.as_ref().unchecked_ref()).unwrap();
-            cb_close.forget();
-        }
+            }
+        }) as Box<dyn FnMut(_)>);
+        web_sys::window().unwrap().document().unwrap()
+            .add_event_listener_with_callback("click", cb_outside.as_ref().unchecked_ref()).ok();
+        cb_outside.forget();
+
+        // ESC fecha
+        let root_esc = root.clone();
+        let cb_esc = Closure::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+            if e.key() == "Escape" && root_esc.get_attribute("data-rs-state").as_deref() == Some("open") {
+                root_esc.set_attribute("data-rs-state", "closed").ok();
+                root_esc.set_attribute("aria-expanded", "false").ok();
+            }
+        }) as Box<dyn FnMut(_)>);
+        web_sys::window().unwrap()
+            .add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref()).ok();
+        cb_esc.forget();
 
         Ok(())
     }));

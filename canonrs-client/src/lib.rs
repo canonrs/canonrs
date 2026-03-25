@@ -1,6 +1,7 @@
 //! CanonRS Client — WASM facade (ui-interactive + behaviors)
 
 pub use canonrs_core::primitives;
+#[allow(ambiguous_glob_reexports)]
 pub use canonrs_core::primitives::*;
 pub use canonrs_core::utils;
 pub use canonrs_core::theme as providers;

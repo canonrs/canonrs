@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use canonrs_core::TocItem;
-use super::table_of_contents::{TableOfContents, TocMode};
+use super::table_of_contents::TableOfContents;
+use canonrs_core::primitives::table_of_contents::TocMode;
 
 fn enterprise_items() -> Vec<TocItem> {
     vec![

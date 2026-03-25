@@ -1,13 +1,14 @@
 use leptos::prelude::*;
 use super::navigation_menu_ui::*;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <NavigationMenu>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger controls_id="menu-products">"Products"</NavigationMenuTrigger>
-                    <NavigationMenuContent content_id="menu-products">
+                    <NavigationMenuTrigger>"Products"</NavigationMenuTrigger>
+                    <NavigationMenuContent>
                         <NavigationMenuSubItem>
                             <NavigationMenuLink href="/product-1">"Product 1"</NavigationMenuLink>
                         </NavigationMenuSubItem>

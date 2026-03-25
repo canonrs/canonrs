@@ -23,7 +23,7 @@
   outline-offset: var(--select-focus-ring-offset);
 }
 
-[data-rs-select-trigger][data-disabled="true"] {
+[data-rs-select-trigger][data-rs-disabled="true"] {
   opacity: var(--select-disabled-opacity);
   cursor: not-allowed;
 }
@@ -58,7 +58,7 @@
   background: var(--select-item-hover-bg);
 }
 
-[data-rs-select-item][data-state="selected"] {
+[data-rs-select-item][data-rs-state="selected"] {
   background: var(--select-item-selected-bg);
   color: var(--select-item-selected-fg);
 }

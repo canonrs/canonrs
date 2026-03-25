@@ -1,49 +1,116 @@
-use leptos::prelude::*;
+//! @canon-level: ui
+//! Command - attribute-driven
+//! Filtro via behavior que lê data-rs-command-input e oculta data-rs-command-item
 
-/// Command - UI Structure (SSR-safe)
-/// No logic, just HTML structure
+use leptos::prelude::*;
+use canonrs_core::primitives::{
+    CommandPrimitive,
+    CommandInputPrimitive,
+    CommandListPrimitive,
+    CommandEmptyPrimitive,
+    CommandGroupPrimitive,
+    CommandItemPrimitive,
+    CommandSeparatorPrimitive,
+};
+
 #[component]
 pub fn Command(
-    #[prop(into)] id: String,
-    #[prop(optional)] placeholder: Option<String>,
-    #[prop(optional)] value: Option<Signal<String>>,
     children: Children,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let value_signal = value.unwrap_or_else(|| Signal::derive(|| String::new()));
-    
     view! {
-        <div data-command id=id>
-            <input 
-                data-command-input
-                type="text"
-                placeholder=placeholder.unwrap_or_else(|| "Search...".to_string())
-                prop:value=move || value_signal.get()
-            />
-            <div data-command-list>
-                {children()}
-            </div>
-        </div>
+        <CommandPrimitive class=class id=id.unwrap_or_default()>
+            {children()}
+        </CommandPrimitive>
+    }
+}
+
+#[component]
+pub fn CommandInput(
+    #[prop(into, default = String::new())] placeholder: String,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <CommandInputPrimitive
+            placeholder=placeholder
+            class=class
+        />
+    }
+}
+
+#[component]
+pub fn CommandList(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <CommandListPrimitive class=class>
+            {children()}
+        </CommandListPrimitive>
+    }
+}
+
+#[component]
+pub fn CommandEmpty(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <CommandEmptyPrimitive class=class>
+            {children()}
+        </CommandEmptyPrimitive>
+    }
+}
+
+#[component]
+pub fn CommandGroup(
+    children: Children,
+    #[prop(optional, into)] heading: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <CommandGroupPrimitive heading=heading.unwrap_or_default() class=class>
+            {children()}
+        </CommandGroupPrimitive>
     }
 }
 
 #[component]
 pub fn CommandItem(
-    #[prop(into)] text: String,
-    #[prop(optional)] visible: Option<Signal<bool>>,
+    children: Children,
+    #[prop(optional, into)] value: Option<String>,
+    #[prop(default = false)] selected: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let is_visible = visible.unwrap_or_else(|| Signal::derive(|| true));
-    
     view! {
-        <div 
-            data-command-item
-            style:display=move || if is_visible.get() { "flex" } else { "none" }
-        >
-            {text}
-        </div>
+        <CommandItemPrimitive value=value.unwrap_or_default() selected=selected class=class>
+            {children()}
+        </CommandItemPrimitive>
+    }
+}
+
+#[component]
+pub fn CommandSeparator(
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <CommandSeparatorPrimitive class=class />
     }
 }
 
 #[component]
 pub fn CommandPreview() -> impl IntoView {
-    view! { <Command id="command-preview".to_string()>"Search..."</Command> }
+    view! {
+        <Command>
+            <CommandInput placeholder="Search..." />
+            <CommandList>
+                <CommandGroup heading="Suggestions">
+                    <CommandItem>"Calendar"</CommandItem>
+                    <CommandItem>"Search"</CommandItem>
+                    <CommandItem>"Settings"</CommandItem>
+                </CommandGroup>
+            </CommandList>
+        </Command>
+    }
 }

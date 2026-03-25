@@ -1,78 +1,62 @@
-//! Sheet Component - Drawer lateral
+//! @canon-level: ui
+//! Sheet - attribute-driven
+//! CONTRACT: SheetContent requer aria_labelledby obrigatorio
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{SheetPrimitive, SheetTriggerPrimitive, SheetContentPrimitive, SheetOverlayPrimitive};
-
-#[derive(Clone, Copy, PartialEq)]
-pub enum SheetSide {
-    Left,
-    Right,
-    Top,
-    Bottom,
-}
-
-impl SheetSide {
-    pub fn as_str(&self) -> &str {
-        match self {
-            SheetSide::Left => "left",
-            SheetSide::Right => "right",
-            SheetSide::Top => "top",
-            SheetSide::Bottom => "bottom",
-        }
-    }
-}
+use canonrs_core::primitives::{SheetPrimitive, SheetOverlayPrimitive, SheetContentPrimitive, SheetSide};
 
 #[component]
 pub fn Sheet(
     children: Children,
-    #[prop(into)] id: String,
     #[prop(default = SheetSide::Right)] side: SheetSide,
-    #[prop(default = String::new())] class: String,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SheetPrimitive id=id side={side.as_str().to_string()} class=class>
+        <SheetPrimitive side=side open=open.into() class=class>
             {children()}
         </SheetPrimitive>
     }
 }
 
 #[component]
-pub fn SheetTrigger(
-    children: Children,
-        #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+pub fn SheetOverlay(
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <SheetTriggerPrimitive class=class id=id>
-            {children()}
-        </SheetTriggerPrimitive>
-    }
+    view! { <SheetOverlayPrimitive class=class /> }
 }
 
+/// CONTRATO: aria_labelledby obrigatorio para acessibilidade enterprise
 #[component]
 pub fn SheetContent(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    /// ID do titulo do sheet — OBRIGATORIO para ARIA
+    #[prop(into)] aria_labelledby: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] aria_describedby: Option<String>,
 ) -> impl IntoView {
     view! {
-        <SheetContentPrimitive class=class id=id>
+        <SheetContentPrimitive
+            class=class
+            attr:aria-labelledby=aria_labelledby
+            attr:aria-describedby=aria_describedby.unwrap_or_default()
+        >
             {children()}
         </SheetContentPrimitive>
     }
 }
 
 #[component]
-pub fn SheetOverlay(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <SheetOverlayPrimitive class=class id=id />
-    }
-}
-
-#[component]
 pub fn SheetPreview() -> impl IntoView {
-    view! { <Sheet id="sheet-preview".to_string()>"Content"</Sheet> }
+    view! {
+        <Sheet>
+            <button type="button" data-rs-sheet-trigger="">"Open Sheet"</button>
+            <SheetOverlay />
+            <SheetContent aria_labelledby="sheet-title-preview">
+                <h2 id="sheet-title-preview">"Sheet Title"</h2>
+                <p>"Sheet content"</p>
+                <button type="button" data-rs-sheet-close="">"Close"</button>
+            </SheetContent>
+        </Sheet>
+    }
 }

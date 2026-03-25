@@ -1,23 +1,23 @@
+//! @canon-level: ui
+//! Collapsible - attribute-driven
+//! Relação trigger↔content via estrutura DOM
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     CollapsiblePrimitive,
     CollapsibleTriggerPrimitive,
-    CollapsibleContentPrimitive
+    CollapsibleContentPrimitive,
 };
 
 #[component]
 pub fn Collapsible(
     children: Children,
     #[prop(default = false)] open: bool,
-    #[prop(optional)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CollapsiblePrimitive 
-            open={open} 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
-        >
+        <CollapsiblePrimitive open={open} class={class} id={id.unwrap_or_default()}>
             {children()}
         </CollapsiblePrimitive>
     }
@@ -26,14 +26,10 @@ pub fn Collapsible(
 #[component]
 pub fn CollapsibleTrigger(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CollapsibleTriggerPrimitive 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
-        >
+        <CollapsibleTriggerPrimitive class={class}>
             {children()}
         </CollapsibleTriggerPrimitive>
     }
@@ -42,14 +38,10 @@ pub fn CollapsibleTrigger(
 #[component]
 pub fn CollapsibleContent(
     children: Children,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CollapsibleContentPrimitive 
-            class={class.unwrap_or_default()} 
-            id={id.unwrap_or_default()}
-        >
+        <CollapsibleContentPrimitive class={class}>
             {children()}
         </CollapsibleContentPrimitive>
     }
@@ -58,7 +50,7 @@ pub fn CollapsibleContent(
 #[component]
 pub fn CollapsiblePreview() -> impl IntoView {
     view! {
-        <Collapsible id="col-preview".to_string()>
+        <Collapsible>
             <CollapsibleTrigger>"Toggle"</CollapsibleTrigger>
             <CollapsibleContent>"Content"</CollapsibleContent>
         </Collapsible>

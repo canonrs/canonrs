@@ -8,14 +8,16 @@ use canonrs_core::primitives::{
 #[component]
 pub fn Sidebar(
     #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = Signal::derive(|| false))] collapsed: Signal<bool>,
+    #[prop(default = false)] collapsed: bool,
     #[prop(default = String::new())] class: String,
     #[prop(into, optional)] id: Option<String>,
+    #[prop(default = false)] rail: bool,
 ) -> impl IntoView {
     view! {
-        <SidebarPrimitive 
+        <SidebarPrimitive
+            rail={rail} 
             class={class}
-            class:sidebar-collapsed={move || collapsed.get()}
+            class:sidebar-collapsed=collapsed
             id={id.unwrap_or_default()}
         >
             {children.map(|c| c())}

@@ -1,25 +1,17 @@
 use leptos::prelude::*;
-use super::combobox_ui::Combobox;
-use super::types::ComboboxOption;
-
-pub fn basic_example() -> impl IntoView {
-    let options = vec![
-        ComboboxOption::new("option-1", "Option 1"),
-        ComboboxOption::new("option-2", "Option 2"),
-        ComboboxOption::new("option-3", "Option 3"),
-        ComboboxOption::new("option-4", "Option 4").disabled(),
-    ];
-
-    view! {
-        <Combobox
-            id="combobox-example-1".to_string()
-            options=options
-            placeholder="Select option...".to_string()
-        />
-    }
-}
+use super::combobox_ui::{Combobox, ComboboxTrigger, ComboboxList, ComboboxItem};
 
 #[component]
 pub fn BasicExample() -> impl IntoView {
-    basic_example()
+    view! {
+        <Combobox>
+            <ComboboxTrigger>"Select option..."</ComboboxTrigger>
+            <ComboboxList>
+                <ComboboxItem>"Option 1"</ComboboxItem>
+                <ComboboxItem>"Option 2"</ComboboxItem>
+                <ComboboxItem>"Option 3"</ComboboxItem>
+                <ComboboxItem disabled=true>"Option 4"</ComboboxItem>
+            </ComboboxList>
+        </Combobox>
+    }
 }

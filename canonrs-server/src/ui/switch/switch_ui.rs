@@ -1,3 +1,6 @@
+//! @canon-level: ui
+//! Switch - native checkbox, CSS-driven via :checked
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{SwitchPrimitive, SwitchThumbPrimitive};
 
@@ -8,32 +11,27 @@ pub fn Switch(
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SwitchPrimitive
-            checked={checked}
-            disabled={disabled}
-            name={name}
-            value={value}
-            class={class}
-            id={id.unwrap_or_default()}
+            checked=checked
+            disabled=disabled
+            name=name
+            value=value
+            class=class
         >
-            <SwitchThumb />
+            <SwitchThumbPrimitive />
             {children.map(|c| c())}
         </SwitchPrimitive>
     }
 }
 
 #[component]
-pub fn SwitchThumb() -> impl IntoView {
-    view! {
-        <SwitchThumbPrimitive />
-    }
-}
-
-#[component]
 pub fn SwitchPreview() -> impl IntoView {
-    view! { <Switch /> }
+    view! {
+        <Switch />
+        <Switch checked=true />
+        <Switch disabled=true />
+    }
 }

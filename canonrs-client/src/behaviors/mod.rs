@@ -7,13 +7,16 @@ mod auto_init;
 #[cfg(feature = "hydrate")]
 pub mod accordion_behavior;
 #[cfg(feature = "hydrate")]
+pub mod alert_behavior;
+#[cfg(feature = "hydrate")]
 pub mod breadcrumb_behavior;
 #[cfg(feature = "hydrate")]
 pub mod calendar_behavior;
 #[cfg(feature = "hydrate")]
 pub mod carousel_behavior;
 #[cfg(feature = "hydrate")]
-pub mod chart_behavior;
+#[cfg(feature = "hydrate")]
+pub(crate) mod chart;
 #[cfg(feature = "hydrate")]
 pub mod chart_sync_behavior;
 #[cfg(feature = "hydrate")]
@@ -26,6 +29,8 @@ pub mod command_behavior;
 pub mod context_menu_behavior;
 #[cfg(feature = "hydrate")]
 pub mod copy_button_behavior;
+#[cfg(feature = "hydrate")]
+pub mod toast_behavior;
 #[cfg(feature = "hydrate")]
 pub mod data_table_behavior;
 #[cfg(feature = "hydrate")]
@@ -100,5 +105,9 @@ pub use behavior_registry::*;
 
 #[cfg(feature = "hydrate")]
 pub use auto_init::init_canonrs_behaviors;
+#[cfg(feature = "hydrate")]
+pub mod behavior_discovery;
+#[cfg(feature = "hydrate")]
+pub use behavior_discovery::audit_behaviors;
 
 pub mod tabs_behavior;

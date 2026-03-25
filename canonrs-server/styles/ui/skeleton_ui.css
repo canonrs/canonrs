@@ -26,18 +26,18 @@
   animation: skeleton-shimmer var(--skeleton-shimmer-duration) var(--skeleton-shimmer-easing) infinite;
 }
 
-[data-rs-skeleton][data-variant="text"] {
+[data-rs-skeleton][data-rs-variant="text"] {
   height: var(--skeleton-text-height);
   border-radius: var(--skeleton-text-radius);
 }
 
-[data-rs-skeleton][data-variant="circle"] {
+[data-rs-skeleton][data-rs-variant="circle"] {
   width: var(--skeleton-circle-size);
   height: var(--skeleton-circle-size);
   border-radius: var(--skeleton-circle-radius);
 }
 
-[data-rs-skeleton][data-variant="rectangle"] {
+[data-rs-skeleton][data-rs-variant="rectangle"] {
   height: var(--skeleton-rectangle-height);
   border-radius: var(--skeleton-rectangle-radius);
 }

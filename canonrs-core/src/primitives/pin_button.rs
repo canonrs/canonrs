@@ -6,7 +6,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn PinButtonPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = String::new())] col_id: String,
     #[prop(default = false)] is_pinned: bool,
@@ -26,7 +26,7 @@ pub fn PinButtonPrimitive(
             style="background: none; border: none; padding: 4px; cursor: pointer; display: flex; align-items: center; font-size: 0.75rem; gap: 2px;"
         >
             {initial_icon}
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }

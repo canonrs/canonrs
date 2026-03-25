@@ -1,50 +1,38 @@
+//! @canon-level: ui
+//! Modal - attribute-driven
+//! Trigger: attr:data-rs-modal-trigger=""
+//! Close:   attr:data-rs-modal-close=""
+
 use leptos::prelude::*;
-use canonrs_core::primitives::{ModalPrimitive, ModalTriggerPrimitive, ModalOverlayPrimitive, ModalContentPrimitive};
+use canonrs_core::primitives::{ModalPrimitive, ModalOverlayPrimitive, ModalContentPrimitive};
 
 #[component]
 pub fn Modal(
     children: Children,
-    #[prop(into)] id: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ModalPrimitive id=id class=class>
+        <ModalPrimitive open=open class=class>
             {children()}
         </ModalPrimitive>
     }
 }
 
 #[component]
-pub fn ModalTrigger(
-    children: Children,
-        #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <ModalTriggerPrimitive class=class id=id>
-            {children()}
-        </ModalTriggerPrimitive>
-    }
-}
-
-#[component]
 pub fn ModalOverlay(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <ModalOverlayPrimitive class=class id=id />
-    }
+    view! { <ModalOverlayPrimitive class=class /> }
 }
 
 #[component]
 pub fn ModalContent(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ModalContentPrimitive class=class id=id>
+        <ModalContentPrimitive class=class>
             {children()}
         </ModalContentPrimitive>
     }
@@ -52,5 +40,14 @@ pub fn ModalContent(
 
 #[component]
 pub fn ModalPreview() -> impl IntoView {
-    view! { <Modal id="modal-preview".to_string()>"Content"</Modal> }
+    view! {
+        <Modal>
+            <button type="button" data-rs-modal-trigger="">"Open Modal"</button>
+            <ModalOverlay />
+            <ModalContent>
+                <p>"Modal content"</p>
+                <button type="button" data-rs-modal-close="">"Close"</button>
+            </ModalContent>
+        </Modal>
+    }
 }

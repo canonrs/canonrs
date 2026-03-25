@@ -58,20 +58,20 @@ where
             <DataTableToolbarPrimitive>
                 <input
                     type="text"
-                    data-datatable-filter=""
+                    data-rs-datatable-filter=""
                     placeholder="Search..."
                 />
                 {show_density.then(|| view! {
-                    <div data-datatable-density-toggle="">
-                        <button type="button" data-density-btn="compact"
+                    <div data-rs-datatable-density-toggle="">
+                        <button type="button" data-rs-density-btn="compact"
                             data-active={if initial_density == "compact" { "true" } else { "false" }}>
                             "Compact"
                         </button>
-                        <button type="button" data-density-btn="comfortable"
+                        <button type="button" data-rs-density-btn="comfortable"
                             data-active={if initial_density == "comfortable" { "true" } else { "false" }}>
                             "Comfortable"
                         </button>
-                        <button type="button" data-density-btn="spacious"
+                        <button type="button" data-rs-density-btn="spacious"
                             data-active={if initial_density == "spacious" { "true" } else { "false" }}>
                             "Spacious"
                         </button>
@@ -89,9 +89,9 @@ where
                                 let label = col.label.clone();
                                 view! {
                                     <div
-                                        data-dropdown-menu-checkbox-item=""
+                                        data-rs-dropdown-menu-checkbox-item=""
                                         aria-checked="true"
-                                        data-col-index=idx.to_string()
+                                        data-rs-col-index=idx.to_string()
                                     >
                                         {label}
                                     </div>
@@ -107,11 +107,11 @@ where
                     <DataTableHeadPrimitive>
                         <DataTableHeadRowPrimitive>
                             {expand_render.get_value().is_some().then(|| view! {
-                                <th data-datatable-head-cell="" scope="col" data-col-expand=""></th>
+                                <th data-rs-datatable-head-cell="" scope="col" data-rs-col-expand=""></th>
                             })}
                             {selectable.then(|| view! {
-                                <th data-datatable-head-cell="" scope="col" data-col-select="">
-                                    <input type="checkbox" data-datatable-select-all="" />
+                                <th data-rs-datatable-head-cell="" scope="col" data-rs-col-select="">
+                                    <input type="checkbox" data-rs-datatable-select-all="" />
                                 </th>
                             })}
                             {cols.get_value().into_iter().enumerate().map(|(idx, col)| {
@@ -123,8 +123,8 @@ where
                                         sort_direction=SortDirection::None
                                         col_index=idx.to_string()
                                     >
-                                        <span data-datatable-head-label="">{label}</span>
-                                        <span data-datatable-sort-icon="" aria-hidden="true">"↕"</span>
+                                        <span data-rs-datatable-head-label="">{label}</span>
+                                        <span data-rs-datatable-sort-icon="" aria-hidden="true">"↕"</span>
                                     </DataTableHeadCellPrimitive>
                                 }
                             }).collect::<Vec<_>>()}
@@ -142,11 +142,11 @@ where
                             let main_row = view! {
                                 <DataTableRowPrimitive row_id=idx.to_string() row_index=idx>
                                     {has_expand.then(|| view! {
-                                        <td data-datatable-cell="" data-col-expand="">
+                                        <td data-rs-datatable-cell="" data-rs-col-expand="">
                                             <button
                                                 type="button"
-                                                data-datatable-expand-btn=""
-                                                data-row-id=idx.to_string()
+                                                data-rs-datatable-expand-btn=""
+                                                data-rs-row-id=idx.to_string()
                                                 aria-expanded="false"
                                             >
                                                 "▶"
@@ -154,8 +154,8 @@ where
                                         </td>
                                     })}
                                     {selectable.then(|| view! {
-                                        <td data-datatable-cell="" data-col-select="">
-                                            <input type="checkbox" data-datatable-select-row="" value=idx.to_string() />
+                                        <td data-rs-datatable-cell="" data-rs-col-select="">
+                                            <input type="checkbox" data-rs-datatable-select-row="" value=idx.to_string() />
                                         </td>
                                     })}
                                     {row_cols.into_iter().enumerate().map(|(col_idx, col)| {
@@ -171,15 +171,15 @@ where
 
                             let expand_row = expand_content.map(|content| view! {
                                 <tr
-                                    data-datatable-expand-row=""
-                                    data-row-id=idx.to_string()
+                                    data-rs-datatable-expand-row=""
+                                    data-rs-row-id=idx.to_string()
                                     hidden=""
                                 >
                                     <td
-                                        data-datatable-cell=""
+                                        data-rs-datatable-cell=""
                                         colspan=col_count.to_string()
                                     >
-                                        <div data-datatable-expand-content="">
+                                        <div data-rs-datatable-expand-content="">
                                             {content}
                                         </div>
                                     </td>
@@ -197,13 +197,13 @@ where
             </DataTableEmptyPrimitive>
 
             <DataTablePaginationPrimitive>
-                <button data-action="prev" type="button" disabled=true>
+                <button data-rs-action="prev" type="button" disabled=true>
                     "Previous"
                 </button>
-                <span data-pagination-info="">
+                <span data-rs-pagination-info="">
                     {format!("1 of {}", total_pages)}
                 </span>
-                <button type="button" data-action="next" disabled={total_pages <= 1}>
+                <button type="button" data-rs-action="next" disabled={total_pages <= 1}>
                     "Next"
                 </button>
             </DataTablePaginationPrimitive>

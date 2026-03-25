@@ -1,37 +1,18 @@
+//! @canon-level: ui
+//! Skeleton - Declarative UI wrapper
+
 use leptos::prelude::*;
 use canonrs_core::primitives::SkeletonPrimitive;
-
-#[derive(Clone, Copy, PartialEq)]
-pub enum SkeletonVariant {
-    Text,
-    Circle,
-    Rectangle,
-}
-
-impl SkeletonVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            SkeletonVariant::Text => "text",
-            SkeletonVariant::Circle => "circle",
-            SkeletonVariant::Rectangle => "rectangle",
-        }
-    }
-}
+pub use canonrs_core::primitives::SkeletonVariant;
 
 #[component]
 pub fn Skeleton(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = SkeletonVariant::Rectangle)] variant: SkeletonVariant,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let base_class = format!("skeleton variant-{} {}", variant.as_str(), class);
-
     view! {
-        <SkeletonPrimitive
-            class={base_class}
-            id={id}
-        >
+        <SkeletonPrimitive variant=variant class={class.unwrap_or_default()}>
             {children.map(|c| c())}
         </SkeletonPrimitive>
     }
@@ -39,5 +20,11 @@ pub fn Skeleton(
 
 #[component]
 pub fn SkeletonPreview() -> impl IntoView {
-    view! { <Skeleton>"Loading..."</Skeleton> }
+    view! {
+        <div style="display:flex;flex-direction:column;gap:0.5rem;max-width:300px;">
+            <Skeleton variant=SkeletonVariant::Rectangle />
+            <Skeleton variant=SkeletonVariant::Text />
+            <Skeleton variant=SkeletonVariant::Circle />
+        </div>
+    }
 }

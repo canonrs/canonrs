@@ -5,3 +5,5 @@ pub use progress_ui::*;
 pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
+
+pub use progress_ui::ProgressPreview;

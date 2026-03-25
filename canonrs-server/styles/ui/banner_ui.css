@@ -15,19 +15,19 @@
   color: var(--banner-fg);
 }
 
-[data-rs-banner][data-variant="info"] {
+[data-rs-banner][data-rs-variant="info"] {
   background: var(--banner-bg-info);
 }
 
-[data-rs-banner][data-variant="success"] {
+[data-rs-banner][data-rs-variant="success"] {
   background: var(--banner-bg-success);
 }
 
-[data-rs-banner][data-variant="warning"] {
+[data-rs-banner][data-rs-variant="warning"] {
   background: var(--banner-bg-warning);
 }
 
-[data-rs-banner][data-variant="error"] {
+[data-rs-banner][data-rs-variant="error"] {
   background: var(--banner-bg-error);
 }
 

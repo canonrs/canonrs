@@ -24,7 +24,7 @@ impl DataTableDensity {
 
 #[component]
 pub fn DataTablePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = DataTableDensity::Comfortable)] density: DataTableDensity,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
@@ -34,70 +34,70 @@ pub fn DataTablePrimitive(
             data-rs-datatable=""
             data-rs-density=density.as_str()
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DataTableToolbarPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-toolbar="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DataTableScrollPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-scroll="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DataTableTablePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <table data-rs-datatable-table="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </table>
     }
 }
 
 #[component]
 pub fn DataTableHeadPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <thead data-rs-datatable-head="" data-rs-resize-container="" class=class id=id>
-            {children.map(|c| c())}
+        <thead data-rs-datatable-head="" data-rs-resize-container="" class=class id=id.filter(|s| !s.is_empty())>
+            {children()}
         </thead>
     }
 }
 
 #[component]
 pub fn DataTableHeadRowPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <tr data-rs-datatable-head-row="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </tr>
     }
 }
@@ -122,7 +122,7 @@ impl SortDirection {
 
 #[component]
 pub fn DataTableHeadCellPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] sort_key: String,
     #[prop(default = SortDirection::None)] sort_direction: SortDirection,
@@ -139,26 +139,26 @@ pub fn DataTableHeadCellPrimitive(
             style={(!style.is_empty()).then(|| style)}
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </th>
     }
 }
 
 #[component]
 pub fn DataTableBodyPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <tbody data-rs-datatable-body="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </tbody>
     }
 }
 
 #[component]
 pub fn DataTableRowPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] row_id: String,
     #[prop(default = false)] selected: bool,
@@ -174,21 +174,21 @@ pub fn DataTableRowPrimitive(
         <tr
             data-rs-datatable-row=""
             data-rs-row-id={(!row_id.is_empty()).then_some(row_id)}
-            data-rs-selected={if selected { "true" } else { "false" }}
-            aria-selected={if selected { "true" } else { "false" }}
+            data-rs-selected={if selected { Some("true") } else { None }}
+            aria-selected={if selected { Some("true") } else { None }}
             aria-rowindex={row_index.map(|i| (i + 1).to_string())}
             data-rs-row-index={row_index.map(|i| i.to_string())}
             id={(!dom_id.is_empty()).then_some(dom_id)}
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </tr>
     }
 }
 
 #[component]
 pub fn DataTableCellPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] col_index: String,
     #[prop(into, default = String::new())] style: String,
@@ -200,55 +200,55 @@ pub fn DataTableCellPrimitive(
             style={(!style.is_empty()).then(|| style)}
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </td>
     }
 }
 
 #[component]
 pub fn DataTableFooterPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <tfoot data-rs-datatable-footer="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </tfoot>
     }
 }
 
 #[component]
 pub fn DataTablePaginationPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-pagination="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DataTableEmptyPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-empty="" data-rs-empty="true" role="status" aria-live="polite" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DataTableLoadingPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-datatable-loading="" data-rs-loading="true" role="status" aria-live="polite" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

@@ -24,13 +24,13 @@
 }
 
 /* Sizes */
-[data-rs-kbd][data-size="sm"] {
+[data-rs-kbd][data-rs-size="sm"] {
   font-size: var(--kbd-size-sm-font);
   padding: var(--kbd-size-sm-padding-y) var(--kbd-size-sm-padding-x);
 }
 
 /* Variants */
-[data-rs-kbd][data-variant="muted"] {
+[data-rs-kbd][data-rs-variant="muted"] {
   background: var(--kbd-muted-bg);
   color: var(--kbd-muted-fg);
 }

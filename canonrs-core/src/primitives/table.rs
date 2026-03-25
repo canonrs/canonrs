@@ -6,20 +6,20 @@ use leptos::prelude::*;
 
 #[component]
 pub fn TableWrapperPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-table-wrapper="" class=class id=id>
-            {children.map(|c| c())}
+        <div data-rs-table-wrapper="" class=class id=if id.is_empty() { None } else { Some(id.clone()) }>
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn TablePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] striped: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
@@ -29,55 +29,55 @@ pub fn TablePrimitive(
             data-rs-table="" 
             attr:data-striped={striped.then_some("true")}
             class=class 
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </table>
     }
 }
 
 #[component]
 pub fn TableHeaderPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <thead data-rs-table-header="" class=class id=id>
-            {children.map(|c| c())}
+        <thead data-rs-table-header="" class=class id=if id.is_empty() { None } else { Some(id.clone()) }>
+            {children()}
         </thead>
     }
 }
 
 #[component]
 pub fn TableBodyPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <tbody data-rs-table-body="" class=class id=id>
-            {children.map(|c| c())}
+        <tbody data-rs-table-body="" class=class id=if id.is_empty() { None } else { Some(id.clone()) }>
+            {children()}
         </tbody>
     }
 }
 
 #[component]
 pub fn TableFooterPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <tfoot data-rs-table-footer="" class=class id=id>
-            {children.map(|c| c())}
+        <tfoot data-rs-table-footer="" class=class id=if id.is_empty() { None } else { Some(id.clone()) }>
+            {children()}
         </tfoot>
     }
 }
 
 #[component]
 pub fn TableRowPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] selected: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
@@ -87,48 +87,48 @@ pub fn TableRowPrimitive(
             data-rs-table-row="" 
             data-rs-state={selected.then_some("selected")}
             class=class 
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </tr>
     }
 }
 
 #[component]
 pub fn TableHeadPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <th data-rs-table-head="" scope="col" class=class id=id>
-            {children.map(|c| c())}
+        <th data-rs-table-head="" scope="col" class=class id=if id.is_empty() { None } else { Some(id.clone()) }>
+            {children()}
         </th>
     }
 }
 
 #[component]
 pub fn TableCellPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <td data-rs-table-cell="" class=class id=id>
-            {children.map(|c| c())}
+        <td data-rs-table-cell="" class=class id=if id.is_empty() { None } else { Some(id.clone()) }>
+            {children()}
         </td>
     }
 }
 
 #[component]
 pub fn TableCaptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <caption data-rs-table-caption="" class=class id=id>
-            {children.map(|c| c())}
+        <caption data-rs-table-caption="" class=class id=if id.is_empty() { None } else { Some(id.clone()) }>
+            {children()}
         </caption>
     }
 }

@@ -1,68 +1,94 @@
+//! @canon-level: ui
+//! Toast - Declarative UI wrapper
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    ToastPrimitive,
-    ToastTitlePrimitive,
-    ToastDescriptionPrimitive,
-    ToastClosePrimitive,
+    ToastPrimitive, ToastViewportPrimitive,
+    ToastTitlePrimitive, ToastDescriptionPrimitive,
+    ToastActionPrimitive, ToastClosePrimitive,
 };
-
 pub use canonrs_core::primitives::ToastVariant;
 
 #[component]
 pub fn Toast(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = ToastVariant::Default)] variant: ToastVariant,
-    #[prop(default = true)] open: bool,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ToastPrimitive variant=variant open=open class=class id=id>
-            {children.map(|c| c())}
+        <ToastPrimitive variant=variant class={class.unwrap_or_default()}>
+            {children()}
         </ToastPrimitive>
     }
 }
 
 #[component]
-pub fn ToastTitle(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+pub fn ToastViewport(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ToastTitlePrimitive class=class id=id>
-            {children.map(|c| c())}
+        <ToastViewportPrimitive class={class.unwrap_or_default()}>
+            {children()}
+        </ToastViewportPrimitive>
+    }
+}
+
+#[component]
+pub fn ToastTitle(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! {
+        <ToastTitlePrimitive class={class.unwrap_or_default()}>
+            {children()}
         </ToastTitlePrimitive>
     }
 }
 
 #[component]
 pub fn ToastDescription(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ToastDescriptionPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <ToastDescriptionPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </ToastDescriptionPrimitive>
     }
 }
 
 #[component]
-pub fn ToastClose(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+pub fn ToastAction(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ToastClosePrimitive class=class id=id>
-            {children.map(|c| c())}
+        <ToastActionPrimitive class={class.unwrap_or_default()}>
+            {children()}
+        </ToastActionPrimitive>
+    }
+}
+
+#[component]
+pub fn ToastClose(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! {
+        <ToastClosePrimitive class={class.unwrap_or_default()}>
+            {children()}
         </ToastClosePrimitive>
     }
 }
 
 #[component]
 pub fn ToastPreview() -> impl IntoView {
-    view! { <Toast>"Toast message"</Toast> }
+    view! {
+        <Toast variant=ToastVariant::Default>
+            <ToastTitle>"Notification"</ToastTitle>
+            <ToastDescription>"Your settings have been updated."</ToastDescription>
+            <ToastClose>"×"</ToastClose>
+        </Toast>
+    }
 }

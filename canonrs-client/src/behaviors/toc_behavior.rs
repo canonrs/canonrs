@@ -17,8 +17,8 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-toc", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
-        let mode = root.get_attribute("data-toc-mode")
+    register_behavior("data-rs-toc", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        let mode = root.get_attribute("data-rs-mode")
             .unwrap_or_else(|| "simple".to_string());
 
         setup_scroll_spy(root, &mode)?;
@@ -35,13 +35,13 @@ pub fn register() {
 
 #[cfg(feature = "hydrate")]
 fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
-    if toc.get_attribute("data-spy-attached").as_deref() == Some("1") {
+    if toc.get_attribute("data-rs-toc-attached").as_deref() == Some("1") {
         return Ok(());
     }
-    let _ = toc.set_attribute("data-spy-attached", "1");
+    let _ = toc.set_attribute("data-rs-toc-attached", "1");
 
     // Find all heading targets from toc items
-    let items = toc.query_selector_all("[data-toc-item][data-target]")
+    let items = toc.query_selector_all("[data-rs-toc-item][data-rs-target]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
 
     if items.length() == 0 { return Ok(()); }
@@ -60,41 +60,41 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
             if id.is_empty() { continue }
 
             // Reset all items
-            if let Ok(all_items) = toc_clone.query_selector_all("[data-toc-item]") {
+            if let Ok(all_items) = toc_clone.query_selector_all("[data-rs-toc-item]") {
                 for j in 0..all_items.length() {
                     if let Some(item) = all_items.item(j) {
                         if let Ok(el) = item.dyn_into::<Element>() {
-                            let _ = el.set_attribute("data-state", "idle");
+                            let _ = el.set_attribute("data-rs-state", "idle");
                         }
                     }
                 }
             }
 
             // Set active on matching item
-            let selector = format!("[data-toc-item][data-target='{}']", id);
+            let selector = format!("[data-rs-toc-item][data-rs-target='{}']", id);
             if let Ok(Some(item)) = toc_clone.query_selector(&selector) {
-                let _ = item.set_attribute("data-state", "active");
-                let _ = toc_clone.set_attribute("data-active-heading", &id);
+                let _ = item.set_attribute("data-rs-state", "active");
+                let _ = toc_clone.set_attribute("data-rs-active-heading", &id);
 
                 // ── ANCESTOR LOGIC ────────────────────────────────────────
-                if let Some(active_level_str) = item.get_attribute("data-level") {
+                if let Some(active_level_str) = item.get_attribute("data-rs-level") {
                     if let Ok(active_level) = active_level_str.parse::<i32>() {
                         let mut last_at_level: [Option<Element>; 7] = Default::default();
                         
-                        if let Ok(all_items) = toc_clone.query_selector_all("[data-toc-item]") {
+                        if let Ok(all_items) = toc_clone.query_selector_all("[data-rs-toc-item]") {
                             for j in 0..all_items.length() {
                                 if let Some(toc_item) = all_items.item(j) {
                                     if let Ok(el) = toc_item.dyn_into::<Element>() {
                                         if el.is_same_node(Some(&item)) {
                                             for parent_level in 1..active_level {
                                                 if let Some(ancestor) = &last_at_level[parent_level as usize] {
-                                                    let _ = ancestor.set_attribute("data-state", "ancestor");
+                                                    let _ = ancestor.set_attribute("data-rs-state", "ancestor");
                                                 }
                                             }
                                             break;
                                         }
                                         
-                                        if let Some(lvl_str) = el.get_attribute("data-level") {
+                                        if let Some(lvl_str) = el.get_attribute("data-rs-level") {
                                             if let Ok(lvl) = lvl_str.parse::<i32>() {
                                                 if lvl > 0 && lvl < 7 {
                                                     last_at_level[lvl as usize] = Some(el.clone());
@@ -138,7 +138,7 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
     for i in 0..items.length() {
         if let Some(item) = items.item(i) {
             if let Ok(el) = item.dyn_into::<Element>() {
-                if let Some(target_id) = el.get_attribute("data-target") {
+                if let Some(target_id) = el.get_attribute("data-rs-target") {
                     let heading_selector = format!("#{}", target_id);
                     if let Ok(Some(heading)) = document().query_selector(&heading_selector) {
                         observer.observe(&heading);
@@ -156,16 +156,16 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
 #[cfg(feature = "hydrate")]
 fn reveal_siblings_expand(toc: &Element, active_item: &Element) {
     let active_level = active_item
-        .get_attribute("data-level")
+        .get_attribute("data-rs-level")
         .and_then(|l| l.parse::<u8>().ok())
         .unwrap_or(2);
 
     // Hide all children
-    if let Ok(all_children) = toc.query_selector_all("[data-toc-item][data-child='true']") {
+    if let Ok(all_children) = toc.query_selector_all("[data-rs-toc-item][data-child='true']") {
         for i in 0..all_children.length() {
             if let Some(child) = all_children.item(i) {
                 if let Ok(el) = child.dyn_into::<Element>() {
-                    let _ = el.remove_attribute("data-visible");
+                    let _ = el.remove_attribute("data-rs-visible");
                 }
             }
         }
@@ -176,7 +176,7 @@ fn reveal_siblings_expand(toc: &Element, active_item: &Element) {
     if active_level <= 2 { return; }
 
     // Show all children that follow the active item at deeper levels
-    if let Ok(all_items) = toc.query_selector_all("[data-toc-item]") {
+    if let Ok(all_items) = toc.query_selector_all("[data-rs-toc-item]") {
         let mut found_active = false;
         let parent_level = active_level - 1;
 
@@ -188,7 +188,7 @@ fn reveal_siblings_expand(toc: &Element, active_item: &Element) {
                     }
 
                     if found_active {
-                        let item_level = el.get_attribute("data-level")
+                        let item_level = el.get_attribute("data-rs-level")
                             .and_then(|l| l.parse::<u8>().ok())
                             .unwrap_or(2);
 
@@ -197,7 +197,7 @@ fn reveal_siblings_expand(toc: &Element, active_item: &Element) {
                         }
 
                         if item_level > parent_level {
-                            let _ = el.set_attribute("data-visible", "true");
+                            let _ = el.set_attribute("data-rs-visible", "true");
                         }
                     }
                 }
@@ -213,11 +213,11 @@ fn expand_parent_subtrees(active_item: &Element) {
     // Walk up DOM — open any data-toc-subtree ancestor
     let mut current = active_item.parent_element();
     while let Some(parent) = current {
-        if parent.has_attribute("data-toc-subtree") {
-            let _ = parent.set_attribute("data-state", "open");
+        if parent.has_attribute("data-rs-toc-subtree") {
+            let _ = parent.set_attribute("data-rs-state", "open");
             // Update expand button
             if let Some(grandparent) = parent.parent_element() {
-                if let Ok(Some(btn)) = grandparent.query_selector("[data-toc-expand-btn]") {
+                if let Ok(Some(btn)) = grandparent.query_selector("[data-rs-toc-expand-btn]") {
                     let _ = btn.set_attribute("aria-expanded", "true");
                 }
             }
@@ -230,12 +230,12 @@ fn expand_parent_subtrees(active_item: &Element) {
 
 #[cfg(feature = "hydrate")]
 fn setup_nested_expand(toc: &Element) -> BehaviorResult<()> {
-    if toc.get_attribute("data-nested-attached").as_deref() == Some("1") {
+    if toc.get_attribute("data-rs-toc-nested-attached").as_deref() == Some("1") {
         return Ok(());
     }
-    let _ = toc.set_attribute("data-nested-attached", "1");
+    let _ = toc.set_attribute("data-rs-toc-nested-attached", "1");
 
-    let buttons = toc.query_selector_all("[data-toc-expand-btn]")
+    let buttons = toc.query_selector_all("[data-rs-toc-expand-btn]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..buttons.length() {
@@ -250,9 +250,9 @@ fn setup_nested_expand(toc: &Element) -> BehaviorResult<()> {
 
                     // Toggle sibling subtree
                     if let Some(parent) = btn_clone.parent_element() {
-                        if let Ok(Some(subtree)) = parent.query_selector("[data-toc-subtree]") {
+                        if let Ok(Some(subtree)) = parent.query_selector("[data-rs-toc-subtree]") {
                             let state = if is_expanded { "closed" } else { "open" };
-                            let _ = subtree.set_attribute("data-state", state);
+                            let _ = subtree.set_attribute("data-rs-state", state);
                         }
                     }
                 }) as Box<dyn FnMut(_)>);

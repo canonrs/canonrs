@@ -6,20 +6,19 @@ use leptos::prelude::*;
 
 #[component]
 pub fn LoadingOverlayPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] loading: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
+    let state = if loading { "loading" } else { "idle" };
     view! {
         <div
             data-rs-loading-overlay=""
-            data-rs-state={if loading { "loading" } else { "idle" }}
-            aria-busy={if loading { "true" } else { "false" }}
+            data-rs-state=state
+            aria-busy=if loading { Some("true") } else { None }
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

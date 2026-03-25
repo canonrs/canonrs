@@ -6,7 +6,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn CollapsiblePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
@@ -14,18 +14,20 @@ pub fn CollapsiblePrimitive(
     view! {
         <div
             data-rs-collapsible=""
+            data-rs-component="Collapsible"
+            data-rs-behavior="disclosure"
             data-rs-state={if open { "open" } else { "closed" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn CollapsibleTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
@@ -36,16 +38,16 @@ pub fn CollapsibleTriggerPrimitive(
             data-rs-collapsible-trigger=""
             aria-expanded={if open { "true" } else { "false" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn CollapsibleContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
@@ -57,9 +59,9 @@ pub fn CollapsibleContentPrimitive(
             role="region"
             aria-hidden={if open { "false" } else { "true" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

@@ -1,5 +1,5 @@
-//! EmptyTable UI Component
-//! Empty state for tables (Family E: Feedback)
+//! @canon-level: ui
+//! EmptyTable - Empty state for tables
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
@@ -14,11 +14,10 @@ pub fn EmptyTable(
     #[prop(into, default = "Add your first item to get started".to_string())] description: String,
     #[prop(optional)] children: Option<Children>,
     #[prop(default = 999)] colspan: i32,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <EmptyTablePrimitive colspan=colspan class=class id=id>
+        <EmptyTablePrimitive colspan=colspan class={class.unwrap_or_default()}>
             <EmptyTableTitlePrimitive>{title}</EmptyTableTitlePrimitive>
             <EmptyTableDescriptionPrimitive>{description}</EmptyTableDescriptionPrimitive>
             {children.map(|c| c())}
@@ -28,5 +27,15 @@ pub fn EmptyTable(
 
 #[component]
 pub fn EmptyTablePreview() -> impl IntoView {
-    view! { <EmptyTable title="No data".to_string() /> }
+    view! {
+        <table>
+            <tbody>
+                <EmptyTable
+                    colspan=3
+                    title="No data available".to_string()
+                    description="Add your first item to get started.".to_string()
+                />
+            </tbody>
+        </table>
+    }
 }

@@ -3,9 +3,11 @@
 //! Link Primitive - HTML puro
 
 use leptos::prelude::*;
+use crate::meta::DisabledState;
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum LinkVariant {
+    #[default]
     Default,
     Muted,
     Underline,
@@ -14,38 +16,39 @@ pub enum LinkVariant {
 impl LinkVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            LinkVariant::Default => "default",
-            LinkVariant::Muted => "muted",
-            LinkVariant::Underline => "underline",
+            Self::Default   => "default",
+            Self::Muted     => "muted",
+            Self::Underline => "underline",
         }
     }
 }
 
 #[component]
 pub fn LinkPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] href: String,
+    children: Children,
+    #[prop(into, default = String::new())] href: String,
     #[prop(default = LinkVariant::Default)] variant: LinkVariant,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = false)] external: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     let target = if external { "_blank" } else { "" };
-    let rel = if external { "noopener noreferrer" } else { "" };
+    let rel    = if external { "noopener noreferrer" } else { "" };
+    let _ = &disabled;
     view! {
         <a
             data-rs-link=""
-            data-rs-variant={variant.as_str()}
-            data-rs-state={move || if disabled.get() { "disabled" } else { "default" }}
+            data-rs-variant=variant.as_str()
+            data-rs-state=disabled.as_str()
             href=href
             target=target
             rel=rel
-            aria-disabled={move || if disabled.get() { "true" } else { "false" }}
+            aria-disabled=disabled.aria()
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </a>
     }
 }

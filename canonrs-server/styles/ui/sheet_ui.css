@@ -1,58 +1,70 @@
 /* SHEET - Family A Overlay */
 
 [data-rs-sheet] {
-  position: fixed;
-  inset: 0;
-  z-index: var(--sheet-overlay-z-index);
-  pointer-events: none;
-}
-
-[data-rs-sheet][data-state="open"] {
-  pointer-events: auto;
+  position: relative;
 }
 
 [data-rs-sheet-overlay] {
   position: fixed;
   inset: 0;
   background: var(--sheet-overlay-bg);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
+  z-index: var(--sheet-overlay-z-index);
+  display: none;
 }
 
-[data-rs-sheet][data-state="open"] [data-rs-sheet-overlay] {
-  opacity: 1;
-  visibility: visible;
+[data-rs-sheet][data-rs-state="open"] [data-rs-sheet-overlay] {
+  display: block;
 }
 
 [data-rs-sheet-content] {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: var(--sheet-content-width);
   background: var(--sheet-content-bg);
   color: var(--sheet-content-fg);
   padding: var(--sheet-content-padding);
   box-shadow: var(--sheet-content-shadow);
   overflow-y: auto;
-  z-index: 1;
+  z-index: calc(var(--sheet-overlay-z-index) + 1);
   transition: transform 0.3s ease;
+  display: none;
 }
 
-[data-rs-sheet][data-side="right"] [data-rs-sheet-content] {
-  top: 0;
+[data-rs-sheet][data-rs-state="open"] [data-rs-sheet-content] {
+  display: block;
+}
+
+[data-rs-sheet][data-rs-side="right"] [data-rs-sheet-content] {
   right: 0;
-  bottom: 0;
-  width: var(--sheet-content-width);
   transform: translateX(100%);
 }
 
-[data-rs-sheet][data-state="open"][data-side="right"] [data-rs-sheet-content] {
-  transform: translateX(0);
+[data-rs-sheet][data-rs-side="left"] [data-rs-sheet-content] {
+  left: 0;
+  transform: translateX(-100%);
 }
 
-[data-rs-sheet-header] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sheet-header-gap);
-  margin-bottom: var(--sheet-content-padding);
+[data-rs-sheet][data-rs-side="top"] [data-rs-sheet-content] {
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(-100%);
+}
+
+[data-rs-sheet][data-rs-side="bottom"] [data-rs-sheet-content] {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(100%);
+}
+
+[data-rs-sheet][data-rs-state="open"] [data-rs-sheet-content] {
+  transform: translate(0);
 }
 
 [data-rs-sheet-title] {
@@ -64,14 +76,4 @@
 [data-rs-sheet-description] {
   color: var(--sheet-description-fg);
   font-size: var(--sheet-description-font-size);
-}
-
-[data-rs-sheet-footer] {
-  display: flex;
-  gap: var(--sheet-footer-gap);
-  margin-top: var(--sheet-content-padding);
-}
-
-[data-rs-sheet-close] {
-  color: var(--sheet-close-fg);
 }

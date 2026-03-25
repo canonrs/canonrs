@@ -1,8 +1,5 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::AvatarPrimitive;
-
-#[derive(Clone, Copy, Debug)]
-struct AvatarImageError(RwSignal<bool>);
+use canonrs_core::primitives::{AvatarPrimitive, AvatarImagePrimitive, AvatarFallbackPrimitive};
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AvatarSize { Xs, Sm, Md, Lg, Xl }
@@ -36,12 +33,9 @@ pub fn Avatar(
     #[prop(optional)] status: Option<AvatarStatus>,
     #[prop(default = false)] animated: bool,
     #[prop(optional)] badge: Option<i32>,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let img_error = RwSignal::new(false);
-    provide_context(AvatarImageError(img_error));
-
     view! {
         <AvatarPrimitive
             class={format!("{} avatar-size-{} avatar-shape-{}", class, size.as_str(), shape.as_str())}
@@ -52,14 +46,14 @@ pub fn Avatar(
                 let pulse = animated && s == AvatarStatus::Online;
                 view! {
                     <span
-                        data-avatar-status=""
+                        data-rs-avatar-status=""
                         data-status={s.as_str()}
                         data-pulse={pulse.then_some("")}
                     />
                 }
             })}
             {badge.map(|b| view! {
-                <span data-avatar-badge="">{b}</span>
+                <span data-rs-avatar-badge="">{b}</span>
             })}
         </AvatarPrimitive>
     }
@@ -69,20 +63,15 @@ pub fn Avatar(
 pub fn AvatarImage(
     src: String,
     alt: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let img_error = expect_context::<AvatarImageError>().0;
-
     view! {
-        <img
-            data-avatar-image=""
+        <AvatarImagePrimitive
             src={src}
             alt={alt}
             class={class}
             id={id.unwrap_or_default()}
-            class:hidden=move || img_error.get()
-            on:error=move |_| img_error.set(true)
         />
     }
 }
@@ -90,24 +79,17 @@ pub fn AvatarImage(
 #[component]
 pub fn AvatarFallback(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let img_error = use_context::<AvatarImageError>().map(|c| c.0);
-
     view! {
-        <span
-            data-avatar-fallback=""
-            class={class}
-            id={id.unwrap_or_default()}
-            class:hidden=move || img_error.map_or(false, |sig| !sig.get())
-        >
+        <AvatarFallbackPrimitive class={class} id={id.unwrap_or_default()}>
             {children.map(|c| c())}
-        </span>
+        </AvatarFallbackPrimitive>
     }
 }
 
 #[component]
 pub fn AvatarPreview() -> impl IntoView {
-    view! { <Avatar size=AvatarSize::Md>"AB"</Avatar> }
+    view! { <Avatar size=AvatarSize::Md /> }
 }

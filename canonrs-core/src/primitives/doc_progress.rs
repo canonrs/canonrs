@@ -22,7 +22,7 @@ pub fn DocProgressPrimitive(
             aria-valuenow=progress_str
             aria-label="Reading progress"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
             <div data-rs-doc-progress-bar="" />
         </div>

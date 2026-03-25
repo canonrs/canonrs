@@ -1,29 +1,13 @@
 //! TableOfContents UI - Enterprise component using primitives
 //! 3 modes: simple | expand | nested
 //! SSR-safe, behavior-driven scroll-spy
+//! REGRA: zero RwSignal, zero use_context, zero set_interval
+//! Scroll-spy é responsabilidade do behavior JS via data-rs-*
 
 use leptos::prelude::*;
 use canonrs_core::TocItem;
-use canonrs_core::shared::navigation_context::{NavigationState, HeadingHierarchy};
 use canonrs_core::primitives::table_of_contents::*;
-
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
-pub enum TocMode {
-    #[default]
-    Simple,
-    Expand,
-    Nested,
-}
-
-impl TocMode {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            TocMode::Simple => "simple",
-            TocMode::Expand => "expand",
-            TocMode::Nested => "nested",
-        }
-    }
-}
+use canonrs_core::VisibilityState;
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
@@ -35,48 +19,11 @@ pub fn TableOfContents(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = "On this page".to_string())] title: String,
 ) -> impl IntoView {
-    // Populate NavigationContext from TOC items
-    if let Some(nav_state) = use_context::<RwSignal<NavigationState>>() {
-        let hierarchy = HeadingHierarchy::from_toc_items(&items);
-        nav_state.update(|s| {
-            s.heading_hierarchy = hierarchy;
-            // Initialize with first heading
-            if let Some(first) = items.first() {
-                s.current_heading_id = Some(first.id.clone());
-            }
-        });
-
-        // Poll for data-active-heading changes
-        #[cfg(feature = "hydrate")]
-        {
-            use leptos::leptos_dom::helpers::{document, set_interval_with_handle};
-            use std::time::Duration;
-            
-            let toc_id = id.clone();
-            let _interval = set_interval_with_handle(
-                move || {
-                    if let Some(toc_el) = document().get_element_by_id(&toc_id) {
-                        if let Some(active_id) = toc_el.get_attribute("data-active-heading") {
-                            if !active_id.is_empty() {
-                                nav_state.update(|s| {
-                                    if s.current_heading_id.as_ref() != Some(&active_id) {
-                                        s.current_heading_id = Some(active_id);
-                                    }
-                                });
-                            }
-                        }
-                    }
-                },
-                Duration::from_millis(200)
-            );
-        }
-    }
-
     view! {
         <TocPrimitive
             id=id
             class=class
-            data_toc_mode=mode.as_str().to_string()
+            mode=mode
         >
             <TocTitlePrimitive>
                 {title}
@@ -100,9 +47,9 @@ fn render_simple(items: Vec<TocItem>) -> impl IntoView {
                     <TocItemPrimitive
                         data_level=item.level.to_string()
                         data_target=item.id.clone()
-                        data_state="idle".to_string()
-                        data_child="false".to_string()
-                        data_has_children="false".to_string()
+                        state=TocItemState::Idle
+                        is_child=false
+                        has_children=false
                     >
                         <TocLinkPrimitive href=format!("#{}", item.id)>
                             {item.text}
@@ -125,9 +72,9 @@ fn render_expand(items: Vec<TocItem>) -> impl IntoView {
                     <TocItemPrimitive
                         data_level=item.level.to_string()
                         data_target=item.id.clone()
-                        data_state="idle".to_string()
-                        data_child=if is_child { "true".to_string() } else { "false".to_string() }
-                        data_has_children="false".to_string()
+                        state=TocItemState::Idle
+                        is_child=is_child
+                        has_children=false
                     >
                         <TocLinkPrimitive href=format!("#{}", item.id)>
                             {item.text}
@@ -204,18 +151,18 @@ fn render_tree_nodes(nodes: Vec<TocNode>) -> Vec<AnyView> {
             <TocItemPrimitive
                 data_level=item.level.to_string()
                 data_target=item.id.clone()
-                data_state="idle".to_string()
-                data_child="false".to_string()
-                data_has_children=if has_children { "true".to_string() } else { "false".to_string() }
+                state=TocItemState::Idle
+                is_child=false
+                has_children=has_children
             >
                 {has_children.then(|| view! {
-                    <TocExpandButtonPrimitive aria_expanded="false".to_string() />
+                    <TocExpandButtonPrimitive  />
                 })}
                 <TocLinkPrimitive href=format!("#{}", item.id)>
                     {item.text}
                 </TocLinkPrimitive>
                 {has_children.then(|| view! {
-                    <TocSubtreePrimitive data_state="closed".to_string()>
+                    <TocSubtreePrimitive state=VisibilityState::Closed>
                         {render_tree_nodes(children)}
                     </TocSubtreePrimitive>
                 })}

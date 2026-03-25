@@ -15,27 +15,27 @@
   transition: background var(--badge-transition-duration) var(--badge-transition-ease);
 }
 
-[data-rs-badge][data-variant="default"] {
+[data-rs-badge][data-rs-variant="default"] {
   background: var(--badge-bg-default);
   color: var(--badge-fg-default);
 }
 
-[data-rs-badge][data-variant="primary"] {
+[data-rs-badge][data-rs-variant="primary"] {
   background: var(--badge-bg-primary);
   color: var(--badge-fg-primary);
 }
 
-[data-rs-badge][data-variant="success"] {
+[data-rs-badge][data-rs-variant="success"] {
   background: var(--badge-bg-success);
   color: var(--badge-fg-success);
 }
 
-[data-rs-badge][data-variant="warning"] {
+[data-rs-badge][data-rs-variant="warning"] {
   background: var(--badge-bg-warning);
   color: var(--badge-fg-warning);
 }
 
-[data-rs-badge][data-variant="destructive"] {
+[data-rs-badge][data-rs-variant="destructive"] {
   background: var(--badge-bg-destructive);
   color: var(--badge-fg-destructive);
 }

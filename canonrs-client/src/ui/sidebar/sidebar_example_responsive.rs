@@ -1,92 +1,32 @@
 use leptos::prelude::*;
 use canonrs_core::{
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator
+    SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator,
+    SidebarTriggerPrimitive,
 };
 use crate::ui::avatar::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarStatus};
 use canonrs_core::{Badge, BadgeVariant};
 
-#[derive(Debug, Clone, Copy, PartialEq)]
-enum ViewportMode {
-    Desktop,
-    Tablet,
-    Mobile,
-}
-
 #[component]
 pub fn SidebarResponsive() -> impl IntoView {
-    let viewport_mode = RwSignal::new(ViewportMode::Desktop);
-    let is_open = RwSignal::new(false);
-    
-    use leptos::web_sys::window;
-    use leptos::wasm_bindgen::closure::Closure;
-    use leptos::wasm_bindgen::JsCast;
-
-    Effect::new(move |_| {
-        if let Some(win) = window() {
-            let win_clone = win.clone();
-            
-            let update_viewport = move || {
-                if let Ok(width) = win_clone.inner_width() {
-                    if let Some(width) = width.as_f64() {
-                        let mode = if width >= 1024.0 {
-                            ViewportMode::Desktop
-                        } else if width >= 768.0 {
-                            ViewportMode::Tablet
-                        } else {
-                            ViewportMode::Mobile
-                        };
-
-                        viewport_mode.set(mode);
-
-                        if mode == ViewportMode::Desktop {
-                            is_open.set(true);
-                        }
-                    }
-                }
-            };
-
-            update_viewport();
-
-            let closure = Closure::wrap(Box::new(move || {
-                update_viewport();
-            }) as Box<dyn FnMut()>);
-
-            let _ = win.add_event_listener_with_callback(
-                "resize",
-                closure.as_ref().unchecked_ref(),
-            );
-
-            closure.forget();
-        }
-    });
-
-    let toggle_sidebar = move |_| is_open.update(|o| *o = !*o);
-    let close_sidebar = move |_| is_open.set(false);
-
-    let container_classes = move || {
-        format!(
-            "responsive-sidebar-container {} {}",
-            match viewport_mode.get() {
-                ViewportMode::Desktop => "mode-desktop",
-                ViewportMode::Tablet => "mode-tablet",
-                ViewportMode::Mobile => "mode-mobile",
-            },
-            if is_open.get() { "is-open" } else { "" }
-        )
-    };
-
     view! {
-        <div class=container_classes>
-            
-            <button on:click=toggle_sidebar class="hamburger-btn">"☰"</button>
+        <div data-rs-sidebar-responsive="" class="responsive-sidebar-container">
 
-            <div on:click=close_sidebar class="sidebar-overlay" />
+            <button
+                type="button"
+                data-rs-sidebar-toggle="1"
+                class="hamburger-btn"
+            >
+                "☰"
+            </button>
+
+            <div data-rs-sidebar-overlay="" class="sidebar-overlay" />
 
             <div class="sidebar-wrapper">
-                <Sidebar collapsed=false>
-                    
-                    <button on:click=close_sidebar class="close-btn">"✕"</button>
+                <Sidebar collapsed=true>
+                    <SidebarTriggerPrimitive class="close-btn">
+                        "✕"
+                    </SidebarTriggerPrimitive>
 
                     <SidebarHeader>
                         <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
@@ -129,8 +69,7 @@ pub fn SidebarResponsive() -> impl IntoView {
 
                     <SidebarFooter>
                         <div data-sidebar-label="" style="padding: 0.75rem; font-size: 0.75rem;">
-                            <div>{move || format!("Mode: {:?}", viewport_mode.get())}</div>
-                            <div>"© 2026 CanonRS"</div>
+                            "© 2026 CanonRS"
                         </div>
                     </SidebarFooter>
                 </Sidebar>

@@ -1,21 +1,18 @@
+//! @canon-level: ui
+//! Toggle - native checkbox, CSS-driven via :checked
+
 use leptos::prelude::*;
 use canonrs_core::primitives::TogglePrimitive;
 
 #[component]
 pub fn Toggle(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = false)] pressed: bool,
     #[prop(into, default = String::new())] aria_label: String,
 ) -> impl IntoView {
     view! {
-        <TogglePrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-            pressed={pressed}
-            aria_label=aria_label
-        >
+        <TogglePrimitive class=class pressed=pressed.into() aria_label=aria_label>
             {children()}
         </TogglePrimitive>
     }
@@ -23,5 +20,8 @@ pub fn Toggle(
 
 #[component]
 pub fn TogglePreview() -> impl IntoView {
-    view! { <Toggle>"Toggle"</Toggle> }
+    view! {
+        <Toggle>"Toggle"</Toggle>
+        <Toggle pressed=true>"Active"</Toggle>
+    }
 }

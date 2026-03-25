@@ -14,23 +14,23 @@
   color: var(--inline-notice-fg);
 }
 
-[data-rs-inline-notice][data-variant="default"] {
+[data-rs-inline-notice][data-rs-variant="default"] {
   background: var(--inline-notice-bg-default);
 }
 
-[data-rs-inline-notice][data-variant="info"] {
+[data-rs-inline-notice][data-rs-variant="info"] {
   background: var(--inline-notice-bg-info);
 }
 
-[data-rs-inline-notice][data-variant="success"] {
+[data-rs-inline-notice][data-rs-variant="success"] {
   background: var(--inline-notice-bg-success);
 }
 
-[data-rs-inline-notice][data-variant="warning"] {
+[data-rs-inline-notice][data-rs-variant="warning"] {
   background: var(--inline-notice-bg-warning);
 }
 
-[data-rs-inline-notice][data-variant="error"] {
+[data-rs-inline-notice][data-rs-variant="error"] {
   background: var(--inline-notice-bg-error);
 }
 

@@ -1,5 +1,4 @@
-//! @canon-level: strict
-//! @canon-owner: ui-team
+//! @canon-level: ui
 //! Pagination UI Component
 
 use leptos::prelude::*;
@@ -11,84 +10,78 @@ use canonrs_core::primitives::{
 
 #[component]
 pub fn Pagination(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationPrimitive class={class} id={id}>
-            {children.map(|c| c())}
+        <PaginationPrimitive class=class>
+            {children()}
         </PaginationPrimitive>
     }
 }
 
 #[component]
 pub fn PaginationContent(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationContentPrimitive class={class} id={id}>
-            {children.map(|c| c())}
+        <PaginationContentPrimitive class=class>
+            {children()}
         </PaginationContentPrimitive>
     }
 }
 
 #[component]
 pub fn PaginationItem(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationItemPrimitive class={class} id={id}>
-            {children.map(|c| c())}
+        <PaginationItemPrimitive class=class>
+            {children()}
         </PaginationItemPrimitive>
     }
 }
 
 #[component]
 pub fn PaginationLink(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(default = false)] is_active: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationLinkPrimitive href={href} is_active={is_active} class={class} id={id}>
-            {children.map(|c| c())}
+        <PaginationLinkPrimitive href=href is_active=is_active class=class>
+            {children()}
         </PaginationLinkPrimitive>
     }
 }
 
 #[component]
 pub fn PaginationPrevious(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationPreviousPrimitive href={href} disabled=disabled class={class} id={id}>
-            {children.map(|c| c())}
+        <PaginationPreviousPrimitive href=href disabled=disabled class=class>
+            {children()}
         </PaginationPreviousPrimitive>
     }
 }
 
 #[component]
 pub fn PaginationNext(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationNextPrimitive href={href} disabled=disabled class={class} id={id}>
-            {children.map(|c| c())}
+        <PaginationNextPrimitive href=href disabled=disabled class=class>
+            {children()}
         </PaginationNextPrimitive>
     }
 }
@@ -96,10 +89,9 @@ pub fn PaginationNext(
 #[component]
 pub fn PaginationEllipsis(
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <PaginationEllipsisPrimitive class={class} id={id} />
+        <PaginationEllipsisPrimitive class=class />
     }
 }
 
@@ -108,8 +100,21 @@ pub fn PaginationPreview() -> impl IntoView {
     view! {
         <Pagination>
             <PaginationContent>
-                <PaginationItem>"1"</PaginationItem>
-                <PaginationItem>"2"</PaginationItem>
+                <PaginationItem>
+                    <PaginationPrevious href="#">"\u{2190}"</PaginationPrevious>
+                </PaginationItem>
+                <PaginationItem>
+                    <PaginationLink href="#" is_active=true>"1"</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                    <PaginationLink href="#">"2"</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                    <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                    <PaginationNext href="#">"\u{2192}"</PaginationNext>
+                </PaginationItem>
             </PaginationContent>
         </Pagination>
     }

@@ -12,7 +12,6 @@ pub fn NavItem(
     #[prop(default = false)] disabled: bool,
     #[prop(optional)] icon: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <NavItemPrimitive
@@ -20,15 +19,14 @@ pub fn NavItem(
             active=active
             disabled=disabled
             class=class
-            id=id.unwrap_or_default()
         >
-            {icon.map(|i| view! { <span data-nav-item-icon="">{i()}</span> })}
-            <span data-nav-item-label="">{label}</span>
+            {icon.map(|i| view! { <span data-rs-nav-item-icon="">{i()}</span> })}
+            <span data-rs-nav-item-label="">{label}</span>
         </NavItemPrimitive>
     }
 }
 
 #[component]
-pub fn NavItemPreview() -> leptos::prelude::AnyView {
-    view! { <NavItem label="Nav Item".to_string() /> }.into_any()
+pub fn NavItemPreview() -> impl IntoView {
+    view! { <NavItem label="Nav Item".to_string() /> }
 }

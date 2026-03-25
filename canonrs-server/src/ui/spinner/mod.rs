@@ -5,3 +5,5 @@ pub use spinner_ui::*;
 pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
+
+pub use spinner_ui::SpinnerPreview;

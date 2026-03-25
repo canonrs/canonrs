@@ -28,19 +28,16 @@
   justify-content: center;
 }
 
-[data-rs-tabs-trigger][data-state="active"] {
+[data-rs-tabs-trigger][data-rs-state="active"] {
   color: var(--tabs-trigger-fg-active);
   background: var(--tabs-trigger-bg-active);
 }
 
-[data-rs-tabs-content] {
-  padding: var(--tabs-content-padding);
-}
-
-[data-rs-tabs-content][data-state="inactive"] {
+[data-rs-tabs-content][data-rs-state="inactive"] {
   display: none;
 }
 
-[data-rs-tabs-content][data-state="active"] {
+[data-rs-tabs-content][data-rs-state="active"] {
   display: block;
+  padding: var(--tabs-content-padding);
 }

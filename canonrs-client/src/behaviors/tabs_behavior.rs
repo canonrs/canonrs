@@ -26,7 +26,13 @@ fn activate_tab(root: &web_sys::Element, value: &str) {
             let Some(node) = contents.item(i) else { continue };
             let Ok(el) = node.dyn_into::<web_sys::Element>() else { continue };
             let v = el.get_attribute("data-rs-value").unwrap_or_default();
-            el.set_attribute("data-rs-state", if v == value { "active" } else { "inactive" }).ok();
+            let active = v == value;
+            el.set_attribute("data-rs-state", if active { "active" } else { "inactive" }).ok();
+            if active {
+                el.remove_attribute("hidden").ok();
+            } else {
+                el.set_attribute("hidden", "").ok();
+            }
         }
     }
 }
@@ -38,7 +44,14 @@ pub fn register() {
         if root.get_attribute("data-rs-tabs-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-tabs-attached", "1").ok();
 
-        let default_val = root.get_attribute("data-rs-default").unwrap_or_default();
+        // detectar tab ativa via trigger com data-rs-state="active"
+        let default_val = root
+            .query_selector("[data-rs-tabs-trigger][data-rs-state=\"active\"]")
+            .ok()
+            .flatten()
+            .and_then(|el| el.get_attribute("data-rs-value"))
+            .unwrap_or_default();
+
         if !default_val.is_empty() {
             activate_tab(root, &default_val);
         }
@@ -50,8 +63,8 @@ pub fn register() {
             let Some(node) = triggers.item(i) else { continue };
             let Ok(btn) = node.dyn_into::<HtmlElement>() else { continue };
 
-            if btn.get_attribute("data-rs-trigger-initialized").is_some() { continue; }
-            btn.set_attribute("data-rs-trigger-initialized", "1").ok();
+            if btn.get_attribute("data-rs-tabs-trigger-initialized").is_some() { continue; }
+            btn.set_attribute("data-rs-tabs-trigger-initialized", "1").ok();
 
             let root_click = root.clone();
             let cb = Closure::wrap(Box::new(move |e: MouseEvent| {

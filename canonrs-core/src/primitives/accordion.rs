@@ -3,6 +3,8 @@
 //! Accordion Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default)]
 pub enum AccordionSelection {
@@ -22,7 +24,7 @@ impl AccordionSelection {
 
 #[component]
 pub fn AccordionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
     #[prop(default = true)] collapsible: bool,
     #[prop(into, default = String::new())] class: String,
@@ -31,75 +33,79 @@ pub fn AccordionPrimitive(
     view! {
         <div
             data-rs-accordion=""
+            data-rs-component="Accordion"
+            data-rs-behavior="disclosure"
             data-rs-selection=selection.as_str()
-            data-rs-collapsible={if collapsible { "true" } else { "false" }}
+            data-rs-collapsible={if collapsible { Some("true") } else { None }}
             role="region"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn AccordionItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] open: bool,
+    children: Children,
+    #[prop(default = VisibilityState::Closed)] open: VisibilityState,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-accordion-item=""
-            data-rs-state={if open { "open" } else { "closed" }}
+            data-rs-state={visibility_attrs(open).data_rs_state}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn AccordionTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] open: bool,
+    children: Children,
+    #[prop(default = VisibilityState::Closed)] open: VisibilityState,
     #[prop(optional)] controls: Option<String>,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    // aria-controls só emitido se controls tiver valor real
+    let aria_controls = controls.filter(|s| !s.is_empty());
     view! {
         <button
             type="button"
             data-rs-accordion-trigger=""
-            aria-expanded={if open { "true" } else { "false" }}
-            aria-controls=controls
+            aria-expanded={visibility_attrs(open).aria_expanded}
+            aria-controls=aria_controls
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn AccordionContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] open: bool,
+    children: Children,
+    #[prop(default = VisibilityState::Closed)] open: VisibilityState,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-accordion-content=""
-            data-rs-state={if open { "open" } else { "closed" }}
-            aria-hidden={if open { "false" } else { "true" }}
-            hidden=!open
+            data-rs-state={visibility_attrs(open).data_rs_state}
+            aria-hidden={visibility_attrs(open).aria_hidden}
+            hidden={visibility_attrs(open).hidden}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

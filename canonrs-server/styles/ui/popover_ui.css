@@ -23,7 +23,7 @@
   transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
-[data-rs-popover][data-state="open"] [data-rs-popover-content] {
+[data-rs-popover][data-rs-state="open"] [data-rs-popover-content] {
   opacity: 1;
   visibility: visible;
   transform: scale(1);

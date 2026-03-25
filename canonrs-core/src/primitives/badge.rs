@@ -30,21 +30,19 @@ impl BadgeVariant {
 
 #[component]
 pub fn BadgePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = BadgeVariant::Default)] variant: BadgeVariant,
     #[prop(default = false)] interactive: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <span
             data-rs-badge=""
             data-rs-variant=variant.as_str()
-            data-rs-interactive={if interactive { Some("true") } else { None }}
+            data-rs-interactive=if interactive { Some("true") } else { None }
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }

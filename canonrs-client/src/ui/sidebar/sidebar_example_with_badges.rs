@@ -1,7 +1,8 @@
 use leptos::prelude::*;
 use canonrs_core::{
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator
+    SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator,
+    SidebarTriggerPrimitive,
 };
 use crate::ui::avatar::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarStatus};
 use canonrs_core::{Badge, BadgeVariant};
@@ -10,17 +11,12 @@ use canonrs_core::{Badge, BadgeVariant};
 pub fn SidebarWithBadges(
     #[prop(default = false)] default_collapsed: bool,
 ) -> impl IntoView {
-    let collapsed = RwSignal::new(default_collapsed);
-
     view! {
         <div style="position: relative;">
-            <Sidebar collapsed=collapsed>
-                <button
-                    on:click=move |_| collapsed.update(|c| *c = !*c)
-                    style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;"
-                >
-                    {move || if collapsed.get() { "→" } else { "←" }}
-                </button>
+            <Sidebar collapsed=default_collapsed>
+                <SidebarTriggerPrimitive style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;">
+                    "⇔"
+                </SidebarTriggerPrimitive>
 
                 <SidebarHeader>
                     <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
@@ -41,7 +37,7 @@ pub fn SidebarWithBadges(
                 <SidebarContent>
                     <SidebarMenu>
                         <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                        
+
                         <SidebarMenuItem href="/dashboard".to_string() active=true>
                             <span data-sidebar-icon>"📊"</span>
                             <span data-sidebar-label>"Dashboard"</span>

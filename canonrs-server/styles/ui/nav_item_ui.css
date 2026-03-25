@@ -1,8 +1,3 @@
-/**
- * NavItem Styles
- * Contrato: data-nav-item, data-active, data-disabled
- */
-
 [data-rs-nav-group] {
   display: flex;
   flex-direction: column;
@@ -35,13 +30,13 @@
   outline-offset: 2px;
 }
 
-[data-rs-nav-item][data-active="true"] {
+[data-rs-nav-item][data-rs-state="active"] {
   background: var(--state-active-bg, var(--theme-action-accent-bg));
   color: var(--state-active-fg, var(--theme-action-primary-bg-foreground));
   font-weight: var(--nav-item-active-font-weight, var(--font-weight-semibold));
 }
 
-[data-rs-nav-item][data-disabled="true"] {
+[data-rs-nav-item][data-rs-state="disabled"] {
   opacity: var(--state-disabled-opacity, 0.5);
   cursor: not-allowed;
   pointer-events: none;

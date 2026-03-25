@@ -3,105 +3,127 @@
 //! Dialog Primitive - HTML puro + ARIA completo
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
 
 #[component]
 pub fn DialogPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-dialog=""
-            data-rs-state="closed"
+            data-rs-component="Dialog"
+            data-rs-behavior="overlay"
+            data-rs-state=s.data_rs_state
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DialogTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-dialog-trigger=""
             aria-haspopup="dialog"
+            aria-expanded=s.aria_expanded
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
+    }
+}
+
+#[component]
+pub fn DialogPortalPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! {
+        <div data-rs-dialog-portal="">
+            {children()}
+        </div>
     }
 }
 
 #[component]
 pub fn DialogOverlayPrimitive(
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dialog-overlay=""
             aria-hidden="true"
             class=class
-            id=id
         />
     }
 }
 
 #[component]
 pub fn DialogContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(optional)] aria_labelledby: Option<String>,
-    #[prop(optional)] aria_describedby: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dialog-content=""
             role="dialog"
             aria-modal="true"
-            aria-labelledby=aria_labelledby
-            aria-describedby=aria_describedby
             tabindex="-1"
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DialogTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <h2 data-rs-dialog-title="" class=class id=id>
-            {children.map(|c| c())}
+        <h2 data-rs-dialog-title="" class=class>
+            {children()}
         </h2>
     }
 }
 
 #[component]
 pub fn DialogDescriptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <p data-rs-dialog-description="" class=class id=id>
-            {children.map(|c| c())}
+        <p data-rs-dialog-description="" class=class>
+            {children()}
         </p>
+    }
+}
+
+#[component]
+pub fn DialogClosePrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <button
+            type="button"
+            data-rs-dialog-close=""
+            class=class
+        >
+            {children()}
+        </button>
     }
 }

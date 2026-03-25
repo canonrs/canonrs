@@ -6,25 +6,27 @@ use leptos::prelude::*;
 
 #[component]
 pub fn TooltipPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-tooltip=""
-            data-rs-state="closed"
+            data-rs-component="Tooltip"
+            data-rs-state={if open { "open" } else { "closed" }}
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn TooltipTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -33,16 +35,16 @@ pub fn TooltipTriggerPrimitive(
             type="button"
             data-rs-tooltip-trigger=""
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn TooltipContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -51,21 +53,21 @@ pub fn TooltipContentPrimitive(
             data-rs-tooltip-content=""
             role="tooltip"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn TooltipProviderPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-tooltip-provider="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

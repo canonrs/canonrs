@@ -1,21 +1,15 @@
+//! @canon-level: ui
 use leptos::prelude::*;
-use canonrs_core::primitives::{
-    HoverCardPrimitive,
-    HoverCardTriggerPrimitive,
-    HoverCardContentPrimitive,
-};
+use canonrs_core::primitives::{HoverCardPrimitive, HoverCardTriggerPrimitive, HoverCardContentPrimitive};
 
 #[component]
 pub fn HoverCard(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <HoverCardPrimitive
-            class=class
-            id=id
-        >
+        <HoverCardPrimitive open=open class=class>
             {children()}
         </HoverCardPrimitive>
     }
@@ -24,14 +18,10 @@ pub fn HoverCard(
 #[component]
 pub fn HoverCardTrigger(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <HoverCardTriggerPrimitive
-            class=class
-            id=id
-        >
+        <HoverCardTriggerPrimitive class=class>
             {children()}
         </HoverCardTriggerPrimitive>
     }
@@ -40,14 +30,10 @@ pub fn HoverCardTrigger(
 #[component]
 pub fn HoverCardContent(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <HoverCardContentPrimitive
-            class=class
-            id=id
-        >
+        <HoverCardContentPrimitive class=class>
             {children()}
         </HoverCardContentPrimitive>
     }
@@ -57,7 +43,7 @@ pub fn HoverCardContent(
 pub fn HoverCardPreview() -> impl IntoView {
     view! {
         <HoverCard>
-            <HoverCardTrigger>"Hover"</HoverCardTrigger>
+            <HoverCardTrigger>"Hover me"</HoverCardTrigger>
             <HoverCardContent>"Card content"</HoverCardContent>
         </HoverCard>
     }

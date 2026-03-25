@@ -28,63 +28,57 @@ impl CalloutVariant {
 
 #[component]
 pub fn CalloutPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = CalloutVariant::Default)] variant: CalloutVariant,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <aside
             data-rs-callout=""
             data-rs-variant=variant.as_str()
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </aside>
     }
 }
 
 #[component]
 pub fn CalloutIconPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-callout-icon=""
             aria-hidden="true"
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn CalloutTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-callout-title="" class=class id=id>
-            {children.map(|c| c())}
+        <div data-rs-callout-title="" class=class>
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn CalloutDescriptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-callout-description="" class=class id=id>
-            {children.map(|c| c())}
+        <div data-rs-callout-description="" class=class>
+            {children()}
         </div>
     }
 }

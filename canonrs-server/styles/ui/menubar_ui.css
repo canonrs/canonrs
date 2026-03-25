@@ -23,7 +23,7 @@
   background: var(--menubar-trigger-bg-hover);
 }
 
-[data-rs-menubar-trigger][data-state="open"] {
+[data-rs-menubar-menu][data-rs-state="open"] [data-rs-menubar-trigger] {
   background: var(--menubar-trigger-bg-expanded);
 }
 
@@ -38,7 +38,7 @@
   z-index: 50;
 }
 
-[data-rs-menubar-content][data-state="open"] {
+[data-rs-menubar-menu][data-rs-state="open"] [data-rs-menubar-content] {
   display: flex;
   flex-direction: column;
 }

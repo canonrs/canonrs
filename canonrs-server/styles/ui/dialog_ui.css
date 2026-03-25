@@ -1,6 +1,10 @@
 /* DIALOG - Family A Overlay */
 
 [data-rs-dialog] {
+  display: contents;
+}
+
+[data-rs-dialog-portal] {
   position: fixed;
   inset: 0;
   z-index: var(--dialog-overlay-z-index);
@@ -10,8 +14,12 @@
   justify-content: center;
 }
 
-[data-rs-dialog][data-state="open"] {
+[data-rs-dialog][data-rs-state="open"] [data-rs-dialog-portal] {
   pointer-events: auto;
+}
+
+[data-rs-dialog][data-rs-state="closed"] [data-rs-dialog-portal] {
+  display: none;
 }
 
 [data-rs-dialog-overlay] {
@@ -23,7 +31,7 @@
   transition: opacity 0.3s, visibility 0.3s;
 }
 
-[data-rs-dialog][data-state="open"] [data-rs-dialog-overlay] {
+[data-rs-dialog][data-rs-state="open"] [data-rs-dialog-overlay] {
   opacity: 1;
   visibility: visible;
 }
@@ -43,13 +51,9 @@
   transition: opacity 0.3s, transform 0.3s;
 }
 
-[data-rs-dialog][data-state="open"] [data-rs-dialog-content] {
+[data-rs-dialog][data-rs-state="open"] [data-rs-dialog-content] {
   opacity: 1;
   transform: scale(1);
-}
-
-[data-rs-dialog][data-state="closed"] {
-  display: none;
 }
 
 [data-rs-dialog-title] {

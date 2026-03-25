@@ -20,7 +20,7 @@ pub fn register() {
 
         let open_signal = state.open;
 
-        let trigger: HtmlElement = match root.query_selector("[data-rs-trigger]")
+        let trigger: HtmlElement = match root.query_selector("[data-rs-hover-card-trigger]")
             .ok().flatten()
             .and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
             Some(el) => el,

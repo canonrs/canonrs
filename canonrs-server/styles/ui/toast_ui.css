@@ -12,22 +12,22 @@
   padding: var(--toast-viewport-padding);
 }
 
-[data-rs-toast-viewport][data-position="top-right"] {
+[data-rs-toast-viewport][data-rs-position="top-right"] {
   top: 0;
   right: 0;
 }
 
-[data-rs-toast-viewport][data-position="top-left"] {
+[data-rs-toast-viewport][data-rs-position="top-left"] {
   top: 0;
   left: 0;
 }
 
-[data-rs-toast-viewport][data-position="bottom-right"] {
+[data-rs-toast-viewport][data-rs-position="bottom-right"] {
   bottom: 0;
   right: 0;
 }
 
-[data-rs-toast-viewport][data-position="bottom-left"] {
+[data-rs-toast-viewport][data-rs-position="bottom-left"] {
   bottom: 0;
   left: 0;
 }
@@ -49,21 +49,21 @@
   animation: toast-slide-in 0.2s ease-out;
 }
 
-[data-rs-toast][data-state="closed"] {
+[data-rs-toast][data-rs-state="closed"] {
   animation: toast-slide-out 0.2s ease-in;
 }
 
-[data-rs-toast][data-variant="success"] {
+[data-rs-toast][data-rs-variant="success"] {
   background: var(--toast-success-bg);
   border-color: var(--toast-success-border);
 }
 
-[data-rs-toast][data-variant="error"] {
+[data-rs-toast][data-rs-variant="error"] {
   background: var(--toast-error-bg);
   border-color: var(--toast-error-border);
 }
 
-[data-rs-toast][data-variant="warning"] {
+[data-rs-toast][data-rs-variant="warning"] {
   background: var(--toast-warning-bg);
   border-color: var(--toast-warning-border);
 }

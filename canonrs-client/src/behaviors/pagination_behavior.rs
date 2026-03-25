@@ -11,11 +11,11 @@ use canonrs_core::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-pagination", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
-        if root.get_attribute("data-pagination-attached").as_deref() == Some("1") { return Ok(()); }
-        root.set_attribute("data-pagination-attached", "1").ok();
+    register_behavior("data-rs-pagination", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+        if root.get_attribute("data-rs-pagination-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-pagination-attached", "1").ok();
 
-        let buttons = root.query_selector_all("button, a[data-pagination-link], a[data-pagination-previous], a[data-pagination-next]")
+        let buttons = root.query_selector_all("[data-rs-pagination-link], [data-rs-pagination-previous], [data-rs-pagination-next]")
             .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query buttons".into() })?;
 
         for i in 0..buttons.length() {
@@ -24,7 +24,9 @@ pub fn register() {
 
             let closure = Closure::wrap(Box::new(move |e: web_sys::MouseEvent| {
                 if let Some(target) = e.current_target().and_then(|t| t.dyn_into::<HtmlElement>().ok()) {
-                    let _ = target.dispatch_event(&web_sys::Event::new("pagination:click").unwrap());
+                    if target.get_attribute("data-rs-state").as_deref() == Some("disabled") {
+                        e.prevent_default();
+                    }
                 }
             }) as Box<dyn FnMut(_)>);
 
@@ -37,8 +39,3 @@ pub fn register() {
 
 #[cfg(not(feature = "hydrate"))]
 pub fn register() {}
-
-#[cfg(feature = "hydrate")]
-pub fn init_pagination() { register(); }
-#[cfg(not(feature = "hydrate"))]
-pub fn init_pagination() {}

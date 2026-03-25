@@ -1,8 +1,9 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Tabs Primitive - CSS puro com radio inputs + ARIA completo
+//! Tabs Primitive - data-rs-state SSR + behavior
 
 use leptos::prelude::*;
+use crate::meta::ActivityState;
 
 #[component]
 pub fn TabsPrimitive(
@@ -13,8 +14,10 @@ pub fn TabsPrimitive(
     view! {
         <div
             data-rs-tabs=""
+            data-rs-component="Tabs"
+            data-rs-behavior="navigation"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id) }
         >
             {children()}
         </div>
@@ -25,15 +28,9 @@ pub fn TabsPrimitive(
 pub fn TabsListPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-tabs-list=""
-            role="tablist"
-            class=class
-            id=id
-        >
+        <div data-rs-tabs-list="" role="tablist" aria-orientation="horizontal" class=class>
             {children()}
         </div>
     }
@@ -41,66 +38,41 @@ pub fn TabsListPrimitive(
 
 #[component]
 pub fn TabsTriggerPrimitive(
-    #[prop(into, default = String::new())] name: String,
-    #[prop(into, default = String::new())] value: String,
-    #[prop(default = false)] checked: bool,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <input
-            type="radio"
-            data-rs-tabs-input=""
-            name=name
-            value=value
-            checked=checked
-            class=class
-            id=id
-        />
-    }
-}
-
-#[component]
-pub fn TabsTriggerLabelPrimitive(
     children: Children,
-    #[prop(into, default = String::new())] for_id: String,
-    #[prop(into, default = String::new())] controls: String,
-    #[prop(default = false)] selected: bool,
+    #[prop(into)] value: String,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <label
-            for=for_id
-            data-rs-tabs-trigger=""
-            data-rs-state={if selected { "active" } else { "inactive" }}
+        <button
+            type="button"
             role="tab"
-            aria-selected=selected.to_string()
-            aria-controls=controls
+            data-rs-tabs-trigger=""
+            data-rs-value=value
+            data-rs-state=active.as_str()
+            aria-selected={if active == ActivityState::Active { "true" } else { "false" }}
             class=class
-            id=id
         >
             {children()}
-        </label>
+        </button>
     }
 }
 
 #[component]
 pub fn TabsContentPrimitive(
     children: Children,
-    #[prop(into, default = String::new())] value: String,
-    #[prop(into, default = String::new())] labelledby: String,
+    #[prop(into)] value: String,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-tabs-content=""
             data-rs-value=value
+            data-rs-state=active.as_str()
             role="tabpanel"
-            aria-labelledby=labelledby
+            hidden={active == ActivityState::Inactive}
             class=class
-            id=id
         >
             {children()}
         </div>

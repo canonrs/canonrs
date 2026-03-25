@@ -1,9 +1,7 @@
 //! @canon-level: ui
-//! NavigationMenu - Declarative UI wrapper
+//! NavigationMenu - attribute-driven, CSS-first hover, JS keyboard
 
 use leptos::prelude::*;
-
-fn oc(s: Option<String>) -> String { s.unwrap_or_default() }
 use canonrs_core::primitives::{
     NavigationMenuPrimitive,
     NavigationMenuListPrimitive,
@@ -17,10 +15,10 @@ use canonrs_core::primitives::{
 #[component]
 pub fn NavigationMenu(
     children: Children,
-    #[prop(optional, into)] class_name: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuPrimitive class=oc(class_name)>
+        <NavigationMenuPrimitive class=class>
             {children()}
         </NavigationMenuPrimitive>
     }
@@ -29,10 +27,10 @@ pub fn NavigationMenu(
 #[component]
 pub fn NavigationMenuList(
     children: Children,
-    #[prop(optional, into)] class_name: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuListPrimitive class=oc(class_name)>
+        <NavigationMenuListPrimitive class=class>
             {children()}
         </NavigationMenuListPrimitive>
     }
@@ -41,41 +39,36 @@ pub fn NavigationMenuList(
 #[component]
 pub fn NavigationMenuItem(
     children: Children,
-    #[prop(optional, into)] class_name: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuItemPrimitive class=oc(class_name)>
+        <NavigationMenuItemPrimitive class=class>
             {children()}
         </NavigationMenuItemPrimitive>
     }
 }
 
+/// Trigger sem id wiring — behavior JS conecta via DOM closest
 #[component]
 pub fn NavigationMenuTrigger(
     children: Children,
-    #[prop(into, default = String::new())] controls_id: String,
-    #[prop(default = false)] expanded: bool,
-    #[prop(optional, into)] class_name: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuTriggerPrimitive
-            controls_id=controls_id
-            expanded=expanded
-            class=oc(class_name)
-        >
+        <NavigationMenuTriggerPrimitive class=class>
             {children()}
         </NavigationMenuTriggerPrimitive>
     }
 }
 
+/// Content sem id wiring — abre via CSS :hover/:focus-within + behavior keyboard
 #[component]
 pub fn NavigationMenuContent(
     children: Children,
-    #[prop(into, default = String::new())] content_id: String,
-    #[prop(optional, into)] class_name: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuContentPrimitive content_id=content_id class=oc(class_name)>
+        <NavigationMenuContentPrimitive class=class>
             {children()}
         </NavigationMenuContentPrimitive>
     }
@@ -85,10 +78,10 @@ pub fn NavigationMenuContent(
 pub fn NavigationMenuLink(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(optional, into)] class_name: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuLinkPrimitive href=href class=oc(class_name)>
+        <NavigationMenuLinkPrimitive href=href class=class>
             {children()}
         </NavigationMenuLinkPrimitive>
     }
@@ -97,10 +90,10 @@ pub fn NavigationMenuLink(
 #[component]
 pub fn NavigationMenuSubItem(
     children: Children,
-    #[prop(optional, into)] class_name: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuSubItemPrimitive class=oc(class_name)>
+        <NavigationMenuSubItemPrimitive class=class>
             {children()}
         </NavigationMenuSubItemPrimitive>
     }
@@ -111,8 +104,20 @@ pub fn NavigationMenuPreview() -> impl IntoView {
     view! {
         <NavigationMenu>
             <NavigationMenuList>
-                <NavigationMenuItem>"Home"</NavigationMenuItem>
-                <NavigationMenuItem>"About"</NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuTrigger>"Products"</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                        <NavigationMenuSubItem>
+                            <NavigationMenuLink href="/product-1">"Product 1"</NavigationMenuLink>
+                        </NavigationMenuSubItem>
+                        <NavigationMenuSubItem>
+                            <NavigationMenuLink href="/product-2">"Product 2"</NavigationMenuLink>
+                        </NavigationMenuSubItem>
+                    </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuLink href="/pricing">"Pricing"</NavigationMenuLink>
+                </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>
     }

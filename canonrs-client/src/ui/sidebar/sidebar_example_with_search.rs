@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use canonrs_core::{
+    SidebarTriggerPrimitive,
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
     SidebarMenu, SidebarMenuItem, SidebarGroupLabel
 };
@@ -10,9 +11,8 @@ use crate::ui::command::{CommandInteractive, CommandItemData};
 pub fn SidebarWithSearch(
     #[prop(default = false)] default_collapsed: bool,
 ) -> impl IntoView {
-    let collapsed = RwSignal::new(default_collapsed);
     let selected_item = RwSignal::new(String::new());
-    
+
     let menu_items = vec![
         CommandItemData {
             id: "dashboard".to_string(),
@@ -50,22 +50,19 @@ pub fn SidebarWithSearch(
             group: Some("Settings".to_string()),
         },
     ];
-    
+
     view! {
         <div style="position: relative;">
-            <Sidebar collapsed=collapsed>
-                <button 
-                    on:click=move |_| collapsed.update(|c| *c = !*c)
-                    style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;"
-                >
-                    {move || if collapsed.get() { "→" } else { "←" }}
-                </button>
+            <Sidebar collapsed=default_collapsed>
+                <SidebarTriggerPrimitive style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;">
+                    "⇔"
+                </SidebarTriggerPrimitive>
 
                 <SidebarHeader>
                     <div style="display: flex; flex-direction: column; gap: 0.75rem; padding: 1rem;">
                         <div style="display: flex; align-items: center; gap: 0.75rem;">
                             <Avatar size=AvatarSize::Md status=AvatarStatus::Online>
-                                <AvatarImage 
+                                <AvatarImage
                                     src="https://i.pravatar.cc/150?img=10".to_string()
                                     alt="User".to_string()
                                 />
@@ -80,18 +77,16 @@ pub fn SidebarWithSearch(
                 </SidebarHeader>
 
                 <SidebarContent>
-                    <Show when=move || !collapsed.get()>
-                        <div style="padding: 0 1rem 1rem 1rem;">
-                            <CommandInteractive
-                                items=menu_items.clone()
-                                placeholder="Search menu...".to_string()
-                                on_select=Callback::new(move |value: String| {
-                                    selected_item.set(value);
-                                })
-                            />
-                        </div>
-                    </Show>
-                    
+                    <div data-sidebar-search style="padding: 0 1rem 1rem 1rem;">
+                        <CommandInteractive
+                            items=menu_items.clone()
+                            placeholder="Search menu...".to_string()
+                            on_select=Callback::new(move |value: String| {
+                                selected_item.set(value);
+                            })
+                        />
+                    </div>
+
                     <SidebarMenu>
                         <SidebarGroupLabel>"Quick Access"</SidebarGroupLabel>
                         <SidebarMenuItem href="/dashboard".to_string() active=true>

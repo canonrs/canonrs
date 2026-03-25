@@ -6,24 +6,23 @@ use leptos::prelude::*;
 
 #[component]
 pub fn MarkdownPrimitive(
-    #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] id: String,
+    #[prop(into, default = String::new())] inner: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-markdown=""
             class=class
-            id=id
-        >
-            {children.map(|c| c())}
-        </div>
+            id=if id.is_empty() { None } else { Some(id.clone()) }
+            inner_html=inner
+        ></div>
     }
 }
 
 #[component]
 pub fn MarkdownToolbarPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -33,14 +32,14 @@ pub fn MarkdownToolbarPrimitive(
             aria-label="Markdown toolbar"
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn MarkdownToolbarItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] action: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
@@ -51,14 +50,14 @@ pub fn MarkdownToolbarItemPrimitive(
             data-rs-action=action
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn MarkdownTocPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = "closed".to_string())] state: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
@@ -69,7 +68,7 @@ pub fn MarkdownTocPrimitive(
             aria-label="Table of contents"
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </nav>
     }
 }
@@ -98,15 +97,19 @@ pub fn MarkdownTocItemPrimitive(
 
 #[component]
 pub fn MarkdownContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] html: String,
 ) -> impl IntoView {
+    #[cfg(feature = "ssr")]
+    let inner = html;
+    #[cfg(not(feature = "ssr"))]
+    let inner = { let _ = html; String::new() };
+
     view! {
         <div
             data-rs-markdown-content=""
             class=class
-        >
-            {children.map(|c| c())}
-        </div>
+            inner_html=inner
+        ></div>
     }
 }

@@ -1,83 +1,100 @@
+//! @canon-level: ui
+//! Breadcrumb - sem behavior
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     BreadcrumbPrimitive, BreadcrumbItemPrimitive, BreadcrumbLinkPrimitive,
     BreadcrumbSeparatorPrimitive, BreadcrumbEllipsisPrimitive,
 };
 
-#[derive(Clone, Debug, PartialEq)]
-pub struct BreadcrumbItemData {
-    pub label: String,
-    pub href: String,
-    pub is_current: bool,
-}
-
 #[component]
 pub fn Breadcrumb(
-    items: Vec<BreadcrumbItemData>,
-    #[prop(default = String::new())] separator: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let sep = if separator.is_empty() { "/".to_string() } else { separator.clone() };
-    let total = items.len();
-    
     view! {
-        <BreadcrumbPrimitive class={class} id={id.unwrap_or_default()}>
-            {items.into_iter().enumerate().map(|(idx, item)| {
-                let is_last = idx == total - 1;
-                let label = item.label.clone();
-                let href = item.href.clone();
-                let sep_clone = sep.clone();
-                
-                view! {
-                    <BreadcrumbItemPrimitive class=String::new()>
-                        {if is_last {
-                            view! { <span data-breadcrumb-page="" aria-current="page">{label}</span> }.into_any()
-                        } else {
-                            view! { <BreadcrumbLinkPrimitive href=href current={false} class=String::new()>{label}</BreadcrumbLinkPrimitive> }.into_any()
-                        }}
-                    </BreadcrumbItemPrimitive>
-                    {(!is_last).then(move || view! {
-                        <BreadcrumbItemPrimitive class=String::new()>
-                            <BreadcrumbSeparatorPrimitive class=String::new()>{sep_clone.clone()}</BreadcrumbSeparatorPrimitive>
-                        </BreadcrumbItemPrimitive>
-                    })}
-                }
-            }).collect_view()}
+        <BreadcrumbPrimitive class=class>
+            {children()}
         </BreadcrumbPrimitive>
     }
 }
 
 #[component]
-pub fn BreadcrumbLink(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] href: String,
-    #[prop(default = false)] current: bool,
-    #[prop(default = String::new())] class: String,
+pub fn BreadcrumbItem(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <BreadcrumbLinkPrimitive href={href} current={current} class={class}>{children.map(|c| c())}</BreadcrumbLinkPrimitive> }
+    view! {
+        <BreadcrumbItemPrimitive class=class>
+            {children()}
+        </BreadcrumbItemPrimitive>
+    }
+}
+
+#[component]
+pub fn BreadcrumbLink(
+    children: Children,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(default = false)] current: bool,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <BreadcrumbLinkPrimitive href=href current=current class=class>
+            {children()}
+        </BreadcrumbLinkPrimitive>
+    }
+}
+
+#[component]
+pub fn BreadcrumbPage(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <span data-rs-breadcrumb-page="" aria-current="page" class=class>
+            {children()}
+        </span>
+    }
 }
 
 #[component]
 pub fn BreadcrumbSeparator(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <BreadcrumbSeparatorPrimitive class={class}>{children.map(|c| c())}</BreadcrumbSeparatorPrimitive> }
+    view! {
+        <BreadcrumbSeparatorPrimitive class=class>
+            {children.map(|c| c()).unwrap_or_else(|| view! { "/" }.into_any())}
+        </BreadcrumbSeparatorPrimitive>
+    }
 }
 
 #[component]
 pub fn BreadcrumbEllipsis(
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <BreadcrumbItemPrimitive class={String::new()}><BreadcrumbEllipsisPrimitive class={class} id={id.unwrap_or_default()} /></BreadcrumbItemPrimitive> }
+    view! {
+        <BreadcrumbItemPrimitive class=String::new()>
+            <BreadcrumbEllipsisPrimitive class=class />
+        </BreadcrumbItemPrimitive>
+    }
 }
+
 #[component]
 pub fn BreadcrumbPreview() -> impl IntoView {
-    let items = vec![
-        BreadcrumbItemData { label: "Home".to_string(), href: "#".to_string(), is_current: false },
-        BreadcrumbItemData { label: "Page".to_string(), href: "".to_string(), is_current: true },
-    ];
-    view! { <Breadcrumb items=items /> }
+    view! {
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink href="#">"Home"</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+                <BreadcrumbLink href="#">"Components"</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+                <BreadcrumbPage>"Breadcrumb"</BreadcrumbPage>
+            </BreadcrumbItem>
+        </Breadcrumb>
+    }
 }

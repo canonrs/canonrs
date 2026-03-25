@@ -1,39 +1,33 @@
 use leptos::prelude::*;
 use super::{Toast, ToastTitle, ToastDescription, ToastClose, ToastVariant};
 
-/// BasicExample - Stateless structure demonstration
-/// Shows all variants without interactive behavior
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <Toast variant=ToastVariant::Default open=true>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+            <Toast variant=ToastVariant::Default>
                 <ToastTitle>"Notification"</ToastTitle>
                 <ToastDescription>"Your settings have been updated."</ToastDescription>
                 <ToastClose>"×"</ToastClose>
             </Toast>
-
-            <Toast variant=ToastVariant::Success open=true>
+            <Toast variant=ToastVariant::Success>
                 <ToastTitle>"Success"</ToastTitle>
                 <ToastDescription>"Your changes have been saved successfully."</ToastDescription>
                 <ToastClose>"×"</ToastClose>
             </Toast>
-
-            <Toast variant=ToastVariant::Warning open=true>
+            <Toast variant=ToastVariant::Warning>
                 <ToastTitle>"Warning"</ToastTitle>
                 <ToastDescription>"Your session will expire in 5 minutes."</ToastDescription>
                 <ToastClose>"×"</ToastClose>
             </Toast>
-
-            <Toast variant=ToastVariant::Error open=true>
+            <Toast variant=ToastVariant::Error>
                 <ToastTitle>"Error"</ToastTitle>
                 <ToastDescription>"Failed to save changes. Please try again."</ToastDescription>
                 <ToastClose>"×"</ToastClose>
             </Toast>
-
-            <Toast variant=ToastVariant::Info open=true>
+            <Toast variant=ToastVariant::Info>
                 <ToastTitle>"Update Available"</ToastTitle>
-                <ToastDescription>"A new version is available. Click to update."</ToastDescription>
+                <ToastDescription>"A new version is available."</ToastDescription>
                 <ToastClose>"×"</ToastClose>
             </Toast>
         </div>

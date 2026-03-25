@@ -6,7 +6,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn AspectRatioPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = 16.0f32)] ratio_w: f32,
     #[prop(default = 9.0f32)] ratio_h: f32,
     #[prop(into, default = String::new())] class: String,
@@ -18,10 +18,10 @@ pub fn AspectRatioPrimitive(
             data-rs-aspect-ratio=""
             data-rs-ratio=ratio
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
             <div data-rs-aspect-ratio-content="">
-                {children.map(|c| c())}
+                {children()}
             </div>
         </div>
     }

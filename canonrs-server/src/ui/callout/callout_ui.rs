@@ -1,67 +1,68 @@
+//! @canon-level: ui
+//! Callout - Declarative UI wrapper
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    CalloutPrimitive,
-    CalloutIconPrimitive,
-    CalloutTitlePrimitive,
-    CalloutDescriptionPrimitive,
+    CalloutPrimitive, CalloutIconPrimitive,
+    CalloutTitlePrimitive, CalloutDescriptionPrimitive,
 };
-
 pub use canonrs_core::primitives::CalloutVariant;
 
 #[component]
 pub fn Callout(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = CalloutVariant::Default)] variant: CalloutVariant,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CalloutPrimitive variant=variant class=class id=id>
-            {children.map(|c| c())}
+        <CalloutPrimitive variant=variant class={class.unwrap_or_default()}>
+            {children()}
         </CalloutPrimitive>
     }
 }
 
 #[component]
 pub fn CalloutIcon(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CalloutIconPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <CalloutIconPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </CalloutIconPrimitive>
     }
 }
 
 #[component]
 pub fn CalloutTitle(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CalloutTitlePrimitive class=class id=id>
-            {children.map(|c| c())}
+        <CalloutTitlePrimitive class={class.unwrap_or_default()}>
+            {children()}
         </CalloutTitlePrimitive>
     }
 }
 
 #[component]
 pub fn CalloutDescription(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CalloutDescriptionPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <CalloutDescriptionPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </CalloutDescriptionPrimitive>
     }
 }
 
 #[component]
 pub fn CalloutPreview() -> impl IntoView {
-    view! { <Callout>"Callout message"</Callout> }
+    view! {
+        <Callout variant=CalloutVariant::Info>
+            <CalloutTitle>"Information"</CalloutTitle>
+            <CalloutDescription>"New features are available in the latest release."</CalloutDescription>
+        </Callout>
+    }
 }

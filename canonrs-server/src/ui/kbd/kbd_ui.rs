@@ -1,5 +1,8 @@
+//! @canon-level: ui
+//! Kbd - sem behavior
+
 use leptos::prelude::*;
-use canonrs_core::primitives::{KbdGroupPrimitive, KbdSeparatorPrimitive};
+use canonrs_core::primitives::{KbdPrimitive, KbdGroupPrimitive, KbdSeparatorPrimitive};
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum KbdSize { Sm, Md }
@@ -19,41 +22,46 @@ impl KbdVariant {
 
 #[component]
 pub fn Kbd(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = KbdSize::Md)] size: KbdSize,
     #[prop(default = KbdVariant::Default)] variant: KbdVariant,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <kbd
-            data-kbd=""
-            data-size={size.as_str()}
-            data-variant={variant.as_str()}
-            class={class}
-            id={id}
+        <KbdPrimitive
+            size=size.as_str().to_string()
+            variant=variant.as_str().to_string()
+            class=class
         >
-            {children.map(|c| c())}
-        </kbd>
+            {children()}
+        </KbdPrimitive>
     }
 }
 
 #[component]
 pub fn KbdGroup(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <KbdGroupPrimitive class={class} id={id.unwrap_or_default()}>
-            {children.map(|c| c())}
+        <KbdGroupPrimitive class=class>
+            {children()}
         </KbdGroupPrimitive>
     }
 }
 
 #[component]
 pub fn KbdSeparator() -> impl IntoView {
+    view! { <KbdSeparatorPrimitive /> }
+}
+
+#[component]
+pub fn KbdPreview() -> impl IntoView {
     view! {
-        <KbdSeparatorPrimitive />
+        <KbdGroup>
+            <Kbd>"Ctrl"</Kbd>
+            <KbdSeparator />
+            <Kbd>"K"</Kbd>
+        </KbdGroup>
     }
 }

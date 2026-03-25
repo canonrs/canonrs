@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use canonrs_core::{
+    SidebarTriggerPrimitive,
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
     SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator
 };
@@ -12,23 +13,18 @@ use canonrs_core::AccordionSelection;
 pub fn SidebarWithTooltips(
     #[prop(default = false)] default_collapsed: bool,
 ) -> impl IntoView {
-    let collapsed = RwSignal::new(default_collapsed);
-    
     view! {
         <TooltipProvider>
             <div style="position: relative;">
-                <Sidebar collapsed=collapsed>
-                    <button 
-                        on:click=move |_| collapsed.update(|c| *c = !*c)
-                        style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;"
-                    >
-                        {move || if collapsed.get() { "→" } else { "←" }}
-                    </button>
+                <Sidebar collapsed=default_collapsed>
+                    <SidebarTriggerPrimitive style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;">
+                        "⇔"
+                    </SidebarTriggerPrimitive>
 
                     <SidebarHeader>
                         <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
                             <Avatar size=AvatarSize::Md status=AvatarStatus::Online>
-                                <AvatarImage 
+                                <AvatarImage
                                     src="https://i.pravatar.cc/150?img=10".to_string()
                                     alt="User".to_string()
                                 />
@@ -44,7 +40,7 @@ pub fn SidebarWithTooltips(
                     <SidebarContent>
                         <SidebarMenu>
                             <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                            
+
                             <Tooltip id="tooltip-dashboard".to_string()>
                                 <TooltipTrigger>
                                     <SidebarMenuItem href="/dashboard".to_string() active=true>
@@ -56,20 +52,20 @@ pub fn SidebarWithTooltips(
                                     "Dashboard"
                                 </TooltipContent>
                             </Tooltip>
-                            
+
                             <Accordion selection=AccordionSelection::Single collapsible=true>
                                 <AccordionItem>
-                                <Tooltip id="tooltip-projects".to_string()>
-                                    <TooltipTrigger>
-                                    <AccordionTrigger>
-                                        <span data-sidebar-icon>"📁"</span>
-                                        <span data-sidebar-label>"Projects"</span>
-                                    </AccordionTrigger>
-                                    </TooltipTrigger>
-                                    <TooltipContent id="tooltip-projects-content".to_string()>
-                                        "Projects"
-                                    </TooltipContent>
-                                </Tooltip>
+                                    <Tooltip id="tooltip-projects".to_string()>
+                                        <TooltipTrigger>
+                                            <AccordionTrigger>
+                                                <span data-sidebar-icon>"📁"</span>
+                                                <span data-sidebar-label>"Projects"</span>
+                                            </AccordionTrigger>
+                                        </TooltipTrigger>
+                                        <TooltipContent id="tooltip-projects-content".to_string()>
+                                            "Projects"
+                                        </TooltipContent>
+                                    </Tooltip>
                                     <AccordionContent>
                                         <Tooltip id="tooltip-web".to_string()>
                                             <TooltipTrigger>
@@ -81,7 +77,6 @@ pub fn SidebarWithTooltips(
                                                 "Web App"
                                             </TooltipContent>
                                         </Tooltip>
-                                        
                                         <Tooltip id="tooltip-mobile".to_string()>
                                             <TooltipTrigger>
                                                 <SidebarMenuItem href="/projects/mobile".to_string()>
@@ -92,7 +87,6 @@ pub fn SidebarWithTooltips(
                                                 "Mobile App"
                                             </TooltipContent>
                                         </Tooltip>
-                                        
                                         <Tooltip id="tooltip-api".to_string()>
                                             <TooltipTrigger>
                                                 <SidebarMenuItem href="/projects/api".to_string()>
@@ -106,7 +100,7 @@ pub fn SidebarWithTooltips(
                                     </AccordionContent>
                                 </AccordionItem>
                             </Accordion>
-                            
+
                             <Tooltip id="tooltip-tasks".to_string()>
                                 <TooltipTrigger>
                                     <SidebarMenuItem href="/tasks".to_string()>
@@ -118,11 +112,11 @@ pub fn SidebarWithTooltips(
                                     "Tasks"
                                 </TooltipContent>
                             </Tooltip>
-                            
+
                             <SidebarSeparator />
-                            
+
                             <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
-                            
+
                             <Tooltip id="tooltip-profile".to_string()>
                                 <TooltipTrigger>
                                     <SidebarMenuItem href="/profile".to_string()>

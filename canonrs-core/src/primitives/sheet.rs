@@ -3,30 +3,55 @@
 //! Sheet Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum SheetSide {
+    #[default]
+    Right,
+    Left,
+    Top,
+    Bottom,
+}
+
+impl SheetSide {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Right  => "right",
+            Self::Left   => "left",
+            Self::Top    => "top",
+            Self::Bottom => "bottom",
+        }
+    }
+}
 
 #[component]
 pub fn SheetPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
-    #[prop(default = String::from("right"))] side: String,
+    #[prop(default = SheetSide::Right)] side: SheetSide,
+    #[prop(default = VisibilityState::Closed)] open: VisibilityState,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-sheet=""
-            data-rs-state="closed"
-            data-rs-side=side
+            data-rs-component="Sheet"
+            data-rs-behavior="overlay"
+            data-rs-state={visibility_attrs(open).data_rs_state}
+            data-rs-side=side.as_str()
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn SheetTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -35,16 +60,16 @@ pub fn SheetTriggerPrimitive(
             type="button"
             data-rs-sheet-trigger=""
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn SheetContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -55,9 +80,9 @@ pub fn SheetContentPrimitive(
             aria-modal="true"
             tabindex="-1"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
@@ -68,6 +93,6 @@ pub fn SheetOverlayPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sheet-overlay="" aria-hidden="true" class=class id=id />
+        <div data-rs-sheet-overlay="" aria-hidden="true" class=class id=if id.is_empty() { None } else { Some(id.clone()) } />
     }
 }

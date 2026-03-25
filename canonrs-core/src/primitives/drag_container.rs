@@ -6,19 +6,20 @@ use leptos::prelude::*;
 
 #[component]
 pub fn DragContainerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] active: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-drag-container=""
-            data-rs-state="closed"
+            data-rs-state={if active { "open" } else { "closed" }}
             role="list"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

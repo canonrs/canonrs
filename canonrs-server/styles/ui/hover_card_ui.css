@@ -21,7 +21,7 @@
   transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
-[data-rs-hover-card][data-state="open"] [data-rs-hover-card-content] {
+[data-rs-hover-card][data-rs-state="open"] [data-rs-hover-card-content] {
   opacity: 1;
   visibility: visible;
   transform: scale(1);

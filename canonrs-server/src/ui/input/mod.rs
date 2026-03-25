@@ -5,6 +5,8 @@ pub mod variants;
 
 pub use input_ui::*;
 pub use masked_input_ui::*;
+pub use canonrs_core::primitives::{InputVariant, InputSize};
+
 #[cfg(feature = "examples")]
 pub mod examples;
 

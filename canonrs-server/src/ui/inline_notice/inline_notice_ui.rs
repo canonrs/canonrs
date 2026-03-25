@@ -1,53 +1,55 @@
+//! @canon-level: ui
+//! InlineNotice - Declarative UI wrapper
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    InlineNoticePrimitive,
-    InlineNoticeIconPrimitive,
+    InlineNoticePrimitive, InlineNoticeIconPrimitive,
     InlineNoticeContentPrimitive,
 };
-
 pub use canonrs_core::primitives::InlineNoticeVariant;
 
 #[component]
 pub fn InlineNotice(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = InlineNoticeVariant::Default)] variant: InlineNoticeVariant,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <InlineNoticePrimitive variant=variant class=class id=id>
-            {children.map(|c| c())}
+        <InlineNoticePrimitive variant=variant class={class.unwrap_or_default()}>
+            {children()}
         </InlineNoticePrimitive>
     }
 }
 
 #[component]
 pub fn InlineNoticeIcon(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <InlineNoticeIconPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <InlineNoticeIconPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </InlineNoticeIconPrimitive>
     }
 }
 
 #[component]
 pub fn InlineNoticeContent(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <InlineNoticeContentPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <InlineNoticeContentPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </InlineNoticeContentPrimitive>
     }
 }
 
 #[component]
 pub fn InlineNoticePreview() -> impl IntoView {
-    view! { <InlineNotice>"Notice message"</InlineNotice> }
+    view! {
+        <InlineNotice variant=InlineNoticeVariant::Info>
+            <InlineNoticeContent>"This is an inline notice message."</InlineNoticeContent>
+        </InlineNotice>
+    }
 }

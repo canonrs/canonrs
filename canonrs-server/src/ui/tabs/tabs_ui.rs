@@ -1,36 +1,31 @@
 //! @canon-level: ui
-//! Tabs - estado via behavior JS (padrão accordion/dialog)
-
 use leptos::prelude::*;
-
-#[derive(Clone)]
-struct TabsDefault(String);
+use canonrs_core::primitives::{
+    TabsPrimitive, TabsListPrimitive,
+    TabsTriggerPrimitive, TabsContentPrimitive,
+};
 
 #[component]
 pub fn Tabs(
     children: Children,
-    #[prop(into)] id: String,
-    #[prop(into, default = String::new())] default: String,
-    #[prop(into, default = String::new())] class_name: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    provide_context(TabsDefault(default.clone()));
     view! {
-        <div data-tabs="" id=id data-default=default class=class_name>
+        <TabsPrimitive class=class>
             {children()}
-        </div>
+        </TabsPrimitive>
     }
 }
 
 #[component]
 pub fn TabsList(
     children: Children,
-    #[prop(into, default = String::new())] class_name: String,
-    #[prop(into, default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-tabs-list="" role="tablist" id=id class=class_name>
+        <TabsListPrimitive class=class>
             {children()}
-        </div>
+        </TabsListPrimitive>
     }
 }
 
@@ -38,25 +33,13 @@ pub fn TabsList(
 pub fn TabsTrigger(
     #[prop(into)] value: String,
     children: Children,
-    #[prop(into, default = String::new())] id: String,
-    #[prop(into, default = String::new())] class_name: String,
+    #[prop(default = false)] default: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let default = use_context::<TabsDefault>().map(|d| d.0).unwrap_or_default();
-    let is_default = value == default;
-    let panel_id = format!("panel-{}", value);
     view! {
-        <button
-            id=id
-            role="tab"
-            class=class_name
-            data-tabs-trigger=""
-            data-tabs-value=value.clone()
-            aria-controls=panel_id
-            aria-selected=if is_default { "true" } else { "false" }
-            data-state=if is_default { "active" } else { "inactive" }
-        >
+        <TabsTriggerPrimitive value=value active=default.into() class=class>
             {children()}
-        </button>
+        </TabsTriggerPrimitive>
     }
 }
 
@@ -64,34 +47,26 @@ pub fn TabsTrigger(
 pub fn TabsContent(
     #[prop(into)] value: String,
     children: Children,
-    #[prop(into, default = String::new())] class_name: String,
+    #[prop(default = false)] default: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let default = use_context::<TabsDefault>().map(|d| d.0).unwrap_or_default();
-    let is_default = value == default;
-    let panel_id = format!("panel-{}", value);
     view! {
-        <div
-            data-tabs-content=""
-            data-value=value.clone()
-            role="tabpanel"
-            id=panel_id
-            class=class_name
-            data-state=if is_default { "active" } else { "inactive" }
-        >
+        <TabsContentPrimitive value=value active=default.into() class=class>
             {children()}
-        </div>
+        </TabsContentPrimitive>
     }
 }
 
 #[component]
 pub fn TabsPreview() -> impl IntoView {
     view! {
-        <Tabs id="tabs-preview".to_string() default="tab1".to_string()>
+        <Tabs>
             <TabsList>
-                <TabsTrigger value="tab1".to_string()>"Tab 1"</TabsTrigger>
-                <TabsTrigger value="tab2".to_string()>"Tab 2"</TabsTrigger>
+                <TabsTrigger value="tab1" default=true>"Tab 1"</TabsTrigger>
+                <TabsTrigger value="tab2">"Tab 2"</TabsTrigger>
             </TabsList>
-            <TabsContent value="tab1".to_string()>"Content 1"</TabsContent>
+            <TabsContent value="tab1" default=true>"Content 1"</TabsContent>
+            <TabsContent value="tab2">"Content 2"</TabsContent>
         </Tabs>
     }
 }

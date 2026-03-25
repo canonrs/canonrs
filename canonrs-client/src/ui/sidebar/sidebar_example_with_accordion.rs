@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use canonrs_core::{
+    SidebarTriggerPrimitive,
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
     SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator
 };
@@ -11,22 +12,17 @@ use canonrs_core::AccordionSelection;
 pub fn SidebarWithAccordion(
     #[prop(default = false)] default_collapsed: bool,
 ) -> impl IntoView {
-    let collapsed = RwSignal::new(default_collapsed);
-    
     view! {
         <div style="position: relative;">
-            <Sidebar collapsed=collapsed>
-                <button 
-                    on:click=move |_| collapsed.update(|c| *c = !*c)
-                    style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;"
-                >
-                    {move || if collapsed.get() { "→" } else { "←" }}
-                </button>
+            <Sidebar collapsed=default_collapsed>
+                <SidebarTriggerPrimitive style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;">
+                    "⇔"
+                </SidebarTriggerPrimitive>
 
                 <SidebarHeader>
                     <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
                         <Avatar size=AvatarSize::Md status=AvatarStatus::Online>
-                            <AvatarImage 
+                            <AvatarImage
                                 src="https://i.pravatar.cc/150?img=10".to_string()
                                 alt="User".to_string()
                             />
@@ -46,7 +42,7 @@ pub fn SidebarWithAccordion(
                             <span data-sidebar-icon>"📊"</span>
                             <span data-sidebar-label>"Dashboard"</span>
                         </SidebarMenuItem>
-                        
+
                         <Accordion selection=AccordionSelection::Single collapsible=true>
                             <AccordionItem>
                                 <AccordionTrigger>
@@ -66,16 +62,16 @@ pub fn SidebarWithAccordion(
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
-                        
+
                         <SidebarMenuItem href="/tasks".to_string()>
                             <span data-sidebar-icon>"✓"</span>
                             <span data-sidebar-label>"Tasks"</span>
                         </SidebarMenuItem>
-                        
+
                         <SidebarSeparator />
-                        
+
                         <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
-                        
+
                         <Accordion selection=AccordionSelection::Single collapsible=true>
                             <AccordionItem>
                                 <AccordionTrigger>
@@ -95,7 +91,7 @@ pub fn SidebarWithAccordion(
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
-                        
+
                         <SidebarMenuItem href="/profile".to_string()>
                             <span data-sidebar-icon>"👤"</span>
                             <span data-sidebar-label>"Profile"</span>

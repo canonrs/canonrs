@@ -6,45 +6,47 @@ use leptos::prelude::*;
 
 #[component]
 pub fn DropdownMenuPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dropdown-menu=""
-            data-rs-state="closed"
+            data-rs-state={if open { "open" } else { "closed" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DropdownMenuTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <button
             type="button"
             data-rs-dropdown-menu-trigger=""
             aria-haspopup="menu"
-            aria-expanded="false"
+            aria-expanded={if open { "true" } else { "false" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn DropdownMenuContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -53,16 +55,16 @@ pub fn DropdownMenuContentPrimitive(
             data-rs-dropdown-menu-content=""
             role="menu"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DropdownMenuGroupPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -71,28 +73,31 @@ pub fn DropdownMenuGroupPrimitive(
             data-rs-dropdown-menu-group=""
             role="group"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DropdownMenuItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] disabled: bool,
 ) -> impl IntoView {
     view! {
         <button
             type="button"
             data-rs-dropdown-menu-item=""
             role="menuitem"
+            aria-disabled={if disabled { Some("true") } else { None }}
+            data-rs-disabled={if disabled { Some("true") } else { None }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
@@ -107,14 +112,14 @@ pub fn DropdownMenuSeparatorPrimitive(
             data-rs-dropdown-menu-separator=""
             role="separator"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         />
     }
 }
 
 #[component]
 pub fn DropdownMenuCheckboxItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] checked: bool,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
@@ -126,16 +131,16 @@ pub fn DropdownMenuCheckboxItemPrimitive(
             role="menuitemcheckbox"
             aria-checked={if checked { "true" } else { "false" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn DropdownMenuLabelPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -143,9 +148,9 @@ pub fn DropdownMenuLabelPrimitive(
         <div
             data-rs-dropdown-menu-label=""
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

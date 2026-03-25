@@ -25,7 +25,7 @@
   background: var(--tree-item-bg-hover);
 }
 
-[data-rs-tree-item][data-selected="true"] {
+[data-rs-tree-item][data-rs-state="selected"] {
   background: var(--tree-item-bg-selected);
 }
 
@@ -35,23 +35,23 @@
 }
 
 /* Indentation by depth */
-[data-rs-tree-item][data-depth="0"] {
+[data-rs-tree-item][data-rs-depth="0"] {
   padding-left: var(--tree-item-padding-x, var(--space-sm));
 }
 
-[data-rs-tree-item][data-depth="1"] {
+[data-rs-tree-item][data-rs-depth="1"] {
   padding-left: var(--tree-indent-depth-1);
 }
 
-[data-rs-tree-item][data-depth="2"] {
+[data-rs-tree-item][data-rs-depth="2"] {
   padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent));
 }
 
-[data-rs-tree-item][data-depth="3"] {
+[data-rs-tree-item][data-rs-depth="3"] {
   padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent) * 2);
 }
 
-[data-rs-tree-item][data-depth="4"] {
+[data-rs-tree-item][data-rs-depth="4"] {
   padding-left: calc(var(--tree-indent-depth-1) + var(--tree-indent) * 3);
 }
 
@@ -96,10 +96,10 @@
 }
 
 /* Hide collapsed children */
-[data-rs-tree-item][data-expanded="false"] + [data-rs-tree-group] {
+[data-rs-tree-item][data-rs-expanded="false"] + [data-rs-tree-group] {
   display: none;
 }
 
-[data-rs-tree-item][data-expanded="true"] + [data-rs-tree-group] {
+[data-rs-tree-item][data-rs-expanded="true"] + [data-rs-tree-group] {
   display: flex;
 }

@@ -3,40 +3,61 @@
 //! Resizable Primitives - Split panels with draggable divider
 
 use leptos::prelude::*;
+use crate::meta::ActivityState;
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum ResizableOrientation {
+    #[default]
+    Horizontal,
+    Vertical,
+}
+
+impl ResizableOrientation {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Horizontal => "horizontal",
+            Self::Vertical   => "vertical",
+        }
+    }
+}
 
 #[component]
 pub fn ResizablePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(into, default = "horizontal".to_string())] orientation: String,
+    #[prop(default = ResizableOrientation::Horizontal)] orientation: ResizableOrientation,
+    #[prop(default = 20u32)] min_size: u32,
+    #[prop(default = 80u32)] max_size: u32,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-resizable=""
-            data-rs-orientation=orientation
+            data-rs-component="Resizable"
+            data-rs-behavior="resize"
+            data-rs-orientation=orientation.as_str()
+            data-rs-min-size=min_size.to_string()
+            data-rs-max-size=max_size.to_string()
             role="group"
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ResizablePanelPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
+    #[prop(default = 50u32)] default_size: u32,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-resizable-panel=""
+            data-rs-default-size=default_size.to_string()
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
@@ -44,18 +65,14 @@ pub fn ResizablePanelPrimitive(
 #[component]
 pub fn ResizableHandlePrimitive(
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(into, default = "horizontal".to_string())] orientation: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-resizable-handle=""
-            data-rs-state="inactive"
+            data-rs-state=ActivityState::Inactive.as_str()
             role="separator"
-            aria-orientation=orientation
             tabindex="0"
             class=class
-            id=id
         >
             <div data-rs-resizable-handle-bar="" />
         </div>

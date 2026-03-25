@@ -6,86 +6,60 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ErrorStatePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-error-state=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <div data-rs-error-state="" class=class>
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ErrorStateIconPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-error-state-icon=""
-            aria-hidden="true"
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <div data-rs-error-state-icon="" aria-hidden="true" class=class>
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ErrorStateTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <h3
-            data-rs-error-state-title=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <h3 data-rs-error-state-title="" class=class>
+            {children()}
         </h3>
     }
 }
 
 #[component]
 pub fn ErrorStateDescriptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <p
-            data-rs-error-state-description=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <p data-rs-error-state-description="" class=class>
+            {children()}
         </p>
     }
 }
 
 #[component]
 pub fn ErrorStateActionsPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-error-state-actions=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <div data-rs-error-state-actions="" class=class>
+            {children()}
         </div>
     }
 }

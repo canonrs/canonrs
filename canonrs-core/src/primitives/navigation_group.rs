@@ -6,7 +6,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn NavigationGroupPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(optional)] aria_labelledby: Option<String>,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
@@ -17,16 +17,16 @@ pub fn NavigationGroupPrimitive(
             role="group"
             aria-labelledby=aria_labelledby
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn NavigationGroupLabelPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -34,9 +34,9 @@ pub fn NavigationGroupLabelPrimitive(
         <span
             data-rs-navigation-group-label=""
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }

@@ -57,7 +57,7 @@
   box-shadow: 0 0 0 var(--slider-thumb-focus-ring-width) var(--slider-thumb-focus-ring-color);
 }
 
-[data-rs-slider][data-disabled="true"] {
+[data-rs-slider][data-rs-disabled="true"] {
   opacity: var(--slider-disabled-opacity);
   pointer-events: none;
 }

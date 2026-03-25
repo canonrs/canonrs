@@ -1,22 +1,16 @@
+//! @canon-level: ui
 use leptos::prelude::*;
-use super::toggle_group_primitive::ToggleGroupPrimitive;
+use canonrs_core::primitives::ToggleGroupPrimitive;
 
 #[component]
 pub fn ToggleGroup(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = false)] multiple: bool,
     #[prop(optional)] children: Option<Children>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] id: String,
+    #[prop(default = false)] multiple: bool,
 ) -> impl IntoView {
-    let base_class = format!("toggle-group {}", class);
-
     view! {
-        <ToggleGroupPrimitive
-            id={id}
-            class={base_class}
-            role="group".to_string()
-            multiple={multiple}
-        >
+        <ToggleGroupPrimitive id=id class=class multiple=multiple>
             {children.map(|c| c())}
         </ToggleGroupPrimitive>
     }

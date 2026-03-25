@@ -1,20 +1,17 @@
+//! @canon-level: ui
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    TooltipProviderPrimitive,
-    TooltipPrimitive,
-    TooltipTriggerPrimitive,
-    TooltipContentPrimitive,
+    TooltipProviderPrimitive, TooltipPrimitive,
+    TooltipTriggerPrimitive, TooltipContentPrimitive,
 };
 
 #[component]
 pub fn TooltipProvider(
     children: Children,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TooltipProviderPrimitive
-            class=class
-        >
+        <TooltipProviderPrimitive class=class>
             {children()}
         </TooltipProviderPrimitive>
     }
@@ -23,14 +20,11 @@ pub fn TooltipProvider(
 #[component]
 pub fn Tooltip(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TooltipPrimitive
-            class=class
-            id=id
-        >
+        <TooltipPrimitive open=open class=class>
             {children()}
         </TooltipPrimitive>
     }
@@ -39,14 +33,10 @@ pub fn Tooltip(
 #[component]
 pub fn TooltipTrigger(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TooltipTriggerPrimitive
-            class=class
-            id=id
-        >
+        <TooltipTriggerPrimitive class=class>
             {children()}
         </TooltipTriggerPrimitive>
     }
@@ -55,14 +45,10 @@ pub fn TooltipTrigger(
 #[component]
 pub fn TooltipContent(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TooltipContentPrimitive
-            class=class
-            id=id
-        >
+        <TooltipContentPrimitive class=class>
             {children()}
         </TooltipContentPrimitive>
     }

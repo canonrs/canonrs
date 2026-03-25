@@ -4,24 +4,21 @@ use super::dialog_ui::*;
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <div>
+        <Dialog>
             <DialogTrigger>"Open Dialog"</DialogTrigger>
-            <Dialog id="dialog-basic">
+            <DialogPortal>
                 <DialogOverlay />
-                <DialogContent
-                    labelledby="dialog-basic-title"
-                    describedby="dialog-basic-desc"
-                >
-                    <DialogTitle id="dialog-basic-title">"Confirm Action"</DialogTitle>
-                    <DialogDescription id="dialog-basic-desc">
+                <DialogContent>
+                    <DialogTitle>"Confirm Action"</DialogTitle>
+                    <DialogDescription>
                         "Are you sure you want to proceed? This action cannot be undone."
                     </DialogDescription>
                     <div style="display:flex;gap:0.5rem;margin-top:1rem;">
                         <DialogClose>"Cancel"</DialogClose>
-                        <button data-button data-ui-variant="solid">"Confirm"</button>
+                        <button type="button">"Confirm"</button>
                     </div>
                 </DialogContent>
-            </Dialog>
-        </div>
+            </DialogPortal>
+        </Dialog>
     }
 }

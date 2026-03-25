@@ -20,7 +20,7 @@ pub fn register() {
 
         let open_signal = state.open;
 
-        let trigger: HtmlElement = match root.query_selector("[data-rs-trigger]")
+        let trigger: HtmlElement = match root.query_selector("[data-rs-tooltip-trigger]")
             .ok().flatten()
             .and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
             Some(el) => el,
@@ -34,7 +34,7 @@ pub fn register() {
             root_show.set_attribute("data-rs-state", "open").ok();
             if let Ok(Some(content)) = root_show.query_selector("[data-rs-tooltip-content]") {
                 if let Ok(c) = content.clone().dyn_into::<HtmlElement>() {
-                    if let Ok(Some(trig)) = root_show.query_selector("[data-rs-trigger]") {
+                    if let Ok(Some(trig)) = root_show.query_selector("[data-rs-tooltip-trigger]") {
                         if let Ok(t) = trig.dyn_into::<HtmlElement>() {
                             let rect = t.get_bounding_client_rect();
                             let x = rect.left() + rect.width() / 2.0;

@@ -4,6 +4,8 @@
    ============================================ */
 
 [data-rs-datatable] {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   border: var(--table-border-width) solid var(--table-border-color);
   border-radius: var(--radius-md);
@@ -109,19 +111,19 @@
 }
 
 /* Density Variants */
-[data-rs-datatable][data-density="compact"] [data-rs-datatable-cell],
-[data-rs-datatable][data-density="compact"] [data-rs-datatable-head-cell] {
+[data-rs-datatable][data-rs-density="compact"] [data-rs-datatable-cell],
+[data-rs-datatable][data-rs-density="compact"] [data-rs-datatable-head-cell] {
   padding: var(--datatable-density-compact-padding-y) var(--datatable-density-compact-padding-x);
   font-size: var(--font-size-xs);
 }
 
-[data-rs-datatable][data-density="comfortable"] [data-rs-datatable-cell],
-[data-rs-datatable][data-density="comfortable"] [data-rs-datatable-head-cell] {
+[data-rs-datatable][data-rs-density="comfortable"] [data-rs-datatable-cell],
+[data-rs-datatable][data-rs-density="comfortable"] [data-rs-datatable-head-cell] {
   padding: var(--datatable-density-comfortable-padding-y) var(--datatable-density-comfortable-padding-x);
 }
 
-[data-rs-datatable][data-density="spacious"] [data-rs-datatable-cell],
-[data-rs-datatable][data-density="spacious"] [data-rs-datatable-head-cell] {
+[data-rs-datatable][data-rs-density="spacious"] [data-rs-datatable-cell],
+[data-rs-datatable][data-rs-density="spacious"] [data-rs-datatable-head-cell] {
   padding: var(--datatable-density-spacious-padding-y) var(--datatable-density-spacious-padding-x);
   font-size: var(--font-size-base);
 }

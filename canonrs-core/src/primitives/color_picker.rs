@@ -1,6 +1,5 @@
 //! @canon-level: strict
-//! @canon-owner: primitives-team
-//! ColorPicker Primitive - HTML puro
+//! ColorPicker Primitive - native input[type=color]
 
 use leptos::prelude::*;
 
@@ -10,7 +9,6 @@ pub fn ColorPickerPrimitive(
     #[prop(into, default = String::new())] name: String,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <input
@@ -21,7 +19,6 @@ pub fn ColorPickerPrimitive(
             disabled=disabled
             aria-label="Color picker"
             class=class
-            id=id
         />
     }
 }
@@ -31,7 +28,6 @@ pub fn ColorPickerTriggerPrimitive(
     children: ChildrenFn,
     #[prop(into, default = "#000000".to_string())] color: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     let style = format!("background-color: {};", color);
     view! {
@@ -41,7 +37,6 @@ pub fn ColorPickerTriggerPrimitive(
             aria-label="Open color picker"
             aria-haspopup="dialog"
             class=class
-            id=id
         >
             <div data-rs-color-swatch="" style=style />
             {children()}
@@ -54,7 +49,6 @@ pub fn ColorPickerSwatchPrimitive(
     #[prop(into, default = "#000000".to_string())] color: String,
     #[prop(default = false)] selected: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     let style = format!("background-color: {};", color);
     let aria = format!("Select color {}", color);
@@ -62,12 +56,11 @@ pub fn ColorPickerSwatchPrimitive(
         <button
             type="button"
             data-rs-color-swatch=""
-            data-rs-selected={if selected { "true" } else { "false" }}
-            aria-pressed={if selected { "true" } else { "false" }}
+            data-rs-selected={if selected { Some("true") } else { None }}
+            aria-pressed={if selected { Some("true") } else { None }}
             style=style
             aria-label=aria
             class=class
-            id=id
         />
     }
 }

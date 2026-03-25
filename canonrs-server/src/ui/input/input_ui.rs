@@ -1,55 +1,37 @@
+//! @canon-level: ui
+//! Input - sem behavior
+
 use leptos::prelude::*;
-use canonrs_core::primitives::InputPrimitive;
+use canonrs_core::primitives::{InputPrimitive, InputVariant, InputSize};
 
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum InputVariant { Default, Error, Success, Warning }
-impl InputVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Default => "default", Self::Error => "error",
-            Self::Success => "success", Self::Warning => "warning",
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum InputSize { Sm, Md, Lg }
-impl InputSize {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Sm => "sm", Self::Md => "md", Self::Lg => "lg" }
-    }
-}
-
-#[allow(unused_variables)]
 #[component]
 pub fn Input(
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
-    #[prop(default = "text".to_string())] input_type: String,
-    #[prop(into, optional)] name: Option<String>,
-    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = "text".to_string())] input_type: String,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] value: String,
     #[prop(default = false)] disabled: bool,
     #[prop(default = InputVariant::Default)] variant: InputVariant,
     #[prop(default = InputSize::Md)] size: InputSize,
-    #[prop(default = String::new())] placeholder: String,
-    #[prop(default = String::new())] aria_label: String,
+    #[prop(into, default = String::new())] placeholder: String,
+    #[prop(into, default = String::new())] aria_label: String,
 ) -> impl IntoView {
     view! {
         <InputPrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-            name={name.unwrap_or_default()}
+            class=class
+            name=name
             value=value
-            disabled=Signal::derive(move || disabled)
-            placeholder={placeholder}
-            aria_label={aria_label}
-            data_variant={variant.as_str().to_string()}
-            data_size={size.as_str().to_string()}
+            disabled=disabled.into()
+            placeholder=placeholder
+            aria_label=aria_label
+            input_type=input_type
+            variant=variant
+            size=size
         />
     }
 }
 
 #[component]
-pub fn InputPreview() -> leptos::prelude::AnyView {
-    view! { <Input placeholder="Input...".to_string() /> }.into_any()
+pub fn InputPreview() -> impl IntoView {
+    view! { <Input placeholder="Type something..." /> }
 }

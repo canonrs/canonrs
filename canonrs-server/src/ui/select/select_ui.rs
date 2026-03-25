@@ -1,49 +1,34 @@
+//! @canon-level: ui
+//! Select - attribute-driven
+//! Relação trigger↔content via DOM traversal
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    SelectPrimitive,
-    SelectTriggerPrimitive,
-    SelectValuePrimitive,
-    SelectContentPrimitive,
-    SelectItemPrimitive,
-    SelectSeparatorPrimitive,
+    SelectPrimitive, SelectTriggerPrimitive, SelectValuePrimitive,
+    SelectContentPrimitive, SelectItemPrimitive, SelectSeparatorPrimitive,
 };
 
 #[component]
 pub fn Select(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectPrimitive
-            class=class
-            id={id.unwrap_or_default()}
-        >
-            {children.map(|c| c())}
+        <SelectPrimitive class=class>
+            {children()}
         </SelectPrimitive>
     }
 }
 
 #[component]
 pub fn SelectTrigger(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] disabled: bool,
-    #[prop(into, default = String::new())] controls_id: String,
-    #[prop(default = false)] expanded: bool,
-    #[prop(into, default = String::new())] value_text: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectTriggerPrimitive
-            disabled=disabled
-            controls_id=controls_id
-            expanded=expanded
-            value_text=value_text
-            class=class
-            id={id.unwrap_or_default()}
-        >
-            {children.map(|c| c())}
+        <SelectTriggerPrimitive disabled=disabled.into() class=class>
+            {children()}
         </SelectTriggerPrimitive>
     }
 }
@@ -52,13 +37,10 @@ pub fn SelectTrigger(
 pub fn SelectValue(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] placeholder: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectValuePrimitive
-            placeholder=placeholder
-            class=class
-        >
+        <SelectValuePrimitive placeholder=placeholder class=class>
             {children.map(|c| c())}
         </SelectValuePrimitive>
     }
@@ -66,61 +48,50 @@ pub fn SelectValue(
 
 #[component]
 pub fn SelectContent(
-    #[prop(optional)] children: Option<Children>,
-    open: bool,
-    #[prop(into, default = String::new())] content_id: String,
-    #[prop(default = String::new())] class: String,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectContentPrimitive
-            open=open
-            content_id=content_id
-            class=class
-        >
-            {children.map(|c| c())}
+        <SelectContentPrimitive class=class>
+            {children()}
         </SelectContentPrimitive>
     }
 }
 
 #[component]
 pub fn SelectItem(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] selected: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] value: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectItemPrimitive
-            tabindex={-1}
-            selected=selected
-            disabled=disabled
-            value=value
-            class=class
-            id={id.unwrap_or_default()}
-        >
-            {children.map(|c| c())}
+        <SelectItemPrimitive selected=selected.into() disabled=disabled.into() value=value class=class>
+            {children()}
         </SelectItemPrimitive>
     }
 }
 
 #[component]
 pub fn SelectSeparator(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <SelectSeparatorPrimitive class=class />
-    }
+    view! { <SelectSeparatorPrimitive class=class /> }
 }
 
 #[component]
 pub fn SelectPreview() -> impl IntoView {
     view! {
         <Select>
-            <SelectTrigger>"Select..."</SelectTrigger>
-            <SelectContent open=false>
-                <SelectItem value="a".to_string()>"Option A"</SelectItem>
+            <SelectTrigger>
+                <SelectValue placeholder="Select an option..." />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="a">"Option A"</SelectItem>
+                <SelectItem value="b">"Option B"</SelectItem>
+                <SelectSeparator />
+                <SelectItem value="c" disabled=true>"Disabled"</SelectItem>
             </SelectContent>
         </Select>
     }

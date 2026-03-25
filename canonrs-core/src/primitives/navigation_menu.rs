@@ -3,6 +3,8 @@
 //! NavigationMenu Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
 
 #[component]
 pub fn NavigationMenuPrimitive(
@@ -11,7 +13,13 @@ pub fn NavigationMenuPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <nav data-rs-navigation-menu="" class=class id=id>
+        <nav
+            data-rs-navigation-menu=""
+            data-rs-component="NavigationMenu"
+            data-rs-behavior="navigation"
+            class=class
+            id=id.filter(|s| !s.is_empty())
+        >
             {children()}
         </nav>
     }
@@ -29,7 +37,7 @@ pub fn NavigationMenuListPrimitive(
             role="menubar"
             aria-orientation="horizontal"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </ul>
@@ -43,48 +51,49 @@ pub fn NavigationMenuItemPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <li data-rs-navigation-menu-item="" class=class id=id>
+        <li data-rs-navigation-menu-item="" class=class id=id.filter(|s| !s.is_empty())>
             {children()}
         </li>
     }
 }
 
+/// Trigger sem id wiring — relação com content via DOM closest/sibling
 #[component]
 pub fn NavigationMenuTriggerPrimitive(
     children: Children,
-    #[prop(into, default = String::new())] controls_id: String,
-    #[prop(default = false)] expanded: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-navigation-menu-trigger=""
-            data-rs-state={if expanded { "open" } else { "closed" }}
+            data-rs-state=s.data_rs_state
             aria-haspopup="menu"
-            aria-controls={if controls_id.is_empty() { None } else { Some(controls_id) }}
-            aria-expanded={if expanded { "true" } else { "false" }}
+            aria-expanded=s.aria_expanded
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </button>
     }
 }
 
+/// Content sem id wiring — aberto via CSS :hover/:focus-within + behavior keyboard
 #[component]
 pub fn NavigationMenuContentPrimitive(
     children: Children,
-    #[prop(into, default = String::new())] content_id: String,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-navigation-menu-content=""
             role="menu"
-            id={if content_id.is_empty() { None } else { Some(content_id) }}
             class=class
+            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -96,16 +105,15 @@ pub fn NavigationMenuLinkPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    let id_val = if id.is_empty() { None } else { Some(id) };
     view! {
         <a
             data-rs-navigation-menu-link=""
             role="menuitem"
             href=href
             class=class
-            id=id_val
+            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </a>
@@ -119,7 +127,7 @@ pub fn NavigationMenuSubItemPrimitive(
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-navigation-menu-subitem="" class=class id=id>
+        <div data-rs-navigation-menu-subitem="" class=class id=id.filter(|s| !s.is_empty())>
             {children()}
         </div>
     }

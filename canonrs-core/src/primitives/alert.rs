@@ -26,48 +26,62 @@ impl AlertVariant {
 
 #[component]
 pub fn AlertPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = AlertVariant::Default)] variant: AlertVariant,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-alert=""
             data-rs-variant=variant.as_str()
+            data-rs-state="open"
             role="alert"
             aria-live="polite"
             aria-atomic="true"
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn AlertTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <h5 data-rs-alert-title="" class=class id=id>
-            {children.map(|c| c())}
+        <h5 data-rs-alert-title="" class=class>
+            {children()}
         </h5>
     }
 }
 
 #[component]
 pub fn AlertDescriptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-alert-description="" class=class id=id>
-            {children.map(|c| c())}
+        <div data-rs-alert-description="" class=class>
+            {children()}
         </div>
+    }
+}
+
+#[component]
+pub fn AlertCloseButtonPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <button
+            data-rs-alert-close=""
+            type="button"
+            aria-label="Close alert"
+            class=class
+        >
+            {children()}
+        </button>
     }
 }

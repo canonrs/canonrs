@@ -33,6 +33,6 @@
   max-width: var(--empty-state-description-max-width);
 }
 
-[data-rs-empty-state][data-variant="error"] [data-rs-empty-state-icon] {
+[data-rs-empty-state][data-rs-variant="error"] [data-rs-empty-state-icon] {
   color: var(--empty-state-icon-color-error);
 }

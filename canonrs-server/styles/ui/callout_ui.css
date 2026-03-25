@@ -12,27 +12,27 @@
   border-radius: var(--callout-radius);
 }
 
-[data-rs-callout][data-variant="default"] {
+[data-rs-callout][data-rs-variant="default"] {
   background: var(--callout-bg-default);
   border-color: var(--callout-border-default);
 }
 
-[data-rs-callout][data-variant="info"] {
+[data-rs-callout][data-rs-variant="info"] {
   background: var(--callout-bg-info);
   border-color: var(--callout-border-info);
 }
 
-[data-rs-callout][data-variant="success"] {
+[data-rs-callout][data-rs-variant="success"] {
   background: var(--callout-bg-success);
   border-color: var(--callout-border-success);
 }
 
-[data-rs-callout][data-variant="warning"] {
+[data-rs-callout][data-rs-variant="warning"] {
   background: var(--callout-bg-warning);
   border-color: var(--callout-border-warning);
 }
 
-[data-rs-callout][data-variant="error"] {
+[data-rs-callout][data-rs-variant="error"] {
   background: var(--callout-bg-error);
   border-color: var(--callout-border-error);
 }

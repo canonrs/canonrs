@@ -1,12 +1,15 @@
+//! @canon-level: strict
+//! @canon-owner: primitives-team
+//! ButtonGroup Primitive - HTML puro
+
 use leptos::prelude::*;
 
 #[component]
 pub fn ButtonGroupPrimitive(
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = String::new())] class: String,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = false)] attached: bool,
-    #[prop(optional)] aria_label: Option<String>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
@@ -15,9 +18,8 @@ pub fn ButtonGroupPrimitive(
             role="group"
             aria-label=aria_label
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

@@ -27,6 +27,6 @@
   display: none;
 }
 
-[data-rs-collapsible][data-state="open"] [data-rs-collapsible-content] {
+[data-rs-collapsible][data-rs-state="open"] [data-rs-collapsible-content] {
   display: block;
 }

@@ -22,11 +22,11 @@ fn update_slider_ui(slider_el: &web_sys::Element, percent: f64) {
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-slider", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+    register_behavior("data-rs-slider", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         
         let slider_el = root;
-        if slider_el.get_attribute("data-slider-attached").as_deref() == Some("1") { return Ok(()); }
-        slider_el.set_attribute("data-slider-attached", "1").ok();
+        if slider_el.get_attribute("data-rs-slider-attached").as_deref() == Some("1") { return Ok(()); }
+        slider_el.set_attribute("data-rs-slider-attached", "1").ok();
 
         let min: f64 = slider_el.get_attribute("aria-valuemin").and_then(|s| s.parse().ok()).unwrap_or(0.0);
         let max: f64 = slider_el.get_attribute("aria-valuemax").and_then(|s| s.parse().ok()).unwrap_or(100.0);

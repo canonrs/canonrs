@@ -1,8 +1,8 @@
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     CarouselPrimitive, CarouselTrackPrimitive, CarouselItemPrimitive,
-    CarouselPrevPrimitive, CarouselNextPrimitive, 
-    CarouselIndicatorsPrimitive
+    CarouselPrevPrimitive, CarouselNextPrimitive,
+    CarouselIndicatorsPrimitive,
 };
 
 #[component]
@@ -12,9 +12,7 @@ pub fn Carousel(
     #[prop(default = false)] autoplay: bool,
     #[prop(default = 5000)] interval: u32,
     #[prop(default = true)] r#loop: bool,
-    #[prop(default = true)] show_controls: bool,
-    #[prop(default = true)] show_indicators: bool,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -23,33 +21,13 @@ pub fn Carousel(
             id={id.unwrap_or_default()}
         >
             <div
-                data-carousel-wrapper=""
-                data-autoplay={autoplay.then_some("")}
-                data-loop={r#loop.then_some("")}
-                data-initial-index={initial_index.to_string()}
-                data-interval={interval.to_string()}
+                data-rs-carousel-wrapper=""
+                data-rs-autoplay={autoplay.then_some("")}
+                data-rs-loop={r#loop.then_some("")}
+                data-rs-initial-index={initial_index.to_string()}
+                data-rs-interval={interval.to_string()}
             >
-                {if show_controls {
-                    view! { <CarouselPrev /> }.into_any()
-                } else {
-                    view! {}.into_any()
-                }}
-
-                <CarouselTrack>
-                    {children.map(|c| c())}
-                </CarouselTrack>
-
-                {if show_controls {
-                    view! { <CarouselNext /> }.into_any()
-                } else {
-                    view! {}.into_any()
-                }}
-
-                {if show_indicators {
-                    view! { <CarouselIndicators /> }.into_any()
-                } else {
-                    view! {}.into_any()
-                }}
+                {children.map(|c| c())}
             </div>
         </CarouselPrimitive>
     }
@@ -58,9 +36,10 @@ pub fn Carousel(
 #[component]
 pub fn CarouselTrack(
     #[prop(optional)] children: Option<Children>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CarouselTrackPrimitive>
+        <CarouselTrackPrimitive class={class}>
             {children.map(|c| c())}
         </CarouselTrackPrimitive>
     }
@@ -69,42 +48,48 @@ pub fn CarouselTrack(
 #[component]
 pub fn CarouselItem(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CarouselItemPrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-        >
+        <CarouselItemPrimitive class={class} id={id.unwrap_or_default()}>
             {children.map(|c| c())}
         </CarouselItemPrimitive>
     }
 }
 
 #[component]
-pub fn CarouselPrev() -> impl IntoView {
+pub fn CarouselPrev(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
     view! {
-        <CarouselPrevPrimitive>
-            "‹"
+        <CarouselPrevPrimitive class={class}>
+            {children.map(|c| c()).unwrap_or_else(|| view! { "‹" }.into_any())}
         </CarouselPrevPrimitive>
     }
 }
 
 #[component]
-pub fn CarouselNext() -> impl IntoView {
+pub fn CarouselNext(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
     view! {
-        <CarouselNextPrimitive>
-            "›"
+        <CarouselNextPrimitive class={class}>
+            {children.map(|c| c()).unwrap_or_else(|| view! { "›" }.into_any())}
         </CarouselNextPrimitive>
     }
 }
 
 #[component]
-pub fn CarouselIndicators() -> impl IntoView {
+pub fn CarouselIndicators(
+    #[prop(optional)] children: Option<Children>,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
     view! {
-        <CarouselIndicatorsPrimitive>
-            // Indicators são gerados dinamicamente pelo behavior
+        <CarouselIndicatorsPrimitive class={class}>
+            {children.map(|c| c())}
         </CarouselIndicatorsPrimitive>
     }
 }

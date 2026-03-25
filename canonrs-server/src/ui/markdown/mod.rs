@@ -21,6 +21,11 @@ pub use toc_extractor::{TocExtractor, slugify};
 pub fn render_markdown(md: &str) -> RenderedMarkdown {
     renderer::render_markdown(md)
 }
+
+// Cliente nunca recomputa — retorna default vazio
+// A estrutura DOM deve ser idêntica entre SSR e cliente:
+// isso é garantido porque MarkdownSurface é SSR-only leaf node —
+// o cliente hidrата o HTML já renderizado sem re-renderizar filhos.
 #[cfg(not(feature = "ssr"))]
 pub fn render_markdown(_: &str) -> RenderedMarkdown { RenderedMarkdown::default() }
 

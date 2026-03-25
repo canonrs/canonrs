@@ -16,15 +16,15 @@
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-textarea][data-variant="error"] {
+[data-rs-textarea][data-rs-variant="error"] {
   border-color: var(--validation-error);
 }
 
-[data-rs-textarea][data-variant="success"] {
+[data-rs-textarea][data-rs-variant="success"] {
   border-color: var(--validation-success);
 }
 
-[data-rs-textarea][data-variant="warning"] {
+[data-rs-textarea][data-rs-variant="warning"] {
   border-color: var(--validation-warning);
 }
 

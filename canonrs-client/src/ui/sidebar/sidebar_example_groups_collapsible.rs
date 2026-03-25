@@ -1,7 +1,8 @@
 use leptos::prelude::*;
 use canonrs_core::{
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarSeparator
+    SidebarMenu, SidebarMenuItem, SidebarSeparator,
+    SidebarTriggerPrimitive,
 };
 use crate::ui::avatar::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarStatus};
 use canonrs_core::{Badge, BadgeVariant};
@@ -10,67 +11,12 @@ use canonrs_core::{Badge, BadgeVariant};
 pub fn SidebarGroupsCollapsible(
     #[prop(default = false)] default_collapsed: bool,
 ) -> impl IntoView {
-    let sidebar_collapsed = RwSignal::new(default_collapsed);
-    
-    // Group collapse states
-    let navigation_expanded = RwSignal::new(true);
-    let settings_expanded = RwSignal::new(true);
-
-    // Load from localStorage on mount
-    Effect::new(move |_| {
-        #[cfg(feature = "hydrate")]
-        {
-            use leptos::leptos_dom::helpers::window;
-            if let Ok(storage) = window().local_storage() {
-                if let Some(storage) = storage {
-                    if let Ok(Some(val)) = storage.get_item("sidebar-group-navigation") {
-                        navigation_expanded.set(val == "true");
-                    }
-                    if let Ok(Some(val)) = storage.get_item("sidebar-group-settings") {
-                        settings_expanded.set(val == "true");
-                    }
-                }
-            }
-        }
-    });
-
-    // Save to localStorage
-    let save_group_state = move |group: &str, expanded: bool| {
-        #[cfg(feature = "hydrate")]
-        {
-            use leptos::leptos_dom::helpers::window;
-            if let Ok(storage) = window().local_storage() {
-                if let Some(storage) = storage {
-                    let _ = storage.set_item(
-                        &format!("sidebar-group-{}", group),
-                        if expanded { "true" } else { "false" }
-                    );
-                }
-            }
-        }
-    };
-
-    let toggle_navigation = move |_| {
-        let new_state = !navigation_expanded.get();
-        navigation_expanded.set(new_state);
-        save_group_state("navigation", new_state);
-    };
-
-    let toggle_settings = move |_| {
-        let new_state = !settings_expanded.get();
-        settings_expanded.set(new_state);
-        save_group_state("settings", new_state);
-    };
-
     view! {
         <div style="position: relative;">
-            <Sidebar collapsed=sidebar_collapsed>
-                <button
-                    on:click=move |_| sidebar_collapsed.update(|c| *c = !*c)
-                    style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;"
-                >
-                    {move || if sidebar_collapsed.get() { "→" } else { "←" }}
-                </button>
+            <Sidebar collapsed=default_collapsed>
+                <SidebarTriggerPrimitive style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;">
+                    "⇔"
+                </SidebarTriggerPrimitive>
 
                 <SidebarHeader>
                     <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
@@ -90,24 +36,19 @@ pub fn SidebarGroupsCollapsible(
 
                 <SidebarContent>
                     <SidebarMenu>
-                        
-                        // Group 1: Navigation (collapsible)
-                        <div style="margin-bottom: var(--space-sm);">
+
+                        // Group 1: Navigation (collapsible via Accordion DOM-driven)
+                        <div data-rs-sidebar-group="" data-rs-state="expanded" style="margin-bottom: var(--space-sm);">
                             <button
-                                on:click=toggle_navigation
+                                type="button"
+                                data-rs-sidebar-group-toggle=""
                                 style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: var(--sidebar-group-label-padding-y) var(--sidebar-group-label-padding-x); background: transparent; border: none; cursor: pointer; font-size: var(--sidebar-group-label-font-size); font-weight: var(--sidebar-group-label-font-weight); color: var(--sidebar-group-label-fg); text-align: left;"
                             >
                                 <span>"Navigation"</span>
-                                <span style="transition: transform 0.2s ease;">
-                                    {move || if navigation_expanded.get() { "▼" } else { "▶" }}
-                                </span>
+                                <span data-rs-sidebar-group-chevron="">"▼"</span>
                             </button>
 
-                            <div style=move || if navigation_expanded.get() { 
-                                "display: block; animation: slideDown 0.2s ease;" 
-                            } else { 
-                                "display: none;" 
-                            }>
+                            <div data-rs-sidebar-group-content="">
                                 <SidebarMenuItem href="/dashboard".to_string() active=true>
                                     <span data-sidebar-icon>"📊"</span>
                                     <span data-sidebar-label>"Dashboard"</span>
@@ -135,23 +76,18 @@ pub fn SidebarGroupsCollapsible(
 
                         <SidebarSeparator />
 
-                        // Group 2: Settings (collapsible)
-                        <div style="margin-bottom: var(--space-sm);">
+                        // Group 2: Settings (collapsible via DOM-driven)
+                        <div data-rs-sidebar-group="" data-rs-state="expanded" style="margin-bottom: var(--space-sm);">
                             <button
-                                on:click=toggle_settings
+                                type="button"
+                                data-rs-sidebar-group-toggle=""
                                 style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: var(--sidebar-group-label-padding-y) var(--sidebar-group-label-padding-x); background: transparent; border: none; cursor: pointer; font-size: var(--sidebar-group-label-font-size); font-weight: var(--sidebar-group-label-font-weight); color: var(--sidebar-group-label-fg); text-align: left;"
                             >
                                 <span>"Settings"</span>
-                                <span style="transition: transform 0.2s ease;">
-                                    {move || if settings_expanded.get() { "▼" } else { "▶" }}
-                                </span>
+                                <span data-rs-sidebar-group-chevron="">"▼"</span>
                             </button>
 
-                            <div style=move || if settings_expanded.get() { 
-                                "display: block; animation: slideDown 0.2s ease;" 
-                            } else { 
-                                "display: none;" 
-                            }>
+                            <div data-rs-sidebar-group-content="">
                                 <SidebarMenuItem href="/profile".to_string()>
                                     <span data-sidebar-icon>"👤"</span>
                                     <span data-sidebar-label>"Profile"</span>

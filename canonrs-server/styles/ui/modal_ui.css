@@ -1,51 +1,37 @@
 /* MODAL - Family A Overlay */
 
 [data-rs-modal] {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[data-rs-modal][data-state="open"] {
-  pointer-events: auto;
+  position: relative;
 }
 
 [data-rs-modal-overlay] {
   position: fixed;
   inset: 0;
-  background: var(--modal-backdrop-bg);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
-
-[data-rs-modal][data-state="open"] [data-rs-modal-overlay] {
-  opacity: 1;
-  visibility: visible;
+  background: var(--dialog-overlay-bg, rgba(0,0,0,0.5));
+  z-index: var(--dialog-overlay-z-index, 50);
+  display: none;
 }
 
 [data-rs-modal-content] {
-  position: relative;
-  width: var(--modal-popup-width);
-  max-width: 90vw;
-  background: var(--modal-popup-bg);
-  padding: var(--modal-popup-padding);
-  border-radius: var(--modal-popup-radius);
-  z-index: 1;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.3s, transform 0.3s;
-}
-
-[data-rs-modal][data-state="open"] [data-rs-modal-content] {
-  opacity: 1;
-  transform: scale(1);
-}
-
-[data-rs-modal][data-state="closed"] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--dialog-content-width, 32rem);
+  max-width: var(--dialog-content-max-width, 90vw);
+  background: var(--dialog-content-bg);
+  color: var(--dialog-content-fg);
+  padding: var(--dialog-content-padding, 1.5rem);
+  border-radius: var(--dialog-content-radius, 0.5rem);
+  box-shadow: var(--dialog-content-shadow);
+  z-index: calc(var(--dialog-overlay-z-index, 50) + 1);
   display: none;
+}
+
+[data-rs-modal][data-rs-state="open"] [data-rs-modal-overlay] {
+  display: block;
+}
+
+[data-rs-modal][data-rs-state="open"] [data-rs-modal-content] {
+  display: block;
 }

@@ -3,6 +3,8 @@
 //! Toast Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastVariant {
@@ -28,112 +30,83 @@ impl ToastVariant {
 
 #[component]
 pub fn ToastPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = ToastVariant::Default)] variant: ToastVariant,
-    #[prop(default = false)] open: bool,
+    #[prop(default = VisibilityState::Open)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-toast=""
-            data-rs-variant={variant.as_str()}
-            data-rs-state={if open { "open" } else { "closed" }}
+            data-rs-variant=variant.as_str()
+            data-rs-state=s.data_rs_state
             role="status"
             aria-live="polite"
             aria-atomic="true"
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ToastViewportPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-toast-viewport=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <div data-rs-toast-viewport="" class=class>
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ToastTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-toast-title=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <div data-rs-toast-title="" class=class>
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ToastDescriptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-toast-description=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <div data-rs-toast-description="" class=class>
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ToastActionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <button
-            type="button"
-            data-rs-toast-action=""
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <button type="button" data-rs-toast-action="" class=class>
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn ToastClosePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <button
-            type="button"
-            data-rs-toast-close=""
-            aria-label="Close"
-            class=class
-            id=id
-        >
-            {children.map(|c| c())}
+        <button type="button" data-rs-toast-close="" aria-label="Close" class=class>
+            {children()}
         </button>
     }
 }

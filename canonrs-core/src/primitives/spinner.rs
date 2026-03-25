@@ -27,15 +27,13 @@ pub fn SpinnerPrimitive(
     #[prop(default = SpinnerSize::Medium)] size: SpinnerSize,
     #[prop(default = false)] paused: bool,
     #[prop(into, default = "Loading".to_string())] aria_label: String,
-    #[prop(into, optional)] style: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <svg
             data-rs-spinner=""
-            data-size={size.as_str()}
-            data-paused={if paused { "true" } else { "false" }}
+            data-rs-size=size.as_str()
+            data-rs-paused=if paused { "true" } else { "false" }
             role="status"
             aria-label=aria_label
             aria-busy="true"
@@ -46,9 +44,7 @@ pub fn SpinnerPrimitive(
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            style=style
             class=class
-            id=id
         >
             <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>

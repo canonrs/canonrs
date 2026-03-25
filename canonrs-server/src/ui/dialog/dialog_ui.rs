@@ -1,17 +1,21 @@
+//! @canon-level: ui
+//! Dialog - Declarative UI wrapper
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    DialogPrimitive, DialogTriggerPrimitive, DialogOverlayPrimitive,
-    DialogContentPrimitive, DialogTitlePrimitive, DialogDescriptionPrimitive,
+    DialogPrimitive, DialogPortalPrimitive,
+    DialogOverlayPrimitive, DialogContentPrimitive, DialogTitlePrimitive,
+    DialogDescriptionPrimitive,
 };
+use crate::ui::button::{Button, ButtonVariant};
 
 #[component]
 pub fn Dialog(
     children: Children,
-    #[prop(into)] id: String,
-    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogPrimitive id=id class=class>
+        <DialogPrimitive class={class.unwrap_or_default()}>
             {children()}
         </DialogPrimitive>
     }
@@ -20,33 +24,49 @@ pub fn Dialog(
 #[component]
 pub fn DialogTrigger(
     children: Children,
-        #[prop(into, default = String::new())] class: String,
+    #[prop(default = ButtonVariant::Primary)] variant: ButtonVariant,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogTriggerPrimitive class=class>
+        <Button
+            variant=variant
+            class={class.unwrap_or_default()}
+            attr:data-rs-dialog-trigger=""
+            attr:aria-haspopup="dialog"
+            attr:aria-expanded="false"
+        >
             {children()}
-        </DialogTriggerPrimitive>
+        </Button>
+    }
+}
+
+#[component]
+pub fn DialogPortal(
+    children: Children,
+) -> impl IntoView {
+    view! {
+        <DialogPortalPrimitive>
+            {children()}
+        </DialogPortalPrimitive>
     }
 }
 
 #[component]
 pub fn DialogOverlay(
-    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogOverlayPrimitive class=class />
+        <DialogOverlayPrimitive class={class.unwrap_or_default()} />
     }
 }
 
 #[component]
 pub fn DialogContent(
     children: Children,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(optional, into)] labelledby: Option<String>,
-    #[prop(optional, into)] describedby: Option<String>,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogContentPrimitive class=class aria_labelledby=labelledby.unwrap_or_default() aria_describedby=describedby.unwrap_or_default()>
+        <DialogContentPrimitive class={class.unwrap_or_default()}>
             {children()}
         </DialogContentPrimitive>
     }
@@ -55,11 +75,10 @@ pub fn DialogContent(
 #[component]
 pub fn DialogTitle(
     children: Children,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(optional, into)] id: Option<String>,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogTitlePrimitive class=class id=id.unwrap_or_default()>
+        <DialogTitlePrimitive class={class.unwrap_or_default()}>
             {children()}
         </DialogTitlePrimitive>
     }
@@ -68,11 +87,10 @@ pub fn DialogTitle(
 #[component]
 pub fn DialogDescription(
     children: Children,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(optional, into)] id: Option<String>,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogDescriptionPrimitive class=class id=id.unwrap_or_default()>
+        <DialogDescriptionPrimitive class={class.unwrap_or_default()}>
             {children()}
         </DialogDescriptionPrimitive>
     }
@@ -81,20 +99,33 @@ pub fn DialogDescription(
 #[component]
 pub fn DialogClose(
     children: Children,
-        #[prop(into, default = String::new())] class: String,
+    #[prop(default = ButtonVariant::Outline)] variant: ButtonVariant,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <button
-            data-rs-close=""
-            type="button"
-            class=class
+        <Button
+            variant=variant
+            class={class.unwrap_or_default()}
+            attr:data-rs-dialog-close=""
         >
             {children()}
-        </button>
+        </Button>
     }
 }
 
 #[component]
 pub fn DialogPreview() -> impl IntoView {
-    view! { <Dialog id="dialog-preview".to_string()>"Content"</Dialog> }
+    view! {
+        <Dialog>
+            <DialogTrigger>"Open Dialog"</DialogTrigger>
+            <DialogPortal>
+                <DialogOverlay />
+                <DialogContent>
+                    <DialogTitle>"Dialog Title"</DialogTitle>
+                    <DialogDescription>"Dialog description."</DialogDescription>
+                    <DialogClose>"Close"</DialogClose>
+                </DialogContent>
+            </DialogPortal>
+        </Dialog>
+    }
 }

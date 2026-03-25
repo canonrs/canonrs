@@ -1,108 +1,77 @@
+//! @canon-level: ui
+//! Tree - attribute-driven
+//! Estrutura via TreeItem + TreeGroup aninhados
+
 use leptos::prelude::*;
-use canonrs_core::primitives::tree::{Tree as TreePrimitive, TreeGroup};
-use super::{TreeNode, TreeNodeItem};
+use canonrs_core::primitives::{
+    TreePrimitive,
+    TreeItemPrimitive,
+    TreeGroupPrimitive,
+};
 
 #[component]
 pub fn Tree(
-    nodes: Signal<Vec<TreeNode>>,
-    selected_id: Signal<Option<String>>,
-    #[prop(default = false)] show_checkboxes: bool,
-    #[prop(optional)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TreePrimitive
-            attr:data-multiselect={show_checkboxes.to_string()}
-            attr:aria-multiselectable={show_checkboxes.to_string()}
-            class={class.unwrap_or_default()}
-            id={id.unwrap_or_default()}
-        >
-            {move || {
-                nodes.get().into_iter().enumerate().flat_map(|(idx, node)| {
-                    render_node_recursive(
-                        node,
-                        1,
-                        selected_id,
-                        show_checkboxes,
-                        idx == 0,
-                    )
-                }).collect_view()
-            }}
+        <TreePrimitive class=class>
+            {children()}
         </TreePrimitive>
     }
 }
 
-fn render_node_recursive(
-    node: TreeNode,
-    level: usize,
-    selected_id: Signal<Option<String>>,
-    show_checkboxes: bool,
-    is_first: bool,
-) -> Vec<AnyView> {
-    let node_id = node.id.clone();
-    let node_id_for_closure = node_id.clone();
-    let children = node.children.clone();
-    let _is_expanded = node.expanded;
-    let has_children = !children.is_empty();
-    let is_selected = move || selected_id.get().as_ref() == Some(&node_id_for_closure);
-
-    let tabindex = if is_first { 0 } else { -1 };
-    
-    // Generate unique group ID for aria-controls
-    let group_id = format!("tree-group-{}", node_id);
-
-    let item_view = if has_children {
-        view! {
-            <TreeNodeItem
-                node={node}
-                depth={level - 1}
-                level={level}
-                selected={is_selected()}
-                show_checkbox={show_checkboxes}
-                tabindex={tabindex}
-                group_id={group_id.clone()}
-            />
-        }
-    } else {
-        view! {
-            <TreeNodeItem
-                node={node}
-                depth={level - 1}
-                level={level}
-                selected={is_selected()}
-                show_checkbox={show_checkboxes}
-                tabindex={tabindex}
-            />
-        }
-    };
-
-    let mut views = vec![item_view.into_any()];
-
-    // Render TreeGroup if has_children
-    if has_children {
-        views.push(
-            view! {
-                <TreeGroup id={group_id}>
-                    {children.into_iter().flat_map(|child| {
-                        render_node_recursive(
-                            child,
-                            level + 1,
-                            selected_id,
-                            show_checkboxes,
-                            false,
-                        )
-                    }).collect_view()}
-                </TreeGroup>
-            }.into_any()
-        );
+#[component]
+pub fn TreeItem(
+    children: Children,
+    #[prop(default = false)] selected: bool,
+    #[prop(default = false)] expanded: bool,
+    #[prop(default = false)] has_children: bool,
+    #[prop(default = 0)] depth: usize,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <TreeItemPrimitive
+            selected=selected
+            expanded=expanded
+            has_children=has_children
+            depth=depth
+            class=class
+        >
+            {children()}
+        </TreeItemPrimitive>
     }
+}
 
-    views
+#[component]
+pub fn TreeGroup(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <TreeGroupPrimitive class=class>
+            {children()}
+        </TreeGroupPrimitive>
+    }
 }
 
 #[component]
 pub fn TreePreview() -> impl IntoView {
-    let nodes = leptos::prelude::Signal::derive(|| vec![]);
-    let sel = leptos::prelude::Signal::derive(|| None::<String>);
-    view! { <Tree nodes=nodes selected_id=sel /> }
+    view! {
+        <Tree>
+            <TreeItem has_children=true expanded=true>"Documents"</TreeItem>
+            <TreeGroup>
+                <TreeItem depth=1>"Resume.pdf"</TreeItem>
+                <TreeItem depth=1 has_children=true>"Projects"</TreeItem>
+                <TreeGroup>
+                    <TreeItem depth=2>"project-a"</TreeItem>
+                    <TreeItem depth=2>"project-b"</TreeItem>
+                </TreeGroup>
+            </TreeGroup>
+            <TreeItem has_children=true>"Pictures"</TreeItem>
+            <TreeGroup>
+                <TreeItem depth=1>"photo.jpg"</TreeItem>
+            </TreeGroup>
+        </Tree>
+    }
 }

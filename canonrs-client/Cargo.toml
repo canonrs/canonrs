@@ -32,3 +32,6 @@ ctor = { version = "0.2", optional = true }
 [features]
 default = []
 hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "ctor"]
+
+[lints]
+workspace = true

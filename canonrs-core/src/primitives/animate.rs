@@ -23,8 +23,8 @@ pub fn AnimatePrimitive(
             data-rs-easing=easing
             data-rs-delay=delay
             class=class
-            id=id
-            style=style
+            id=id.filter(|s| !s.is_empty())
+            style=style.filter(|s| !s.is_empty())
         >
             {children()}
         </div>

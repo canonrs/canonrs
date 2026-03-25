@@ -1,81 +1,81 @@
+//! @canon-level: ui
+//! EmptyState - Declarative UI wrapper
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    EmptyStatePrimitive,
-    EmptyStateIconPrimitive,
-    EmptyStateTitlePrimitive,
-    EmptyStateDescriptionPrimitive,
+    EmptyStatePrimitive, EmptyStateIconPrimitive,
+    EmptyStateTitlePrimitive, EmptyStateDescriptionPrimitive,
     EmptyStateActionPrimitive,
 };
-
 pub use canonrs_core::primitives::EmptyStateVariant;
 
 #[component]
 pub fn EmptyState(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = EmptyStateVariant::Default)] variant: EmptyStateVariant,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <EmptyStatePrimitive variant=variant class=class id=id>
-            {children.map(|c| c())}
+        <EmptyStatePrimitive variant=variant class={class.unwrap_or_default()}>
+            {children()}
         </EmptyStatePrimitive>
     }
 }
 
 #[component]
 pub fn EmptyStateIcon(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <EmptyStateIconPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <EmptyStateIconPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </EmptyStateIconPrimitive>
     }
 }
 
 #[component]
 pub fn EmptyStateTitle(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <EmptyStateTitlePrimitive class=class id=id>
-            {children.map(|c| c())}
+        <EmptyStateTitlePrimitive class={class.unwrap_or_default()}>
+            {children()}
         </EmptyStateTitlePrimitive>
     }
 }
 
 #[component]
 pub fn EmptyStateDescription(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <EmptyStateDescriptionPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <EmptyStateDescriptionPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </EmptyStateDescriptionPrimitive>
     }
 }
 
 #[component]
 pub fn EmptyStateAction(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <EmptyStateActionPrimitive class=class id=id>
-            {children.map(|c| c())}
+        <EmptyStateActionPrimitive class={class.unwrap_or_default()}>
+            {children()}
         </EmptyStateActionPrimitive>
     }
 }
 
 #[component]
 pub fn EmptyStatePreview() -> impl IntoView {
-    view! { <EmptyState>"No data"</EmptyState> }
+    view! {
+        <EmptyState>
+            <EmptyStateTitle>"No items found"</EmptyStateTitle>
+            <EmptyStateDescription>"Try adjusting your search or filters."</EmptyStateDescription>
+        </EmptyState>
+    }
 }

@@ -29,7 +29,6 @@ pub fn Button(
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
     #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
     #[prop(optional)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -38,8 +37,7 @@ pub fn Button(
             attr:data-ui-variant={variant.as_str()}
             attr:data-ui-size={size.as_str()}
             class={class}
-            id={id.unwrap_or_default()}
-            disabled={disabled}
+            disabled={disabled.into()}
             aria_label={aria_label.unwrap_or_default()}
         >
             {children()}

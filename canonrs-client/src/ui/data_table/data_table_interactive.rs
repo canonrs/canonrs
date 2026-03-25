@@ -1,7 +1,5 @@
 use leptos::prelude::*;
-use canonrs_core::{
-    DataTableToolbarPrimitive,
-};
+use canonrs_core::DataTableToolbarPrimitive;
 use super::types::{DataTableRequest, DataTableResponse, ColumnDef};
 use super::PinPosition;
 use super::state::DataTableState;
@@ -36,14 +34,11 @@ where
     T: Clone + PartialEq + Send + Sync + 'static,
     F: Fn(DataTableRequest) -> Result<DataTableResponse<T>, String> + 'static,
 {
-    // 1. Estado central
     let state: DataTableState<T> = DataTableState::new();
 
-    // 2. Props externos têm prioridade
     let column_widths_signal  = column_widths.unwrap_or(state.column_widths);
     let pinned_columns_signal = pinned_columns.unwrap_or(state.pinned_columns);
 
-    // 3. Grupos de colunas reativos
     let cols_left = Signal::derive(move || {
         columns.with(|cols| {
             pinned_columns_signal.with(|pins| {
@@ -66,7 +61,6 @@ where
         })
     });
 
-    // 4. Largura total das tabelas pinadas (para width fixo)
     let left_width = Signal::derive(move || {
         cols_left.with(|cols| {
             column_widths_signal.with(|widths| {
@@ -82,7 +76,6 @@ where
         })
     });
 
-    // 5. Fetch
     let fetch_data = std::sync::Arc::new(fetch_data);
     let fetch_data_effect = fetch_data.clone();
     Effect::new(move |_| {
@@ -106,9 +99,9 @@ where
         }
     });
 
-    // 6. Feature signals
-    let table_id         = id.unwrap_or_else(|| "datatable-interactive".to_string());
-    let table_id_clone   = table_id.clone();
+    let table_id       = id.unwrap_or_else(|| "datatable-interactive".to_string());
+    let table_id_clone = table_id.clone();
+
     let density_signal   = density.unwrap_or_else(|| Signal::derive(|| "comfortable".to_string()));
     let zebra_signal     = zebra.unwrap_or_else(|| Signal::derive(|| false));
     let hover_signal     = row_hover.unwrap_or_else(|| Signal::derive(|| true));
@@ -117,7 +110,6 @@ where
     let resizable_signal = resizable.unwrap_or_else(|| Signal::derive(|| false));
     let pinnable_signal  = pinnable.unwrap_or_else(|| Signal::derive(|| false));
 
-    // 7. Hooks
     use super::data_table_column_resize::use_column_resize;
     use super::data_table_column_pin::use_column_pin;
     use super::data_table_column_reorder::use_column_reorder;
@@ -126,7 +118,7 @@ where
         let widths = column_widths_signal;
         move |col_id, width| { widths.update(|m| { m.insert(col_id, width); }); }
     });
-    // limpar pins quando feature é desabilitada
+
     Effect::new(move |_| {
         if !pinnable_signal.get() {
             pinned_columns_signal.update(|m| m.clear());
@@ -141,17 +133,16 @@ where
         leptos::logging::log!("reorder: {} -> {}", from, to);
     });
 
-    // 8. Render — 3 tabelas em flex
     view! {
         <div
-            data-datatable=""
-            data-density=move || density_signal.get()
-            data-zebra=move || zebra_signal.get().to_string()
-            data-row-hover=move || hover_signal.get().to_string()
-            data-sticky-header=move || sticky_signal.get().to_string()
-            data-resizable=move || resizable_signal.get().to_string()
-            data-pinnable=move || pinnable_signal.get().to_string()
-            data-draggable=move || draggable_signal.get().to_string()
+            data-rs-datatable=""
+            data-rs-density=move || density_signal.get()
+            data-rs-zebra=move || zebra_signal.get().to_string()
+            data-rs-row-hover=move || hover_signal.get().to_string()
+            data-rs-sticky-header=move || sticky_signal.get().to_string()
+            data-rs-resizable=move || resizable_signal.get().to_string()
+            data-rs-pinnable=move || pinnable_signal.get().to_string()
+            data-rs-draggable=move || draggable_signal.get().to_string()
             id=table_id
         >
             <DataTableToolbarPrimitive>
@@ -166,19 +157,17 @@ where
                 />
             </DataTableToolbarPrimitive>
 
-            // Layout 3 tabelas
-            <div data-datatable-scroll="" style="display: flex; overflow: hidden; border: var(--data-table-border-width, 1px) solid var(--data-table-border-color); border-radius: var(--data-table-radius);">
+            <div data-rs-datatable-scroll="" style="display: flex; overflow: hidden; border: var(--data-table-border-width, 1px) solid var(--data-table-border-color); border-radius: var(--data-table-radius);">
 
-                // LEFT pinned
                 <div
-                    data-datatable-panel="left"
+                    data-rs-datatable-panel="left"
                     style=move || {
                         let w = left_width.get();
                         if w == 0 { "display: none".to_string() }
                         else { format!("width: {}px; flex-shrink: 0; overflow: hidden; border-right: 2px solid var(--data-table-border-color);", w) }
                     }
                 >
-                    <table data-datatable-table="" role="table" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                    <table data-rs-datatable-table="" role="table" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
                         <colgroup>
                             {move || cols_left.with(|cols| {
                                 column_widths_signal.with(|widths| {
@@ -210,15 +199,14 @@ where
                     </table>
                 </div>
 
-                // CENTER scrollable
                 <div
-                    data-datatable-panel="center"
+                    data-rs-datatable-panel="center"
                     style=move || {
                         let max_h = if sticky_signal.get() { "max-height: 400px; ".to_string() } else { String::new() };
                         format!("{}flex: 1; overflow-x: auto; overflow-y: auto;", max_h)
                     }
                 >
-                    <table data-datatable-table="" role="table" style="table-layout: fixed; border-collapse: collapse;">
+                    <table data-rs-datatable-table="" role="table" style="table-layout: fixed; border-collapse: collapse;">
                         <colgroup>
                             {move || cols_center.with(|cols| {
                                 column_widths_signal.with(|widths| {
@@ -250,16 +238,15 @@ where
                     </table>
                 </div>
 
-                // RIGHT pinned
                 <div
-                    data-datatable-panel="right"
+                    data-rs-datatable-panel="right"
                     style=move || {
                         let w = right_width.get();
                         if w == 0 { "display: none".to_string() }
                         else { format!("width: {}px; flex-shrink: 0; overflow: hidden; border-left: 2px solid var(--data-table-border-color);", w) }
                     }
                 >
-                    <table data-datatable-table="" role="table" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
+                    <table data-rs-datatable-table="" role="table" style="table-layout: fixed; border-collapse: collapse; width: 100%;">
                         <colgroup>
                             {move || cols_right.with(|cols| {
                                 column_widths_signal.with(|widths| {

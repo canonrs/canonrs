@@ -2,8 +2,8 @@ use leptos::prelude::*;
 
 #[component]
 pub fn IconButtonPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
+    children: Children,
+    #[prop(default = false)] disabled: bool,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
     #[prop(default = String::new())] aria_label: String,
@@ -12,12 +12,12 @@ pub fn IconButtonPrimitive(
         <button
             type="button"
             data-rs-icon-button=""
-            disabled=move || disabled.get()
+            disabled=disabled
             aria-label=aria_label
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }

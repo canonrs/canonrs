@@ -65,17 +65,15 @@ pub fn PulsePrimitive(
     #[prop(default = PulseSize::Medium)] size: PulseSize,
     #[prop(default = PulseSpeed::Normal)] speed: PulseSpeed,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <span
             data-rs-pulse=""
-            data-variant={variant.as_str()}
-            data-size={size.as_str()}
-            data-speed={speed.as_str()}
+            data-rs-variant=variant.as_str()
+            data-rs-size=size.as_str()
+            data-rs-speed=speed.as_str()
             aria-hidden="true"
             class=class
-            id=id
         >
             {children.map(|c| c())}
         </span>

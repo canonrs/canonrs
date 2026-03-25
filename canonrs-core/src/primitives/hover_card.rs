@@ -6,25 +6,26 @@ use leptos::prelude::*;
 
 #[component]
 pub fn HoverCardPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-hover-card=""
-            data-rs-state="closed"
+            data-rs-state={if open { "open" } else { "closed" }}
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn HoverCardTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -33,16 +34,16 @@ pub fn HoverCardTriggerPrimitive(
             data-rs-hover-card-trigger=""
             tabindex="0"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }
 
 #[component]
 pub fn HoverCardContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -51,9 +52,9 @@ pub fn HoverCardContentPrimitive(
             role="tooltip"
             data-rs-hover-card-content=""
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

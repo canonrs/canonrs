@@ -10,6 +10,20 @@ use super::{register_behavior, ComponentState};
 use canonrs_core::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
+thread_local! {
+    static COUNTER: std::cell::Cell<u32> = std::cell::Cell::new(0);
+}
+
+#[cfg(feature = "hydrate")]
+fn next_id() -> String {
+    COUNTER.with(|c| {
+        let n = c.get() + 1;
+        c.set(n);
+        format!("rs-accordion-content-{}", n)
+    })
+}
+
+#[cfg(feature = "hydrate")]
 fn set_item_open(item: &web_sys::Element, trigger: &HtmlElement, content: &HtmlElement, open: bool) {
     if open {
         content.remove_attribute("hidden").ok();
@@ -30,13 +44,10 @@ fn close_all(root: &web_sys::Element) {
         for i in 0..items.length() {
             if let Some(node) = items.item(i) {
                 if let Ok(item) = node.clone().dyn_into::<web_sys::Element>() {
-                    if let Ok(Some(trig)) = item.query_selector("[data-rs-trigger]") {
+                    if let Ok(Some(trig)) = item.query_selector("[data-rs-accordion-trigger]") {
                         if let Ok(trig_el) = trig.dyn_into::<HtmlElement>() {
-                            if let Some(cid) = trig_el.get_attribute("aria-controls") {
-                                if let Some(content_el) = root
-                                    .query_selector(&format!("#{}", cid))
-                                    .ok().flatten()
-                                    .and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
+                            if let Ok(Some(content)) = item.query_selector("[data-rs-accordion-content]") {
+                                if let Ok(content_el) = content.dyn_into::<HtmlElement>() {
                                     set_item_open(&item, &trig_el, &content_el, false);
                                 }
                             }
@@ -58,37 +69,54 @@ pub fn register() {
         let is_single = root.get_attribute("data-rs-selection").as_deref() != Some("multiple");
         let collapsible = root.get_attribute("data-rs-collapsible").as_deref() != Some("false");
 
-        let triggers = root.query_selector_all("[data-rs-trigger]")
+        // Fase 1: garantir id no content + aria-controls no trigger (via DOM)
+        if let Ok(items) = root.query_selector_all("[data-rs-accordion-item]") {
+            for i in 0..items.length() {
+                if let Some(node) = items.item(i) {
+                    if let Ok(item) = node.dyn_into::<web_sys::Element>() {
+                        if let (Ok(Some(trig)), Ok(Some(content))) = (
+                            item.query_selector("[data-rs-accordion-trigger]"),
+                            item.query_selector("[data-rs-accordion-content]"),
+                        ) {
+                            if let Ok(content_el) = content.dyn_into::<HtmlElement>() {
+                                let content_id = if content_el.id().is_empty() {
+                                    let id = next_id();
+                                    content_el.set_id(&id);
+                                    id
+                                } else {
+                                    content_el.id()
+                                };
+                                trig.set_attribute("aria-controls", &content_id).ok();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Fase 2: registrar eventos nos triggers
+        let triggers = root.query_selector_all("[data-rs-accordion-trigger]")
             .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query triggers".into() })?;
 
         for i in 0..triggers.length() {
             let node = match triggers.item(i) { Some(n) => n, None => continue };
             let trigger = match node.dyn_into::<HtmlElement>() { Ok(el) => el, Err(_) => continue };
 
-            if trigger.get_attribute("data-rs-trigger-initialized").is_some() { continue; }
-            trigger.set_attribute("data-rs-trigger-initialized", "1").ok();
-
-            let is_open_init = trigger.get_attribute("aria-expanded").as_deref() == Some("true");
-            if let Some(item) = trigger.closest("[data-rs-accordion-item]").ok().flatten() {
-                item.set_attribute("data-rs-state", if is_open_init { "open" } else { "closed" }).ok();
-            }
+            if trigger.get_attribute("data-rs-accordion-trigger-initialized").is_some() { continue; }
+            trigger.set_attribute("data-rs-accordion-trigger-initialized", "1").ok();
 
             let root_click = root.clone();
             let trigger_click = trigger.clone();
 
             let closure = Closure::wrap(Box::new(move |_e: web_sys::MouseEvent| {
-                let controls_id = match trigger_click.get_attribute("aria-controls") {
-                    Some(id) if !id.is_empty() => id,
-                    _ => return,
-                };
-                let content = match root_click
-                    .query_selector(&format!("#{}", controls_id))
-                    .ok().flatten()
-                    .and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
+                let item = match trigger_click.closest("[data-rs-accordion-item]").ok().flatten() {
                     Some(el) => el,
                     None => return,
                 };
-                let item = match trigger_click.closest("[data-rs-accordion-item]").ok().flatten() {
+                let content = match item
+                    .query_selector("[data-rs-accordion-content]")
+                    .ok().flatten()
+                    .and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
                     Some(el) => el,
                     None => return,
                 };
@@ -110,12 +138,13 @@ pub fn register() {
             let key_closure = Closure::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
                 match e.key().as_str() {
                     "Enter" | " " => { e.prevent_default(); trigger_key.click(); }
-                    "ArrowDown" | "ArrowUp" => {
+                    "ArrowDown" | "ArrowUp" | "Home" | "End" => {
                         e.prevent_default();
                         let win = match web_sys::window() { Some(w) => w, None => return };
                         let doc = match win.document() { Some(d) => d, None => return };
-                        if let Ok(all) = root_key.query_selector_all("[data-rs-trigger]") {
+                        if let Ok(all) = root_key.query_selector_all("[data-rs-accordion-trigger]") {
                             let len = all.length();
+                            if len == 0 { return; }
                             let mut cur: Option<u32> = None;
                             for j in 0..len {
                                 if let Some(n) = all.item(j) {
@@ -126,11 +155,15 @@ pub fn register() {
                                     }
                                 }
                             }
-                            if let Some(idx) = cur {
-                                let next = if e.key() == "ArrowDown" { (idx + 1) % len } else { (idx + len - 1) % len };
-                                if let Some(n) = all.item(next) {
-                                    if let Ok(el) = n.dyn_into::<HtmlElement>() { el.focus().ok(); }
-                                }
+                            let next = match e.key().as_str() {
+                                "ArrowDown" => cur.map(|i| (i + 1) % len).unwrap_or(0),
+                                "ArrowUp"   => cur.map(|i| (i + len - 1) % len).unwrap_or(len - 1),
+                                "Home"      => 0,
+                                "End"       => len - 1,
+                                _           => return,
+                            };
+                            if let Some(n) = all.item(next) {
+                                if let Ok(el) = n.dyn_into::<HtmlElement>() { el.focus().ok(); }
                             }
                         }
                     }

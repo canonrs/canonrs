@@ -1,8 +1,7 @@
 use leptos::prelude::*;
-use leptos::web_sys;
 use canonrs_core::{
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator
+    SidebarMenu, SidebarMenuItem, SidebarGroupLabel, SidebarSeparator,
 };
 use crate::ui::avatar::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarStatus};
 use canonrs_core::{Accordion, AccordionItem, AccordionTrigger, AccordionContent};
@@ -11,29 +10,14 @@ use canonrs_core::AccordionSelection;
 
 #[component]
 pub fn SidebarRailMode() -> impl IntoView {
-    let collapsed = RwSignal::new(true); // Começa collapsed
-    
-    // Handlers de hover
-    let handle_mouse_enter = move |_: web_sys::MouseEvent| {
-        collapsed.set(false);
-    };
-    
-    let handle_mouse_leave = move |_: web_sys::MouseEvent| {
-        collapsed.set(true);
-    };
-    
     view! {
-        <div 
-            style="position: relative;"
-            on:mouseenter=handle_mouse_enter
-            on:mouseleave=handle_mouse_leave
-        >
+        <div style="position: relative;">
             <TooltipProvider>
-                <Sidebar collapsed=collapsed>
+                <Sidebar collapsed=true rail=true>
                     <SidebarHeader>
                         <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
                             <Avatar size=AvatarSize::Md status=AvatarStatus::Online>
-                                <AvatarImage 
+                                <AvatarImage
                                     src="https://i.pravatar.cc/150?img=10".to_string()
                                     alt="User".to_string()
                                 />
@@ -49,19 +33,17 @@ pub fn SidebarRailMode() -> impl IntoView {
                     <SidebarContent>
                         <SidebarMenu>
                             <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                            
-                            <Tooltip id="tooltip-dashboard-rail".to_string()>
+
+                            <Tooltip>
                                 <TooltipTrigger>
                                     <SidebarMenuItem href="/dashboard".to_string() active=true>
                                         <span data-sidebar-icon>"📊"</span>
                                         <span data-sidebar-label>"Dashboard"</span>
                                     </SidebarMenuItem>
                                 </TooltipTrigger>
-                                <TooltipContent id="tooltip-dashboard-rail-content".to_string()>
-                                    "Dashboard"
-                                </TooltipContent>
+                                <TooltipContent>"Dashboard"</TooltipContent>
                             </Tooltip>
-                            
+
                             <Accordion selection=AccordionSelection::Single collapsible=true>
                                 <AccordionItem>
                                     <AccordionTrigger>
@@ -78,33 +60,29 @@ pub fn SidebarRailMode() -> impl IntoView {
                                     </AccordionContent>
                                 </AccordionItem>
                             </Accordion>
-                            
-                            <Tooltip id="tooltip-tasks-rail".to_string()>
+
+                            <Tooltip>
                                 <TooltipTrigger>
                                     <SidebarMenuItem href="/tasks".to_string()>
                                         <span data-sidebar-icon>"✓"</span>
                                         <span data-sidebar-label>"Tasks"</span>
                                     </SidebarMenuItem>
                                 </TooltipTrigger>
-                                <TooltipContent id="tooltip-tasks-rail-content".to_string()>
-                                    "Tasks"
-                                </TooltipContent>
+                                <TooltipContent>"Tasks"</TooltipContent>
                             </Tooltip>
-                            
+
                             <SidebarSeparator />
-                            
+
                             <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
-                            
-                            <Tooltip id="tooltip-profile-rail".to_string()>
+
+                            <Tooltip>
                                 <TooltipTrigger>
                                     <SidebarMenuItem href="/profile".to_string()>
                                         <span data-sidebar-icon>"👤"</span>
                                         <span data-sidebar-label>"Profile"</span>
                                     </SidebarMenuItem>
                                 </TooltipTrigger>
-                                <TooltipContent id="tooltip-profile-rail-content".to_string()>
-                                    "Profile"
-                                </TooltipContent>
+                                <TooltipContent>"Profile"</TooltipContent>
                             </Tooltip>
                         </SidebarMenu>
                     </SidebarContent>

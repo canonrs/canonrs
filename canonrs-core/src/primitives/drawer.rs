@@ -6,38 +6,43 @@ use leptos::prelude::*;
 
 #[component]
 pub fn DrawerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-drawer=""
-            data-rs-state="closed"
+            data-rs-component="Drawer"
+            data-rs-behavior="overlay"
+            data-rs-state={if open { "open" } else { "closed" }}
+            aria-hidden={if open { "false" } else { "true" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn DrawerTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <button
             type="button"
             data-rs-drawer-trigger=""
             aria-haspopup="dialog"
-            aria-expanded="false"
+            aria-expanded={if open { "true" } else { "false" }}
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
@@ -52,27 +57,31 @@ pub fn DrawerOverlayPrimitive(
             data-rs-drawer-overlay=""
             aria-hidden="true"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         />
     }
 }
 
 #[component]
 pub fn DrawerContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(optional)] aria_labelledby: Option<String>,
+    #[prop(optional)] aria_describedby: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-drawer-content=""
             role="dialog"
             aria-modal="true"
+            aria-labelledby=aria_labelledby.filter(|s| !s.is_empty())
+            aria-describedby=aria_describedby.filter(|s| !s.is_empty())
             tabindex="-1"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

@@ -20,7 +20,7 @@
   transition: opacity 0.15s, visibility 0.15s;
 }
 
-[data-rs-tooltip][data-state="open"] [data-rs-tooltip-content] {
+[data-rs-tooltip][data-rs-state="open"] [data-rs-tooltip-content] {
   opacity: 1;
   visibility: visible;
 }

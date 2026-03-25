@@ -14,19 +14,19 @@
   background: var(--alert-bg);
 }
 
-[data-rs-alert][data-variant="default"] {
+[data-rs-alert][data-rs-variant="default"] {
   background: var(--alert-bg-default);
 }
 
-[data-rs-alert][data-variant="success"] {
+[data-rs-alert][data-rs-variant="success"] {
   background: var(--alert-bg-success);
 }
 
-[data-rs-alert][data-variant="warning"] {
+[data-rs-alert][data-rs-variant="warning"] {
   background: var(--alert-bg-warning);
 }
 
-[data-rs-alert][data-variant="destructive"] {
+[data-rs-alert][data-rs-variant="destructive"] {
   background: var(--alert-bg-error);
 }
 

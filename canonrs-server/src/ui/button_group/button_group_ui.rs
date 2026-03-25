@@ -1,27 +1,30 @@
+//! @canon-level: ui
+//! ButtonGroup - sem behavior
+
 use leptos::prelude::*;
-use canonrs_core::primitives::button_group::ButtonGroupPrimitive;
+use canonrs_core::primitives::ButtonGroupPrimitive;
 
 #[component]
 pub fn ButtonGroup(
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = String::new())] class: String,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = false)] attached: bool,
-    #[prop(into, optional)] aria_label: Option<String>,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ButtonGroupPrimitive
-            id={id.unwrap_or_default()}
-            class={class}
-            attached={attached}
-            aria_label={aria_label.unwrap_or_default()}
-        >
-            {children.map(|c| c())}
+        <ButtonGroupPrimitive class=class attached=attached aria_label=aria_label.unwrap_or_default()>
+            {children()}
         </ButtonGroupPrimitive>
     }
 }
 
 #[component]
 pub fn ButtonGroupPreview() -> impl IntoView {
-    view! { <ButtonGroup>"Buttons"</ButtonGroup> }
+    view! {
+        <ButtonGroup>
+            <button type="button" data-rs-button="" data-ui-variant="outline">"Left"</button>
+            <button type="button" data-rs-button="" data-ui-variant="outline">"Center"</button>
+            <button type="button" data-rs-button="" data-ui-variant="outline">"Right"</button>
+        </ButtonGroup>
+    }
 }

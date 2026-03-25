@@ -1,3 +1,7 @@
+//! @canon-level: ui
+//! Checkbox - native HTML input, sem behavior
+//! Estado gerenciado pelo browser via :checked/:disabled/:focus-visible
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     CheckboxPrimitive,
@@ -6,10 +10,10 @@ use canonrs_core::primitives::{
 
 #[component]
 pub fn Checkbox(
-    #[prop(into)] id: String,
+    #[prop(into, default = String::new())] id: String,
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
+    #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
@@ -18,29 +22,22 @@ pub fn Checkbox(
         <label for=id_clone data-rs-checkbox-wrapper="">
             <CheckboxPrimitive
                 checked=checked
-                disabled=disabled.get()
+                disabled=disabled
                 name=name
                 class=class
                 id=id
             />
-            <CheckboxIndicator />
+            <CheckboxIndicatorPrimitive>
+                "✓"
+            </CheckboxIndicatorPrimitive>
             {children.map(|c| c())}
         </label>
     }
 }
 
 #[component]
-pub fn CheckboxIndicator(
-    #[prop(into, default = String::new())] class: String,
-) -> impl IntoView {
-    view! {
-        <CheckboxIndicatorPrimitive class=class>
-            "✓"
-        </CheckboxIndicatorPrimitive>
-    }
-}
-
-#[component]
 pub fn CheckboxPreview() -> impl IntoView {
-    view! { <Checkbox id="cb-preview".to_string() /> }
+    view! {
+        <Checkbox>"Remember me"</Checkbox>
+    }
 }

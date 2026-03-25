@@ -23,29 +23,29 @@
   color: var(--input-placeholder);
 }
 
-[data-rs-input][data-size="sm"] {
+[data-rs-input][data-rs-size="sm"] {
   height: var(--input-sm-height);
   font-size: var(--input-sm-font-size);
 }
 
-[data-rs-input][data-size="md"] {
+[data-rs-input][data-rs-size="md"] {
   height: var(--input-md-height);
 }
 
-[data-rs-input][data-size="lg"] {
+[data-rs-input][data-rs-size="lg"] {
   height: var(--input-lg-height);
   font-size: var(--input-lg-font-size);
 }
 
-[data-rs-input][data-variant="error"] {
+[data-rs-input][data-rs-variant="error"] {
   border-color: var(--input-error-border);
 }
 
-[data-rs-input][data-variant="success"] {
+[data-rs-input][data-rs-variant="success"] {
   border-color: var(--input-success-border);
 }
 
-[data-rs-input][data-variant="warning"] {
+[data-rs-input][data-rs-variant="warning"] {
   border-color: var(--validation-warning);
 }
 

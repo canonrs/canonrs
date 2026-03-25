@@ -2,25 +2,22 @@
 //! @canon-owner: primitives-team
 //! AlertDialog Primitive - Reusa Dialog com role=alertdialog
 
-// Reutiliza primitives do Dialog exceto Content
 pub use super::dialog::{
     DialogPrimitive as AlertDialogPrimitive,
     DialogTriggerPrimitive as AlertDialogTriggerPrimitive,
+    DialogPortalPrimitive as AlertDialogPortalPrimitive,
     DialogOverlayPrimitive as AlertDialogOverlayPrimitive,
     DialogTitlePrimitive as AlertDialogTitlePrimitive,
     DialogDescriptionPrimitive as AlertDialogDescriptionPrimitive,
+    DialogClosePrimitive as AlertDialogClosePrimitive,
 };
 
 use leptos::prelude::*;
 
-/// AlertDialogContent usa role="alertdialog" + aria-live="assertive"
 #[component]
 pub fn AlertDialogContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(into, default = String::new())] labelledby: String,
-    #[prop(into, default = String::new())] describedby: String,
 ) -> impl IntoView {
     view! {
         <div
@@ -28,13 +25,10 @@ pub fn AlertDialogContentPrimitive(
             role="alertdialog"
             aria-modal="true"
             aria-live="assertive"
-            aria-labelledby={if labelledby.is_empty() { None } else { Some(labelledby.clone()) }}
-            aria-describedby={if describedby.is_empty() { None } else { Some(describedby.clone()) }}
             tabindex="-1"
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

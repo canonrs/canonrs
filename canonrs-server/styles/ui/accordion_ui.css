@@ -36,7 +36,7 @@
   transition: transform var(--accordion-trigger-transition-duration) var(--accordion-trigger-transition-ease);
 }
 
-[data-rs-accordion-trigger][data-state="open"] [data-rs-accordion-icon] {
+[data-rs-accordion-item][data-rs-state="open"] [data-rs-accordion-icon] {
   transform: rotate(var(--accordion-icon-rotation));
 }
 

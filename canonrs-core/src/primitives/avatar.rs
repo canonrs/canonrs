@@ -6,13 +6,13 @@ use leptos::prelude::*;
 
 #[component]
 pub fn AvatarPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <span data-rs-avatar="" class=class id=id>
-            {children.map(|c| c())}
+        <span data-rs-avatar="" class=class id=id.filter(|s| !s.is_empty())>
+            {children()}
         </span>
     }
 }
@@ -30,20 +30,20 @@ pub fn AvatarImagePrimitive(
             src=src
             alt=alt
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         />
     }
 }
 
 #[component]
 pub fn AvatarFallbackPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <span data-rs-avatar-fallback="" class=class id=id>
-            {children.map(|c| c())}
+        <span data-rs-avatar-fallback="" class=class id=id.filter(|s| !s.is_empty())>
+            {children()}
         </span>
     }
 }

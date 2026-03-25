@@ -6,27 +6,26 @@ use leptos::prelude::*;
 
 #[component]
 pub fn NavItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
     #[prop(optional)] aria_label: Option<String>,
     #[prop(default = false)] active: bool,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
+    #[prop(default = false)] disabled: bool,
 ) -> impl IntoView {
     let aria_current = if active { Some("page") } else { None };
     view! {
         <a
             data-rs-nav-item=""
-            data-rs-state={move || if disabled.get() { "disabled" } else if active { "active" } else { "inactive" }}
+            data-rs-state={if disabled { "disabled" } else if active { "active" } else { "idle" }}
+            data-rs-active={if active { Some("true") } else { None }}
             aria-current=aria_current
             aria-label=aria_label
-            aria-disabled={move || if disabled.get() { "true" } else { "false" }}
+            aria-disabled={if disabled { Some("true") } else { None }}
             href=href
-            class=class
-            id=id
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </a>
     }
 }

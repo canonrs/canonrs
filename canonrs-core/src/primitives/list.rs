@@ -5,7 +5,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ListPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -16,14 +16,14 @@ pub fn ListPrimitive(
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ListItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -34,31 +34,31 @@ pub fn ListItemPrimitive(
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ListItemTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-list-item-title="" class={class}>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ListItemDescriptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-list-item-description="" class={class}>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

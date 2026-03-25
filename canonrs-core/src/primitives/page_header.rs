@@ -6,120 +6,106 @@ use leptos::prelude::*;
 
 #[component]
 pub fn PageHeaderPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <header
             data-rs-page-header=""
-            class={class}
-            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </header>
     }
 }
 
 #[component]
 pub fn PageHeaderBreadcrumbsPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <nav
             data-rs-page-header-breadcrumbs=""
             aria-label="Breadcrumb"
-            class={class}
-            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </nav>
     }
 }
 
 #[component]
 pub fn PageHeaderContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-page-header-content=""
-            class={class}
-            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn PageHeaderTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <h1
             data-rs-page-header-title=""
-            class={class}
-            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </h1>
     }
 }
 
 #[component]
 pub fn PageHeaderDescriptionPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <p
             data-rs-page-header-description=""
-            class={class}
-            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </p>
     }
 }
 
 #[component]
 pub fn PageHeaderActionsPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-page-header-actions=""
-            class={class}
-            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn PageHeaderTabsPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-page-header-tabs=""
-            class={class}
-            id={if id.as_deref().unwrap_or("").is_empty() { None } else { id }}
+            class={(!class.is_empty()).then(|| class)}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

@@ -1,154 +1,35 @@
 use leptos::prelude::*;
-use super::{Tree, TreeNode};
+use super::{Tree, TreeItem, TreeGroup};
 
-pub fn basic_example() -> impl IntoView {
-    let nodes = RwSignal::new(vec![
-        TreeNode {
-            id: "1".to_string(),
-            label: "Documents".to_string(),
-            node_type: "folder".to_string(),
-            icon: None,
-            expanded: true,
-            checked: false,
-            metadata: None,
-            children: vec![
-                TreeNode {
-                    id: "1-1".to_string(),
-                    label: "Work".to_string(),
-                    node_type: "folder".to_string(),
-                    icon: None,
-                    expanded: false,
-                    checked: false,
-                    metadata: None,
-                    children: vec![],
-                },
-                TreeNode {
-                    id: "1-2".to_string(),
-                    label: "Personal".to_string(),
-                    node_type: "folder".to_string(),
-                    icon: None,
-                    expanded: false,
-                    checked: false,
-                    metadata: None,
-                    children: vec![],
-                },
-            ],
-        },
-        TreeNode {
-            id: "2".to_string(),
-            label: "Images".to_string(),
-            node_type: "folder".to_string(),
-            icon: None,
-            expanded: false,
-            checked: false,
-            metadata: None,
-            children: vec![
-                TreeNode {
-                    id: "2-1".to_string(),
-                    label: "Vacation.jpg".to_string(),
-                    node_type: "file".to_string(),
-                    icon: None,
-                    expanded: false,
-                    checked: false,
-                    metadata: None,
-                    children: vec![],
-                },
-                TreeNode {
-                    id: "2-2".to_string(),
-                    label: "Profile.png".to_string(),
-                    node_type: "file".to_string(),
-                    icon: None,
-                    expanded: false,
-                    checked: false,
-                    metadata: None,
-                    children: vec![],
-                },
-            ],
-        },
-    ]);
-
-    let selected = RwSignal::new(None);
-
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Tree nodes=nodes.into() selected_id=selected.into() id="tree-basic".to_string() />
+        <Tree>
+            <TreeItem has_children=true expanded=true>"📁 Documents"</TreeItem>
+            <TreeGroup>
+                <TreeItem depth=1 has_children=true>"📁 Work"</TreeItem>
+                <TreeGroup>
+                    <TreeItem depth=2>"📄 report.pdf"</TreeItem>
+                </TreeGroup>
+                <TreeItem depth=1>"📁 Personal"</TreeItem>
+            </TreeGroup>
+            <TreeItem has_children=true>"📁 Images"</TreeItem>
+            <TreeGroup>
+                <TreeItem depth=1>"🖼 Vacation.jpg"</TreeItem>
+                <TreeItem depth=1>"🖼 Profile.png"</TreeItem>
+            </TreeGroup>
+        </Tree>
     }
 }
 
 #[component]
-pub fn BasicExample() -> impl IntoView {
-    basic_example()
-}
-
-pub fn with_checkboxes_example() -> impl IntoView {
-    let nodes = RwSignal::new(vec![
-        TreeNode {
-            id: "1".to_string(),
-            label: "Select All".to_string(),
-            node_type: "group".to_string(),
-            icon: None,
-            expanded: true,
-            checked: false,
-            metadata: None,
-            children: vec![
-                TreeNode {
-                    id: "1-1".to_string(),
-                    label: "Option 1".to_string(),
-                    node_type: "item".to_string(),
-                    icon: None,
-                    expanded: false,
-                    checked: false,
-                    metadata: None,
-                    children: vec![],
-                },
-                TreeNode {
-                    id: "1-2".to_string(),
-                    label: "Option 2".to_string(),
-                    node_type: "item".to_string(),
-                    icon: None,
-                    expanded: false,
-                    checked: true,
-                    metadata: None,
-                    children: vec![],
-                },
-            ],
-        },
-    ]);
-
-    let selected = RwSignal::new(None);
-
+pub fn WithIconsExample() -> impl IntoView {
     view! {
-        <Tree nodes=nodes.into() selected_id=selected.into() show_checkboxes=true id="tree-checkboxes".to_string() />
-    }
-}
-
-pub fn with_icons_example() -> impl IntoView {
-    let nodes = RwSignal::new(vec![
-        TreeNode {
-            id: "1".to_string(),
-            label: "Folder".to_string(),
-            node_type: "folder".to_string(),
-            icon: Some("📁".to_string()),
-            expanded: true,
-            checked: false,
-            metadata: None,
-            children: vec![
-                TreeNode {
-                    id: "1-1".to_string(),
-                    label: "File.txt".to_string(),
-                    node_type: "file".to_string(),
-                    icon: Some("📄".to_string()),
-                    expanded: false,
-                    checked: false,
-                    metadata: None,
-                    children: vec![],
-                },
-            ],
-        },
-    ]);
-
-    let selected = RwSignal::new(None);
-
-    view! {
-        <Tree nodes=nodes.into() selected_id=selected.into() id="tree-icons".to_string() />
+        <Tree>
+            <TreeItem has_children=true expanded=true>"📁 Folder"</TreeItem>
+            <TreeGroup>
+                <TreeItem depth=1>"📄 File.txt"</TreeItem>
+            </TreeGroup>
+        </Tree>
     }
 }

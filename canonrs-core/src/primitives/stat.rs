@@ -6,7 +6,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn StatPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -16,14 +16,14 @@ pub fn StatPrimitive(
             class={class}
             id={id}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn StatValuePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -33,14 +33,14 @@ pub fn StatValuePrimitive(
             class={class}
             id={id}
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }
 
 #[component]
 pub fn StatLabelPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -50,14 +50,14 @@ pub fn StatLabelPrimitive(
             class={class}
             id={id}
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }
 
 #[component]
 pub fn StatDeltaPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -67,14 +67,14 @@ pub fn StatDeltaPrimitive(
             class={class}
             id={id}
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }
 
 #[component]
 pub fn StatIconPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -84,14 +84,14 @@ pub fn StatIconPrimitive(
             class={class}
             id={id}
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }
 
 #[component]
 pub fn StatHeaderPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -101,14 +101,14 @@ pub fn StatHeaderPrimitive(
             class={class}
             id={id}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn StatBodyPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -118,7 +118,7 @@ pub fn StatBodyPrimitive(
             class={class}
             id={id}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

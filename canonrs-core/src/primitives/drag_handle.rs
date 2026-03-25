@@ -6,20 +6,21 @@ use leptos::prelude::*;
 
 #[component]
 pub fn DragHandlePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] active: bool,
 ) -> impl IntoView {
     view! {
         <button
             type="button"
             data-rs-drag-handle=""
-            data-rs-state="closed"
+            data-rs-state={if active { "open" } else { "closed" }}
             aria-label="Drag to reorder"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }

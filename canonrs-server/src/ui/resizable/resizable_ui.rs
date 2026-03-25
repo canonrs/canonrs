@@ -1,77 +1,56 @@
+//! @canon-level: ui
+//! Resizable - drag to resize panels
+
 use leptos::prelude::*;
-use canonrs_core::primitives::{ResizablePrimitive, ResizablePanelPrimitive, ResizableHandlePrimitive};
-
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum ResizableDirection {
-    Horizontal,
-    Vertical,
-}
-
-impl ResizableDirection {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Horizontal => "horizontal",
-            Self::Vertical => "vertical",
-        }
-    }
-}
+use canonrs_core::primitives::{ResizablePrimitive, ResizablePanelPrimitive, ResizableHandlePrimitive, ResizableOrientation};
 
 #[component]
 pub fn Resizable(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = ResizableDirection::Horizontal)] direction: ResizableDirection,
-    #[prop(default = 20)] min_size: u32,
-    #[prop(default = 80)] max_size: u32,
+    children: Children,
+    #[prop(default = ResizableOrientation::Horizontal)] orientation: ResizableOrientation,
+    #[prop(default = 20u32)] min_size: u32,
+    #[prop(default = 80u32)] max_size: u32,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <ResizablePrimitive class={class} id={id}>
-            <div
-                data-resizable-wrapper=""
-                data-direction={direction.as_str()}
-                data-min-size={min_size.to_string()}
-                data-max-size={max_size.to_string()}
-            >
-                {children.map(|c| c())}
-            </div>
+        <ResizablePrimitive
+            orientation=orientation
+            min_size=min_size
+            max_size=max_size
+            class=class
+        >
+            {children()}
         </ResizablePrimitive>
     }
 }
 
 #[component]
 pub fn ResizablePanel(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(default = 50)] default_size: u32,
+    children: Children,
+    #[prop(default = 50u32)] default_size: u32,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <ResizablePanelPrimitive class={class} id={id}>
-            <div
-                data-resizable-panel-content=""
-                data-size={default_size.to_string()}
-            >
-                {children.map(|c| c())}
-            </div>
+        <ResizablePanelPrimitive default_size=default_size class=class>
+            {children()}
         </ResizablePanelPrimitive>
     }
 }
 
 #[component]
 pub fn ResizableHandle(
-    #[prop(into, default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <ResizableHandlePrimitive id={id} />
-    }
+    view! { <ResizableHandlePrimitive class=class /> }
 }
 
 #[component]
 pub fn ResizablePreview() -> impl IntoView {
     view! {
         <Resizable>
-            <ResizablePanel default_size=50u32>"Panel"</ResizablePanel>
+            <ResizablePanel default_size=50u32>"Left Panel"</ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel default_size=50u32>"Right Panel"</ResizablePanel>
         </Resizable>
     }
 }

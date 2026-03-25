@@ -1,35 +1,34 @@
+//! @canon-level: strict
+//! Switch Primitive - native checkbox + CSS
+
 use leptos::prelude::*;
 
 #[component]
 pub fn SwitchPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] checked: bool,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
-    #[prop(default = String::new())] name: String,
-    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <label data-rs-switch="" class={class}>
+        <label data-rs-switch="" class=class>
             <input
                 type="checkbox"
-                checked={checked}
-                disabled={disabled}
+                checked=checked
+                disabled=disabled
                 name={if name.is_empty() { None } else { Some(name) }}
-                prop:value=move || value.get()
-                id={if id.is_empty() { None } else { Some(id) }}
+                prop:value=value
             />
-            {children.map(|c| c())}
+            {children()}
         </label>
     }
 }
 
 #[component]
 pub fn SwitchThumbPrimitive(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <span data-rs-switch-thumb="" class={class} />
-    }
+    view! { <span data-rs-switch-thumb="" class=class /> }
 }

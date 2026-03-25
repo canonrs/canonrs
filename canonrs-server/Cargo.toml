@@ -29,3 +29,6 @@ default = []
 examples = []
 ssr = ["axum", "tokio", "tower", "tower-http", "leptos_axum", "leptos/ssr", "leptos_meta/ssr", "leptos_router/ssr", "canonrs-core/ssr", "syntect", "pulldown-cmark", "html-escape"]
 hydrate = ["leptos/hydrate", "canonrs-core/hydrate"]
+
+[lints]
+workspace = true

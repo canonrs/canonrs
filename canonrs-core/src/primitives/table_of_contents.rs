@@ -2,21 +2,40 @@
 //! Pure SSR components, zero state, zero effects
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
 
-// ── Nav Container ────────────────────────────────────────────────────────────
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum TocMode {
+    #[default]
+    Simple,
+    Expand,
+    Nested,
+}
+impl TocMode {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Simple => "simple",
+            Self::Expand => "expand",
+            Self::Nested => "nested",
+        }
+    }
+}
 
 #[component]
 pub fn TocPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into)] id: String,
-    #[prop(into, default = String::new())] data_toc_mode: String,
+    #[prop(into, default = String::new())] id: String,
+    #[prop(default = TocMode::Simple)] mode: TocMode,
 ) -> impl IntoView {
     view! {
         <nav
             data-rs-toc=""
-            data-rs-mode=data_toc_mode
-            id={id}
+            data-rs-component="TableOfContents"
+            data-rs-behavior="navigation"
+            data-rs-mode=mode.as_str()
+            id={if id.is_empty() { None } else { Some(id) }}
             class={class}
             aria-label="Table of contents"
         >
@@ -24,8 +43,6 @@ pub fn TocPrimitive(
         </nav>
     }
 }
-
-// ── Title ────────────────────────────────────────────────────────────────────
 
 #[component]
 pub fn TocTitlePrimitive(
@@ -39,8 +56,6 @@ pub fn TocTitlePrimitive(
     }
 }
 
-// ── List ─────────────────────────────────────────────────────────────────────
-
 #[component]
 pub fn TocListPrimitive(
     #[prop(optional)] children: Option<Children>,
@@ -53,18 +68,17 @@ pub fn TocListPrimitive(
     }
 }
 
-// ── Subtree List ─────────────────────────────────────────────────────────────
-
 #[component]
 pub fn TocSubtreePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] data_state: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <ul
             data-rs-toc-subtree=""
-            data-rs-state=data_state
+            data-rs-state=s.data_rs_state
             class={class}
         >
             {children.map(|c| c())}
@@ -72,7 +86,22 @@ pub fn TocSubtreePrimitive(
     }
 }
 
-// ── Item ─────────────────────────────────────────────────────────────────────
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum TocItemState {
+    #[default]
+    Idle,
+    Active,
+    Ancestor,
+}
+impl TocItemState {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Idle     => "idle",
+            Self::Active   => "active",
+            Self::Ancestor => "ancestor",
+        }
+    }
+}
 
 #[component]
 pub fn TocItemPrimitive(
@@ -80,26 +109,24 @@ pub fn TocItemPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into)] data_level: String,
     #[prop(into)] data_target: String,
-    #[prop(into, default = "idle".to_string())] data_state: String,
-    #[prop(into, default = String::new())] data_child: String,
-    #[prop(into, default = String::new())] data_has_children: String,
+    #[prop(default = TocItemState::Idle)] state: TocItemState,
+    #[prop(default = false)] is_child: bool,
+    #[prop(default = false)] has_children: bool,
 ) -> impl IntoView {
     view! {
         <li
             data-rs-toc-item=""
             data-rs-level=data_level
             data-rs-target=data_target
-            data-rs-state=data_state
-            data-rs-child=data_child
-            data-rs-has-children=data_has_children
+            data-rs-state=state.as_str()
+            data-rs-child={if is_child { Some("true") } else { None }}
+            data-rs-has-children={if has_children { Some("true") } else { None }}
             class={class}
         >
             {children.map(|c| c())}
         </li>
     }
 }
-
-// ── Link ─────────────────────────────────────────────────────────────────────
 
 #[component]
 pub fn TocLinkPrimitive(
@@ -114,22 +141,22 @@ pub fn TocLinkPrimitive(
     }
 }
 
-// ── Expand Button (for nested mode) ──────────────────────────────────────────
-
 #[component]
 pub fn TocExpandButtonPrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = "false".to_string())] aria_expanded: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-toc-expand-btn=""
-            aria-expanded={aria_expanded}
+            data-rs-state=s.data_rs_state
+            aria-expanded=s.aria_expanded
             class={class}
         >
-            {children.map(|c| c()).unwrap_or_else(|| "›".into_any())}
+            {children.map(|c| c())}
         </button>
     }
 }

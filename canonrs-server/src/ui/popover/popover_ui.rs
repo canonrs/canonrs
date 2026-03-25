@@ -1,53 +1,30 @@
+//! @canon-level: ui
+//! Popover - attribute-driven
+//! Trigger: attr:data-rs-popover-trigger=""
+
 use leptos::prelude::*;
-use canonrs_core::primitives::{
-    PopoverPrimitive,
-    PopoverTriggerPrimitive,
-    PopoverContentPrimitive,
-};
+use canonrs_core::primitives::{PopoverPrimitive, PopoverContentPrimitive};
 
 #[component]
 pub fn Popover(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PopoverPrimitive
-            class=class
-            id=id
-        >
+        <PopoverPrimitive open=open.into() class=class>
             {children()}
         </PopoverPrimitive>
     }
 }
 
 #[component]
-pub fn PopoverTrigger(
-    children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-) -> impl IntoView {
-    view! {
-        <PopoverTriggerPrimitive
-            class=class
-            id=id
-        >
-            {children()}
-        </PopoverTriggerPrimitive>
-    }
-}
-
-#[component]
 pub fn PopoverContent(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PopoverContentPrimitive
-            class=class
-            id=id
-        >
+        <PopoverContentPrimitive class=class>
             {children()}
         </PopoverContentPrimitive>
     }
@@ -55,5 +32,10 @@ pub fn PopoverContent(
 
 #[component]
 pub fn PopoverPreview() -> impl IntoView {
-    view! { <Popover id="popover-preview".to_string()>"Content"</Popover> }
+    view! {
+        <Popover>
+            <button type="button" data-rs-popover-trigger="">"Open Popover"</button>
+            <PopoverContent>"Popover content"</PopoverContent>
+        </Popover>
+    }
 }

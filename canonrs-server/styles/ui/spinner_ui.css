@@ -8,22 +8,22 @@
   animation: spinner-rotate var(--spinner-rotation-duration) var(--spinner-rotation-easing) infinite;
 }
 
-[data-rs-spinner][data-size="small"] {
+[data-rs-spinner][data-rs-size="small"] {
   width: var(--spinner-size-small);
   height: var(--spinner-size-small);
 }
 
-[data-rs-spinner][data-size="medium"] {
+[data-rs-spinner][data-rs-size="medium"] {
   width: var(--spinner-size-medium);
   height: var(--spinner-size-medium);
 }
 
-[data-rs-spinner][data-size="large"] {
+[data-rs-spinner][data-rs-size="large"] {
   width: var(--spinner-size-large);
   height: var(--spinner-size-large);
 }
 
-[data-rs-spinner][data-paused="true"] {
+[data-rs-spinner][data-rs-paused="true"] {
   opacity: var(--spinner-opacity-paused);
   animation-play-state: paused;
 }

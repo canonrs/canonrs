@@ -6,7 +6,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn CodeBlockPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] language: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
@@ -16,21 +16,21 @@ pub fn CodeBlockPrimitive(
             data-rs-code-block=""
             data-rs-language=language
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn CodeBlockHeaderPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-code-header="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
@@ -79,26 +79,46 @@ pub fn CodeBlockCopyButtonPrimitive(
 pub fn CodeBlockPrePrimitive(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] inner_html: String,
 ) -> impl IntoView {
-    view! {
-        <pre data-rs-code-pre="" class=class>
-            {children.map(|c| c())}
-        </pre>
+    if inner_html.is_empty() {
+        view! {
+            <pre data-rs-code-pre="" class=class>
+                {children.map(|c| c())}
+            </pre>
+        }.into_any()
+    } else {
+        view! {
+            <pre data-rs-code-pre="" class=class inner_html=inner_html></pre>
+        }.into_any()
     }
 }
 
 #[component]
 pub fn CodeBlockLinePrimitive(
-    #[prop(into)] html: String,
+    #[prop(into)] _html: String,
     #[prop(default = 0usize)] line_number: usize,
     #[prop(into, default = String::new())] diff: String,
 ) -> impl IntoView {
-    view! {
-        <span
-            data-rs-code-line=""
-            data-rs-line-number=line_number.to_string()
-            data-rs-diff={if diff.is_empty() { None } else { Some(diff) }}
-            inner_html=html
-        ></span>
+    #[cfg(feature = "ssr")]
+    {
+        view! {
+            <span
+                data-rs-code-line=""
+                data-rs-line-number=line_number.to_string()
+                data-rs-diff={if diff.is_empty() { None } else { Some(diff) }}
+                inner_html=_html
+            ></span>
+        }.into_any()
+    }
+    #[cfg(not(feature = "ssr"))]
+    {
+        view! {
+            <span
+                data-rs-code-line=""
+                data-rs-line-number=line_number.to_string()
+                data-rs-diff={if diff.is_empty() { None } else { Some(diff.clone()) }}
+            ></span>
+        }.into_any()
     }
 }

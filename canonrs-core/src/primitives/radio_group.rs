@@ -2,7 +2,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn RadioGroupPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -13,7 +13,7 @@ pub fn RadioGroupPrimitive(
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
@@ -22,8 +22,8 @@ pub fn RadioGroupPrimitive(
 pub fn RadioGroupItemPrimitive(
     #[prop(optional)] _children: Option<Children>,
     #[prop(default = false)] checked: bool,
-    #[prop(into, default = Signal::derive(|| false))] disabled: Signal<bool>,
-    #[prop(into, default = Signal::derive(|| String::new()))] value: Signal<String>,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] value: String,
     #[prop(default = String::new())] name: String,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
@@ -32,7 +32,7 @@ pub fn RadioGroupItemPrimitive(
         <input
             type="radio"
             data-rs-radio-group-item=""
-            prop:value=move || value.get()
+            prop:value=value
             name={name}
             checked={checked}
             disabled={disabled}
@@ -44,12 +44,12 @@ pub fn RadioGroupItemPrimitive(
 
 #[component]
 pub fn RadioGroupIndicatorPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <span data-rs-radio-group-indicator="" class={class}>
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }

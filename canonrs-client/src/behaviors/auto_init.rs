@@ -2,6 +2,7 @@
 use super::*;
 pub fn register_all_behaviors() {
     accordion_behavior::register();
+    alert_behavior::register();
     overlay_behavior::register();
     simple_overlay_behavior::register();
     breadcrumb_behavior::register();
@@ -30,18 +31,23 @@ pub fn register_all_behaviors() {
     data_table_behavior::register();
     tabs_behavior::register();
     copy_button_behavior::register();
+    toast_behavior::register();
     markdown_behavior::register();
 toc_behavior::register();
-    chart_behavior::register();
+    chart::register();
     scroll_area_behavior::register();
     list_behavior::register();
     carousel_behavior::register();
     chart_sync_behavior::register();
     markdown_toolbar_behavior::register();
     doc_progress_behavior::register();
+    sidebar_behavior::register();
 }
 pub fn init_canonrs_behaviors() {
     register_all_behaviors();
+    super::behavior_discovery::inject_behaviors_from_meta();
+    #[cfg(debug_assertions)]
+    super::behavior_discovery::audit_behaviors();
     if let Err(e) = behavior_registry::init_behavior_registry() {
         web_sys::console::warn_1(&format!("behavior_registry init failed: {:?}", e).into());
     }

@@ -15,7 +15,7 @@ pub fn Link(
         <LinkPrimitive
             href={href}
             variant={variant}
-            disabled={disabled}
+            disabled={disabled.into()}
             external={external}
             class={class}
             id={id.unwrap_or_default()}

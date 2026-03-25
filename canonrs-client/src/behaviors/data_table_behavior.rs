@@ -11,7 +11,8 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-datatable", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+    register_behavior("data-rs-datatable", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        web_sys::console::log_1(&format!("[datatable] attach start id={:?}", root.get_attribute("id")).into());
         setup_filter(root)?;
         setup_sorting(root)?;
         setup_pagination(root)?;
@@ -21,7 +22,7 @@ pub fn register() {
         setup_expand(root)?;
         setup_chart_sync(root)?;
         let all_rows = get_all_rows(root);
-        let page_size = root.get_attribute("data-page-size")
+        let page_size = root.get_attribute("data-rs-page-size")
             .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(10);
         apply_pagination_vec(&all_rows, 1, page_size);
         update_pagination_ui(root);
@@ -33,7 +34,7 @@ pub fn register() {
 
 #[cfg(feature = "hydrate")]
 fn get_all_rows(container: &Element) -> Vec<Element> {
-    container.query_selector_all("[data-datatable-row]")
+    container.query_selector_all("[data-rs-datatable-row]")
         .map(|nl| (0..nl.length()).filter_map(|i| nl.item(i)?.dyn_into::<Element>().ok()).collect())
         .unwrap_or_default()
 }
@@ -41,7 +42,7 @@ fn get_all_rows(container: &Element) -> Vec<Element> {
 #[cfg(feature = "hydrate")]
 fn apply_pagination_vec(all_rows: &[Element], page: usize, page_size: usize) {
     let visible: Vec<&Element> = all_rows.iter()
-        .filter(|el| el.get_attribute("data-filtered-hidden").is_none())
+        .filter(|el| el.get_attribute("data-rs-filtered-hidden").is_none())
         .collect();
 
     let start = (page - 1) * page_size;
@@ -58,22 +59,22 @@ fn apply_pagination_vec(all_rows: &[Element], page: usize, page_size: usize) {
 
 #[cfg(feature = "hydrate")]
 fn update_pagination_ui(container: &Element) {
-    let current = container.get_attribute("data-current-page")
+    let current = container.get_attribute("data-rs-current-page")
         .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(1);
-    let total = container.get_attribute("data-total-pages")
+    let total = container.get_attribute("data-rs-total-pages")
         .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(1);
 
-    if let Some(info) = container.query_selector("[data-pagination-info]").ok().flatten() {
+    if let Some(info) = container.query_selector("[data-rs-pagination-info]").ok().flatten() {
         info.set_text_content(Some(&format!("{} of {}", current, total)));
     }
 
-    let Ok(Some(pag)) = container.query_selector("[data-datatable-pagination]") else { return };
+    let Ok(Some(pag)) = container.query_selector("[data-rs-datatable-pagination]") else { return };
     let Ok(buttons) = pag.query_selector_all("button") else { return };
 
     for i in 0..buttons.length() {
         let Some(btn) = buttons.item(i) else { continue };
         let Ok(el) = btn.dyn_into::<Element>() else { continue };
-        match el.get_attribute("data-action").as_deref() {
+        match el.get_attribute("data-rs-action").as_deref() {
             Some("prev") => {
                 if current <= 1 { let _ = el.set_attribute("disabled", ""); }
                 else { let _ = el.remove_attribute("disabled"); }
@@ -89,7 +90,7 @@ fn update_pagination_ui(container: &Element) {
 
 #[cfg(feature = "hydrate")]
 fn get_cell_text(row: &Element, col_index: usize) -> String {
-    row.query_selector_all("[data-datatable-cell]")
+    row.query_selector_all("[data-rs-datatable-cell]")
         .ok()
         .and_then(|nl| nl.item(col_index as u32))
         .and_then(|c| c.dyn_into::<Element>().ok())
@@ -108,7 +109,7 @@ fn setup_filter(container: &Element) -> BehaviorResult<()> {
     }
     let _ = container.set_attribute("data-filter-attached", "1");
 
-    let Some(input) = container.query_selector("[data-datatable-filter]")
+    let Some(input) = container.query_selector("[data-rs-datatable-filter]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })? else {
         return Ok(());
     };
@@ -134,17 +135,17 @@ fn setup_filter(container: &Element) -> BehaviorResult<()> {
 #[cfg(feature = "hydrate")]
 fn apply_filter(container: &Element, query: &str) {
     let all_rows = get_all_rows(container);
-    let empty = container.query_selector("[data-datatable-empty]").ok().flatten();
+    let empty = container.query_selector("[data-rs-datatable-empty]").ok().flatten();
     let mut visible_count = 0usize;
 
     for row in &all_rows {
         let text = row.text_content().unwrap_or_default().to_lowercase();
         let matches = query.is_empty() || text.contains(query);
         if matches {
-            let _ = row.remove_attribute("data-filtered-hidden");
+            let _ = row.remove_attribute("data-rs-filtered-hidden");
             visible_count += 1;
         } else {
-            let _ = row.set_attribute("data-filtered-hidden", "1");
+            let _ = row.set_attribute("data-rs-filtered-hidden", "1");
             let _ = row.set_attribute("hidden", "");
         }
     }
@@ -154,11 +155,11 @@ fn apply_filter(container: &Element, query: &str) {
         else { let _ = empty_el.set_attribute("hidden", ""); }
     }
 
-    let page_size = container.get_attribute("data-page-size")
+    let page_size = container.get_attribute("data-rs-page-size")
         .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(10);
     let total_pages = ((visible_count as f64) / (page_size as f64)).ceil().max(1.0) as usize;
-    let _ = container.set_attribute("data-total-pages", &total_pages.to_string());
-    let _ = container.set_attribute("data-current-page", "1");
+    let _ = container.set_attribute("data-rs-total-pages", &total_pages.to_string());
+    let _ = container.set_attribute("data-rs-current-page", "1");
     apply_pagination_vec(&all_rows, 1, page_size);
 }
 
@@ -171,7 +172,7 @@ fn setup_sorting(container: &Element) -> BehaviorResult<()> {
     }
     let _ = container.set_attribute("data-sorting-attached", "1");
 
-    let headers = container.query_selector_all("[data-datatable-head-cell][data-sort-key]")
+    let headers = container.query_selector_all("[data-rs-datatable-head-cell][data-rs-sort-key]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..headers.length() {
@@ -194,7 +195,7 @@ fn setup_sorting(container: &Element) -> BehaviorResult<()> {
                 if let Some(h) = all_headers.item(j) {
                     if let Ok(el) = h.dyn_into::<Element>() {
                         let _ = el.set_attribute("aria-sort", "none");
-                        if let Some(icon) = el.query_selector("[data-datatable-sort-icon]").ok().flatten() {
+                        if let Some(icon) = el.query_selector("[data-rs-datatable-sort-icon]").ok().flatten() {
                             icon.set_text_content(Some("↕"));
                         }
                     }
@@ -202,7 +203,7 @@ fn setup_sorting(container: &Element) -> BehaviorResult<()> {
             }
 
             let _ = header_clone.set_attribute("aria-sort", new_dir);
-            if let Some(icon) = header_clone.query_selector("[data-datatable-sort-icon]").ok().flatten() {
+            if let Some(icon) = header_clone.query_selector("[data-rs-datatable-sort-icon]").ok().flatten() {
                 icon.set_text_content(Some(match new_dir {
                     "ascending" => "▲",
                     "descending" => "▼",
@@ -213,20 +214,20 @@ fn setup_sorting(container: &Element) -> BehaviorResult<()> {
             // Remove hidden de todas as rows não filtradas antes de reordenar
             let all_rows = get_all_rows(&container_clone);
             for row in &all_rows {
-                if row.get_attribute("data-filtered-hidden").is_none() {
+                if row.get_attribute("data-rs-filtered-hidden").is_none() {
                     let _ = row.remove_attribute("hidden");
                 }
             }
 
             if new_dir != "none" {
-                let col_index = header_clone.get_attribute("data-col-index")
+                let col_index = header_clone.get_attribute("data-rs-col-index")
                     .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(0);
                 sort_rows(&container_clone, col_index, new_dir);
             }
 
-            let page_size = container_clone.get_attribute("data-page-size")
+            let page_size = container_clone.get_attribute("data-rs-page-size")
                 .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(10);
-            let _ = container_clone.set_attribute("data-current-page", "1");
+            let _ = container_clone.set_attribute("data-rs-current-page", "1");
             apply_pagination_vec(&all_rows, 1, page_size);
             update_pagination_ui(&container_clone);
         }) as Box<dyn FnMut(_)>);
@@ -240,8 +241,8 @@ fn setup_sorting(container: &Element) -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn sort_rows(container: &Element, col_index: usize, direction: &str) {
-    let Ok(Some(tbody)) = container.query_selector("[data-datatable-body]") else { return };
-    let Ok(rows) = tbody.query_selector_all("[data-datatable-row]") else { return };
+    let Ok(Some(tbody)) = container.query_selector("[data-rs-datatable-body]") else { return };
+    let Ok(rows) = tbody.query_selector_all("[data-rs-datatable-row]") else { return };
 
     let mut row_vec: Vec<Element> = (0..rows.length())
         .filter_map(|i| rows.item(i)?.dyn_into::<Element>().ok())
@@ -266,7 +267,7 @@ fn setup_pagination(container: &Element) -> BehaviorResult<()> {
     }
     let _ = container.set_attribute("data-pagination-attached", "1");
 
-    let Some(pag) = container.query_selector("[data-datatable-pagination]")
+    let Some(pag) = container.query_selector("[data-rs-datatable-pagination]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })? else {
         return Ok(());
     };
@@ -278,12 +279,12 @@ fn setup_pagination(container: &Element) -> BehaviorResult<()> {
         let Some(btn) = buttons.item(i) else { continue };
         let Ok(btn_el) = btn.dyn_into::<Element>() else { continue };
         let container_clone = container.clone();
-        let action = btn_el.get_attribute("data-action").unwrap_or_default();
+        let action = btn_el.get_attribute("data-rs-action").unwrap_or_default();
 
         let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
-            let current = container_clone.get_attribute("data-current-page")
+            let current = container_clone.get_attribute("data-rs-current-page")
                 .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(1);
-            let total = container_clone.get_attribute("data-total-pages")
+            let total = container_clone.get_attribute("data-rs-total-pages")
                 .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(1);
 
             let new_page = match action.as_str() {
@@ -293,9 +294,9 @@ fn setup_pagination(container: &Element) -> BehaviorResult<()> {
             };
 
             if new_page != current {
-                let _ = container_clone.set_attribute("data-current-page", &new_page.to_string());
+                let _ = container_clone.set_attribute("data-rs-current-page", &new_page.to_string());
                 let all_rows = get_all_rows(&container_clone);
-                let page_size = container_clone.get_attribute("data-page-size")
+                let page_size = container_clone.get_attribute("data-rs-page-size")
                     .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(10);
                 apply_pagination_vec(&all_rows, new_page, page_size);
                 update_pagination_ui(&container_clone);
@@ -319,7 +320,7 @@ fn setup_column_toggle(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-column-toggle-attached", "1");
 
     let items = container
-        .query_selector_all("[data-dropdown-menu-checkbox-item][data-col-index]")
+        .query_selector_all("[data-rs-dropdown-menu-checkbox-item][data-rs-col-index]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..items.length() {
@@ -329,7 +330,7 @@ fn setup_column_toggle(container: &Element) -> BehaviorResult<()> {
         let item_clone = item_el.clone();
 
         let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
-            let col_index = item_clone.get_attribute("data-col-index")
+            let col_index = item_clone.get_attribute("data-rs-col-index")
                 .and_then(|v: String| v.parse::<usize>().ok()).unwrap_or(0);
             let checked = item_clone.get_attribute("aria-checked").as_deref() == Some("true");
             let new_checked = !checked;
@@ -346,7 +347,7 @@ fn setup_column_toggle(container: &Element) -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn toggle_column(container: &Element, col_index: usize, visible: bool) {
-    let selector = format!("[data-col-index='{}']:not([data-dropdown-menu-checkbox-item])", col_index);
+    let selector = format!("[data-rs-col-index='{}']:not([data-rs-dropdown-menu-checkbox-item])", col_index);
     let Ok(els) = container.query_selector_all(&selector) else { return };
     for i in 0..els.length() {
         if let Some(el) = els.item(i).and_then(|e| e.dyn_into::<Element>().ok()) {
@@ -367,7 +368,7 @@ fn setup_selection(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-selection-attached", "1");
 
     // Select-all checkbox
-    if let Some(select_all) = container.query_selector("[data-datatable-select-all]").ok().flatten() {
+    if let Some(select_all) = container.query_selector("[data-rs-datatable-select-all]").ok().flatten() {
         let container_clone = container.clone();
         let sa_clone = select_all.clone();
         let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
@@ -375,13 +376,13 @@ fn setup_selection(container: &Element) -> BehaviorResult<()> {
                 .map(|el| el.checked()).unwrap_or(false);
             let rows = get_all_rows(&container_clone);
             for row in &rows {
-                if row.get_attribute("data-filtered-hidden").is_some() { continue; }
+                if row.get_attribute("data-rs-filtered-hidden").is_some() { continue; }
                 if checked {
                     let _ = row.set_attribute("data-state", "selected");
                 } else {
                     let _ = row.remove_attribute("data-state");
                 }
-                if let Some(cb) = row.query_selector("[data-datatable-select-row]").ok().flatten() {
+                if let Some(cb) = row.query_selector("[data-rs-datatable-select-row]").ok().flatten() {
                     if let Some(input) = cb.dyn_ref::<web_sys::HtmlInputElement>() {
                         input.set_checked(checked);
                     }
@@ -394,7 +395,7 @@ fn setup_selection(container: &Element) -> BehaviorResult<()> {
     }
 
     // Per-row checkboxes
-    let row_cbs = container.query_selector_all("[data-datatable-select-row]")
+    let row_cbs = container.query_selector_all("[data-rs-datatable-select-row]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..row_cbs.length() {
@@ -410,7 +411,7 @@ fn setup_selection(container: &Element) -> BehaviorResult<()> {
             // Find parent row
             let mut parent = cb_clone.parent_element();
             while let Some(p) = parent {
-                if p.has_attribute("data-datatable-row") {
+                if p.has_attribute("data-rs-datatable-row") {
                     if checked {
                         let _ = p.set_attribute("data-state", "selected");
                     } else {
@@ -434,12 +435,12 @@ fn setup_selection(container: &Element) -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn update_select_all(container: &Element) {
-    let Some(select_all) = container.query_selector("[data-datatable-select-all]").ok().flatten() else { return };
+    let Some(select_all) = container.query_selector("[data-rs-datatable-select-all]").ok().flatten() else { return };
     let Some(sa_input) = select_all.dyn_ref::<web_sys::HtmlInputElement>() else { return };
 
     let rows = get_all_rows(container);
     let visible: Vec<&Element> = rows.iter()
-        .filter(|r| r.get_attribute("data-filtered-hidden").is_none())
+        .filter(|r| r.get_attribute("data-rs-filtered-hidden").is_none())
         .collect();
 
     let selected = visible.iter().filter(|r| r.get_attribute("data-state").as_deref() == Some("selected")).count();
@@ -465,7 +466,7 @@ fn setup_density(container: &Element) -> BehaviorResult<()> {
     }
     let _ = container.set_attribute("data-density-attached", "1");
 
-    let buttons = container.query_selector_all("[data-density-btn]")
+    let buttons = container.query_selector_all("[data-rs-density-btn]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..buttons.length() {
@@ -476,16 +477,16 @@ fn setup_density(container: &Element) -> BehaviorResult<()> {
         let all_buttons = buttons.clone();
 
         let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
-            let density = btn_clone.get_attribute("data-density-btn").unwrap_or_default();
+            let density = btn_clone.get_attribute("data-rs-density-btn").unwrap_or_default();
 
             // Update container density
-            let _ = container_clone.set_attribute("data-density", &density);
+            let _ = container_clone.set_attribute("data-rs-density", &density);
 
             // Update active state on buttons
             for j in 0..all_buttons.length() {
                 if let Some(b) = all_buttons.item(j) {
                     if let Ok(el) = b.dyn_into::<Element>() {
-                        let is_active = el.get_attribute("data-density-btn").as_deref() == Some(&density);
+                        let is_active = el.get_attribute("data-rs-density-btn").as_deref() == Some(&density);
                         let _ = el.set_attribute("data-active", if is_active { "true" } else { "false" });
                     }
                 }
@@ -508,7 +509,7 @@ fn setup_expand(container: &Element) -> BehaviorResult<()> {
     }
     let _ = container.set_attribute("data-expand-attached", "1");
 
-    let buttons = container.query_selector_all("[data-datatable-expand-btn]")
+    let buttons = container.query_selector_all("[data-rs-datatable-expand-btn]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..buttons.length() {
@@ -518,14 +519,14 @@ fn setup_expand(container: &Element) -> BehaviorResult<()> {
         let btn_clone = btn_el.clone();
 
         let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
-            let row_id = btn_clone.get_attribute("data-row-id").unwrap_or_default();
+            let row_id = btn_clone.get_attribute("data-rs-row-id").unwrap_or_default();
             let expanded = btn_clone.get_attribute("aria-expanded").as_deref() == Some("true");
             let new_expanded = !expanded;
 
             let _ = btn_clone.set_attribute("aria-expanded", if new_expanded { "true" } else { "false" });
             btn_clone.set_text_content(Some(if new_expanded { "▼" } else { "▶" }));
 
-            let selector = format!("[data-datatable-expand-row][data-row-id='{}']", row_id);
+            let selector = format!("[data-rs-datatable-expand-row][data-rs-row-id='{}']", row_id);
             if let Ok(Some(expand_row)) = container_clone.query_selector(&selector) {
                 if new_expanded {
                     let _ = expand_row.remove_attribute("hidden");
@@ -544,14 +545,14 @@ fn setup_expand(container: &Element) -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
-    let chart_id = container.get_attribute("data-table-sync-chart").unwrap_or_default();
-    let scope    = container.get_attribute("data-sync-scope").unwrap_or_default();
+    let chart_id = container.get_attribute("data-rs-chart-sync").unwrap_or_default();
+    let scope    = container.get_attribute("data-rs-chart-sync-scope").unwrap_or_default();
     // Requer pelo menos um dos dois
     if chart_id.is_empty() && scope.is_empty() { return Ok(()); }
-    if container.get_attribute("data-sync-table-attached").as_deref() == Some("1") { return Ok(()); }
-    let _ = container.set_attribute("data-sync-table-attached", "1");
+    if container.get_attribute("data-rs-sync-table-attached").as_deref() == Some("1") { return Ok(()); }
+    let _ = container.set_attribute("data-rs-sync-table-attached", "1");
 
-    let rows = container.query_selector_all("[data-datatable-row]")
+    let rows = container.query_selector_all("[data-rs-datatable-row]")
         .map_err(|_| canonrs_core::BehaviorError::JsError { message: "rows query failed".into() })?;
 
     for i in 0..rows.length() {
@@ -560,7 +561,7 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
         let row_c = row.clone();
 
         let enter = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            let idx = row_c.get_attribute("data-row-index")
+            let idx = row_c.get_attribute("data-rs-row-index")
                 .and_then(|v| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
             if idx == usize::MAX { return; }
             let f = js_sys::Function::new_with_args(
@@ -606,10 +607,10 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
         if !scope_match && !id_match { return; }
         let idx = js_sys::Reflect::get(&detail, &wasm_bindgen::JsValue::from_str("index"))
             .ok().and_then(|v| v.as_f64()).map(|f| f as usize).unwrap_or(usize::MAX);
-        let Ok(rows) = container_c.query_selector_all("[data-datatable-row]") else { return };
+        let Ok(rows) = container_c.query_selector_all("[data-rs-datatable-row]") else { return };
         for i in 0..rows.length() {
             let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<Element>().ok()) else { continue };
-            let row_idx = row.get_attribute("data-row-index")
+            let row_idx = row.get_attribute("data-rs-row-index")
                 .and_then(|v| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
             if row_idx == idx {
                 row.set_attribute("data-chart-highlight", "").ok();
@@ -621,7 +622,7 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
 
     let container_c2 = container.clone();
     let on_leave = Closure::wrap(Box::new(move |_: web_sys::Event| {
-        let Ok(rows) = container_c2.query_selector_all("[data-datatable-row][data-chart-highlight]") else { return };
+        let Ok(rows) = container_c2.query_selector_all("[data-rs-datatable-row][data-chart-highlight]") else { return };
         for i in 0..rows.length() {
             if let Some(r) = rows.item(i).and_then(|r| r.dyn_into::<Element>().ok()) {
                 r.remove_attribute("data-chart-highlight").ok();

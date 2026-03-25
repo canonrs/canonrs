@@ -7,7 +7,6 @@ use super::navigation_provider::use_navigation_state;
 #[component]
 pub fn BreadcrumbAuto(
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     let nav_state = use_navigation_state();
     
@@ -22,7 +21,7 @@ pub fn BreadcrumbAuto(
     };
     
     view! {
-        <BreadcrumbPrimitive class={class} id={id}>
+        <BreadcrumbPrimitive class={class}>
             {move || {
                 let items = breadcrumb_items();
                 let len = items.len();

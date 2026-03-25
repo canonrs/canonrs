@@ -6,25 +6,27 @@ use leptos::prelude::*;
 
 #[component]
 pub fn PopoverPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-popover=""
-            data-rs-state="closed"
+            data-rs-component="Popover"
+            data-rs-state={if open { "open" } else { "closed" }}
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn PopoverTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -34,16 +36,16 @@ pub fn PopoverTriggerPrimitive(
             data-rs-popover-trigger=""
             aria-haspopup="dialog"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn PopoverContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -54,9 +56,9 @@ pub fn PopoverContentPrimitive(
             aria-modal="false"
             tabindex="-1"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

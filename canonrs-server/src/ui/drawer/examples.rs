@@ -1,21 +1,18 @@
 use leptos::prelude::*;
 use super::drawer_ui::*;
+use crate::ui::button::button_ui::{Button, ButtonVariant};
 
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <div>
-            <DrawerTrigger>
-                <button data-button data-ui-variant="solid">"Open Drawer"</button>
-            </DrawerTrigger>
-            <Drawer id="drawer-ex".to_string()>
-                <DrawerOverlay />
-                <DrawerContent>
-                    <h2>"Drawer Title"</h2>
-                    <p>"Drawer content"</p>
-                    <button data-button data-ui-variant="outline" onclick="document.getElementById('drawer-ex').setAttribute('data-state', 'closed')">"Close"</button>
-                </DrawerContent>
-            </Drawer>
-        </div>
+        <Drawer>
+            <Button variant=ButtonVariant::Primary attr:data-rs-drawer-trigger="">"Open Drawer"</Button>
+            <DrawerOverlay />
+            <DrawerContent aria_labelledby="drawer-example-title">
+                <h2 id="drawer-example-title">"Drawer Title"</h2>
+                <p>"Drawer content"</p>
+                <Button variant=ButtonVariant::Outline attr:data-rs-drawer-close="">"Close"</Button>
+            </DrawerContent>
+        </Drawer>
     }
 }

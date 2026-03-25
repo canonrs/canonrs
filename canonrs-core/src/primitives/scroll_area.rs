@@ -8,11 +8,11 @@ use leptos::prelude::*;
 pub fn ScrollArea(
     #[prop(default = String::new())] id: String,
     #[prop(default = String::new())] class: String,
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
 ) -> impl IntoView {
     view! {
-        <div data-rs-scroll-area="" id=id class=class>
-            {children.map(|c| c())}
+        <div data-rs-scroll-area="" id=if id.is_empty() { None } else { Some(id.clone()) } class=class>
+            {children()}
         </div>
     }
 }

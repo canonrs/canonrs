@@ -6,7 +6,7 @@ use leptos::prelude::*;
 
 #[component]
 pub fn CarouselPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -16,49 +16,56 @@ pub fn CarouselPrimitive(
             role="region"
             aria-roledescription="carousel"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn CarouselTrackPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-carousel-track="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn CarouselItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
     #[prop(default = false)] active: bool,
+    #[prop(optional)] index: Option<usize>,
+    #[prop(optional)] total: Option<usize>,
 ) -> impl IntoView {
+    let aria_label = match (index, total) {
+        (Some(i), Some(t)) => Some(format!("Slide {} of {}", i + 1, t)),
+        _ => None,
+    };
     view! {
         <div
             data-rs-carousel-item=""
-            data-rs-active={if active { "true" } else { "false" }}
+            data-rs-state=if active { "active" } else { "inactive" }
             role="group"
             aria-roledescription="slide"
+            aria-label=aria_label
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn CarouselPrevPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -68,14 +75,14 @@ pub fn CarouselPrevPrimitive(
             aria-label="Previous slide"
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn CarouselNextPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -85,14 +92,14 @@ pub fn CarouselNextPrimitive(
             aria-label="Next slide"
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
 
 #[component]
 pub fn CarouselIndicatorsPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -102,7 +109,7 @@ pub fn CarouselIndicatorsPrimitive(
             aria-label="Slide indicators"
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
@@ -117,9 +124,9 @@ pub fn CarouselDotPrimitive(
         <button
             type="button"
             data-rs-carousel-dot=""
-            data-rs-active={if active { "true" } else { "false" }}
+            data-rs-state=if active { "active" } else { "inactive" }
             aria-label=aria_label
-            aria-current={if active { "true" } else { "false" }}
+            aria-current=if active { Some("true") } else { None }
             class=class
         />
     }

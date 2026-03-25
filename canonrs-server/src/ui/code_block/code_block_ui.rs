@@ -1,11 +1,11 @@
 //! @canon-level: strict
 //! @canon-owner: ui-team
-//! CodeBlock UI Component - DevTools level, SSR highlight via syntect
+//! CodeBlock UI Component - SSR highlight via syntect, pre como leaf node
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     CodeBlockPrimitive, CodeBlockHeaderPrimitive, CodeBlockLanguagePrimitive,
-    CodeBlockFilenamePrimitive, CodeBlockPrePrimitive, CodeBlockLinePrimitive,
+    CodeBlockFilenamePrimitive,
 };
 use crate::ui::copy_button::CopyButton;
 #[cfg(feature = "ssr")]
@@ -22,12 +22,14 @@ pub fn CodeBlock(
     #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     #[cfg(feature = "ssr")]
-    let lines = {
+    let pre_html = {
         let result = highlight(&code, &language);
-        result.lines
+        result.lines.into_iter().enumerate().map(|(i, html)| {
+            format!(r#"<span data-rs-code-line="" data-rs-line-number="{}">{}</span>"#, i + 1, html)
+        }).collect::<Vec<_>>().join("")
     };
     #[cfg(not(feature = "ssr"))]
-    let lines: Vec<String> = vec![code.clone()];
+    let pre_html = String::new();
 
     let lang_display = language.clone();
     let copy_id = format!("{}-copy", id);
@@ -50,17 +52,7 @@ pub fn CodeBlock(
                     <CopyButton text=code.clone() id=copy_id />
                 })}
             </CodeBlockHeaderPrimitive>
-
-            <CodeBlockPrePrimitive>
-                {lines.into_iter().enumerate().map(|(i, html)| {
-                    view! {
-                        <CodeBlockLinePrimitive
-                            html=html
-                            line_number={i + 1}
-                        />
-                    }
-                }).collect::<Vec<_>>()}
-            </CodeBlockPrePrimitive>
+            <pre data-rs-code-pre="" inner_html=pre_html />
         </CodeBlockPrimitive>
     }
 }

@@ -37,7 +37,7 @@
   z-index: 50;
 }
 
-[data-rs-combobox][data-state="open"] [data-rs-combobox-list] {
+[data-rs-combobox][data-rs-state="open"] [data-rs-combobox-list] {
   display: block;
 }
 
@@ -62,7 +62,7 @@
   padding: var(--combobox-empty-padding);
 }
 
-[data-rs-combobox][data-disabled="true"] {
+[data-rs-combobox][data-rs-disabled="true"] {
   opacity: var(--combobox-disabled-opacity);
   pointer-events: none;
 }

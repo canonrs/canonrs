@@ -8,8 +8,8 @@ use canonrs_core::{
     ToastClosePrimitive,
     ToastVariant,
 };
+use canonrs_core::meta::VisibilityState;
 
-/// InteractiveToast - Self-managing toast with optional auto-dismiss
 #[component]
 pub fn InteractiveToast(
     #[prop(into)] title: String,
@@ -18,12 +18,10 @@ pub fn InteractiveToast(
     #[prop(optional)] auto_dismiss_ms: Option<u32>,
 ) -> impl IntoView {
     let (open, set_open) = signal(true);
-    
-    // Store strings in signals for reactive access
+
     let title = StoredValue::new(title);
     let description = StoredValue::new(description);
 
-    // Auto-dismiss (wasm32 only, deterministic)
     #[cfg(target_arch = "wasm32")]
     {
         if let Some(duration) = auto_dismiss_ms {
@@ -39,7 +37,7 @@ pub fn InteractiveToast(
 
     view! {
         {move || open.get().then(|| view! {
-            <ToastPrimitive variant=variant open=true>
+            <ToastPrimitive variant=variant state=VisibilityState::Open>
                 <ToastTitlePrimitive>{title.get_value()}</ToastTitlePrimitive>
                 <ToastDescriptionPrimitive>{description.get_value()}</ToastDescriptionPrimitive>
                 <ToastClosePrimitive on:click=move |_| set_open.set(false)>

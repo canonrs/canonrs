@@ -6,11 +6,10 @@ use crate::ui::input::Input;
 pub fn BasicExample() -> impl IntoView {
     view! {
         <Field>
-            <FieldLabel html_for="field-email".to_string()>"Email"</FieldLabel>
+            <FieldLabel>"Email"</FieldLabel>
             <Input
-                id="field-email".to_string()
-                name="email".to_string()
-                placeholder="you@example.com".to_string()
+                name="email"
+                placeholder="you@example.com"
             />
         </Field>
     }

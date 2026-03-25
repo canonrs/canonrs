@@ -4,7 +4,7 @@ use super::menu_ui::*;
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <Menu id="menu-basic".to_string() aria_label="Main menu".to_string()>
+        <Menu aria_label="Main menu">
             <MenuGroup>
                 <MenuLabel>"Account"</MenuLabel>
                 <MenuItem>"Profile"</MenuItem>

@@ -28,54 +28,48 @@ impl InlineNoticeVariant {
 
 #[component]
 pub fn InlineNoticePrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = InlineNoticeVariant::Default)] variant: InlineNoticeVariant,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-inline-notice=""
-            data-variant={variant.as_str()}
+            data-rs-variant=variant.as_str()
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn InlineNoticeIconPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <span
             data-rs-inline-notice-icon=""
             aria-hidden="true"
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }
 
 #[component]
 pub fn InlineNoticeContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
         <span
             data-rs-inline-notice-content=""
             class=class
-            id=id
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }

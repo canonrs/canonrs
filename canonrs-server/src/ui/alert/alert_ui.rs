@@ -2,17 +2,19 @@
 //! Alert - Declarative UI wrapper
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{AlertPrimitive, AlertTitlePrimitive, AlertDescriptionPrimitive, AlertVariant};
+use canonrs_core::primitives::{
+    AlertPrimitive, AlertTitlePrimitive, AlertDescriptionPrimitive,
+    AlertCloseButtonPrimitive, AlertVariant,
+};
 
 #[component]
 pub fn Alert(
     children: Children,
     #[prop(default = AlertVariant::Default)] variant: AlertVariant,
     #[prop(optional, into)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertPrimitive variant={variant} class={class.unwrap_or_default()} id={id.unwrap_or_default()}>
+        <AlertPrimitive variant={variant} class={class.unwrap_or_default()}>
             {children()}
         </AlertPrimitive>
     }
@@ -22,10 +24,9 @@ pub fn Alert(
 pub fn AlertTitle(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertTitlePrimitive class={class.unwrap_or_default()} id={id.unwrap_or_default()}>
+        <AlertTitlePrimitive class={class.unwrap_or_default()}>
             {children()}
         </AlertTitlePrimitive>
     }
@@ -35,10 +36,9 @@ pub fn AlertTitle(
 pub fn AlertDescription(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertDescriptionPrimitive class={class.unwrap_or_default()} id={id.unwrap_or_default()}>
+        <AlertDescriptionPrimitive class={class.unwrap_or_default()}>
             {children()}
         </AlertDescriptionPrimitive>
     }
@@ -48,22 +48,20 @@ pub fn AlertDescription(
 pub fn AlertCloseButton(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <button
-            data-alert-close=""
-            type="button"
-            aria-label="Close alert"
-            class={class.unwrap_or_default()}
-            id={id.unwrap_or_default()}
-        >
+        <AlertCloseButtonPrimitive class={class.unwrap_or_default()}>
             {children()}
-        </button>
+        </AlertCloseButtonPrimitive>
     }
 }
 
 #[component]
 pub fn AlertPreview() -> impl IntoView {
-    view! { <Alert>"Alert message"</Alert> }
+    view! {
+        <Alert variant=AlertVariant::Default>
+            <AlertTitle>"Info"</AlertTitle>
+            <AlertDescription>"This is a default alert message."</AlertDescription>
+        </Alert>
+    }
 }

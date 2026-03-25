@@ -28,7 +28,7 @@
   background: var(--menu-item-bg-hover);
 }
 
-[data-rs-menu-item][data-active="true"] {
+[data-rs-menu-item][data-rs-selected="true"] {
   background: var(--menu-item-bg-active);
 }
 

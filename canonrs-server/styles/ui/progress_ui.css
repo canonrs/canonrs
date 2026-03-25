@@ -24,7 +24,7 @@
 }
 
 /* Estados */
-[data-rs-progress][data-state="indeterminate"] [data-rs-progress-indicator] {
+[data-rs-progress][data-rs-state="indeterminate"] [data-rs-progress-indicator] {
   animation: progress-indeterminate 1.5s ease-in-out infinite;
 }
 

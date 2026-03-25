@@ -1,41 +1,83 @@
+//! @canon-level: ui
+//! Combobox - attribute-driven
+//! Relação trigger↔list via estrutura DOM
+
 use leptos::prelude::*;
-use canonrs_core::primitives::combobox::*;
-use super::types::ComboboxOption;
+use canonrs_core::primitives::{
+    ComboboxPrimitive,
+    ComboboxTriggerPrimitive,
+    ComboboxListPrimitive,
+    ComboboxItemPrimitive,
+};
 
 #[component]
 pub fn Combobox(
-    id: String, // 👈 OBRIGATÓRIO (sem default, sem Option)
-    options: Vec<ComboboxOption>,
-    #[prop(default = "Select option...".to_string())] placeholder: String,
+    children: Children,
+    #[prop(default = false)] expanded: bool,
     #[prop(default = false)] disabled: bool,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <ComboboxPrimitive
-            expanded=false
-            disabled=disabled
-            class=class
-            id=id
+            expanded={expanded}
+            disabled={disabled}
+            class={class}
+            id={id.unwrap_or_default()}
         >
-            <ComboboxTriggerPrimitive disabled=disabled>
-                <span>{placeholder}</span>
-            </ComboboxTriggerPrimitive>
-
-            <ComboboxListPrimitive>
-                {options.into_iter().map(|opt| view! {
-                    <ComboboxItemPrimitive
-                        selected=false
-                        disabled=opt.disabled
-                    >
-                        <span>{opt.label}</span>
-                    </ComboboxItemPrimitive>
-                }).collect_view()}
-            </ComboboxListPrimitive>
+            {children()}
         </ComboboxPrimitive>
     }
 }
 
 #[component]
+pub fn ComboboxTrigger(
+    children: Children,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <ComboboxTriggerPrimitive disabled={disabled} class={class}>
+            {children()}
+        </ComboboxTriggerPrimitive>
+    }
+}
+
+#[component]
+pub fn ComboboxList(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <ComboboxListPrimitive class={class}>
+            {children()}
+        </ComboboxListPrimitive>
+    }
+}
+
+#[component]
+pub fn ComboboxItem(
+    children: Children,
+    #[prop(default = false)] selected: bool,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <ComboboxItemPrimitive selected={selected} disabled={disabled} class={class}>
+            {children()}
+        </ComboboxItemPrimitive>
+    }
+}
+
+#[component]
 pub fn ComboboxPreview() -> impl IntoView {
-    view! { <Combobox id="cb-preview".to_string() options=vec![] /> }
+    view! {
+        <Combobox>
+            <ComboboxTrigger>"Select option..."</ComboboxTrigger>
+            <ComboboxList>
+                <ComboboxItem>"Option 1"</ComboboxItem>
+                <ComboboxItem>"Option 2"</ComboboxItem>
+            </ComboboxList>
+        </Combobox>
+    }
 }

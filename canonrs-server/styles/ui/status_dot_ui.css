@@ -11,24 +11,24 @@
 }
 
 /* Presence States → Token Mapping */
-[data-rs-status-dot][data-variant="online"] {
+[data-rs-status-dot][data-rs-variant="online"] {
   background: var(--status-dot-bg-online);
   animation: status-dot-pulse var(--motion-duration-slow) var(--motion-ease-standard) infinite;
 }
 
-[data-rs-status-dot][data-variant="offline"] {
+[data-rs-status-dot][data-rs-variant="offline"] {
   background: var(--status-dot-bg-offline);
 }
 
-[data-rs-status-dot][data-variant="away"] {
+[data-rs-status-dot][data-rs-variant="away"] {
   background: var(--status-dot-bg-away);
 }
 
-[data-rs-status-dot][data-variant="busy"] {
+[data-rs-status-dot][data-rs-variant="busy"] {
   background: var(--status-dot-bg-busy);
 }
 
-[data-rs-status-dot][data-variant="do-not-disturb"] {
+[data-rs-status-dot][data-rs-variant="do-not-disturb"] {
   background: var(--status-dot-bg-do-not-disturb);
 }
 

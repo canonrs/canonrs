@@ -1,48 +1,44 @@
+//! @canon-level: ui
+//! FormErrorSummary - sem behavior
+
 use leptos::prelude::*;
-use canonrs_core::primitives::form_error_summary::FormErrorSummaryPrimitive;
+use canonrs_core::primitives::FormErrorSummaryPrimitive;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct FormError {
-    pub field_id: String,
     pub field_label: String,
     pub message: String,
 }
 
 #[component]
 pub fn FormErrorSummary(
-    errors: Signal<Vec<FormError>>,
-    #[prop(default = "Please fix the following errors:".to_string())] title: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = vec![])] errors: Vec<FormError>,
+    #[prop(into, default = "Please fix the following errors:".to_string())] title: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let has_errors = move || !errors.get().is_empty();
-    let title = StoredValue::new(title);
-    let class = StoredValue::new(class);
-    let id = StoredValue::new(id);
-
     view! {
-        {move || has_errors().then(|| view! {
-            <FormErrorSummaryPrimitive class={class.get_value()} id={id.get_value()}>
-                <h3 data-form-error-summary-title="">{title.get_value()}</h3>
-
-                <ul data-form-error-summary-list="">
-                    {move || errors.get().into_iter().map(|error| {
-                        view! {
-                            <li data-form-error-summary-item="">
-                                <span data-form-error-summary-item-link="">
-                                    {error.field_label.clone()}{": "}{error.message.clone()}
-                                </span>
-                            </li>
-                        }
-                    }).collect_view()}
-                </ul>
-            </FormErrorSummaryPrimitive>
-        })}
+        <FormErrorSummaryPrimitive class=class>
+            <h3 data-rs-form-error-summary-title="">{title}</h3>
+            <ul data-rs-form-error-summary-list="">
+                {errors.into_iter().map(|error: FormError| {
+                    view! {
+                        <li data-rs-form-error-summary-item="">
+                            <span data-rs-form-error-summary-item-link="">
+                                {error.field_label}{": "}{error.message}
+                            </span>
+                        </li>
+                    }
+                }).collect_view()}
+            </ul>
+        </FormErrorSummaryPrimitive>
     }
 }
 
 #[component]
 pub fn FormErrorSummaryPreview() -> impl IntoView {
-    let errors = Signal::derive(|| vec![]);
-    view! { <FormErrorSummary errors=errors /> }
+    view! {
+        <FormErrorSummary errors=vec![
+            FormError { field_label: "Email".to_string(), message: "Required".to_string() },
+        ] />
+    }
 }

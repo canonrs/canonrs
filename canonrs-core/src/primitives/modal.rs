@@ -6,25 +6,26 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ModalPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-modal=""
-            data-rs-state="closed"
+            data-rs-state={if open { "open" } else { "closed" }}
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ModalTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -32,10 +33,12 @@ pub fn ModalTriggerPrimitive(
         <button
             type="button"
             data-rs-modal-trigger=""
+            aria-haspopup="dialog"
+            aria-expanded="false"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
@@ -46,13 +49,13 @@ pub fn ModalOverlayPrimitive(
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-modal-overlay="" aria-hidden="true" class=class id=id />
+        <div data-rs-modal-overlay="" aria-hidden="true" class=class id=if id.is_empty() { None } else { Some(id.clone()) } />
     }
 }
 
 #[component]
 pub fn ModalContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
@@ -63,9 +66,9 @@ pub fn ModalContentPrimitive(
             aria-modal="true"
             tabindex="-1"
             class=class
-            id=id
+            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

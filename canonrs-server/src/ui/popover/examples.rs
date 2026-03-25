@@ -1,21 +1,15 @@
 use leptos::prelude::*;
 use super::popover_ui::*;
+use crate::ui::button::button_ui::{Button, ButtonVariant};
 
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <div>
-            <Popover id="popover-ex".to_string()>
-                <PopoverTrigger>
-                    <button data-button data-ui-variant="solid">"Open Popover"</button>
-                </PopoverTrigger>
-                <PopoverContent>
-                    <div class="p-4">
-                        <h3 class="font-semibold mb-2">"Popover Title"</h3>
-                        <p class="text-sm">"This is popover content."</p>
-                    </div>
-                </PopoverContent>
-            </Popover>
-        </div>
+        <Popover>
+            <Button variant=ButtonVariant::Primary attr:data-rs-popover-trigger="">"Open Popover"</Button>
+            <PopoverContent>
+                <p>"Popover content"</p>
+            </PopoverContent>
+        </Popover>
     }
 }

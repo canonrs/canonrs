@@ -20,19 +20,19 @@ pub fn CheckboxPrimitive(
             disabled=disabled
             name=name
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         />
     }
 }
 
 #[component]
 pub fn CheckboxIndicatorPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <span data-rs-checkbox-indicator="" class=class>
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }

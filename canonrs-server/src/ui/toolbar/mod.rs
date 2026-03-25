@@ -2,6 +2,7 @@ pub mod toolbar_ui;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use toolbar_ui::{Toolbar, ToolbarOrientation, ToolbarSeparator};
+pub use toolbar_ui::{Toolbar, ToolbarSeparator};
+pub use canonrs_core::primitives::ToolbarOrientation;
 #[cfg(feature = "examples")]
 pub use examples::*;

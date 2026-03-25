@@ -4,12 +4,15 @@ use super::*;
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <Command id="command-example">
-            <CommandItem text="Copy" />
-            <CommandItem text="Cut" />
-            <CommandItem text="Paste" />
-            <CommandItem text="Delete" />
-            <CommandItem text="Rename" />
+        <Command>
+            <CommandInput placeholder="Search..." />
+            <CommandList>
+                <CommandItem>"Copy"</CommandItem>
+                <CommandItem>"Cut"</CommandItem>
+                <CommandItem>"Paste"</CommandItem>
+                <CommandItem>"Delete"</CommandItem>
+                <CommandItem>"Rename"</CommandItem>
+            </CommandList>
         </Command>
     }
 }

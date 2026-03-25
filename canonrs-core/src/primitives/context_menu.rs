@@ -6,25 +6,27 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ContextMenuPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
+    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-context-menu=""
-            data-rs-state="closed"
+            data-rs-state={if open { "open" } else { "closed" }}
+            role="menu"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ContextMenuTriggerPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -32,16 +34,16 @@ pub fn ContextMenuTriggerPrimitive(
         <div
             data-rs-context-menu-trigger=""
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ContextMenuContentPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -50,16 +52,16 @@ pub fn ContextMenuContentPrimitive(
             data-rs-context-menu-content=""
             role="menu"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }
 
 #[component]
 pub fn ContextMenuItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
@@ -69,9 +71,9 @@ pub fn ContextMenuItemPrimitive(
             data-rs-context-menu-item=""
             role="menuitem"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }
@@ -86,7 +88,7 @@ pub fn ContextMenuSeparatorPrimitive(
             data-rs-context-menu-separator=""
             role="separator"
             class=class
-            id=id
+            id=id.filter(|s| !s.is_empty())
         />
     }
 }

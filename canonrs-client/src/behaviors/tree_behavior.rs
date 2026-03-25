@@ -7,333 +7,169 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use web_sys::Element;
+use web_sys::{Element, HtmlElement};
 
 #[cfg(feature = "hydrate")]
-pub fn register() {
-    register_behavior("data-tree", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
-        setup_tree(root)?;
-        Ok(())
-    }));
-}
-
-#[cfg(feature = "hydrate")]
-fn setup_tree(tree: &Element) -> BehaviorResult<()> {
-    if tree.get_attribute("data-tree-attached").as_deref() == Some("1") {
-        return Ok(());
-    }
-    let _ = tree.set_attribute("data-tree-attached", "1");
-
-    // Setup all tree items
-    let items = tree.query_selector_all("[data-tree-item]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query items".into() })?;
-
-    for i in 0..items.length() {
-        if let Some(node) = items.item(i) {
-            if let Ok(item) = node.dyn_into::<Element>() {
-                setup_tree_item(&item)?;
-            }
-        }
-    }
-
-    // Keyboard navigation on tree container
-    let tree_clone = tree.clone();
-    let on_keydown = Closure::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
-        handle_tree_keyboard(&tree_clone, &e);
-    }) as Box<dyn FnMut(_)>);
-
-    tree.add_event_listener_with_callback("keydown", on_keydown.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "keydown".into() })?;
-    on_keydown.forget();
-
-    Ok(())
-}
-
-#[cfg(feature = "hydrate")]
-fn setup_tree_item(item: &Element) -> BehaviorResult<()> {
-    // Click to select
-    let item_clone = item.clone();
-    let on_click = Closure::wrap(Box::new(move |e: web_sys::Event| {
-        e.stop_propagation();
-        select_item(&item_clone);
-    }) as Box<dyn FnMut(_)>);
-
-    item.add_event_listener_with_callback("click", on_click.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "click".into() })?;
-    on_click.forget();
-
-    // Setup toggle button if has children
-    if item.get_attribute("data-has-children").as_deref() == Some("true") {
-        if let Some(toggle) = item.query_selector("[data-tree-toggle]").ok().flatten() {
-            let item_clone = item.clone();
-            let on_toggle = Closure::wrap(Box::new(move |e: web_sys::Event| {
-                e.stop_propagation();
-                toggle_expand(&item_clone);
-            }) as Box<dyn FnMut(_)>);
-
-            toggle.add_event_listener_with_callback("click", on_toggle.as_ref().unchecked_ref()).ok();
-            on_toggle.forget();
-        }
-    }
-
-    Ok(())
-}
-
-#[cfg(feature = "hydrate")]
-fn handle_tree_keyboard(tree: &Element, e: &web_sys::KeyboardEvent) {
-    let key = e.key();
-    
-    match key.as_str() {
-        "ArrowDown" => {
-            e.prevent_default();
-            move_focus_down(tree);
-        },
-        "ArrowUp" => {
-            e.prevent_default();
-            move_focus_up(tree);
-        },
-        "ArrowRight" => {
-            e.prevent_default();
-            expand_focused_item(tree);
-        },
-        "ArrowLeft" => {
-            e.prevent_default();
-            collapse_focused_item(tree);
-        },
-        "Home" => {
-            e.prevent_default();
-            focus_first_item(tree);
-        },
-        "End" => {
-            e.prevent_default();
-            focus_last_visible_item(tree);
-        },
-        "Enter" | " " => {
-            e.prevent_default();
-            select_focused_item(tree);
-        },
-        _ => {}
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn get_visible_items(tree: &Element) -> Vec<Element> {
+fn get_visible_items(root: &Element) -> Vec<Element> {
     let mut visible = Vec::new();
-    
-    if let Ok(all_items) = tree.query_selector_all("[data-tree-item]") {
-        for i in 0..all_items.length() {
-            if let Some(node) = all_items.item(i) {
-                if let Ok(item) = node.dyn_into::<Element>() {
-                    // Item is visible if it's not inside a collapsed parent
-                    if is_item_visible(&item) {
-                        visible.push(item);
-                    }
+    if let Ok(all) = root.query_selector_all("[data-rs-tree-item]") {
+        for i in 0..all.length() {
+            if let Some(node) = all.item(i) {
+                if let Ok(el) = node.dyn_into::<Element>() {
+                    if is_visible(&el) { visible.push(el); }
                 }
             }
         }
     }
-    
     visible
 }
 
 #[cfg(feature = "hydrate")]
-fn is_item_visible(item: &Element) -> bool {
+fn is_visible(item: &Element) -> bool {
     let mut current = item.parent_element();
-    
     while let Some(parent) = current {
-        if parent.has_attribute("data-tree-group") {
-            // Check if parent item is expanded
-            if let Some(parent_item) = parent.previous_element_sibling() {
-                if parent_item.has_attribute("data-tree-item") {
-                    if parent_item.get_attribute("data-expanded").as_deref() != Some("true") {
-                        return false;
-                    }
+        if parent.has_attribute("data-rs-tree-group") {
+            if let Some(prev) = parent.previous_element_sibling() {
+                if prev.get_attribute("data-rs-expanded").as_deref() == Some("false") {
+                    return false;
                 }
             }
         }
         current = parent.parent_element();
     }
-    
     true
 }
 
 #[cfg(feature = "hydrate")]
-fn get_focused_item(tree: &Element) -> Option<Element> {
-    tree.query_selector("[data-tree-item][tabindex='0']")
-        .ok()
-        .flatten()
+fn get_focused(root: &Element) -> Option<Element> {
+    root.query_selector("[data-rs-tree-item][tabindex='0']").ok().flatten()
 }
 
 #[cfg(feature = "hydrate")]
-fn set_roving_tabindex(tree: &Element, new_focused: &Element) {
-    // Remove tabindex=0 from all items
-    if let Ok(all_items) = tree.query_selector_all("[data-tree-item]") {
-        for i in 0..all_items.length() {
-            if let Some(node) = all_items.item(i) {
-                if let Ok(item) = node.dyn_into::<Element>() {
-                    item.set_attribute("tabindex", "-1").ok();
+fn set_focus(root: &Element, target: &Element) {
+    if let Ok(all) = root.query_selector_all("[data-rs-tree-item]") {
+        for i in 0..all.length() {
+            if let Some(node) = all.item(i) {
+                if let Ok(el) = node.dyn_into::<Element>() {
+                    el.set_attribute("tabindex", "-1").ok();
                 }
             }
         }
     }
-    
-    // Set tabindex=0 on new focused item
-    new_focused.set_attribute("tabindex", "0").ok();
-    
-    if let Ok(html_el) = new_focused.clone().dyn_into::<web_sys::HtmlElement>() {
-        html_el.focus().ok();
-    }
+    target.set_attribute("tabindex", "0").ok();
+    if let Ok(el) = target.clone().dyn_into::<HtmlElement>() { el.focus().ok(); }
 }
 
 #[cfg(feature = "hydrate")]
-fn move_focus_down(tree: &Element) {
-    let visible = get_visible_items(tree);
-    if visible.is_empty() { return; }
-    
-    if let Some(current) = get_focused_item(tree) {
-        if let Some(idx) = visible.iter().position(|el| el == &current) {
-            if idx < visible.len() - 1 {
-                set_roving_tabindex(tree, &visible[idx + 1]);
-            }
-        }
-    } else {
-        set_roving_tabindex(tree, &visible[0]);
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn move_focus_up(tree: &Element) {
-    let visible = get_visible_items(tree);
-    if visible.is_empty() { return; }
-    
-    if let Some(current) = get_focused_item(tree) {
-        if let Some(idx) = visible.iter().position(|el| el == &current) {
-            if idx > 0 {
-                set_roving_tabindex(tree, &visible[idx - 1]);
-            }
-        }
-    } else {
-        set_roving_tabindex(tree, &visible[0]);
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn focus_first_item(tree: &Element) {
-    let visible = get_visible_items(tree);
-    if let Some(first) = visible.first() {
-        set_roving_tabindex(tree, first);
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn focus_last_visible_item(tree: &Element) {
-    let visible = get_visible_items(tree);
-    if let Some(last) = visible.last() {
-        set_roving_tabindex(tree, last);
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn expand_focused_item(tree: &Element) {
-    if let Some(item) = get_focused_item(tree) {
-        if item.get_attribute("data-has-children").as_deref() == Some("true") {
-            if item.get_attribute("data-expanded").as_deref() != Some("true") {
-                toggle_expand(&item);
-            }
-        }
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn collapse_focused_item(tree: &Element) {
-    if let Some(item) = get_focused_item(tree) {
-        if item.get_attribute("data-has-children").as_deref() == Some("true") {
-            if item.get_attribute("data-expanded").as_deref() == Some("true") {
-                toggle_expand(&item);
-            }
-        }
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn select_focused_item(tree: &Element) {
-    if let Some(item) = get_focused_item(tree) {
-        select_item(&item);
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn select_item(item: &Element) {
-    // Get tree root
-    let mut current = Some(item.clone());
-    let mut tree: Option<Element> = None;
-    
-    while let Some(el) = current {
-        if el.has_attribute("data-tree") {
-            tree = Some(el);
-            break;
-        }
-        current = el.parent_element();
-    }
-    
-    let Some(tree_el) = tree else { return; };
-    
-    // Clear all selections
-    if let Ok(all_items) = tree_el.query_selector_all("[data-tree-item]") {
-        for i in 0..all_items.length() {
-            if let Some(node) = all_items.item(i) {
+fn select_item(root: &Element, item: &Element) {
+    if let Ok(all) = root.query_selector_all("[data-rs-tree-item]") {
+        for i in 0..all.length() {
+            if let Some(node) = all.item(i) {
                 if let Ok(el) = node.dyn_into::<Element>() {
-                    el.set_attribute("data-selected", "false").ok();
+                    el.set_attribute("data-rs-state", "unselected").ok();
                     el.set_attribute("aria-selected", "false").ok();
                 }
             }
         }
     }
-    
-    // Select this item
-    item.set_attribute("data-selected", "true").ok();
+    item.set_attribute("data-rs-state", "selected").ok();
     item.set_attribute("aria-selected", "true").ok();
-    
-    // Emit event
-    dispatch_select_event(item);
 }
 
 #[cfg(feature = "hydrate")]
 fn toggle_expand(item: &Element) {
-    let is_expanded = item.get_attribute("data-expanded").as_deref() == Some("true");
-    let new_state = !is_expanded;
-    
-    item.set_attribute("data-expanded", &new_state.to_string()).ok();
-    item.set_attribute("aria-expanded", &new_state.to_string()).ok();
-    
-    // Emit event
-    dispatch_expand_event(item, new_state);
+    let is_expanded = item.get_attribute("data-rs-expanded").as_deref() == Some("true");
+    let new = if is_expanded { "false" } else { "true" };
+    item.set_attribute("data-rs-expanded", new).ok();
+    item.set_attribute("aria-expanded", new).ok();
 }
 
 #[cfg(feature = "hydrate")]
-fn dispatch_select_event(item: &Element) {
-    let detail = js_sys::Object::new();
-    if let Some(id) = item.get_attribute("id") {
-        js_sys::Reflect::set(&detail, &JsValue::from_str("itemId"), &JsValue::from_str(&id)).ok();
-    }
-    let init = web_sys::CustomEventInit::new();
-    init.set_bubbles(true);
-    init.set_detail(&detail);
-    if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:tree-select", &init) {
-        item.dispatch_event(&ev).ok();
-    }
-}
+pub fn register() {
+    register_behavior("data-rs-tree", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
 
-#[cfg(feature = "hydrate")]
-fn dispatch_expand_event(item: &Element, expanded: bool) {
-    let detail = js_sys::Object::new();
-    js_sys::Reflect::set(&detail, &JsValue::from_str("expanded"), &JsValue::from_bool(expanded)).ok();
-    let init = web_sys::CustomEventInit::new();
-    init.set_bubbles(true);
-    init.set_detail(&detail);
-    if let Ok(ev) = web_sys::CustomEvent::new_with_event_init_dict("canon:tree-expand", &init) {
-        item.dispatch_event(&ev).ok();
-    }
+        if root.get_attribute("data-rs-tree-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-tree-attached", "1").ok();
+
+        // click em items
+        let items = root.query_selector_all("[data-rs-tree-item]")
+            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query items".into() })?;
+
+        for i in 0..items.length() {
+            let Some(node) = items.item(i) else { continue };
+            let Ok(item) = node.dyn_into::<Element>() else { continue };
+
+            if item.get_attribute("data-rs-tree-item-initialized").is_some() { continue; }
+            item.set_attribute("data-rs-tree-item-initialized", "1").ok();
+
+            let root_click = root.clone();
+            let item_click = item.clone();
+            let cb = Closure::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                e.stop_propagation();
+                select_item(&root_click, &item_click);
+                set_focus(&root_click, &item_click);
+                if item_click.get_attribute("data-rs-expanded").is_some() {
+                    toggle_expand(&item_click);
+                }
+            }) as Box<dyn FnMut(_)>);
+            item.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+            cb.forget();
+        }
+
+        // keyboard navigation
+        let root_key = root.clone();
+        let cb_key = Closure::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+            let visible = get_visible_items(&root_key);
+            if visible.is_empty() { return; }
+            let len = visible.len();
+
+            match e.key().as_str() {
+                "ArrowDown" | "ArrowUp" | "Home" | "End" => {
+                    e.prevent_default();
+                    let cur = get_focused(&root_key)
+                        .and_then(|f| visible.iter().position(|el| el == &f));
+                    let next = match e.key().as_str() {
+                        "ArrowDown" => cur.map(|i| (i + 1).min(len - 1)).unwrap_or(0),
+                        "ArrowUp"   => cur.map(|i| i.saturating_sub(1)).unwrap_or(0),
+                        "Home"      => 0,
+                        "End"       => len - 1,
+                        _           => return,
+                    };
+                    set_focus(&root_key, &visible[next]);
+                }
+                "ArrowRight" => {
+                    e.prevent_default();
+                    if let Some(item) = get_focused(&root_key) {
+                        if item.get_attribute("data-rs-expanded").as_deref() == Some("false") {
+                            toggle_expand(&item);
+                        }
+                    }
+                }
+                "ArrowLeft" => {
+                    e.prevent_default();
+                    if let Some(item) = get_focused(&root_key) {
+                        if item.get_attribute("data-rs-expanded").as_deref() == Some("true") {
+                            toggle_expand(&item);
+                        }
+                    }
+                }
+                "Enter" | " " => {
+                    e.prevent_default();
+                    if let Some(item) = get_focused(&root_key) {
+                        select_item(&root_key, &item);
+                        if item.get_attribute("data-rs-expanded").is_some() {
+                            toggle_expand(&item);
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }) as Box<dyn FnMut(_)>);
+        root.add_event_listener_with_callback("keydown", cb_key.as_ref().unchecked_ref()).ok();
+        cb_key.forget();
+
+        Ok(())
+    }));
 }
 
 #[cfg(not(feature = "hydrate"))]
