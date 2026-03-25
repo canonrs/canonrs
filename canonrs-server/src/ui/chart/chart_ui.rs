@@ -58,7 +58,6 @@ impl ChartType {
 
 #[component]
 pub fn Chart(
-    #[prop(optional)] id: Option<String>,
     data: ChartData,
     #[prop(default = ChartType::Line)] chart_type: ChartType,
     #[prop(default = 320u32)] height: u32,
@@ -75,7 +74,6 @@ pub fn Chart(
 
     view! {
         <ChartPrimitive
-            id=id.unwrap_or_default()
             class=class
             chart_type=chart_type.as_str().to_string()
             height=height

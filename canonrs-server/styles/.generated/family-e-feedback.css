@@ -197,6 +197,15 @@
   --callout-padding: var(--space-md);
   --progress-fg: var(--theme-action-primary-fg);
   --skeleton-shimmer-duration: var(--motion-duration-slow);
+  --skeleton-shimmer-easing: var(--motion-ease-standard);
+  --skeleton-shimmer-color-start: transparent;
+  --skeleton-shimmer-color-end: var(--theme-surface-overlay);
+  --skeleton-text-height: var(--space-sm);
+  --skeleton-text-radius: var(--radius-sm);
+  --skeleton-circle-size: var(--space-xl);
+  --skeleton-circle-radius: var(--radius-full);
+  --skeleton-rectangle-height: var(--space-lg);
+  --skeleton-rectangle-radius: var(--radius-md);
   --spinner-size-small: var(--space-md);
   --spinner-size-medium: var(--space-lg);
   --spinner-size-large: var(--space-xl);

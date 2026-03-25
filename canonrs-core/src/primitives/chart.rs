@@ -6,7 +6,6 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ChartPrimitive(
-    #[prop(optional)] id: Option<String>,
     #[prop(into, default = String::new())] class: String,
     #[prop(into)] chart_type: String,
     #[prop(default = 320u32)] height: u32,
@@ -14,27 +13,17 @@ pub fn ChartPrimitive(
 ) -> impl IntoView {
     view! {
         <div
-            id=id.filter(|s| !s.is_empty())
             class=class
             data-rs-chart=""
             data-rs-chart-type=chart_type
             data-rs-chart-height=height.to_string()
         >
             <canvas data-rs-chart-canvas="" aria-hidden="true" />
-
             <div data-rs-chart-overlay="" aria-hidden="true">
-                <div
-                    data-rs-chart-tooltip=""
-                    data-rs-state="closed"
-                />
-                <div
-                    data-rs-chart-crosshair=""
-                    data-rs-state="closed"
-                />
+                <div data-rs-chart-tooltip="" data-rs-state="closed" />
+                <div data-rs-chart-crosshair="" data-rs-state="closed" />
             </div>
-
             <div data-rs-chart-legend="" />
-
             {children()}
         </div>
     }

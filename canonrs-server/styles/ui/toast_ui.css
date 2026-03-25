@@ -50,7 +50,8 @@
 }
 
 [data-rs-toast][data-rs-state="closed"] {
-  animation: toast-slide-out 0.2s ease-in;
+  animation: toast-slide-out 0.2s ease-in forwards;
+  pointer-events: none;
 }
 
 [data-rs-toast][data-rs-variant="success"] {
@@ -87,5 +88,6 @@
   to {
     transform: translateX(100%);
     opacity: 0;
+    visibility: hidden;
   }
 }

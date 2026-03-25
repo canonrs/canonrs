@@ -242,6 +242,15 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
 
     // Skeleton
     FamilyToken::new("skeleton-shimmer-duration", "var(--motion-duration-slow)"),
+    FamilyToken::new("skeleton-shimmer-easing", "var(--motion-ease-standard)"),
+    FamilyToken::new("skeleton-shimmer-color-start", "transparent"),
+    FamilyToken::new("skeleton-shimmer-color-end", "var(--theme-surface-overlay)"),
+    FamilyToken::new("skeleton-text-height", "var(--space-sm)"),
+    FamilyToken::new("skeleton-text-radius", "var(--radius-sm)"),
+    FamilyToken::new("skeleton-circle-size", "var(--space-xl)"),
+    FamilyToken::new("skeleton-circle-radius", "var(--radius-full)"),
+    FamilyToken::new("skeleton-rectangle-height", "var(--space-lg)"),
+    FamilyToken::new("skeleton-rectangle-radius", "var(--radius-md)"),
 
     // Spinner
     FamilyToken::new("spinner-size-small", "var(--space-md)"),

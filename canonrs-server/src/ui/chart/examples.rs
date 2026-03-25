@@ -24,7 +24,6 @@ pub fn BasicExample() -> impl IntoView {
 
     view! {
         <Chart
-            id="chart-basic".to_string()
             data=data
             chart_type=ChartType::Line
             height=320u32
@@ -73,7 +72,6 @@ pub fn ChartDatatableSyncExample() -> impl IntoView {
     view! {
         <div style="display:flex;flex-direction:column;gap:1.5rem;">
             <Chart
-                id="chart-sync".to_string()
                 data=data
                 chart_type=ChartType::Line
                 height=320u32

@@ -29,7 +29,7 @@
 }
 
 /* Tooltip */
-[data-rs-chart-tooltip-el] {
+[data-rs-chart-tooltip] {
   position: absolute;
   background: var(--chart-tooltip-bg);
   color: var(--chart-tooltip-fg);
@@ -42,12 +42,12 @@
   transition: opacity 0.1s ease;
 }
 
-[data-rs-chart-tooltip-el][data-state="hidden"] {
+[data-rs-chart-tooltip][data-rs-state="hidden"] {
   opacity: 0;
   visibility: hidden;
 }
 
-[data-rs-chart-tooltip-el][data-state="visible"] {
+[data-rs-chart-tooltip][data-rs-state="visible"] {
   opacity: 1;
   visibility: visible;
 }
@@ -64,7 +64,7 @@
   transition: opacity 0.1s ease;
 }
 
-[data-rs-chart-crosshair][data-state="visible"] {
+[data-rs-chart-crosshair][data-rs-state="visible"] {
   opacity: 1;
 }
 
@@ -84,7 +84,7 @@
 }
 
 /* Legend */
-[data-rs-chart-legend-el] {
+[data-rs-chart-legend] {
   display: flex;
   flex-wrap: wrap;
   gap: var(--chart-legend-gap);
@@ -101,7 +101,7 @@
   transition: opacity 0.15s ease;
 }
 
-[data-rs-chart-legend-item][data-state="inactive"] {
+[data-rs-chart-legend-item][data-rs-state="inactive"] {
   opacity: 0.35;
 }
 
