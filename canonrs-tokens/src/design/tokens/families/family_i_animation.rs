@@ -1,7 +1,8 @@
 //! Family I: Animation & Motion Infrastructure
 //!
-//! Purpose: Global motion system - NOT component-specific animations
-//! Components consume these tokens, never define their own timing
+//! Purpose: Global motion system + Animate component
+//! Components: Animate
+//! Scope: Motion tokens, easing, duration scale, animation wrapper
 
 use crate::design::tokens::FamilyToken;
 
@@ -21,4 +22,13 @@ pub const FAMILY_I_ANIMATION: &[FamilyToken] = &[
 
     // Motion accessibility
     FamilyToken::new("motion-reduced-duration", "0ms"),
+
+    // Animate — animation wrapper component
+    FamilyToken::new("animate-duration", "var(--motion-duration-normal)"),
+    FamilyToken::new("animate-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("animate-delay", "0ms"),
+    FamilyToken::new("animate-fade-from", "0"),
+    FamilyToken::new("animate-fade-to", "1"),
+    FamilyToken::new("animate-slide-distance", "var(--space-sm)"),
+    FamilyToken::new("animate-scale-from", "0.95"),
 ];

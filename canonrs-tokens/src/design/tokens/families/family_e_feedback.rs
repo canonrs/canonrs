@@ -1,7 +1,7 @@
 use crate::design::tokens::FamilyToken;
 
 /// FAMILY E — Feedback & Status
-/// Components: Alert, AlertDialog, Callout, Badge, Toast, Banner, InlineNotice, EmptyState, ErrorState, StatusDot, Spinner, Progress, Skeleton
+/// Components: Alert, AlertDialog, Callout, Badge, Toast, Banner, InlineNotice, EmptyState, ErrorState, StatusDot, Spinner, Progress, Skeleton, DocProgress, EmptyTable
 /// Scope: User feedback, status indicators, loading states (excludes: state tokens, z-index)
 
 pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
@@ -306,6 +306,15 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
     FamilyToken::new("pulse-duration-fast", "var(--motion-duration-fast)"),
     FamilyToken::new("pulse-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("pulse-delay", "calc(var(--motion-duration-slow) / 2)"),
+
+    // DocProgress — reading progress indicator
+    FamilyToken::new("doc-progress-height", "3px"),
+    FamilyToken::new("doc-progress-bg", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("doc-progress-track-bg", "var(--theme-surface-border)"),
+    FamilyToken::new("doc-progress-radius", "var(--radius-full)"),
+    FamilyToken::new("doc-progress-z-index", "var(--layer-sticky)"),
+    FamilyToken::new("doc-progress-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("doc-progress-ease", "var(--motion-ease-standard)"),
 
     // EmptyTable - Empty state for tables
     FamilyToken::new("empty-table-padding", "var(--space-xl)"),
