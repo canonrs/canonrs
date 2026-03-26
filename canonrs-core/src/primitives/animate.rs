@@ -4,27 +4,71 @@
 
 use leptos::prelude::*;
 
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum AnimationName {
+    #[default]
+    None,
+    FadeIn,
+    FadeOut,
+    SlideIn,
+    SlideOut,
+    ScaleIn,
+    ScaleOut,
+}
+impl AnimationName {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::None     => "none",
+            Self::FadeIn   => "fade-in",
+            Self::FadeOut  => "fade-out",
+            Self::SlideIn  => "slide-in",
+            Self::SlideOut => "slide-out",
+            Self::ScaleIn  => "scale-in",
+            Self::ScaleOut => "scale-out",
+        }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum AnimationEasing {
+    #[default]
+    EaseInOut,
+    EaseIn,
+    EaseOut,
+    Linear,
+}
+impl AnimationEasing {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::EaseInOut => "ease-in-out",
+            Self::EaseIn    => "ease-in",
+            Self::EaseOut   => "ease-out",
+            Self::Linear    => "linear",
+        }
+    }
+}
+
 #[component]
 pub fn AnimatePrimitive(
     children: Children,
-    #[prop(into, default = String::new())] animation: String,
+    #[prop(default = AnimationName::None)] animation: AnimationName,
+    #[prop(default = AnimationEasing::EaseInOut)] easing: AnimationEasing,
     #[prop(into, default = String::new())] duration: String,
-    #[prop(into, default = String::new())] easing: String,
     #[prop(into, default = String::new())] delay: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(optional)] style: Option<String>,
+    #[prop(optional, into)] style: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-animate=""
-            data-rs-animation=animation
+            data-rs-component="Animate"
+            data-rs-behavior="animation"
+            data-rs-animation=animation.as_str()
+            data-rs-easing=easing.as_str()
             data-rs-duration=duration
-            data-rs-easing=easing
             data-rs-delay=delay
             class=class
-            id=id.filter(|s| !s.is_empty())
-            style=style.filter(|s| !s.is_empty())
+            style=style
         >
             {children()}
         </div>

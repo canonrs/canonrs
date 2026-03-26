@@ -3,20 +3,24 @@
 //! Carousel Primitive - Interactive slideshow
 
 use leptos::prelude::*;
+use crate::meta::{ActivityState, DisabledState, VisibilityState};
+use crate::state_engine::{activity_attrs, disabled_attrs, visibility_attrs};
 
 #[component]
 pub fn CarouselPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-carousel=""
+            data-rs-component="Carousel"
+            data-rs-behavior="slideshow"
             role="region"
             aria-roledescription="carousel"
+            aria-label=aria_label
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -29,7 +33,11 @@ pub fn CarouselTrackPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-carousel-track="" class=class>
+        <div
+            data-rs-carousel-track=""
+            role="group"
+            class=class
+        >
             {children()}
         </div>
     }
@@ -39,11 +47,13 @@ pub fn CarouselTrackPrimitive(
 pub fn CarouselItemPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = false)] active: bool,
+    #[prop(default = ActivityState::Inactive)] activity: ActivityState,
+    #[prop(default = VisibilityState::Closed)] visibility: VisibilityState,
     #[prop(optional)] index: Option<usize>,
     #[prop(optional)] total: Option<usize>,
 ) -> impl IntoView {
+    let aa  = activity_attrs(activity);
+    let vis = visibility_attrs(visibility);
     let aria_label = match (index, total) {
         (Some(i), Some(t)) => Some(format!("Slide {} of {}", i + 1, t)),
         _ => None,
@@ -51,12 +61,13 @@ pub fn CarouselItemPrimitive(
     view! {
         <div
             data-rs-carousel-item=""
-            data-rs-state=if active { "active" } else { "inactive" }
+            data-rs-state=aa.data_rs_state
             role="group"
             aria-roledescription="slide"
             aria-label=aria_label
+            aria-hidden=vis.aria_hidden
+            hidden=vis.hidden
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -67,11 +78,16 @@ pub fn CarouselItemPrimitive(
 pub fn CarouselPrevPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
+    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-carousel-prev=""
+            data-rs-disabled=d.data_rs_disabled
+            disabled=d.disabled
+            aria-disabled=d.aria_disabled
             aria-label="Previous slide"
             class=class
         >
@@ -84,11 +100,16 @@ pub fn CarouselPrevPrimitive(
 pub fn CarouselNextPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
+    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-carousel-next=""
+            data-rs-disabled=d.data_rs_disabled
+            disabled=d.disabled
+            aria-disabled=d.aria_disabled
             aria-label="Next slide"
             class=class
         >
@@ -118,15 +139,16 @@ pub fn CarouselIndicatorsPrimitive(
 pub fn CarouselDotPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] aria_label: String,
-    #[prop(default = false)] active: bool,
+    #[prop(default = ActivityState::Inactive)] state: ActivityState,
 ) -> impl IntoView {
+    let aa = activity_attrs(state);
     view! {
         <button
             type="button"
             data-rs-carousel-dot=""
-            data-rs-state=if active { "active" } else { "inactive" }
+            data-rs-state=aa.data_rs_state
             aria-label=aria_label
-            aria-current=if active { Some("true") } else { None }
+            aria-current=if state == ActivityState::Active { Some("true") } else { None }
             class=class
         />
     }

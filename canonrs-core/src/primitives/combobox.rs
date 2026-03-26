@@ -3,27 +3,26 @@
 //! Combobox Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::{SelectionState, VisibilityState, DisabledState};
+use crate::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, selection_attrs};
 
 #[component]
 pub fn ComboboxPrimitive(
     children: Children,
-    #[prop(default = false)] expanded: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(optional)] list_id: Option<String>,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-combobox=""
-            data-rs-state={if expanded { "open" } else { "closed" }}
+            data-rs-component="Combobox"
+            data-rs-behavior="selection"
+            data-rs-state=s.data_rs_state
             role="combobox"
-            aria-expanded={if expanded { "true" } else { "false" }}
-            aria-disabled={if disabled { Some("true") } else { None }}
+            aria-expanded=s.aria_expanded
             aria-haspopup="listbox"
-            aria-controls=list_id.filter(|s| !s.is_empty())
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -33,23 +32,22 @@ pub fn ComboboxPrimitive(
 #[component]
 pub fn ComboboxTriggerPrimitive(
     children: Children,
-    #[prop(default = false)] expanded: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(optional)] list_id: Option<String>,
 ) -> impl IntoView {
+    let t = trigger_attrs(state);
+    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-combobox-trigger=""
             aria-haspopup="listbox"
-            aria-expanded={if expanded { "true" } else { "false" }}
-            aria-disabled={if disabled { Some("true") } else { None }}
-            aria-controls=list_id.filter(|s| !s.is_empty())
-            disabled=disabled
+            aria-expanded=t.aria_expanded
+            data-rs-state=t.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </button>
@@ -59,15 +57,17 @@ pub fn ComboboxTriggerPrimitive(
 #[component]
 pub fn ComboboxListPrimitive(
     children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-combobox-list=""
+            data-rs-state=s.data_rs_state
             role="listbox"
+            hidden=s.hidden
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -77,21 +77,24 @@ pub fn ComboboxListPrimitive(
 #[component]
 pub fn ComboboxItemPrimitive(
     children: Children,
-    #[prop(default = false)] selected: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let sel = selection_attrs(selected);
+    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-combobox-item=""
-            data-rs-disabled={if disabled { Some("true") } else { None }}
-            data-rs-selected={if selected { Some("true") } else { None }}
+            data-rs-state=sel.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            data-rs-value=value
             role="option"
-            aria-selected={if selected { Some("true") } else { None }}
-            aria-disabled={if disabled { Some("true") } else { None }}
+            tabindex=-1
+            aria-selected=sel.aria_selected
+            aria-disabled=d.aria_disabled
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>

@@ -3,7 +3,7 @@ use super::collapsible_ui::*;
 
 pub fn basic_example() -> impl IntoView {
     view! {
-        <Collapsible open=false id="collapsible-example-1".to_string()>
+        <Collapsible open=false>
             <CollapsibleTrigger>
                 "Toggle Content"
             </CollapsibleTrigger>

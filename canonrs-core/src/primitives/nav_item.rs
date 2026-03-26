@@ -1,29 +1,36 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! NavItem Primitive - Semantic structural wrapper
+//! NavItem Primitive - Item atomico de navegacao
 
 use leptos::prelude::*;
+use crate::meta::{ActivityState, DisabledState};
+use crate::state_engine::{activity_attrs, disabled_attrs};
 
 #[component]
 pub fn NavItemPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] aria_label: Option<String>,
-    #[prop(default = false)] active: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(into, optional)] aria_label: Option<String>,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
-    let aria_current = if active { Some("page") } else { None };
+    let a = activity_attrs(active);
+    let d = disabled_attrs(disabled);
+    let is_active = active == ActivityState::Active;
     view! {
         <a
             data-rs-nav-item=""
-            data-rs-state={if disabled { "disabled" } else if active { "active" } else { "idle" }}
-            data-rs-active={if active { Some("true") } else { None }}
-            aria-current=aria_current
+            data-rs-component="NavItem"
+            data-rs-behavior="navigation"
+            data-rs-state=a.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-current=if is_active { Some("page") } else { None }
             aria-label=aria_label
-            aria-disabled={if disabled { Some("true") } else { None }}
-            href=href
-            class={(!class.is_empty()).then(|| class)}
+            aria-disabled=d.aria_disabled
+            href=if d.disabled { "#".to_string() } else { href }
+            tabindex=if d.disabled { "-1" } else { "0" }
+            class=class
         >
             {children()}
         </a>

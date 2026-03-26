@@ -52,7 +52,7 @@ pub fn PaginationLink(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationLinkPrimitive href=href is_active=is_active class=class>
+        <PaginationLinkPrimitive href=href state=is_active.into() class=class>
             {children()}
         </PaginationLinkPrimitive>
     }
@@ -66,7 +66,7 @@ pub fn PaginationPrevious(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationPreviousPrimitive href=href disabled=disabled class=class>
+        <PaginationPreviousPrimitive href=href disabled=disabled.into() class=class>
             {children()}
         </PaginationPreviousPrimitive>
     }
@@ -80,7 +80,7 @@ pub fn PaginationNext(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationNextPrimitive href=href disabled=disabled class=class>
+        <PaginationNextPrimitive href=href disabled=disabled.into() class=class>
             {children()}
         </PaginationNextPrimitive>
     }

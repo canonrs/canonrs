@@ -128,3 +128,18 @@ pub struct ValidationAttrs {
     pub aria_busy: Option<&'static str>,
     pub aria_invalid: Option<&'static str>,
 }
+
+pub fn loading_attrs(state: crate::meta::LoadingState) -> LoadingAttrs {
+    let is_loading = state == crate::meta::LoadingState::Loading;
+    LoadingAttrs {
+        data_rs_state:  state.as_str(),
+        aria_busy:      if is_loading { Some("true") } else { None },
+        hidden:         false,
+    }
+}
+
+pub struct LoadingAttrs {
+    pub data_rs_state: &'static str,
+    pub aria_busy:     Option<&'static str>,
+    pub hidden:        bool,
+}

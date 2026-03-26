@@ -1,9 +1,9 @@
 //! @canon-level: ui
 //! Drawer - attribute-driven
-//! CONTRACT: DrawerContent requer aria_labelledby obrigatorio
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{DrawerPrimitive, DrawerOverlayPrimitive, DrawerContentPrimitive};
+use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn Drawer(
@@ -11,8 +11,9 @@ pub fn Drawer(
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let state = VisibilityState::from(open);
     view! {
-        <DrawerPrimitive open=open.into() class=class>
+        <DrawerPrimitive state=state class=class>
             {children()}
         </DrawerPrimitive>
     }
@@ -25,11 +26,9 @@ pub fn DrawerOverlay(
     view! { <DrawerOverlayPrimitive class=class /> }
 }
 
-/// CONTRATO: aria_labelledby obrigatorio para acessibilidade enterprise
 #[component]
 pub fn DrawerContent(
     children: Children,
-    /// ID do titulo do drawer — OBRIGATORIO para ARIA
     #[prop(into)] aria_labelledby: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional, into)] aria_describedby: Option<String>,

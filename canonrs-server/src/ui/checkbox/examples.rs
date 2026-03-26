@@ -4,7 +4,7 @@ use super::Checkbox;
 #[component]
 pub fn BasicExample() -> impl IntoView {
     view! {
-        <Checkbox id="checkbox-basic".to_string() checked=false>
+        <Checkbox checked=false>
             "Accept terms and conditions"
         </Checkbox>
     }
@@ -14,8 +14,8 @@ pub fn BasicExample() -> impl IntoView {
 pub fn CheckedExample() -> impl IntoView {
     view! {
         <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <Checkbox id="checkbox-unchecked".to_string() checked=false>"Unchecked"</Checkbox>
-            <Checkbox id="checkbox-checked".to_string() checked=true>"Checked"</Checkbox>
+            <Checkbox checked=false>"Unchecked"</Checkbox>
+            <Checkbox checked=true>"Checked"</Checkbox>
         </div>
     }
 }
@@ -24,8 +24,8 @@ pub fn CheckedExample() -> impl IntoView {
 pub fn DisabledExample() -> impl IntoView {
     view! {
         <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <Checkbox id="checkbox-disabled-1".to_string() checked=false disabled=true>"Disabled unchecked"</Checkbox>
-            <Checkbox id="checkbox-disabled-2".to_string() checked=true disabled=true>"Disabled checked"</Checkbox>
+            <Checkbox checked=false disabled=true>"Disabled unchecked"</Checkbox>
+            <Checkbox checked=true disabled=true>"Disabled checked"</Checkbox>
         </div>
     }
 }
@@ -34,9 +34,9 @@ pub fn DisabledExample() -> impl IntoView {
 pub fn WithLabelsExample() -> impl IntoView {
     view! {
         <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <Checkbox id="checkbox-newsletter".to_string() name="newsletter".to_string()>"Subscribe to newsletter"</Checkbox>
-            <Checkbox id="checkbox-notifications".to_string() name="notifications".to_string()>"Enable notifications"</Checkbox>
-            <Checkbox id="checkbox-marketing".to_string() name="marketing".to_string()>"Receive marketing emails"</Checkbox>
+            <Checkbox name="newsletter">"Subscribe to newsletter"</Checkbox>
+            <Checkbox name="notifications">"Enable notifications"</Checkbox>
+            <Checkbox name="marketing">"Receive marketing emails"</Checkbox>
         </div>
     }
 }

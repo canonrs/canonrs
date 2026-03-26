@@ -3,12 +3,10 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    MenuPrimitive,
-    MenuItemPrimitive,
-    MenuGroupPrimitive,
-    MenuLabelPrimitive,
-    MenuSeparatorPrimitive,
+    MenuPrimitive, MenuItemPrimitive, MenuGroupPrimitive,
+    MenuLabelPrimitive, MenuSeparatorPrimitive,
 };
+use canonrs_core::meta::{DisabledState, SelectionState};
 
 #[component]
 pub fn Menu(
@@ -30,8 +28,10 @@ pub fn MenuItem(
     #[prop(default = false)] selected: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
+    let selected_state = if selected { SelectionState::Selected } else { SelectionState::Unselected };
     view! {
-        <MenuItemPrimitive disabled=disabled selected=selected class=class>
+        <MenuItemPrimitive disabled=disabled_state selected=selected_state class=class>
             {children()}
         </MenuItemPrimitive>
     }

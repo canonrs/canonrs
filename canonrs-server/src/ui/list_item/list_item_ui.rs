@@ -1,5 +1,8 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::{ListPrimitive, ListItemPrimitive, ListItemTitlePrimitive, ListItemDescriptionPrimitive};
+use canonrs_core::primitives::{
+    ListPrimitive, ListItemPrimitive,
+    ListItemTitlePrimitive, ListItemDescriptionPrimitive
+};
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum ListSelectionMode { None, Single, Multiple }
@@ -9,13 +12,9 @@ pub fn List(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = ListSelectionMode::None)] _selection_mode: ListSelectionMode,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ListPrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-        >
+        <ListPrimitive class={class}>
             {children.map(|c| c())}
         </ListPrimitive>
     }
@@ -25,16 +24,12 @@ pub fn List(
 pub fn ListItem(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
     #[prop(default = false)] selectable: bool,
     #[prop(default = false)] selected: bool,
     #[prop(default = false)] disabled: bool,
 ) -> impl IntoView {
     view! {
-        <ListItemPrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-        >
+        <ListItemPrimitive class={class}>
             <div
                 data-rs-list-item-content=""
                 data-rs-selectable={selectable.then_some("")}

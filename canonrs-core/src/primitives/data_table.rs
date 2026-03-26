@@ -4,6 +4,8 @@
 
 use leptos::prelude::*;
 use crate::primitives::table::SortDirection;
+use crate::meta::SelectionState;
+use crate::state_engine::selection_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum DataTableDensity {
@@ -16,9 +18,9 @@ pub enum DataTableDensity {
 impl DataTableDensity {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Compact => "compact",
+            Self::Compact     => "compact",
             Self::Comfortable => "comfortable",
-            Self::Spacious => "spacious",
+            Self::Spacious    => "spacious",
         }
     }
 }
@@ -28,14 +30,14 @@ pub fn DataTablePrimitive(
     children: Children,
     #[prop(default = DataTableDensity::Comfortable)] density: DataTableDensity,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-datatable=""
+            data-rs-component="DataTable"
+            data-rs-behavior="data"
             data-rs-density=density.as_str()
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -82,10 +84,9 @@ pub fn DataTableTablePrimitive(
 pub fn DataTableHeadPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <thead data-rs-datatable-head="" data-rs-resize-container="" class=class id=id.filter(|s| !s.is_empty())>
+        <thead data-rs-datatable-head="" data-rs-resize-container="" class=class>
             {children()}
         </thead>
     }
@@ -103,7 +104,6 @@ pub fn DataTableHeadRowPrimitive(
     }
 }
 
-
 #[component]
 pub fn DataTableHeadCellPrimitive(
     children: Children,
@@ -117,7 +117,9 @@ pub fn DataTableHeadCellPrimitive(
         <th
             data-rs-datatable-head-cell=""
             scope="col"
+            role="columnheader"
             aria-sort=sort_direction.aria_sort()
+            data-rs-sort=sort_direction.as_str()
             data-rs-sort-key=sort_key
             data-rs-col-index=col_index
             style={(!style.is_empty()).then(|| style)}
@@ -145,24 +147,18 @@ pub fn DataTableRowPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] row_id: String,
-    #[prop(default = false)] selected: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(optional)] row_index: Option<usize>,
 ) -> impl IntoView {
-    let dom_id = if !row_id.is_empty() && !row_id.starts_with("row-") {
-        format!("row-{}", row_id)
-    } else {
-        row_id.clone()
-    };
-
+    let s = selection_attrs(selected);
     view! {
         <tr
             data-rs-datatable-row=""
+            data-rs-state=s.data_rs_state
             data-rs-row-id={(!row_id.is_empty()).then_some(row_id)}
-            data-rs-selected={if selected { Some("true") } else { None }}
-            aria-selected={if selected { Some("true") } else { None }}
+            aria-selected=s.aria_selected
             aria-rowindex={row_index.map(|i| (i + 1).to_string())}
             data-rs-row-index={row_index.map(|i| i.to_string())}
-            id={(!dom_id.is_empty()).then_some(dom_id)}
             class=class
         >
             {children()}
@@ -219,7 +215,13 @@ pub fn DataTableEmptyPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-datatable-empty="" data-rs-empty="true" role="status" aria-live="polite" class=class>
+        <div
+            data-rs-datatable-empty=""
+            data-rs-state="empty"
+            role="status"
+            aria-live="polite"
+            class=class
+        >
             {children()}
         </div>
     }
@@ -231,7 +233,13 @@ pub fn DataTableLoadingPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-datatable-loading="" data-rs-loading="true" role="status" aria-live="polite" class=class>
+        <div
+            data-rs-datatable-loading=""
+            data-rs-state="loading"
+            role="status"
+            aria-live="polite"
+            class=class
+        >
             {children()}
         </div>
     }

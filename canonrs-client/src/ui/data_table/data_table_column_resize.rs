@@ -1,9 +1,9 @@
 use leptos::prelude::*;
 
 pub fn use_column_resize<F>(
-    container_id: String,
+    #[allow(unused_variables)] container_id: String,
     enabled: Signal<bool>,
-    on_resize: F,
+    #[allow(unused_variables)] on_resize: F,
 ) where
     F: Fn(String, u32) + 'static + Clone,
 {

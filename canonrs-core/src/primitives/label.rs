@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Label Primitive - HTML puro
+//! Label Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 
@@ -8,12 +8,17 @@ use leptos::prelude::*;
 pub fn LabelPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] for_id: String,
+    #[prop(into, default = String::new())] html_for: String,
+    #[prop(default = false)] required: bool,
 ) -> impl IntoView {
     view! {
         <label
             data-rs-label=""
-            for=if for_id.is_empty() { None } else { Some(for_id) }
+            data-rs-component="Label"
+            data-rs-behavior="form"
+            for={if html_for.is_empty() { None } else { Some(html_for) }}
+            data-rs-required={if required { Some("") } else { None }}
+            aria-required={if required { Some("true") } else { None }}
             class=class
         >
             {children()}

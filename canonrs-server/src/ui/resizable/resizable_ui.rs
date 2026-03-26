@@ -2,7 +2,10 @@
 //! Resizable - drag to resize panels
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{ResizablePrimitive, ResizablePanelPrimitive, ResizableHandlePrimitive, ResizableOrientation};
+use canonrs_core::primitives::{
+    ResizablePrimitive, ResizablePanelPrimitive,
+    ResizableHandlePrimitive, ResizableOrientation
+};
 
 #[component]
 pub fn Resizable(
@@ -41,7 +44,11 @@ pub fn ResizablePanel(
 pub fn ResizableHandle(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <ResizableHandlePrimitive class=class /> }
+    view! {
+        <ResizableHandlePrimitive class=class>
+            <span data-rs-resizable-handle-icon="" />
+        </ResizableHandlePrimitive>
+    }
 }
 
 #[component]

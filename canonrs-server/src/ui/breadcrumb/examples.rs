@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use super::{Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator};
 use canonrs_core::primitives::{BreadcrumbPrimitive, BreadcrumbItemPrimitive, BreadcrumbLinkPrimitive, BreadcrumbSeparatorPrimitive};
+use canonrs_core::meta::ActivityState;
 
 #[component]
 pub fn BasicExample() -> impl IntoView {
@@ -37,7 +38,7 @@ pub fn BasicExample() -> impl IntoView {
                 <h4>"Collapsible Breadcrumb"</h4>
                 <BreadcrumbPrimitive class=String::new()>
                     <BreadcrumbItemPrimitive class=String::new()>
-                        <BreadcrumbLinkPrimitive href="/".to_string() current=false class=String::new()>"Home"</BreadcrumbLinkPrimitive>
+                        <BreadcrumbLinkPrimitive href="/".to_string() state=ActivityState::Inactive class=String::new()>"Home"</BreadcrumbLinkPrimitive>
                     </BreadcrumbItemPrimitive>
                     <BreadcrumbItemPrimitive class=String::new()>
                         <BreadcrumbSeparatorPrimitive class=String::new()>"/"</BreadcrumbSeparatorPrimitive>
@@ -46,9 +47,9 @@ pub fn BasicExample() -> impl IntoView {
                     <details data-breadcrumb-collapse="" id="breadcrumb-collapse-1">
                         <summary data-breadcrumb-ellipsis-trigger="">"..."</summary>
                         <div data-breadcrumb-collapse-content="">
-                            <BreadcrumbLinkPrimitive href="/docs".to_string() current=false class=String::new()>"Documentation"</BreadcrumbLinkPrimitive>
-                            <BreadcrumbLinkPrimitive href="/docs/components".to_string() current=false class=String::new()>"Components"</BreadcrumbLinkPrimitive>
-                            <BreadcrumbLinkPrimitive href="/docs/components/forms".to_string() current=false class=String::new()>"Forms"</BreadcrumbLinkPrimitive>
+                            <BreadcrumbLinkPrimitive href="/docs".to_string() state=ActivityState::Inactive class=String::new()>"Documentation"</BreadcrumbLinkPrimitive>
+                            <BreadcrumbLinkPrimitive href="/docs/components".to_string() state=ActivityState::Inactive class=String::new()>"Components"</BreadcrumbLinkPrimitive>
+                            <BreadcrumbLinkPrimitive href="/docs/components/forms".to_string() state=ActivityState::Inactive class=String::new()>"Forms"</BreadcrumbLinkPrimitive>
                         </div>
                     </details>
 
@@ -56,7 +57,7 @@ pub fn BasicExample() -> impl IntoView {
                         <BreadcrumbSeparatorPrimitive class=String::new()>"/"</BreadcrumbSeparatorPrimitive>
                     </BreadcrumbItemPrimitive>
                     <BreadcrumbItemPrimitive class=String::new()>
-                        <BreadcrumbLinkPrimitive href="/products".to_string() current=false class=String::new()>"Products"</BreadcrumbLinkPrimitive>
+                        <BreadcrumbLinkPrimitive href="/products".to_string() state=ActivityState::Inactive class=String::new()>"Products"</BreadcrumbLinkPrimitive>
                     </BreadcrumbItemPrimitive>
                     <BreadcrumbItemPrimitive class=String::new()>
                         <BreadcrumbSeparatorPrimitive class=String::new()>"/"</BreadcrumbSeparatorPrimitive>

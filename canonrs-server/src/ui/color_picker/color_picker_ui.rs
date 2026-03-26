@@ -3,6 +3,21 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ColorPickerPrimitive, ColorPickerSwatchPrimitive};
+use canonrs_core::meta::SelectionState;
+
+fn make_input(value: String, name: String, disabled: bool) -> impl IntoView {
+    view! {
+        <input
+            type="color"
+            data-rs-color-picker-input=""
+            value=value
+            name=name
+            disabled=disabled
+            aria-label="Color picker"
+            class=""
+        />
+    }
+}
 
 #[component]
 pub fn ColorPicker(
@@ -11,21 +26,11 @@ pub fn ColorPicker(
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let value2 = value.clone();
+    let input = make_input(value, name, disabled);
     view! {
-        <div data-rs-color-picker-wrapper="">
-            <div
-                data-rs-color-picker=""
-                style=format!("background-color: {}", value2)
-            >
-                <ColorPickerPrimitive
-                    value=value
-                    name=name
-                    disabled=disabled
-                    class=class
-                />
-            </div>
-        </div>
+        <ColorPickerPrimitive class=class>
+            {input}
+        </ColorPickerPrimitive>
     }
 }
 
@@ -35,8 +40,9 @@ pub fn ColorPickerSwatch(
     #[prop(default = false)] selected: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let selected_state = if selected { SelectionState::Selected } else { SelectionState::Unselected };
     view! {
-        <ColorPickerSwatchPrimitive color=color selected=selected class=class />
+        <ColorPickerSwatchPrimitive color=color selected=selected_state class=class />
     }
 }
 

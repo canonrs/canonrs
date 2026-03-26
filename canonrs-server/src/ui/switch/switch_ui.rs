@@ -3,6 +3,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{SwitchPrimitive, SwitchThumbPrimitive};
+use canonrs_core::meta::{SelectionState, DisabledState};
 
 #[component]
 pub fn Switch(
@@ -13,10 +14,12 @@ pub fn Switch(
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let checked_state = if checked { SelectionState::Selected } else { SelectionState::Unselected };
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <SwitchPrimitive
-            checked=checked
-            disabled=disabled
+            checked=checked_state
+            disabled=disabled_state
             name=name
             value=value
             class=class

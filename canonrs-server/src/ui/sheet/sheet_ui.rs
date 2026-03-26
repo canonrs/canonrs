@@ -1,9 +1,9 @@
 //! @canon-level: ui
 //! Sheet - attribute-driven
-//! CONTRACT: SheetContent requer aria_labelledby obrigatorio
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{SheetPrimitive, SheetOverlayPrimitive, SheetContentPrimitive, SheetSide};
+use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn Sheet(
@@ -12,8 +12,9 @@ pub fn Sheet(
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let state = VisibilityState::from(open);
     view! {
-        <SheetPrimitive side=side open=open.into() class=class>
+        <SheetPrimitive side=side state=state class=class>
             {children()}
         </SheetPrimitive>
     }
@@ -26,11 +27,9 @@ pub fn SheetOverlay(
     view! { <SheetOverlayPrimitive class=class /> }
 }
 
-/// CONTRATO: aria_labelledby obrigatorio para acessibilidade enterprise
 #[component]
 pub fn SheetContent(
     children: Children,
-    /// ID do titulo do sheet — OBRIGATORIO para ARIA
     #[prop(into)] aria_labelledby: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional, into)] aria_describedby: Option<String>,
@@ -38,8 +37,8 @@ pub fn SheetContent(
     view! {
         <SheetContentPrimitive
             class=class
-            attr:aria-labelledby=aria_labelledby
-            attr:aria-describedby=aria_describedby.unwrap_or_default()
+            aria_labelledby=aria_labelledby
+            aria_describedby=aria_describedby.unwrap_or_default()
         >
             {children()}
         </SheetContentPrimitive>

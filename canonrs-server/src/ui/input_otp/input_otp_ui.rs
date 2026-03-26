@@ -1,43 +1,47 @@
 use leptos::prelude::*;
-use super::input_otp_primitive::InputOtpPrimitive;
-use super::input_otp_slot_primitive::InputOtpSlotPrimitive;
+use canonrs_core::primitives::{InputOtpSlotPrimitive};
+use canonrs_core::meta::{ActivityState, DisabledState};
+
+fn make_slot(ch: String, state: ActivityState) -> impl IntoView {
+    view! {
+        <InputOtpSlotPrimitive
+            state=state
+            class="input-otp-slot".to_string()
+        >
+            {ch}
+        </InputOtpSlotPrimitive>
+    }
+}
 
 #[component]
 pub fn InputOtp(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] name: String,
-    #[prop(default = String::new())] value: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] value: String,
     #[prop(default = false)] disabled: bool,
     #[prop(default = 6)] length: u32,
 ) -> impl IntoView {
     let container_class = format!("input-otp-container {}", class);
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
 
-    let slots = (0..length).map(|i| {
-        let char = value.chars().nth(i as usize).map(|c| c.to_string()).unwrap_or_default();
-        let is_active = i == value.len() as u32;
-
-        view! {
-            <InputOtpSlotPrimitive
-                class="input-otp-slot".to_string()
-                char={char}
-                is_active={is_active}
-            />
-        }
-    }).collect_view();
+    let slots: Vec<_> = (0..length).map(|i| {
+        let ch = value.chars().nth(i as usize).map(|c| c.to_string()).unwrap_or_default();
+        let state = if i == value.len() as u32 { ActivityState::Active } else { ActivityState::Inactive };
+        make_slot(ch, state)
+    }).collect();
 
     view! {
         <div class={container_class}>
-            <InputOtpPrimitive
-                id={id}
-                class="input-otp-hidden".to_string()
-                name={name}
-                value={value.clone()}
-                disabled={disabled}
-                maxlength={length}
-                pattern="[0-9]*".to_string()
-                inputmode="numeric".to_string()
-                autocomplete="one-time-code".to_string()
+            <input
+                data-rs-input-otp=""
+                type="text"
+                name=name
+                prop:value=value
+                disabled=disabled_state == DisabledState::Disabled
+                maxlength=length.to_string()
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                class="input-otp-hidden"
             />
             <div class="input-otp-slots">
                 {slots}

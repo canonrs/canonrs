@@ -4,27 +4,28 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::RadioPrimitive;
+use canonrs_core::meta::{SelectionState, DisabledState};
 
 #[component]
 pub fn Radio(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let selected = if checked { SelectionState::Selected } else { SelectionState::Unselected };
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <RadioPrimitive
-            checked={checked}
-            disabled={disabled}
-            value={value}
-            name={name}
-            class={class}
-            id={id.unwrap_or_default()}
+            selected=selected
+            disabled=disabled_state
+            value=value
+            name=name
+            class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </RadioPrimitive>
     }
 }

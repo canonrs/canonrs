@@ -1,11 +1,10 @@
 use leptos::prelude::*;
 use canonrs_core::shared::Orientation;
 use canonrs_core::primitives::{
-    SliderPrimitive,
-    SliderTrackPrimitive,
-    SliderRangePrimitive,
-    SliderThumbPrimitive,
+    SliderPrimitive, SliderTrackPrimitive,
+    SliderRangePrimitive, SliderThumbPrimitive,
 };
+use canonrs_core::meta::DisabledState;
 
 #[component]
 pub fn Slider(
@@ -18,14 +17,15 @@ pub fn Slider(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let clamped = value.clamp(min, max);
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <SliderPrimitive
             min={min}
             max={max}
-            _step={step}
+            step={step}
             value={clamped}
             orientation={orientation.as_str().to_string()}
-            disabled={disabled}
+            disabled={disabled_state}
             class={class}
         >
             <SliderTrackPrimitive>

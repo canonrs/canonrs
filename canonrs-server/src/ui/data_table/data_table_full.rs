@@ -19,7 +19,6 @@ pub fn DataTableFull<T>(
     data: Vec<T>,
     columns: Vec<DataTableColumn<T>>,
     #[prop(default = DataTableDensity::default())] density: DataTableDensity,
-    #[prop(into, default = String::new())] id: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = 10)] page_size: usize,
     #[prop(default = false)] selectable: bool,
@@ -39,14 +38,11 @@ where
     let visible_data = data.into_iter().enumerate().collect::<Vec<_>>();
     let cols = StoredValue::new(columns.clone());
     let expand_render = StoredValue::new(expand_render);
-    let _dropdown_id = format!("{}-columns", id);
-    let trigger_id = format!("{}-columns-trigger", id);
     let initial_density = density.as_str();
 
     view! {
         <DataTablePrimitive
             density=density
-            id=id.clone()
             class=class
             attr:data-rs-page-size=page_size.to_string()
             attr:data-rs-current-page="1"
@@ -78,10 +74,8 @@ where
                     </div>
                 })}
                 <DropdownMenu>
-                    <DropdownMenuTrigger
-                        id=trigger_id
-                    >
-                        "Columns ▾"
+                    <DropdownMenuTrigger>
+                        "Columns"
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuGroup>

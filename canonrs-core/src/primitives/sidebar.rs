@@ -35,7 +35,6 @@ pub fn SidebarPrimitive(
             data-rs-variant=variant.as_str()
             aria-hidden=s.aria_hidden
             role="complementary"
-            id="rs-sidebar"
             class=class
         >
             {children()}
@@ -180,7 +179,6 @@ pub fn SidebarTriggerPrimitive(
             data-rs-sidebar-toggle=""
             data-rs-state=t.data_rs_state
             aria-expanded=t.aria_expanded
-            aria-controls="rs-sidebar"
             class=class
             style=style
         >

@@ -35,16 +35,23 @@ pub fn ScrollAreaPrimitive(
     view! {
         <div
             data-rs-scroll-area=""
+            data-rs-component="ScrollArea"
+            data-rs-behavior="scroll"
             data-rs-orientation=orientation.as_str()
-            data-rs-auto-hide=auto_hide.to_string()
+            data-rs-auto-hide={auto_hide.then_some("")}
+            role="region"
             class=class
         >
-            <div data-rs-scroll-viewport="">
+            <div
+                data-rs-scroll-viewport=""
+                role="presentation"
+                tabindex="0"
+            >
                 {children()}
             </div>
 
             {show_v.then(|| view! {
-                <div data-rs-scrollbar="" data-rs-orientation="vertical">
+                <div data-rs-scrollbar="" data-rs-orientation="vertical" role="scrollbar" aria-orientation="vertical">
                     <div data-rs-scroll-track="">
                         <div data-rs-scroll-thumb="" data-rs-orientation="vertical" />
                     </div>
@@ -52,7 +59,7 @@ pub fn ScrollAreaPrimitive(
             })}
 
             {show_h.then(|| view! {
-                <div data-rs-scrollbar="" data-rs-orientation="horizontal">
+                <div data-rs-scrollbar="" data-rs-orientation="horizontal" role="scrollbar" aria-orientation="horizontal">
                     <div data-rs-scroll-track="">
                         <div data-rs-scroll-thumb="" data-rs-orientation="horizontal" />
                     </div>

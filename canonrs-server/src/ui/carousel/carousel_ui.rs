@@ -13,12 +13,10 @@ pub fn Carousel(
     #[prop(default = 5000)] interval: u32,
     #[prop(default = true)] r#loop: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <CarouselPrimitive
             class={class}
-            id={id.unwrap_or_default()}
         >
             <div
                 data-rs-carousel-wrapper=""
@@ -49,10 +47,9 @@ pub fn CarouselTrack(
 pub fn CarouselItem(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CarouselItemPrimitive class={class} id={id.unwrap_or_default()}>
+        <CarouselItemPrimitive class={class}>
             {children.map(|c| c())}
         </CarouselItemPrimitive>
     }

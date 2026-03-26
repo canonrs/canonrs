@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    StatPrimitive, StatValuePrimitive, StatLabelPrimitive, 
+    StatPrimitive, StatValuePrimitive, StatLabelPrimitive,
     StatDeltaPrimitive, StatIconPrimitive, StatHeaderPrimitive, StatBodyPrimitive
 };
 
@@ -36,13 +36,9 @@ pub fn Stat(
     #[prop(optional)] trend: Option<StatTrend>,
     #[prop(default = false)] loading: bool,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <StatPrimitive
-            class={class}
-            id={id.unwrap_or_default()}
-        >
+        <StatPrimitive class={class}>
             <div
                 data-rs-stat-wrapper=""
                 data-rs-size={size.as_str()}
@@ -62,10 +58,9 @@ pub fn Stat(
 pub fn StatHeader(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <StatHeaderPrimitive class={class} id={id.unwrap_or_default()}>
+        <StatHeaderPrimitive class={class}>
             {children.map(|c| c())}
         </StatHeaderPrimitive>
     }
@@ -75,10 +70,9 @@ pub fn StatHeader(
 pub fn StatBody(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <StatBodyPrimitive class={class} id={id.unwrap_or_default()}>
+        <StatBodyPrimitive class={class}>
             {children.map(|c| c())}
         </StatBodyPrimitive>
     }
@@ -88,10 +82,9 @@ pub fn StatBody(
 pub fn StatValue(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <StatValuePrimitive class={class} id={id.unwrap_or_default()}>
+        <StatValuePrimitive class={class}>
             {children.map(|c| c())}
         </StatValuePrimitive>
     }
@@ -101,10 +94,9 @@ pub fn StatValue(
 pub fn StatLabel(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <StatLabelPrimitive class={class} id={id.unwrap_or_default()}>
+        <StatLabelPrimitive class={class}>
             {children.map(|c| c())}
         </StatLabelPrimitive>
     }
@@ -114,10 +106,9 @@ pub fn StatLabel(
 pub fn StatDelta(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <StatDeltaPrimitive class={class} id={id.unwrap_or_default()}>
+        <StatDeltaPrimitive class={class}>
             {children.map(|c| c())}
         </StatDeltaPrimitive>
     }
@@ -127,10 +118,9 @@ pub fn StatDelta(
 pub fn StatIcon(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <StatIconPrimitive class={class} id={id.unwrap_or_default()}>
+        <StatIconPrimitive class={class}>
             {children.map(|c| c())}
         </StatIconPrimitive>
     }

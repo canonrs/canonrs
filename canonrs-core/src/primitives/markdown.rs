@@ -3,18 +3,20 @@
 //! Markdown Primitive - HTML puro
 
 use leptos::prelude::*;
+use crate::meta::{NavigationState, VisibilityState};
+use crate::state_engine::visibility_attrs;
 
 #[component]
 pub fn MarkdownPrimitive(
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
     #[prop(into, default = String::new())] inner: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-markdown=""
+            data-rs-component="Markdown"
+            data-rs-behavior="content"
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
             inner_html=inner
         ></div>
     }
@@ -58,13 +60,15 @@ pub fn MarkdownToolbarItemPrimitive(
 #[component]
 pub fn MarkdownTocPrimitive(
     children: Children,
-    #[prop(into, default = "closed".to_string())] state: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let va = visibility_attrs(state);
     view! {
         <nav
             data-rs-markdown-toc=""
-            data-rs-state=state
+            data-rs-state=va.data_rs_state
+            aria-hidden=va.aria_hidden
             aria-label="Table of contents"
             class=class
         >
@@ -78,19 +82,20 @@ pub fn MarkdownTocItemPrimitive(
     #[prop(into)] href: String,
     #[prop(into)] text: String,
     #[prop(default = 2u8)] level: u8,
+    #[prop(default = NavigationState::Inactive)] state: NavigationState,
 ) -> impl IntoView {
+    let aria_current = if state == NavigationState::Current { Some("page") } else { None };
     view! {
         <li
             data-rs-markdown-toc-item=""
             data-rs-level=level.to_string()
-            data-rs-state="inactive"
+            data-rs-state=state.as_str()
         >
             <a
                 data-rs-markdown-toc-link=""
+                aria-current=aria_current
                 href=href
-            >
-                {text}
-            </a>
+            >{text}</a>
         </li>
     }
 }
@@ -104,7 +109,6 @@ pub fn MarkdownContentPrimitive(
     let inner = html;
     #[cfg(not(feature = "ssr"))]
     let inner = { let _ = html; String::new() };
-
     view! {
         <div
             data-rs-markdown-content=""

@@ -14,6 +14,8 @@ pub fn ButtonGroupPrimitive(
     view! {
         <div
             data-rs-button-group=""
+            data-rs-component="ButtonGroup"
+            data-rs-behavior="action"
             data-rs-attached={if attached { Some("true") } else { None }}
             role="group"
             aria-label=aria_label

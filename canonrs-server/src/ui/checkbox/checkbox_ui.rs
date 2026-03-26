@@ -1,31 +1,27 @@
 //! @canon-level: ui
 //! Checkbox - native HTML input, sem behavior
-//! Estado gerenciado pelo browser via :checked/:disabled/:focus-visible
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{
-    CheckboxPrimitive,
-    CheckboxIndicatorPrimitive,
-};
+use canonrs_core::primitives::{CheckboxPrimitive, CheckboxIndicatorPrimitive};
+use canonrs_core::meta::{ActivityState, DisabledState};
 
 #[component]
 pub fn Checkbox(
-    #[prop(into, default = String::new())] id: String,
     #[prop(optional)] children: Option<Children>,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let id_clone = id.clone();
+    let checked_state = if checked { ActivityState::Active } else { ActivityState::Inactive };
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
-        <label for=id_clone data-rs-checkbox-wrapper="">
+        <label data-rs-checkbox-wrapper="">
             <CheckboxPrimitive
-                checked=checked
-                disabled=disabled
+                checked=checked_state
+                disabled=disabled_state
                 name=name
                 class=class
-                id=id
             />
             <CheckboxIndicatorPrimitive>
                 "✓"

@@ -8,7 +8,7 @@ pub fn BasicExample() -> impl IntoView {
             // Basic carousel
             <div>
                 <h4>"Basic Carousel"</h4>
-                <Carousel id="carousel-1">
+                <Carousel>
                     <CarouselItem>
                         <div style="background: var(--color-primary); color: white; padding: 4rem; text-align: center; border-radius: var(--radius-md);">
                             "Slide 1"
@@ -30,7 +30,7 @@ pub fn BasicExample() -> impl IntoView {
             // With autoplay
             <div>
                 <h4>"Autoplay Carousel (5s interval)"</h4>
-                <Carousel id="carousel-2" autoplay=true interval=5000>
+                <Carousel autoplay=true interval=5000>
                     <CarouselItem>
                         <div style="background: var(--theme-surface-muted); padding: 3rem; text-align: center; border-radius: var(--radius-md);">
                             "Auto Slide 1"
@@ -52,7 +52,7 @@ pub fn BasicExample() -> impl IntoView {
             // No loop
             <div>
                 <h4>"No Loop (stops at edges)"</h4>
-                <Carousel id="carousel-3" r#loop=false>
+                <Carousel r#loop=false>
                     <CarouselItem>
                         <div style="background: var(--theme-surface-muted); padding: 2rem; border-radius: var(--radius-md);">
                             "First"

@@ -7,13 +7,23 @@ use leptos::prelude::*;
 #[component]
 pub fn EmptyTablePrimitive(
     children: Children,
-    #[prop(default = 999)] colspan: i32,
+    #[prop(default = 1u32)] colspan: u32,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <tr data-rs-empty-table-row="" role="row" class=class>
+        <tr
+            data-rs-empty-table-row=""
+            data-rs-component="EmptyTable"
+            role="row"
+            class=class
+        >
             <td colspan=colspan role="cell">
-                <div data-rs-empty-table-content="" role="status" aria-live="polite">
+                <div
+                    data-rs-empty-table-content=""
+                    data-rs-state="empty"
+                    role="status"
+                    aria-live="polite"
+                >
                     {children()}
                 </div>
             </td>
@@ -24,9 +34,10 @@ pub fn EmptyTablePrimitive(
 #[component]
 pub fn EmptyTableTitlePrimitive(
     children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-empty-table-title="">
+        <div data-rs-empty-table-title="" class=class>
             {children()}
         </div>
     }
@@ -35,9 +46,10 @@ pub fn EmptyTableTitlePrimitive(
 #[component]
 pub fn EmptyTableDescriptionPrimitive(
     children: Children,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-empty-table-description="">
+        <div data-rs-empty-table-description="" class=class>
             {children()}
         </div>
     }

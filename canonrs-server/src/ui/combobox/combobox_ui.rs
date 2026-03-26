@@ -1,30 +1,23 @@
 //! @canon-level: ui
 //! Combobox - attribute-driven
-//! Relação trigger↔list via estrutura DOM
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    ComboboxPrimitive,
-    ComboboxTriggerPrimitive,
-    ComboboxListPrimitive,
-    ComboboxItemPrimitive,
+    ComboboxPrimitive, ComboboxTriggerPrimitive,
+    ComboboxListPrimitive, ComboboxItemPrimitive,
 };
+use canonrs_core::meta::{VisibilityState, DisabledState, SelectionState};
 
 #[component]
 pub fn Combobox(
     children: Children,
     #[prop(default = false)] expanded: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = false)] _disabled: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let state = if expanded { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <ComboboxPrimitive
-            expanded={expanded}
-            disabled={disabled}
-            class={class}
-            id={id.unwrap_or_default()}
-        >
+        <ComboboxPrimitive state=state class=class>
             {children()}
         </ComboboxPrimitive>
     }
@@ -36,8 +29,9 @@ pub fn ComboboxTrigger(
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
-        <ComboboxTriggerPrimitive disabled={disabled} class={class}>
+        <ComboboxTriggerPrimitive disabled=disabled_state class=class>
             {children()}
         </ComboboxTriggerPrimitive>
     }
@@ -49,7 +43,7 @@ pub fn ComboboxList(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxListPrimitive class={class}>
+        <ComboboxListPrimitive class=class>
             {children()}
         </ComboboxListPrimitive>
     }
@@ -60,10 +54,13 @@ pub fn ComboboxItem(
     children: Children,
     #[prop(default = false)] selected: bool,
     #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let selected_state = if selected { SelectionState::Selected } else { SelectionState::Unselected };
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
-        <ComboboxItemPrimitive selected={selected} disabled={disabled} class={class}>
+        <ComboboxItemPrimitive selected=selected_state disabled=disabled_state value=value class=class>
             {children()}
         </ComboboxItemPrimitive>
     }

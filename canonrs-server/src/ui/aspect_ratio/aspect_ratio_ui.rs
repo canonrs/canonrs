@@ -7,14 +7,12 @@ pub fn AspectRatio(
     #[prop(default = 16.0f32)] width: f32,
     #[prop(default = 9.0f32)] height: f32,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <AspectRatioPrimitive
             ratio_w=width
             ratio_h=height
             class=class
-            id=id.unwrap_or_default()
         >
             {children()}
         </AspectRatioPrimitive>

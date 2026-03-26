@@ -1,9 +1,9 @@
 //! @canon-level: ui
 //! Popover - attribute-driven
-//! Trigger: attr:data-rs-popover-trigger=""
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{PopoverPrimitive, PopoverContentPrimitive};
+use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn Popover(
@@ -11,8 +11,9 @@ pub fn Popover(
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let state = if open { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <PopoverPrimitive open=open.into() class=class>
+        <PopoverPrimitive state=state class=class>
             {children()}
         </PopoverPrimitive>
     }

@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Callout Primitive - HTML puro
+//! Callout Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 
@@ -18,10 +18,24 @@ impl CalloutVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "default",
-            Self::Info => "info",
+            Self::Info    => "info",
             Self::Success => "success",
             Self::Warning => "warning",
-            Self::Error => "error",
+            Self::Error   => "error",
+        }
+    }
+
+    pub fn role(&self) -> &'static str {
+        match self {
+            Self::Error => "alert",
+            _           => "note",
+        }
+    }
+
+    pub fn aria_live(&self) -> &'static str {
+        match self {
+            Self::Error => "assertive",
+            _           => "polite",
         }
     }
 }
@@ -35,7 +49,12 @@ pub fn CalloutPrimitive(
     view! {
         <aside
             data-rs-callout=""
+            data-rs-component="Callout"
+            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
+            role=variant.role()
+            aria-live=variant.aria_live()
+            aria-atomic="true"
             class=class
         >
             {children()}

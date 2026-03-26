@@ -113,7 +113,6 @@ pub fn MarkdownSurface(
 
     view! {
         <MarkdownPrimitive
-            id=id.clone()
             inner=inner
             attr:data-toc-position=if is_sidebar { "sidebar" } else { "top" }
         />

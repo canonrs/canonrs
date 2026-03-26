@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Banner Primitive - HTML puro
+//! Banner Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
@@ -18,24 +18,24 @@ pub enum BannerVariant {
 impl BannerVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Info => "info",
-            Self::Success => "success",
-            Self::Warning => "warning",
-            Self::Error => "error",
+            Self::Info     => "info",
+            Self::Success  => "success",
+            Self::Warning  => "warning",
+            Self::Error    => "error",
         }
     }
 
     pub fn role(&self) -> &'static str {
         match self {
             Self::Error => "alert",
-            _ => "status",
+            _           => "status",
         }
     }
 
     pub fn aria_live(&self) -> &'static str {
         match self {
             Self::Error => "assertive",
-            _ => "polite",
+            _           => "polite",
         }
     }
 }
@@ -48,15 +48,17 @@ pub fn BannerPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
-    let role = variant.role();
-    let aria_live = variant.aria_live();
     view! {
         <div
             data-rs-banner=""
+            data-rs-component="Banner"
+            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
             data-rs-state=s.data_rs_state
-            role=role
-            aria-live=aria_live
+            role=variant.role()
+            aria-live=variant.aria_live()
+            aria-atomic="true"
+            hidden=s.hidden
             class=class
         >
             {children()}

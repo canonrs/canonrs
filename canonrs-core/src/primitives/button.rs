@@ -3,7 +3,8 @@
 //! Button Primitive - HTML puro
 
 use leptos::prelude::*;
-use crate::meta::DisabledState;
+use crate::meta::{DisabledState, LoadingState, ToggleState};
+use crate::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
 
 #[derive(Clone, PartialEq, Default, Debug)]
 pub enum ButtonVariant {
@@ -49,6 +50,23 @@ impl ButtonSize {
     }
 }
 
+#[derive(Clone, PartialEq, Default, Debug)]
+pub enum ButtonType {
+    #[default]
+    Button,
+    Submit,
+    Reset,
+}
+impl ButtonType {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Button => "button",
+            Self::Submit => "submit",
+            Self::Reset  => "reset",
+        }
+    }
+}
+
 #[component]
 pub fn ButtonPrimitive(
     children: Children,
@@ -57,16 +75,28 @@ pub fn ButtonPrimitive(
     #[prop(optional, into)] aria_label: Option<String>,
     #[prop(default = ButtonVariant::Default)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
+    #[prop(default = ButtonType::Button)] button_type: ButtonType,
+    #[prop(default = LoadingState::Idle)] loading: LoadingState,
+    #[prop(optional)] pressed: Option<ToggleState>,
 ) -> impl IntoView {
+    let d  = disabled_attrs(disabled);
+    let la = loading_attrs(loading);
+    let ta = pressed.map(toggle_attrs);
     view! {
         <button
-            type="button"
+            type=button_type.as_str()
             data-rs-button=""
             data-rs-component="Button"
-            data-ui-variant=variant.as_str()
-            data-ui-size=size.as_str()
-            disabled=disabled.as_bool()
-            aria-disabled=disabled.aria()
+            data-rs-behavior="action"
+            data-rs-variant=variant.as_str()
+            data-rs-size=size.as_str()
+            data-rs-disabled=d.data_rs_disabled
+            data-rs-loading=la.data_rs_state
+            data-rs-state=ta.as_ref().map(|t| t.data_rs_state)
+            disabled=d.disabled
+            aria-disabled=d.aria_disabled
+            aria-busy=la.aria_busy
+            aria-pressed=ta.as_ref().map(|t| t.aria_pressed)
             aria-label=aria_label
             class=class
         >

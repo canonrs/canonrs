@@ -12,7 +12,6 @@ pub enum LinkVariant {
     Muted,
     Underline,
 }
-
 impl LinkVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -31,14 +30,14 @@ pub fn LinkPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = false)] external: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     let target = if external { "_blank" } else { "" };
     let rel    = if external { "noopener noreferrer" } else { "" };
-    let _ = &disabled;
     view! {
         <a
             data-rs-link=""
+            data-rs-component="Link"
+            data-rs-behavior="action"
             data-rs-variant=variant.as_str()
             data-rs-state=disabled.as_str()
             href=href
@@ -46,7 +45,6 @@ pub fn LinkPrimitive(
             rel=rel
             aria-disabled=disabled.aria()
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </a>

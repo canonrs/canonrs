@@ -11,7 +11,7 @@ pub fn Label(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <LabelPrimitive for_id=for_id class=class>
+        <LabelPrimitive html_for=for_id class=class>
             {children()}
         </LabelPrimitive>
     }

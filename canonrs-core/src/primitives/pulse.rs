@@ -11,12 +11,11 @@ pub enum PulseVariant {
     Subtle,
     Emphasized,
 }
-
 impl PulseVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Default => "default",
-            Self::Subtle => "subtle",
+            Self::Default    => "default",
+            Self::Subtle     => "subtle",
             Self::Emphasized => "emphasized",
         }
     }
@@ -29,13 +28,12 @@ pub enum PulseSize {
     Medium,
     Large,
 }
-
 impl PulseSize {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Small => "small",
+            Self::Small  => "small",
             Self::Medium => "medium",
-            Self::Large => "large",
+            Self::Large  => "large",
         }
     }
 }
@@ -47,13 +45,12 @@ pub enum PulseSpeed {
     Normal,
     Fast,
 }
-
 impl PulseSpeed {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Slow => "slow",
+            Self::Slow   => "slow",
             Self::Normal => "normal",
-            Self::Fast => "fast",
+            Self::Fast   => "fast",
         }
     }
 }
@@ -69,6 +66,8 @@ pub fn PulsePrimitive(
     view! {
         <span
             data-rs-pulse=""
+            data-rs-component="Pulse"
+            data-rs-behavior="feedback"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-speed=speed.as_str()

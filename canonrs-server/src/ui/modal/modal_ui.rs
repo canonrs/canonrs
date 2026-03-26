@@ -1,10 +1,9 @@
 //! @canon-level: ui
 //! Modal - attribute-driven
-//! Trigger: attr:data-rs-modal-trigger=""
-//! Close:   attr:data-rs-modal-close=""
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ModalPrimitive, ModalOverlayPrimitive, ModalContentPrimitive};
+use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn Modal(
@@ -12,8 +11,9 @@ pub fn Modal(
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let state = VisibilityState::from(open);
     view! {
-        <ModalPrimitive open=open class=class>
+        <ModalPrimitive state=state class=class>
             {children()}
         </ModalPrimitive>
     }

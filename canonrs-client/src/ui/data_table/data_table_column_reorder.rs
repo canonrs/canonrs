@@ -7,6 +7,7 @@ pub fn use_column_reorder<F>(
 ) where
     F: Fn(String, String) + 'static + Clone,
 {
+    #[allow(unused_variables)]
     let on_reorder_outer = on_reorder.clone();
 
     Effect::new(move |_| {

@@ -1,26 +1,21 @@
 //! @canon-level: ui
 //! Command - attribute-driven
-//! Filtro via behavior que lê data-rs-command-input e oculta data-rs-command-item
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    CommandPrimitive,
-    CommandInputPrimitive,
-    CommandListPrimitive,
-    CommandEmptyPrimitive,
-    CommandGroupPrimitive,
-    CommandItemPrimitive,
-    CommandSeparatorPrimitive,
+    CommandPrimitive, CommandInputPrimitive, CommandListPrimitive,
+    CommandEmptyPrimitive, CommandGroupPrimitive, CommandGroupHeadingPrimitive,
+    CommandItemPrimitive, CommandSeparatorPrimitive,
 };
+use canonrs_core::meta::SelectionState;
 
 #[component]
 pub fn Command(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CommandPrimitive class=class id=id.unwrap_or_default()>
+        <CommandPrimitive class=class>
             {children()}
         </CommandPrimitive>
     }
@@ -32,10 +27,7 @@ pub fn CommandInput(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CommandInputPrimitive
-            placeholder=placeholder
-            class=class
-        />
+        <CommandInputPrimitive placeholder=placeholder class=class />
     }
 }
 
@@ -70,7 +62,10 @@ pub fn CommandGroup(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CommandGroupPrimitive heading=heading.unwrap_or_default() class=class>
+        <CommandGroupPrimitive class=class>
+            {heading.map(|h: String| view! {
+                <CommandGroupHeadingPrimitive>{h}</CommandGroupHeadingPrimitive>
+            })}
             {children()}
         </CommandGroupPrimitive>
     }
@@ -83,8 +78,9 @@ pub fn CommandItem(
     #[prop(default = false)] selected: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let selected_state = if selected { SelectionState::Selected } else { SelectionState::Unselected };
     view! {
-        <CommandItemPrimitive value=value.unwrap_or_default() selected=selected class=class>
+        <CommandItemPrimitive value=value.unwrap_or_default() selected=selected_state class=class>
             {children()}
         </CommandItemPrimitive>
     }

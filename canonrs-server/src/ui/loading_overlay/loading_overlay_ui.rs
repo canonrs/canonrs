@@ -3,6 +3,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::LoadingOverlayPrimitive;
+use canonrs_core::meta::LoadingState;
 
 #[component]
 pub fn LoadingOverlay(
@@ -10,8 +11,9 @@ pub fn LoadingOverlay(
     #[prop(default = false)] loading: bool,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
+    let state = if loading { LoadingState::Loading } else { LoadingState::Idle };
     view! {
-        <LoadingOverlayPrimitive loading=loading class={class.unwrap_or_default()}>
+        <LoadingOverlayPrimitive state=state class={class.unwrap_or_default()}>
             {children()}
         </LoadingOverlayPrimitive>
     }

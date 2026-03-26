@@ -1,30 +1,21 @@
 //! TableOfContents UI - Enterprise component using primitives
 //! 3 modes: simple | expand | nested
 //! SSR-safe, behavior-driven scroll-spy
-//! REGRA: zero RwSignal, zero use_context, zero set_interval
-//! Scroll-spy é responsabilidade do behavior JS via data-rs-*
 
 use leptos::prelude::*;
 use canonrs_core::TocItem;
 use canonrs_core::primitives::table_of_contents::*;
 use canonrs_core::VisibilityState;
 
-// ── Main Component ────────────────────────────────────────────────────────────
-
 #[component]
 pub fn TableOfContents(
     items: Vec<TocItem>,
     #[prop(default = TocMode::Simple)] mode: TocMode,
-    #[prop(into, default = String::new())] id: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = "On this page".to_string())] title: String,
 ) -> impl IntoView {
     view! {
-        <TocPrimitive
-            id=id
-            class=class
-            mode=mode
-        >
+        <TocPrimitive class=class mode=mode>
             <TocTitlePrimitive>
                 {title}
             </TocTitlePrimitive>
@@ -36,8 +27,6 @@ pub fn TableOfContents(
         </TocPrimitive>
     }
 }
-
-// ── Mode 1: Simple ────────────────────────────────────────────────────────────
 
 fn render_simple(items: Vec<TocItem>) -> impl IntoView {
     view! {
@@ -60,8 +49,6 @@ fn render_simple(items: Vec<TocItem>) -> impl IntoView {
         </TocListPrimitive>
     }
 }
-
-// ── Mode 2: Expand ────────────────────────────────────────────────────────────
 
 fn render_expand(items: Vec<TocItem>) -> impl IntoView {
     view! {
@@ -86,8 +73,6 @@ fn render_expand(items: Vec<TocItem>) -> impl IntoView {
     }
 }
 
-// ── Mode 3: Nested ────────────────────────────────────────────────────────────
-
 fn render_nested(items: Vec<TocItem>) -> impl IntoView {
     let tree = build_tree(items);
     view! {
@@ -106,15 +91,12 @@ struct TocNode {
 fn build_tree(items: Vec<TocItem>) -> Vec<TocNode> {
     let mut roots: Vec<TocNode> = Vec::new();
     let mut stack: Vec<(u8, usize)> = Vec::new();
-
     for item in items {
         let node = TocNode { item: item.clone(), children: Vec::new() };
         let level = item.level;
-
         while stack.last().map(|(l, _)| *l >= level).unwrap_or(false) {
             stack.pop();
         }
-
         if stack.is_empty() {
             roots.push(node);
             stack.push((level, roots.len() - 1));
@@ -128,7 +110,6 @@ fn build_tree(items: Vec<TocItem>) -> Vec<TocNode> {
             }
         }
     }
-
     roots
 }
 
@@ -146,7 +127,6 @@ fn render_tree_nodes(nodes: Vec<TocNode>) -> Vec<AnyView> {
         let has_children = !node.children.is_empty();
         let item = node.item;
         let children = node.children;
-
         view! {
             <TocItemPrimitive
                 data_level=item.level.to_string()
@@ -156,7 +136,9 @@ fn render_tree_nodes(nodes: Vec<TocNode>) -> Vec<AnyView> {
                 has_children=has_children
             >
                 {has_children.then(|| view! {
-                    <TocExpandButtonPrimitive  />
+                    <TocExpandButtonPrimitive>
+                        <span data-rs-toc-expand-icon="" />
+                    </TocExpandButtonPrimitive>
                 })}
                 <TocLinkPrimitive href=format!("#{}", item.id)>
                     {item.text}

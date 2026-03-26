@@ -3,6 +3,8 @@
 //! Breadcrumb Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::ActivityState;
+use crate::state_engine::activity_attrs;
 
 #[component]
 pub fn BreadcrumbPrimitive(
@@ -10,7 +12,13 @@ pub fn BreadcrumbPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <nav data-rs-breadcrumb="" aria-label="Breadcrumb" class=class>
+        <nav
+            data-rs-breadcrumb=""
+            data-rs-component="Breadcrumb"
+            data-rs-behavior="navigation"
+            aria-label="Breadcrumb"
+            class=class
+        >
             {children()}
         </nav>
     }
@@ -32,15 +40,17 @@ pub fn BreadcrumbItemPrimitive(
 pub fn BreadcrumbLinkPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] current: bool,
+    #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let a = activity_attrs(state);
+    let is_current = state == ActivityState::Active;
     view! {
         <a
             data-rs-breadcrumb-link=""
-            data-rs-state={if current { "current" } else { "inactive" }}
+            data-rs-state=a.data_rs_state
             href=href
-            aria-current={if current { Some("page") } else { None }}
+            aria-current=if is_current { Some("page") } else { None }
             class=class
         >
             {children()}

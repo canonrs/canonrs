@@ -78,7 +78,6 @@ pub fn ChartDatatableSyncExample() -> impl IntoView {
                 sync_scope="revenue-2026".to_string()
             />
             <DataTableFull
-                id="datatable-sync".to_string()
                 data=rows
                 columns=columns
                 page_size=6usize

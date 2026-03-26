@@ -2,7 +2,7 @@
 //! Badge - Declarative UI wrapper
 
 use leptos::prelude::*;
-use canonrs_core::primitives::BadgePrimitive;
+use canonrs_core::primitives::{BadgePrimitive, BadgeInteractivity};
 pub use canonrs_core::primitives::BadgeVariant;
 
 #[component]
@@ -12,8 +12,13 @@ pub fn Badge(
     #[prop(default = false)] interactive: bool,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
+    let interactivity = if interactive {
+        BadgeInteractivity::Interactive
+    } else {
+        BadgeInteractivity::Static
+    };
     view! {
-        <BadgePrimitive variant=variant interactive=interactive class={class.unwrap_or_default()}>
+        <BadgePrimitive variant=variant interactivity=interactivity class={class.unwrap_or_default()}>
             {children()}
         </BadgePrimitive>
     }

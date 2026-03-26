@@ -38,7 +38,6 @@ pub fn CodeBlock(
         <CodeBlockPrimitive
             language=lang_display.clone()
             class=class
-            id=id
             attr:data-line-numbers={show_line_numbers.then(|| "true")}
         >
             <CodeBlockHeaderPrimitive>

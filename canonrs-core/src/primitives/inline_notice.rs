@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! InlineNotice Primitive - HTML puro
+//! InlineNotice Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 
@@ -18,10 +18,24 @@ impl InlineNoticeVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Default => "default",
-            Self::Info => "info",
+            Self::Info    => "info",
             Self::Success => "success",
             Self::Warning => "warning",
-            Self::Error => "error",
+            Self::Error   => "error",
+        }
+    }
+
+    pub fn role(&self) -> &'static str {
+        match self {
+            Self::Error => "alert",
+            _           => "status",
+        }
+    }
+
+    pub fn aria_live(&self) -> &'static str {
+        match self {
+            Self::Error => "assertive",
+            _           => "polite",
         }
     }
 }
@@ -35,7 +49,12 @@ pub fn InlineNoticePrimitive(
     view! {
         <div
             data-rs-inline-notice=""
+            data-rs-component="InlineNotice"
+            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
+            role=variant.role()
+            aria-live=variant.aria_live()
+            aria-atomic="true"
             class=class
         >
             {children()}
@@ -65,10 +84,7 @@ pub fn InlineNoticeContentPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-rs-inline-notice-content=""
-            class=class
-        >
+        <span data-rs-inline-notice-content="" class=class>
             {children()}
         </span>
     }

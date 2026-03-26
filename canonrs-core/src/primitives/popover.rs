@@ -3,21 +3,43 @@
 //! Popover Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::{visibility_attrs, trigger_attrs};
+
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
+pub enum PopoverSide {
+    #[default]
+    Bottom,
+    Top,
+    Left,
+    Right,
+}
+
+impl PopoverSide {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Bottom => "bottom",
+            Self::Top    => "top",
+            Self::Left   => "left",
+            Self::Right  => "right",
+        }
+    }
+}
 
 #[component]
 pub fn PopoverPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = false)] open: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-popover=""
             data-rs-component="Popover"
-            data-rs-state={if open { "open" } else { "closed" }}
+            data-rs-behavior="overlay"
+            data-rs-state=s.data_rs_state
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </div>
@@ -27,16 +49,18 @@ pub fn PopoverPrimitive(
 #[component]
 pub fn PopoverTriggerPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let t = trigger_attrs(state);
     view! {
         <button
             type="button"
             data-rs-popover-trigger=""
+            data-rs-state=t.data_rs_state
             aria-haspopup="dialog"
+            aria-expanded=t.aria_expanded
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </button>
@@ -46,17 +70,24 @@ pub fn PopoverTriggerPrimitive(
 #[component]
 pub fn PopoverContentPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(default = PopoverSide::Bottom)] side: PopoverSide,
+    #[prop(into, optional)] aria_label: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-popover-content=""
+            data-rs-state=s.data_rs_state
+            data-rs-side=side.as_str()
             role="dialog"
             aria-modal="false"
+            aria-label=aria_label
+            aria-hidden=s.aria_hidden
+            hidden=s.hidden
             tabindex="-1"
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </div>

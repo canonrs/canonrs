@@ -3,6 +3,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::SpinnerPrimitive;
+use canonrs_core::meta::LoadingState;
 pub use canonrs_core::primitives::SpinnerSize;
 
 #[component]
@@ -12,10 +13,11 @@ pub fn Spinner(
     #[prop(into, default = "Loading".to_string())] aria_label: String,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
+    let state = if paused { LoadingState::Idle } else { LoadingState::Loading };
     view! {
         <SpinnerPrimitive
             size=size
-            paused=paused
+            state=state
             aria_label=aria_label
             class={class.unwrap_or_default()}
         />

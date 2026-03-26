@@ -10,4 +10,11 @@
   --motion-ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
   --motion-ease-linear: linear;
   --motion-reduced-duration: 0ms;
+  --animate-duration: var(--motion-duration-normal);
+  --animate-ease: var(--motion-ease-standard);
+  --animate-delay: 0ms;
+  --animate-fade-from: 0;
+  --animate-fade-to: 1;
+  --animate-slide-distance: var(--space-sm);
+  --animate-scale-from: 0.95;
 }

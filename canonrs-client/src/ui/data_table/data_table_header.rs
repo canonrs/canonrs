@@ -45,9 +45,6 @@ pub fn DataTableHeader<T: Clone + PartialEq + Send + Sync + 'static>(
 
     view! {
         <DataTableHeadPrimitive
-            id=format!("{}-resize", table_id)
-            attr:data-resize-container=""
-            attr:data-pin-container=""
             attr:data-drag-container=move || if draggable.get() { Some("") } else { None }
         >
             <DataTableHeadRowPrimitive>

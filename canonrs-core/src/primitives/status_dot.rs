@@ -23,29 +23,42 @@ pub enum StatusDotVariant {
 impl StatusDotVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Online => "online",
-            Self::Offline => "offline",
-            Self::Away => "away",
-            Self::Busy => "busy",
-            Self::DoNotDisturb => "do-not-disturb",
+            Self::Online        => "online",
+            Self::Offline       => "offline",
+            Self::Away          => "away",
+            Self::Busy          => "busy",
+            Self::DoNotDisturb  => "do-not-disturb",
+        }
+    }
+
+    pub fn aria_label(&self) -> &'static str {
+        match self {
+            Self::Online       => "Online",
+            Self::Offline      => "Offline",
+            Self::Away         => "Away",
+            Self::Busy         => "Busy",
+            Self::DoNotDisturb => "Do not disturb",
         }
     }
 }
 
 #[component]
 pub fn StatusDotPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = StatusDotVariant::Offline)] variant: StatusDotVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <span
             data-rs-status-dot=""
+            data-rs-component="StatusDot"
+            data-rs-behavior="indicator"
             data-rs-variant=variant.as_str()
-            aria-hidden="true"
+            role="img"
+            aria-label=variant.aria_label()
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </span>
     }
 }

@@ -3,6 +3,8 @@
 //! Pagination Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::{ActivityState, DisabledState};
+use crate::state_engine::{activity_attrs, disabled_attrs};
 
 #[component]
 pub fn PaginationPrimitive(
@@ -10,7 +12,13 @@ pub fn PaginationPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <nav data-rs-pagination="" aria-label="Page navigation" class=class>
+        <nav
+            data-rs-pagination=""
+            data-rs-component="Pagination"
+            data-rs-behavior="navigation"
+            aria-label="Page navigation"
+            class=class
+        >
             {children()}
         </nav>
     }
@@ -44,13 +52,19 @@ pub fn PaginationItemPrimitive(
 pub fn PaginationLinkPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] is_active: bool,
+    #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = if is_active { "active" } else { "idle" };
-    let aria = if is_active { Some("page") } else { None };
+    let a = activity_attrs(state);
+    let is_active = state == ActivityState::Active;
     view! {
-        <a data-rs-pagination-link="" data-rs-state=state aria-current=aria href=href class=class>
+        <a
+            data-rs-pagination-link=""
+            data-rs-state=a.data_rs_state
+            aria-current=if is_active { Some("page") } else { None }
+            href=href
+            class=class
+        >
             {children()}
         </a>
     }
@@ -60,13 +74,20 @@ pub fn PaginationLinkPrimitive(
 pub fn PaginationPreviousPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = if disabled { "disabled" } else { "idle" };
-    let aria_disabled = if disabled { Some("true") } else { None };
+    let d = disabled_attrs(disabled);
     view! {
-        <a data-rs-pagination-previous="" data-rs-state=state aria-disabled=aria_disabled aria-label="Go to previous page" href=href class=class>
+        <a
+            data-rs-pagination-previous=""
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
+            aria-label="Go to previous page"
+            href=if d.disabled { "#".to_string() } else { href }
+            tabindex=if d.disabled { "-1" } else { "0" }
+            class=class
+        >
             {children()}
         </a>
     }
@@ -76,13 +97,20 @@ pub fn PaginationPreviousPrimitive(
 pub fn PaginationNextPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = if disabled { "disabled" } else { "idle" };
-    let aria_disabled = if disabled { Some("true") } else { None };
+    let d = disabled_attrs(disabled);
     view! {
-        <a data-rs-pagination-next="" data-rs-state=state aria-disabled=aria_disabled aria-label="Go to next page" href=href class=class>
+        <a
+            data-rs-pagination-next=""
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
+            aria-label="Go to next page"
+            href=if d.disabled { "#".to_string() } else { href }
+            tabindex=if d.disabled { "-1" } else { "0" }
+            class=class
+        >
             {children()}
         </a>
     }

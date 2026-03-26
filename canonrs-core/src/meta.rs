@@ -1050,3 +1050,19 @@ pub fn derive_props_from_capabilities(caps: &[Capability]) -> Vec<CapabilityProp
 pub fn derive_props_from_meta(meta: &ComponentMeta) -> Vec<CapabilityPropDef> {
     derive_props_from_capabilities(meta.capabilities)
 }
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum LoadingState {
+    #[default]
+    Idle,
+    Loading,
+}
+
+impl LoadingState {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Idle    => "idle",
+            Self::Loading => "loading",
+        }
+    }
+}

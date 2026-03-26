@@ -8,11 +8,17 @@ use leptos::prelude::*;
 pub fn CardPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-card=""
-            data-rs-component="Card" class=class id=id.filter(|s| !s.is_empty())>
+        <div
+            data-rs-card=""
+            data-rs-component="Card"
+            data-rs-behavior="content"
+            role="region"
+            aria-label=aria_label
+            class=class
+        >
             {children()}
         </div>
     }
@@ -22,10 +28,9 @@ pub fn CardPrimitive(
 pub fn CardHeaderPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-card-header="" class=class id=id.filter(|s| !s.is_empty())>
+        <div data-rs-card-header="" class=class>
             {children()}
         </div>
     }
@@ -35,12 +40,11 @@ pub fn CardHeaderPrimitive(
 pub fn CardTitlePrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-card-title="" class=class id=id.filter(|s| !s.is_empty())>
+        <h3 data-rs-card-title="" class=class>
             {children()}
-        </div>
+        </h3>
     }
 }
 
@@ -48,12 +52,11 @@ pub fn CardTitlePrimitive(
 pub fn CardDescriptionPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-card-description="" class=class id=id.filter(|s| !s.is_empty())>
+        <p data-rs-card-description="" class=class>
             {children()}
-        </div>
+        </p>
     }
 }
 
@@ -61,10 +64,9 @@ pub fn CardDescriptionPrimitive(
 pub fn CardContentPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-card-content="" class=class id=id.filter(|s| !s.is_empty())>
+        <div data-rs-card-content="" class=class>
             {children()}
         </div>
     }
@@ -74,10 +76,9 @@ pub fn CardContentPrimitive(
 pub fn CardFooterPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div data-rs-card-footer="" class=class id=id.filter(|s| !s.is_empty())>
+        <div data-rs-card-footer="" class=class>
             {children()}
         </div>
     }

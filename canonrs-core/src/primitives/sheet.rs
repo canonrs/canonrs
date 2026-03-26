@@ -14,7 +14,6 @@ pub enum SheetSide {
     Top,
     Bottom,
 }
-
 impl SheetSide {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -29,20 +28,21 @@ impl SheetSide {
 #[component]
 pub fn SheetPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(default = SheetSide::Right)] side: SheetSide,
-    #[prop(default = VisibilityState::Closed)] open: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-sheet=""
             data-rs-component="Sheet"
             data-rs-behavior="overlay"
-            data-rs-state={visibility_attrs(open).data_rs_state}
+            data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
+            aria-hidden=s.aria_hidden
+            hidden=s.hidden
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </div>
@@ -52,15 +52,20 @@ pub fn SheetPrimitive(
 #[component]
 pub fn SheetTriggerPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(optional, into)] aria_controls: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-sheet-trigger=""
+            data-rs-state=s.data_rs_state
+            aria-haspopup="dialog"
+            aria-expanded=s.aria_expanded
+            aria-controls=aria_controls
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </button>
@@ -70,17 +75,19 @@ pub fn SheetTriggerPrimitive(
 #[component]
 pub fn SheetContentPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional, into)] aria_labelledby: Option<String>,
+    #[prop(optional, into)] aria_describedby: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-sheet-content=""
             role="dialog"
             aria-modal="true"
+            aria-labelledby=aria_labelledby
+            aria-describedby=aria_describedby
             tabindex="-1"
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </div>
@@ -89,10 +96,16 @@ pub fn SheetContentPrimitive(
 
 #[component]
 pub fn SheetOverlayPrimitive(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
-        <div data-rs-sheet-overlay="" aria-hidden="true" class=class id=if id.is_empty() { None } else { Some(id.clone()) } />
+        <div
+            data-rs-sheet-overlay=""
+            data-rs-state=s.data_rs_state
+            aria-hidden="true"
+            class=class
+        />
     }
 }

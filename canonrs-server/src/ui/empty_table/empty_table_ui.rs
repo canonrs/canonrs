@@ -13,7 +13,7 @@ pub fn EmptyTable(
     #[prop(into, default = "No data available".to_string())] title: String,
     #[prop(into, default = "Add your first item to get started".to_string())] description: String,
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = 999)] colspan: i32,
+    #[prop(default = 999)] colspan: u32,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -31,7 +31,7 @@ pub fn EmptyTablePreview() -> impl IntoView {
         <table>
             <tbody>
                 <EmptyTable
-                    colspan=3
+                    colspan=3u32
                     title="No data available".to_string()
                     description="Add your first item to get started.".to_string()
                 />

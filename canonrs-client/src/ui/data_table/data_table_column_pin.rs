@@ -2,9 +2,9 @@ use leptos::prelude::*;
 use super::PinPosition;
 
 pub fn use_column_pin<F>(
-    container_id: String,
+    #[allow(unused_variables)] container_id: String,
     enabled: Signal<bool>,
-    on_pin: F,
+    #[allow(unused_variables)] on_pin: F,
 ) where
     F: Fn(String, PinPosition) + 'static + Clone,
 {

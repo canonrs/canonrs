@@ -17,14 +17,19 @@ use leptos::prelude::*;
 #[component]
 pub fn AlertDialogContentPrimitive(
     children: Children,
+    #[prop(optional, into)] aria_labelledby: Option<String>,
+    #[prop(optional, into)] aria_describedby: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dialog-content=""
+            data-rs-component="AlertDialogContent"
             role="alertdialog"
             aria-modal="true"
             aria-live="assertive"
+            aria-labelledby=aria_labelledby
+            aria-describedby=aria_describedby
             tabindex="-1"
             class=class
         >

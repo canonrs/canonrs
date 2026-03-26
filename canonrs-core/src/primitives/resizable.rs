@@ -4,6 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::ActivityState;
+use crate::state_engine::activity_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum ResizableOrientation {
@@ -24,10 +25,10 @@ impl ResizableOrientation {
 #[component]
 pub fn ResizablePrimitive(
     children: Children,
-    #[prop(into, default = String::new())] class: String,
     #[prop(default = ResizableOrientation::Horizontal)] orientation: ResizableOrientation,
     #[prop(default = 20u32)] min_size: u32,
     #[prop(default = 80u32)] max_size: u32,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
@@ -64,17 +65,21 @@ pub fn ResizablePanelPrimitive(
 
 #[component]
 pub fn ResizableHandlePrimitive(
+    children: Children,
+    #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let a = activity_attrs(state);
     view! {
         <div
             data-rs-resizable-handle=""
-            data-rs-state=ActivityState::Inactive.as_str()
+            data-rs-state=a.data_rs_state
             role="separator"
             tabindex="0"
             class=class
         >
             <div data-rs-resizable-handle-bar="" />
+            {children()}
         </div>
     }
 }

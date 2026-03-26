@@ -12,6 +12,9 @@ pub fn PageHeaderPrimitive(
     view! {
         <header
             data-rs-page-header=""
+            data-rs-component="PageHeader"
+            data-rs-behavior="structural"
+            role="banner"
             class={(!class.is_empty()).then(|| class)}
         >
             {children()}

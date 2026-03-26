@@ -10,7 +10,14 @@ pub fn ErrorStatePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-error-state="" class=class>
+        <div
+            data-rs-error-state=""
+            data-rs-component="ErrorState"
+            data-rs-behavior="feedback"
+            role="status"
+            aria-live="assertive"
+            class=class
+        >
             {children()}
         </div>
     }

@@ -3,20 +3,22 @@
 //! CodeBlock Primitive - HTML puro, SSR-safe
 
 use leptos::prelude::*;
+use crate::meta::ToggleState;
+use crate::state_engine::toggle_attrs;
 
 #[component]
 pub fn CodeBlockPrimitive(
     children: Children,
     #[prop(into, default = String::new())] language: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-code-block=""
+            data-rs-component="CodeBlock"
+            data-rs-behavior="content"
             data-rs-language=language
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -62,11 +64,15 @@ pub fn CodeBlockFilenamePrimitive(
 #[component]
 pub fn CodeBlockCopyButtonPrimitive(
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = ToggleState::Off)] copied: ToggleState,
 ) -> impl IntoView {
+    let ta = toggle_attrs(copied);
     view! {
         <button
             type="button"
             data-rs-code-copy-btn=""
+            data-rs-state=ta.data_rs_state
+            aria-pressed=ta.aria_pressed
             aria-label="Copy code"
             class=class
         >

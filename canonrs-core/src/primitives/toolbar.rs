@@ -23,19 +23,20 @@ impl ToolbarOrientation {
 #[component]
 pub fn ToolbarPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] aria_label: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] aria_label: Option<String>,
     #[prop(default = ToolbarOrientation::Horizontal)] orientation: ToolbarOrientation,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-toolbar=""
+            data-rs-component="Toolbar"
+            data-rs-behavior="actions"
+            data-rs-variant=orientation.as_str()
             role="toolbar"
             aria-label=aria_label
             aria-orientation=orientation.as_str()
             class=class
-            id={if id.is_empty() { None } else { Some(id) }}
         >
             {children()}
         </div>
@@ -44,7 +45,7 @@ pub fn ToolbarPrimitive(
 
 #[component]
 pub fn ToolbarSeparatorPrimitive(
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div

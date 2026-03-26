@@ -3,20 +3,25 @@
 //! Modal Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
 
 #[component]
 pub fn ModalPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    #[prop(default = false)] open: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-modal=""
-            data-rs-state={if open { "open" } else { "closed" }}
+            data-rs-component="Modal"
+            data-rs-behavior="overlay"
+            data-rs-state=s.data_rs_state
+            aria-hidden=s.aria_hidden
+            hidden=s.hidden
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </div>
@@ -26,17 +31,20 @@ pub fn ModalPrimitive(
 #[component]
 pub fn ModalTriggerPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(optional, into)] aria_controls: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-modal-trigger=""
+            data-rs-state=s.data_rs_state
             aria-haspopup="dialog"
-            aria-expanded="false"
+            aria-expanded=s.aria_expanded
+            aria-controls=aria_controls
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </button>
@@ -45,28 +53,36 @@ pub fn ModalTriggerPrimitive(
 
 #[component]
 pub fn ModalOverlayPrimitive(
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
-        <div data-rs-modal-overlay="" aria-hidden="true" class=class id=if id.is_empty() { None } else { Some(id.clone()) } />
+        <div
+            data-rs-modal-overlay=""
+            data-rs-state=s.data_rs_state
+            aria-hidden="true"
+            class=class
+        />
     }
 }
 
 #[component]
 pub fn ModalContentPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(optional, into)] aria_labelledby: Option<String>,
+    #[prop(optional, into)] aria_describedby: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-modal-content=""
             role="dialog"
             aria-modal="true"
+            aria-labelledby=aria_labelledby
+            aria-describedby=aria_describedby
             tabindex="-1"
             class=class
-            id=if id.is_empty() { None } else { Some(id.clone()) }
         >
             {children()}
         </div>

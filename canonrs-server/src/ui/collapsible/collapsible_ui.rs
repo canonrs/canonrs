@@ -1,23 +1,21 @@
 //! @canon-level: ui
 //! Collapsible - attribute-driven
-//! Relação trigger↔content via estrutura DOM
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    CollapsiblePrimitive,
-    CollapsibleTriggerPrimitive,
-    CollapsibleContentPrimitive,
+    CollapsiblePrimitive, CollapsibleTriggerPrimitive, CollapsibleContentPrimitive,
 };
+use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn Collapsible(
     children: Children,
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let state = if open { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <CollapsiblePrimitive open={open} class={class} id={id.unwrap_or_default()}>
+        <CollapsiblePrimitive state=state class=class>
             {children()}
         </CollapsiblePrimitive>
     }
@@ -29,7 +27,7 @@ pub fn CollapsibleTrigger(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CollapsibleTriggerPrimitive class={class}>
+        <CollapsibleTriggerPrimitive class=class>
             {children()}
         </CollapsibleTriggerPrimitive>
     }
@@ -41,7 +39,7 @@ pub fn CollapsibleContent(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CollapsibleContentPrimitive class={class}>
+        <CollapsibleContentPrimitive class=class>
             {children()}
         </CollapsibleContentPrimitive>
     }

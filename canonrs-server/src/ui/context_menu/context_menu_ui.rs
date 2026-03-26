@@ -8,10 +8,9 @@ use canonrs_core::primitives::{
 pub fn ContextMenu(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ContextMenuPrimitive class=class id=id.unwrap_or_default()>
+        <ContextMenuPrimitive class=class>
             {children()}
         </ContextMenuPrimitive>
     }
@@ -33,10 +32,9 @@ pub fn ContextMenuTrigger(
 pub fn ContextMenuContent(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ContextMenuContentPrimitive class=class id=id.unwrap_or_default()>
+        <ContextMenuContentPrimitive class=class>
             {children()}
         </ContextMenuContentPrimitive>
     }

@@ -12,14 +12,13 @@ pub enum EmptyStateVariant {
     NoResults,
     Error,
 }
-
 impl EmptyStateVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Default => "default",
-            Self::NoData => "no-data",
+            Self::Default   => "default",
+            Self::NoData    => "no-data",
             Self::NoResults => "no-results",
-            Self::Error => "error",
+            Self::Error     => "error",
         }
     }
 }
@@ -33,6 +32,8 @@ pub fn EmptyStatePrimitive(
     view! {
         <div
             data-rs-empty=""
+            data-rs-component="EmptyState"
+            data-rs-behavior="feedback"
             data-rs-variant=variant.as_str()
             role="status"
             aria-live="polite"

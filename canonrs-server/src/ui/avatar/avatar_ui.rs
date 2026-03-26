@@ -34,12 +34,10 @@ pub fn Avatar(
     #[prop(default = false)] animated: bool,
     #[prop(optional)] badge: Option<i32>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <AvatarPrimitive
             class={format!("{} avatar-size-{} avatar-shape-{}", class, size.as_str(), shape.as_str())}
-            id={id.unwrap_or_default()}
         >
             {children.map(|c| c())}
             {status.map(|s| {
@@ -64,14 +62,12 @@ pub fn AvatarImage(
     src: String,
     alt: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <AvatarImagePrimitive
             src={src}
             alt={alt}
             class={class}
-            id={id.unwrap_or_default()}
         />
     }
 }
@@ -80,10 +76,9 @@ pub fn AvatarImage(
 pub fn AvatarFallback(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AvatarFallbackPrimitive class={class} id={id.unwrap_or_default()}>
+        <AvatarFallbackPrimitive class={class}>
             {children.map(|c| c())}
         </AvatarFallbackPrimitive>
     }

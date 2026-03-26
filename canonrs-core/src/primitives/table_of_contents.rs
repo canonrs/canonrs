@@ -1,5 +1,6 @@
-//! TableOfContents Primitives - Semantic structural wrappers
-//! Pure SSR components, zero state, zero effects
+//! @canon-level: strict
+//! @canon-owner: primitives-team
+//! TableOfContents Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
@@ -12,6 +13,7 @@ pub enum TocMode {
     Expand,
     Nested,
 }
+
 impl TocMode {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -22,70 +24,6 @@ impl TocMode {
     }
 }
 
-#[component]
-pub fn TocPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
-    #[prop(default = TocMode::Simple)] mode: TocMode,
-) -> impl IntoView {
-    view! {
-        <nav
-            data-rs-toc=""
-            data-rs-component="TableOfContents"
-            data-rs-behavior="navigation"
-            data-rs-mode=mode.as_str()
-            id={if id.is_empty() { None } else { Some(id) }}
-            class={class}
-            aria-label="Table of contents"
-        >
-            {children.map(|c| c())}
-        </nav>
-    }
-}
-
-#[component]
-pub fn TocTitlePrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-) -> impl IntoView {
-    view! {
-        <p data-rs-toc-title="" class={class}>
-            {children.map(|c| c())}
-        </p>
-    }
-}
-
-#[component]
-pub fn TocListPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-) -> impl IntoView {
-    view! {
-        <ul data-rs-toc-list="" class={class}>
-            {children.map(|c| c())}
-        </ul>
-    }
-}
-
-#[component]
-pub fn TocSubtreePrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
-) -> impl IntoView {
-    let s = visibility_attrs(state);
-    view! {
-        <ul
-            data-rs-toc-subtree=""
-            data-rs-state=s.data_rs_state
-            class={class}
-        >
-            {children.map(|c| c())}
-        </ul>
-    }
-}
-
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TocItemState {
     #[default]
@@ -93,6 +31,7 @@ pub enum TocItemState {
     Active,
     Ancestor,
 }
+
 impl TocItemState {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -104,14 +43,77 @@ impl TocItemState {
 }
 
 #[component]
-pub fn TocItemPrimitive(
-    #[prop(optional)] children: Option<Children>,
+pub fn TocPrimitive(
+    children: Children,
+    #[prop(default = TocMode::Simple)] mode: TocMode,
     #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <nav
+            data-rs-toc=""
+            data-rs-component="TableOfContents"
+            data-rs-behavior="navigation"
+            data-rs-mode=mode.as_str()
+            aria-label="Table of contents"
+            class=class
+        >
+            {children()}
+        </nav>
+    }
+}
+
+#[component]
+pub fn TocTitlePrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <p data-rs-toc-title="" class=class>
+            {children()}
+        </p>
+    }
+}
+
+#[component]
+pub fn TocListPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <ul data-rs-toc-list="" class=class>
+            {children()}
+        </ul>
+    }
+}
+
+#[component]
+pub fn TocSubtreePrimitive(
+    children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    let s = visibility_attrs(state);
+    view! {
+        <ul
+            data-rs-toc-subtree=""
+            data-rs-state=s.data_rs_state
+            hidden=s.hidden
+            class=class
+        >
+            {children()}
+        </ul>
+    }
+}
+
+#[component]
+pub fn TocItemPrimitive(
+    children: Children,
     #[prop(into)] data_level: String,
-    #[prop(into)] data_target: String,
+    #[prop(into, default = String::new())] data_target: String,
     #[prop(default = TocItemState::Idle)] state: TocItemState,
     #[prop(default = false)] is_child: bool,
     #[prop(default = false)] has_children: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <li
@@ -119,33 +121,33 @@ pub fn TocItemPrimitive(
             data-rs-level=data_level
             data-rs-target=data_target
             data-rs-state=state.as_str()
-            data-rs-child={if is_child { Some("true") } else { None }}
-            data-rs-has-children={if has_children { Some("true") } else { None }}
-            class={class}
+            data-rs-child=if is_child { "true" } else { "false" }
+            data-rs-has-children=if has_children { "true" } else { "false" }
+            class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </li>
     }
 }
 
 #[component]
 pub fn TocLinkPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <a data-rs-toc-link="" href={href} class={class}>
-            {children.map(|c| c())}
+        <a data-rs-toc-link="" href=href class=class>
+            {children()}
         </a>
     }
 }
 
 #[component]
 pub fn TocExpandButtonPrimitive(
-    #[prop(optional)] children: Option<Children>,
-    #[prop(into, default = String::new())] class: String,
+    children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
     view! {
@@ -154,9 +156,9 @@ pub fn TocExpandButtonPrimitive(
             data-rs-toc-expand-btn=""
             data-rs-state=s.data_rs_state
             aria-expanded=s.aria_expanded
-            class={class}
+            class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </button>
     }
 }

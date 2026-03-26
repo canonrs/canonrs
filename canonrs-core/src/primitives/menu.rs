@@ -1,18 +1,25 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Menu Primitive - HTML puro
+//! Menu Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::{SelectionState, DisabledState, ActivityState};
+use crate::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
 
 #[component]
 pub fn MenuPrimitive(
     children: Children,
-    #[prop(optional)] aria_label: Option<String>,
+    #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <nav data-rs-menu="" aria-label=aria_label class=class id=id.filter(|s| !s.is_empty())>
+        <nav
+            data-rs-menu=""
+            data-rs-component="Menu"
+            data-rs-behavior="navigation"
+            aria-label=aria_label
+            class=class
+        >
             {children()}
         </nav>
     }
@@ -21,21 +28,26 @@ pub fn MenuPrimitive(
 #[component]
 pub fn MenuItemPrimitive(
     children: Children,
-    #[prop(default = false)] disabled: bool,
-    #[prop(default = false)] selected: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(default = ActivityState::Inactive)] highlighted: ActivityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let sel = selection_attrs(selected);
+    let d = disabled_attrs(disabled);
+    let a = activity_attrs(highlighted);
     view! {
         <button
             type="button"
             data-rs-menu-item=""
-            data-rs-state={if disabled { "disabled" } else { "default" }}
-            data-rs-selected={if selected { Some("true") } else { None }}
-            disabled=disabled
-            aria-disabled={if disabled { Some("true") } else { None }}
+            role="menuitem"
+            data-rs-state=a.data_rs_state
+            data-rs-selected=sel.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-selected=sel.aria_selected
+            aria-disabled=d.aria_disabled
+            tabindex=if d.disabled { "-1" } else { "0" }
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </button>
@@ -45,10 +57,16 @@ pub fn MenuItemPrimitive(
 #[component]
 pub fn MenuGroupPrimitive(
     children: Children,
+    #[prop(into, optional)] label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-menu-group="" class=class>
+        <div
+            data-rs-menu-group=""
+            role="group"
+            aria-label=label
+            class=class
+        >
             {children()}
         </div>
     }
@@ -60,9 +78,14 @@ pub fn MenuLabelPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-rs-menu-label="" class=class>
+        <div
+            data-rs-menu-label=""
+            role="presentation"
+            aria-hidden="true"
+            class=class
+        >
             {children()}
-        </span>
+        </div>
     }
 }
 

@@ -1,25 +1,40 @@
 //! @canon-level: strict
-//! Switch Primitive - native checkbox + CSS
+//! @canon-owner: primitives-team
+//! Switch Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::{SelectionState, DisabledState};
+use crate::state_engine::{disabled_attrs, selection_attrs};
 
 #[component]
 pub fn SwitchPrimitive(
     children: Children,
-    #[prop(default = false)] checked: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = SelectionState::Unselected)] checked: SelectionState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let sel = selection_attrs(checked);
+    let d = disabled_attrs(disabled);
     view! {
-        <label data-rs-switch="" class=class>
+        <label
+            data-rs-switch=""
+            data-rs-component="Switch"
+            data-rs-behavior="toggle"
+            data-rs-state=sel.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
+            class=class
+        >
             <input
                 type="checkbox"
-                checked=checked
-                disabled=disabled
-                name={if name.is_empty() { None } else { Some(name) }}
-                prop:value=value
+                data-rs-switch-input=""
+                data-rs-disabled=d.data_rs_disabled
+                name=if name.is_empty() { None } else { Some(name) }
+                value=value
+                aria-hidden="true"
+                tabindex="-1"
             />
             {children()}
         </label>

@@ -26,16 +26,15 @@ pub fn DataTableCore<T>(
     data: Vec<T>,
     columns: Vec<DataTableColumn<T>>,
     #[prop(default = DataTableDensity::default())] density: DataTableDensity,
-    #[prop(into, default = String::new())] id: String,
     #[prop(into, default = String::new())] class: String,
-) -> impl IntoView 
+) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
 {
     let stored_columns = StoredValue::new(columns);
-    
+
     view! {
-        <DataTablePrimitive density=density id=id class=class>
+        <DataTablePrimitive density=density class=class>
             <DataTableScrollPrimitive>
                 <DataTableTablePrimitive>
                     <DataTableHeadPrimitive>
@@ -54,7 +53,7 @@ where
                             }).collect::<Vec<_>>()}
                         </DataTableHeadRowPrimitive>
                     </DataTableHeadPrimitive>
-                    
+
                     <DataTableBodyPrimitive>
                         {data.into_iter().enumerate().map(|(idx, row)| {
                             let cols = stored_columns.get_value();

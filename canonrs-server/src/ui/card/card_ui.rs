@@ -12,14 +12,12 @@ use canonrs_core::primitives::{
 pub fn Card(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     let base_class = format!("card {}", class);
 
     view! {
         <CardPrimitive
             class={base_class}
-            id={id}
         >
             {children.map(|c| c())}
         </CardPrimitive>
@@ -30,12 +28,10 @@ pub fn Card(
 pub fn CardHeader(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <CardHeaderPrimitive
             class={class}
-            id={id}
         >
             {children.map(|c| c())}
         </CardHeaderPrimitive>
@@ -46,12 +42,10 @@ pub fn CardHeader(
 pub fn CardTitle(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <CardTitlePrimitive
             class={class}
-            id={id}
         >
             {children.map(|c| c())}
         </CardTitlePrimitive>
@@ -62,12 +56,10 @@ pub fn CardTitle(
 pub fn CardDescription(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <CardDescriptionPrimitive
             class={class}
-            id={id}
         >
             {children.map(|c| c())}
         </CardDescriptionPrimitive>
@@ -78,12 +70,10 @@ pub fn CardDescription(
 pub fn CardContent(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <CardContentPrimitive
             class={class}
-            id={id}
         >
             {children.map(|c| c())}
         </CardContentPrimitive>
@@ -94,12 +84,10 @@ pub fn CardContent(
 pub fn CardFooter(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
     view! {
         <CardFooterPrimitive
             class={class}
-            id={id}
         >
             {children.map(|c| c())}
         </CardFooterPrimitive>

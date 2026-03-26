@@ -7,14 +7,14 @@ use leptos::prelude::*;
 #[component]
 pub fn StatPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-stat=""
-            class={class}
-            id={id}
+            data-rs-component="Stat"
+            data-rs-behavior="display"
+            class=class
         >
             {children()}
         </div>
@@ -24,15 +24,10 @@ pub fn StatPrimitive(
 #[component]
 pub fn StatValuePrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-rs-stat-value=""
-            class={class}
-            id={id}
-        >
+        <span data-rs-stat-value="" class=class>
             {children()}
         </span>
     }
@@ -41,15 +36,10 @@ pub fn StatValuePrimitive(
 #[component]
 pub fn StatLabelPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-rs-stat-label=""
-            class={class}
-            id={id}
-        >
+        <span data-rs-stat-label="" class=class>
             {children()}
         </span>
     }
@@ -58,15 +48,10 @@ pub fn StatLabelPrimitive(
 #[component]
 pub fn StatDeltaPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-rs-stat-delta=""
-            class={class}
-            id={id}
-        >
+        <span data-rs-stat-delta="" class=class>
             {children()}
         </span>
     }
@@ -75,15 +60,10 @@ pub fn StatDeltaPrimitive(
 #[component]
 pub fn StatIconPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span
-            data-rs-stat-icon=""
-            class={class}
-            id={id}
-        >
+        <span data-rs-stat-icon="" aria-hidden="true" class=class>
             {children()}
         </span>
     }
@@ -92,15 +72,10 @@ pub fn StatIconPrimitive(
 #[component]
 pub fn StatHeaderPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-stat-header=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-stat-header="" class=class>
             {children()}
         </div>
     }
@@ -109,15 +84,10 @@ pub fn StatHeaderPrimitive(
 #[component]
 pub fn StatBodyPrimitive(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-stat-body=""
-            class={class}
-            id={id}
-        >
+        <div data-rs-stat-body="" class=class>
             {children()}
         </div>
     }

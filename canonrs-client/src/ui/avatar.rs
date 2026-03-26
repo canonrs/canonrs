@@ -37,7 +37,6 @@ pub fn Avatar(
     #[prop(default = false)] animated: bool,
     #[prop(optional)] badge: Option<i32>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
     let img_error = RwSignal::new(false);
     provide_context(AvatarImageError(img_error));
@@ -45,7 +44,6 @@ pub fn Avatar(
     view! {
         <AvatarPrimitive
             class={format!("{} avatar-size-{} avatar-shape-{}", class, size.as_str(), shape.as_str())}
-            id={id.unwrap_or_default()}
         >
             {children.map(|c| c())}
             {status.map(|s| {

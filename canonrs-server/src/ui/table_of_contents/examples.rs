@@ -24,38 +24,27 @@ fn fake_content() -> impl IntoView {
     view! {
         <div data-toc-demo-content="" style="display:flex; flex-direction:column; gap:var(--space-lg); padding:var(--space-md);">
             <h1 id="introduction" style="font-size:var(--font-size-2xl); font-weight:var(--font-weight-bold);">"Introduction"</h1>
-            <p style="color:var(--theme-surface-fg-muted);">"CanonRS is an enterprise-grade UI framework built with Rust and Leptos. SSR-first, behavior-driven, token-based."</p>
-
+            <p style="color:var(--theme-surface-fg-muted);">"CanonRS is an enterprise-grade UI framework built with Rust and Leptos."</p>
             <h2 id="getting-started" style="font-size:var(--font-size-xl); font-weight:var(--font-weight-semibold); margin-top:var(--space-xl);">"Getting Started"</h2>
             <p style="color:var(--theme-surface-fg-muted);">"Everything you need to get up and running with CanonRS in your project."</p>
-
             <h3 id="installation" style="font-size:var(--font-size-lg); font-weight:var(--font-weight-semibold); margin-top:var(--space-lg);">"Installation"</h3>
             <p style="color:var(--theme-surface-fg-muted);">"Add CanonRS to your Cargo.toml and configure the build pipeline."</p>
-
             <h3 id="configuration" style="font-size:var(--font-size-lg); font-weight:var(--font-weight-semibold); margin-top:var(--space-lg);">"Configuration"</h3>
             <p style="color:var(--theme-surface-fg-muted);">"Configure your workspace with the correct profiles and feature flags."</p>
-
             <h4 id="environment-variables" style="font-size:var(--font-size-md); font-weight:var(--font-weight-semibold); margin-top:var(--space-md);">"Environment Variables"</h4>
             <p style="color:var(--theme-surface-fg-muted);">"Set up the required environment variables for development and production."</p>
-
             <h2 id="architecture" style="font-size:var(--font-size-xl); font-weight:var(--font-weight-semibold); margin-top:var(--space-xl);">"Architecture"</h2>
             <p style="color:var(--theme-surface-fg-muted);">"CanonRS follows a strict separation of concerns: primitives, behaviors, tokens, and UI components."</p>
-
             <h3 id="core-concepts" style="font-size:var(--font-size-lg); font-weight:var(--font-weight-semibold); margin-top:var(--space-lg);">"Core Concepts"</h3>
             <p style="color:var(--theme-surface-fg-muted);">"Understanding the 4 pillars of CanonRS architecture."</p>
-
             <h4 id="primitives" style="font-size:var(--font-size-md); font-weight:var(--font-weight-semibold); margin-top:var(--space-md);">"Primitives"</h4>
             <p style="color:var(--theme-surface-fg-muted);">"Pure HTML components with data attributes. No logic, no state."</p>
-
             <h4 id="behaviors" style="font-size:var(--font-size-md); font-weight:var(--font-weight-semibold); margin-top:var(--space-md);">"Behaviors"</h4>
             <p style="color:var(--theme-surface-fg-muted);">"Client-side JS that attaches to data attributes after hydration."</p>
-
             <h4 id="tokens" style="font-size:var(--font-size-md); font-weight:var(--font-weight-semibold); margin-top:var(--space-md);">"Design Tokens"</h4>
             <p style="color:var(--theme-surface-fg-muted);">"CSS custom properties generated from Rust token definitions."</p>
-
             <h2 id="api-reference" style="font-size:var(--font-size-xl); font-weight:var(--font-weight-semibold); margin-top:var(--space-xl);">"API Reference"</h2>
             <p style="color:var(--theme-surface-fg-muted);">"Complete API documentation for all CanonRS components."</p>
-
             <h2 id="contributing" style="font-size:var(--font-size-xl); font-weight:var(--font-weight-semibold); margin-top:var(--space-xl);">"Contributing"</h2>
             <p style="color:var(--theme-surface-fg-muted);">"How to contribute to the CanonRS project."</p>
         </div>
@@ -81,7 +70,6 @@ pub fn simple_example() -> impl IntoView {
             <TableOfContents
                 items=enterprise_items()
                 mode=TocMode::Simple
-                id="toc-simple"
                 title="On this page"
             />
         },
@@ -95,7 +83,6 @@ pub fn expand_example() -> impl IntoView {
             <TableOfContents
                 items=enterprise_items()
                 mode=TocMode::Expand
-                id="toc-expand"
                 title="Contents"
             />
         },
@@ -109,7 +96,6 @@ pub fn nested_example() -> impl IntoView {
             <TableOfContents
                 items=enterprise_items()
                 mode=TocMode::Nested
-                id="toc-nested"
                 title="Documentation"
             />
         },

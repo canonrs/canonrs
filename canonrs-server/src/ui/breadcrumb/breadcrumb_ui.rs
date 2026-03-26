@@ -6,6 +6,7 @@ use canonrs_core::primitives::{
     BreadcrumbPrimitive, BreadcrumbItemPrimitive, BreadcrumbLinkPrimitive,
     BreadcrumbSeparatorPrimitive, BreadcrumbEllipsisPrimitive,
 };
+use canonrs_core::meta::ActivityState;
 
 #[component]
 pub fn Breadcrumb(
@@ -38,8 +39,9 @@ pub fn BreadcrumbLink(
     #[prop(default = false)] current: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let state = if current { ActivityState::Active } else { ActivityState::Inactive };
     view! {
-        <BreadcrumbLinkPrimitive href=href current=current class=class>
+        <BreadcrumbLinkPrimitive href=href state=state class=class>
             {children()}
         </BreadcrumbLinkPrimitive>
     }

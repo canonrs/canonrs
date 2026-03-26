@@ -10,7 +10,6 @@ pub enum SeparatorOrientation {
     Horizontal,
     Vertical,
 }
-
 impl SeparatorOrientation {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -24,23 +23,22 @@ impl SeparatorOrientation {
 pub fn SeparatorPrimitive(
     #[prop(default = SeparatorOrientation::Horizontal)] orientation: SeparatorOrientation,
     #[prop(default = true)] decorative: bool,
-    #[prop(default = String::new())] aria_label: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    #[prop(optional, into)] aria_label: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let role = if decorative { "presentation" } else { "separator" };
     let aria_orientation = if !decorative { Some(orientation.as_str()) } else { None };
-    let aria_label_val = if !decorative && !aria_label.is_empty() { Some(aria_label) } else { None };
-
+    let aria_label_val = if !decorative { aria_label } else { None };
     view! {
         <div
             data-rs-separator=""
-            data-orientation=orientation.as_str()
+            data-rs-component="Separator"
+            data-rs-behavior="structural"
+            data-rs-orientation=orientation.as_str()
             role=role
             aria-orientation=aria_orientation
             aria-label=aria_label_val
             class=class
-            id=id
         />
     }
 }

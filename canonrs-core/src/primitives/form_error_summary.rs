@@ -1,5 +1,6 @@
 //! @canon-level: strict
-//! FormErrorSummary Primitive - HTML puro
+//! @canon-owner: primitives-team
+//! FormErrorSummary Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 
@@ -11,8 +12,12 @@ pub fn FormErrorSummaryPrimitive(
     view! {
         <div
             data-rs-form-error-summary=""
+            data-rs-component="FormErrorSummary"
+            data-rs-behavior="form"
             role="alert"
-            aria-live="polite"
+            aria-live="assertive"
+            aria-atomic="true"
+            tabindex="-1"
             class=class
         >
             {children()}

@@ -3,22 +3,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{KbdPrimitive, KbdGroupPrimitive, KbdSeparatorPrimitive};
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum KbdSize { Sm, Md }
-impl KbdSize {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Sm => "sm", Self::Md => "md" }
-    }
-}
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum KbdVariant { Default, Muted }
-impl KbdVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Default => "default", Self::Muted => "muted" }
-    }
-}
+pub use canonrs_core::primitives::{KbdSize, KbdVariant};
 
 #[component]
 pub fn Kbd(
@@ -28,11 +13,7 @@ pub fn Kbd(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <KbdPrimitive
-            size=size.as_str().to_string()
-            variant=variant.as_str().to_string()
-            class=class
-        >
+        <KbdPrimitive size=size variant=variant class=class>
             {children()}
         </KbdPrimitive>
     }

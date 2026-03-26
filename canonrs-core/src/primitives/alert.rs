@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, Default)]
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum AlertVariant {
     #[default]
     Default,
@@ -16,10 +16,24 @@ pub enum AlertVariant {
 impl AlertVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Default => "default",
+            Self::Default     => "default",
             Self::Destructive => "destructive",
-            Self::Warning => "warning",
-            Self::Success => "success",
+            Self::Warning     => "warning",
+            Self::Success     => "success",
+        }
+    }
+
+    pub fn role(&self) -> &'static str {
+        match self {
+            Self::Destructive => "alert",
+            _                 => "status",
+        }
+    }
+
+    pub fn aria_live(&self) -> &'static str {
+        match self {
+            Self::Destructive => "assertive",
+            _                 => "polite",
         }
     }
 }
@@ -33,10 +47,12 @@ pub fn AlertPrimitive(
     view! {
         <div
             data-rs-alert=""
+            data-rs-component="Alert"
+            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
             data-rs-state="open"
-            role="alert"
-            aria-live="polite"
+            role=variant.role()
+            aria-live=variant.aria_live()
             aria-atomic="true"
             class=class
         >
@@ -76,8 +92,8 @@ pub fn AlertCloseButtonPrimitive(
 ) -> impl IntoView {
     view! {
         <button
-            data-rs-alert-close=""
             type="button"
+            data-rs-alert-close=""
             aria-label="Close alert"
             class=class
         >

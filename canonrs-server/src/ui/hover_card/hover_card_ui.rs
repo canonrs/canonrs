@@ -1,6 +1,9 @@
 //! @canon-level: ui
 use leptos::prelude::*;
-use canonrs_core::primitives::{HoverCardPrimitive, HoverCardTriggerPrimitive, HoverCardContentPrimitive};
+use canonrs_core::primitives::{
+    HoverCardPrimitive, HoverCardTriggerPrimitive, HoverCardContentPrimitive
+};
+use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn HoverCard(
@@ -8,8 +11,9 @@ pub fn HoverCard(
     #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let state = if open { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <HoverCardPrimitive open=open class=class>
+        <HoverCardPrimitive state=state class=class>
             {children()}
         </HoverCardPrimitive>
     }

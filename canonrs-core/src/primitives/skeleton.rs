@@ -11,13 +11,12 @@ pub enum SkeletonVariant {
     Text,
     Circle,
 }
-
 impl SkeletonVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Rectangle => "rectangle",
-            Self::Text => "text",
-            Self::Circle => "circle",
+            Self::Text      => "text",
+            Self::Circle    => "circle",
         }
     }
 }
@@ -31,6 +30,8 @@ pub fn SkeletonPrimitive(
     view! {
         <div
             data-rs-skeleton=""
+            data-rs-component="Skeleton"
+            data-rs-behavior="feedback"
             data-rs-variant=variant.as_str()
             aria-busy="true"
             aria-live="polite"
