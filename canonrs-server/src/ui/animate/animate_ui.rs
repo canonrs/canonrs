@@ -10,7 +10,6 @@ pub fn Animate(
     #[prop(into, default = String::new())] duration: String,
     #[prop(into, default = String::new())] delay: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional, into)] style: Option<String>,
 ) -> impl IntoView {
     view! {
         <AnimatePrimitive
@@ -19,7 +18,6 @@ pub fn Animate(
             duration=duration
             delay=delay
             class=class
-            style=style.unwrap_or_default()
         >
             {children()}
         </AnimatePrimitive>

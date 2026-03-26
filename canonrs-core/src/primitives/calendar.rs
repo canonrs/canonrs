@@ -3,18 +3,20 @@
 //! Calendar Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::{SelectionState, DisabledState, ActivityState};
+use crate::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
 
 #[component]
 pub fn CalendarPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-calendar=""
+            data-rs-component="Calendar"
+            data-rs-behavior="selection"
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -37,17 +39,14 @@ pub fn CalendarHeaderPrimitive(
 pub fn CalendarGridPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(optional)] aria_labelledby: Option<String>,
+    #[prop(optional, into)] aria_labelledby: Option<String>,
 ) -> impl IntoView {
-    let aria_labelledby = aria_labelledby.filter(|s| !s.is_empty());
     view! {
         <table
             data-rs-calendar-grid=""
             role="grid"
             aria-labelledby=aria_labelledby
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </table>
@@ -106,22 +105,24 @@ pub fn CalendarHeadCellPrimitive(
 pub fn CalendarCellPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = false)] selected: bool,
-    #[prop(default = false)] disabled: bool,
-    #[prop(default = false)] active: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(default = ActivityState::Inactive)] activity: ActivityState,
 ) -> impl IntoView {
+    let sel = selection_attrs(selected);
+    let d   = disabled_attrs(disabled);
+    let act = activity_attrs(activity);
     view! {
         <td
             data-rs-calendar-cell=""
             role="gridcell"
-            aria-selected={if selected { Some("true") } else { None }}
-            aria-disabled={if disabled { Some("true") } else { None }}
-            data-rs-selected={if selected { Some("true") } else { None }}
-            data-rs-disabled={if disabled { Some("true") } else { None }}
-            tabindex={if active { "0" } else { "-1" }}
+            aria-selected=sel.aria_selected
+            aria-disabled=d.aria_disabled
+            data-rs-selected=sel.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            data-rs-activity=act.data_rs_state
+            tabindex=if activity == ActivityState::Active { "0" } else { "-1" }
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </td>

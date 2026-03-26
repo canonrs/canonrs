@@ -40,7 +40,6 @@ pub fn ColorPickerTriggerPrimitive(
 ) -> impl IntoView {
     let s = visibility_attrs(state);
     let d = disabled_attrs(disabled);
-    let style = format!("background-color: {};", color);
     view! {
         <button
             type="button"
@@ -53,7 +52,7 @@ pub fn ColorPickerTriggerPrimitive(
             aria-label="Open color picker"
             class=class
         >
-            <div data-rs-color-swatch="" style=style />
+            <div data-rs-color-swatch="" data-rs-color=color />
             {children()}
         </button>
     }
@@ -88,17 +87,15 @@ pub fn ColorPickerSwatchPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let sel = selection_attrs(selected);
-    let style = format!("background-color: {};", color);
     let aria = format!("Select color {}", color);
     view! {
         <button
             type="button"
             data-rs-color-swatch=""
             data-rs-state=sel.data_rs_state
-            data-rs-value=color
+            data-rs-color=color
             aria-selected=sel.aria_selected
             aria-label=aria
-            style=style
             class=class
         />
     }

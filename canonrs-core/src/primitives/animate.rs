@@ -56,7 +56,6 @@ pub fn AnimatePrimitive(
     #[prop(into, default = String::new())] duration: String,
     #[prop(into, default = String::new())] delay: String,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional, into)] style: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
@@ -68,7 +67,6 @@ pub fn AnimatePrimitive(
             data-rs-duration=duration
             data-rs-delay=delay
             class=class
-            style=style
         >
             {children()}
         </div>

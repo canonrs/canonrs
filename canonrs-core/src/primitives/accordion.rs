@@ -76,7 +76,7 @@ pub fn AccordionTriggerPrimitive(
     let t = trigger_attrs(state);
     let d = disabled_attrs(disabled);
     view! {
-        <h3 data-rs-accordion-heading="" class="accordion-heading">
+        <h3 data-rs-accordion-heading="">
             <button
                 type="button"
                 data-rs-accordion-trigger=""

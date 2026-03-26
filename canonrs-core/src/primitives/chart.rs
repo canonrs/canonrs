@@ -4,10 +4,35 @@
 
 use leptos::prelude::*;
 
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum ChartType {
+    #[default]
+    Bar,
+    Line,
+    Area,
+    Pie,
+    Donut,
+    Scatter,
+    Radar,
+}
+impl ChartType {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Bar     => "bar",
+            Self::Line    => "line",
+            Self::Area    => "area",
+            Self::Pie     => "pie",
+            Self::Donut   => "donut",
+            Self::Scatter => "scatter",
+            Self::Radar   => "radar",
+        }
+    }
+}
+
 #[component]
 pub fn ChartPrimitive(
     #[prop(into, default = String::new())] class: String,
-    #[prop(into)] chart_type: String,
+    #[prop(default = ChartType::Bar)] chart_type: ChartType,
     #[prop(default = 320u32)] height: u32,
     #[prop(optional, into)] aria_label: Option<String>,
     children: Children,
@@ -17,7 +42,7 @@ pub fn ChartPrimitive(
             data-rs-chart=""
             data-rs-component="Chart"
             data-rs-behavior="data-display"
-            data-rs-chart-type=chart_type
+            data-rs-chart-type=chart_type.as_str()
             data-rs-chart-height=height.to_string()
             role="img"
             aria-label=aria_label

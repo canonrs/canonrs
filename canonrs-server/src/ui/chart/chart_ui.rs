@@ -1,7 +1,8 @@
 //! Chart UI - Enterprise Canvas chart component
 
 use leptos::prelude::*;
-use canonrs_core::primitives::ChartPrimitive;
+use canonrs_core::primitives::{ChartPrimitive, ChartType};
+pub use canonrs_core::primitives::ChartType as ChartKind;
 
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct ChartSeries {
@@ -22,7 +23,6 @@ impl ChartData {
             .map(|l| format!("{:?}", l))
             .collect::<Vec<_>>()
             .join(",");
-
         let series = self.series.iter().map(|s| {
             let data = s.data.iter()
                 .map(|d| d.to_string())
@@ -31,28 +31,7 @@ impl ChartData {
             let color = s.color.as_deref().unwrap_or("");
             format!(r#"{{"name":"{}","data":[{}],"color":"{}"}}"#, s.name, data, color)
         }).collect::<Vec<_>>().join(",");
-
         format!(r#"{{"labels":[{}],"series":[{}]}}"#, labels, series)
-    }
-}
-
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
-pub enum ChartType {
-    #[default]
-    Line,
-    Bar,
-    Area,
-    Donut,
-}
-
-impl ChartType {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            ChartType::Line => "line",
-            ChartType::Bar => "bar",
-            ChartType::Area => "area",
-            ChartType::Donut => "donut",
-        }
     }
 }
 
@@ -71,11 +50,10 @@ pub fn Chart(
     #[prop(into, default = String::new())] sync_scope: String,
 ) -> impl IntoView {
     let json = data.to_json();
-
     view! {
         <ChartPrimitive
             class=class
-            chart_type=chart_type.as_str().to_string()
+            chart_type=chart_type
             height=height
         >
             <script

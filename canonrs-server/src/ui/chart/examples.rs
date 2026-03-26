@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use super::chart_ui::{Chart, ChartData, ChartSeries, ChartType};
+use super::chart_ui::{Chart, ChartData, ChartSeries};
+use canonrs_core::primitives::ChartType;
 
 #[component]
 pub fn BasicExample() -> impl IntoView {

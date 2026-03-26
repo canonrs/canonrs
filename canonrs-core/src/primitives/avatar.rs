@@ -3,6 +3,8 @@
 //! Avatar Primitive - HTML puro
 
 use leptos::prelude::*;
+use crate::meta::VisibilityState;
+use crate::state_engine::visibility_attrs;
 
 #[component]
 pub fn AvatarPrimitive(
@@ -26,11 +28,13 @@ pub fn AvatarImagePrimitive(
     #[prop(into)] src: String,
     #[prop(into)] alt: String,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = VisibilityState::Open)] state: VisibilityState,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <img
             data-rs-avatar-image=""
-            data-rs-state="visible"
+            data-rs-state=s.data_rs_state
             src=src
             alt=alt
             class=class
@@ -42,12 +46,14 @@ pub fn AvatarImagePrimitive(
 pub fn AvatarFallbackPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <span
             data-rs-avatar-fallback=""
-            data-rs-state="hidden"
-            aria-hidden="true"
+            data-rs-state=s.data_rs_state
+            aria-hidden=s.aria_hidden
             class=class
         >
             {children()}
