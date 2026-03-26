@@ -12,8 +12,8 @@ use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-scroll-area", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
-        let Some(viewport) = root.query_selector("[data-scroll-viewport]").ok().flatten() else { return Ok(()); };
+    register_behavior("data-rs-scroll-area", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+        let Some(viewport) = root.query_selector("[data-rs-scroll-viewport]").ok().flatten() else { return Ok(()); };
         let viewport_el: web_sys::HtmlElement = viewport.clone().dyn_into().unwrap();
 
         setup_scrollbar(&root, &viewport_el, "vertical")?;
@@ -25,12 +25,12 @@ pub fn register() {
 
 #[cfg(feature = "hydrate")]
 fn setup_scrollbar(root: &web_sys::Element, viewport: &web_sys::HtmlElement, orientation: &str) -> BehaviorResult<()> {
-    let selector = format!("[data-scrollbar][data-orientation='{}']", orientation);
+    let selector = format!("[data-rs-scrollbar][data-rs-orientation='{}']", orientation);
     let Some(scrollbar) = root.query_selector(&selector).ok().flatten() else { return Ok(()); };
-    let thumb_sel = format!("[data-scroll-thumb][data-orientation='{}']", orientation);
+    let thumb_sel = format!("[data-rs-scroll-thumb][data-rs-orientation='{}']", orientation);
     let Some(thumb) = root.query_selector(&thumb_sel).ok().flatten() else { return Ok(()); };
     // track para click-to-jump
-    let track_sel = format!("[data-scrollbar][data-orientation='{}'] [data-scroll-track]", orientation);
+    let track_sel = format!("[data-rs-scrollbar][data-rs-orientation='{}'] [data-rs-scroll-track]", orientation);
     let track = root.query_selector(&track_sel).ok().flatten();
     let thumb_el: web_sys::HtmlElement = thumb.clone().dyn_into().unwrap();
     let is_vertical = orientation == "vertical";
@@ -73,10 +73,10 @@ fn update_thumb(viewport: &web_sys::HtmlElement, scrollbar: &web_sys::Element, t
         let bar_h      = scrollbar.client_height() as f64;
 
         if scroll_h <= client_h {
-            let _ = thumb.set_attribute("data-state", "hidden");
+            let _ = thumb.set_attribute("data-rs-state", "hidden");
             return;
         }
-        let _ = thumb.remove_attribute("data-state");
+        let _ = thumb.remove_attribute("data-rs-state");
 
         let ratio      = client_h / scroll_h;
         let thumb_h    = (bar_h * ratio).max(40.0);
@@ -99,10 +99,10 @@ fn update_thumb(viewport: &web_sys::HtmlElement, scrollbar: &web_sys::Element, t
         let bar_w       = scrollbar.client_width() as f64;
 
         if scroll_w <= client_w {
-            let _ = thumb.set_attribute("data-state", "hidden");
+            let _ = thumb.set_attribute("data-rs-state", "hidden");
             return;
         }
-        let _ = thumb.remove_attribute("data-state");
+        let _ = thumb.remove_attribute("data-rs-state");
 
         let ratio      = client_w / scroll_w;
         let thumb_w    = (bar_w * ratio).max(40.0);
@@ -150,7 +150,7 @@ fn setup_drag(thumb: &web_sys::HtmlElement, viewport: &web_sys::HtmlElement, is_
         let thumb_size   = if is_vertical { thumb_c.offset_height() as f64 } else { thumb_c.offset_width() as f64 };
         let bar_size     = client_size;
 
-        thumb_c.set_attribute("data-state", "dragging").ok();
+        thumb_c.set_attribute("data-rs-state", "dragging").ok();
 
         let viewport_move = viewport_c.clone();
         let _thumb_move    = thumb_c.clone();
@@ -169,7 +169,7 @@ fn setup_drag(thumb: &web_sys::HtmlElement, viewport: &web_sys::HtmlElement, is_
 
         let thumb_up = thumb_c.clone();
         let on_mouseup = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            thumb_up.set_attribute("data-state", "idle").ok();
+            thumb_up.set_attribute("data-rs-state", "idle").ok();
         }) as Box<dyn FnMut(_)>);
 
         let doc = web_sys::window().unwrap().document().unwrap();
@@ -192,7 +192,7 @@ fn setup_track_click(scrollbar: &web_sys::Element, viewport: &web_sys::HtmlEleme
 
     let on_click = Closure::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let target: web_sys::Element = e.target().unwrap().dyn_into().unwrap();
-        if target.has_attribute("data-scroll-thumb") { return; }
+        if target.has_attribute("data-rs-scroll-thumb") { return; }
 
         let rect       = thumb_c.get_bounding_client_rect();
         let click_pos  = if is_vertical { e.client_y() as f64 } else { e.client_x() as f64 };

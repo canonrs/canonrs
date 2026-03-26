@@ -36,10 +36,10 @@ pub fn ListItem(
             id={id.unwrap_or_default()}
         >
             <div
-                data-list-item-content=""
-                data-selectable={selectable.then_some("")}
-                data-selected={selected.then_some("")}
-                data-disabled={disabled.then_some("")}
+                data-rs-list-item-content=""
+                data-rs-selectable={selectable.then_some("")}
+                data-rs-selected={selected.then_some("")}
+                data-rs-disabled={disabled.then_some("")}
                 tabindex={if selectable && !disabled { Some("0") } else { None }}
                 aria-selected={if selectable { Some(selected.to_string()) } else { None }}
                 aria-disabled={if disabled { Some("true") } else { None }}

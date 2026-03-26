@@ -37,10 +37,10 @@ pub fn IconButton(
 
     view! {
         <button
-            data-icon-button=""
-            data-size={size.as_str()}
-            data-variant={variant.as_str()}
-            data-loading={loading.then_some("")}
+            data-rs-icon-button=""
+            data-rs-size={size.as_str()}
+            data-rs-variant={variant.as_str()}
+            data-rs-loading={loading.then_some("")}
             class={class}
             id={id}
             disabled={disabled || loading}

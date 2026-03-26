@@ -39,7 +39,7 @@ where
     let visible_data = data.into_iter().enumerate().collect::<Vec<_>>();
     let cols = StoredValue::new(columns.clone());
     let expand_render = StoredValue::new(expand_render);
-    let dropdown_id = format!("{}-columns", id);
+    let _dropdown_id = format!("{}-columns", id);
     let trigger_id = format!("{}-columns-trigger", id);
     let initial_density = density.as_str();
 
@@ -77,7 +77,7 @@ where
                         </button>
                     </div>
                 })}
-                <DropdownMenu id=dropdown_id.clone()>
+                <DropdownMenu>
                     <DropdownMenuTrigger
                         id=trigger_id
                     >

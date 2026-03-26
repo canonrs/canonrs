@@ -288,4 +288,21 @@
   --color-picker-label-font-family: var(--font-family-mono);
   --color-picker-label-key-fg: var(--theme-surface-fg-muted);
   --color-picker-label-value-fg: var(--theme-surface-fg);
+  --form-gap: var(--space-lg);
+  --form-section-gap: var(--space-md);
+  --form-actions-gap: var(--space-sm);
+  --form-actions-justify: flex-end;
+  --form-field-gap: var(--space-xs);
+  --form-label-font-size: var(--font-size-sm);
+  --form-label-font-weight: var(--font-weight-medium);
+  --form-label-fg: var(--theme-surface-fg);
+  --form-label-required-color: var(--color-destructive);
+  --form-error-font-size: var(--font-size-xs);
+  --form-error-fg: var(--color-destructive);
+  --form-hint-font-size: var(--font-size-xs);
+  --form-hint-fg: var(--theme-surface-fg-muted);
+  --form-field-valid-color: var(--color-success);
+  --form-field-invalid-color: var(--color-destructive);
+  --form-field-warning-color: var(--color-warning);
+  --form-disabled-opacity: 0.5;
 }

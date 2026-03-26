@@ -1,25 +1,18 @@
-//! # DashboardLayout — Regions: header, sidebar, main
+//! # DashboardLayout — Regions: header, sidebar, content
 use leptos::prelude::*;
 
 #[component]
 pub fn DashboardLayout(
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] sidebar: Option<ChildrenFn>,
-    children: Children,
+    #[prop(optional)] content: Option<ChildrenFn>,
+    #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-layout="dashboard" data-layout-version="1" class="layout-dashboard">
-            <header class="layout-dashboard-header" data-layout-region="header">
-                {header.map(|h| h())}
-            </header>
-            <div class="layout-dashboard-body">
-                <aside class="layout-dashboard-sidebar" data-layout-region="sidebar">
-                    {sidebar.map(|s| s())}
-                </aside>
-                <main class="layout-dashboard-main" data-layout-region="main">
-                    {children()}
-                </main>
-            </div>
+        <div data-layout="dashboard" data-layout-version="1" class=class>
+            {header.map(|h| view! { <div data-layout-region="header">{h()}</div> })}
+            {sidebar.map(|s| view! { <div data-layout-region="sidebar">{s()}</div> })}
+            {content.map(|c| view! { <div data-layout-region="content">{c()}</div> })}
         </div>
     }
 }

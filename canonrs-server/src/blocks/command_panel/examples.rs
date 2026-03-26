@@ -1,12 +1,15 @@
 use leptos::prelude::*;
-use super::{CommandPanelBlock, CommandPanelItem};
+use super::command_panel_block::CommandPanelBlock;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <CommandPanelBlock open=Signal::derive(|| true)>
-            <CommandPanelItem label="New Document".to_string() shortcut="⌘N".to_string() />
-            <CommandPanelItem label="Open File".to_string() shortcut="⌘O".to_string() />
-            <CommandPanelItem label="Save".to_string() shortcut="⌘S".to_string() />
-        </CommandPanelBlock>
+        <CommandPanelBlock
+            search=leptos::children::ToChildren::to_children(|| view!{ <input type="text" placeholder="Search..." /> })
+            results=leptos::children::ToChildren::to_children(|| view!{
+                <div>"Result 1"</div>
+                <div>"Result 2"</div>
+            })
+        />
     }
 }

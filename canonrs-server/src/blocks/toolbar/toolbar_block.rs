@@ -1,6 +1,4 @@
 //! # Toolbar Block
-//! Container for actions and tools
-
 use leptos::prelude::*;
 
 #[component]
@@ -9,19 +7,16 @@ pub fn ToolbarBlock(
     #[prop(optional)] center: Option<ChildrenFn>,
     #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
-    children: Children,
 ) -> impl IntoView {
     view! {
         <div
-            class=format!("canon-toolbar {}", class)
             data-block="toolbar"
             data-block-version="1"
-            role="toolbar"
+            class=class
         >
-            <div data-block-region="left">{left.map(|l| l())}</div>
-            <div data-block-region="center">{center.map(|c| c())}</div>
-            <div data-block-region="main">{children()}</div>
-            <div data-block-region="right">{right.map(|r| r())}</div>
+            {left.map(|l| view! { <div data-block-region="left">{l()}</div> })}
+            {center.map(|c| view! { <div data-block-region="center">{c()}</div> })}
+            {right.map(|r| view! { <div data-block-region="right">{r()}</div> })}
         </div>
     }
 }

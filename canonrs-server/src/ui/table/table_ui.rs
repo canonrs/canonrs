@@ -1,26 +1,25 @@
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    TableWrapperPrimitive,
-    TablePrimitive,
-    TableHeaderPrimitive,
-    TableBodyPrimitive,
-    TableFooterPrimitive,
-    TableRowPrimitive,
-    TableHeadPrimitive,
-    TableCellPrimitive,
-    TableCaptionPrimitive,
+    TableWrapperPrimitive, TablePrimitive, TableHeaderPrimitive,
+    TableBodyPrimitive, TableFooterPrimitive, TableRowPrimitive,
+    TableHeadPrimitive, TableCellPrimitive, TableCaptionPrimitive,
+    SortDirection,
 };
+use canonrs_core::meta::SelectionState;
+pub use canonrs_core::primitives::TableState;
 
 #[component]
 pub fn Table(
     #[prop(optional)] children: Option<Children>,
+    #[prop(default = TableState::Idle)] state: TableState,
     #[prop(default = false)] striped: bool,
+    #[prop(default = false)] hoverable: bool,
+    #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableWrapperPrimitive class=class id=id>
-            <TablePrimitive striped=striped>
+        <TableWrapperPrimitive aria_label=aria_label.unwrap_or_default() class=class>
+            <TablePrimitive state=state striped=striped hoverable=hoverable>
                 {children.map(|c| c())}
             </TablePrimitive>
         </TableWrapperPrimitive>
@@ -31,10 +30,9 @@ pub fn Table(
 pub fn TableHeader(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableHeaderPrimitive class=class id=id>
+        <TableHeaderPrimitive class=class>
             {children.map(|c| c())}
         </TableHeaderPrimitive>
     }
@@ -44,10 +42,9 @@ pub fn TableHeader(
 pub fn TableBody(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableBodyPrimitive class=class id=id>
+        <TableBodyPrimitive class=class>
             {children.map(|c| c())}
         </TableBodyPrimitive>
     }
@@ -57,10 +54,9 @@ pub fn TableBody(
 pub fn TableFooter(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableFooterPrimitive class=class id=id>
+        <TableFooterPrimitive class=class>
             {children.map(|c| c())}
         </TableFooterPrimitive>
     }
@@ -69,12 +65,11 @@ pub fn TableFooter(
 #[component]
 pub fn TableRow(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] selected: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableRowPrimitive selected=selected class=class id=id>
+        <TableRowPrimitive selected=selected class=class>
             {children.map(|c| c())}
         </TableRowPrimitive>
     }
@@ -83,11 +78,11 @@ pub fn TableRow(
 #[component]
 pub fn TableHead(
     #[prop(optional)] children: Option<Children>,
+    #[prop(default = SortDirection::None)] sort: SortDirection,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableHeadPrimitive class=class id=id>
+        <TableHeadPrimitive sort=sort class=class>
             {children.map(|c| c())}
         </TableHeadPrimitive>
     }
@@ -97,10 +92,9 @@ pub fn TableHead(
 pub fn TableCell(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableCellPrimitive class=class id=id>
+        <TableCellPrimitive class=class>
             {children.map(|c| c())}
         </TableCellPrimitive>
     }
@@ -110,10 +104,9 @@ pub fn TableCell(
 pub fn TableCaption(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, optional)] id: String,
 ) -> impl IntoView {
     view! {
-        <TableCaptionPrimitive class=class id=id>
+        <TableCaptionPrimitive class=class>
             {children.map(|c| c())}
         </TableCaptionPrimitive>
     }

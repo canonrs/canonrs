@@ -61,10 +61,11 @@ pub fn ToastDescription(
 #[component]
 pub fn ToastAction(
     children: Children,
+    #[prop(into, default = String::new())] aria_label: String,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ToastActionPrimitive class={class.unwrap_or_default()}>
+        <ToastActionPrimitive aria_label=aria_label class={class.unwrap_or_default()}>
             {children()}
         </ToastActionPrimitive>
     }

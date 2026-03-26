@@ -14,7 +14,7 @@ pub fn SidebarMultiLevel(
 ) -> impl IntoView {
     view! {
         <div style="position: relative;">
-            <Sidebar collapsed=default_collapsed>
+            <Sidebar state=if default_collapsed { canonrs_core::meta::VisibilityState::Closed } else { canonrs_core::meta::VisibilityState::Open }>
                 <SidebarTriggerPrimitive style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;">
                     "⇔"
                 </SidebarTriggerPrimitive>
@@ -38,12 +38,12 @@ pub fn SidebarMultiLevel(
                 <SidebarContent>
                     <SidebarMenu>
                         <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                        <SidebarMenuItem href="/dashboard".to_string() active=true>
+                        <SidebarMenuItem href="/dashboard".to_string() active=canonrs_core::meta::ActivityState::Active>
                             <span data-sidebar-icon>"📊"</span>
                             <span data-sidebar-label>"Dashboard"</span>
                         </SidebarMenuItem>
 
-                        <Accordion id="acc-level-1".to_string() selection=AccordionSelection::Single collapsible=true>
+                        <Accordion selection=AccordionSelection::Single collapsible=true>
                             <AccordionItem>
                                 <AccordionTrigger>
                                     <span data-sidebar-icon>"📁"</span>
@@ -51,7 +51,7 @@ pub fn SidebarMultiLevel(
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     <div style="padding-left: var(--sidebar-inset-padding-left);">
-                                        <Accordion id="acc-level-2-frontend".to_string() selection=AccordionSelection::Single collapsible=true>
+                                        <Accordion selection=AccordionSelection::Single collapsible=true>
                                             <AccordionItem>
                                                 <AccordionTrigger>
                                                     <span data-sidebar-label>"Frontend"</span>
@@ -72,7 +72,7 @@ pub fn SidebarMultiLevel(
                                             </AccordionItem>
                                         </Accordion>
 
-                                        <Accordion id="acc-level-2-backend".to_string() selection=AccordionSelection::Single collapsible=true>
+                                        <Accordion selection=AccordionSelection::Single collapsible=true>
                                             <AccordionItem>
                                                 <AccordionTrigger>
                                                     <span data-sidebar-label>"Backend"</span>

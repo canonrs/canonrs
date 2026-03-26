@@ -1,5 +1,4 @@
 //! # Wizard Block
-
 use leptos::prelude::*;
 
 #[component]
@@ -10,14 +9,10 @@ pub fn Wizard(
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            class=class
-            data-block="wizard"
-            data-block-version="1"
-        >
-            <div data-block-region="steps">{steps.map(|c| c())}</div>
-            <div data-block-region="body">{body.map(|c| c())}</div>
-            <div data-block-region="actions">{actions.map(|c| c())}</div>
+        <div data-block="wizard" data-block-version="1" class=class>
+            {steps.map(|s| view! { <div data-block-region="steps">{s()}</div> })}
+            {body.map(|b| view! { <div data-block-region="body">{b()}</div> })}
+            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
         </div>
     }
 }

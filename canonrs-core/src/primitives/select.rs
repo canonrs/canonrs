@@ -3,40 +3,22 @@
 //! Select Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::meta::{SelectionState, VisibilityState, DisabledState, StateKind};
-use crate::state_engine::resolve_state;
-
-#[derive(Clone, PartialEq, Default, Debug)]
-pub enum SelectSize {
-    #[default]
-    Md,
-    Sm,
-    Lg,
-}
-impl SelectSize {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Md => "md",
-            Self::Sm => "sm",
-            Self::Lg => "lg",
-        }
-    }
-}
+use crate::meta::{SelectionState, VisibilityState, DisabledState};
+use crate::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, selection_attrs};
 
 #[component]
 pub fn SelectPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = SelectSize::Md)] size: SelectSize,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-select=""
             data-rs-component="Select"
             data-rs-behavior="selection"
-            data-rs-state=state.as_str()
-            data-rs-size=size.as_str()
+            data-rs-state=s.data_rs_state
             class=class
         >
             {children()}
@@ -51,14 +33,17 @@ pub fn SelectTriggerPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let t = trigger_attrs(state);
+    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-select-trigger=""
             aria-haspopup="listbox"
-            aria-expanded={if state == VisibilityState::Open { "true" } else { "false" }}
-            data-rs-state={if disabled.as_bool() { resolve_state(StateKind::Toggle(crate::meta::ToggleState::Off)) } else { state.as_str() }}
-            aria-disabled=disabled.aria()
+            aria-expanded=t.aria_expanded
+            data-rs-state=t.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
             class=class
         >
             {children()}
@@ -85,12 +70,13 @@ pub fn SelectContentPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-select-content=""
-            data-rs-state=state.as_str()
+            data-rs-state=s.data_rs_state
             role="listbox"
-            hidden={state == VisibilityState::Closed}
+            hidden=s.hidden
             class=class
         >
             {children()}
@@ -106,15 +92,18 @@ pub fn SelectItemPrimitive(
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let sel = selection_attrs(selected);
+    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-select-item=""
-            data-rs-state={if disabled.as_bool() { disabled.as_str() } else { resolve_state(StateKind::Selection(selected)) }}
+            data-rs-state=sel.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
             data-rs-value=value
             role="option"
             tabindex=-1
-            aria-selected={if selected == SelectionState::Selected { Some("true") } else { None }}
-            aria-disabled=disabled.aria()
+            aria-selected=sel.aria_selected
+            aria-disabled=d.aria_disabled
             class=class
         >
             {children()}

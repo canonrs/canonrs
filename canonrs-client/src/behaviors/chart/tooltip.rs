@@ -75,7 +75,7 @@ pub fn setup_tooltip(
                 if let Ok(rows) = table.query_selector_all("[data-rs-datatable-row]") {
                     for i in 0..rows.length() {
                         if let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<web_sys::Element>().ok()) {
-                            let row_idx = row.get_attribute("data-row-index")
+                            let row_idx = row.get_attribute("data-rs-row-index")
                                 .and_then(|v| v.parse::<usize>().ok()).unwrap_or(usize::MAX);
                             if row_idx == idx { row.set_attribute("data-rs-chart-highlight", "").ok(); }
                             else { row.remove_attribute("data-rs-chart-highlight").ok(); }

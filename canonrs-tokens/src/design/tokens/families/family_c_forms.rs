@@ -340,5 +340,24 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("color-picker-label-key-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("color-picker-label-value-fg", "var(--theme-surface-fg)"),
 
+
+    // ── Form ──────────────────────────────────────────────────────
+    FamilyToken::new("form-gap",                     "var(--space-lg)"),
+    FamilyToken::new("form-section-gap",             "var(--space-md)"),
+    FamilyToken::new("form-actions-gap",             "var(--space-sm)"),
+    FamilyToken::new("form-actions-justify",         "flex-end"),
+    FamilyToken::new("form-field-gap",               "var(--space-xs)"),
+    FamilyToken::new("form-label-font-size",         "var(--font-size-sm)"),
+    FamilyToken::new("form-label-font-weight",       "var(--font-weight-medium)"),
+    FamilyToken::new("form-label-fg",                "var(--theme-surface-fg)"),
+    FamilyToken::new("form-label-required-color",    "var(--color-destructive)"),
+    FamilyToken::new("form-error-font-size",         "var(--font-size-xs)"),
+    FamilyToken::new("form-error-fg",                "var(--color-destructive)"),
+    FamilyToken::new("form-hint-font-size",          "var(--font-size-xs)"),
+    FamilyToken::new("form-hint-fg",                 "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("form-field-valid-color",       "var(--color-success)"),
+    FamilyToken::new("form-field-invalid-color",     "var(--color-destructive)"),
+    FamilyToken::new("form-field-warning-color",     "var(--color-warning)"),
+    FamilyToken::new("form-disabled-opacity",        "0.5"),
 ];
 

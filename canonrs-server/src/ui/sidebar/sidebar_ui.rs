@@ -1,25 +1,20 @@
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    SidebarPrimitive, SidebarHeaderPrimitive, SidebarContentPrimitive,
+    SidebarPrimitive, SidebarVariant, SidebarHeaderPrimitive, SidebarContentPrimitive,
     SidebarFooterPrimitive, SidebarMenuPrimitive, SidebarMenuItemPrimitive,
     SidebarMenuGroupPrimitive, SidebarSeparatorPrimitive, SidebarGroupLabelPrimitive,
 };
+use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
 
 #[component]
 pub fn Sidebar(
     #[prop(optional)] children: Option<Children>,
-    #[prop(default = false)] collapsed: bool,
+    #[prop(default = VisibilityState::Open)] state: VisibilityState,
+    #[prop(default = SidebarVariant::Default)] variant: SidebarVariant,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
-    #[prop(default = false)] rail: bool,
 ) -> impl IntoView {
     view! {
-        <SidebarPrimitive
-            rail={rail} 
-            class={class}
-            class:sidebar-collapsed=collapsed
-            id={id.unwrap_or_default()}
-        >
+        <SidebarPrimitive state=state variant=variant class=class>
             {children.map(|c| c())}
         </SidebarPrimitive>
     }
@@ -31,7 +26,7 @@ pub fn SidebarHeader(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SidebarHeaderPrimitive class={class}>
+        <SidebarHeaderPrimitive class=class>
             {children.map(|c| c())}
         </SidebarHeaderPrimitive>
     }
@@ -43,7 +38,7 @@ pub fn SidebarContent(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SidebarContentPrimitive class={class}>
+        <SidebarContentPrimitive class=class>
             {children.map(|c| c())}
         </SidebarContentPrimitive>
     }
@@ -55,7 +50,7 @@ pub fn SidebarFooter(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SidebarFooterPrimitive class={class}>
+        <SidebarFooterPrimitive class=class>
             {children.map(|c| c())}
         </SidebarFooterPrimitive>
     }
@@ -67,7 +62,7 @@ pub fn SidebarMenu(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SidebarMenuPrimitive class={class}>
+        <SidebarMenuPrimitive class=class>
             {children.map(|c| c())}
         </SidebarMenuPrimitive>
     }
@@ -78,10 +73,11 @@ pub fn SidebarMenuItem(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] href: String,
-    #[prop(default = false)] active: bool,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
     view! {
-        <SidebarMenuItemPrimitive class={class} href={href} active={active}>
+        <SidebarMenuItemPrimitive class=class href=href active=active disabled=disabled>
             {children.map(|c| c())}
         </SidebarMenuItemPrimitive>
     }
@@ -91,10 +87,10 @@ pub fn SidebarMenuItem(
 pub fn SidebarMenuGroup(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = String::new())] class: String,
-    #[prop(into, optional)] id: Option<String>,
+    #[prop(into, optional)] label: Option<String>,
 ) -> impl IntoView {
     view! {
-        <SidebarMenuGroupPrimitive class={class} id={id.unwrap_or_default()}>
+        <SidebarMenuGroupPrimitive class=class label=label.unwrap_or_default()>
             {children.map(|c| c())}
         </SidebarMenuGroupPrimitive>
     }
@@ -104,9 +100,7 @@ pub fn SidebarMenuGroup(
 pub fn SidebarSeparator(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <SidebarSeparatorPrimitive class={class} />
-    }
+    view! { <SidebarSeparatorPrimitive class=class /> }
 }
 
 #[component]
@@ -115,7 +109,7 @@ pub fn SidebarGroupLabel(
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SidebarGroupLabelPrimitive class={class}>
+        <SidebarGroupLabelPrimitive class=class>
             {children.map(|c| c())}
         </SidebarGroupLabelPrimitive>
     }

@@ -1,12 +1,15 @@
 use leptos::prelude::*;
-use super::Stack;
+use super::stack_block::Stack;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Stack>
-            <div>"Item 1"</div>
-            <div>"Item 2"</div>
-            <div>"Item 3"</div>
-        </Stack>
+        <Stack
+            items=leptos::children::ToChildren::to_children(|| view!{
+                <div>"Item 1"</div>
+                <div>"Item 2"</div>
+                <div>"Item 3"</div>
+            })
+        />
     }
 }

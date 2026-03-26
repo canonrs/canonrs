@@ -1,15 +1,18 @@
+//! # Markdown Block
 use leptos::prelude::*;
 
 #[component]
 pub fn MarkdownBlock(
-    #[prop(optional, into)] content: Option<String>,
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
-    #[prop(optional)] children: Option<Children>,
+    #[prop(optional)] content: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
-        <div class=class data-block="markdown" data-block-version="1">
-            {content.map(|c| view! { <div inner_html=c /> })}
-            {children.map(|ch| ch())}
+        <div data-block="markdown" data-block-version="1" class=class>
+            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
+            {content.map(|c| view! { <div data-block-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
         </div>
     }
 }

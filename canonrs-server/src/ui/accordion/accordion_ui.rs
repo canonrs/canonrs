@@ -17,14 +17,12 @@ pub fn Accordion(
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
     #[prop(default = true)] collapsible: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-) -> impl IntoView {
+    ) -> impl IntoView {
     view! {
         <AccordionPrimitive
             selection={selection}
             collapsible={collapsible}
             class={class}
-            id={id.unwrap_or_default()}
         >
             {children()}
         </AccordionPrimitive>

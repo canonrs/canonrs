@@ -1,5 +1,4 @@
 //! # FilterBar Block
-
 use leptos::prelude::*;
 
 #[component]
@@ -9,13 +8,9 @@ pub fn FilterBar(
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            class=class
-            data-block="filter-bar"
-            data-block-version="1"
-        >
-            <div data-block-region="filters">{filters.map(|c| c())}</div>
-            <div data-block-region="actions">{actions.map(|c| c())}</div>
+        <div data-block="filter-bar" data-block-version="1" class=class>
+            {filters.map(|f| view! { <div data-block-region="filters">{f()}</div> })}
+            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
         </div>
     }
 }

@@ -1,6 +1,4 @@
 //! # Footer Block
-//! Canon Rule: Footer é BLOCK — slots explícitos, zero layout, zero lógica
-
 use leptos::prelude::*;
 
 #[component]
@@ -11,14 +9,10 @@ pub fn Footer(
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <footer
-            class=format!("block-footer {}", class)
-            data-block="footer"
-            data-block-version="1"
-        >
-            <div data-block-region="left">{left.map(|l| l())}</div>
-            <div data-block-region="center">{center.map(|c| c())}</div>
-            <div data-block-region="right">{right.map(|r| r())}</div>
+        <footer data-block="footer" data-block-version="1" class=class>
+            {left.map(|l| view! { <div data-block-region="left">{l()}</div> })}
+            {center.map(|c| view! { <div data-block-region="center">{c()}</div> })}
+            {right.map(|r| view! { <div data-block-region="right">{r()}</div> })}
         </footer>
     }
 }

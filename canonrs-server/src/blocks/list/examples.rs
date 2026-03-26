@@ -1,12 +1,15 @@
 use leptos::prelude::*;
-use super::{List, ListItem};
+use super::list_block::List;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <List>
-            <ListItem>"Item 1"</ListItem>
-            <ListItem>"Item 2"</ListItem>
-            <ListItem selected=true>"Item 3 (selected)"</ListItem>
-        </List>
+        <List
+            items=leptos::children::ToChildren::to_children(|| view!{
+                <div>"Item 1"</div>
+                <div>"Item 2"</div>
+                <div>"Item 3"</div>
+            })
+        />
     }
 }

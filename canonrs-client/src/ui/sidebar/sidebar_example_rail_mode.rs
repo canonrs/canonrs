@@ -13,7 +13,7 @@ pub fn SidebarRailMode() -> impl IntoView {
     view! {
         <div style="position: relative;">
             <TooltipProvider>
-                <Sidebar collapsed=true rail=true>
+                <Sidebar state=canonrs_core::meta::VisibilityState::Closed variant=canonrs_core::primitives::SidebarVariant::Rail>
                     <SidebarHeader>
                         <div style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem;">
                             <Avatar size=AvatarSize::Md status=AvatarStatus::Online>
@@ -36,7 +36,7 @@ pub fn SidebarRailMode() -> impl IntoView {
 
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <SidebarMenuItem href="/dashboard".to_string() active=true>
+                                    <SidebarMenuItem href="/dashboard".to_string() active=canonrs_core::meta::ActivityState::Active>
                                         <span data-sidebar-icon>"📊"</span>
                                         <span data-sidebar-label>"Dashboard"</span>
                                     </SidebarMenuItem>

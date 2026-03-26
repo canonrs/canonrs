@@ -23,7 +23,7 @@ pub fn SidebarResponsive() -> impl IntoView {
             <div data-rs-sidebar-overlay="" class="sidebar-overlay" />
 
             <div class="sidebar-wrapper">
-                <Sidebar collapsed=true>
+                <Sidebar state=canonrs_core::meta::VisibilityState::Closed>
                     <SidebarTriggerPrimitive class="close-btn">
                         "✕"
                     </SidebarTriggerPrimitive>
@@ -44,7 +44,7 @@ pub fn SidebarResponsive() -> impl IntoView {
                     <SidebarContent>
                         <SidebarMenu>
                             <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                            <SidebarMenuItem href="/dashboard".to_string() active=true>
+                            <SidebarMenuItem href="/dashboard".to_string() active=canonrs_core::meta::ActivityState::Active>
                                 <span data-sidebar-icon>"📊"</span>
                                 <span data-sidebar-label>"Dashboard"</span>
                             </SidebarMenuItem>

@@ -1,11 +1,14 @@
 use leptos::prelude::*;
-use super::Columns;
+use super::columns_block::Columns;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <Columns>
-            <div data-block-region="col-1">"Column 1"</div>
-            <div data-block-region="col-2">"Column 2"</div>
-        </Columns>
+        <Columns
+            columns=leptos::children::ToChildren::to_children(|| view!{
+                <div data-block-region="col-1">"Column 1"</div>
+                <div data-block-region="col-2">"Column 2"</div>
+            })
+        />
     }
 }

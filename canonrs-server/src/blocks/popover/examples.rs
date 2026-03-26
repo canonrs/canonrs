@@ -1,12 +1,13 @@
 use leptos::prelude::*;
-use super::PopoverBlock;
+use super::popover_block::PopoverBlock;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <PopoverBlock open=Signal::derive(|| true)
-            title=leptos::children::ToChildren::to_children(|| view!{ <span>"Popover Title"</span> })
-        >
-            <p>"Popover content."</p>
-        </PopoverBlock>
+        <PopoverBlock
+            trigger=leptos::children::ToChildren::to_children(|| view!{ <button>"Open"</button> })
+            header=leptos::children::ToChildren::to_children(|| view!{ <h4>"Popover Title"</h4> })
+            content=leptos::children::ToChildren::to_children(|| view!{ <p>"Popover content"</p> })
+        />
     }
 }

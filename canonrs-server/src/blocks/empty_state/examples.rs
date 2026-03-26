@@ -1,12 +1,13 @@
 use leptos::prelude::*;
-use super::EmptyState;
+use super::empty_state_block::EmptyState;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <EmptyState
-            title="No results found".to_string()
-            description="Try adjusting your search or filters.".to_string()
-            action=leptos::children::ToChildren::to_children(|| view!{ <button>"Reset filters"</button> })
+            title=leptos::children::ToChildren::to_children(|| view!{ "No results found" })
+            description=leptos::children::ToChildren::to_children(|| view!{ "Try adjusting your search or filters." })
+            action=leptos::children::ToChildren::to_children(|| view!{ <button>"Reset"</button> })
         />
     }
 }

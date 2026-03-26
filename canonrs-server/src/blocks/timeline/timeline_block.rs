@@ -1,19 +1,18 @@
 //! # Timeline Block
-
 use leptos::prelude::*;
 
 #[component]
 pub fn Timeline(
-    #[prop(optional)] items: Option<ChildrenFn>,
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(optional)] items: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
-        <div
-            class=class
-            data-block="timeline"
-            data-block-version="1"
-        >
-            <div data-block-region="items">{items.map(|c| c())}</div>
+        <div data-block="timeline" data-block-version="1" class=class>
+            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
+            {items.map(|i| view! { <div data-block-region="items">{i()}</div> })}
+            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
         </div>
     }
 }

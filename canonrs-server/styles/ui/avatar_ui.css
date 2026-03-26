@@ -86,19 +86,19 @@
   border: var(--avatar-status-border-width) solid var(--avatar-status-border-color);
 }
 
-[data-rs-avatar-status][data-status="online"] {
+[data-rs-avatar-status][data-rs-status="online"] {
   background: var(--avatar-status-online-bg);
 }
 
-[data-rs-avatar-status][data-status="offline"] {
+[data-rs-avatar-status][data-rs-status="offline"] {
   background: var(--avatar-status-offline-bg);
 }
 
-[data-rs-avatar-status][data-status="busy"] {
+[data-rs-avatar-status][data-rs-status="busy"] {
   background: var(--avatar-status-busy-bg);
 }
 
-[data-rs-avatar-status][data-status="away"] {
+[data-rs-avatar-status][data-rs-status="away"] {
   background: var(--avatar-status-away-bg);
 }
 

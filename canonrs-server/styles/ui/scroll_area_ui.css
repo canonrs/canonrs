@@ -10,8 +10,8 @@
   border-radius: var(--scroll-area-radius);
   padding: var(--scroll-area-padding);
   overflow: hidden;
-  flex: 1;
-  min-height: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -28,9 +28,9 @@
 }
 [data-rs-scroll-viewport]::-webkit-scrollbar { display: none; }
 
-[data-rs-scroll-area][data-orientation="vertical"]    [data-rs-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
-[data-rs-scroll-area][data-orientation="horizontal"]  [data-rs-scroll-viewport] { overflow-x: auto;   overflow-y: hidden; height: auto; }
-[data-rs-scroll-area][data-orientation="both"]        [data-rs-scroll-viewport] { overflow: auto; }
+[data-rs-scroll-area][data-rs-orientation="vertical"]    [data-rs-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
+[data-rs-scroll-area][data-rs-orientation="horizontal"]  [data-rs-scroll-viewport] { overflow-x: auto;   overflow-y: hidden; height: auto; }
+[data-rs-scroll-area][data-rs-orientation="both"]        [data-rs-scroll-viewport] { overflow: auto; }
 
 /* ── Scrollbar ───────────────────────────────── */
 [data-rs-scrollbar] {
@@ -39,20 +39,20 @@
   transition: opacity 0.2s ease;
 }
 
-[data-rs-scrollbar][data-orientation="vertical"] {
+[data-rs-scrollbar][data-rs-orientation="vertical"] {
   top: 2px; right: 2px; bottom: 2px;
   width: var(--scrollbar-size);
 }
 
-[data-rs-scrollbar][data-orientation="horizontal"] {
+[data-rs-scrollbar][data-rs-orientation="horizontal"] {
   left: 2px; right: 2px; bottom: 2px;
   height: var(--scrollbar-size);
 }
 
 /* auto-hide */
-[data-rs-scroll-area][data-auto-hide="true"] [data-rs-scrollbar] { opacity: 0; }
-[data-rs-scroll-area][data-auto-hide="true"]:hover [data-rs-scrollbar] { opacity: 1; }
-[data-rs-scroll-area][data-auto-hide="true"] [data-rs-scrollbar][data-state="dragging"] { opacity: 1; }
+[data-rs-scroll-area][data-rs-auto-hide="true"] [data-rs-scrollbar] { opacity: 0; }
+[data-rs-scroll-area][data-rs-auto-hide="true"]:hover [data-rs-scrollbar] { opacity: 1; }
+[data-rs-scroll-area][data-rs-auto-hide="true"] [data-rs-scrollbar][data-rs-state="dragging"] { opacity: 1; }
 
 /* ── Track ───────────────────────────────────── */
 [data-rs-scroll-track] {
@@ -74,23 +74,23 @@
   cursor: grab;
 }
 
-[data-rs-scroll-thumb][data-orientation="vertical"] {
+[data-rs-scroll-thumb][data-rs-orientation="vertical"] {
   left: 0; right: 0;
   min-height: var(--scrollbar-thumb-min-size);
   height: var(--scroll-thumb-size, 40px);
   transform: translateY(var(--scroll-thumb-offset, 0px));
 }
 
-[data-rs-scroll-thumb][data-orientation="horizontal"] {
+[data-rs-scroll-thumb][data-rs-orientation="horizontal"] {
   top: 0; bottom: 0;
   min-width: var(--scrollbar-thumb-min-size);
   width: var(--scroll-thumb-size, 40px);
   transform: translateX(var(--scroll-thumb-offset, 0px));
 }
 
-[data-rs-scroll-thumb][data-state="hidden"] { opacity: 0; pointer-events: none; }
+[data-rs-scroll-thumb][data-rs-state="hidden"] { opacity: 0; pointer-events: none; }
 [data-rs-scroll-thumb]:hover                { background: var(--scrollbar-thumb-hover-bg); }
-[data-rs-scroll-thumb][data-state="dragging"] {
+[data-rs-scroll-thumb][data-rs-state="dragging"] {
   background: var(--scrollbar-thumb-active-bg);
   cursor: grabbing;
 }

@@ -11,19 +11,19 @@ use web_sys::MouseEvent;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-icon-button", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+    register_behavior("data-rs-icon-button", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         let el = root;
-        if el.get_attribute("data-icon-button-attached").as_deref() == Some("1") { return Ok(()); }
-        el.set_attribute("data-icon-button-attached", "1").ok();
+        if el.get_attribute("data-rs-icon-button-attached").as_deref() == Some("1") { return Ok(()); }
+        el.set_attribute("data-rs-icon-button-attached", "1").ok();
 
         let el_clone = el.clone();
         let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-            let is_active = el_clone.has_attribute("data-active");
+            let is_active = el_clone.has_attribute("data-rs-active");
             if is_active {
-                el_clone.remove_attribute("data-active").ok();
+                el_clone.remove_attribute("data-rs-active").ok();
                 el_clone.set_attribute("aria-pressed", "false").ok();
             } else {
-                el_clone.set_attribute("data-active", "true").ok();
+                el_clone.set_attribute("data-rs-active", "true").ok();
                 el_clone.set_attribute("aria-pressed", "true").ok();
             }
         }) as Box<dyn FnMut(_)>);

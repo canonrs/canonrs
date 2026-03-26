@@ -32,8 +32,8 @@ pub fn TreeItem(
 ) -> impl IntoView {
     view! {
         <TreeItemPrimitive
-            selected=selected
-            expanded=expanded
+            selected=selected.into()
+            expanded=expanded.into()
             has_children=has_children
             depth=depth
             class=class

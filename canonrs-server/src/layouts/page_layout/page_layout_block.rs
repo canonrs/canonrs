@@ -1,40 +1,37 @@
-//! # PageLayout — each variant is a distinct layout
+//! # PageLayout — Regions: sidebar, content, aside
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub enum PageLayoutVariant { Single, WithSidebar, WithAside, SidebarAndAside }
-
+#[derive(Clone, Copy, Debug, PartialEq, Default)]
+pub enum PageLayoutVariant { #[default] Single, WithSidebar, WithAside, SidebarAndAside }
 impl PageLayoutVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Single          => "page-single",
-            Self::WithSidebar     => "page-with-sidebar",
-            Self::WithAside       => "page-with-aside",
-            Self::SidebarAndAside => "page-sidebar-and-aside",
+            Self::Single          => "single",
+            Self::WithSidebar     => "with-sidebar",
+            Self::WithAside       => "with-aside",
+            Self::SidebarAndAside => "sidebar-and-aside",
         }
     }
 }
 
 #[component]
 pub fn PageLayout(
-    #[prop(optional)] sidebar: Option<ChildrenFn>,
-    #[prop(optional)] aside: Option<ChildrenFn>,
     #[prop(default = PageLayoutVariant::Single)] variant: PageLayoutVariant,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = String::new())] id: String,
-    children: Children,
+    #[prop(optional)] sidebar: Option<ChildrenFn>,
+    #[prop(optional)] content: Option<ChildrenFn>,
+    #[prop(optional)] aside: Option<ChildrenFn>,
+    #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
-    let layout_id = variant.as_str();
     view! {
-        <div class=format!("layout-page {}", class) id=id
-            data-layout=layout_id data-layout-version="1">
-            {sidebar.map(|s| view! {
-                <aside class="layout-page-sidebar" data-layout-region="sidebar">{s()}</aside>
-            })}
-            <main class="layout-page-main" data-layout-region="main">{children()}</main>
-            {aside.map(|a| view! {
-                <aside class="layout-page-aside" data-layout-region="aside">{a()}</aside>
-            })}
+        <div
+            data-layout="page"
+            data-layout-variant=variant.as_str()
+            data-layout-version="1"
+            class=class
+        >
+            {sidebar.map(|s| view! { <div data-layout-region="sidebar">{s()}</div> })}
+            {content.map(|c| view! { <div data-layout-region="content">{c()}</div> })}
+            {aside.map(|a| view! { <div data-layout-region="aside">{a()}</div> })}
         </div>
     }
 }

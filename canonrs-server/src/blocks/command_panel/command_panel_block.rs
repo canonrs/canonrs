@@ -1,54 +1,22 @@
-//! # CommandPanel Block — Categoria C (Overlay)
-//! Regra: overlay container NÃO é drop zone. Só content interno é region.
+//! # CommandPanel Block
 use leptos::prelude::*;
 
 #[component]
 pub fn CommandPanelBlock(
-    #[prop(into)] open: Signal<bool>,
-    #[prop(optional)] on_close: Option<Callback<()>>,
-    #[prop(optional, into)] placeholder: Option<String>,
+    #[prop(optional)] search: Option<ChildrenFn>,
+    #[prop(optional)] results: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
-    children: Children,
 ) -> impl IntoView {
-    let search_input = NodeRef::<leptos::html::Input>::new();
-    let handle_backdrop_click = move |_| { if let Some(cb) = on_close { cb.run(()); } };
     view! {
         <div
-            class=move || format!("canon-command-panel-overlay {}", if open.get() { "canon-command-panel-overlay--open" } else { "" })
             data-block="command-panel"
             data-block-version="1"
-            data-action="close-backdrop"
-            on:click=handle_backdrop_click
+            class=class
         >
-            <div class="canon-command-panel__backdrop" />
-            <div class=format!("canon-command-panel {}", class) data-action="prevent-close" on:click=|e| e.stop_propagation()>
-                <div data-block-region="search" class="canon-command-panel__search">
-                    <input type="text" class="canon-command-panel__input"
-                        placeholder=placeholder.unwrap_or_else(|| "Search commands...".to_string())
-                        node_ref=search_input autofocus />
-                </div>
-                <div data-block-region="content" class="canon-command-panel__content">
-                    {children()}
-                </div>
-            </div>
+            {search.map(|s| view! { <div data-block-region="search">{s()}</div> })}
+            {results.map(|r| view! { <div data-block-region="results">{r()}</div> })}
+            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
         </div>
-    }
-}
-
-#[component]
-pub fn CommandPanelItem(
-    #[prop(into)] label: String,
-    #[prop(optional, into)] shortcut: Option<String>,
-    #[prop(optional)] icon: Option<Children>,
-    #[prop(optional)] on_select: Option<Callback<()>>,
-    #[prop(default = String::new(), into)] class: String,
-) -> impl IntoView {
-    view! {
-        <button class=format!("canon-command-panel__item {}", class) data-action="select-item"
-            on:click=move |_| { if let Some(cb) = on_select { cb.run(()); } }>
-            {icon.map(|i| view! { <span class="canon-command-panel__item-icon">{i()}</span> })}
-            <span class="canon-command-panel__item-label">{label}</span>
-            {shortcut.map(|s| view! { <span class="canon-command-panel__item-shortcut">{s}</span> })}
-        </button>
     }
 }

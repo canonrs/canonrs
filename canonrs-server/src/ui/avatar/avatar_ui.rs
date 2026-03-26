@@ -47,8 +47,8 @@ pub fn Avatar(
                 view! {
                     <span
                         data-rs-avatar-status=""
-                        data-status={s.as_str()}
-                        data-pulse={pulse.then_some("")}
+                        data-rs-status={s.as_str()}
+                        data-rs-pulse={pulse.then_some("")}
                     />
                 }
             })}

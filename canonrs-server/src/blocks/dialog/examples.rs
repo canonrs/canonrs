@@ -1,13 +1,13 @@
 use leptos::prelude::*;
-use super::DialogBlock;
+use super::dialog_block::DialogBlock;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <DialogBlock open=Signal::derive(|| true)
-            title=leptos::children::ToChildren::to_children(|| view!{ <span>"Dialog Title"</span> })
-            footer=leptos::children::ToChildren::to_children(|| view!{ <button>"Confirm"</button> })
-        >
-            <p>"Dialog content goes here."</p>
-        </DialogBlock>
+        <DialogBlock
+            header=leptos::children::ToChildren::to_children(|| view!{ <h3>"Dialog Title"</h3> })
+            content=leptos::children::ToChildren::to_children(|| view!{ <p>"Dialog content"</p> })
+            footer=leptos::children::ToChildren::to_children(|| view!{ <button>"Close"</button> })
+        />
     }
 }

@@ -31,6 +31,7 @@ pub mod empty_state;
 pub mod error_state;
 pub use error_state::*;
 pub mod field;
+pub mod form;
 pub mod floating;
 pub mod form_error_summary;
 pub use form_error_summary::*;
@@ -122,6 +123,7 @@ pub use drawer::*;
 pub use dropdown_menu::*;
 pub use empty_state::*;
 pub use field::*;
+pub use form::{FormPrimitive, FormSectionPrimitive, FormActionsPrimitive, FormMethod, FormEnctype, FormValidationState, FormFieldPrimitive, FormLabelPrimitive, FormErrorPrimitive, FormHintPrimitive, FieldValidationState};
 pub use hover_card::*;
 pub use icon_button::*;
 pub use inline_notice::*;
@@ -155,7 +157,7 @@ pub use select::*;
 pub use separator::SeparatorPrimitive;
 pub use sheet::*;
 pub use sidebar::{
-    SidebarPrimitive,
+    SidebarPrimitive, SidebarVariant,
     SidebarHeaderPrimitive,
     SidebarContentPrimitive,
     SidebarFooterPrimitive,
@@ -177,7 +179,6 @@ pub use toast::*;
 pub use toggle::TogglePrimitive;
 pub use toggle_group::ToggleGroupPrimitive;
 pub use toolbar::*;
-pub use tooltip::{TooltipProviderPrimitive, TooltipPrimitive, TooltipTriggerPrimitive, TooltipContentPrimitive};
 pub use tree::*;
 pub use virtual_list::*;
 pub mod data_table;
@@ -202,6 +203,7 @@ pub use separator::SeparatorPrimitive as Separator;
 pub use sheet::{SheetPrimitive as Sheet, SheetContentPrimitive as SheetContent, SheetOverlayPrimitive as SheetOverlay};
 pub use sidebar::{SidebarPrimitive as Sidebar, SidebarHeaderPrimitive as SidebarHeader, SidebarContentPrimitive as SidebarContent, SidebarFooterPrimitive as SidebarFooter, SidebarMenuPrimitive as SidebarMenu, SidebarMenuItemPrimitive as SidebarMenuItem, SidebarGroupLabelPrimitive as SidebarGroupLabel, SidebarSeparatorPrimitive as SidebarSeparator, SidebarTriggerPrimitive};
 pub use tabs::{TabsPrimitive as Tabs, TabsListPrimitive as TabsList, TabsTriggerPrimitive as TabsTrigger, TabsContentPrimitive as TabsContent};
+pub use tooltip::{TooltipProviderPrimitive, TooltipPrimitive, TooltipTriggerPrimitive, TooltipContentPrimitive, TooltipSide};
 pub use tooltip::{TooltipProviderPrimitive as TooltipProvider, TooltipPrimitive as Tooltip, TooltipTriggerPrimitive as TooltipTrigger, TooltipContentPrimitive as TooltipContent};
 pub mod scroll_area;
-pub use scroll_area::ScrollArea;
+pub use scroll_area::{ScrollAreaPrimitive, ScrollOrientation};

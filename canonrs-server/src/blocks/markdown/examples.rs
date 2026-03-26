@@ -1,8 +1,13 @@
 use leptos::prelude::*;
-use super::MarkdownBlock;
+use super::markdown_block::MarkdownBlock;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <MarkdownBlock content="## Hello\n\nThis is **markdown** content.".to_string() />
+        <MarkdownBlock
+            content=leptos::children::ToChildren::to_children(|| view!{
+                <p>"Hello "<strong>"markdown"</strong>" content."</p>
+            })
+        />
     }
 }

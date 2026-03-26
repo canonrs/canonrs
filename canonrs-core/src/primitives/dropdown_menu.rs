@@ -3,20 +3,23 @@
 //! DropdownMenu Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::{VisibilityState, DisabledState, ToggleState, ActivityState};
+use crate::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, toggle_attrs, activity_attrs};
 
 #[component]
 pub fn DropdownMenuPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = false)] open: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-dropdown-menu=""
-            data-rs-state={if open { "open" } else { "closed" }}
+            data-rs-component="DropdownMenu"
+            data-rs-behavior="overlay"
+            data-rs-state=s.data_rs_state
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -27,17 +30,21 @@ pub fn DropdownMenuPrimitive(
 pub fn DropdownMenuTriggerPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = false)] open: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
+    let t = trigger_attrs(state);
+    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-dropdown-menu-trigger=""
             aria-haspopup="menu"
-            aria-expanded={if open { "true" } else { "false" }}
+            aria-expanded=t.aria_expanded
+            data-rs-state=t.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </button>
@@ -48,14 +55,16 @@ pub fn DropdownMenuTriggerPrimitive(
 pub fn DropdownMenuContentPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-dropdown-menu-content=""
+            data-rs-state=s.data_rs_state
             role="menu"
+            hidden=s.hidden
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -66,14 +75,14 @@ pub fn DropdownMenuContentPrimitive(
 pub fn DropdownMenuGroupPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
+    #[prop(into, optional)] label: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dropdown-menu-group=""
             role="group"
+            aria-label=label
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -84,18 +93,21 @@ pub fn DropdownMenuGroupPrimitive(
 pub fn DropdownMenuItemPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(default = ActivityState::Inactive)] highlighted: ActivityState,
 ) -> impl IntoView {
+    let d = disabled_attrs(disabled);
+    let a = activity_attrs(highlighted);
     view! {
         <button
             type="button"
             data-rs-dropdown-menu-item=""
             role="menuitem"
-            aria-disabled={if disabled { Some("true") } else { None }}
-            data-rs-disabled={if disabled { Some("true") } else { None }}
+            data-rs-state=a.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
+            tabindex=if d.disabled { "-1" } else { "0" }
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </button>
@@ -105,14 +117,12 @@ pub fn DropdownMenuItemPrimitive(
 #[component]
 pub fn DropdownMenuSeparatorPrimitive(
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dropdown-menu-separator=""
             role="separator"
             class=class
-            id=id.filter(|s| !s.is_empty())
         />
     }
 }
@@ -120,18 +130,26 @@ pub fn DropdownMenuSeparatorPrimitive(
 #[component]
 pub fn DropdownMenuCheckboxItemPrimitive(
     children: Children,
-    #[prop(default = false)] checked: bool,
+    #[prop(default = ToggleState::Off)] checked: ToggleState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(default = ActivityState::Inactive)] highlighted: ActivityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let t = toggle_attrs(checked);
+    let d = disabled_attrs(disabled);
+    let a = activity_attrs(highlighted);
     view! {
         <button
             type="button"
             data-rs-dropdown-menu-checkbox-item=""
+            data-rs-state=t.data_rs_state
+            data-rs-highlighted=a.data_rs_state
             role="menuitemcheckbox"
-            aria-checked={if checked { "true" } else { "false" }}
+            aria-checked=t.aria_pressed
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
+            tabindex=if d.disabled { "-1" } else { "0" }
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </button>
@@ -142,13 +160,13 @@ pub fn DropdownMenuCheckboxItemPrimitive(
 pub fn DropdownMenuLabelPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-dropdown-menu-label=""
+            role="presentation"
+            aria-hidden="true"
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>

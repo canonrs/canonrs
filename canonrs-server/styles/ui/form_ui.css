@@ -1,27 +1,92 @@
 /* ═══════════════════════════════════════════════════════════════
-   FORM - Family C Forms tokens compliant
+   FORM — Enterprise Form System
+   Family C: Forms
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-form] {
   display: flex;
   flex-direction: column;
   gap: var(--form-gap);
+  width: 100%;
 }
 
+/* ── Section ─────────────────────────────────────────────────── */
+[data-rs-form-section] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-section-gap);
+}
+
+/* ── Actions ─────────────────────────────────────────────────── */
 [data-rs-form-actions] {
   display: flex;
+  align-items: center;
   justify-content: var(--form-actions-justify);
   gap: var(--form-actions-gap);
-  padding-top: var(--form-actions-padding-top);
-  border-top: var(--form-actions-border-top);
+  padding-top: var(--space-sm);
 }
 
-[data-rs-form-help-text] {
+/* ── Field ───────────────────────────────────────────────────── */
+[data-rs-form-field] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-field-gap);
+}
+
+/* ── Label ───────────────────────────────────────────────────── */
+[data-rs-form-label] {
   font-size: var(--form-label-font-size);
-  color: var(--form-help-text-fg);
+  font-weight: var(--form-label-font-weight);
+  color: var(--form-label-fg);
 }
 
-[data-rs-form-input] {
-  border-radius: var(--forms-radius);
-  padding-block: var(--forms-padding-y);
+[data-rs-form-label][data-rs-required]::after {
+  content: " *";
+  color: var(--form-label-required-color);
+}
+
+/* ── Error ───────────────────────────────────────────────────── */
+[data-rs-form-error] {
+  font-size: var(--form-error-font-size);
+  color: var(--form-error-fg);
+}
+
+/* ── Hint ────────────────────────────────────────────────────── */
+[data-rs-form-hint] {
+  font-size: var(--form-hint-font-size);
+  color: var(--form-hint-fg);
+}
+
+/* ── Validation states on field ──────────────────────────────── */
+[data-rs-form-field][data-rs-state="valid"] [data-rs-form-label] {
+  color: var(--form-field-valid-color);
+}
+
+[data-rs-form-field][data-rs-state="invalid"] [data-rs-form-label] {
+  color: var(--form-field-invalid-color);
+}
+
+[data-rs-form-field][data-rs-state="invalid"] [data-rs-form-error] {
+  display: block;
+}
+
+[data-rs-form-field][data-rs-state="warning"] [data-rs-form-label] {
+  color: var(--form-field-warning-color);
+}
+
+/* ── Disabled ────────────────────────────────────────────────── */
+[data-rs-form][data-rs-disabled],
+[data-rs-form-field][data-rs-disabled] {
+  opacity: var(--form-disabled-opacity);
+  pointer-events: none;
+}
+
+/* ── Submitting state ────────────────────────────────────────── */
+[data-rs-form][data-rs-state="submitting"] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+[data-rs-form][data-rs-state="submitting"] [data-rs-form-actions] {
+  cursor: wait;
 }

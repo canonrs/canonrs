@@ -12,7 +12,7 @@ pub fn SidebarInteractive(
 ) -> impl IntoView {
     view! {
         <div style="position: relative;">
-            <Sidebar collapsed=default_collapsed>
+            <Sidebar state=if default_collapsed { canonrs_core::meta::VisibilityState::Closed } else { canonrs_core::meta::VisibilityState::Open }>
                 <SidebarTriggerPrimitive style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; padding: 0.5rem; background: var(--theme-surface-bg); border: 1px solid var(--theme-surface-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 1rem;">
                     "⇔"
                 </SidebarTriggerPrimitive>
@@ -36,7 +36,7 @@ pub fn SidebarInteractive(
                 <SidebarContent>
                     <SidebarMenu>
                         <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                        <SidebarMenuItem href="/dashboard".to_string() active=true>
+                        <SidebarMenuItem href="/dashboard".to_string() active=canonrs_core::meta::ActivityState::Active>
                             <span data-sidebar-icon>"📊"</span>
                             <span data-sidebar-label>"Dashboard"</span>
                         </SidebarMenuItem>

@@ -1,11 +1,12 @@
 use leptos::prelude::*;
-use super::PageHeader;
+use super::page_header_block::PageHeader;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <PageHeader
-            title="Page Title".to_string()
-            subtitle="Page description".to_string()
+            title=leptos::children::ToChildren::to_children(|| view!{ "Page Title" })
+            subtitle=leptos::children::ToChildren::to_children(|| view!{ "Page description" })
             actions=leptos::children::ToChildren::to_children(|| view!{ <button>"Action"</button> })
         />
     }

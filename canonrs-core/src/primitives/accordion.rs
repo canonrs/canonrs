@@ -3,8 +3,8 @@
 //! Accordion Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::meta::VisibilityState;
-use crate::state_engine::visibility_attrs;
+use crate::meta::{VisibilityState, DisabledState};
+use crate::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs};
 
 #[derive(Clone, Copy, PartialEq, Default)]
 pub enum AccordionSelection {
@@ -15,10 +15,7 @@ pub enum AccordionSelection {
 
 impl AccordionSelection {
     pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Single => "single",
-            Self::Multiple => "multiple",
-        }
+        match self { Self::Single => "single", Self::Multiple => "multiple" }
     }
 }
 
@@ -28,7 +25,6 @@ pub fn AccordionPrimitive(
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
     #[prop(default = true)] collapsible: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
@@ -37,9 +33,7 @@ pub fn AccordionPrimitive(
             data-rs-behavior="disclosure"
             data-rs-selection=selection.as_str()
             data-rs-collapsible={if collapsible { Some("true") } else { None }}
-            role="region"
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -50,15 +44,18 @@ pub fn AccordionPrimitive(
 pub fn AccordionItemPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] open: VisibilityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let s = visibility_attrs(open);
+    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-accordion-item=""
-            data-rs-state={visibility_attrs(open).data_rs_state}
+            data-rs-state=s.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            role="group"
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -69,23 +66,26 @@ pub fn AccordionItemPrimitive(
 pub fn AccordionTriggerPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] open: VisibilityState,
-    #[prop(optional)] controls: Option<String>,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
-    // aria-controls só emitido se controls tiver valor real
-    let aria_controls = controls.filter(|s| !s.is_empty());
+    let t = trigger_attrs(open);
+    let d = disabled_attrs(disabled);
     view! {
-        <button
-            type="button"
-            data-rs-accordion-trigger=""
-            aria-expanded={visibility_attrs(open).aria_expanded}
-            aria-controls=aria_controls
-            class=class
-            id=id.filter(|s| !s.is_empty())
-        >
-            {children()}
-        </button>
+        <h3 data-rs-accordion-heading="" class="accordion-heading">
+            <button
+                type="button"
+                data-rs-accordion-trigger=""
+                aria-expanded=t.aria_expanded
+                data-rs-state=t.data_rs_state
+                data-rs-disabled=d.data_rs_disabled
+                aria-disabled=d.aria_disabled
+                disabled=d.disabled
+                class=class
+            >
+                {children()}
+            </button>
+        </h3>
     }
 }
 
@@ -94,16 +94,15 @@ pub fn AccordionContentPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] open: VisibilityState,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
+    let s = visibility_attrs(open);
     view! {
         <div
             data-rs-accordion-content=""
-            data-rs-state={visibility_attrs(open).data_rs_state}
-            aria-hidden={visibility_attrs(open).aria_hidden}
-            hidden={visibility_attrs(open).hidden}
+            data-rs-state=s.data_rs_state
+            aria-hidden=s.aria_hidden
+            hidden=s.hidden
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>

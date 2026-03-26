@@ -25,7 +25,7 @@ pub fn draw_legend(
     for (i, (name, _, color, active)) in series.iter().enumerate() {
         let item = doc.create_element("span").unwrap();
         item.set_attribute("data-rs-chart-legend-item", "").ok();
-        item.set_attribute("data-series-index", &i.to_string()).ok();
+        item.set_attribute("data-rs-series-index", &i.to_string()).ok();
         // data-rs-state em vez de data-state
         item.set_attribute("data-rs-state", if *active { "active" } else { "inactive" }).ok();
         let dot = doc.create_element("span").unwrap();
@@ -52,7 +52,7 @@ pub fn draw_legend(
                 let items = legend_c.query_selector_all("[data-rs-chart-legend-item]").unwrap();
                 for j in 0..items.length() {
                     if let Some(el) = items.item(j).and_then(|e| e.dyn_into::<web_sys::Element>().ok()) {
-                        let si = el.get_attribute("data-series-index")
+                        let si = el.get_attribute("data-rs-series-index")
                             .and_then(|v| v.parse::<usize>().ok()).unwrap_or(0);
                         let active = el.get_attribute("data-rs-state").as_deref() == Some("active");
                         if let Some(s) = ser.get_mut(si) { s.3 = active; }

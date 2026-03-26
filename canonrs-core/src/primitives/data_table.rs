@@ -3,6 +3,7 @@
 //! DataTable Primitive - HTML puro
 
 use leptos::prelude::*;
+use crate::primitives::table::SortDirection;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum DataTableDensity {
@@ -102,23 +103,6 @@ pub fn DataTableHeadRowPrimitive(
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
-pub enum SortDirection {
-    Ascending,
-    Descending,
-    #[default]
-    None,
-}
-
-impl SortDirection {
-    pub fn as_aria_str(&self) -> &'static str {
-        match self {
-            Self::Ascending => "ascending",
-            Self::Descending => "descending",
-            Self::None => "none",
-        }
-    }
-}
 
 #[component]
 pub fn DataTableHeadCellPrimitive(
@@ -133,7 +117,7 @@ pub fn DataTableHeadCellPrimitive(
         <th
             data-rs-datatable-head-cell=""
             scope="col"
-            aria-sort=sort_direction.as_aria_str()
+            aria-sort=sort_direction.aria_sort()
             data-rs-sort-key=sort_key
             data-rs-col-index=col_index
             style={(!style.is_empty()).then(|| style)}

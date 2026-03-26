@@ -1,13 +1,13 @@
 use leptos::prelude::*;
-use super::DrawerBlock;
+use super::drawer_block::DrawerBlock;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <DrawerBlock open=Signal::derive(|| true)
-            header=leptos::children::ToChildren::to_children(|| view!{ <span>"Drawer Title"</span> })
+        <DrawerBlock
+            header=leptos::children::ToChildren::to_children(|| view!{ <h3>"Drawer Title"</h3> })
+            content=leptos::children::ToChildren::to_children(|| view!{ <p>"Drawer content"</p> })
             footer=leptos::children::ToChildren::to_children(|| view!{ <button>"Close"</button> })
-        >
-            <p>"Drawer content."</p>
-        </DrawerBlock>
+        />
     }
 }

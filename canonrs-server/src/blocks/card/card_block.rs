@@ -1,15 +1,13 @@
 //! # Card Block
-
 use leptos::prelude::*;
 
-#[derive(Clone, PartialEq)]
-pub enum CardVariant { Default, Interactive }
-
+#[derive(Clone, PartialEq, Default)]
+pub enum CardVariant { #[default] Default, Interactive, Outlined, Elevated }
 impl CardVariant {
-    fn as_str(&self) -> &'static str {
+    pub fn as_str(&self) -> &'static str {
         match self {
-            CardVariant::Default => "default",
-            CardVariant::Interactive => "interactive",
+            Self::Default => "default", Self::Interactive => "interactive",
+            Self::Outlined => "outlined", Self::Elevated => "elevated",
         }
     }
 }
@@ -19,30 +17,19 @@ pub fn Card(
     #[prop(default = CardVariant::Default)] variant: CardVariant,
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
-    #[prop(optional, into)] card_id: Option<String>,
     #[prop(default = String::new(), into)] class: String,
-    children: Children,
+    #[prop(optional)] content: Option<ChildrenFn>,
 ) -> impl IntoView {
-    let is_interactive = variant == CardVariant::Interactive;
-    let variant_str = variant.as_str();
-
     view! {
         <div
-            class=class
             data-block="card"
             data-block-version="1"
-            data-variant=variant_str
-            data-card-id=card_id
-            role=if is_interactive { Some("button") } else { None }
-            tabindex=if is_interactive { Some("0") } else { None }
+            data-block-variant=variant.as_str()
+            class=class
         >
-            {header.map(|h| view! {
-                <div data-block-region="header">{h()}</div>
-            })}
-            <div data-block-region="content">{children()}</div>
-            {footer.map(|f| view! {
-                <div data-block-region="footer">{f()}</div>
-            })}
+            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
+            {content.map(|c| view! { <div data-block-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
         </div>
     }
 }

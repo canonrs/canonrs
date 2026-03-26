@@ -25,7 +25,7 @@ extern "C" {
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-copy-button", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+    register_behavior("data-rs-copy-button", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
         setup_copy_button(root)?;
         Ok(())
     }));
@@ -33,20 +33,20 @@ pub fn register() {
 
 #[cfg(feature = "hydrate")]
 fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
-    if btn.get_attribute("data-copy-attached").as_deref() == Some("1") {
+    if btn.get_attribute("data-rs-copy-attached").as_deref() == Some("1") {
         return Ok(());
     }
-    let _ = btn.set_attribute("data-copy-attached", "1");
-    let _ = btn.set_attribute("data-state", "idle");
+    let _ = btn.set_attribute("data-rs-copy-attached", "1");
+    let _ = btn.set_attribute("data-rs-state", "idle");
 
     let btn_clone = btn.clone();
 
     let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
         // Get text from data-copy-text or from data-copy-target element
-        let text = btn_clone.get_attribute("data-copy-text")
+        let text = btn_clone.get_attribute("data-rs-copy-text")
             .filter(|t| !t.is_empty())
             .or_else(|| {
-                btn_clone.get_attribute("data-copy-target").and_then(|target| {
+                btn_clone.get_attribute("data-rs-copy-target").and_then(|target| {
                     // Support both "#id" and "id" formats
                     let selector = if target.starts_with('#') { 
                         target.clone() 
@@ -62,7 +62,7 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
             .unwrap_or_default();
 
         if text.is_empty() {
-            let _ = btn_clone.set_attribute("data-state", "error");
+            let _ = btn_clone.set_attribute("data-rs-state", "error");
             reset_after(&btn_clone, 2000);
             return;
         }
@@ -71,9 +71,9 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
             let _ = clip.write_text(&text);
         });
 
-        let _ = btn_clone.set_attribute("data-state", "copied");
+        let _ = btn_clone.set_attribute("data-rs-state", "copied");
         
-        let delay = btn_clone.get_attribute("data-reset-delay")
+        let delay = btn_clone.get_attribute("data-rs-reset-delay")
             .and_then(|d| d.parse::<i32>().ok())
             .unwrap_or(2000);
         
@@ -91,7 +91,7 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
 fn reset_after(btn: &Element, delay: i32) {
     let btn_reset = btn.clone();
     let timeout = Closure::once(Box::new(move || {
-        let _ = btn_reset.set_attribute("data-state", "idle");
+        let _ = btn_reset.set_attribute("data-rs-state", "idle");
     }) as Box<dyn FnOnce()>);
 
     let _ = web_sys::window()

@@ -14,9 +14,9 @@
 }
 
 /* Alignment */
-[data-rs-stat-wrapper][data-align="start"] { align-items: flex-start; }
-[data-rs-stat-wrapper][data-align="center"] { align-items: center; }
-[data-rs-stat-wrapper][data-align="end"] { align-items: flex-end; }
+[data-rs-stat-wrapper][data-rs-align="start"] { align-items: flex-start; }
+[data-rs-stat-wrapper][data-rs-align="center"] { align-items: center; }
+[data-rs-stat-wrapper][data-rs-align="end"] { align-items: flex-end; }
 
 /* Header */
 [data-rs-stat-header] {
@@ -49,15 +49,15 @@
 }
 
 /* Size variants */
-[data-rs-stat-wrapper][data-size="sm"] [data-rs-stat-value] {
+[data-rs-stat-wrapper][data-rs-size="sm"] [data-rs-stat-value] {
   font-size: var(--stat-size-sm-value);
 }
 
-[data-rs-stat-wrapper][data-size="md"] [data-rs-stat-value] {
+[data-rs-stat-wrapper][data-rs-size="md"] [data-rs-stat-value] {
   font-size: var(--stat-size-md-value);
 }
 
-[data-rs-stat-wrapper][data-size="lg"] [data-rs-stat-value] {
+[data-rs-stat-wrapper][data-rs-size="lg"] [data-rs-stat-value] {
   font-size: var(--stat-size-lg-value);
 }
 
@@ -68,15 +68,15 @@
   font-variant-numeric: tabular-nums;
 }
 
-[data-rs-stat-wrapper][data-trend="increase"] [data-rs-stat-delta] {
+[data-rs-stat-wrapper][data-rs-trend="increase"] [data-rs-stat-delta] {
   color: var(--stat-trend-increase-color);
 }
 
-[data-rs-stat-wrapper][data-trend="decrease"] [data-rs-stat-delta] {
+[data-rs-stat-wrapper][data-rs-trend="decrease"] [data-rs-stat-delta] {
   color: var(--stat-trend-decrease-color);
 }
 
-[data-rs-stat-wrapper][data-trend="neutral"] [data-rs-stat-delta] {
+[data-rs-stat-wrapper][data-rs-trend="neutral"] [data-rs-stat-delta] {
   color: var(--stat-trend-neutral-color);
 }
 

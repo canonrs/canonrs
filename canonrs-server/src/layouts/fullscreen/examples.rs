@@ -5,8 +5,7 @@ pub fn basic_example() -> impl IntoView {
     view! {
         <FullscreenLayout
             header=leptos::children::ToChildren::to_children(|| view!{ <nav>"Header"</nav> })
-        >
-            <p>"Fullscreen content"</p>
-        </FullscreenLayout>
+            content=leptos::children::ToChildren::to_children(|| view!{ <p>"Fullscreen content"</p> })
+        />
     }
 }

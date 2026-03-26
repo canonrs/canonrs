@@ -14,7 +14,7 @@ pub fn SidebarPinnable(
 ) -> impl IntoView {
     view! {
         <div style="position: relative;">
-            <Sidebar collapsed=default_collapsed>
+            <Sidebar state=if default_collapsed { canonrs_core::meta::VisibilityState::Closed } else { canonrs_core::meta::VisibilityState::Open }>
                 <div style="position: absolute; top: 0.5rem; right: 0.5rem; z-index: 10; display: flex; gap: 0.5rem;">
                     <button
                         type="button"
@@ -49,7 +49,7 @@ pub fn SidebarPinnable(
                 <SidebarContent>
                     <SidebarMenu>
                         <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                        <SidebarMenuItem href="/dashboard".to_string() active=true>
+                        <SidebarMenuItem href="/dashboard".to_string() active=canonrs_core::meta::ActivityState::Active>
                             <span data-sidebar-icon>"📊"</span>
                             <span data-sidebar-label>"Dashboard"</span>
                         </SidebarMenuItem>

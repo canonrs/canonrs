@@ -10,16 +10,15 @@ use canonrs_core::primitives::{
     DropdownMenuCheckboxItemPrimitive,
     LabelPrimitive, SeparatorPrimitive,
 };
+use canonrs_core::meta::ToggleState;
 
 #[component]
 pub fn DropdownMenu(
     children: Children,
-    #[prop(default = false)] open: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DropdownMenuPrimitive open=open class=class id=id.unwrap_or_default()>
+        <DropdownMenuPrimitive class=class>
             {children()}
         </DropdownMenuPrimitive>
     }
@@ -49,10 +48,9 @@ pub fn DropdownMenuTrigger(
 pub fn DropdownMenuContent(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DropdownMenuContentPrimitive class=class id=id.unwrap_or_default()>
+        <DropdownMenuContentPrimitive class=class>
             {children()}
         </DropdownMenuContentPrimitive>
     }
@@ -85,7 +83,7 @@ pub fn DropdownMenuItem(
 #[component]
 pub fn DropdownMenuCheckboxItem(
     children: Children,
-    #[prop(default = false)] checked: bool,
+    #[prop(default = ToggleState::Off)] checked: ToggleState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {

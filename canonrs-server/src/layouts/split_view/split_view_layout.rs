@@ -1,15 +1,14 @@
 //! # SplitViewLayout — Regions: left, right
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq)]
-pub enum SplitRatio { Equal, FormFocused, ContextFocused }
-
+#[derive(Clone, Copy, PartialEq, Default)]
+pub enum SplitRatio { #[default] Equal, FormFocused, ContextFocused }
 impl SplitRatio {
-    fn as_str(&self) -> &'static str {
+    pub fn as_str(&self) -> &'static str {
         match self {
-            SplitRatio::Equal => "50-50",
-            SplitRatio::FormFocused => "40-60",
-            SplitRatio::ContextFocused => "60-40",
+            Self::Equal         => "50-50",
+            Self::FormFocused   => "40-60",
+            Self::ContextFocused => "60-40",
         }
     }
 }
@@ -17,14 +16,19 @@ impl SplitRatio {
 #[component]
 pub fn SplitViewLayout(
     #[prop(default = SplitRatio::Equal)] ratio: SplitRatio,
-    left: Children,
-    right: Children,
+    #[prop(optional)] left: Option<ChildrenFn>,
+    #[prop(optional)] right: Option<ChildrenFn>,
+    #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <div class="layout-split-view" data-layout="split-view" data-layout-version="1"
-            attr:data-split-ratio=ratio.as_str()>
-            <div class="layout-split-left" data-layout-region="left">{left()}</div>
-            <div class="layout-split-right" data-layout-region="right">{right()}</div>
+        <div
+            data-layout="split-view"
+            data-layout-variant=ratio.as_str()
+            data-layout-version="1"
+            class=class
+        >
+            {left.map(|l| view! { <div data-layout-region="left">{l()}</div> })}
+            {right.map(|r| view! { <div data-layout-region="right">{r()}</div> })}
         </div>
     }
 }

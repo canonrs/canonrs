@@ -1,44 +1,32 @@
 //! # List Block
 use leptos::prelude::*;
 
-#[component]
-pub fn List(
-    #[prop(default = false)] ordered: bool,
-    #[prop(default = false)] interactive: bool,
-    #[prop(default = String::new(), into)] class: String,
-    children: Children,
-) -> impl IntoView {
-    if ordered {
-        view! {
-            <ol class=format!("canon-list canon-list--ordered {} {}", if interactive { "canon-list--interactive" } else { "" }, class)
-                data-block="list" data-block-version="1">
-                {children()}
-            </ol>
-        }.into_any()
-    } else {
-        view! {
-            <ul class=format!("canon-list {} {}", if interactive { "canon-list--interactive" } else { "" }, class)
-                data-block="list" data-block-version="1">
-                {children()}
-            </ul>
-        }.into_any()
+#[derive(Clone, Copy, PartialEq, Default)]
+pub enum ListType { #[default] Unordered, Ordered }
+impl ListType {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Unordered => "unordered", Self::Ordered => "ordered" }
     }
 }
 
 #[component]
-pub fn ListItem(
-    #[prop(default = false)] selected: bool,
-    #[prop(optional, into)] item_id: Option<String>,
+pub fn List(
+    #[prop(default = ListType::Unordered)] list_type: ListType,
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
-    children: Children,
+    #[prop(optional)] items: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
-        <li
-            class=format!("canon-list__item {} {}", if selected { "canon-list__item--selected" } else { "" }, class)
-            data-action="click"
-            data-list-item-id=item_id
+        <div
+            data-block="list"
+            data-block-version="1"
+            data-block-type=list_type.as_str()
+            class=class
         >
-            {children()}
-        </li>
+            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
+            {items.map(|i| view! { <div data-block-region="items">{i()}</div> })}
+            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
+        </div>
     }
 }

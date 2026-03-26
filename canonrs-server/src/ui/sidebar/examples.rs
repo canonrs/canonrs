@@ -29,7 +29,7 @@ pub fn BasicExample() -> impl IntoView {
             <SidebarContent>
                 <SidebarMenu>
                     <SidebarGroupLabel>"Navigation"</SidebarGroupLabel>
-                    <SidebarMenuItem href="/dashboard".to_string() active=true>"Dashboard"</SidebarMenuItem>
+                    <SidebarMenuItem href="/dashboard".to_string() active=canonrs_core::meta::ActivityState::Active>"Dashboard"</SidebarMenuItem>
                     <SidebarMenuItem href="/projects".to_string()>"Projects"</SidebarMenuItem>
                     <SidebarMenuItem href="/tasks".to_string()>"Tasks"</SidebarMenuItem>
                     

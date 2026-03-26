@@ -1,26 +1,20 @@
 //! # Header Block
-//! Canon Rule: Header é BLOCK — slots explícitos, zero layout, zero lógica
-
 use leptos::prelude::*;
 
 #[component]
 pub fn Header(
     #[prop(optional)] logo: Option<ChildrenFn>,
-    #[prop(optional)] primary_nav: Option<ChildrenFn>,
+    #[prop(optional)] nav: Option<ChildrenFn>,
+    #[prop(optional)] center: Option<ChildrenFn>,
     #[prop(optional)] actions: Option<ChildrenFn>,
-    #[prop(optional)] children: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <header
-            class=format!("block-header {}", class)
-            data-block="header"
-            data-block-version="1"
-        >
-            <div data-block-region="logo">{logo.map(|l| l())}</div>
-            <nav data-block-region="nav">{primary_nav.map(|n| n())}</nav>
-            <div data-block-region="center">{children.map(|c| c())}</div>
-            <div data-block-region="actions">{actions.map(|a| a())}</div>
+        <header data-block="header" data-block-version="1" class=class>
+            {logo.map(|l| view! { <div data-block-region="logo">{l()}</div> })}
+            {nav.map(|n| view! { <nav data-block-region="nav">{n()}</nav> })}
+            {center.map(|c| view! { <div data-block-region="center">{c()}</div> })}
+            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
         </header>
     }
 }

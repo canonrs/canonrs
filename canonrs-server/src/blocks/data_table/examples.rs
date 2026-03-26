@@ -1,27 +1,14 @@
 use leptos::prelude::*;
-use super::{DataTableBlock, DataTableRow, DataTableCell};
+use super::data_table_block::DataTableBlock;
 
-pub fn basic_example() -> impl IntoView {
+#[component]
+pub fn BasicExample() -> impl IntoView {
     view! {
         <DataTableBlock
-            header=leptos::children::ToChildren::to_children(|| view!{
-                <tr>
-                    <DataTableCell header=true>"Name"</DataTableCell>
-                    <DataTableCell header=true>"Status"</DataTableCell>
-                    <DataTableCell header=true>"Date"</DataTableCell>
-                </tr>
-            })
-        >
-            <DataTableRow>
-                <DataTableCell>"Alice"</DataTableCell>
-                <DataTableCell>"Active"</DataTableCell>
-                <DataTableCell>"2024-01-01"</DataTableCell>
-            </DataTableRow>
-            <DataTableRow>
-                <DataTableCell>"Bob"</DataTableCell>
-                <DataTableCell>"Inactive"</DataTableCell>
-                <DataTableCell>"2024-01-02"</DataTableCell>
-            </DataTableRow>
-        </DataTableBlock>
+            toolbar=leptos::children::ToChildren::to_children(|| view!{ <div>"Search + Filters"</div> })
+            header=leptos::children::ToChildren::to_children(|| view!{ <div>"Name | Status | Date"</div> })
+            body=leptos::children::ToChildren::to_children(|| view!{ <div>"Row data here"</div> })
+            pagination=leptos::children::ToChildren::to_children(|| view!{ <div>"Page 1 of 10"</div> })
+        />
     }
 }

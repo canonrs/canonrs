@@ -34,14 +34,14 @@ pub fn Icon(
 ) -> impl IntoView {
     view! {
         <span
-            data-icon=""
-            data-size={size.as_str()}
-            data-variant={variant.as_str()}
-            data-spin={spin.then_some("")}
+            data-rs-icon=""
+            data-rs-size={size.as_str()}
+            data-rs-variant={variant.as_str()}
+            data-rs-spin={spin.then_some("")}
             class={class}
             id={id.unwrap_or_default()}
         >
-            <span data-icon-inner="" aria-hidden="true">
+            <span data-rs-icon-inner="" aria-hidden="true">
                 {children.map(|c| c())}
             </span>
         </span>

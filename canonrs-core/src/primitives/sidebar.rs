@@ -3,23 +3,40 @@
 //! Sidebar Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
+use crate::meta::{VisibilityState, ActivityState, DisabledState};
+use crate::state_engine::{visibility_attrs, trigger_attrs, activity_attrs, disabled_attrs};
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum SidebarVariant {
+    #[default]
+    Default,
+    Rail,
+}
+impl SidebarVariant {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Default => "default", Self::Rail => "rail" }
+    }
+}
 
 #[component]
 pub fn SidebarPrimitive(
     children: Children,
-    #[prop(default = false)] collapsed: bool,
+    #[prop(default = VisibilityState::Open)] state: VisibilityState,
+    #[prop(default = SidebarVariant::Default)] variant: SidebarVariant,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
-    #[prop(default = false)] rail: bool,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <aside
             data-rs-sidebar=""
-            data-rs-rail={if rail { Some("true") } else { None }}
-            data-rs-state={if collapsed { "collapsed" } else { "expanded" }}
+            data-rs-component="Sidebar"
+            data-rs-behavior="navigation"
+            data-rs-state=s.data_rs_state
+            data-rs-variant=variant.as_str()
+            aria-hidden=s.aria_hidden
             role="complementary"
+            id="rs-sidebar"
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </aside>
@@ -77,34 +94,42 @@ pub fn SidebarMenuPrimitive(
 #[component]
 pub fn SidebarMenuItemPrimitive(
     children: Children,
-    #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] active: bool,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let a = activity_attrs(active);
+    let d = disabled_attrs(disabled);
+    let is_active = active == ActivityState::Active;
     view! {
-        <div
+        <a
             data-rs-sidebar-menu-item=""
-            data-rs-state={if active { "open" } else { "closed" }}
-            data-rs-active={if active { Some("true") } else { None }}
-            data-href=href
+            data-rs-state=a.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            href=if d.disabled { "#".to_string() } else { href }
+            aria-current=if is_active { Some("page") } else { None }
+            aria-disabled=d.aria_disabled
+            tabindex=if d.disabled { "-1" } else { "0" }
             class=class
         >
             {children()}
-        </div>
+        </a>
     }
 }
 
 #[component]
 pub fn SidebarMenuGroupPrimitive(
     children: Children,
+    #[prop(into, optional)] label: Option<String>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-sidebar-menu-group=""
+            role="group"
+            aria-label=label
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -131,7 +156,11 @@ pub fn SidebarGroupLabelPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-sidebar-group-label="" class=class>
+        <div
+            data-rs-sidebar-group-label=""
+            role="presentation"
+            class=class
+        >
             {children()}
         </div>
     }
@@ -140,13 +169,18 @@ pub fn SidebarGroupLabelPrimitive(
 #[component]
 pub fn SidebarTriggerPrimitive(
     children: Children,
+    #[prop(default = VisibilityState::Open)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] style: String,
 ) -> impl IntoView {
+    let t = trigger_attrs(state);
     view! {
         <button
             type="button"
-            data-rs-sidebar-toggle="1"
+            data-rs-sidebar-toggle=""
+            data-rs-state=t.data_rs_state
+            aria-expanded=t.aria_expanded
+            aria-controls="rs-sidebar"
             class=class
             style=style
         >

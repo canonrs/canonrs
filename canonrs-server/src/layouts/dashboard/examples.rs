@@ -6,8 +6,7 @@ pub fn basic_example() -> impl IntoView {
         <DashboardLayout
             header=leptos::children::ToChildren::to_children(|| view!{ <nav>"Header nav"</nav> })
             sidebar=leptos::children::ToChildren::to_children(|| view!{ <nav>"Sidebar nav"</nav> })
-        >
-            <p>"Main content"</p>
-        </DashboardLayout>
+            content=leptos::children::ToChildren::to_children(|| view!{ <p>"Main content"</p> })
+        />
     }
 }

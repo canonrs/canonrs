@@ -11,21 +11,21 @@ use canonrs_core::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-icon-toggle", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+    register_behavior("data-rs-icon-toggle", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         let el = root.clone();
-        if el.get_attribute("data-icon-toggle-attached").as_deref() == Some("1") { return Ok(()); }
-        el.set_attribute("data-icon-toggle-attached", "1").ok();
+        if el.get_attribute("data-rs-icon-toggle-attached").as_deref() == Some("1") { return Ok(()); }
+        el.set_attribute("data-rs-icon-toggle-attached", "1").ok();
 
         let Ok(toggle) = el.dyn_into::<HtmlElement>() else { return Ok(()); };
         let toggle_clone = toggle.clone();
 
         let closure = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            let is_active = toggle_clone.has_attribute("data-active");
+            let is_active = toggle_clone.has_attribute("data-rs-active");
             if is_active {
-                toggle_clone.remove_attribute("data-active").ok();
+                toggle_clone.remove_attribute("data-rs-active").ok();
                 toggle_clone.set_attribute("aria-pressed", "false").ok();
             } else {
-                toggle_clone.set_attribute("data-active", "true").ok();
+                toggle_clone.set_attribute("data-rs-active", "true").ok();
                 toggle_clone.set_attribute("aria-pressed", "true").ok();
             }
         }) as Box<dyn FnMut(_)>);

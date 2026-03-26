@@ -44,11 +44,11 @@ pub fn Stat(
             id={id.unwrap_or_default()}
         >
             <div
-                data-stat-wrapper=""
-                data-size={size.as_str()}
-                data-align={align.as_str()}
-                data-trend={trend.map(|t| t.as_str())}
-                data-loading={loading.then_some("")}
+                data-rs-stat-wrapper=""
+                data-rs-size={size.as_str()}
+                data-rs-align={align.as_str()}
+                data-rs-trend={trend.map(|t| t.as_str())}
+                data-rs-loading={loading.then_some("")}
                 aria-busy={loading.then_some("true")}
                 role="group"
             >
