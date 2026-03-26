@@ -24,3 +24,5 @@ pub use state_engine::*;
 pub use behavior_engine::*;
 pub mod meta;
 pub use meta::*;
+pub mod style_contract;
+pub use style_contract::*;
