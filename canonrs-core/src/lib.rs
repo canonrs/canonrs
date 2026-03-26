@@ -25,4 +25,5 @@ pub use behavior_engine::*;
 pub mod meta;
 pub use meta::*;
 pub mod style_contract;
+pub mod styling;
 pub use style_contract::*;

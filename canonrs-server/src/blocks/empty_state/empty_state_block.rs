@@ -8,6 +8,7 @@ pub fn EmptyState(
     #[prop(optional)] description: Option<ChildrenFn>,
     #[prop(optional)] action: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
         <div data-block="empty-state" data-block-version="1" class=class>

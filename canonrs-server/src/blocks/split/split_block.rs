@@ -15,6 +15,7 @@ pub fn Split(
     #[prop(optional)] aside: Option<ChildrenFn>,
     #[prop(optional)] main: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
         <div data-block="split" data-block-version="1" data-block-ratio=ratio.as_str() class=class>

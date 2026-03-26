@@ -6,6 +6,7 @@ pub fn DetailPanel(
     #[prop(optional)] aside: Option<ChildrenFn>,
     #[prop(optional)] content: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
         <div data-block="detail-panel" data-block-version="1" class=class>

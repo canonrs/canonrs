@@ -17,7 +17,7 @@ pub fn component_family(name: &str) -> Option<&'static str> {
 }
 
 /// Retorna capabilities de um componente por nome.
-pub fn component_capabilities(name: &str) -> Option<&'static [&'static str]> {
+pub fn component_capabilities(name: &str) -> Option<&'static [crate::meta::Capability]> {
     component_meta(name).map(|m| m.capabilities)
 }
 

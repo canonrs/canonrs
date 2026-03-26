@@ -16,12 +16,14 @@ pub fn PopoverBlock(
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
     #[prop(optional)] content: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
         <div
             data-block="popover"
             data-block-version="1"
+            style=style
             data-block-placement=placement.as_str()
             class=class
         >

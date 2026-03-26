@@ -15,12 +15,14 @@ pub fn List(
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
     #[prop(optional)] items: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
         <div
             data-block="list"
             data-block-version="1"
+            style=style
             data-block-type=list_type.as_str()
             class=class
         >

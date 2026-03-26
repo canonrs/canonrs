@@ -6,6 +6,7 @@ pub fn DialogBlock(
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
     #[prop(optional)] content: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {

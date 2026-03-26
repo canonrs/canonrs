@@ -19,6 +19,18 @@ impl Variant {
             Self::Outline   => "outline",
         }
     }
+    pub fn as_class(&self) -> &'static str {
+        match self {
+            Self::Default   => "",
+            Self::Primary   => "variant-primary",
+            Self::Secondary => "variant-secondary",
+            Self::Success   => "variant-success",
+            Self::Warning   => "variant-warning",
+            Self::Danger    => "variant-danger",
+            Self::Ghost     => "variant-ghost",
+            Self::Outline   => "variant-outline",
+        }
+    }
     pub fn from_str(s: &str) -> Option<Self> {
         match s {
             "default"   => Some(Self::Default),
@@ -37,4 +49,10 @@ impl Variant {
 #[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct ColorStyle {
     pub variant: Option<Variant>,
+}
+
+impl ColorStyle {
+    pub fn as_class(&self) -> &'static str {
+        self.variant.as_ref().map(|v| v.as_class()).unwrap_or("")
+    }
 }

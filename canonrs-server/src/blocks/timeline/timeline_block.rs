@@ -6,6 +6,7 @@ pub fn Timeline(
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
     #[prop(optional)] items: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {

@@ -16,6 +16,7 @@ impl ContainerSize {
 pub fn Container(
     #[prop(default = ContainerSize::Lg)] size: ContainerSize,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
     children: Children,
 ) -> impl IntoView {
     view! {
@@ -24,6 +25,7 @@ pub fn Container(
             data-block-version="1"
             data-block-size=size.as_str()
             class=class
+            style=style
         >
             <div data-block-region="content">{children()}</div>
         </div>

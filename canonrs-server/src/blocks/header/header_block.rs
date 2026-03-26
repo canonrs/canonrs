@@ -8,6 +8,7 @@ pub fn Header(
     #[prop(optional)] center: Option<ChildrenFn>,
     #[prop(optional)] actions: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
         <header data-block="header" data-block-version="1" class=class>

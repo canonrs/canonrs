@@ -6,6 +6,7 @@ pub fn FilterBar(
     #[prop(optional)] filters: Option<ChildrenFn>,
     #[prop(optional)] actions: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
         <div data-block="filter-bar" data-block-version="1" class=class>

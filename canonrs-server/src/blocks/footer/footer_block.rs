@@ -7,6 +7,7 @@ pub fn Footer(
     #[prop(optional)] center: Option<ChildrenFn>,
     #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
         <footer data-block="footer" data-block-version="1" class=class>

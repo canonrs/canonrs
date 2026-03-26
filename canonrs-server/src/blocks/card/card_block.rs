@@ -18,12 +18,14 @@ pub fn Card(
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
     #[prop(optional)] content: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
         <div
             data-block="card"
             data-block-version="1"
+            style=style
             data-block-variant=variant.as_str()
             class=class
         >

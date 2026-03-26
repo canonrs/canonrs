@@ -17,11 +17,13 @@ pub fn StatCard(
     #[prop(optional)] value: Option<ChildrenFn>,
     #[prop(optional)] change: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
 ) -> impl IntoView {
     view! {
         <div
             data-block="stat-card"
             data-block-version="1"
+            style=style
             data-block-trend=trend.as_str()
             class=class
         >

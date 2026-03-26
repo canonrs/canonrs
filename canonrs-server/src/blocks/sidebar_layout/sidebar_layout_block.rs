@@ -15,11 +15,13 @@ pub fn SidebarLayout(
     #[prop(optional)] nav: Option<ChildrenFn>,
     #[prop(optional)] main: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
 ) -> impl IntoView {
     view! {
         <div
             data-block="sidebar-layout"
             data-block-version="1"
+            style=style
             data-block-side=side.as_str()
             class=class
         >

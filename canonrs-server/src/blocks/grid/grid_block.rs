@@ -5,12 +5,14 @@ use leptos::prelude::*;
 pub fn Grid(
     #[prop(default = 3u8)] columns: u8,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
     #[prop(optional)] items: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
         <div
             data-block="grid"
             data-block-version="1"
+            style=style
             data-block-columns=columns.to_string()
             class=class
         >

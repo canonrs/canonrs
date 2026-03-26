@@ -7,11 +7,13 @@ pub fn CommandPanelBlock(
     #[prop(optional)] results: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
 ) -> impl IntoView {
     view! {
         <div
             data-block="command-panel"
             data-block-version="1"
+            style=style
             class=class
         >
             {search.map(|s| view! { <div data-block-region="search">{s()}</div> })}

@@ -15,6 +15,7 @@ pub fn FormBlock(
     #[prop(optional)] fields: Option<ChildrenFn>,
     #[prop(optional)] actions: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
         <div data-block="form" data-block-version="1" data-block-layout=layout.as_str() class=class>

@@ -7,11 +7,13 @@ pub fn ToolbarBlock(
     #[prop(optional)] center: Option<ChildrenFn>,
     #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
+    #[prop(default = String::new(), into)] style: String,
 ) -> impl IntoView {
     view! {
         <div
             data-block="toolbar"
             data-block-version="1"
+            style=style
             class=class
         >
             {left.map(|l| view! { <div data-block-region="left">{l()}</div> })}
