@@ -7,7 +7,7 @@ use super::{
     color::ColorStyle,
 };
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct StyleProps {
     pub spacing:    Option<Spacing>,
     pub layout:     Option<LayoutStyle>,

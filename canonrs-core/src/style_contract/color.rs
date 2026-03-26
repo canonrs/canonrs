@@ -1,6 +1,6 @@
 //! Color/variant contract
 
-#[derive(Clone, Copy, PartialEq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub enum Variant {
     #[default] Default,
     Primary, Secondary, Success, Warning, Danger, Ghost, Outline,
@@ -34,7 +34,7 @@ impl Variant {
     }
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct ColorStyle {
     pub variant: Option<Variant>,
 }

@@ -1,6 +1,6 @@
 //! Spacing contract — margin + padding via token scale
 
-#[derive(Clone, Copy, PartialEq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub enum SpaceScale {
     None,
     Xs,
@@ -49,7 +49,7 @@ impl SpaceScale {
     }
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Spacing {
     pub margin:  Option<SpaceScale>,
     pub padding: Option<SpaceScale>,

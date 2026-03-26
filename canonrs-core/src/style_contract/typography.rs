@@ -1,6 +1,6 @@
 //! Typography contract — size + weight + align
 
-#[derive(Clone, Copy, PartialEq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub enum TextSize {
     Xs, Sm, #[default] Md, Lg, Xl, Xxl, Display,
 }
@@ -27,7 +27,7 @@ impl TextSize {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub enum TextWeight {
     #[default] Normal, Medium, Semibold, Bold,
 }
@@ -50,7 +50,7 @@ impl TextWeight {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub enum TextAlign {
     #[default] Left, Center, Right, Justify,
 }
@@ -73,7 +73,7 @@ impl TextAlign {
     }
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Typography {
     pub size:   Option<TextSize>,
     pub weight: Option<TextWeight>,

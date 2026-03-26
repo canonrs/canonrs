@@ -13,3 +13,6 @@ pub use layout_style::{Align, Width, LayoutStyle};
 pub use typography::{TextSize, TextWeight, TextAlign, Typography};
 pub use color::{Variant, ColorStyle};
 pub use props::StyleProps;
+
+pub mod validator;
+pub use validator::{validate_style, style_from_json, StyleValidationError};

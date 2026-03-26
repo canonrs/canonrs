@@ -1,6 +1,6 @@
 //! Layout style contract — align + width
 
-#[derive(Clone, Copy, PartialEq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub enum Align {
     #[default]
     Start,
@@ -32,7 +32,7 @@ impl Align {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub enum Width {
     #[default]
     Auto,
@@ -64,7 +64,7 @@ impl Width {
     }
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct LayoutStyle {
     pub align: Option<Align>,
     pub width: Option<Width>,
