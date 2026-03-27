@@ -15,7 +15,7 @@ pub fn ListPrimitive(
     view! {
         <div
             data-rs-list=""
-            data-rs-component="List"
+            
             data-rs-behavior="navigation"
             role="listbox"
             aria-label=aria_label

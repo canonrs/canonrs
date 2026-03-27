@@ -1,4 +1,13 @@
-//! # WizardLayout — Regions: header, stepper, content, footer
+//! @canon-id: wizard-layout
+//! @canon-type: layout
+//! @canon-category: layout
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: header, stepper, content, footer
+//! @canon-label: Wizard
+//! @canon-icon: 📋
+//! @canon-description: Multi-step form with header, stepper, content and footer
+//! @canon-slot-descriptions: header:Wizard title and progress,stepper:Step indicators,content:Step content,footer:Navigation actions
 use leptos::prelude::*;
 
 #[component]

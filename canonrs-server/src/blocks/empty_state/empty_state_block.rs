@@ -1,4 +1,9 @@
-//! # EmptyState Block
+//! @canon-id: empty-state
+//! @canon-type: block
+//! @canon-category: content
+//! @canon-variant: feature
+//! @canon-container: false
+//! @canon-regions: icon, title, description, action
 use leptos::prelude::*;
 
 #[component]

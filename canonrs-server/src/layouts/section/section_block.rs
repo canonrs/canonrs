@@ -1,4 +1,16 @@
-//! # Section — Regions: header, content, footer
+//! @canon-id: section
+//! @canon-type: layout
+//! @canon-category: layout
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: header, content, footer
+//! @canon-label: Section
+//! @canon-icon: ▤
+//! @canon-description: Self-contained section with header, content and footer
+//! @canon-slot-descriptions: header:Section title area,content:Section content,footer:Section footer actions
+//! @canon-prop: padding | Number | 2rem | visual | padding
+//! @canon-prop: gap | Number | 1rem | visual | gap
+//! @canon-prop: background | Color | | visual | background
 use leptos::prelude::*;
 
 #[component]

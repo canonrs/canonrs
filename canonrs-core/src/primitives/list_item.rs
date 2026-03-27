@@ -12,7 +12,7 @@ pub fn ListPrimitive(
     view! {
         <ul
             data-rs-list=""
-            data-rs-component="List"
+            data-rs-component="ListItem"
             data-rs-behavior="list"
             class=class
         >

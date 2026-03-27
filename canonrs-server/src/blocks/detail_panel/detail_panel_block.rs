@@ -1,4 +1,9 @@
-//! # DetailPanel Block
+//! @canon-id: detail-panel
+//! @canon-type: block
+//! @canon-category: layout
+//! @canon-variant: structure
+//! @canon-container: true
+//! @canon-regions: aside, content
 use leptos::prelude::*;
 
 #[component]

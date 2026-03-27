@@ -1,4 +1,13 @@
-//! # FullscreenLayout — Regions: header, content
+//! @canon-id: fullscreen
+//! @canon-type: layout
+//! @canon-category: layout
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: header, content
+//! @canon-label: Fullscreen
+//! @canon-icon: ⬜
+//! @canon-description: Optional header with full canvas content area
+//! @canon-slot-descriptions: header:Optional top bar,content:Full canvas area
 use leptos::prelude::*;
 
 #[component]

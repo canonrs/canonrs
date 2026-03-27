@@ -1,4 +1,9 @@
-//! # PageHeader Block
+//! @canon-id: page-header
+//! @canon-type: block
+//! @canon-category: page
+//! @canon-variant: page
+//! @canon-container: false
+//! @canon-regions: breadcrumb, title, subtitle, actions
 use leptos::prelude::*;
 
 #[component]

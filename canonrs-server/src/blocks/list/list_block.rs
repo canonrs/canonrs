@@ -1,4 +1,9 @@
-//! # List Block
+//! @canon-id: list
+//! @canon-type: block
+//! @canon-category: data
+//! @canon-variant: feature
+//! @canon-container: true
+//! @canon-regions: header, items, footer
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

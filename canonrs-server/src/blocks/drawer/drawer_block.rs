@@ -1,4 +1,9 @@
-//! # Drawer Block
+//! @canon-id: drawer
+//! @canon-type: block
+//! @canon-category: overlay
+//! @canon-variant: overlay
+//! @canon-container: true
+//! @canon-regions: header, content, footer
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

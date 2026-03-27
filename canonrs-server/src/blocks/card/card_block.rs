@@ -1,4 +1,12 @@
-//! # Card Block
+//! @canon-id: card
+//! @canon-type: block
+//! @canon-category: layout
+//! @canon-variant: structure
+//! @canon-container: true
+//! @canon-regions: header, content, footer
+//! @canon-prop: padding | Number | 1rem | visual | padding
+//! @canon-prop: gap | Number | 0.5rem | visual | gap
+//! @canon-prop: border-radius | Number | 0.5rem | visual | border-radius
 use leptos::prelude::*;
 
 #[derive(Clone, PartialEq, Default)]

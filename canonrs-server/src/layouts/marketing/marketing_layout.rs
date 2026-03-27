@@ -1,4 +1,13 @@
-//! # MarketingLayout — Regions: header, hero, content, footer
+//! @canon-id: marketing
+//! @canon-type: layout
+//! @canon-category: layout
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: header, hero, content, footer
+//! @canon-label: Marketing
+//! @canon-icon: 🌐
+//! @canon-description: Public page with header, hero, main content and footer
+//! @canon-slot-descriptions: header:Site header with navigation,hero:Hero/banner section,content:Main content sections,footer:Site footer
 use leptos::prelude::*;
 
 #[component]

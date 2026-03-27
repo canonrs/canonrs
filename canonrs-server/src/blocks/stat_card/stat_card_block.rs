@@ -1,4 +1,9 @@
-//! # StatCard Block
+//! @canon-id: stat-card
+//! @canon-type: block
+//! @canon-category: data
+//! @canon-variant: feature
+//! @canon-container: false
+//! @canon-regions: icon, label, value, change
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

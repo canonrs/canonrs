@@ -1,4 +1,9 @@
-//! # Header Block
+//! @canon-id: header
+//! @canon-type: block
+//! @canon-category: page
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: logo, nav, center, actions
 use leptos::prelude::*;
 
 #[component]

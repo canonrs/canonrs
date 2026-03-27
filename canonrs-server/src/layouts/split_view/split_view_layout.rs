@@ -1,4 +1,13 @@
-//! # SplitViewLayout — Regions: left, right
+//! @canon-id: split-view
+//! @canon-type: layout
+//! @canon-category: layout
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: left, right
+//! @canon-label: Split View
+//! @canon-icon: ◧
+//! @canon-description: Left context panel and right action/detail panel
+//! @canon-slot-descriptions: left:Context or list panel,right:Detail or action panel
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

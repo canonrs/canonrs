@@ -1,4 +1,11 @@
-//! # Container Block
+//! @canon-id: container
+//! @canon-type: block
+//! @canon-category: layout
+//! @canon-variant: structure
+//! @canon-container: true
+//! @canon-regions: content
+//! @canon-prop: max-width | Text | 1200px | visual | max-width
+//! @canon-prop: padding | Number | | visual | padding
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

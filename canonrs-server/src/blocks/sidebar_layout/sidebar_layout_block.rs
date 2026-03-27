@@ -1,4 +1,9 @@
-//! # SidebarLayout Block
+//! @canon-id: sidebar-layout
+//! @canon-type: block
+//! @canon-category: layout
+//! @canon-variant: structure
+//! @canon-container: true
+//! @canon-regions: nav, main
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

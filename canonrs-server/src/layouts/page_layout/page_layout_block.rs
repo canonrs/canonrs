@@ -1,4 +1,13 @@
-//! # PageLayout — Regions: sidebar, content, aside
+//! @canon-id: page-layout
+//! @canon-type: layout
+//! @canon-category: layout
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: sidebar, content, aside
+//! @canon-label: Page
+//! @canon-icon: ▭
+//! @canon-description: Page layout with optional sidebar and aside
+//! @canon-slot-descriptions: sidebar:Navigation sidebar,content:Primary content,aside:Contextual panel
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, Debug, PartialEq, Default)]

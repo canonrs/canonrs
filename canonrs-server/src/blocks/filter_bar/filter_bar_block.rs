@@ -1,4 +1,9 @@
-//! # FilterBar Block
+//! @canon-id: filter-bar
+//! @canon-type: block
+//! @canon-category: data
+//! @canon-variant: feature
+//! @canon-container: true
+//! @canon-regions: filters, actions
 use leptos::prelude::*;
 
 #[component]

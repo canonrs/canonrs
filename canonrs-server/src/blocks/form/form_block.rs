@@ -1,4 +1,11 @@
-//! # Form Block
+//! @canon-id: form
+//! @canon-type: block
+//! @canon-category: form
+//! @canon-variant: feature
+//! @canon-container: true
+//! @canon-regions: fields, actions
+//! @canon-prop: gap | Number | 1rem | visual | gap
+//! @canon-prop: padding | Number | | visual | padding
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

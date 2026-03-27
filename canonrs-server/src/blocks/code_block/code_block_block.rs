@@ -1,4 +1,9 @@
-//! # CodeBlock Block
+//! @canon-id: code-block
+//! @canon-type: block
+//! @canon-category: content
+//! @canon-variant: feature
+//! @canon-container: false
+//! @canon-regions: header, content, actions
 use leptos::prelude::*;
 
 #[component]

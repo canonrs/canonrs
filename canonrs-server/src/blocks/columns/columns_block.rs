@@ -1,4 +1,12 @@
-//! # Columns Block
+//! @canon-id: columns
+//! @canon-type: block
+//! @canon-category: layout
+//! @canon-variant: structure
+//! @canon-container: true
+//! @canon-regions: columns
+//! @canon-prop: gap | Number | 1rem | visual | gap
+//! @canon-preset: Equal 2 | gap=1rem
+//! @canon-preset: Equal 3 | gap=1rem
 use leptos::prelude::*;
 
 #[component]

@@ -1,4 +1,9 @@
-//! # CommandPanel Block
+//! @canon-id: command-panel
+//! @canon-type: block
+//! @canon-category: overlay
+//! @canon-variant: overlay
+//! @canon-container: false
+//! @canon-regions: search, results, footer
 use leptos::prelude::*;
 
 #[component]

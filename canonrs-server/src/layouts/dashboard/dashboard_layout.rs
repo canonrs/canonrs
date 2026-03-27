@@ -1,4 +1,13 @@
-//! # DashboardLayout — Regions: header, sidebar, content
+//! @canon-id: dashboard
+//! @canon-type: layout
+//! @canon-category: layout
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: header, sidebar, content
+//! @canon-label: Dashboard
+//! @canon-icon: ⬛
+//! @canon-description: App shell with header, sidebar and main content area
+//! @canon-slot-descriptions: header:Top navigation bar,sidebar:Left navigation panel,content:Primary content area
 use leptos::prelude::*;
 
 #[component]

@@ -1,4 +1,9 @@
-//! # Split Block
+//! @canon-id: split
+//! @canon-type: block
+//! @canon-category: layout
+//! @canon-variant: structure
+//! @canon-container: true
+//! @canon-regions: aside, main
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

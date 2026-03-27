@@ -1,4 +1,9 @@
-//! # Footer Block
+//! @canon-id: footer
+//! @canon-type: block
+//! @canon-category: page
+//! @canon-variant: page
+//! @canon-container: true
+//! @canon-regions: left, center, right
 use leptos::prelude::*;
 
 #[component]

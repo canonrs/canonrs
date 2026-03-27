@@ -1,4 +1,9 @@
-//! # Timeline Block
+//! @canon-id: timeline
+//! @canon-type: block
+//! @canon-category: data
+//! @canon-variant: feature
+//! @canon-container: true
+//! @canon-regions: header, items, footer
 use leptos::prelude::*;
 
 #[component]

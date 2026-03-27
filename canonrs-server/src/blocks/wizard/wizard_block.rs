@@ -1,4 +1,9 @@
-//! # Wizard Block
+//! @canon-id: wizard
+//! @canon-type: block
+//! @canon-category: form
+//! @canon-variant: feature
+//! @canon-container: true
+//! @canon-regions: steps, body, actions
 use leptos::prelude::*;
 
 #[component]

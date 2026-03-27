@@ -23,7 +23,12 @@ pub mod behavior_engine;
 pub use state_engine::*;
 pub use behavior_engine::*;
 pub mod meta;
+pub mod meta_types;
+pub mod block_types;
+pub use block_types::*;
 pub use meta::*;
 pub mod style_contract;
 pub mod styling;
 pub use style_contract::*;
+
+pub mod generated;

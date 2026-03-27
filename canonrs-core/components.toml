@@ -1,0 +1,1150 @@
+# CanonRS Component Registry — SINGLE SOURCE OF TRUTH
+# AUTO-AUDIT: run cargo build to update SSOT_AUDIT.md
+
+[[component]]
+id = "accordion"
+label = "Accordion"
+description = "Expandable accordion sections"
+family = "layout"
+intent = "Expand and collapse content sections"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "Multiple"]
+required_parts = ["AccordionItem", "AccordionTrigger", "AccordionContent"]
+optional_parts = []
+catalog_tags = ["accordion", "expansível", "collapse", "expandir", "seções", "faq"]
+catalog_category = "Layout"
+
+[[component]]
+id = "alert"
+label = "Alert"
+description = "Alert message box"
+family = "feedback"
+intent = "Display important static messages"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = ["AlertTitle", "AlertDescription"]
+catalog_tags = ["alert", "aviso", "alerta", "mensagem", "erro", "warning", "info"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "alert-dialog-content"
+label = "Alert Dialog Content"
+description = "Alert Dialog Content component"
+family = "utility"
+intent = "Alert Dialog Content component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["alert-dialog-content"]
+catalog_category = "Display"
+
+[[component]]
+id = "animate"
+label = "Animate"
+description = "Animation wrapper component"
+family = "utility"
+intent = "Apply CSS animations to children"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["animate", "animação", "transição", "motion", "movimento"]
+catalog_category = "Display"
+
+[[component]]
+id = "aspect-ratio"
+label = "Aspect Ratio"
+description = "Aspect ratio container"
+family = "layout"
+intent = "Maintain consistent width/height ratio"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["aspect ratio", "proporção", "16:9", "4:3", "imagem", "video"]
+catalog_category = "Layout"
+
+[[component]]
+id = "avatar"
+label = "Avatar"
+description = "User avatar image"
+family = "data_display"
+intent = "Display user profile image with fallback"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = ["AvatarImage", "AvatarFallback"]
+catalog_tags = ["avatar", "foto", "perfil", "usuário", "imagem", "user"]
+catalog_category = "Display"
+
+[[component]]
+id = "badge"
+label = "Badge"
+description = "Status badge label"
+family = "data_display"
+intent = "Display status, count or label"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["badge", "etiqueta", "tag", "status", "label", "notificação"]
+catalog_category = "Display"
+
+[[component]]
+id = "banner"
+label = "Banner"
+description = "Banner message"
+family = "feedback"
+intent = "Display persistent page-level messages"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = []
+optional_parts = ["BannerContent", "BannerActions", "BannerClose"]
+catalog_tags = ["banner", "faixa", "anúncio", "notificação", "topo", "mensagem"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "breadcrumb"
+label = "Breadcrumb"
+description = "Navigation breadcrumb trail"
+family = "navigation"
+intent = "Show current location in hierarchy"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = ["BreadcrumbItem", "BreadcrumbLink", "BreadcrumbSeparator"]
+catalog_tags = ["breadcrumb", "caminho", "navegação", "trilha", "path", "localização"]
+catalog_category = "Navigation"
+
+[[component]]
+id = "button"
+label = "Button"
+description = "Action button with variant and size"
+family = "interactive"
+intent = "Trigger an action or event"
+composable = false
+requires_config = false
+capabilities = ["Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["button", "botão", "ação", "action", "submit", "click", "cta"]
+catalog_category = "Action"
+
+[[component]]
+id = "button-group"
+label = "Button Group"
+description = "Group of action buttons"
+family = "utility"
+intent = "Button Group component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["button group", "botões", "grupo", "ações", "múltiplos"]
+catalog_category = "Display"
+
+[[component]]
+id = "calendar"
+label = "Calendar"
+description = "Calendar component"
+family = "utility"
+intent = "Calendar component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["calendar"]
+catalog_category = "Display"
+
+[[component]]
+id = "callout"
+label = "Callout"
+description = "Callout info box"
+family = "feedback"
+intent = "Highlight important contextual information"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = ["CalloutIcon", "CalloutTitle", "CalloutDescription"]
+catalog_tags = ["callout", "destaque", "info", "nota", "aviso", "dica"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "card"
+label = "Card"
+description = "Card component"
+family = "layout"
+intent = "Group related content in a container"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = ["CardHeader", "CardTitle", "CardDescription", "CardContent", "CardFooter"]
+catalog_tags = ["card"]
+catalog_category = "Layout"
+
+[[component]]
+id = "carousel"
+label = "Carousel"
+description = "Image carousel slider"
+family = "data_display"
+intent = "Cycle through items horizontally"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = ["CarouselTrack", "CarouselItem"]
+optional_parts = ["CarouselPrev", "CarouselNext", "CarouselIndicators"]
+catalog_tags = ["carousel", "slider", "galeria", "imagens", "rotação", "slideshow"]
+catalog_category = "Display"
+
+[[component]]
+id = "chart"
+label = "Chart"
+description = "Data chart visualization"
+family = "data_display"
+intent = "Visualize data graphically"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["chart", "gráfico", "bar", "line", "pie", "area", "dados", "visualização"]
+catalog_category = "Display"
+
+[[component]]
+id = "checkbox"
+label = "Checkbox"
+description = "Checkbox input"
+family = "input"
+intent = "Toggle a boolean value"
+composable = false
+requires_config = false
+capabilities = ["Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["checkbox", "check", "marcar", "tick", "seleção", "múltipla"]
+catalog_category = "Form"
+
+[[component]]
+id = "code-block"
+label = "Code Block"
+description = "Syntax-highlighted code display"
+family = "data_display"
+intent = "Syntax-highlighted code display"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["code", "código", "syntax", "highlight", "snippet", "técnico"]
+catalog_category = "Display"
+
+[[component]]
+id = "collapsible"
+label = "Collapsible"
+description = "Collapsible section"
+family = "layout"
+intent = "Show and hide content sections"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["CollapsibleTrigger", "CollapsibleContent"]
+optional_parts = []
+catalog_tags = ["collapsible", "colapsar", "expandir", "ocultar", "toggle"]
+catalog_category = "Layout"
+
+[[component]]
+id = "color-picker"
+label = "Color Picker"
+description = "Color picker input"
+family = "input"
+intent = "Select a color value"
+composable = true
+requires_config = false
+capabilities = ["Value", "Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["color", "cor", "picker", "paleta", "rgb", "hex"]
+catalog_category = "Form"
+
+[[component]]
+id = "combobox"
+label = "Combobox"
+description = "Searchable combo box"
+family = "input"
+intent = "Search and select from a list"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "Disabled"]
+required_parts = ["SelectTrigger", "SelectContent"]
+optional_parts = []
+catalog_tags = ["combobox", "busca", "search", "autocomplete", "filtro", "combo"]
+catalog_category = "Form"
+
+[[component]]
+id = "command"
+label = "Command"
+description = "Command palette"
+family = "interactive"
+intent = "Command palette for quick actions"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = ["CommandInput", "CommandList"]
+optional_parts = ["CommandItem", "CommandGroup", "CommandSeparator", "CommandEmpty"]
+catalog_tags = ["command", "palette", "spotlight", "busca", "atalho", "cmd+k"]
+catalog_category = "Action"
+
+[[component]]
+id = "confirm-dialog"
+label = "Confirm Dialog"
+description = "Confirmation dialog"
+family = "utility"
+intent = "Confirm Dialog component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["confirm", "confirmação", "sim", "não", "cancelar", "ok"]
+catalog_category = "Display"
+
+[[component]]
+id = "context-menu"
+label = "Context Menu"
+description = "Right-click context menu"
+family = "interactive"
+intent = "Show menu on right-click"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["ContextMenuTrigger", "ContextMenuContent"]
+optional_parts = ["ContextMenuItem", "ContextMenuSeparator"]
+catalog_tags = ["context menu", "clique direito", "menu", "opções", "contextual"]
+catalog_category = "Action"
+
+[[component]]
+id = "data-table"
+label = "Data Table"
+description = "Sortable data table component"
+family = "data_display"
+intent = "Display sortable, filterable tabular data"
+composable = true
+requires_config = false
+capabilities = ["Multiple"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["table", "tabela", "dados", "data", "grid", "sortable", "coluna"]
+catalog_category = "Display"
+
+[[component]]
+id = "dialog"
+label = "Dialog"
+description = "Modal dialog component"
+family = "overlay"
+intent = "Display critical content requiring user interaction"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "FocusTrap", "KeyboardEsc", "AriaModal"]
+required_parts = ["DialogContent", "DialogTitle"]
+optional_parts = ["DialogOverlay", "DialogDescription", "DialogClose"]
+catalog_tags = ["dialog", "modal", "popup", "janela", "overlay", "confirmação"]
+catalog_category = "Overlay"
+
+[[component]]
+id = "doc-progress"
+label = "Doc Progress"
+description = "Document progress indicator"
+family = "utility"
+intent = "Doc Progress component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["doc progress", "documento", "progresso", "leitura", "steps"]
+catalog_category = "Display"
+
+[[component]]
+id = "drawer"
+label = "Drawer"
+description = "Slide-out drawer component"
+family = "overlay"
+intent = "Slide-in panel for supplementary content"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "FocusTrap", "KeyboardEsc", "AriaModal"]
+required_parts = ["DrawerContent"]
+optional_parts = ["DrawerOverlay"]
+catalog_tags = ["drawer", "gaveta", "lateral", "slide", "painel", "mobile"]
+catalog_category = "Overlay"
+
+[[component]]
+id = "dropdown-menu"
+label = "Dropdown Menu"
+description = "Dropdown menu"
+family = "interactive"
+intent = "Show contextual action menu"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "Disabled"]
+required_parts = ["DropdownMenuTrigger", "DropdownMenuContent"]
+optional_parts = ["DropdownMenuItem", "DropdownMenuSeparator", "DropdownMenuGroup"]
+catalog_tags = ["dropdown", "menu", "opções", "lista", "contexto", "ações"]
+catalog_category = "Action"
+
+[[component]]
+id = "empty-state"
+label = "Empty State"
+description = "Empty state placeholder"
+family = "feedback"
+intent = "Display when no content is available"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["empty", "vazio", "sem dados", "placeholder", "zero state"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "empty-table"
+label = "Empty Table"
+description = "Empty table state display"
+family = "utility"
+intent = "Empty Table component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["empty table", "tabela vazia", "sem registros", "no data"]
+catalog_category = "Display"
+
+[[component]]
+id = "error-state"
+label = "Error State"
+description = "Error state display"
+family = "feedback"
+intent = "Display error condition to user"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["error", "erro", "falha", "500", "problema", "tente novamente"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "field"
+label = "Field"
+description = "Form field wrapper with label and error"
+family = "utility"
+intent = "Field component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["field", "campo", "label", "erro", "formulário", "wrapper"]
+catalog_category = "Display"
+
+[[component]]
+id = "form"
+label = "Form"
+description = "Form component"
+family = "interactive"
+intent = "Form container with submit handling"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["form"]
+catalog_category = "Action"
+
+[[component]]
+id = "form-error-summary"
+label = "Form Error Summary"
+description = "Form validation error summary"
+family = "utility"
+intent = "Form Error Summary component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["error", "erros", "validação", "formulário", "resumo", "mensagem"]
+catalog_category = "Display"
+
+[[component]]
+id = "hover-card"
+label = "Hover Card"
+description = "Hover card popup"
+family = "overlay"
+intent = "Show rich preview on hover"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["HoverCardTrigger", "HoverCardContent"]
+optional_parts = []
+catalog_tags = ["hover card", "preview", "card", "hover", "popup", "contexto"]
+catalog_category = "Overlay"
+
+[[component]]
+id = "icon-button"
+label = "Icon Button"
+description = "Button with icon"
+family = "utility"
+intent = "Icon Button component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["icon button", "botão ícone", "ação", "close", "delete", "edit"]
+catalog_category = "Display"
+
+[[component]]
+id = "inline-notice"
+label = "Inline Notice"
+description = "Inline notice message"
+family = "feedback"
+intent = "Show inline contextual feedback"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = ["InlineNoticeIcon", "InlineNoticeContent"]
+catalog_tags = ["notice", "aviso", "inline", "mensagem", "info", "alerta"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "input"
+label = "Input"
+description = "Text input field"
+family = "input"
+intent = "Capture text or data from user"
+composable = false
+requires_config = false
+capabilities = ["Value", "Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["input", "campo", "texto", "text", "field", "digitação", "formulário"]
+catalog_category = "Form"
+
+[[component]]
+id = "input-otp"
+label = "OTP Input"
+description = "One-time password input"
+family = "utility"
+intent = "OTP Input component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["otp", "código", "verificação", "sms", "token", "pin"]
+catalog_category = "Display"
+
+[[component]]
+id = "kbd"
+label = "Kbd"
+description = "Keyboard shortcut display"
+family = "typography"
+intent = "Display keyboard shortcut"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["kbd", "teclado", "atalho", "shortcut", "ctrl", "cmd"]
+catalog_category = "Typography"
+
+[[component]]
+id = "label"
+label = "Label"
+description = "Label component"
+family = "utility"
+intent = "Label component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["label"]
+catalog_category = "Display"
+
+[[component]]
+id = "link"
+label = "Link"
+description = "Hyperlink"
+family = "typography"
+intent = "Navigate to a URL or trigger action"
+composable = false
+requires_config = false
+capabilities = ["Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["link", "ancora", "href", "url", "navegar", "clique"]
+catalog_category = "Typography"
+
+[[component]]
+id = "loading-overlay"
+label = "Loading Overlay"
+description = "Full loading overlay"
+family = "utility"
+intent = "Block UI during async operations"
+composable = false
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["loading", "carregando", "overlay", "aguarde", "spinner", "bloqueio"]
+catalog_category = "Display"
+
+[[component]]
+id = "markdown"
+label = "Markdown"
+description = "Rendered markdown content"
+family = "data_display"
+intent = "Rendered markdown content"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["markdown", "texto", "rich text", "content", "documento", "blog"]
+catalog_category = "Display"
+
+[[component]]
+id = "menu"
+label = "Menu"
+description = "Menu component"
+family = "utility"
+intent = "Menu component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["menu", "lista", "opções", "ações", "itens"]
+catalog_category = "Display"
+
+[[component]]
+id = "menubar"
+label = "Menubar"
+description = "Menu bar navigation"
+family = "interactive"
+intent = "Horizontal application menu bar"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["MenubarMenu", "MenubarTrigger"]
+optional_parts = ["MenubarContent", "MenubarItem", "MenubarSeparator"]
+catalog_tags = ["menubar", "barra menu", "navegação", "desktop", "app", "file edit view"]
+catalog_category = "Action"
+
+[[component]]
+id = "modal"
+label = "Modal"
+description = "Modal window component"
+family = "overlay"
+intent = "Generic modal container"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "FocusTrap", "AriaModal"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["modal", "janela", "popup", "overlay", "dialog", "confirmação"]
+catalog_category = "Overlay"
+
+[[component]]
+id = "nav-item"
+label = "Nav Item"
+description = "Single navigation item"
+family = "navigation"
+intent = "Single navigation link item"
+composable = false
+requires_config = false
+capabilities = ["Active", "Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["nav item", "link", "menu item", "navegação", "página"]
+catalog_category = "Navigation"
+
+[[component]]
+id = "navigation-menu"
+label = "Navigation Menu"
+description = "Navigation menu"
+family = "navigation"
+intent = "Primary site navigation with submenus"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["NavigationMenuList", "NavigationMenuItem"]
+optional_parts = ["NavigationMenuTrigger", "NavigationMenuContent", "NavigationMenuLink"]
+catalog_tags = ["navigation", "menu", "nav", "links", "site", "header"]
+catalog_category = "Navigation"
+
+[[component]]
+id = "page-header"
+label = "Page Header"
+description = "Page header with title and actions"
+family = "layout"
+intent = "Page title and actions bar"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["page header", "título", "cabeçalho", "ações", "breadcrumb"]
+catalog_category = "Layout"
+
+[[component]]
+id = "pagination"
+label = "Pagination"
+description = "Page navigation control"
+family = "navigation"
+intent = "Navigate between pages of content"
+composable = true
+requires_config = false
+capabilities = ["Active", "Disabled"]
+required_parts = []
+optional_parts = ["PaginationContent", "PaginationItem", "PaginationLink"]
+catalog_tags = ["pagination", "paginação", "páginas", "next", "prev", "navegar"]
+catalog_category = "Navigation"
+
+[[component]]
+id = "popover"
+label = "Popover"
+description = "Floating popover component"
+family = "overlay"
+intent = "Show contextual floating content"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "FocusTrap"]
+required_parts = ["PopoverTrigger", "PopoverContent"]
+optional_parts = []
+catalog_tags = ["popover", "flutuante", "hover", "dica", "overlay", "contexto"]
+catalog_category = "Overlay"
+
+[[component]]
+id = "progress"
+label = "Progress"
+description = "Progress bar indicator"
+family = "feedback"
+intent = "Show completion of a task"
+composable = true
+requires_config = false
+capabilities = ["Value"]
+required_parts = ["ProgressIndicator"]
+optional_parts = []
+catalog_tags = ["progress", "progresso", "barra", "loading", "carregando", "porcentagem"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "pulse"
+label = "Pulse"
+description = "Pulse animation wrapper"
+family = "feedback"
+intent = "Animated attention indicator"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["pulse", "animação", "brilho", "atenção", "destaque", "ping"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "radio"
+label = "Radio"
+description = "Radio button input"
+family = "input"
+intent = "Select one option from a group"
+composable = true
+requires_config = false
+capabilities = ["Disabled"]
+required_parts = ["RadioGroup"]
+optional_parts = []
+catalog_tags = ["radio", "opção única", "escolha", "exclusivo", "seleção"]
+catalog_category = "Form"
+
+[[component]]
+id = "radio-group"
+label = "Radio Group"
+description = "Group of radio buttons"
+family = "utility"
+intent = "Radio Group component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["radio group", "grupo", "opções", "alternativas", "escolha"]
+catalog_category = "Display"
+
+[[component]]
+id = "resizable"
+label = "Resizable"
+description = "Resizable panel component"
+family = "layout"
+intent = "Split panels with draggable divider"
+composable = true
+requires_config = false
+capabilities = ["Orientation", "Resize"]
+required_parts = ["ResizablePanel", "ResizableHandle"]
+optional_parts = []
+catalog_tags = ["resizable", "redimensionar", "painel", "split", "ajustar"]
+catalog_category = "Layout"
+
+[[component]]
+id = "scroll-area"
+label = "Scroll Area"
+description = "Scrollable area container"
+family = "layout"
+intent = "Scrollable container with custom scrollbar"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["scroll", "rolagem", "overflow", "area", "container", "longa lista"]
+catalog_category = "Layout"
+
+[[component]]
+id = "select"
+label = "Select"
+description = "Dropdown select input"
+family = "input"
+intent = "Choose one option from a list"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "Disabled"]
+required_parts = ["SelectTrigger", "SelectContent", "SelectItem"]
+optional_parts = ["SelectValue", "SelectSeparator"]
+catalog_tags = ["select", "dropdown", "escolha", "opções", "lista", "combo"]
+catalog_category = "Form"
+
+[[component]]
+id = "separator"
+label = "Separator"
+description = "Visual divider line"
+family = "layout"
+intent = "Visually divide content sections"
+composable = false
+requires_config = false
+capabilities = ["Orientation"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["separator", "divisor", "linha", "divider", "hr", "separação"]
+catalog_category = "Layout"
+
+[[component]]
+id = "sheet"
+label = "Sheet"
+description = "Sheet panel overlay"
+family = "overlay"
+intent = "Side panel for forms or navigation"
+composable = true
+requires_config = false
+capabilities = ["OpenClose", "FocusTrap", "KeyboardEsc"]
+required_parts = ["SheetContent"]
+optional_parts = ["SheetOverlay"]
+catalog_tags = ["sheet", "painel", "lateral", "slide", "drawer", "mobile"]
+catalog_category = "Overlay"
+
+[[component]]
+id = "sidebar"
+label = "Sidebar"
+description = "Sidebar navigation component"
+family = "navigation"
+intent = "Vertical navigation panel"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["SidebarContent"]
+optional_parts = ["SidebarHeader", "SidebarFooter", "SidebarMenu", "SidebarMenuItem"]
+catalog_tags = ["sidebar", "menu lateral", "nav", "navegação", "links", "left"]
+catalog_category = "Navigation"
+
+[[component]]
+id = "skeleton"
+label = "Skeleton"
+description = "Loading skeleton placeholder"
+family = "feedback"
+intent = "Show placeholder while content loads"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["skeleton", "loading", "carregando", "placeholder", "shimmer"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "slider"
+label = "Slider"
+description = "Range slider input"
+family = "input"
+intent = "Select a value within a range"
+composable = true
+requires_config = false
+capabilities = ["Value", "Disabled"]
+required_parts = ["SliderTrack", "SliderThumb"]
+optional_parts = ["SliderRange"]
+catalog_tags = ["slider", "range", "intervalo", "volume", "valor", "deslizar"]
+catalog_category = "Form"
+
+[[component]]
+id = "spinner"
+label = "Spinner"
+description = "Loading spinner"
+family = "feedback"
+intent = "Indicate loading or processing"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["spinner", "loading", "carregando", "circular", "aguarde"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "stat"
+label = "Stat"
+description = "Metric stat display"
+family = "data_display"
+intent = "Display a key metric with label"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = ["StatValue", "StatLabel"]
+optional_parts = ["StatDelta", "StatIcon"]
+catalog_tags = ["stat", "métrica", "número", "kpi", "indicador", "valor"]
+catalog_category = "Display"
+
+[[component]]
+id = "status-dot"
+label = "Status Dot"
+description = "Status indicator dot"
+family = "data_display"
+intent = "Indicate user presence or availability"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["status", "dot", "indicador", "online", "offline", "ativo"]
+catalog_category = "Display"
+
+[[component]]
+id = "switch"
+label = "Switch"
+description = "Toggle switch on off"
+family = "input"
+intent = "Toggle between on and off states"
+composable = false
+requires_config = false
+capabilities = ["Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["switch", "toggle", "ligar", "desligar", "on", "off", "ativar"]
+catalog_category = "Form"
+
+[[component]]
+id = "table"
+label = "Table"
+description = "HTML table component"
+family = "data_display"
+intent = "Display tabular data"
+composable = true
+requires_config = false
+capabilities = ["Selected"]
+required_parts = ["TableHeader", "TableBody", "TableRow", "TableHead", "TableCell"]
+optional_parts = ["TableFooter", "TableCaption", "TableWrapper"]
+catalog_tags = ["table", "tabela", "html", "linhas", "colunas", "dados"]
+catalog_category = "Display"
+
+[[component]]
+id = "table-of-contents"
+label = "Table of Contents"
+description = "Document table of contents"
+family = "utility"
+intent = "Table of Contents component"
+composable = false
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["table of contents", "índice", "sumário", "âncoras", "navegação", "documento"]
+catalog_category = "Display"
+
+[[component]]
+id = "tabs"
+label = "Tabs"
+description = "Tabbed navigation"
+family = "navigation"
+intent = "Switch between related content panels"
+composable = true
+requires_config = false
+capabilities = ["Active"]
+required_parts = ["TabsList", "TabsTrigger", "TabsContent"]
+optional_parts = []
+catalog_tags = ["tabs", "abas", "navegação", "tab", "seções", "divisão"]
+catalog_category = "Navigation"
+
+[[component]]
+id = "textarea"
+label = "Textarea"
+description = "Multi-line text input"
+family = "input"
+intent = "Capture multi-line text from user"
+composable = false
+requires_config = false
+capabilities = ["Value", "Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["textarea", "texto longo", "multiline", "comentário", "descrição", "area"]
+catalog_category = "Form"
+
+[[component]]
+id = "toast"
+label = "Toast"
+description = "Toast notification message"
+family = "feedback"
+intent = "Show brief non-blocking notifications"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["ToastViewport"]
+optional_parts = ["ToastTitle", "ToastDescription", "ToastAction", "ToastClose"]
+catalog_tags = ["toast", "notificação", "snackbar", "mensagem", "sucesso", "erro"]
+catalog_category = "Feedback"
+
+[[component]]
+id = "toggle"
+label = "Toggle"
+description = "Toggle button"
+family = "input"
+intent = "Toggle a pressed state"
+composable = false
+requires_config = false
+capabilities = ["Pressed", "Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["toggle", "ativar", "botão", "on", "off", "pressionar"]
+catalog_category = "Form"
+
+[[component]]
+id = "toggle-group"
+label = "Toggle Group"
+description = "Group of toggle buttons"
+family = "interactive"
+intent = "Group of toggle buttons with single or multiple selection"
+composable = true
+requires_config = false
+capabilities = ["Multiple", "Disabled"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["toggle group", "grupo", "botões", "opções", "seleção", "multiple"]
+catalog_category = "Action"
+
+[[component]]
+id = "toolbar"
+label = "Toolbar"
+description = "Action toolbar component"
+family = "layout"
+intent = "Action toolbar region"
+composable = true
+requires_config = false
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["toolbar", "barra", "ações", "ferramentas", "editor", "formatação"]
+catalog_category = "Layout"
+
+[[component]]
+id = "tooltip"
+label = "Tooltip"
+description = "Hover tooltip"
+family = "overlay"
+intent = "Show brief label on hover/focus"
+composable = true
+requires_config = false
+capabilities = ["OpenClose"]
+required_parts = ["TooltipTrigger", "TooltipContent"]
+optional_parts = ["TooltipProvider"]
+catalog_tags = ["tooltip", "dica", "hover", "informação", "ajuda", "hint"]
+catalog_category = "Overlay"
+
+[[component]]
+id = "tree"
+label = "Tree"
+description = "Tree view component"
+family = "data_display"
+intent = "Display hierarchical data"
+composable = true
+requires_config = false
+capabilities = ["Selected"]
+required_parts = ["TreeItem"]
+optional_parts = ["TreeGroup"]
+catalog_tags = ["tree", "árvore", "hierarquia", "nós", "estrutura", "explorer"]
+catalog_category = "Display"
+
+[[component]]
+id = "virtual-list"
+label = "Virtual List"
+description = "Virtualized list for large datasets"
+family = "data_display"
+intent = "Efficiently render large lists"
+composable = false
+requires_config = false
+capabilities = ["VirtualScroll"]
+required_parts = []
+optional_parts = []
+catalog_tags = ["virtual list", "lista", "virtualização", "performance", "grande volume"]
+catalog_category = "Display"
+
+[[component]]
+id = "icon"
+label = "Icon"
+description = "SVG icon display"
+family = "utility"
+intent = "Display an SVG icon"
+composable = false
+requires_config = true
+capabilities = []
+required_parts = []
+optional_parts = []
+catalog_tags = ["icon", "ícone", "símbolo", "svg", "visual"]
+catalog_category = "Display"
+
+[[component]]
+id = "list-item"
+label = "List Item"
+description = "Single list item with title and description"
+family = "data_display"
+intent = "Display a single item in a list"
+composable = true
+requires_config = false
+capabilities = ["Selected", "Disabled"]
+required_parts = []
+optional_parts = ["ListItemTitle", "ListItemDescription"]
+catalog_tags = ["list item", "item", "linha", "row", "entrada", "elemento"]
+catalog_category = "Display"

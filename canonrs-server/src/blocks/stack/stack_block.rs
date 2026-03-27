@@ -1,4 +1,12 @@
-//! # Stack Block
+//! @canon-id: stack
+//! @canon-type: block
+//! @canon-category: layout
+//! @canon-variant: structure
+//! @canon-container: true
+//! @canon-regions: items
+//! @canon-prop: flex-direction | Select(column:Vertical,row:Horizontal) | column | visual | flex-direction
+//! @canon-prop: gap | Number | 0.5rem | visual | gap
+//! @canon-prop: align-items | Select(stretch:Stretch,flex-start:Start,center:Center,flex-end:End) | stretch | visual | align-items
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

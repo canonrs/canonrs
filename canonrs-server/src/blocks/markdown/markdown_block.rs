@@ -1,4 +1,9 @@
-//! # Markdown Block
+//! @canon-id: markdown
+//! @canon-type: block
+//! @canon-category: content
+//! @canon-variant: feature
+//! @canon-container: false
+//! @canon-regions: header, content, footer
 use leptos::prelude::*;
 
 #[component]

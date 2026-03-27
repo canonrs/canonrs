@@ -1,4 +1,9 @@
-//! # DataTable Block
+//! @canon-id: data-table
+//! @canon-type: block
+//! @canon-category: data
+//! @canon-variant: feature
+//! @canon-container: false
+//! @canon-regions: toolbar, header, body, empty, pagination
 use leptos::prelude::*;
 
 #[component]
