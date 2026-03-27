@@ -1,884 +1,1275 @@
-# CanonRS — Componentes UI
+# CanonRS — UI Components
 
-> AUTO-GENERATED
+> AUTO-GENERATED — do not edit manually
 
 ---
 
 ## `accordion`
 
 - **Label:** Accordion
-- **Familia:** layout
-- **Categoria:** Navigation
-- **Intencao:** Expand and collapse content sections
-- **Descricao:** Expandable accordion sections
-- **Capacidades:** OpenClose, Multiple
+- **Family:** layout
+- **Category:** Navigation
+- **Intent:** Expand and collapse content sections
+- **Description:** Expandable accordion sections
+- **Composable:** yes
+- **Capabilities:** OpenClose, Multiple
+- **Required parts:** AccordionItem, AccordionTrigger, AccordionContent
+- **Tags:** accordion, collapsible, expand, sections, faq
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `alert`
 
 - **Label:** Alert
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Display important static messages
-- **Descricao:** Alert message box
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Display important static messages
+- **Description:** Alert message box
+- **Composable:** yes
+- **Optional parts:** AlertTitle, AlertDescription
+- **Tags:** alert, warning, info, message, error
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `alert-dialog`
 
 - **Label:** Alert Dialog
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Confirm destructive actions with user
-- **Descricao:** Alert dialog for critical confirmations
-- **Capacidades:** OpenClose, FocusTrap, AriaModal
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Confirm destructive actions with user
+- **Description:** Alert dialog for critical confirmations
+- **Composable:** yes
+- **Capabilities:** OpenClose, FocusTrap, AriaModal
+- **Required parts:** AlertDialogContent, AlertDialogTitle
+- **Optional parts:** AlertDialogOverlay, AlertDialogDescription, AlertDialogAction
+- **Tags:** alert-dialog, confirm, destructive, modal, overlay
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `animate`
 
 - **Label:** Animate
-- **Familia:** utility
-- **Categoria:** Display
-- **Intencao:** Apply CSS animations to children
-- **Descricao:** Animation wrapper component
+- **Family:** utility
+- **Category:** Display
+- **Intent:** Apply CSS animations to children
+- **Description:** Animation wrapper component
+- **Composable:** no
+- **Tags:** animate, animation, transition, motion
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `aspect-ratio`
 
 - **Label:** Aspect Ratio
-- **Familia:** layout
-- **Categoria:** Display
-- **Intencao:** Maintain consistent width/height ratio
-- **Descricao:** Aspect ratio container
+- **Family:** layout
+- **Category:** Display
+- **Intent:** Maintain consistent width/height ratio
+- **Description:** Aspect ratio container
+- **Composable:** no
+- **Tags:** aspect-ratio, ratio, 16:9, 4:3, image, video
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `avatar`
 
 - **Label:** Avatar
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Display user profile image with fallback
-- **Descricao:** User avatar image
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Display user profile image with fallback
+- **Description:** User avatar image
+- **Composable:** yes
+- **Optional parts:** AvatarImage, AvatarFallback
+- **Tags:** avatar, photo, profile, user, image
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `badge`
 
 - **Label:** Badge
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Display status, count or label
-- **Descricao:** Status badge label
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Display status, count or label
+- **Description:** Status badge label
+- **Composable:** no
+- **Tags:** badge, tag, status, label, notification
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `banner`
 
 - **Label:** Banner
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Display persistent page-level messages
-- **Descricao:** Banner message
-- **Capacidades:** OpenClose
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Display persistent page-level messages
+- **Description:** Banner message
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Optional parts:** BannerContent, BannerActions, BannerClose
+- **Tags:** banner, announcement, notification, top, message
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `breadcrumb`
 
 - **Label:** Breadcrumb
-- **Familia:** navigation
-- **Categoria:** Navigation
-- **Intencao:** Show current location in hierarchy
-- **Descricao:** Navigation breadcrumb trail
+- **Family:** navigation
+- **Category:** Navigation
+- **Intent:** Show current location in hierarchy
+- **Description:** Navigation breadcrumb trail
+- **Composable:** yes
+- **Optional parts:** BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator
+- **Tags:** breadcrumb, path, navigation, trail, location
+- **Use when:** routing, menus, breadcrumbs, pagination
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `button`
 
 - **Label:** Button
-- **Familia:** interactive
-- **Categoria:** Action
-- **Intencao:** Trigger an action or event
-- **Descricao:** Action button with variant and size
-- **Capacidades:** Disabled
+- **Family:** interactive
+- **Category:** Action
+- **Intent:** Trigger an action or event
+- **Description:** Action button with variant and size
+- **Composable:** no
+- **Capabilities:** Disabled
+- **Tags:** button, action, submit, click, cta
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `button-group`
 
 - **Label:** Button Group
-- **Familia:** utility
-- **Categoria:** Action
-- **Intencao:** Group related action buttons together
-- **Descricao:** Group of action buttons
+- **Family:** utility
+- **Category:** Action
+- **Intent:** Group related action buttons together
+- **Description:** Group of action buttons
+- **Composable:** no
+- **Tags:** button-group, buttons, group, actions, multiple
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `callout`
 
 - **Label:** Callout
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Highlight important contextual information
-- **Descricao:** Callout info box
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Highlight important contextual information
+- **Description:** Callout info box
+- **Composable:** yes
+- **Optional parts:** CalloutIcon, CalloutTitle, CalloutDescription
+- **Tags:** callout, highlight, info, note, warning, tip
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `card`
 
 - **Label:** Card
-- **Familia:** layout
-- **Categoria:** Display
-- **Intencao:** Group related content in a container
-- **Descricao:** Card component
+- **Family:** layout
+- **Category:** Display
+- **Intent:** Group related content in a container
+- **Description:** Card component
+- **Composable:** yes
+- **Optional parts:** CardHeader, CardTitle, CardDescription, CardContent, CardFooter
+- **Tags:** card, container, group, content
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `carousel`
 
 - **Label:** Carousel
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Cycle through items horizontally
-- **Descricao:** Image carousel slider
-- **Capacidades:** KeyboardArrows
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Cycle through items horizontally
+- **Description:** Image carousel slider
+- **Composable:** yes
+- **Capabilities:** KeyboardArrows
+- **Required parts:** CarouselTrack, CarouselItem
+- **Optional parts:** CarouselPrev, CarouselNext, CarouselIndicators
+- **Tags:** carousel, slider, gallery, images, slideshow
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `chart`
 
 - **Label:** Chart
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Visualize data graphically
-- **Descricao:** Data chart visualization
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Visualize data graphically
+- **Description:** Data chart visualization
+- **Composable:** no
+- **Tags:** chart, graph, bar, line, pie, area, data, visualization
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `checkbox`
 
 - **Label:** Checkbox
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Toggle a boolean value
-- **Descricao:** Checkbox input
-- **Capacidades:** Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Toggle a boolean value
+- **Description:** Checkbox input
+- **Composable:** no
+- **Capabilities:** Disabled
+- **Tags:** checkbox, check, tick, selection, multiple
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `code-block`
 
 - **Label:** Code Block
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Display syntax-highlighted code
-- **Descricao:** Syntax-highlighted code display
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Display syntax-highlighted code
+- **Description:** Syntax-highlighted code display
+- **Composable:** no
+- **Tags:** code-block, code, syntax, highlight, snippet, technical
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `collapsible`
 
 - **Label:** Collapsible
-- **Familia:** layout
-- **Categoria:** Navigation
-- **Intencao:** Show and hide content sections
-- **Descricao:** Collapsible section
-- **Capacidades:** OpenClose
+- **Family:** layout
+- **Category:** Navigation
+- **Intent:** Show and hide content sections
+- **Description:** Collapsible section
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** CollapsibleTrigger, CollapsibleContent
+- **Tags:** collapsible, collapse, expand, hide, toggle
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `color-picker`
 
 - **Label:** Color Picker
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Select a color value
-- **Descricao:** Color picker input
-- **Capacidades:** Value, Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Select a color value
+- **Description:** Color picker input
+- **Composable:** yes
+- **Capabilities:** Value, Disabled
+- **Optional parts:** ColorPickerSwatch, ColorPickerInput
+- **Tags:** color-picker, color, palette, rgb, hex
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `combobox`
 
 - **Label:** Combobox
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Search and select from a list
-- **Descricao:** Searchable combo box
-- **Capacidades:** OpenClose, Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Search and select from a list
+- **Description:** Searchable combo box
+- **Composable:** yes
+- **Capabilities:** OpenClose, Disabled
+- **Required parts:** SelectTrigger, SelectContent
+- **Tags:** combobox, search, autocomplete, filter, combo
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `command`
 
 - **Label:** Command
-- **Familia:** interactive
-- **Categoria:** Action
-- **Intencao:** Command palette for quick actions
-- **Descricao:** Command palette
-- **Capacidades:** OpenClose, Typeahead
+- **Family:** interactive
+- **Category:** Action
+- **Intent:** Command palette for quick actions
+- **Description:** Command palette
+- **Composable:** yes
+- **Capabilities:** OpenClose, Typeahead
+- **Required parts:** CommandInput, CommandList
+- **Optional parts:** CommandItem, CommandGroup, CommandSeparator, CommandEmpty
+- **Tags:** command, palette, spotlight, search, shortcut
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `confirm-dialog`
 
 - **Label:** Confirm Dialog
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Ask user to confirm an action
-- **Descricao:** Confirmation dialog
-- **Capacidades:** OpenClose, FocusTrap, AriaModal
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Ask user to confirm an action
+- **Description:** Confirmation dialog
+- **Composable:** no
+- **Capabilities:** OpenClose, FocusTrap, AriaModal
+- **Tags:** confirm-dialog, confirm, confirmation, cancel, ok
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `context-menu`
 
 - **Label:** Context Menu
-- **Familia:** interactive
-- **Categoria:** Action
-- **Intencao:** Show menu on right-click
-- **Descricao:** Right-click context menu
-- **Capacidades:** OpenClose
+- **Family:** interactive
+- **Category:** Action
+- **Intent:** Show menu on right-click
+- **Description:** Right-click context menu
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** ContextMenuTrigger, ContextMenuContent
+- **Optional parts:** ContextMenuItem, ContextMenuSeparator
+- **Tags:** context-menu, right-click, menu, options, contextual
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `copy-button`
 
 - **Label:** Copy Button
-- **Familia:** utility
-- **Categoria:** Action
-- **Intencao:** Copy text to clipboard on click
-- **Descricao:** Clipboard copy button
+- **Family:** utility
+- **Category:** Action
+- **Intent:** Copy text to clipboard on click
+- **Description:** Clipboard copy button
+- **Composable:** no
+- **Tags:** copy-button, copy, clipboard, button, action
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `data-table`
 
 - **Label:** Data Table
-- **Familia:** data_display
-- **Categoria:** Data
-- **Intencao:** Display sortable, filterable tabular data
-- **Descricao:** Sortable data table component
-- **Capacidades:** Multiple
+- **Family:** data_display
+- **Category:** Data
+- **Intent:** Display sortable, filterable tabular data
+- **Description:** Sortable data table component
+- **Composable:** yes
+- **Capabilities:** Multiple
+- **Optional parts:** DataTablePagination, DataTableToolbar, DataTableColumn
+- **Tags:** data-table, table, data, grid, sortable, filterable
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** DataTable, DataTableColumn, Pagination, EmptyTable
 
 ---
 
 ## `dialog`
 
 - **Label:** Dialog
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Display critical content requiring user interaction
-- **Descricao:** Modal dialog component
-- **Capacidades:** OpenClose, FocusTrap, KeyboardEsc, AriaModal
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Display critical content requiring user interaction
+- **Description:** Modal dialog component
+- **Composable:** yes
+- **Capabilities:** OpenClose, FocusTrap, KeyboardEsc, AriaModal
+- **Required parts:** DialogContent, DialogTitle
+- **Optional parts:** DialogOverlay, DialogDescription, DialogClose
+- **Tags:** dialog, modal, popup, window, overlay, confirmation
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `doc-progress`
 
 - **Label:** Doc Progress
-- **Familia:** utility
-- **Categoria:** Display
-- **Intencao:** Indicate reading progress in a document
-- **Descricao:** Document progress indicator
+- **Family:** utility
+- **Category:** Display
+- **Intent:** Indicate reading progress in a document
+- **Description:** Document progress indicator
+- **Composable:** no
+- **Tags:** doc-progress, document, progress, reading, steps
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `drawer`
 
 - **Label:** Drawer
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Slide-in panel for supplementary content
-- **Descricao:** Slide-out drawer component
-- **Capacidades:** OpenClose, FocusTrap, KeyboardEsc, AriaModal
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Slide-in panel for supplementary content
+- **Description:** Slide-out drawer component
+- **Composable:** yes
+- **Capabilities:** OpenClose, FocusTrap, KeyboardEsc, AriaModal
+- **Required parts:** DrawerContent
+- **Optional parts:** DrawerOverlay
+- **Tags:** drawer, slide, lateral, panel, mobile
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `dropdown-menu`
 
 - **Label:** Dropdown Menu
-- **Familia:** interactive
-- **Categoria:** Action
-- **Intencao:** Show contextual action menu
-- **Descricao:** Dropdown menu
-- **Capacidades:** OpenClose, Disabled
+- **Family:** interactive
+- **Category:** Action
+- **Intent:** Show contextual action menu
+- **Description:** Dropdown menu
+- **Composable:** yes
+- **Capabilities:** OpenClose, Disabled
+- **Required parts:** DropdownMenuTrigger, DropdownMenuContent
+- **Optional parts:** DropdownMenuItem, DropdownMenuSeparator, DropdownMenuGroup
+- **Tags:** dropdown-menu, dropdown, menu, options, actions
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `empty-state`
 
 - **Label:** Empty State
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Display when no content is available
-- **Descricao:** Empty state placeholder
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Display when no content is available
+- **Description:** Empty state placeholder
+- **Composable:** yes
+- **Optional parts:** EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateAction
+- **Tags:** empty-state, empty, no-data, placeholder, zero-state
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `empty-table`
 
 - **Label:** Empty Table
-- **Familia:** utility
-- **Categoria:** Display
-- **Intencao:** Show empty state inside a table
-- **Descricao:** Empty table state display
+- **Family:** utility
+- **Category:** Display
+- **Intent:** Show empty state inside a table
+- **Description:** Empty table state display
+- **Composable:** no
+- **Tags:** empty-table, empty, no-records, no-data
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `error-state`
 
 - **Label:** Error State
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Display error condition to user
-- **Descricao:** Error state display
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Display error condition to user
+- **Description:** Error state display
+- **Composable:** yes
+- **Optional parts:** ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateAction
+- **Tags:** error-state, error, failure, problem, try-again
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `field`
 
 - **Label:** Field
-- **Familia:** utility
-- **Categoria:** Form
-- **Intencao:** Wrap a form input with label and error
-- **Descricao:** Form field wrapper with label and error
+- **Family:** utility
+- **Category:** Form
+- **Intent:** Wrap a form input with label and error
+- **Description:** Form field wrapper with label and error
+- **Composable:** no
+- **Tags:** field, label, error, form, wrapper
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `form`
 
 - **Label:** Form
-- **Familia:** interactive
-- **Categoria:** Form
-- **Intencao:** Form container with submit handling
-- **Descricao:** Form component
+- **Family:** interactive
+- **Category:** Form
+- **Intent:** Form container with submit handling
+- **Description:** Form component
+- **Composable:** yes
+- **Tags:** form, submit, validation, input, fields
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `form-error-summary`
 
 - **Label:** Form Error Summary
-- **Familia:** utility
-- **Categoria:** Form
-- **Intencao:** Summarize form validation errors
-- **Descricao:** Form validation error summary
+- **Family:** utility
+- **Category:** Form
+- **Intent:** Summarize form validation errors
+- **Description:** Form validation error summary
+- **Composable:** no
+- **Tags:** form-error-summary, error, validation, form, summary
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `hover-card`
 
 - **Label:** Hover Card
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Show rich preview on hover
-- **Descricao:** Hover card popup
-- **Capacidades:** OpenClose
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Show rich preview on hover
+- **Description:** Hover card popup
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** HoverCardTrigger, HoverCardContent
+- **Tags:** hover-card, preview, card, hover, popup
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `icon`
 
 - **Label:** Icon
-- **Familia:** utility
-- **Categoria:** Display
-- **Intencao:** Display an SVG icon
-- **Descricao:** SVG icon display
+- **Family:** utility
+- **Category:** Display
+- **Intent:** Display an SVG icon
+- **Description:** SVG icon display
+- **Composable:** no
+- **Tags:** icon, svg, symbol, visual
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `icon-button`
 
 - **Label:** Icon Button
-- **Familia:** interactive
-- **Categoria:** Action
-- **Intencao:** Trigger an action with an icon button
-- **Descricao:** Button with icon only
-- **Capacidades:** Disabled
+- **Family:** interactive
+- **Category:** Action
+- **Intent:** Trigger an action with an icon button
+- **Description:** Button with icon only
+- **Composable:** no
+- **Capabilities:** Disabled
+- **Tags:** icon-button, icon, action, close, delete, edit
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `inline-notice`
 
 - **Label:** Inline Notice
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Show inline contextual feedback
-- **Descricao:** Inline notice message
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Show inline contextual feedback
+- **Description:** Inline notice message
+- **Composable:** yes
+- **Optional parts:** InlineNoticeIcon, InlineNoticeContent
+- **Tags:** inline-notice, notice, warning, inline, message, info
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `input`
 
 - **Label:** Input
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Capture text or data from user
-- **Descricao:** Text input field
-- **Capacidades:** Value, Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Capture text or data from user
+- **Description:** Text input field
+- **Composable:** no
+- **Capabilities:** Value, Disabled
+- **Tags:** input, field, text, form
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `input-group`
 
 - **Label:** Input Group
-- **Familia:** utility
-- **Categoria:** Form
-- **Intencao:** Group input with prefix or suffix elements
-- **Descricao:** Input group with addons
+- **Family:** utility
+- **Category:** Form
+- **Intent:** Group input with prefix or suffix elements
+- **Description:** Input group with addons
+- **Composable:** no
+- **Tags:** input-group, prefix, suffix, addon, field
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `input-otp`
 
 - **Label:** OTP Input
-- **Familia:** utility
-- **Categoria:** Form
-- **Intencao:** Capture one-time password codes
-- **Descricao:** One-time password input
+- **Family:** utility
+- **Category:** Form
+- **Intent:** Capture one-time password codes
+- **Description:** One-time password input
+- **Composable:** no
+- **Tags:** input-otp, otp, code, verification, sms, token, pin
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `kbd`
 
 - **Label:** Kbd
-- **Familia:** typography
-- **Categoria:** Display
-- **Intencao:** Display keyboard shortcut
-- **Descricao:** Keyboard shortcut display
+- **Family:** typography
+- **Category:** Display
+- **Intent:** Display keyboard shortcut
+- **Description:** Keyboard shortcut display
+- **Composable:** no
+- **Tags:** kbd, keyboard, shortcut, ctrl, cmd
+- **Use when:** text display, labels, headings, links
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `label`
 
 - **Label:** Label
-- **Familia:** utility
-- **Categoria:** Form
-- **Intencao:** Associate a label with a form control
-- **Descricao:** Form label component
+- **Family:** utility
+- **Category:** Form
+- **Intent:** Associate a label with a form control
+- **Description:** Form label component
+- **Composable:** no
+- **Tags:** label, form, accessibility, input
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `link`
 
 - **Label:** Link
-- **Familia:** typography
-- **Categoria:** Navigation
-- **Intencao:** Navigate to a URL or trigger action
-- **Descricao:** Hyperlink
-- **Capacidades:** Disabled
+- **Family:** typography
+- **Category:** Navigation
+- **Intent:** Navigate to a URL or trigger action
+- **Description:** Hyperlink
+- **Composable:** no
+- **Capabilities:** Disabled
+- **Tags:** link, anchor, href, url, navigate, click
+- **Use when:** text display, labels, headings, links
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `list-item`
 
 - **Label:** List Item
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Display a single item in a list
-- **Descricao:** Single list item with title and description
-- **Capacidades:** Selected, Disabled
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Display a single item in a list
+- **Description:** Single list item with title and description
+- **Composable:** yes
+- **Capabilities:** Selected, Disabled
+- **Optional parts:** ListItemTitle, ListItemDescription
+- **Tags:** list-item, item, row, entry, element
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `loading-overlay`
 
 - **Label:** Loading Overlay
-- **Familia:** utility
-- **Categoria:** Display
-- **Intencao:** Block UI during async operations
-- **Descricao:** Full loading overlay
-- **Capacidades:** OpenClose
+- **Family:** utility
+- **Category:** Display
+- **Intent:** Block UI during async operations
+- **Description:** Full loading overlay
+- **Composable:** no
+- **Capabilities:** OpenClose
+- **Tags:** loading-overlay, loading, overlay, wait, spinner, block
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `markdown`
 
 - **Label:** Markdown
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Render markdown content as HTML
-- **Descricao:** Rendered markdown content
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Render markdown content as HTML
+- **Description:** Rendered markdown content
+- **Composable:** no
+- **Tags:** markdown, text, rich-text, content, document, blog
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `menu`
 
 - **Label:** Menu
-- **Familia:** utility
-- **Categoria:** Navigation
-- **Intencao:** Static vertical menu list
-- **Descricao:** Menu component
+- **Family:** utility
+- **Category:** Navigation
+- **Intent:** Static vertical menu list
+- **Description:** Menu component
+- **Composable:** no
+- **Tags:** menu, list, options, actions, items
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `menubar`
 
 - **Label:** Menubar
-- **Familia:** interactive
-- **Categoria:** Navigation
-- **Intencao:** Horizontal application menu bar
-- **Descricao:** Menu bar navigation
-- **Capacidades:** OpenClose
+- **Family:** interactive
+- **Category:** Navigation
+- **Intent:** Horizontal application menu bar
+- **Description:** Menu bar navigation
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** MenubarMenu, MenubarTrigger
+- **Optional parts:** MenubarContent, MenubarItem, MenubarSeparator
+- **Tags:** menubar, navigation, desktop, app
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `modal`
 
 - **Label:** Modal
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Generic modal container
-- **Descricao:** Modal window component
-- **Capacidades:** OpenClose, FocusTrap, AriaModal
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Generic modal container
+- **Description:** Modal window component
+- **Composable:** yes
+- **Capabilities:** OpenClose, FocusTrap, AriaModal
+- **Optional parts:** ModalOverlay, ModalContent, ModalClose
+- **Tags:** modal, window, popup, overlay, dialog
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `nav-item`
 
 - **Label:** Nav Item
-- **Familia:** navigation
-- **Categoria:** Navigation
-- **Intencao:** Single navigation link item
-- **Descricao:** Single navigation item
-- **Capacidades:** Active, Disabled
+- **Family:** navigation
+- **Category:** Navigation
+- **Intent:** Single navigation link item
+- **Description:** Single navigation item
+- **Composable:** no
+- **Capabilities:** Active, Disabled
+- **Tags:** nav-item, link, menu-item, navigation, page
+- **Use when:** routing, menus, breadcrumbs, pagination
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `navigation-menu`
 
 - **Label:** Navigation Menu
-- **Familia:** navigation
-- **Categoria:** Navigation
-- **Intencao:** Primary site navigation with submenus
-- **Descricao:** Navigation menu
-- **Capacidades:** OpenClose
+- **Family:** navigation
+- **Category:** Navigation
+- **Intent:** Primary site navigation with submenus
+- **Description:** Navigation menu
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** NavigationMenuList, NavigationMenuItem
+- **Optional parts:** NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink
+- **Tags:** navigation-menu, navigation, menu, nav, links, site, header
+- **Use when:** routing, menus, breadcrumbs, pagination
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `page-header`
 
 - **Label:** Page Header
-- **Familia:** layout
-- **Categoria:** Display
-- **Intencao:** Page title and actions bar
-- **Descricao:** Page header with title and actions
+- **Family:** layout
+- **Category:** Display
+- **Intent:** Page title and actions bar
+- **Description:** Page header with title and actions
+- **Composable:** no
+- **Tags:** page-header, title, heading, actions, breadcrumb
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `pagination`
 
 - **Label:** Pagination
-- **Familia:** navigation
-- **Categoria:** Navigation
-- **Intencao:** Navigate between pages of content
-- **Descricao:** Page navigation control
-- **Capacidades:** Active, Disabled
+- **Family:** navigation
+- **Category:** Navigation
+- **Intent:** Navigate between pages of content
+- **Description:** Page navigation control
+- **Composable:** yes
+- **Capabilities:** Active, Disabled
+- **Optional parts:** PaginationContent, PaginationItem, PaginationLink
+- **Tags:** pagination, pages, next, prev, navigate
+- **Use when:** routing, menus, breadcrumbs, pagination
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `popover`
 
 - **Label:** Popover
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Show contextual floating content
-- **Descricao:** Floating popover component
-- **Capacidades:** OpenClose, FocusTrap
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Show contextual floating content
+- **Description:** Floating popover component
+- **Composable:** yes
+- **Capabilities:** OpenClose, FocusTrap
+- **Required parts:** PopoverTrigger, PopoverContent
+- **Tags:** popover, floating, tooltip, overlay, context
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `progress`
 
 - **Label:** Progress
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Show completion of a task
-- **Descricao:** Progress bar indicator
-- **Capacidades:** Value
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Show completion of a task
+- **Description:** Progress bar indicator
+- **Composable:** yes
+- **Capabilities:** Value
+- **Required parts:** ProgressIndicator
+- **Tags:** progress, bar, loading, percentage, completion
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `pulse`
 
 - **Label:** Pulse
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Animated attention indicator
-- **Descricao:** Pulse animation wrapper
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Animated attention indicator
+- **Description:** Pulse animation wrapper
+- **Composable:** no
+- **Tags:** pulse, animation, glow, attention, highlight, ping
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `radio`
 
 - **Label:** Radio
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Select one option from a group
-- **Descricao:** Radio button input
-- **Capacidades:** Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Select one option from a group
+- **Description:** Radio button input
+- **Composable:** yes
+- **Capabilities:** Disabled
+- **Required parts:** RadioGroup
+- **Tags:** radio, choice, exclusive, selection
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `radio-group`
 
 - **Label:** Radio Group
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Group radio buttons for single selection
-- **Descricao:** Group of radio buttons
-- **Capacidades:** Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Group radio buttons for single selection
+- **Description:** Group of radio buttons
+- **Composable:** no
+- **Capabilities:** Disabled
+- **Tags:** radio-group, radio, group, options, alternatives, choice
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `resizable`
 
 - **Label:** Resizable
-- **Familia:** layout
-- **Categoria:** Layout
-- **Intencao:** Split panels with draggable divider
-- **Descricao:** Resizable panel component
-- **Capacidades:** Orientation, Resize
+- **Family:** layout
+- **Category:** Layout
+- **Intent:** Split panels with draggable divider
+- **Description:** Resizable panel component
+- **Composable:** yes
+- **Capabilities:** Orientation, Resize
+- **Required parts:** ResizablePanel, ResizableHandle
+- **Tags:** resizable, resize, panel, split, adjust
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Card, Container, Grid, Stack, Columns
 
 ---
 
 ## `scroll-area`
 
 - **Label:** Scroll Area
-- **Familia:** layout
-- **Categoria:** Layout
-- **Intencao:** Scrollable container with custom scrollbar
-- **Descricao:** Scrollable area container
-- **Capacidades:** Overflow
+- **Family:** layout
+- **Category:** Layout
+- **Intent:** Scrollable container with custom scrollbar
+- **Description:** Scrollable area container
+- **Composable:** no
+- **Capabilities:** Overflow
+- **Tags:** scroll-area, scroll, overflow, container, long-list
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Card, Container, Grid, Stack, Columns
 
 ---
 
 ## `select`
 
 - **Label:** Select
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Choose one option from a list
-- **Descricao:** Dropdown select input
-- **Capacidades:** OpenClose, Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Choose one option from a list
+- **Description:** Dropdown select input
+- **Composable:** yes
+- **Capabilities:** OpenClose, Disabled
+- **Required parts:** SelectTrigger, SelectContent, SelectItem
+- **Optional parts:** SelectValue, SelectSeparator
+- **Tags:** select, dropdown, choose, options, list, combo
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `separator`
 
 - **Label:** Separator
-- **Familia:** layout
-- **Categoria:** Layout
-- **Intencao:** Visually divide content sections
-- **Descricao:** Visual divider line
-- **Capacidades:** Orientation
+- **Family:** layout
+- **Category:** Layout
+- **Intent:** Visually divide content sections
+- **Description:** Visual divider line
+- **Composable:** no
+- **Capabilities:** Orientation
+- **Tags:** separator, divider, line, hr, section
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Card, Container, Grid, Stack, Columns
 
 ---
 
 ## `sheet`
 
 - **Label:** Sheet
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Side panel for forms or navigation
-- **Descricao:** Sheet panel overlay
-- **Capacidades:** OpenClose, FocusTrap, KeyboardEsc
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Side panel for forms or navigation
+- **Description:** Sheet panel overlay
+- **Composable:** yes
+- **Capabilities:** OpenClose, FocusTrap, KeyboardEsc
+- **Required parts:** SheetContent
+- **Optional parts:** SheetOverlay
+- **Tags:** sheet, panel, lateral, slide, drawer, mobile
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `sidebar`
 
 - **Label:** Sidebar
-- **Familia:** navigation
-- **Categoria:** Navigation
-- **Intencao:** Vertical navigation panel
-- **Descricao:** Sidebar navigation component
-- **Capacidades:** OpenClose
+- **Family:** navigation
+- **Category:** Navigation
+- **Intent:** Vertical navigation panel
+- **Description:** Sidebar navigation component
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** SidebarContent
+- **Optional parts:** SidebarHeader, SidebarFooter, SidebarMenu, SidebarMenuItem
+- **Tags:** sidebar, nav, navigation, links, left-panel
+- **Use when:** routing, menus, breadcrumbs, pagination
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `skeleton`
 
 - **Label:** Skeleton
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Show placeholder while content loads
-- **Descricao:** Loading skeleton placeholder
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Show placeholder while content loads
+- **Description:** Loading skeleton placeholder
+- **Composable:** no
+- **Tags:** skeleton, loading, placeholder, shimmer
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `slider`
 
 - **Label:** Slider
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Select a value within a range
-- **Descricao:** Range slider input
-- **Capacidades:** Value, Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Select a value within a range
+- **Description:** Range slider input
+- **Composable:** yes
+- **Capabilities:** Value, Disabled
+- **Required parts:** SliderTrack, SliderThumb
+- **Optional parts:** SliderRange
+- **Tags:** slider, range, interval, volume, value, drag
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `spinner`
 
 - **Label:** Spinner
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Indicate loading or processing
-- **Descricao:** Loading spinner
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Indicate loading or processing
+- **Description:** Loading spinner
+- **Composable:** no
+- **Tags:** spinner, loading, circular, wait
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `stat`
 
 - **Label:** Stat
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Display a key metric with label
-- **Descricao:** Metric stat display
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Display a key metric with label
+- **Description:** Metric stat display
+- **Composable:** yes
+- **Required parts:** StatValue, StatLabel
+- **Optional parts:** StatDelta, StatIcon
+- **Tags:** stat, metric, number, kpi, indicator, value
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `status-dot`
 
 - **Label:** Status Dot
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Indicate user presence or availability
-- **Descricao:** Status indicator dot
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Indicate user presence or availability
+- **Description:** Status indicator dot
+- **Composable:** no
+- **Tags:** status-dot, status, indicator, online, offline, active
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `switch`
 
 - **Label:** Switch
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Toggle between on and off states
-- **Descricao:** Toggle switch on off
-- **Capacidades:** Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Toggle between on and off states
+- **Description:** Toggle switch on off
+- **Composable:** no
+- **Capabilities:** Disabled
+- **Tags:** switch, toggle, on, off, activate
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `table`
 
 - **Label:** Table
-- **Familia:** data_display
-- **Categoria:** Data
-- **Intencao:** Display tabular data
-- **Descricao:** HTML table component
-- **Capacidades:** Selected
+- **Family:** data_display
+- **Category:** Data
+- **Intent:** Display tabular data
+- **Description:** HTML table component
+- **Composable:** yes
+- **Capabilities:** Selected
+- **Required parts:** TableHeader, TableBody, TableRow, TableHead, TableCell
+- **Optional parts:** TableFooter, TableCaption, TableWrapper
+- **Tags:** table, tabular, rows, columns, data
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** DataTable, DataTableColumn, Pagination, EmptyTable
 
 ---
 
 ## `table-of-contents`
 
 - **Label:** Table of Contents
-- **Familia:** utility
-- **Categoria:** Navigation
-- **Intencao:** Navigate document sections via anchors
-- **Descricao:** Document table of contents
+- **Family:** utility
+- **Category:** Navigation
+- **Intent:** Navigate document sections via anchors
+- **Description:** Document table of contents
+- **Composable:** no
+- **Tags:** table-of-contents, index, summary, anchors, navigation, document
+- **Use when:** helper components, wrappers, decorators
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `tabs`
 
 - **Label:** Tabs
-- **Familia:** navigation
-- **Categoria:** Navigation
-- **Intencao:** Switch between related content panels
-- **Descricao:** Tabbed navigation
-- **Capacidades:** Active
+- **Family:** navigation
+- **Category:** Navigation
+- **Intent:** Switch between related content panels
+- **Description:** Tabbed navigation
+- **Composable:** yes
+- **Capabilities:** Active
+- **Required parts:** TabsList, TabsTrigger, TabsContent
+- **Tags:** tabs, navigation, tab, sections, panels
+- **Use when:** routing, menus, breadcrumbs, pagination
+- **Often used with:** Breadcrumb, Pagination, Tabs, Sidebar, NavItem
 
 ---
 
 ## `textarea`
 
 - **Label:** Textarea
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Capture multi-line text from user
-- **Descricao:** Multi-line text input
-- **Capacidades:** Value, Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Capture multi-line text from user
+- **Description:** Multi-line text input
+- **Composable:** no
+- **Capabilities:** Value, Disabled
+- **Tags:** textarea, multiline, comment, description, area
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `toast`
 
 - **Label:** Toast
-- **Familia:** feedback
-- **Categoria:** Feedback
-- **Intencao:** Show brief non-blocking notifications
-- **Descricao:** Toast notification message
-- **Capacidades:** OpenClose
+- **Family:** feedback
+- **Category:** Feedback
+- **Intent:** Show brief non-blocking notifications
+- **Description:** Toast notification message
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** ToastViewport
+- **Optional parts:** ToastTitle, ToastDescription, ToastAction, ToastClose
+- **Tags:** toast, notification, snackbar, message, success, error
+- **Use when:** showing status, alerts, notifications, loading states
+- **Often used with:** Toast, Alert, Banner, Spinner, Skeleton, Progress
 
 ---
 
 ## `toggle`
 
 - **Label:** Toggle
-- **Familia:** input
-- **Categoria:** Form
-- **Intencao:** Toggle a pressed state
-- **Descricao:** Toggle button
-- **Capacidades:** Pressed, Disabled
+- **Family:** input
+- **Category:** Form
+- **Intent:** Toggle a pressed state
+- **Description:** Toggle button
+- **Composable:** no
+- **Capabilities:** Pressed, Disabled
+- **Tags:** toggle, activate, button, on, off, press
+- **Use when:** collecting user input, forms, search
+- **Often used with:** Field, Label, Input, Select, Checkbox, Switch, Textarea
 
 ---
 
 ## `toggle-group`
 
 - **Label:** Toggle Group
-- **Familia:** interactive
-- **Categoria:** Action
-- **Intencao:** Group of toggle buttons with single or multiple selection
-- **Descricao:** Group of toggle buttons
-- **Capacidades:** Multiple, Disabled
+- **Family:** interactive
+- **Category:** Action
+- **Intent:** Group of toggle buttons with single or multiple selection
+- **Description:** Group of toggle buttons
+- **Composable:** yes
+- **Capabilities:** Multiple, Disabled
+- **Tags:** toggle-group, toggle, group, buttons, options, selection
+- **Use when:** triggering actions, user input, form submission
+- **Often used with:** Button, IconButton, ButtonGroup, DropdownMenu
 
 ---
 
 ## `toolbar`
 
 - **Label:** Toolbar
-- **Familia:** layout
-- **Categoria:** Layout
-- **Intencao:** Action toolbar region
-- **Descricao:** Action toolbar component
+- **Family:** layout
+- **Category:** Layout
+- **Intent:** Action toolbar region
+- **Description:** Action toolbar component
+- **Composable:** yes
+- **Tags:** toolbar, bar, actions, tools, editor, formatting
+- **Use when:** structuring page content, containers, grids
+- **Often used with:** Card, Container, Grid, Stack, Columns
 
 ---
 
 ## `tooltip`
 
 - **Label:** Tooltip
-- **Familia:** overlay
-- **Categoria:** Overlay
-- **Intencao:** Show brief label on hover/focus
-- **Descricao:** Hover tooltip
-- **Capacidades:** OpenClose
+- **Family:** overlay
+- **Category:** Overlay
+- **Intent:** Show brief label on hover/focus
+- **Description:** Hover tooltip
+- **Composable:** yes
+- **Capabilities:** OpenClose
+- **Required parts:** TooltipTrigger, TooltipContent
+- **Optional parts:** TooltipProvider
+- **Tags:** tooltip, hint, hover, info, help
+- **Use when:** modal dialogs, drawers, popovers, tooltips
+- **Often used with:** Dialog, Drawer, Sheet, Modal, Popover, Tooltip
 
 ---
 
 ## `tree`
 
 - **Label:** Tree
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Display hierarchical data
-- **Descricao:** Tree view component
-- **Capacidades:** Selected
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Display hierarchical data
+- **Description:** Tree view component
+- **Composable:** yes
+- **Capabilities:** Selected
+- **Required parts:** TreeItem
+- **Optional parts:** TreeGroup
+- **Tags:** tree, hierarchy, nodes, structure, explorer
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 
 ## `virtual-list`
 
 - **Label:** Virtual List
-- **Familia:** data_display
-- **Categoria:** Display
-- **Intencao:** Efficiently render large lists
-- **Descricao:** Virtualized list for large datasets
-- **Capacidades:** VirtualScroll
+- **Family:** data_display
+- **Category:** Display
+- **Intent:** Efficiently render large lists
+- **Description:** Virtualized list for large datasets
+- **Composable:** no
+- **Capabilities:** VirtualScroll
+- **Tags:** virtual-list, virtualization, performance, large-volume
+- **Use when:** presenting data, lists, tables, charts, metrics
+- **Often used with:** Badge, Avatar, Card, Stat, Icon, Chart
 
 ---
 

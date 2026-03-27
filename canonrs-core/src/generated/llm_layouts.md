@@ -1,89 +1,188 @@
 # CanonRS — Layouts
 
-> AUTO-GENERATED
+> AUTO-GENERATED — do not edit manually
 
 ---
 
 ## `section`
 
-- **Categoria:** layout
-- **Variante:** page
-- **Regioes:** header, content, footer
+- **Label:** Section ▤
+- **Description:** Self-contained section with header, content and footer
+- **Category:** layout
+- **Regions:** header, content, footer
+- **Use when:** content sections within a page, feature blocks
 
 ### Slots
 
-- `header`: Section title area
-- `content`: Section content
-- `footer`: Section footer actions
+| Slot | Description |
+|------|-------------|
+| `header` | Section title area |
+| `content` | Section content |
+| `footer` | Section footer actions |
+
+### Slot Rules
+
+| Slot | Accepts |
+|------|---------|
+| `header` | Any |
+| `content` | Any |
+| `footer` | Action |
 
 ---
 
 ## `page-layout`
 
-- **Categoria:** layout
-- **Variante:** page
-- **Regioes:** sidebar, content, aside
+- **Label:** Page ▭
+- **Description:** Page layout with optional sidebar and aside
+- **Category:** layout
+- **Regions:** sidebar, content, aside
+- **Use when:** documentation pages, articles, content with optional sidebar
 
 ### Slots
 
-- `sidebar`: Navigation sidebar
-- `content`: Primary content
-- `aside`: Contextual panel
+| Slot | Description |
+|------|-------------|
+| `sidebar` | Navigation sidebar |
+| `content` | Primary content |
+| `aside` | Contextual panel |
+
+### Slot Rules
+
+| Slot | Accepts |
+|------|---------|
+| `sidebar` | Nav |
+| `content` | Any |
+| `aside` | Any |
+
+---
+
+## `wizard-layout`
+
+- **Label:** Wizard 📋
+- **Description:** Multi-step form with header, stepper, content and footer
+- **Category:** layout
+- **Regions:** header, stepper, content, footer
+- **Use when:** multi-step forms, onboarding flows, guided setup
+
+### Slots
+
+| Slot | Description |
+|------|-------------|
+| `header` | Wizard title and progress |
+| `stepper` | Step indicators |
+| `content` | Step content |
+| `footer` | Navigation actions |
+
+### Slot Rules
+
+| Slot | Accepts |
+|------|---------|
+| `header` | Any |
+| `stepper` | Any |
+| `content` | Form |
+| `footer` | Action |
 
 ---
 
 ## `split-view`
 
-- **Categoria:** layout
-- **Variante:** page
-- **Regioes:** left, right
+- **Label:** Split View ◧
+- **Description:** Left context panel and right action/detail panel
+- **Category:** layout
+- **Regions:** left, right
+- **Use when:** master-detail views, side-by-side comparisons, email clients
 
 ### Slots
 
-- `left`: Context or list panel
-- `right`: Detail or action panel
+| Slot | Description |
+|------|-------------|
+| `left` | Context or list panel |
+| `right` | Detail or action panel |
+
+### Slot Rules
+
+| Slot | Accepts |
+|------|---------|
+| `left` | Nav |
+| `right` | Action |
 
 ---
 
 ## `dashboard`
 
-- **Categoria:** layout
-- **Variante:** page
-- **Regioes:** header, sidebar, content
+- **Label:** Dashboard ⬛
+- **Description:** App shell with header, sidebar and main content area
+- **Category:** layout
+- **Regions:** header, sidebar, content
+- **Use when:** admin panels, data-heavy apps, internal tools with sidebar navigation
 
 ### Slots
 
-- `header`: Top navigation bar
-- `sidebar`: Left navigation panel
-- `content`: Primary content area
+| Slot | Description |
+|------|-------------|
+| `header` | Top navigation bar |
+| `sidebar` | Left navigation panel |
+| `content` | Primary content area |
+
+### Slot Rules
+
+| Slot | Accepts |
+|------|---------|
+| `header` | Nav |
+| `sidebar` | Nav |
+| `content` | Any |
 
 ---
 
 ## `marketing`
 
-- **Categoria:** layout
-- **Variante:** page
-- **Regioes:** header, hero, content, footer
+- **Label:** Marketing 🌐
+- **Description:** Public page with header, hero, main content and footer
+- **Category:** layout
+- **Regions:** header, hero, content, footer
+- **Use when:** public-facing pages, landing pages, product sites
 
 ### Slots
 
-- `header`: Site header with navigation
-- `hero`: Hero/banner section
-- `content`: Main content sections
-- `footer`: Site footer
+| Slot | Description |
+|------|-------------|
+| `header` | Site header with navigation |
+| `hero` | Hero/banner section |
+| `content` | Main content sections |
+| `footer` | Site footer |
+
+### Slot Rules
+
+| Slot | Accepts |
+|------|---------|
+| `header` | Nav |
+| `hero` | Any |
+| `content` | Any |
+| `footer` | Action |
 
 ---
 
 ## `fullscreen`
 
-- **Categoria:** layout
-- **Variante:** page
-- **Regioes:** header, content
+- **Label:** Fullscreen ⬜
+- **Description:** Optional header with full canvas content area
+- **Category:** layout
+- **Regions:** header, content
+- **Use when:** focused editors, canvas tools, immersive experiences
 
 ### Slots
 
-- `header`: Optional top bar
-- `content`: Full canvas area
+| Slot | Description |
+|------|-------------|
+| `header` | Optional top bar |
+| `content` | Full canvas area |
+
+### Slot Rules
+
+| Slot | Accepts |
+|------|---------|
+| `header` | Nav |
+| `content` | Any |
 
 ---
 
