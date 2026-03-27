@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: false
 //! @canon-regions: header, content, actions
+//! @canon-label: Code Block
+//! @canon-description: Syntax-highlighted code block
+//! @canon-tags: code,código,syntax,highlight,snippet,programação
 use leptos::prelude::*;
 
 #[component]

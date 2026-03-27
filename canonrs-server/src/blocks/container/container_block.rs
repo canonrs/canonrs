@@ -4,6 +4,9 @@
 //! @canon-variant: structure
 //! @canon-container: true
 //! @canon-regions: content
+//! @canon-label: Container
+//! @canon-description: Max-width centered container
+//! @canon-tags: container,wrapper,max-width,centralizar,centro
 //! @canon-prop: max-width | Text | 1200px | visual | max-width
 //! @canon-prop: padding | Number | | visual | padding
 use leptos::prelude::*;

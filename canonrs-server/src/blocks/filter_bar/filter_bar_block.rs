@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: true
 //! @canon-regions: filters, actions
+//! @canon-label: Filter Bar
+//! @canon-description: Filters and actions bar
+//! @canon-tags: filter,filtro,busca,search,barra,refinamento
 use leptos::prelude::*;
 
 #[component]

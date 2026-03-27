@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: true
 //! @canon-regions: header, items, footer
+//! @canon-label: Timeline
+//! @canon-description: Chronological timeline block
+//! @canon-tags: timeline,linha do tempo,cronologia,histórico,eventos
 use leptos::prelude::*;
 
 #[component]

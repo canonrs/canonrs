@@ -4,6 +4,7 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: header, content
+//! @canon-tags: fullscreen,full,viewport,tela cheia,imersivo
 //! @canon-label: Fullscreen
 //! @canon-icon: ⬜
 //! @canon-description: Optional header with full canvas content area

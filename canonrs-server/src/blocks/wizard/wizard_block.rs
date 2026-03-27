@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: true
 //! @canon-regions: steps, body, actions
+//! @canon-label: Wizard
+//! @canon-description: Multi-step form wizard block
+//! @canon-tags: wizard,steps,multi-step,passos,etapas,onboarding
 use leptos::prelude::*;
 
 #[component]

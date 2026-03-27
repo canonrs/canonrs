@@ -4,6 +4,9 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: logo, nav, center, actions
+//! @canon-label: Header
+//! @canon-description: Page header with left center right regions
+//! @canon-tags: header,cabeçalho,topo,nav,logo,title
 use leptos::prelude::*;
 
 #[component]

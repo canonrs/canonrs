@@ -24,6 +24,8 @@ pub use state_engine::*;
 pub use behavior_engine::*;
 pub mod meta;
 pub mod meta_types;
+pub mod catalog_types;
+pub use catalog_types::*;
 pub mod block_types;
 pub use block_types::*;
 pub use meta::*;

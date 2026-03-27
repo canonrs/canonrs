@@ -4,6 +4,7 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: left, right
+//! @canon-tags: split,dois,colunas,lado a lado,comparar,dual
 //! @canon-label: Split View
 //! @canon-icon: ◧
 //! @canon-description: Left context panel and right action/detail panel

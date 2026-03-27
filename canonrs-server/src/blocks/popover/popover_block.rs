@@ -4,6 +4,9 @@
 //! @canon-variant: overlay
 //! @canon-container: true
 //! @canon-regions: trigger, header, content, footer
+//! @canon-label: Popover
+//! @canon-description: Floating popover container block
+//! @canon-tags: popover,flutuante,floating,tooltip,dica
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

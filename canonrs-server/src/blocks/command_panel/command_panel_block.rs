@@ -4,6 +4,9 @@
 //! @canon-variant: overlay
 //! @canon-container: false
 //! @canon-regions: search, results, footer
+//! @canon-label: Command Panel
+//! @canon-description: Command palette overlay block
+//! @canon-tags: command,comando,palette,busca,spotlight,atalho
 use leptos::prelude::*;
 
 #[component]

@@ -4,6 +4,7 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: header, hero, content, footer
+//! @canon-tags: marketing,landing,hero,page,site,lp
 //! @canon-label: Marketing
 //! @canon-icon: 🌐
 //! @canon-description: Public page with header, hero, main content and footer

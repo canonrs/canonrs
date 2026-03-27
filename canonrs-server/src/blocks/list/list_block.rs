@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: true
 //! @canon-regions: header, items, footer
+//! @canon-label: List
+//! @canon-description: Vertical list container
+//! @canon-tags: list,lista,itens,items,vertical,scroll
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

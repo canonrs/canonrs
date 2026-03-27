@@ -4,6 +4,9 @@
 //! @canon-variant: structure
 //! @canon-container: true
 //! @canon-regions: aside, content
+//! @canon-label: Detail Panel
+//! @canon-description: Master-detail panel layout
+//! @canon-tags: detail,detalhe,master,painel,inspector
 use leptos::prelude::*;
 
 #[component]

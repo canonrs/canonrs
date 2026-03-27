@@ -29,6 +29,7 @@ fn main() {
     let component_ids: std::collections::HashSet<String> = semantic.keys().cloned().collect();
     let blocks_only: Vec<BlockInfo> = blocks_layouts.iter().filter(|b| !component_ids.contains(&b.id)).cloned().collect();
     generate_block_meta(&blocks_only, out_dir);
+    generate_catalog(&semantic, &blocks_layouts, out_dir);
     generate_layout_definitions(&blocks_layouts, Path::new("../canonrs-server/src/layouts"), out_dir);
     generate_block_definitions(&blocks_layouts, Path::new("../canonrs-server/src/blocks"), Path::new("../canonrs-server/src/layouts"), out_dir);
     generate_mod_update(out_dir);
@@ -164,12 +165,18 @@ fn parse_semantic(path: &Path) -> HashMap<String, SemanticEntry> {
 
 #[derive(Debug, Clone)]
 struct BlockInfo {
-    pub id:        String,
-    pub kind:      String,
-    pub category:  String,
-    pub variant:   String,
-    pub container: bool,
-    pub regions:   Vec<String>,
+    pub id:          String,
+    pub kind:        String,
+    pub category:    String,
+    pub variant:     String,
+    pub container:   bool,
+    pub regions:     Vec<String>,
+    #[allow(dead_code)]
+    pub label:       Option<String>,
+    #[allow(dead_code)]
+    pub description: Option<String>,
+    #[allow(dead_code)]
+    pub tags:        Vec<String>,
 }
 
 fn parse_blocks_and_layouts(blocks_dir: &Path, layouts_dir: &Path) -> Vec<BlockInfo> {
@@ -213,7 +220,12 @@ fn parse_canon_header(content: &str, kind: &str) -> Option<BlockInfo> {
     let regions   = extract_canon_field(content, "canon-regions")
         .map(|r| r.split(',').map(|s| s.trim().to_string()).collect())
         .unwrap_or_default();
-    Some(BlockInfo { id, kind: kind.to_string(), category, variant, container, regions })
+    let label       = extract_canon_field(content, "canon-label");
+    let description = extract_canon_field(content, "canon-description");
+    let tags        = extract_canon_field(content, "canon-tags")
+        .map(|t| t.split(',').map(|s| s.trim().to_string()).collect())
+        .unwrap_or_default();
+    Some(BlockInfo { id, kind: kind.to_string(), category, variant, container, regions, label, description, tags })
 }
 
 fn extract_canon_field(content: &str, field: &str) -> Option<String> {
@@ -652,7 +664,7 @@ fn generate_inline_regions(regions: &[String]) -> String {
 
 
 fn generate_mod_update(out_dir: &Path) {
-    let code = "// AUTO-GENERATED\npub mod component_meta;\npub mod block_meta;\npub mod block_definitions;\npub mod layout_definitions;\npub use component_meta::*;\npub use block_meta::*;\n";
+    let code = "// AUTO-GENERATED\npub mod component_meta;\npub mod block_meta;\npub mod block_definitions;\npub mod layout_definitions;\npub mod catalog;\npub use component_meta::*;\npub use block_meta::*;\n";
     fs::write(out_dir.join("mod.rs"), code).unwrap();
 }
 
@@ -729,4 +741,84 @@ fn generate_layout_definitions(blocks: &[BlockInfo], layouts_dir: &Path, out_dir
     code.push_str("];\n");
 
     fs::write(out_dir.join("layout_definitions.rs"), code).unwrap();
+}
+
+fn generate_catalog(semantic: &HashMap<String, SemanticEntry>, blocks: &[BlockInfo], out_dir: &Path) {
+    let mut code = String::new();
+    code.push_str("// AUTO-GENERATED\n");
+    code.push_str("use crate::catalog_types::{CatalogEntry, CatalogCategory};\n\n");
+    code.push_str("pub static CATALOG_GENERATED: &[CatalogEntry] = &[\n");
+
+    let mut ids: Vec<&String> = semantic.keys().collect();
+    ids.sort();
+    for id in &ids {
+        let s = &semantic[*id];
+        let cat = to_catalog_category(&s.catalog_category);
+        let tags: Vec<String> = s.catalog_tags.iter().map(|t| format!("\"{}\"", t)).collect();
+        let tags_str = tags.join(", ");
+        code.push_str("    CatalogEntry { ");
+        code.push_str(&format!("id: \"{}\", ", id));
+        code.push_str(&format!("label: \"{}\", ", s.label));
+        code.push_str(&format!("description: \"{}\", ", s.description));
+        code.push_str(&format!("category: {}, ", cat));
+        code.push_str(&format!("tags: &[{}]", tags_str));
+        code.push_str(", parts: None, regions: &[], accepts: &[]");
+        code.push_str(" },\n");
+    }
+
+    for b in blocks.iter().filter(|b| b.kind == "block") {
+        let label = b.label.clone().unwrap_or_else(|| to_title_case(&b.id));
+        let desc = b.description.clone().unwrap_or_else(|| format!("{} block", label));
+        let tags: Vec<String> = if b.tags.is_empty() {
+            vec![b.id.clone()]
+        } else {
+            b.tags.clone()
+        };
+        let tags_str = tags.iter().map(|t| format!("\"{}\"", t)).collect::<Vec<_>>().join(", ");
+        code.push_str("    CatalogEntry { ");
+        code.push_str(&format!("id: \"block.{}\", ", b.id));
+        code.push_str(&format!("label: \"{}\", ", label));
+        code.push_str(&format!("description: \"{}\", ", desc));
+        code.push_str("category: CatalogCategory::Layout, ");
+        code.push_str(&format!("tags: &[{}]", tags_str));
+        code.push_str(", parts: None, regions: &[], accepts: &[]");
+        code.push_str(" },\n");
+    }
+
+    for b in blocks.iter().filter(|b| b.kind == "layout") {
+        let label = b.label.clone().unwrap_or_else(|| to_title_case(&b.id));
+        let desc = b.description.clone().unwrap_or_else(|| format!("{} layout", label));
+        let tags: Vec<String> = if b.tags.is_empty() {
+            vec![b.id.clone()]
+        } else {
+            b.tags.clone()
+        };
+        let tags_str = tags.iter().map(|t| format!("\"{}\"", t)).collect::<Vec<_>>().join(", ");
+        code.push_str("    CatalogEntry { ");
+        code.push_str(&format!("id: \"layout.{}\", ", b.id));
+        code.push_str(&format!("label: \"{}\", ", label));
+        code.push_str(&format!("description: \"{}\", ", desc));
+        code.push_str("category: CatalogCategory::Layout, ");
+        code.push_str(&format!("tags: &[{}]", tags_str));
+        code.push_str(", parts: None, regions: &[], accepts: &[]");
+        code.push_str(" },\n");
+    }
+
+    code.push_str("];\n");
+    fs::write(out_dir.join("catalog.rs"), code).unwrap();
+}
+
+
+fn to_catalog_category(cat: &str) -> &'static str {
+    match cat {
+        "Action"     => "CatalogCategory::Action",
+        "Display"    => "CatalogCategory::Display",
+        "Feedback"   => "CatalogCategory::Feedback",
+        "Form"       => "CatalogCategory::Form",
+        "Navigation" => "CatalogCategory::Navigation",
+        "Overlay"    => "CatalogCategory::Overlay",
+        "Data"       => "CatalogCategory::Data",
+        "Layout"     => "CatalogCategory::Layout",
+        _            => "CatalogCategory::Display",
+    }
 }

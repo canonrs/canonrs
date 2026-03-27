@@ -4,6 +4,9 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: left, center, right
+//! @canon-label: Toolbar
+//! @canon-description: Action toolbar bar
+//! @canon-tags: toolbar,barra,ações,actions,buttons,ferramentas
 use leptos::prelude::*;
 
 #[component]

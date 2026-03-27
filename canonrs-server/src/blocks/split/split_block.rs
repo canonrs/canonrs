@@ -4,6 +4,9 @@
 //! @canon-variant: structure
 //! @canon-container: true
 //! @canon-regions: aside, main
+//! @canon-label: Split
+//! @canon-description: Aside and main two-panel block
+//! @canon-tags: split,aside,painel,dois,dual
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

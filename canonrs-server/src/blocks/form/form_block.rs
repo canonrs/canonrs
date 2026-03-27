@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: true
 //! @canon-regions: fields, actions
+//! @canon-label: Form
+//! @canon-description: Form container with fields and actions
+//! @canon-tags: form,formulário,campos,input,submit,dados
 //! @canon-prop: gap | Number | 1rem | visual | gap
 //! @canon-prop: padding | Number | | visual | padding
 use leptos::prelude::*;

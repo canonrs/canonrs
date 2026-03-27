@@ -4,6 +4,9 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: left, center, right
+//! @canon-label: Footer
+//! @canon-description: Page footer block
+//! @canon-tags: footer,rodapé,bottom,links,copyright
 use leptos::prelude::*;
 
 #[component]

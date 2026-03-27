@@ -4,6 +4,9 @@
 //! @canon-variant: structure
 //! @canon-container: true
 //! @canon-regions: header, content, footer
+//! @canon-label: Card
+//! @canon-description: Container with header/content/footer regions
+//! @canon-tags: card,cartão,container,box,caixa,conteúdo
 //! @canon-prop: padding | Number | 1rem | visual | padding
 //! @canon-prop: gap | Number | 0.5rem | visual | gap
 //! @canon-prop: border-radius | Number | 0.5rem | visual | border-radius

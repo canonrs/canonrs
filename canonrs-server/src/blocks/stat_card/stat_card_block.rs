@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: false
 //! @canon-regions: icon, label, value, change
+//! @canon-label: Stat Card
+//! @canon-description: Metric stat display block
+//! @canon-tags: stat,métrica,kpi,número,indicador,card
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

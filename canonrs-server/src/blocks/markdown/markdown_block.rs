@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: false
 //! @canon-regions: header, content, footer
+//! @canon-label: Markdown
+//! @canon-description: Rendered markdown content block
+//! @canon-tags: markdown,texto,content,rich text,documento
 use leptos::prelude::*;
 
 #[component]

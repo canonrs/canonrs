@@ -4,6 +4,9 @@
 //! @canon-variant: overlay
 //! @canon-container: true
 //! @canon-regions: header, content, footer
+//! @canon-label: Dialog
+//! @canon-description: Modal dialog overlay block
+//! @canon-tags: dialog,modal,popup,overlay,janela,alerta
 use leptos::prelude::*;
 
 #[component]

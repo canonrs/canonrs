@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: false
 //! @canon-regions: toolbar, header, body, empty, pagination
+//! @canon-label: Data Table
+//! @canon-description: Sortable paginated data table block
+//! @canon-tags: table,tabela,data,dados,grid,sortable,paginação
 use leptos::prelude::*;
 
 #[component]

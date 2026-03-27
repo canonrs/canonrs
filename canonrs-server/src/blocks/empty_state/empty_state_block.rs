@@ -4,6 +4,9 @@
 //! @canon-variant: feature
 //! @canon-container: false
 //! @canon-regions: icon, title, description, action
+//! @canon-label: Empty State
+//! @canon-description: Empty state placeholder block
+//! @canon-tags: empty,vazio,placeholder,sem dados,no data
 use leptos::prelude::*;
 
 #[component]

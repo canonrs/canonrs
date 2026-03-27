@@ -4,6 +4,7 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: header, stepper, content, footer
+//! @canon-tags: wizard,steps,passos,onboarding,etapas,multi-step
 //! @canon-label: Wizard
 //! @canon-icon: 📋
 //! @canon-description: Multi-step form with header, stepper, content and footer

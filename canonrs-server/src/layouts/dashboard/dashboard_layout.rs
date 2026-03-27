@@ -4,6 +4,7 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: header, sidebar, content
+//! @canon-tags: dashboard,app,admin,painel,header,sidebar,main
 //! @canon-label: Dashboard
 //! @canon-icon: ⬛
 //! @canon-description: App shell with header, sidebar and main content area

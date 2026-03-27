@@ -4,6 +4,9 @@
 //! @canon-variant: overlay
 //! @canon-container: true
 //! @canon-regions: header, content, footer
+//! @canon-label: Drawer
+//! @canon-description: Slide-out drawer panel block
+//! @canon-tags: drawer,painel,slide,lateral,gaveta
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

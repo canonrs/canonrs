@@ -4,6 +4,7 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: sidebar, content, aside
+//! @canon-tags: page,single,simples,coluna,artigo,content
 //! @canon-label: Page
 //! @canon-icon: ▭
 //! @canon-description: Page layout with optional sidebar and aside
