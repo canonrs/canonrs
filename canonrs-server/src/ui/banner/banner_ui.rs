@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Banner - Declarative UI wrapper
+//! @canon-id: banner
+//! @canon-label: Banner
+//! @canon-family: feedback
+//! @canon-category: Feedback
+//! @canon-intent: Display persistent page-level messages
+//! @canon-description: Banner message
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose
+//! @canon-required-parts:
+//! @canon-optional-parts: BannerContent, BannerActions, BannerClose
+//! @canon-tags: banner, announcement, notification, top, message
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

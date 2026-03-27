@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -19,7 +19,7 @@ pub fn register() {
         let is_single = root.get_attribute("data-rs-selection").as_deref() != Some("multiple");
 
         let items = root.query_selector_all("[data-rs-list-item]")
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query items".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "query items".into() })?;
 
         for i in 0..items.length() {
             let node = match items.item(i) { Some(n) => n, None => continue };

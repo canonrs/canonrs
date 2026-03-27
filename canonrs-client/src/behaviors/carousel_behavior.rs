@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
@@ -32,7 +32,7 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
     };
 
     let wrapper_el: web_sys::HtmlElement = wrapper.dyn_into()
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "cast wrapper".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "cast wrapper".into() })?;
 
     let initial_index = wrapper_el.get_attribute("data-initial-index")
         .and_then(|s| s.parse::<usize>().ok())
@@ -45,7 +45,7 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
         .unwrap_or(5000);
 
     let items = carousel.query_selector_all("[data-carousel-item]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query items".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query items".into() })?;
     
     let total_items = items.length() as usize;
     if total_items == 0 {
@@ -56,7 +56,7 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
     if let Some(indicators_container) = carousel.query_selector("[data-carousel-indicators]").ok().flatten() {
         for i in 0..total_items {
             let dot = document().create_element("button")
-                .map_err(|_| canonrs_core::BehaviorError::JsError { message: "create dot".into() })?;
+                .map_err(|_| crate::BehaviorError::JsError { message: "create dot".into() })?;
             let _ = dot.set_attribute("data-carousel-dot", "");
             let _ = dot.set_attribute("data-index", &i.to_string());
             let _ = dot.set_attribute("aria-label", &format!("Go to slide {}", i + 1));
@@ -114,7 +114,7 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
     }) as Box<dyn FnMut(_)>);
     
     carousel.add_event_listener_with_callback("keydown", on_keydown.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "keydown".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "keydown".into() })?;
     on_keydown.forget();
 
     // Autoplay

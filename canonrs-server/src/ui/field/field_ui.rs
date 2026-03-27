@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Field - sem behavior
+//! @canon-id: field
+//! @canon-label: Field
+//! @canon-family: utility
+//! @canon-category: Form
+//! @canon-intent: Wrap a form input with label and error
+//! @canon-description: Form field wrapper with label and error
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: field, label, error, form, wrapper
 
 use leptos::prelude::*;
 use canonrs_core::separator::SeparatorOrientation;

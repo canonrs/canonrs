@@ -1,6 +1,14 @@
-//! @canon-level: ui
-//! Radio - native HTML input, sem behavior
-//! Estado gerenciado pelo browser via :checked/:disabled
+//! @canon-id: radio
+//! @canon-label: Radio
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Select one option from a group
+//! @canon-description: Radio button input
+//! @canon-composable: true
+//! @canon-capabilities: Disabled
+//! @canon-required-parts: RadioGroup
+//! @canon-optional-parts:
+//! @canon-tags: radio, choice, exclusive, selection
 
 use leptos::prelude::*;
 use canonrs_core::primitives::RadioPrimitive;

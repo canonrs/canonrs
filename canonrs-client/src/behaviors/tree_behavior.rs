@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -93,7 +93,7 @@ pub fn register() {
 
         // click em items
         let items = root.query_selector_all("[data-rs-tree-item]")
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query items".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "query items".into() })?;
 
         for i in 0..items.length() {
             let Some(node) = items.item(i) else { continue };

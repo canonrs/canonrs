@@ -1,3 +1,15 @@
+//! @canon-id: list-item
+//! @canon-label: List Item
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Display a single item in a list
+//! @canon-description: Single list item with title and description
+//! @canon-composable: true
+//! @canon-capabilities: Selected, Disabled
+//! @canon-required-parts:
+//! @canon-optional-parts: ListItemTitle, ListItemDescription
+//! @canon-tags: list-item, item, row, entry, element
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     ListPrimitive, ListItemPrimitive,

@@ -4,10 +4,11 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: header, stepper, content, footer
-//! @canon-tags: wizard,steps,passos,onboarding,etapas,multi-step
 //! @canon-label: Wizard
 //! @canon-icon: 📋
 //! @canon-description: Multi-step form with header, stepper, content and footer
+//! @canon-tags: wizard-layout, wizard, steps, onboarding, multi-step, form
+//! @canon-slot-accepts: header=Any,stepper=Any,content=Form,footer=Action
 //! @canon-slot-descriptions: header:Wizard title and progress,stepper:Step indicators,content:Step content,footer:Navigation actions
 use leptos::prelude::*;
 

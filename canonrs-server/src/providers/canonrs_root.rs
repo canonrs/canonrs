@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use canonrs_core::theme::ThemeProvider;
+use canonrs_core::infra::theme::ThemeProvider;
 
 #[component]
 pub fn CanonRSRoot(
@@ -13,8 +13,8 @@ pub fn CanonRSRoot(
     }
 }
 
-pub fn use_theme() -> canonrs_core::theme::ThemeContext {
-    use_context::<canonrs_core::theme::ThemeContext>()
+pub fn use_theme() -> canonrs_core::infra::theme::ThemeContext {
+    use_context::<canonrs_core::infra::theme::ThemeContext>()
         .expect("use_theme must be used within CanonRSRoot")
 }
 

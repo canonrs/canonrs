@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -57,7 +57,7 @@ pub fn register() {
         }
 
         let triggers = root.query_selector_all("[data-rs-tabs-trigger]")
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query triggers".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "query triggers".into() })?;
 
         for i in 0..triggers.length() {
             let Some(node) = triggers.item(i) else { continue };

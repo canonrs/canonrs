@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use canonrs_core::TocItem;
-use super::table_of_contents::TableOfContents;
-use canonrs_core::primitives::table_of_contents::TocMode;
+use super::TableOfContents;
+use super::TocMode;
 
 fn enterprise_items() -> Vec<TocItem> {
     vec![
@@ -65,10 +65,11 @@ fn demo_layout(toc: impl IntoView, content_id: &'static str) -> impl IntoView {
 }
 
 pub fn simple_example() -> impl IntoView {
+    let items: Vec<TocItem> = enterprise_items();
     demo_layout(
         view! {
             <TableOfContents
-                items=enterprise_items()
+                items=items
                 mode=TocMode::Simple
                 title="On this page"
             />
@@ -78,10 +79,11 @@ pub fn simple_example() -> impl IntoView {
 }
 
 pub fn expand_example() -> impl IntoView {
+    let items: Vec<TocItem> = enterprise_items();
     demo_layout(
         view! {
             <TableOfContents
-                items=enterprise_items()
+                items=items
                 mode=TocMode::Expand
                 title="Contents"
             />
@@ -91,10 +93,11 @@ pub fn expand_example() -> impl IntoView {
 }
 
 pub fn nested_example() -> impl IntoView {
+    let items: Vec<TocItem> = enterprise_items();
     demo_layout(
         view! {
             <TableOfContents
-                items=enterprise_items()
+                items=items
                 mode=TocMode::Nested
                 title="Documentation"
             />

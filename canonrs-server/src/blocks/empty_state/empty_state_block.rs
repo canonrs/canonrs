@@ -6,7 +6,8 @@
 //! @canon-regions: icon, title, description, action
 //! @canon-label: Empty State
 //! @canon-description: Empty state placeholder block
-//! @canon-tags: empty,vazio,placeholder,sem dados,no data
+//! @canon-tags: empty-state, empty, placeholder, no-data, zero-state
+//! @canon-slot-accepts: icon=Any,title=Any,description=Any,action=Action
 use leptos::prelude::*;
 
 #[component]

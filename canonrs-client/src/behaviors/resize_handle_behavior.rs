@@ -5,7 +5,7 @@ use wasm_bindgen::{JsCast, closure::Closure, JsValue};
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use web_sys::{Element, MouseEvent};
 #[cfg(feature = "hydrate")]

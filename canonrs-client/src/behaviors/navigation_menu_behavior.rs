@@ -9,7 +9,7 @@ use web_sys::{HtmlElement, KeyboardEvent};
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 fn open_item(item: &web_sys::Element) {

@@ -6,7 +6,8 @@
 //! @canon-regions: trigger, header, content, footer
 //! @canon-label: Popover
 //! @canon-description: Floating popover container block
-//! @canon-tags: popover,flutuante,floating,tooltip,dica
+//! @canon-tags: popover, floating, tooltip, overlay, context
+//! @canon-slot-accepts: trigger=Any,header=Any,content=Any,footer=Action
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

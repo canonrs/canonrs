@@ -10,11 +10,11 @@ pub mod primitives {
 }
 
 pub mod shared {
-    pub use canonrs_core::shared::*;
+    pub use canonrs_core::{TocItem, Orientation, NavigationState, HeadingHierarchy, HeadingNode};
 }
 
 pub mod providers {
-    pub use canonrs_core::theme::*;
+    pub use canonrs_core::infra::theme::*;
     pub mod prelude {
         pub use canonrs_core::prelude::*;
     }
@@ -48,4 +48,33 @@ pub mod behaviors {
 #[cfg(feature = "ssr")]
 pub fn canonrs_css() -> &'static str {
     include_str!(concat!(env!("OUT_DIR"), "/canonrs.css"))
+}
+
+pub mod block_types {
+    pub use canonrs_core::block_types::*;
+}
+
+pub mod catalog_types {
+    pub use canonrs_core::catalog_types::*;
+}
+
+pub mod generated {
+    pub mod block_definitions {
+        pub use canonrs_core::generated::block_definitions::*;
+    }
+    pub mod component_definitions {
+        pub use canonrs_core::generated::component_definitions::*;
+    }
+    pub mod catalog {
+        pub use canonrs_core::generated::catalog::*;
+    }
+    pub mod component_meta {
+        pub use canonrs_core::generated::component_meta::*;
+    }
+}
+
+pub mod infra {
+    pub mod constraint_engine {
+        pub use canonrs_core::infra::constraint_engine::*;
+    }
 }

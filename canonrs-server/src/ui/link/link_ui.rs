@@ -1,3 +1,15 @@
+//! @canon-id: link
+//! @canon-label: Link
+//! @canon-family: typography
+//! @canon-category: Navigation
+//! @canon-intent: Navigate to a URL or trigger action
+//! @canon-description: Hyperlink
+//! @canon-composable: false
+//! @canon-capabilities: Disabled
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: link, anchor, href, url, navigate, click
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{LinkPrimitive, LinkVariant};
 use canonrs_core::meta::DisabledState;

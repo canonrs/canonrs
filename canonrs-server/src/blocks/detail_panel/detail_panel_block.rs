@@ -6,7 +6,8 @@
 //! @canon-regions: aside, content
 //! @canon-label: Detail Panel
 //! @canon-description: Master-detail panel layout
-//! @canon-tags: detail,detalhe,master,painel,inspector
+//! @canon-tags: detail-panel, detail, master, panel, inspector
+//! @canon-slot-accepts: aside=Any,content=Any
 use leptos::prelude::*;
 
 #[component]

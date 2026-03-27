@@ -11,7 +11,7 @@ pub mod utils;
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use data::{read_chart_data, parse_chart_data};
 #[cfg(feature = "hydrate")]
@@ -46,7 +46,7 @@ pub fn register() {
             None => return Ok(()),
         };
         let canvas: web_sys::HtmlCanvasElement = canvas_el.dyn_into()
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "canvas cast".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "canvas cast".into() })?;
 
         let (labels, series) = match parse_chart_data(&data_json) {
             Some(d) => d,

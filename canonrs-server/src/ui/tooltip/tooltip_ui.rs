@@ -1,4 +1,15 @@
-//! @canon-level: ui
+//! @canon-id: tooltip
+//! @canon-label: Tooltip
+//! @canon-family: overlay
+//! @canon-category: Overlay
+//! @canon-intent: Show brief label on hover/focus
+//! @canon-description: Hover tooltip
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose
+//! @canon-required-parts: TooltipTrigger, TooltipContent
+//! @canon-optional-parts: TooltipProvider
+//! @canon-tags: tooltip, hint, hover, info, help
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     TooltipProviderPrimitive, TooltipPrimitive,

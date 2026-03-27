@@ -6,7 +6,8 @@
 //! @canon-regions: left, center, right
 //! @canon-label: Toolbar
 //! @canon-description: Action toolbar bar
-//! @canon-tags: toolbar,barra,ações,actions,buttons,ferramentas
+//! @canon-tags: toolbar, bar, actions, buttons, tools
+//! @canon-slot-accepts: left=Nav,center=Any,right=Action
 use leptos::prelude::*;
 
 #[component]

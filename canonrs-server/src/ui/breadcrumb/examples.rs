@@ -74,7 +74,7 @@ pub fn BasicExample() -> impl IntoView {
 #[component]
 pub fn AutoExample() -> impl IntoView {
     use super::BreadcrumbAuto;
-    use canonrs_core::shared::navigation_context::{NavigationState, HeadingHierarchy, HeadingNode};
+    use canonrs_core::{NavigationState, HeadingHierarchy, HeadingNode};
     use std::collections::HashMap;
 
     let mock_state = {

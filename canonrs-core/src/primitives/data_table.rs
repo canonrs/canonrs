@@ -5,7 +5,7 @@
 use leptos::prelude::*;
 use crate::primitives::table::SortDirection;
 use crate::meta::SelectionState;
-use crate::state_engine::selection_attrs;
+use crate::infra::state_engine::selection_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum DataTableDensity {

@@ -6,7 +6,8 @@
 //! @canon-regions: header, items, footer
 //! @canon-label: Timeline
 //! @canon-description: Chronological timeline block
-//! @canon-tags: timeline,linha do tempo,cronologia,histórico,eventos
+//! @canon-tags: timeline, chronology, history, events, log
+//! @canon-slot-accepts: header=Any,items=Any,footer=Action
 use leptos::prelude::*;
 
 #[component]

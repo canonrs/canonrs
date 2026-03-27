@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::LoadingState;
-use crate::state_engine::loading_attrs;
+use crate::infra::state_engine::loading_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SpinnerSize {

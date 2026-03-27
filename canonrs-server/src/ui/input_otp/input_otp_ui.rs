@@ -1,3 +1,15 @@
+//! @canon-id: input-otp
+//! @canon-label: OTP Input
+//! @canon-family: utility
+//! @canon-category: Form
+//! @canon-intent: Capture one-time password codes
+//! @canon-description: One-time password input
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: input-otp, otp, code, verification, sms, token, pin
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{InputOtpSlotPrimitive};
 use canonrs_core::meta::{ActivityState, DisabledState};

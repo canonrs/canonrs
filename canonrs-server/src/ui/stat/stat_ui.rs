@@ -1,3 +1,15 @@
+//! @canon-id: stat
+//! @canon-label: Stat
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Display a key metric with label
+//! @canon-description: Metric stat display
+//! @canon-composable: true
+//! @canon-capabilities:
+//! @canon-required-parts: StatValue, StatLabel
+//! @canon-optional-parts: StatDelta, StatIcon
+//! @canon-tags: stat, metric, number, kpi, indicator, value
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     StatPrimitive, StatValuePrimitive, StatLabelPrimitive,

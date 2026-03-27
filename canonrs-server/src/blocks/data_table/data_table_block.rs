@@ -6,7 +6,8 @@
 //! @canon-regions: toolbar, header, body, empty, pagination
 //! @canon-label: Data Table
 //! @canon-description: Sortable paginated data table block
-//! @canon-tags: table,tabela,data,dados,grid,sortable,paginação
+//! @canon-tags: data-table, table, data, grid, sortable, pagination
+//! @canon-slot-accepts: toolbar=Action,header=Any,body=Any,empty=Any,pagination=Nav
 use leptos::prelude::*;
 
 #[component]

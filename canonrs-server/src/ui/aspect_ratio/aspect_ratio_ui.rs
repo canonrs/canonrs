@@ -1,3 +1,15 @@
+//! @canon-id: aspect-ratio
+//! @canon-label: Aspect Ratio
+//! @canon-family: layout
+//! @canon-category: Display
+//! @canon-intent: Maintain consistent width/height ratio
+//! @canon-description: Aspect ratio container
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: aspect-ratio, ratio, 16:9, 4:3, image, video
+
 use leptos::prelude::*;
 use canonrs_core::primitives::AspectRatioPrimitive;
 

@@ -24,15 +24,15 @@ pub static ALERT_META: ComponentMeta = ComponentMeta {
     optional_parts: &["AlertTitle", "AlertDescription"],
 };
 
-pub static ALERT_DIALOG_CONTENT_META: ComponentMeta = ComponentMeta {
-    id: "alert-dialog-content",
-    name: "Alert Dialog Content",
-    family: ComponentFamily::Utility,
-    intent: "Alert Dialog Content component",
-    capabilities: &[],
-    composable: false,
-    required_parts: &[],
-    optional_parts: &[],
+pub static ALERT_DIALOG_META: ComponentMeta = ComponentMeta {
+    id: "alert-dialog",
+    name: "Alert Dialog",
+    family: ComponentFamily::Overlay,
+    intent: "Confirm destructive actions with user",
+    capabilities: &[Capability::OpenClose, Capability::FocusTrap, Capability::AriaModal],
+    composable: true,
+    required_parts: &["AlertDialogContent", "AlertDialogTitle"],
+    optional_parts: &["AlertDialogOverlay", "AlertDialogDescription", "AlertDialogAction"],
 };
 
 pub static ANIMATE_META: ComponentMeta = ComponentMeta {
@@ -116,18 +116,7 @@ pub static BUTTON_GROUP_META: ComponentMeta = ComponentMeta {
     id: "button-group",
     name: "Button Group",
     family: ComponentFamily::Utility,
-    intent: "Button Group component",
-    capabilities: &[],
-    composable: false,
-    required_parts: &[],
-    optional_parts: &[],
-};
-
-pub static CALENDAR_META: ComponentMeta = ComponentMeta {
-    id: "calendar",
-    name: "Calendar",
-    family: ComponentFamily::Utility,
-    intent: "Calendar component",
+    intent: "Group related action buttons together",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -161,7 +150,7 @@ pub static CAROUSEL_META: ComponentMeta = ComponentMeta {
     name: "Carousel",
     family: ComponentFamily::DataDisplay,
     intent: "Cycle through items horizontally",
-    capabilities: &[],
+    capabilities: &[Capability::KeyboardArrows],
     composable: true,
     required_parts: &["CarouselTrack", "CarouselItem"],
     optional_parts: &["CarouselPrev", "CarouselNext", "CarouselIndicators"],
@@ -193,7 +182,7 @@ pub static CODE_BLOCK_META: ComponentMeta = ComponentMeta {
     id: "code-block",
     name: "Code Block",
     family: ComponentFamily::DataDisplay,
-    intent: "Syntax-highlighted code display",
+    intent: "Display syntax-highlighted code",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -219,7 +208,7 @@ pub static COLOR_PICKER_META: ComponentMeta = ComponentMeta {
     capabilities: &[Capability::Value, Capability::Disabled],
     composable: true,
     required_parts: &[],
-    optional_parts: &[],
+    optional_parts: &["ColorPickerSwatch", "ColorPickerInput"],
 };
 
 pub static COMBOBOX_META: ComponentMeta = ComponentMeta {
@@ -238,7 +227,7 @@ pub static COMMAND_META: ComponentMeta = ComponentMeta {
     name: "Command",
     family: ComponentFamily::Interactive,
     intent: "Command palette for quick actions",
-    capabilities: &[],
+    capabilities: &[Capability::OpenClose, Capability::Typeahead],
     composable: true,
     required_parts: &["CommandInput", "CommandList"],
     optional_parts: &["CommandItem", "CommandGroup", "CommandSeparator", "CommandEmpty"],
@@ -247,9 +236,9 @@ pub static COMMAND_META: ComponentMeta = ComponentMeta {
 pub static CONFIRM_DIALOG_META: ComponentMeta = ComponentMeta {
     id: "confirm-dialog",
     name: "Confirm Dialog",
-    family: ComponentFamily::Utility,
-    intent: "Confirm Dialog component",
-    capabilities: &[],
+    family: ComponentFamily::Overlay,
+    intent: "Ask user to confirm an action",
+    capabilities: &[Capability::OpenClose, Capability::FocusTrap, Capability::AriaModal],
     composable: false,
     required_parts: &[],
     optional_parts: &[],
@@ -266,6 +255,17 @@ pub static CONTEXT_MENU_META: ComponentMeta = ComponentMeta {
     optional_parts: &["ContextMenuItem", "ContextMenuSeparator"],
 };
 
+pub static COPY_BUTTON_META: ComponentMeta = ComponentMeta {
+    id: "copy-button",
+    name: "Copy Button",
+    family: ComponentFamily::Utility,
+    intent: "Copy text to clipboard on click",
+    capabilities: &[],
+    composable: false,
+    required_parts: &[],
+    optional_parts: &[],
+};
+
 pub static DATA_TABLE_META: ComponentMeta = ComponentMeta {
     id: "data-table",
     name: "Data Table",
@@ -274,7 +274,7 @@ pub static DATA_TABLE_META: ComponentMeta = ComponentMeta {
     capabilities: &[Capability::Multiple],
     composable: true,
     required_parts: &[],
-    optional_parts: &[],
+    optional_parts: &["DataTablePagination", "DataTableToolbar", "DataTableColumn"],
 };
 
 pub static DIALOG_META: ComponentMeta = ComponentMeta {
@@ -292,7 +292,7 @@ pub static DOC_PROGRESS_META: ComponentMeta = ComponentMeta {
     id: "doc-progress",
     name: "Doc Progress",
     family: ComponentFamily::Utility,
-    intent: "Doc Progress component",
+    intent: "Indicate reading progress in a document",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -329,14 +329,14 @@ pub static EMPTY_STATE_META: ComponentMeta = ComponentMeta {
     capabilities: &[],
     composable: true,
     required_parts: &[],
-    optional_parts: &[],
+    optional_parts: &["EmptyStateIcon", "EmptyStateTitle", "EmptyStateDescription", "EmptyStateAction"],
 };
 
 pub static EMPTY_TABLE_META: ComponentMeta = ComponentMeta {
     id: "empty-table",
     name: "Empty Table",
     family: ComponentFamily::Utility,
-    intent: "Empty Table component",
+    intent: "Show empty state inside a table",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -351,14 +351,14 @@ pub static ERROR_STATE_META: ComponentMeta = ComponentMeta {
     capabilities: &[],
     composable: true,
     required_parts: &[],
-    optional_parts: &[],
+    optional_parts: &["ErrorStateIcon", "ErrorStateTitle", "ErrorStateDescription", "ErrorStateAction"],
 };
 
 pub static FIELD_META: ComponentMeta = ComponentMeta {
     id: "field",
     name: "Field",
     family: ComponentFamily::Utility,
-    intent: "Field component",
+    intent: "Wrap a form input with label and error",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -380,7 +380,7 @@ pub static FORM_ERROR_SUMMARY_META: ComponentMeta = ComponentMeta {
     id: "form-error-summary",
     name: "Form Error Summary",
     family: ComponentFamily::Utility,
-    intent: "Form Error Summary component",
+    intent: "Summarize form validation errors",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -412,9 +412,9 @@ pub static ICON_META: ComponentMeta = ComponentMeta {
 pub static ICON_BUTTON_META: ComponentMeta = ComponentMeta {
     id: "icon-button",
     name: "Icon Button",
-    family: ComponentFamily::Utility,
-    intent: "Icon Button component",
-    capabilities: &[],
+    family: ComponentFamily::Interactive,
+    intent: "Trigger an action with an icon button",
+    capabilities: &[Capability::Disabled],
     composable: false,
     required_parts: &[],
     optional_parts: &[],
@@ -442,11 +442,22 @@ pub static INPUT_META: ComponentMeta = ComponentMeta {
     optional_parts: &[],
 };
 
+pub static INPUT_GROUP_META: ComponentMeta = ComponentMeta {
+    id: "input-group",
+    name: "Input Group",
+    family: ComponentFamily::Utility,
+    intent: "Group input with prefix or suffix elements",
+    capabilities: &[],
+    composable: false,
+    required_parts: &[],
+    optional_parts: &[],
+};
+
 pub static INPUT_OTP_META: ComponentMeta = ComponentMeta {
     id: "input-otp",
     name: "OTP Input",
     family: ComponentFamily::Utility,
-    intent: "OTP Input component",
+    intent: "Capture one-time password codes",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -468,7 +479,7 @@ pub static LABEL_META: ComponentMeta = ComponentMeta {
     id: "label",
     name: "Label",
     family: ComponentFamily::Utility,
-    intent: "Label component",
+    intent: "Associate a label with a form control",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -512,7 +523,7 @@ pub static MARKDOWN_META: ComponentMeta = ComponentMeta {
     id: "markdown",
     name: "Markdown",
     family: ComponentFamily::DataDisplay,
-    intent: "Rendered markdown content",
+    intent: "Render markdown content as HTML",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -523,7 +534,7 @@ pub static MENU_META: ComponentMeta = ComponentMeta {
     id: "menu",
     name: "Menu",
     family: ComponentFamily::Utility,
-    intent: "Menu component",
+    intent: "Static vertical menu list",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -549,7 +560,7 @@ pub static MODAL_META: ComponentMeta = ComponentMeta {
     capabilities: &[Capability::OpenClose, Capability::FocusTrap, Capability::AriaModal],
     composable: true,
     required_parts: &[],
-    optional_parts: &[],
+    optional_parts: &["ModalOverlay", "ModalContent", "ModalClose"],
 };
 
 pub static NAV_ITEM_META: ComponentMeta = ComponentMeta {
@@ -643,9 +654,9 @@ pub static RADIO_META: ComponentMeta = ComponentMeta {
 pub static RADIO_GROUP_META: ComponentMeta = ComponentMeta {
     id: "radio-group",
     name: "Radio Group",
-    family: ComponentFamily::Utility,
-    intent: "Radio Group component",
-    capabilities: &[],
+    family: ComponentFamily::Input,
+    intent: "Group radio buttons for single selection",
+    capabilities: &[Capability::Disabled],
     composable: false,
     required_parts: &[],
     optional_parts: &[],
@@ -667,7 +678,7 @@ pub static SCROLL_AREA_META: ComponentMeta = ComponentMeta {
     name: "Scroll Area",
     family: ComponentFamily::Layout,
     intent: "Scrollable container with custom scrollbar",
-    capabilities: &[],
+    capabilities: &[Capability::Overflow],
     composable: false,
     required_parts: &[],
     optional_parts: &[],
@@ -798,7 +809,7 @@ pub static TABLE_OF_CONTENTS_META: ComponentMeta = ComponentMeta {
     id: "table-of-contents",
     name: "Table of Contents",
     family: ComponentFamily::Utility,
-    intent: "Table of Contents component",
+    intent: "Navigate document sections via anchors",
     capabilities: &[],
     composable: false,
     required_parts: &[],
@@ -908,7 +919,7 @@ pub fn all_meta_generated() -> Vec<&'static ComponentMeta> {
     vec![
         &ACCORDION_META,
         &ALERT_META,
-        &ALERT_DIALOG_CONTENT_META,
+        &ALERT_DIALOG_META,
         &ANIMATE_META,
         &ASPECT_RATIO_META,
         &AVATAR_META,
@@ -917,7 +928,6 @@ pub fn all_meta_generated() -> Vec<&'static ComponentMeta> {
         &BREADCRUMB_META,
         &BUTTON_META,
         &BUTTON_GROUP_META,
-        &CALENDAR_META,
         &CALLOUT_META,
         &CARD_META,
         &CAROUSEL_META,
@@ -930,6 +940,7 @@ pub fn all_meta_generated() -> Vec<&'static ComponentMeta> {
         &COMMAND_META,
         &CONFIRM_DIALOG_META,
         &CONTEXT_MENU_META,
+        &COPY_BUTTON_META,
         &DATA_TABLE_META,
         &DIALOG_META,
         &DOC_PROGRESS_META,
@@ -946,6 +957,7 @@ pub fn all_meta_generated() -> Vec<&'static ComponentMeta> {
         &ICON_BUTTON_META,
         &INLINE_NOTICE_META,
         &INPUT_META,
+        &INPUT_GROUP_META,
         &INPUT_OTP_META,
         &KBD_META,
         &LABEL_META,

@@ -1,3 +1,15 @@
+//! @canon-id: confirm-dialog
+//! @canon-label: Confirm Dialog
+//! @canon-family: overlay
+//! @canon-category: Overlay
+//! @canon-intent: Ask user to confirm an action
+//! @canon-description: Confirmation dialog
+//! @canon-composable: false
+//! @canon-capabilities: OpenClose, FocusTrap, AriaModal
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: confirm-dialog, confirm, confirmation, cancel, ok
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     DialogPrimitive, DialogOverlayPrimitive,

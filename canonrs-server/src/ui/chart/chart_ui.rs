@@ -1,4 +1,14 @@
-//! Chart UI - Enterprise Canvas chart component
+//! @canon-id: chart
+//! @canon-label: Chart
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Visualize data graphically
+//! @canon-description: Data chart visualization
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: chart, graph, bar, line, pie, area, data, visualization
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ChartPrimitive, ChartType};

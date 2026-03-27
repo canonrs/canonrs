@@ -6,7 +6,8 @@
 //! @canon-regions: header, items, footer
 //! @canon-label: List
 //! @canon-description: Vertical list container
-//! @canon-tags: list,lista,itens,items,vertical,scroll
+//! @canon-tags: list, items, vertical, scroll, data
+//! @canon-slot-accepts: header=Any,items=Any,footer=Action
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

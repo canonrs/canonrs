@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 
 /// list_item_behavior delega ao list_behavior.
 /// Itens individuais são controlados pelo root [data-list].

@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Resizable - drag to resize panels
+//! @canon-id: resizable
+//! @canon-label: Resizable
+//! @canon-family: layout
+//! @canon-category: Layout
+//! @canon-intent: Split panels with draggable divider
+//! @canon-description: Resizable panel component
+//! @canon-composable: true
+//! @canon-capabilities: Orientation, Resize
+//! @canon-required-parts: ResizablePanel, ResizableHandle
+//! @canon-optional-parts:
+//! @canon-tags: resizable, resize, panel, split, adjust
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

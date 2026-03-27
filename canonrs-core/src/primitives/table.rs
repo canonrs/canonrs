@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::SelectionState;
-use crate::state_engine::selection_attrs;
+use crate::infra::state_engine::selection_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TableState {

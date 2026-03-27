@@ -1,3 +1,15 @@
+//! @canon-id: avatar
+//! @canon-label: Avatar
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Display user profile image with fallback
+//! @canon-description: User avatar image
+//! @canon-composable: true
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts: AvatarImage, AvatarFallback
+//! @canon-tags: avatar, photo, profile, user, image
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{AvatarPrimitive, AvatarImagePrimitive, AvatarFallbackPrimitive};
 

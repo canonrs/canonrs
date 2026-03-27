@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState, ToggleState, ActivityState};
-use crate::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, toggle_attrs, activity_attrs};
+use crate::infra::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, toggle_attrs, activity_attrs};
 
 #[component]
 pub fn DropdownMenuPrimitive(

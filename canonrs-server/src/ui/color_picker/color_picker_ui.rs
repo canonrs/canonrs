@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! ColorPicker - native input[type=color], sem behavior
+//! @canon-id: color-picker
+//! @canon-label: Color Picker
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Select a color value
+//! @canon-description: Color picker input
+//! @canon-composable: true
+//! @canon-capabilities: Value, Disabled
+//! @canon-required-parts:
+//! @canon-optional-parts: ColorPickerSwatch, ColorPickerInput
+//! @canon-tags: color-picker, color, palette, rgb, hex
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ColorPickerPrimitive, ColorPickerSwatchPrimitive};

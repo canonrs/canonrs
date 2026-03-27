@@ -5,7 +5,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
@@ -42,7 +42,7 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
 
     // Find all heading targets from toc items
     let items = toc.query_selector_all("[data-rs-toc-item][data-rs-target]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     if items.length() == 0 { return Ok(()); }
 
@@ -130,7 +130,7 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
     let observer = web_sys::IntersectionObserver::new_with_options(
         callback.as_ref().unchecked_ref(),
         &opts,
-    ).map_err(|_| canonrs_core::BehaviorError::JsError { message: "observer failed".into() })?;
+    ).map_err(|_| crate::BehaviorError::JsError { message: "observer failed".into() })?;
 
     callback.forget();
 
@@ -236,7 +236,7 @@ fn setup_nested_expand(toc: &Element) -> BehaviorResult<()> {
     let _ = toc.set_attribute("data-rs-toc-nested-attached", "1");
 
     let buttons = toc.query_selector_all("[data-rs-toc-expand-btn]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..buttons.length() {
         if let Some(btn) = buttons.item(i) {
@@ -258,7 +258,7 @@ fn setup_nested_expand(toc: &Element) -> BehaviorResult<()> {
                 }) as Box<dyn FnMut(_)>);
 
                 btn_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-                    .map_err(|_| canonrs_core::BehaviorError::JsError { message: "btn listener failed".into() })?;
+                    .map_err(|_| crate::BehaviorError::JsError { message: "btn listener failed".into() })?;
                 closure.forget();
             }
         }

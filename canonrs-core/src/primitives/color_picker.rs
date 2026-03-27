@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, VisibilityState};
-use crate::state_engine::{disabled_attrs, selection_attrs, visibility_attrs};
+use crate::infra::state_engine::{disabled_attrs, selection_attrs, visibility_attrs};
 
 #[component]
 pub fn ColorPickerPrimitive(

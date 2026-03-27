@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! AlertDialog - Declarative UI wrapper
+//! @canon-id: alert-dialog
+//! @canon-label: Alert Dialog
+//! @canon-family: overlay
+//! @canon-category: Overlay
+//! @canon-intent: Confirm destructive actions with user
+//! @canon-description: Alert dialog for critical confirmations
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose, FocusTrap, AriaModal
+//! @canon-required-parts: AlertDialogContent, AlertDialogTitle
+//! @canon-optional-parts: AlertDialogOverlay, AlertDialogDescription, AlertDialogAction
+//! @canon-tags: alert-dialog, confirm, destructive, modal, overlay
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

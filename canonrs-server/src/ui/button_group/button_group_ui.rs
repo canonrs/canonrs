@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! ButtonGroup - sem behavior
+//! @canon-id: button-group
+//! @canon-label: Button Group
+//! @canon-family: utility
+//! @canon-category: Action
+//! @canon-intent: Group related action buttons together
+//! @canon-description: Group of action buttons
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: button-group, buttons, group, actions, multiple
 
 use leptos::prelude::*;
 use canonrs_core::primitives::ButtonGroupPrimitive;

@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! ScrollArea UI - Enterprise scroll com custom scrollbar
+//! @canon-id: scroll-area
+//! @canon-label: Scroll Area
+//! @canon-family: layout
+//! @canon-category: Layout
+//! @canon-intent: Scrollable container with custom scrollbar
+//! @canon-description: Scrollable area container
+//! @canon-composable: false
+//! @canon-capabilities: Overflow
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: scroll-area, scroll, overflow, container, long-list
 
 use leptos::prelude::*;
 use super::scroll_area_primitive::{ScrollAreaPrimitive, ScrollOrientation};

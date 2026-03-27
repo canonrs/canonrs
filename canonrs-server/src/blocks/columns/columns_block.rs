@@ -6,10 +6,11 @@
 //! @canon-regions: columns
 //! @canon-label: Columns
 //! @canon-description: Two equal columns
-//! @canon-tags: columns,colunas,dois,split,paralelo
+//! @canon-tags: columns, split, parallel, layout
 //! @canon-prop: gap | Number | 1rem | visual | gap
 //! @canon-preset: Equal 2 | gap=1rem
 //! @canon-preset: Equal 3 | gap=1rem
+//! @canon-slot-accepts: columns=Any
 use leptos::prelude::*;
 
 #[component]

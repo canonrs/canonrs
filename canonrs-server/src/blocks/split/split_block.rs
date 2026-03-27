@@ -6,7 +6,8 @@
 //! @canon-regions: aside, main
 //! @canon-label: Split
 //! @canon-description: Aside and main two-panel block
-//! @canon-tags: split,aside,painel,dois,dual
+//! @canon-tags: split, aside, panel, dual, two-column
+//! @canon-slot-accepts: aside=Nav,main=Any
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

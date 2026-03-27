@@ -1,3 +1,15 @@
+//! @canon-id: context-menu
+//! @canon-label: Context Menu
+//! @canon-family: interactive
+//! @canon-category: Action
+//! @canon-intent: Show menu on right-click
+//! @canon-description: Right-click context menu
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose
+//! @canon-required-parts: ContextMenuTrigger, ContextMenuContent
+//! @canon-optional-parts: ContextMenuItem, ContextMenuSeparator
+//! @canon-tags: context-menu, right-click, menu, options, contextual
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     ContextMenuPrimitive, ContextMenuTriggerPrimitive, ContextMenuContentPrimitive,

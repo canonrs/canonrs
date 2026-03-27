@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Combobox - attribute-driven
+//! @canon-id: combobox
+//! @canon-label: Combobox
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Search and select from a list
+//! @canon-description: Searchable combo box
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose, Disabled
+//! @canon-required-parts: SelectTrigger, SelectContent
+//! @canon-optional-parts:
+//! @canon-tags: combobox, search, autocomplete, filter, combo
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

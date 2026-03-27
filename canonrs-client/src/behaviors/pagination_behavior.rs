@@ -7,7 +7,7 @@ use web_sys::HtmlElement;
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
@@ -16,7 +16,7 @@ pub fn register() {
         root.set_attribute("data-rs-pagination-attached", "1").ok();
 
         let buttons = root.query_selector_all("[data-rs-pagination-link], [data-rs-pagination-previous], [data-rs-pagination-next]")
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query buttons".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "query buttons".into() })?;
 
         for i in 0..buttons.length() {
             let node = match buttons.item(i) { Some(n) => n, None => continue };

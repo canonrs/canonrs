@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use canonrs_core::root::use_theme;
+use canonrs_core::infra::theme::use_theme;
 
 /// Engine que observa contexto e aplica efeitos visuais
 #[component]

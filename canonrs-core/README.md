@@ -1,53 +1,75 @@
 # canonrs-core
 
-Foundation layer of the CanonRS design system.
+Núcleo do sistema CanonRS. Define contratos, primitivos e infraestrutura compartilhada entre server e client.
 
-No heavy dependencies. Compiles on all targets: SSR, WASM, and native.
+---
 
-## Responsibility
+## Estrutura
+```
+canonrs-core/
+├── build/               # Módulos do build.rs (geração de código)
+│   ├── types.rs         # Structs compartilhadas entre módulos do build
+│   ├── utils.rs         # Helpers puros (pascal_to_kebab, to_const_name...)
+│   ├── parsers.rs       # Parsers de primitivos, components.toml, blocks/layouts
+│   └── generators.rs    # Geradores: schema.json, meta, catalog, definitions, api, llm
+├── src/
+│   ├── infra/           # Infraestrutura transversal de runtime
+│   │   ├── theme/       # ThemeProvider, CanonRSRoot, use_theme, ThemeMode
+│   │   ├── state_engine.rs  # Centraliza aria-*, data-rs-state por tipo de estado
+│   │   └── dom_contract.rs  # Valida composição de componentes em dev/test
+│   ├── primitives/      # Contratos puros de componentes (98 primitivos)
+│   ├── generated/       # Código auto-gerado pelo build.rs (não editar)
+│   │   ├── component_meta.rs
+│   │   ├── block_meta.rs
+│   │   ├── block_definitions.rs
+│   │   ├── layout_definitions.rs
+│   │   ├── catalog.rs
+│   │   ├── llm_components.md  # Contexto LLM — componentes UI
+│   │   ├── llm_blocks.md      # Contexto LLM — blocks com props e presets
+│   │   └── llm_layouts.md     # Contexto LLM — layouts com slots e regiões
+│   ├── meta.rs          # Enums de estado: VisibilityState, ActivityState...
+│   ├── meta_types.rs    # ComponentMeta, Capability, ComponentFamily
+│   ├── catalog_types.rs # CatalogEntry, CatalogCategory
+│   ├── block_types.rs   # BlockDefinition, BlockVariant, LayoutDefinition...
+│   ├── prelude.rs       # Re-exports públicos controlados
+│   └── lib.rs           # Entry point da crate
+├── components.toml      # Registro semântico dos componentes (SSOT)
+├── build.rs             # Entry point do build — orquestra os módulos de build/
+└── schema.json          # Gerado automaticamente — não commitar alterações manuais
+```
 
-Provides the shared types, design contracts, providers, and primitive type definitions used by all other CanonRS crates. This crate never pulls in `syntect`, `pulldown-cmark`, `axum`, or any browser API.
+---
 
-## Modules
+## Como funciona o build
 
-### `primitives/`
-Type definitions and prop contracts for all 80+ UI components. These are the canonical shapes — not the implementations. Each file defines the types, enums, and props that the actual component in `canonrs-server` implements.
+O `build.rs` roda antes da compilação e gera código Rust em `src/generated/`.
 
-### `utils/`
-Utility functions shared across the system. Includes `id_gen` for deterministic component ID generation.
+**Pipeline:**
+1. **Parse primitivos** — lê `src/primitives/*.rs`, extrai `data-rs-component`, `data-rs-behavior` e enums de variantes
+2. **Parse semântico** — lê `components.toml`, carrega metadados (família, capabilities, tags de catálogo)
+3. **Parse blocks/layouts** — lê `canonrs-server/src/blocks/` e `layouts/`, extrai headers `@canon-*`
+4. **Geração Rust** — produz `component_meta.rs`, `block_meta.rs`, `block_definitions.rs`, `layout_definitions.rs`, `catalog.rs` e `schema.json`
+5. **Geração API** — produz `api.rs` por block e layout (contrato tipado de props)
+6. **Geração LLM** — produz `llm_components.md`, `llm_blocks.md`, `llm_layouts.md` para consumo pelo pipeline de IA
 
-### `shared/`
-Cross-cutting domain types used by multiple components:
-- `behavior_core` — base behavior contracts
-- `behavior_error` / `behavior_telemetry` — error and observability types
-- `navigation_context` — shared navigation state
-- `orientation`, `status_variant`, `drawer_variant` — common enums
-- `toc_types` — table of contents data structures
+Qualquer alteração em `src/primitives/`, `components.toml` ou nos blocks/layouts dispara o rebuild automaticamente.
 
-### `design/`
-Design system contracts, governance rules, token definitions, and legacy migration guides. This is the source of truth for the token architecture.
+---
 
-### `theme/`
-Theme provider, theme types, and `ThemeMode` enum. Used by both SSR and client targets.
+## Camadas
 
-### `density/`
-Density context provider and types. Controls UI density (compact, default, comfortable).
+| Camada | Responsabilidade |
+|---|---|
+| `infra/theme` | Runtime de tema (dark/light, contexto Leptos) |
+| `infra/state_engine` | Mapeia estados de UI para atributos aria/data |
+| `infra/dom_contract` | Valida composição correta de componentes |
+| `primitives/` | Contrato puro de cada componente — sem lógica de negócio |
+| `generated/` | Metadados, catálogo, API contracts e contexto LLM gerados automaticamente |
 
-### `language/`
-Language and i18n context provider.
+---
 
-### `hydration/`
-Hydration state management.
+## Dependências externas
 
-### `root/`
-`CanonRSRoot` — the top-level provider component that wraps all other providers. Must be placed at the root of every CanonRS app.
-
-### `prelude.rs`
-Convenience re-exports. Import with `use canonrs_core::prelude::*` or `use canonrs::providers::prelude::*`.
-
-## Features
-
-| Feature | Effect |
-|---------|--------|
-| `ssr` | Enables SSR-specific provider behavior |
-| `hydrate` | Enables hydration mode |
+- `canonrs-style` — tipos declarativos de estilo (`StyleProps`, `Spacing`, etc.)
+- `canonrs-tokens` — tokens de design (cores, espaçamentos) — usado pelo build de CSS
+- `leptos` — framework reativo (apenas `infra/theme` depende diretamente)

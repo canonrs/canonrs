@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
@@ -31,7 +31,7 @@ fn setup_toolbar(toolbar: &Element) -> BehaviorResult<()> {
     let is_horizontal = orientation == "horizontal";
 
     let items = toolbar.query_selector_all("button, input, select, [tabindex='0']")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query items".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query items".into() })?;
 
     for i in 0..items.length() {
         if let Some(node) = items.item(i) {
@@ -110,7 +110,7 @@ fn setup_toolbar(toolbar: &Element) -> BehaviorResult<()> {
     }) as Box<dyn FnMut(_)>);
 
     toolbar.add_event_listener_with_callback("keydown", on_keydown.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "keydown".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "keydown".into() })?;
     on_keydown.forget();
 
     Ok(())

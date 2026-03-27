@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{DisabledState, LoadingState};
-use crate::state_engine::{disabled_attrs, loading_attrs};
+use crate::infra::state_engine::{disabled_attrs, loading_attrs};
 
 #[derive(Clone, PartialEq, Default, Debug)]
 pub enum IconButtonSize {

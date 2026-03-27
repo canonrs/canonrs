@@ -4,7 +4,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
@@ -62,7 +62,7 @@ fn setup_scroll_tracking(progress_el: &Element) -> BehaviorResult<()> {
         window.add_event_listener_with_callback(
             "scroll",
             scroll_handler.as_ref().unchecked_ref()
-        ).map_err(|_| canonrs_core::BehaviorError::JsError { 
+        ).map_err(|_| crate::BehaviorError::JsError { 
             message: "scroll listener failed".into() 
         })?;
         

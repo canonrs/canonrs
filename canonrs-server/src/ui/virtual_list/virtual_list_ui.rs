@@ -1,3 +1,15 @@
+//! @canon-id: virtual-list
+//! @canon-label: Virtual List
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Efficiently render large lists
+//! @canon-description: Virtualized list for large datasets
+//! @canon-composable: false
+//! @canon-capabilities: VirtualScroll
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: virtual-list, virtualization, performance, large-volume
+
 use leptos::prelude::*;
 
 #[component]

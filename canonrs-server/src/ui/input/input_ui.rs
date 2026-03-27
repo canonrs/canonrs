@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Input - sem behavior
+//! @canon-id: input
+//! @canon-label: Input
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Capture text or data from user
+//! @canon-description: Text input field
+//! @canon-composable: false
+//! @canon-capabilities: Value, Disabled
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: input, field, text, form
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{InputPrimitive, InputVariant, InputSize};

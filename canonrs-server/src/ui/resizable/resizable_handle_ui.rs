@@ -1,3 +1,15 @@
+//! @canon-id: resizable-handle
+//! @canon-label: Resizable Handle
+//! @canon-family: layout
+//! @canon-category: Layout
+//! @canon-intent: Drag handle between resizable panels
+//! @canon-description: Draggable resize handle
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: resizable-handle, resizable, handle, drag, divider
+
 use leptos::prelude::*;
 use super::resizable_handle_primitive::ResizableHandlePrimitive;
 

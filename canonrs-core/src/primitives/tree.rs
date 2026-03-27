@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, VisibilityState, DisabledState, ActivityState};
-use crate::state_engine::{selection_attrs, visibility_attrs, disabled_attrs, activity_attrs};
+use crate::infra::state_engine::{selection_attrs, visibility_attrs, disabled_attrs, activity_attrs};
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TreeSelectionMode {

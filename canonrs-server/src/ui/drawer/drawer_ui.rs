@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Drawer - attribute-driven
+//! @canon-id: drawer
+//! @canon-label: Drawer
+//! @canon-family: overlay
+//! @canon-category: Overlay
+//! @canon-intent: Slide-in panel for supplementary content
+//! @canon-description: Slide-out drawer component
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose, FocusTrap, KeyboardEsc, AriaModal
+//! @canon-required-parts: DrawerContent
+//! @canon-optional-parts: DrawerOverlay
+//! @canon-tags: drawer, slide, lateral, panel, mobile
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{DrawerPrimitive, DrawerOverlayPrimitive, DrawerContentPrimitive};

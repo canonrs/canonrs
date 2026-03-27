@@ -2,7 +2,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -18,7 +18,7 @@ pub fn register() {
         root.set_attribute("data-rs-md-toolbar-attached", "1").ok();
 
         let buttons = root.query_selector_all("[data-rs-md-toolbar-item]")
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query buttons".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "query buttons".into() })?;
 
         for i in 0..buttons.length() {
             let node = match buttons.item(i) { Some(n) => n, None => continue };
@@ -49,7 +49,7 @@ pub fn register() {
             }) as Box<dyn FnMut(_)>);
 
             btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-                .map_err(|_| canonrs_core::BehaviorError::JsError { message: "toolbar listener failed".into() })?;
+                .map_err(|_| crate::BehaviorError::JsError { message: "toolbar listener failed".into() })?;
             closure.forget();
         }
 

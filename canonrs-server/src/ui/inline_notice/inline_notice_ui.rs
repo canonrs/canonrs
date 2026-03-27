@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! InlineNotice - Declarative UI wrapper
+//! @canon-id: inline-notice
+//! @canon-label: Inline Notice
+//! @canon-family: feedback
+//! @canon-category: Feedback
+//! @canon-intent: Show inline contextual feedback
+//! @canon-description: Inline notice message
+//! @canon-composable: true
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts: InlineNoticeIcon, InlineNoticeContent
+//! @canon-tags: inline-notice, notice, warning, inline, message, info
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

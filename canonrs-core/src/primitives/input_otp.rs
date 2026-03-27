@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::state_engine::disabled_attrs;
+use crate::infra::state_engine::disabled_attrs;
 
 #[component]
 pub fn InputOtpPrimitive(

@@ -1,5 +1,5 @@
-pub mod section_block;
-pub use section_block::*;
+pub mod section_layout;
+pub use section_layout::*;
 pub mod mock;
 pub use mock::*;
 

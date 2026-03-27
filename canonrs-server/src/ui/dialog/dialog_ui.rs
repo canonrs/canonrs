@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Dialog - Declarative UI wrapper
+//! @canon-id: dialog
+//! @canon-label: Dialog
+//! @canon-family: overlay
+//! @canon-category: Overlay
+//! @canon-intent: Display critical content requiring user interaction
+//! @canon-description: Modal dialog component
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose, FocusTrap, KeyboardEsc, AriaModal
+//! @canon-required-parts: DialogContent, DialogTitle
+//! @canon-optional-parts: DialogOverlay, DialogDescription, DialogClose
+//! @canon-tags: dialog, modal, popup, window, overlay, confirmation
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

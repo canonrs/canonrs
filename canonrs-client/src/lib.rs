@@ -3,9 +3,8 @@
 pub use canonrs_core::primitives;
 #[allow(ambiguous_glob_reexports)]
 pub use canonrs_core::primitives::*;
-pub use canonrs_core::utils;
-pub use canonrs_core::theme as providers;
-pub use canonrs_core::theme::ThemeMode;
+pub use canonrs_core::infra::theme as providers;
+pub use canonrs_core::infra::theme::ThemeMode;
 
 #[cfg(target_arch = "wasm32")]
 pub mod behaviors;

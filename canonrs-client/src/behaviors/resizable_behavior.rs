@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -97,11 +97,11 @@ pub fn register() {
         }) as Box<dyn FnMut(_)>);
 
         handle.add_event_listener_with_callback("pointerdown", on_down.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "pointerdown".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "pointerdown".into() })?;
         handle.add_event_listener_with_callback("pointermove", on_move.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "pointermove".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "pointermove".into() })?;
         handle.add_event_listener_with_callback("pointerup", on_up.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "pointerup".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "pointerup".into() })?;
 
         on_down.forget();
         on_move.forget();

@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Command - attribute-driven
+//! @canon-id: command
+//! @canon-label: Command
+//! @canon-family: interactive
+//! @canon-category: Action
+//! @canon-intent: Command palette for quick actions
+//! @canon-description: Command palette
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose, Typeahead
+//! @canon-required-parts: CommandInput, CommandList
+//! @canon-optional-parts: CommandItem, CommandGroup, CommandSeparator, CommandEmpty
+//! @canon-tags: command, palette, spotlight, search, shortcut
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

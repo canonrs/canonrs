@@ -1,3 +1,15 @@
+//! @canon-id: sidebar
+//! @canon-label: Sidebar
+//! @canon-family: navigation
+//! @canon-category: Navigation
+//! @canon-intent: Vertical navigation panel
+//! @canon-description: Sidebar navigation component
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose
+//! @canon-required-parts: SidebarContent
+//! @canon-optional-parts: SidebarHeader, SidebarFooter, SidebarMenu, SidebarMenuItem
+//! @canon-tags: sidebar, nav, navigation, links, left-panel
+
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     SidebarPrimitive, SidebarVariant, SidebarHeaderPrimitive, SidebarContentPrimitive,

@@ -6,7 +6,8 @@
 //! @canon-regions: nav, main
 //! @canon-label: Sidebar Layout
 //! @canon-description: Block-level sidebar and main content
-//! @canon-tags: sidebar,nav,menu,navegação,lateral
+//! @canon-tags: sidebar-layout, sidebar, nav, menu, lateral
+//! @canon-slot-accepts: nav=Nav,main=Any
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

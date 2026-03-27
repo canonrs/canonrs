@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -40,7 +40,7 @@ fn setup_toc_toggle(container: &Element) -> BehaviorResult<()> {
     }) as Box<dyn FnMut(_)>);
 
     btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
     closure.forget();
     Ok(())
 }
@@ -55,7 +55,7 @@ fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-scroll-spy-attached", "1");
 
     let headings = container.query_selector_all("[data-md-heading]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     if headings.length() == 0 {
         return Ok(());
@@ -139,7 +139,7 @@ fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
     let observer = web_sys::IntersectionObserver::new_with_options(
         callback.as_ref().unchecked_ref(),
         &opts,
-    ).map_err(|_| canonrs_core::BehaviorError::JsError { message: "observer failed".into() })?;
+    ).map_err(|_| crate::BehaviorError::JsError { message: "observer failed".into() })?;
 
     callback.forget();
 

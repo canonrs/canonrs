@@ -6,9 +6,10 @@
 //! @canon-regions: content
 //! @canon-label: Container
 //! @canon-description: Max-width centered container
-//! @canon-tags: container,wrapper,max-width,centralizar,centro
+//! @canon-tags: container, wrapper, max-width, center, layout
 //! @canon-prop: max-width | Text | 1200px | visual | max-width
 //! @canon-prop: padding | Number | | visual | padding
+//! @canon-slot-accepts: content=Any
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

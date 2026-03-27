@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Toast - Declarative UI wrapper
+//! @canon-id: toast
+//! @canon-label: Toast
+//! @canon-family: feedback
+//! @canon-category: Feedback
+//! @canon-intent: Show brief non-blocking notifications
+//! @canon-description: Toast notification message
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose
+//! @canon-required-parts: ToastViewport
+//! @canon-optional-parts: ToastTitle, ToastDescription, ToastAction, ToastClose
+//! @canon-tags: toast, notification, snackbar, message, success, error
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

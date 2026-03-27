@@ -6,7 +6,8 @@
 //! @canon-regions: header, content, footer
 //! @canon-label: Dialog
 //! @canon-description: Modal dialog overlay block
-//! @canon-tags: dialog,modal,popup,overlay,janela,alerta
+//! @canon-tags: dialog, modal, popup, overlay, window, alert
+//! @canon-slot-accepts: header=Any,content=Any,footer=Action
 use leptos::prelude::*;
 
 #[component]

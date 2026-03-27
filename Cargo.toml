@@ -4,6 +4,7 @@ members = [
     "tools/canonrs-cli",
     "canonrs-tokens",
     "canonrs",
+    "canonrs-style",
     "canonrs-core",
     "canonrs-client",
     "canonrs-server",
@@ -32,6 +33,7 @@ wasm-bindgen = { version = "0.2" }
 web-sys = { version = "0.3" }
 js-sys = { version = "0.3" }
 wasm-bindgen-futures = { version = "0.4" }
+canonrs-style = { path = "canonrs-style" }
 canonrs-core = { path = "canonrs-core" }
 canonrs-client = { path = "canonrs-client" }
 canonrs-server = { path = "canonrs-server", default-features = false }

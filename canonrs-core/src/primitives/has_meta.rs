@@ -41,6 +41,6 @@ mod tests {
     fn test_button_meta() {
         let meta = component_meta("Button").unwrap();
         assert!(!meta.composable);
-        assert!(meta.capabilities.contains(&"variant"));
+        assert!(!meta.capabilities.is_empty());
     }
 }

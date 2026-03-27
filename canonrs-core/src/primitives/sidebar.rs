@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{VisibilityState, ActivityState, DisabledState};
-use crate::state_engine::{visibility_attrs, trigger_attrs, activity_attrs, disabled_attrs};
+use crate::infra::state_engine::{visibility_attrs, trigger_attrs, activity_attrs, disabled_attrs};
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum SidebarVariant {

@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, ActivityState};
-use crate::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
+use crate::infra::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
 
 #[component]
 pub fn ListPrimitive(

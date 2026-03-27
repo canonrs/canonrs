@@ -1,7 +1,7 @@
 //! Navigation Provider - Provides NavigationState via Leptos Context
 
 use leptos::prelude::*;
-use canonrs_core::shared::navigation_context::NavigationState;
+use canonrs_core::NavigationState;
 
 #[component]
 pub fn NavigationProvider(

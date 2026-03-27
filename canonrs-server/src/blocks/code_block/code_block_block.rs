@@ -6,7 +6,8 @@
 //! @canon-regions: header, content, actions
 //! @canon-label: Code Block
 //! @canon-description: Syntax-highlighted code block
-//! @canon-tags: code,código,syntax,highlight,snippet,programação
+//! @canon-tags: code-block, code, syntax, highlight, snippet
+//! @canon-slot-accepts: header=Any,content=Any,actions=Action
 use leptos::prelude::*;
 
 #[component]

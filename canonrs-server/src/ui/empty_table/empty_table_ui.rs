@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! EmptyTable - Empty state for tables
+//! @canon-id: empty-table
+//! @canon-label: Empty Table
+//! @canon-family: utility
+//! @canon-category: Display
+//! @canon-intent: Show empty state inside a table
+//! @canon-description: Empty table state display
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: empty-table, empty, no-records, no-data
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

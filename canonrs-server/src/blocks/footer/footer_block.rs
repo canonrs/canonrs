@@ -6,7 +6,8 @@
 //! @canon-regions: left, center, right
 //! @canon-label: Footer
 //! @canon-description: Page footer block
-//! @canon-tags: footer,rodapé,bottom,links,copyright
+//! @canon-tags: footer, bottom, links, copyright, page
+//! @canon-slot-accepts: left=Nav,center=Any,right=Action
 use leptos::prelude::*;
 
 #[component]

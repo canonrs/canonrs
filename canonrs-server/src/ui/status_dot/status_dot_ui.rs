@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! StatusDot - Declarative UI wrapper
+//! @canon-id: status-dot
+//! @canon-label: Status Dot
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Indicate user presence or availability
+//! @canon-description: Status indicator dot
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: status-dot, status, indicator, online, offline, active
 
 use leptos::prelude::*;
 use canonrs_core::primitives::StatusDotPrimitive;

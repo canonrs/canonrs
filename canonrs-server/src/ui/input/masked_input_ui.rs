@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! MaskedInput - sem behavior
+//! @canon-id: masked-input
+//! @canon-label: Masked Input
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Capture text with a format mask applied
+//! @canon-description: Text input with format mask
+//! @canon-composable: false
+//! @canon-capabilities: Value, Disabled
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: masked-input, mask, format, phone, cpf, field
 
 use leptos::prelude::*;
 use canonrs_core::primitives::InputPrimitive;

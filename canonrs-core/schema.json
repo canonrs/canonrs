@@ -398,13 +398,12 @@
         "OpenClose",
         "Multiple"
       ],
-      "catalog_category": "Layout",
+      "catalog_category": "Navigation",
       "catalog_tags": [
         "accordion",
-        "expansível",
-        "collapse",
-        "expandir",
-        "seções",
+        "collapsible",
+        "expand",
+        "sections",
         "faq"
       ],
       "component_name": "Accordion",
@@ -431,12 +430,10 @@
       "catalog_category": "Feedback",
       "catalog_tags": [
         "alert",
-        "aviso",
-        "alerta",
-        "mensagem",
-        "erro",
         "warning",
-        "info"
+        "info",
+        "message",
+        "error"
       ],
       "component_name": "Alert",
       "description": "Alert message box",
@@ -460,18 +457,16 @@
     },
     {
       "behavior": "unknown",
-      "capabilities": [],
-      "catalog_category": "Display",
-      "catalog_tags": [
-        "alert-dialog-content"
-      ],
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
       "component_name": "AlertDialogContent",
-      "description": "Alert Dialog Content component",
-      "family": "utility",
-      "has_semantic": true,
+      "description": null,
+      "family": null,
+      "has_semantic": false,
       "id": "alert-dialog-content",
-      "intent": "Alert Dialog Content component",
-      "label": "Alert Dialog Content",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },
@@ -481,10 +476,9 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "animate",
-        "animação",
-        "transição",
-        "motion",
-        "movimento"
+        "animation",
+        "transition",
+        "motion"
       ],
       "component_name": "Animate",
       "description": "Animation wrapper component",
@@ -521,13 +515,13 @@
     {
       "behavior": "structural",
       "capabilities": [],
-      "catalog_category": "Layout",
+      "catalog_category": "Display",
       "catalog_tags": [
-        "aspect ratio",
-        "proporção",
+        "aspect-ratio",
+        "ratio",
         "16:9",
         "4:3",
-        "imagem",
+        "image",
         "video"
       ],
       "component_name": "AspectRatio",
@@ -546,11 +540,10 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "avatar",
-        "foto",
-        "perfil",
-        "usuário",
-        "imagem",
-        "user"
+        "photo",
+        "profile",
+        "user",
+        "image"
       ],
       "component_name": "Avatar",
       "description": "User avatar image",
@@ -568,11 +561,10 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "badge",
-        "etiqueta",
         "tag",
         "status",
         "label",
-        "notificação"
+        "notification"
       ],
       "component_name": "Badge",
       "description": "Status badge label",
@@ -611,11 +603,10 @@
       "catalog_category": "Feedback",
       "catalog_tags": [
         "banner",
-        "faixa",
-        "anúncio",
-        "notificação",
-        "topo",
-        "mensagem"
+        "announcement",
+        "notification",
+        "top",
+        "message"
       ],
       "component_name": "Banner",
       "description": "Banner message",
@@ -643,11 +634,10 @@
       "catalog_category": "Navigation",
       "catalog_tags": [
         "breadcrumb",
-        "caminho",
-        "navegação",
-        "trilha",
         "path",
-        "localização"
+        "navigation",
+        "trail",
+        "location"
       ],
       "component_name": "Breadcrumb",
       "description": "Navigation breadcrumb trail",
@@ -667,8 +657,6 @@
       "catalog_category": "Action",
       "catalog_tags": [
         "button",
-        "botão",
-        "ação",
         "action",
         "submit",
         "click",
@@ -709,38 +697,36 @@
     {
       "behavior": "action",
       "capabilities": [],
-      "catalog_category": "Display",
+      "catalog_category": "Action",
       "catalog_tags": [
-        "button group",
-        "botões",
-        "grupo",
-        "ações",
-        "múltiplos"
+        "button-group",
+        "buttons",
+        "group",
+        "actions",
+        "multiple"
       ],
       "component_name": "ButtonGroup",
       "description": "Group of action buttons",
       "family": "utility",
       "has_semantic": true,
       "id": "button-group",
-      "intent": "Button Group component",
+      "intent": "Group related action buttons together",
       "label": "Button Group",
       "type": "component",
       "variants": []
     },
     {
       "behavior": "selection",
-      "capabilities": [],
-      "catalog_category": "Display",
-      "catalog_tags": [
-        "calendar"
-      ],
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
       "component_name": "Calendar",
-      "description": "Calendar component",
-      "family": "utility",
-      "has_semantic": true,
+      "description": null,
+      "family": null,
+      "has_semantic": false,
       "id": "calendar",
-      "intent": "Calendar component",
-      "label": "Calendar",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },
@@ -750,11 +736,11 @@
       "catalog_category": "Feedback",
       "catalog_tags": [
         "callout",
-        "destaque",
+        "highlight",
         "info",
-        "nota",
-        "aviso",
-        "dica"
+        "note",
+        "warning",
+        "tip"
       ],
       "component_name": "Callout",
       "description": "Callout info box",
@@ -780,9 +766,12 @@
     {
       "behavior": "content",
       "capabilities": [],
-      "catalog_category": "Layout",
+      "catalog_category": "Display",
       "catalog_tags": [
-        "card"
+        "card",
+        "container",
+        "group",
+        "content"
       ],
       "component_name": "Card",
       "description": "Card component",
@@ -796,14 +785,15 @@
     },
     {
       "behavior": "slideshow",
-      "capabilities": [],
+      "capabilities": [
+        "KeyboardArrows"
+      ],
       "catalog_category": "Display",
       "catalog_tags": [
         "carousel",
         "slider",
-        "galeria",
-        "imagens",
-        "rotação",
+        "gallery",
+        "images",
         "slideshow"
       ],
       "component_name": "Carousel",
@@ -822,13 +812,13 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "chart",
-        "gráfico",
+        "graph",
         "bar",
         "line",
         "pie",
         "area",
-        "dados",
-        "visualização"
+        "data",
+        "visualization"
       ],
       "component_name": "Chart",
       "description": "Data chart visualization",
@@ -849,10 +839,9 @@
       "catalog_tags": [
         "checkbox",
         "check",
-        "marcar",
         "tick",
-        "seleção",
-        "múltipla"
+        "selection",
+        "multiple"
       ],
       "component_name": "Checkbox",
       "description": "Checkbox input",
@@ -869,19 +858,19 @@
       "capabilities": [],
       "catalog_category": "Display",
       "catalog_tags": [
+        "code-block",
         "code",
-        "código",
         "syntax",
         "highlight",
         "snippet",
-        "técnico"
+        "technical"
       ],
       "component_name": "CodeBlock",
       "description": "Syntax-highlighted code display",
       "family": "data_display",
       "has_semantic": true,
       "id": "code-block",
-      "intent": "Syntax-highlighted code display",
+      "intent": "Display syntax-highlighted code",
       "label": "Code Block",
       "type": "component",
       "variants": []
@@ -891,12 +880,12 @@
       "capabilities": [
         "OpenClose"
       ],
-      "catalog_category": "Layout",
+      "catalog_category": "Navigation",
       "catalog_tags": [
         "collapsible",
-        "colapsar",
-        "expandir",
-        "ocultar",
+        "collapse",
+        "expand",
+        "hide",
         "toggle"
       ],
       "component_name": "Collapsible",
@@ -917,10 +906,9 @@
       ],
       "catalog_category": "Form",
       "catalog_tags": [
+        "color-picker",
         "color",
-        "cor",
-        "picker",
-        "paleta",
+        "palette",
         "rgb",
         "hex"
       ],
@@ -943,10 +931,9 @@
       "catalog_category": "Form",
       "catalog_tags": [
         "combobox",
-        "busca",
         "search",
         "autocomplete",
-        "filtro",
+        "filter",
         "combo"
       ],
       "component_name": "Combobox",
@@ -961,15 +948,17 @@
     },
     {
       "behavior": "overlay",
-      "capabilities": [],
+      "capabilities": [
+        "OpenClose",
+        "Typeahead"
+      ],
       "catalog_category": "Action",
       "catalog_tags": [
         "command",
         "palette",
         "spotlight",
-        "busca",
-        "atalho",
-        "cmd+k"
+        "search",
+        "shortcut"
       ],
       "component_name": "Command",
       "description": "Command palette",
@@ -983,22 +972,25 @@
     },
     {
       "behavior": "overlay",
-      "capabilities": [],
-      "catalog_category": "Display",
+      "capabilities": [
+        "OpenClose",
+        "FocusTrap",
+        "AriaModal"
+      ],
+      "catalog_category": "Overlay",
       "catalog_tags": [
+        "confirm-dialog",
         "confirm",
-        "confirmação",
-        "sim",
-        "não",
-        "cancelar",
+        "confirmation",
+        "cancel",
         "ok"
       ],
       "component_name": "ConfirmDialog",
       "description": "Confirmation dialog",
-      "family": "utility",
+      "family": "overlay",
       "has_semantic": true,
       "id": "confirm-dialog",
-      "intent": "Confirm Dialog component",
+      "intent": "Ask user to confirm an action",
       "label": "Confirm Dialog",
       "type": "component",
       "variants": [
@@ -1019,10 +1011,10 @@
       ],
       "catalog_category": "Action",
       "catalog_tags": [
-        "context menu",
-        "clique direito",
+        "context-menu",
+        "right-click",
         "menu",
-        "opções",
+        "options",
         "contextual"
       ],
       "component_name": "ContextMenu",
@@ -1040,15 +1032,14 @@
       "capabilities": [
         "Multiple"
       ],
-      "catalog_category": "Display",
+      "catalog_category": "Data",
       "catalog_tags": [
+        "data-table",
         "table",
-        "tabela",
-        "dados",
         "data",
         "grid",
         "sortable",
-        "coluna"
+        "filterable"
       ],
       "component_name": "DataTable",
       "description": "Sortable data table component",
@@ -1082,9 +1073,9 @@
         "dialog",
         "modal",
         "popup",
-        "janela",
+        "window",
         "overlay",
-        "confirmação"
+        "confirmation"
       ],
       "component_name": "Dialog",
       "description": "Modal dialog component",
@@ -1101,10 +1092,10 @@
       "capabilities": [],
       "catalog_category": "Display",
       "catalog_tags": [
-        "doc progress",
-        "documento",
-        "progresso",
-        "leitura",
+        "doc-progress",
+        "document",
+        "progress",
+        "reading",
         "steps"
       ],
       "component_name": "DocProgress",
@@ -1112,7 +1103,7 @@
       "family": "utility",
       "has_semantic": true,
       "id": "doc-progress",
-      "intent": "Doc Progress component",
+      "intent": "Indicate reading progress in a document",
       "label": "Doc Progress",
       "type": "component",
       "variants": []
@@ -1128,10 +1119,9 @@
       "catalog_category": "Overlay",
       "catalog_tags": [
         "drawer",
-        "gaveta",
-        "lateral",
         "slide",
-        "painel",
+        "lateral",
+        "panel",
         "mobile"
       ],
       "component_name": "Drawer",
@@ -1162,12 +1152,11 @@
       ],
       "catalog_category": "Action",
       "catalog_tags": [
+        "dropdown-menu",
         "dropdown",
         "menu",
-        "opções",
-        "lista",
-        "contexto",
-        "ações"
+        "options",
+        "actions"
       ],
       "component_name": "DropdownMenu",
       "description": "Dropdown menu",
@@ -1184,11 +1173,11 @@
       "capabilities": [],
       "catalog_category": "Feedback",
       "catalog_tags": [
+        "empty-state",
         "empty",
-        "vazio",
-        "sem dados",
+        "no-data",
         "placeholder",
-        "zero state"
+        "zero-state"
       ],
       "component_name": "EmptyState",
       "description": "Empty state placeholder",
@@ -1205,17 +1194,17 @@
       "capabilities": [],
       "catalog_category": "Display",
       "catalog_tags": [
-        "empty table",
-        "tabela vazia",
-        "sem registros",
-        "no data"
+        "empty-table",
+        "empty",
+        "no-records",
+        "no-data"
       ],
       "component_name": "EmptyTable",
       "description": "Empty table state display",
       "family": "utility",
       "has_semantic": true,
       "id": "empty-table",
-      "intent": "Empty Table component",
+      "intent": "Show empty state inside a table",
       "label": "Empty Table",
       "type": "component",
       "variants": []
@@ -1225,12 +1214,11 @@
       "capabilities": [],
       "catalog_category": "Feedback",
       "catalog_tags": [
+        "error-state",
         "error",
-        "erro",
-        "falha",
-        "500",
-        "problema",
-        "tente novamente"
+        "failure",
+        "problem",
+        "try-again"
       ],
       "component_name": "ErrorState",
       "description": "Error state display",
@@ -1245,13 +1233,12 @@
     {
       "behavior": "form",
       "capabilities": [],
-      "catalog_category": "Display",
+      "catalog_category": "Form",
       "catalog_tags": [
         "field",
-        "campo",
         "label",
-        "erro",
-        "formulário",
+        "error",
+        "form",
         "wrapper"
       ],
       "component_name": "Field",
@@ -1259,7 +1246,7 @@
       "family": "utility",
       "has_semantic": true,
       "id": "field",
-      "intent": "Field component",
+      "intent": "Wrap a form input with label and error",
       "label": "Field",
       "type": "component",
       "variants": []
@@ -1267,9 +1254,13 @@
     {
       "behavior": "form",
       "capabilities": [],
-      "catalog_category": "Action",
+      "catalog_category": "Form",
       "catalog_tags": [
-        "form"
+        "form",
+        "submit",
+        "validation",
+        "input",
+        "fields"
       ],
       "component_name": "Form",
       "description": "Form component",
@@ -1300,21 +1291,20 @@
     {
       "behavior": "form",
       "capabilities": [],
-      "catalog_category": "Display",
+      "catalog_category": "Form",
       "catalog_tags": [
+        "form-error-summary",
         "error",
-        "erros",
-        "validação",
-        "formulário",
-        "resumo",
-        "mensagem"
+        "validation",
+        "form",
+        "summary"
       ],
       "component_name": "FormErrorSummary",
       "description": "Form validation error summary",
       "family": "utility",
       "has_semantic": true,
       "id": "form-error-summary",
-      "intent": "Form Error Summary component",
+      "intent": "Summarize form validation errors",
       "label": "Form Error Summary",
       "type": "component",
       "variants": []
@@ -1326,12 +1316,11 @@
       ],
       "catalog_category": "Overlay",
       "catalog_tags": [
-        "hover card",
+        "hover-card",
         "preview",
         "card",
         "hover",
-        "popup",
-        "contexto"
+        "popup"
       ],
       "component_name": "HoverCard",
       "description": "Hover card popup",
@@ -1359,9 +1348,8 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "icon",
-        "ícone",
-        "símbolo",
         "svg",
+        "symbol",
         "visual"
       ],
       "component_name": "Icon",
@@ -1376,22 +1364,24 @@
     },
     {
       "behavior": "action",
-      "capabilities": [],
-      "catalog_category": "Display",
+      "capabilities": [
+        "Disabled"
+      ],
+      "catalog_category": "Action",
       "catalog_tags": [
-        "icon button",
-        "botão ícone",
-        "ação",
+        "icon-button",
+        "icon",
+        "action",
         "close",
         "delete",
         "edit"
       ],
       "component_name": "IconButton",
-      "description": "Button with icon",
-      "family": "utility",
+      "description": "Button with icon only",
+      "family": "interactive",
       "has_semantic": true,
       "id": "icon-button",
-      "intent": "Icon Button component",
+      "intent": "Trigger an action with an icon button",
       "label": "Icon Button",
       "type": "component",
       "variants": [
@@ -1419,12 +1409,12 @@
       "capabilities": [],
       "catalog_category": "Feedback",
       "catalog_tags": [
+        "inline-notice",
         "notice",
-        "aviso",
+        "warning",
         "inline",
-        "mensagem",
-        "info",
-        "alerta"
+        "message",
+        "info"
       ],
       "component_name": "InlineNotice",
       "description": "Inline notice message",
@@ -1456,12 +1446,9 @@
       "catalog_category": "Form",
       "catalog_tags": [
         "input",
-        "campo",
-        "texto",
-        "text",
         "field",
-        "digitação",
-        "formulário"
+        "text",
+        "form"
       ],
       "component_name": "Input",
       "description": "Text input field",
@@ -1494,11 +1481,12 @@
     {
       "behavior": "form",
       "capabilities": [],
-      "catalog_category": "Display",
+      "catalog_category": "Form",
       "catalog_tags": [
+        "input-otp",
         "otp",
-        "código",
-        "verificação",
+        "code",
+        "verification",
         "sms",
         "token",
         "pin"
@@ -1508,7 +1496,7 @@
       "family": "utility",
       "has_semantic": true,
       "id": "input-otp",
-      "intent": "OTP Input component",
+      "intent": "Capture one-time password codes",
       "label": "OTP Input",
       "type": "component",
       "variants": []
@@ -1516,11 +1504,10 @@
     {
       "behavior": "unknown",
       "capabilities": [],
-      "catalog_category": "Typography",
+      "catalog_category": "Display",
       "catalog_tags": [
         "kbd",
-        "teclado",
-        "atalho",
+        "keyboard",
         "shortcut",
         "ctrl",
         "cmd"
@@ -1556,16 +1543,19 @@
     {
       "behavior": "form",
       "capabilities": [],
-      "catalog_category": "Display",
+      "catalog_category": "Form",
       "catalog_tags": [
-        "label"
+        "label",
+        "form",
+        "accessibility",
+        "input"
       ],
       "component_name": "Label",
-      "description": "Label component",
+      "description": "Form label component",
       "family": "utility",
       "has_semantic": true,
       "id": "label",
-      "intent": "Label component",
+      "intent": "Associate a label with a form control",
       "label": "Label",
       "type": "component",
       "variants": []
@@ -1575,14 +1565,14 @@
       "capabilities": [
         "Disabled"
       ],
-      "catalog_category": "Typography",
+      "catalog_category": "Navigation",
       "catalog_tags": [
         "link",
-        "ancora",
+        "anchor",
         "href",
         "url",
-        "navegar",
-        "clique"
+        "navigate",
+        "click"
       ],
       "component_name": "Link",
       "description": "Hyperlink",
@@ -1611,12 +1601,11 @@
       ],
       "catalog_category": "Display",
       "catalog_tags": [
-        "list item",
+        "list-item",
         "item",
-        "linha",
         "row",
-        "entrada",
-        "elemento"
+        "entry",
+        "element"
       ],
       "component_name": "ListItem",
       "description": "Single list item with title and description",
@@ -1635,12 +1624,12 @@
       ],
       "catalog_category": "Display",
       "catalog_tags": [
+        "loading-overlay",
         "loading",
-        "carregando",
         "overlay",
-        "aguarde",
+        "wait",
         "spinner",
-        "bloqueio"
+        "block"
       ],
       "component_name": "LoadingOverlay",
       "description": "Full loading overlay",
@@ -1658,10 +1647,10 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "markdown",
-        "texto",
-        "rich text",
+        "text",
+        "rich-text",
         "content",
-        "documento",
+        "document",
         "blog"
       ],
       "component_name": "Markdown",
@@ -1669,7 +1658,7 @@
       "family": "data_display",
       "has_semantic": true,
       "id": "markdown",
-      "intent": "Rendered markdown content",
+      "intent": "Render markdown content as HTML",
       "label": "Markdown",
       "type": "component",
       "variants": []
@@ -1677,20 +1666,20 @@
     {
       "behavior": "navigation",
       "capabilities": [],
-      "catalog_category": "Display",
+      "catalog_category": "Navigation",
       "catalog_tags": [
         "menu",
-        "lista",
-        "opções",
-        "ações",
-        "itens"
+        "list",
+        "options",
+        "actions",
+        "items"
       ],
       "component_name": "Menu",
       "description": "Menu component",
       "family": "utility",
       "has_semantic": true,
       "id": "menu",
-      "intent": "Menu component",
+      "intent": "Static vertical menu list",
       "label": "Menu",
       "type": "component",
       "variants": []
@@ -1700,14 +1689,12 @@
       "capabilities": [
         "OpenClose"
       ],
-      "catalog_category": "Action",
+      "catalog_category": "Navigation",
       "catalog_tags": [
         "menubar",
-        "barra menu",
-        "navegação",
+        "navigation",
         "desktop",
-        "app",
-        "file edit view"
+        "app"
       ],
       "component_name": "Menubar",
       "description": "Menu bar navigation",
@@ -1729,11 +1716,10 @@
       "catalog_category": "Overlay",
       "catalog_tags": [
         "modal",
-        "janela",
+        "window",
         "popup",
         "overlay",
-        "dialog",
-        "confirmação"
+        "dialog"
       ],
       "component_name": "Modal",
       "description": "Modal window component",
@@ -1753,11 +1739,11 @@
       ],
       "catalog_category": "Navigation",
       "catalog_tags": [
-        "nav item",
+        "nav-item",
         "link",
-        "menu item",
-        "navegação",
-        "página"
+        "menu-item",
+        "navigation",
+        "page"
       ],
       "component_name": "NavItem",
       "description": "Single navigation item",
@@ -1776,6 +1762,7 @@
       ],
       "catalog_category": "Navigation",
       "catalog_tags": [
+        "navigation-menu",
         "navigation",
         "menu",
         "nav",
@@ -1796,12 +1783,12 @@
     {
       "behavior": "structural",
       "capabilities": [],
-      "catalog_category": "Layout",
+      "catalog_category": "Display",
       "catalog_tags": [
-        "page header",
-        "título",
-        "cabeçalho",
-        "ações",
+        "page-header",
+        "title",
+        "heading",
+        "actions",
         "breadcrumb"
       ],
       "component_name": "PageHeader",
@@ -1823,11 +1810,10 @@
       "catalog_category": "Navigation",
       "catalog_tags": [
         "pagination",
-        "paginação",
-        "páginas",
+        "pages",
         "next",
         "prev",
-        "navegar"
+        "navigate"
       ],
       "component_name": "Pagination",
       "description": "Page navigation control",
@@ -1848,11 +1834,10 @@
       "catalog_category": "Overlay",
       "catalog_tags": [
         "popover",
-        "flutuante",
-        "hover",
-        "dica",
+        "floating",
+        "tooltip",
         "overlay",
-        "contexto"
+        "context"
       ],
       "component_name": "Popover",
       "description": "Floating popover component",
@@ -1882,11 +1867,10 @@
       "catalog_category": "Feedback",
       "catalog_tags": [
         "progress",
-        "progresso",
-        "barra",
+        "bar",
         "loading",
-        "carregando",
-        "porcentagem"
+        "percentage",
+        "completion"
       ],
       "component_name": "Progress",
       "description": "Progress bar indicator",
@@ -1904,10 +1888,10 @@
       "catalog_category": "Feedback",
       "catalog_tags": [
         "pulse",
-        "animação",
-        "brilho",
-        "atenção",
-        "destaque",
+        "animation",
+        "glow",
+        "attention",
+        "highlight",
         "ping"
       ],
       "component_name": "Pulse",
@@ -1953,10 +1937,9 @@
       "catalog_category": "Form",
       "catalog_tags": [
         "radio",
-        "opção única",
-        "escolha",
-        "exclusivo",
-        "seleção"
+        "choice",
+        "exclusive",
+        "selection"
       ],
       "component_name": "Radio",
       "description": "Radio button input",
@@ -1970,21 +1953,24 @@
     },
     {
       "behavior": "selection",
-      "capabilities": [],
-      "catalog_category": "Display",
+      "capabilities": [
+        "Disabled"
+      ],
+      "catalog_category": "Form",
       "catalog_tags": [
-        "radio group",
-        "grupo",
-        "opções",
-        "alternativas",
-        "escolha"
+        "radio-group",
+        "radio",
+        "group",
+        "options",
+        "alternatives",
+        "choice"
       ],
       "component_name": "RadioGroup",
       "description": "Group of radio buttons",
-      "family": "utility",
+      "family": "input",
       "has_semantic": true,
       "id": "radio-group",
-      "intent": "Radio Group component",
+      "intent": "Group radio buttons for single selection",
       "label": "Radio Group",
       "type": "component",
       "variants": []
@@ -1998,10 +1984,10 @@
       "catalog_category": "Layout",
       "catalog_tags": [
         "resizable",
-        "redimensionar",
-        "painel",
+        "resize",
+        "panel",
         "split",
-        "ajustar"
+        "adjust"
       ],
       "component_name": "Resizable",
       "description": "Resizable panel component",
@@ -2023,15 +2009,16 @@
     },
     {
       "behavior": "scroll",
-      "capabilities": [],
+      "capabilities": [
+        "Overflow"
+      ],
       "catalog_category": "Layout",
       "catalog_tags": [
+        "scroll-area",
         "scroll",
-        "rolagem",
         "overflow",
-        "area",
         "container",
-        "longa lista"
+        "long-list"
       ],
       "component_name": "ScrollArea",
       "description": "Scrollable area container",
@@ -2062,9 +2049,9 @@
       "catalog_tags": [
         "select",
         "dropdown",
-        "escolha",
-        "opções",
-        "lista",
+        "choose",
+        "options",
+        "list",
         "combo"
       ],
       "component_name": "Select",
@@ -2085,11 +2072,10 @@
       "catalog_category": "Layout",
       "catalog_tags": [
         "separator",
-        "divisor",
-        "linha",
         "divider",
+        "line",
         "hr",
-        "separação"
+        "section"
       ],
       "component_name": "Separator",
       "description": "Visual divider line",
@@ -2119,7 +2105,7 @@
       "catalog_category": "Overlay",
       "catalog_tags": [
         "sheet",
-        "painel",
+        "panel",
         "lateral",
         "slide",
         "drawer",
@@ -2153,11 +2139,10 @@
       "catalog_category": "Navigation",
       "catalog_tags": [
         "sidebar",
-        "menu lateral",
         "nav",
-        "navegação",
+        "navigation",
         "links",
-        "left"
+        "left-panel"
       ],
       "component_name": "Sidebar",
       "description": "Sidebar navigation component",
@@ -2184,7 +2169,6 @@
       "catalog_tags": [
         "skeleton",
         "loading",
-        "carregando",
         "placeholder",
         "shimmer"
       ],
@@ -2217,10 +2201,10 @@
       "catalog_tags": [
         "slider",
         "range",
-        "intervalo",
+        "interval",
         "volume",
-        "valor",
-        "deslizar"
+        "value",
+        "drag"
       ],
       "component_name": "Slider",
       "description": "Range slider input",
@@ -2239,9 +2223,8 @@
       "catalog_tags": [
         "spinner",
         "loading",
-        "carregando",
         "circular",
-        "aguarde"
+        "wait"
       ],
       "component_name": "Spinner",
       "description": "Loading spinner",
@@ -2268,11 +2251,11 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "stat",
-        "métrica",
-        "número",
+        "metric",
+        "number",
         "kpi",
-        "indicador",
-        "valor"
+        "indicator",
+        "value"
       ],
       "component_name": "Stat",
       "description": "Metric stat display",
@@ -2289,12 +2272,12 @@
       "capabilities": [],
       "catalog_category": "Display",
       "catalog_tags": [
+        "status-dot",
         "status",
-        "dot",
-        "indicador",
+        "indicator",
         "online",
         "offline",
-        "ativo"
+        "active"
       ],
       "component_name": "StatusDot",
       "description": "Status indicator dot",
@@ -2326,11 +2309,9 @@
       "catalog_tags": [
         "switch",
         "toggle",
-        "ligar",
-        "desligar",
         "on",
         "off",
-        "ativar"
+        "activate"
       ],
       "component_name": "Switch",
       "description": "Toggle switch on off",
@@ -2347,14 +2328,13 @@
       "capabilities": [
         "Selected"
       ],
-      "catalog_category": "Display",
+      "catalog_category": "Data",
       "catalog_tags": [
         "table",
-        "tabela",
-        "html",
-        "linhas",
-        "colunas",
-        "dados"
+        "tabular",
+        "rows",
+        "columns",
+        "data"
       ],
       "component_name": "Table",
       "description": "HTML table component",
@@ -2378,21 +2358,21 @@
     {
       "behavior": "navigation",
       "capabilities": [],
-      "catalog_category": "Display",
+      "catalog_category": "Navigation",
       "catalog_tags": [
-        "table of contents",
-        "índice",
-        "sumário",
-        "âncoras",
-        "navegação",
-        "documento"
+        "table-of-contents",
+        "index",
+        "summary",
+        "anchors",
+        "navigation",
+        "document"
       ],
       "component_name": "TableOfContents",
       "description": "Document table of contents",
       "family": "utility",
       "has_semantic": true,
       "id": "table-of-contents",
-      "intent": "Table of Contents component",
+      "intent": "Navigate document sections via anchors",
       "label": "Table of Contents",
       "type": "component",
       "variants": [
@@ -2414,11 +2394,10 @@
       "catalog_category": "Navigation",
       "catalog_tags": [
         "tabs",
-        "abas",
-        "navegação",
+        "navigation",
         "tab",
-        "seções",
-        "divisão"
+        "sections",
+        "panels"
       ],
       "component_name": "Tabs",
       "description": "Tabbed navigation",
@@ -2447,10 +2426,9 @@
       "catalog_category": "Form",
       "catalog_tags": [
         "textarea",
-        "texto longo",
         "multiline",
-        "comentário",
-        "descrição",
+        "comment",
+        "description",
         "area"
       ],
       "component_name": "Textarea",
@@ -2471,11 +2449,11 @@
       "catalog_category": "Feedback",
       "catalog_tags": [
         "toast",
-        "notificação",
+        "notification",
         "snackbar",
-        "mensagem",
-        "sucesso",
-        "erro"
+        "message",
+        "success",
+        "error"
       ],
       "component_name": "Toast",
       "description": "Toast notification message",
@@ -2526,11 +2504,11 @@
       "catalog_category": "Form",
       "catalog_tags": [
         "toggle",
-        "ativar",
-        "botão",
+        "activate",
+        "button",
         "on",
         "off",
-        "pressionar"
+        "press"
       ],
       "component_name": "Toggle",
       "description": "Toggle button",
@@ -2550,12 +2528,12 @@
       ],
       "catalog_category": "Action",
       "catalog_tags": [
-        "toggle group",
-        "grupo",
-        "botões",
-        "opções",
-        "seleção",
-        "multiple"
+        "toggle-group",
+        "toggle",
+        "group",
+        "buttons",
+        "options",
+        "selection"
       ],
       "component_name": "ToggleGroup",
       "description": "Group of toggle buttons",
@@ -2573,11 +2551,11 @@
       "catalog_category": "Layout",
       "catalog_tags": [
         "toolbar",
-        "barra",
-        "ações",
-        "ferramentas",
+        "bar",
+        "actions",
+        "tools",
         "editor",
-        "formatação"
+        "formatting"
       ],
       "component_name": "Toolbar",
       "description": "Action toolbar component",
@@ -2605,11 +2583,10 @@
       "catalog_category": "Overlay",
       "catalog_tags": [
         "tooltip",
-        "dica",
+        "hint",
         "hover",
-        "informação",
-        "ajuda",
-        "hint"
+        "info",
+        "help"
       ],
       "component_name": "Tooltip",
       "description": "Hover tooltip",
@@ -2639,10 +2616,9 @@
       "catalog_category": "Display",
       "catalog_tags": [
         "tree",
-        "árvore",
-        "hierarquia",
-        "nós",
-        "estrutura",
+        "hierarchy",
+        "nodes",
+        "structure",
         "explorer"
       ],
       "component_name": "Tree",
@@ -2670,11 +2646,10 @@
       ],
       "catalog_category": "Display",
       "catalog_tags": [
-        "virtual list",
-        "lista",
-        "virtualização",
+        "virtual-list",
+        "virtualization",
         "performance",
-        "grande volume"
+        "large-volume"
       ],
       "component_name": "VirtualList",
       "description": "Virtualized list for large datasets",

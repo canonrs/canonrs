@@ -6,8 +6,8 @@
 //! @canon-regions: items
 //! @canon-label: Grid
 //! @canon-description: CSS grid layout with N columns
-//! @canon-tags: grid,colunas,columns,css grid,layout,galeria
-//! @canon-prop: grid-columns | Number | 3 | structural | 
+//! @canon-tags: grid, columns, css-grid, layout, gallery
+//! @canon-prop: grid-columns | Number | 3 | structural |
 //! @canon-prop: grid-template-columns | Select(repeat(1,1fr):1,repeat(2,1fr):2,repeat(3,1fr):3,repeat(4,1fr):4,repeat(5,1fr):5,repeat(6,1fr):6) | repeat(3,1fr) | visual | grid-template-columns
 //! @canon-prop: gap | Number | 1rem | visual | gap
 //! @canon-prop: row-gap | Number | | visual | row-gap
@@ -15,6 +15,7 @@
 //! @canon-preset: 3 Columns | grid-columns=3,grid-template-columns=repeat(3,1fr),gap=1rem
 //! @canon-preset: 4 Columns | grid-columns=4,grid-template-columns=repeat(4,1fr),gap=1rem
 //! @canon-preset: Sidebar | grid-template-columns=240px 1fr,gap=1.5rem
+//! @canon-slot-accepts: items=Any
 use leptos::prelude::*;
 
 #[component]

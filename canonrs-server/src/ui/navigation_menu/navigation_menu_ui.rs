@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! NavigationMenu - attribute-driven, CSS-first hover, JS keyboard
+//! @canon-id: navigation-menu
+//! @canon-label: Navigation Menu
+//! @canon-family: navigation
+//! @canon-category: Navigation
+//! @canon-intent: Primary site navigation with submenus
+//! @canon-description: Navigation menu
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose
+//! @canon-required-parts: NavigationMenuList, NavigationMenuItem
+//! @canon-optional-parts: NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink
+//! @canon-tags: navigation-menu, navigation, menu, nav, links, site, header
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{LoadingState, VisibilityState};
-use crate::state_engine::{loading_attrs, visibility_attrs};
+use crate::infra::state_engine::{loading_attrs, visibility_attrs};
 
 #[component]
 pub fn LoadingOverlayPrimitive(

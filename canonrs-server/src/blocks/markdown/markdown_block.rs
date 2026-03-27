@@ -6,7 +6,8 @@
 //! @canon-regions: header, content, footer
 //! @canon-label: Markdown
 //! @canon-description: Rendered markdown content block
-//! @canon-tags: markdown,texto,content,rich text,documento
+//! @canon-tags: markdown, text, content, rich-text, document
+//! @canon-slot-accepts: header=Any,content=Any,footer=Any
 use leptos::prelude::*;
 
 #[component]

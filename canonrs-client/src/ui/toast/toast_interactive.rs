@@ -15,7 +15,7 @@ pub fn InteractiveToast(
     #[prop(into)] title: String,
     #[prop(into)] description: String,
     #[prop(default = ToastVariant::Default)] variant: ToastVariant,
-    #[prop(optional)] auto_dismiss_ms: Option<u32>,
+    #[prop(optional)] #[allow(unused_variables)] auto_dismiss_ms: Option<u32>,
 ) -> impl IntoView {
     let (open, set_open) = signal(true);
 

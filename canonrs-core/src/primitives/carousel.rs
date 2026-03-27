@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{ActivityState, DisabledState, VisibilityState};
-use crate::state_engine::{activity_attrs, disabled_attrs, visibility_attrs};
+use crate::infra::state_engine::{activity_attrs, disabled_attrs, visibility_attrs};
 
 #[component]
 pub fn CarouselPrimitive(

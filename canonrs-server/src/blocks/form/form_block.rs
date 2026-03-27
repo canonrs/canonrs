@@ -6,9 +6,10 @@
 //! @canon-regions: fields, actions
 //! @canon-label: Form
 //! @canon-description: Form container with fields and actions
-//! @canon-tags: form,formulário,campos,input,submit,dados
+//! @canon-tags: form, fields, input, submit, data
 //! @canon-prop: gap | Number | 1rem | visual | gap
 //! @canon-prop: padding | Number | | visual | padding
+//! @canon-slot-accepts: fields=Form,actions=Action
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

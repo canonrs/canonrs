@@ -1,6 +1,14 @@
-//! @canon-level: ui
-//! DropdownMenu - attribute-driven
-//! Trigger: attr:data-rs-dropdown-menu-trigger=""
+//! @canon-id: dropdown-menu
+//! @canon-label: Dropdown Menu
+//! @canon-family: interactive
+//! @canon-category: Action
+//! @canon-intent: Show contextual action menu
+//! @canon-description: Dropdown menu
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose, Disabled
+//! @canon-required-parts: DropdownMenuTrigger, DropdownMenuContent
+//! @canon-optional-parts: DropdownMenuItem, DropdownMenuSeparator, DropdownMenuGroup
+//! @canon-tags: dropdown-menu, dropdown, menu, options, actions
 
 use leptos::prelude::*;
 use canonrs_core::separator::SeparatorOrientation;

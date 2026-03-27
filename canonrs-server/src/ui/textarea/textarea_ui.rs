@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Textarea - sem behavior
+//! @canon-id: textarea
+//! @canon-label: Textarea
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Capture multi-line text from user
+//! @canon-description: Multi-line text input
+//! @canon-composable: false
+//! @canon-capabilities: Value, Disabled
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: textarea, multiline, comment, description, area
 
 use leptos::prelude::*;
 use canonrs_core::primitives::TextareaPrimitive;

@@ -6,7 +6,8 @@
 //! @canon-regions: logo, nav, center, actions
 //! @canon-label: Header
 //! @canon-description: Page header with left center right regions
-//! @canon-tags: header,cabeçalho,topo,nav,logo,title
+//! @canon-tags: header, top, nav, logo, title, page
+//! @canon-slot-accepts: logo=Any,nav=Nav,center=Any,actions=Action
 use leptos::prelude::*;
 
 #[component]

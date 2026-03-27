@@ -1,6 +1,14 @@
-//! @canon-level: ui
-//! Select - attribute-driven
-//! Relação trigger↔content via DOM traversal
+//! @canon-id: select
+//! @canon-label: Select
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Choose one option from a list
+//! @canon-description: Dropdown select input
+//! @canon-composable: true
+//! @canon-capabilities: OpenClose, Disabled
+//! @canon-required-parts: SelectTrigger, SelectContent, SelectItem
+//! @canon-optional-parts: SelectValue, SelectSeparator
+//! @canon-tags: select, dropdown, choose, options, list, combo
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
@@ -81,7 +81,7 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
     }) as Box<dyn FnMut(_)>);
 
     btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "click listener".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "click listener".into() })?;
     
     closure.forget();
     Ok(())

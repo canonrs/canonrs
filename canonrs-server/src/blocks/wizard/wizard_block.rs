@@ -6,7 +6,8 @@
 //! @canon-regions: steps, body, actions
 //! @canon-label: Wizard
 //! @canon-description: Multi-step form wizard block
-//! @canon-tags: wizard,steps,multi-step,passos,etapas,onboarding
+//! @canon-tags: wizard, steps, multi-step, onboarding, form
+//! @canon-slot-accepts: steps=Any,body=Form,actions=Action
 use leptos::prelude::*;
 
 #[component]

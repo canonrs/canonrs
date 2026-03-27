@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::state_engine::visibility_attrs;
+use crate::infra::state_engine::visibility_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastVariant {

@@ -4,10 +4,11 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: left, right
-//! @canon-tags: split,dois,colunas,lado a lado,comparar,dual
 //! @canon-label: Split View
 //! @canon-icon: ◧
 //! @canon-description: Left context panel and right action/detail panel
+//! @canon-tags: split-view, split, columns, side-by-side, compare, dual
+//! @canon-slot-accepts: left=Nav,right=Action
 //! @canon-slot-descriptions: left:Context or list panel,right:Detail or action panel
 use leptos::prelude::*;
 

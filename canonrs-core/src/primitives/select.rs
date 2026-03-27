@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, VisibilityState, DisabledState};
-use crate::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, selection_attrs};
+use crate::infra::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, selection_attrs};
 
 #[component]
 pub fn SelectPrimitive(

@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 
+#[allow(unused_variables)]
 pub fn use_column_reorder<F>(
     container_id: String,
     enabled: Signal<bool>,

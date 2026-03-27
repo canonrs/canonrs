@@ -4,10 +4,11 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: header, sidebar, content
-//! @canon-tags: dashboard,app,admin,painel,header,sidebar,main
 //! @canon-label: Dashboard
 //! @canon-icon: ⬛
 //! @canon-description: App shell with header, sidebar and main content area
+//! @canon-tags: dashboard, app, admin, header, sidebar, main
+//! @canon-slot-accepts: header=Nav,sidebar=Nav,content=Any
 //! @canon-slot-descriptions: header:Top navigation bar,sidebar:Left navigation panel,content:Primary content area
 use leptos::prelude::*;
 

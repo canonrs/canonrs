@@ -2,11 +2,19 @@
 
 ## Components
 - Primitives: 82
-- Semantic (components.toml): 82
-- Complete: 82
-- Missing semantic: 0
-- Orphan semantic: 0
+- Semantic (components.toml): 83
+- Complete: 80
+- Missing semantic: 2
+- Orphan semantic: 3
 
+### Missing semantic
+- `alert-dialog-content`
+- `calendar`
+
+### Orphan semantic
+- `alert-dialog`
+- `copy-button`
+- `input-group`
 
 ## Blocks
 - Total: 26

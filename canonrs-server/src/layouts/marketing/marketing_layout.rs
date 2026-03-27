@@ -4,10 +4,11 @@
 //! @canon-variant: page
 //! @canon-container: true
 //! @canon-regions: header, hero, content, footer
-//! @canon-tags: marketing,landing,hero,page,site,lp
 //! @canon-label: Marketing
 //! @canon-icon: 🌐
 //! @canon-description: Public page with header, hero, main content and footer
+//! @canon-tags: marketing, landing, hero, page, site
+//! @canon-slot-accepts: header=Nav,hero=Any,content=Any,footer=Action
 //! @canon-slot-descriptions: header:Site header with navigation,hero:Hero/banner section,content:Main content sections,footer:Site footer
 use leptos::prelude::*;
 

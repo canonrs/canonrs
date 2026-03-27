@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{DisabledState, LoadingState, ToggleState};
-use crate::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
+use crate::infra::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
 
 #[derive(Clone, PartialEq, Default, Debug)]
 pub enum ButtonVariant {

@@ -1,3 +1,15 @@
+//! @canon-id: resizable-panel
+//! @canon-label: Resizable Panel
+//! @canon-family: layout
+//! @canon-category: Layout
+//! @canon-intent: Panel region inside a resizable container
+//! @canon-description: Resizable panel region
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: resizable-panel, resizable, panel, region, split
+
 use leptos::prelude::*;
 use super::resizable_panel_primitive::ResizablePanelPrimitive;
 

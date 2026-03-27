@@ -4,6 +4,10 @@
 //! @canon-variant: page
 //! @canon-container: false
 //! @canon-regions: breadcrumb, title, subtitle, actions
+//! @canon-label: Page Header
+//! @canon-description: Page title and actions header block
+//! @canon-tags: page-header, title, heading, actions, breadcrumb
+//! @canon-slot-accepts: breadcrumb=Nav,title=Any,subtitle=Any,actions=Action
 use leptos::prelude::*;
 
 #[component]

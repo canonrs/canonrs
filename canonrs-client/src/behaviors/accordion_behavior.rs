@@ -7,7 +7,7 @@ use web_sys::HtmlElement;
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 
 #[cfg(feature = "hydrate")]
 thread_local! {
@@ -96,7 +96,7 @@ pub fn register() {
 
         // Fase 2: registrar eventos nos triggers
         let triggers = root.query_selector_all("[data-rs-accordion-trigger]")
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query triggers".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "query triggers".into() })?;
 
         for i in 0..triggers.length() {
             let node = match triggers.item(i) { Some(n) => n, None => continue };

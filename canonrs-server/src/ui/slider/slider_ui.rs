@@ -1,5 +1,17 @@
+//! @canon-id: slider
+//! @canon-label: Slider
+//! @canon-family: input
+//! @canon-category: Form
+//! @canon-intent: Select a value within a range
+//! @canon-description: Range slider input
+//! @canon-composable: true
+//! @canon-capabilities: Value, Disabled
+//! @canon-required-parts: SliderTrack, SliderThumb
+//! @canon-optional-parts: SliderRange
+//! @canon-tags: slider, range, interval, volume, value, drag
+
 use leptos::prelude::*;
-use canonrs_core::shared::Orientation;
+use canonrs_core::Orientation;
 use canonrs_core::primitives::{
     SliderPrimitive, SliderTrackPrimitive,
     SliderRangePrimitive, SliderThumbPrimitive,

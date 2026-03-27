@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::ToggleState;
-use crate::state_engine::toggle_attrs;
+use crate::infra::state_engine::toggle_attrs;
 
 #[component]
 pub fn CodeBlockPrimitive(

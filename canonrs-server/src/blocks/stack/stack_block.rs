@@ -6,10 +6,11 @@
 //! @canon-regions: items
 //! @canon-label: Stack
 //! @canon-description: Flex stack container vertical or horizontal
-//! @canon-tags: stack,flex,coluna,linha,empilhar,vertical,horizontal
+//! @canon-tags: stack, flex, column, row, vertical, horizontal
 //! @canon-prop: flex-direction | Select(column:Vertical,row:Horizontal) | column | visual | flex-direction
 //! @canon-prop: gap | Number | 0.5rem | visual | gap
 //! @canon-prop: align-items | Select(stretch:Stretch,flex-start:Start,center:Center,flex-end:End) | stretch | visual | align-items
+//! @canon-slot-accepts: items=Any
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

@@ -1,3 +1,15 @@
+//! @canon-id: carousel-item
+//! @canon-label: Carousel Item
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Single item inside a carousel track
+//! @canon-description: Individual carousel slide item
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: carousel, item, slide
+
 use leptos::prelude::*;
 use super::carousel_item_primitive::CarouselItemPrimitive;
 

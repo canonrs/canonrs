@@ -209,3 +209,10 @@ pub use tooltip::{TooltipProviderPrimitive, TooltipPrimitive, TooltipTriggerPrim
 pub use tooltip::{TooltipProviderPrimitive as TooltipProvider, TooltipPrimitive as Tooltip, TooltipTriggerPrimitive as TooltipTrigger, TooltipContentPrimitive as TooltipContent};
 pub mod scroll_area;
 pub use scroll_area::{ScrollAreaPrimitive, ScrollOrientation};
+
+pub mod orientation;
+pub use orientation::Orientation;
+pub mod toc_item;
+pub use toc_item::TocItem;
+pub mod navigation_context;
+pub use navigation_context::{NavigationState, HeadingHierarchy, HeadingNode};

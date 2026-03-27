@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Spinner - Declarative UI wrapper
+//! @canon-id: spinner
+//! @canon-label: Spinner
+//! @canon-family: feedback
+//! @canon-category: Feedback
+//! @canon-intent: Indicate loading or processing
+//! @canon-description: Loading spinner
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: spinner, loading, circular, wait
 
 use leptos::prelude::*;
 use canonrs_core::primitives::SpinnerPrimitive;

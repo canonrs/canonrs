@@ -6,7 +6,8 @@
 //! @canon-regions: icon, label, value, change
 //! @canon-label: Stat Card
 //! @canon-description: Metric stat display block
-//! @canon-tags: stat,métrica,kpi,número,indicador,card
+//! @canon-tags: stat-card, stat, metric, kpi, number, indicator
+//! @canon-slot-accepts: icon=Any,label=Any,value=Any,change=Any
 use leptos::prelude::*;
 
 #[derive(Clone, Copy, PartialEq, Default)]

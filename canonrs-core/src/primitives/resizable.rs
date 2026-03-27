@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::ActivityState;
-use crate::state_engine::activity_attrs;
+use crate::infra::state_engine::activity_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum ResizableOrientation {

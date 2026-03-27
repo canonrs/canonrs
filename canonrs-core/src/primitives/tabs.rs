@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{ActivityState, DisabledState};
-use crate::state_engine::{activity_attrs, disabled_attrs};
+use crate::infra::state_engine::{activity_attrs, disabled_attrs};
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TabsOrientation {

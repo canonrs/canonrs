@@ -1,7 +1,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use leptos::leptos_dom::helpers::document;
 #[cfg(feature = "hydrate")]
@@ -110,7 +110,7 @@ fn setup_filter(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-filter-attached", "1");
 
     let Some(input) = container.query_selector("[data-rs-datatable-filter]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })? else {
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })? else {
         return Ok(());
     };
 
@@ -127,7 +127,7 @@ fn setup_filter(container: &Element) -> BehaviorResult<()> {
     }) as Box<dyn FnMut(_)>);
 
     input.add_event_listener_with_callback("input", closure.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
     closure.forget();
     Ok(())
 }
@@ -173,7 +173,7 @@ fn setup_sorting(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-sorting-attached", "1");
 
     let headers = container.query_selector_all("[data-rs-datatable-head-cell][data-rs-sort-key]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..headers.length() {
         let Some(header) = headers.item(i) else { continue };
@@ -233,7 +233,7 @@ fn setup_sorting(container: &Element) -> BehaviorResult<()> {
         }) as Box<dyn FnMut(_)>);
 
         header_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
     Ok(())
@@ -268,12 +268,12 @@ fn setup_pagination(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-pagination-attached", "1");
 
     let Some(pag) = container.query_selector("[data-rs-datatable-pagination]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })? else {
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })? else {
         return Ok(());
     };
 
     let buttons = pag.query_selector_all("button")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..buttons.length() {
         let Some(btn) = buttons.item(i) else { continue };
@@ -304,7 +304,7 @@ fn setup_pagination(container: &Element) -> BehaviorResult<()> {
         }) as Box<dyn FnMut(_)>);
 
         btn_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
     Ok(())
@@ -321,7 +321,7 @@ fn setup_column_toggle(container: &Element) -> BehaviorResult<()> {
 
     let items = container
         .query_selector_all("[data-rs-dropdown-menu-checkbox-item][data-rs-col-index]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..items.length() {
         let Some(item) = items.item(i) else { continue };
@@ -339,7 +339,7 @@ fn setup_column_toggle(container: &Element) -> BehaviorResult<()> {
         }) as Box<dyn FnMut(_)>);
 
         item_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
     Ok(())
@@ -390,13 +390,13 @@ fn setup_selection(container: &Element) -> BehaviorResult<()> {
             }
         }) as Box<dyn FnMut(_)>);
         select_all.add_event_listener_with_callback("change", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
 
     // Per-row checkboxes
     let row_cbs = container.query_selector_all("[data-rs-datatable-select-row]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..row_cbs.length() {
         let Some(cb) = row_cbs.item(i) else { continue };
@@ -427,7 +427,7 @@ fn setup_selection(container: &Element) -> BehaviorResult<()> {
         }) as Box<dyn FnMut(_)>);
 
         cb_el.add_event_listener_with_callback("change", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
     Ok(())
@@ -467,7 +467,7 @@ fn setup_density(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-density-attached", "1");
 
     let buttons = container.query_selector_all("[data-rs-density-btn]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..buttons.length() {
         let Some(btn) = buttons.item(i) else { continue };
@@ -494,7 +494,7 @@ fn setup_density(container: &Element) -> BehaviorResult<()> {
         }) as Box<dyn FnMut(_)>);
 
         btn_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
     Ok(())
@@ -510,7 +510,7 @@ fn setup_expand(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-expand-attached", "1");
 
     let buttons = container.query_selector_all("[data-rs-datatable-expand-btn]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     for i in 0..buttons.length() {
         let Some(btn) = buttons.item(i) else { continue };
@@ -537,7 +537,7 @@ fn setup_expand(container: &Element) -> BehaviorResult<()> {
         }) as Box<dyn FnMut(_)>);
 
         btn_el.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         closure.forget();
     }
     Ok(())
@@ -553,7 +553,7 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
     let _ = container.set_attribute("data-rs-sync-table-attached", "1");
 
     let rows = container.query_selector_all("[data-rs-datatable-row]")
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "rows query failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "rows query failed".into() })?;
 
     for i in 0..rows.length() {
         let Some(row) = rows.item(i).and_then(|r| r.dyn_into::<Element>().ok()) else { continue };
@@ -584,9 +584,9 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
         }) as Box<dyn FnMut(_)>);
 
         row.add_event_listener_with_callback("mouseenter", enter.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         row.add_event_listener_with_callback("mouseleave", leave.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
         enter.forget();
         leave.forget();
     }
@@ -631,9 +631,9 @@ fn setup_chart_sync(container: &Element) -> BehaviorResult<()> {
     }) as Box<dyn FnMut(_)>);
 
     document().add_event_listener_with_callback("canon:chart:hover", on_hover.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
     document().add_event_listener_with_callback("canon:chart:leave", on_leave.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "listener failed".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "listener failed".into() })?;
     on_hover.forget();
     on_leave.forget();
 

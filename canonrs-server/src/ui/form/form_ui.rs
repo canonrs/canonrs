@@ -1,5 +1,14 @@
-//! @canon-level: ui
-//! Form UI - Enterprise form system
+//! @canon-id: form
+//! @canon-label: Form
+//! @canon-family: interactive
+//! @canon-category: Form
+//! @canon-intent: Form container with submit handling
+//! @canon-description: Form component
+//! @canon-composable: true
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: form, submit, validation, input, fields
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

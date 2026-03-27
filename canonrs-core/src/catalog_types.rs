@@ -3,6 +3,13 @@
 //! rs-ai-canonrs-core imports and extends with parts/accepts
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum CatalogKind {
+    Component,
+    Block,
+    Layout,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum CatalogCategory {
     Action,
     Display,
@@ -23,13 +30,22 @@ pub enum PropType {
     Bool,
     Number,
     Enum(&'static [&'static str]),
+    Children,
 }
 
 #[derive(Clone, Debug)]
 pub struct PropDef {
-    pub name:     &'static str,
-    pub kind:     PropType,
-    pub required: bool,
+    pub name:        &'static str,
+    pub kind:        PropType,
+    pub required:    bool,
+    pub default:     Option<&'static str>,
+    pub description: &'static str,
+}
+
+#[derive(Clone, Debug)]
+pub struct ComponentApi {
+    pub id:    &'static str,
+    pub props: &'static [PropDef],
 }
 
 #[derive(Clone, Debug)]
@@ -38,17 +54,46 @@ pub struct ComponentPart {
     pub props: Vec<PropDef>,
 }
 
+/// Regra de aceitação declarativa no catalog
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CatalogAcceptRule {
+    /// Aceita qualquer componente UI
+    AnyComponent,
+    /// Aceita qualquer block
+    AnyBlock,
+    /// Aceita qualquer layout
+    AnyLayout,
+    /// Aceita tudo
+    Any,
+    /// Aceita apenas components de uma categoria específica
+    ComponentCategory(CatalogCategory),
+    /// Aceita apenas blocks de uma categoria específica
+    BlockCategory(CatalogCategory),
+    /// Aceita um item específico por id
+    Only(&'static str),
+    /// Não aceita nada
+    None,
+}
+
+/// Regra de aceitação por região específica do catalog
+#[derive(Clone, Debug)]
+pub struct CatalogRegionRule {
+    pub region:  &'static str,
+    pub accepts: &'static [CatalogAcceptRule],
+}
+
 #[derive(Clone, Debug)]
 pub struct CatalogEntry {
     pub id:          &'static str,
     pub label:       &'static str,
     pub description: &'static str,
+    pub kind:        CatalogKind,
     pub category:    CatalogCategory,
     pub tags:        &'static [&'static str],
-    // Optional rich fields — used by builder/renderer
-    pub parts:   Option<&'static [ComponentPart]>,
-    pub regions: &'static [&'static str],
-    pub accepts: &'static [CatalogCategory],
+    pub parts:       &'static [&'static str],
+    pub regions:     &'static [&'static str],
+    pub accepts:     &'static [CatalogAcceptRule],
+    pub region_rules: &'static [CatalogRegionRule],
 }
 
 impl CatalogEntry {
@@ -77,5 +122,23 @@ impl CatalogEntry {
 
     pub fn by_category(cat: CatalogCategory) -> impl Iterator<Item = &'static CatalogEntry> {
         crate::generated::catalog::CATALOG_GENERATED.iter().filter(move |e| e.category == cat)
+    }
+}
+
+/// Definição completa de um componente UI derivada dos headers @canon-*
+#[derive(Clone, Debug)]
+pub struct ComponentDefinition {
+    pub id:          &'static str,
+    pub label:       &'static str,
+    pub description: &'static str,
+    pub kind:        CatalogKind,
+    pub meta:        &'static crate::meta_types::ComponentMeta,
+}
+
+impl ComponentDefinition {
+    pub fn find(id: &str) -> Option<&'static ComponentDefinition> {
+        crate::generated::component_definitions::COMPONENT_DEFINITIONS_GENERATED
+            .iter()
+            .find(|d| d.id == id)
     }
 }

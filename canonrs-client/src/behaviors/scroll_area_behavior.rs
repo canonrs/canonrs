@@ -4,7 +4,7 @@
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
-use canonrs_core::BehaviorResult;
+use crate::BehaviorResult;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
@@ -46,7 +46,7 @@ fn setup_scrollbar(root: &web_sys::Element, viewport: &web_sys::HtmlElement, ori
         }) as Box<dyn FnMut(_)>);
 
         viewport.add_event_listener_with_callback("scroll", on_scroll.as_ref().unchecked_ref())
-            .map_err(|_| canonrs_core::BehaviorError::JsError { message: "scroll listener".into() })?;
+            .map_err(|_| crate::BehaviorError::JsError { message: "scroll listener".into() })?;
         on_scroll.forget();
     }
 
@@ -180,7 +180,7 @@ fn setup_drag(thumb: &web_sys::HtmlElement, viewport: &web_sys::HtmlElement, is_
     }) as Box<dyn FnMut(_)>);
 
     thumb.add_event_listener_with_callback("mousedown", on_mousedown.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "mousedown listener".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "mousedown listener".into() })?;
     on_mousedown.forget();
     Ok(())
 }
@@ -210,7 +210,7 @@ fn setup_track_click(scrollbar: &web_sys::Element, viewport: &web_sys::HtmlEleme
     }) as Box<dyn FnMut(_)>);
 
     scrollbar.add_event_listener_with_callback("click", on_click.as_ref().unchecked_ref())
-        .map_err(|_| canonrs_core::BehaviorError::JsError { message: "click listener".into() })?;
+        .map_err(|_| crate::BehaviorError::JsError { message: "click listener".into() })?;
     on_click.forget();
     Ok(())
 }

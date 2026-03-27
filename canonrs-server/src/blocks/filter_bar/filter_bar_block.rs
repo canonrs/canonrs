@@ -6,7 +6,8 @@
 //! @canon-regions: filters, actions
 //! @canon-label: Filter Bar
 //! @canon-description: Filters and actions bar
-//! @canon-tags: filter,filtro,busca,search,barra,refinamento
+//! @canon-tags: filter-bar, filter, search, bar, refinement
+//! @canon-slot-accepts: filters=Form,actions=Action
 use leptos::prelude::*;
 
 #[component]

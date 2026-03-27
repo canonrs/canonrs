@@ -1,7 +1,6 @@
-pub mod nav_item_block;
+mod nav_item_ui;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use nav_item_block::*;
-
-pub use nav_item_block::NavItemPreview;
+pub use nav_item_ui::*;
+pub use nav_item_ui::NavItemPreview;

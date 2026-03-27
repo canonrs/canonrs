@@ -1,3 +1,9 @@
+mod dom_utils;
+pub use dom_utils::node_list_iter;
+
+mod behavior_error;
+pub use behavior_error::{BehaviorError, BehaviorResult};
+
 #[cfg(feature = "hydrate")]
 mod behavior_registry;
 

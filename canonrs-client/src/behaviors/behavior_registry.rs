@@ -9,7 +9,7 @@ use web_sys::{Document, HtmlElement, MutationObserver, MutationObserverInit, Nod
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::{prelude::*, JsCast};
 #[cfg(feature = "hydrate")]
-use canonrs_core::{BehaviorError, BehaviorResult};
+use crate::{BehaviorError, BehaviorResult};
 
 #[cfg(feature = "hydrate")]
 #[derive(Clone)]
@@ -28,7 +28,7 @@ thread_local! {
 
 #[cfg(feature = "hydrate")]
 pub fn register_behavior(data_attr: &str, handler: BehaviorFn) {
-    BEHAVIOR_HANDLERS.with(|handlers| {
+    BEHAVIOR_HANDLERS.with(|handlers: &std::sync::Mutex<Vec<(String, BehaviorFn)>>| {
         handlers.lock().unwrap().push((data_attr.to_string(), handler));
     });
 }
@@ -67,7 +67,7 @@ pub fn init_behavior_registry() -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn scan_and_attach(document: &Document) -> BehaviorResult<()> {
-    BEHAVIOR_HANDLERS.with(|handlers| {
+    BEHAVIOR_HANDLERS.with(|handlers: &std::sync::Mutex<Vec<(String, BehaviorFn)>>| {
         let handlers = handlers.lock().unwrap();
 
         for (data_attr, handler) in handlers.iter() {

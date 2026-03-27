@@ -6,7 +6,8 @@
 //! @canon-regions: search, results, footer
 //! @canon-label: Command Panel
 //! @canon-description: Command palette overlay block
-//! @canon-tags: command,comando,palette,busca,spotlight,atalho
+//! @canon-tags: command-panel, command, palette, search, spotlight, shortcut
+//! @canon-slot-accepts: search=Form,results=Any,footer=Action
 use leptos::prelude::*;
 
 #[component]

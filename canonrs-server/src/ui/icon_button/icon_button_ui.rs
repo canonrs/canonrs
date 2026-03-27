@@ -1,5 +1,14 @@
-//! IconButton UI Component - Enterprise Action Button
-//! Composes ButtonPrimitive with Icon wrapper
+//! @canon-id: icon-button
+//! @canon-label: Icon Button
+//! @canon-family: interactive
+//! @canon-category: Action
+//! @canon-intent: Trigger an action with an icon button
+//! @canon-description: Button with icon only
+//! @canon-composable: false
+//! @canon-capabilities: Disabled
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: icon-button, icon, action, close, delete, edit
 
 use leptos::prelude::*;
 use crate::ui::icon::{Icon, IconSize};

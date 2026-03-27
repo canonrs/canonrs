@@ -1,3 +1,15 @@
+//! @canon-id: carousel-content
+//! @canon-label: Carousel Content
+//! @canon-family: data_display
+//! @canon-category: Display
+//! @canon-intent: Carousel content wrapper region
+//! @canon-description: Carousel content container
+//! @canon-composable: false
+//! @canon-capabilities:
+//! @canon-required-parts:
+//! @canon-optional-parts:
+//! @canon-tags: carousel, content, region
+
 use leptos::prelude::*;
 use super::carousel_content_primitive::CarouselContentPrimitive;
 
