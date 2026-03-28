@@ -9,9 +9,10 @@ use super::parsers::{parse_block_props, parse_block_presets, extract_canon_field
 pub fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path, layouts_dir: &Path, out_dir: &Path) {
     let mut code = String::new();
     code.push_str("// AUTO-GENERATED\n");
-    code.push_str("#![allow(dead_code, unused_imports)]\n");
+    code.push_str("#[allow(dead_code, unused_imports)]
+");
     code.push_str("use crate::block_types::{BlockDefinition, BlockVariant, BlockCategory, BlockRegion, BlockPropDef, BlockPreset, PropFieldType, PropScope, RegionLayout, AcceptRule};\n");
-    code.push_str("use crate::meta::ComponentMeta;\n\n");
+    code.push_str("// ComponentMeta imported via meta_types\n");
 
     for b in blocks {
         let dir = if b.kind == "layout" { layouts_dir } else { blocks_dir };

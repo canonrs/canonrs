@@ -17,7 +17,7 @@ pub mod gen_llm;
 
 pub use gen_schema::generate_schema_json;
 pub use gen_audit::generate_audit;
-pub use gen_meta::{generate_component_meta, generate_block_meta, generate_mod_update};
+pub use gen_meta::{generate_component_meta, generate_block_meta};
 pub use gen_catalog::generate_catalog;
 pub use gen_definitions::{generate_block_definitions, generate_layout_definitions};
 

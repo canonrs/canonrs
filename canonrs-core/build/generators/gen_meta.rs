@@ -9,7 +9,7 @@ use super::utils::*;
 pub fn generate_component_meta(semantic: &HashMap<String, SemanticEntry>, out_dir: &Path) {
     let mut code = String::new();
     code.push_str("// AUTO-GENERATED — do not edit. Edit components.toml instead.\n");
-    code.push_str("#![allow(dead_code)]\n");
+    code.push_str("#[allow(dead_code)]\n");
     code.push_str("use crate::meta_types::{ComponentMeta, ComponentFamily, Capability};\n\n");
 
     let mut ids: Vec<&String> = semantic.keys().collect();
@@ -90,6 +90,7 @@ pub fn generate_block_meta(blocks: &[BlockInfo], out_dir: &Path) {
     fs::write(out_dir.join("block_meta.rs"), code).unwrap();
 }
 
+#[allow(dead_code)]
 pub fn generate_mod_update(out_dir: &Path) {
     let code = "// AUTO-GENERATED\npub mod component_meta;\npub mod block_meta;\npub mod block_definitions;\npub mod layout_definitions;\npub mod catalog;\npub mod component_definitions;\npub use component_meta::*;\npub use block_meta::*;\n";
     fs::write(out_dir.join("mod.rs"), code).unwrap();
