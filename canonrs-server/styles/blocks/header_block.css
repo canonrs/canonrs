@@ -1,28 +1,32 @@
 /* ============================================================================
    CANONRS — HEADER BLOCK
+   Family H: Layout
    ============================================================================ */
 
 [data-rs-block][data-rs-component="Header"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--header-height, 4rem);
-  padding-inline: var(--layout-padding, 2rem);
-  background: var(--header-bg, hsl(var(--theme-surface-bg)));
-  border-bottom: var(--header-border, 1px solid hsl(var(--theme-surface-border)));
+  height: var(--header-height);
+  padding-inline: var(--header-padding);
+  background: var(--header-bg);
+  border-bottom: var(--header-border);
 }
 
 [data-rs-block][data-rs-component="Header"] [data-rs-region="logo"] {
   display: flex;
   align-items: center;
-  gap: var(--primitive-space-2, 0.5rem);
+  gap: var(--header-start-gap);
+  flex-shrink: 0;
 }
 
 [data-rs-block][data-rs-component="Header"] [data-rs-region="nav"] {
+  justify-content: center;
   display: flex;
   align-items: center;
   flex: 1;
-  padding-inline: var(--primitive-space-8, 2rem);
+  gap: var(--header-start-gap);
+  padding-inline: var(--space-lg);
 }
 
 [data-rs-block][data-rs-component="Header"] [data-rs-region="center"] {
@@ -35,5 +39,6 @@
 [data-rs-block][data-rs-component="Header"] [data-rs-region="actions"] {
   display: flex;
   align-items: center;
-  gap: var(--primitive-space-2, 0.5rem);
+  gap: var(--header-end-gap);
+  flex-shrink: 0;
 }

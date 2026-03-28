@@ -3,6 +3,7 @@ mod entry_generator;
 mod bundler;
 mod semantic_generator;
 mod root_generator;
+mod font_generator;
 
 use canonrs_tokens::design::tokens::families::*;
 use canonrs_tokens::design::tokens::primitives::PRIMITIVE_VALUES;
@@ -19,6 +20,9 @@ fn main() {
 
     println!("🔧 Step 1: Generating primitives...");
     generate_primitives(generated_path);
+
+    println!("\n🔧 Step 1b: Generating fonts (@font-face)...");
+    font_generator::generate(generated_path);
 
     println!("\n🔧 Step 2: Generating foundation (core)...");
     generate_core(generated_path);

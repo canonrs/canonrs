@@ -21,8 +21,8 @@
 }
 
 [data-rs-nav-item]:hover {
-  background: var(--state-hover-bg, var(--theme-surface-muted));
-  color: var(--state-hover-fg, var(--theme-action-accent-fg));
+  background: var(--nav-item-hover-bg);
+  color: var(--nav-item-hover-fg);
 }
 
 [data-rs-nav-item]:focus-visible {
@@ -31,8 +31,8 @@
 }
 
 [data-rs-nav-item][data-rs-state="active"] {
-  background: var(--state-active-bg, var(--theme-action-accent-bg));
-  color: var(--state-active-fg, var(--theme-action-primary-bg-foreground));
+  background: var(--nav-item-active-bg);
+  color: var(--nav-item-active-fg);
   font-weight: var(--nav-item-active-font-weight, var(--font-weight-semibold));
 }
 
@@ -51,4 +51,10 @@
 
 [data-rs-nav-item-label] {
   line-height: var(--nav-item-line-height, var(--line-height-normal));
+}
+
+[data-rs-nav-group][data-rs-direction="horizontal"] {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--nav-item-gap, var(--space-xs));
 }

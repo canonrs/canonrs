@@ -191,6 +191,10 @@
   --nav-item-color: var(--theme-surface-fg);
   --nav-item-icon-size: 1.25em;
   --nav-item-line-height: var(--line-height-normal);
+  --nav-item-hover-bg: transparent;
+  --nav-item-hover-fg: var(--theme-action-primary-bg);
+  --nav-item-active-bg: transparent;
+  --nav-item-active-fg: var(--theme-action-primary-bg);
   --page-header-gap: var(--space-sm);
   --page-header-padding: var(--space-md) var(--space-lg);
   --page-header-bg: var(--theme-surface-bg);

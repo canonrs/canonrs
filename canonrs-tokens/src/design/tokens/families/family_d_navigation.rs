@@ -238,6 +238,10 @@ pub const FAMILY_D_NAVIGATION: &[FamilyToken] = &[
     FamilyToken::new("nav-item-color", "var(--theme-surface-fg)"),
     FamilyToken::new("nav-item-icon-size", "1.25em"),
     FamilyToken::new("nav-item-line-height", "var(--line-height-normal)"),
+    FamilyToken::new("nav-item-hover-bg", "transparent"),
+    FamilyToken::new("nav-item-hover-fg", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("nav-item-active-bg", "transparent"),
+    FamilyToken::new("nav-item-active-fg", "var(--theme-action-primary-bg)"),
 
 
         // PageHeader

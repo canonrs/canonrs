@@ -139,6 +139,24 @@ pub const FAMILY_H_LAYOUT: &[FamilyToken] = &[
     FamilyToken::new("header-padding", "0 var(--space-lg)"),
     FamilyToken::new("header-start-gap", "var(--space-md)"),
     FamilyToken::new("header-end-gap", "var(--space-md)"),
+
+    // Typography Global
+    FamilyToken::new("font-family-sans",  "var(--primitive-font-sans)"),
+    FamilyToken::new("font-family-serif", "var(--primitive-font-serif)"),
+    FamilyToken::new("font-family-mono",  "var(--primitive-font-mono)"),
+
+    // Logo
+    // Logo
+    FamilyToken::new("logo-icon-size-sm", "1.5rem"),
+    FamilyToken::new("logo-icon-size-md", "2rem"),
+    FamilyToken::new("logo-icon-size-lg", "2.5rem"),
+    FamilyToken::new("logo-wordmark-font-size-sm", "var(--font-size-sm)"),
+    FamilyToken::new("logo-wordmark-font-size-md", "var(--primitive-font-size-5)"),
+    FamilyToken::new("logo-wordmark-font-size-lg", "var(--primitive-font-size-6)"),
+    FamilyToken::new("logo-wordmark-font-weight", "var(--font-weight-bold)"),
+    FamilyToken::new("logo-wordmark-color", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("logo-gap", "var(--space-sm)"),
+    FamilyToken::new("logo-letter-spacing", "-0.02em"),
     // Layout dimension primitives — valores reais
     FamilyToken::new("layout-height-header", "56px"),
     FamilyToken::new("layout-height-footer", "56px"),

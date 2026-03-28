@@ -2,33 +2,45 @@ use leptos::prelude::*;
 use super::NavItem;
 
 #[component]
-pub fn basic_example() -> impl IntoView {
+pub fn BasicExample() -> impl IntoView {
     view! {
-        <nav data-nav-group="">
-            <NavItem label="Home" href="/" />
-            <NavItem label="About" href="/about" />
-            <NavItem label="Contact" href="/contact" />
+        <nav data-nav-group="" data-rs-direction="horizontal">
+            <NavItem label="Home".to_string() href="/".to_string() />
+            <NavItem label="About".to_string() href="/about".to_string() />
+            <NavItem label="Contact".to_string() href="/contact".to_string() />
         </nav>
     }
 }
 
 #[component]
-pub fn with_active_example() -> impl IntoView {
+pub fn WithActiveExample() -> impl IntoView {
     view! {
-        <nav data-nav-group="">
-            <NavItem label="Dashboard" href="/dashboard" active=true />
-            <NavItem label="Settings" href="/settings" />
-            <NavItem label="Profile" href="/profile" />
+        <nav data-nav-group="" data-rs-direction="horizontal">
+            <NavItem label="Dashboard".to_string() href="/dashboard".to_string() active=true />
+            <NavItem label="Settings".to_string() href="/settings".to_string() />
+            <NavItem label="Profile".to_string() href="/profile".to_string() />
         </nav>
     }
 }
 
 #[component]
-pub fn disabled_example() -> impl IntoView {
+pub fn VerticalExample() -> impl IntoView {
     view! {
         <nav data-nav-group="">
-            <NavItem label="Enabled" href="/enabled" />
-            <NavItem label="Disabled" href="/disabled" disabled=true />
+            <NavItem label="Dashboard".to_string() href="/dashboard".to_string() active=true />
+            <NavItem label="Settings".to_string() href="/settings".to_string() />
+            <NavItem label="Profile".to_string() href="/profile".to_string() />
+            <NavItem label="Disabled".to_string() href="/disabled".to_string() disabled=true />
+        </nav>
+    }
+}
+
+#[component]
+pub fn DisabledExample() -> impl IntoView {
+    view! {
+        <nav data-nav-group="" data-rs-direction="horizontal">
+            <NavItem label="Enabled".to_string() href="/enabled".to_string() />
+            <NavItem label="Disabled".to_string() href="/disabled".to_string() disabled=true />
         </nav>
     }
 }

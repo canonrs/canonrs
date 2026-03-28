@@ -1,0 +1,56 @@
+/* ============================================================================
+   CANONRS — SITE LOGO
+   Family H: Layout — Brand Identity
+   ============================================================================ */
+
+[data-rs-logo] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--logo-gap);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+[data-rs-logo-icon] {
+  width: var(--logo-icon-size-md);
+  height: var(--logo-icon-size-md);
+  flex-shrink: 0;
+  display: block;
+}
+
+[data-rs-logo-wordmark] {
+  font-size: var(--logo-wordmark-font-size-md);
+  font-weight: var(--logo-wordmark-font-weight);
+  font-family: var(--font-family-sans);
+  color: var(--logo-wordmark-color);
+  letter-spacing: var(--logo-letter-spacing);
+  line-height: 1;
+}
+
+/* Variants */
+[data-rs-logo][data-rs-variant="brand"] [data-rs-logo-wordmark] {
+  color: var(--logo-wordmark-color);
+}
+
+[data-rs-logo][data-rs-variant="neutral"] [data-rs-logo-wordmark] {
+  color: var(--theme-surface-fg);
+}
+
+/* Sizes */
+[data-rs-logo][data-rs-size="sm"] [data-rs-logo-icon] {
+  width: var(--logo-icon-size-sm);
+  height: var(--logo-icon-size-sm);
+}
+
+[data-rs-logo][data-rs-size="sm"] [data-rs-logo-wordmark] {
+  font-size: var(--logo-wordmark-font-size-sm);
+}
+
+[data-rs-logo][data-rs-size="lg"] [data-rs-logo-icon] {
+  width: var(--logo-icon-size-lg);
+  height: var(--logo-icon-size-lg);
+}
+
+[data-rs-logo][data-rs-size="lg"] [data-rs-logo-wordmark] {
+  font-size: var(--logo-wordmark-font-size-lg);
+}

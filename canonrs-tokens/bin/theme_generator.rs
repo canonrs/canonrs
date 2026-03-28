@@ -12,6 +12,7 @@ pub struct HSLColor {
 pub struct ThemeColors {
     pub light: HashMap<String, HSLColor>,
     pub dark: HashMap<String, HSLColor>,
+    pub props: HashMap<String, String>,  // non-HSL properties (fonts, radius, etc)
 }
 
 fn normalize_theme_key(css_key: &str) -> String {
@@ -94,9 +95,18 @@ pub fn parse_hsl(value: &str) -> Option<HSLColor> {
     Some(HSLColor { h, s, l })
 }
 
+// Font properties to bridge from theme to CanonRS tokens
+const FONT_PROPS: &[(&str, &str)] = &[
+    ("font-sans",  "primitive-font-sans"),
+    ("font-serif", "primitive-font-serif"),
+    ("font-mono",  "primitive-font-mono"),
+    ("radius",     "primitive-radius-base"),
+];
+
 pub fn parse_css_theme(content: &str) -> ThemeColors {
     let mut light = HashMap::new();
     let mut dark = HashMap::new();
+    let mut props = HashMap::new();
     let mut in_root = false;
     let mut in_dark = false;
 
@@ -108,16 +118,23 @@ pub fn parse_css_theme(content: &str) -> ThemeColors {
         else if (in_root || in_dark) && line.starts_with("--") {
             if let Some((key, value)) = line.split_once(':') {
                 let key = key.trim().trim_start_matches("--").to_string();
-                let value = value.trim().trim_end_matches(';');
-                if let Some(color) = parse_hsl(value) {
-                    if in_dark { dark.insert(key, color); }
-                    else { light.insert(key, color); }
+                let value = value.trim().trim_end_matches(';').trim().to_string();
+                if let Some(color) = parse_hsl(&value) {
+                    if in_dark { dark.insert(key.clone(), color); }
+                    else { light.insert(key.clone(), color); }
+                } else {
+                    // capture non-HSL props from :root and .dark
+                    for (theme_key, _) in FONT_PROPS {
+                        if key == *theme_key {
+                            props.insert(key.clone(), value.clone());
+                        }
+                    }
                 }
             }
         }
     }
 
-    ThemeColors { light, dark }
+    ThemeColors { light, dark, props }
 }
 
 // ============================================================
@@ -162,6 +179,13 @@ pub fn generate_css_theme(theme_name: &str, colors: &ThemeColors) -> String {
         css.push_str(&format!("  --theme-{}: hsl({} {}% {}%);\n", normalized, color.h, color.s, color.l));
     }
 
+    // Bridge font and other non-HSL tokens from theme to CanonRS primitives
+    for (theme_key, primitive_key) in FONT_PROPS {
+        if let Some(value) = colors.props.get(*theme_key) {
+            css.push_str(&format!("  --{}: {};\n", primitive_key, value));
+        }
+    }
+
     css.push_str("}\n\n");
 
     if !colors.dark.is_empty() {
@@ -181,7 +205,7 @@ pub fn generate_css_theme(theme_name: &str, colors: &ThemeColors) -> String {
 }
 
 pub fn generate_themes(output_dir: &Path) {
-    let themes_dir = Path::new("../canonrs-server/themes-engine/ingest/css");
+    let themes_dir = Path::new("themes/ingest");
     if !themes_dir.exists() {
         println!("  ⚠ No themes directory found, skipping");
         return;
