@@ -28,14 +28,14 @@ pub fn SidebarLayout(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="sidebar-layout"
-            data-block-version="1"
+            data-rs-block=""
+            data-rs-component="SidebarLayout"
+            data-rs-side=side.as_str()
             style=style
-            data-block-side=side.as_str()
             class=class
         >
-            {nav.map(|n| view! { <div data-block-region="nav">{n()}</div> })}
-            {main.map(|m| view! { <div data-block-region="main">{m()}</div> })}
+            {nav.map(|n| view! { <div data-rs-region="nav">{n()}</div> })}
+            {main.map(|m| view! { <div data-rs-region="main">{m()}</div> })}
         </div>
     }
 }

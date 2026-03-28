@@ -3,8 +3,8 @@
    Family H: Layout
    ============================================================================ */
 
-[data-footer],
-[data-canon-block="footer"] {
+[data-rs-block][data-rs-component="Footer"],
+[data-rs-block][data-rs-component="Footer"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,5 +13,5 @@
   border-top: var(--footer-border);
 }
 
-[data-footer-start] { display: flex; gap: var(--footer-start-gap); }
-[data-footer-end]   { display: flex; gap: var(--footer-end-gap); }
+[data-rs-block][data-rs-component="Footer"] [data-rs-region="left"] { display: flex; gap: var(--footer-start-gap); }
+[data-rs-block][data-rs-component="Footer"] [data-rs-region="right"]   { display: flex; gap: var(--footer-end-gap); }

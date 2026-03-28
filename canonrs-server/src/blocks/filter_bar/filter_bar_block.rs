@@ -18,9 +18,9 @@ pub fn FilterBar(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="filter-bar" data-block-version="1" class=class>
-            {filters.map(|f| view! { <div data-block-region="filters">{f()}</div> })}
-            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
+        <div data-rs-block="" data-rs-component="FilterBar" class=class>
+            {filters.map(|f| view! { <div data-rs-region="filters">{f()}</div> })}
+            {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
         </div>
     }
 }

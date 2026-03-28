@@ -3,8 +3,8 @@
    Family D: Navigation
    ============================================================================ */
 
-[data-toolbar],
-[data-canon-block="toolbar"] {
+[data-rs-block][data-rs-component="Toolbar"],
+[data-rs-block][data-rs-component="Toolbar"] {
   display: flex;
   align-items: center;
   gap: var(--toolbar-gap);

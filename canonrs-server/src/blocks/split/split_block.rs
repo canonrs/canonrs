@@ -27,9 +27,14 @@ pub fn Split(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="split" data-block-version="1" data-block-ratio=ratio.as_str() class=class>
-            {aside.map(|a| view! { <div data-block-region="aside">{a()}</div> })}
-            {main.map(|m| view! { <div data-block-region="main">{m()}</div> })}
+        <div
+            data-rs-block=""
+            data-rs-component="Split"
+            data-rs-ratio=ratio.as_str()
+            class=class
+        >
+            {aside.map(|a| view! { <div data-rs-region="aside">{a()}</div> })}
+            {main.map(|m| view! { <div data-rs-region="main">{m()}</div> })}
         </div>
     }
 }

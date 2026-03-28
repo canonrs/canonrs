@@ -21,12 +21,12 @@ pub fn DataTableBlock(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="data-table" data-block-version="1" class=class>
-            {toolbar.map(|t| view! { <div data-block-region="toolbar">{t()}</div> })}
-            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
-            {body.map(|b| view! { <div data-block-region="body">{b()}</div> })}
-            {empty.map(|e| view! { <div data-block-region="empty">{e()}</div> })}
-            {pagination.map(|p| view! { <div data-block-region="pagination">{p()}</div> })}
+        <div data-rs-block="" data-rs-component="DataTable" class=class>
+            {toolbar.map(|t| view! { <div data-rs-region="toolbar">{t()}</div> })}
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {body.map(|b| view! { <div data-rs-region="body">{b()}</div> })}
+            {empty.map(|e| view! { <div data-rs-region="empty">{e()}</div> })}
+            {pagination.map(|p| view! { <div data-rs-region="pagination">{p()}</div> })}
         </div>
     }
 }

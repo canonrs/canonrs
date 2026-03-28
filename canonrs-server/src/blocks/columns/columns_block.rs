@@ -22,13 +22,13 @@ pub fn Columns(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="columns"
-            data-block-version="1"
+            data-rs-block=""
+            data-rs-component="Columns"
+            data-rs-columns=count.to_string()
             style=style
-            data-block-columns=count.to_string()
             class=class
         >
-            {columns.map(|c| view! { <div data-block-region="columns">{c()}</div> })}
+            {columns.map(|c| view! { <div data-rs-region="columns">{c()}</div> })}
         </div>
     }
 }

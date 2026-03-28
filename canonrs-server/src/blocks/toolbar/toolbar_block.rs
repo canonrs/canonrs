@@ -20,14 +20,14 @@ pub fn ToolbarBlock(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="toolbar"
-            data-block-version="1"
+            data-rs-block=""
+            data-rs-component="Toolbar"
             style=style
             class=class
         >
-            {left.map(|l| view! { <div data-block-region="left">{l()}</div> })}
-            {center.map(|c| view! { <div data-block-region="center">{c()}</div> })}
-            {right.map(|r| view! { <div data-block-region="right">{r()}</div> })}
+            {left.map(|l| view! { <div data-rs-region="left">{l()}</div> })}
+            {center.map(|c| view! { <div data-rs-region="center">{c()}</div> })}
+            {right.map(|r| view! { <div data-rs-region="right">{r()}</div> })}
         </div>
     }
 }

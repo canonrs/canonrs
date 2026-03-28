@@ -1,12 +1,12 @@
-[data-block="split"] {
+[data-rs-block][data-rs-component="Split"] {
   display: flex;
   width: 100%;
   gap: var(--split-gap);
   padding: var(--split-padding);
   background: var(--split-bg);
 }
-[data-block="split"] [data-block-region="aside"],
-[data-block="split"] [data-block-region="main"] {
+[data-rs-block][data-rs-component="Split"] [data-rs-region="aside"],
+[data-rs-block][data-rs-component="Split"] [data-rs-region="main"] {
   flex: 1;
   min-width: 0;
 }

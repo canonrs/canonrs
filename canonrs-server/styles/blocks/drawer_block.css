@@ -4,7 +4,7 @@
    ============================================================================ */
 
 [data-drawer-content],
-[data-canon-block="drawer"] {
+[data-rs-block][data-rs-component="Drawer"] {
   background: var(--drawer-content-bg);
   color: var(--drawer-content-fg);
   padding: var(--drawer-content-padding);
@@ -14,7 +14,7 @@
 }
 
 [data-drawer-header],
-[data-canon-block="drawer"] [data-drawer-header] {
+[data-rs-block][data-rs-component="Drawer"] [data-drawer-header] {
   display: flex;
   flex-direction: column;
   gap: var(--drawer-header-gap);
@@ -22,19 +22,19 @@
 }
 
 [data-drawer-title],
-[data-canon-block="drawer"] [data-drawer-title] {
+[data-rs-block][data-rs-component="Drawer"] [data-drawer-title] {
   font-size: var(--drawer-title-font-size);
   font-weight: var(--drawer-title-font-weight);
   color: var(--drawer-title-fg);
 }
 
 [data-drawer-description],
-[data-canon-block="drawer"] [data-drawer-description] {
+[data-rs-block][data-rs-component="Drawer"] [data-drawer-description] {
   color: var(--drawer-description-fg);
 }
 
 [data-drawer-footer],
-[data-canon-block="drawer"] [data-drawer-footer] {
+[data-rs-block][data-rs-component="Drawer"] [data-drawer-footer] {
   display: flex;
   gap: var(--drawer-footer-gap);
   justify-content: flex-end;

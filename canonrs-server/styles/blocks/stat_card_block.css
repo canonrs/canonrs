@@ -3,8 +3,8 @@
    Family F: Data
    ============================================================================ */
 
-[data-stat-card],
-[data-canon-block="stat-card"] {
+[data-rs-block][data-rs-component="StatCard"],
+[data-rs-block][data-rs-component="StatCard"] {
   display: flex;
   flex-direction: column;
   gap: var(--stat-gap);
@@ -15,36 +15,36 @@
   box-shadow: var(--card-shadow);
 }
 
-[data-stat-label],
-[data-canon-block="stat-card"] [data-stat-label] {
+[data-rs-block][data-rs-component="StatCard"] [data-rs-region="label"],
+[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"] [data-rs-region="label"] {
   font-size: var(--stat-label-font-size);
   font-weight: var(--stat-label-font-weight);
   color: var(--stat-label-fg);
 }
 
-[data-stat-value],
-[data-canon-block="stat-card"] [data-stat-value] {
+[data-rs-block][data-rs-component="StatCard"] [data-rs-region="value"],
+[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"] [data-rs-region="value"] {
   font-size: var(--stat-value-font-size);
   font-weight: var(--stat-value-font-weight);
   color: var(--stat-value-fg);
 }
 
-[data-stat-trend="increase"],
-[data-canon-block="stat-card"] [data-stat-trend="increase"] {
+[data-rs-block][data-rs-component="StatCard"][data-rs-trend="up"],
+[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"][data-rs-trend="up"] {
   font-size: var(--stat-delta-font-size);
   font-weight: var(--stat-delta-font-weight);
   color: var(--stat-trend-increase-color);
 }
 
-[data-stat-trend="decrease"],
-[data-canon-block="stat-card"] [data-stat-trend="decrease"] {
+[data-rs-block][data-rs-component="StatCard"][data-rs-trend="down"],
+[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"][data-rs-trend="down"] {
   font-size: var(--stat-delta-font-size);
   font-weight: var(--stat-delta-font-weight);
   color: var(--stat-trend-decrease-color);
 }
 
-[data-stat-trend="neutral"],
-[data-canon-block="stat-card"] [data-stat-trend="neutral"] {
+[data-rs-block][data-rs-component="StatCard"][data-rs-trend="neutral"],
+[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"][data-rs-trend="neutral"] {
   font-size: var(--stat-delta-font-size);
   font-weight: var(--stat-delta-font-weight);
   color: var(--stat-trend-neutral-color);

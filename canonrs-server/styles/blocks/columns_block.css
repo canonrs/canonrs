@@ -3,7 +3,7 @@
    Family J: Content Blocks
    ============================================================================ */
 
-[data-block="columns"] {
+[data-rs-block][data-rs-component="Columns"] {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

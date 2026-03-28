@@ -4,7 +4,7 @@
    ============================================================================ */
 
 [data-popover-content],
-[data-canon-block="popover"] {
+[data-rs-block][data-rs-component="Popover"] {
   display: inline-flex;
   flex-direction: column;
   padding: var(--popover-padding);

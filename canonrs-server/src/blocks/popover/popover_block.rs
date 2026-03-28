@@ -30,16 +30,16 @@ pub fn PopoverBlock(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="popover"
-            data-block-version="1"
+            data-rs-block=""
+            data-rs-component="Popover"
+            data-rs-placement=placement.as_str()
             style=style
-            data-block-placement=placement.as_str()
             class=class
         >
-            {trigger.map(|t| view! { <div data-block-region="trigger">{t()}</div> })}
-            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
-            {content.map(|c| view! { <div data-block-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
+            {trigger.map(|t| view! { <div data-rs-region="trigger">{t()}</div> })}
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

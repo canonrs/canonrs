@@ -1,4 +1,4 @@
-[data-layout="fullscreen"] {
+[data-rs-layout][data-rs-component="Fullscreen"] {
   container-type: inline-size;
   container-name: fullscreen;
   display: flex;
@@ -9,7 +9,7 @@
   background: var(--layout-bg);
 }
 
-[data-layout="fullscreen"] [data-layout-region="header"] {
+[data-rs-layout][data-rs-component="Fullscreen"] [data-rs-region="header"] {
   height: var(--layout-header-height);
   flex-shrink: 0;
   display: flex;
@@ -18,7 +18,7 @@
   background: var(--header-bg);
 }
 
-[data-layout="fullscreen"] [data-layout-region="main"] {
+[data-rs-layout][data-rs-component="Fullscreen"] [data-rs-region="content"] {
   flex: 1;
   overflow: auto;
   background: var(--layout-bg);

@@ -20,11 +20,11 @@ pub fn EmptyState(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="empty-state" data-block-version="1" class=class>
-            {icon.map(|i| view! { <div data-block-region="icon">{i()}</div> })}
-            {title.map(|t| view! { <div data-block-region="title">{t()}</div> })}
-            {description.map(|d| view! { <div data-block-region="description">{d()}</div> })}
-            {action.map(|a| view! { <div data-block-region="action">{a()}</div> })}
+        <div data-rs-block="" data-rs-component="EmptyState" class=class>
+            {icon.map(|i| view! { <div data-rs-region="icon">{i()}</div> })}
+            {title.map(|t| view! { <div data-rs-region="title">{t()}</div> })}
+            {description.map(|d| view! { <div data-rs-region="description">{d()}</div> })}
+            {action.map(|a| view! { <div data-rs-region="action">{a()}</div> })}
         </div>
     }
 }

@@ -20,14 +20,14 @@ pub fn CommandPanelBlock(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="command-panel"
-            data-block-version="1"
+            data-rs-block=""
+            data-rs-component="CommandPanel"
             style=style
             class=class
         >
-            {search.map(|s| view! { <div data-block-region="search">{s()}</div> })}
-            {results.map(|r| view! { <div data-block-region="results">{r()}</div> })}
-            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
+            {search.map(|s| view! { <div data-rs-region="search">{s()}</div> })}
+            {results.map(|r| view! { <div data-rs-region="results">{r()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

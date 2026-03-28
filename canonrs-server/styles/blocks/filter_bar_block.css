@@ -1,4 +1,4 @@
-[data-block="filter-bar"] {
+[data-rs-block][data-rs-component="FilterBar"] {
   display: flex;
   align-items: center;
   gap: var(--filter-bar-gap);
@@ -7,13 +7,13 @@
   border: var(--filter-bar-border);
   border-radius: var(--filter-bar-radius);
 }
-[data-block="filter-bar"] [data-block-region="filters"] {
+[data-rs-block][data-rs-component="FilterBar"] [data-rs-region="filters"] {
   display: flex;
   flex: 1;
   gap: var(--filter-bar-gap);
   flex-wrap: wrap;
 }
-[data-block="filter-bar"] [data-block-region="actions"] {
+[data-rs-block][data-rs-component="FilterBar"] [data-rs-region="actions"] {
   display: flex;
   gap: var(--filter-bar-gap);
   flex-shrink: 0;

@@ -19,10 +19,10 @@ pub fn Wizard(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="wizard" data-block-version="1" class=class>
-            {steps.map(|s| view! { <div data-block-region="steps">{s()}</div> })}
-            {body.map(|b| view! { <div data-block-region="body">{b()}</div> })}
-            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
+        <div data-rs-block="" data-rs-component="Wizard" class=class>
+            {steps.map(|s| view! { <div data-rs-region="steps">{s()}</div> })}
+            {body.map(|b| view! { <div data-rs-region="body">{b()}</div> })}
+            {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
         </div>
     }
 }

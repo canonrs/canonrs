@@ -19,10 +19,10 @@ pub fn DialogBlock(
     #[prop(optional)] content: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
-        <div data-block="dialog" data-block-version="1" class=class>
-            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
-            {content.map(|c| view! { <div data-block-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
+        <div data-rs-block="" data-rs-component="Dialog" class=class>
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

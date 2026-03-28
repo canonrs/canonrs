@@ -23,10 +23,10 @@ pub fn Section(
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <section data-layout="section" data-layout-version="1" class=class>
-            {header.map(|h| view! { <div data-layout-region="header">{h()}</div> })}
-            {content.map(|c| view! { <div data-layout-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-layout-region="footer">{f()}</div> })}
+        <section data-rs-layout="" data-rs-component="Section" class=class>
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </section>
     }
 }

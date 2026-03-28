@@ -29,9 +29,14 @@ pub fn FormBlock(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="form" data-block-version="1" data-block-layout=layout.as_str() class=class>
-            {fields.map(|f| view! { <div data-block-region="fields">{f()}</div> })}
-            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
+        <div
+            data-rs-block=""
+            data-rs-component="Form"
+            data-rs-layout=layout.as_str()
+            class=class
+        >
+            {fields.map(|f| view! { <div data-rs-region="fields">{f()}</div> })}
+            {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
         </div>
     }
 }

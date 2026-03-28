@@ -3,7 +3,7 @@
    Family J: Content Blocks
    ============================================================================ */
 
-[data-block="container"] {
+[data-rs-block][data-rs-component="Container"] {
   width: 100%;
   max-width: var(--container-max-width);
   margin-inline: auto;

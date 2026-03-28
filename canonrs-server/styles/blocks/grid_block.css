@@ -3,7 +3,7 @@
    Family J: Content Blocks
    ============================================================================ */
 
-[data-block="grid"] {
+[data-rs-block][data-rs-component="Grid"] {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-col-width), 1fr));

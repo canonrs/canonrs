@@ -1,4 +1,4 @@
-[data-layout="dashboard"] {
+[data-rs-layout][data-rs-component="Dashboard"] {
   width: 100%;
   display: flex;
   container-type: inline-size;
@@ -8,7 +8,7 @@
   background: var(--layout-bg);
 }
 
-[data-layout="dashboard"] [data-layout-region="header"] {
+[data-rs-layout][data-rs-component="Dashboard"] [data-rs-region="header"] {
   height: var(--layout-header-height);
   flex-shrink: 0;
   display: flex;
@@ -25,7 +25,7 @@
   overflow: hidden;
 }
 
-[data-layout="dashboard"] [data-layout-region="sidebar"] {
+[data-rs-layout][data-rs-component="Dashboard"] [data-rs-region="sidebar"] {
   width: var(--sidebar-width);
   flex-shrink: 0;
   border-right: var(--sidebar-border);
@@ -34,7 +34,7 @@
   overflow-y: auto;
 }
 
-[data-layout="dashboard"] [data-layout-region="main"] {
+[data-rs-layout][data-rs-component="Dashboard"] [data-rs-region="content"] {
   overflow-x: hidden;
   min-width: 0;
   flex: 1;
@@ -48,8 +48,8 @@
   min-height: 0;
 }
 
-[data-layout="dashboard"] [data-layout-region="header"] [data-drop-zone],
-[data-layout="dashboard"] [data-layout-region="header"] > * {
+[data-rs-layout][data-rs-component="Dashboard"] [data-rs-region="header"] [data-drop-zone],
+[data-rs-layout][data-rs-component="Dashboard"] [data-rs-region="header"] > * {
   width: 100%;
   flex: 1;
 }
@@ -62,7 +62,7 @@
 }
 
 /* Builder canvas override — min-height 100vh quebra dentro do canvas */
-[data-canvas-mode="builder"] [data-layout="dashboard"] {
+[data-canvas-mode="builder"] [data-rs-layout][data-rs-component="Dashboard"] {
   min-height: 900px;
   height: auto;
 }
@@ -73,13 +73,13 @@
   height: auto;
 }
 
-[data-canvas-mode="builder"] [data-layout="dashboard"] [data-layout-region="main"] {
+[data-canvas-mode="builder"] [data-rs-layout][data-rs-component="Dashboard"] [data-rs-region="content"] {
   overflow: visible;
   height: auto;
   min-height: 0;
 }
 
-[data-canvas-mode="builder"] [data-layout="dashboard"] [data-layout-region="sidebar"] {
+[data-canvas-mode="builder"] [data-rs-layout][data-rs-component="Dashboard"] [data-rs-region="sidebar"] {
   overflow-y: visible;
   height: auto;
 }

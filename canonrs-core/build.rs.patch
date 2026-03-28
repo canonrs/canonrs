@@ -1,0 +1,1 @@
+println!("cargo:rerun-if-changed=src/generated");

@@ -4,7 +4,7 @@
    ============================================================================ */
 
 [data-empty-state],
-[data-canon-block="empty-state"] {
+[data-rs-block][data-rs-component="EmptyState"] {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,26 +17,26 @@
 }
 
 [data-empty-state-icon],
-[data-canon-block="empty-state"] [data-empty-state-icon] {
+[data-rs-block][data-rs-component="EmptyState"] [data-empty-state-icon] {
   font-size: var(--empty-state-icon-size);
   color: var(--empty-state-icon-fg);
 }
 
 [data-empty-state-title],
-[data-canon-block="empty-state"] [data-empty-state-title] {
+[data-rs-block][data-rs-component="EmptyState"] [data-empty-state-title] {
   font-size: var(--empty-state-title-font-size);
   font-weight: var(--empty-state-title-font-weight);
   color: var(--empty-state-title-fg);
 }
 
 [data-empty-state-description],
-[data-canon-block="empty-state"] [data-empty-state-description] {
+[data-rs-block][data-rs-component="EmptyState"] [data-empty-state-description] {
   font-size: var(--empty-state-description-font-size);
   color: var(--empty-state-description-fg);
 }
 
 [data-empty-state-actions],
-[data-canon-block="empty-state"] [data-empty-state-actions] {
+[data-rs-block][data-rs-component="EmptyState"] [data-empty-state-actions] {
   display: flex;
   gap: var(--empty-state-actions-gap);
 }

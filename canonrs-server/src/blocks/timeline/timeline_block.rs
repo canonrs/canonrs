@@ -19,10 +19,10 @@ pub fn Timeline(
     #[prop(optional)] items: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
-        <div data-block="timeline" data-block-version="1" class=class>
-            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
-            {items.map(|i| view! { <div data-block-region="items">{i()}</div> })}
-            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
+        <div data-rs-block="" data-rs-component="Timeline" class=class>
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {items.map(|i| view! { <div data-rs-region="items">{i()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

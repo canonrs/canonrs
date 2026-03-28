@@ -27,13 +27,13 @@ pub fn Grid(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="grid"
-            data-block-version="1"
+            data-rs-block=""
+            data-rs-component="Grid"
+            data-rs-columns=columns.to_string()
             style=style
-            data-block-columns=columns.to_string()
             class=class
         >
-            {items.map(|i| view! { <div data-block-region="items">{i()}</div> })}
+            {items.map(|i| view! { <div data-rs-region="items">{i()}</div> })}
         </div>
     }
 }

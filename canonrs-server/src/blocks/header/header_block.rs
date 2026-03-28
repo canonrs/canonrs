@@ -20,11 +20,11 @@ pub fn Header(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <header data-block="header" data-block-version="1" class=class>
-            {logo.map(|l| view! { <div data-block-region="logo">{l()}</div> })}
-            {nav.map(|n| view! { <nav data-block-region="nav">{n()}</nav> })}
-            {center.map(|c| view! { <div data-block-region="center">{c()}</div> })}
-            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
+        <header data-rs-block="" data-rs-component="Header" class=class>
+            {logo.map(|l| view! { <div data-rs-region="logo">{l()}</div> })}
+            {nav.map(|n| view! { <nav data-rs-region="nav">{n()}</nav> })}
+            {center.map(|c| view! { <div data-rs-region="center">{c()}</div> })}
+            {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
         </header>
     }
 }

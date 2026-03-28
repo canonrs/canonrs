@@ -19,9 +19,9 @@ pub fn FullscreenLayout(
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-layout="fullscreen" data-layout-version="1" class=class>
-            {header.map(|h| view! { <div data-layout-region="header">{h()}</div> })}
-            {content.map(|c| view! { <div data-layout-region="content">{c()}</div> })}
+        <div data-rs-layout="" data-rs-component="Fullscreen" class=class>
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
         </div>
     }
 }

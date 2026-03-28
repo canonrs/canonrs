@@ -17,8 +17,8 @@ pub enum SplitRatio { #[default] Equal, FormFocused, ContextFocused }
 impl SplitRatio {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Equal         => "50-50",
-            Self::FormFocused   => "40-60",
+            Self::Equal          => "50-50",
+            Self::FormFocused    => "40-60",
             Self::ContextFocused => "60-40",
         }
     }
@@ -33,13 +33,13 @@ pub fn SplitViewLayout(
 ) -> impl IntoView {
     view! {
         <div
-            data-layout="split-view"
-            data-layout-variant=ratio.as_str()
-            data-layout-version="1"
+            data-rs-layout=""
+            data-rs-component="SplitView"
+            data-rs-variant=ratio.as_str()
             class=class
         >
-            {left.map(|l| view! { <div data-layout-region="left">{l()}</div> })}
-            {right.map(|r| view! { <div data-layout-region="right">{r()}</div> })}
+            {left.map(|l| view! { <div data-rs-region="left">{l()}</div> })}
+            {right.map(|r| view! { <div data-rs-region="right">{r()}</div> })}
         </div>
     }
 }

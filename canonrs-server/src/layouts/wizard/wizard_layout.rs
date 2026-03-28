@@ -21,11 +21,11 @@ pub fn WizardLayout(
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-layout="wizard" data-layout-version="1" class=class>
-            {header.map(|h| view! { <div data-layout-region="header">{h()}</div> })}
-            {stepper.map(|s| view! { <div data-layout-region="stepper">{s()}</div> })}
-            {content.map(|c| view! { <div data-layout-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-layout-region="footer">{f()}</div> })}
+        <div data-rs-layout="" data-rs-component="Wizard" class=class>
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {stepper.map(|s| view! { <div data-rs-region="stepper">{s()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

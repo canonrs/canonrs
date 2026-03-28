@@ -1,4 +1,4 @@
-[data-layout="marketing"] {
+[data-rs-layout][data-rs-component="Marketing"] {
   container-type: inline-size;
   container-name: marketing;
   display: flex;
@@ -7,7 +7,7 @@
   background: var(--layout-bg);
 }
 
-[data-layout="marketing"] [data-layout-region="header"] {
+[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="header"] {
   height: var(--layout-header-height);
   flex-shrink: 0;
   display: flex;
@@ -16,7 +16,7 @@
   background: var(--header-bg);
 }
 
-[data-layout="marketing"] [data-layout-region="hero"] {
+[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="hero"] {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@
   min-height: 320px;
 }
 
-[data-layout="marketing"] [data-layout-region="main"] {
+[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="content"] {
   flex: 1;
   max-width: var(--layout-max-width);
   margin: 0 auto;
@@ -35,7 +35,7 @@
   gap: var(--layout-gap);
 }
 
-[data-layout="marketing"] [data-layout-region="footer"] {
+[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="footer"] {
   padding: var(--footer-padding);
   border-top: var(--footer-border);
   background: var(--footer-bg);

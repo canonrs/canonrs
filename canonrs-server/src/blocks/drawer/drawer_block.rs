@@ -29,15 +29,15 @@ pub fn DrawerBlock(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="drawer"
-            data-block-version="1"
+            data-rs-block=""
+            data-rs-component="Drawer"
+            data-rs-position=position.as_str()
             style=style
-            data-block-position=position.as_str()
             class=class
         >
-            {header.map(|h| view! { <div data-block-region="header">{h()}</div> })}
-            {content.map(|c| view! { <div data-block-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-block-region="footer">{f()}</div> })}
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

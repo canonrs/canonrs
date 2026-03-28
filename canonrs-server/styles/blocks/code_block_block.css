@@ -4,7 +4,7 @@
    ============================================================================ */
 
 [data-code-block],
-[data-canon-block="code-block"] {
+[data-rs-block][data-rs-component="code-block"] {
   display: block;
   background: var(--code-block-bg);
   border: var(--code-block-border-width) solid var(--code-block-border-color);
@@ -14,7 +14,7 @@
 }
 
 [data-code-block] code,
-[data-canon-block="code-block"] code {
+[data-rs-block][data-rs-component="code-block"] code {
   display: block;
   padding: var(--code-block-content-padding-y) var(--code-block-content-padding-x);
   font-family: var(--code-block-font-family);
@@ -24,7 +24,7 @@
 }
 
 [data-code-block-header],
-[data-canon-block="code-block"] [data-code-block-header] {
+[data-rs-block][data-rs-component="code-block"] [data-code-block-header] {
   display: flex;
   align-items: center;
   gap: var(--code-block-header-gap);
@@ -36,7 +36,7 @@
 }
 
 [data-code-block-language],
-[data-canon-block="code-block"] [data-code-block-language] {
+[data-rs-block][data-rs-component="code-block"] [data-code-block-language] {
   font-size: var(--code-block-language-font-size);
   color: var(--code-block-language-fg);
 }

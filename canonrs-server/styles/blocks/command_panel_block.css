@@ -4,7 +4,7 @@
    ============================================================================ */
 
 [data-command],
-[data-canon-block="command-panel"] {
+[data-rs-block][data-rs-component="CommandPanel"] {
   background: var(--command-bg);
   border: var(--command-border-width) solid var(--command-border-color);
   border-radius: var(--command-radius);
@@ -13,7 +13,7 @@
 }
 
 [data-command-input],
-[data-canon-block="command-panel"] [data-command-input] {
+[data-rs-block][data-rs-component="CommandPanel"] [data-command-input] {
   height: var(--command-input-height);
   padding: var(--command-input-padding);
   font-size: var(--command-input-font-size);
@@ -24,14 +24,14 @@
 }
 
 [data-command-list],
-[data-canon-block="command-panel"] [data-command-list] {
+[data-rs-block][data-rs-component="CommandPanel"] [data-command-list] {
   padding: var(--command-list-padding);
   max-height: var(--command-list-max-height);
   overflow-y: auto;
 }
 
 [data-command-item],
-[data-canon-block="command-panel"] [data-command-item] {
+[data-rs-block][data-rs-component="CommandPanel"] [data-command-item] {
   height: var(--command-item-height);
   padding: var(--command-item-padding);
   border-radius: var(--command-item-radius);

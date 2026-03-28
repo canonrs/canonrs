@@ -1,15 +1,39 @@
 /* ============================================================================
    CANONRS — HEADER BLOCK
-   Family H: Layout
    ============================================================================ */
 
-[data-header],
-[data-canon-block="header"] {
+[data-rs-block][data-rs-component="Header"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--header-height);
-  padding-inline: var(--layout-padding);
-  background: var(--header-bg);
-  border-bottom: var(--header-border);
+  height: var(--header-height, 4rem);
+  padding-inline: var(--layout-padding, 2rem);
+  background: var(--header-bg, hsl(var(--theme-surface-bg)));
+  border-bottom: var(--header-border, 1px solid hsl(var(--theme-surface-border)));
+}
+
+[data-rs-block][data-rs-component="Header"] [data-rs-region="logo"] {
+  display: flex;
+  align-items: center;
+  gap: var(--primitive-space-2, 0.5rem);
+}
+
+[data-rs-block][data-rs-component="Header"] [data-rs-region="nav"] {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding-inline: var(--primitive-space-8, 2rem);
+}
+
+[data-rs-block][data-rs-component="Header"] [data-rs-region="center"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+[data-rs-block][data-rs-component="Header"] [data-rs-region="actions"] {
+  display: flex;
+  align-items: center;
+  gap: var(--primitive-space-2, 0.5rem);
 }

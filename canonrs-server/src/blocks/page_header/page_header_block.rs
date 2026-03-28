@@ -20,11 +20,15 @@ pub fn PageHeader(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="page-header" data-block-version="1" class=class>
-            {breadcrumb.map(|b| view! { <div data-block-region="breadcrumb">{b()}</div> })}
-            {title.map(|t| view! { <div data-block-region="title">{t()}</div> })}
-            {subtitle.map(|s| view! { <div data-block-region="subtitle">{s()}</div> })}
-            {actions.map(|a| view! { <div data-block-region="actions">{a()}</div> })}
+        <div
+            data-rs-block=""
+            data-rs-component="PageHeader"
+            class=class
+        >
+            {breadcrumb.map(|b| view! { <div data-rs-region="breadcrumb">{b()}</div> })}
+            {title.map(|t| view! { <div data-rs-region="title">{t()}</div> })}
+            {subtitle.map(|s| view! { <div data-rs-region="subtitle">{s()}</div> })}
+            {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
         </div>
     }
 }

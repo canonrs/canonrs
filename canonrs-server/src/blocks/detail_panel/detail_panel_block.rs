@@ -18,9 +18,9 @@ pub fn DetailPanel(
     #[prop(default = String::new(), into)] _style: String,
 ) -> impl IntoView {
     view! {
-        <div data-block="detail-panel" data-block-version="1" class=class>
-            {aside.map(|a| view! { <div data-block-region="aside">{a()}</div> })}
-            {content.map(|c| view! { <div data-block-region="content">{c()}</div> })}
+        <div data-rs-block="" data-rs-component="DetailPanel" class=class>
+            {aside.map(|a| view! { <div data-rs-region="aside">{a()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
         </div>
     }
 }

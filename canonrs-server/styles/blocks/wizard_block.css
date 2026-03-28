@@ -1,20 +1,20 @@
-[data-block="wizard"] {
+[data-rs-block][data-rs-component="Wizard"] {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-[data-block="wizard"] [data-block-region="steps"] {
+[data-rs-block][data-rs-component="Wizard"] [data-rs-region="steps"] {
   background: var(--wizard-steps-bg);
   padding: var(--wizard-steps-padding);
   display: flex;
   gap: var(--space-sm);
   border-bottom: 1px solid var(--theme-surface-border);
 }
-[data-block="wizard"] [data-block-region="body"] {
+[data-rs-block][data-rs-component="Wizard"] [data-rs-region="body"] {
   flex: 1;
   padding: var(--wizard-body-padding);
 }
-[data-block="wizard"] [data-block-region="actions"] {
+[data-rs-block][data-rs-component="Wizard"] [data-rs-region="actions"] {
   display: flex;
   justify-content: flex-end;
   gap: var(--wizard-actions-gap);

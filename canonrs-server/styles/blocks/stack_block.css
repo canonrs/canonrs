@@ -3,7 +3,7 @@
    Family J: Content Blocks
    ============================================================================ */
 
-[data-block="stack"] {
+[data-rs-block][data-rs-component="Stack"] {
   width: 100%;
   display: flex;
   flex-direction: column;

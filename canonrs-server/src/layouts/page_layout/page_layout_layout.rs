@@ -35,14 +35,14 @@ pub fn PageLayout(
 ) -> impl IntoView {
     view! {
         <div
-            data-layout="page"
-            data-layout-variant=variant.as_str()
-            data-layout-version="1"
+            data-rs-layout=""
+            data-rs-component="Page"
+            data-rs-variant=variant.as_str()
             class=class
         >
-            {sidebar.map(|s| view! { <div data-layout-region="sidebar">{s()}</div> })}
-            {content.map(|c| view! { <div data-layout-region="content">{c()}</div> })}
-            {aside.map(|a| view! { <div data-layout-region="aside">{a()}</div> })}
+            {sidebar.map(|s| view! { <div data-rs-region="sidebar">{s()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {aside.map(|a| view! { <div data-rs-region="aside">{a()}</div> })}
         </div>
     }
 }

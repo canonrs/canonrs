@@ -30,13 +30,13 @@ pub fn Stack(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="stack"
-            data-block-version="1"
-            data-block-direction=direction.as_str()
+            data-rs-block=""
+            data-rs-component="Stack"
+            data-rs-direction=direction.as_str()
             class=class
             style=style
         >
-            {items.map(|i| view! { <div data-block-region="items">{i()}</div> })}
+            {items.map(|i| view! { <div data-rs-region="items">{i()}</div> })}
         </div>
     }
 }

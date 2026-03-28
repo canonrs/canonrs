@@ -32,13 +32,13 @@ pub fn Container(
 ) -> impl IntoView {
     view! {
         <div
-            data-block="container"
-            data-block-version="1"
-            data-block-size=size.as_str()
+            data-rs-block=""
+            data-rs-component="Container"
+            data-rs-size=size.as_str()
             class=class
             style=style
         >
-            <div data-block-region="content">{children()}</div>
+            <div data-rs-region="content">{children()}</div>
         </div>
     }
 }

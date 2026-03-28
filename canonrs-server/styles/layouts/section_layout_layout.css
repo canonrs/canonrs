@@ -1,4 +1,4 @@
-[data-layout="section"] {
+[data-rs-layout][data-rs-component="Section"] {
   container-type: inline-size;
   container-name: section;
   display: flex;
@@ -8,7 +8,7 @@
   background: var(--layout-bg);
 }
 
-[data-layout="section"] [data-layout-region="header"] {
+[data-rs-layout][data-rs-component="Section"] [data-rs-region="header"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,11 +16,11 @@
   border-bottom: var(--page-header-border);
 }
 
-[data-layout="section"] [data-layout-region="main"] {
+[data-rs-layout][data-rs-component="Section"] [data-rs-region="content"] {
   flex: 1;
 }
 
-[data-layout="section"] [data-layout-region="footer"] {
+[data-rs-layout][data-rs-component="Section"] [data-rs-region="footer"] {
   display: flex;
   align-items: center;
   justify-content: flex-end;

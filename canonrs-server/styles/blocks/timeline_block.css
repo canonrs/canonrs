@@ -1,4 +1,4 @@
-[data-block="timeline"] {
+[data-rs-block][data-rs-component="Timeline"] {
   display: flex;
   flex-direction: column;
   gap: var(--timeline-gap);
@@ -6,10 +6,10 @@
   border-left: var(--timeline-line-width) solid var(--timeline-line-color);
   position: relative;
 }
-[data-block="timeline"] [data-block-region="items"] > * {
+[data-rs-block][data-rs-component="Timeline"] [data-rs-region="items"] > * {
   position: relative;
 }
-[data-block="timeline"] [data-block-region="items"] > *::before {
+[data-rs-block][data-rs-component="Timeline"] [data-rs-region="items"] > *::before {
   content: "";
   position: absolute;
   left: calc(-1 * var(--space-lg) - var(--timeline-line-width) / 2);
