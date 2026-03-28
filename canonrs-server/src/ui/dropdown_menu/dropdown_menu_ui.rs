@@ -15,8 +15,8 @@ use canonrs_core::separator::SeparatorOrientation;
 use canonrs_core::primitives::{
     DropdownMenuPrimitive, DropdownMenuContentPrimitive,
     DropdownMenuGroupPrimitive, DropdownMenuItemPrimitive,
-    DropdownMenuCheckboxItemPrimitive,
-    LabelPrimitive, SeparatorPrimitive,
+    DropdownMenuCheckboxItemPrimitive, DropdownMenuTriggerPrimitive,
+    DropdownMenuLabelPrimitive, SeparatorPrimitive,
 };
 use canonrs_core::meta::ToggleState;
 
@@ -36,19 +36,11 @@ pub fn DropdownMenu(
 pub fn DropdownMenuTrigger(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <button
-            type="button"
-            data-rs-dropdown-menu-trigger=""
-            aria-haspopup="menu"
-            aria-expanded="false"
-            class=class
-            id=id
-        >
+        <DropdownMenuTriggerPrimitive class=class>
             {children()}
-        </button>
+        </DropdownMenuTriggerPrimitive>
     }
 }
 
@@ -107,9 +99,9 @@ pub fn DropdownMenuLabel(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-dropdown-menu-label="" class=class>
-            <LabelPrimitive>{children()}</LabelPrimitive>
-        </div>
+        <DropdownMenuLabelPrimitive class=class>
+            {children()}
+        </DropdownMenuLabelPrimitive>
     }
 }
 
@@ -126,7 +118,7 @@ pub fn DropdownMenuSeparator(
 pub fn DropdownMenuPreview() -> impl IntoView {
     view! {
         <DropdownMenu>
-            <button type="button" data-rs-dropdown-menu-trigger="">"Options ▼"</button>
+            <DropdownMenuTrigger>"Options ▼"</DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuItem>"Item"</DropdownMenuItem>
             </DropdownMenuContent>

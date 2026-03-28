@@ -6,7 +6,7 @@ pub const BUTTON_API: ComponentApi = ComponentApi {
     id: "button",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "variant", kind: PropType::Enum(&["primary", "solid", "secondary", "outline", "ghost", "link", "danger", "success", "warning", "info", "default", "subtle", "muted"]), required: false, default: Some("primary"), description: "" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "primary", "secondary", "outline", "ghost", "link", "destructive"]), required: false, default: Some("primary"), description: "" },
         PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl"]), required: false, default: Some("md"), description: "" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },

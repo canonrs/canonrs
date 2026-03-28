@@ -16,7 +16,6 @@ use canonrs_core::primitives::{
     AccordionTriggerPrimitive, AccordionContentPrimitive,
     AccordionSelection,
 };
-use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn Accordion(
@@ -36,11 +35,9 @@ pub fn Accordion(
 pub fn AccordionItem(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = false)] default_open: bool,
 ) -> impl IntoView {
-    let state = if default_open { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <AccordionItemPrimitive class=class state=state>
+        <AccordionItemPrimitive class=class>
             {children()}
         </AccordionItemPrimitive>
     }
@@ -62,11 +59,9 @@ pub fn AccordionTrigger(
 pub fn AccordionContent(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = false)] open: bool,
 ) -> impl IntoView {
-    let state = if open { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <AccordionContentPrimitive class=class state=state>
+        <AccordionContentPrimitive class=class>
             {children()}
         </AccordionContentPrimitive>
     }

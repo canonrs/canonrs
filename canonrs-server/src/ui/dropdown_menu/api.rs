@@ -15,7 +15,6 @@ pub const DROPDOWNMENUTRIGGER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "id", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

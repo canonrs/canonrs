@@ -2,25 +2,24 @@
 // Source: *_ui.rs
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
-pub const TREE_API: ComponentApi = ComponentApi {
-    id: "tree",
+pub const INLINEMETA_API: ComponentApi = ComponentApi {
+    id: "inline-meta",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
-pub const TREEITEM_API: ComponentApi = ComponentApi {
-    id: "tree-item",
+pub const INLINEMETALABEL_API: ComponentApi = ComponentApi {
+    id: "inline-meta-label",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "has_children", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
-pub const TREEGROUP_API: ComponentApi = ComponentApi {
-    id: "tree-group",
+pub const INLINEMETAVALUE_API: ComponentApi = ComponentApi {
+    id: "inline-meta-value",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },

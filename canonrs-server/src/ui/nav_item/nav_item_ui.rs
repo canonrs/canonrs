@@ -27,7 +27,7 @@ pub fn NavItem(
     let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <NavItemPrimitive
-            href=href.unwrap_or_else(|| "#".to_string())
+            href=href.unwrap_or_else(|| "".to_string())
             active=active_state
             disabled=disabled_state
             class=class

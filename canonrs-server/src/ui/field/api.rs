@@ -32,7 +32,7 @@ pub const FIELD_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("vertical"), description: "" },
-        PropDef { name: "validation", kind: PropType::String, required: false, default: Some("none"), description: "" },
+        PropDef { name: "_validation", kind: PropType::String, required: false, default: Some("none"), description: "" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
@@ -75,7 +75,7 @@ pub const FIELDERROR_API: ComponentApi = ComponentApi {
     id: "field-error",
     props: &[
         PropDef { name: ")] errors", kind: PropType::String, required: false, default: Some("vec![]"), description: "" },
-        PropDef { name: "validation", kind: PropType::String, required: false, default: Some("none"), description: "" },
+        PropDef { name: "_validation", kind: PropType::String, required: false, default: Some("none"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

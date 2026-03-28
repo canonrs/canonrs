@@ -32,18 +32,12 @@ pub fn Tree(
 #[component]
 pub fn TreeItem(
     children: Children,
-    #[prop(default = false)] selected: bool,
-    #[prop(default = false)] expanded: bool,
     #[prop(default = false)] has_children: bool,
-    #[prop(default = 0)] depth: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <TreeItemPrimitive
-            selected=selected.into()
-            expanded=expanded.into()
             has_children=has_children
-            depth=depth
             class=class
         >
             {children()}
@@ -67,18 +61,18 @@ pub fn TreeGroup(
 pub fn TreePreview() -> impl IntoView {
     view! {
         <Tree>
-            <TreeItem has_children=true expanded=true>"Documents"</TreeItem>
+            <TreeItem has_children=true>"Documents"</TreeItem>
             <TreeGroup>
-                <TreeItem depth=1>"Resume.pdf"</TreeItem>
-                <TreeItem depth=1 has_children=true>"Projects"</TreeItem>
+                <TreeItem>"Resume.pdf"</TreeItem>
+                <TreeItem has_children=true>"Projects"</TreeItem>
                 <TreeGroup>
-                    <TreeItem depth=2>"project-a"</TreeItem>
-                    <TreeItem depth=2>"project-b"</TreeItem>
+                    <TreeItem>"project-a"</TreeItem>
+                    <TreeItem>"project-b"</TreeItem>
                 </TreeGroup>
             </TreeGroup>
             <TreeItem has_children=true>"Pictures"</TreeItem>
             <TreeGroup>
-                <TreeItem depth=1>"photo.jpg"</TreeItem>
+                <TreeItem>"photo.jpg"</TreeItem>
             </TreeGroup>
         </Tree>
     }

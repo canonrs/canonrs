@@ -16,7 +16,7 @@ use canonrs_core::meta::{ActivityState, DisabledState};
 
 #[component]
 pub fn Checkbox(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] name: String,
@@ -35,7 +35,7 @@ pub fn Checkbox(
             <CheckboxIndicatorPrimitive>
                 "✓"
             </CheckboxIndicatorPrimitive>
-            {children.map(|c| c())}
+            {children()}
         </label>
     }
 }

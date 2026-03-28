@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const SWITCH_API: ComponentApi = ComponentApi {
     id: "switch",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "checked", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "" },

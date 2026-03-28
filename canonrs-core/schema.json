@@ -146,6 +146,8 @@
       "container": true,
       "id": "footer",
       "regions": [
+        "top",
+        "bottom",
         "left",
         "center",
         "right"
@@ -923,7 +925,7 @@
       "variants": []
     },
     {
-      "behavior": "selection",
+      "behavior": "combobox",
       "capabilities": [
         "OpenClose",
         "Disabled"
@@ -1405,6 +1407,29 @@
       ]
     },
     {
+      "behavior": "structural",
+      "capabilities": [],
+      "catalog_category": "Display",
+      "catalog_tags": [
+        "inline-meta",
+        "meta",
+        "label",
+        "value",
+        "stat",
+        "info",
+        "display"
+      ],
+      "component_name": "InlineMeta",
+      "description": "Inline metadata display for stats, versions, dates and counts",
+      "family": "display",
+      "has_semantic": true,
+      "id": "inline-meta",
+      "intent": "Display structured metadata inline (label + value pairs)",
+      "label": "Inline Meta",
+      "type": "component",
+      "variants": []
+    },
+    {
       "behavior": "notification",
       "capabilities": [],
       "catalog_category": "Feedback",
@@ -1642,6 +1667,21 @@
       "variants": []
     },
     {
+      "behavior": "structural",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "Logo",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "logo",
+      "intent": null,
+      "label": null,
+      "type": "component",
+      "variants": []
+    },
+    {
       "behavior": "content",
       "capabilities": [],
       "catalog_category": "Display",
@@ -1752,6 +1792,21 @@
       "id": "nav-item",
       "intent": "Single navigation link item",
       "label": "Nav Item",
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "navigation",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "NavigationGroup",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "navigation-group",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },

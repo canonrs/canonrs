@@ -16,7 +16,7 @@ use canonrs_core::meta::{SelectionState, DisabledState};
 
 #[component]
 pub fn Switch(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = false)] checked: bool,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] name: String,
@@ -34,7 +34,7 @@ pub fn Switch(
             class=class
         >
             <SwitchThumbPrimitive />
-            {children.map(|c| c())}
+            {children()}
         </SwitchPrimitive>
     }
 }
@@ -42,8 +42,8 @@ pub fn Switch(
 #[component]
 pub fn SwitchPreview() -> impl IntoView {
     view! {
-        <Switch />
-        <Switch checked=true />
-        <Switch disabled=true />
+        <Switch>"Off"</Switch>
+        <Switch checked=true>"On"</Switch>
+        <Switch disabled=true>"Disabled"</Switch>
     }
 }

@@ -9,6 +9,7 @@ pub const INPUT_API: ComponentApi = ComponentApi {
         PropDef { name: "input_type", kind: PropType::String, required: false, default: Some("text"), description: "" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "on_input", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "variant", kind: PropType::Enum(&["default", "error", "success", "warning"]), required: false, default: Some("default"), description: "" },
         PropDef { name: "size", kind: PropType::Enum(&["md", "sm", "lg"]), required: false, default: Some("md"), description: "" },

@@ -31,7 +31,7 @@ pub fn RadioPrimitive(
                 data-rs-radio-input=""
                 name=name
                 value=value
-                aria-selected=sel.aria_selected
+                checked=sel.data_rs_state == "selected"
                 aria-disabled=d.aria_disabled
             />
             <span data-rs-radio-indicator="" />

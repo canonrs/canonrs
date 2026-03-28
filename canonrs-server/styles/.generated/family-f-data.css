@@ -178,6 +178,12 @@
   --avatar-badge-font-size: var(--font-size-xs);
   --avatar-badge-font-weight: var(--font-weight-semibold);
   --avatar-group-overlap: -0.5rem;
+  --inline-meta-gap: var(--space-xs);
+  --inline-meta-font-size: var(--font-size-sm);
+  --inline-meta-label-color: var(--theme-surface-fg-muted);
+  --inline-meta-label-font-weight: var(--font-weight-normal);
+  --inline-meta-value-color: var(--theme-surface-fg);
+  --inline-meta-value-font-weight: var(--font-weight-semibold);
   --stat-gap: var(--space-xs);
   --stat-align: flex-start);
   --stat-value-fg: var(--theme-surface-fg);

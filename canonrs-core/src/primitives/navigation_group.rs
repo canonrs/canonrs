@@ -7,17 +7,17 @@ use leptos::prelude::*;
 #[component]
 pub fn NavigationGroupPrimitive(
     children: Children,
-    #[prop(optional)] aria_labelledby: Option<String>,
+    #[prop(optional, into)] aria_labelledby: Option<String>,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-navigation-group=""
+            data-rs-component="NavigationGroup"
+            data-rs-behavior="navigation"
             role="group"
             aria-labelledby=aria_labelledby
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </div>
@@ -28,13 +28,11 @@ pub fn NavigationGroupPrimitive(
 pub fn NavigationGroupLabelPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] id: Option<String>,
 ) -> impl IntoView {
     view! {
         <span
             data-rs-navigation-group-label=""
             class=class
-            id=id.filter(|s| !s.is_empty())
         >
             {children()}
         </span>

@@ -15,18 +15,15 @@ use canonrs_core::primitives::{
     ComboboxPrimitive, ComboboxTriggerPrimitive,
     ComboboxListPrimitive, ComboboxItemPrimitive,
 };
-use canonrs_core::meta::{VisibilityState, DisabledState, SelectionState};
+use canonrs_core::meta::{DisabledState, SelectionState};
 
 #[component]
 pub fn Combobox(
     children: Children,
-    #[prop(default = false)] expanded: bool,
-    #[prop(default = false)] _disabled: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = if expanded { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <ComboboxPrimitive state=state class=class>
+        <ComboboxPrimitive class=class>
             {children()}
         </ComboboxPrimitive>
     }
@@ -35,12 +32,11 @@ pub fn Combobox(
 #[component]
 pub fn ComboboxTrigger(
     children: Children,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
-        <ComboboxTriggerPrimitive disabled=disabled_state class=class>
+        <ComboboxTriggerPrimitive disabled=disabled class=class>
             {children()}
         </ComboboxTriggerPrimitive>
     }
@@ -61,15 +57,14 @@ pub fn ComboboxList(
 #[component]
 pub fn ComboboxItem(
     children: Children,
-    #[prop(default = false)] selected: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let selected_state = if selected { SelectionState::Selected } else { SelectionState::Unselected };
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
+
     view! {
-        <ComboboxItemPrimitive selected=selected_state disabled=disabled_state value=value class=class>
+        <ComboboxItemPrimitive selected=selected disabled=disabled value=value class=class>
             {children()}
         </ComboboxItemPrimitive>
     }

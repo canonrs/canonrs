@@ -17,13 +17,14 @@ pub fn ComboboxPrimitive(
         <div
             data-rs-combobox=""
             data-rs-component="Combobox"
-            data-rs-behavior="selection"
+            data-rs-behavior="combobox"
             data-rs-state=s.data_rs_state
             role="combobox"
             aria-expanded=s.aria_expanded
             aria-haspopup="listbox"
             class=class
         >
+            <input data-rs-combobox-input="" type="text" aria-autocomplete="list" autocomplete="off" />
             {children()}
         </div>
     }

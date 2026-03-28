@@ -1,0 +1,25 @@
+/* ============================================================================
+   CANONRS — LINK GROUP UI
+   Family D: Navigation
+   ============================================================================ */
+
+[data-rs-navigation-group] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--link-group-gap);
+}
+
+[data-rs-navigation-group][data-rs-direction="horizontal"] {
+  flex-direction: row;
+  gap: var(--link-group-horizontal-gap);
+  align-items: center;
+}
+
+[data-rs-navigation-group-label] {
+  font-size: var(--link-group-label-font-size);
+  font-weight: var(--link-group-label-font-weight);
+  color: var(--link-group-label-color);
+  margin-bottom: var(--link-group-label-margin-bottom);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

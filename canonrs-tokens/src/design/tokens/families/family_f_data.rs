@@ -206,6 +206,14 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("avatar-group-overlap",         "-0.5rem"),
 
     // ── Stat ──────────────────────────────────────────────────────────────────
+    // Inline Meta
+    FamilyToken::new("inline-meta-gap",                "var(--space-xs)"),
+    FamilyToken::new("inline-meta-font-size",           "var(--font-size-sm)"),
+    FamilyToken::new("inline-meta-label-color",         "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("inline-meta-label-font-weight",   "var(--font-weight-normal)"),
+    FamilyToken::new("inline-meta-value-color",         "var(--theme-surface-fg)"),
+    FamilyToken::new("inline-meta-value-font-weight",   "var(--font-weight-semibold)"),
+
     FamilyToken::new("stat-gap",               "var(--space-xs)"),
     FamilyToken::new("stat-align",             "flex-start)"),
     FamilyToken::new("stat-value-fg",          "var(--theme-surface-fg)"),

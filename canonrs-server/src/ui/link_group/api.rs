@@ -2,12 +2,13 @@
 // Source: *_ui.rs
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
-pub const TOGGLEGROUP_API: ComponentApi = ComponentApi {
-    id: "toggle-group",
+pub const LINKGROUP_API: ComponentApi = ComponentApi {
+    id: "link-group",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "label", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "direction", kind: PropType::Enum(&["vertical", "horizontal"]), required: false, default: Some("vertical"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "multiple", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
     ],
 };
 

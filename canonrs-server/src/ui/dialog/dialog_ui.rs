@@ -14,9 +14,8 @@ use leptos::prelude::*;
 use canonrs_core::primitives::{
     DialogPrimitive, DialogPortalPrimitive,
     DialogOverlayPrimitive, DialogContentPrimitive, DialogTitlePrimitive,
-    DialogDescriptionPrimitive,
+    DialogDescriptionPrimitive, DialogTriggerPrimitive, DialogClosePrimitive,
 };
-use crate::ui::button::{Button, ButtonVariant};
 
 #[component]
 pub fn Dialog(
@@ -33,19 +32,12 @@ pub fn Dialog(
 #[component]
 pub fn DialogTrigger(
     children: Children,
-    #[prop(default = ButtonVariant::Primary)] variant: ButtonVariant,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <Button
-            variant=variant
-            class={class.unwrap_or_default()}
-            attr:data-rs-dialog-trigger=""
-            attr:aria-haspopup="dialog"
-            attr:aria-expanded="false"
-        >
+        <DialogTriggerPrimitive class={class.unwrap_or_default()}>
             {children()}
-        </Button>
+        </DialogTriggerPrimitive>
     }
 }
 
@@ -108,17 +100,12 @@ pub fn DialogDescription(
 #[component]
 pub fn DialogClose(
     children: Children,
-    #[prop(default = ButtonVariant::Outline)] variant: ButtonVariant,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <Button
-            variant=variant
-            class={class.unwrap_or_default()}
-            attr:data-rs-dialog-close=""
-        >
+        <DialogClosePrimitive class={class.unwrap_or_default()}>
             {children()}
-        </Button>
+        </DialogClosePrimitive>
     }
 }
 

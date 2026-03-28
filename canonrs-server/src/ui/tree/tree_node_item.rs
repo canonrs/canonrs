@@ -7,7 +7,6 @@ pub fn TreeNodeItem(
     #[prop(default = false)] selected: bool,
     #[prop(default = false)] expanded: bool,
     #[prop(default = false)] has_children: bool,
-    #[prop(default = 0)] depth: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -15,7 +14,6 @@ pub fn TreeNodeItem(
             selected=selected.into()
             expanded=expanded.into()
             has_children=has_children
-            depth=depth
             class=class
         >
             {children()}

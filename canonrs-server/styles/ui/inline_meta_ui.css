@@ -1,0 +1,22 @@
+/* ============================================================================
+   CANONRS — INLINE META UI
+   Family F: Data / Display
+   ============================================================================ */
+
+[data-rs-inline-meta] {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--inline-meta-gap);
+  font-size: var(--inline-meta-font-size);
+  line-height: var(--line-height-normal);
+}
+
+[data-rs-inline-meta-label] {
+  color: var(--inline-meta-label-color);
+  font-weight: var(--inline-meta-label-font-weight);
+}
+
+[data-rs-inline-meta-value] {
+  color: var(--inline-meta-value-color);
+  font-weight: var(--inline-meta-value-font-weight);
+}

@@ -14,39 +14,28 @@ use leptos::prelude::*;
 use canonrs_core::primitives::{ButtonPrimitive, ButtonVariant as CoreVariant, ButtonSize as CoreSize};
 use canonrs_core::DisabledState;
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Default)]
 pub enum ButtonVariant {
-    Primary, Solid, Secondary, Outline, Ghost, Link,
-    Danger, Success, Warning, Info,
-    Default, Subtle, Muted,
+    #[default]
+    Default,
+    Primary,
+    Secondary,
+    Outline,
+    Ghost,
+    Link,
+    Destructive,
 }
 
 impl ButtonVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Primary | Self::Solid => "primary",
-            Self::Secondary => "secondary",
-            Self::Outline   => "outline",
-            Self::Ghost     => "ghost",
-            Self::Link      => "link",
-            Self::Danger    => "danger",
-            Self::Success   => "success",
-            Self::Warning   => "warning",
-            Self::Info      => "info",
-            Self::Default   => "default",
-            Self::Subtle    => "subtle",
-            Self::Muted     => "muted",
-        }
-    }
     pub fn to_core(&self) -> CoreVariant {
         match self {
-            Self::Primary | Self::Solid => CoreVariant::Primary,
-            Self::Secondary             => CoreVariant::Secondary,
-            Self::Outline               => CoreVariant::Outline,
-            Self::Ghost                 => CoreVariant::Ghost,
-            Self::Link                  => CoreVariant::Link,
-            Self::Danger                => CoreVariant::Destructive,
-            _                           => CoreVariant::Default,
+            Self::Default     => CoreVariant::Default,
+            Self::Primary     => CoreVariant::Primary,
+            Self::Secondary   => CoreVariant::Secondary,
+            Self::Outline     => CoreVariant::Outline,
+            Self::Ghost       => CoreVariant::Ghost,
+            Self::Link        => CoreVariant::Link,
+            Self::Destructive => CoreVariant::Destructive,
         }
     }
 }

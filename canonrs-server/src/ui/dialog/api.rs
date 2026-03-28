@@ -14,7 +14,6 @@ pub const DIALOGTRIGGER_API: ComponentApi = ComponentApi {
     id: "dialog-trigger",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("primary"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
@@ -61,7 +60,6 @@ pub const DIALOGCLOSE_API: ComponentApi = ComponentApi {
     id: "dialog-close",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("outline"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };

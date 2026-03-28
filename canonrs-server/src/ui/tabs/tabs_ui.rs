@@ -44,11 +44,11 @@ pub fn TabsList(
 pub fn TabsTrigger(
     #[prop(into)] value: String,
     children: Children,
-    #[prop(default = false)] default: bool,
+    #[prop(default = false)] active: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TabsTriggerPrimitive value=value active=default.into() class=class>
+        <TabsTriggerPrimitive value=value active=active.into() class=class>
             {children()}
         </TabsTriggerPrimitive>
     }
@@ -58,11 +58,11 @@ pub fn TabsTrigger(
 pub fn TabsContent(
     #[prop(into)] value: String,
     children: Children,
-    #[prop(default = false)] default: bool,
+    #[prop(default = false)] active: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TabsContentPrimitive value=value active=default.into() class=class>
+        <TabsContentPrimitive value=value active=active.into() class=class>
             {children()}
         </TabsContentPrimitive>
     }
@@ -73,10 +73,10 @@ pub fn TabsPreview() -> impl IntoView {
     view! {
         <Tabs>
             <TabsList>
-                <TabsTrigger value="tab1" default=true>"Tab 1"</TabsTrigger>
+                <TabsTrigger value="tab1" active=true>"Tab 1"</TabsTrigger>
                 <TabsTrigger value="tab2">"Tab 2"</TabsTrigger>
             </TabsList>
-            <TabsContent value="tab1" default=true>"Content 1"</TabsContent>
+            <TabsContent value="tab1" active=true>"Content 1"</TabsContent>
             <TabsContent value="tab2">"Content 2"</TabsContent>
         </Tabs>
     }

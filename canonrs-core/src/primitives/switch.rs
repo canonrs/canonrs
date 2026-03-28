@@ -33,6 +33,7 @@ pub fn SwitchPrimitive(
                 data-rs-disabled=d.data_rs_disabled
                 name=if name.is_empty() { None } else { Some(name) }
                 value=value
+                checked=checked == SelectionState::Selected
                 aria-hidden="true"
                 tabindex="-1"
             />

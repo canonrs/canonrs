@@ -195,6 +195,12 @@
   --nav-item-hover-fg: var(--theme-action-primary-bg);
   --nav-item-active-bg: transparent;
   --nav-item-active-fg: var(--theme-action-primary-bg);
+  --link-group-gap: var(--space-xs);
+  --link-group-label-font-size: var(--font-size-xs);
+  --link-group-label-font-weight: var(--font-weight-semibold);
+  --link-group-label-color: var(--theme-surface-fg-muted);
+  --link-group-label-margin-bottom: var(--space-xs);
+  --link-group-horizontal-gap: var(--space-md);
   --page-header-gap: var(--space-sm);
   --page-header-padding: var(--space-md) var(--space-lg);
   --page-header-bg: var(--theme-surface-bg);

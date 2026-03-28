@@ -19,10 +19,10 @@ use canonrs_core::meta::VisibilityState;
 #[component]
 pub fn Collapsible(
     children: Children,
-    #[prop(default = false)] open: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = if open { VisibilityState::Open } else { VisibilityState::Closed };
+
     view! {
         <CollapsiblePrimitive state=state class=class>
             {children()}

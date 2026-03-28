@@ -129,6 +129,7 @@ pub const FAMILY_H_LAYOUT: &[FamilyToken] = &[
     FamilyToken::new("footer-padding", "var(--space-lg)"),
     FamilyToken::new("footer-start-gap", "var(--space-md)"),
     FamilyToken::new("footer-end-gap", "var(--space-md)"),
+    FamilyToken::new("footer-gap", "var(--space-lg)"),
 
     // Header
     FamilyToken::new("header-bg", "var(--theme-surface-bg)"),

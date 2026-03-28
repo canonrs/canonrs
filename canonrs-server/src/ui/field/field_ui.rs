@@ -56,14 +56,14 @@ pub fn FieldGroup(
 pub fn Field(
     children: Children,
     #[prop(default = FieldOrientation::Vertical)] orientation: FieldOrientation,
-    #[prop(default = FieldValidation::None)] validation: FieldValidation,
+    #[prop(default = FieldValidation::None)] _validation: FieldValidation,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <FieldPrimitive
             attr:data-rs-orientation={orientation.as_str()}
-            attr:data-rs-validation={validation.as_str()}
+            attr:data-rs-validation={_validation.as_str()}
             attr:data-rs-disabled={if disabled { "true" } else { "false" }}
             class=class
         >
@@ -120,7 +120,7 @@ pub fn FieldDescription(
 #[component]
 pub fn FieldError(
     #[prop(default = vec![])] errors: Vec<String>,
-    #[prop(default = FieldValidation::None)] validation: FieldValidation,
+    #[prop(default = FieldValidation::None)] _validation: FieldValidation,
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
@@ -128,10 +128,7 @@ pub fn FieldError(
         return view! {}.into_any();
     }
     view! {
-        <FieldErrorPrimitive
-            attr:data-rs-validation={validation.as_str()}
-            class=class
-        >
+        <FieldErrorPrimitive class=class>
             {if let Some(child) = children {
                 view! { {child()} }.into_any()
             } else if errors.len() == 1 {

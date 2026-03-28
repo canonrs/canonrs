@@ -26,7 +26,6 @@ pub fn TreePrimitive(
     children: Children,
     #[prop(default = TreeSelectionMode::Single)] selection: TreeSelectionMode,
     #[prop(into, optional)] aria_label: Option<String>,
-    #[prop(into, optional)] active_item_id: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -38,7 +37,6 @@ pub fn TreePrimitive(
             role="tree"
             aria-label=aria_label
             aria-multiselectable=selection.aria_multiselectable()
-            aria-activedescendant=active_item_id
             class=class
         >
             {children()}
@@ -54,7 +52,6 @@ pub fn TreeItemPrimitive(
     #[prop(default = VisibilityState::Closed)] expanded: VisibilityState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = false)] has_children: bool,
-    #[prop(default = 0)] depth: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = selection_attrs(selected);
@@ -70,7 +67,6 @@ pub fn TreeItemPrimitive(
             data-rs-focused=f.data_rs_state
             data-rs-expanded={if has_children { Some(e.data_rs_state) } else { None }}
             data-rs-disabled=d.data_rs_disabled
-            data-rs-depth=depth.to_string()
             role="treeitem"
             tabindex=tabindex
             aria-selected=s.aria_selected

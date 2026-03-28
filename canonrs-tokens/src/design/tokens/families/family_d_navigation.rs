@@ -243,6 +243,14 @@ pub const FAMILY_D_NAVIGATION: &[FamilyToken] = &[
     FamilyToken::new("nav-item-active-bg", "transparent"),
     FamilyToken::new("nav-item-active-fg", "var(--theme-action-primary-bg)"),
 
+    // Link Group
+    FamilyToken::new("link-group-gap", "var(--space-xs)"),
+    FamilyToken::new("link-group-label-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("link-group-label-font-weight", "var(--font-weight-semibold)"),
+    FamilyToken::new("link-group-label-color", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("link-group-label-margin-bottom", "var(--space-xs)"),
+    FamilyToken::new("link-group-horizontal-gap", "var(--space-md)"),
+
 
         // PageHeader
     FamilyToken::new("page-header-gap", "var(--space-sm)"),

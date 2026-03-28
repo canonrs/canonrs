@@ -3,8 +3,8 @@
 //! Menubar Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::meta::{VisibilityState, DisabledState, ActivityState};
-use crate::infra::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, activity_attrs};
+use crate::meta::DisabledState;
+use crate::infra::state_engine::disabled_attrs;
 
 #[component]
 pub fn MenubarPrimitive(
@@ -27,16 +27,10 @@ pub fn MenubarPrimitive(
 #[component]
 pub fn MenubarMenuPrimitive(
     children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
-        <div
-            data-rs-menubar-menu=""
-            data-rs-state=s.data_rs_state
-            class=class
-        >
+        <div data-rs-menubar-menu="" class=class>
             {children()}
         </div>
     }
@@ -45,11 +39,9 @@ pub fn MenubarMenuPrimitive(
 #[component]
 pub fn MenubarTriggerPrimitive(
     children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let t = trigger_attrs(state);
     let d = disabled_attrs(disabled);
     view! {
         <button
@@ -57,8 +49,7 @@ pub fn MenubarTriggerPrimitive(
             data-rs-menubar-trigger=""
             role="menuitem"
             aria-haspopup="menu"
-            aria-expanded=t.aria_expanded
-            data-rs-state=t.data_rs_state
+            aria-expanded="false"
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled
             class=class
@@ -71,16 +62,12 @@ pub fn MenubarTriggerPrimitive(
 #[component]
 pub fn MenubarContentPrimitive(
     children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-menubar-content=""
-            data-rs-state=s.data_rs_state
             role="menu"
-            hidden=s.hidden
             class=class
         >
             {children()}
@@ -92,17 +79,14 @@ pub fn MenubarContentPrimitive(
 pub fn MenubarItemPrimitive(
     children: Children,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
-    #[prop(default = ActivityState::Inactive)] highlighted: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let d = disabled_attrs(disabled);
-    let a = activity_attrs(highlighted);
     view! {
         <button
             type="button"
             data-rs-menubar-item=""
             role="menuitem"
-            data-rs-state=a.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled
             tabindex=if d.disabled { "-1" } else { "0" }
