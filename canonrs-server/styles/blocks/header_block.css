@@ -4,6 +4,8 @@
    ============================================================================ */
 
 [data-rs-block][data-rs-component="Header"] {
+  --logo-icon-size-md: 3rem;
+  --logo-wordmark-font-size-md: var(--primitive-font-size-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
