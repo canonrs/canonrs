@@ -106,6 +106,14 @@
   --footer-start-gap: var(--space-md);
   --footer-end-gap: var(--space-md);
   --footer-gap: var(--space-lg);
+  --hero-padding-x: var(--space-2xl);
+  --hero-padding-y: var(--space-3xl);
+  --hero-gap: var(--space-xl);
+  --hero-media-gap: var(--space-2xl);
+  --hero-actions-gap: var(--space-md);
+  --hero-max-width: 800px;
+  --hero-align: center;
+  --hero-min-height: 80vh;
   --header-bg: var(--theme-surface-bg);
   --layout-divider-color: rgba(0,0,0,0.08);
   --layout-header-border-color: var(--layout-divider-color);

@@ -1,4 +1,6 @@
 pub mod header;
+pub mod hero;
+pub use hero::Hero;
 pub use header::Header;
 
 pub mod footer;

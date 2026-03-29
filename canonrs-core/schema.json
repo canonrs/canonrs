@@ -201,6 +201,20 @@
       "variant": "page"
     },
     {
+      "category": "page",
+      "container": true,
+      "id": "hero",
+      "regions": [
+        "header",
+        "media",
+        "content",
+        "actions",
+        "footer"
+      ],
+      "type": "block",
+      "variant": "centered"
+    },
+    {
       "category": "data",
       "container": true,
       "id": "list",
@@ -1308,6 +1322,21 @@
       "id": "form-error-summary",
       "intent": "Summarize form validation errors",
       "label": "Form Error Summary",
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "structural",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "Hero",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "hero",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },

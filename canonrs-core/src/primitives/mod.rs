@@ -31,6 +31,7 @@ pub mod empty_state;
 pub mod error_state;
 pub use error_state::*;
 pub mod field;
+pub mod hero;
 pub mod form;
 pub mod floating;
 pub mod form_error_summary;

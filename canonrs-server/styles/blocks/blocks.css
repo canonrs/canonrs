@@ -28,6 +28,7 @@
 
 /* ── Layout ──────────────────────────────────────────────────────── */
 @import './header_block.css';
+@import './hero_block.css';
 @import './footer_block.css';
 @import './page_header_block.css';
 @import './grid_block.css';

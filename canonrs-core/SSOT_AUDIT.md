@@ -1,26 +1,28 @@
 # CanonRS SSOT Audit
 
 ## Components
-- Primitives: 85
-- Semantic (components.toml): 85
+- Primitives: 86
+- Semantic (components.toml): 86
 - Complete: 81
-- Missing semantic: 4
-- Orphan semantic: 4
+- Missing semantic: 5
+- Orphan semantic: 5
 
 ### Missing semantic
 - `alert-dialog-content`
 - `calendar`
+- `hero`
 - `logo`
 - `navigation-group`
 
 ### Orphan semantic
 - `alert-dialog`
 - `copy-button`
+- `hero-ui`
 - `input-group`
 - `link-group`
 
 ## Blocks
-- Total: 26
+- Total: 27
 
 ## Layouts
 - Total: 7
@@ -43,6 +45,7 @@
 - `fullscreen` (layout) regions: [header, content]
 - `grid` (block) regions: [items]
 - `header` (block) regions: [logo, nav, center, actions]
+- `hero` (block) regions: [header, media, content, actions, footer]
 - `list` (block) regions: [header, items, footer]
 - `markdown` (block) regions: [header, content, footer]
 - `marketing` (layout) regions: [header, hero, content, footer]

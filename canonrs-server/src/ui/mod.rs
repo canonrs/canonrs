@@ -4,6 +4,7 @@ pub mod dialog;
 pub mod sheet;
 pub mod drawer;
 pub mod popover;
+pub mod hero;
 pub mod hover_card;
 pub mod tooltip;
 pub mod dropdown_menu;

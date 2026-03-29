@@ -131,6 +131,16 @@ pub const FAMILY_H_LAYOUT: &[FamilyToken] = &[
     FamilyToken::new("footer-end-gap", "var(--space-md)"),
     FamilyToken::new("footer-gap", "var(--space-lg)"),
 
+    // Hero Block
+    FamilyToken::new("hero-padding-x", "var(--space-2xl)"),
+    FamilyToken::new("hero-padding-y", "var(--space-3xl)"),
+    FamilyToken::new("hero-gap", "var(--space-xl)"),
+    FamilyToken::new("hero-media-gap", "var(--space-2xl)"),
+    FamilyToken::new("hero-actions-gap", "var(--space-md)"),
+    FamilyToken::new("hero-max-width", "800px"),
+    FamilyToken::new("hero-align", "center"),
+    FamilyToken::new("hero-min-height", "80vh"),
+
     // Header
     FamilyToken::new("header-bg", "var(--theme-surface-bg)"),
     FamilyToken::new("layout-divider-color", "rgba(0,0,0,0.08)"),

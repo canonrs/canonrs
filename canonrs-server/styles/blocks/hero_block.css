@@ -1,0 +1,104 @@
+/* ============================================================================
+   CANONRS — HERO BLOCK
+   Family H: Layout
+   ============================================================================ */
+
+[data-rs-block][data-rs-component="Hero"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--hero-padding-y) var(--hero-padding-x);
+  gap: var(--hero-gap);
+  text-align: center;
+  min-height: var(--hero-min-height);
+}
+
+[data-rs-block][data-rs-component="Hero"] [data-rs-region="media"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hero-media-gap);
+}
+
+[data-rs-block][data-rs-component="Hero"] [data-rs-region="content"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  max-width: var(--hero-max-width);
+}
+
+[data-rs-block][data-rs-component="Hero"] [data-rs-region="actions"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hero-actions-gap);
+  flex-wrap: wrap;
+}
+
+[data-rs-block][data-rs-component="Hero"] [data-rs-region="footer"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  color: var(--theme-surface-fg-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* Hero UI Typography */
+[data-rs-hero-title] {
+  font-size: var(--primitive-font-size-8);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--theme-surface-fg);
+  margin: 0;
+}
+
+[data-rs-hero-subtitle] {
+  font-size: var(--primitive-font-size-5);
+  color: var(--theme-action-primary-bg);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+[data-rs-hero-description] {
+  font-size: var(--primitive-font-size-4);
+  color: var(--theme-surface-fg-muted);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0;
+}
+
+/* Media logos */
+[data-rs-block][data-rs-component="Hero"] .canon-hero-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hero-media-gap);
+}
+
+[data-rs-block][data-rs-component="Hero"] .canon-logo-entropy,
+[data-rs-block][data-rs-component="Hero"] .canon-logo-canon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+[data-rs-block][data-rs-component="Hero"] .canon-logo-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+[data-rs-block][data-rs-component="Hero"] .canon-logo-label-entropy { color: #CC2936; }
+[data-rs-block][data-rs-component="Hero"] .canon-logo-label-canon { color: var(--theme-action-primary-bg); }
+
+[data-rs-block][data-rs-component="Hero"] .canon-hero-vs {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  opacity: 0.4;
+}
