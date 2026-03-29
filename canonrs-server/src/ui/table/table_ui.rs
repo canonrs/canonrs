@@ -78,7 +78,7 @@ pub fn TableFooter(
 pub fn TableRow(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
-    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = TextProp::from(""))] class: TextProp,
 ) -> impl IntoView {
     view! {
         <TableRowPrimitive selected=selected class=class>

@@ -131,7 +131,7 @@ pub fn TableFooterPrimitive(
 pub fn TableRowPrimitive(
     children: Children,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
-    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = TextProp::from(""))] class: TextProp,
 ) -> impl IntoView {
     let s = selection_attrs(selected);
     view! {
@@ -140,7 +140,7 @@ pub fn TableRowPrimitive(
             data-rs-state=s.data_rs_state
             role="row"
             aria-selected=s.aria_selected
-            class=class
+            class=move || class.get().to_string()
         >
             {children()}
         </tr>

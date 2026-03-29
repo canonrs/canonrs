@@ -38,7 +38,7 @@ pub const TABLEROW_API: ComponentApi = ComponentApi {
     id: "table-row",
     props: &[
         PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some("from("")"), description: "" },
     ],
 };
 
