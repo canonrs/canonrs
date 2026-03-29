@@ -44,3 +44,15 @@ pub fn SectionBadge(
 ) -> impl IntoView {
     view! { <SectionBadgePrimitive class=class>{children()}</SectionBadgePrimitive> }
 }
+
+#[component]
+pub fn SectionActions(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-section-actions="" class=class>
+            {children()}
+        </div>
+    }
+}
