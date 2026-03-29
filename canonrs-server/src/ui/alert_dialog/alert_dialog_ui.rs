@@ -78,7 +78,7 @@ pub fn AlertDialogContent(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertDialogContentPrimitive class={class.unwrap_or_default()}>
+        <AlertDialogContentPrimitive class={class.unwrap_or_default()} aria_labelledby="alert-title">
             {children()}
         </AlertDialogContentPrimitive>
     }

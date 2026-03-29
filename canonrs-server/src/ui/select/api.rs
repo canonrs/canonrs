@@ -39,7 +39,7 @@ pub const SELECTITEM_API: ComponentApi = ComponentApi {
     id: "select-item",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "selected", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },

@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const PULSE_API: ComponentApi = ComponentApi {
     id: "pulse",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "" },
         PropDef { name: "size", kind: PropType::String, required: false, default: Some("medium"), description: "" },
         PropDef { name: "speed", kind: PropType::String, required: false, default: Some("normal"), description: "" },

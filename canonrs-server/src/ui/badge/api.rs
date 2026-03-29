@@ -7,7 +7,7 @@ pub const BADGE_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "" },
-        PropDef { name: "interactive", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "interactivity", kind: PropType::Enum(&["static", "interactive"]), required: false, default: Some("static"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };

@@ -51,7 +51,7 @@ pub fn RadioGroupItemPrimitive(
                 data-rs-radio-group-input=""
                 name=name
                 value=value
-                aria-selected=sel.aria_selected
+                checked=sel.aria_selected
                 aria-disabled=d.aria_disabled
             />
             <span data-rs-radio-group-indicator="" />

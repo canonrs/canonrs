@@ -11,15 +11,12 @@
 //! @canon-tags: input-otp, otp, code, verification, sms, token, pin
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{InputOtpSlotPrimitive};
+use canonrs_core::primitives::InputOtpSlotPrimitive;
 use canonrs_core::meta::{ActivityState, DisabledState};
 
 fn make_slot(ch: String, state: ActivityState) -> impl IntoView {
     view! {
-        <InputOtpSlotPrimitive
-            state=state
-            class="input-otp-slot".to_string()
-        >
+        <InputOtpSlotPrimitive state=state class="input-otp-slot".to_string()>
             {ch}
         </InputOtpSlotPrimitive>
     }
@@ -30,18 +27,16 @@ pub fn InputOtp(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = 6)] length: u32,
 ) -> impl IntoView {
     let container_class = format!("input-otp-container {}", class);
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
-
+    let is_disabled = disabled == DisabledState::Disabled;
     let slots: Vec<_> = (0..length).map(|i| {
         let ch = value.chars().nth(i as usize).map(|c| c.to_string()).unwrap_or_default();
         let state = if i == value.len() as u32 { ActivityState::Active } else { ActivityState::Inactive };
         make_slot(ch, state)
     }).collect();
-
     view! {
         <div class={container_class}>
             <input
@@ -49,7 +44,7 @@ pub fn InputOtp(
                 type="text"
                 name=name
                 prop:value=value
-                disabled=disabled_state == DisabledState::Disabled
+                disabled=is_disabled
                 maxlength=length.to_string()
                 inputmode="numeric"
                 autocomplete="one-time-code"

@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const LIST_API: ComponentApi = ComponentApi {
     id: "list",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "_selection_mode", kind: PropType::Enum(&["none", "single", "multiple"]), required: false, default: Some("none"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
@@ -13,6 +14,7 @@ pub const LIST_API: ComponentApi = ComponentApi {
 pub const LISTITEM_API: ComponentApi = ComponentApi {
     id: "list-item",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "selectable", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "selected", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
@@ -23,6 +25,7 @@ pub const LISTITEM_API: ComponentApi = ComponentApi {
 pub const LISTITEMTITLE_API: ComponentApi = ComponentApi {
     id: "list-item-title",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -30,6 +33,7 @@ pub const LISTITEMTITLE_API: ComponentApi = ComponentApi {
 pub const LISTITEMDESCRIPTION_API: ComponentApi = ComponentApi {
     id: "list-item-description",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

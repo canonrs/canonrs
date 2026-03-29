@@ -24,7 +24,7 @@ pub fn Callout(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <CalloutPrimitive variant=variant class={class.unwrap_or_default()}>
+        <CalloutPrimitive variant=variant class=class.unwrap_or_default()>
             {children()}
         </CalloutPrimitive>
     }

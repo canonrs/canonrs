@@ -11,6 +11,7 @@
 //! @canon-tags: data-table, table, data, grid, sortable, filterable
 
 use leptos::prelude::*;
+use std::sync::Arc;
 use canonrs_core::primitives::{
     DataTablePrimitive, DataTableScrollPrimitive, DataTableTablePrimitive,
     DataTableHeadPrimitive, DataTableHeadRowPrimitive, DataTableHeadCellPrimitive,
@@ -22,12 +23,12 @@ use canonrs_core::primitives::{
 pub struct DataTableColumn<T> {
     pub key: String,
     pub label: String,
-    pub render: std::sync::Arc<dyn Fn(&T) -> String + Send + Sync>,
+    pub render: Arc<dyn Fn(&T) -> String + Send + Sync>,
 }
 
 impl<T> DataTableColumn<T> {
     pub fn new(key: impl Into<String>, label: impl Into<String>, render: impl Fn(&T) -> String + Send + Sync + 'static) -> Self {
-        Self { key: key.into(), label: label.into(), render: std::sync::Arc::new(render) }
+        Self { key: key.into(), label: label.into(), render: Arc::new(render) }
     }
 }
 
@@ -41,7 +42,11 @@ pub fn DataTableCore<T>(
 where
     T: Clone + Send + Sync + 'static,
 {
-    let stored_columns = StoredValue::new(columns);
+    let columns = Arc::new(columns);
+    let data = Arc::new(data);
+    let columns_head = columns.clone();
+    let columns_body = columns.clone();
+    let data_body = data.clone();
 
     view! {
         <DataTablePrimitive density=density class=class>
@@ -49,7 +54,7 @@ where
                 <DataTableTablePrimitive>
                     <DataTableHeadPrimitive>
                         <DataTableHeadRowPrimitive>
-                            {stored_columns.get_value().iter().map(|col| {
+                            {columns_head.iter().map(|col| {
                                 let key = col.key.clone();
                                 let label = col.label.clone();
                                 view! {
@@ -63,10 +68,10 @@ where
                             }).collect::<Vec<_>>()}
                         </DataTableHeadRowPrimitive>
                     </DataTableHeadPrimitive>
-
                     <DataTableBodyPrimitive>
-                        {data.into_iter().enumerate().map(|(idx, row)| {
-                            let cols = stored_columns.get_value();
+                        {data_body.iter().enumerate().map(|(idx, row)| {
+                            let row = row.clone();
+                            let cols = columns_body.clone();
                             view! {
                                 <DataTableRowPrimitive row_id=idx.to_string()>
                                     {cols.iter().map(|col| {

@@ -24,12 +24,11 @@ pub fn Slider(
     #[prop(default = 100.0)] max: f64,
     #[prop(default = 1.0)] step: f64,
     #[prop(default = 50.0)] value: f64,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = Orientation::Horizontal)] orientation: Orientation,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let clamped = value.clamp(min, max);
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <SliderPrimitive
             min={min}
@@ -37,7 +36,7 @@ pub fn Slider(
             step={step}
             value={clamped}
             orientation={orientation.as_str().to_string()}
-            disabled={disabled_state}
+            disabled=disabled
             class={class}
         >
             <SliderTrackPrimitive>

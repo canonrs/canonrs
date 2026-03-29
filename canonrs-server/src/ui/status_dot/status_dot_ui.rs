@@ -16,13 +16,13 @@ pub use canonrs_core::primitives::StatusDotVariant;
 
 #[component]
 pub fn StatusDot(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = StatusDotVariant::Offline)] variant: StatusDotVariant,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
         <StatusDotPrimitive variant=variant class={class.unwrap_or_default()}>
-            {children.map(|c| c())}
+            {children()}
         </StatusDotPrimitive>
     }
 }
@@ -31,11 +31,11 @@ pub fn StatusDot(
 pub fn StatusDotPreview() -> impl IntoView {
     view! {
         <div style="display:flex;align-items:center;gap:0.75rem;">
-            <StatusDot variant=StatusDotVariant::Online />
-            <StatusDot variant=StatusDotVariant::Offline />
-            <StatusDot variant=StatusDotVariant::Away />
-            <StatusDot variant=StatusDotVariant::Busy />
-            <StatusDot variant=StatusDotVariant::DoNotDisturb />
+            <StatusDot variant=StatusDotVariant::Online>"Online"</StatusDot>
+            <StatusDot variant=StatusDotVariant::Offline>"Offline"</StatusDot>
+            <StatusDot variant=StatusDotVariant::Away>"Away"</StatusDot>
+            <StatusDot variant=StatusDotVariant::Busy>"Busy"</StatusDot>
+            <StatusDot variant=StatusDotVariant::DoNotDisturb>"DND"</StatusDot>
         </div>
     }
 }

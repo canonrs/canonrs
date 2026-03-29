@@ -11,6 +11,7 @@
 //! @canon-tags: stat, metric, number, kpi, indicator, value
 
 use leptos::prelude::*;
+use canonrs_core::LoadingState;
 use canonrs_core::primitives::{
     StatPrimitive, StatValuePrimitive, StatLabelPrimitive,
     StatDeltaPrimitive, StatIconPrimitive, StatHeaderPrimitive, StatBodyPrimitive
@@ -42,11 +43,11 @@ impl StatAlign {
 
 #[component]
 pub fn Stat(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = StatSize::Md)] size: StatSize,
     #[prop(default = StatAlign::Start)] align: StatAlign,
     #[prop(optional)] trend: Option<StatTrend>,
-    #[prop(default = false)] loading: bool,
+    #[prop(default = LoadingState::Idle)] loading: LoadingState,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -56,11 +57,11 @@ pub fn Stat(
                 data-rs-size={size.as_str()}
                 data-rs-align={align.as_str()}
                 data-rs-trend={trend.map(|t| t.as_str())}
-                data-rs-loading={loading.then_some("")}
-                aria-busy={loading.then_some("true")}
+                data-rs-loading={if loading == LoadingState::Loading { Some("") } else { None }}
+                aria-busy={if loading == LoadingState::Loading { Some("true") } else { None }}
                 role="group"
             >
-                {children.map(|c| c())}
+                {children()}
             </div>
         </StatPrimitive>
     }
@@ -68,72 +69,72 @@ pub fn Stat(
 
 #[component]
 pub fn StatHeader(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <StatHeaderPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </StatHeaderPrimitive>
     }
 }
 
 #[component]
 pub fn StatBody(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <StatBodyPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </StatBodyPrimitive>
     }
 }
 
 #[component]
 pub fn StatValue(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <StatValuePrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </StatValuePrimitive>
     }
 }
 
 #[component]
 pub fn StatLabel(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <StatLabelPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </StatLabelPrimitive>
     }
 }
 
 #[component]
 pub fn StatDelta(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <StatDeltaPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </StatDeltaPrimitive>
     }
 }
 
 #[component]
 pub fn StatIcon(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <StatIconPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </StatIconPrimitive>
     }
 }

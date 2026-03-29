@@ -39,7 +39,7 @@ impl AvatarStatus {
 
 #[component]
 pub fn Avatar(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = AvatarSize::Md)] size: AvatarSize,
     #[prop(default = AvatarShape::Circle)] shape: AvatarShape,
     #[prop(optional)] status: Option<AvatarStatus>,
@@ -51,7 +51,7 @@ pub fn Avatar(
         <AvatarPrimitive
             class={format!("{} avatar-size-{} avatar-shape-{}", class, size.as_str(), shape.as_str())}
         >
-            {children.map(|c| c())}
+            {children()}
             {status.map(|s| {
                 let pulse = animated && s == AvatarStatus::Online;
                 view! {
@@ -86,17 +86,17 @@ pub fn AvatarImage(
 
 #[component]
 pub fn AvatarFallback(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <AvatarFallbackPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </AvatarFallbackPrimitive>
     }
 }
 
 #[component]
 pub fn AvatarPreview() -> impl IntoView {
-    view! { <Avatar size=AvatarSize::Md /> }
+    view! { <Avatar size=AvatarSize::Md>"AB"</Avatar> }
 }

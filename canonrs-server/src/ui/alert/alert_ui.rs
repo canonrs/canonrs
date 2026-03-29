@@ -23,7 +23,7 @@ pub fn Alert(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <AlertPrimitive variant={variant} class={class.unwrap_or_default()}>
+        <AlertPrimitive variant=variant class=class.unwrap_or_default()>
             {children()}
         </AlertPrimitive>
     }

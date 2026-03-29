@@ -115,7 +115,7 @@ pub use chart::*;
 pub use checkbox::*;
 pub use code_block::*;
 pub use collapsible::{CollapsiblePrimitive, CollapsibleTriggerPrimitive, CollapsibleContentPrimitive};
-pub use color_picker::{ColorPickerPrimitive, ColorPickerTriggerPrimitive, ColorPickerSwatchPrimitive};
+pub use color_picker::{ColorPickerPrimitive, ColorPickerTriggerPrimitive, ColorPickerInputPrimitive, ColorPickerSwatchPrimitive};
 pub use combobox::*;
 pub use command::{CommandPrimitive, CommandInputPrimitive, CommandListPrimitive, CommandEmptyPrimitive, CommandGroupPrimitive, CommandGroupHeadingPrimitive, CommandItemPrimitive, CommandSeparatorPrimitive};
 pub use context_menu::*;

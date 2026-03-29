@@ -6,9 +6,9 @@ pub const CAROUSEL_API: ComponentApi = ComponentApi {
     id: "carousel",
     props: &[
         PropDef { name: "initial_index", kind: PropType::Number, required: false, default: Some("0"), description: "" },
-        PropDef { name: "autoplay", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "autoplay", kind: PropType::String, required: false, default: Some("off"), description: "" },
         PropDef { name: "interval", kind: PropType::Number, required: false, default: Some("5000"), description: "" },
-        PropDef { name: "r#loop", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
+        PropDef { name: "loop_state", kind: PropType::String, required: false, default: Some("on"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

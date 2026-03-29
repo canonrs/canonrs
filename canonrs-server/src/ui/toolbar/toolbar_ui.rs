@@ -15,7 +15,7 @@ use canonrs_core::primitives::{ToolbarPrimitive, ToolbarSeparatorPrimitive, Tool
 
 #[component]
 pub fn Toolbar(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into)] aria_label: String,
     #[prop(default = ToolbarOrientation::Horizontal)] orientation: ToolbarOrientation,
     #[prop(default = String::new())] class: String,
@@ -26,7 +26,7 @@ pub fn Toolbar(
             aria_label=aria_label
             orientation=orientation
         >
-            {children.map(|c| c())}
+            {children()}
         </ToolbarPrimitive>
     }
 }

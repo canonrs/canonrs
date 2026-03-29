@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const SIDEBAR_API: ComponentApi = ComponentApi {
     id: "sidebar",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "state", kind: PropType::String, required: false, default: Some("open"), description: "" },
         PropDef { name: "variant", kind: PropType::Enum(&["default", "rail"]), required: false, default: Some("default"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
@@ -14,6 +15,7 @@ pub const SIDEBAR_API: ComponentApi = ComponentApi {
 pub const SIDEBARHEADER_API: ComponentApi = ComponentApi {
     id: "sidebar-header",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -21,6 +23,7 @@ pub const SIDEBARHEADER_API: ComponentApi = ComponentApi {
 pub const SIDEBARCONTENT_API: ComponentApi = ComponentApi {
     id: "sidebar-content",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -28,6 +31,7 @@ pub const SIDEBARCONTENT_API: ComponentApi = ComponentApi {
 pub const SIDEBARFOOTER_API: ComponentApi = ComponentApi {
     id: "sidebar-footer",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -35,6 +39,7 @@ pub const SIDEBARFOOTER_API: ComponentApi = ComponentApi {
 pub const SIDEBARMENU_API: ComponentApi = ComponentApi {
     id: "sidebar-menu",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -42,6 +47,7 @@ pub const SIDEBARMENU_API: ComponentApi = ComponentApi {
 pub const SIDEBARMENUITEM_API: ComponentApi = ComponentApi {
     id: "sidebar-menu-item",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "active", kind: PropType::String, required: false, default: Some("inactive"), description: "" },
@@ -52,6 +58,7 @@ pub const SIDEBARMENUITEM_API: ComponentApi = ComponentApi {
 pub const SIDEBARMENUGROUP_API: ComponentApi = ComponentApi {
     id: "sidebar-menu-group",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "label", kind: PropType::String, required: false, default: None, description: "" },
     ],
@@ -67,6 +74,7 @@ pub const SIDEBARSEPARATOR_API: ComponentApi = ComponentApi {
 pub const SIDEBARGROUPLABEL_API: ComponentApi = ComponentApi {
     id: "sidebar-group-label",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

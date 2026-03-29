@@ -24,7 +24,7 @@ pub fn InlineNotice(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <InlineNoticePrimitive variant=variant class={class.unwrap_or_default()}>
+        <InlineNoticePrimitive variant=variant class=class.unwrap_or_default()>
             {children()}
         </InlineNoticePrimitive>
     }

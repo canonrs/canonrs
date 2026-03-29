@@ -7,7 +7,7 @@ pub const COLORPICKER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "value", kind: PropType::String, required: false, default: Some("#000000"), description: "" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

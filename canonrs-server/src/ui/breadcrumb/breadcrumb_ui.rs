@@ -45,10 +45,9 @@ pub fn BreadcrumbItem(
 pub fn BreadcrumbLink(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] current: bool,
+    #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = if current { ActivityState::Active } else { ActivityState::Inactive };
     view! {
         <BreadcrumbLinkPrimitive href=href state=state class=class>
             {children()}

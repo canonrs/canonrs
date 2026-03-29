@@ -17,7 +17,7 @@ use leptos::prelude::*;
 #[component]
 pub fn AlertDialogContentPrimitive(
     children: Children,
-    #[prop(optional, into)] aria_labelledby: Option<String>,
+    #[prop(into, default = String::new())] aria_labelledby: String,
     #[prop(optional, into)] aria_describedby: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {

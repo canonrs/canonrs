@@ -27,7 +27,7 @@ pub fn CodeBlock(
     #[prop(default = true)] show_copy: bool,
     #[prop(default = false)] show_line_numbers: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] id: String,
+    #[prop(optional, into)] id: Option<String>,
 ) -> impl IntoView {
     #[cfg(feature = "ssr")]
     let pre_html = {
@@ -40,7 +40,7 @@ pub fn CodeBlock(
     let pre_html = String::new();
 
     let lang_display = language.clone();
-    let copy_id = format!("{}-copy", id);
+    let copy_id = id.as_deref().map(|i| format!("{}-copy", i));
 
     view! {
         <CodeBlockPrimitive
@@ -56,7 +56,7 @@ pub fn CodeBlock(
                     })}
                 </div>
                 {show_copy.then(|| view! {
-                    <CopyButton text=code.clone() id=copy_id />
+                    <CopyButton text=code.clone() id=copy_id.unwrap_or_default() />
                 })}
             </CodeBlockHeaderPrimitive>
             <pre data-rs-code-pre="" inner_html=pre_html />

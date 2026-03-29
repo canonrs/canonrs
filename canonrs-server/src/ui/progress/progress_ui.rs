@@ -19,7 +19,7 @@ pub fn Progress(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     let clamped = value.clamp(0.0, 100.0);
-    let style = format!("transform: translateX(-{}%)", 100.0 - clamped);
+    let style = format!("transform: translateX(-{}%)", 100.0 - value);
     view! {
         <ProgressPrimitive value=clamped class={class.unwrap_or_default()}>
             <ProgressIndicatorPrimitive style=style />

@@ -11,13 +11,14 @@
 //! @canon-tags: button-group, buttons, group, actions, multiple
 
 use leptos::prelude::*;
+use canonrs_core::ToggleState;
 use canonrs_core::primitives::ButtonGroupPrimitive;
 
 #[component]
 pub fn ButtonGroup(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = false)] attached: bool,
+    #[prop(default = ToggleState::Off)] attached: ToggleState,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {

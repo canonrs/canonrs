@@ -11,34 +11,20 @@
 //! @canon-tags: color-picker, color, palette, rgb, hex
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{ColorPickerPrimitive, ColorPickerSwatchPrimitive};
+use canonrs_core::primitives::{ColorPickerPrimitive, ColorPickerInputPrimitive, ColorPickerSwatchPrimitive};
+use canonrs_core::meta::DisabledState;
 use canonrs_core::meta::SelectionState;
-
-fn make_input(value: String, name: String, disabled: bool) -> impl IntoView {
-    view! {
-        <input
-            type="color"
-            data-rs-color-picker-input=""
-            value=value
-            name=name
-            disabled=disabled
-            aria-label="Color picker"
-            class=""
-        />
-    }
-}
 
 #[component]
 pub fn ColorPicker(
     #[prop(into, default = "#000000".to_string())] value: String,
     #[prop(into, default = String::new())] name: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let input = make_input(value, name, disabled);
     view! {
         <ColorPickerPrimitive class=class>
-            {input}
+            <ColorPickerInputPrimitive value=value name=name disabled=disabled />
         </ColorPickerPrimitive>
     }
 }

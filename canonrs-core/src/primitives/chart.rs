@@ -43,7 +43,7 @@ pub fn ChartPrimitive(
             data-rs-component="Chart"
             data-rs-behavior="data-display"
             data-rs-chart-type=chart_type.as_str()
-            data-rs-chart-height=height.to_string()
+            data-rs-chart-height={height.to_string()}
             role="img"
             aria-label=aria_label
             class=class

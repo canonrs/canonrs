@@ -17,10 +17,9 @@ use canonrs_core::meta::LoadingState;
 #[component]
 pub fn LoadingOverlay(
     children: Children,
-    #[prop(default = false)] loading: bool,
+    #[prop(default = LoadingState::Idle)] state: LoadingState,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let state = if loading { LoadingState::Loading } else { LoadingState::Idle };
     view! {
         <LoadingOverlayPrimitive state=state class={class.unwrap_or_default()}>
             {children()}
@@ -31,7 +30,7 @@ pub fn LoadingOverlay(
 #[component]
 pub fn LoadingOverlayPreview() -> impl IntoView {
     view! {
-        <LoadingOverlay loading=true>
+        <LoadingOverlay state=LoadingState::Loading>
             <div style="min-height:100px;padding:2rem;">
                 "Content behind loading overlay"
             </div>

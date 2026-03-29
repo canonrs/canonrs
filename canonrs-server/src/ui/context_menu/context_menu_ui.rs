@@ -11,6 +11,7 @@
 //! @canon-tags: context-menu, right-click, menu, options, contextual
 
 use leptos::prelude::*;
+use canonrs_core::meta::VisibilityState;
 use canonrs_core::primitives::{
     ContextMenuPrimitive, ContextMenuTriggerPrimitive, ContextMenuContentPrimitive,
     ContextMenuItemPrimitive, ContextMenuSeparatorPrimitive,
@@ -46,7 +47,7 @@ pub fn ContextMenuContent(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ContextMenuContentPrimitive class=class>
+        <ContextMenuContentPrimitive state=VisibilityState::Closed class=class>
             {children()}
         </ContextMenuContentPrimitive>
     }

@@ -22,7 +22,7 @@ use canonrs_core::primitives::{
 
 #[component]
 pub fn Card(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     let base_class = format!("card {}", class);
@@ -31,77 +31,77 @@ pub fn Card(
         <CardPrimitive
             class={base_class}
         >
-            {children.map(|c| c())}
+            {children()}
         </CardPrimitive>
     }
 }
 
 #[component]
 pub fn CardHeader(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CardHeaderPrimitive
             class={class}
         >
-            {children.map(|c| c())}
+            {children()}
         </CardHeaderPrimitive>
     }
 }
 
 #[component]
 pub fn CardTitle(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CardTitlePrimitive
             class={class}
         >
-            {children.map(|c| c())}
+            {children()}
         </CardTitlePrimitive>
     }
 }
 
 #[component]
 pub fn CardDescription(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CardDescriptionPrimitive
             class={class}
         >
-            {children.map(|c| c())}
+            {children()}
         </CardDescriptionPrimitive>
     }
 }
 
 #[component]
 pub fn CardContent(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CardContentPrimitive
             class={class}
         >
-            {children.map(|c| c())}
+            {children()}
         </CardContentPrimitive>
     }
 }
 
 #[component]
 pub fn CardFooter(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CardFooterPrimitive
             class={class}
         >
-            {children.map(|c| c())}
+            {children()}
         </CardFooterPrimitive>
     }
 }

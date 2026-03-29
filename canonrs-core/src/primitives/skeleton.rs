@@ -23,7 +23,7 @@ impl SkeletonVariant {
 
 #[component]
 pub fn SkeletonPrimitive(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = SkeletonVariant::Rectangle)] variant: SkeletonVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
@@ -37,7 +37,7 @@ pub fn SkeletonPrimitive(
             aria-live="polite"
             class=class
         >
-            {children.map(|c| c())}
+            {children()}
         </div>
     }
 }

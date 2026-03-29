@@ -21,20 +21,20 @@ pub enum ListSelectionMode { None, Single, Multiple }
 
 #[component]
 pub fn List(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = ListSelectionMode::None)] _selection_mode: ListSelectionMode,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <ListPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </ListPrimitive>
     }
 }
 
 #[component]
 pub fn ListItem(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = false)] selectable: bool,
     #[prop(default = false)] selected: bool,
@@ -51,7 +51,7 @@ pub fn ListItem(
                 aria-selected={if selectable { Some(selected.to_string()) } else { None }}
                 aria-disabled={if disabled { Some("true") } else { None }}
             >
-                {children.map(|c| c())}
+                {children()}
             </div>
         </ListItemPrimitive>
     }
@@ -59,24 +59,24 @@ pub fn ListItem(
 
 #[component]
 pub fn ListItemTitle(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <ListItemTitlePrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </ListItemTitlePrimitive>
     }
 }
 
 #[component]
 pub fn ListItemDescription(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <ListItemDescriptionPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </ListItemDescriptionPrimitive>
     }
 }

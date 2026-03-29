@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const TOOLBAR_API: ComponentApi = ComponentApi {
     id: "toolbar",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "aria_label", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "orientation", kind: PropType::Enum(&["horizontal", "vertical"]), required: false, default: Some("horizontal"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },

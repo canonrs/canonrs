@@ -26,7 +26,7 @@ pub fn EmptyTable(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <EmptyTablePrimitive colspan=colspan class={class.unwrap_or_default()}>
+        <EmptyTablePrimitive colspan=colspan class=class.unwrap_or_default()>
             <EmptyTableTitlePrimitive>{title}</EmptyTableTitlePrimitive>
             <EmptyTableDescriptionPrimitive>{description}</EmptyTableDescriptionPrimitive>
             {children.map(|c| c())}

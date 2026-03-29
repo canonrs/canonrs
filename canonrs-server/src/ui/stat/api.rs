@@ -5,10 +5,11 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const STAT_API: ComponentApi = ComponentApi {
     id: "stat",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "size", kind: PropType::Enum(&["sm", "md", "lg"]), required: false, default: Some("md"), description: "" },
         PropDef { name: "align", kind: PropType::Enum(&["start", "center", "end"]), required: false, default: Some("start"), description: "" },
         PropDef { name: "trend", kind: PropType::Enum(&["increase", "decrease", "neutral"]), required: false, default: None, description: "" },
-        PropDef { name: "loading", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "loading", kind: PropType::String, required: false, default: Some("idle"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -16,6 +17,7 @@ pub const STAT_API: ComponentApi = ComponentApi {
 pub const STATHEADER_API: ComponentApi = ComponentApi {
     id: "stat-header",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -23,6 +25,7 @@ pub const STATHEADER_API: ComponentApi = ComponentApi {
 pub const STATBODY_API: ComponentApi = ComponentApi {
     id: "stat-body",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -30,6 +33,7 @@ pub const STATBODY_API: ComponentApi = ComponentApi {
 pub const STATVALUE_API: ComponentApi = ComponentApi {
     id: "stat-value",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -37,6 +41,7 @@ pub const STATVALUE_API: ComponentApi = ComponentApi {
 pub const STATLABEL_API: ComponentApi = ComponentApi {
     id: "stat-label",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -44,6 +49,7 @@ pub const STATLABEL_API: ComponentApi = ComponentApi {
 pub const STATDELTA_API: ComponentApi = ComponentApi {
     id: "stat-delta",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -51,6 +57,7 @@ pub const STATDELTA_API: ComponentApi = ComponentApi {
 pub const STATICON_API: ComponentApi = ComponentApi {
     id: "stat-icon",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

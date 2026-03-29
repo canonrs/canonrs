@@ -23,7 +23,7 @@ pub fn Separator(
 ) -> impl IntoView {
     view! {
         <div
-            data-separator=""
+            data-rs-separator=""
             data-orientation={orientation.as_str()}
             role={if decorative { "presentation" } else { "separator" }}
             aria-orientation={if !decorative { Some(orientation.as_str()) } else { None }}

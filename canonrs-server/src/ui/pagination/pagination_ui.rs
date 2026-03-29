@@ -11,6 +11,7 @@
 //! @canon-tags: pagination, pages, next, prev, navigate
 
 use leptos::prelude::*;
+use canonrs_core::meta::ActivityState;
 use canonrs_core::primitives::{
     PaginationPrimitive, PaginationContentPrimitive, PaginationItemPrimitive,
     PaginationLinkPrimitive, PaginationPreviousPrimitive, PaginationNextPrimitive,
@@ -57,11 +58,11 @@ pub fn PaginationItem(
 pub fn PaginationLink(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] is_active: bool,
+    #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationLinkPrimitive href=href state=is_active.into() class=class>
+        <PaginationLinkPrimitive href=href state=state class=class>
             {children()}
         </PaginationLinkPrimitive>
     }
@@ -113,7 +114,7 @@ pub fn PaginationPreview() -> impl IntoView {
                     <PaginationPrevious href="#">"\u{2190}"</PaginationPrevious>
                 </PaginationItem>
                 <PaginationItem>
-                    <PaginationLink href="#" is_active=true>"1"</PaginationLink>
+                    <PaginationLink href="#" state=ActivityState::Active>"1"</PaginationLink>
                 </PaginationItem>
                 <PaginationItem>
                     <PaginationLink href="#">"2"</PaginationLink>

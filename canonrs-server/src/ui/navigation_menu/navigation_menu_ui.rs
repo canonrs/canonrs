@@ -11,6 +11,7 @@
 //! @canon-tags: navigation-menu, navigation, menu, nav, links, site, header
 
 use leptos::prelude::*;
+use canonrs_core::VisibilityState;
 use canonrs_core::primitives::{
     NavigationMenuPrimitive,
     NavigationMenuListPrimitive,
@@ -64,7 +65,7 @@ pub fn NavigationMenuTrigger(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationMenuTriggerPrimitive class=class>
+        <NavigationMenuTriggerPrimitive state=VisibilityState::Closed class=class>
             {children()}
         </NavigationMenuTriggerPrimitive>
     }

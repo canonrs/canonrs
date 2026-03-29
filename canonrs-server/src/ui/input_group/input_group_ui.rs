@@ -20,7 +20,7 @@ pub fn InputGroup(
     #[prop(default = false)] merge_radius: bool,
 ) -> impl IntoView {
     view! {
-        <InputGroupPrimitive class=class merge_radius=merge_radius>
+        <InputGroupPrimitive class=class merge_radius=merge_radius.into()>
             {children()}
         </InputGroupPrimitive>
     }

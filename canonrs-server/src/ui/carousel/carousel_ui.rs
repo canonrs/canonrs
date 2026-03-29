@@ -11,6 +11,7 @@
 //! @canon-tags: carousel, slider, gallery, images, slideshow
 
 use leptos::prelude::*;
+use canonrs_core::ToggleState;
 use canonrs_core::primitives::{
     CarouselPrimitive, CarouselTrackPrimitive, CarouselItemPrimitive,
     CarouselPrevPrimitive, CarouselNextPrimitive,
@@ -21,9 +22,9 @@ use canonrs_core::primitives::{
 pub fn Carousel(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = 0)] initial_index: usize,
-    #[prop(default = false)] autoplay: bool,
+    #[prop(default = ToggleState::Off)] autoplay: ToggleState,
     #[prop(default = 5000)] interval: u32,
-    #[prop(default = true)] r#loop: bool,
+    #[prop(default = ToggleState::On)] loop_state: ToggleState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -32,8 +33,8 @@ pub fn Carousel(
         >
             <div
                 data-rs-carousel-wrapper=""
-                data-rs-autoplay={autoplay.then_some("")}
-                data-rs-loop={r#loop.then_some("")}
+                data-rs-autoplay={if autoplay == ToggleState::On { Some("") } else { None }}
+                data-rs-loop={if loop_state == ToggleState::On { Some("") } else { None }}
                 data-rs-initial-index={initial_index.to_string()}
                 data-rs-interval={interval.to_string()}
             >

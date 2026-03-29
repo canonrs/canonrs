@@ -51,7 +51,7 @@ pub fn Icon(
             data-rs-variant={variant.as_str()}
             data-rs-spin={spin.then_some("")}
             class={class}
-            id={id.unwrap_or_default()}
+            id=id
         >
             <span data-rs-icon-inner="" aria-hidden="true">
                 {children.map(|c| c())}

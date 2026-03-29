@@ -25,7 +25,7 @@ pub fn Toast(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ToastPrimitive variant=variant class={class.unwrap_or_default()}>
+        <ToastPrimitive variant=variant class=class.unwrap_or_default()>
             {children()}
         </ToastPrimitive>
     }
@@ -37,7 +37,7 @@ pub fn ToastViewport(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ToastViewportPrimitive class={class.unwrap_or_default()}>
+        <ToastViewportPrimitive class=class.unwrap_or_default()>
             {children()}
         </ToastViewportPrimitive>
     }

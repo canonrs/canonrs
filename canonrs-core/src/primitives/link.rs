@@ -39,7 +39,7 @@ pub fn LinkPrimitive(
             data-rs-component="Link"
             data-rs-behavior="action"
             data-rs-variant=variant.as_str()
-            data-rs-state=disabled.as_str()
+            data-rs-disabled=disabled.as_str()
             href=href
             target=target
             rel=rel

@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const AVATAR_API: ComponentApi = ComponentApi {
     id: "avatar",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl"]), required: false, default: Some("md"), description: "" },
         PropDef { name: "shape", kind: PropType::Enum(&["circle", "square", "rounded"]), required: false, default: Some("circle"), description: "" },
         PropDef { name: "status", kind: PropType::Enum(&["online", "offline", "busy", "away"]), required: false, default: None, description: "" },
@@ -26,6 +27,7 @@ pub const AVATARIMAGE_API: ComponentApi = ComponentApi {
 pub const AVATARFALLBACK_API: ComponentApi = ComponentApi {
     id: "avatar-fallback",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

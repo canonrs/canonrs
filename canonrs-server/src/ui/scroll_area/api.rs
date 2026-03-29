@@ -6,7 +6,7 @@ pub const SCROLLAREA_API: ComponentApi = ComponentApi {
     id: "scroll-area",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("vertical"), description: "" },
+        PropDef { name: "orientation", kind: PropType::Enum(&["vertical", "horizontal", "both"]), required: false, default: Some("vertical"), description: "" },
         PropDef { name: "auto_hide", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
     ],

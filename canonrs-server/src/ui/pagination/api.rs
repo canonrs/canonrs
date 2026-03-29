@@ -31,7 +31,7 @@ pub const PAGINATIONLINK_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "is_active", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("inactive"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

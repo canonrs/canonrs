@@ -17,7 +17,7 @@ pub fn MarkdownPrimitive(
             data-rs-component="Markdown"
             data-rs-behavior="content"
             class=class
-            inner_html=inner
+            inner_html=inner.clone()
         ></div>
     }
 }
@@ -113,7 +113,7 @@ pub fn MarkdownContentPrimitive(
         <div
             data-rs-markdown-content=""
             class=class
-            inner_html=inner
+            inner_html=inner.clone()
         ></div>
     }
 }

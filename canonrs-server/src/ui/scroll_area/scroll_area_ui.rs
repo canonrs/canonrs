@@ -11,7 +11,7 @@
 //! @canon-tags: scroll-area, scroll, overflow, container, long-list
 
 use leptos::prelude::*;
-use super::scroll_area_primitive::{ScrollAreaPrimitive, ScrollOrientation};
+use canonrs_core::primitives::{ScrollAreaPrimitive, ScrollOrientation};
 
 #[component]
 pub fn ScrollArea(

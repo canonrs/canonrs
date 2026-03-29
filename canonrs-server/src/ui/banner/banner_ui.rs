@@ -24,7 +24,7 @@ pub fn Banner(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <BannerPrimitive variant=variant class={class.unwrap_or_default()}>
+        <BannerPrimitive variant=variant class=class.unwrap_or_default()>
             {children()}
         </BannerPrimitive>
     }

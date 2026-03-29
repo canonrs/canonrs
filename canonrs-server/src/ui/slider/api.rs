@@ -9,7 +9,7 @@ pub const SLIDER_API: ComponentApi = ComponentApi {
         PropDef { name: "max", kind: PropType::Number, required: false, default: Some("100.0"), description: "" },
         PropDef { name: "step", kind: PropType::Number, required: false, default: Some("1.0"), description: "" },
         PropDef { name: "value", kind: PropType::Number, required: false, default: Some("50.0"), description: "" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("horizontal"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],

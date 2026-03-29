@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const CARD_API: ComponentApi = ComponentApi {
     id: "card",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -12,6 +13,7 @@ pub const CARD_API: ComponentApi = ComponentApi {
 pub const CARDHEADER_API: ComponentApi = ComponentApi {
     id: "card-header",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -19,6 +21,7 @@ pub const CARDHEADER_API: ComponentApi = ComponentApi {
 pub const CARDTITLE_API: ComponentApi = ComponentApi {
     id: "card-title",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -26,6 +29,7 @@ pub const CARDTITLE_API: ComponentApi = ComponentApi {
 pub const CARDDESCRIPTION_API: ComponentApi = ComponentApi {
     id: "card-description",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -33,6 +37,7 @@ pub const CARDDESCRIPTION_API: ComponentApi = ComponentApi {
 pub const CARDCONTENT_API: ComponentApi = ComponentApi {
     id: "card-content",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -40,6 +45,7 @@ pub const CARDCONTENT_API: ComponentApi = ComponentApi {
 pub const CARDFOOTER_API: ComponentApi = ComponentApi {
     id: "card-footer",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

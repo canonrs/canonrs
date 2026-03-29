@@ -7,7 +7,7 @@ pub const BUTTONGROUP_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "attached", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "attached", kind: PropType::String, required: false, default: Some("off"), description: "" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };

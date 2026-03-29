@@ -6,7 +6,7 @@ pub const ASPECTRATIO_API: ComponentApi = ComponentApi {
     id: "aspect-ratio",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "width", kind: PropType::Number, required: false, default: Some("16.0f32"), description: "" },
+        PropDef { name: "ratio_w", kind: PropType::Number, required: false, default: Some("16.0f32"), description: "" },
         PropDef { name: "height", kind: PropType::Number, required: false, default: Some("9.0f32"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],

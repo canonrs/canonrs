@@ -11,6 +11,7 @@
 //! @canon-tags: resizable, resize, panel, split, adjust
 
 use leptos::prelude::*;
+use canonrs_core::meta::ActivityState;
 use canonrs_core::primitives::{
     ResizablePrimitive, ResizablePanelPrimitive,
     ResizableHandlePrimitive, ResizableOrientation
@@ -54,7 +55,7 @@ pub fn ResizableHandle(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ResizableHandlePrimitive class=class>
+        <ResizableHandlePrimitive state=ActivityState::Inactive class=class>
             <span data-rs-resizable-handle-icon="" />
         </ResizableHandlePrimitive>
     }

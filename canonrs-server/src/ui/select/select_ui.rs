@@ -11,6 +11,7 @@
 //! @canon-tags: select, dropdown, choose, options, list, combo
 
 use leptos::prelude::*;
+use canonrs_core::meta::SelectionState;
 use canonrs_core::primitives::{
     SelectPrimitive, SelectTriggerPrimitive, SelectValuePrimitive,
     SelectContentPrimitive, SelectItemPrimitive, SelectSeparatorPrimitive,
@@ -69,7 +70,7 @@ pub fn SelectContent(
 #[component]
 pub fn SelectItem(
     children: Children,
-    #[prop(default = false)] selected: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(default = false)] disabled: bool,
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,

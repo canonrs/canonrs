@@ -6,7 +6,6 @@ pub const VIRTUALLIST_API: ComponentApi = ComponentApi {
     id: "virtual-list",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "id", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "items_count", kind: PropType::Number, required: true, default: None, description: "" },
         PropDef { name: "item_height", kind: PropType::Number, required: true, default: None, description: "" },
     ],

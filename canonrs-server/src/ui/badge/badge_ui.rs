@@ -18,16 +18,11 @@ pub use canonrs_core::primitives::BadgeVariant;
 pub fn Badge(
     children: Children,
     #[prop(default = BadgeVariant::Default)] variant: BadgeVariant,
-    #[prop(default = false)] interactive: bool,
+    #[prop(default = BadgeInteractivity::Static)] interactivity: BadgeInteractivity,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let interactivity = if interactive {
-        BadgeInteractivity::Interactive
-    } else {
-        BadgeInteractivity::Static
-    };
     view! {
-        <BadgePrimitive variant=variant interactivity=interactivity class={class.unwrap_or_default()}>
+        <BadgePrimitive variant=variant interactivity=interactivity class=class.unwrap_or_default()>
             {children()}
         </BadgePrimitive>
     }

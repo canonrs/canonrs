@@ -20,69 +20,69 @@ use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
 
 #[component]
 pub fn Sidebar(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = VisibilityState::Open)] state: VisibilityState,
     #[prop(default = SidebarVariant::Default)] variant: SidebarVariant,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SidebarPrimitive state=state variant=variant class=class>
-            {children.map(|c| c())}
+            {children()}
         </SidebarPrimitive>
     }
 }
 
 #[component]
 pub fn SidebarHeader(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SidebarHeaderPrimitive class=class>
-            {children.map(|c| c())}
+            {children()}
         </SidebarHeaderPrimitive>
     }
 }
 
 #[component]
 pub fn SidebarContent(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SidebarContentPrimitive class=class>
-            {children.map(|c| c())}
+            {children()}
         </SidebarContentPrimitive>
     }
 }
 
 #[component]
 pub fn SidebarFooter(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SidebarFooterPrimitive class=class>
-            {children.map(|c| c())}
+            {children()}
         </SidebarFooterPrimitive>
     }
 }
 
 #[component]
 pub fn SidebarMenu(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SidebarMenuPrimitive class=class>
-            {children.map(|c| c())}
+            {children()}
         </SidebarMenuPrimitive>
     }
 }
 
 #[component]
 pub fn SidebarMenuItem(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] href: String,
     #[prop(default = ActivityState::Inactive)] active: ActivityState,
@@ -90,20 +90,20 @@ pub fn SidebarMenuItem(
 ) -> impl IntoView {
     view! {
         <SidebarMenuItemPrimitive class=class href=href active=active disabled=disabled>
-            {children.map(|c| c())}
+            {children()}
         </SidebarMenuItemPrimitive>
     }
 }
 
 #[component]
 pub fn SidebarMenuGroup(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
     #[prop(into, optional)] label: Option<String>,
 ) -> impl IntoView {
     view! {
         <SidebarMenuGroupPrimitive class=class label=label.unwrap_or_default()>
-            {children.map(|c| c())}
+            {children()}
         </SidebarMenuGroupPrimitive>
     }
 }
@@ -117,12 +117,12 @@ pub fn SidebarSeparator(
 
 #[component]
 pub fn SidebarGroupLabel(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SidebarGroupLabelPrimitive class=class>
-            {children.map(|c| c())}
+            {children()}
         </SidebarGroupLabelPrimitive>
     }
 }

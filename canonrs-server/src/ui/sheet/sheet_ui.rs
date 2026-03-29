@@ -18,10 +18,9 @@ use canonrs_core::meta::VisibilityState;
 pub fn Sheet(
     children: Children,
     #[prop(default = SheetSide::Right)] side: SheetSide,
-    #[prop(default = false)] open: bool,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = VisibilityState::from(open);
     view! {
         <SheetPrimitive side=side state=state class=class>
             {children()}

@@ -3,12 +3,13 @@
 //! ButtonGroup Primitive - HTML puro
 
 use leptos::prelude::*;
+use crate::ToggleState;
 
 #[component]
 pub fn ButtonGroupPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = false)] attached: bool,
+    #[prop(default = ToggleState::Off)] attached: ToggleState,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -16,7 +17,7 @@ pub fn ButtonGroupPrimitive(
             data-rs-button-group=""
             data-rs-component="ButtonGroup"
             data-rs-behavior="action"
-            data-rs-attached={if attached { Some("true") } else { None }}
+            data-rs-attached={if attached == ToggleState::On { Some("true") } else { None }}
             role="group"
             aria-label=aria_label
             class=class

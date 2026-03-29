@@ -29,11 +29,11 @@ pub fn FormErrorSummary(
         <FormErrorSummaryPrimitive class=class>
             <h3 data-rs-form-error-summary-title="">{title}</h3>
             <ul data-rs-form-error-summary-list="">
-                {errors.into_iter().map(|error: FormError| {
+                {errors.iter().map(|error: &FormError| {
                     view! {
                         <li data-rs-form-error-summary-item="">
                             <span data-rs-form-error-summary-item-link="">
-                                {error.field_label}{": "}{error.message}
+                                {error.field_label.clone()}{": "}{error.message.clone()}
                             </span>
                         </li>
                     }
