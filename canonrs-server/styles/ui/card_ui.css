@@ -1,44 +1,93 @@
-/* ============================================
-   CARD
-   Family B: Data Display
-   ============================================ */
+/* ============================================================================
+   CANONRS — CARD UI
+   [data-rs-card] é o wrapper visual real dentro do CardBlock
+   ============================================================================ */
 
 [data-rs-card] {
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background: var(--card-bg);
-  color: var(--card-fg);
+  border: var(--card-border-width) solid rgba(255,255,255,0.04);
   border-radius: var(--card-radius);
-  border: var(--card-border-width) solid var(--card-border);
-  box-shadow: var(--card-shadow);
   padding: var(--card-padding);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), var(--card-shadow);
+  color: var(--card-fg);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 120ms ease;
+}
+
+[data-rs-block][data-rs-component="Card"][data-rs-variant="interactive"]:hover [data-rs-card] {
+  border-color: var(--theme-action-primary-bg);
+  box-shadow: var(--shadow-md);
+}
+
+[data-rs-block][data-rs-component="Card"][data-rs-variant="elevated"] [data-rs-card] {
+  box-shadow: var(--shadow-md);
+}
+
+[data-rs-card] [data-rs-region="header"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-header-gap);
+  padding-bottom: 0;
+}
+
+[data-rs-card] [data-rs-region="content"] {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--card-content-gap);
+  font-size: var(--card-description-font-size);
+  line-height: var(--card-description-line-height);
+  color: var(--card-description-fg);
+}
+
+[data-rs-card] [data-rs-region="footer"] {
+  display: flex;
+  margin-top: auto;
+  padding-top: var(--card-footer-padding);
+  border-top: var(--card-border-width) solid rgba(255,255,255,0.04);
+  color: var(--theme-action-primary-bg);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 [data-rs-card-header] {
   display: flex;
   flex-direction: column;
   gap: var(--card-header-gap);
-  padding: var(--card-header-padding);
 }
 
 [data-rs-card-title] {
   font-size: var(--card-title-font-size);
-  font-weight: var(--card-title-font-weight);
+  font-weight: 600;
   color: var(--card-title-fg);
+  margin: 0;
 }
 
 [data-rs-card-description] {
   font-size: var(--card-description-font-size);
   line-height: var(--card-description-line-height);
   color: var(--card-description-fg);
+  margin: 0;
 }
 
 [data-rs-card-content] {
   display: flex;
   flex-direction: column;
   gap: var(--card-content-gap);
+  flex: 1;
+  color: var(--theme-surface-fg-muted);
 }
 
 [data-rs-card-footer] {
   display: flex;
   gap: var(--card-footer-gap);
-  padding: var(--card-footer-padding);
+  margin-top: auto;
+}
+
+[data-rs-card]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(255,170,0,0.08), 0 6px 24px rgba(0,0,0,0.25);
 }

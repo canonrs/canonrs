@@ -41,9 +41,11 @@ pub fn Card(
             style=style
             class=class
         >
-            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+            <div data-rs-card="">
+                {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+                {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+                {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+            </div>
         </div>
     }
 }

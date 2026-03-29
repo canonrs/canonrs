@@ -33,7 +33,7 @@ pub fn Grid(
             style=style
             class=class
         >
-            {items.map(|i| view! { <div data-rs-region="items">{i()}</div> })}
+            {items.map(|i| i())}
         </div>
     }
 }

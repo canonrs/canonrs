@@ -1,65 +1,30 @@
 /* ============================================================================
    CANONRS — CARD BLOCK
-   Family F: Data
+   Responsabilidade: ESTRUTURA apenas. Visual → [data-rs-card] em card_ui.css
    ============================================================================ */
 
 [data-rs-block][data-rs-component="Card"] {
-  background: var(--card-bg);
-  border: var(--card-border-width) solid var(--card-border-color);
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
-  box-shadow: var(--card-shadow);
-  color: var(--card-fg);
-  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 [data-rs-block][data-rs-component="Card"][data-rs-variant="interactive"] {
   cursor: pointer;
 }
 
-[data-rs-block][data-rs-component="Card"][data-rs-variant="interactive"]:hover {
-  border-color: var(--theme-action-primary-bg);
-  box-shadow: var(--shadow-md);
-}
-
 [data-rs-block][data-rs-component="Card"] [data-rs-region="header"] {
-  padding: var(--card-header-padding);
   display: flex;
   flex-direction: column;
-  gap: var(--card-header-gap);
-}
-
-[data-rs-block][data-rs-component="Card"] [data-rs-region="header"] {
-  font-size: var(--card-title-font-size);
-  font-weight: var(--card-title-font-weight);
-  color: var(--card-title-fg);
-}
-
-[data-rs-block][data-rs-component="Card"] [data-rs-region="content"] {
-  font-size: var(--card-description-font-size);
-  line-height: var(--card-description-line-height);
-  color: var(--card-description-fg);
 }
 
 [data-rs-block][data-rs-component="Card"] [data-rs-region="content"] {
   display: flex;
   flex-direction: column;
-  gap: var(--card-content-gap);
+  flex: 1;
 }
 
 [data-rs-block][data-rs-component="Card"] [data-rs-region="footer"] {
-  padding: var(--card-footer-padding);
   display: flex;
-  gap: var(--card-footer-gap);
-  border-top: var(--card-border-width) solid var(--card-border-color);
-}
-
-/* ── Canon Preview ─────────────────────────────────────────────────────────── */
-[data-rs-block][data-rs-component="Card"] {
-  background: var(--card-bg);
-  border: var(--card-border-width) solid var(--card-border-color);
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
-  box-shadow: var(--card-shadow);
-  color: var(--card-fg);
+  margin-top: auto;
 }

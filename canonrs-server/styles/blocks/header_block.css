@@ -12,7 +12,7 @@
   height: var(--header-height);
   padding-inline: var(--header-padding);
   background: var(--header-bg);
-  border-bottom: var(--header-border);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 [data-rs-block][data-rs-component="Header"] [data-rs-region="logo"] {

@@ -36,10 +36,12 @@ pub fn StatCard(
             style=style
             class=class
         >
-            {icon.map(|i| view! { <div data-rs-region="icon">{i()}</div> })}
-            {label.map(|l| view! { <div data-rs-region="label">{l()}</div> })}
-            {value.map(|v| view! { <div data-rs-region="value">{v()}</div> })}
-            {change.map(|c| view! { <div data-rs-region="change">{c()}</div> })}
+            <div data-rs-card="">
+                {icon.map(|i| view! { <div data-rs-region="icon">{i()}</div> })}
+                {label.map(|l| view! { <div data-rs-region="label">{l()}</div> })}
+                {value.map(|v| view! { <div data-rs-region="value">{v()}</div> })}
+                {change.map(|c| view! { <div data-rs-region="change">{c()}</div> })}
+            </div>
         </div>
     }
 }

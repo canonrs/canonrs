@@ -4,6 +4,7 @@
    ============================================================================ */
 
 [data-rs-block][data-rs-component="Hero"] {
+  padding-top: var(--space-2xl);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +12,7 @@
   padding: var(--hero-padding-y) var(--hero-padding-x);
   gap: var(--hero-gap);
   text-align: center;
-  min-height: var(--hero-min-height);
+  min-height: 60vh;
 }
 
 [data-rs-block][data-rs-component="Hero"] [data-rs-region="media"] {
@@ -25,11 +26,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-md);
+  gap: calc(var(--space-md) * 0.7);
   max-width: var(--hero-max-width);
 }
 
 [data-rs-block][data-rs-component="Hero"] [data-rs-region="actions"] {
+  margin-top: var(--space-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +44,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
-  color: var(--theme-surface-fg-muted);
+  color: var(--theme-surface-fg);
   font-size: var(--font-size-sm);
 }
 
@@ -71,43 +73,11 @@
   margin: 0;
 }
 
-/* Media logos */
-[data-rs-block][data-rs-component="Hero"] .canon-hero-logos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--hero-media-gap);
-}
-
-[data-rs-block][data-rs-component="Hero"] .canon-logo-entropy,
-[data-rs-block][data-rs-component="Hero"] .canon-logo-canon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-[data-rs-block][data-rs-component="Hero"] .canon-logo-label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-[data-rs-block][data-rs-component="Hero"] .canon-logo-label-entropy { color: #CC2936; }
-[data-rs-block][data-rs-component="Hero"] .canon-logo-label-canon { color: var(--theme-action-primary-bg); }
-
-[data-rs-block][data-rs-component="Hero"] .canon-hero-vs {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-bold);
-  opacity: 0.4;
-}
-
 /* Variante Split — media e content lado a lado */
 [data-rs-block][data-rs-component="Hero"][data-rs-variant="split"] {
   flex-direction: row;
   text-align: left;
-  min-height: var(--hero-min-height);
+  min-height: 60vh;
 }
 
 [data-rs-block][data-rs-component="Hero"][data-rs-variant="split"] [data-rs-region="media"] {
@@ -139,4 +109,59 @@
   justify-content: center;
   gap: var(--hero-actions-gap);
   flex-wrap: wrap;
+}
+
+/* ── Hero Logo Comparison (data-rs-*) ──────────────────────────────────────── */
+[data-rs-hero-logos] {
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hero-media-gap);
+  flex-wrap: wrap;
+}
+
+[data-rs-logo-slot] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+[data-rs-logo-label] {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-rs-logo-label][data-rs-variant="entropy"] { color: #CC2936; }
+[data-rs-logo-label][data-rs-variant="canon"]   { color: var(--theme-action-primary-bg); }
+
+[data-rs-hero-vs] {
+  display: flex;
+  transition: opacity 200ms ease;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--theme-surface-fg-muted);
+  opacity: 0.6;
+  padding: 0 var(--space-md);
+  border-left: 1px solid var(--theme-surface-border);
+  border-right: 1px solid var(--theme-surface-border);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+[data-rs-hero-vs]:hover {
+  opacity: 1;
+}
+
+[data-rs-block][data-rs-component="Hero"] {
+  animation: fadeUp 400ms ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

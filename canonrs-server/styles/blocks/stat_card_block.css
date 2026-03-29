@@ -1,51 +1,48 @@
 /* ============================================================================
    CANONRS — STAT CARD BLOCK
-   Family F: Data
+   Block: estrutura. Visual via [data-rs-card] (card_ui.css)
    ============================================================================ */
 
-[data-rs-block][data-rs-component="StatCard"],
 [data-rs-block][data-rs-component="StatCard"] {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+[data-rs-block][data-rs-component="StatCard"] [data-rs-card] {
+  display: flex;
+  flex-direction: column;
   gap: var(--stat-gap);
-  padding: var(--card-padding);
-  background: var(--card-bg);
-  border: var(--card-border-width) solid var(--card-border-color);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
+  flex: 1;
 }
 
-[data-rs-block][data-rs-component="StatCard"] [data-rs-region="label"],
-[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"] [data-rs-region="label"] {
+[data-rs-block][data-rs-component="StatCard"] [data-rs-region="label"] {
   font-size: var(--stat-label-font-size);
+  color: var(--stat-label-color);
   font-weight: var(--stat-label-font-weight);
-  color: var(--stat-label-fg);
 }
 
-[data-rs-block][data-rs-component="StatCard"] [data-rs-region="value"],
-[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"] [data-rs-region="value"] {
-  font-size: var(--stat-value-font-size);
-  font-weight: var(--stat-value-font-weight);
-  color: var(--stat-value-fg);
+[data-rs-block][data-rs-component="StatCard"] [data-rs-region="value"] {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--theme-action-primary-bg);
+  color: var(--stat-value-color);
+  line-height: 1;
 }
 
-[data-rs-block][data-rs-component="StatCard"][data-rs-trend="up"],
-[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"][data-rs-trend="up"] {
-  font-size: var(--stat-delta-font-size);
-  font-weight: var(--stat-delta-font-weight);
-  color: var(--stat-trend-increase-color);
+[data-rs-block][data-rs-component="StatCard"] [data-rs-region="icon"] {
+  color: var(--stat-icon-color);
 }
 
-[data-rs-block][data-rs-component="StatCard"][data-rs-trend="down"],
-[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"][data-rs-trend="down"] {
-  font-size: var(--stat-delta-font-size);
-  font-weight: var(--stat-delta-font-weight);
-  color: var(--stat-trend-decrease-color);
+[data-rs-block][data-rs-component="StatCard"] [data-rs-region="change"] {
+  font-size: var(--stat-change-font-size);
 }
 
-[data-rs-block][data-rs-component="StatCard"][data-rs-trend="neutral"],
-[data-rs-block][data-rs-component="StatCard"] [data-rs-block][data-rs-component="StatCard"][data-rs-trend="neutral"] {
-  font-size: var(--stat-delta-font-size);
-  font-weight: var(--stat-delta-font-weight);
-  color: var(--stat-trend-neutral-color);
+[data-rs-block][data-rs-component="StatCard"][data-rs-trend="up"] [data-rs-region="change"] {
+  color: var(--stat-trend-up-color);
+}
+
+[data-rs-block][data-rs-component="StatCard"][data-rs-trend="down"] [data-rs-region="change"] {
+  color: var(--stat-trend-down-color);
 }
