@@ -20,14 +20,14 @@ pub fn Pulse(
     #[prop(default = PulseVariant::Default)] variant: PulseVariant,
     #[prop(default = PulseSize::Medium)] size: PulseSize,
     #[prop(default = PulseSpeed::Normal)] speed: PulseSpeed,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <PulsePrimitive
             variant=variant
             size=size
             speed=speed
-            class={class.unwrap_or_default()}
+            class=class
         >
             {children()}
         </PulsePrimitive>

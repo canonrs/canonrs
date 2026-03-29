@@ -18,10 +18,10 @@ use canonrs_core::meta::LoadingState;
 pub fn LoadingOverlay(
     children: Children,
     #[prop(default = LoadingState::Idle)] state: LoadingState,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <LoadingOverlayPrimitive state=state class={class.unwrap_or_default()}>
+        <LoadingOverlayPrimitive state=state class=class>
             {children()}
         </LoadingOverlayPrimitive>
     }

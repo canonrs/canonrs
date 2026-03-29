@@ -58,14 +58,14 @@ pub fn Button(
     children: Children,
     #[prop(default = ButtonVariant::Primary)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
         <ButtonPrimitive
             class=class
-            disabled=DisabledState::from(disabled)
+            disabled=disabled
             aria_label=aria_label.unwrap_or_default()
             variant=variant.to_core()
             size=size.to_core()
@@ -82,6 +82,6 @@ pub fn ButtonPreview() -> impl IntoView {
         <Button variant=ButtonVariant::Secondary>"Secondary"</Button>
         <Button variant=ButtonVariant::Outline>"Outline"</Button>
         <Button variant=ButtonVariant::Ghost>"Ghost"</Button>
-        <Button disabled=true>"Disabled"</Button>
+        <Button disabled=DisabledState::Disabled>"Disabled"</Button>
     }
 }

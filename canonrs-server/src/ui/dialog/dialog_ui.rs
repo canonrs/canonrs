@@ -20,10 +20,10 @@ use canonrs_core::primitives::{
 #[component]
 pub fn Dialog(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogPrimitive class={class.unwrap_or_default()}>
+        <DialogPrimitive class=class>
             {children()}
         </DialogPrimitive>
     }
@@ -32,10 +32,10 @@ pub fn Dialog(
 #[component]
 pub fn DialogTrigger(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogTriggerPrimitive class={class.unwrap_or_default()}>
+        <DialogTriggerPrimitive class=class>
             {children()}
         </DialogTriggerPrimitive>
     }
@@ -54,20 +54,20 @@ pub fn DialogPortal(
 
 #[component]
 pub fn DialogOverlay(
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogOverlayPrimitive class={class.unwrap_or_default()} />
+        <DialogOverlayPrimitive class=class />
     }
 }
 
 #[component]
 pub fn DialogContent(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogContentPrimitive class={class.unwrap_or_default()}>
+        <DialogContentPrimitive class=class>
             {children()}
         </DialogContentPrimitive>
     }
@@ -76,10 +76,10 @@ pub fn DialogContent(
 #[component]
 pub fn DialogTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogTitlePrimitive class={class.unwrap_or_default()}>
+        <DialogTitlePrimitive class=class>
             {children()}
         </DialogTitlePrimitive>
     }
@@ -88,10 +88,10 @@ pub fn DialogTitle(
 #[component]
 pub fn DialogDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogDescriptionPrimitive class={class.unwrap_or_default()}>
+        <DialogDescriptionPrimitive class=class>
             {children()}
         </DialogDescriptionPrimitive>
     }
@@ -100,10 +100,10 @@ pub fn DialogDescription(
 #[component]
 pub fn DialogClose(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DialogClosePrimitive class={class.unwrap_or_default()}>
+        <DialogClosePrimitive class=class>
             {children()}
         </DialogClosePrimitive>
     }

@@ -22,10 +22,10 @@ pub use canonrs_core::primitives::EmptyStateVariant;
 pub fn EmptyState(
     children: Children,
     #[prop(default = EmptyStateVariant::Default)] variant: EmptyStateVariant,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStatePrimitive variant=variant class={class.unwrap_or_default()}>
+        <EmptyStatePrimitive variant=variant class=class>
             {children()}
         </EmptyStatePrimitive>
     }
@@ -34,10 +34,10 @@ pub fn EmptyState(
 #[component]
 pub fn EmptyStateIcon(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateIconPrimitive class={class.unwrap_or_default()}>
+        <EmptyStateIconPrimitive class=class>
             {children()}
         </EmptyStateIconPrimitive>
     }
@@ -46,10 +46,10 @@ pub fn EmptyStateIcon(
 #[component]
 pub fn EmptyStateTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateTitlePrimitive class={class.unwrap_or_default()}>
+        <EmptyStateTitlePrimitive class=class>
             {children()}
         </EmptyStateTitlePrimitive>
     }
@@ -58,10 +58,10 @@ pub fn EmptyStateTitle(
 #[component]
 pub fn EmptyStateDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateDescriptionPrimitive class={class.unwrap_or_default()}>
+        <EmptyStateDescriptionPrimitive class=class>
             {children()}
         </EmptyStateDescriptionPrimitive>
     }
@@ -70,10 +70,10 @@ pub fn EmptyStateDescription(
 #[component]
 pub fn EmptyStateAction(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <EmptyStateActionPrimitive class={class.unwrap_or_default()}>
+        <EmptyStateActionPrimitive class=class>
             {children()}
         </EmptyStateActionPrimitive>
     }

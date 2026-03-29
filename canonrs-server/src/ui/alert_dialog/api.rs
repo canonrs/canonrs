@@ -6,7 +6,7 @@ pub const ALERTDIALOG_API: ComponentApi = ComponentApi {
     id: "alert-dialog",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -15,7 +15,7 @@ pub const ALERTDIALOGTRIGGER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("primary"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -29,7 +29,7 @@ pub const ALERTDIALOGPORTAL_API: ComponentApi = ComponentApi {
 pub const ALERTDIALOGOVERLAY_API: ComponentApi = ComponentApi {
     id: "alert-dialog-overlay",
     props: &[
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -37,7 +37,7 @@ pub const ALERTDIALOGCONTENT_API: ComponentApi = ComponentApi {
     id: "alert-dialog-content",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -45,7 +45,7 @@ pub const ALERTDIALOGTITLE_API: ComponentApi = ComponentApi {
     id: "alert-dialog-title",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -53,7 +53,7 @@ pub const ALERTDIALOGDESCRIPTION_API: ComponentApi = ComponentApi {
     id: "alert-dialog-description",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -62,7 +62,7 @@ pub const ALERTDIALOGCLOSE_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("outline"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

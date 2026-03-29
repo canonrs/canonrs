@@ -7,7 +7,7 @@ pub const INLINENOTICE_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -15,7 +15,7 @@ pub const INLINENOTICEICON_API: ComponentApi = ComponentApi {
     id: "inline-notice-icon",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -23,7 +23,7 @@ pub const INLINENOTICECONTENT_API: ComponentApi = ComponentApi {
     id: "inline-notice-content",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

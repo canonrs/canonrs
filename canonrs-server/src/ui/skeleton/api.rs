@@ -6,7 +6,7 @@ pub const SKELETON_API: ComponentApi = ComponentApi {
     id: "skeleton",
     props: &[
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("rectangle"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

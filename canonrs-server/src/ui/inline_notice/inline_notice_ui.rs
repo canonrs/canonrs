@@ -21,10 +21,10 @@ pub use canonrs_core::primitives::InlineNoticeVariant;
 pub fn InlineNotice(
     children: Children,
     #[prop(default = InlineNoticeVariant::Default)] variant: InlineNoticeVariant,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <InlineNoticePrimitive variant=variant class=class.unwrap_or_default()>
+        <InlineNoticePrimitive variant=variant class=class>
             {children()}
         </InlineNoticePrimitive>
     }
@@ -33,10 +33,10 @@ pub fn InlineNotice(
 #[component]
 pub fn InlineNoticeIcon(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <InlineNoticeIconPrimitive class={class.unwrap_or_default()}>
+        <InlineNoticeIconPrimitive class=class>
             {children()}
         </InlineNoticeIconPrimitive>
     }
@@ -45,10 +45,10 @@ pub fn InlineNoticeIcon(
 #[component]
 pub fn InlineNoticeContent(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <InlineNoticeContentPrimitive class={class.unwrap_or_default()}>
+        <InlineNoticeContentPrimitive class=class>
             {children()}
         </InlineNoticeContentPrimitive>
     }

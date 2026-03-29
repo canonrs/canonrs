@@ -8,7 +8,7 @@ pub const EMPTYTABLE_API: ComponentApi = ComponentApi {
         PropDef { name: "title", kind: PropType::String, required: false, default: Some("No data available"), description: "" },
         PropDef { name: "description", kind: PropType::String, required: false, default: Some("Add your first item to get started"), description: "" },
         PropDef { name: "colspan", kind: PropType::Number, required: false, default: Some("999"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

@@ -20,7 +20,7 @@ pub fn Spinner(
     #[prop(default = SpinnerSize::Medium)] size: SpinnerSize,
     #[prop(default = false)] paused: bool,
     #[prop(into, default = "Loading".to_string())] aria_label: String,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let state = if paused { LoadingState::Idle } else { LoadingState::Loading };
     view! {
@@ -28,7 +28,7 @@ pub fn Spinner(
             size=size
             state=state
             aria_label=aria_label
-            class={class.unwrap_or_default()}
+            class=class
         />
     }
 }

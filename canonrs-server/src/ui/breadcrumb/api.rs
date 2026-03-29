@@ -39,6 +39,7 @@ pub const BREADCRUMBPAGE_API: ComponentApi = ComponentApi {
 pub const BREADCRUMBSEPARATOR_API: ComponentApi = ComponentApi {
     id: "breadcrumb-separator",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

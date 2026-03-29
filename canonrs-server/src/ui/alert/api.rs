@@ -7,7 +7,7 @@ pub const ALERT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::Enum(&["default", "destructive", "warning", "success"]), required: false, default: Some("default"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -15,7 +15,7 @@ pub const ALERTTITLE_API: ComponentApi = ComponentApi {
     id: "alert-title",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -23,7 +23,7 @@ pub const ALERTDESCRIPTION_API: ComponentApi = ComponentApi {
     id: "alert-description",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -31,7 +31,7 @@ pub const ALERTCLOSEBUTTON_API: ComponentApi = ComponentApi {
     id: "alert-close-button",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

@@ -22,10 +22,10 @@ pub use canonrs_core::primitives::ToastVariant;
 pub fn Toast(
     children: Children,
     #[prop(default = ToastVariant::Default)] variant: ToastVariant,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ToastPrimitive variant=variant class=class.unwrap_or_default()>
+        <ToastPrimitive variant=variant class=class>
             {children()}
         </ToastPrimitive>
     }
@@ -34,10 +34,10 @@ pub fn Toast(
 #[component]
 pub fn ToastViewport(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ToastViewportPrimitive class=class.unwrap_or_default()>
+        <ToastViewportPrimitive class=class>
             {children()}
         </ToastViewportPrimitive>
     }
@@ -46,10 +46,10 @@ pub fn ToastViewport(
 #[component]
 pub fn ToastTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ToastTitlePrimitive class={class.unwrap_or_default()}>
+        <ToastTitlePrimitive class=class>
             {children()}
         </ToastTitlePrimitive>
     }
@@ -58,10 +58,10 @@ pub fn ToastTitle(
 #[component]
 pub fn ToastDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ToastDescriptionPrimitive class={class.unwrap_or_default()}>
+        <ToastDescriptionPrimitive class=class>
             {children()}
         </ToastDescriptionPrimitive>
     }
@@ -71,10 +71,10 @@ pub fn ToastDescription(
 pub fn ToastAction(
     children: Children,
     #[prop(into, default = String::new())] aria_label: String,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ToastActionPrimitive aria_label=aria_label class={class.unwrap_or_default()}>
+        <ToastActionPrimitive aria_label=aria_label class=class>
             {children()}
         </ToastActionPrimitive>
     }
@@ -83,10 +83,10 @@ pub fn ToastAction(
 #[component]
 pub fn ToastClose(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ToastClosePrimitive class={class.unwrap_or_default()}>
+        <ToastClosePrimitive class=class>
             {children()}
         </ToastClosePrimitive>
     }

@@ -20,10 +20,10 @@ use canonrs_core::primitives::{
 #[component]
 pub fn ErrorState(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ErrorStatePrimitive class={class.unwrap_or_default()}>
+        <ErrorStatePrimitive class=class>
             {children()}
         </ErrorStatePrimitive>
     }
@@ -32,10 +32,10 @@ pub fn ErrorState(
 #[component]
 pub fn ErrorStateIcon(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ErrorStateIconPrimitive class={class.unwrap_or_default()}>
+        <ErrorStateIconPrimitive class=class>
             {children()}
         </ErrorStateIconPrimitive>
     }
@@ -44,10 +44,10 @@ pub fn ErrorStateIcon(
 #[component]
 pub fn ErrorStateTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ErrorStateTitlePrimitive class={class.unwrap_or_default()}>
+        <ErrorStateTitlePrimitive class=class>
             {children()}
         </ErrorStateTitlePrimitive>
     }
@@ -56,10 +56,10 @@ pub fn ErrorStateTitle(
 #[component]
 pub fn ErrorStateDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ErrorStateDescriptionPrimitive class={class.unwrap_or_default()}>
+        <ErrorStateDescriptionPrimitive class=class>
             {children()}
         </ErrorStateDescriptionPrimitive>
     }
@@ -68,10 +68,10 @@ pub fn ErrorStateDescription(
 #[component]
 pub fn ErrorStateActions(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ErrorStateActionsPrimitive class={class.unwrap_or_default()}>
+        <ErrorStateActionsPrimitive class=class>
             {children()}
         </ErrorStateActionsPrimitive>
     }

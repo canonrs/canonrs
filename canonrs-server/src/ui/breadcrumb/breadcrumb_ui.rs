@@ -69,12 +69,12 @@ pub fn BreadcrumbPage(
 
 #[component]
 pub fn BreadcrumbSeparator(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <BreadcrumbSeparatorPrimitive class=class>
-            {children.map(|c| c()).unwrap_or_else(|| view! { "/" }.into_any())}
+            {children()}
         </BreadcrumbSeparatorPrimitive>
     }
 }
@@ -97,11 +97,11 @@ pub fn BreadcrumbPreview() -> impl IntoView {
             <BreadcrumbItem>
                 <BreadcrumbLink href="#">"Home"</BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
             <BreadcrumbItem>
                 <BreadcrumbLink href="#">"Components"</BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
             <BreadcrumbItem>
                 <BreadcrumbPage>"Breadcrumb"</BreadcrumbPage>
             </BreadcrumbItem>

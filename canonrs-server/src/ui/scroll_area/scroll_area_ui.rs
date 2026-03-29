@@ -18,13 +18,13 @@ pub fn ScrollArea(
     children: Children,
     #[prop(default = ScrollOrientation::Vertical)] orientation: ScrollOrientation,
     #[prop(default = true)] auto_hide: bool,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <ScrollAreaPrimitive
             orientation=orientation
             auto_hide=auto_hide
-            class={class.unwrap_or_default()}
+            class=class
         >
             {children()}
         </ScrollAreaPrimitive>

@@ -18,10 +18,10 @@ pub use canonrs_core::primitives::StatusDotVariant;
 pub fn StatusDot(
     children: Children,
     #[prop(default = StatusDotVariant::Offline)] variant: StatusDotVariant,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <StatusDotPrimitive variant=variant class={class.unwrap_or_default()}>
+        <StatusDotPrimitive variant=variant class=class>
             {children()}
         </StatusDotPrimitive>
     }

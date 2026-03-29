@@ -6,7 +6,7 @@ pub const DIALOG_API: ComponentApi = ComponentApi {
     id: "dialog",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -14,7 +14,7 @@ pub const DIALOGTRIGGER_API: ComponentApi = ComponentApi {
     id: "dialog-trigger",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -28,7 +28,7 @@ pub const DIALOGPORTAL_API: ComponentApi = ComponentApi {
 pub const DIALOGOVERLAY_API: ComponentApi = ComponentApi {
     id: "dialog-overlay",
     props: &[
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -36,7 +36,7 @@ pub const DIALOGCONTENT_API: ComponentApi = ComponentApi {
     id: "dialog-content",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -44,7 +44,7 @@ pub const DIALOGTITLE_API: ComponentApi = ComponentApi {
     id: "dialog-title",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -52,7 +52,7 @@ pub const DIALOGDESCRIPTION_API: ComponentApi = ComponentApi {
     id: "dialog-description",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -60,7 +60,7 @@ pub const DIALOGCLOSE_API: ComponentApi = ComponentApi {
     id: "dialog-close",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

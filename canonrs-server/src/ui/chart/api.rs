@@ -10,12 +10,12 @@ pub const CHART_API: ComponentApi = ComponentApi {
         PropDef { name: "height", kind: PropType::Number, required: false, default: Some("320u32"), description: "" },
         PropDef { name: "show_grid", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
         PropDef { name: "show_legend", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
-        PropDef { name: "show_tooltip", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
+        PropDef { name: "_show_tooltip", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
         PropDef { name: "animate", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "max_width", kind: PropType::Number, required: false, default: None, description: "" },
-        PropDef { name: "sync_table", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "sync_scope", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "_max_width", kind: PropType::Number, required: false, default: None, description: "" },
+        PropDef { name: "_sync_table", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "_sync_scope", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

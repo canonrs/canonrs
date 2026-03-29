@@ -8,7 +8,7 @@ pub const SPINNER_API: ComponentApi = ComponentApi {
         PropDef { name: "size", kind: PropType::String, required: false, default: Some("medium"), description: "" },
         PropDef { name: "paused", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some("Loading"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

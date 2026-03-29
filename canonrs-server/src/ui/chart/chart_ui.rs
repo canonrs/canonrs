@@ -52,12 +52,12 @@ pub fn Chart(
     #[prop(default = 320u32)] height: u32,
     #[prop(default = true)] show_grid: bool,
     #[prop(default = true)] show_legend: bool,
-    #[prop(default = true)] show_tooltip: bool,
+    #[prop(default = true)] _show_tooltip: bool,
     #[prop(default = true)] animate: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional)] max_width: Option<u32>,
-    #[prop(into, default = String::new())] sync_table: String,
-    #[prop(into, default = String::new())] sync_scope: String,
+    #[prop(optional)] _max_width: Option<u32>,
+    #[prop(into, default = String::new())] _sync_table: String,
+    #[prop(into, default = String::new())] _sync_scope: String,
 ) -> impl IntoView {
     let json = data.to_json();
     view! {
@@ -66,18 +66,12 @@ pub fn Chart(
             chart_type=chart_type
             height=height
         >
-            <script
-                type="application/json"
-                data-rs-chart-data=""
-                data-rs-chart-grid=show_grid.to_string()
-                data-rs-chart-legend=show_legend.to_string()
-                data-rs-chart-tooltip=show_tooltip.to_string()
-                data-rs-chart-animate=animate.to_string()
-                data-rs-chart-sync-table=sync_table
-                data-rs-chart-sync-scope=sync_scope
-                data-rs-chart-max-width=max_width.unwrap_or(0).to_string()
-                inner_html=json
-            />
+            <div
+    data-rs-chart-data={json}
+    data-rs-chart-grid={show_grid.to_string()}
+    data-rs-chart-legend={show_legend.to_string()}
+    data-rs-chart-animate={animate.to_string()}
+/>
         </ChartPrimitive>
     }
 }

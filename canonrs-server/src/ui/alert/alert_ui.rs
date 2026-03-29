@@ -20,10 +20,10 @@ use canonrs_core::primitives::{
 pub fn Alert(
     children: Children,
     #[prop(default = AlertVariant::Default)] variant: AlertVariant,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AlertPrimitive variant=variant class=class.unwrap_or_default()>
+        <AlertPrimitive variant=variant class=class>
             {children()}
         </AlertPrimitive>
     }
@@ -32,10 +32,10 @@ pub fn Alert(
 #[component]
 pub fn AlertTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AlertTitlePrimitive class={class.unwrap_or_default()}>
+        <AlertTitlePrimitive class=class>
             {children()}
         </AlertTitlePrimitive>
     }
@@ -44,10 +44,10 @@ pub fn AlertTitle(
 #[component]
 pub fn AlertDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AlertDescriptionPrimitive class={class.unwrap_or_default()}>
+        <AlertDescriptionPrimitive class=class>
             {children()}
         </AlertDescriptionPrimitive>
     }
@@ -56,10 +56,10 @@ pub fn AlertDescription(
 #[component]
 pub fn AlertCloseButton(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AlertCloseButtonPrimitive class={class.unwrap_or_default()}>
+        <AlertCloseButtonPrimitive class=class>
             {children()}
         </AlertCloseButtonPrimitive>
     }

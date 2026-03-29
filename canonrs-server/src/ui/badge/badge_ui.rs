@@ -19,10 +19,10 @@ pub fn Badge(
     children: Children,
     #[prop(default = BadgeVariant::Default)] variant: BadgeVariant,
     #[prop(default = BadgeInteractivity::Static)] interactivity: BadgeInteractivity,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <BadgePrimitive variant=variant interactivity=interactivity class=class.unwrap_or_default()>
+        <BadgePrimitive variant=variant interactivity=interactivity class=class>
             {children()}
         </BadgePrimitive>
     }

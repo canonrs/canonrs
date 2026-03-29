@@ -20,7 +20,7 @@ use canonrs_core::primitives::{
 
 #[component]
 pub fn Carousel(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(default = 0)] initial_index: usize,
     #[prop(default = ToggleState::Off)] autoplay: ToggleState,
     #[prop(default = 5000)] interval: u32,
@@ -38,7 +38,7 @@ pub fn Carousel(
                 data-rs-initial-index={initial_index.to_string()}
                 data-rs-interval={interval.to_string()}
             >
-                {children.map(|c| c())}
+                {children()}
             </div>
         </CarouselPrimitive>
     }
@@ -46,60 +46,60 @@ pub fn Carousel(
 
 #[component]
 pub fn CarouselTrack(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CarouselTrackPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </CarouselTrackPrimitive>
     }
 }
 
 #[component]
 pub fn CarouselItem(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CarouselItemPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </CarouselItemPrimitive>
     }
 }
 
 #[component]
 pub fn CarouselPrev(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CarouselPrevPrimitive class={class}>
-            {children.map(|c| c()).unwrap_or_else(|| view! { "‹" }.into_any())}
+            {children()}
         </CarouselPrevPrimitive>
     }
 }
 
 #[component]
 pub fn CarouselNext(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CarouselNextPrimitive class={class}>
-            {children.map(|c| c()).unwrap_or_else(|| view! { "›" }.into_any())}
+            {children()}
         </CarouselNextPrimitive>
     }
 }
 
 #[component]
 pub fn CarouselIndicators(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <CarouselIndicatorsPrimitive class={class}>
-            {children.map(|c| c())}
+            {children()}
         </CarouselIndicatorsPrimitive>
     }
 }

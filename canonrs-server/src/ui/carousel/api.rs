@@ -5,6 +5,7 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const CAROUSEL_API: ComponentApi = ComponentApi {
     id: "carousel",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "initial_index", kind: PropType::Number, required: false, default: Some("0"), description: "" },
         PropDef { name: "autoplay", kind: PropType::String, required: false, default: Some("off"), description: "" },
         PropDef { name: "interval", kind: PropType::Number, required: false, default: Some("5000"), description: "" },
@@ -16,6 +17,7 @@ pub const CAROUSEL_API: ComponentApi = ComponentApi {
 pub const CAROUSELTRACK_API: ComponentApi = ComponentApi {
     id: "carousel-track",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -23,6 +25,7 @@ pub const CAROUSELTRACK_API: ComponentApi = ComponentApi {
 pub const CAROUSELITEM_API: ComponentApi = ComponentApi {
     id: "carousel-item",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -30,6 +33,7 @@ pub const CAROUSELITEM_API: ComponentApi = ComponentApi {
 pub const CAROUSELPREV_API: ComponentApi = ComponentApi {
     id: "carousel-prev",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -37,6 +41,7 @@ pub const CAROUSELPREV_API: ComponentApi = ComponentApi {
 pub const CAROUSELNEXT_API: ComponentApi = ComponentApi {
     id: "carousel-next",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -44,6 +49,7 @@ pub const CAROUSELNEXT_API: ComponentApi = ComponentApi {
 pub const CAROUSELINDICATORS_API: ComponentApi = ComponentApi {
     id: "carousel-indicators",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

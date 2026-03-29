@@ -21,10 +21,10 @@ pub use canonrs_core::primitives::CalloutVariant;
 pub fn Callout(
     children: Children,
     #[prop(default = CalloutVariant::Default)] variant: CalloutVariant,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CalloutPrimitive variant=variant class=class.unwrap_or_default()>
+        <CalloutPrimitive variant=variant class=class>
             {children()}
         </CalloutPrimitive>
     }
@@ -33,10 +33,10 @@ pub fn Callout(
 #[component]
 pub fn CalloutIcon(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CalloutIconPrimitive class={class.unwrap_or_default()}>
+        <CalloutIconPrimitive class=class>
             {children()}
         </CalloutIconPrimitive>
     }
@@ -45,10 +45,10 @@ pub fn CalloutIcon(
 #[component]
 pub fn CalloutTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CalloutTitlePrimitive class={class.unwrap_or_default()}>
+        <CalloutTitlePrimitive class=class>
             {children()}
         </CalloutTitlePrimitive>
     }
@@ -57,10 +57,10 @@ pub fn CalloutTitle(
 #[component]
 pub fn CalloutDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CalloutDescriptionPrimitive class={class.unwrap_or_default()}>
+        <CalloutDescriptionPrimitive class=class>
             {children()}
         </CalloutDescriptionPrimitive>
     }

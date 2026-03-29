@@ -21,10 +21,10 @@ pub use canonrs_core::primitives::BannerVariant;
 pub fn Banner(
     children: Children,
     #[prop(default = BannerVariant::Info)] variant: BannerVariant,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <BannerPrimitive variant=variant class=class.unwrap_or_default()>
+        <BannerPrimitive variant=variant class=class>
             {children()}
         </BannerPrimitive>
     }
@@ -33,10 +33,10 @@ pub fn Banner(
 #[component]
 pub fn BannerContent(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <BannerContentPrimitive class={class.unwrap_or_default()}>
+        <BannerContentPrimitive class=class>
             {children()}
         </BannerContentPrimitive>
     }
@@ -45,10 +45,10 @@ pub fn BannerContent(
 #[component]
 pub fn BannerActions(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <BannerActionsPrimitive class={class.unwrap_or_default()}>
+        <BannerActionsPrimitive class=class>
             {children()}
         </BannerActionsPrimitive>
     }
@@ -57,10 +57,10 @@ pub fn BannerActions(
 #[component]
 pub fn BannerClose(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <BannerClosePrimitive class={class.unwrap_or_default()}>
+        <BannerClosePrimitive class=class>
             {children()}
         </BannerClosePrimitive>
     }
