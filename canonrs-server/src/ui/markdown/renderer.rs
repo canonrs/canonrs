@@ -5,11 +5,11 @@ use crate::ui::code_block::highlighter::highlight;
 use super::markdown_ui::RenderedMarkdown;
 use super::toc_extractor::{TocExtractor, slugify};
 
-pub fn render_markdown(markdown: &str) -> RenderedMarkdown {
+pub(crate) fn render_markdown(markdown: &str) -> RenderedMarkdown {
     render_markdown_with_prefix(markdown, "")
 }
 
-pub fn render_markdown_with_prefix(markdown: &str, id_prefix: &str) -> RenderedMarkdown {
+pub(crate) fn render_markdown_with_prefix(markdown: &str, id_prefix: &str) -> RenderedMarkdown {
     let toc = if id_prefix.is_empty() {
         TocExtractor::extract_toc(markdown)
     } else {

@@ -7,7 +7,7 @@ use super::types::*;
 use super::utils::*;
 use super::parsers::parse_slot_accepts;
 
-pub fn generate_catalog(semantic: &HashMap<String, SemanticEntry>, blocks: &[BlockInfo], out_dir: &Path, blocks_dir: &Path, layouts_dir: &Path) {
+pub(crate) fn generate_catalog(semantic: &HashMap<String, SemanticEntry>, blocks: &[BlockInfo], out_dir: &Path, blocks_dir: &Path, layouts_dir: &Path) {
     let mut code = String::new();
     code.push_str("// AUTO-GENERATED\n");
     code.push_str("use crate::catalog_types::{CatalogEntry, CatalogCategory, CatalogKind, CatalogAcceptRule, CatalogRegionRule};\n\n");

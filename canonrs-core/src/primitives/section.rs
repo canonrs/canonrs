@@ -39,3 +39,15 @@ pub fn SectionSubtitlePrimitive(
         </p>
     }
 }
+
+#[component]
+pub fn SectionBadgePrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <span data-rs-section-badge="" data-rs-component="SectionBadge" class=class>
+            {children()}
+        </span>
+    }
+}

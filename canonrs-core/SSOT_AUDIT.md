@@ -2,10 +2,10 @@
 
 ## Components
 - Primitives: 87
-- Semantic (components.toml): 86
+- Semantic (components.toml): 87
 - Complete: 81
 - Missing semantic: 6
-- Orphan semantic: 5
+- Orphan semantic: 6
 
 ### Missing semantic
 - `alert-dialog-content`
@@ -21,6 +21,7 @@
 - `hero-ui`
 - `input-group`
 - `link-group`
+- `section-ui`
 
 ## Blocks
 - Total: 27

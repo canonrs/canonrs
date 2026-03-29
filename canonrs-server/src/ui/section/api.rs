@@ -26,3 +26,11 @@ pub const SECTIONSUBTITLE_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const SECTIONBADGE_API: ComponentApi = ComponentApi {
+    id: "section-badge",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

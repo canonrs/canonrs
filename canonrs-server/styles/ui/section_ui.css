@@ -1,0 +1,34 @@
+/* ============================================
+   SECTION UI
+   Family H: Layout
+   ============================================ */
+
+[data-rs-section-header] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: var(--section-header-margin);
+}
+
+[data-rs-section-title] {
+  color: var(--section-title-color);
+  font-size: var(--section-title-size);
+  font-weight: var(--section-title-weight);
+  margin: 0;
+}
+
+[data-rs-section-subtitle] {
+  color: var(--section-description-color);
+  font-size: var(--section-description-size);
+  margin: var(--section-description-margin);
+}
+
+[data-rs-section-badge] {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--theme-accent-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

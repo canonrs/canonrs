@@ -3,10 +3,10 @@
 //! GENERATES: schema.json + SSOT_AUDIT.md + OUT_DIR/generated/*
 
 mod build {
-    pub mod types;
-    pub mod utils;
-    pub mod parsers;
-    pub mod generators;
+    pub(crate) mod types;
+    pub(crate) mod utils;
+    pub(crate) mod parsers;
+    pub(crate) mod generators;
 }
 
 use std::path::Path;

@@ -8,7 +8,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
-pub fn setup_datatable_to_chart_sync(
+pub(crate) fn setup_datatable_to_chart_sync(
     root: &web_sys::Element,
     canvas: &web_sys::HtmlCanvasElement,
     _table_id: &str,

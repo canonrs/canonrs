@@ -8,7 +8,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
-pub fn setup_resize_observer(
+pub(crate) fn setup_resize_observer(
     canvas: &web_sys::HtmlCanvasElement,
     root: &web_sys::Element,
     labels: &[String],

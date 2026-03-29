@@ -11,7 +11,7 @@
 //! @canon-tags: section, title, subtitle, header
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{SectionHeaderPrimitive, SectionTitlePrimitive, SectionSubtitlePrimitive};
+use canonrs_core::primitives::{SectionHeaderPrimitive, SectionTitlePrimitive, SectionSubtitlePrimitive, SectionBadgePrimitive};
 
 #[component]
 pub fn SectionHeader(
@@ -35,4 +35,12 @@ pub fn SectionSubtitle(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! { <SectionSubtitlePrimitive class=class>{children()}</SectionSubtitlePrimitive> }
+}
+
+#[component]
+pub fn SectionBadge(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SectionBadgePrimitive class=class>{children()}</SectionBadgePrimitive> }
 }

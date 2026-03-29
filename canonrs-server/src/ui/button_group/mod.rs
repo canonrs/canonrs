@@ -1,5 +1,5 @@
-mod button_group_primitive;
-mod button_group_ui;
+pub mod button_group_primitive;
+pub mod button_group_ui;
 
 pub use button_group_primitive::ButtonGroupPrimitive;
 pub use button_group_ui::ButtonGroup;

@@ -1,7 +1,7 @@
 //! Resolve tipos Rust para PropKind
 
 #[derive(Debug)]
-pub enum PropKind {
+pub(crate) enum PropKind {
     StringT,
     Bool,
     Number,
@@ -12,7 +12,7 @@ pub enum PropKind {
 /// Caminho base dos primitivos — relativo ao build.rs do canonrs-core
 const PRIMITIVES_DIR: &str = "src/primitives";
 
-pub fn resolve_type(ty: &str, name: &str, full_content: &str) -> PropKind {
+pub(crate) fn resolve_type(ty: &str, name: &str, full_content: &str) -> PropKind {
     let inner = unwrap_option(ty);
     let clean = inner
         .replace("impl Into<String>", "String")
@@ -48,7 +48,7 @@ pub fn resolve_type(ty: &str, name: &str, full_content: &str) -> PropKind {
 
 fn extract_enum_variants(content: &str, enum_name: &str) -> Vec<String> {
     let mut variants = Vec::new();
-    let needle  = format!("pub enum {} {{", enum_name);
+    let needle  = format!("pub(crate) enum {} {{", enum_name);
     let needle2 = format!("enum {} {{", enum_name);
     let start   = content.find(&needle).or_else(|| content.find(&needle2));
     let start   = match start { Some(s) => s, None => return variants };
@@ -70,7 +70,7 @@ fn extract_enum_variants(content: &str, enum_name: &str) -> Vec<String> {
     variants
 }
 
-pub fn pascal_to_kebab(s: &str) -> String {
+pub(crate) fn pascal_to_kebab(s: &str) -> String {
     let mut result = String::new();
     for (i, c) in s.chars().enumerate() {
         if c.is_uppercase() && i > 0 { result.push('-'); }

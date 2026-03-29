@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use super::types::*;
 use super::utils::{pascal_to_kebab};
 
-pub fn parse_primitives(dir: &Path) -> HashMap<String, PrimitiveInfo> {
+pub(crate) fn parse_primitives(dir: &Path) -> HashMap<String, PrimitiveInfo> {
     let mut map = HashMap::new();
     let entries = match fs::read_dir(dir) {
         Ok(e) => e,
@@ -50,9 +50,9 @@ fn extract_variants(content: &str) -> Vec<VariantInfo> {
     let mut values   = vec![];
     for line in content.lines() {
         let t = line.trim();
-        if t.starts_with("pub enum ") && !t.contains("State") && !t.contains("Type") {
+        if t.starts_with("pub(crate) enum ") && !t.contains("State") && !t.contains("Type") {
             in_enum = true;
-            name    = t.trim_start_matches("pub enum ").trim_end_matches(" {").to_string();
+            name    = t.trim_start_matches("pub(crate) enum ").trim_end_matches(" {").to_string();
             values.clear();
         } else if in_enum && t == "}" {
             if !name.is_empty() && !values.is_empty() {
@@ -71,7 +71,7 @@ fn extract_variants(content: &str) -> Vec<VariantInfo> {
 
 
 
-pub fn parse_blocks_and_layouts(blocks_dir: &Path, layouts_dir: &Path) -> Vec<BlockInfo> {
+pub(crate) fn parse_blocks_and_layouts(blocks_dir: &Path, layouts_dir: &Path) -> Vec<BlockInfo> {
     let mut result = vec![];
     for (dir, kind) in &[(blocks_dir, "block"), (layouts_dir, "layout")] {
         let entries = match fs::read_dir(dir) {
@@ -120,13 +120,13 @@ fn parse_canon_header(content: &str, kind: &str) -> Option<BlockInfo> {
     Some(BlockInfo { id, kind: kind.to_string(), category, variant, container, regions, label, description, tags })
 }
 
-pub fn extract_canon_field(content: &str, field: &str) -> Option<String> {
+pub(crate) fn extract_canon_field(content: &str, field: &str) -> Option<String> {
     let needle = format!("//! @{}:", field);
     let line   = content.lines().find(|l| l.contains(&needle))?;
     Some(line.splitn(2, &needle).nth(1)?.trim().to_string())
 }
 
-pub fn parse_block_props(content: &str) -> Vec<PropInfo> {
+pub(crate) fn parse_block_props(content: &str) -> Vec<PropInfo> {
     let mut props = vec![];
     for line in content.lines() {
         let t = line.trim();
@@ -149,7 +149,7 @@ pub fn parse_block_props(content: &str) -> Vec<PropInfo> {
     props
 }
 
-pub fn parse_block_presets(content: &str) -> Vec<PresetInfo> {
+pub(crate) fn parse_block_presets(content: &str) -> Vec<PresetInfo> {
     let mut presets = vec![];
     for line in content.lines() {
         let t = line.trim();
@@ -170,7 +170,7 @@ pub fn parse_block_presets(content: &str) -> Vec<PresetInfo> {
     presets
 }
 
-pub fn parse_slot_descriptions(content: &str) -> Vec<(String, String)> {
+pub(crate) fn parse_slot_descriptions(content: &str) -> Vec<(String, String)> {
     let needle = "//! @canon-slot-descriptions:";
     let line = match content.lines().find(|l| l.contains(needle)) {
         Some(l) => l,
@@ -187,7 +187,7 @@ pub fn parse_slot_descriptions(content: &str) -> Vec<(String, String)> {
 }
 
 
-pub fn parse_slot_accepts(content: &str) -> Vec<(String, String)> {
+pub(crate) fn parse_slot_accepts(content: &str) -> Vec<(String, String)> {
     let needle = "//! @canon-slot-accepts:";
     let line = match content.lines().find(|l| l.contains(needle)) {
         Some(l) => l,
@@ -203,7 +203,7 @@ pub fn parse_slot_accepts(content: &str) -> Vec<(String, String)> {
         .collect()
 }
 
-pub fn parse_ui_components_semantic(ui_dir: &Path) -> HashMap<String, SemanticEntry> {
+pub(crate) fn parse_ui_components_semantic(ui_dir: &Path) -> HashMap<String, SemanticEntry> {
     let mut map = HashMap::new();
     let entries = match fs::read_dir(ui_dir) {
         Ok(e) => e,

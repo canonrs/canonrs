@@ -1,7 +1,7 @@
 //! Chart Data - parse e leitura de dados
 
 #[cfg(feature = "hydrate")]
-pub fn read_chart_data(root: &web_sys::Element) -> String {
+pub(crate) fn read_chart_data(root: &web_sys::Element) -> String {
     if let Ok(Some(script)) = root.query_selector("script[data-rs-chart-data]") {
         if let Some(text) = script.text_content() {
             return text;
@@ -11,7 +11,7 @@ pub fn read_chart_data(root: &web_sys::Element) -> String {
 }
 
 #[cfg(feature = "hydrate")]
-pub fn parse_chart_data(json: &str) -> Option<(Vec<String>, Vec<(String, Vec<f64>, String, bool)>)> {
+pub(crate) fn parse_chart_data(json: &str) -> Option<(Vec<String>, Vec<(String, Vec<f64>, String, bool)>)> {
     let labels = extract_json_array(json, "labels")?;
     let series_json = extract_json_key(json, "series")?;
     let colors = ["#6366f1","#f59e0b","#10b981","#ef4444","#8b5cf6","#06b6d4"];
@@ -28,7 +28,7 @@ pub fn parse_chart_data(json: &str) -> Option<(Vec<String>, Vec<(String, Vec<f64
 }
 
 #[cfg(feature = "hydrate")]
-pub fn extract_json_string(json: &str, key: &str) -> Option<String> {
+pub(crate) fn extract_json_string(json: &str, key: &str) -> Option<String> {
     let p = format!("\"{}\":", key);
     let s = json.find(&p)? + p.len();
     let r = json[s..].trim_start();
@@ -36,7 +36,7 @@ pub fn extract_json_string(json: &str, key: &str) -> Option<String> {
 }
 
 #[cfg(feature = "hydrate")]
-pub fn extract_json_key(json: &str, key: &str) -> Option<String> {
+pub(crate) fn extract_json_key(json: &str, key: &str) -> Option<String> {
     let p = format!("\"{}\":", key);
     let s = json.find(&p)? + p.len();
     let r = json[s..].trim_start();
@@ -50,21 +50,21 @@ pub fn extract_json_key(json: &str, key: &str) -> Option<String> {
 }
 
 #[cfg(feature = "hydrate")]
-pub fn extract_json_array(json: &str, key: &str) -> Option<Vec<String>> {
+pub(crate) fn extract_json_array(json: &str, key: &str) -> Option<Vec<String>> {
     let arr = extract_json_key(json, key)?;
     let inner = arr.trim_start_matches('[').trim_end_matches(']');
     Some(inner.split(',').map(|s| s.trim().trim_matches('"').to_string()).filter(|s| !s.is_empty()).collect())
 }
 
 #[cfg(feature = "hydrate")]
-pub fn extract_json_number_array(json: &str, key: &str) -> Option<Vec<f64>> {
+pub(crate) fn extract_json_number_array(json: &str, key: &str) -> Option<Vec<f64>> {
     let arr = extract_json_key(json, key)?;
     let inner = arr.trim_start_matches('[').trim_end_matches(']');
     Some(inner.split(',').filter_map(|s| s.trim().parse::<f64>().ok()).collect())
 }
 
 #[cfg(feature = "hydrate")]
-pub fn split_json_objects(json: &str) -> Vec<String> {
+pub(crate) fn split_json_objects(json: &str) -> Vec<String> {
     let inner = json.trim_start_matches('[').trim_end_matches(']');
     let mut out = Vec::new(); let mut depth = 0; let mut start = 0;
     for (i, c) in inner.chars().enumerate() {

@@ -3,7 +3,7 @@
 use super::resolver::resolve_type;
 
 #[derive(Debug)]
-pub struct PropDef {
+pub(crate) struct PropDef {
     pub name:     String,
     pub ty:       super::resolver::PropKind,
     pub required: bool,
@@ -12,13 +12,13 @@ pub struct PropDef {
 
 #[derive(Debug)]
 #[allow(dead_code)]
-pub struct ComponentDef {
+pub(crate) struct ComponentDef {
     pub name:     String,
     pub props:    Vec<PropDef>,
     pub children: bool,
 }
 
-pub fn parse_components(content: &str) -> Vec<ComponentDef> {
+pub(crate) fn parse_components(content: &str) -> Vec<ComponentDef> {
     let mut components = Vec::new();
     let lines: Vec<&str> = content.lines().collect();
     let mut i = 0;
@@ -29,9 +29,9 @@ pub fn parse_components(content: &str) -> Vec<ComponentDef> {
             while j < lines.len() && lines[j].trim().is_empty() { j += 1; }
             if j >= lines.len() { i += 1; continue; }
             let fn_line = lines[j].trim();
-            if !fn_line.starts_with("pub fn ") { i += 1; continue; }
+            if !fn_line.starts_with("pub(crate) fn ") { i += 1; continue; }
             let name = fn_line
-                .trim_start_matches("pub fn ")
+                .trim_start_matches("pub(crate) fn ")
                 .split('(').next().unwrap_or("").trim().to_string();
             if name.ends_with("Preview") || name.ends_with("Example") { i = j + 1; continue; }
             let mut sig_lines = vec![fn_line.to_string()];

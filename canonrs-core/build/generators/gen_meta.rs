@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use super::types::*;
 use super::utils::*;
 
-pub fn generate_component_meta(semantic: &HashMap<String, SemanticEntry>, out_dir: &Path) {
+pub(crate) fn generate_component_meta(semantic: &HashMap<String, SemanticEntry>, out_dir: &Path) {
     let mut code = String::new();
     code.push_str("// AUTO-GENERATED — do not edit. Edit components.toml instead.\n");
     code.push_str("#[allow(dead_code)]\n");
@@ -53,7 +53,7 @@ pub fn generate_component_meta(semantic: &HashMap<String, SemanticEntry>, out_di
     fs::write(out_dir.join("component_meta.rs"), code).unwrap();
 }
 
-pub fn generate_block_meta(blocks: &[BlockInfo], out_dir: &Path) {
+pub(crate) fn generate_block_meta(blocks: &[BlockInfo], out_dir: &Path) {
     let mut code = String::new();
     code.push_str("// AUTO-GENERATED\n");
     code.push_str("use crate::meta_types::{ComponentMeta, ComponentFamily};\n\n");
@@ -91,7 +91,7 @@ pub fn generate_block_meta(blocks: &[BlockInfo], out_dir: &Path) {
 }
 
 #[allow(dead_code)]
-pub fn generate_mod_update(out_dir: &Path) {
+pub(crate) fn generate_mod_update(out_dir: &Path) {
     let code = "// AUTO-GENERATED\npub mod component_meta;\npub mod block_meta;\npub mod block_definitions;\npub mod layout_definitions;\npub mod catalog;\npub mod component_definitions;\npub use component_meta::*;\npub use block_meta::*;\n";
     fs::write(out_dir.join("mod.rs"), code).unwrap();
 }

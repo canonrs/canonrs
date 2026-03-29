@@ -1,6 +1,6 @@
 //! Pure utility functions for build modules
 
-pub fn pascal_to_kebab(s: &str) -> String {
+pub(crate) fn pascal_to_kebab(s: &str) -> String {
     let mut result = String::new();
     for (i, c) in s.chars().enumerate() {
         if c.is_uppercase() && i > 0 { result.push('-'); }
@@ -9,11 +9,11 @@ pub fn pascal_to_kebab(s: &str) -> String {
     result
 }
 
-pub fn to_const_name(id: &str) -> String {
+pub(crate) fn to_const_name(id: &str) -> String {
     id.replace('-', "_").to_uppercase()
 }
 
-pub fn to_title_case(s: &str) -> String {
+pub(crate) fn to_title_case(s: &str) -> String {
     s.split('-')
         .map(|w| {
             let mut c = w.chars();
@@ -26,7 +26,7 @@ pub fn to_title_case(s: &str) -> String {
         .join(" ")
 }
 
-pub fn to_family(family: &str) -> &'static str {
+pub(crate) fn to_family(family: &str) -> &'static str {
     match family {
         "overlay"      => "ComponentFamily::Overlay",
         "input"        => "ComponentFamily::Input",
@@ -40,7 +40,7 @@ pub fn to_family(family: &str) -> &'static str {
     }
 }
 
-pub fn to_catalog_category(cat: &str) -> &'static str {
+pub(crate) fn to_catalog_category(cat: &str) -> &'static str {
     match cat {
         "Action"     => "CatalogCategory::Action",
         "Display"    => "CatalogCategory::Display",
@@ -54,7 +54,7 @@ pub fn to_catalog_category(cat: &str) -> &'static str {
     }
 }
 
-pub fn prop_field_to_rust(field: &str) -> String {
+pub(crate) fn prop_field_to_rust(field: &str) -> String {
     if field.starts_with("Select(") {
         let inner = field.trim_start_matches("Select(").trim_end_matches(')');
         let opts: Vec<String> = split_outside_parens(inner).into_iter()

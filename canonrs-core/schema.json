@@ -430,15 +430,7 @@
       "intent": "Expand and collapse content sections",
       "label": "Accordion",
       "type": "component",
-      "variants": [
-        {
-          "name": "AccordionSelection",
-          "values": [
-            "Single",
-            "Multiple"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "notification",
@@ -459,17 +451,7 @@
       "intent": "Display important static messages",
       "label": "Alert",
       "type": "component",
-      "variants": [
-        {
-          "name": "AlertVariant",
-          "values": [
-            "Default",
-            "Destructive",
-            "Warning",
-            "Success"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "unknown",
@@ -504,29 +486,7 @@
       "intent": "Apply CSS animations to children",
       "label": "Animate",
       "type": "component",
-      "variants": [
-        {
-          "name": "AnimationName",
-          "values": [
-            "None",
-            "FadeIn",
-            "FadeOut",
-            "SlideIn",
-            "SlideOut",
-            "ScaleIn",
-            "ScaleOut"
-          ]
-        },
-        {
-          "name": "AnimationEasing",
-          "values": [
-            "EaseInOut",
-            "EaseIn",
-            "EaseOut",
-            "Linear"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "structural",
@@ -590,26 +550,7 @@
       "intent": "Display status, count or label",
       "label": "Badge",
       "type": "component",
-      "variants": [
-        {
-          "name": "BadgeVariant",
-          "values": [
-            "Default",
-            "Primary",
-            "Success",
-            "Warning",
-            "Destructive",
-            "Outline"
-          ]
-        },
-        {
-          "name": "BadgeInteractivity",
-          "values": [
-            "Static",
-            "Interactive"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "notification",
@@ -632,17 +573,7 @@
       "intent": "Display persistent page-level messages",
       "label": "Banner",
       "type": "component",
-      "variants": [
-        {
-          "name": "BannerVariant",
-          "values": [
-            "Info",
-            "Success",
-            "Warning",
-            "Error"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "navigation",
@@ -686,29 +617,7 @@
       "intent": "Trigger an action or event",
       "label": "Button",
       "type": "component",
-      "variants": [
-        {
-          "name": "ButtonVariant",
-          "values": [
-            "Default",
-            "Destructive",
-            "Outline",
-            "Secondary",
-            "Ghost",
-            "Link",
-            "Primary"
-          ]
-        },
-        {
-          "name": "ButtonSize",
-          "values": [
-            "Md",
-            "Sm",
-            "Lg",
-            "Icon"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "action",
@@ -766,18 +675,7 @@
       "intent": "Highlight important contextual information",
       "label": "Callout",
       "type": "component",
-      "variants": [
-        {
-          "name": "CalloutVariant",
-          "values": [
-            "Default",
-            "Info",
-            "Success",
-            "Warning",
-            "Error"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "content",
@@ -1009,16 +907,7 @@
       "intent": "Ask user to confirm an action",
       "label": "Confirm Dialog",
       "type": "component",
-      "variants": [
-        {
-          "name": "ConfirmDialogVariant",
-          "values": [
-            "Default",
-            "Destructive",
-            "Warning"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "overlay",
@@ -1065,16 +954,7 @@
       "intent": "Display sortable, filterable tabular data",
       "label": "Data Table",
       "type": "component",
-      "variants": [
-        {
-          "name": "DataTableDensity",
-          "values": [
-            "Compact",
-            "Comfortable",
-            "Spacious"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "overlay",
@@ -1148,17 +1028,7 @@
       "intent": "Slide-in panel for supplementary content",
       "label": "Drawer",
       "type": "component",
-      "variants": [
-        {
-          "name": "DrawerSide",
-          "values": [
-            "Right",
-            "Left",
-            "Top",
-            "Bottom"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "overlay",
@@ -1286,23 +1156,7 @@
       "intent": "Form container with submit handling",
       "label": "Form",
       "type": "component",
-      "variants": [
-        {
-          "name": "FormMethod",
-          "values": [
-            "Post",
-            "Get"
-          ]
-        },
-        {
-          "name": "FormEnctype",
-          "values": [
-            "UrlEncoded",
-            "Multipart",
-            "Text"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "form",
@@ -1361,17 +1215,7 @@
       "intent": "Show rich preview on hover",
       "label": "Hover Card",
       "type": "component",
-      "variants": [
-        {
-          "name": "HoverCardSide",
-          "values": [
-            "Top",
-            "Bottom",
-            "Left",
-            "Right"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "unknown",
@@ -1415,25 +1259,7 @@
       "intent": "Trigger an action with an icon button",
       "label": "Icon Button",
       "type": "component",
-      "variants": [
-        {
-          "name": "IconButtonSize",
-          "values": [
-            "Sm",
-            "Md",
-            "Lg"
-          ]
-        },
-        {
-          "name": "IconButtonVariant",
-          "values": [
-            "Default",
-            "Ghost",
-            "Outline",
-            "Destructive"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "structural",
@@ -1478,18 +1304,7 @@
       "intent": "Show inline contextual feedback",
       "label": "Inline Notice",
       "type": "component",
-      "variants": [
-        {
-          "name": "InlineNoticeVariant",
-          "values": [
-            "Default",
-            "Info",
-            "Success",
-            "Warning",
-            "Error"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "unknown",
@@ -1512,25 +1327,7 @@
       "intent": "Capture text or data from user",
       "label": "Input",
       "type": "component",
-      "variants": [
-        {
-          "name": "InputVariant",
-          "values": [
-            "Default",
-            "Error",
-            "Success",
-            "Warning"
-          ]
-        },
-        {
-          "name": "InputSize",
-          "values": [
-            "Md",
-            "Sm",
-            "Lg"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "form",
@@ -1574,25 +1371,7 @@
       "intent": "Display keyboard shortcut",
       "label": "Kbd",
       "type": "component",
-      "variants": [
-        {
-          "name": "KbdSize",
-          "values": [
-            "Sm",
-            "Md",
-            "Lg"
-          ]
-        },
-        {
-          "name": "KbdVariant",
-          "values": [
-            "Default",
-            "Outline",
-            "Ghost",
-            "Muted"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "form",
@@ -1636,16 +1415,7 @@
       "intent": "Navigate to a URL or trigger action",
       "label": "Link",
       "type": "component",
-      "variants": [
-        {
-          "name": "LinkVariant",
-          "values": [
-            "Default",
-            "Muted",
-            "Underline"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "list",
@@ -1931,17 +1701,7 @@
       "intent": "Show contextual floating content",
       "label": "Popover",
       "type": "component",
-      "variants": [
-        {
-          "name": "PopoverSide",
-          "values": [
-            "Bottom",
-            "Top",
-            "Left",
-            "Right"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "feedback",
@@ -1986,32 +1746,7 @@
       "intent": "Animated attention indicator",
       "label": "Pulse",
       "type": "component",
-      "variants": [
-        {
-          "name": "PulseVariant",
-          "values": [
-            "Default",
-            "Subtle",
-            "Emphasized"
-          ]
-        },
-        {
-          "name": "PulseSize",
-          "values": [
-            "Small",
-            "Medium",
-            "Large"
-          ]
-        },
-        {
-          "name": "PulseSpeed",
-          "values": [
-            "Slow",
-            "Normal",
-            "Fast"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "selection",
@@ -2081,15 +1816,7 @@
       "intent": "Split panels with draggable divider",
       "label": "Resizable",
       "type": "component",
-      "variants": [
-        {
-          "name": "ResizableOrientation",
-          "values": [
-            "Horizontal",
-            "Vertical"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "scroll",
@@ -2112,16 +1839,7 @@
       "intent": "Scrollable container with custom scrollbar",
       "label": "Scroll Area",
       "type": "component",
-      "variants": [
-        {
-          "name": "ScrollOrientation",
-          "values": [
-            "Vertical",
-            "Horizontal",
-            "Both"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "unknown",
@@ -2184,15 +1902,7 @@
       "intent": "Visually divide content sections",
       "label": "Separator",
       "type": "component",
-      "variants": [
-        {
-          "name": "SeparatorOrientation",
-          "values": [
-            "Horizontal",
-            "Vertical"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "overlay",
@@ -2218,17 +1928,7 @@
       "intent": "Side panel for forms or navigation",
       "label": "Sheet",
       "type": "component",
-      "variants": [
-        {
-          "name": "SheetSide",
-          "values": [
-            "Right",
-            "Left",
-            "Top",
-            "Bottom"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "navigation",
@@ -2251,15 +1951,7 @@
       "intent": "Vertical navigation panel",
       "label": "Sidebar",
       "type": "component",
-      "variants": [
-        {
-          "name": "SidebarVariant",
-          "values": [
-            "Default",
-            "Rail"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "feedback",
@@ -2279,16 +1971,7 @@
       "intent": "Show placeholder while content loads",
       "label": "Skeleton",
       "type": "component",
-      "variants": [
-        {
-          "name": "SkeletonVariant",
-          "values": [
-            "Rectangle",
-            "Text",
-            "Circle"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "selection",
@@ -2333,16 +2016,7 @@
       "intent": "Indicate loading or processing",
       "label": "Spinner",
       "type": "component",
-      "variants": [
-        {
-          "name": "SpinnerSize",
-          "values": [
-            "Small",
-            "Medium",
-            "Large"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "display",
@@ -2386,18 +2060,7 @@
       "intent": "Indicate user presence or availability",
       "label": "Status Dot",
       "type": "component",
-      "variants": [
-        {
-          "name": "StatusDotVariant",
-          "values": [
-            "Online",
-            "Offline",
-            "Away",
-            "Busy",
-            "DoNotDisturb"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "toggle",
@@ -2443,16 +2106,7 @@
       "intent": "Display tabular data",
       "label": "Table",
       "type": "component",
-      "variants": [
-        {
-          "name": "SortDirection",
-          "values": [
-            "None",
-            "Ascending",
-            "Descending"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "navigation",
@@ -2474,16 +2128,7 @@
       "intent": "Navigate document sections via anchors",
       "label": "Table of Contents",
       "type": "component",
-      "variants": [
-        {
-          "name": "TocMode",
-          "values": [
-            "Simple",
-            "Expand",
-            "Nested"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "navigation",
@@ -2506,15 +2151,7 @@
       "intent": "Switch between related content panels",
       "label": "Tabs",
       "type": "component",
-      "variants": [
-        {
-          "name": "TabsOrientation",
-          "values": [
-            "Horizontal",
-            "Vertical"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "form",
@@ -2562,37 +2199,7 @@
       "intent": "Show brief non-blocking notifications",
       "label": "Toast",
       "type": "component",
-      "variants": [
-        {
-          "name": "ToastVariant",
-          "values": [
-            "Default",
-            "Success",
-            "Warning",
-            "Error",
-            "Info"
-          ]
-        },
-        {
-          "name": "ToastLifecycle",
-          "values": [
-            "Open",
-            "Closing",
-            "Closed"
-          ]
-        },
-        {
-          "name": "ToastPosition",
-          "values": [
-            "TopRight",
-            "TopLeft",
-            "BottomRight",
-            "BottomLeft",
-            "TopCenter",
-            "BottomCenter"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "toggle",
@@ -2664,15 +2271,7 @@
       "intent": "Action toolbar region",
       "label": "Toolbar",
       "type": "component",
-      "variants": [
-        {
-          "name": "ToolbarOrientation",
-          "values": [
-            "Horizontal",
-            "Vertical"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "overlay",
@@ -2695,17 +2294,7 @@
       "intent": "Show brief label on hover/focus",
       "label": "Tooltip",
       "type": "component",
-      "variants": [
-        {
-          "name": "TooltipSide",
-          "values": [
-            "Top",
-            "Bottom",
-            "Left",
-            "Right"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "navigation",
@@ -2728,15 +2317,7 @@
       "intent": "Display hierarchical data",
       "label": "Tree",
       "type": "component",
-      "variants": [
-        {
-          "name": "TreeSelectionMode",
-          "values": [
-            "Single",
-            "Multiple"
-          ]
-        }
-      ]
+      "variants": []
     },
     {
       "behavior": "data",

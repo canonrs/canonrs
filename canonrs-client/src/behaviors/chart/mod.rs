@@ -1,12 +1,12 @@
 //! Chart Behavior - orquestração
 
-pub mod data;
-pub mod draw;
-pub mod legend;
-pub mod resize;
-pub mod sync;
-pub mod tooltip;
-pub mod utils;
+pub(crate) mod data;
+pub(crate) mod draw;
+pub(crate) mod legend;
+pub(crate) mod resize;
+pub(crate) mod sync;
+pub(crate) mod tooltip;
+pub(crate) mod utils;
 
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
@@ -30,7 +30,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
-pub fn register() {
+pub(crate) fn register() {
     register_behavior("data-rs-chart", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         let chart_type   = root.get_attribute("data-rs-chart-type").unwrap_or_else(|| "line".to_string());
         let height: f64  = root.get_attribute("data-rs-chart-height").and_then(|h| h.parse().ok()).unwrap_or(320.0);
@@ -88,4 +88,4 @@ pub fn register() {
 }
 
 #[cfg(not(feature = "hydrate"))]
-pub fn register() {}
+pub(crate) fn register() {}

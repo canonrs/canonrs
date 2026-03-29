@@ -6,7 +6,7 @@ use super::utils::{get_context, format_axis_val};
 use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
-pub fn draw_chart(
+pub(crate) fn draw_chart(
     canvas: &web_sys::HtmlCanvasElement,
     chart_type: &str,
     labels: &[String],
@@ -25,7 +25,7 @@ pub fn draw_chart(
 }
 
 #[cfg(feature = "hydrate")]
-pub fn set_canvas_dpi(canvas: &web_sys::HtmlCanvasElement, root: &web_sys::Element, height: f64) {
+pub(crate) fn set_canvas_dpi(canvas: &web_sys::HtmlCanvasElement, root: &web_sys::Element, height: f64) {
     let window = web_sys::window().unwrap();
     let dpr = window.device_pixel_ratio();
     let max_width = root.get_attribute("data-rs-chart-max-width")
@@ -44,7 +44,7 @@ pub fn set_canvas_dpi(canvas: &web_sys::HtmlCanvasElement, root: &web_sys::Eleme
 }
 
 #[cfg(feature = "hydrate")]
-pub fn draw_crosshair_on_canvas(canvas: &web_sys::HtmlCanvasElement, idx: usize, labels: &[String], height: f64) {
+pub(crate) fn draw_crosshair_on_canvas(canvas: &web_sys::HtmlCanvasElement, idx: usize, labels: &[String], height: f64) {
     let Some(ctx) = get_context(canvas) else { return };
     let pad_l = 50.0; let pad_b = 40.0;
     let w = canvas.unchecked_ref::<web_sys::HtmlElement>().offset_width() as f64;

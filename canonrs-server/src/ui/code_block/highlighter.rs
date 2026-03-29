@@ -8,7 +8,7 @@ use syntect::util::LinesWithEndings;
 use std::sync::OnceLock;
 
 #[allow(dead_code)]
-pub struct HighlightResult {
+pub(crate) struct HighlightResult {
     pub lines: Vec<String>,
     pub language: String,
 }
@@ -28,7 +28,7 @@ fn get_theme() -> &'static Theme {
     &ts.themes["base16-ocean.dark"]
 }
 
-pub fn highlight(code: &str, language: &str) -> HighlightResult {
+pub(crate) fn highlight(code: &str, language: &str) -> HighlightResult {
     let ss = get_syntax_set();
     let theme = get_theme();
 

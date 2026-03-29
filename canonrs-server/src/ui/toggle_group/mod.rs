@@ -1,4 +1,4 @@
-mod toggle_group_ui;
+pub mod toggle_group_ui;
 #[cfg(feature = "examples")]
 pub mod examples;
 

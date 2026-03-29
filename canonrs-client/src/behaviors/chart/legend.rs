@@ -10,7 +10,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 #[cfg(feature = "hydrate")]
-pub fn draw_legend(
+pub(crate) fn draw_legend(
     legend_el: &web_sys::Element,
     series: &[(String, Vec<f64>, String, bool)],
     root: &web_sys::Element,

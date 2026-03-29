@@ -1,24 +1,24 @@
 //! generators — re-exports de todos os sub-geradores
 
-pub use super::types;
-pub use super::utils;
-pub use super::parsers;
+pub(crate) use super::types;
+pub(crate) use super::utils;
+pub(crate) use super::parsers;
 
-pub mod gen_schema;
-pub mod gen_audit;
-pub mod gen_meta;
-pub mod gen_catalog;
-pub mod gen_definitions;
-pub mod gen_api;
-pub mod gen_component_definitions;
-pub use gen_component_definitions::generate_component_definitions;
-pub use gen_api::{generate_api_files, generate_api_files_blocks, generate_api_files_layouts};
-pub mod gen_llm;
+pub(crate) mod gen_schema;
+pub(crate) mod gen_audit;
+pub(crate) mod gen_meta;
+pub(crate) mod gen_catalog;
+pub(crate) mod gen_definitions;
+pub(crate) mod gen_api;
+pub(crate) mod gen_component_definitions;
+pub(crate) use gen_component_definitions::generate_component_definitions;
+pub(crate) use gen_api::{generate_api_files, generate_api_files_blocks, generate_api_files_layouts};
+pub(crate) mod gen_llm;
 
-pub use gen_schema::generate_schema_json;
-pub use gen_audit::generate_audit;
-pub use gen_meta::{generate_component_meta, generate_block_meta};
-pub use gen_catalog::generate_catalog;
-pub use gen_definitions::{generate_block_definitions, generate_layout_definitions};
+pub(crate) use gen_schema::generate_schema_json;
+pub(crate) use gen_audit::generate_audit;
+pub(crate) use gen_meta::{generate_component_meta, generate_block_meta};
+pub(crate) use gen_catalog::generate_catalog;
+pub(crate) use gen_definitions::{generate_block_definitions, generate_layout_definitions};
 
-pub use gen_llm::generate_llm_context;
+pub(crate) use gen_llm::generate_llm_context;

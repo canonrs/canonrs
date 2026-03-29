@@ -1,6 +1,6 @@
 #![cfg(feature = "hydrate")]
 use super::*;
-pub fn register_all_behaviors() {
+pub(crate) fn register_all_behaviors() {
     accordion_behavior::register();
     alert_behavior::register();
     overlay_behavior::register();

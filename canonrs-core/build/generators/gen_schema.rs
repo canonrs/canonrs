@@ -4,7 +4,7 @@ use std::fs;
 use std::collections::HashMap;
 use super::types::*;
 
-pub fn generate_schema_json(
+pub(crate) fn generate_schema_json(
     primitives: &HashMap<String, PrimitiveInfo>,
     semantic:   &HashMap<String, SemanticEntry>,
     blocks:     &[BlockInfo],

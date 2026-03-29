@@ -7,7 +7,7 @@ use std::collections::HashMap;
 use super::types::SemanticEntry;
 use super::utils::to_const_name;
 
-pub fn generate_component_definitions(
+pub(crate) fn generate_component_definitions(
     semantic: &HashMap<String, SemanticEntry>,
     _ui_dir: &Path,
     out_dir: &Path,

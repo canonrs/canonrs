@@ -1,7 +1,7 @@
 //! Shared types for build.rs modules
 
 #[derive(Debug, Clone)]
-pub struct PrimitiveInfo {
+pub(crate) struct PrimitiveInfo {
     pub id:             String,
     pub component_name: String,
     pub behavior:       String,
@@ -9,13 +9,13 @@ pub struct PrimitiveInfo {
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
-pub struct VariantInfo {
+pub(crate) struct VariantInfo {
     pub enum_name: String,
     pub values:    Vec<String>,
 }
 
 #[derive(Debug, Clone, serde::Deserialize)]
-pub struct SemanticEntry {
+pub(crate) struct SemanticEntry {
     pub id:               String,
     pub label:            String,
     pub description:      String,
@@ -32,7 +32,7 @@ pub struct SemanticEntry {
 
 
 #[derive(Debug, Clone)]
-pub struct BlockInfo {
+pub(crate) struct BlockInfo {
     pub id:          String,
     pub kind:        String,
     pub category:    String,
@@ -45,7 +45,7 @@ pub struct BlockInfo {
 }
 
 #[derive(Debug, Clone)]
-pub struct PropInfo {
+pub(crate) struct PropInfo {
     pub key:     String,
     pub label:   String,
     pub field:   String,
@@ -55,7 +55,7 @@ pub struct PropInfo {
 }
 
 #[derive(Debug, Clone)]
-pub struct PresetInfo {
+pub(crate) struct PresetInfo {
     pub label: String,
     pub props: Vec<(String, String)>,
 }

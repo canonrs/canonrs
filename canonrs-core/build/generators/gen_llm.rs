@@ -5,7 +5,7 @@ use std::path::Path;
 use super::types::{SemanticEntry, BlockInfo};
 use super::parsers::{parse_block_props, parse_block_presets, parse_slot_descriptions, parse_slot_accepts, extract_canon_field};
 
-pub fn generate_llm_context(
+pub(crate) fn generate_llm_context(
     semantic: &HashMap<String, SemanticEntry>,
     blocks: &[BlockInfo],
     blocks_dir: &Path,

@@ -1,3 +1,4 @@
+#![allow(unreachable_pub)]
 use leptos::prelude::*;
 use canonrs_core::{
     DataTableHeadPrimitive, DataTableHeadRowPrimitive, DataTableHeadCellPrimitive,

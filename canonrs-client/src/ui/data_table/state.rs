@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::types_pin::PinPosition;
 
-pub struct DataTableState<T: Clone + PartialEq + Send + Sync + 'static> {
+pub(super) struct DataTableState<T: Clone + PartialEq + Send + Sync + 'static> {
     pub current_page:    RwSignal<usize>,
     pub sort_column:     RwSignal<Option<String>>,
     pub sort_ascending:  RwSignal<bool>,
@@ -15,7 +15,7 @@ pub struct DataTableState<T: Clone + PartialEq + Send + Sync + 'static> {
 }
 
 impl<T: Clone + PartialEq + Send + Sync + 'static> DataTableState<T> {
-    pub fn new() -> Self {
+    pub(super) fn new() -> Self {
         Self {
             current_page:   RwSignal::new(1usize),
             sort_column:    RwSignal::new(None::<String>),

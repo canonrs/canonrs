@@ -4,7 +4,7 @@ use std::fs;
 use std::collections::HashMap;
 use super::types::*;
 
-pub fn generate_audit(
+pub(crate) fn generate_audit(
     primitives: &HashMap<String, PrimitiveInfo>,
     semantic:   &HashMap<String, SemanticEntry>,
     blocks:     &[BlockInfo],

@@ -18,7 +18,7 @@ fn write_if_changed(path: &Path, new_content: &str) {
     fs::write(path, new_content).unwrap();
 }
 
-pub fn generate_api_files(ui_dir: &Path) {
+pub(crate) fn generate_api_files(ui_dir: &Path) {
     let entries = match fs::read_dir(ui_dir) {
         Ok(e) => e,
         Err(_) => return,
@@ -41,11 +41,11 @@ pub fn generate_api_files(ui_dir: &Path) {
     println!("cargo:warning=CanonRS API: {} api.rs generated", count);
 }
 
-pub fn generate_api_files_blocks(blocks_dir: &Path) {
+pub(crate) fn generate_api_files_blocks(blocks_dir: &Path) {
     generate_for_dir(blocks_dir, "block", "CanonRS API blocks");
 }
 
-pub fn generate_api_files_layouts(layouts_dir: &Path) {
+pub(crate) fn generate_api_files_layouts(layouts_dir: &Path) {
     generate_for_dir(layouts_dir, "layout", "CanonRS API layouts");
 }
 

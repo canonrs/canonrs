@@ -7,5 +7,21 @@ pub mod pages;
 pub mod providers;
 pub mod primitives;
 
-pub use ui::*;
-pub use layouts::*;
+// UI — re-exports explícitos
+pub use ui::button::Button;
+pub use ui::badge::Badge;
+pub use ui::input::Input;
+pub use ui::tabs::{Tabs, TabsList, TabsTrigger, TabsContent};
+pub use ui::icon_button::icon_button_ui::{IconButton, IconButtonVariant};
+pub use ui::card::Card;
+pub use ui::separator::Separator;
+pub use ui::doc_progress::DocProgress;
+
+// Layouts — re-exports explícitos
+pub use layouts::section::Section;
+pub use layouts::MarketingLayout;
+pub use layouts::DashboardLayout;
+pub use layouts::{SplitViewLayout, SplitRatio};
+pub use layouts::FullscreenLayout;
+pub use layouts::WizardLayout;
+pub use layouts::{PageLayout, PageLayoutVariant};

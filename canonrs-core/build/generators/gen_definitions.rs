@@ -6,7 +6,7 @@ use super::types::*;
 use super::utils::*;
 use super::parsers::{parse_block_props, parse_block_presets, extract_canon_field, parse_slot_descriptions};
 
-pub fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path, layouts_dir: &Path, out_dir: &Path) {
+pub(crate) fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path, layouts_dir: &Path, out_dir: &Path) {
     let mut code = String::new();
     code.push_str("// AUTO-GENERATED\n");
     code.push_str("#[allow(dead_code, unused_imports)]
@@ -107,7 +107,7 @@ pub fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path, layou
     std::fs::write(out_dir.join("block_definitions.rs"), code).unwrap();
 }
 
-pub fn generate_layout_definitions(blocks: &[BlockInfo], layouts_dir: &Path, out_dir: &Path) {
+pub(crate) fn generate_layout_definitions(blocks: &[BlockInfo], layouts_dir: &Path, out_dir: &Path) {
     let mut code = String::new();
     code.push_str("// AUTO-GENERATED\n");
     code.push_str("use crate::block_types::{LayoutDefinition, LayoutSlot};\n\n");
