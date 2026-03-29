@@ -6,7 +6,7 @@
 //! @canon-description: Searchable combo box
 //! @canon-composable: true
 //! @canon-capabilities: OpenClose, Disabled
-//! @canon-required-parts: SelectTrigger, SelectContent
+//! @canon-required-parts: ComboboxTrigger, ComboboxList, ComboboxItem
 //! @canon-optional-parts:
 //! @canon-tags: combobox, search, autocomplete, filter, combo
 
@@ -20,10 +20,11 @@ use canonrs_core::meta::{DisabledState, SelectionState};
 #[component]
 pub fn Combobox(
     children: Children,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxPrimitive class=class>
+        <ComboboxPrimitive class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </ComboboxPrimitive>
     }
@@ -62,7 +63,6 @@ pub fn ComboboxItem(
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-
     view! {
         <ComboboxItemPrimitive selected=selected disabled=disabled value=value class=class>
             {children()}
@@ -76,8 +76,8 @@ pub fn ComboboxPreview() -> impl IntoView {
         <Combobox>
             <ComboboxTrigger>"Select option..."</ComboboxTrigger>
             <ComboboxList>
-                <ComboboxItem>"Option 1"</ComboboxItem>
-                <ComboboxItem>"Option 2"</ComboboxItem>
+                <ComboboxItem value="1">"Option 1"</ComboboxItem>
+                <ComboboxItem value="2">"Option 2"</ComboboxItem>
             </ComboboxList>
         </Combobox>
     }

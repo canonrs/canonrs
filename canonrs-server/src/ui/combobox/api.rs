@@ -6,6 +6,7 @@ pub const COMBOBOX_API: ComponentApi = ComponentApi {
     id: "combobox",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

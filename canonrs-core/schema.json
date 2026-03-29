@@ -1857,7 +1857,7 @@
       "variants": []
     },
     {
-      "behavior": "selection",
+      "behavior": "select",
       "capabilities": [
         "OpenClose",
         "Disabled"

@@ -77,6 +77,54 @@ pub fn register() {
             .add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref()).ok();
         cb_esc.forget();
 
+        // item selection + rs-change
+        if let Ok(items) = root.query_selector_all("[data-rs-combobox-item]") {
+            for i in 0..items.length() {
+                let Some(node) = items.item(i) else { continue };
+                let Ok(item) = node.dyn_into::<web_sys::Element>() else { continue };
+                let root_item = root.clone();
+                let cb_item = Closure::wrap(Box::new(move |e: MouseEvent| {
+                    e.stop_propagation();
+                    let target = match e.current_target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) {
+                        Some(el) => el,
+                        None => return,
+                    };
+                    let value = target.get_attribute("data-rs-value").unwrap_or_default();
+                    let text  = target.text_content().unwrap_or_default();
+
+                    // clear all
+                    if let Ok(all) = root_item.query_selector_all("[data-rs-combobox-item]") {
+                        for j in 0..all.length() {
+                            if let Some(n) = all.item(j) {
+                                if let Ok(el) = n.dyn_into::<web_sys::Element>() {
+                                    el.set_attribute("data-rs-state", "unselected").ok();
+                                    el.set_attribute("aria-selected", "false").ok();
+                                }
+                            }
+                        }
+                    }
+                    target.set_attribute("data-rs-state", "selected").ok();
+                    target.set_attribute("aria-selected", "true").ok();
+
+                    // update trigger display
+                    if let Ok(Some(trigger)) = root_item.query_selector("[data-rs-combobox-trigger]") {
+                        trigger.set_text_content(Some(&text));
+                    }
+
+                    root_item.set_attribute("data-rs-value", &value).ok();
+                    root_item.set_attribute("data-rs-state", "closed").ok();
+                    root_item.set_attribute("aria-expanded", "false").ok();
+
+                    // dispatch rs-change
+                    if let Ok(event) = web_sys::CustomEvent::new("rs-change") {
+                        root_item.dispatch_event(&event).ok();
+                    }
+                }) as Box<dyn FnMut(_)>);
+                item.add_event_listener_with_callback("click", cb_item.as_ref().unchecked_ref()).ok();
+                cb_item.forget();
+            }
+        }
+
         Ok(())
     }));
 }

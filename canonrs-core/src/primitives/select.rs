@@ -11,15 +11,18 @@ pub fn SelectPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-select=""
             data-rs-component="Select"
-            data-rs-behavior="selection"
+            data-rs-role="root"
+            data-rs-behavior="select"
             data-rs-state=s.data_rs_state
             class=class
+            node_ref=node_ref.unwrap_or_default()
         >
             {children()}
         </div>
@@ -42,6 +45,7 @@ pub fn SelectTriggerPrimitive(
             aria-haspopup="listbox"
             aria-expanded=t.aria_expanded
             data-rs-state=t.data_rs_state
+            data-rs-component="SelectTrigger"
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled
             class=class
@@ -58,7 +62,7 @@ pub fn SelectValuePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-rs-select-value="" data-rs-placeholder=placeholder class=class>
+        <span data-rs-select-value="" data-rs-component="SelectValue" data-rs-placeholder=placeholder class=class>
             {children()}
         </span>
     }
@@ -74,6 +78,7 @@ pub fn SelectContentPrimitive(
     view! {
         <div
             data-rs-select-content=""
+            data-rs-component="SelectContent"
             data-rs-state=s.data_rs_state
             role="listbox"
             hidden=s.hidden
@@ -97,11 +102,12 @@ pub fn SelectItemPrimitive(
     view! {
         <div
             data-rs-select-item=""
+            data-rs-component="SelectItem"
             data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
-            data-rs-value=value
+            data-rs-value={value}
             role="option"
-            tabindex=-1
+            tabindex="-1"
             aria-selected=sel.aria_selected
             aria-disabled=d.aria_disabled
             class=class
@@ -116,6 +122,6 @@ pub fn SelectSeparatorPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-select-separator="" role="separator" class=class />
+        <div data-rs-select-separator="" data-rs-component="SelectSeparator" role="separator" class=class />
     }
 }

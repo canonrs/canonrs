@@ -117,3 +117,6 @@ pub mod behavior_discovery;
 pub use behavior_discovery::audit_behaviors;
 
 pub mod tabs_behavior;
+
+pub mod select_reactive;
+pub use select_reactive::use_select;

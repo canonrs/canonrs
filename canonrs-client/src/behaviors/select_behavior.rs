@@ -94,6 +94,11 @@ pub fn register() {
                     root_item.set_attribute("data-rs-value", &value).ok();
                     root_item.set_attribute("data-rs-state", "closed").ok();
 
+                    // dispatch rs-change event
+                    if let Ok(event) = web_sys::CustomEvent::new("rs-change") {
+                        root_item.dispatch_event(&event).ok();
+                    }
+
                     // close content
                     if let Ok(Some(content)) = root_item.query_selector("[data-rs-select-content]") {
                         content.set_attribute("data-rs-state", "closed").ok();

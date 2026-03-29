@@ -11,7 +11,7 @@
 //! @canon-tags: select, dropdown, choose, options, list, combo
 
 use leptos::prelude::*;
-use canonrs_core::meta::SelectionState;
+use canonrs_core::meta::{SelectionState, DisabledState};
 use canonrs_core::primitives::{
     SelectPrimitive, SelectTriggerPrimitive, SelectValuePrimitive,
     SelectContentPrimitive, SelectItemPrimitive, SelectSeparatorPrimitive,
@@ -20,10 +20,11 @@ use canonrs_core::primitives::{
 #[component]
 pub fn Select(
     children: Children,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectPrimitive class=class>
+        <SelectPrimitive class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </SelectPrimitive>
     }
@@ -32,11 +33,11 @@ pub fn Select(
 #[component]
 pub fn SelectTrigger(
     children: Children,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectTriggerPrimitive disabled=disabled.into() class=class>
+        <SelectTriggerPrimitive disabled=disabled class=class>
             {children()}
         </SelectTriggerPrimitive>
     }
@@ -44,13 +45,13 @@ pub fn SelectTrigger(
 
 #[component]
 pub fn SelectValue(
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
     #[prop(into, default = String::new())] placeholder: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <SelectValuePrimitive placeholder=placeholder class=class>
-            {children.map(|c| c())}
+            {children()}
         </SelectValuePrimitive>
     }
 }
@@ -71,12 +72,12 @@ pub fn SelectContent(
 pub fn SelectItem(
     children: Children,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectItemPrimitive selected=selected.into() disabled=disabled.into() value=value class=class>
+        <SelectItemPrimitive selected=selected disabled=disabled value=value class=class>
             {children()}
         </SelectItemPrimitive>
     }
@@ -91,16 +92,17 @@ pub fn SelectSeparator(
 
 #[component]
 pub fn SelectPreview() -> impl IntoView {
+    use canonrs_core::meta::DisabledState;
     view! {
         <Select>
             <SelectTrigger>
-                <SelectValue placeholder="Select an option..." />
+                <SelectValue>"Select an option..."</SelectValue>
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="a">"Option A"</SelectItem>
                 <SelectItem value="b">"Option B"</SelectItem>
                 <SelectSeparator />
-                <SelectItem value="c" disabled=true>"Disabled"</SelectItem>
+                <SelectItem value="c" disabled=DisabledState::Disabled>"Disabled"</SelectItem>
             </SelectContent>
         </Select>
     }

@@ -6,6 +6,7 @@ pub const SELECT_API: ComponentApi = ComponentApi {
     id: "select",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -14,7 +15,7 @@ pub const SELECTTRIGGER_API: ComponentApi = ComponentApi {
     id: "select-trigger",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -22,6 +23,7 @@ pub const SELECTTRIGGER_API: ComponentApi = ComponentApi {
 pub const SELECTVALUE_API: ComponentApi = ComponentApi {
     id: "select-value",
     props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "placeholder", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
@@ -40,7 +42,7 @@ pub const SELECTITEM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
