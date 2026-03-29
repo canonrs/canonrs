@@ -62,10 +62,10 @@ fn build_inner_html(
             out.push_str(&format!(
                 "<li data-rs-toc-item=\"\" data-rs-level=\"{}\" data-rs-target=\"{}\" data-rs-state=\"idle\" data-rs-child=\"{}\" data-rs-has-children=\"false\"><a data-rs-toc-link=\"\" href=\"#{}\">{}</a></li>",
                 item.level,
-                item.id,
+                html_escape::encode_text(&item.id),
                 if is_child { "true" } else { "false" },
-                item.id,
-                item.text,
+                html_escape::encode_text(&item.id),
+                html_escape::encode_text(&item.text),
             ));
         }
         out.push_str("</ul></nav></nav>");
@@ -82,10 +82,10 @@ fn build_inner_html(
             out.push_str(&format!(
                 "<li data-rs-toc-item=\"\" data-rs-level=\"{}\" data-rs-target=\"{}\" data-rs-state=\"idle\" data-rs-child=\"{}\" data-rs-has-children=\"false\"><a data-rs-toc-link=\"\" href=\"#{}\">{}</a></li>",
                 item.level,
-                item.id,
+                html_escape::encode_text(&item.id),
                 if is_child { "true" } else { "false" },
-                item.id,
-                item.text,
+                html_escape::encode_text(&item.id),
+                html_escape::encode_text(&item.text),
             ));
         }
         out.push_str("</ul></nav></aside>");

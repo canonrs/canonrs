@@ -11,14 +11,30 @@ pub fn MarkdownPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] inner: String,
 ) -> impl IntoView {
-    view! {
-        <div
-            data-rs-markdown=""
-            data-rs-component="Markdown"
-            data-rs-behavior="content"
-            class=class
-            inner_html=inner.clone()
-        ></div>
+    #[cfg(feature = "ssr")]
+    #[allow(unused_variables)]
+    {
+        view! {
+            <div
+                data-rs-markdown=""
+                data-rs-component="Markdown"
+                data-rs-behavior="content"
+                class=class
+                inner_html=inner
+            ></div>
+        }.into_any()
+    }
+    #[cfg(not(feature = "ssr"))]
+    {
+        let _ = inner;
+        view! {
+            <div
+                data-rs-markdown=""
+                data-rs-component="Markdown"
+                data-rs-behavior="content"
+                class=class
+            ></div>
+        }.into_any()
     }
 }
 

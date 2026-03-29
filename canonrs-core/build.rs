@@ -51,6 +51,17 @@ fn main() {
     generate_api_files_layouts(Path::new("../canonrs-server/src/layouts"));
     generate_llm_context(&semantic, &blocks_only, Path::new("../canonrs-server/src/blocks"), Path::new("../canonrs-server/src/layouts"), &out_dir);
 
+    // Canon Rules — parse + generate
+    let rules_dir = Path::new("../canonrs-rules");
+    if rules_dir.exists() {
+        println!("cargo:rerun-if-changed=../canonrs-rules");
+        let rules = parse_rules(rules_dir);
+        let rules_out = Path::new("src/generated");
+        generate_rules_json(&rules, &rules_out.join("rules.json"));
+        generate_rules_seo(&rules, &rules_out.join("rules_seo.json"));
+        generate_rules_llm(&rules, &rules_out.join("rules_llm.md"));
+    }
+
     println!("cargo:warning=CanonRS SSOT: {} primitives, {} blocks/layouts",
         primitives.len(), blocks_layouts.len());
 }

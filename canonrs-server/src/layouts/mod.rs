@@ -12,6 +12,9 @@ pub use dashboard::DashboardLayout;
 pub mod split_view;
 pub use split_view::{SplitViewLayout, SplitRatio};
 
+pub mod three_pane;
+pub use three_pane::ThreePaneLayout;
+
 pub mod fullscreen;
 pub use fullscreen::FullscreenLayout;
 

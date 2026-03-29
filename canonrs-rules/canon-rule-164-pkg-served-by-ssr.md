@@ -1,0 +1,83 @@
+# Canon Rule #164: WASM and JS Assets Must Be Served by SSR
+
+**Status:** ENFORCED  
+**Severity:** CRITICAL  
+**Scope:** ssr, build
+**Version:** 1.0.0  
+**Date:** 2026-01-27
+
+---
+
+## Principle
+
+**All `/pkg` assets must be served explicitly by the SSR server.**
+
+- Objective
+- Verifiable
+- One clear boundary
+
+---
+
+## Problem
+
+Missing `/pkg` routing breaks hydration.
+
+- 404 on `.wasm` and `.js`
+- App loads HTML but never hydrates
+- Silent runtime failure
+- False UI rendering success
+
+---
+
+## Forbidden Pattern
+
+### ❌ Forbidden
+
+```rust
+Router::new().fallback_service(ServeDir::new("public"))
+```
+
+Without `/pkg` handling.
+
+---
+
+## Canonical Pattern
+
+### ✅ Canonical
+
+```rust
+.nest_service("/pkg", ServeDir::new("{site_root}/pkg"))
+```
+
+Why this complies with the rule.
+
+---
+
+## Rationale
+
+WASM is not optional in CanonRS.
+
+- Enforces runtime completeness
+- Guarantees hydration integrity
+- Prevents partial renders
+- Deployment invariant
+
+---
+
+## Enforcement
+
+- Runtime smoke test
+- CI asset existence check
+- Manual verification
+
+---
+
+## Exceptions
+
+> **No exceptions. This rule is absolute.**
+
+---
+
+## Version History
+
+- **1.0.0** — Initial version

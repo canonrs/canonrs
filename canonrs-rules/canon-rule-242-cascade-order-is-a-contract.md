@@ -1,0 +1,86 @@
+# Canon Rule #242: Cascade Order Is a Contract, Not a Preference
+
+**Status:** ENFORCED
+**Severity:** CRITICAL
+**Scope:** css, tokens, architecture
+**Version:** 1.0.0
+**Date:** 2026-02-13
+
+---
+
+## Principle
+
+The CSS cascade order is part of the architectural contract.
+
+Reordering layers is a breaking change.
+
+---
+
+## Canonical Cascade Order
+
+1. PRIMITIVES
+2. FOUNDATION (CORE)
+3. THEMES
+4. SEMANTIC
+5. FAMILIES
+6. ROOT
+7. VARIANTS
+8. UI
+9. BLOCKS
+10. LAYOUTS
+11. GLOBALS (final)
+
+This order is fixed.
+
+---
+
+## Problem
+
+Changing cascade order causes:
+
+- Semantic override failures
+- Theme leakage
+- Token shadowing
+- Visual instability
+- Undetectable regressions
+
+---
+
+## Forbidden Pattern
+
+```
+@import "./.generated/root.css";
+@import "./.generated/semantic.css";  ❌ wrong order
+```
+
+Or manual reordering in canonrs.css.
+
+---
+
+## Canonical Pattern
+
+Cascade order is generated automatically by entry_generator.
+
+Manual edits are forbidden.
+
+---
+
+## Enforcement
+
+- Entry generator defines order explicitly.
+- CI checks hash of canonrs.css header section.
+- Any reordering requires new rule + major version bump.
+
+---
+
+## Exceptions
+
+None.
+
+Cascade is architecture.
+
+---
+
+## Version History
+
+- 1.0.0 — Initial definition
