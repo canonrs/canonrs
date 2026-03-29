@@ -108,3 +108,6 @@ pub mod animate;
 pub mod virtual_list;
 pub use card::Card;
 pub use separator::Separator;
+
+pub mod logo;
+pub use logo::{Logo, LogoSize, LogoVariant};

@@ -28,9 +28,9 @@ impl PageLayoutVariant {
 #[component]
 pub fn PageLayout(
     #[prop(default = PageLayoutVariant::Single)] variant: PageLayoutVariant,
-    #[prop(optional)] sidebar: Option<ChildrenFn>,
-    #[prop(optional)] content: Option<ChildrenFn>,
-    #[prop(optional)] aside: Option<ChildrenFn>,
+    #[prop(optional)] sidebar: Option<AnyView>,
+    #[prop(optional)] content: Option<AnyView>,
+    #[prop(optional)] aside: Option<AnyView>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
@@ -40,9 +40,9 @@ pub fn PageLayout(
             data-rs-variant=variant.as_str()
             class=class
         >
-            {sidebar.map(|s| view! { <div data-rs-region="sidebar">{s()}</div> })}
-            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
-            {aside.map(|a| view! { <div data-rs-region="aside">{a()}</div> })}
+            {sidebar.map(|s| view! { <div data-rs-region="sidebar">{s}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c}</div> })}
+            {aside.map(|a| view! { <div data-rs-region="aside">{a}</div> })}
         </div>
     }
 }

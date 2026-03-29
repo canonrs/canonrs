@@ -6,11 +6,11 @@
   min-height: var(--layout-min-height);
 }
 
-[data-rs-layout][data-rs-component="SplitView"][data-split-ratio="40-60"] {
+[data-rs-layout][data-rs-component="SplitView"][data-rs-variant="40-60"] {
   grid-template-columns: 2fr 3fr;
 }
 
-[data-rs-layout][data-rs-component="SplitView"][data-split-ratio="60-40"] {
+[data-rs-layout][data-rs-component="SplitView"][data-rs-variant="60-40"] {
   grid-template-columns: 3fr 2fr;
 }
 

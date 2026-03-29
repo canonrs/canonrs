@@ -14,18 +14,18 @@ use leptos::prelude::*;
 
 #[component]
 pub fn MarketingLayout(
-    #[prop(optional)] header: Option<ChildrenFn>,
-    #[prop(optional)] hero: Option<ChildrenFn>,
-    #[prop(optional)] content: Option<ChildrenFn>,
-    #[prop(optional)] footer: Option<ChildrenFn>,
+    #[prop(optional)] header: Option<AnyView>,
+    #[prop(optional)] hero: Option<AnyView>,
+    #[prop(optional)] content: Option<AnyView>,
+    #[prop(optional)] footer: Option<AnyView>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-layout="" data-rs-component="Marketing" class=class>
-            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {hero.map(|h| view! { <div data-rs-region="hero">{h()}</div> })}
-            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+            {header.map(|h| view! { <div data-rs-region="header">{h}</div> })}
+            {hero.map(|h| view! { <div data-rs-region="hero">{h}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f}</div> })}
         </div>
     }
 }
