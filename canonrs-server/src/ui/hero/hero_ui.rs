@@ -41,3 +41,23 @@ pub fn HeroDescription(
         <p data-rs-hero-description="" class=class>{children()}</p>
     }
 }
+
+#[component]
+pub fn HeroMedia(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-hero-media="" class=class>{children()}</div>
+    }
+}
+
+#[component]
+pub fn HeroActions(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-hero-actions="" class=class>{children()}</div>
+    }
+}

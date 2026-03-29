@@ -212,7 +212,7 @@
         "footer"
       ],
       "type": "block",
-      "variant": "centered"
+      "variant": "structure"
     },
     {
       "category": "data",
@@ -2122,6 +2122,21 @@
           ]
         }
       ]
+    },
+    {
+      "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "SectionHeader",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "section-header",
+      "intent": null,
+      "label": null,
+      "type": "component",
+      "variants": []
     },
     {
       "behavior": "selection",

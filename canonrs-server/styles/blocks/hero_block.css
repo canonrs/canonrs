@@ -102,3 +102,41 @@
   font-weight: var(--font-weight-bold);
   opacity: 0.4;
 }
+
+/* Variante Split — media e content lado a lado */
+[data-rs-block][data-rs-component="Hero"][data-rs-variant="split"] {
+  flex-direction: row;
+  text-align: left;
+  min-height: var(--hero-min-height);
+}
+
+[data-rs-block][data-rs-component="Hero"][data-rs-variant="split"] [data-rs-region="media"] {
+  flex: 1;
+}
+
+[data-rs-block][data-rs-component="Hero"][data-rs-variant="split"] [data-rs-region="content"] {
+  flex: 1;
+  align-items: flex-start;
+}
+
+/* Variante MediaTop — media acima do content */
+[data-rs-block][data-rs-component="Hero"][data-rs-variant="media-top"] [data-rs-region="media"] {
+  order: -1;
+}
+
+/* HeroMedia UI */
+[data-rs-hero-media] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hero-media-gap);
+}
+
+/* HeroActions UI */
+[data-rs-hero-actions] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hero-actions-gap);
+  flex-wrap: wrap;
+}

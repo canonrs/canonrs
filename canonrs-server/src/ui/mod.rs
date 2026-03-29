@@ -98,6 +98,7 @@ pub mod carousel;
 pub mod resizable;
 
 // Family H - Layout
+pub mod section_components;
 pub mod separator;
 pub mod aspect_ratio;
 pub mod doc_progress;

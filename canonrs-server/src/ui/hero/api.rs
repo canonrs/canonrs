@@ -26,3 +26,19 @@ pub const HERODESCRIPTION_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const HEROMEDIA_API: ComponentApi = ComponentApi {
+    id: "hero-media",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const HEROACTIONS_API: ComponentApi = ComponentApi {
+    id: "hero-actions",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
