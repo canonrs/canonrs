@@ -60,6 +60,7 @@
 }
 
 [data-rs-card-title] {
+  text-align: left;
   font-size: var(--card-title-font-size);
   font-weight: 600;
   color: var(--card-title-fg);

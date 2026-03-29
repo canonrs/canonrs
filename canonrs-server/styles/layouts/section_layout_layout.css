@@ -6,13 +6,15 @@
   align-items: center;
   gap: var(--layout-region-gap);
   padding: var(--layout-region-padding);
-  margin: var(--space-2xl) 0;
+  margin: var(--space-lg) 0;
 }
 
 [data-rs-layout][data-rs-component="Section"] [data-rs-region="header"] {
   display: flex;
   width: 100%;
   justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 [data-rs-layout][data-rs-component="Section"] [data-rs-region="content"] {
@@ -34,4 +36,11 @@
   padding-top: var(--space-2xl);
   padding-bottom: var(--space-2xl);
   margin-top: 0;
+  align-items: center;
+  text-align: center;
+}
+
+/* Seções alternadas — ritmo visual */
+[data-rs-layout][data-rs-component="Section"]:nth-child(even) {
+  background: color-mix(in srgb, var(--theme-surface-bg) 97%, var(--theme-action-primary-bg) 3%);
 }
