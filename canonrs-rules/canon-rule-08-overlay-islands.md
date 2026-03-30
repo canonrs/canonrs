@@ -8,32 +8,30 @@
 
 ---
 
-
-
 ---
 
 ## The Problem
 
-**Overlays dinâmicos** (com listas reativas) + **SSR** = **Hydration Hell**
+**Dynamic overlays** (with reactive lists) + **SSR** = **Hydration Hell**
 
 ### Why?
 
-1. SSR gera HTML estático
-2. Client tenta hidratar
-3. Lista dinâmica altera DOM
-4. Leptos detecta mismatch
+1. SSR generates static HTML  
+2. Client tries to hydrate  
+3. Dynamic list changes DOM  
+4. Leptos detects mismatch  
 5. **Panic**
 
 ### Attempted Solutions (All Failed)
 
 | Approach | Why It Failed |
 |----------|--------------|
-| `cfg!(feature = "ssr")` | Compile-time, não runtime |
-| `#[cfg(feature = "hydrate")]` | Código não existe no SSR, quebra composição |
-| `is_server()` | Edge case: pode retornar `true` no client em alguns builds |
-| `.map().collect_view()` | `Vec<View>` não é `Sync` |
-| `StoredValue<Vec<View>>` | Mesmo problema, não compila |
-| `<For>` dentro de overlay | Hydration mismatch direto |
+| `cfg!(feature = "ssr")` | Compile-time, not runtime |
+| `#[cfg(feature = "hydrate")]` | Code does not exist in SSR, breaks composition |
+| `is_server()` | Edge case: may return `true` on client in some builds |
+| `.map().collect_view()` | `Vec<View>` is not `Sync` |
+| `StoredValue<Vec<View>>` | Same problem, does not compile |
+| `<For>` inside overlay | Direct hydration mismatch |
 
 ---
 
@@ -81,11 +79,11 @@ pub fn DynamicOverlay(items: Vec<String>) -> impl IntoView {
 
 ### Why This Works
 
-1. **SSR:** `window` não existe → `is_browser = false` → renderiza placeholder
-2. **Client:** `window` existe → Effect roda → `is_browser = true` → renderiza overlay
-3. **Zero hydration mismatch:** Placeholder no SSR, overlay no client
-4. **Runtime puro:** Não depende de feature flags
-5. **Robust:** Funciona em todos os modos de build (dev/watch/release/SSR)
+1. **SSR:** `window` does not exist → `is_browser = false` → renders placeholder  
+2. **Client:** `window` exists → Effect runs → `is_browser = true` → renders overlay  
+3. **Zero hydration mismatch:** Placeholder in SSR, overlay on client  
+4. **Pure runtime:** Does not depend on feature flags  
+5. **Robust:** Works in all build modes (dev/watch/release/SSR)  
 
 ---
 
@@ -93,53 +91,53 @@ pub fn DynamicOverlay(items: Vec<String>) -> impl IntoView {
 
 ### Must Use Island Pattern
 
-- ✅ `DropdownMenu` (com lista dinâmica)
-- ✅ `Popover` (com conteúdo dinâmico)
-- ✅ `ContextMenu` (com itens dinâmicos)
-- ✅ `CommandPalette` (sempre dinâmico)
-- ✅ `Select` (com opções dinâmicas)
-- ✅ `DataTableViewOptions` (column toggle)
+- ✅ `DropdownMenu` (with dynamic list)  
+- ✅ `Popover` (with dynamic content)  
+- ✅ `ContextMenu` (with dynamic items)  
+- ✅ `CommandPalette` (always dynamic)  
+- ✅ `Select` (with dynamic options)  
+- ✅ `DataTableViewOptions` (column toggle)  
 
 ### Can Use SSR Normally
 
-- ✅ `Table` (dados estáticos)
-- ✅ `Card` (layout fixo)
-- ✅ `Button` (sem overlay)
-- ✅ `Input` (formulário)
-- ✅ `Checkbox` (controle simples)
+- ✅ `Table` (static data)  
+- ✅ `Card` (fixed layout)  
+- ✅ `Button` (no overlay)  
+- ✅ `Input` (form)  
+- ✅ `Checkbox` (simple control)  
 
 ---
 
 ## Implementation Checklist
 
-- [ ] Component usa overlay (Dropdown/Popover/Dialog)?
-- [ ] Overlay contém lista dinâmica (`<For>` ou `.map()`)?
-- [ ] Se SIM aos dois: aplicar Island Pattern
-- [ ] Placeholder SSR tem **mesmo tamanho** do componente real
-- [ ] Testado em SSR + hydration + client
+- [ ] Component uses overlay (Dropdown/Popover/Dialog)?  
+- [ ] Overlay contains dynamic list (`<For>` or `.map()`)?  
+- [ ] If YES to both: apply Island Pattern  
+- [ ] SSR placeholder has **same size** as real component  
+- [ ] Tested in SSR + hydration + client  
 
 ---
 
 ## Edge Cases
 
-### "is_server() retorna true no client"
+### "is_server() returns true on client"
 
-**Sintoma:** `is_server()` continua `true` mesmo após hydration
+**Symptom:** `is_server()` remains `true` even after hydration  
 
-**Causa:** Bug conhecido do Leptos em alguns setups de build
+**Cause:** Known Leptos bug in some build setups  
 
-**Solução:** Usar `web_sys::window()` ao invés de `is_server()`
+**Solution:** Use `web_sys::window()` instead of `is_server()`  
 
 ### "Flash of placeholder"
 
-**Sintoma:** Usuário vê placeholder antes do overlay aparecer
+**Symptom:** User sees placeholder before overlay appears  
 
-**Causa:** Normal - Effect precisa rodar primeiro
+**Cause:** Normal — Effect needs to run first  
 
-**Solução:** 
-- Placeholder deve ter tamanho/estilo similar
-- Adicionar `opacity-0` no placeholder se necessário
-- Ou aceitar como trade-off de SSR correto
+**Solution:**  
+- Placeholder must have similar size/style  
+- Add `opacity-0` to placeholder if needed  
+- Or accept as trade-off for correct SSR  
 
 ---
 
@@ -147,15 +145,15 @@ pub fn DynamicOverlay(items: Vec<String>) -> impl IntoView {
 
 ### SSR
 
-- ✅ Payload menor (sem overlay no HTML)
-- ✅ First Paint mais rápido
-- ❌ Componente não visível em SSR
+- ✅ Smaller payload (no overlay in HTML)  
+- ✅ Faster First Paint  
+- ❌ Component not visible in SSR  
 
 ### Client
 
-- ✅ Zero hydration errors
-- ✅ Overlay funcional 100%
-- ⚠️ Leve delay até Effect rodar (imperceptível)
+- ✅ Zero hydration errors  
+- ✅ Overlay fully functional  
+- ⚠️ Slight delay until Effect runs (imperceptible)  
 
 ---
 
@@ -163,21 +161,21 @@ pub fn DynamicOverlay(items: Vec<String>) -> impl IntoView {
 
 | Aspect | shadcn (React) | CanonRS (Leptos) |
 |--------|----------------|------------------|
-| **Estratégia** | Client-only implícito | Island explícito |
-| **SSR** | Não real (Next.js client components) | SSR verdadeiro |
-| **Governança** | Não documentada | Regra canônica |
-| **Robustez** | "Just works" | Engenharia consciente |
+| **Strategy** | Implicit client-only | Explicit island |
+| **SSR** | Not real (Next.js client components) | True SSR |
+| **Governance** | Not documented | Canonical rule |
+| **Robustness** | "Just works" | Conscious engineering |
 
-**Veredito:** CanonRS é **mais rigoroso**, não inferior.
+**Verdict:** CanonRS is **more rigorous**, not inferior.
 
 ---
 
 ## Examples
 
-### ✅ Correto: DataTableViewOptions
+### ✅ Correct: DataTableViewOptions
 ```rust
 // SSR: placeholder
-// Client: dropdown com checkboxes dinâmicos
+// Client: dropdown with dynamic checkboxes
 <Show when=move || is_browser.get() ...>
     <DropdownMenu>
         {move || columns.iter().map(...).collect_view()}
@@ -185,17 +183,17 @@ pub fn DynamicOverlay(items: Vec<String>) -> impl IntoView {
 </Show>
 ```
 
-### ❌ Errado: Lista dinâmica sem Island
+### ❌ Wrong: Dynamic list without Island
 ```rust
-// QUEBRA hydration
+// BREAKS hydration
 <DropdownMenu>
     <For each=|| items .../>
 </DropdownMenu>
 ```
 
-### ❌ Errado: cfg!() para runtime
+### ❌ Wrong: cfg!() for runtime
 ```rust
-// NÃO funciona
+// DOES NOT WORK
 <Show when=|| !cfg!(feature = "ssr") ...>
 ```
 
@@ -203,12 +201,12 @@ pub fn DynamicOverlay(items: Vec<String>) -> impl IntoView {
 
 ## Normative Status
 
-- Violations **MUST** block PRs
-- Exceptions require explicit approval
-- All overlay components **MUST** document if they need Islands
-- Design system **MUST** provide Island utilities
+- Violations **MUST** block PRs  
+- Exceptions require explicit approval  
+- All overlay components **MUST** document if they need Islands  
+- Design system **MUST** provide Island utilities  
 
 ---
 
 **Author:** Canon Working Group  
-**Replaces:** None (primeira definição formal)
+**Replaces:** None (first formal definition)

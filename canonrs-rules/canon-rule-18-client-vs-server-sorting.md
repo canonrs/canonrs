@@ -1,6 +1,5 @@
 # Canon Rule #18 — Sorting: Client vs Server
 
-
 **Status:** ENFORCED
 **Severity:** MEDIUM
 **Scope:** state, architecture
@@ -8,68 +7,51 @@
 **Date:** 2025-01-16
 
 ---
-**Enunciado curto (para lembrar fácil):**  
-Sort onde os dados estão. Não onde o usuário clica.
+**Short statement (easy to remember):**  
+Sort where the data is. Not where the user clicks.
 
 ---
 
-## Definição Formal
+## Formal Definition
 ```
-Client-side Sorting = Dataset completo no client, sort local (O(n log n))
-Server-side Sorting = Backend retorna sorted data (database ORDER BY)
+Client-side Sorting = Local sorting (O(n log n))
+Server-side Sorting = Backend ORDER BY
 ```
-
-**Análogo à Rule #16 (Filtering), mas para ordenação.**
 
 ---
 
-## 🔒 O QUE ESSA RULE PROÍBE
+## 🔒 WHAT THIS RULE PROHIBITS
 
-### ❌ É PROIBIDO
-
-- Client-side sorting com 10k+ rows
-- Server-side sorting sem otimização (índices)
-- Mixing client and server sorting no mesmo dataset
-- Sorting machine-scale data no client
+- Client sorting with large datasets  
+- Server sorting without optimization  
+- Mixing both on same dataset  
 
 ---
 
 ## ✅ DECISION MATRIX
 
-| Critério                     | Solução            |
-|------------------------------|--------------------|
-| Dataset < 500 rows no client | **Client-side**    |
-| Sorting instantâneo crítico  | **Client-side**    |
-| Dataset > 10k rows           | **Server-side**    |
-| Database tem índices         | **Server-side**    |
-| SEO (sorted URLs)            | **Server-side**    |
+| Criteria            | Solution        |
+|--------------------|-----------------|
+| <500 rows          | Client-side     |
+| Instant feedback   | Client-side     |
+| 10k+ rows          | Server-side     |
+| Indexed DB         | Server-side     |
 
 ---
 
-## 🎯 QUANDO USAR
+## 🎯 WHEN TO USE
 
-### Client-side Sorting
+### Client-side
 ```rust
-// Dataset pequeno, sort instantâneo
-let sorted = Memo::new(move |_| {
-    let mut data = users.get();
-    data.sort_by(|a, b| a.name.cmp(&b.name));
-    data
-});
+data.sort_by(...)
 ```
 
-### Server-side Sorting
+### Server-side
 ```rust
-// Dataset grande, query otimizada
-let sorted_users = Resource::new(
-    move || (sort_field.get(), sort_order.get()),
-    |(field, order)| async move {
-        fetch_users_sorted(field, order).await
-    }
-);
+fetch_sorted(...)
 ```
 
 ---
 
 **Classification:** High severity, Review Blocker  
-**Related:** Canon Rule #16 (Filtering), Rule #17 (Scale)
+**Related:** Rule #16, Rule #17

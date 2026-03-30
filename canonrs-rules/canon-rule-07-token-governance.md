@@ -19,7 +19,7 @@ Violation = Coupling / Build breaks / Design drift / Maintenance hell
 
 ## The Common Monorepo Mistake
 
-### ❌ What developers try (breaks at scale)
+### What Developers Try (Breaks At Scale)
 ```css
 /* App imports design system directly */
 @import "../../packages-rust/rs-design/style/tokens.css";
@@ -34,7 +34,7 @@ Violation = Coupling / Build breaks / Design drift / Maintenance hell
 
 ---
 
-## ✅ Canon Architecture (Enterprise-Grade)
+## Canon Architecture
 
 ### Three-Layer Token Pipeline
 ```
@@ -214,7 +214,7 @@ pub fn ThemeProvider(children: Children) -> impl IntoView {
 
 ## Anti-Patterns (Real Production Issues)
 
-### 🚫 Anti-Pattern #1: Direct rs-design Import
+### Anti-Pattern 1: Direct rs-design Import
 ```css
 /* ❌ WRONG */
 @import "../../packages-rust/rs-design/style/tokens.css";
@@ -231,7 +231,7 @@ pub fn ThemeProvider(children: Children) -> impl IntoView {
 @import "@monorepo/rs-tailwind/tokens";
 ```
 
-### 🚫 Anti-Pattern #2: Hardcoded Colors
+### Anti-Pattern 2: Hardcoded Colors
 ```rust
 // ❌ WRONG
 class="bg-slate-100 text-blue-600"
@@ -248,7 +248,7 @@ class="bg-slate-100 text-blue-600"
 class="bg-background text-primary"
 ```
 
-### 🚫 Anti-Pattern #3: ThemeProvider with CSS
+### Anti-Pattern 3: ThemeProvider with CSS
 ```rust
 // ❌ WRONG
 #[component]

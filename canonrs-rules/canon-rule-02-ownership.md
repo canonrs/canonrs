@@ -11,13 +11,13 @@
 
 ## Rule #1: StoredValue is DEFAULT
 
-### ❌ WRONG
+### Wrong
 ```rust
 let label = "Users".to_string();
 view! { <span>{label}</span> } // Move error
 ```
 
-### ✅ CORRECT
+### Correct
 ```rust
 let label = StoredValue::new("Users".to_string());
 view! { <span>{label.get_value()}</span> }
@@ -30,7 +30,7 @@ view! { <span>{label.get_value()}</span> }
 
 ## Rule #2: ChildrenFn for Re-render
 
-### ❌ WRONG
+### Wrong
 ```rust
 #[component]
 pub fn Show(children: Children) -> impl IntoView {
@@ -38,7 +38,7 @@ pub fn Show(children: Children) -> impl IntoView {
 }
 ```
 
-### ✅ CORRECT
+### Correct
 ```rust
 #[component]
 pub fn Show(children: ChildrenFn) -> impl IntoView {
@@ -53,12 +53,12 @@ pub fn Show(children: ChildrenFn) -> impl IntoView {
 
 ## Rule #3: move || for Reactive Access
 
-### ❌ WRONG
+### Wrong
 ```rust
 view! { <div hidden=is_open.get() /> }
 ```
 
-### ✅ CORRECT
+### Correct
 ```rust
 view! { <div hidden=move || is_open.get() /> }
 ```

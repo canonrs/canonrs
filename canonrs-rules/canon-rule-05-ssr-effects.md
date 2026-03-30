@@ -16,7 +16,7 @@ Violation = Runtime panic / Silent data corruption / Security breach
 
 ---
 
-## ⚠️ API Blacklist (Server-Fatal)
+## API Blacklist Server Fatal
 
 ### Category A: DOM APIs
 ```rust
@@ -78,7 +78,7 @@ extern "C" {
 
 ---
 
-## ✅ Guard Patterns (Mandatory)
+## Guard Patterns Mandatory
 
 ### Pattern #1: Effect Guard (Most Common)
 ```rust
@@ -136,7 +136,7 @@ pub fn BrowserOnlyWidget() -> impl IntoView {
 
 ---
 
-## 📋 Decision Matrix
+## Decision Matrix
 
 | API Type          | SSR Safe? | Guard Required | Pattern              |
 |-------------------|-----------|----------------|----------------------|
@@ -150,7 +150,7 @@ pub fn BrowserOnlyWidget() -> impl IntoView {
 
 ---
 
-## 🔥 Real Production Errors
+## Real Production Errors
 
 ### Error #1: spawn_local Panic
 ```
@@ -251,7 +251,7 @@ let value = window()
 
 ---
 
-## 🎯 Common Patterns (Copy-Paste Ready)
+## Common Patterns
 
 ### Focus Management
 ```rust
@@ -332,7 +332,7 @@ Effect::new(move |_| {
 
 ---
 
-## 🧪 Testing SSR Safety
+## Testing SSR Safety
 
 ### Test #1: Server Build
 ```bash
@@ -360,7 +360,7 @@ grep -r "use_navigate()" src/ --include="*.rs"
 
 ---
 
-## 📚 References
+## References
 
 - [Leptos SSR Guide](https://leptos-rs.github.io/leptos/ssr/index.html)
 - [web-sys Documentation](https://rustwasm.github.io/wasm-bindgen/api/web_sys/)
@@ -369,7 +369,7 @@ grep -r "use_navigate()" src/ --include="*.rs"
 
 ---
 
-## ⚡ Quick Reference Card
+## Quick Reference Card
 ```rust
 // ✅ ALWAYS SAFE (SSR + Client)
 RwSignal::new()

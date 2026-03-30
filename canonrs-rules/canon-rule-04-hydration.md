@@ -14,7 +14,7 @@
 
 ## Common Violations
 
-### ❌ Violation #1: Conditional with Async State
+### Violation 1: Conditional with Async State
 ```rust
 {if data.is_empty() { 
     view! { "Loading" } 
@@ -25,14 +25,14 @@
 
 **Problem:** SSR renders one thing, client renders another.
 
-### ✅ Solution: <Suspense>
+### Solution: Suspense
 ```rust
 <Suspense fallback=|| "Loading">
     <Resource ... />
 </Suspense>
 ```
 
-### ❌ Violation #2: <For> in Dropdown
+### Violation 2: For in Dropdown
 ```rust
 view! { 
     <DropdownMenuContent>
@@ -43,7 +43,7 @@ view! {
 
 **Problem:** <For> renders differently SSR vs client.
 
-### ✅ Solution: Component Isolation
+### Solution: Component Isolation
 ```rust
 #[component]
 fn DropdownItem(value: String) -> impl IntoView {
@@ -57,7 +57,7 @@ fn DropdownItem(value: String) -> impl IntoView {
 />
 ```
 
-### ❌ Violation #3: RwSignal Props
+### Violation 3: RwSignal Props
 ```rust
 #[component]
 fn DataTable(data: RwSignal<Vec<T>>) -> impl IntoView {
@@ -65,7 +65,7 @@ fn DataTable(data: RwSignal<Vec<T>>) -> impl IntoView {
 }
 ```
 
-### ✅ Solution: Vec Props
+### Solution: Vec Props
 ```rust
 #[component]
 fn DataTable(data: Vec<T>) -> impl IntoView {

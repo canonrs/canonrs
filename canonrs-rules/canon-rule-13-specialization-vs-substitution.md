@@ -1,6 +1,5 @@
 # Canon Rule #13 — Specialization vs Substitution
 
-
 **Status:** ENFORCED
 **Severity:** HIGH
 **Scope:** components, architecture
@@ -8,65 +7,65 @@
 **Date:** 2025-01-16
 
 ---
-**Enunciado curto (para lembrar fácil):**  
-Um componente especializado nunca substitui seu componente base. Ele estende semântica, não a reescreve.
+**Short statement (easy to remember):**  
+A specialized component never replaces its base component. It extends semantics, not rewrites it.
 
 ---
 
-## Definição Formal
+## Formal Definition
 ```
-Base Component        = Componente genérico, fundacional
-Specialized Component = Extensão semântica do base, caso específico
+Base Component        = Generic, foundational component
+Specialized Component = Semantic extension of the base, specific case
 ```
 
-**Specialization** é sobre **estender semântica**.  
-**Substitution** é sobre **reescrever comportamento**.
+**Specialization** is about **extending semantics**.  
+**Substitution** is about **rewriting behavior**.
 
-**A Rule #13 proíbe substitution disfarçada de specialization.**
+**Rule #13 forbids substitution disguised as specialization.**
 
 ---
 
-## 🔒 O QUE ESSA RULE PROÍBE (binding)
+## 🔒 WHAT THIS RULE PROHIBITS (binding)
 
-### ❌ É PROIBIDO
+### ❌ FORBIDDEN
 
-#### 1. Usar especializado como default
+#### 1. Using specialized as default
 ```rust
-// ❌ ERRADO - MaskedInput como default
+// ❌ WRONG - MaskedInput as default
 fn UserForm() {
     view! {
-        <MaskedInput value=name />  // nome não precisa de máscara!
+        <MaskedInput value=name />
     }
 }
 
-// ✅ CORRETO
+// ✅ CORRECT
 fn UserForm() {
     view! {
-        <Input value=name />  // genérico para nome
-        <MaskedInput value=cpf mask_type=MaskType::CPF />  // especializado
+        <Input value=name />
+        <MaskedInput value=cpf mask_type=MaskType::CPF />
     }
 }
 ```
 
-#### 2. Flags mágicas que transformam base em especializado
+#### 2. Magic flags turning base into specialized
 ```rust
-// ❌ PROIBIDO
-<Input mask="cpf" />              // Input não conhece máscara
-<Select searchable=true />        // Select não conhece busca
-<Button loading=true spinner />   // Button não conhece loading state
+// ❌ FORBIDDEN
+<Input mask="cpf" />
+<Select searchable=true />
+<Button loading=true spinner />
 
-// ✅ CORRETO
+// ✅ CORRECT
 <MaskedInput mask_type=MaskType::CPF />
 <Combobox />
 <LoadingButton />
 ```
 
-#### 3. Componentes "inteligentes" que decidem sozinhos
+#### 3. "Smart" components deciding automatically
 ```rust
-// ❌ PROIBIDO
-<SelectOrCombo options=list />  // escolha automática
+// ❌ FORBIDDEN
+<SelectOrCombo options=list />
 
-// ✅ CORRETO
+// ✅ CORRECT
 if list.len() < 50 {
     <Select options=list />
 } else {
@@ -74,166 +73,150 @@ if list.len() < 50 {
 }
 ```
 
-#### 4. Substituição silenciosa
+#### 4. Silent substitution
 ```rust
-// ❌ PROIBIDO - Combobox "melhorando" Select
-type Select = Combobox;  // ❌
+// ❌ FORBIDDEN
+type Select = Combobox;
 
-// ✅ CORRETO - são componentes distintos
-<Select />   // caso genérico
-<Combobox /> // caso com busca
+// ✅ CORRECT
+<Select />
+<Combobox />
 ```
 
 ---
 
-## ✅ O QUE A RULE EXIGE
+## ✅ WHAT THE RULE REQUIRES
 
-### 1. Base Component SEMPRE existe
+### 1. Base Component ALWAYS exists
 
-Todo componente especializado **deve ter um base component genérico**:
+Every specialized component **must have a generic base component**:
 
-| Base         | Existe como? | Propósito                    |
-|--------------|--------------|------------------------------|
-| `Input`      | ✅ Type 1    | Campo genérico               |
-| `Select`     | ✅ Type 1    | Seleção nativa               |
-| `Button`     | ✅ Type 1    | Ação genérica                |
-| `DataTable`  | ✅ Type 3    | Tabela semântica human-scale |
+| Base         | Exists as? | Purpose                    |
+|--------------|------------|----------------------------|
+| `Input`      | ✅ Type 1  | Generic field              |
+| `Select`     | ✅ Type 1  | Native selection           |
+| `Button`     | ✅ Type 1  | Generic action             |
+| `DataTable`  | ✅ Type 3  | Human-scale semantic table |
 
-### 2. Especialização é EXPLÍCITA e SEPARADA
+### 2. Specialization is EXPLICIT and SEPARATE
 
-| Base         | Specialized      | Relação                          |
+| Base         | Specialized      | Relation                         |
 |--------------|------------------|----------------------------------|
-| `Input`      | `MaskedInput`    | Extensão (formato obrigatório)   |
-| `Select`     | `Combobox`       | Extensão (busca + overlay)       |
-| `Button`     | `IconButton`     | Extensão (visual variant)        |
-| `DataTable`  | `VirtualTable`   | **Mudança de natureza** (Rule #17)|
+| `Input`      | `MaskedInput`    | Extension (required format)      |
+| `Select`     | `Combobox`       | Extension (search + overlay)     |
+| `Button`     | `IconButton`     | Extension (visual variant)       |
+| `DataTable`  | `VirtualTable`   | **Change of nature** (Rule #17)  |
 
-### 3. Especializado DEPENDE semanticamente do Base
+### 3. Specialized DEPENDS semantically on Base
 
 **MaskedInput:**
-- ✅ Reusa tokens do Input
-- ✅ Reusa Field wrapper
-- ✅ Reusa validation patterns
-- ✅ Adiciona: máscara determinística
+- ✅ Reuses Input tokens  
+- ✅ Reuses Field wrapper  
+- ✅ Reuses validation patterns  
+- ✅ Adds: deterministic mask  
 
 **Combobox:**
-- ✅ Reusa conceito de "seleção"
-- ✅ Reusa option rendering
-- ✅ Adiciona: busca, overlay, virtualização
+- ✅ Reuses "selection" concept  
+- ✅ Reuses option rendering  
+- ✅ Adds: search, overlay, virtualization  
 
 ---
 
-## 🧠 POR QUE ISSO É UMA RULE
+## 🧠 WHY THIS IS A RULE
 
-Esta Rule resolve o problema de **component creep**:
+This rule solves **component creep**:
 
-### Sem Rule #13:
+### Without Rule #13:
 ```rust
-// Input vira God Component
 <Input 
-    mask="cpf"           // ❌
-    autocomplete=true    // ❌
-    debounce=300         // ❌
-    validation="email"   // ❌
-    prefix_icon="user"   // ❌
-    clearable=true       // ❌
+    mask="cpf"
+    autocomplete=true
+    debounce=300
+    validation="email"
+    prefix_icon="user"
+    clearable=true
 />
 ```
 
-**Problema:** Input tenta ser tudo. Vira impossível manter.
+**Problem:** Input becomes a God Component.
 
-### Com Rule #13:
+### With Rule #13:
 ```rust
-<Input />                    // genérico
-<MaskedInput />              // formato
-<AutocompleteInput />        // busca
-<DebouncedInput />           // delay
-<EmailInput />               // validação
-<IconInput />                // visual
+<Input />
+<MaskedInput />
+<AutocompleteInput />
+<DebouncedInput />
+<EmailInput />
+<IconInput />
 ```
 
-**Solução:** Componentes pequenos, focados, composíveis.
+**Solution:** Small, focused, composable components.
 
 ---
 
-## 🏷️ CLASSIFICAÇÃO DA RULE
+## 🏷️ RULE CLASSIFICATION
 
-| Campo       | Valor                              |
+| Field       | Value                              |
 |-------------|------------------------------------|
 | Rule ID     | Canon Rule #13                     |
-| Categoria   | Component Design / Specialization  |
-| Tipo        | Architectural Rule                 |
-| Severidade  | **High**                           |
+| Category    | Component Design / Specialization  |
+| Type        | Architectural Rule                 |
+| Severity    | **High**                           |
 | Scope       | All Components / DX / Maintenance  |
-| Violação    | **Review Blocker**                 |
+| Violation   | **Review Blocker**                 |
 
 ---
 
-## 🧬 MATRIZ CANÔNICA: Base → Specialized
+## 🧬 CANONICAL MATRIX: Base → Specialized
 
-| Base Component | Specialized Component | Tipo de Extensão      | Rule Relacionada |
-|----------------|----------------------|-----------------------|------------------|
-| `Input`        | `MaskedInput`        | Formato obrigatório   | #13              |
-| `Input`        | `EmailInput`         | Validação específica  | #13              |
-| `Select`       | `Combobox`           | Busca + overlay       | #12, #13         |
-| `Button`       | `IconButton`         | Visual variant        | #13              |
-| `Button`       | `LoadingButton`      | Estado especializado  | #13              |
-| `DataTable`    | `VirtualTable`       | **Mudança de natureza**| #14, #17        |
-| `Grid`         | -                    | Base (sem especialização)| -             |
+| Base Component | Specialized Component | Extension Type        | Related Rule |
+|----------------|----------------------|------------------------|--------------|
+| `Input`        | `MaskedInput`        | Required format        | #13          |
+| `Input`        | `EmailInput`         | Specific validation    | #13          |
+| `Select`       | `Combobox`           | Search + overlay       | #12, #13     |
+| `Button`       | `IconButton`         | Visual variant         | #13          |
+| `Button`       | `LoadingButton`      | Specialized state      | #13          |
+| `DataTable`    | `VirtualTable`       | **Change of nature**   | #14, #17     |
+| `Grid`         | -                    | Base (no specialization)| -           |
 
-**Nota:** DataTable → VirtualTable NÃO é specialization, é **mudança de scale** (Rule #17).
+**Note:** DataTable → VirtualTable is NOT specialization, it is **scale change** (Rule #17).
 
 ---
 
-## 🎯 COMO A RULE #13 SE POSICIONA NO CANON
+## 🎯 HOW RULE #13 FITS IN THE CANON
 ```
-Rule #12 (Select vs Combobox)       ← Caso específico
+Rule #12 (Select vs Combobox)
     ↓
-Rule #13 (Specialization vs Substitution) ← Princípio geral
+Rule #13 (Specialization vs Substitution)
     ↓
-Rule #17 (Human vs Machine Scale)   ← Meta-fundamento
+Rule #17 (Human vs Machine Scale)
 ```
-
-**Relacionamento:**
-- **#12** é exemplo de #13
-- **#13** explica quando componente muda (especialização)
-- **#17** explica quando componente muda de natureza (scale)
 
 ---
 
 ## 📊 Specialization vs Substitution
 
-| Aspecto              | Specialization (✅)        | Substitution (❌)         |
-|----------------------|---------------------------|---------------------------|
-| **Relação com base** | Estende                   | Substitui                 |
-| **Tokens**           | Reutiliza                 | Redefine                  |
-| **API**              | Adiciona props            | Muda comportamento base   |
-| **Semântica**        | Preserva + adiciona       | Reescreve                 |
-| **Uso**              | Caso específico           | "Versão melhorada"        |
-| **Exemplo**          | MaskedInput extends Input | Input com flag mask       |
+| Aspect              | Specialization (✅)      | Substitution (❌)       |
+|----------------------|--------------------------|-------------------------|
+| Relation to base     | Extends                  | Replaces                |
+| Tokens               | Reuses                   | Redefines               |
+| API                  | Adds props               | Changes base behavior   |
+| Semantics            | Preserves + adds         | Rewrites                |
+| Usage                | Specific case            | "Improved version"      |
+| Example              | MaskedInput extends Input| Input with mask flag    |
 
 ---
 
-## 🧪 COMO ESSA RULE É APLICADA NA PRÁTICA
+## 🧪 HOW THIS RULE IS APPLIED IN PRACTICE
 
-### Em Code Review
+### Code Review Checklist
 
-**Checklist obrigatório:**
+- [ ] PR adds flag to base component that changes behavior?  
+- [ ] PR uses specialized where base would suffice?  
+- [ ] PR creates auto-deciding component?  
+- [ ] Feature should be separate component?  
 
-- [ ] PR adiciona flag ao componente base que muda comportamento?
-- [ ] PR usa componente especializado onde base resolveria?
-- [ ] PR cria componente "inteligente" que escolhe automaticamente?
-- [ ] Nova feature deveria ser componente separado?
-
-**Se sim para qualquer pergunta → PR NÃO APROVA (violação da #13)**
-
-### Em Design de Componentes
-
-**Decisão: Adicionar feature ao componente X**
-
-1. Feature é **caso específico** (CPF, busca, loading)? → Criar especializado
-2. Feature é **genérica** (disabled, placeholder, error)? → Adicionar ao base
-3. Feature **muda natureza** (scale, performance)? → Novo componente (Rule #17)
+**If yes → PR NOT APPROVED**
 
 ---
 
@@ -241,73 +224,49 @@ Rule #17 (Human vs Machine Scale)   ← Meta-fundamento
 
 ### ❌ God Component
 ```rust
-// PROIBIDO - Input tentando ser tudo
 <Input
     type="text"
-    mask="cpf"              // deveria ser MaskedInput
-    autocomplete=true       // deveria ser AutocompleteInput
-    debounce=300            // deveria ser DebouncedInput
-    currency=true           // deveria ser CurrencyInput
-    validation="email"      // deveria ser EmailInput
+    mask="cpf"
+    autocomplete=true
+    debounce=300
+    currency=true
+    validation="email"
 />
 ```
 
-**Problema:** 
-- Impossível testar
-- Impossível manter
-- Props conflitantes
-- Bundle size explode
-
-### ❌ Flags Mágicas
+### ❌ Magic Flags
 ```rust
-// PROIBIDO - Select com flag searchable
-<Select 
-    options=many_options
-    searchable=true  // ❌ isso é Combobox!
-/>
-
-// CORRETO
-<Combobox options=many_options />
+<Select searchable=true />
 ```
 
-### ❌ Substituição Silenciosa
+### ❌ Silent Substitution
 ```rust
-// PROIBIDO - redefinir componente base
-pub type Input = MaskedInput;  // ❌
-
-// CORRETO - componentes distintos
-pub struct Input { /* ... */ }
-pub struct MaskedInput { /* ... */ }
+pub type Input = MaskedInput;
 ```
 
 ---
 
-## ✅ PADRÕES CORRETOS
+## ✅ CORRECT PATTERNS
 
-### Pattern 1: Extensão Clara
+### Pattern 1: Clear Extension
 ```rust
-// Base
 #[component]
 pub fn Input(
     value: Signal<String>,
     on_change: Callback<String>,
 ) -> impl IntoView { /* ... */ }
 
-// Especializado (estende base)
 #[component]
 pub fn MaskedInput(
     value: Signal<String>,
     on_change: Callback<String>,
-    mask_type: MaskType,  // ← adiciona semântica
+    mask_type: MaskType,
 ) -> impl IntoView {
-    // Internamente pode usar Input ou reimplementar
-    // Mas API é explícita: MaskedInput ≠ Input
 }
 ```
 
-### Pattern 2: Composição
+### Pattern 2: Composition
 ```rust
-// Especializado compõe base
 #[component]
 pub fn EmailInput(
     value: Signal<String>,
@@ -325,15 +284,14 @@ pub fn EmailInput(
 }
 ```
 
-### Pattern 3: Decisão Explícita no Parent
+### Pattern 3: Explicit Decision
 ```rust
-// Parent decide qual componente
 #[component]
 fn DocumentForm() -> impl IntoView {
     view! {
-        <Input value=name />               // genérico
-        <MaskedInput value=cpf mask_type=MaskType::CPF />  // especializado
-        <EmailInput value=email />         // especializado
+        <Input value=name />
+        <MaskedInput value=cpf mask_type=MaskType::CPF />
+        <EmailInput value=email />
     }
 }
 ```
@@ -343,97 +301,33 @@ fn DocumentForm() -> impl IntoView {
 ## 🎓 Design Principles
 
 ### 1. Specialization Adds Semantics
-```rust
-Input       → campo genérico
-MaskedInput → campo + formato obrigatório
-EmailInput  → campo + validação email
 ```
-
-Cada especialização **adiciona constraint semântico**.
+Input       → generic field
+MaskedInput → field + required format
+EmailInput  → field + email validation
+```
 
 ### 2. Base is Always Available
-```rust
-// SEMPRE possível usar o base
-<Input value=any_text />
-
-// Especializado quando constraint faz sentido
-<MaskedInput value=cpf mask_type=MaskType::CPF />
-```
 
 ### 3. No Magic Flags
-```rust
-// ❌ Magic
-<Input mask="cpf" />
-
-// ✅ Explicit
-<MaskedInput mask_type=MaskType::CPF />
-```
-
-Flags escondem decisões. Tipos explicitam.
 
 ---
 
-## 📚 Exemplos Práticos
+## 🏁 FINAL VERDICT
 
-### Input → MaskedInput
-```rust
-// Cenário: formulário de cadastro
-
-view! {
-    <Input value=name placeholder="Nome completo" />
-    <MaskedInput value=cpf mask_type=MaskType::CPF />
-    <MaskedInput value=phone mask_type=MaskType::Phone />
-    <Input value=email type="email" />
-}
-```
-
-**Rationale:**
-- Nome: texto livre → Input
-- CPF: formato obrigatório → MaskedInput
-- Telefone: formato obrigatório → MaskedInput
-- Email: validação HTML → Input (type="email")
-
-### Select → Combobox
-```rust
-// Cenário: seleção de país
-
-// <50 países: Select
-<Select options=short_list />
-
-// 200+ países: Combobox
-<Combobox options=all_countries />
-```
-
-**Rationale:** Decisão baseada em Rule #12 + #17 (scale).
+- ✅ Canon Rule #13  
+- ✅ Specialization principle  
+- ✅ Prevents God Components  
+- ✅ Forces explicit types  
+- ✅ Blocks bad PRs  
 
 ---
 
-## 🏁 VEREDITO FINAL
+## References
 
-- ✅ É a **Canon Rule #13**
-- ✅ **Princípio de especialização** (não caso específico)
-- ✅ Posiciona-se entre #12 (exemplo) e #17 (meta)
-- ✅ Previne **God Components** e **feature creep**
-- ✅ Força **tipos explícitos** sobre flags mágicas
-- ✅ Ela **bloqueia PR** que viola separation of concerns
+- Canon Rule #12  
+- Canon Rule #17  
 
 ---
 
-## Referências
-
-**Rules Relacionadas:**
-- Canon Rule #12 (Select vs Combobox): Exemplo de especialização
-- Canon Rule #17 (Human vs Machine Scale): Quando muda de natureza
-
-**Implementações:**
-- Base: `/packages-rust/rs-design/src/ui/{input,select,button}/`
-- Specialized: `/packages-rust/rs-design/src/ui/{masked_input,combobox}/`
-
-**Teoria:**
-- Single Responsibility Principle
-- Composition over Configuration
-- Explicit over Implicit
-
----
-
-**Mantra:** *Especialização estende semântica. Substituição a reescreve. Nunca confunda.*
+**Mantra:** *Specialization extends semantics. Substitution rewrites it. Never confuse them.*

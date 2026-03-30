@@ -30,9 +30,9 @@ This separation enables:
 
 ---
 
-## ❌ WRONG Patterns
+## Wrong Patterns
 
-### Anti-Pattern #1: Hardcoded Colors
+### Anti-Pattern 1: Hardcoded Colors
 ```rust
 // ❌ FORBIDDEN - Concrete colors in UI
 view! {
@@ -49,7 +49,7 @@ view! {
 - No semantic meaning
 - Design system can't evolve
 
-### Anti-Pattern #2: Inline Style State
+### Anti-Pattern 2: Inline Style State
 ```rust
 // ❌ FORBIDDEN - JS-controlled styling
 view! {
@@ -69,7 +69,7 @@ view! {
 - Imperative, not declarative
 - SSR mismatch risk
 
-### Anti-Pattern #3: Dynamic Class Strings
+### Anti-Pattern 3: Dynamic Class Strings
 ```rust
 // ❌ FORBIDDEN - String concatenation
 view! {
@@ -91,7 +91,7 @@ view! {
 
 ---
 
-## ✅ CORRECT Pattern
+## Correct Pattern
 
 ### Canonical Implementation
 ```rust
@@ -162,7 +162,7 @@ data-[disabled=true]:text-[hsl(var(--color-fg-muted))]
 data-[disabled=true]:opacity-[var(--state-disabled-opacity)]
 ```
 
-### ❌ Concrete Colors (NEVER)
+### Concrete Colors
 ```rust
 // ❌ FORBIDDEN
 bg-slate-100
@@ -297,7 +297,7 @@ view! {
 
 ---
 
-## 🧪 Testing Canon Compliance
+## Testing Canon Compliance
 
 ### Audit Command
 ```bash
@@ -321,7 +321,7 @@ bg-[hsl(var(--color-{token}))]
 
 ---
 
-## 📚 Related Canon Rules
+## Related Canon Rules
 
 - **Rule #1 (Types):** State belongs in Type 2 components
 - **Rule #2 (Ownership):** `Signal<bool>` for reactive state
@@ -330,7 +330,7 @@ bg-[hsl(var(--color-{token}))]
 
 ---
 
-## 🔒 Canonical Checklist
+## Canonical Checklist
 
 Before merging any UI component:
 
@@ -344,7 +344,7 @@ Before merging any UI component:
 
 ---
 
-## ⚡ Quick Reference Card
+## Quick Reference Card
 ```rust
 // ✅ CANONICAL PATTERN (copy-paste ready)
 

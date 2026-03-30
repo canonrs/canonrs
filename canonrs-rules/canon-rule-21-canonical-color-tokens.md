@@ -53,55 +53,42 @@ Components consume a **stable contract of theme tokens**. Semantic intents (succ
 ❌ `danger` (use `destructive`)
 
 **Rationale:**
-1. Breaks shadcn/ui compatibility
-2. Makes themes less portable/vendable
-3. Creates design drift between components
+1. Breaks shadcn/ui compatibility  
+2. Makes themes less portable  
+3. Creates design drift  
 
 ## Component Variant Rules
 
 ### ✅ ALLOWED (canonical)
 ```rust
 pub enum ButtonVariant {
-    Solid,       // uses primary
-    Outline,     // uses background + border
-    Ghost,       // uses transparent + muted-foreground
-    Destructive, // uses destructive
-    Secondary,   // uses secondary
-    Muted,       // uses muted
-    Accent,      // uses accent
+    Solid,
+    Outline,
+    Ghost,
+    Destructive,
+    Secondary,
+    Muted,
+    Accent,
 }
 ```
 
 ### ❌ FORBIDDEN
 ```rust
 pub enum ButtonVariant {
-    Success,  // NO canonical token
-    Warning,  // NO canonical token
-    Info,     // NO canonical token
-    Danger,   // use Destructive
+    Success,
+    Warning,
+    Info,
+    Danger,
 }
 ```
 
 ## Semantic Intent Layer (Optional)
-
-If your application needs semantic intents, create a **mapping layer**:
 ```rust
 pub enum AlertIntent {
-    Success,  // -> primary
-    Warning,  // -> accent
-    Info,     // -> secondary
-    Error,    // -> destructive
-}
-
-impl AlertIntent {
-    fn to_variant(&self) -> AlertVariant {
-        match self {
-            Self::Success => AlertVariant::Primary,
-            Self::Warning => AlertVariant::Accent,
-            Self::Info => AlertVariant::Secondary,
-            Self::Error => AlertVariant::Destructive,
-        }
-    }
+    Success,
+    Warning,
+    Info,
+    Error,
 }
 ```
 
@@ -113,22 +100,21 @@ grep -r "Success\|Warning\|Danger" src/ui/*/variants.rs
 ```
 
 ### Phase 2: Refactor
-1. Remove non-canonical variants
-2. Replace with canonical equivalents
-3. Update component usage
+1. Remove non-canonical variants  
+2. Replace with canonical equivalents  
 
-### Phase 3: Semantic Layer (if needed)
-1. Create intent enums at app level
-2. Map intents to canonical variants
-3. Keep design system agnostic
+### Phase 3: Semantic Layer
+1. Create mapping layer  
+
+---
 
 ## Compliance Checklist
-- [ ] All component variants map to canonical tokens
-- [ ] No `success`/`warning`/`info` in variant enums
-- [ ] Themes only define canonical tokens
-- [ ] Semantic intents in app layer only
+- [ ] Only canonical tokens used  
+- [ ] No success/warning/info in variants  
+
+---
 
 ## References
-- shadcn/ui theme specification
-- Radix Colors documentation
-- Design Tokens W3C Community Group
+- shadcn/ui  
+- Radix Colors  
+- Design Tokens W3C  

@@ -1,6 +1,5 @@
 # Canon Rule #19 — Streaming vs Snapshot Data
 
-
 **Status:** ENFORCED
 **Severity:** MEDIUM
 **Scope:** state, ssr
@@ -8,81 +7,50 @@
 **Date:** 2025-01-16
 
 ---
-**Enunciado curto (para lembrar fácil):**  
-Streaming é para fluxo contínuo. Snapshot é para estado fixo.
+**Short statement (easy to remember):**  
+Streaming is continuous flow. Snapshot is fixed state.
 
 ---
 
-## Definição Formal
+## Formal Definition
 ```
-Streaming = Dados em fluxo contínuo (WebSocket, SSE, real-time)
-Snapshot  = Dados em momento específico (REST, fetch, point-in-time)
+Streaming = Continuous data (WebSocket, SSE)
+Snapshot  = Point-in-time data (REST)
 ```
 
 ---
 
-## 🔒 O QUE ESSA RULE PROÍBE
+## 🔒 WHAT THIS RULE PROHIBITS
 
-### ❌ É PROIBIDO
-
-- Usar snapshot polling para simular streaming (anti-pattern)
-- Usar streaming para dados estáticos
-- Mixing streaming + snapshot no mesmo componente sem estratégia
-- Streaming sem backpressure/buffer strategy
+- Polling as fake streaming  
+- Streaming for static data  
+- Mixing both without strategy  
 
 ---
 
 ## ✅ DECISION MATRIX
 
-| Critério                    | Solução        |
-|-----------------------------|----------------|
-| Dados mudam constantemente  | **Streaming**  |
-| Real-time crítico (<1s)     | **Streaming**  |
-| Logs/metrics em tempo real  | **Streaming**  |
-| Dados estáticos/cacheable   | **Snapshot**   |
-| SEO/SSR crítico             | **Snapshot**   |
-| Update frequency > 1min     | **Snapshot**   |
+| Criteria        | Solution     |
+|----------------|--------------|
+| Real-time      | Streaming    |
+| Static data    | Snapshot     |
+| SEO            | Snapshot     |
 
 ---
 
-## 🎯 QUANDO USAR
+## 🎯 WHEN TO USE
 
-### Streaming (WebSocket/SSE)
+### Streaming
 ```rust
-// Logs em tempo real
-let logs_stream = use_websocket("/ws/logs");
-
-view! {
-    <VirtualTable 
-        rows=logs_stream.into()
-        // Append mode, não replace
-    />
-}
+use_websocket(...)
 ```
 
-**Use cases:**
-- Live logs/metrics
-- Chat messages
-- Stock prices
-- Server monitoring
-
-### Snapshot (REST/fetch)
+### Snapshot
 ```rust
-// Dados ponto-no-tempo
-let users = Resource::new(|| (), |_| fetch_users());
-
-view! {
-    <DataTable data=users />
-}
+fetch_data(...)
 ```
-
-**Use cases:**
-- User lists
-- Product catalogs
-- Configuration data
-- Historical reports
 
 ---
 
 **Classification:** High severity, Review Blocker  
-**Related:** Canon Rule #17 (Scale), Rule #20 (Real-time)
+**Related:** Rule #17, Rule #20

@@ -1,6 +1,5 @@
 # Canon Rule #12 — Select vs Combobox
 
-
 **Status:** ENFORCED
 **Severity:** MEDIUM
 **Scope:** components, ui
@@ -8,94 +7,94 @@
 **Date:** 2025-01-16
 
 ---
-**Enunciado curto (para lembrar fácil):**  
-Select e Combobox são componentes semanticamente diferentes e **NÃO podem ser usados como substitutos entre si**.
+**Short statement (easy to remember):**  
+Select and Combobox are semantically different components and **MUST NOT be used as substitutes for each other**.
 
 ---
 
-## Definição Formal
+## Formal Definition
 ```
-Select   = Controle HTML nativo (Type 1)
-Combobox = Componente interativo com overlay e busca (Type 3)
+Select   = Native HTML control (Type 1)
+Combobox = Interactive component with overlay and search (Type 3)
 ```
 
 ---
 
-## 🔒 O QUE ESSA RULE PROÍBE (binding)
+## 🔒 WHAT THIS RULE PROHIBITS (binding)
 
-### ❌ É PROIBIDO
+### ❌ FORBIDDEN
 
-- Usar Combobox onde Select resolve
-- Adicionar busca, overlay ou JS ao Select
-- Criar "Select inteligente", "Select avançado", "SelectSearch"
-- Criar componente híbrido `SelectOrCombobox`
-- Escolha automática baseada em heurística (`if items > x`)
+- Using Combobox where Select is sufficient  
+- Adding search, overlay or JS to Select  
+- Creating "smart Select", "advanced Select", "SelectSearch"  
+- Creating hybrid component `SelectOrCombobox`  
+- Automatic choice based on heuristic (`if items > x`)  
 
-👉 **A escolha deve ser EXPLÍCITA e JUSTIFICADA.**
-
----
-
-## ✅ O QUE A RULE EXIGE
-
-Toda decisão entre Select e Combobox **DEVE** considerar:
-
-| Critério              | Obrigatório            |
-|-----------------------|------------------------|
-| SSR crítico?          | **Select**             |
-| Lista pequena (<50)?  | **Select**             |
-| Mobile-first?         | **Select**             |
-| Busca necessária?     | **Combobox**           |
-| Overlay necessário?   | **Combobox**           |
-| UX rica > performance?| **Combobox**           |
+👉 **The choice MUST be EXPLICIT and JUSTIFIED.**
 
 ---
 
-## 🧠 POR QUE ISSO É UMA RULE (e não só guideline)
+## ✅ WHAT THE RULE REQUIRES
 
-Porque ela afeta diretamente:
+Every decision between Select and Combobox **MUST** consider:
 
-| Área          | Impacto                      |
+| Criteria              | Required             |
+|-----------------------|----------------------|
+| SSR critical?         | **Select**           |
+| Small list (<50)?     | **Select**           |
+| Mobile-first?         | **Select**           |
+| Search required?      | **Combobox**         |
+| Overlay required?     | **Combobox**         |
+| Rich UX > performance?| **Combobox**         |
+
+---
+
+## 🧠 WHY THIS IS A RULE (not just a guideline)
+
+Because it directly affects:
+
+| Area          | Impact                      |
 |---------------|------------------------------|
-| Arquitetura   | Type 1 vs Type 3             |
+| Architecture  | Type 1 vs Type 3             |
 | SSR           | Native vs Client-only        |
 | Performance   | O(1) vs O(n)                 |
-| Acessibilidade| HTML nativo vs ARIA manual   |
+| Accessibility | Native HTML vs manual ARIA   |
 | Mobile UX     | OS picker vs overlay         |
 | Bundle size   | ~2KB vs ~8KB                 |
-| Governança    | Evita decisões emocionais    |
+| Governance    | Avoids emotional decisions   |
 
-**Isso não é preferência estética. É decisão estrutural.**
+**This is not aesthetic preference. It is structural decision.**
 
 ---
 
-## 🏷️ CLASSIFICAÇÃO DA RULE
+## 🏷️ RULE CLASSIFICATION
 
-| Campo       | Valor                          |
+| Field       | Value                          |
 |-------------|--------------------------------|
 | Rule ID     | Canon Rule #12                 |
-| Categoria   | Component Choice               |
-| Tipo        | Architectural Rule             |
-| Severidade  | **High**                       |
+| Category    | Component Choice               |
+| Type        | Architectural Rule             |
+| Severity    | **High**                       |
 | Scope       | UI / Forms / UX / SSR          |
-| Violação    | **Review Blocker**             |
+| Violation   | **Review Blocker**             |
 
 ---
 
-## 🧪 COMO ESSA RULE É APLICADA NA PRÁTICA
+## 🧪 HOW THIS RULE IS APPLIED IN PRACTICE
 
-### Em Code Review
+### In Code Review
 
-**Checklist obrigatório:**
+**Mandatory checklist:**
 
-- [ ] PR usa Combobox com <20 opções?
-- [ ] PR usa Combobox em formulário SSR-crítico?
-- [ ] PR documenta a escolha entre Select vs Combobox?
+- [ ] PR uses Combobox with <20 options?  
+- [ ] PR uses Combobox in SSR-critical form?  
+- [ ] PR documents the choice between Select vs Combobox?  
 
-**Se falhar → PR NÃO APROVA**
+**If it fails → PR NOT APPROVED**
 
-### Em Auditoria
+### In Auditing
 
-Você pode fazer queries como:
+You can run queries like:
 ```sql
 SELECT file, component
 FROM component_usage
@@ -103,36 +102,36 @@ WHERE component = 'Combobox'
   AND list_size < 10;
 ```
 
-👉 Isso é nível **plataforma**, não app.
+👉 This is **platform-level**, not app-level.
 
 ---
 
-## 🧱 ESTRUTURA DE DOCUMENTAÇÃO
+## 🧱 DOCUMENTATION STRUCTURE
 ```
 docs/canon/
 ├── rules/
-│   └── canon-rule-12-select-vs-combobox.md     ← Norma permanente
+│   └── canon-rule-12-select-vs-combobox.md
 └── records/
-    └── canon-record-12-architectural-decision.md ← Histórico da decisão
+    └── canon-record-12-architectural-decision.md
 ```
 
-- **Rule:** norma permanente
-- **Record:** histórico da decisão
+- **Rule:** permanent standard  
+- **Record:** decision history  
 
 ---
 
-## 🏁 VEREDITO FINAL
+## 🏁 FINAL VERDICT
 
-- ✅ É a **Canon Rule #12**
-- ✅ É **arquitetural**, não estilística
-- ✅ Ela **bloqueia PR errado**
-- ✅ Ela protege **SSR, DX, UX e performance**
-- ✅ Ela evita **"component creep"** no futuro
+- ✅ It is **Canon Rule #12**  
+- ✅ It is **architectural**, not stylistic  
+- ✅ It **blocks wrong PRs**  
+- ✅ It protects **SSR, DX, UX and performance**  
+- ✅ It prevents future **component creep**  
 
 ---
 
-## Referências
+## References
 
 - Canon Record #12: `/docs/canon/records/canon-record-12-architectural-decision.md`
-- Implementação: `/packages-rust/rs-design/src/ui/combobox/README.md`
-- Discussão original: `/docs/canon/12-select-vs-combobox.md`
+- Implementation: `/packages-rust/rs-design/src/ui/combobox/README.md`
+- Original discussion: `/docs/canon/12-select-vs-combobox.md`

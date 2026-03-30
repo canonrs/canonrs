@@ -1,6 +1,5 @@
 # Canon Rule #20 — Real-time UI vs Eventual Consistency
 
-
 **Status:** ENFORCED
 **Severity:** MEDIUM
 **Scope:** state, ssr
@@ -8,33 +7,33 @@
 **Date:** 2025-01-16
 
 ---
-**Enunciado curto (para lembrar fácil):**  
-Real-time é garantia. Eventual é aceitação.
+**Short statement (easy to remember):**  
+Real-time is guarantee. Eventual is acceptance.
 
 ---
 
-## Definição Formal
+## Formal Definition
 ```
-Real-time UI          = Atualização imediata, garantia de sincronia (<100ms)
-Eventual Consistency  = Atualização assíncrona, aceita lag (seconds/minutes)
+Real-time UI          = Immediate update, guaranteed sync (<100ms)
+Eventual Consistency  = Asynchronous update, accepts lag (seconds/minutes)
 ```
 
 ---
 
-## 🔒 O QUE ESSA RULE PROÍBE
+## 🔒 WHAT THIS RULE PROHIBITS
 
-### ❌ É PROIBIDO
+### ❌ FORBIDDEN
 
-- Prometer real-time sem infraestrutura (WebSocket/SSE)
-- Usar eventual consistency para UX crítica (financial transactions)
-- Polling agressivo (anti-pattern, não é real-time)
-- Real-time desnecessário (over-engineering)
+- Promising real-time without infrastructure (WebSocket/SSE)  
+- Using eventual consistency for critical UX (financial transactions)  
+- Aggressive polling (anti-pattern, not real-time)  
+- Unnecessary real-time (over-engineering)  
 
 ---
 
 ## ✅ DECISION MATRIX
 
-| Critério                      | Solução                  |
+| Criteria                      | Solution                  |
 |-------------------------------|--------------------------|
 | Financial/critical operations | **Real-time**            |
 | Collaboration (docs, chat)    | **Real-time**            |
@@ -45,7 +44,7 @@ Eventual Consistency  = Atualização assíncrona, aceita lag (seconds/minutes)
 
 ---
 
-## 🎯 PADRÕES
+## 🎯 PATTERNS
 
 ### Real-time (WebSocket)
 ```rust
@@ -54,14 +53,14 @@ let doc_state = use_websocket("/ws/doc/{id}");
 
 // Immediate sync
 Effect::new(move || {
-    doc_state.get(); // sempre atualizado
+    doc_state.get(); // always updated
 });
 ```
 
 **Guarantees:**
-- <100ms latency
-- Conflict resolution
-- Guaranteed delivery
+- <100ms latency  
+- Conflict resolution  
+- Guaranteed delivery  
 
 ### Eventual Consistency (Polling/Background sync)
 ```rust
@@ -75,36 +74,36 @@ let feed = Resource::new(
 ```
 
 **Accepts:**
-- Seconds/minutes delay
-- Temporary inconsistency
-- Background reconciliation
+- Seconds/minutes delay  
+- Temporary inconsistency  
+- Background reconciliation  
 
 ---
 
 ## 🚫 ANTI-PATTERN: Aggressive Polling
 ```rust
-// PROIBIDO - não é real-time, é desperdício
-setInterval(() => fetch(), 100); // ❌
+// FORBIDDEN - not real-time, wasteful
+setInterval(() => fetch(), 100);
 ```
 
-**Por que é errado:**
-- Não garante <100ms (network latency)
-- Sobrecarga backend/client
-- Não é verdadeiro real-time
+**Why it's wrong:**
+- Does not guarantee <100ms (network latency)  
+- Overloads backend/client  
+- Not true real-time  
 
-**Correto:** Use WebSocket OU aceite eventual consistency.
+**Correct:** Use WebSocket OR accept eventual consistency.
 
 ---
 
 ## 🧠 TRADE-OFFS
 
-| Aspecto       | Real-time        | Eventual         |
+| Aspect       | Real-time        | Eventual         |
 |---------------|------------------|------------------|
 | **Latency**   | <100ms           | Seconds/minutes  |
 | **Infra**     | WebSocket/SSE    | REST/polling     |
-| **Cost**      | Alto (conexões)  | Baixo            |
-| **Complexity**| Alta             | Baixa            |
-| **UX**        | Sincronia total  | Aceita lag       |
+| **Cost**      | High             | Low              |
+| **Complexity**| High             | Low              |
+| **UX**        | Full sync        | Accepts lag      |
 
 ---
 

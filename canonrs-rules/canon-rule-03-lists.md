@@ -11,14 +11,14 @@
 
 ## The FnOnce Hell Problem
 
-### ❌ NEVER DO THIS
+### Never Do This
 ```rust
 items.iter().map(|item| {
     view! { <Item on_click=callback /> } // FnOnce error
 }).collect_view()
 ```
 
-### ❌ ALSO WRONG
+### Also Wrong
 ```rust
 items.iter().map(|item| {
     let val = StoredValue::new(item.value); // Hydration mismatch
@@ -26,7 +26,7 @@ items.iter().map(|item| {
 }).collect_view()
 ```
 
-## ✅ CANONICAL SOLUTION
+## Canonical Solution
 
 ### Step 1: Isolated Component
 ```rust

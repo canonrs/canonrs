@@ -92,7 +92,7 @@ const HOVER_CLASSES: &str = "\
  focus-visible:ring-offset-2"
 ```
 
-**Rationale:** Uses theme's ring color for brand consistency
+**Rationale:** Uses the theme ring color for consistency
 
 ### 5. Loading State
 **Token:** `--state-loading-opacity: 0.7`
@@ -107,52 +107,42 @@ const HOVER_CLASSES: &str = "\
 
 ### Layered States
 ```rust
-// Multiple states can stack
 "hover:opacity-[var(--state-hover-opacity)] \
  focus-visible:ring-2 \
  disabled:opacity-[var(--state-disabled-opacity)]"
 ```
 
 ### Priority Order
-1. `disabled` (highest - overrides all)
-2. `active` / `pressed`
-3. `focus-visible`
-4. `hover` (lowest)
+1. `disabled`  
+2. `active` / `pressed`  
+3. `focus-visible`  
+4. `hover`  
+
+---
 
 ## Prohibited Patterns
 
-### ❌ Don't Create State Color Variants
+### ❌ State Color Variants
 ```css
-/* FORBIDDEN */
 --color-primary-hover: ...;
---color-primary-active: ...;
---color-primary-disabled: ...;
 ```
 
-**Why:** Makes themes brittle and non-portable
-
-### ❌ Don't Use Hardcoded Opacity
+### ❌ Hardcoded Opacity
 ```rust
-// FORBIDDEN
-"hover:opacity-90"  // Use var(--state-hover-opacity)
-"disabled:opacity-50" // Use var(--state-disabled-opacity)
+"hover:opacity-90"
 ```
 
-**Why:** Can't be customized per-theme
-
-### ❌ Don't Mix Opacity + Color Changes
+### ❌ Mixed State Changes
 ```rust
-// FORBIDDEN
 "hover:opacity-90 hover:bg-blue-600"
 ```
 
-**Why:** Double-change is jarring and inconsistent
+---
 
 ## Accessibility Requirements
 
 ### Focus Indicators
 ```rust
-// REQUIRED: Visible focus for keyboard navigation
 "focus-visible:outline-none \
  focus-visible:ring-2 \
  focus-visible:ring-[color:var(--state-focus-ring)] \
@@ -161,77 +151,30 @@ const HOVER_CLASSES: &str = "\
 
 ### Disabled State
 ```rust
-// REQUIRED: Prevent interaction + visual feedback
 "disabled:pointer-events-none \
  disabled:cursor-not-allowed \
  disabled:opacity-[var(--state-disabled-opacity)]"
 ```
 
-### ARIA Attributes
-```rust
-view! {
-    <button
-        disabled=is_disabled
-        aria-disabled=move || is_disabled.get()
-        data-state=move || if is_active.get() { "active" } else { "idle" }
-    >
-}
-```
+---
 
 ## Theme Contract
 
-### What Themes MUST Provide
-- `--color-ring` (for focus state)
+### MUST Provide
+- `--color-ring`
 
-### What Themes SHOULD NOT Provide
-- State-specific color variants
-- Custom opacity values (use defaults)
+### SHOULD NOT Provide
+- State color variants  
 
-### What Themes CAN Override
-```css
-/* Optional: Adjust state intensities */
-[data-theme="high-contrast"] {
-  --state-hover-opacity: 0.85;  /* Stronger hover */
-  --state-disabled-opacity: 0.4; /* More obvious disabled */
-}
-```
-
-## Migration Strategy
-
-### Step 1: Audit Existing States
-```bash
-# Find hardcoded opacities
-grep -r "opacity-[0-9]" src/ui/
-
-# Find state color variants
-grep -r "hover:bg-\|active:bg-" src/ui/
-```
-
-### Step 2: Replace with Tokens
-```rust
-// Before
-"hover:opacity-90"
-
-// After
-"hover:opacity-[var(--state-hover-opacity)]"
-```
-
-### Step 3: Remove State Colors from Themes
-```css
-/* Remove these from theme.css */
---color-primary-hover: ...;
---color-primary-active: ...;
-```
+---
 
 ## Validation Checklist
-- [ ] All interactive components use `--state-*-opacity` vars
-- [ ] Focus states use `--state-focus-ring`
-- [ ] No hardcoded opacity values
-- [ ] No state-specific color variants in themes
-- [ ] Disabled states prevent interaction
-- [ ] Focus indicators visible for keyboard users
+- [ ] Uses opacity tokens  
+- [ ] No hardcoded opacity  
+- [ ] Accessible focus states  
+
+---
 
 ## References
-- [WCAG 2.1 Focus Visible](https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html)
-- [Material Design: States](https://m3.material.io/foundations/interaction/states)
-- [Canon Rule #21: Canonical Color Tokens](./canon-rule-21-canonical-color-tokens.md)
+- WCAG 2.1  
+- Material Design  

@@ -1,6 +1,5 @@
 # Canon Rule #17 — Human-scale vs Machine-scale Components
 
-
 **Status:** ENFORCED
 **Severity:** HIGH
 **Scope:** components, ui
@@ -8,14 +7,14 @@
 **Date:** 2025-01-16
 
 ---
-**Enunciado curto (para lembrar fácil):**  
+**Short statement (easy to remember):**  
 Build for humans or build for machines. Never pretend one is the other.
 
 ---
 
-## 🧠 A META-RULE
+## 🧠 THE META-RULE
 
-Esta é a **generalização conceitual** que fundamenta todas as Canon Rules anteriores:
+This is the **conceptual generalization** that underpins all previous Canon Rules:
 
 | Canon Rule | Human-scale | Machine-scale |
 |------------|-------------|---------------|
@@ -27,228 +26,157 @@ Esta é a **generalização conceitual** que fundamenta todas as Canon Rules ant
 | **#19** | Snapshot | Streaming |
 | **#20** | Eventual Consistency | Real-time |
 
-**Padrão universal:**  
-Quando você cruza de human-scale → machine-scale, **o componente muda fundamentalmente**.
+**Universal pattern:**  
+When you cross from human-scale → machine-scale, **the component fundamentally changes**.
 
 ---
 
-## Definição Formal
+## Formal Definition
 ```
-Human-scale  = Componentes para quantidades que humanos processam (~1-1000)
-Machine-scale = Componentes para quantidades que máquinas processam (10k-1M+)
+Human-scale  = Components for quantities humans process (~1-1000)
+Machine-scale = Components for quantities machines process (10k-1M+)
 ```
 
-**Human-scale** é sobre **cognição humana, UX rica, semântica**.  
-**Machine-scale** é sobre **performance técnica, densidade, escalabilidade**.
+**Human-scale** is about **human cognition, rich UX, semantics**.  
+**Machine-scale** is about **technical performance, density, scalability**.
 
 ---
 
-## 🔒 O QUE ESSA RULE PROÍBE
+## 🔒 WHAT THIS RULE PROHIBITS
 
-### ❌ É PROIBIDO
+### ❌ FORBIDDEN
 
-- Usar componente human-scale para dados machine-scale
-- Adicionar flags `virtual=true`, `big_data=true` em componentes human-scale
-- Criar "componente inteligente" que escolhe automaticamente
-- Usar componente machine-scale para dados human-scale (over-engineering)
-- Escalar componente human-scale além do limite de cognição humana
-- Desescalar componente machine-scale perdendo performance
+- Using human-scale components for machine-scale data  
+- Adding flags `virtual=true`, `big_data=true` to human-scale components  
+- Creating "smart components" that auto-select scale  
+- Using machine-scale components for human-scale data (over-engineering)  
+- Scaling human components beyond cognitive limits  
+- Downscaling machine components losing performance  
 
-👉 **Scale é decisão arquitetural, não configuração.**
+👉 **Scale is an architectural decision, not configuration.**
 
 ---
 
-## ✅ O QUE A RULE EXIGE
+## ✅ WHAT THE RULE REQUIRES
 
-Toda decisão de componente **DEVE** considerar a escala dos dados:
+Every component decision **MUST** consider data scale:
 
-| Aspecto                    | Human-scale      | Machine-scale    |
+| Aspect                    | Human-scale      | Machine-scale    |
 |----------------------------|------------------|------------------|
-| **Quantidade**             | 1-1000           | 10k-1M+          |
-| **Cognição**               | Humano processa  | Máquina processa |
-| **UX**                     | Rica, semântica  | Performática     |
-| **Semântica HTML**         | Completa         | Limitada/Divs    |
-| **Acessibilidade**         | Total            | Parcial          |
-| **SSR**                    | Preferencial     | Opcional         |
+| **Quantity**               | 1-1000           | 10k-1M+          |
+| **Cognition**              | Human processes  | Machine processes |
+| **UX**                     | Rich, semantic   | Performance-driven |
+| **HTML semantics**         | Full             | Limited/Div-based |
+| **Accessibility**          | Full             | Partial          |
+| **SSR**                    | Preferred        | Optional         |
 | **Performance target**     | UX > performance | Performance > UX |
 
 ---
 
 ## 🎯 THE THRESHOLD RULE
 
-**Quando você cruza o threshold, o componente muda de natureza.**
+**When crossing the threshold, the component changes nature.**
 
-### Thresholds Canônicos
+### Canonical Thresholds
 ```
 Human-scale:    1 -----------------> ~1000
-                ↑                    ↑
-                trivial              cognitive limit
-                
 Machine-scale:  10k ----------------> 1M+
-                ↑                     ↑
-                performance           database scale
 ```
 
 **Gray zone (1k-10k):**  
-Área de decisão consciente. Pode ir para qualquer lado dependendo de:
-- Contexto de uso
-- Requisitos de UX vs Performance
-- SSR necessário?
-- Acessibilidade crítica?
+Conscious decision area based on:
+- UX vs performance  
+- SSR needs  
+- Accessibility requirements  
 
 ---
 
-## 📊 Human-scale vs Machine-scale: The Fundamental Divide
+## 📊 Fundamental Divide
 
-| Aspecto              | Human-scale                | Machine-scale              |
+| Aspect              | Human-scale                | Machine-scale              |
 |----------------------|----------------------------|----------------------------|
-| **Target**           | Cognição humana            | Performance técnica        |
-| **Quantidade**       | 1-1000                     | 10k-1M+                    |
-| **UX**               | Rica, exploratória         | Funcional, eficiente       |
-| **Semântica**        | HTML nativo                | Divs otimizados            |
-| **Acessibilidade**   | Total (ARIA completo)      | Limitada (trade-offs)      |
-| **SSR**              | ✅ Preferencial            | ⚠️ Opcional/impossível     |
-| **Performance**      | O(n) aceitável             | O(1) obrigatório           |
-| **Navegação**        | Discreta (páginas, clicks) | Contínua (scroll, stream)  |
-| **Componente Type**  | Type 1-3                   | Type 4                     |
-| **Tokens**           | Todos + Famílias A-C       | Canônicos + Família D      |
-| **Exemplos**         | Select, DataTable, Grid    | VirtualTable, Logs engine  |
+| Target               | Human cognition            | Technical performance      |
+| Quantity             | 1-1000                     | 10k-1M+                    |
+| UX                   | Rich                       | Efficient                  |
+| Semantics            | Native HTML                | Optimized divs             |
+| Accessibility        | Full                       | Limited                    |
+| SSR                  | ✅ Preferred               | ⚠️ Optional/impossible     |
+| Performance          | O(n) acceptable            | O(1) required              |
+| Navigation           | Discrete                   | Continuous                 |
+| Type                 | Type 1-3                   | Type 4                     |
 
 ---
 
-## 🚫 ANTI-PATTERNS (Meta-level)
+## 🚫 ANTI-PATTERNS
 
-### ❌ Escalar componente human-scale além do limite
+### ❌ Scaling human component
 ```rust
-// PROIBIDO - DataTable com 50k rows
 <DataTable data=fifty_thousand_rows />
 ```
 
-**Problema:**  
-- Componente construído para cognição humana
-- Não otimizado para rendering em escala
-- Performance degrada exponencialmente
-
-### ❌ Usar componente machine-scale para dados human-scale
+### ❌ Using machine component for small data
 ```rust
-// PROIBIDO - VirtualTable para 10 items
 <VirtualTable rows=ten_items />
 ```
 
-**Problema:**  
-- Over-engineering
-- Perde semântica e acessibilidade
-- Complexidade desnecessária
-
-### ❌ Criar componente "universal" com flags
+### ❌ Universal component
 ```rust
-// PROIBIDO - tentativa de unificar escalas
 <Table 
     data=rows
-    virtual={rows.len() > 1000}  // ❌
-    paginated={rows.len() > 100} // ❌
+    virtual={rows.len() > 1000}
+    paginated={rows.len() > 100}
 />
 ```
 
-**Problema:**  
-- God component
-- Esconde decisões arquiteturais críticas
-- Viola separation of concerns
-
 ---
 
-## ✅ PADRÕES CORRETOS
+## ✅ CORRECT PATTERNS
 ```rust
-// Human-scale (200 users, rich UX)
 <DataTable<User>
     data=users
-    columns=vec![/* ... */]
-    actions=|u| view! { <EditButton /> }
 />
 
-// Machine-scale (100k logs, performance)
 <VirtualTable
     rows=logs
-    row_height=36.0
-    viewport_height=600.0
 />
 ```
 
 ---
 
-## 🏷️ CLASSIFICAÇÃO DA RULE
+## 🏷️ RULE CLASSIFICATION
 
-| Campo       | Valor                              |
+| Field       | Value                              |
 |-------------|------------------------------------|
 | Rule ID     | Canon Rule #17                     |
-| Categoria   | Meta-Rule / Design Philosophy      |
-| Tipo        | Foundational Architectural Rule    |
-| Severidade  | **Critical**                       |
-| Scope       | All Components / System-wide       |
-| Violação    | **Review Blocker**                 |
+| Category    | Meta-Rule / Design Philosophy      |
+| Type        | Foundational Architectural Rule    |
+| Severity    | **Critical**                       |
+| Scope       | System-wide                        |
+| Violation   | **Review Blocker**                 |
 
 ---
 
-## 📚 Scale e Canon Type System
+## 🧬 DNA OF SCALE
 
-| Type  | Scale          | Exemplos                    |
-|-------|----------------|-----------------------------|
-| 1     | Human-scale    | Button, Input, Select       |
-| 2     | Human-scale    | Grid, MaskedInput           |
-| 3     | Human-scale    | DataTable, Combobox, Tabs   |
-| 4     | Machine-scale  | VirtualTable, Performance   |
-
-**Type 4 só existe em machine-scale.**  
-Se é human-scale, é Type 1-3.
-
----
-
-## 🧬 The DNA of Scale
-
-**Human-scale DNA:**
+**Human-scale:**
 ```
-Semântica → Cognição → UX Rica → SSR → Acessibilidade Total
+Semantics → Cognition → UX → SSR → Accessibility
 ```
 
-**Machine-scale DNA:**
+**Machine-scale:**
 ```
-Performance → Matemática → Eficiência → Client-only → Trade-offs
+Performance → Efficiency → Scaling → Client-only → Trade-offs
 ```
 
-**Você não pode misturar DNAs.**
+---
+
+## 🏁 FINAL VERDICT
+
+- ✅ Canon Rule #17  
+- ✅ Meta-rule  
+- ✅ Explains all others  
+- ✅ Blocks bad architecture  
 
 ---
 
-## 🏁 VEREDITO FINAL
-
-- ✅ É a **Canon Rule #17**
-- ✅ É a **Meta-Rule** que fundamenta #12, #14, #15, #16, #18, #19, #20
-- ✅ É **foundational**, não tática
-- ✅ Ela **explica o porquê** de todas as outras
-- ✅ Ela **bloqueia God Components** e over-engineering
-- ✅ Ela força **consciência de scale** em toda decisão
-
----
-
-## Referências
-
-**Rules Derivadas:**
-- Canon Rule #12 (Select vs Combobox): Human vs Machine selection
-- Canon Rule #14 (DataTable vs VirtualTable): Human vs Machine tables
-- Canon Rule #15 (Pagination vs Virtualization): Human vs Machine navigation
-- Canon Rule #16 (Client vs Server Filtering): Human vs Machine filtering
-- Canon Rule #18 (Client vs Server Sorting): Human vs Machine sorting
-- Canon Rule #19 (Streaming vs Snapshot): Machine streaming vs human snapshots
-- Canon Rule #20 (Real-time vs Eventual): Machine guarantees vs human acceptance
-
-**Canon Record:**
-- Canon Record #17: `/docs/canon/records/canon-record-17-meta-architectural-decision.md`
-
-**Teoria:**
-- Miller's Law (cognitive limits)
-- Big-O Notation (performance math)
-- Semantic Web (HTML design principles)
-
----
-
-**Mantra:** *Build for humans or build for machines. Never pretend one is the other.*
+**Mantra:** *Build for humans or build for machines.*
