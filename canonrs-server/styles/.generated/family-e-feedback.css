@@ -91,7 +91,7 @@
   --badge-fg-destructive: var(--theme-state-error-fg);
   --badge-bg-outline: transparent;
   --badge-fg-outline: var(--theme-text-primary);
-  --badge-border-outline: var(--theme-border-primary);
+  --badge-border-outline: var(--theme-surface-border);
   --badge-transition-duration: var(--motion-duration-fast);
   --badge-transition-ease: var(--motion-ease-standard);
   --badge-hover-opacity: 0.8;
