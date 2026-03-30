@@ -78,11 +78,20 @@ pub(crate) fn render_markdown_with_prefix(markdown: &str, id_prefix: &str) -> Re
             Event::End(TagEnd::CodeBlock) => {
                 in_code_block = false;
                 let result = highlight(&code_content, &code_lang);
+                let lines_html: String = result.lines.iter().enumerate()
+                    .map(|(i, line)| format!(
+                        "<span data-rs-code-line=\"\" data-rs-line-number=\"{}\">{}</span>",
+                        i + 1, line
+                    ))
+                    .collect::<Vec<_>>()
+                    .join("");
+                let escaped_code = html_escape::encode_double_quoted_attribute(&code_content);
+                let escaped_lang = html_escape::encode_text(&code_lang);
                 html.push_str(&format!(
-                    "<div data-code-block=\"\" data-language=\"{}\"><div data-code-header=\"\"><span data-code-language=\"\">{}</span></div><pre data-code-pre=\"\">{}</pre></div>",
-                    html_escape::encode_text(&code_lang),
-                    html_escape::encode_text(&code_lang),
-                    result.lines.join("\n")
+                    "<div data-rs-code-block=\"\" data-rs-component=\"CodeBlock\" data-rs-behavior=\"content\" data-rs-language=\"{lang}\"><div data-rs-code-header=\"\"><div data-code-header-left=\"\"><span data-rs-code-language=\"\">{lang}</span></div><button data-rs-copy-button=\"\" data-rs-copy-text=\"{code}\" data-rs-reset-delay=\"1300\" data-rs-state=\"idle\" aria-label=\"Copy to clipboard\"><span data-rs-copy-content=\"\"><svg data-rs-copy-icon=\"\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\"/><path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\"/></svg><span data-rs-copy-label=\"\">Copy</span></span><span data-rs-copied-content=\"\"><svg data-rs-copied-icon=\"\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M20 6 9 17l-5-5\"/></svg><span data-rs-copied-label=\"\" aria-live=\"polite\">Copied!</span></span><span data-rs-error-content=\"\"><svg data-rs-error-icon=\"\" xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m15 9-6 6M9 9l6 6\"/></svg><span data-rs-error-label=\"\" aria-live=\"assertive\">Failed</span></span></button></div><pre data-rs-code-pre=\"\">{lines}</pre></div>",
+                    lang = escaped_lang,
+                    code = escaped_code,
+                    lines = lines_html,
                 ));
                 code_content.clear();
                 code_lang.clear();
@@ -145,13 +154,13 @@ pub(crate) fn render_markdown_with_prefix(markdown: &str, id_prefix: &str) -> Re
             }
 
             // ── Tables ───────────────────────────────────────────────────────
-            Event::Start(Tag::Table(_))    => html.push_str("<table data-md-table=\"\">"),
+            Event::Start(Tag::Table(_))    => html.push_str("<table data-rs-md-table=\"\">"),
             Event::End(TagEnd::Table)      => html.push_str("</table>"),
-            Event::Start(Tag::TableHead)   => html.push_str("<thead data-md-thead=\"\"><tr>"),
+            Event::Start(Tag::TableHead)   => html.push_str("<thead data-rs-md-thead=\"\"><tr>"),
             Event::End(TagEnd::TableHead)  => html.push_str("</tr></thead>"),
-            Event::Start(Tag::TableRow)    => html.push_str("<tr data-md-tr=\"\">"),
+            Event::Start(Tag::TableRow)    => html.push_str("<tr data-rs-md-tr=\"\">"),
             Event::End(TagEnd::TableRow)   => html.push_str("</tr>"),
-            Event::Start(Tag::TableCell)   => html.push_str("<td data-md-td=\"\">"),
+            Event::Start(Tag::TableCell)   => html.push_str("<td data-rs-md-td=\"\">"),
             Event::End(TagEnd::TableCell)  => html.push_str("</td>"),
 
             // ── Misc ─────────────────────────────────────────────────────────

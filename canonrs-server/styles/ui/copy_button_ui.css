@@ -33,40 +33,40 @@
 }
 
 /* State: copying */
-[data-rs-copy-button][data-state="copying"] {
+[data-rs-copy-button][data-rs-state="copying"] {
   cursor: wait;
   opacity: 0.7;
 }
 
 /* State: copied */
-[data-rs-copy-button][data-state="copied"] [data-rs-copy-content] {
+[data-rs-copy-button][data-rs-state="copied"] [data-rs-copy-content] {
   display: none;
 }
 
-[data-rs-copy-button][data-state="copied"] [data-rs-copied-content] {
+[data-rs-copy-button][data-rs-state="copied"] [data-rs-copied-content] {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
-[data-rs-copy-button][data-state="copied"] {
+[data-rs-copy-button][data-rs-state="copied"] {
   background: var(--copy-button-success-bg, var(--color-success));
   color: var(--copy-button-success-fg, white);
   border-color: var(--copy-button-success-border, var(--color-success));
 }
 
 /* State: error */
-[data-rs-copy-button][data-state="error"] [data-rs-copy-content] {
+[data-rs-copy-button][data-rs-state="error"] [data-rs-copy-content] {
   display: none;
 }
 
-[data-rs-copy-button][data-state="error"] [data-rs-error-content] {
+[data-rs-copy-button][data-rs-state="error"] [data-rs-error-content] {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
-[data-rs-copy-button][data-state="error"] {
+[data-rs-copy-button][data-rs-state="error"] {
   background: var(--copy-button-error-bg, var(--color-destructive));
   color: var(--copy-button-error-fg, white);
   border-color: var(--copy-button-error-border, var(--color-destructive));

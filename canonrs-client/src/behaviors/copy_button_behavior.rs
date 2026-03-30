@@ -32,6 +32,33 @@ pub fn register() {
 }
 
 #[cfg(feature = "hydrate")]
+fn fallback_copy(text: &str) {
+    let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+    let Ok(el) = doc.create_element("textarea") else { return };
+    el.set_text_content(Some(text));
+
+    let style = el.dyn_ref::<web_sys::HtmlElement>().map(|e| e.style());
+    if let Some(style) = style {
+        let _ = style.set_property("position", "fixed");
+        let _ = style.set_property("top", "-9999px");
+        let _ = style.set_property("left", "-9999px");
+        let _ = style.set_property("opacity", "0");
+    }
+
+    let Some(body) = doc.body() else { return };
+    let _ = body.append_child(&el);
+
+    if let Some(textarea) = el.dyn_ref::<web_sys::HtmlTextAreaElement>() {
+        textarea.select();
+        if let Some(html_doc) = doc.dyn_ref::<web_sys::HtmlDocument>() {
+            let _ = html_doc.exec_command("copy");
+        }
+    }
+
+    let _ = body.remove_child(&el);
+}
+
+#[cfg(feature = "hydrate")]
 fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
     if btn.get_attribute("data-rs-copy-attached").as_deref() == Some("1") {
         return Ok(());
@@ -42,18 +69,15 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
     let btn_clone = btn.clone();
 
     let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
-        // Get text from data-copy-text or from data-copy-target element
         let text = btn_clone.get_attribute("data-rs-copy-text")
             .filter(|t| !t.is_empty())
             .or_else(|| {
                 btn_clone.get_attribute("data-rs-copy-target").and_then(|target| {
-                    // Support both "#id" and "id" formats
-                    let selector = if target.starts_with('#') { 
-                        target.clone() 
-                    } else { 
-                        format!("#{}", target) 
+                    let selector = if target.starts_with('#') {
+                        target.clone()
+                    } else {
+                        format!("#{}", target)
                     };
-                    
                     document().query_selector(&selector).ok()
                         .flatten()
                         .and_then(|el| el.text_content())
@@ -67,24 +91,50 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
             return;
         }
 
+        let text_clone = text.clone();
+
         CLIPBOARD.with(|clip| {
-            let _ = clip.write_text(&text);
+            let _ = clip.write_text(&text_clone);
         });
 
+        // Try clipboard API — if it fails silently, use fallback
+        fallback_copy(&text_clone);
+
         let _ = btn_clone.set_attribute("data-rs-state", "copied");
-        
+
+        // Highlight parent CodeBlock
+        if let Ok(Some(parent)) = btn_clone.closest("[data-rs-code-block]") {
+            let _ = parent.set_attribute("data-rs-copied", "true");
+            let parent_clone = parent.clone();
+            reset_after_fn(800, move || {
+                let _ = parent_clone.remove_attribute("data-rs-copied");
+            });
+        }
+
         let delay = btn_clone.get_attribute("data-rs-reset-delay")
             .and_then(|d| d.parse::<i32>().ok())
-            .unwrap_or(2000);
-        
+            .unwrap_or(1300);
         reset_after(&btn_clone, delay);
+
     }) as Box<dyn FnMut(_)>);
 
     btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
         .map_err(|_| crate::BehaviorError::JsError { message: "click listener".into() })?;
-    
+
     closure.forget();
     Ok(())
+}
+
+#[cfg(feature = "hydrate")]
+fn reset_after_fn<F: FnOnce() + 'static>(ms: i32, f: F) {
+    let closure = Closure::once(Box::new(f) as Box<dyn FnOnce()>);
+    let _ = web_sys::window()
+        .unwrap()
+        .set_timeout_with_callback_and_timeout_and_arguments_0(
+            closure.as_ref().unchecked_ref(),
+            ms,
+        );
+    closure.forget();
 }
 
 #[cfg(feature = "hydrate")]
