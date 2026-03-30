@@ -121,7 +121,7 @@ command_history.push(command);
 
 ---
 
-## Real-World Example: Workflow Steps
+## Real World Example Workflow Steps
 
 ### ❌ Wrong (Coupled)
 ```rust
@@ -210,7 +210,7 @@ When implementing drag & drop:
 
 ---
 
-## Anti-Patterns to Avoid
+## Anti Patterns To Avoid
 
 ### 🚫 API Calls in DragHandle
 ```rust
@@ -238,7 +238,7 @@ pub fn DragHandle() {
 
 ---
 
-## Comparison: CanonRS vs Others
+## Comparison Canonrs Vs Others
 
 | Framework | Approach | Coupling |
 |-----------|----------|----------|

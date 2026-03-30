@@ -81,7 +81,7 @@ field.gap
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 ```rust
 // ❌ INCOMPLETE TOKEN USAGE
 
@@ -226,7 +226,7 @@ grep -r "16rem\|300ms\|#fff\|rgba(" src/ui/*.rs
 
 ---
 
-## Real-World Example: Before/After
+## Real World Example: Before/After
 
 ### Before (Violates Rule)
 ```rust

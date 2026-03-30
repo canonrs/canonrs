@@ -28,7 +28,7 @@ This ensures **visual consistency** and **centralization** across all component 
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 ```rust
 // ❌ NEVER ALLOWED
 
@@ -249,7 +249,7 @@ let preview_content = view! { <Button/> }.into_any();
 
 ---
 
-## Real-World Migration
+## Real World Migration
 
 ### Before (Broken)
 ```rust

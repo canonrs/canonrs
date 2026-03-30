@@ -30,7 +30,7 @@ This was observed when Providers were placed in both Layouts and Blocks.
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // Provider inside a Block
 #[component]
@@ -49,7 +49,7 @@ Blocks MUST NOT own Providers.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 // Provider owned by App-level composition
 <SidebarProvider>

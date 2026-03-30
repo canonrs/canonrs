@@ -38,7 +38,7 @@ Real measurement from CanonRS pre-separation:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // lib.rs - NO SEPARATION
 pub mod ui;           // ❌ Compiles to WASM unnecessarily
@@ -60,7 +60,7 @@ Why this violates the rule:
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 // lib.rs - CLEAN SEPARATION
 #![recursion_limit = "512"]

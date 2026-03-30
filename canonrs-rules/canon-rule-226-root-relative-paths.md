@@ -36,7 +36,7 @@ Failed to load resource: the server responded with 404 (Not Found)
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]
@@ -61,7 +61,7 @@ ls products/canonrs-site/style/output.css
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]

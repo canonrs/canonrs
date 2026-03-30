@@ -416,7 +416,7 @@ fn orchestrator_coordinates_refresh() {
 
 ---
 
-## Anti-Patterns
+## Anti Patterns
 
 ### Anti-Pattern 1: God Orchestrator
 ```rust

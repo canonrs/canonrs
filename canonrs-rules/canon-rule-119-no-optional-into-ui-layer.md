@@ -38,7 +38,7 @@ This error appears **hundreds of times** when `#[prop(optional, into)]` is used 
 
 ## Forbidden Patterns
 
-### ❌ Forbidden: Using `#[prop(optional, into)]` in UI Layer
+### Forbidden: Using prop optional into in UI Layer
 ```rust
 // UI Component (FORBIDDEN)
 #[component]
@@ -69,7 +69,7 @@ view! {
 
 ## Canonical Pattern
 
-### ✅ Canonical: Explicit Option<T> in UI, handle unwrap internally
+### Canonical: Explicit Option in UI
 ```rust
 // UI Component (CORRECT)
 #[component]

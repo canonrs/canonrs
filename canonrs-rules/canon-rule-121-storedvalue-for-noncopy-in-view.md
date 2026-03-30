@@ -48,7 +48,7 @@ error[E0525]: expected a closure that implements the `Fn` trait, but this closur
 
 ## Forbidden Patterns
 
-### ❌ Forbidden: Moving String into view! closure
+### Forbidden: Moving String into view closure
 ```rust
 #[component]
 pub fn Component(title: String) -> impl IntoView {
@@ -64,7 +64,7 @@ error[E0525]: expected closure implementing `Fn`, found `FnOnce`
   because it moves the variable `title` out of its environment
 ```
 
-### ❌ Forbidden: Moving registry/context into closure
+### Forbidden: Moving registry context into closure
 ```rust
 #[component]
 pub fn CommandPalette(registry: CommandRegistry) -> impl IntoView {
@@ -83,7 +83,7 @@ pub fn CommandPalette(registry: CommandRegistry) -> impl IntoView {
 - Second render attempts to move again → already moved
 - `FnOnce` violation
 
-### ❌ Forbidden: Clone inside closure (still FnOnce)
+### Forbidden: Clone inside closure still FnOnce
 ```rust
 #[component]
 pub fn Component(data: Vec<String>) -> impl IntoView {
@@ -103,7 +103,7 @@ pub fn Component(data: Vec<String>) -> impl IntoView {
 - Closure still captures `data` by move
 - `FnOnce` violation remains
 
-### ❌ Forbidden: Invoking Children inside view!
+### Forbidden: Invoking Children inside view
 ```rust
 #[component]
 pub fn Wrapper(children: Children) -> impl IntoView {
@@ -124,7 +124,7 @@ pub fn Wrapper(children: Children) -> impl IntoView {
 
 ## Canonical Pattern
 
-### ✅ Canonical: Wrap non-Copy values in StoredValue
+### Canonical: Wrap non Copy values in StoredValue
 ```rust
 #[component]
 pub fn Component(title: String) -> impl IntoView {
@@ -142,7 +142,7 @@ pub fn Component(title: String) -> impl IntoView {
 - `get_value()` retrieves value on each render
 - Closure remains `Fn`
 
-### ✅ Canonical: Registry in StoredValue
+### Canonical: Registry in StoredValue
 ```rust
 #[component]
 pub fn CommandPalette(registry: CommandRegistry) -> impl IntoView {
@@ -162,7 +162,7 @@ pub fn CommandPalette(registry: CommandRegistry) -> impl IntoView {
 - `with_value()` provides safe access to inner value
 - Closure can be called multiple times
 
-### ✅ Canonical: Children with ChildrenFn + StoredValue
+### Canonical: Children with ChildrenFn StoredValue
 ```rust
 #[component]
 pub fn Wrapper(children: ChildrenFn) -> impl IntoView {
@@ -181,7 +181,7 @@ pub fn Wrapper(children: ChildrenFn) -> impl IntoView {
 - `StoredValue` makes it capturable
 - Closure invokes function on each render
 
-### ✅ Canonical: Multiple non-Copy values
+### Canonical: Multiple non Copy values
 ```rust
 #[component]
 pub fn Complex(
@@ -269,7 +269,7 @@ cargo check 2>&1 | grep "expected.*Fn.*found.*FnOnce" && \
 
 ## Exceptions
 
-### Exception 1: Values cloned OUTSIDE view!
+### Exception 1 Values cloned outside view
 ```rust
 #[component]
 pub fn Component(title: String) -> impl IntoView {
@@ -286,7 +286,7 @@ pub fn Component(title: String) -> impl IntoView {
 - Value used exactly once in template
 - No reactive closure needed
 
-### Exception 2: Copy types (never need StoredValue)
+### Exception 2 Copy types never need StoredValue
 ```rust
 #[component]
 pub fn Component(count: i32, enabled: bool) -> impl IntoView {
@@ -299,7 +299,7 @@ pub fn Component(count: i32, enabled: bool) -> impl IntoView {
 }
 ```
 
-### Exception 3: Signals (already reactive)
+### Exception 3 Signals already reactive
 ```rust
 #[component]
 pub fn Component(count: Signal<i32>) -> impl IntoView {

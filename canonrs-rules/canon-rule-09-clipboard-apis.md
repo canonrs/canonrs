@@ -38,7 +38,7 @@ Document is not focused.
 
 ---
 
-## ✅ The Correct Solution: document.execCommand
+## The Correct Solution: document.execCommand
 
 ### Why This Works
 

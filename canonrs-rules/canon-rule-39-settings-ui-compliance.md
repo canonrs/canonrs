@@ -13,7 +13,7 @@ Settings UI components (Theme Toggle, Density Selector, Language Picker) are **L
 
 ## The Three Settings Components
 
-### 1️⃣ ThemeSettingsDropdown
+### Themesettingsdropdown
 
 **Responsibility:**
 - Display current theme mode (Light/Dark/System)

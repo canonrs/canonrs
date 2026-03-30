@@ -34,7 +34,7 @@ Real bug: `themes/light/ui.css` defined `hsl(210 40% 98%)` → preset amber was 
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```css
 /* themes/light/ui.css */
 @layer theme {
@@ -56,7 +56,7 @@ Real bug: `themes/light/ui.css` defined `hsl(210 40% 98%)` → preset amber was 
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```css
 /* themes/light/ui.css */
 @layer theme {

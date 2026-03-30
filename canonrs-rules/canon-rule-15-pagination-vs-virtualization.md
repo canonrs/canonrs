@@ -53,7 +53,7 @@ Virtualization = Rendering performance engine (machine-driven)
 
 ---
 
-## 🚫 ANTI-PATTERNS
+## Anti-Patterns
 
 ```rust
 <VirtualTable pagination=true />

@@ -108,7 +108,7 @@ npx @tailwindcss/cli -i style/globals.css -o public/workbench.css
 
 ---
 
-## Tailwind v4 Requirements
+## Tailwind V4 Requirements
 
 ### ⚠️ Critical: Tailwind v4 Does NOT Resolve Node Modules
 
@@ -167,7 +167,7 @@ curl http://localhost:3003/workbench.css | head -20
 
 ---
 
-## Anti-Patterns to Avoid
+## Anti Patterns
 
 ### 🚫 Copying Tokens to Multiple Files
 ```bash
@@ -229,7 +229,7 @@ npx @tailwindcss/cli \
 
 ---
 
-## Comparison: CanonRS vs Others
+## Comparison
 
 | Approach | Source Files | Build Required | Tailwind v4 Compatible |
 |----------|--------------|----------------|------------------------|

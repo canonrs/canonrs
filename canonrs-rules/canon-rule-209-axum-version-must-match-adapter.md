@@ -33,7 +33,7 @@ This breaks SSR routing and streaming deterministically.
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```toml
 leptos_axum = "0.8"
@@ -46,7 +46,7 @@ The application is overriding a framework dependency owned by the adapter.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```toml
 leptos_axum = "0.8"

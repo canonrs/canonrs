@@ -35,7 +35,7 @@ but this closure only implements `FnOnce`
 
 ---
 
-## ALWAYS Use ChildrenFn When
+## Always Use ChildrenFn When
 
 ### 1. Wrapper Components
 Components that wrap other content and may re-render:
@@ -83,7 +83,7 @@ pub fn Collapsible(
 
 ---
 
-## ALWAYS Use Children When
+## Always Use Children When
 
 ### 1. Static Layout Slots
 Components that render once and never change:
@@ -117,7 +117,7 @@ pub fn Card(
 
 ---
 
-## NEVER Do These
+## Never Do These
 
 ### ❌ Anti-Pattern 1: `{children}` Without `()`
 ```rust
@@ -278,7 +278,7 @@ view! {
 
 ---
 
-## Common Mistakes & Fixes
+## Common Mistakes And Fixes
 
 ### Mistake 1: Wrong Type in Wrapper
 ```rust

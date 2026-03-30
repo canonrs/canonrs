@@ -28,7 +28,7 @@ Snapshot  = Point-in-time data (REST)
 
 ---
 
-## ✅ DECISION MATRIX
+## Decision Matrix
 
 | Criteria        | Solution     |
 |----------------|--------------|

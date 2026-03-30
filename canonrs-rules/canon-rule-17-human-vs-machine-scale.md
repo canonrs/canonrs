@@ -73,7 +73,7 @@ Every component decision **MUST** consider data scale:
 
 ---
 
-## 🎯 THE THRESHOLD RULE
+## The Threshold Rule
 
 **When crossing the threshold, the component changes nature.**
 

@@ -18,7 +18,7 @@ Violation = Variance cycles / Inference explosions / Refactoring brittleness
 
 ---
 
-## ⚠️ The Problem (Real Production Case)
+## The Problem (Real Production Case)
 
 ### Symptom
 
@@ -41,7 +41,7 @@ error[E0391]: cycle detected when computing variances
 
 ---
 
-## 🚫 Prohibited Patterns
+## Prohibited Patterns
 
 ### ❌ FORBIDDEN #1: Helper Returns View<\_>
 
@@ -85,7 +85,7 @@ let content: View<_> = match x {
 
 ---
 
-### ❌ FORBIDDEN #3: Vec<View>
+### Forbidden #3: Vec View
 
 ```rust
 // ❌ WRONG - Incompatible collection type
@@ -117,7 +117,7 @@ let renderer = move || -> View<_> {
 
 ---
 
-## ✅ Correct Patterns
+## Correct Patterns
 
 ### ✅ CORRECT #1: Component Returns View<\_>
 
@@ -137,7 +137,7 @@ pub fn MyComponent() -> impl IntoView {
 
 ---
 
-### ✅ CORRECT #2: Helper Returns impl IntoView
+### Correct #2: Helper Returns impl IntoView
 
 ```rust
 // ✅ CORRECT - Closed boundary
@@ -161,7 +161,7 @@ fn render_step_buttons(
 
 ---
 
-### ✅ CORRECT #3: Match with AnyView
+### Correct #3: Match with AnyView
 
 ```rust
 // ✅ CORRECT - Unified type
@@ -179,7 +179,7 @@ move || match x {
 
 ---
 
-### ✅ CORRECT #4: Vec<AnyView>
+### Correct #4: Vec AnyView
 
 ```rust
 // ✅ CORRECT - Homogeneous collection
@@ -195,7 +195,7 @@ result.push(view! { <div inner_html={h}></div> }.into_any());
 
 ---
 
-### ✅ CORRECT #5: Closure Returns AnyView
+### Correct #5: Closure Returns AnyView
 
 ```rust
 // ✅ CORRECT - Closed return type
@@ -211,7 +211,7 @@ let renderer = move || -> AnyView {
 
 ---
 
-## 📋 Decision Matrix
+## Decision Matrix
 
 | Context                 | Allowed Return Type     | Pattern                              |
 | ----------------------- | ----------------------- | ------------------------------------ |
@@ -224,7 +224,7 @@ let renderer = move || -> AnyView {
 
 ---
 
-## 🔥 Real Production Error (Your Case)
+## Real Production Error (Your Case)
 
 ### Error
 
@@ -284,7 +284,7 @@ Result: **197 errors → 0 errors**
 
 ---
 
-## 🧪 Validation Checklist
+## Validation Checklist
 
 ### Static Analysis
 
@@ -311,7 +311,7 @@ fi
 
 ---
 
-## 🎯 Migration Strategy
+## Migration Strategy
 
 ### Phase 1: Audit
 
@@ -350,7 +350,7 @@ strict_view_boundary = []
 
 ---
 
-## 📚 Related Rules
+## Related Rules
 
 This rule **closes the gap** between:
 
@@ -362,7 +362,7 @@ This rule **closes the gap** between:
 
 ---
 
-## ⚡ Quick Reference Card
+## Quick Reference Card
 
 ```rust
 // ✅ ALWAYS SAFE

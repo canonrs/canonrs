@@ -398,7 +398,7 @@ mod tests {
 
 ---
 
-## Anti-Patterns to Avoid
+## Anti Patterns
 
 ### 🚫 Manual DOM Updates Outside Provider
 ```rust
@@ -425,7 +425,7 @@ fn MyButton() -> impl IntoView {
 
 ---
 
-## Comparison: CanonRS vs Others
+## Comparison
 
 | Framework | State Management | DOM Sync | Auto-Sync |
 |-----------|-----------------|----------|-----------|

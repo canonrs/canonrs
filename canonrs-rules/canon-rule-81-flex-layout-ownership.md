@@ -21,7 +21,7 @@ A component that needs to grow (`flex: 1`) MUST have this property applied **in 
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 ```rust
 // ❌ NEVER ALLOWED
 
@@ -142,7 +142,7 @@ pub fn SidebarProvider(children: Children) -> impl IntoView {
 
 ---
 
-## Real-World Problem: Sidebar Layout
+## Real World Problem
 
 ### Symptom
 ```

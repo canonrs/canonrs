@@ -35,7 +35,7 @@ error: package `canonrs-site` not found in workspace
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 [workspace]
 members = [
@@ -57,7 +57,7 @@ ls canonrs-site/Cargo.toml
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 [workspace]
 members = [

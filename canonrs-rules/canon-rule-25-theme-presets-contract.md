@@ -12,9 +12,9 @@
 ## Principle
 Theme presets define **color palettes only**. All other design decisions (spacing, typography, radius, shadows) are **system-wide constants** that themes cannot override. This ensures visual consistency and prevents theme fragmentation.
 
-## What Themes CAN Define
+## What Themes Can Define
 
-### Color Palette (REQUIRED)
+### Color Palette
 ```typescript
 export const myTheme: ThemeDefinition = {
   modes: {
@@ -73,9 +73,9 @@ export const myTheme: ThemeDefinition = {
 - **Ranges:** H: 0-360, S: 0-100, L: 0-100
 - **Output:** `hsl(H S% L%)` without `deg` or commas
 
-## What Themes CANNOT Define
+## What Themes Cannot Define
 
-### ❌ Typography
+### Typography
 ```typescript
 // FORBIDDEN in themes
 fonts: {
@@ -86,7 +86,7 @@ fonts: {
 
 **Why:** Font stacks are infrastructure, not aesthetics
 
-### ❌ Spacing
+### Spacing
 ```typescript
 // FORBIDDEN in themes
 spacing: {
@@ -97,7 +97,7 @@ spacing: {
 
 **Why:** Spacing ratios ensure mathematical harmony
 
-### ❌ Border Radius
+### Border Radius
 ```typescript
 // FORBIDDEN in themes
 radius: {
@@ -109,7 +109,7 @@ radius: {
 
 **Why:** Radius defines brand personality system-wide
 
-### ❌ Shadows
+### Shadows
 ```typescript
 // FORBIDDEN in themes
 shadows: {
@@ -120,7 +120,7 @@ shadows: {
 
 **Why:** Shadow hierarchy is structural, not thematic
 
-### ❌ Motion
+### Motion
 ```typescript
 // FORBIDDEN in themes
 motion: {
@@ -199,7 +199,7 @@ npm run check:theme-contract
 
 ## Accessibility Requirements
 
-### Contrast Ratios (WCAG AA)
+### Contrast Ratios
 - **Normal text:** ≥4.5:1
 - **Large text:** ≥3:1
 - **UI components:** ≥3:1
@@ -252,7 +252,7 @@ export const THEME_REGISTRY = [
 
 ## Build Process
 
-### TypeScript → CSS Generation
+### TypeScript To CSS Generation
 ```bash
 # Generate CSS from TypeScript themes
 npm run build:themes
@@ -288,7 +288,7 @@ Theme schema updates require:
 
 ## Prohibited Customizations
 
-### ❌ Component-Specific Overrides
+### Component Specific Overrides
 ```css
 /* FORBIDDEN in theme.css */
 [data-theme="my-theme"] .button {
@@ -296,7 +296,7 @@ Theme schema updates require:
 }
 ```
 
-### ❌ Layout Modifications
+### Layout Modifications
 ```css
 /* FORBIDDEN in theme.css */
 [data-theme="my-theme"] .container {
@@ -304,7 +304,7 @@ Theme schema updates require:
 }
 ```
 
-### ❌ Breakpoint Changes
+### Breakpoint Changes
 ```css
 /* FORBIDDEN in theme.css */
 [data-theme="my-theme"] {

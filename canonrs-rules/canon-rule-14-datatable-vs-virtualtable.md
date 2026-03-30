@@ -159,7 +159,7 @@ Because it directly affects:
 
 ---
 
-## 🚫 ANTI-PATTERNS
+## Anti-Patterns
 
 ### ❌ Virtualized DataTable
 ```rust

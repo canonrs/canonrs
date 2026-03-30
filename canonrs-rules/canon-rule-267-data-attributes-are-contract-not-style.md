@@ -39,7 +39,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 class="density-compact"
@@ -55,7 +55,7 @@ They cannot represent canonical state contract.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 data-density="compact"

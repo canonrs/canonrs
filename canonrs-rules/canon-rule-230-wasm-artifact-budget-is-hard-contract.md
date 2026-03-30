@@ -38,7 +38,7 @@ Without size budgets:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden: No Size Guard
+### Forbidden
 ```makefile
 # Makefile without budget
 build:
@@ -55,7 +55,7 @@ build:
 
 ## Canonical Pattern
 
-### ✅ Canonical: Enforced Budget
+### Canonical
 ```makefile
 # Makefile with hard limit
 MAX_WASM_MB := 10

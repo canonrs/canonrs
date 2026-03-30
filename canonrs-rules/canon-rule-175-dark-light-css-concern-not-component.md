@@ -34,7 +34,7 @@ Real discovery: Button worked perfectly in dark AND light **without any componen
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```css
 /* button_ui.css */
 [data-button][data-ui-variant="solid"] {
@@ -59,7 +59,7 @@ Real discovery: Button worked perfectly in dark AND light **without any componen
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```css
 /* button_ui.css - Component is theme-agnostic */
 [data-button][data-ui-variant="solid"] {
@@ -119,7 +119,7 @@ This is **interface segregation**. Components depend only on the interface they 
 
 ## Enforcement
 
-### Linter rule
+### Linter Rule
 ```bash
 # No component CSS can reference .dark
 grep -r "\.dark" styles/ui/*.css && exit 1
@@ -127,7 +127,7 @@ grep -r "\.dark" styles/blocks/*.css && exit 1
 grep -r "\.dark" styles/layouts/*.css && exit 1
 ```
 
-### Static analysis
+### Static Analysis
 ```yaml
 # stylelint
 selectors-no-theme-classes:
@@ -136,7 +136,7 @@ selectors-no-theme-classes:
     scope: ["ui/**", "blocks/**", "layouts/**"]
 ```
 
-### Review checklist
+### Review Checklist
 
 - [ ] Component CSS has no `.dark` or `.light` selectors
 - [ ] Component CSS has no `[data-theme]` selectors

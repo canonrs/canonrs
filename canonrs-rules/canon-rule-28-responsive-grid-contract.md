@@ -25,7 +25,7 @@ Responsive layout uses **mobile-first breakpoints** and a **12-column grid syste
 }
 ```
 
-### Mobile-First Media Queries
+### Mobile First Media Queries
 ```css
 /* Base: Mobile (< 640px) */
 .container { width: 100%; }
@@ -58,7 +58,7 @@ Responsive layout uses **mobile-first breakpoints** and a **12-column grid syste
 
 ## Grid System
 
-### 12-Column Grid
+### 12 Column Grid
 ```css
 :root {
   --grid-columns: 12;

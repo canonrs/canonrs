@@ -22,7 +22,7 @@ Not merely at `cfg` usage level.
 
 ---
 
-## Clarification: Why `cfg` Alone Is Insufficient
+## Clarification: Why cfg Alone Is Insufficient
 
 Incorrect assumption:
 
@@ -69,7 +69,7 @@ resolver may include `axum` in graph.
 
 ## Canonical Isolation Model
 
-### 1️⃣ Separate Binaries
+### Separate Binaries
 
 ```toml
 [[bin]]
@@ -85,7 +85,7 @@ required-features = ["hydrate"]
 
 ---
 
-### 2️⃣ Feature-Scoped Dependencies
+### Feature Scoped Dependencies
 
 ```toml
 [dependencies]
@@ -101,7 +101,7 @@ hydrate = ["leptos/hydrate"]
 
 ---
 
-### 3️⃣ Hard Compile Guard (Mandatory)
+### Hard Compile Guard
 
 In SSR-only crate:
 
@@ -112,7 +112,7 @@ compile_error!("❌ SSR crate compiled for WASM target");
 
 ---
 
-## Graph Verification (Required)
+## Graph Verification
 
 ```bash
 cargo tree --target wasm32-unknown-unknown -p app-csr \

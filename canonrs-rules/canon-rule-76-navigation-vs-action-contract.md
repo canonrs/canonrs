@@ -26,7 +26,7 @@ Components MUST be architecturally separated by their intent:
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 ```rust
 // ❌ NEVER ALLOWED
 
@@ -139,7 +139,7 @@ Does this component change the URL?
 
 ---
 
-## Real-World Example: Sidebar Navigation
+## Real World Example
 
 ### Before (Violates Rule)
 ```rust

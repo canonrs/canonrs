@@ -35,7 +35,7 @@
 - **Page** provides content (identity)
 - `<h1>` is content identity, not structure
 
-## Anti-Pattern
+## Anti Pattern
 ```rust
 // ❌ WRONG - Layout with h1
 #[component]
@@ -96,7 +96,7 @@ pub fn DashboardPage() -> impl IntoView {
 - Layout provides branding via `<div>` or `<h2>`
 - Page controls document identity
 
-## Alternatives for Layout Branding
+## Alternatives For Layout Branding
 
 ### Option 1: Plain `<div>` (Recommended)
 ```rust

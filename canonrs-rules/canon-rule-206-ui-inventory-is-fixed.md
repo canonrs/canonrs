@@ -46,14 +46,14 @@ This number is **authoritative**.
 
 ## Enforcement
 
-### Build-Time Enforcement
+### Build Time Enforcement
 
 - `build.rs` MUST:
   - Discover UI directories
   - Emit a deterministic list
   - Compare against expected count (**78**)
 
-### Failure Conditions (BLOCKING)
+### Failure Conditions
 
 Build **MUST FAIL** if:
 
@@ -66,7 +66,7 @@ Build **MUST FAIL** if:
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 
 - "We added one more UI, no big deal"
 - Dynamic or runtime UI discovery
@@ -77,7 +77,7 @@ Build **MUST FAIL** if:
 
 ## Allowed Patterns
 
-### ✅ Allowed
+### Allowed
 
 - Explicit version bump + rule update
 - Regenerated inventory with review

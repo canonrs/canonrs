@@ -45,7 +45,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 // Manual init inside component
@@ -64,7 +64,7 @@ It bypasses centralized discovery and lifecycle control.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 #[cfg(feature = "hydrate")]

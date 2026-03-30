@@ -36,7 +36,7 @@ required by canonrs-site, leptos_axum
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 # ROOT Cargo.toml
 [workspace.dependencies]
@@ -55,7 +55,7 @@ axum = { version = "=0.8.8", optional = true }  # ❌ DUPLICATED
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 # ROOT Cargo.toml
 [workspace.dependencies]

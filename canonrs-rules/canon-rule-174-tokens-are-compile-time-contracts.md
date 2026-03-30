@@ -12,13 +12,13 @@ Token values and definitions are compile-time contracts enforced by the build sy
 
 ## Requirements
 
-### 1. Single Source of Truth
+### Single Source of Truth
 
 - **ALL tokens MUST be declared in `src/tokens/inventory.rs`**
 - No token can exist outside this inventory
 - Build MUST fail if undeclared token is used
 
-### 2. Value Primitive Isolation
+### Value Primitive Isolation
 
 - **Literal values (numbers, colors, measurements) can ONLY exist in `primitives.css`**
 - No literal in:
@@ -27,7 +27,7 @@ Token values and definitions are compile-time contracts enforced by the build sy
   - Block CSS
   - Theme overrides (except semantic mapping)
 
-### 3. Layer Contracts
+### Layer Contracts
 
 **PRIMITIVES** (`primitives.css`)
 
@@ -98,7 +98,7 @@ Build MUST fail if:
 
 ## Examples
 
-### ❌ VIOLATIONS
+### Violations
 
 ```css
 /* family-f-datamedia.css - WRONG */
@@ -120,7 +120,7 @@ Build MUST fail if:
 // Build succeeds, fails at validation
 ```
 
-### ✅ CORRECT
+### Correct
 
 ```rust
 // src/tokens/inventory.rs

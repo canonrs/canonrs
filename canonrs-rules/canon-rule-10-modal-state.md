@@ -35,7 +35,7 @@ fn EditDialog(
 
 ---
 
-## ✅ The Correct Solution: Signal Props
+## The Correct Solution: Signal Props
 
 ### Pattern
 ```rust

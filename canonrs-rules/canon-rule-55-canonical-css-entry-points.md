@@ -21,7 +21,7 @@ This rule exists to **eliminate fragile relative paths**, ensure **monorepo scal
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 
 ```css
 /* ❌ NEVER ALLOWED */

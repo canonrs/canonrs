@@ -14,7 +14,7 @@ Data source strategies (streaming, pagination, infinite scroll) are **adapters**
 
 ## The Problem
 
-### ❌ WRONG: Strategy as Component
+### Wrong Strategy As Component
 ```
 ui/
 ├── virtual_table/     // For client-side Vec<T>
@@ -31,7 +31,7 @@ ui/
 - Different APIs for same concept
 - Forces domain code to know infrastructure
 
-### ✅ CORRECT: Strategy as Adapter
+### Correct Strategy As Adapter
 ```
 ui/
 └── virtual_table/
@@ -150,7 +150,7 @@ impl<T> DataSource<T> for ServerStreamSource<T> {
 
 ## Domain Usage
 
-### Workflow Component (Correct)
+### Workflow Component Correct
 ```rust
 // components/workflow/mod.rs
 
@@ -182,7 +182,7 @@ pub fn WorkflowAuditLog() -> impl IntoView {
 
 ## Migration Path
 
-### Phase 1: Identify Duplicates
+### Phase 1 Identify Duplicates
 ```sql
 -- Find components doing same job
 SELECT name, location, line_count
@@ -191,7 +191,7 @@ WHERE name LIKE '%table%'
   AND has_viewport_logic = true;
 ```
 
-### Phase 2: Extract Adapters
+### Phase 2 Extract Adapters
 ```bash
 # For each duplicate table component:
 1. Extract data fetching → adapter
@@ -200,7 +200,7 @@ WHERE name LIKE '%table%'
 4. Update imports
 ```
 
-### Phase 3: Consolidate
+### Phase 3 Consolidate
 ```
 BEFORE:
 - components/tokens_table.rs (300 lines)
@@ -218,7 +218,7 @@ AFTER:
 
 ## Violation Examples
 
-### Violation 1: Domain in UI
+### Violation 1 Domain In UI
 ```rust
 // ❌ WRONG: ui/tokens_table.rs
 #[component]
@@ -245,7 +245,7 @@ pub fn TokensView() -> impl IntoView {
 }
 ```
 
-### Violation 2: Rendering in Components
+### Violation 2 Rendering In Components
 ```rust
 // ❌ WRONG: components/workflow.rs
 #[component]

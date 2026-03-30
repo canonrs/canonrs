@@ -22,7 +22,7 @@ The build pipeline is NOT automatic. Changes to:
 
 ---
 
-## Forbidden Assumptions (ABSOLUTE)
+## Forbidden Assumptions
 ```bash
 # ❌ WRONG WORKFLOW
 
@@ -209,7 +209,7 @@ ENOENT: no such file or directory, open 'public/workbench.css'
 
 ---
 
-## Automated Watch (Optional)
+## Automated Watch
 ```bash
 # Terminal 1: Watch CSS
 npm run watch:css

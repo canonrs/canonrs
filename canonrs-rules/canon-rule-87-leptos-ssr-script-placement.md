@@ -106,7 +106,7 @@ pub fn shell(options: leptos::config::LeptosOptions) -> impl IntoView {
 
 ---
 
-## Scope of Application
+## Scope Of Application
 
 **Scripts that MUST be in `shell()`:**
 - Event delegation (clicks, keyboard shortcuts)
@@ -122,7 +122,7 @@ pub fn shell(options: leptos::config::LeptosOptions) -> impl IntoView {
 
 ---
 
-## Real-World Example: Copy Button
+## Real World Example
 
 ### Problem Statement
 Copy button with `data-copy-button` and `data-copy-text` attributes renders correctly in DOM, but clicking does nothing. Console shows no errors.
@@ -194,7 +194,7 @@ document.addEventListener('click', e => console.log(e.target), true)
 
 ---
 
-## Integration with Monorepo
+## Integration With Monorepo
 
 When scripts are shared across multiple Leptos apps:
 ```rust

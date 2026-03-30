@@ -40,7 +40,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 struct DataTableState {
@@ -64,7 +64,7 @@ It duplicates Interactive responsibilities.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 // Interactive owns state

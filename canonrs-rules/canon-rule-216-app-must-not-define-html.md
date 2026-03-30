@@ -31,7 +31,7 @@ When components define HTML structure:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 #[component]
@@ -50,7 +50,7 @@ Structural HTML inside UI components.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 #[component]

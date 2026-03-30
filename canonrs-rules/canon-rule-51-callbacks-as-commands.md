@@ -30,7 +30,7 @@ This enables:
 
 ## The Problem
 
-### ❌ Wrong Pattern (Direct Mutation)
+### Wrong Pattern Direct Mutation
 ```rust
 // Dashboard callback executes mutation directly
 let on_widget_drag = Callback::new(move |event: WidgetDragEvent| {
@@ -57,7 +57,7 @@ let on_widget_drag = Callback::new(move |event: WidgetDragEvent| {
 
 ## The Solution
 
-### ✅ Correct Pattern (Command-based)
+### Correct Pattern Command Based
 ```rust
 // 1. Define command
 #[derive(Clone, Debug)]
@@ -186,7 +186,7 @@ impl CommandHistory {
 
 ---
 
-## Real-World Examples
+## Real World Examples
 
 ### Dashboard Widget Movement
 ```rust
@@ -259,7 +259,7 @@ let delete_widgets = MacroCommand {
 
 ---
 
-## Integration with Canon Rules
+## Integration With Canon Rules
 
 ### Rule #49: Drag & Drop as Intent
 ```rust
@@ -286,7 +286,7 @@ history.execute(command);
 
 ---
 
-## Forbidden Patterns ❌
+## Forbidden Patterns
 
 ### 🚫 Direct Mutation in Callback
 ```rust

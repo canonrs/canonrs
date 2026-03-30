@@ -41,7 +41,7 @@ Without formal layout types, developers create layouts that:
 
 ## Layout Types
 
-### Type 1: ShellLayout
+### Type 1 ShellLayout
 
 **Definition:** Application-level structure defining top-level regions (header, sidebar, main, footer).
 
@@ -49,7 +49,7 @@ Without formal layout types, developers create layouts that:
 
 **Examples:** `AppShell`, `DashboardShell`, `AuthShell`, `MarketingShell`, `AdminShell`
 
-#### CAN:
+#### CAN
 - Define top-level structure: `<header>`, `<aside>`, `<main>`, `<footer>`
 - Manage global z-index stacking (modals above content, tooltips above modals)
 - Control responsive layout breakpoints (sidebar collapse at mobile)
@@ -59,7 +59,7 @@ Without formal layout types, developers create layouts that:
 - Define CSS Grid or Flexbox for shell structure
 - Accept layout configuration props (sidebar position: left/right)
 
-#### CANNOT:
+#### CANNOT
 
 **ZoneLayouts are pure structural functions and MUST be signal-free. Any state implies misclassification as Shell or UI component.**
 - Have business logic (validation, calculations, domain rules)
@@ -70,7 +70,7 @@ Without formal layout types, developers create layouts that:
 - Emit domain callbacks (`on_save`, `on_submit`)
 - Know about routing paths ("/dashboard", "/settings")
 
-#### Canonical Example:
+#### Canonical Example
 ```rust
 // ✅ CORRECT: ShellLayout
 #[component]
@@ -112,7 +112,7 @@ pub fn AppShell(
 }
 ```
 
-#### Forbidden Example 1: Business logic in Shell
+#### Forbidden Example Business Logic In Shell
 ```rust
 // ❌ WRONG: Authentication logic in Shell
 #[component]
@@ -136,7 +136,7 @@ pub fn AppShell() -> impl IntoView {
 }
 ```
 
-#### Forbidden Example 2: Direct component rendering
+#### Forbidden Example Direct Component Rendering
 ```rust
 // ❌ WRONG: Rendering domain components in Shell
 #[component]
@@ -157,7 +157,7 @@ pub fn AppShell() -> impl IntoView {
 
 ---
 
-### Type 2: ZoneLayout
+### Type 2 ZoneLayout
 
 **Definition:** Page-level layout defining content zones without knowing what fills them.
 
@@ -167,7 +167,7 @@ pub fn AppShell() -> impl IntoView {
 
 **ZoneLayouts are pure structural functions and MUST be signal-free. Any state implies misclassification as Shell or UI component.**
 
-#### CAN:
+#### CAN
 - Define CSS Grid or Flexbox structure for page zones
 - Accept multiple `ChildrenFn` for different zones (left, right, main, aside)
 - Provide responsive breakpoints (stack on mobile, side-by-side on desktop)
@@ -175,7 +175,7 @@ pub fn AppShell() -> impl IntoView {
 - Use data attributes for zone identification (`data-zone="sidebar"`)
 - Accept layout configuration (ratios, alignments)
 
-#### CANNOT:
+#### CANNOT
 
 **ZoneLayouts are pure structural functions and MUST be signal-free. Any state implies misclassification as Shell or UI component.**
 - Know what components are in zones (content-agnostic)
@@ -185,7 +185,7 @@ pub fn AppShell() -> impl IntoView {
 - Manage z-index or stacking context (that's Shell's job)
 - Render specific components (pass everything as children)
 
-#### Canonical Example:
+#### Canonical Example
 ```rust
 // ✅ CORRECT: ZoneLayout
 #[component]
@@ -210,7 +210,7 @@ pub fn TwoColumnLayout(
 }
 ```
 
-#### Forbidden Example 1: State in ZoneLayout
+#### Forbidden Example State In ZoneLayout
 ```rust
 // ❌ WRONG: State management in Zone
 #[component]
@@ -231,7 +231,7 @@ pub fn TwoColumnLayout(left: ChildrenFn, right: ChildrenFn) -> impl IntoView {
 }
 ```
 
-#### Forbidden Example 2: Knowing content
+#### Forbidden Example Knowing Content
 ```rust
 // ❌ WRONG: Layout knows about content
 #[component]
@@ -255,7 +255,7 @@ pub fn DashboardLayout() -> impl IntoView {
 
 **ALL Layouts MUST follow these contracts:**
 
-### 1. Structure Only
+### Structure Only
 **Define regions and positioning — nothing else.**
 ```rust
 // ✅ CORRECT: Pure structure
@@ -276,7 +276,7 @@ pub fn DashboardLayout() -> impl IntoView {
 </div>
 ```
 
-### 2. Content Agnostic
+### Content Agnostic
 **Accept content via slots — never render specific components.**
 ```rust
 // ✅ CORRECT: Generic slots
@@ -296,7 +296,7 @@ pub fn Layout() -> impl IntoView {
 }
 ```
 
-### 3. No Business Logic
+### No Business Logic
 **Zero domain logic, validation, or API calls.**
 ```rust
 // ✅ CORRECT: Pure layout
@@ -309,7 +309,7 @@ let user = fetch_user().await;  // ❌
 if user.is_authenticated() { /* ... */ }  // ❌
 ```
 
-### 4. No Routing Knowledge
+### No Routing Knowledge
 **Use `<Outlet />` for router content — don't know about paths.**
 ```rust
 // ✅ CORRECT: Generic outlet
@@ -321,7 +321,7 @@ if user.is_authenticated() { /* ... */ }  // ❌
 </main>
 ```
 
-### 5. Responsive Structure
+### Responsive Structure
 **Handle responsive layout changes structurally, not logically.**
 ```rust
 // ✅ CORRECT: CSS-based responsive
@@ -433,7 +433,7 @@ provide_context(LayoutContext {
 
 ## Common Patterns
 
-### Pattern 1: Shell with Optional Regions
+### Pattern 1 Shell With Optional Regions
 ```rust
 #[component]
 pub fn AppShell(
@@ -452,7 +452,7 @@ pub fn AppShell(
 }
 ```
 
-### Pattern 2: Responsive Zone
+### Pattern 2 Responsive Zone
 ```rust
 #[component]
 pub fn ResponsiveLayout(

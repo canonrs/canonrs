@@ -33,7 +33,7 @@ Real bug: Theme imported before families → family tokens overwrote theme value
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```css
 /* canonrs.css - WRONG ORDER */
 @import "./.generated/themes.css";          /* ❌ Theme too early */
@@ -48,7 +48,7 @@ Real bug: Theme imported before families → family tokens overwrote theme value
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```css
 /* canonrs.css - CORRECT ORDER */
 @import "./.generated/core.css";

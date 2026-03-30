@@ -28,7 +28,7 @@ Providers create reactive runtime (signals, state, lifecycle). Duplicating them 
 
 ## The Problem
 
-### ❌ Wrong Pattern (Duplicated Provider)
+### Wrong Pattern Duplicated Provider
 ```rust
 // App layer
 <App>
@@ -49,7 +49,7 @@ Providers create reactive runtime (signals, state, lifecycle). Duplicating them 
 - Events emitted to Context 1, callbacks listening on Context 2
 - **Result:** Drag & drop silently fails (no errors, just doesn't work)
 
-### ❌ Wrong Pattern (Provider in Design System)
+### Wrong Pattern Provider In Design System
 ```rust
 // rs-design/ui/dashboard/dashboard.rs
 #[component]
@@ -72,7 +72,7 @@ pub fn Dashboard() -> impl IntoView {
 
 ## The Solution
 
-### ✅ Correct Pattern (Singleton per Scope)
+### Correct Pattern Singleton Per Scope
 ```rust
 // App layer ONLY
 #[component]
@@ -178,9 +178,9 @@ App Root
 
 ---
 
-## Forbidden Patterns ❌
+## Forbidden Patterns
 
-### 🚫 Provider in rs-design
+### Provider in rs design
 ```rust
 // rs-design/ui/dashboard.rs
 pub fn Dashboard() -> impl IntoView {
@@ -192,7 +192,7 @@ pub fn Dashboard() -> impl IntoView {
 }
 ```
 
-### 🚫 Nested Provider in Same Scope
+### Nested Provider In Same Scope
 ```rust
 <DragDropProvider>
   <Tabs>
@@ -205,7 +205,7 @@ pub fn Dashboard() -> impl IntoView {
 </DragDropProvider>
 ```
 
-### 🚫 Callbacks Provider Outside Runtime
+### Callbacks Provider Outside Runtime
 ```rust
 // WRONG ORDER
 <DragDropCallbacksProvider>  // 🚫 No runtime to listen to!
@@ -215,7 +215,7 @@ pub fn Dashboard() -> impl IntoView {
 </DragDropCallbacksProvider>
 ```
 
-### 🚫 Hidden Provider in Reusable Component
+### Hidden Provider In Reusable Component
 ```rust
 // Some reusable component
 pub fn ReusableWidget() -> impl IntoView {
@@ -229,9 +229,9 @@ pub fn ReusableWidget() -> impl IntoView {
 
 ---
 
-## SSR & WASM Rules
+## SSR And WASM Rules
 
-### ✅ SSR-Safe Provider
+### SSR Safe Provider
 ```rust
 #[component]
 pub fn DragDropProvider(children: Children) -> impl IntoView {
@@ -245,7 +245,7 @@ pub fn DragDropProvider(children: Children) -> impl IntoView {
 }
 ```
 
-### 🚫 Unsafe: Signal Creation in SSR
+### Unsafe Signal Creation In SSR
 ```rust
 pub fn DragDropProvider() -> impl IntoView {
     // 🚫 Creates RwSignal in SSR → spawn_local panic
@@ -258,9 +258,9 @@ pub fn DragDropProvider() -> impl IntoView {
 
 ---
 
-## Real-World Example: Dashboard Editor
+## Real World Example Dashboard Editor
 
-### ❌ Before (Broken)
+### Before Broken
 ```rust
 // App
 <App>
@@ -283,7 +283,7 @@ pub fn Dashboard() -> impl IntoView {
 
 **Cause:** Two contexts. `DragHandle` emits to Context A, `DropZone` listens on Context B.
 
-### ✅ After (Fixed)
+### After Fixed
 ```rust
 // App (ONE provider at root)
 <App>
@@ -316,12 +316,12 @@ pub fn DashboardTab() -> impl IntoView {
 
 ## Benefits
 
-### ✅ Predictable Context Resolution
+### Predictable Context Resolution
 - One provider → one context
 - No ambiguity about which context is active
 - Leptos `use_context()` always finds the right one
 
-### ✅ Reusable Components
+### Reusable Components
 ```rust
 // Dashboard works with OR without drag
 <Dashboard widgets=.../>  // ✅ No drag (just displays)
@@ -331,7 +331,7 @@ pub fn DashboardTab() -> impl IntoView {
 </DragDropProvider>
 ```
 
-### ✅ Testable
+### Testable
 ```rust
 #[test]
 fn test_dashboard_no_drag() {
@@ -341,7 +341,7 @@ fn test_dashboard_no_drag() {
 }
 ```
 
-### ✅ SSR-Safe
+### SSR Safe
 - Providers only create runtime in WASM
 - No `spawn_local` panics
 - Server can render static HTML
@@ -383,7 +383,7 @@ When drag & drop doesn't work:
 
 ---
 
-## Comparison: CanonRS vs Others
+## Comparison CanonRS Vs Others
 
 | Framework | Provider Pattern | Duplication Risk |
 |-----------|------------------|------------------|

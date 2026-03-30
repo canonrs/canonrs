@@ -51,7 +51,7 @@ error[E0282]: type annotations needed
 
 ---
 
-## Anti-Pattern (FORBIDDEN)
+## Anti Pattern
 ```toml
 # ❌ FORBIDDEN: Features only in member crate
 [workspace.dependencies]
@@ -66,7 +66,7 @@ This fails because macro expansion happens at workspace resolution time, before 
 
 ---
 
-## Canonical Pattern (REQUIRED)
+## Canonical Pattern
 ```toml
 # ✅ REQUIRED: Features in workspace root
 [workspace.dependencies]

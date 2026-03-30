@@ -118,7 +118,7 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
 }
 ```
 
-## Anti-Flash Script
+## Anti Flash Script
 
 ### Requirements
 
@@ -251,7 +251,7 @@ curl -H "Cookie: theme-mode=dark; theme-preset=ocean" http://localhost:3000
 - [ ] Theme persists after browser restart
 - [ ] Server functions only in app layer
 
-## Migration from localStorage
+## Migration From Localstorage
 
 If migrating from localStorage-based theme:
 ```javascript

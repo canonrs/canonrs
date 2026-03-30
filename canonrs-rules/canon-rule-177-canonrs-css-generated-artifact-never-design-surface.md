@@ -34,7 +34,7 @@ Real bug: Manual fix in `canonrs.css` → worked locally → git ignored file �
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```bash
 # Editing generated file
 vim styles/canonrs.css
@@ -56,7 +56,7 @@ git commit -m "fix: update button colors"  # ❌ Wrong layer
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```bash
 # Edit source files
 vim styles/ui/button_ui.css          # Component CSS
@@ -120,7 +120,7 @@ This is **build system hygiene**. Generated artifacts must be reproducible. Manu
 
 ## Enforcement
 
-### .gitignore
+### Gitignore
 ```gitignore
 # Generated CSS - DO NOT COMMIT
 styles/canonrs.css
@@ -128,7 +128,7 @@ styles/.generated/
 dist/
 ```
 
-### Pre-commit hook
+### Pre Commit Hook
 ```bash
 #!/bin/bash
 # .git/hooks/pre-commit
@@ -138,20 +138,20 @@ if git diff --cached --name-only | grep "canonrs.css"; then
 fi
 ```
 
-### Build script header
+### Build Script Header
 ```bash
 # scripts/core/generate-canonrs-entry.sh
 echo "/* AUTO-GENERATED - DO NOT EDIT */" > "$OUTPUT"
 echo "/* Run: npm run build to regenerate */" >> "$OUTPUT"
 ```
 
-### File permissions (optional)
+### File Permissions
 ```bash
 # Make canonrs.css read-only after build
 chmod 444 styles/canonrs.css
 ```
 
-### Review checklist
+### Review Checklist
 
 - [ ] `canonrs.css` is in `.gitignore`
 - [ ] No manual edits to `canonrs.css` in commits

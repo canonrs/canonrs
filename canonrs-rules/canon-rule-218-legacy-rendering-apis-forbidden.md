@@ -31,7 +31,7 @@ Using legacy APIs:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 render_app_to_stream(|| view! { <App/> })
@@ -43,7 +43,7 @@ Manual streaming without shell integration.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 Router::new()

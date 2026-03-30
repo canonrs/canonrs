@@ -54,7 +54,7 @@ error[E0382]: borrow of moved value: `leptos_options`
 
 ---
 
-## Anti-Pattern (FORBIDDEN)
+## Anti Pattern
 ```rust
 // ❌ FORBIDDEN: Shared reference across closures
 let leptos_options = conf.leptos_options.clone();
@@ -76,7 +76,7 @@ This fails because:
 
 ---
 
-## Canonical Pattern (REQUIRED)
+## Canonical Pattern
 ```rust
 // ✅ REQUIRED: Clone before each closure
 let conf = get_configuration(None).unwrap();
@@ -116,7 +116,7 @@ The only way to satisfy all three constraints:
 
 ## Pattern Variations
 
-### Multiple Clones in Sequence
+### Multiple Clones In Sequence
 ```rust
 let opts = leptos_options.clone();
 
@@ -132,7 +132,7 @@ let app = Router::new()
     .with_state(leptos_options);
 ```
 
-### Arc for True Sharing (if needed)
+### Arc For True Sharing
 ```rust
 use std::sync::Arc;
 

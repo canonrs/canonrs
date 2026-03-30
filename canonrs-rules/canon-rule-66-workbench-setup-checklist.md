@@ -256,7 +256,7 @@ echo "✅ All checks passed! Safe to develop."
 
 ---
 
-## When to Run Checklist
+## When To Run Checklist
 
 ### Mandatory Scenarios
 - [ ] Creating new app/example
@@ -272,7 +272,7 @@ echo "✅ All checks passed! Safe to develop."
 
 ---
 
-## Checklist for Different Stages
+## Checklist For Different Stages
 
 ### Stage 1: Project Init (New App)
 ```bash
@@ -309,7 +309,7 @@ echo "✅ All checks passed! Safe to develop."
 
 ---
 
-## Integration with CI/CD
+## Integration With CI CD
 
 ### GitHub Actions Example
 ```yaml

@@ -13,7 +13,7 @@ All visual properties MUST use canonical tokens. Hardcoded values (colors, sizes
 
 ## Token Categories
 
-### Color Tokens (Canon Rule #21)
+### Color Tokens
 
 **Required Pattern:**
 ```rust
@@ -40,7 +40,7 @@ background: rgb(255, 0, 0);
 color: hsl(220, 90%, 50%);
 ```
 
-### Typography Tokens (Canon Rule #29)
+### Typography Tokens
 
 **Required Pattern:**
 ```rust
@@ -66,7 +66,7 @@ font-weight: 450;
 line-height: 1.7;
 ```
 
-### Spacing Tokens (Canon Rule #24)
+### Spacing Tokens
 
 **Required Pattern:**
 ```rust
@@ -86,7 +86,7 @@ margin: 23px;
 padding: 0.7rem;
 ```
 
-### Size Tokens (Canon Rule #24)
+### Size Tokens
 
 **Required Pattern:**
 ```rust
@@ -105,7 +105,7 @@ width: 40px;
 height: 3rem;
 ```
 
-### Border Radius Tokens (Canon Rule #26)
+### Border Radius Tokens
 
 **Required Pattern:**
 ```rust
@@ -123,7 +123,7 @@ border-radius: 12px;
 border-radius: 0.5rem;
 ```
 
-### Shadow Tokens (Canon Rule #26)
+### Shadow Tokens
 
 **Required Pattern:**
 ```rust
@@ -142,7 +142,7 @@ box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 
 ## Validator Implementation
 
-### AST-Based Scanner
+### Ast Based Scanner
 ```rust
 // tools/token-validator/src/main.rs
 use regex::Regex;
@@ -304,7 +304,7 @@ fn print_violations(violations: &[TokenViolation]) {
 }
 ```
 
-### Cargo.toml
+### Cargo Toml
 ```toml
 [package]
 name = "token-validator"
@@ -322,7 +322,7 @@ walkdir = "2.4"
 
 ## CI Integration
 
-### GitHub Actions
+### Github Actions
 ```yaml
 name: Token Validation
 
@@ -472,7 +472,7 @@ Action Required:
   Fix 3 violations to achieve 100% compliance
 ```
 
-## Pre-commit Hook
+## Pre Commit Hook
 ```bash
 #!/bin/bash
 # .git/hooks/pre-commit

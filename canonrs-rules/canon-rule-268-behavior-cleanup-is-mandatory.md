@@ -28,7 +28,7 @@ Without deterministic cleanup:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 container.add_event_listener_with_callback("click", cb)?;
@@ -41,7 +41,7 @@ Listener lives forever. No detach. No guard reset.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 let closure = Closure::wrap(Box::new(move |_| { ... }) as Box<dyn FnMut(_)>);

@@ -13,7 +13,7 @@ Components are classified by **compliance level** to balance canon purity with r
 
 ## Compliance Levels
 
-### Level 1: Strict (Canon Pure)
+### Level 1 Strict Canon Pure
 
 **Definition:** 100% compliance with ALL canon rules. Zero exceptions.
 

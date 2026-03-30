@@ -38,7 +38,7 @@ When using default dev/watch mode:
 
 ---
 
-## Anti-Pattern (FORBIDDEN)
+## Anti Pattern
 
 ```bash
 # ❌ FORBIDDEN for medium/large apps
@@ -49,7 +49,7 @@ This command produces debug WASM and must not be used for interactive developmen
 
 ---
 
-## Canonical Pattern (REQUIRED)
+## Canonical Pattern
 
 ```bash
 # ✅ REQUIRED

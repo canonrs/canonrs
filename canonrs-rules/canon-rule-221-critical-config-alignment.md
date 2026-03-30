@@ -35,7 +35,7 @@ Without alignment on critical fields:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]
@@ -55,7 +55,7 @@ lib-features = ["hydrate", "csr"] # ❌ DIVERGENT
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]

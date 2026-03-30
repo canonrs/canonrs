@@ -29,7 +29,7 @@ This was observed in sidebar and header orchestration attempts.
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // Layout controlling UI behavior
 #[component]
@@ -48,7 +48,7 @@ Providers and behavior belong to UI or Controllers, not layouts.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 // Layout = zones only
 #[component]

@@ -31,7 +31,7 @@ Manual bootstrap:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 #[wasm_bindgen(start)]
@@ -46,7 +46,7 @@ Application hijacks the bootstrap phase.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 #[cfg(feature = "hydrate")]

@@ -25,7 +25,7 @@ This separation ensures **portability**, **testability**, and **clean architectu
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 ```rust
 // ❌ NEVER ALLOWED IN PRIMITIVES
 
@@ -194,7 +194,7 @@ pub fn Sidebar(children: Children) -> impl IntoView {
 
 ---
 
-## Real-World Example: Sidebar Collapse
+## Real World Example
 
 ### Before (Violates Rule)
 ```rust

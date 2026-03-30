@@ -52,7 +52,7 @@ monorepo/
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 
 ### Hardcoded Absolute Paths
 ```javascript
@@ -221,7 +221,7 @@ ls -la ../../../../../packages-rust/rs-design
 
 ---
 
-## Real-World Refactor: crates → packages-rust
+## Real World Refactor: crates → packages-rust
 
 ### Files That Needed Updates
 

@@ -43,7 +43,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 pub fn init_page_behavior() {
@@ -63,7 +63,7 @@ Page behaviors must not decide *what* happens — only *what is connected*.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 pub fn init_page_behavior() {

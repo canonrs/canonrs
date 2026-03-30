@@ -101,7 +101,7 @@ console.log('✅ CSS health check passed');
 
 ---
 
-## Bash Alternative (Lighter)
+## Bash Alternative
 ```bash
 #!/bin/bash
 # scripts/verify-css.sh
@@ -270,7 +270,7 @@ console.log('\n✅ All CSS health checks passed');
 
 ---
 
-## Example-Specific Checks
+## Example Specific Checks
 
 Different apps require different validations:
 

@@ -14,7 +14,7 @@ Interactive states must use **consistent, theme-independent opacity values** rat
 
 ## Canonical State Tokens
 
-### Interaction States (CSS Variables)
+### Interaction States
 ```css
 :root {
   /* Opacity-based states (theme-independent) */
@@ -30,7 +30,7 @@ Interactive states must use **consistent, theme-independent opacity values** rat
 
 ### State Application Pattern
 
-#### ✅ CORRECT: Opacity-Based
+#### Correct
 ```rust
 const BASE_CLASSES: &str = "\
     hover:opacity-[var(--state-hover-opacity)] \
@@ -39,7 +39,7 @@ const BASE_CLASSES: &str = "\
     focus-visible:ring-[color:var(--state-focus-ring)]";
 ```
 
-#### ❌ INCORRECT: Color Variants
+#### Incorrect
 ```rust
 // Don't create separate hover colors
 const HOVER_CLASSES: &str = "\
@@ -49,7 +49,7 @@ const HOVER_CLASSES: &str = "\
 
 ## State Categories
 
-### 1. Hover State
+### Hover State
 **Token:** `--state-hover-opacity: 0.9`
 
 **Usage:**
@@ -59,7 +59,7 @@ const HOVER_CLASSES: &str = "\
 
 **Rationale:** Reduces brightness by 10%, works on any color
 
-### 2. Active/Pressed State
+### Active State
 **Token:** `--state-active-opacity: 0.8`
 
 **Usage:**
@@ -69,7 +69,7 @@ const HOVER_CLASSES: &str = "\
 
 **Rationale:** Deeper press feedback than hover
 
-### 3. Disabled State
+### Disabled State
 **Token:** `--state-disabled-opacity: 0.5`
 
 **Usage:**
@@ -81,7 +81,7 @@ const HOVER_CLASSES: &str = "\
 
 **Rationale:** 50% opacity universally signals "not available"
 
-### 4. Focus State
+### Focus State
 **Token:** `--state-focus-ring: hsl(var(--color-ring))`
 
 **Usage:**
@@ -94,7 +94,7 @@ const HOVER_CLASSES: &str = "\
 
 **Rationale:** Uses the theme ring color for consistency
 
-### 5. Loading State
+### Loading State
 **Token:** `--state-loading-opacity: 0.7`
 
 **Usage:**

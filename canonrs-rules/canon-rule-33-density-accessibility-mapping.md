@@ -57,7 +57,7 @@ Density modes scale UI elements proportionally while maintaining **WCAG 2.1 AA a
 | Comfortable | 40px × 40px | 16px (1rem) | 4.5:1 | ✅ |
 | Spacious | 50px × 50px | 18px (1.125rem) | 4.5:1 | ✅ |
 
-### Touch Target Requirements (WCAG 2.5.5)
+### Touch Target Requirements
 
 **Desktop (pointer: fine):**
 - Minimum: 24px × 24px
@@ -94,7 +94,7 @@ Density modes scale UI elements proportionally while maintaining **WCAG 2.1 AA a
 
 ## Scaled Properties
 
-### ✅ What Scales with Density
+### What Scales with Density
 
 **Spacing:**
 ```css
@@ -120,7 +120,7 @@ height: calc(var(--size-icon-md) * var(--density-multiplier));
 border-radius: calc(var(--radius-md) * var(--density-multiplier));
 ```
 
-### ❌ What Does NOT Scale
+### What Does Not Scale
 
 **Typography:**
 ```css
@@ -220,7 +220,7 @@ box-shadow: var(--shadow-md);
 }
 ```
 
-### Hover/Active States
+### Hover Active States
 ```css
 .interactive:hover {
   /* Padding increases on hover for better feedback */
@@ -232,7 +232,7 @@ box-shadow: var(--shadow-md);
 
 ## Responsive Breakpoints
 
-### Mobile-First Scaling
+### Mobile First Scaling
 ```css
 /* Mobile: Always enforce minimum touch targets */
 @media (max-width: 768px) {
@@ -328,13 +328,13 @@ fn test_density_compliance() {
 
 ## Prohibited Patterns
 
-### ❌ Scaling Typography with Density
+### Scaling Typography with Density
 ```css
 /* WRONG - text becomes too small in compact */
 font-size: calc(var(--font-size-md) * var(--density-multiplier));
 ```
 
-### ❌ Ignoring Mobile Touch Targets
+### Ignoring Mobile Touch Targets
 ```css
 /* WRONG - too small for touch */
 @media (pointer: coarse) {
@@ -344,7 +344,7 @@ font-size: calc(var(--font-size-md) * var(--density-multiplier));
 }
 ```
 
-### ❌ Fixed Pixel Sizes
+### Fixed Pixel Sizes
 ```css
 /* WRONG - doesn't scale with density */
 .button {
@@ -352,7 +352,7 @@ font-size: calc(var(--font-size-md) * var(--density-multiplier));
 }
 ```
 
-### ❌ Inconsistent Scaling
+### Inconsistent Scaling
 ```css
 /* WRONG - some properties scale, others don't */
 .card {

@@ -35,7 +35,7 @@ canonrs_site  # ❌ Name mismatch
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]
@@ -59,7 +59,7 @@ output-name = "canonrs_site"    # ❌ UNDERSCORE
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]

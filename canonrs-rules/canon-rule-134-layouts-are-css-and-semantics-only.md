@@ -30,7 +30,7 @@ This leads to fragile layouts that cannot be reasoned about statically.
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 #[component]
 pub fn Layout(children: Children) -> impl IntoView {
@@ -51,7 +51,7 @@ Layouts MUST NOT manage state or events.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 #[component]
 pub fn Layout(children: Children) -> impl IntoView {

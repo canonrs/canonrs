@@ -36,7 +36,7 @@ When event handlers are attached to dynamically generated nodes during SSR:
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // Event handler in map()
 {pillars.into_iter().map(|pillar| {
@@ -50,7 +50,7 @@ When event handlers are attached to dynamically generated nodes during SSR:
 }).collect_view()}
 ```
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // Event handler in <For>
 <For
@@ -66,7 +66,7 @@ When event handlers are attached to dynamically generated nodes during SSR:
 />
 ```
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // Event handler in component instantiated by iterator
 {cards.map(|card| {
@@ -80,7 +80,7 @@ When event handlers are attached to dynamically generated nodes during SSR:
 
 ## Canonical Pattern
 
-### ✅ Canonical — Data Attributes for Event Delegation
+### Canonical Data Attributes For Event Delegation
 ```rust
 // Use data-* attributes for identification
 {pillars.into_iter().map(|pillar| {
@@ -98,7 +98,7 @@ When event handlers are attached to dynamically generated nodes during SSR:
 // Event delegation handled externally (JavaScript or CSR-only wrapper)
 ```
 
-### ✅ Canonical — Child Component Pattern
+### Canonical Child Component Pattern
 ```rust
 // Move handler to stable child component
 {pillars.into_iter().map(|pillar| {
@@ -123,7 +123,7 @@ fn PillarItem(pillar: Pillar) -> impl IntoView {
 }
 ```
 
-### ✅ Canonical — CSR-Only Wrapper
+### Canonical CSR Only Wrapper
 ```rust
 // Render static in SSR, add handlers in CSR
 #[cfg(not(feature = "ssr"))]

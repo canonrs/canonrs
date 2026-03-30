@@ -68,7 +68,7 @@ They serve a different purpose:
 
 ---
 
-## Demo Pattern: Explicit Signals
+## Demo Pattern Explicit Signals
 
 ### The Pattern
 ```rust
@@ -130,7 +130,7 @@ pub fn WorkflowDemo() -> impl IntoView {
 
 ---
 
-## Production Pattern: CQRS
+## Production Pattern CQRS
 
 ### The Pattern
 ```rust

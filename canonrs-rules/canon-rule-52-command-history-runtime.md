@@ -30,7 +30,7 @@ This enables:
 
 ## The Problem
 
-### ❌ Wrong Pattern (Local Command History)
+### Wrong Pattern Local Command History
 ```rust
 // Each component creates its own history
 #[component]
@@ -55,7 +55,7 @@ pub fn Dashboard() -> impl IntoView {
 
 ## The Solution
 
-### ✅ Correct Pattern (Global Provider)
+### Correct Pattern Global Provider
 ```rust
 // App layer (ONE provider at root)
 #[component]
@@ -163,7 +163,7 @@ let closure = Closure::wrap(Box::new(move |event: web_sys::KeyboardEvent| {
 
 ---
 
-## Provider Order (Canon Rule #50)
+## Provider Order Canon Rule 50
 ```
 Router
 └── DragDropProvider (runtime)
@@ -181,7 +181,7 @@ Router
 
 ---
 
-## Real-World Examples
+## Real World Examples
 
 ### Dashboard Widget Movement
 ```rust
@@ -309,7 +309,7 @@ fn test_ctrl_z_undo() {
 
 ---
 
-## Forbidden Patterns ❌
+## Forbidden Patterns
 
 ### 🚫 Local Command History
 ```rust
@@ -344,7 +344,7 @@ pub fn Dashboard() -> impl IntoView {
 
 ---
 
-## Integration with Canon Rules
+## Integration With Canon Rules
 
 ### Rule #49: Drag & Drop as Intent
 Event → Callback → Command

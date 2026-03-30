@@ -42,7 +42,7 @@ If these closures call:
 
 ---
 
-## ❌ Forbidden Pattern (Render Panic)
+## Forbidden Pattern Render Panic
 
 ```rust
 let history = use_command_history();
@@ -66,7 +66,7 @@ This causes **hard panics during SSR or initial render**.
 
 ---
 
-## ✅ Correct Pattern (Total Render)
+## Correct Pattern Total Render
 
 ```rust
 let history = use_command_history();
@@ -88,7 +88,7 @@ disabled=move || {
 
 ---
 
-## ✅ Where `expect()` IS allowed
+## Where Expect Is Allowed
 
 `expect()` is allowed **only inside user-triggered actions**:
 

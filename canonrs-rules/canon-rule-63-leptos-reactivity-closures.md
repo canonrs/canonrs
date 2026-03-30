@@ -68,7 +68,7 @@ view! {
 
 ---
 
-## Signal vs Memo: Critical Difference
+## Signal vs Memo Critical Difference
 
 ### Signal<T> (Callable)
 ```rust
@@ -266,7 +266,7 @@ fn DataTable(
 
 ---
 
-## Anti-Patterns to Avoid
+## Anti Patterns
 
 ### 🚫 Eager Computation
 ```rust

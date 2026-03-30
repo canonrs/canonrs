@@ -47,7 +47,7 @@ rs-design/
 
 **Rule:** Template lives in design system, not product.
 
-## Anti-Pattern
+## Anti Pattern
 ```rust
 // ❌ WRONG - Reimplementing structure in product
 #[component]

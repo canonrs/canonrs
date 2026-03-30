@@ -1,4 +1,4 @@
-# Canon Rule #40: Legacy Exception & Annotation Contract
+# Canon Rule 40 Legacy Exception And Annotation Contract
 
 **Status:** ENFORCED
 

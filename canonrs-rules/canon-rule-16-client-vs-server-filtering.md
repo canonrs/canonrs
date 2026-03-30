@@ -52,7 +52,7 @@ Server-side = Backend query filtering
 
 ---
 
-## 🚫 ANTI-PATTERNS
+## Anti-Patterns
 
 ```rust
 let filtered = all_data.filter(...)

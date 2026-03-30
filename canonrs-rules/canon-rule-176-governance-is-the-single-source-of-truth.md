@@ -51,7 +51,7 @@ Governance is **authoritative**, not advisory.
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 
 - UI resolving its own tokens
 - Blocks inferring behavior dynamically
@@ -75,7 +75,7 @@ component.resolve_tokens_locally();
 
 ## Canonical Patterns
 
-### ✅ Canonical
+### Canonical
 
 - Governance resolves → others consume
 - Governance validates → build enforces
@@ -105,7 +105,7 @@ Silent logic changes are forbidden.
 
 ## Enforcement
 
-### Build-Time
+### Build Time
 
 - Governance is compiled as a mandatory dependency
 - Token resolution flows through governance only

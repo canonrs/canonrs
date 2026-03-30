@@ -36,7 +36,7 @@ When WASM islands try to own routing or providers:
 
 ---
 
-## Anti-Pattern (FORBIDDEN)
+## Anti Pattern
 ```rust
 // ❌ FORBIDDEN: Island creates router
 #[wasm_bindgen]
@@ -75,7 +75,7 @@ This fails because:
 
 ---
 
-## Canonical Pattern (REQUIRED)
+## Canonical Pattern
 ```rust
 // ✅ REQUIRED: Island is just a component
 #[wasm_bindgen]
@@ -128,7 +128,7 @@ Host manages routing, providers, and island mount points.
 
 ---
 
-## Island Responsibilities (Allowed)
+## Island Responsibilities Allowed
 
 Islands MAY:
 
@@ -149,7 +149,7 @@ Islands MUST NOT:
 
 ---
 
-## Host Responsibilities (Required)
+## Host Responsibilities Required
 
 SSR host MUST:
 
@@ -164,7 +164,7 @@ SSR host MUST:
 
 ## Communication Patterns
 
-### Host → Island (Props)
+### Host To Island Props
 ```rust
 // Host
 view! {
@@ -188,7 +188,7 @@ pub fn mount_editor(selector: &str) {
 }
 ```
 
-### Island → Host (Events)
+### Island To Host Events
 ```rust
 // Island dispatches custom event
 #[wasm_bindgen]

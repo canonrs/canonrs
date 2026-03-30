@@ -14,7 +14,7 @@
 
 ## The Problem
 
-### ❌ WRONG: Treating Resource as Future
+### Wrong Treating Resource as Future
 ```rust
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -43,7 +43,7 @@ pub fn MyComponent() -> impl IntoView {
 - UI stays frozen on fallback
 - No error, no panic—just silence
 
-### ✅ CORRECT: Reactive Consumption
+### Correct Reactive Consumption
 ```rust
 #[component]
 pub fn MyComponent() -> impl IntoView {
@@ -95,7 +95,7 @@ pub fn MyComponent() -> impl IntoView {
 
 ## Common Violations
 
-### Violation 1: Using Suspend with Resource
+### Violation 1 Using Suspend With Resource
 ```rust
 // ❌ WRONG
 view! {
@@ -114,7 +114,7 @@ view! {
 }
 ```
 
-### Violation 2: Mixing Resource and Action
+### Violation 2 Mixing Resource And Action
 ```rust
 // ❌ WRONG (causes spawn_local panic in SSR)
 let action = Action::new(|input| async move {
@@ -133,7 +133,7 @@ Effect::new(move |_| {
 });
 ```
 
-### Violation 3: Server Function as Resource
+### Violation 3 Server Function As Resource
 ```rust
 // ❌ WRONG
 let data = Resource::new(|| (), |_| async {
@@ -253,7 +253,7 @@ pub fn WorkflowView() -> impl IntoView {
 
 ## SSR Implications
 
-### Server-Side Rendering Flow
+### Server Side Rendering Flow
 ```
 1. SSR renders component
    └─ Resource.get() returns None (async not started)
@@ -366,7 +366,7 @@ pub fn check_suspend_with_resource(code: &str) -> Vec<Violation> {
 
 ## Migration Guide
 
-### From Suspend to Transition
+### From Suspend To Transition
 ```rust
 // BEFORE (broken)
 view! {

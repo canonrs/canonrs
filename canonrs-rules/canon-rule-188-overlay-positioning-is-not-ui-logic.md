@@ -43,7 +43,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 let rect = trigger.get_bounding_client_rect();
@@ -64,7 +64,7 @@ This embeds layout decisions in UI logic.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 use_floating_position(

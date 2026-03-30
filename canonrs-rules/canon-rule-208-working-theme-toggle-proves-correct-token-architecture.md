@@ -33,7 +33,7 @@ Real discovery: JavaScript toggle code was **correct from day one**. Visual bugs
 
 ## Forbidden Pattern
 
-### ❌ Forbidden (when debugging toggle issues)
+### Forbidden
 ```javascript
 // ❌ Attempting to fix visual bugs in JavaScript
 const toggle = () => {
@@ -54,7 +54,7 @@ const toggle = () => {
 
 ## Canonical Pattern
 
-### ✅ Canonical (debugging process)
+### Canonical
 ```bash
 # Step 1: Verify JavaScript is correct
 # Toggle adds/removes .dark class?

@@ -37,7 +37,7 @@ Connection refused
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]
@@ -57,7 +57,7 @@ reload-port = 3005             # ❌ DIVERGENT
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]

@@ -34,7 +34,7 @@ This leads to architectural drift and non-deterministic rendering behavior.
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 // main.rs
@@ -48,7 +48,7 @@ UI structure is being constructed outside `lib.rs`.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 // lib.rs

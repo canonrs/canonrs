@@ -20,7 +20,7 @@ CSS **MUST NEVER** be imported directly from generators, Rust crates, or interna
 
 ---
 
-## Canonical Pipeline (NON-NEGOTIABLE)
+## Canonical Pipeline
 
 ```
 Rust / JSON Tokens

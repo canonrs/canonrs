@@ -35,7 +35,7 @@ cargo tree -p canonrs-site --features hydrate | grep tokio
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 # ROOT Cargo.toml
 [[workspace.metadata.leptos]]
@@ -58,7 +58,7 @@ lib-features = ["hydrate"]
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 [[workspace.metadata.leptos]]
 name = "canonrs-site"

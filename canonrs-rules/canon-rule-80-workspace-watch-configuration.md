@@ -169,7 +169,7 @@ watch-additional-files = ["../../../../../packages-rust/rs-design/src"]
 
 ---
 
-## When to Use
+## When To Use
 
 ### Always Required For
 
@@ -308,7 +308,7 @@ watch-additional-files = [
 
 ---
 
-## Integration with Other Tools
+## Integration With Other Tools
 
 ### With CSS Watch
 ```bash

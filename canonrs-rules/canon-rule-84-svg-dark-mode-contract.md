@@ -139,7 +139,7 @@ Use SVG as a mask with CSS background color.
 
 ---
 
-## Anti-Patterns
+## Anti Patterns
 
 ### ❌ Anti-Pattern 1: `currentColor` in External SVG
 ```svg
@@ -178,7 +178,7 @@ fetch('icon.svg')
 
 ---
 
-## Canonical Implementation (Leptos)
+## Canonical Implementation
 
 ### Step 1: Choose Strategy
 For icon systems with `<img>` tags, use **CSS Filter**.

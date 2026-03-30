@@ -12,7 +12,7 @@
 ## Principle
 Typography creates **information hierarchy** and **readability**. Font stacks, sizes, weights, and line heights are **system-wide constants** that ensure visual consistency and performance across all themes.
 
-## Font Stacks (System Fonts Only)
+## Font Stacks
 
 ### Canonical Font Families
 ```css
@@ -47,7 +47,7 @@ Typography creates **information hierarchy** and **readability**. Font stacks, s
 
 **Exception:** Brand-specific applications may override fonts at the **application layer**, not theme layer.
 
-## Type Scale (Modular 1.2x Ratio)
+## Type Scale
 
 ### Canonical Font Sizes
 ```css
@@ -155,7 +155,7 @@ Typography creates **information hierarchy** and **readability**. Font stacks, s
 "leading-relaxed"  // Long-form content
 ```
 
-## Letter Spacing (Tracking)
+## Letter Spacing
 
 ### Canonical Tracking
 ```css
@@ -317,7 +317,7 @@ const PROSE_CLASSES: &str = "\
 .prose p  { @apply text-base leading-relaxed mb-4; }
 ```
 
-## Code & Monospace
+## Code And Monospace
 
 ### Inline Code
 ```rust

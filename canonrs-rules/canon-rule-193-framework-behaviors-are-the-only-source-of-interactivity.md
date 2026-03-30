@@ -42,7 +42,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 // UI component
@@ -60,7 +60,7 @@ UI renders. Pages compose. Behaviors act.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 // rs-design/behaviors/copyable.rs

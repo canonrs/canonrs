@@ -31,7 +31,7 @@ Without an explicit shell:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 provide_meta_context();
@@ -44,7 +44,7 @@ No enclosing HTML document.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 pub fn shell(options: LeptosOptions) -> impl IntoView {

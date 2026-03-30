@@ -28,7 +28,7 @@ Server-side Sorting = Backend ORDER BY
 
 ---
 
-## ✅ DECISION MATRIX
+## Decision Matrix
 
 | Criteria            | Solution        |
 |--------------------|-----------------|

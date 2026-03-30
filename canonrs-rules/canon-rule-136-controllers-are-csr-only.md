@@ -30,7 +30,7 @@ This directly violates SSR safety guarantees.
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 #[component]
 pub fn SidebarController() -> impl IntoView {
@@ -49,7 +49,7 @@ Controllers MUST NOT exist without CSR gating.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 #[cfg(target_arch = "wasm32")]
 #[component]

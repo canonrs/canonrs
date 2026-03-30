@@ -33,7 +33,7 @@ Real bug: `--button-primary-bg: hsl(var(--color-primary))` → button ignored th
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```css
 /* family-c-forms.css */
 [data-theme="canonrs"] {
@@ -56,7 +56,7 @@ FamilyToken::new(
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```css
 /* themes/dark/ui.css - Theme defines semantic meaning */
 @layer theme {

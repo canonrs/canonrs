@@ -33,7 +33,7 @@ This breaks determinism and makes the application untestable in isolation.
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 #[tokio::main]
@@ -48,7 +48,7 @@ Rendering logic in the bootstrap layer.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 #[cfg(feature = "ssr")]

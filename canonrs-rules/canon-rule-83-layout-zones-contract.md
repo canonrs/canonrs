@@ -36,7 +36,7 @@ Canon defines **5 spatial zones** that control WHERE components can exist. This 
 
 ---
 
-## Zone 1: PAGE
+## Zone 1 PAGE
 
 **Purpose:** Application-level container  
 **Token:** `--color-bg-surface`  
@@ -79,7 +79,7 @@ view! {
 
 ---
 
-## Zone 2: PANEL
+## Zone 2 PANEL
 
 **Purpose:** Persistent navigation/tooling  
 **Token:** `--color-bg-muted`  
@@ -120,7 +120,7 @@ view! {
 
 ---
 
-## Zone 3: RAIL
+## Zone 3 RAIL
 
 **Purpose:** Content width constraint  
 **Token:** N/A (structural only)  
@@ -164,7 +164,7 @@ view! {
 
 ---
 
-## Zone 4: CONTENT
+## Zone 4 CONTENT
 
 **Purpose:** Actual information display  
 **Token:** `--color-bg-elevated` (when highlighted)  
@@ -217,7 +217,7 @@ view! {
 
 ---
 
-## Zone 5: OVERLAY
+## Zone 5 OVERLAY
 
 **Purpose:** Temporary UI above main flow  
 **Token:** `--z-*` (z-index hierarchy)  
@@ -300,7 +300,7 @@ PANEL
 
 ---
 
-## Component Zone Mapping (NORMATIVE)
+## Component Zone Mapping
 
 | Component | Zone | Surface |
 |-----------|------|---------|
@@ -317,7 +317,7 @@ PANEL
 
 ---
 
-## Real-World Example: Button Documentation Page
+## Real World Example
 
 ### Structure
 ```rust
@@ -423,7 +423,7 @@ PANEL
 
 ---
 
-## Anti-Patterns (FORBIDDEN)
+## Anti Patterns
 
 ### ❌ Content Outside RAIL
 ```rust
@@ -530,7 +530,7 @@ document.querySelector('[role="navigation"]') // Should be PANEL
 
 ---
 
-## System Status After Rule #83
+## System Status After Rule 83
 
 | Aspect | Status |
 |--------|--------|

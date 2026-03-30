@@ -115,7 +115,7 @@ const BUTTON_MOTION: &str = "\
     ease-[var(--motion-ease-standard)]";
 ```
 
-### Modal/Dialog Animations
+### Modal Dialog Animations
 ```rust
 // Backdrop fade
 const BACKDROP_MOTION: &str = "\
@@ -256,7 +256,7 @@ pub fn AnimatedComponent() -> impl IntoView {
 
 ## Performance Optimization
 
-### GPU-Accelerated Properties
+### GPU Accelerated Properties
 ```rust
 // Only animate transform and opacity for 60fps
 const PERFORMANT_MOTION: &str = "\
@@ -293,14 +293,14 @@ const PERFORMANT_MOTION: &str = "\
 
 ## Prohibited Patterns
 
-### ❌ Hardcoded Timing
+### Hardcoded Timing
 ```rust
 // FORBIDDEN
 "duration-300"  // Use var(--motion-duration-normal)
 "ease-in-out"   // Use var(--motion-ease-standard)
 ```
 
-### ❌ Transition All
+### Transition All
 ```rust
 // FORBIDDEN (performance)
 "transition-all duration-300"
@@ -309,7 +309,7 @@ const PERFORMANT_MOTION: &str = "\
 "transition-transform transition-opacity duration-[var(--motion-duration-normal)]"
 ```
 
-### ❌ Excessive Animation
+### Excessive Animation
 ```rust
 // FORBIDDEN (motion sickness risk)
 "animate-spin animate-bounce animate-pulse"  // Too much!

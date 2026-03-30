@@ -33,7 +33,7 @@ Real test: Amber preset worked in dark AND light **without touching any componen
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```css
 /* button_ui.css - Component hardcoded to preset */
 [data-button][data-ui-variant="solid"] {
@@ -57,7 +57,7 @@ Real test: Amber preset worked in dark AND light **without touching any componen
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```css
 /* button_ui.css - Preset-agnostic */
 [data-button][data-ui-variant="solid"] {

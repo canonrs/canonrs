@@ -35,7 +35,7 @@ public/pkg/*.css  ❌ (1 byte placeholder)
 
 ---
 
-## REQUIRED Solution
+## Required Solution
 
 ```bash
 postcss input.css -o target/site/pkg/app.css

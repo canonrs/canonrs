@@ -80,7 +80,7 @@ CommandPalette {
 
 ---
 
-## What is an Intent Surface?
+## What Is An Intent Surface
 
 **Intent Surface** = Interface for declaring "what user wants to do"
 
@@ -346,7 +346,7 @@ Command {
 
 ---
 
-## SSR & Hydration
+## SSR And Hydration
 
 ### The Hydration Problem
 ```rust
@@ -560,7 +560,7 @@ if is_first_login {
 
 ---
 
-## Command Palette vs Other Patterns
+## Command Palette Vs Other Patterns
 
 | Pattern | Use Case | Command Palette Replaces? |
 |---------|----------|--------------------------|

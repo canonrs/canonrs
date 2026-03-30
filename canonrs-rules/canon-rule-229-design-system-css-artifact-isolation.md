@@ -39,7 +39,7 @@ When design system CSS is merged into, imported by, or rebuilt inside product pi
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```css
 /* Tailwind input.css */
@@ -68,7 +68,7 @@ content: [
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```text
 CanonRS (build once)

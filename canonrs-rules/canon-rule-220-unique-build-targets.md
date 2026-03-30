@@ -38,7 +38,7 @@ canonrs_workbench.wasm  # ❌ Where is canonrs_site.wasm?
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```toml
 [[workspace.metadata.leptos]]
 name = "canonrs-site"
@@ -57,7 +57,7 @@ site-pkg-dir = "pkg"
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 [[workspace.metadata.leptos]]
 name = "canonrs-site"

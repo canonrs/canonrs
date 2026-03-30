@@ -34,7 +34,7 @@ Real result: Treating cascade as architecture (not convention) made theme switch
 
 ## Forbidden Pattern
 
-### ❌ Forbidden (treating cascade as suggestion)
+### Forbidden
 
 ```css
 /* Component violates cascade - no enforcement */
@@ -62,7 +62,7 @@ npm run build  # ✅ (but wrong)
 
 ## Canonical Pattern
 
-### ✅ Canonical (architecture enforced)
+### Canonical
 
 ```rust
 // Family engine validates tokens
@@ -117,7 +117,7 @@ Architecture: "This pattern is enforced"
               → Always correct
 ```
 
-### The Five Layers (enforced)
+### The Five Layers
 
 ```
 1. PRESET     → Define data (colors, sizes)
@@ -165,7 +165,7 @@ This is **layered architecture** enforced by the compiler. Not stylistic prefere
 
 ## Enforcement
 
-### Build-time validation (Rust)
+### Build Time Validation
 
 ```rust
 // family_engine validates all tokens
@@ -192,7 +192,7 @@ fn validate_token_cascade(token: &FamilyToken) -> Result<(), Error> {
 }
 ```
 
-### Linter (CSS)
+### Linter
 
 ```javascript
 // stylelint plugin
@@ -219,7 +219,7 @@ module.exports = {
 };
 ```
 
-### Documentation generation
+### Documentation Generation
 
 ```bash
 # Generate cascade diagram from enforced rules
@@ -227,7 +227,7 @@ npm run docs:cascade
 # Outputs visual diagram showing allowed references
 ```
 
-### Error messages (educational)
+### Error Messages
 
 ```
 ❌ ERROR in family-c-forms.css

@@ -72,7 +72,7 @@ cargo leptos serve
 
 ---
 
-## Why cargo leptos Doesn't Generate CSS
+## Why Cargo Leptos Does Not Generate CSS
 
 ### Leptos Responsibility
 - ✅ Compiles Rust → WASM
@@ -95,7 +95,7 @@ It's a **build tool** that:
 
 ---
 
-## Correct Setup (Step by Step)
+## Correct Setup Step By Step
 
 ### 1. Install Tailwind CLI
 ```bash
@@ -289,7 +289,7 @@ npx @tailwindcss/cli -i style/globals.css -o /tmp/test.css
 
 ---
 
-## Integration with Hot Reload
+## Integration With Hot Reload
 
 ### Leptos Hot Reload (Rust Only)
 ```bash
@@ -339,7 +339,7 @@ echo "Binary: target/release/my-app"
 
 ---
 
-## Anti-Patterns to Avoid
+## Anti Patterns
 
 ### 🚫 No Build Script
 ```json
@@ -369,7 +369,7 @@ vim public/workbench.css  # 🚫 Gets overwritten
 
 ---
 
-## Comparison: CanonRS vs Others
+## Comparison
 
 | Framework | CSS Auto-Generated | Build Required | Watch Mode |
 |-----------|-------------------|----------------|------------|

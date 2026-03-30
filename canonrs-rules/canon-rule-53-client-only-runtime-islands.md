@@ -86,7 +86,7 @@ pub fn MyComponent() -> impl IntoView {
 
 ---
 
-## Client-Only Patterns
+## Client Only Patterns
 
 ### 1. Event Listeners (ALWAYS Client-Only)
 ```rust
@@ -214,7 +214,7 @@ pub fn AutoRefresh() -> impl IntoView {
 
 ---
 
-## SSR-Safe Patterns
+## SSR Safe Patterns
 
 ### ✅ Reactive Signals (Safe in SSR)
 ```rust
@@ -295,7 +295,7 @@ pub fn DateTime() -> impl IntoView {
 
 ---
 
-## Common Client-Only APIs
+## Common Client Only APIs
 
 ### Browser APIs (ALWAYS Guard)
 - `window()` / `document()`
@@ -374,7 +374,7 @@ pub fn DragDropProvider(children: Children) -> impl IntoView {
 
 ---
 
-## Real-World Examples
+## Real World Examples
 
 ### CommandHistoryProvider
 ```rust
@@ -466,7 +466,7 @@ Does code use wasm_bindgen?
 
 ---
 
-## Anti-Patterns ❌
+## Anti Patterns
 
 ### 🚫 Unguarded DOM Access
 ```rust

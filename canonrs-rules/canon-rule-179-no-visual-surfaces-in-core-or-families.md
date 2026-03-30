@@ -37,7 +37,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 // Core or Family token defining a visual surface directly
@@ -56,7 +56,7 @@ Why this violates the rule:
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 // Core defines semantic intent only

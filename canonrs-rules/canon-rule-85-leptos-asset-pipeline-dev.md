@@ -50,7 +50,7 @@ command_arguments = ["-r", "assets", "dist/"]
 
 ---
 
-## Canonical Asset Pipeline (Development)
+## Canonical Asset Pipeline Development
 
 ### Step 1: Check Leptos Configuration
 ```toml
@@ -84,7 +84,7 @@ curl http://localhost:3003/assets/symbols/icon.svg
 
 ---
 
-## Canonical Asset Pipeline (Production)
+## Canonical Asset Pipeline Production
 
 ### Step 1: Configure Trunk Hooks
 ```toml
@@ -119,7 +119,7 @@ ls -la dist/assets/symbols/
 
 ---
 
-## Anti-Patterns
+## Anti Patterns
 
 ### ❌ Anti-Pattern 1: Relying on Trunk Hooks in Dev
 ```toml
@@ -200,7 +200,7 @@ cargo leptos build --release
 
 ---
 
-## Integration with Monorepo
+## Integration With Monorepo
 
 When assets are in shared packages:
 ```bash
@@ -221,7 +221,7 @@ command_arguments = [
 
 ---
 
-## Makefile Integration (Optional)
+## Makefile Integration
 ```makefile
 .PHONY: dev setup-assets
 

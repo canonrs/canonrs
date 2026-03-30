@@ -39,7 +39,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 let rect = anchor.get_bounding_client_rect();
@@ -53,7 +53,7 @@ This violates the rule by coupling geometry calculation to controllers.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 use_floating_position(

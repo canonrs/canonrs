@@ -11,7 +11,7 @@
 ## Principle
 Accessibility is **non-negotiable**. All components must be **keyboard navigable**, **screen reader friendly**, and **WCAG 2.1 AA compliant**. ARIA attributes and semantic HTML are mandatory, not optional.
 
-## WCAG 2.1 AA Compliance
+## WCAG 2 1 AA Compliance
 
 ### Mandatory Requirements
 ✅ **Perceivable:** Content visible to all users  

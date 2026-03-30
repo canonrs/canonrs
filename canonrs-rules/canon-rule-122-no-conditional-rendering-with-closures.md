@@ -41,7 +41,7 @@ error[E0525]: expected a closure that implements the `Fn` trait, but this closur
 
 ## Forbidden Patterns
 
-### ❌ Forbidden: Using .then() for conditional views
+### Forbidden: Using then for conditional views
 ```rust
 #[component]
 pub fn Modal(open: Signal<bool>, content: String) -> impl IntoView {
@@ -61,7 +61,7 @@ pub fn Modal(open: Signal<bool>, content: String) -> impl IntoView {
 - Closure is `FnOnce`, not `Fn`
 - Cannot re-render when `open` changes
 
-### ❌ Forbidden: Nested .then() conditions
+### Forbidden: Nested then conditions
 ```rust
 #[component]
 pub fn Dashboard(user: User) -> impl IntoView {
@@ -80,7 +80,7 @@ pub fn Dashboard(user: User) -> impl IntoView {
 - Type inference explosion
 - Hydration structure unpredictable
 
-### ❌ Forbidden: .then() with complex children
+### Forbidden: then with complex children
 ```rust
 #[component]
 pub fn List(items: Vec<Item>, show_details: bool) -> impl IntoView {
@@ -110,7 +110,7 @@ pub fn List(items: Vec<Item>, show_details: bool) -> impl IntoView {
 
 ## Canonical Pattern
 
-### ✅ Canonical: Use <Show> component
+### Canonical: Use Show component
 ```rust
 #[component]
 pub fn Modal(open: Signal<bool>, content: String) -> impl IntoView {
@@ -130,7 +130,7 @@ pub fn Modal(open: Signal<bool>, content: String) -> impl IntoView {
 - No FnOnce issues
 - SSR-safe hydration
 
-### ✅ Canonical: Nested conditions with multiple <Show>
+### Canonical: Nested conditions with Show
 ```rust
 #[component]
 pub fn Dashboard(user: User) -> impl IntoView {
@@ -152,7 +152,7 @@ pub fn Dashboard(user: User) -> impl IntoView {
 - Clear nesting structure
 - Predictable hydration
 
-### ✅ Canonical: Conditional with fallback
+### Canonical: Conditional with fallback
 ```rust
 #[component]
 pub fn Content(user: Option<User>) -> impl IntoView {
@@ -172,7 +172,7 @@ pub fn Content(user: Option<User>) -> impl IntoView {
 - No manual `if/else` needed
 - SSR renders correct branch
 
-### ✅ Canonical: Multiple conditions (if/else if/else)
+### Canonical: Multiple conditions
 ```rust
 #[component]
 pub fn StatusBadge(status: Signal<Status>) -> impl IntoView {
@@ -263,7 +263,7 @@ rg '\.then\(\|\|.*view!' packages-rust/rs-design/src/ && \
 
 ## Exceptions
 
-### Exception 1: Non-view conditionals (allowed)
+### Exception 1 Non view conditionals
 ```rust
 // Conditional string (NOT a view) — ALLOWED
 let label = if count > 10 { "Many" } else { "Few" };
@@ -273,7 +273,7 @@ view! {
 }
 ```
 
-### Exception 2: Option::map for simple values (allowed)
+### Exception 2 Option map simple values
 ```rust
 // Simple value mapping — ALLOWED
 view! {
@@ -281,7 +281,7 @@ view! {
 }
 ```
 
-### Exception 3: Match expressions for enums (allowed)
+### Exception 3 Match expressions
 ```rust
 // Match on enum — ALLOWED (but prefer <Show> when possible)
 view! {

@@ -43,7 +43,7 @@ help: consider cloning the value before moving it
 
 ---
 
-## ✅ The Correct Solution: Clone Before Each Callback
+## The Correct Solution: Clone Before Each Callback
 
 ### Pattern
 ```rust

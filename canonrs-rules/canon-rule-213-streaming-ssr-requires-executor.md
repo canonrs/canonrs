@@ -31,7 +31,7 @@ Without executor initialization:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 #[tokio::main]
@@ -46,7 +46,7 @@ No executor initialization.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 #[tokio::main]

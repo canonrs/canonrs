@@ -33,7 +33,7 @@ Real bug: Button used `--color-primary` directly → worked in dark, broke in li
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```css
 /* family-c-forms.css */
 [data-theme="canonrs"] {
@@ -53,7 +53,7 @@ Real bug: Button used `--color-primary` directly → worked in dark, broke in li
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```css
 /* themes/dark/ui.css - Theme resolves context */
 @layer theme {

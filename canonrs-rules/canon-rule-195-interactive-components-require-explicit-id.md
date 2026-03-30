@@ -32,7 +32,7 @@ What breaks **without** this rule:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // Auto-generated ID with UUID
 #[component]
@@ -77,7 +77,7 @@ Why this violates the rule:
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 #[component]
 pub fn Combobox(

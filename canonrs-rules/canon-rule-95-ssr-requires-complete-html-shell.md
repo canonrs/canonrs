@@ -38,7 +38,7 @@ ERR_EMPTY_RESPONSE
 
 ---
 
-## Anti-Pattern (FORBIDDEN)
+## Anti Pattern
 ```rust
 // ❌ FORBIDDEN: No HTML shell
 #[component]
@@ -60,7 +60,7 @@ This fails because:
 
 ---
 
-## Canonical Pattern (REQUIRED)
+## Canonical Pattern
 ```rust
 // ✅ REQUIRED: Complete HTML shell
 #[cfg(feature = "ssr")]

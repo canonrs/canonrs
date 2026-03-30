@@ -38,7 +38,7 @@ This issue surfaced repeatedly when Layouts attempted to forward `Children` to B
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 #[component]
 pub fn DashboardLayout(children: Children) -> impl IntoView {
@@ -50,7 +50,7 @@ pub fn DashboardLayout(children: Children) -> impl IntoView {
 }
 ```
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 #[component]
 pub fn LayoutWrapper(children: Children) -> impl IntoView {
@@ -63,7 +63,7 @@ pub fn LayoutWrapper(children: Children) -> impl IntoView {
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 #[component]
 pub fn DashboardLayout(children: Children) -> impl IntoView {
@@ -77,7 +77,7 @@ pub fn DashboardLayout(children: Children) -> impl IntoView {
 }
 ```
 
-### ✅ Canonical (Preferred)
+### Canonical (Preferred)
 ```rust
 // Layouts act as wrappers only
 #[component]

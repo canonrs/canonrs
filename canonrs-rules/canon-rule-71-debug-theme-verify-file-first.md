@@ -114,7 +114,7 @@ Theme not working
 
 ---
 
-## Real-World Case Study
+## Real World Case Study
 
 ### Reported Issue
 "Dark mode toggle doesn't work in Leptos app"
@@ -253,7 +253,7 @@ npm run build:css && ls -lh dist/styles.css
 
 ---
 
-## Browser-Based Verification
+## Browser Based Verification
 
 ### Check 1: Stylesheet Count
 ```javascript
@@ -302,7 +302,7 @@ console.log('After:', getComputedStyle(html).backgroundColor);
 
 ---
 
-## Integration with Development Workflow
+## Integration With Development Workflow
 
 ### Before Starting Work
 ```bash

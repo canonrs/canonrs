@@ -79,7 +79,7 @@ Level 5 (z-50): Modals, dialogs
 
 ## Component Shadow Assignment
 
-### Cards & Containers
+### Cards And Containers
 ```rust
 // Card component
 const CARD_CLASSES: &str = "shadow-sm";  // Level 1
@@ -125,7 +125,7 @@ const DIALOG_SHADOW: &str = "shadow-2xl"; // Level 5
 }
 ```
 
-## Animation & Transitions
+## Animation And Transitions
 
 ### Shadow Transitions
 ```rust
@@ -141,9 +141,9 @@ view! {
 }
 ```
 
-## Z-Index Scale
+## Z Index Scale
 
-### Canonical Z-Layers
+### Canonical Z Layers
 ```css
 :root {
   --z-base: 0;
@@ -158,7 +158,7 @@ view! {
 }
 ```
 
-### Component Z-Index Assignment
+### Component Z Index Assignment
 ```rust
 // Dropdown
 "z-[var(--z-dropdown)]"
@@ -175,7 +175,7 @@ view! {
 
 ## Prohibited Patterns
 
-### ❌ Theme-Specific Shadows
+### Theme Specific Shadows
 ```css
 /* FORBIDDEN: Themes cannot override shadows */
 [data-theme="my-theme"] {
@@ -183,7 +183,7 @@ view! {
 }
 ```
 
-### ❌ Hardcoded Shadow Values
+### Hardcoded Shadow Values
 ```rust
 // FORBIDDEN
 "shadow-[0_4px_6px_rgba(0,0,0,0.1)]"
@@ -192,7 +192,7 @@ view! {
 "shadow-md"
 ```
 
-### ❌ Arbitrary Z-Index
+### Arbitrary Z Index
 ```rust
 // FORBIDDEN
 "z-[999]"

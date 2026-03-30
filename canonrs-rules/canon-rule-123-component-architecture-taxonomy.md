@@ -352,7 +352,7 @@ pub fn Card(
 
 ---
 
-## Layer 3: Component (Domain) Contracts
+## Layer 3: Component Domain Contracts
 
 **Purpose:** Implement business logic, manage domain state, orchestrate workflows.
 

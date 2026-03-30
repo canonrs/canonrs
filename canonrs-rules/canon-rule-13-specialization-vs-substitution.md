@@ -194,7 +194,7 @@ Rule #17 (Human vs Machine Scale)
 
 ---
 
-## 📊 Specialization vs Substitution
+## Specialization vs Substitution
 
 | Aspect              | Specialization (✅)      | Substitution (❌)       |
 |----------------------|--------------------------|-------------------------|
@@ -220,7 +220,7 @@ Rule #17 (Human vs Machine Scale)
 
 ---
 
-## 🚫 ANTI-PATTERNS
+## Anti-Patterns
 
 ### ❌ God Component
 ```rust
@@ -298,7 +298,7 @@ fn DocumentForm() -> impl IntoView {
 
 ---
 
-## 🎓 Design Principles
+## Design Principles
 
 ### 1. Specialization Adds Semantics
 ```

@@ -35,7 +35,7 @@ inside SSR execution paths.**
 Instead, they must be attached using **inline `on:event` handlers**
 or created via hydration-safe mechanisms.
 
-## Allowed Patterns ✅
+## Allowed Patterns
 
 ### App / Layout Layer (preferred)
 

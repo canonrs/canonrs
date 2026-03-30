@@ -31,7 +31,7 @@ Implicit or private entrypoints cause:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 #[cfg(feature = "hydrate")]
@@ -44,7 +44,7 @@ Entrypoint not exported.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 #[cfg(feature = "hydrate")]

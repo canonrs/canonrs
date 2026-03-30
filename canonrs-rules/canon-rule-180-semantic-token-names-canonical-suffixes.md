@@ -33,7 +33,7 @@ Real bug: Family referenced `--semantic-info-surface` → theme defined `--seman
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 // family_e_feedback.rs
 FamilyToken::new("callout-bg-info", "var(--semantic-info-surface)"), // ❌ -surface doesn't exist
@@ -52,7 +52,7 @@ FamilyToken::new("badge-text", "var(--semantic-text-primary-fg)"),   // ❌ inco
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 // family_e_feedback.rs
 FamilyToken::new("callout-bg-info", "var(--semantic-info-bg)"),    // ✅ Standard -bg

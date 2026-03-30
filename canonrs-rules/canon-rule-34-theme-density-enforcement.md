@@ -11,9 +11,9 @@
 ## Principle
 Theme and density rules are **enforced by automated linting** at build time. Code that violates Canon Rules #32 and #33 must not compile or pass CI.
 
-## Prohibited Patterns (AST-level)
+## Prohibited Patterns AST Level
 
-### ❌ localStorage for Theme
+### Localstorage for Theme
 
 **Rule:** Theme state MUST use cookies (Canon Rule #32)
 ```rust
@@ -34,7 +34,7 @@ pub fn check_localStorage_usage(file: &str) -> Vec<Violation> {
 }
 ```
 
-### ❌ Fixed Pixel Sizes in Density-Aware Components
+### Fixed Pixel Sizes in Density Aware Components
 
 **Rule:** Interactive elements MUST scale with density (Canon Rule #33)
 ```rust
@@ -54,7 +54,7 @@ grep -r "h-\[.*px\]" src/ui/ && exit 1
 grep -r "height:.*px" src/ui/ && exit 1
 ```
 
-### ❌ Non-Canonical Color Variants
+### Non Canonical Color Variants
 
 **Rule:** Components MUST NOT use semantic color variants (Canon Rule #21)
 ```rust
@@ -79,7 +79,7 @@ if code.contains("Variant::Success")
 }
 ```
 
-### ❌ Hardcoded Colors
+### Hardcoded Colors
 
 **Rule:** Components MUST use color tokens (Canon Rule #21)
 ```rust
@@ -105,7 +105,7 @@ grep -rE "text-(red|blue|green|yellow|purple)-[0-9]+" src/ui/ && exit 1
 grep -rE "#[0-9a-fA-F]{3,6}" src/ui/ && exit 1
 ```
 
-### ❌ Typography Scaling with Density
+### Typography Scaling with Density
 
 **Rule:** Font sizes MUST NOT scale with density (Canon Rule #33)
 ```rust
@@ -122,9 +122,9 @@ grep -r "font-size.*density-multiplier" src/ && exit 1
 grep -r "text-\[calc.*density" src/ && exit 1
 ```
 
-## Allowed Patterns (Whitelist)
+## Allowed Patterns Whitelist
 
-### ✅ Cookie-Based Persistence
+### Cookie Based Persistence
 ```rust
 // theme_server.rs (app layer)
 #[server]
@@ -133,14 +133,14 @@ pub async fn set_theme_cookie(mode: String, preset: String) -> Result<(), Server
 }
 ```
 
-### ✅ Density-Scaled Spacing
+### Density Scaled Spacing
 ```rust
 // Component with density awareness
 "h-[calc(var(--size-control-md)*var(--density-multiplier))]"
 "px-[calc(var(--space-lg)*var(--density-multiplier))]"
 ```
 
-### ✅ Canonical Tokens
+### Canonical Tokens
 ```rust
 "bg-primary"
 "text-destructive"
@@ -149,7 +149,7 @@ pub async fn set_theme_cookie(mode: String, preset: String) -> Result<(), Server
 
 ## Linter Implementation
 
-### File: `tools/canon-linter/src/main.rs`
+### File tools canon linter src main rs
 ```rust
 use std::fs;
 use std::path::Path;
@@ -248,7 +248,7 @@ fn check_file(path: &Path) -> Vec<Violation> {
 }
 ```
 
-### File: `tools/canon-linter/Cargo.toml`
+### File tools canon linter cargo toml
 ```toml
 [package]
 name = "canon-linter"
@@ -262,7 +262,7 @@ walkdir = "2"
 
 ## CI Integration
 
-### GitHub Actions: `.github/workflows/canon-compliance.yml`
+### Github Actions Canon Compliance
 ```yaml
 name: Canon Rules Compliance
 
@@ -295,9 +295,9 @@ jobs:
           ! grep -rE "h-\[[0-9]+px\]" packages-rust/rs-design/src/ui/
 ```
 
-## Pre-commit Hook
+## Pre Commit Hook
 
-### File: `.git/hooks/pre-commit`
+### File Git Hooks Pre Commit
 ```bash
 #!/bin/bash
 set -e

@@ -43,7 +43,7 @@ Will inject `<link>` tags into the document. **In CSR, it does not.**
 
 ---
 
-## Forbidden Pattern (CSR)
+## Forbidden Pattern
 ```rust
 // ❌ NEVER IN CSR
 use leptos_meta::*;
@@ -65,7 +65,7 @@ pub fn App() -> impl IntoView {
 
 ---
 
-## Canonical Pattern (CSR)
+## Canonical Pattern
 
 ### Option 1: HTML `<link>` (Recommended)
 ```html
@@ -96,7 +96,7 @@ pub fn App() -> impl IntoView {
 
 ---
 
-## When `<Stylesheet />` DOES Work
+## When Stylesheet Works
 
 ### SSR with Hydration
 ```rust

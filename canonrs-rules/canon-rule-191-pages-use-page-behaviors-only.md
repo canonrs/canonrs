@@ -60,7 +60,7 @@ Each page has a **1:1 page behavior**.
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 // page.rs
@@ -85,7 +85,7 @@ Pages must never own wiring or logic.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 // pages/page_a.rs

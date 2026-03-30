@@ -12,7 +12,7 @@
 ## Principle
 Components consume a **stable contract of theme tokens**. Semantic intents (success, warning, info) are **application-layer mappings**, not theme-layer requirements.
 
-## Canonical Tokens (MANDATORY in ALL themes)
+## Canonical Tokens
 
 ### Brand / Action
 - `primary` + `primary-foreground`
@@ -59,7 +59,7 @@ Components consume a **stable contract of theme tokens**. Semantic intents (succ
 
 ## Component Variant Rules
 
-### ✅ ALLOWED (canonical)
+### Allowed
 ```rust
 pub enum ButtonVariant {
     Solid,
@@ -72,7 +72,7 @@ pub enum ButtonVariant {
 }
 ```
 
-### ❌ FORBIDDEN
+### Forbidden
 ```rust
 pub enum ButtonVariant {
     Success,
@@ -82,7 +82,7 @@ pub enum ButtonVariant {
 }
 ```
 
-## Semantic Intent Layer (Optional)
+## Semantic Intent Layer
 ```rust
 pub enum AlertIntent {
     Success,

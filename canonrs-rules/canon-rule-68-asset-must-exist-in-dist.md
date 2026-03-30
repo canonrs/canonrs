@@ -34,7 +34,7 @@ Applications often reference assets that:
 
 ---
 
-## Forbidden Patterns (ABSOLUTE)
+## Forbidden Patterns
 
 ```html
 <!-- ❌ NEVER ALLOWED -->
@@ -166,7 +166,7 @@ cat Trunk.toml
 
 ---
 
-## Real-World Case Study
+## Real World Case Study
 
 **Symptom:** Dark mode toggle not working  
 **Investigation:** Checked tokens, signals, Effect, DOM manipulation  

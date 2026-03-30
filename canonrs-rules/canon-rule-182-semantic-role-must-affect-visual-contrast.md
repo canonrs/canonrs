@@ -33,7 +33,7 @@ Real case: Card (neutral) vs Callout (info feedback) → if identical background
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```css
 /* themes/dark/ui.css */
@@ -54,7 +54,7 @@ getComputedStyle(card).backgroundColor ===
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```css
 /* themes/dark/ui.css */
@@ -117,14 +117,14 @@ This is **information design**. Different semantic meanings require different vi
 
 ## Enforcement
 
-### Design review checklist
+### Design Review Checklist
 
 - [ ] Feedback components have distinct backgrounds from surfaces
 - [ ] Info/warning/error/success are visually distinguishable
 - [ ] Neutral containers use `--semantic-surface-bg`
 - [ ] Feedback uses `--semantic-{intent}-bg`
 
-### Visual regression test
+### Visual Regression Test
 
 ```typescript
 test("semantic roles have distinct visual contrast", () => {
@@ -138,7 +138,7 @@ test("semantic roles have distinct visual contrast", () => {
 });
 ```
 
-### Contrast validation
+### Contrast Validation
 
 ```bash
 # Automated contrast check

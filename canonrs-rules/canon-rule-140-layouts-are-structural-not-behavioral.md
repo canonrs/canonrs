@@ -34,7 +34,7 @@ This manifested as:
 
 ## Forbidden Patterns
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 #[component]
 pub fn DashboardLayout(children: Children) -> impl IntoView {
@@ -49,7 +49,7 @@ pub fn DashboardLayout(children: Children) -> impl IntoView {
 }
 ```
 
-### ❌ Forbidden
+### Forbidden
 ```rust
 #[component]
 pub fn LayoutWithLogic(children: Children) -> impl IntoView {
@@ -63,7 +63,7 @@ pub fn LayoutWithLogic(children: Children) -> impl IntoView {
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```rust
 #[component]
 pub fn DashboardLayout(children: Children) -> impl IntoView {

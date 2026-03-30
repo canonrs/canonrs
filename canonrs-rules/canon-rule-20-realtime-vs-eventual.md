@@ -31,7 +31,7 @@ Eventual Consistency  = Asynchronous update, accepts lag (seconds/minutes)
 
 ---
 
-## ✅ DECISION MATRIX
+## Decision Matrix
 
 | Criteria                      | Solution                  |
 |-------------------------------|--------------------------|
@@ -80,7 +80,7 @@ let feed = Resource::new(
 
 ---
 
-## 🚫 ANTI-PATTERN: Aggressive Polling
+## Anti-Pattern: Aggressive Polling
 ```rust
 // FORBIDDEN - not real-time, wasteful
 setInterval(() => fetch(), 100);
@@ -95,7 +95,7 @@ setInterval(() => fetch(), 100);
 
 ---
 
-## 🧠 TRADE-OFFS
+## Trade-Offs
 
 | Aspect       | Real-time        | Eventual         |
 |---------------|------------------|------------------|

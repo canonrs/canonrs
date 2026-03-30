@@ -39,7 +39,7 @@ DensityContext not found. Make sure DensityProvider is in the component tree.
 
 ---
 
-## Anti-Pattern (FORBIDDEN)
+## Anti Pattern
 ```rust
 // ❌ FORBIDDEN: No providers
 #[component]
@@ -70,7 +70,7 @@ This fails because:
 
 ---
 
-## Canonical Pattern (REQUIRED)
+## Canonical Pattern
 ```rust
 // ✅ REQUIRED: Explicit provider tree
 use rs_design::providers::{ThemeProvider, DensityProvider};
@@ -132,7 +132,7 @@ Common provider order for CanonRS apps:
 
 ---
 
-## Why SSR Cannot Auto-Provide
+## Why SSR Cannot Auto Provide
 
 CSR differences that don't apply to SSR:
 
@@ -146,7 +146,7 @@ SSR is static tree generation. There is no "mount point" where providers can be 
 
 ---
 
-## Common Providers in CanonRS
+## Common Providers In CanonRS
 ```rust
 // Standard CanonRS provider stack
 use rs_design::providers::{

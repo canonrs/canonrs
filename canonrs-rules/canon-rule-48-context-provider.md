@@ -14,7 +14,7 @@ Use Context Providers to eliminate prop drilling and enable global access to sel
 
 ---
 
-## The Problem: Prop Drilling
+## The Problem Prop Drilling
 
 ### ❌ WITHOUT Context Provider
 ```rust
@@ -298,7 +298,7 @@ pub fn InspectorPanel(
 
 ---
 
-## Integration with Existing Patterns
+## Integration With Existing Patterns
 
 ### With Tree (Rule #47)
 
@@ -390,7 +390,7 @@ fn test_context_update() {
 
 ---
 
-## Anti-Patterns
+## Anti Patterns
 
 ### Anti-Pattern 1: Prop Drilling with Context Available
 ```rust
@@ -473,7 +473,7 @@ pub fn App() -> impl IntoView {
 
 ---
 
-## When to Use Context Provider
+## When To Use Context Provider
 
 ### ✅ USE Context Provider When:
 
@@ -491,7 +491,7 @@ pub fn App() -> impl IntoView {
 
 ---
 
-## Comparison with Other Frameworks
+## Comparison With Other Frameworks
 
 | Framework | Pattern | API |
 |-----------|---------|-----|
@@ -504,7 +504,7 @@ pub fn App() -> impl IntoView {
 
 ---
 
-## Migration from Prop Drilling
+## Migration From Prop Drilling
 
 ### Before (Prop Drilling)
 ```rust

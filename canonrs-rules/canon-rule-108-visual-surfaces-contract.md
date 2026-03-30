@@ -18,7 +18,7 @@ Visual hierarchy in Canon is achieved through **semantic surface types**, not ad
 
 ## Surface Types (MANDATORY)
 
-### 1. `surface-base`
+### 1. surface-base
 **Usage:** Application background, primary content area  
 **Token:** `--color-bg-surface`
 
@@ -37,7 +37,7 @@ Visual hierarchy in Canon is achieved through **semantic surface types**, not ad
 }
 ```
 
-### 2. `surface-muted`
+### 2. surface-muted
 **Usage:** Auxiliary areas, navigation, grouping  
 **Token:** `--color-bg-muted`
 
@@ -57,7 +57,7 @@ Visual hierarchy in Canon is achieved through **semantic surface types**, not ad
 }
 ```
 
-### 3. `surface-elevated`
+### 3. surface-elevated
 **Usage:** Content in focus, highlighted information  
 **Token:** `--color-bg-elevated`
 
@@ -81,7 +81,7 @@ Visual hierarchy in Canon is achieved through **semantic surface types**, not ad
 }
 ```
 
-### 4. `surface-hero`
+### 4. surface-hero
 **Usage:** Component headers, documentation intros  
 **Tokens:** Uses base surface + spacing + typography scale
 

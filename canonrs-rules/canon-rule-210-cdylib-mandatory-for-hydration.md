@@ -33,7 +33,7 @@ This creates false-positive “successful” builds.
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```toml
 [package]
@@ -46,7 +46,7 @@ No explicit library crate type for WASM output.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```toml
 [lib]

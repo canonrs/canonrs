@@ -51,9 +51,9 @@ But over-constraining with `=X.Y.Z` everywhere may:
 
 ---
 
-## Canonical Version Strategy (v2)
+## Canonical Version Strategy
 
-### 1️⃣ Critical Runtime Crates (Pinned Minor, Flexible Patch)
+### Critical Runtime Crates
 
 ```toml
 [workspace.dependencies]
@@ -80,7 +80,7 @@ wasm-bindgen = "0.2.95"
 
 ---
 
-### 2️⃣ Lockfile Is The Real Freeze Point
+### Lockfile Is The Real Freeze Point
 
 Determinism is enforced by:
 
@@ -97,7 +97,7 @@ Build reproducibility depends on:
 
 ---
 
-### 3️⃣ Duplicate Version Detection (Mandatory)
+### Duplicate Version Detection
 
 Multiple versions of critical crates are forbidden.
 
@@ -127,7 +127,7 @@ name = "leptos"
 
 ## Forbidden Pattern
 
-### ❌ Wide semver ranges
+### Forbidden
 
 ```toml
 axum = "0.8"
@@ -139,7 +139,7 @@ Too permissive.
 
 ---
 
-### ❌ Exact-everything freeze (over-constrained)
+### Forbidden
 
 ```toml
 axum = "=0.8.8"

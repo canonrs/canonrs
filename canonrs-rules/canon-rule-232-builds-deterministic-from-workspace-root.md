@@ -42,7 +42,7 @@ cd /workspace && make -C products/app build  ❌
 
 ## Forbidden Pattern
 
-### ❌ Forbidden: CWD-Dependent Paths
+### Forbidden
 ```makefile
 # Makefile assumes cwd=product dir
 build:
@@ -60,7 +60,7 @@ build:
 
 ## Canonical Pattern
 
-### ✅ Canonical: Workspace-Relative Paths
+### Canonical
 ```makefile
 # Makefile with explicit root reference
 WORKSPACE_ROOT := $(shell git rev-parse --show-toplevel)

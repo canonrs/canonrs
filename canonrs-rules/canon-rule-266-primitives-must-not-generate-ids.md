@@ -40,7 +40,7 @@ Architectural impact:
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 
 ```rust
 let id = format!("btn-{}", COUNTER.fetch_add(1, Ordering::SeqCst));
@@ -55,7 +55,7 @@ Primitive becomes stateful.
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 
 ```rust
 #[prop(optional)] id: Option<String>

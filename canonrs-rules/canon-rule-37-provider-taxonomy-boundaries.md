@@ -13,7 +13,7 @@ The design system defines **exactly three canonical providers**: Theme, Density,
 
 ## The Three Canonical Providers
 
-### 1️⃣ ThemeProvider
+### Themeprovider
 
 **Responsibility:**
 - Apply `data-theme` attribute to `<html>`

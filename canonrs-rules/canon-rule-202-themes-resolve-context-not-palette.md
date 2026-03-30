@@ -33,7 +33,7 @@ Real bug: Theme defined `--semantic-action-primary-bg: hsl(38 92% 50%)` → when
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```css
 /* themes/light/ui.css */
 @layer theme {
@@ -51,7 +51,7 @@ Real bug: Theme defined `--semantic-action-primary-bg: hsl(38 92% 50%)` → when
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```css
 /* themes/light/ui.css */
 @layer theme {

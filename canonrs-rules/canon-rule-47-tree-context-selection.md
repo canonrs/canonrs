@@ -659,7 +659,7 @@ fn test_commands_change_with_context() {
 
 ---
 
-## Anti-Patterns
+## Anti Patterns
 
 ### Anti-Pattern 1: Tree with Actions
 ```rust

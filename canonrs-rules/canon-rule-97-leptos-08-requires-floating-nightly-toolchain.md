@@ -46,7 +46,7 @@ candidate versions found which didn't match: 0.8.7, 0.8.6, 0.8.5, ...
 
 ---
 
-## Anti-Pattern (FORBIDDEN)
+## Anti Pattern
 ```toml
 # ❌ FORBIDDEN: Pinned nightly date
 # rust-toolchain.toml
@@ -67,7 +67,7 @@ This fails because:
 
 ---
 
-## Canonical Pattern (REQUIRED)
+## Canonical Pattern
 ```toml
 # ✅ REQUIRED: Floating nightly
 # rust-toolchain.toml
@@ -185,7 +185,7 @@ This rule exists to:
 
 ---
 
-## Migration Path for Pinned Projects
+## Migration Path For Pinned Projects
 ```bash
 # 1. Remove date from rust-toolchain.toml
 sed -i 's/nightly-[0-9-]*/nightly/' rust-toolchain.toml

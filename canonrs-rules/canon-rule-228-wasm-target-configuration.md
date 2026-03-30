@@ -33,7 +33,7 @@ target `wasm32-unknown-unknown` not found
 
 ## Forbidden Pattern
 
-### ❌ Forbidden
+### Forbidden
 ```
 # No .cargo/config.toml exists
 ```
@@ -44,7 +44,7 @@ target `wasm32-unknown-unknown` not found
 
 ## Canonical Pattern
 
-### ✅ Canonical
+### Canonical
 ```toml
 # .cargo/config.toml (workspace root)
 [build]
