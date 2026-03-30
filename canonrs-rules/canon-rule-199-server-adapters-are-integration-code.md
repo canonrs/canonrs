@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** architecture, ssr
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** governance
+**Tags:** server, adapters, integration, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding server-specific logic into framework code couples architecture to a specific runtime and breaks portability. Adapters must remain isolated.
+
+**Problem:**
+server adapter logic leaks into framework causing coupling and instability
+
+**Solution:**
+isolate server adapters as integration layer separate from framework
+
+**Signals:**
+- framework coupling
+- runtime leak
+- migration issue
+
+**Search Intent:**
+how to separate server adapters from framework
+
+**Keywords:**
+server adapter architecture, integration layer pattern, framework agnostic design, ssr adapter separation
 
 ---
 

@@ -4,12 +4,36 @@
 
 
 **Severity:** CRITICAL
-**Scope:** build, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** build-tooling
+**Tags:** css, tailwind, build, pipeline
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Leptos does not generate CSS automatically, leading to missing styles when Tailwind is not built explicitly. CSS must be produced through a dedicated build step before runtime.
+
+**Problem:**
+css is not generated because build step is missing
+
+**Solution:**
+run explicit tailwind build pipeline before serving application
+
+**Signals:**
+- unstyled page
+- missing css file
+- tailwind not applied
+
+**Search Intent:**
+why leptos app has no css
+
+**Keywords:**
+leptos css missing, tailwind build pipeline leptos, css not generated leptos, tailwind cli build step
+
+---
 
 ---
 

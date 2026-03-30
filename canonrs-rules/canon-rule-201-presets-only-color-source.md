@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** design-system, tokens, theming
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** tokens, colors, theming, css
+**Language:** EN
+
+---
+
+**Intro:**
+Defining color values outside presets creates duplication and breaks palette switching. Color data must remain centralized.
+
+**Problem:**
+color values are defined outside presets causing duplication and inconsistency
+
+**Solution:**
+define all color values exclusively within preset definitions
+
+**Signals:**
+- color drift
+- palette break
+- hardcoded color
+
+**Search Intent:**
+how to centralize color values in design system
+
+**Keywords:**
+design system color source, preset color architecture, css color token centralization, theming palette management
 
 ---
 

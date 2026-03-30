@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** pages, behavior, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** behavior
+**Tags:** pages, behavior, architecture, composition
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding logic or wiring directly in pages leads to uncontrolled growth and architectural drift. Pages must remain declarative entry points.
+
+**Problem:**
+pages contain logic and wiring causing coupling and growth
+
+**Solution:**
+delegate all wiring to page behaviors and keep pages logic free
+
+**Signals:**
+- logic in page
+- event listener
+- coupling
+
+**Search Intent:**
+how to separate page logic from behavior layer
+
+**Keywords:**
+page behavior architecture, frontend page composition pattern, ui wiring separation, behavior layer design
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** wasm, workspace, build
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** wasm, target, build, cargo
+**Language:** EN
+
+---
+
+**Intro:**
+Missing wasm target configuration causes build failures and inconsistent outputs. Explicit setup ensures reproducibility.
+
+**Problem:**
+wasm target is not configured causing build failures
+
+**Solution:**
+define wasm target configuration in cargo config with optimization flags
+
+**Signals:**
+- target not found
+- build fail
+- wasm error
+
+**Search Intent:**
+how to configure wasm target cargo
+
+**Keywords:**
+wasm target cargo config, rust wasm build setup, wasm optimization flags, frontend wasm compilation
 
 ---
 

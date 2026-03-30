@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** interactive, behavior, state
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** state-reactivity
+**Tags:** state, behavior, reactivity, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+State duplication between behavior and interactive layers causes divergence and hydration issues. Ownership must be singular.
+
+**Problem:**
+behavior holds state causing divergence and inconsistent rendering
+
+**Solution:**
+restrict all state to interactive layer and keep behavior stateless
+
+**Signals:**
+- state divergence
+- hydration mismatch
+- debug difficulty
+
+**Search Intent:**
+why behavior should not manage state
+
+**Keywords:**
+state ownership interactive layer, behavior stateless pattern, reactive state architecture, leptos state separation
 
 ---
 

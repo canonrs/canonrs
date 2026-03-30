@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** primitives, ui, interactive
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** component-architecture
+**Tags:** data-attributes, contracts, css, behavior
+**Language:** EN
+
+---
+
+**Intro:**
+Using classes for state or behavior creates coupling and ambiguity. Structural contracts must be explicit.
+
+**Problem:**
+classes are used to represent state causing coupling and ambiguity
+
+**Solution:**
+use data attributes to represent structural and behavioral contracts
+
+**Signals:**
+- class misuse
+- state ambiguity
+- coupling issue
+
+**Search Intent:**
+when to use data attributes vs classes
+
+**Keywords:**
+data attributes contract pattern, css class misuse state, frontend semantic attributes, ui behavior contract attributes
 
 ---
 

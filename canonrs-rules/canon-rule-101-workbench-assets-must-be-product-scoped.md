@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** MEDIUM  
-**Scope:** build, design-system
 **Version:** 1.0.0  
 **Date:** 2026-01-15
+
+**Category:** governance
+**Tags:** assets, design-system, ownership, monorepo
+**Language:** EN
+
+---
+
+**Intro:**
+Placing illustrative assets inside the design system creates coupling and violates separation of concerns. Design systems must remain focused on primitives and behavior, not product-specific visuals.
+
+**Problem:**
+illustrative assets stored in design system create coupling and misuse of scope
+
+**Solution:**
+keep illustrative assets inside product scope and restrict design system to primitives
+
+**Signals:**
+- asset coupling
+- design drift
+- wrong ownership
+
+**Search Intent:**
+prevent design system asset coupling
+
+**Keywords:**
+design system asset scope, product scoped assets, monorepo asset ownership, ui illustration separation
 
 ---
 

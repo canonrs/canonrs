@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** state, ui, components
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** component-architecture
+**Tags:** ui, data, adapters, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Duplicating components per data strategy creates redundancy and complexity. Data must be abstracted.
+
+**Problem:**
+multiple components implement same rendering logic for different data strategies
+
+**Solution:**
+use single renderer with adapter based data sources
+
+**Signals:**
+- duplicate component
+- code redundancy
+- complex api
+
+**Search Intent:**
+how to design ui data abstraction
+
+**Keywords:**
+ui adapter pattern data source, single renderer multiple data sources, frontend virtual table architecture, data abstraction components
 
 ---
 
@@ -399,4 +424,3 @@ adapters/    → WHERE data comes from
 
 
 ---
-

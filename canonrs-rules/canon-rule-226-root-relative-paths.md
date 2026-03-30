@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** leptos, workspace
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** paths, workspace, leptos, build
+**Language:** EN
+
+---
+
+**Intro:**
+Relative paths tied to product directories break when tooling runs from workspace root. Paths must resolve deterministically.
+
+**Problem:**
+paths are product relative causing missing assets and build failures
+
+**Solution:**
+define all leptos paths relative to workspace root
+
+**Signals:**
+- 404 css
+- missing assets
+- build error
+
+**Search Intent:**
+how to fix leptos path resolution workspace
+
+**Keywords:**
+leptos path root relative, workspace asset resolution, cargo leptos path issue, frontend path config error
 
 ---
 

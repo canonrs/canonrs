@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** css, components
 **Version:** 1.0.0
 **Date:** 2026-01-17
+
+**Category:** styling-css
+**Tags:** css, reset, ui, boundaries
+**Language:** EN
+
+---
+
+**Intro:**
+Ignoring global CSS resets leads to inconsistent component behavior across environments. UI components must explicitly handle reset effects without breaking architectural layers.
+
+**Problem:**
+components do not account for global css reset causing inconsistent behavior
+
+**Solution:**
+handle reset effects in ui layer while keeping primitives untouched
+
+**Signals:**
+- style inconsistency
+- reset conflict
+- layout break
+
+**Search Intent:**
+how to handle css reset ui
+
+**Keywords:**
+css reset handling ui, global css normalization issue, ui reset boundary pattern, css reset component conflict
 
 ---
 

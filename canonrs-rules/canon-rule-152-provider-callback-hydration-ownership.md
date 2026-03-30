@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** hydration, providers, leptos
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** core-runtime
+**Tags:** hydration, callbacks, providers, wasm
+**Language:** EN
+
 ---
+
+**Intro:**
+Heap-owned callbacks capturing provider context can be dropped before hydration reattachment, causing runtime panics. This breaks deterministic hydration in SSR environments.
+
+**Problem:**
+callbacks capturing provider context are dropped before hydration causing runtime errors
+
+**Solution:**
+use inline event handlers or hydration safe callback mechanisms
+
+**Signals:**
+- callback removed
+- unreachable panic
+- hydration failure
+
+**Search Intent:**
+how to fix provider callback hydration errors
+
+**Keywords:**
+leptos provider callback error, hydration ownership issue, callback dropped before attach, wasm hydration panic
+
+---
+
 ## Status
 
 **Mandatory**

@@ -4,12 +4,36 @@
 
 
 **Severity:** CRITICAL
-**Scope:** design-system, tokens, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** design-system
+**Tags:** tokens, design-system, css
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Multiple token definitions across files lead to divergence and inconsistency in design systems. Tokens must exist in a single canonical source and propagate through build artifacts.
+
+**Problem:**
+multiple token sources create divergence and inconsistency
+
+**Solution:**
+define tokens in one canonical file and propagate via build pipeline
+
+**Signals:**
+- multiple tokens.css
+- different values
+- sync issues
+
+**Search Intent:**
+how to manage design tokens single
+
+**Keywords:**
+design tokens single source, tailwind tokens architecture, css tokens monorepo, design system consistency
+
+---
 
 ---
 

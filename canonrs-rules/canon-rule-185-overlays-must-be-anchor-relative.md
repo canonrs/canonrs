@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** overlays, primitives
 **Version:** 1.1.0  
 **Date:** 2026-02-03
+
+**Category:** component-architecture
+**Tags:** overlays, positioning, primitives, ux
+**Language:** EN
+
+---
+
+**Intro:**
+Viewport-based overlay positioning breaks spatial consistency and user expectations. Overlays must maintain a clear relationship with their trigger element.
+
+**Problem:**
+overlays are positioned relative to viewport instead of anchor element
+
+**Solution:**
+position overlays strictly relative to explicit anchor elements
+
+**Signals:**
+- floating overlay
+- misaligned ui
+- position drift
+
+**Search Intent:**
+how to position overlays relative to anchor
+
+**Keywords:**
+overlay anchor positioning, ui positioning primitives, popover relative placement, frontend overlay architecture
 
 ---
 

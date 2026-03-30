@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** providers, ui, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-27
+
+**Category:** component-architecture
+**Tags:** providers, architecture, state, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Treating providers as UI components mixes state management with presentation and breaks architectural boundaries. This leads to coupling and poor composition.
+
+**Problem:**
+providers are used as ui components causing architectural leakage
+
+**Solution:**
+keep providers as infrastructure and let ui consume their context
+
+**Signals:**
+- provider as ui
+- coupling
+- state leakage
+
+**Search Intent:**
+how to separate providers from ui components
+
+**Keywords:**
+provider vs ui separation, context architecture frontend, state provider pattern, ui composition rules
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** cli, workspace, leptos
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** governance
+**Tags:** cli, leptos, workspace, metadata
+**Language:** EN
+
+---
+
+**Intro:**
+Manual edits to leptos metadata cause configuration drift and runtime errors. Ownership must remain centralized.
+
+**Problem:**
+leptos metadata is edited manually causing inconsistency and failures
+
+**Solution:**
+restrict all metadata changes to cli managed regions only
+
+**Signals:**
+- port mismatch
+- config drift
+- build issue
+
+**Search Intent:**
+how to manage leptos metadata cli
+
+**Keywords:**
+leptos metadata management cli, workspace config governance, frontend metadata control, cargo leptos config sync
 
 ---
 

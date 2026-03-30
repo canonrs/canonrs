@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** architecture, css, components
 **Version:** 1.0.0
 **Date:** 2026-01-17
+
+**Category:** component-architecture
+**Tags:** architecture, css, model, responsibility
+**Language:** EN
+
+---
+
+**Intro:**
+Using CSS to compensate for architectural flaws leads to fragile systems and hidden technical debt. Structural issues must be resolved at the model level, not visually masked.
+
+**Problem:**
+css is used to fix structural and ownership issues in component architecture
+
+**Solution:**
+fix the underlying model and component hierarchy instead of applying css workarounds
+
+**Signals:**
+- css hacks
+- important usage
+- layout overlap
+
+**Search Intent:**
+how to fix css architecture issues
+
+**Keywords:**
+css architecture anti pattern, model vs css responsibility, ui structure vs styling, css workaround problem
 
 ---
 

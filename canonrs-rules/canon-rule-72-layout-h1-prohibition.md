@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** accessibility, layout
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** accessibility
+**Tags:** html, accessibility, semantics
+**Language:** EN
+
+---
+
+**Intro:**
+Using multiple h1 elements across layout and page components breaks semantic structure and accessibility. Layouts must not define document identity elements.
+
+**Problem:**
+layouts include h1 causing multiple h1 elements per page
+
+**Solution:**
+restrict h1 usage to page components only and use alternative tags in layouts
+
+**Signals:**
+- multiple h1
+- seo issues
+- screen reader confusion
+
+**Search Intent:**
+why only one h1 per page html
+
+**Keywords:**
+html h1 best practice, multiple h1 accessibility issue, semantic heading structure, wcag heading hierarchy
 
 ---
 

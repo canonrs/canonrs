@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** build, design-system
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** build-tooling
+**Tags:** build, design-system, independence, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Design system depending on products creates coupling and blocks independent versioning. Build must remain isolated.
+
+**Problem:**
+design system depends on products causing coupling and circular dependencies
+
+**Solution:**
+ensure design system builds independently without product context
+
+**Signals:**
+- build failure
+- dependency cycle
+- artifact coupling
+
+**Search Intent:**
+how to decouple design system from products
+
+**Keywords:**
+design system independent build, frontend architecture decoupling, rust workspace isolation, design system versioning independence
 
 ---
 

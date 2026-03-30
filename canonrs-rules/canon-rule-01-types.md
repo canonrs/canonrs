@@ -2,12 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** component-architecture
+**Tags:** components, ssr, state, effects
+**Language:** EN
+
 ---
 
+**Intro:**
+Incorrect classification of components in Leptos leads to SSR issues, unsafe browser API usage, and inconsistent state handling. Mixing state, effects, and DOM APIs without clear boundaries breaks hydration and component predictability.
+
+**Problem:**
+components mix state, effects, and browser APIs without clear classification
+
+**Solution:**
+classify components into pure, stateful, or interactive with strict rules
+
+**Signals:**
+- hydration errors
+- unsafe effects
+- browser api panic
+
+**Search Intent:**
+how to classify leptos components
+
+**Keywords:**
+leptos component types, ssr component classification, leptos state vs effects, interactive component leptos
+
+---
 
 ## Classification
 

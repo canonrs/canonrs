@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** hydration, ssr, leptos
 **Version:** 1.0.0  
 **Date:** 2026-01-14
+
+**Category:** core-runtime
+**Tags:** ssr, hydration, scripts
+**Language:** EN
+
+---
+
+**Intro:**
+Scripts placed in index.html execute before hydration and bind to stale DOM nodes, causing inconsistent behavior. Proper placement ensures scripts run against the hydrated DOM.
+
+**Problem:**
+scripts execute before hydration leading to broken event bindings
+
+**Solution:**
+inject scripts inside shell after app rendering
+
+**Signals:**
+- event not firing
+- phantom behavior
+- hydration mismatch
+
+**Search Intent:**
+where to place scripts in leptos ssr
+
+**Keywords:**
+leptos script placement ssr, hydration event binding issue, index html script problem, leptos shell script injection
 
 ---
 

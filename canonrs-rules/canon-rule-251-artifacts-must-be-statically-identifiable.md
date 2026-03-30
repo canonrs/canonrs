@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** build
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** build-tooling
+**Tags:** build, artifacts, naming, determinism
+**Language:** EN
+
+---
+
+**Intro:**
+Dynamic artifact naming causes cache issues and deployment confusion. Artifacts must be deterministic and identifiable.
+
+**Problem:**
+artifacts use dynamic naming causing cache corruption and instability
+
+**Solution:**
+use deterministic naming conventions tied to source identity
+
+**Signals:**
+- cache issue
+- mismatch artifact
+- deployment confusion
+
+**Search Intent:**
+how to enforce deterministic artifact naming
+
+**Keywords:**
+artifact naming deterministic build, css wasm naming convention, frontend build artifact control, cache safe file naming
 
 ---
 

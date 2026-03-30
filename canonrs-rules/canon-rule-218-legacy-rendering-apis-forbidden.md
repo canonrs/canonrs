@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** ssr
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** governance
+**Tags:** ssr, rendering, deprecated, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Using legacy rendering APIs bypasses canonical integration paths and introduces hidden technical debt. Forward-only architecture must be enforced.
+
+**Problem:**
+deprecated rendering apis are used causing architectural inconsistency
+
+**Solution:**
+use only canonical rendering integration paths and remove legacy apis
+
+**Signals:**
+- legacy api
+- hydration mismatch
+- integration break
+
+**Search Intent:**
+how to replace legacy rendering api leptos
+
+**Keywords:**
+legacy rendering api removal, ssr canonical integration, frontend api deprecation, leptos rendering migration
 
 ---
 

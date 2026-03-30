@@ -2,9 +2,35 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** design-system, css, tokens
 **Version:** 1.0.0  
 **Date:** 2026-01-26
+
+**Category:** design-system
+**Tags:** css, tokens, theming, design-system
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing CSS token formats causes runtime failures, theming inconsistencies, and unpredictable behavior. Tokens must follow a single deterministic format to ensure safe consumption and transformations.
+
+**Problem:**
+mixed css token formats break theming and runtime css evaluation
+
+**Solution:**
+enforce numeric hsl format for all tokens and apply functions at consumption
+
+**Signals:**
+- css not applied
+- invalid hsl value
+- theme broken
+- rgba fallback
+
+**Search Intent:**
+why css tokens break with hsl var
+
+**Keywords:**
+css token numeric hsl, design system token format, hsl var double wrap error, theming token consistency
 
 ---
 

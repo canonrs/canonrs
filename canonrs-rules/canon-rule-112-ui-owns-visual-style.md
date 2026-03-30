@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** primitives, ui, css
 **Version:** 1.0.0
 **Date:** 2026-01-17
+
+**Category:** component-architecture
+**Tags:** ui, primitives, css, layering
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing visual styling into primitives breaks separation of concerns and reduces reusability. UI layer must exclusively control appearance while primitives remain structural.
+
+**Problem:**
+visual styling is applied in primitives instead of ui layer
+
+**Solution:**
+restrict styling to ui layer and keep primitives purely structural
+
+**Signals:**
+- style leakage
+- duplicate css
+- primitive coupling
+
+**Search Intent:**
+how to separate ui and primitives
+
+**Keywords:**
+ui layer styling pattern, primitive vs ui separation, design system layering, css ownership ui layer
 
 ---
 

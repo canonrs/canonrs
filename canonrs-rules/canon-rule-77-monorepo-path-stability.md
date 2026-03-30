@@ -4,9 +4,34 @@
 
 
 **Severity:** HIGH
-**Scope:** workspace, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** monorepo, paths, config
+**Language:** EN
+
+---
+
+**Intro:**
+Hardcoded paths in monorepo configurations break builds during refactors and environment changes. Path resolution must be relative and dynamically calculated.
+
+**Problem:**
+hardcoded paths break when monorepo structure changes
+
+**Solution:**
+calculate paths relative to config files and avoid absolute paths
+
+**Signals:**
+- file not found after refactor
+- broken imports
+- postcss path errors
+
+**Search Intent:**
+how to manage paths in monorepo configurations
+
+**Keywords:**
+monorepo path resolution, relative path config js, postcss path issues, cargo workspace path dependency
 
 ---
 

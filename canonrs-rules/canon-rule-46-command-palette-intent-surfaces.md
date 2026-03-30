@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** interactive, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** behavior
+**Tags:** commands, ui, keyboard, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Relying solely on buttons for actions leads to UI clutter and poor scalability. A command palette decouples user intent from visual elements and centralizes action execution.
+
+**Problem:**
+ui relies on buttons for all actions causing clutter and poor scalability
+
+**Solution:**
+introduce command registry and command palette as intent surface separate from ui
+
+**Signals:**
+- too many buttons
+- no keyboard navigation
+- hard to discover actions
+
+**Search Intent:**
+how to implement command palette architecture frontend
+
+**Keywords:**
+command palette frontend architecture, intent surface ui pattern, command registry design, keyboard driven ui commands
 
 ---
 
@@ -614,4 +639,3 @@ Intent Surface → Command Registry → Execution → State Change
 
 
 ---
-

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** leptos, build, ssr
 **Version:** 1.1.0  
 **Date:** 2026-01-15
+
+**Category:** build-tooling
+**Tags:** autoreload, ssr, scripts, hot reload
+**Language:** EN
+
+---
+
+**Intro:**
+Leptos AutoReload injects scripts dynamically, breaking execution order guarantees. This causes runtime scripts to execute in unexpected phases, leading to intermittent failures.
+
+**Problem:**
+autoreload injects scripts unpredictably breaking execution order
+
+**Solution:**
+avoid relying on external script order and inline critical runtime logic
+
+**Signals:**
+- intermittent failure
+- hot reload bug
+- timing issue
+
+**Search Intent:**
+why leptos autoreload breaks scripts
+
+**Keywords:**
+leptos autoreload script order, ssr hot reload issue, script execution race leptos, autoreload injection problem
 
 ---
 

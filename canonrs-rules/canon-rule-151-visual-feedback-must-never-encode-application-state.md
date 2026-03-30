@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** state, ui, components
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** state-reactivity
+**Tags:** ui, state, feedback, architecture
+**Language:** EN
+
 ---
+
+**Intro:**
+Using visual indicators to drive application logic creates hidden coupling and breaks state authority. Visual feedback must reflect state, not define it.
+
+**Problem:**
+visual feedback encodes application logic causing hidden coupling
+
+**Solution:**
+treat visuals as projection of state and never as decision source
+
+**Signals:**
+- logic based on icon
+- state inferred from ui
+- implicit coupling
+
+**Search Intent:**
+how to separate ui feedback from state logic
+
+**Keywords:**
+ui feedback state separation, visual state anti pattern, data first architecture ui, avoid ui driven logic
+
+---
+
 ## Context
 Visual indicators exist to reflect state, not define it.
 Encoding application logic into visual feedback creates hidden coupling.

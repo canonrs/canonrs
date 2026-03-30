@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** workspace, architecture
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** component-architecture
+**Tags:** workspace, dependencies, architecture, graph
+**Language:** EN
+
+---
+
+**Intro:**
+Reverse dependencies from design system to products create cycles and break architectural layering. Dependency direction must be strictly enforced.
+
+**Problem:**
+design system depends on product crates causing cycles and instability
+
+**Solution:**
+enforce one directional dependency flow from core to products only
+
+**Signals:**
+- dependency cycle
+- build instability
+- feature leakage
+
+**Search Intent:**
+how to prevent dependency cycles design system
+
+**Keywords:**
+design system dependency rules, rust workspace dependency direction, avoid circular dependencies frontend, architecture layering enforcement
 
 ---
 

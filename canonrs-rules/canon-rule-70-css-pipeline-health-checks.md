@@ -4,9 +4,34 @@
 
 
 **Severity:** MEDIUM
-**Scope:** build, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** css, validation, pipeline
+**Language:** EN
+
+---
+
+**Intro:**
+CSS build pipelines can fail silently, producing empty or incomplete outputs. Automated validation is required to guarantee correctness before runtime.
+
+**Problem:**
+css pipeline failures are silent and only detected at runtime
+
+**Solution:**
+implement automated checks to validate css existence content and size
+
+**Signals:**
+- empty css file
+- missing classes
+- silent failure
+
+**Search Intent:**
+how to validate css build pipeline automatically
+
+**Keywords:**
+css pipeline validation, tailwind verify build, css health check script, missing css classes detection
 
 ---
 

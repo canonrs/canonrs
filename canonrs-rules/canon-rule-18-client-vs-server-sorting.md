@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** state, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** sorting, data, performance, architecture
+**Language:** EN
+
 ---
+
+**Intro:**
+Sorting data in the wrong layer leads to performance issues or unnecessary backend complexity. The strategy must align with dataset size and location.
+
+**Problem:**
+sorting is performed in wrong layer causing performance or scalability issues
+
+**Solution:**
+sort data where it resides based on dataset size and architecture
+
+**Signals:**
+- slow sorting
+- overload
+- inefficient queries
+
+**Search Intent:**
+when to use client vs server sorting
+
+**Keywords:**
+client vs server sorting, data sorting architecture, frontend backend sorting strategy, sorting performance pattern
+
+---
+
 **Short statement (easy to remember):**  
 Sort where the data is. Not where the user clicks.
 

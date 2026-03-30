@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** build, css, design-system
 **Version:** 1.0.0  
 **Date:** 2026-01-26
+
+**Category:** build-tooling
+**Tags:** css, build, design-system, imports
+**Language:** EN
+
+---
+
+**Intro:**
+Serving CSS with runtime @import chains causes silent failures and missing styles in production. Browsers cannot resolve module paths reliably, leading to incomplete styling.
+
+**Problem:**
+css is served with runtime imports causing missing styles and silent failures
+
+**Solution:**
+flatten all css at build time into a single file with no @import statements
+
+**Signals:**
+- missing styles
+- silent import failure
+- css loaded but empty
+
+**Search Intent:**
+how to fix css imports not
+
+**Keywords:**
+css import runtime issue, tailwind build flatten css, postcss import problem, design system css bundling
 
 ---
 

@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** tokens, design-system
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, density, scaling, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Inconsistent sizing and density break visual harmony and usability. A unified scaling system ensures predictable layouts.
+
+**Problem:**
+component sizes and density are inconsistent causing layout issues
+
+**Solution:**
+use modular scale and density driven tokens for all sizing
+
+**Signals:**
+- layout inconsistency
+- size mismatch
+- ui drift
+
+**Search Intent:**
+how to implement density scaling design system
+
+**Keywords:**
+density scaling design system, modular scale ui tokens, responsive size tokens css, frontend spacing architecture
 
 ---
 

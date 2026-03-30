@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** architecture, components
 **Version:** 1.0.0
 **Date:** 2025-01-21
+
+**Category:** component-architecture
+**Tags:** rust, types, view, inference
+**Language:** EN
+
+---
+
+**Intro:**
+Using View<_> outside component boundaries causes type inference explosions and compilation failures. Open inference propagates across the codebase, breaking type resolution.
+
+**Problem:**
+open view type inference causes variance cycles and compilation errors
+
+**Solution:**
+restrict view<_> to components and use impl into view or anyview elsewhere
+
+**Signals:**
+- variance cycle
+- e0391 error
+- type mismatch
+
+**Search Intent:**
+how to fix rust view type errors
+
+**Keywords:**
+rust view type inference, leptos anyview pattern, view generic error rust, type boundary leptos
 
 ---
 

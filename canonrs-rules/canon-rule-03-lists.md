@@ -2,12 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** leptos, state, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** lists, for, storedvalue, iteration
+**Language:** EN
+
 ---
 
+**Intro:**
+Improper list rendering in Leptos causes FnOnce errors and hydration mismatches. Using iterators with closures breaks ownership and reactivity, leading to unstable UI behavior.
+
+**Problem:**
+using map and collect_view breaks ownership and hydration in lists
+
+**Solution:**
+use component isolation with For and place StoredValue inside components
+
+**Signals:**
+- fnonce error
+- hydration mismatch
+- moved callback
+
+**Search Intent:**
+how to fix leptos list rendering
+
+**Keywords:**
+leptos list iteration, leptos for component pattern, storedvalue list leptos, leptos map collect_view error
+
+---
 
 ## The FnOnce Hell Problem
 

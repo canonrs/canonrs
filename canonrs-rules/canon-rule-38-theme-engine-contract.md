@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** CRITICAL
-**Scope:** tokens, theming
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -25,11 +24,38 @@ The **Theme Engine** is a single component that reads all provider contexts (The
 - Applies to `:root` selector
 
 **Does NOT:**
+**Category:** design-system
+**Tags:** theme, tokens, engine, css
+**Language:** EN
+
+---
+
+**Intro:**
+Multiple components writing css variables causes inconsistency and conflicts. A single engine must control output.
+
+**Problem:**
+multiple components write css variables causing inconsistency
+
+**Solution:**
+centralize css variable computation in a single theme engine
+
+**Signals:**
+- css conflict
+- variable override
+- theme inconsistency
+
+**Search Intent:**
+how to design theme engine css
+
+**Keywords:**
+theme engine css variables, design system theme computation, centralized theming architecture, frontend css variable management
+
+---
+
 - ❌ Persist state
 - ❌ Read cookies
 - ❌ Call server functions
 - ❌ Modify providers
-
 
 
 

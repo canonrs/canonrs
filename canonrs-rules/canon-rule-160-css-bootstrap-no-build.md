@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** css, build
 **Version:** 1.0.0  
 **Date:** 2026-01-27
+
+**Category:** build-tooling
+**Tags:** css, build, onboarding, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Requiring CSS build steps in initial setup increases friction and couples users to toolchains prematurely. This breaks onboarding simplicity and predictability.
+
+**Problem:**
+first app requires css build step causing onboarding friction
+
+**Solution:**
+provide prebuilt css so first app runs without any build step
+
+**Signals:**
+- build required
+- onboarding friction
+- toolchain dependency
+
+**Search Intent:**
+how to avoid css build step
+
+**Keywords:**
+css bootstrap no build, zero build frontend setup, onboarding css strategy, prebuilt css architecture
 
 ---
 

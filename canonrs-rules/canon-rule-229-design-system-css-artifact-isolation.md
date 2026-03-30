@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** css, build, design-system
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** design-system
+**Tags:** css, design-system, build, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Coupling design system css into product pipelines creates hidden dependencies and breaks versioning. Artifact isolation is required.
+
+**Problem:**
+design system css is integrated into product build pipelines causing coupling
+
+**Solution:**
+consume design system css as standalone prebuilt artifact
+
+**Signals:**
+- path coupling
+- build dependency
+- css override
+
+**Search Intent:**
+how to isolate design system css artifact
+
+**Keywords:**
+design system css isolation, frontend css artifact pattern, tailwind design system coupling, css build separation
 
 ---
 

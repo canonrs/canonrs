@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** leptos, workspace, build
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** workspace, build, targets, leptos
+**Language:** EN
+
+---
+
+**Intro:**
+Shared build directories cause artifact collisions and corrupted outputs across products. Isolation is required for deterministic builds.
+
+**Problem:**
+multiple products share same build output causing overwrite and corruption
+
+**Solution:**
+assign unique site root per product to isolate build outputs
+
+**Signals:**
+- artifact overwrite
+- wrong wasm
+- build conflict
+
+**Search Intent:**
+how to fix shared build output leptos workspace
+
+**Keywords:**
+leptos site root conflict, workspace build isolation, wasm artifact overwrite, frontend multi product build
 
 ---
 

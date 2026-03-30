@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** build
 **Version:** 1.0.0  
 **Date:** 2025-02-04
+
+**Category:** build-tooling
+**Tags:** build, workspace, paths, determinism
+**Language:** EN
+
+---
+
+**Intro:**
+Builds that depend on current working directory cause inconsistent behavior across environments. Determinism requires root based execution.
+
+**Problem:**
+builds depend on working directory causing inconsistent and failing builds
+
+**Solution:**
+execute all builds from workspace root using explicit root relative paths
+
+**Signals:**
+- path error
+- ci failure
+- inconsistent build
+
+**Search Intent:**
+how to make builds deterministic workspace
+
+**Keywords:**
+workspace deterministic build, cwd independent build, makefile root path rust, ci reproducible builds
 
 ---
 

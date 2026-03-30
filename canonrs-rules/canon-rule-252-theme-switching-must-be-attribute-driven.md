@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** css, theming
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** design-system
+**Tags:** css, theming, runtime, attributes
+**Language:** EN
+
+---
+
+**Intro:**
+Imperative theme manipulation introduces inconsistencies and hydration issues. Theme switching must rely on declarative attributes.
+
+**Problem:**
+themes are applied via javascript mutations causing instability and conflicts
+
+**Solution:**
+apply themes exclusively via dom data attributes and css cascade
+
+**Signals:**
+- hydration mismatch
+- style conflict
+- debug difficulty
+
+**Search Intent:**
+how to implement css attribute theme switching
+
+**Keywords:**
+data theme attribute switching, css theming declarative pattern, frontend theme toggle css, avoid js theme mutation
 
 ---
 

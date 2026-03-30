@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** hydration, ssr
 **Version:** 1.1.0  
 **Date:** 2026-01-15
+
+**Category:** core-runtime
+**Tags:** ssr, hydration, scripts, runtime
+**Language:** EN
+
+---
+
+**Intro:**
+External runtime scripts in Leptos SSR environments execute unpredictably due to script ordering issues. This leads to silent failures where listeners do not attach correctly after hydration.
+
+**Problem:**
+external scripts execute after hydration causing event listeners to fail
+
+**Solution:**
+inline critical runtime javascript before hydration scripts in ssr head
+
+**Signals:**
+- silent failure
+- listeners not working
+- race condition
+
+**Search Intent:**
+how to fix ssr script ordering
+
+**Keywords:**
+leptos ssr script order, hydration script race condition, inline runtime js ssr, leptos event listener fail
 
 ---
 

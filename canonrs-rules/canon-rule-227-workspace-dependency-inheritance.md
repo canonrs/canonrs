@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** workspace, build
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** dependencies, workspace, cargo, versioning
+**Language:** EN
+
+---
+
+**Intro:**
+Duplicating dependency versions in products causes drift and conflicts. Workspace must remain the single source of truth.
+
+**Problem:**
+dependencies are redeclared in products causing version drift
+
+**Solution:**
+use workspace true inheritance for all shared dependencies
+
+**Signals:**
+- version conflict
+- duplicate dependency
+- build failure
+
+**Search Intent:**
+how to inherit dependencies workspace cargo
+
+**Keywords:**
+cargo workspace dependency inheritance, rust dependency duplication issue, workspace true cargo, version drift rust
 
 ---
 

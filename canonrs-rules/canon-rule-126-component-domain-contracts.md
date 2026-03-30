@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** components
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** domain, state, business-logic, components
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing domain logic with UI concerns creates untestable and tightly coupled components. Without clear contracts, business rules leak across layers and become inconsistent.
+
+**Problem:**
+components mix domain logic with ui or primitive concerns
+
+**Solution:**
+separate domain logic into stateful and orchestrator components with strict boundaries
+
+**Signals:**
+- api calls in ui
+- primitive usage in component
+- routing inside component
+
+**Search Intent:**
+how to separate domain logic from ui components
+
+**Keywords:**
+domain component architecture, stateful vs orchestrator component, frontend business logic separation, reactive state management patterns
 
 ---
 

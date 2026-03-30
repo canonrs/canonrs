@@ -2,9 +2,35 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** csr, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** component-architecture
+**Tags:** csr, architecture, composition, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+Placing CSR behavior outside the application layer introduces SSR crashes, hydration issues, and runtime leakage. Design systems and layouts become environment-aware and lose portability.
+
+**Problem:**
+csr logic outside app layer breaks ssr boundaries and architecture separation
+
+**Solution:**
+centralize all csr composition and orchestration in the application layer only
+
+**Signals:**
+- hydration mismatch
+- cfg wasm leakage
+- ssr crash
+- logic duplication
+
+**Search Intent:**
+where to place csr logic in architecture
+
+**Keywords:**
+csr composition app layer, leptos csr architecture, ssr csr separation pattern, runtime logic layering ui
 
 ---
 

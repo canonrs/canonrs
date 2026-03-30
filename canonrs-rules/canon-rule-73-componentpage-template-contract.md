@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** LOW
-**Scope:** components
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** component-architecture
+**Tags:** design-system, template, ssot
+**Language:** EN
+
+---
+
+**Intro:**
+Reimplementing documentation page structure in product code creates duplication and inconsistency across components. Component pages must delegate structure to a centralized template to maintain a single source of truth.
+
+**Problem:**
+component pages duplicate layout structure instead of using centralized template
+
+**Solution:**
+use ComponentPage template and pass only data as props from product layer
+
+**Signals:**
+- duplicate layout code
+- inconsistent component pages
+- template drift
+
+**Search Intent:**
+how to enforce template usage for
+
+**Keywords:**
+componentpage template leptos, design system ssot template, avoid duplicated page layout, leptos component documentation pattern
 
 ---
 

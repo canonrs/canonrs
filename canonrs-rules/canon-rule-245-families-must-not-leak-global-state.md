@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** tokens, architecture
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** design-system
+**Tags:** tokens, families, architecture, css
+**Language:** EN
+
+---
+
+**Intro:**
+Families overriding global tokens break cascade determinism and theme stability. Isolation is required.
+
+**Problem:**
+family tokens override global layers causing unpredictable state
+
+**Solution:**
+restrict families to domain scoped tokens without overriding system layers
+
+**Signals:**
+- override conflict
+- theme instability
+- cascade break
+
+**Search Intent:**
+how to prevent token override in families
+
+**Keywords:**
+family token isolation, design system layering css, token override prevention, frontend cascade architecture
 
 ---
 

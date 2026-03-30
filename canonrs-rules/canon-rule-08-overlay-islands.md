@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** hydration, csr, ssr
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** core-runtime
+**Tags:** hydration, ssr, overlay, island
+**Language:** EN
+
+---
+
+**Intro:**
+Dynamic overlays with reactive lists cause hydration mismatch in Leptos SSR. The client DOM diverges from server-rendered HTML when reactive lists are nested inside overlays. Use the island pattern to isolate client-only rendering.
+
+**Problem:**
+SSR and client render produce different DOM structures when dynamic lists are inside overlays
+
+**Solution:**
+use runtime browser detection to isolate client-only overlay rendering
+
+**Signals:**
+- hydration panic
+- dom mismatch warning
+- dropdown breaks after load
+
+**Search Intent:**
+how to fix leptos overlay hydration
+
+**Keywords:**
+leptos overlay hydration mismatch, ssr dynamic overlay issue, leptos island pattern, client only overlay leptos
 
 ---
 

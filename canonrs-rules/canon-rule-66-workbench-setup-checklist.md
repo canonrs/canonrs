@@ -4,12 +4,36 @@
 
 
 **Severity:** LOW
-**Scope:** workspace, build
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** governance
+**Tags:** setup, validation, workspace
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Skipping initial environment validation leads to hidden configuration issues such as missing CSS pipelines. A mandatory checklist ensures system readiness before development begins.
+
+**Problem:**
+developers start without validating setup leading to hidden configuration failures
+
+**Solution:**
+enforce pre development checklist validating tokens css and assets pipeline
+
+**Signals:**
+- unstyled app
+- missing css pipeline
+- invalid setup
+
+**Search Intent:**
+how to validate leptos project setup before development
+
+**Keywords:**
+leptos setup checklist, css pipeline validation, tailwind setup verification, monorepo environment validation
+
+---
 
 ---
 

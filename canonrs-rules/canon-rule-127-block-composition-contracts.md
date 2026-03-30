@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** blocks, composition, layout, structure
+**Language:** EN
+
+---
+
+**Intro:**
+Blocks without strict boundaries accumulate domain logic, routing, and global state, becoming unmanageable. This breaks separation between structure and behavior.
+
+**Problem:**
+blocks contain business logic state or routing instead of pure composition
+
+**Solution:**
+restrict blocks to semantic or interactive composition without domain responsibilities
+
+**Signals:**
+- api call in block
+- routing in block
+- global state usage
+
+**Search Intent:**
+how to structure block components in frontend architecture
+
+**Keywords:**
+block component architecture, semantic vs interactive blocks, frontend composition patterns, design system block layer
 
 ---
 

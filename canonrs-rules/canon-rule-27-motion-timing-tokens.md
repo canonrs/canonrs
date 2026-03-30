@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** motion, tokens
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, motion, animation, css
+**Language:** EN
+
+---
+
+**Intro:**
+Hardcoded animation values create inconsistency and accessibility issues. Motion must be tokenized.
+
+**Problem:**
+animations use hardcoded timing and easing causing inconsistency and accessibility issues
+
+**Solution:**
+use canonical motion tokens for duration and easing across all components
+
+**Signals:**
+- inconsistent animation
+- motion mismatch
+- accessibility issue
+
+**Search Intent:**
+how to define motion tokens design system
+
+**Keywords:**
+motion timing tokens css, animation duration tokens, frontend easing functions design system, accessibility motion preferences
 
 ---
 

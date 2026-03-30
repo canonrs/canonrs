@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** css, tokens, design-system
 **Version:** 1.0.0
 **Date:** 2026-01-13
+
+**Category:** styling-css
+**Tags:** svg, dark-mode, css
+**Language:** EN
+
+---
+
+**Intro:**
+SVG files loaded via img tags do not inherit CSS properties like currentColor, causing incorrect colors in dark mode. Proper strategies are required to ensure theming compatibility.
+
+**Problem:**
+external svg images do not inherit css color leading to dark mode issues
+
+**Solution:**
+use css filters inline svg or masks to control svg coloring
+
+**Signals:**
+- icons stay black
+- dark mode contrast issues
+- svg color mismatch
+
+**Search Intent:**
+why svg not adapting to dark mode
+
+**Keywords:**
+svg currentcolor not working, img svg css inheritance, dark mode svg fix, svg color css filter
 
 ---
 

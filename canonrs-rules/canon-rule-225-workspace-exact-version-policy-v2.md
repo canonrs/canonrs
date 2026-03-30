@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** workspace, build
 **Version:** 2.0.0  
 **Date:** 2026-02-04  
+
+**Category:** build-tooling
+**Tags:** dependencies, versioning, workspace, abi
+**Language:** EN
+
+---
+
+**Intro:**
+Uncontrolled semver ranges or over pinning cause ABI conflicts or ecosystem friction. A balanced strategy ensures stability and compatibility.
+
+**Problem:**
+dependency versions drift causing abi conflicts and inconsistent builds
+
+**Solution:**
+pin minor versions allow patch updates and enforce lockfile with duplicate prevention
+
+**Signals:**
+- duplicate crate
+- type mismatch
+- abi conflict
+
+**Search Intent:**
+how to prevent dependency version drift rust workspace
+
+**Keywords:**
+rust workspace version policy, abi drift dependency rust, cargo lockfile enforcement, duplicate crate prevention
 
 ---
 
@@ -217,4 +242,3 @@ Without over-constraining legitimate patch evolution.
 ---
 
 Version 2.0 replaces strict `=X.Y.Z` pinning with **controlled minor pinning + lockfile enforcement + duplicate banning**.
-

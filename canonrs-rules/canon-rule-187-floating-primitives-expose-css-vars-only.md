@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** overlays, primitives, governance
 **Version:** 1.1.0  
 **Date:** 2026-02-03  
+
+**Category:** governance
+**Tags:** overlays, primitives, css, enforcement
+**Language:** EN
+
+---
+
+**Intro:**
+Allowing primitives to manipulate layout directly creates inconsistencies and breaks separation of concerns. Positioning must be enforced through a single contract.
+
+**Problem:**
+primitives mutate layout properties directly causing inconsistency
+
+**Solution:**
+restrict primitives to writing only css variables for positioning
+
+**Signals:**
+- inline top left
+- layout mutation
+- contract violation
+
+**Search Intent:**
+how to enforce css variable positioning primitives
+
+**Keywords:**
+floating ui css enforcement, overlay positioning contract, css variable layout control, frontend primitives architecture
 
 ---
 

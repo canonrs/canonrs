@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** tokens, design-system, theming
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, theming, css, contracts
+**Language:** EN
+
+---
+
+**Intro:**
+Themes defining non-color properties cause fragmentation and break system consistency. Theme scope must be strictly limited to color palettes.
+
+**Problem:**
+themes override non color system properties causing inconsistency and fragmentation
+
+**Solution:**
+restrict themes to defining color palettes only and enforce system wide constants for all other properties
+
+**Signals:**
+- theme drift
+- inconsistent spacing
+- design fragmentation
+
+**Search Intent:**
+what should themes define design system
+
+**Keywords:**
+theme presets contract design system, color only theme architecture, design system theme constraints, css theming token rules
 
 ---
 

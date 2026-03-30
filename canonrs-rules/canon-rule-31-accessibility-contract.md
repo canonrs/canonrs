@@ -3,10 +3,35 @@
 **Status:** ENFORCED
 
 **Severity:** CRITICAL
-**Scope:** accessibility, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
+**Category:** accessibility
+**Tags:** aria, wcag, ui, a11y
+**Language:** EN
 
+---
+
+**Intro:**
+Lack of accessibility standards leads to unusable interfaces for assistive technologies. Strict WCAG compliance is required.
+
+**Problem:**
+components lack accessibility compliance breaking usability for assistive tech
+
+**Solution:**
+enforce aria roles, keyboard navigation, and wcag 2.1 aa standards
+
+**Signals:**
+- missing aria
+- keyboard trap
+- poor contrast
+
+**Search Intent:**
+how to implement wcag accessibility frontend
+
+**Keywords:**
+wcag accessibility frontend, aria roles implementation, keyboard navigation ui, accessible components design
+
+---
 
 ## Principle
 Accessibility is **non-negotiable**. All components must be **keyboard navigable**, **screen reader friendly**, and **WCAG 2.1 AA compliant**. ARIA attributes and semantic HTML are mandatory, not optional.
@@ -14,9 +39,9 @@ Accessibility is **non-negotiable**. All components must be **keyboard navigable
 ## WCAG 2 1 AA Compliance
 
 ### Mandatory Requirements
-✅ **Perceivable:** Content visible to all users  
-✅ **Operable:** Keyboard navigation works  
-✅ **Understandable:** Clear labels and instructions  
+✅ **Perceivable:** Content visible to all users
+✅ **Operable:** Keyboard navigation works
+✅ **Understandable:** Clear labels and instructions
 ✅ **Robust:** Works with assistive technologies
 
 ### Success Criteria Checklist
@@ -99,8 +124,8 @@ view! {
 
 // Checkbox (when custom)
 view! {
-    <div 
-        role="checkbox" 
+    <div
+        role="checkbox"
         aria-checked=is_checked
         tabindex="0"
         onClick=toggle
@@ -160,8 +185,8 @@ view! {
 
 // aria-describedby: Additional description
 view! {
-    <input 
-        id="email" 
+    <input
+        id="email"
         aria-describedby="email-hint"
     />
     <span id="email-hint">"We'll never share your email"</span>
@@ -236,8 +261,8 @@ view! {
 
 // aria-activedescendant (combobox)
 view! {
-    <input 
-        role="combobox" 
+    <input
+        role="combobox"
         aria-activedescendant=active_option_id
         aria-controls="listbox"
     />
@@ -281,7 +306,7 @@ pub fn KeyboardComponent() -> impl IntoView {
             _ => {}
         }
     };
-    
+
     view! {
         <div onKeyDown=handle_key>
     }
@@ -294,7 +319,7 @@ pub fn KeyboardComponent() -> impl IntoView {
 #[component]
 pub fn Dialog() -> impl IntoView {
     let dialog_ref = NodeRef::<html::Div>::new();
-    
+
     Effect::new(move |_| {
         if let Some(dialog) = dialog_ref.get() {
             // Focus first focusable element
@@ -308,7 +333,7 @@ pub fn Dialog() -> impl IntoView {
             }
         }
     });
-    
+
     view! {
         <div node_ref=dialog_ref role="dialog" aria-modal="true">
     }
@@ -383,7 +408,7 @@ view! {
 view! {
     <div>
         <label for="password">"Password"</label>
-        <input 
+        <input
             id="password"
             aria-invalid=has_error
             aria-describedby=move || if has_error.get() { Some("password-error") } else { None }
@@ -444,10 +469,10 @@ axe http://localhost:3000
 ```
 
 ### Manual Testing
-✅ **Keyboard only:** Unplug mouse, navigate with Tab/Enter/Esc  
-✅ **Screen reader:** Test with NVDA (Windows) or VoiceOver (Mac)  
-✅ **Zoom:** Test at 200% zoom  
-✅ **Color blindness:** Use Chrome DevTools emulation  
+✅ **Keyboard only:** Unplug mouse, navigate with Tab/Enter/Esc
+✅ **Screen reader:** Test with NVDA (Windows) or VoiceOver (Mac)
+✅ **Zoom:** Test at 200% zoom
+✅ **Color blindness:** Use Chrome DevTools emulation
 ✅ **Touch:** Test on mobile device
 
 ### Checklist

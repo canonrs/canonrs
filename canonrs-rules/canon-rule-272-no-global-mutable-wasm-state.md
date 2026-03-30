@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** behavior
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** state-reactivity
+**Tags:** state, wasm, global, mutability
+**Language:** EN
+
+---
+
+**Intro:**
+Global mutable state in wasm introduces race conditions and hidden coupling. State must be localized and reactive.
+
+**Problem:**
+global mutable state exists causing race conditions and coupling
+
+**Solution:**
+store all state in reactive signals or scoped structures
+
+**Signals:**
+- race condition
+- memory leak
+- state conflict
+
+**Search Intent:**
+why global state is bad wasm
+
+**Keywords:**
+wasm global mutable state issue, reactive state rust leptos, avoid static mut rust wasm, frontend state isolation
 
 ---
 

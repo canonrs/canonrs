@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** design-system, tokens
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, colors, design-system, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Using non canonical color tokens creates incompatibility and design drift. Components must rely on a stable token contract.
+
+**Problem:**
+non canonical color tokens are used causing inconsistency and incompatibility
+
+**Solution:**
+use only canonical token set and map semantic intents in application layer
+
+**Signals:**
+- token drift
+- variant misuse
+- design inconsistency
+
+**Search Intent:**
+how to enforce canonical color tokens design system
+
+**Keywords:**
+canonical color tokens, design system token standard, semantic intent mapping, frontend token contract
 
 ---
 

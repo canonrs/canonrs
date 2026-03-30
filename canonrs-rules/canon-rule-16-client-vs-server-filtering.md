@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** state, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** filtering, performance, data, architecture
+**Language:** EN
+
 ---
+
+**Intro:**
+Choosing between client-side and server-side filtering impacts performance, security, and scalability. Mixing both incorrectly leads to inefficient data handling and poor UX.
+
+**Problem:**
+filtering strategy is chosen incorrectly or mixed causing performance and data issues
+
+**Solution:**
+choose filtering strategy explicitly based on data location and scale
+
+**Signals:**
+- slow filtering
+- overfetching
+- api overload
+
+**Search Intent:**
+when to use client vs server filtering
+
+**Keywords:**
+client vs server filtering, frontend data filtering strategy, backend filtering performance, reactive filtering pattern
+
+---
+
 **Short statement (easy to remember):**  
 Filtering is about where the data is, not where the user sees it.
 

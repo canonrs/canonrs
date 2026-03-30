@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** ssr, csr, wasm
 **Version:** 1.0.0  
 **Date:** 2025-01-15
+
+**Category:** core-runtime
+**Tags:** csr, islands, routing, providers
+**Language:** EN
+
+---
+
+**Intro:**
+CSR islands in SSR architectures must remain isolated UI units without owning routing or global providers. Violations cause hydration mismatches and context conflicts.
+
+**Problem:**
+islands create routing or providers causing conflicts with SSR host
+
+**Solution:**
+restrict islands to local rendering and delegate routing and providers to host
+
+**Signals:**
+- hydration mismatch
+- router conflict
+- context already exists
+
+**Search Intent:**
+why csr islands break routing in ssr
+
+**Keywords:**
+csr islands architecture ssr, leptos islands routing conflict, provider duplication issue, hydration mismatch islands
 
 ---
 

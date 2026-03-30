@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** workspace, build
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** governance
+**Tags:** naming, workspace, cargo, convention
+**Language:** EN
+
+---
+
+**Intro:**
+Inconsistent naming between hyphens and underscores causes tool resolution issues and build failures. Naming must be uniform.
+
+**Problem:**
+mixed hyphen and underscore naming causes tool resolution errors
+
+**Solution:**
+use hyphens consistently across package bin and config names
+
+**Signals:**
+- binary not found
+- name mismatch
+- build error
+
+**Search Intent:**
+how to fix cargo naming hyphen underscore issue
+
+**Keywords:**
+cargo naming convention hyphen, rust package naming rules, workspace naming consistency, binary name mismatch rust
 
 ---
 

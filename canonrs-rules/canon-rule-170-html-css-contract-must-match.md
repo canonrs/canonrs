@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** ui, components
 **Version:** 1.0.0  
 **Date:** 2026-01-28
+
+**Category:** component-architecture
+**Tags:** html, css, contracts, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Mismatch between rendered HTML attributes and CSS selectors results in missing styles. The contract between markup and styling must be consistent.
+
+**Problem:**
+html attributes do not match css selectors causing broken styling
+
+**Solution:**
+ensure html and css share identical contract using data attributes
+
+**Signals:**
+- no styles applied
+- selector mismatch
+- ui broken
+
+**Search Intent:**
+how to fix css selector not
+
+**Keywords:**
+html css contract mismatch, data attribute styling pattern, css selector issue frontend, ui contract consistency
 
 ---
 
@@ -42,4 +67,3 @@ CSS using data-* while HTML renders classes (or vice versa) breaks styling.
 ## Exceptions
 
 None.
-

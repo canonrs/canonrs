@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, ssr, csr
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** component-architecture
+**Tags:** architecture, ui, ssr, csr
+**Language:** EN
+
+---
+
+**Intro:**
+Distributing UI structure across entrypoints breaks determinism and creates divergence between SSR and CSR. A single semantic root is required.
+
+**Problem:**
+application structure is defined outside lib rs causing architectural drift
+
+**Solution:**
+centralize all ui composition and routing in lib rs
+
+**Signals:**
+- ui in main
+- routing drift
+- meta inconsistency
+
+**Search Intent:**
+how to centralize app structure in lib rs
+
+**Keywords:**
+lib rs architecture leptos, ui composition centralization, ssr csr semantic root, frontend app structure pattern
 
 ---
 

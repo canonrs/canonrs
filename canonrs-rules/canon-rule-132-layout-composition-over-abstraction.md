@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** layout, leptos
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** component-architecture
+**Tags:** layout, composition, children, ownership
+**Language:** EN
+
+---
+
+**Intro:**
+Layouts that orchestrate composition or manage slots introduce ownership issues and hydration mismatches. This leads to unpredictable rendering and tight coupling.
+
+**Problem:**
+layouts handle composition logic causing ownership and hydration issues
+
+**Solution:**
+restrict layouts to structural wrappers and move composition to application layer
+
+**Signals:**
+- children move error
+- hydration mismatch
+- slot complexity
+
+**Search Intent:**
+how to structure layouts without composition logic leptos
+
+**Keywords:**
+layout composition pattern frontend, children ownership leptos, layout abstraction anti pattern, ssr layout issues leptos
 
 ---
 

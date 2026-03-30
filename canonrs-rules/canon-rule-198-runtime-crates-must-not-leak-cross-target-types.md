@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, workspace
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** governance
+**Tags:** runtime, types, workspace, boundaries
+**Language:** EN
+
+---
+
+**Intro:**
+Sharing runtime-specific types across targets breaks type identity and introduces fragile dependencies. Boundaries must remain strict.
+
+**Problem:**
+runtime types leak across targets causing type conflicts and instability
+
+**Solution:**
+use shared contract types and isolate runtime specific implementations
+
+**Signals:**
+- type mismatch
+- duplicate dependency
+- integration failure
+
+**Search Intent:**
+how to isolate runtime types across targets
+
+**Keywords:**
+runtime type isolation, cross target rust types, shared contract pattern, workspace architecture boundaries
 
 ---
 

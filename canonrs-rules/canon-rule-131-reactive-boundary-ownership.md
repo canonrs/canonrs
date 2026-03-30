@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** leptos, state
 **Version:** 1.0.0  
 **Date:** 2025-01-22
+
+**Category:** state-reactivity
+**Tags:** closure, ownership, storedvalue, reactivity
+**Language:** EN
+
+---
+
+**Intro:**
+Reactive boundaries re-execute closures multiple times, and moving non-Copy values into them causes FnOnce violations. This leads to compilation failures and unstable reactive behavior.
+
+**Problem:**
+non copy values moved into reactive boundaries cause fnonce errors
+
+**Solution:**
+clone simple values or use storedvalue for complex or stateful values
+
+**Signals:**
+- fnonce error
+- closure move error
+- ownership violation
+
+**Search Intent:**
+how to fix fnonce errors in
+
+**Keywords:**
+leptos reactive boundary ownership, storedvalue vs clone rust, closure ownership leptos, reactive closure fnonce error
 
 ---
 

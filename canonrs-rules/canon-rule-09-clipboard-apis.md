@@ -2,13 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** interactive, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** behavior
+**Tags:** clipboard, browser api, wasm, callbacks
+**Language:** EN
+
 ---
 
+**Intro:**
+Using modern clipboard APIs in Leptos callbacks fails due to focus requirements and async constraints. This causes runtime errors and unreliable clipboard operations.
 
+**Problem:**
+clipboard api fails in callbacks due to focus and async constraints
+
+**Solution:**
+use document execcommand with wasm guard for reliable clipboard operations
+
+**Signals:**
+- notallowederror
+- document not focused
+- clipboard fail
+
+**Search Intent:**
+how to fix clipboard leptos
+
+**Keywords:**
+leptos clipboard api, execcommand clipboard rust, clipboard callback error leptos, wasm clipboard copy pattern
+
+---
 
 ---
 

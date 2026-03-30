@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** interactive, behavior
 **Version:** 1.0.0  
 **Date:** 2026-01-15
+
+**Category:** behavior
+**Tags:** runtime, js, events, shell
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding runtime JavaScript logic inside components breaks separation of concerns and leads to inconsistent behavior. Interaction logic like clipboard and event handling must be centralized.
+
+**Problem:**
+components directly execute runtime js causing coupling and inconsistent behavior
+
+**Solution:**
+move all runtime javascript to shell layer and keep components declarative
+
+**Signals:**
+- event duplication
+- dom coupling
+- inconsistent behavior
+
+**Search Intent:**
+how to separate runtime js leptos
+
+**Keywords:**
+leptos runtime js separation, shell infrastructure js, component event handling architecture, js behavior separation ui
 
 ---
 

@@ -4,9 +4,34 @@
 
 
 **Severity:** HIGH
-**Scope:** build, workspace
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** assets, dist, build
+**Language:** EN
+
+---
+
+**Intro:**
+Referencing assets that do not exist in the final dist directory causes silent runtime failures. Build outputs must be physically verified before deployment.
+
+**Problem:**
+assets referenced in app do not exist in final build output
+
+**Solution:**
+verify all referenced assets physically exist in dist before runtime
+
+**Signals:**
+- 404 asset
+- missing css file
+- silent build failure
+
+**Search Intent:**
+how to ensure assets exist in dist build
+
+**Keywords:**
+dist assets verification, missing css dist, build output validation, trunk asset missing
 
 ---
 

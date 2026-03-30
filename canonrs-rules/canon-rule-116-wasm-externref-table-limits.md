@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** wasm, components
 **Version:** 1.0.0
 **Date:** 2026-01-17
+
+**Category:** core-runtime
+**Tags:** wasm, externref, callbacks, runtime
+**Language:** EN
+
+---
+
+**Intro:**
+Excessive JS↔WASM references exhaust browser externref tables, causing runtime crashes. Each callback or handler adds entries, leading to resource exhaustion at scale.
+
+**Problem:**
+unbounded creation of externrefs causes wasm runtime crashes
+
+**Solution:**
+avoid per-component callbacks and delegate behavior to global shell handlers
+
+**Signals:**
+- table grow error
+- runtime crash
+- externref overflow
+
+**Search Intent:**
+how to fix wasm externref error
+
+**Keywords:**
+wasm externref table limit, leptos callback memory issue, js wasm reference overflow, externref table grow error
 
 ---
 

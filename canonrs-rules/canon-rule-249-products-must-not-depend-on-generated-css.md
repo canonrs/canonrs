@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** css, architecture
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** design-system
+**Tags:** css, products, architecture, tokens
+**Language:** EN
+
+---
+
+**Intro:**
+Direct dependency on internal css layers couples products to implementation details and breaks versioning. Isolation is required.
+
+**Problem:**
+products depend on internal generated css causing coupling and fragility
+
+**Solution:**
+consume only final bundled css artifact and forbid internal layer usage
+
+**Signals:**
+- path coupling
+- import break
+- refactor failure
+
+**Search Intent:**
+how to decouple products from design system css
+
+**Keywords:**
+design system css isolation, frontend css artifact usage, token layer coupling issue, css bundle consumption pattern
 
 ---
 

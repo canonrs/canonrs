@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** ssr, hydration, ui
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** core-runtime
+**Tags:** ssr, hydration, ui, determinism
+**Language:** EN
+
 ---
+
+**Intro:**
+SSR and hydration require identical HTML output between server and client. Any runtime-dependent rendering breaks this contract and leads to failures.
+
+**Problem:**
+non deterministic rendering breaks ssr hydration contract
+
+**Solution:**
+ensure identical rendering output during ssr and initial hydration
+
+**Signals:**
+- hydration failure
+- dom mismatch
+- runtime divergence
+
+**Search Intent:**
+why ssr hydration fails leptos
+
+**Keywords:**
+ssr deterministic rendering, hydration mismatch leptos, ui rendering contract ssr, deterministic html output
+
+---
+
 ## Context
 SSR and hydration require **byte-for-byte compatible HTML**.
 Any divergence between server render and client initial render results in hydration failure.

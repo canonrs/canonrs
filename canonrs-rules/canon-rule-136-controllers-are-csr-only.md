@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** ssr, csr, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** core-runtime
+**Tags:** csr, ssr, controllers, wasm
+**Language:** EN
+
+---
+
+**Intro:**
+Executing controllers during SSR introduces hydration mismatches and runtime errors due to browser-only APIs. Controllers must run exclusively in CSR.
+
+**Problem:**
+controllers executed during ssr cause hydration mismatch and runtime errors
+
+**Solution:**
+gate controllers with wasm target and execute only in csr
+
+**Signals:**
+- hydration mismatch
+- window undefined
+- double execution
+
+**Search Intent:**
+why controllers must be csr only
+
+**Keywords:**
+csr only controller pattern, ssr controller error leptos, wasm controller gating, hydration mismatch controller
 
 ---
 

@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** motion, tokens, design-system
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, shadows, elevation, css
+**Language:** EN
+
+---
+
+**Intro:**
+Inconsistent shadow usage breaks visual hierarchy and theme predictability. Elevation must be standardized through system tokens.
+
+**Problem:**
+shadow definitions vary across components causing inconsistent elevation hierarchy
+
+**Solution:**
+use canonical shadow tokens and fixed elevation scale across all components
+
+**Signals:**
+- shadow inconsistency
+- z index conflict
+- visual hierarchy break
+
+**Search Intent:**
+how to implement elevation system design tokens
+
+**Keywords:**
+shadow tokens design system, elevation hierarchy css, z index layering tokens, frontend shadow system
 
 ---
 

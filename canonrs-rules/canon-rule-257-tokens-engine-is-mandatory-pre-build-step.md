@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** build, css, tokens
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** build-tooling
+**Tags:** build, tokens, css, pipeline
+**Language:** EN
+
+---
+
+**Intro:**
+Skipping token generation leads to incomplete css cascade and inconsistent builds. Generation must be enforced.
+
+**Problem:**
+tokens engine is not executed before build causing missing css
+
+**Solution:**
+enforce tokens engine execution before any build or dev process
+
+**Signals:**
+- missing css
+- style break
+- build warning
+
+**Search Intent:**
+how to enforce prebuild token generation
+
+**Keywords:**
+tokens engine prebuild step, css generation pipeline, frontend build order enforcement, design system build sequence
 
 ---
 
@@ -43,4 +68,3 @@ This order is mandatory and non-bypassable.
 ---
 
 This ensures styling architecture remains deterministic and centralized.
-

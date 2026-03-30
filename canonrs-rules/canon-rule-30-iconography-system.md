@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** tokens, design-system
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** icons, svg, accessibility, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Using inconsistent icon systems or raster assets degrades performance and accessibility. A unified SVG-based system ensures consistency.
+
+**Problem:**
+multiple icon systems or raster icons break consistency and accessibility
+
+**Solution:**
+use single svg icon library with standardized sizing and aria patterns
+
+**Signals:**
+- icon inconsistency
+- raster usage
+- missing aria labels
+
+**Search Intent:**
+how to design icon system svg
+
+**Keywords:**
+svg icon system design, lucide icons usage frontend, accessible icons aria patterns, icon size scale ui system
 
 ---
 

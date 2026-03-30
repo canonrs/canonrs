@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** ssr, build
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** axum, dependencies, ssr, build
+**Language:** EN
+
+---
+
+**Intro:**
+Version mismatches between adapter and framework cause type conflicts and build instability. Dependency alignment is mandatory.
+
+**Problem:**
+axum versions differ between adapter and app causing type mismatch
+
+**Solution:**
+use exact axum version defined by adapter without override
+
+**Signals:**
+- type mismatch
+- build error
+- duplicate crate
+
+**Search Intent:**
+how to fix axum version mismatch error
+
+**Keywords:**
+axum version mismatch, rust dependency conflict axum, ssr adapter compatibility, cargo dependency alignment
 
 ---
 

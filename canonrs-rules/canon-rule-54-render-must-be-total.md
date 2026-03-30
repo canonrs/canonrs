@@ -2,12 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** state, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** render, ssr, hydration, safety
+**Language:** EN
+
 ---
 
+**Intro:**
+Render closures in Leptos are executed during SSR and must never panic. Using unwrap or expect inside reactive attributes introduces runtime failures before user interaction.
+
+**Problem:**
+render closures assume runtime state and panic during ssr
+
+**Solution:**
+make render total by handling all states and move strict assumptions to user actions
+
+**Signals:**
+- expect in disabled
+- unwrap in class
+- panic during ssr
+
+**Search Intent:**
+why leptos render panics when using
+
+**Keywords:**
+leptos render panic, ssr safe closures, reactive attribute unwrap, total rendering pattern
+
+---
 
 ## Golden Rule
 
@@ -135,4 +159,3 @@ on:click=move |_| {
 - Canon Rule #50 — Provider Singleton Pattern
 - Canon Rule #37 — Provider Taxonomy Boundaries
 - Canon Rule #52 — Command History Runtime
-

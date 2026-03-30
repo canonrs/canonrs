@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** leptos, state
 **Version:** 1.0.0
 **Date:** 2026-01-14
+
+**Category:** state-reactivity
+**Tags:** leptos, children, ownership
+**Language:** EN
+
+---
+
+**Intro:**
+Using the wrong children type in Leptos components causes FnOnce errors and broken reactivity. Components must correctly distinguish between Children and ChildrenFn.
+
+**Problem:**
+incorrect children type leads to fnonce errors and reactivity issues
+
+**Solution:**
+use childrenfn for reactive wrappers and children for static slots
+
+**Signals:**
+- expected fn found fnonce
+- sync trait error
+- render failure
+
+**Search Intent:**
+when to use childrenfn vs children leptos
+
+**Keywords:**
+leptos childrenfn vs children, fnonce vs fn leptos, leptos wrapper component children, leptos reactive children pattern
 
 ---
 

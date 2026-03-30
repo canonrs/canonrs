@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** design-system, tokens, governance
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -19,7 +18,7 @@ All visual properties MUST use canonical tokens. Hardcoded values (colors, sizes
 ```rust
 // ✅ CORRECT - Use semantic tokens
 "bg-primary"
-"text-destructive" 
+"text-destructive"
 "border-muted"
 color: var(--color-primary-bg);
 ```
@@ -161,37 +160,37 @@ struct TokenViolation {
 
 fn main() {
     let mut violations = Vec::new();
-    
+
     for entry in WalkDir::new("packages-rust/rs-design/src") {
         let entry = entry.unwrap();
         let path = entry.path();
-        
+
         if path.extension().and_then(|s| s.to_str()) == Some("rs") {
             violations.extend(validate_rust_file(path));
         }
-        
+
         if path.extension().and_then(|s| s.to_str()) == Some("css") {
             violations.extend(validate_css_file(path));
         }
     }
-    
+
     if !violations.is_empty() {
         print_violations(&violations);
         std::process::exit(1);
     }
-    
+
     println!("✅ All token usage is canonical!");
 }
 
 fn validate_rust_file(path: &Path) -> Vec<TokenViolation> {
     let content = fs::read_to_string(path).unwrap();
     let mut violations = Vec::new();
-    
+
     // Check for hardcoded Tailwind colors
     let color_regex = Regex::new(
         r#"(bg|text|border|ring)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(\d+)"#
     ).unwrap();
-    
+
     for (line_num, line) in content.lines().enumerate() {
         if let Some(captures) = color_regex.captures(line) {
             violations.push(TokenViolation {
@@ -204,10 +203,10 @@ fn validate_rust_file(path: &Path) -> Vec<TokenViolation> {
             });
         }
     }
-    
+
     // Check for hardcoded pixel values
     let px_regex = Regex::new(r#"(text|w|h|p|m|gap)-\[(\d+)px\]"#).unwrap();
-    
+
     for (line_num, line) in content.lines().enumerate() {
         if let Some(captures) = px_regex.captures(line) {
             violations.push(TokenViolation {
@@ -220,10 +219,10 @@ fn validate_rust_file(path: &Path) -> Vec<TokenViolation> {
             });
         }
     }
-    
+
     // Check for arbitrary font weights
     let weight_regex = Regex::new(r#"font-\[(\d+)\]"#).unwrap();
-    
+
     for (line_num, line) in content.lines().enumerate() {
         if let Some(captures) = weight_regex.captures(line) {
             let weight: u32 = captures.get(1).unwrap().as_str().parse().unwrap();
@@ -239,23 +238,23 @@ fn validate_rust_file(path: &Path) -> Vec<TokenViolation> {
             }
         }
     }
-    
+
     violations
 }
 
 fn validate_css_file(path: &Path) -> Vec<TokenViolation> {
     let content = fs::read_to_string(path).unwrap();
     let mut violations = Vec::new();
-    
+
     // Check for hex colors
     let hex_regex = Regex::new(r#"#[0-9a-fA-F]{3,6}"#).unwrap();
-    
+
     for (line_num, line) in content.lines().enumerate() {
         // Skip if line uses var()
         if line.contains("var(--color") {
             continue;
         }
-        
+
         if let Some(captures) = hex_regex.captures(line) {
             violations.push(TokenViolation {
                 file: path.display().to_string(),
@@ -267,15 +266,15 @@ fn validate_css_file(path: &Path) -> Vec<TokenViolation> {
             });
         }
     }
-    
+
     // Check for px font sizes
     let font_px_regex = Regex::new(r#"font-size:\s*(\d+)px"#).unwrap();
-    
+
     for (line_num, line) in content.lines().enumerate() {
         if line.contains("var(--font-size") {
             continue;
         }
-        
+
         if let Some(captures) = font_px_regex.captures(line) {
             violations.push(TokenViolation {
                 file: path.display().to_string(),
@@ -287,13 +286,13 @@ fn validate_css_file(path: &Path) -> Vec<TokenViolation> {
             });
         }
     }
-    
+
     violations
 }
 
 fn print_violations(violations: &[TokenViolation]) {
     println!("❌ Found {} token usage violations:\n", violations.len());
-    
+
     for v in violations {
         println!("{}:{}:{}", v.file, v.line, v.column);
         println!("  Rule: {}", v.rule);
@@ -333,28 +332,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
-      
+
       - name: Run Token Validator
         run: |
           cd tools/token-validator
           cargo run --release
-      
+
       - name: Check for hardcoded colors (quick)
         run: |
           ! grep -rE "(bg|text|border)-(red|blue|green|yellow|purple)-[0-9]+" \
             packages-rust/rs-design/src/ui/ \
             packages-rust/rs-design/src/primitives/
-      
+
       - name: Check for hex colors in CSS
         run: |
           ! grep -rE "#[0-9a-fA-F]{3,6}" \
             packages-rust/rs-design/src/ \
             --include="*.css" \
             | grep -v "var(--color"
-      
+
       - name: Check for arbitrary spacing
         run: |
           ! grep -rE "(p|m|gap|space)-\[[0-9]+px\]" \
@@ -366,11 +365,11 @@ jobs:
 ### Token Coverage Report
 ```sql
 -- Check which components use tokens correctly
-SELECT 
+SELECT
     c.name,
     c.tokens_canonicos_percent,
     c.tokens_familia_c_percent,
-    CASE 
+    CASE
         WHEN c.tokens_canonicos_percent = 100 THEN '✅'
         WHEN c.tokens_canonicos_percent >= 80 THEN '⚠️'
         ELSE '❌'
@@ -382,14 +381,14 @@ ORDER BY c.tokens_canonicos_percent ASC;
 ### Token Usage Audit
 ```sql
 -- List all hardcoded values found in components
-SELECT 
+SELECT
     file_path,
     COUNT(*) as violations
 FROM (
     -- This would be populated by the validator
     SELECT file_path, line, violation_type
     FROM token_violations
-) 
+)
 GROUP BY file_path
 ORDER BY violations DESC;
 ```
@@ -418,6 +417,34 @@ height: 50%;
 ```
 
 **Documentation/Examples:**
+**Category:** design-system
+**Tags:** tokens, validation, css, lint
+**Language:** EN
+
+---
+
+**Intro:**
+Hardcoded visual values break consistency and scalability of the design system. Token usage must be enforced.
+
+**Problem:**
+components use hardcoded values instead of tokens causing inconsistency
+
+**Solution:**
+validate all visual properties against canonical token system via automated checks
+
+**Signals:**
+- hardcoded color
+- px usage
+- token violation
+
+**Search Intent:**
+how to validate token usage css
+
+**Keywords:**
+design system token validation, css token enforcement rules, frontend style consistency check, avoid hardcoded ui values
+
+---
+
 ```rust
 // token-exempt: documentation example
 "bg-red-500"  // Shows non-canonical usage for comparison
@@ -459,11 +486,11 @@ Critical Violations:
   ❌ src/ui/alert/alert.rs:45:12
      Found: bg-red-500
      Expected: bg-destructive
-  
+
   ❌ src/ui/badge/badge.rs:23:8
      Found: text-blue-600
      Expected: text-primary
-  
+
   ⚠️  src/ui/input/input.rs:67:10
      Found: text-[14px]
      Expected: text-sm
@@ -495,5 +522,4 @@ echo "✅ All tokens canonical!"
 - [Canon Rule #24: Density & Size Scaling](./canon-rule-24-density-size-scaling.md)
 - [Canon Rule #29: Typography Contract](./canon-rule-29-typography-contract.md)
 - [Canon Rule #34: Theme & Density Enforcement](./canon-rule-34-theme-density-enforcement.md)
-
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** cli, build
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** build-tooling
+**Tags:** cli, build, profiles, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Manual profile configuration creates inconsistency and misalignment with execution mode. Profiles must be derived from mode.
+
+**Problem:**
+build profiles are defined manually causing mismatch with execution mode
+
+**Solution:**
+derive build profiles exclusively from mode configuration via cli
+
+**Signals:**
+- profile mismatch
+- build inconsistency
+- mode conflict
+
+**Search Intent:**
+how to map build profiles to mode
+
+**Keywords:**
+build profile mapping mode, cli driven build config, ssr csr profile alignment, frontend build profiles rust
 
 ---
 
@@ -40,4 +65,3 @@ Mode is architectural intent.
 Profiles are execution strategy.
 
 They must always be aligned.
-

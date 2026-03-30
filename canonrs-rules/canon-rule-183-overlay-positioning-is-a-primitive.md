@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, overlays, primitives
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** component-architecture
+**Tags:** overlays, primitives, geometry, controllers
+**Language:** EN
+
+---
+
+**Intro:**
+Handling overlay positioning in controllers leads to duplication, instability, and hydration issues. Positioning must be centralized and reusable.
+
+**Problem:**
+overlay positioning is implemented in controllers causing duplication and instability
+
+**Solution:**
+move all positioning logic into dedicated primitives
+
+**Signals:**
+- inline style
+- duplication
+- hydration break
+
+**Search Intent:**
+how to centralize overlay positioning logic
+
+**Keywords:**
+overlay positioning primitive, ui geometry architecture, popover positioning pattern, frontend overlay system
 
 ---
 

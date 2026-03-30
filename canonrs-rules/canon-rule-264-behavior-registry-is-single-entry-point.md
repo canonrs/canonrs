@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** behavior, wasm, build
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** behavior
+**Tags:** behavior, runtime, wasm, registry
+**Language:** EN
+
+---
+
+**Intro:**
+Multiple behavior initialization paths cause duplication and nondeterministic runtime behavior. A single entry point is required.
+
+**Problem:**
+behaviors are initialized in multiple places causing duplication and instability
+
+**Solution:**
+centralize all behavior initialization through a single registry bootstrap
+
+**Signals:**
+- duplicate listeners
+- init conflict
+- runtime anomaly
+
+**Search Intent:**
+how to centralize behavior initialization
+
+**Keywords:**
+behavior registry pattern, single runtime entrypoint wasm, frontend behavior initialization, leptos behavior bootstrap
 
 ---
 
@@ -125,6 +150,5 @@ It is not optional plumbing.
 
 
 # ===========================================================
-
 
 

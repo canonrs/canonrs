@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** ui, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** component-architecture
+**Tags:** ui, render, ssr, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing logic or side effects into UI components breaks deterministic rendering and hydration. Components must remain pure.
+
+**Problem:**
+ui components contain logic or side effects causing hydration issues
+
+**Solution:**
+ensure ui components are pure render functions with no side effects
+
+**Signals:**
+- effect in ui
+- dom access
+- hydration error
+
+**Search Intent:**
+how to make ui components pure render functions
+
+**Keywords:**
+pure ui component pattern, ssr safe components design, frontend render purity, component architecture rules
 
 ---
 

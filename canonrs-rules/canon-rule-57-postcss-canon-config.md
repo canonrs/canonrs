@@ -4,9 +4,34 @@
 
 
 **Severity:** MEDIUM
-**Scope:** build, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** postcss, css, tailwind, config
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect PostCSS configuration breaks module resolution and CSS ordering in monorepos. Canon setup requires ESM config, proper plugin order, and strict import sequencing.
+
+**Problem:**
+postcss misconfiguration causes unresolved imports and broken css order
+
+**Solution:**
+use esm config with postcss import first and enforce canonical ordering
+
+**Signals:**
+- tailwind import error
+- css order broken
+- module resolution fail
+
+**Search Intent:**
+how to configure postcss esm with
+
+**Keywords:**
+postcss esm config, tailwind postcss plugin order, css import resolution node, postcss canonical setup
 
 ---
 
@@ -90,4 +115,3 @@ This will **always** break.
 - [ ] `createRequire` used
 - [ ] postcss-import FIRST
 - [ ] No JS imported as CSS
-

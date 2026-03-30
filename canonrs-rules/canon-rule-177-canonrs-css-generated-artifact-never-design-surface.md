@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** build
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** build-tooling
+**Tags:** css, build, artifacts, generation
+**Language:** EN
+
+---
+
+**Intro:**
+Editing generated CSS files directly creates divergence between source and output, breaking reproducibility. This leads to inconsistent builds and debugging complexity.
+
+**Problem:**
+generated css is manually edited causing non deterministic builds
+
+**Solution:**
+edit only source files and regenerate css through build process
+
+**Signals:**
+- manual edit
+- build mismatch
+- lost changes
+
+**Search Intent:**
+why not edit generated css files
+
+**Keywords:**
+generated css artifact pattern, build determinism css, frontend generated files rule, css build pipeline integrity
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** behavior, ui, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** behavior
+**Tags:** behavior, ui, events, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Distributing interactivity across pages and UI components creates inconsistent behavior and increases bug surface. Interaction must be centralized.
+
+**Problem:**
+interactivity is implemented outside framework behaviors causing inconsistency
+
+**Solution:**
+implement all interactivity exclusively within framework behaviors
+
+**Signals:**
+- event in ui
+- inconsistent behavior
+- duplication
+
+**Search Intent:**
+how to centralize interactivity in framework behaviors
+
+**Keywords:**
+frontend behavior centralization, ui interaction architecture, event handling framework pattern, behavior layer design
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** primitives, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** component-architecture
+**Tags:** overlays, architecture, controllers, primitives
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding positioning logic in UI or controllers leads to duplication and divergence. Positioning must remain centralized and reusable.
+
+**Problem:**
+overlay positioning logic is implemented in ui or controllers causing duplication
+
+**Solution:**
+delegate positioning entirely to dedicated primitives
+
+**Signals:**
+- duplicate logic
+- geometry in ui
+- inconsistent overlays
+
+**Search Intent:**
+how to separate overlay positioning from ui logic
+
+**Keywords:**
+overlay positioning separation, ui vs primitive architecture, popover logic centralization, frontend overlay design pattern
 
 ---
 

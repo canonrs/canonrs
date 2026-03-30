@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** ssr, build
 **Version:** 1.0.0  
 **Date:** 2026-01-27
+
+**Category:** build-tooling
+**Tags:** ssr, wasm, assets, routing
+**Language:** EN
+
+---
+
+**Intro:**
+Missing asset routing for WASM and JS breaks hydration and prevents client initialization. Applications render HTML but fail to become interactive.
+
+**Problem:**
+wasm and js assets are not served causing hydration failure
+
+**Solution:**
+explicitly serve pkg assets from ssr server routes
+
+**Signals:**
+- 404 wasm
+- no hydration
+- static html only
+
+**Search Intent:**
+how to fix wasm not loading in ssr
+
+**Keywords:**
+wasm asset routing ssr, leptos pkg serve issue, hydration missing assets, ssr static asset config
 
 ---
 

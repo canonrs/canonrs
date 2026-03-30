@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** governance, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** governance
+**Tags:** tokens, theming, architecture, validation
+**Language:** EN
+
+---
+
+**Intro:**
+Visual bugs during theme toggle indicate token architecture issues, not logic errors. Proper separation ensures automatic updates via CSS.
+
+**Problem:**
+theme toggle breaks visuals due to incorrect token architecture
+
+**Solution:**
+fix token cascade and mappings instead of modifying javascript or components
+
+**Signals:**
+- wrong colors
+- toggle bug
+- visual mismatch
+
+**Search Intent:**
+why theme toggle breaks ui tokens architecture
+
+**Keywords:**
+theme toggle architecture test, css token cascade debug, design system toggle issue, frontend theming validation
 
 ---
 

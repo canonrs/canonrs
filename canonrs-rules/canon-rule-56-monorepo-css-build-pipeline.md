@@ -4,9 +4,34 @@
 
 
 **Severity:** HIGH
-**Scope:** build, css, workspace
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** css, pipeline, monorepo, artifacts
+**Language:** EN
+
+---
+
+**Intro:**
+Directly importing CSS from generators or crates breaks build consistency and portability. CSS must be generated and copied into canonical packages as immutable artifacts.
+
+**Problem:**
+css is consumed directly from generators instead of build artifacts
+
+**Solution:**
+enforce build pipeline that copies generated css into canonical dist packages
+
+**Signals:**
+- css from crates
+- missing dist css
+- inconsistent builds
+
+**Search Intent:**
+how to build css pipeline in
+
+**Keywords:**
+css build pipeline monorepo, design tokens build artifacts, copy vs link css, canonical dist css
 
 ---
 
@@ -89,4 +114,3 @@ CI **MUST** fail if:
 - [ ] No CSS imports internal paths
 - [ ] build-canon-css.sh runs in CI
 - [ ] pnpm install resolves @canonrs/*
-

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** components, behavior, hydration
 **Version:** 1.0.0  
 **Date:** 2026-02-02
+
+**Category:** component-architecture
+**Tags:** components, hydration, id, behavior
+**Language:** EN
+
+---
+
+**Intro:**
+Auto-generated or optional IDs break SSR and CSR determinism, causing hydration mismatches and unreliable behavior attachment. Stable identifiers must be explicit.
+
+**Problem:**
+interactive components use non deterministic or optional ids causing hydration and behavior issues
+
+**Solution:**
+require explicit deterministic id prop provided by consumer for all interactive components
+
+**Signals:**
+- hydration mismatch
+- missing id
+- behavior attach fail
+
+**Search Intent:**
+how to fix hydration issues with component ids
+
+**Keywords:**
+deterministic id ssr csr, component id requirement pattern, hydration id mismatch, frontend behavior registry id
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** build, cli, tokens
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** build-tooling
+**Tags:** build, artifacts, ci, tokens
+**Language:** EN
+
+---
+
+**Intro:**
+Committing generated artifacts causes merge conflicts and version drift. Build outputs must remain reproducible and excluded from source control.
+
+**Problem:**
+generated files are committed causing conflicts drift and stale artifacts
+
+**Solution:**
+exclude all generated outputs via gitignore and regenerate during build or ci
+
+**Signals:**
+- merge conflict
+- diff noise
+- stale artifact
+
+**Search Intent:**
+why not commit generated files build
+
+**Keywords:**
+generated artifacts gitignore, build reproducibility rust, ci regenerate artifacts, css bundle commit issue
 
 ---
 

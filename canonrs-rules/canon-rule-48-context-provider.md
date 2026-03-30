@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** providers, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** state-reactivity
+**Tags:** context, providers, state, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Passing state through multiple component layers creates prop drilling and tightly coupled APIs. Context providers centralize state and allow components to consume it directly.
+
+**Problem:**
+prop drilling across components makes state management complex and tightly coupled
+
+**Solution:**
+use context providers to share global state and eliminate prop drilling
+
+**Signals:**
+- prop drilling
+- deep prop chains
+- duplicated state passing
+
+**Search Intent:**
+how to avoid prop drilling using
+
+**Keywords:**
+leptos context provider pattern, avoid prop drilling frontend, global state sharing signals, context vs props architecture
 
 ---
 
@@ -582,4 +607,3 @@ Consumer (any depth) → use_context()
 
 
 ---
-

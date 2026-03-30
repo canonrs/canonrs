@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** css, primitives, overlays
 **Version:** 1.1.0  
 **Date:** 2026-02-03  
+
+**Category:** styling-css
+**Tags:** css, overlays, primitives, variables
+**Language:** EN
+
+---
+
+**Intro:**
+Exposing overlay positioning through multiple channels creates inconsistency and breaks rendering contracts. A single CSS variable interface ensures predictable integration.
+
+**Problem:**
+overlay positioning is exposed through multiple mechanisms causing inconsistency
+
+**Solution:**
+expose all overlay position values exclusively via css custom properties
+
+**Signals:**
+- inline styles
+- layout drift
+- inconsistent positioning
+
+**Search Intent:**
+how to expose overlay position via css variables
+
+**Keywords:**
+css variables overlay positioning, floating ui css contract, frontend overlay positioning pattern, css custom properties layout
 
 ---
 

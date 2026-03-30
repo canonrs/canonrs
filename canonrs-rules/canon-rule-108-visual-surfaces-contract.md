@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** tokens, css, components
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** surfaces, tokens, css, components
+**Language:** EN
+
+---
+
+**Intro:**
+Inconsistent visual hierarchy arises when components define their own styling instead of using semantic surfaces. This leads to design drift and complex dark mode handling.
+
+**Problem:**
+components define appearance instead of using semantic surface tokens
+
+**Solution:**
+enforce surface types and token-based styling for all components
+
+**Signals:**
+- design drift
+- inconsistent ui
+- dark mode break
+
+**Search Intent:**
+how to enforce design surfaces
+
+**Keywords:**
+design system surfaces, css surface tokens, semantic ui surfaces, token based styling components
 
 ---
 

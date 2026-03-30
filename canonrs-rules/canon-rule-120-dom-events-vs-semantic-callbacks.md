@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** primitives, ui, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** events, callbacks, ui, primitives
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing DOM events with semantic callbacks breaks abstraction boundaries and creates type confusion in Leptos components. UI APIs become coupled to browser details, leading to errors and inconsistent usage patterns.
+
+**Problem:**
+dom events are exposed in ui layer and callbacks are incorrectly wrapped or typed
+
+**Solution:**
+restrict dom events to primitives and expose only semantic callbacks in ui components
+
+**Signals:**
+- e0308 type mismatch
+- some callback wrapping
+- on:click in ui api
+
+**Search Intent:**
+how to separate dom events from
+
+**Keywords:**
+leptos dom vs semantic events, callback type mismatch rust leptos, ui event abstraction pattern, on_click vs on:click leptos
 
 ---
 

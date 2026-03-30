@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** behavior, ui, architecture
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** component-architecture
+**Tags:** ui, behavior, layering, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+When UI depends on behavior modules, architectural boundaries collapse and SSR determinism is compromised. Layers must remain strictly isolated.
+
+**Problem:**
+ui layer references behavior layer causing coupling and ssr issues
+
+**Solution:**
+enforce strict separation where ui communicates only via attributes and behavior reacts independently
+
+**Signals:**
+- behavior import in ui
+- conditional runtime logic
+- tight coupling
+
+**Search Intent:**
+how to separate ui and behavior layers
+
+**Keywords:**
+ui behavior separation architecture, ssr safe layering frontend, data attribute driven behavior, frontend decoupling patterns
 
 ---
 

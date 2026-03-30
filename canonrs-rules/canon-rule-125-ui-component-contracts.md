@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** ui
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** ui, contracts, callbacks, state
+**Language:** EN
+
+---
+
+**Intro:**
+UI components without strict contracts leak primitives, mix domain logic, and create type ambiguity. This results in poor ergonomics and inconsistent APIs across the design system.
+
+**Problem:**
+ui components mix responsibilities and use ambiguous prop patterns
+
+**Solution:**
+enforce adapter controlled and composite ui types with strict callback and prop rules
+
+**Signals:**
+- prop optional into
+- mouseevent in api
+- primitive leakage
+
+**Search Intent:**
+how to design ui component contracts
+
+**Keywords:**
+ui component patterns adapter controlled, leptos callback design, ui abstraction layer design, component api ergonomics
 
 ---
 

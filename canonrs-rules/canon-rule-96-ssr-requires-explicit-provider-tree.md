@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** providers, leptos, ssr
 **Version:** 1.0.0  
 **Date:** 2025-01-15
+
+**Category:** state-reactivity
+**Tags:** providers, context, ssr, leptos
+**Language:** EN
+
+---
+
+**Intro:**
+SSR in Leptos does not auto-inject context providers, causing runtime panics when contexts are missing. All required providers must be explicitly declared in the component tree.
+
+**Problem:**
+missing providers cause context not found panics during SSR
+
+**Solution:**
+wrap app with all required providers in correct dependency order
+
+**Signals:**
+- context not found
+- server panic
+- empty response
+
+**Search Intent:**
+how to fix leptos context not found
+
+**Keywords:**
+leptos provider tree ssr, context not found leptos fix, leptos theme provider missing, ssr provider dependency order
 
 ---
 

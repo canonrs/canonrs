@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** hydration, css
 **Version:** 1.1.0  
 **Date:** 2026-02-03
+
+**Category:** core-runtime
+**Tags:** hydration, state, css, overlays
+**Language:** EN
+
+---
+
+**Intro:**
+Controlling visibility through DOM mutations or conditional rendering breaks SSR determinism. Visibility must be driven by declarative state.
+
+**Problem:**
+overlay visibility is controlled imperatively causing hydration mismatch
+
+**Solution:**
+control overlay visibility exclusively via data-state attributes and css
+
+**Signals:**
+- hydration mismatch
+- dom divergence
+- visibility bug
+
+**Search Intent:**
+how to control overlay visibility with data state
+
+**Keywords:**
+data state visibility css, hydration safe visibility pattern, overlay state css control, ssr visibility architecture
 
 ---
 

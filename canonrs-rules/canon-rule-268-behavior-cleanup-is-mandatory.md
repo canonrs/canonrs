@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** behavior, wasm
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** behavior
+**Tags:** behavior, cleanup, wasm, listeners
+**Language:** EN
+
+---
+
+**Intro:**
+Missing cleanup in behaviors causes memory leaks and duplicated listeners in SPA environments. Lifecycle must be deterministic.
+
+**Problem:**
+event listeners and side effects are not cleaned up causing leaks and duplication
+
+**Solution:**
+implement deterministic cleanup using lifecycle hooks for all behaviors
+
+**Signals:**
+- memory leak
+- duplicate listener
+- event storm
+
+**Search Intent:**
+how to cleanup event listeners wasm
+
+**Keywords:**
+wasm event listener cleanup, behavior lifecycle rust, frontend memory leak listeners, leptos on_cleanup pattern
 
 ---
 

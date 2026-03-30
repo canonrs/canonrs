@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** leptos, workspace
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** config, workspace, leptos, build
+**Language:** EN
+
+---
+
+**Intro:**
+Divergent configuration fields create inconsistent builds and runtime behavior across tools. Critical fields must remain aligned.
+
+**Problem:**
+critical config fields differ causing inconsistent builds and runtime mismatch
+
+**Solution:**
+ensure critical fields match exactly between workspace and local configs
+
+**Signals:**
+- feature mismatch
+- port conflict
+- build divergence
+
+**Search Intent:**
+how to align leptos config workspace and local
+
+**Keywords:**
+leptos config alignment, workspace metadata consistency, frontend build config mismatch, cargo leptos config issue
 
 ---
 

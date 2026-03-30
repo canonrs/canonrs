@@ -4,9 +4,34 @@
 
 
 **Severity:** HIGH
-**Scope:** build, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** styling-css
+**Tags:** css, monorepo, design-system, build
+**Language:** EN
+
+---
+
+**Intro:**
+Importing CSS from internal folders creates fragile dependencies and breaks monorepo scalability. Design system styles must be consumed only through canonical workspace packages.
+
+**Problem:**
+relative css imports tie consumers to internal repo structure
+
+**Solution:**
+use canonical packages that re export css artifacts via workspace resolution
+
+**Signals:**
+- ../../packages-rust import
+- css breaks after refactor
+- postcss resolve error
+
+**Search Intent:**
+how to structure css imports in
+
+**Keywords:**
+monorepo css architecture, canonical css packages, postcss resolve imports, design system distribution css
 
 ---
 
@@ -136,4 +161,3 @@ is **not enterprise-grade**.
 
 - Canon Rule #56 — Monorepo CSS Build Pipeline
 - Canon Rule #57 — PostCSS Canon Configuration
-

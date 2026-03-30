@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** css, tokens, architecture
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** styling-css
+**Tags:** css, tokens, cascade, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Reordering token cascade breaks resolution guarantees and causes silent regressions. Order must remain fixed.
+
+**Problem:**
+token cascade order is modified causing resolution failures
+
+**Solution:**
+enforce immutable cascade order through generators and ci checks
+
+**Signals:**
+- token mismatch
+- silent regression
+- style break
+
+**Search Intent:**
+why token cascade order must be fixed
+
+**Keywords:**
+token cascade order css, design system layering immutability, frontend css resolution order, token dependency chain
 
 ---
 

@@ -4,9 +4,34 @@
 
 
 **Severity:** HIGH
-**Scope:** workspace, build
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** trunk, dist, assets
+**Language:** EN
+
+---
+
+**Intro:**
+Trunk serves only files present in the dist directory, ignoring source folders like public or style. Misunderstanding this leads to missing assets at runtime.
+
+**Problem:**
+assets outside dist are not served causing 404 errors
+
+**Solution:**
+ensure all assets are built or copied into dist before serving
+
+**Signals:**
+- 404 styles.css
+- public not served
+- asset not found
+
+**Search Intent:**
+why trunk not serving files from public folder
+
+**Keywords:**
+trunk dist assets, leptos trunk css 404, trunk asset pipeline, dist only serving trunk
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** build, css
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** styling-css
+**Tags:** css, cascade, themes, order
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect import order causes theme overrides to be ignored and breaks light dark context resolution. CSS cascade must enforce deterministic override priority.
+
+**Problem:**
+theme files are imported before other css causing overrides to fail
+
+**Solution:**
+import theme files last in the css cascade after all tokens and components
+
+**Signals:**
+- theme not applied
+- wrong colors
+- override failure
+
+**Search Intent:**
+how to fix css cascade theme override order
+
+**Keywords:**
+css cascade theme order, theme override last import, design system css order, light dark css issue
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** architecture, ui, layout
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** component-architecture
+**Tags:** ui, layout, architecture, separation
+**Language:** EN
+
+---
+
+**Intro:**
+Blurring responsibilities between UI and layouts creates coupling and breaks system evolution. Each layer must own a distinct concern.
+
+**Problem:**
+ui and layout responsibilities mix causing architectural coupling
+
+**Solution:**
+enforce strict boundary where layout handles zones and ui handles behavior
+
+**Signals:**
+- provider in layout
+- behavior in layout
+- coupled layers
+
+**Search Intent:**
+how to separate ui and layout
+
+**Keywords:**
+ui layout separation pattern, architecture boundary ui layout, leptos layout responsibility, component layering rules
 
 ---
 

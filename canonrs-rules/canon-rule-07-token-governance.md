@@ -2,13 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** design-system, tokens, theming
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** design-system
+**Tags:** tokens, theming, tailwind, monorepo
+**Language:** EN
+
 ---
 
+**Intro:**
+Direct token imports and hardcoded styles create coupling, build instability, and design drift in monorepos. Lack of token governance prevents scalable theming and consistent UI across apps.
 
+**Problem:**
+apps directly depend on design system tokens causing coupling and inconsistency
+
+**Solution:**
+enforce token distribution via dedicated bridge and semantic token usage
+
+**Signals:**
+- build break
+- design drift
+- theme inconsistency
+
+**Search Intent:**
+how to manage design tokens
+
+**Keywords:**
+design system token governance, tailwind token pipeline, monorepo token architecture, css variable theming
+
+---
 
 ## Critical Principle
 **Tokens are not owned by Tailwind. Theme is not a UI concern. Apps never import design system internals.**

@@ -4,12 +4,37 @@
 
 
 **Severity:** MEDIUM
-**Scope:** interactive, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** behavior
+**Tags:** callbacks, commands, state, cqrs
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Direct state mutations inside UI callbacks prevent undo, replay, and audit capabilities. This breaks command-based architectures and tightly couples UI with side effects.
+
+**Problem:**
+callbacks mutate state directly instead of emitting commands
+
+**Solution:**
+callbacks must create commands executed via a command history system
+
+**Signals:**
+- no undo support
+- side effects in callback
+- direct mutation
+- api call in callback
+
+**Search Intent:**
+how to use commands in ui callbacks
+
+**Keywords:**
+callbacks as commands pattern, command pattern ui architecture, leptos callback command execution, cqrs ui callbacks
+
+---
 
 ---
 

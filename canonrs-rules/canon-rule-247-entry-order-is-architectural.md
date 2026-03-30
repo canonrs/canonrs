@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** css, tokens
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** styling-css
+**Tags:** css, order, tokens, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Entry order defines authority in cascade and cannot be changed without breaking system behavior. Order is structural.
+
+**Problem:**
+entry order changes cause instability and incorrect overrides
+
+**Solution:**
+enforce fixed entry generation order and forbid manual edits
+
+**Signals:**
+- override break
+- token shadowing
+- inconsistent ui
+
+**Search Intent:**
+why css entry order matters architecture
+
+**Keywords:**
+css entry order architecture, cascade authority layers, design system import order, frontend css generation order
 
 ---
 

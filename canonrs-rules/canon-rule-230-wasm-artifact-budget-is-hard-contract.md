@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** build, wasm
 **Version:** 1.0.0  
 **Date:** 2025-02-04
+
+**Category:** build-tooling
+**Tags:** wasm, build, performance, budget
+**Language:** EN
+
+---
+
+**Intro:**
+Unbounded wasm size growth causes severe performance issues and goes unnoticed without enforcement. Size must be treated as a hard constraint.
+
+**Problem:**
+wasm bundle grows without limits causing performance degradation
+
+**Solution:**
+define and enforce wasm size budget at build time with failure on exceed
+
+**Signals:**
+- large wasm
+- slow load
+- bundle bloat
+
+**Search Intent:**
+how to enforce wasm size budget build
+
+**Keywords:**
+wasm size budget enforcement, frontend wasm performance, bundle size control rust, wasm build optimization guard
 
 ---
 

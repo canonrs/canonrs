@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** design-system, tokens, theming
 **Version:** 1.0.0  
 **Date:** 2026-01-29
+
+**Category:** design-system
+**Tags:** tokens, theming, architecture, css
+**Language:** EN
+
+---
+
+**Intro:**
+Defining visual surfaces in foundational layers breaks theming flexibility and causes regressions in dark mode. Visual decisions must remain in the theme layer.
+
+**Problem:**
+visual surface values are defined in core or family tokens breaking theme separation
+
+**Solution:**
+define only semantic intent in core and resolve appearance in theme layer
+
+**Signals:**
+- dark mode break
+- visual drift
+- theme coupling
+
+**Search Intent:**
+how to separate theme and core tokens correctly
+
+**Keywords:**
+design system token layering, theme vs core tokens separation, css semantic tokens pattern, dark mode token architecture
 
 ---
 

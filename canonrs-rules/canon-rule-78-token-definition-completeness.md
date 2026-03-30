@@ -4,12 +4,36 @@
 
 
 **Severity:** HIGH
-**Scope:** design-system, tokens
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** design-system
+**Tags:** tokens, theming, css
+**Language:** EN
+
 ---
 
+**Intro:**
+Partial use of design tokens creates inconsistent UI and breaks theming. Components must fully adopt all applicable tokens without hardcoded values.
+
+**Problem:**
+components use partial tokens and hardcoded values breaking consistency
+
+**Solution:**
+enforce 100 percent token usage for all applicable properties
+
+**Signals:**
+- hardcoded values
+- theme inconsistencies
+- partial token usage
+
+**Search Intent:**
+how to enforce design token usage in components
+
+**Keywords:**
+design token completeness, no hardcoded css values, token based theming, css variables system design
+
+---
 
 ---
 

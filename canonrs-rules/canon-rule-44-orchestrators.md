@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** state, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** state-reactivity
+**Tags:** orchestration, cqrs, signals, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Coupling domain rendering with command execution removes separation of concerns and breaks SSR safety. Orchestrators act as a coordination layer between read and write components without introducing business logic.
+
+**Problem:**
+domain components handle commands directly instead of delegating coordination
+
+**Solution:**
+use orchestrator layer to connect domain components and command components via callbacks and refresh signals
+
+**Signals:**
+- command in domain component
+- resource mixed with mutation
+- tight coupling read write
+
+**Search Intent:**
+what is orchestrator pattern in leptos cqrs frontend
+
+**Keywords:**
+orchestrator pattern frontend, leptos cqrs coordination, signals refresh pattern, callback coordination ui
 
 ---
 
@@ -538,4 +563,3 @@ Domain (READ) ← Orchestrator → Commands (WRITE)
 
 
 ---
-

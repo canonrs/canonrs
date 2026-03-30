@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** hydration, layout, css
 **Version:** 1.0.0  
 **Date:** 2026-01-26
+
+**Category:** styling-css
+**Tags:** css, layout, ssr, hydration
+**Language:** EN
+
+---
+
+**Intro:**
+Runtime layout manipulation causes DOM divergence between SSR and client hydration, leading to errors. Layout must be resolved deterministically via CSS.
+
+**Problem:**
+layout is controlled by runtime logic instead of css causing hydration mismatch
+
+**Solution:**
+define all layout positioning in css and use data attributes for state
+
+**Signals:**
+- hydration mismatch
+- layout drift
+- runtime positioning
+
+**Search Intent:**
+how to fix layout hydration mismatch using css
+
+**Keywords:**
+css deterministic layout, ssr layout mismatch, data attribute css pattern, layout rendering consistency
 
 ---
 

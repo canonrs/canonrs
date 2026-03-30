@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** governance, theming
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -72,8 +71,8 @@ ButtonVariant::Destructive
 **Lint Check:**
 ```rust
 // Scan for enum variants
-if code.contains("Variant::Success") 
-|| code.contains("Variant::Warning") 
+if code.contains("Variant::Success")
+|| code.contains("Variant::Warning")
 || code.contains("Variant::Info") {
     return Err("Non-canonical variant");
 }
@@ -165,7 +164,7 @@ struct Violation {
 
 fn main() {
     let mut violations = Vec::new();
-    
+
     // Check all .rs files in src/
     for entry in walkdir::WalkDir::new("src") {
         let entry = entry.unwrap();
@@ -173,7 +172,7 @@ fn main() {
             violations.extend(check_file(entry.path()));
         }
     }
-    
+
     if !violations.is_empty() {
         println!("❌ Found {} Canon Rule violations:", violations.len());
         for v in &violations {
@@ -181,14 +180,14 @@ fn main() {
         }
         std::process::exit(1);
     }
-    
+
     println!("✅ All Canon Rules passed!");
 }
 
 fn check_file(path: &Path) -> Vec<Violation> {
     let content = fs::read_to_string(path).unwrap();
     let mut violations = Vec::new();
-    
+
     // Rule #32: No localStorage for theme
     if path.to_str().unwrap().contains("theme") {
         for (i, line) in content.lines().enumerate() {
@@ -202,7 +201,7 @@ fn check_file(path: &Path) -> Vec<Violation> {
             }
         }
     }
-    
+
     // Rule #33: No fixed px in density-aware components
     if path.to_str().unwrap().contains("src/ui/") {
         let px_regex = Regex::new(r#"(h|w|height|width)-\[?\d+px\]?"#).unwrap();
@@ -217,7 +216,7 @@ fn check_file(path: &Path) -> Vec<Violation> {
             }
         }
     }
-    
+
     // Rule #21: No non-canonical color variants
     let forbidden_variants = ["Success", "Warning", "Info", "Danger"];
     for variant in &forbidden_variants {
@@ -230,7 +229,7 @@ fn check_file(path: &Path) -> Vec<Violation> {
             });
         }
     }
-    
+
     // Rule #21: No hardcoded Tailwind colors
     let color_regex = Regex::new(r#"(bg|text|border)-(red|blue|green|yellow|purple|pink|orange)-\d+"#).unwrap();
     for (i, line) in content.lines().enumerate() {
@@ -243,7 +242,7 @@ fn check_file(path: &Path) -> Vec<Violation> {
             });
         }
     }
-    
+
     violations
 }
 ```
@@ -273,23 +272,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Install Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
-      
+
       - name: Run Canon Linter
         run: |
           cd packages-rust/rs-design
           cargo run --bin canon-linter
-      
+
       - name: Check for localStorage in theme files
         run: |
           ! grep -r "localStorage" packages-rust/rs-design/src/providers/
-      
+
       - name: Check for hardcoded colors
         run: |
           ! grep -rE "(bg|text|border)-(red|blue|green)-[0-9]+" packages-rust/rs-design/src/ui/
-      
+
       - name: Check for fixed pixels
         run: |
           ! grep -rE "h-\[[0-9]+px\]" packages-rust/rs-design/src/ui/
@@ -350,6 +349,34 @@ mod tests {
 ```
 
 **Migration Code:**
+**Category:** governance
+**Tags:** lint, tokens, ci, rules
+**Language:** EN
+
+---
+
+**Intro:**
+Manual enforcement of theme and density rules leads to inconsistency and drift. Automated validation is required.
+
+**Problem:**
+theme and density rules are not enforced causing inconsistent implementations
+
+**Solution:**
+use linting and ci checks to enforce canonical theme and density rules
+
+**Signals:**
+- rule violation
+- hardcoded values
+- ci failure
+
+**Search Intent:**
+how to enforce design system rules ci
+
+**Keywords:**
+design system lint rules, ci enforcement tokens css, frontend rule validation, automated ui compliance checks
+
+---
+
 ```rust
 // canon-exempt: migration from localStorage to cookies
 if let Some(legacy) = localStorage.getItem("theme") {
@@ -362,5 +389,4 @@ if let Some(legacy) = localStorage.getItem("theme") {
 - [Canon Rule #21: Canonical Color Tokens](./canon-rule-21-canonical-color-tokens.md)
 - [Canon Rule #32: Theme Persistence Contract](./canon-rule-32-theme-persistence-contract.md)
 - [Canon Rule #33: Density & Accessibility Mapping](./canon-rule-33-density-accessibility-mapping.md)
-
 

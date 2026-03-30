@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** governance
+**Tags:** tokens, architecture, cascade, css
+**Language:** EN
+
+---
+
+**Intro:**
+Treating token cascade as convention leads to violations and inconsistent layering. The cascade must be enforced as a structural constraint.
+
+**Problem:**
+token cascade is treated as convention causing violations and inconsistencies
+
+**Solution:**
+enforce token cascade through build time validation and strict layering
+
+**Signals:**
+- layer violation
+- build failure
+- inconsistent usage
+
+**Search Intent:**
+how to enforce token cascade architecture css
+
+**Keywords:**
+token cascade architecture, css layering enforcement, design system cascade rules, frontend token validation
 
 ---
 

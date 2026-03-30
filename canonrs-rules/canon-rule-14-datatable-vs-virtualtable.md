@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** state, ui, components
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** component-architecture
+**Tags:** datatable, virtualization, performance, ssr
+**Language:** EN
+
 ---
+
+**Intro:**
+Choosing between DataTable and VirtualTable affects SSR, performance, and accessibility. Mixing both concerns leads to incorrect architecture and degraded user experience.
+
+**Problem:**
+datatable and virtualtable are used interchangeably without considering architectural constraints
+
+**Solution:**
+choose explicitly based on scale semantics ssr and performance requirements
+
+**Signals:**
+- performance issue
+- ssr break
+- wrong component
+
+**Search Intent:**
+when to use datatable vs virtualtable
+
+**Keywords:**
+datatable vs virtualtable, frontend table performance pattern, ssr vs virtualization table, ui component choice tables
+
+---
+
 **Short statement (easy to remember):**  
 Semantics does not scale. Performance does not provide semantics.
 

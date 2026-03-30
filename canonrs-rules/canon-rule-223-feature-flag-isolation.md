@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** leptos, workspace
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** features, workspace, ssr, csr
+**Language:** EN
+
+---
+
+**Intro:**
+Feature flag leakage across products causes incorrect compilation and bloated binaries. Isolation is required for deterministic builds.
+
+**Problem:**
+feature flags leak between products causing incorrect builds and bloat
+
+**Solution:**
+define explicit package scoped feature flags with no cross contamination
+
+**Signals:**
+- feature leak
+- wrong build
+- dependency bloat
+
+**Search Intent:**
+how to isolate feature flags in workspace
+
+**Keywords:**
+feature flag isolation rust, workspace feature leakage, ssr csr feature separation, cargo feature boundaries
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** workspace, architecture
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** governance
+**Tags:** workspace, layers, modularity, rust
+**Language:** EN
+
+---
+
+**Intro:**
+Accessing internal layers across crates creates hidden coupling and breaks modular guarantees. Public boundaries must be respected.
+
+**Problem:**
+cross crate access to internal layers breaks modular architecture
+
+**Solution:**
+restrict access to public apis and enforce visibility boundaries
+
+**Signals:**
+- internal module import
+- tight coupling
+- semver break risk
+
+**Search Intent:**
+how to prevent cross crate coupling rust
+
+**Keywords:**
+rust crate boundaries architecture, layer isolation workspace, pub(crate) enforcement rust, modular system design rust
 
 ---
 

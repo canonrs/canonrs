@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** architecture, design-system
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** architecture, layers, contracts, design-system
+**Language:** EN
+
+---
+
+**Intro:**
+Lack of strict component classification leads to boundary leakage, inconsistent responsibilities, and architectural decay. Without taxonomy, primitives, UI, and domain logic mix unpredictably.
+
+**Problem:**
+components are not classified leading to boundary violations across layers
+
+**Solution:**
+enforce strict taxonomy with five layers and explicit contracts per component type
+
+**Signals:**
+- primitive with state
+- ui with css tokens
+- component confusion
+
+**Search Intent:**
+how to structure component architecture layers
+
+**Keywords:**
+component architecture layers ui, design system taxonomy, primitive ui component separation, frontend architecture contracts
 
 ---
 

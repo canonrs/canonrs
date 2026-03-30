@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** css, layout
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** styling-css
+**Tags:** layout, css, semantics, structure
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding behavior or state inside layouts breaks structural purity and introduces coupling with UI logic. Layouts must remain deterministic and CSS-driven.
+
+**Problem:**
+layouts include behavior or state breaking structural determinism
+
+**Solution:**
+restrict layouts to semantic containers and css structure only
+
+**Signals:**
+- state in layout
+- event in layout
+- layout coupling
+
+**Search Intent:**
+why layouts must be stateless
+
+**Keywords:**
+layout css semantics only, stateless layout architecture, leptos layout purity, structure vs behavior separation
 
 ---
 

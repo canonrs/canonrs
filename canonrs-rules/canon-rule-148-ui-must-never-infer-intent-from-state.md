@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** state, ui, architecture
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** state-reactivity
+**Tags:** state, intent, ui, callbacks
+**Language:** EN
+
 ---
+
+**Intro:**
+Inferring intent from state transitions introduces implicit behavior and duplicated logic in UI components. This leads to unpredictable flows and hidden side effects.
+
+**Problem:**
+ui infers intent from state changes causing implicit behavior
+
+**Solution:**
+express intent explicitly via callbacks or commands and update state after
+
+**Signals:**
+- implicit logic
+- duplicated behavior
+- side effects
+
+**Search Intent:**
+how to separate intent from state in ui
+
+**Keywords:**
+intent vs state ui, explicit callbacks pattern, state transition logic frontend, ui event architecture
+
+---
+
 ## Context
 State represents **what is**, not **why it changed**.
 Inferring intent from state leads to implicit behavior, duplicated logic and unpredictable flows.

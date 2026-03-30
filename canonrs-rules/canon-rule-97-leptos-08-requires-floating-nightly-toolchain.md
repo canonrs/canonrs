@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** MEDIUM  
-**Scope:** leptos, workspace
 **Version:** 1.0.0  
 **Date:** 2025-01-15
+
+**Category:** build-tooling
+**Tags:** rust, nightly, toolchain, leptos
+**Language:** EN
+
+---
+
+**Intro:**
+Pinned nightly toolchains or minor versions break compatibility with Leptos 0.8 due to evolving unstable features. Floating versions are required to maintain compatibility.
+
+**Problem:**
+pinned toolchain or versions cause build incompatibility errors
+
+**Solution:**
+use floating nightly toolchain and unpinned minor versions in dependencies
+
+**Signals:**
+- rustc not supported
+- edition2024 error
+- dependency conflict
+
+**Search Intent:**
+why leptos build fails with rustc version
+
+**Keywords:**
+leptos nightly toolchain required, rustc version mismatch leptos, floating version cargo leptos, leptos edition2024 error
 
 ---
 

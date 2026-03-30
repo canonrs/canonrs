@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** css, state, components
 **Version:** 1.0.0
 **Date:** 2026-01-17
+
+**Category:** design-system
+**Tags:** state, css, data-attributes, components
+**Language:** EN
+
+---
+
+**Intro:**
+Encoding state as visual style creates tight coupling and limits flexibility. State must remain semantic and independent from appearance to support scalable theming.
+
+**Problem:**
+state is encoded as visual style instead of semantic data
+
+**Solution:**
+express state via data attributes and map to visuals only in css
+
+**Signals:**
+- style coupling
+- theme break
+- implicit state
+
+**Search Intent:**
+how to separate state from style
+
+**Keywords:**
+state vs style css, data attributes state pattern, semantic state ui, css state mapping
 
 ---
 

@@ -2,7 +2,6 @@
 
 **Status:** ENFORCED  
 **Severity:** BLOCKING  
-**Scope:** build, tokens, architecture
 **Version:** 1.0.0
 **Date:** 2026-01-29
 
@@ -176,6 +175,32 @@ Existing code violating this rule:
 ## Enforcement Level
 
 **BLOCKING** - Build must fail. CI must fail. Merge must be blocked.
+
+**Category:** build-tooling
+**Tags:** tokens, build, css, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Tokens defined without compile-time validation lead to drift, inconsistency, and runtime errors. Token usage must be enforced during build.
+
+**Problem:**
+tokens are not validated at build time causing inconsistencies and errors
+
+**Solution:**
+enforce token definitions and usage through compile time validation
+
+**Signals:**
+- token drift
+- invalid token
+- build failure
+
+**Search Intent:**
+how to enforce design tokens at compile time
+
+**Keywords:**
+compile time tokens validation, design system token contract, css token build enforcement, frontend token architecture
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** accessibility
+**Tags:** html, aria, wcag
+**Language:** EN
+
+---
+
+**Intro:**
+Improper HTML semantics in design system blocks break accessibility, screen reader navigation, and document hierarchy. Blocks must enforce semantic structure with ARIA attributes and correct heading levels.
+
+**Problem:**
+blocks lack semantic html and proper aria leading to accessibility issues
+
+**Solution:**
+use section landmarks aria-labelledby and strict heading hierarchy
+
+**Signals:**
+- axe violations
+- screen reader confusion
+- invalid heading hierarchy
+
+**Search Intent:**
+how to implement accessible semantic html in components
+
+**Keywords:**
+wcag semantic html blocks, aria labelledby section pattern, heading hierarchy accessibility, accessible table markup
 
 ---
 

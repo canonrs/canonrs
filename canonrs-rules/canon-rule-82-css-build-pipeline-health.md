@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** build, css
 **Version:** 1.0.0
 **Date:** 2026-01-12
+
+**Category:** build-tooling
+**Tags:** css, pipeline, postcss
+**Language:** EN
+
+---
+
+**Intro:**
+CSS changes do not propagate automatically without explicit compilation, leading to stale styles in development. The build pipeline must be executed and validated for every change.
+
+**Problem:**
+css changes not reflected because build pipeline is not executed
+
+**Solution:**
+run css build pipeline and verify compiled output before testing
+
+**Signals:**
+- stale styles
+- css not updating
+- postcss not triggered
+
+**Search Intent:**
+why css changes not applying in leptos
+
+**Keywords:**
+postcss build required, css not updating leptos, tailwind build pipeline issue, compiled css not refreshed
 
 ---
 

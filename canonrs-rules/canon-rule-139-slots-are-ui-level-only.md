@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, layout
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** component-architecture
+**Tags:** slots, ui, layout, ownership
+**Language:** EN
+
+---
+
+**Intro:**
+Using slots in layouts introduces ownership complexity and breaks SSR safety due to Fn and lifetime boundaries. This leads to brittle composition and logic-heavy layouts.
+
+**Problem:**
+slots are defined in layouts causing ownership and composition issues
+
+**Solution:**
+restrict slots to ui components and keep layouts purely compositional
+
+**Signals:**
+- ownership explosion
+- fnonce issues
+- layout complexity
+
+**Search Intent:**
+how to use slots correctly in ui components
+
+**Keywords:**
+ui slots pattern, leptos slot ownership, layout vs ui slots, component slot architecture
 
 ---
 

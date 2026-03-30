@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** primitives, css
 **Version:** 1.0.0  
 **Date:** 2026-01-16
+
+**Category:** component-architecture
+**Tags:** primitives, css, ui, layering
+**Language:** EN
+
+---
+
+**Intro:**
+Applying CSS fixes inside primitives breaks architectural layering and contaminates core abstractions. Global CSS issues must be handled at the UI layer.
+
+**Problem:**
+css fixes applied in primitives break layer separation
+
+**Solution:**
+handle css neutralization only in ui layer while keeping primitives pure
+
+**Signals:**
+- css leakage
+- primitive contamination
+- layer violation
+
+**Search Intent:**
+how to isolate css in ui layer
+
+**Keywords:**
+ui css neutralization pattern, primitive purity css, layer separation ui css, design system layering css
 
 ---
 

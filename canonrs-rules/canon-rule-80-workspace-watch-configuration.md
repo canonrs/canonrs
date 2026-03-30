@@ -4,12 +4,36 @@
 
 
 **Severity:** MEDIUM
-**Scope:** workspace, build
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** build-tooling
+**Tags:** watch, cargo, leptos
+**Language:** EN
+
 ---
 
+**Intro:**
+cargo-leptos does not monitor external path dependencies by default, causing stale builds during development. Explicit watch configuration is required for local packages.
+
+**Problem:**
+changes in path dependencies do not trigger recompilation
+
+**Solution:**
+configure watch-additional-files for all local dependencies
+
+**Signals:**
+- stale build
+- no recompilation
+- changes ignored
+
+**Search Intent:**
+why cargo leptos watch not detecting changes
+
+**Keywords:**
+cargo leptos watch additional files, rust watch path dependency, leptos hot reload issue, monorepo watch config
+
+---
 
 ---
 

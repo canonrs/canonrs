@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, state
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** state-reactivity
+**Tags:** signals, state, reactivity, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Passing plain values instead of signals to UI components breaks reactive updates and causes stale UI state. Components lose synchronization with application state.
+
+**Problem:**
+ui components receive plain values instead of signals breaking reactivity
+
+**Solution:**
+require ui components to accept signal or rwsignal for reactive state props
+
+**Signals:**
+- ui not updating
+- stale state
+- manual rerender
+
+**Search Intent:**
+how to fix reactivity issues with
+
+**Keywords:**
+leptos signal ui pattern, reactive state ui components, signal vs value leptos, frontend reactivity architecture
 
 ---
 
@@ -166,4 +191,3 @@ pub fn DialogPrimitive(
 ## Version History
 
 - **1.0.0** — Initial canonical version (2025-01-22)
-

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** build, css
 **Version:** 1.0.0  
 **Date:** 2026-01-28
+
+**Category:** build-tooling
+**Tags:** build, dist, artifacts, css
+**Language:** EN
+
+---
+
+**Intro:**
+Editing build artifacts directly breaks reproducibility and hides underlying architectural issues. Changes become non-traceable and inconsistent across environments.
+
+**Problem:**
+dist files are manually edited causing non reproducible builds
+
+**Solution:**
+apply all fixes in source and regenerate dist via build process
+
+**Signals:**
+- manual edit
+- inconsistent build
+- hidden bug
+
+**Search Intent:**
+why not edit dist folder build artifacts
+
+**Keywords:**
+dist folder readonly, build artifact immutability, frontend reproducible builds, css build output integrity
 
 ---
 
@@ -43,4 +68,3 @@ Editing files in dist/ creates non-reproducible builds and hides architectural e
 ## Exceptions
 
 None.
-

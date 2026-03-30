@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** design-system, css, theming
 **Version:** 1.0.0  
 **Date:** 2026-01-26
+
+**Category:** design-system
+**Tags:** css, variables, scope, theming
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect CSS variable scope prevents variables from resolving at runtime, leading to silent failures and broken themes. Scope alignment between definition and mapping is mandatory.
+
+**Problem:**
+css variables defined in wrong scope resolve to empty values
+
+**Solution:**
+define variable mappings in the same selector scope as source variables
+
+**Signals:**
+- empty css variable
+- theme not applied
+- silent css failure
+
+**Search Intent:**
+why css var returns empty value
+
+**Keywords:**
+css variable scope issue, css var undefined root, theming variable scope, css cascade variable resolution
 
 ---
 

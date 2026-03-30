@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** governance, architecture, design-system
 **Version:** 1.0.0  
 **Date:** 2026-01-29
+
+**Category:** governance
+**Tags:** governance, architecture, contracts, design-system
+**Language:** EN
+
+---
+
+**Intro:**
+Decisions made outside governance create drift, inconsistency, and duplicated logic. The system loses determinism and becomes difficult to maintain.
+
+**Problem:**
+multiple layers define rules instead of central governance causing inconsistency
+
+**Solution:**
+route all contract resolution and validation exclusively through governance layer
+
+**Signals:**
+- logic duplication
+- inconsistency
+- drift
+
+**Search Intent:**
+how to enforce single source of truth governance
+
+**Keywords:**
+governance architecture pattern, single source of truth design system, frontend governance enforcement, contract resolution architecture
 
 ---
 
@@ -159,4 +184,3 @@ With governance:
 ---
 
 **If it is not governed, it is not canon.**
-

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** tokens, css, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, css, themes, specificity
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect token placement in CSS creates specificity conflicts and prevents themes from overriding values. Mixing structural and color tokens leads to unpredictable behavior.
+
+**Problem:**
+color tokens in root prevent themes from overriding values
+
+**Solution:**
+separate structural tokens in root and color tokens in theme selectors
+
+**Signals:**
+- theme override fail
+- color mismatch
+- specificity conflict
+
+**Search Intent:**
+how to fix css token specificity
+
+**Keywords:**
+css token architecture, theme specificity css, design system tokens separation, css variable override issue
 
 ---
 

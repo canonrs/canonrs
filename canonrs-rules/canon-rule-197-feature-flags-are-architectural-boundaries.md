@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, build
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** governance
+**Tags:** feature-flags, architecture, build, boundaries
+**Language:** EN
+
+---
+
+**Intro:**
+Using feature flags as conditional shortcuts breaks architectural boundaries and introduces cross-target leakage. Flags must define strict separation.
+
+**Problem:**
+feature flags are misused causing cross target code leakage and instability
+
+**Solution:**
+treat feature flags as hard architectural boundaries defining code location
+
+**Signals:**
+- type mismatch
+- duplicate crates
+- hydration panic
+
+**Search Intent:**
+how to use feature flags as architecture boundaries
+
+**Keywords:**
+feature flags architecture rust, ssr csr boundary enforcement, build graph separation, frontend feature flag misuse
 
 ---
 

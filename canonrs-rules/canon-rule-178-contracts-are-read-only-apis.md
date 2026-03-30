@@ -2,9 +2,34 @@
 
 **Status:** DEPRECATED  
 **Severity:** NONE  
-**Scope:** governance
 **Version:** 1.0.0
 **Date:** 2026-02-03  
+
+**Category:** governance
+**Tags:** contracts, api, governance, deprecation
+**Language:** EN
+
+---
+
+**Intro:**
+Deprecated rules must not be referenced or extended to avoid fragmentation of authority. Only canonical rules define current behavior.
+
+**Problem:**
+deprecated rules are referenced causing fragmentation and duplication
+
+**Solution:**
+reference only canonical active rules and ignore deprecated ones
+
+**Signals:**
+- duplicate rule
+- confusion
+- invalid reference
+
+**Search Intent:**
+how to handle deprecated rules in architecture
+
+**Keywords:**
+deprecated rules governance, canonical rule authority, api contract deprecation pattern, design system rule versioning
 
 ---
 

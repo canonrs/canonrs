@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** MEDIUM  
-**Scope:** hydration, ssr
 **Version:** 1.0.0  
 **Date:** 2026-01-14
+
+**Category:** governance
+**Tags:** debugging, ssr, hydration
+**Language:** EN
+
+---
+
+**Intro:**
+Differences between development and production behavior often indicate hydration timing issues. Recognizing this pattern reduces debugging time.
+
+**Problem:**
+developers misdiagnose issues caused by hydration order differences
+
+**Solution:**
+use heuristic to identify hydration timing problems early
+
+**Signals:**
+- works in prod fails in dev
+- no errors
+- inconsistent behavior
+
+**Search Intent:**
+why app works in prod but
+
+**Keywords:**
+ssr debug heuristic, hydration timing issue, dev vs prod behavior, leptos hydration debugging
 
 ---
 
@@ -46,4 +71,3 @@ No JS errors
 
 - Canon Rule #87 — Leptos SSR Script Placement
 - Canon Rule #90 — Hydration Is DOM Replacement
-

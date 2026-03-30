@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** architecture, workspace
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** component-architecture
+**Tags:** dependencies, graph, architecture, workspace
+**Language:** EN
+
+---
+
+**Intro:**
+Circular dependencies break build stability and violate architectural layering. Dependency graph must remain acyclic.
+
+**Problem:**
+dependency cycles exist causing instability and architectural violations
+
+**Solution:**
+enforce directed acyclic graph with strict dependency direction
+
+**Signals:**
+- cycle detected
+- build instability
+- resolution error
+
+**Search Intent:**
+how to fix circular dependency rust workspace
+
+**Keywords:**
+rust dependency cycle fix, workspace graph acyclic, cargo dependency cycle error, frontend architecture layering
 
 ---
 

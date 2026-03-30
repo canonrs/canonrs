@@ -2,9 +2,35 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** layout
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** layout, shell, zone, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Layouts without strict classification mix structure with business logic, creating tightly coupled and untestable systems. This breaks reuse and introduces hidden dependencies.
+
+**Problem:**
+layouts mix structure with logic causing tight coupling and poor reuse
+
+**Solution:**
+enforce shell and zone layout types with strict structural-only responsibilities
+
+**Signals:**
+- layout with api calls
+- auth logic in layout
+- state in layout
+- non reusable layout
+
+**Search Intent:**
+how to separate layout and logic architecture
+
+**Keywords:**
+layout shell zone pattern, leptos layout architecture, separation layout business logic, structural layout contracts
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, css
 **Version:** 1.0.0
 **Date:** 2026-01-17
+
+**Category:** component-architecture
+**Tags:** visual, ownership, css, components
+**Language:** EN
+
+---
+
+**Intro:**
+Multiple layers rendering the same visual signal cause conflicts and unpredictable UI behavior. Visual responsibility must be uniquely assigned to a single component.
+
+**Problem:**
+multiple elements render the same visual signal causing conflicts
+
+**Solution:**
+assign a single component as the visual authority for each signal
+
+**Signals:**
+- duplicate borders
+- misaligned visuals
+- css conflicts
+
+**Search Intent:**
+how to fix duplicate visual signals
+
+**Keywords:**
+visual authority ui pattern, duplicate ui signals, css ownership conflict, component visual ownership
 
 ---
 

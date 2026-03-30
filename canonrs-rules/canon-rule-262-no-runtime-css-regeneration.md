@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** build, architecture
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** build-tooling
+**Tags:** css, runtime, build, determinism
+**Language:** EN
+
+---
+
+**Intro:**
+Runtime css generation introduces nondeterminism and hydration issues. Styles must be fully static.
+
+**Problem:**
+css is generated or mutated at runtime causing inconsistency and mismatch
+
+**Solution:**
+generate css only at build time and serve as static artifact
+
+**Signals:**
+- hydration mismatch
+- style drift
+- cache inconsistency
+
+**Search Intent:**
+why css should not be generated at runtime
+
+**Keywords:**
+runtime css generation problem, static css build architecture, frontend deterministic styling, avoid dynamic css injection
 
 ---
 

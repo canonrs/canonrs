@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** ssr, hydration
 **Version:** 1.0.0  
 **Date:** 2026-01-27
+
+**Category:** core-runtime
+**Tags:** hydration, ssr, effects, dom
+**Language:** EN
+
+---
+
+**Intro:**
+Executing DOM effects during SSR causes mismatches and runtime failures. Effects must run only in hydration context to preserve deterministic rendering.
+
+**Problem:**
+dom effects run during ssr causing hydration mismatch
+
+**Solution:**
+guard all dom effects with hydrate feature or runtime checks
+
+**Signals:**
+- hydration mismatch
+- runtime error
+- dom panic
+
+**Search Intent:**
+how to prevent dom effects in ssr
+
+**Keywords:**
+ssr dom effects issue, hydrate feature rust leptos, dom mutation ssr error, hydration safe effects
 
 ---
 

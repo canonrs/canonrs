@@ -4,12 +4,36 @@
 
 
 **Severity:** HIGH
-**Scope:** tokens, theming, providers
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** design-system
+**Tags:** theming, tokens, dom, signals
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Theme state in Rust signals does not affect CSS unless synchronized to the DOM. Without updating attributes like data-theme, styles based on selectors never activate.
+
+**Problem:**
+theme state is not reflected in dom attributes so css does not apply
+
+**Solution:**
+sync theme signals to dom attributes using client side effect
+
+**Signals:**
+- theme not applying
+- missing data-theme
+- css tokens inactive
+
+**Search Intent:**
+why data-theme not applied leptos
+
+**Keywords:**
+leptos themeprovider dom sync, data theme attribute css, leptos theming signals dom, css tokens not applying
+
+---
 
 ---
 

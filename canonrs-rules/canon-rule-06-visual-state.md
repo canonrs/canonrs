@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, css, state, theming
+**Language:** EN
+
+---
+
+**Intro:**
+Coupling component state with visual styling breaks theming, dark mode, and design system evolution. Inline styles and hardcoded colors prevent scalable UI architecture.
+
+**Problem:**
+components mix state and styling causing theme and css inconsistencies
+
+**Solution:**
+expose state via data attributes and delegate visuals to css tokens
+
+**Signals:**
+- theme break
+- dark mode fail
+- style drift
+
+**Search Intent:**
+how to separate state and style
+
+**Keywords:**
+leptos visual state pattern, css data attributes state, design system tokens usage, tailwind semantic tokens
 
 ---
 

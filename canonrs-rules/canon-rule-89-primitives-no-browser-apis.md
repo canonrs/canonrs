@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** primitives, ssr
 **Version:** 1.0.0  
 **Date:** 2026-01-14
+
+**Category:** component-architecture
+**Tags:** primitives, ssr, browser
+**Language:** EN
+
+---
+
+**Intro:**
+Accessing browser APIs inside primitives breaks SSR compatibility and violates architectural separation. Primitives must remain environment-agnostic.
+
+**Problem:**
+primitives access browser apis causing ssr and hydration issues
+
+**Solution:**
+restrict primitives to html and delegate behavior to runtime js
+
+**Signals:**
+- window usage in primitives
+- hydration errors
+- ssr breakage
+
+**Search Intent:**
+why primitives should not use browser apis
+
+**Keywords:**
+no browser api primitives, ssr safe components design, leptos primitives architecture, separation runtime js
 
 ---
 
@@ -56,4 +81,3 @@ Any browser API reference inside `primitives/` is a hard violation.
 
 - Canon Rule #87 — Leptos SSR Script Placement
 - Canon Rule #91 — Markdown Is Render-Only
-

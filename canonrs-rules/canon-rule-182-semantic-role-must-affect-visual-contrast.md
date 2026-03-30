@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** design-system, tokens
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** tokens, ui, contrast, accessibility
+**Language:** EN
+
+---
+
+**Intro:**
+When semantic roles share identical visuals, users cannot distinguish context or feedback. Visual contrast must reflect semantic meaning.
+
+**Problem:**
+different semantic roles share identical visuals causing user confusion
+
+**Solution:**
+ensure each semantic role has distinct visual contrast and background
+
+**Signals:**
+- no contrast
+- user confusion
+- semantic collapse
+
+**Search Intent:**
+how to enforce visual contrast for semantic roles
+
+**Keywords:**
+semantic contrast ui design, design system visual hierarchy, feedback vs surface styling, ui contrast semantics
 
 ---
 

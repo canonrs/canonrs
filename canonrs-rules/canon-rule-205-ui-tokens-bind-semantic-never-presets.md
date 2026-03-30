@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** components, tokens
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** tokens, semantic, css, components
+**Language:** EN
+
+---
+
+**Intro:**
+Direct binding to preset tokens bypasses context resolution and breaks theme behavior. Semantic layer must remain the abstraction boundary.
+
+**Problem:**
+family tokens reference preset tokens directly bypassing semantic layer
+
+**Solution:**
+bind ui tokens exclusively to semantic tokens not preset tokens
+
+**Signals:**
+- theme ignored
+- context loss
+- token bypass
+
+**Search Intent:**
+how to enforce semantic token binding in ui
+
+**Keywords:**
+semantic token binding ui, design system token layering, preset vs semantic tokens, css token architecture
 
 ---
 

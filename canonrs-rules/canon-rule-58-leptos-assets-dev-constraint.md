@@ -4,9 +4,34 @@
 
 
 **Severity:** MEDIUM
-**Scope:** leptos, build
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** leptos, assets, dev-server
+**Language:** EN
+
+---
+
+**Intro:**
+Leptos dev server silently fails to serve nested asset paths, returning placeholder responses. Only first-level files in the assets directory are valid during development.
+
+**Problem:**
+nested asset paths are not served causing missing css and silent failures
+
+**Solution:**
+copy compiled assets to root of assets directory and reference directly
+
+**Signals:**
+- 1 byte css file
+- missing styles in dev
+- assets not loading
+
+**Search Intent:**
+why leptos dev server does not
+
+**Keywords:**
+leptos assets dir limitation, css not loading leptos dev, leptos public folder rules, tailwind leptos dev fix
 
 ---
 
@@ -66,4 +91,3 @@ This is **Leptos behavior**, not a tooling bug.
 - [ ] CSS file exists in `public/*.css`
 - [ ] No CSS referenced from subfolders
 - [ ] Dev server restarted after adding asset
-

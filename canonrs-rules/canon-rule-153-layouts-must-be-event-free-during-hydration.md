@@ -2,11 +2,38 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** hydration, layout, ssr
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** core-runtime
+**Tags:** hydration, layout, ssr, events
+**Language:** EN
+
 ---
+
+**Intro:**
+Attaching DOM event listeners inside layouts during SSR hydration causes non-deterministic runtime failures due to unstable DOM nodes. This leads to panics and inconsistent behavior.
+
+**Problem:**
+event listeners in layouts during hydration cause runtime mismatch and failures
+
+**Solution:**
+remove all event bindings from layouts and delegate to csr controllers or ui
+
+**Signals:**
+- unreachable panic
+- callback removed
+- hydration failure
+- dom instability
+
+**Search Intent:**
+why events break during hydration leptos
+
+**Keywords:**
+leptos hydration event issue, layout event listener ssr, hydration callback error, ssr event timing problem
+
+---
+
 ## Status
 **Mandatory**
 
@@ -137,4 +164,3 @@ Any Layout or Shell containing DOM events is considered **architecturally invali
 > UI renders visuals.  
 > Controllers handle behavior.  
 > Hydration must be silent.
-

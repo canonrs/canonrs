@@ -2,13 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** interactive, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** callbacks, ownership, closures, rust
+**Language:** EN
+
 ---
 
+**Intro:**
+Using the same value across multiple callbacks causes move errors due to ownership rules in Rust. This leads to compilation failures and incorrect closure behavior.
 
+**Problem:**
+values moved into one callback cannot be reused in others
+
+**Solution:**
+clone values before each callback to ensure independent ownership
+
+**Signals:**
+- use of moved value
+- e0382 error
+- closure failure
+
+**Search Intent:**
+how to fix rust moved value
+
+**Keywords:**
+rust closure ownership error, leptos callback clone pattern, use of moved value fix, multi callback ownership rust
+
+---
 
 ---
 

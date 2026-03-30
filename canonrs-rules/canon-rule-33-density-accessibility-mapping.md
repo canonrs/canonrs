@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** accessibility, tokens
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -81,11 +80,11 @@ Density modes scale UI elements proportionally while maintaining **WCAG 2.1 AA a
   [data-density="compact"] {
     --density-multiplier: 1.1; /* 44px = 40px * 1.1 */
   }
-  
+
   [data-density="comfortable"] {
     --density-multiplier: 1.1;
   }
-  
+
   [data-density="spacious"] {
     --density-multiplier: 1.4; /* 56px */
   }
@@ -157,7 +156,7 @@ box-shadow: var(--shadow-md);
   height: calc(var(--size-control-md) * var(--density-multiplier));
   padding-inline: calc(var(--space-lg) * var(--density-multiplier));
   gap: calc(var(--space-sm) * var(--density-multiplier));
-  
+
   /* Does NOT scale */
   font-size: var(--font-size-sm);
   border-width: var(--border-width-thin);
@@ -194,6 +193,34 @@ box-shadow: var(--shadow-md);
 ```
 
 **Results:**
+**Category:** accessibility
+**Tags:** density, tokens, wcag, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect density scaling can break accessibility and usability across devices. Density must respect WCAG constraints.
+
+**Problem:**
+ui density scaling breaks accessibility requirements and usability constraints
+
+**Solution:**
+apply density scaling using tokens while enforcing wcag compliant touch targets and text sizes
+
+**Signals:**
+- small touch target
+- text unreadable
+- layout overflow
+
+**Search Intent:**
+how to scale ui density accessibly
+
+**Keywords:**
+density scaling accessibility wcag, ui density tokens design system, touch target minimum size, responsive density mapping
+
+---
+
 | Density | Row Height | Cell Padding |
 |---------|------------|--------------|
 | Compact | 30px | 6px |
@@ -306,10 +333,10 @@ box-shadow: var(--shadow-md);
 fn test_density_compliance() {
     // Compact minimum
     assert!(calculate_size("compact") >= 30.0);
-    
+
     // Mobile minimum
     assert!(calculate_touch_target("compact", "coarse") >= 44.0);
-    
+
     // Spacious maximum (reasonable limit)
     assert!(calculate_size("spacious") <= 60.0);
 }
@@ -376,7 +403,7 @@ pub fn Button(
         // Fixed size (density-independent)
         "h-10 px-6"
     };
-    
+
     view! {
         <button class=base_class>
             {children()}
@@ -393,5 +420,4 @@ pub fn Button(
 - [Material Design: Touch Targets](https://material.io/design/usability/accessibility.html#layout-and-typography)
 - [Canon Rule #24: Density & Size Scaling](./canon-rule-24-density-size-scaling.md)
 - [Canon Rule #31: Accessibility Contract](./canon-rule-31-accessibility-contract.md)
-
 

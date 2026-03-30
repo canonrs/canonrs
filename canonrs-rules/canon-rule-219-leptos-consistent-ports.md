@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** leptos, workspace
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** ports, leptos, workspace, config
+**Language:** EN
+
+---
+
+**Intro:**
+Port mismatches between workspace and product configs cause runtime inconsistency and broken development workflows. Configuration must be deterministic.
+
+**Problem:**
+ports differ between workspace and local config causing runtime inconsistency
+
+**Solution:**
+ensure site addr and reload port match across all configurations
+
+**Signals:**
+- wrong port
+- connection refused
+- reload failure
+
+**Search Intent:**
+how to fix leptos port mismatch config
+
+**Keywords:**
+leptos port mismatch, workspace config alignment, frontend dev server port, cargo leptos serve issue
 
 ---
 

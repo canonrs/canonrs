@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** css, primitives, tokens
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** design-system
+**Tags:** primitives, tokens, css, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding design tokens directly in Rust primitives breaks token cascade and theming flexibility. Visual decisions must remain in the CSS layer.
+
+**Problem:**
+design tokens are hardcoded in rust primitives breaking theming and token cascade
+
+**Solution:**
+move all visual decisions to css using data attributes and token system
+
+**Signals:**
+- inline styles
+- var(-- usage in rust
+- hardcoded classes
+
+**Search Intent:**
+how to prevent hardcoded design tokens in components
+
+**Keywords:**
+design tokens rust primitives, css token separation architecture, avoid inline styles components, data attribute styling system
 
 ---
 

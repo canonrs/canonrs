@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** cli, workspace
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** governance
+**Tags:** cli, workspace, determinism, build
+**Language:** EN
+
+---
+
+**Intro:**
+Non idempotent cli operations cause unstable builds and unnecessary diffs. Outputs must remain deterministic.
+
+**Problem:**
+cli operations produce different outputs on repeated runs causing instability
+
+**Solution:**
+ensure cli sync produces identical results across executions
+
+**Signals:**
+- git diff
+- unstable output
+- rebuild loop
+
+**Search Intent:**
+how to make cli operations idempotent
+
+**Keywords:**
+cli idempotent operations, deterministic build output, workspace sync stability, frontend cli consistency
 
 ---
 

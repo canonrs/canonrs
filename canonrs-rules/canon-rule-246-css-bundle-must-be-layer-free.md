@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** css, build
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** build-tooling
+**Tags:** css, bundle, build, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Layer directives in final css introduce runtime instability and tool interference. Bundle must be flattened.
+
+**Problem:**
+css bundle contains layer or import directives causing instability
+
+**Solution:**
+flatten bundle fully and remove all structural directives
+
+**Signals:**
+- layer directive
+- import leak
+- runtime instability
+
+**Search Intent:**
+how to remove css layer directives bundle
+
+**Keywords:**
+css bundle flattening, remove @layer css build, frontend css artifact generation, design system css build output
 
 ---
 

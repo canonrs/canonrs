@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** LOW
-**Scope:** components, state
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** governance
+**Tags:** demo, state, documentation, patterns
+**Language:** EN
+
+---
+
+**Intro:**
+Using production-grade patterns in demos introduces unnecessary complexity and hides the core concept being demonstrated. Demo components should prioritize clarity over architectural correctness.
+
+**Problem:**
+demo components mimic production patterns causing unnecessary complexity and confusion
+
+**Solution:**
+use simple signals and direct state mutation for demos while isolating them from production code
+
+**Signals:**
+- resource in demo
+- fake async logic
+- over engineered examples
+
+**Search Intent:**
+how to structure demo components without production complexity
+
+**Keywords:**
+demo vs production components, leptos signals demo pattern, avoid over engineering examples, ui documentation patterns
 
 ---
 
@@ -439,4 +464,3 @@ The best demos make complex things look simple. Production code makes simple thi
 
 
 ---
-

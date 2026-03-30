@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** ssr, architecture
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** core-runtime
+**Tags:** bootstrap, runtime, ssr, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing application logic into bootstrap breaks determinism and entangles SSR CSR execution paths. Runtime initialization must remain isolated.
+
+**Problem:**
+main rs contains application logic causing coupling and instability
+
+**Solution:**
+restrict main rs to runtime initialization and server bootstrap only
+
+**Signals:**
+- logic in main
+- feature entanglement
+- bootstrap error
+
+**Search Intent:**
+how to separate runtime bootstrap from app logic
+
+**Keywords:**
+main rs bootstrap pattern, runtime initialization separation, ssr architecture rust, frontend bootstrap isolation
 
 ---
 

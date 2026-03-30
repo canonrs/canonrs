@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** CRITICAL
-**Scope:** build, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** build-tooling
+**Tags:** tailwind, css, build, rust
+**Language:** EN
+
+---
+
+**Intro:**
+Tailwind jit cannot parse rust syntax for arbitrary values, causing missing utilities and styling failures. Pre compilation is required.
+
+**Problem:**
+tailwind jit fails to parse rust syntax causing missing styles
+
+**Solution:**
+predefine all utilities in css and avoid arbitrary values in rust code
+
+**Signals:**
+- missing utility
+- css not generated
+- jit fail
+
+**Search Intent:**
+how to use tailwind with rust leptos
+
+**Keywords:**
+tailwind rust integration, jit rust parsing issue, css utility precompile, frontend tailwind architecture
 
 ---
 

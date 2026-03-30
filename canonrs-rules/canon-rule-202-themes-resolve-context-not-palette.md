@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** tokens, theming
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** themes, tokens, css, context
+**Language:** EN
+
+---
+
+**Intro:**
+Themes defining color values override presets and break palette consistency. Themes must only map semantic meaning to preset values.
+
+**Problem:**
+themes define color values directly causing palette inconsistency
+
+**Solution:**
+themes must reference preset tokens and never define color values
+
+**Signals:**
+- theme override
+- duplicate color
+- semantic drift
+
+**Search Intent:**
+how to separate themes from color palette
+
+**Keywords:**
+theme vs preset separation, design system context mapping, css theme architecture, semantic token mapping
 
 ---
 

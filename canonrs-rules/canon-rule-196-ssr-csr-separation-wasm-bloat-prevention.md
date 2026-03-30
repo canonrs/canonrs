@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, build, wasm
 **Version:** 1.0.0  
 **Date:** 2026-02-02
+
+**Category:** build-tooling
+**Tags:** wasm, ssr, csr, build
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing SSR and CSR code causes large WASM bundles, increased build time, and runtime inefficiency. Clear separation ensures optimal performance.
+
+**Problem:**
+ssr and csr code are compiled together causing wasm bloat and inefficiency
+
+**Solution:**
+separate modules strictly by compilation target using feature flags
+
+**Signals:**
+- large wasm
+- slow build
+- memory bloat
+
+**Search Intent:**
+how to reduce wasm size by
+
+**Keywords:**
+wasm bloat prevention, ssr csr separation rust, leptos feature flags wasm, frontend wasm optimization
 
 ---
 

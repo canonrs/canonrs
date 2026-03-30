@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** state, ui, architecture
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** state-reactivity
+**Tags:** ui, state, callbacks, architecture
+**Language:** EN
+
 ---
+
+**Intro:**
+Implicit global state mutations hide side effects and reduce predictability. UI components must expose behavior via explicit callbacks instead of mutating shared state directly.
+
+**Problem:**
+ui components mutate global state implicitly causing hidden side effects
+
+**Solution:**
+enforce explicit callbacks for all state mutations from ui components
+
+**Signals:**
+- hidden state change
+- implicit side effect
+- context mutation in ui
+
+**Search Intent:**
+how to avoid implicit state mutation ui
+
+**Keywords:**
+explicit callbacks ui pattern, avoid implicit state mutation, leptos ui state handling, callback driven state architecture
+
+---
+
 ## Context
 Implicit global state mutation hides side effects and breaks predictability.
 UI components must be transparent: behavior is explicit via callbacks.

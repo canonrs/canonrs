@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** design-system, tokens
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** tokens, naming, css, validation
+**Language:** EN
+
+---
+
+**Intro:**
+Inconsistent token naming breaks references between layers and causes silent styling failures. Standardized suffixes ensure predictable token resolution.
+
+**Problem:**
+semantic tokens use inconsistent suffixes causing lookup failures
+
+**Solution:**
+enforce only canonical suffixes bg fg and border for semantic tokens
+
+**Signals:**
+- missing style
+- token mismatch
+- naming drift
+
+**Search Intent:**
+how to standardize semantic token naming css
+
+**Keywords:**
+semantic token naming pattern, css token suffix rules, design system naming convention, token validation css
 
 ---
 

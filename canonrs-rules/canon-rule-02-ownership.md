@@ -2,12 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** leptos, state, primitives
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** ownership, signals, storedvalue, closures
+**Language:** EN
+
 ---
 
+**Intro:**
+Incorrect ownership handling in Leptos causes move errors, broken reactivity, and invalid closures. Passing non-reactive data or using improper children types leads to rendering inconsistencies and runtime failures.
+
+**Problem:**
+improper ownership and reactive patterns break closures and rendering
+
+**Solution:**
+use StoredValue, ChildrenFn, and move closures for correct ownership and reactivity
+
+**Signals:**
+- move error
+- fnonce error
+- stale data
+
+**Search Intent:**
+how to fix leptos ownership errors
+
+**Keywords:**
+leptos ownership rules, storedvalue leptos usage, childrenfn leptos reactivity, leptos move closure pattern
+
+---
 
 ## Rule #1: StoredValue is DEFAULT
 

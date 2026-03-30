@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** leptos, state
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** state-reactivity
+**Tags:** children, ownership, closure, leptos
+**Language:** EN
+
+---
+
+**Intro:**
+Passing Children across layers causes move errors and closure violations because Children is FnOnce. This breaks SSR rendering and introduces ownership complexity.
+
+**Problem:**
+children is forwarded across layers causing ownership and fnonce errors
+
+**Solution:**
+consume children immediately at the closest render point
+
+**Signals:**
+- move error
+- fnonce closure
+- render failure
+
+**Search Intent:**
+how to fix children ownership issues in leptos
+
+**Keywords:**
+leptos children fnonce issue, children ownership rust ui, view macro children error, reactive rendering children leptos
 
 ---
 

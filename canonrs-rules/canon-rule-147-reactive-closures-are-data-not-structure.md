@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** leptos, ssr, ui
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** state-reactivity
+**Tags:** closures, reactivity, ssr, ui
+**Language:** EN
+
 ---
+
+**Intro:**
+Reactive closures evaluated differently in SSR and CSR cause structural instability when used for rendering decisions. They must be limited to data binding only.
+
+**Problem:**
+reactive closures used for structure cause hydration mismatch and instability
+
+**Solution:**
+restrict reactive closures to data binding and use Show for structure
+
+**Signals:**
+- hydration mismatch
+- unstable dom
+- render inconsistency
+
+**Search Intent:**
+how to use reactive closures correctly leptos
+
+**Keywords:**
+reactive closures leptos rules, data binding vs structure, leptos show conditional rendering, hydration safe closures
+
+---
+
 ## Context
 Reactive closures in Leptos are evaluated at different times in SSR and CSR.
 Using them to control DOM structure or textual nodes creates instability.

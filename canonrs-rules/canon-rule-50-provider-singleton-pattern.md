@@ -3,9 +3,35 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** providers, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** state-reactivity
+**Tags:** providers, context, runtime, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Duplicating providers creates parallel reactive contexts leading to invisible bugs and broken interactions. Provider lifecycle must be controlled centrally.
+
+**Problem:**
+duplicate providers create inconsistent contexts and break interaction flow
+
+**Solution:**
+enforce single provider per interaction scope and restrict creation to app layer
+
+**Signals:**
+- context mismatch
+- silent failure
+- drag drop broken
+- multiple providers
+
+**Search Intent:**
+why duplicate providers break context
+
+**Keywords:**
+provider singleton pattern, leptos context duplication, reactive runtime separation, provider scope architecture
 
 ---
 
@@ -431,4 +457,3 @@ When drag & drop doesn't work:
 - Test components with and without providers
 
 ---
-

@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** ssr, hydration, ui
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** core-runtime
+**Tags:** ssr, hydration, ui, content
+**Language:** EN
+
 ---
+
+**Intro:**
+Dynamic content rendered during SSR creates mismatches during hydration due to DOM differences. UI must produce stable content identical across server and client.
+
+**Problem:**
+dynamic content in ssr causes hydration mismatch and runtime errors
+
+**Solution:**
+ensure all rendered content is static during ssr and defer changes to events
+
+**Signals:**
+- hydration panic
+- unreachable error
+- dom mismatch
+
+**Search Intent:**
+how to fix ssr content mismatch
+
+**Keywords:**
+ssr stable content leptos, hydration mismatch content, static rendering ssr ui, leptos ssr content rules
+
+---
+
 ## Context
 Leptos SSR performs DOM walking during hydration.
 Any difference between server-rendered HTML and initial client HTML causes fatal hydration errors.

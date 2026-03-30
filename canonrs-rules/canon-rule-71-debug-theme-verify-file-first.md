@@ -4,9 +4,34 @@
 
 
 **Severity:** MEDIUM
-**Scope:** tokens, theming
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** governance
+**Tags:** debugging, css, theme
+**Language:** EN
+
+---
+
+**Intro:**
+Most theming issues originate from missing or broken CSS files, not application logic. Debugging must start by verifying file existence and loading.
+
+**Problem:**
+developers debug application logic before verifying css file existence
+
+**Solution:**
+always validate css file existence serving and content before debugging code
+
+**Signals:**
+- missing css
+- 404 stylesheet
+- theme not applying
+
+**Search Intent:**
+how to debug theme issues in leptos
+
+**Keywords:**
+debug css file first, leptos theme debugging, missing css file fix, verify stylesheet loading
 
 ---
 

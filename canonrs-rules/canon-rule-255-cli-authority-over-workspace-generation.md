@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** cli, workspace
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** governance
+**Tags:** cli, workspace, architecture, generation
+**Language:** EN
+
+---
+
+**Intro:**
+Manual workspace edits break determinism and architecture control. Generation must be centralized.
+
+**Problem:**
+workspace structure is modified manually causing instability and drift
+
+**Solution:**
+delegate all workspace generation exclusively to cli
+
+**Signals:**
+- config drift
+- build mismatch
+- manual override
+
+**Search Intent:**
+why cli should control workspace generation
+
+**Keywords:**
+workspace generation cli control, build topology governance, frontend monorepo cli authority, cargo workspace automation
 
 ---
 
@@ -49,4 +74,3 @@ If users edit this structure manually, architectural determinism is lost.
 ---
 
 This rule ensures CanonRS governs build topology, not the application.
-

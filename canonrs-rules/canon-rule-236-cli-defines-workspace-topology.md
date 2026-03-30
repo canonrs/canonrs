@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** cli, workspace, architecture
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** governance
+**Tags:** cli, workspace, architecture, topology
+**Language:** EN
+
+---
+
+**Intro:**
+Manual workspace structure changes cause instability and break architectural guarantees. Topology must be controlled centrally.
+
+**Problem:**
+workspace structure is modified manually causing inconsistency and breakage
+
+**Solution:**
+delegate all workspace topology changes exclusively to cli
+
+**Signals:**
+- metadata mismatch
+- structure drift
+- build failure
+
+**Search Intent:**
+how to enforce cli workspace topology
+
+**Keywords:**
+workspace topology cli control, cargo workspace structure governance, frontend monorepo architecture, build system topology control
 
 ---
 

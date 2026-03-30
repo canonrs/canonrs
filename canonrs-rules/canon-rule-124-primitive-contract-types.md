@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** primitives
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** primitives, contracts, ssr, types
+**Language:** EN
+
+---
+
+**Intro:**
+Primitives without strict contracts accumulate state, styling, and logic, breaking SSR safety and type clarity. Hybrid primitives introduce coupling and unpredictable behavior.
+
+**Problem:**
+primitives contain logic state or type conversion violating architectural boundaries
+
+**Solution:**
+enforce pure interactive or container primitive types with strict no state no conversion rules
+
+**Signals:**
+- primitive with state
+- prop into usage
+- unwrap in primitive
+
+**Search Intent:**
+how to define primitive components correctly
+
+**Keywords:**
+primitive component rules, ssr safe primitives leptos, no prop into pattern rust, design system primitive types
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, workspace
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** governance
+**Tags:** shared, runtime, contracts, workspace
+**Language:** EN
+
+---
+
+**Intro:**
+Adding runtime dependencies to shared crates breaks portability and contaminates architecture. Shared must remain pure contract layer.
+
+**Problem:**
+shared crates include runtime dependencies causing architecture leakage
+
+**Solution:**
+restrict shared crates to pure types with no runtime dependencies
+
+**Signals:**
+- runtime import
+- dependency leak
+- build failure
+
+**Search Intent:**
+how to keep shared crates runtime agnostic
+
+**Keywords:**
+shared crate architecture rust, zero dependency runtime pattern, contract layer design, workspace isolation rules
 
 ---
 

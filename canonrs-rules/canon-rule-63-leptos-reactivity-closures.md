@@ -4,12 +4,36 @@
 
 
 **Severity:** HIGH
-**Scope:** leptos, state
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** leptos, signals, memo, reactivity
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Accessing reactive values outside tracked closures breaks dependency tracking in Leptos. Calling .get() outside reactive contexts results in stale UI and prevents automatic re-rendering.
+
+**Problem:**
+reactive values accessed outside tracking context prevent updates
+
+**Solution:**
+wrap memo and signal access inside closures to ensure reactive tracking
+
+**Signals:**
+- outside reactive context error
+- stale ui
+- memo not updating
+
+**Search Intent:**
+how to fix leptos memo not updating
+
+**Keywords:**
+leptos memo get closure, reactive tracking leptos, signal vs memo leptos, leptos stale ui fix
+
+---
 
 ---
 

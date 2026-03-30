@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** interactive, wasm, build
 **Version:** 1.1.0  
 **Date:** 2026-02-04  
+
+**Category:** build-tooling
+**Tags:** wasm, ssr, features, linking
+**Language:** EN
+
+---
+
+**Intro:**
+Server dependencies leaking into wasm builds cause bloated binaries and runtime failures. Isolation must be enforced at dependency graph level.
+
+**Problem:**
+server dependencies leak into wasm graph causing bloat and invalid builds
+
+**Solution:**
+enforce strict separation of ssr and wasm graphs through features bins and dependency isolation
+
+**Signals:**
+- wasm bloat
+- unexpected dependency
+- build anomaly
+
+**Search Intent:**
+how to isolate ssr from wasm rust
+
+**Keywords:**
+ssr wasm dependency isolation, rust feature graph separation, cargo link graph wasm, leptos ssr csr isolation
 
 ---
 
@@ -194,4 +219,3 @@ This rule enforces:
 Version 1.1 clarifies that leakage is caused by
 feature resolution and bin architecture,
 not merely by `cfg` usage.
-

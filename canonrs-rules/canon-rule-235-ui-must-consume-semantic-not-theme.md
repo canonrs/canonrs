@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** tokens, ui, theming
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** design-system
+**Tags:** tokens, ui, semantic, theming
+**Language:** EN
+
+---
+
+**Intro:**
+Direct theme usage in ui creates coupling and breaks theme abstraction. Semantic layer must remain the interface.
+
+**Problem:**
+ui consumes theme tokens directly causing tight coupling and instability
+
+**Solution:**
+restrict ui to semantic tokens only and isolate theme mapping
+
+**Signals:**
+- theme coupling
+- hardcoded color
+- refactor break
+
+**Search Intent:**
+how to enforce semantic tokens in ui
+
+**Keywords:**
+semantic token ui binding, design system theme separation, css token abstraction layer, frontend token usage pattern
 
 ---
 

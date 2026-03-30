@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** components, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** component-architecture
+**Tags:** components, ui, ssr, forms
+**Language:** EN
+
 ---
+
+**Intro:**
+Confusing Select and Combobox leads to incorrect architectural decisions affecting SSR, performance, and accessibility. These components have distinct responsibilities and cannot be interchanged.
+
+**Problem:**
+select and combobox are used interchangeably causing architectural issues
+
+**Solution:**
+choose explicitly between select and combobox based on requirements
+
+**Signals:**
+- wrong component choice
+- performance issue
+- ux mismatch
+
+**Search Intent:**
+when to use select vs combobox
+
+**Keywords:**
+select vs combobox ui, component choice forms, leptos select combobox, ui component selection rule
+
+---
+
 **Short statement (easy to remember):**  
 Select and Combobox are semantically different components and **MUST NOT be used as substitutes for each other**.
 

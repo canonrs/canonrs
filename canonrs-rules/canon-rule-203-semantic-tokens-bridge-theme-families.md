@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** design-system, tokens, components
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** tokens, semantic, architecture, css
+**Language:** EN
+
+---
+
+**Intro:**
+Skipping semantic tokens couples components directly to palette and breaks context resolution. A strict token cascade is required.
+
+**Problem:**
+components or families bypass semantic tokens causing coupling and context loss
+
+**Solution:**
+enforce semantic tokens as the only bridge between theme and families
+
+**Signals:**
+- token bypass
+- context loss
+- refactor break
+
+**Search Intent:**
+how to enforce semantic token layer design system
+
+**Keywords:**
+semantic token architecture, design system token cascade, frontend dependency inversion tokens, css token layering pattern
 
 ---
 

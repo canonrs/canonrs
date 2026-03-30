@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** leptos, wasm, build
 **Version:** 1.0.0  
 **Date:** 2026-01-14
+
+**Category:** build-tooling
+**Tags:** wasm, leptos, performance
+**Language:** EN
+
+---
+
+**Intro:**
+Debug-mode WASM builds are too large and slow for interactive development, causing browser freezes and misleading debugging. Development must use optimized builds.
+
+**Problem:**
+debug wasm builds cause large binaries and browser stalls
+
+**Solution:**
+use release mode for leptos wasm development builds
+
+**Signals:**
+- browser freeze
+- slow hydration
+- large wasm size
+
+**Search Intent:**
+why wasm dev build is slow leptos
+
+**Keywords:**
+leptos wasm release mode, wasm debug build size issue, browser stall wasm, cargo leptos watch release
 
 ---
 

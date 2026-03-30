@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** ssr, state
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** core-runtime
+**Tags:** ssr, async, executor, streaming
+**Language:** EN
+
+---
+
+**Intro:**
+Streaming SSR fails silently or crashes when no async executor is initialized. Deterministic scheduling requires explicit executor setup.
+
+**Problem:**
+streaming ssr runs without executor causing runtime failures
+
+**Solution:**
+initialize async executor explicitly before rendering
+
+**Signals:**
+- runtime panic
+- stream hang
+- async failure
+
+**Search Intent:**
+how to fix streaming ssr executor init
+
+**Keywords:**
+streaming ssr executor rust, async executor initialization, leptos streaming issue, tokio executor setup
 
 ---
 

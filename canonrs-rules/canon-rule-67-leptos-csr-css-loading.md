@@ -4,9 +4,34 @@
 
 
 **Severity:** CRITICAL
-**Scope:** leptos, csr, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** core-runtime
+**Tags:** leptos, csr, css, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+In CSR mode, Leptos does not inject CSS using the Stylesheet component. Applications relying on it fail to load styles because no HTML link tag is created.
+
+**Problem:**
+stylesheet component does not inject css in csr mode
+
+**Solution:**
+load css via html link tags instead of stylesheet component in csr
+
+**Signals:**
+- no styles loaded
+- stylesheet ignored
+- unstyled csr app
+
+**Search Intent:**
+why leptos stylesheet not working in csr
+
+**Keywords:**
+leptos csr stylesheet issue, css not loading leptos csr, leptos meta stylesheet csr, html link css leptos
 
 ---
 

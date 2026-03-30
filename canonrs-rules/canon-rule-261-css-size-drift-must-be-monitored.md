@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** css, build
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** build-tooling
+**Tags:** css, build, performance, monitoring
+**Language:** EN
+
+---
+
+**Intro:**
+Unmonitored css growth leads to performance degradation and architectural decay. Size must be tracked and enforced.
+
+**Problem:**
+css bundle grows silently causing performance issues and bloat
+
+**Solution:**
+define size baseline and enforce limits via ci checks
+
+**Signals:**
+- bundle bloat
+- slow load
+- unexpected growth
+
+**Search Intent:**
+how to monitor css bundle size ci
+
+**Keywords:**
+css bundle size monitoring, frontend performance css size, ci size threshold check, design system css bloat
 
 ---
 

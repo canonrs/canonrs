@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** ui, layout, design-system
 **Version:** 1.0.0
 **Date:** 2026-01-12
+
+**Category:** component-architecture
+**Tags:** flexbox, layout, ui
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect flex ownership causes layout inconsistencies and unpredictable sizing. Flex growth must be controlled by parent and UI layers, not primitives.
+
+**Problem:**
+components define flex behavior internally instead of parent context
+
+**Solution:**
+assign flex responsibility to ui wrappers and parent containers
+
+**Signals:**
+- wrong width calculation
+- flex not growing
+- layout mismatch
+
+**Search Intent:**
+why flex child not growing in layout
+
+**Keywords:**
+flex grow not working, flexbox parent child contract, ui wrapper flex pattern, leptos flex layout issue
 
 ---
 

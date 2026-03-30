@@ -4,12 +4,36 @@
 
 
 **Severity:** HIGH
-**Scope:** hydration, csr
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** core-runtime
+**Tags:** hydration, csr, wasm, ssr
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Accessing browser APIs during SSR causes panics and hydration mismatches in Leptos. Code that depends on window, document, or wasm-specific features must be isolated into client-only runtime islands.
+
+**Problem:**
+browser dependent code executes during ssr causing panic and dom mismatch
+
+**Solution:**
+guard client code with cfg wasm32 and provide ssr safe fallback rendering
+
+**Signals:**
+- unwrap window panic
+- hydration mismatch
+- web_sys used in ssr
+
+**Search Intent:**
+how to prevent leptos ssr panic
+
+**Keywords:**
+leptos ssr panic window, wasm32 cfg leptos, hydration mismatch leptos, client only islands rust
+
+---
 
 ---
 

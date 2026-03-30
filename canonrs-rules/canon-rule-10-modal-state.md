@@ -2,13 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, state
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** modal, signals, state, reactivity
+**Language:** EN
+
 ---
 
+**Intro:**
+Passing static props to modals prevents reactive updates and leads to stale UI data. Modal components must maintain synchronization with parent state to ensure correct behavior.
 
+**Problem:**
+modal props are static and do not react to parent state changes
+
+**Solution:**
+use signal props with local state and guarded effects for synchronization
+
+**Signals:**
+- stale data
+- no update
+- reactivity lost
+
+**Search Intent:**
+how to fix leptos modal state
+
+**Keywords:**
+leptos modal signal props, reactive modal state leptos, signal derive leptos modal, leptos stale props issue
+
+---
 
 ---
 

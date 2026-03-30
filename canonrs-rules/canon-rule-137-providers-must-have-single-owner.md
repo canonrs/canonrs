@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** state, providers
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** state-reactivity
+**Tags:** providers, state, ownership, context
+**Language:** EN
+
+---
+
+**Intro:**
+Multiple provider instantiations create duplicated state and desynchronized UI. A single ownership model is required for consistent state flow.
+
+**Problem:**
+multiple providers create duplicated state and inconsistent ui
+
+**Solution:**
+ensure each provider has a single owning component controlling lifecycle
+
+**Signals:**
+- duplicate provider
+- state desync
+- multiple contexts
+
+**Search Intent:**
+why provider must have single owner
+
+**Keywords:**
+provider single owner pattern, state duplication context issue, leptos provider ownership, context lifecycle architecture
 
 ---
 

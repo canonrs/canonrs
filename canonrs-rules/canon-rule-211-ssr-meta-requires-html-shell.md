@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** ssr, ui
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** core-runtime
+**Tags:** ssr, html, meta, structure
+**Language:** EN
+
+---
+
+**Intro:**
+Missing html shell causes runtime errors and invalid meta rendering. SSR requires explicit document structure.
+
+**Problem:**
+ssr meta is used without html shell causing runtime failure
+
+**Solution:**
+provide explicit html shell with head and body for ssr rendering
+
+**Signals:**
+- runtime panic
+- missing head
+- meta error
+
+**Search Intent:**
+how to fix leptos meta ssr shell error
+
+**Keywords:**
+ssr html shell leptos, meta rendering error ssr, frontend html structure requirement, leptos meta fix
 
 ---
 

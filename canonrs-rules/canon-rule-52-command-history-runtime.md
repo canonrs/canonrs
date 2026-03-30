@@ -4,12 +4,36 @@
 
 
 **Severity:** MEDIUM
-**Scope:** interactive, state
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** command-history, providers, state, runtime
+**Language:** EN
+
 ---
-  
+
+**Intro:**
+Local command histories fragment state management and prevent global undo and replay. A centralized runtime provider is required for consistency across components.
+
+**Problem:**
+local command histories break global undo and state consistency
+
+**Solution:**
+provide a single command history provider at the application root
+
+**Signals:**
+- no global undo
+- duplicate history
+- state inconsistency
+
+**Search Intent:**
+how to implement global command history
+
+**Keywords:**
+command history provider pattern, global undo redo architecture, leptos command history context, shared state command runtime
+
+---
 
 ---
 

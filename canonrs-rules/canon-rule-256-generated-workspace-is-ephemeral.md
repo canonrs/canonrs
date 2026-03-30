@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** workspace, governance
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** governance
+**Tags:** workspace, build, artifacts, determinism
+**Language:** EN
+
+---
+
+**Intro:**
+Treating generated workspace as source code breaks reproducibility and build determinism. It must remain disposable.
+
+**Problem:**
+generated workspace is treated as source causing drift and instability
+
+**Solution:**
+treat workspace as ephemeral artifact and regenerate via cli
+
+**Signals:**
+- manual edit
+- git commit workspace
+- build inconsistency
+
+**Search Intent:**
+why generated workspace should not be versioned
+
+**Keywords:**
+ephemeral workspace build, generated workspace immutability, frontend build artifact governance, cli workspace regeneration
 
 ---
 
@@ -48,4 +73,3 @@ This enforces:
 ---
 
 The workspace exists to isolate CanonRS build mechanics from product code.
-

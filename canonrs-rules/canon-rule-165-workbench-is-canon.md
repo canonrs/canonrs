@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-27
+
+**Category:** governance
+**Tags:** architecture, reference, canon, design
+**Language:** EN
+
+---
+
+**Intro:**
+Ignoring working reference implementations leads to architectural drift and inconsistent decisions. Proven patterns must guide design decisions.
+
+**Problem:**
+architecture ignores working reference leading to inconsistency
+
+**Solution:**
+treat workbench implementation as canonical source of truth
+
+**Signals:**
+- reinventing patterns
+- inconsistency
+- architecture drift
+
+**Search Intent:**
+how to use reference implementation as architecture guide
+
+**Keywords:**
+reference implementation architecture, canonical design patterns, frontend architecture governance, workbench as source of truth
 
 ---
 

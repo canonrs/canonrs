@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** components, state
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** component-architecture
+**Tags:** tree, selection, context, commands
+**Language:** EN
+
+---
+
+**Intro:**
+Coupling navigation components with actions or business logic leads to rigid and non-scalable systems. Tree structures must expose only hierarchy and selection while delegating actions to command systems.
+
+**Problem:**
+tree components execute actions or contain business logic instead of exposing selection
+
+**Solution:**
+separate tree selection from actions using selection context and command registry
+
+**Signals:**
+- tree executes action
+- button inside tree node
+- navigation coupled with logic
+
+**Search Intent:**
+how to decouple tree navigation from
+
+**Keywords:**
+tree selection context pattern, frontend navigation decoupling, command registry contextual actions, hierarchical ui design pattern
 
 ---
 
@@ -996,4 +1021,3 @@ Tree Selection → build_path() → Breadcrumb (render path)
 - ✅ Single source of truth
 
 ---
-

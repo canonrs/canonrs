@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** tokens, state, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** tokens, state, css, interaction
+**Language:** EN
+
+---
+
+**Intro:**
+Using color variants for interaction states breaks theme portability and consistency. State behavior must be standardized via tokens.
+
+**Problem:**
+state styles rely on color variants causing inconsistency across themes
+
+**Solution:**
+use opacity based state tokens and consistent variables for all states
+
+**Signals:**
+- state inconsistency
+- hover mismatch
+- theme break
+
+**Search Intent:**
+how to define state tokens design system
+
+**Keywords:**
+state tokens design system, css hover focus tokens, opacity state pattern, frontend interaction tokens
 
 ---
 

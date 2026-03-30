@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** interactive
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** state-reactivity
+**Tags:** interactive, hooks, container, state
+**Language:** EN
+
+---
+
+**Intro:**
+Global hook binding breaks isolation and introduces cross component interference. Hooks must be scoped.
+
+**Problem:**
+hooks attach globally causing interference and coupling
+
+**Solution:**
+bind all hooks explicitly to container id
+
+**Signals:**
+- unexpected behavior
+- cross interaction
+- state leak
+
+**Search Intent:**
+how to scope hooks to container
+
+**Keywords:**
+container bound hooks pattern, frontend hook isolation, reactive hook scoping rust, leptos container id binding
 
 ---
 

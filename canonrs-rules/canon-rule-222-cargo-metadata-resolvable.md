@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** workspace, build
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** workspace, cargo, metadata, build
+**Language:** EN
+
+---
+
+**Intro:**
+Invalid workspace member paths break cargo metadata resolution and cause partial builds or missing crates. All members must resolve correctly.
+
+**Problem:**
+workspace members do not resolve to valid cargo toml files causing incomplete builds
+
+**Solution:**
+ensure all workspace member paths resolve and appear in cargo metadata output
+
+**Signals:**
+- missing package
+- partial build
+- metadata mismatch
+
+**Search Intent:**
+how to fix cargo workspace members not found
+
+**Keywords:**
+cargo metadata workspace issue, workspace member path error, rust workspace resolution, cargo build workspace failure
 
 ---
 

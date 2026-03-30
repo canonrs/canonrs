@@ -4,12 +4,36 @@
 
 
 **Severity:** CRITICAL
-**Scope:** primitives, css, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** design-system
+**Tags:** primitives, css, architecture
+**Language:** EN
+
 ---
 
+**Intro:**
+Adding CSS or visual logic to primitives breaks architectural separation and portability. Primitives must remain pure structural HTML without styling or responsive logic.
+
+**Problem:**
+primitives include css and viewport logic violating separation of concerns
+
+**Solution:**
+restrict primitives to semantic html and move styling to ui layer
+
+**Signals:**
+- tailwind in primitives
+- viewport logic in context
+- style leakage
+
+**Search Intent:**
+why primitives should not contain css
+
+**Keywords:**
+primitive vs ui separation, no css in primitives, design system layering, leptos primitive architecture
+
+---
 
 ---
 

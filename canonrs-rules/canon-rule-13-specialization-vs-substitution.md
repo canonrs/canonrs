@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** component-architecture
+**Tags:** components, specialization, api-design, composition
+**Language:** EN
+
 ---
+
+**Intro:**
+Using specialized components as replacements for base components leads to feature creep and loss of semantic clarity. Base components become overloaded and difficult to maintain.
+
+**Problem:**
+specialized components are used to replace base components instead of extending them
+
+**Solution:**
+keep base components generic and create explicit specialized components that extend semantics
+
+**Signals:**
+- god component
+- magic flags
+- component overload
+
+**Search Intent:**
+when to use specialized vs base components
+
+**Keywords:**
+component specialization vs substitution, ui component design patterns, avoid god component frontend, explicit component architecture
+
+---
+
 **Short statement (easy to remember):**  
 A specialized component never replaces its base component. It extends semantics, not rewrites it.
 

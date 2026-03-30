@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** layout, leptos, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** component-architecture
+**Tags:** layout, structure, architecture, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+Layouts containing behavior or state introduce coupling and break SSR determinism. They must remain purely structural.
+
+**Problem:**
+behavior in layouts breaks ssr determinism and reuse
+
+**Solution:**
+keep layouts strictly structural with no state or logic
+
+**Signals:**
+- state in layout
+- event handler in layout
+- logic in layout
+
+**Search Intent:**
+why layouts must be structural only
+
+**Keywords:**
+layout structural only rule, leptos layout behavior issue, ssr deterministic layout, layout architecture separation
 
 ---
 

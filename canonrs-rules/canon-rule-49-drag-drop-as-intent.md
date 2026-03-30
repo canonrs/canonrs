@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** interactive, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** behavior
+**Tags:** drag-drop, commands, events, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding business logic directly inside drag-and-drop handlers couples UI gestures with domain logic. Drag operations should emit intent events that are later converted into commands.
+
+**Problem:**
+drag and drop handlers execute business logic directly causing tight coupling
+
+**Solution:**
+emit semantic drop events and convert them into commands in application layer
+
+**Signals:**
+- api call in drag handler
+- database update in drop
+- coupled drag logic
+
+**Search Intent:**
+how to implement drag and drop
+
+**Keywords:**
+drag drop command pattern, event driven ui architecture, decoupled drag and drop, undo redo drag operations
 
 ---
 

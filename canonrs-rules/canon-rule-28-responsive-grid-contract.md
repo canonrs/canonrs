@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** layout, css
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** component-architecture
+**Tags:** responsive, grid, css, layout
+**Language:** EN
+
+---
+
+**Intro:**
+Inconsistent breakpoints and grid systems create unpredictable layouts across devices. A unified mobile-first grid contract ensures consistency.
+
+**Problem:**
+custom breakpoints and inconsistent grids break responsive layout predictability
+
+**Solution:**
+use canonical mobile-first breakpoints and 12-column grid system
+
+**Signals:**
+- layout break
+- overflow
+- inconsistent spacing
+
+**Search Intent:**
+how to implement responsive grid system mobile first
+
+**Keywords:**
+responsive grid 12 column system, mobile first breakpoints css, layout consistency design system, tailwind grid responsive patterns
 
 ---
 

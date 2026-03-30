@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** hydration, ssr, ui
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** core-runtime
+**Tags:** hydration, ssr, ui, determinism
+**Language:** EN
+
 ---
+
+**Intro:**
+SSR hydration requires identical HTML between server and client. Reactive logic in rendered output creates mismatches and causes runtime failures.
+
+**Problem:**
+non deterministic ui output breaks hydration and causes mismatches
+
+**Solution:**
+render static deterministic html during ssr and defer behavior to events
+
+**Signals:**
+- hydration panic
+- dom mismatch
+- runtime error
+
+**Search Intent:**
+why hydration mismatch happens in leptos
+
+**Keywords:**
+leptos hydration deterministic ui, ssr csr mismatch html, hydration error leptos, deterministic rendering ssr
+
+---
+
 ## Context
 SSR + Hydration requires **bit-for-bit identical HTML** between server and client at hydration time.
 

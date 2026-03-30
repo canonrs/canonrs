@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** workspace, architecture
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** component-architecture
+**Tags:** workspace, architecture, roles, metadata
+**Language:** EN
+
+---
+
+**Intro:**
+Implicit crate roles create ambiguity and increase coupling risks. Boundaries must be explicit.
+
+**Problem:**
+crates do not declare roles causing unclear responsibilities and coupling
+
+**Solution:**
+require explicit role metadata declaration for every crate
+
+**Signals:**
+- role ambiguity
+- dependency confusion
+- coupling risk
+
+**Search Intent:**
+how to define crate roles workspace
+
+**Keywords:**
+crate role metadata rust, workspace architecture roles, cargo metadata canonrs, frontend crate boundaries
 
 ---
 

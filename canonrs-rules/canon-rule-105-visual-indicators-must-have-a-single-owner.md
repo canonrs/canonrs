@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** ui, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-16
+
+**Category:** component-architecture
+**Tags:** ui, ownership, visual, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Splitting visual indicators across multiple components creates ambiguity and fragile styling. This leads to duplicated visuals and patch-based fixes.
+
+**Problem:**
+multiple layers render the same visual indicator causing duplication
+
+**Solution:**
+assign a single owner component for each visual indicator
+
+**Signals:**
+- duplicate visuals
+- css hacks
+- misalignment
+
+**Search Intent:**
+how to fix duplicate ui indicators
+
+**Keywords:**
+ui visual ownership pattern, component indicator duplication, ui architecture ownership, css visual conflict
 
 ---
 

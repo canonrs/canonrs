@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** components, governance
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -42,13 +41,40 @@ primitives/focus-trap/
 ```
 
 **Marker:**
+**Category:** governance
+**Tags:** components, compliance, rules, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Without defined compliance levels, components cannot balance strict rules and real constraints. Classification is required.
+
+**Problem:**
+components lack compliance classification causing inconsistent rule enforcement
+
+**Solution:**
+define compliance levels to control rule strictness and allowed exceptions
+
+**Signals:**
+- inconsistent rules
+- partial compliance
+- architecture drift
+
+**Search Intent:**
+how to classify component compliance
+
+**Keywords:**
+component compliance levels design system, frontend rule enforcement levels, ui component governance classification, design system compliance model
+
+---
+
 ```rust
 /// @canon-level strict
 /// Compliance: 100%
 #[component]
 pub fn Button(...) -> impl IntoView { ... }
 ```
-
 
 
 

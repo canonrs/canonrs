@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** providers, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -50,10 +49,37 @@ pub fn use_theme() -> ThemeContext;
 ```
 
 **DOM Effects:**
+**Category:** component-architecture
+**Tags:** providers, architecture, state, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing provider responsibilities causes coupling and SSR issues. Providers must remain orthogonal.
+
+**Problem:**
+providers mix responsibilities causing coupling and incorrect state handling
+
+**Solution:**
+define strict provider boundaries with stateless design system layer
+
+**Signals:**
+- state coupling
+- provider misuse
+- ssr issue
+
+**Search Intent:**
+how to design provider architecture
+
+**Keywords:**
+provider architecture design system, reactive providers separation, ssr safe providers leptos, frontend context boundaries
+
+---
+
 ```html
 <html class="dark" data-theme="ocean">
 ```
-
 
 
 

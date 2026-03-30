@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** tokens, architecture
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** governance
+**Tags:** tokens, build, runtime, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Including build tooling in runtime creates dependency leaks and bloated binaries. Tokens engine must remain isolated.
+
+**Problem:**
+tokens engine is used at runtime causing dependency leakage and architectural violation
+
+**Solution:**
+restrict tokens engine to build time and prevent runtime imports
+
+**Signals:**
+- dependency leak
+- runtime bloat
+- build graph issue
+
+**Search Intent:**
+why tokens engine not runtime dependency
+
+**Keywords:**
+tokens engine build only, runtime dependency leak rust, design system generator separation, frontend build vs runtime
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** design-system, ui, governance
 **Version:** 1.1.0
 **Date:** 2026-01-29
+
+**Category:** governance
+**Tags:** ui, inventory, design-system, contracts
+**Language:** EN
+
+---
+
+**Intro:**
+Uncontrolled UI component growth leads to breaking changes and inconsistent APIs. UI inventory must be explicit and versioned.
+
+**Problem:**
+ui component set changes without control causing breaking changes and drift
+
+**Solution:**
+enforce fixed ui inventory with build time validation and versioning
+
+**Signals:**
+- unexpected component
+- inventory drift
+- build failure
+
+**Search Intent:**
+how to enforce fixed ui component inventory
+
+**Keywords:**
+ui inventory governance, design system component control, frontend api stability, component registry validation
 
 ---
 

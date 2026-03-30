@@ -2,12 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** hydration, ssr
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** core-runtime
+**Tags:** hydration, ssr, for, suspense
+**Language:** EN
+
 ---
 
+**Intro:**
+Hydration mismatches occur when SSR output differs from client rendering in Leptos. Conditional rendering, async state, and improper list usage create DOM divergence and runtime errors.
+
+**Problem:**
+ssr and client render different html structures causing hydration failure
+
+**Solution:**
+ensure identical ssr and client output using suspense, isolated components, and stable props
+
+**Signals:**
+- hydration panic
+- text node error
+- dom mismatch
+
+**Search Intent:**
+how to fix leptos hydration mismatch
+
+**Keywords:**
+leptos hydration rules, ssr client mismatch leptos, leptos suspense usage, leptos for hydration issue
+
+---
 
 ## Golden Rule
 **SSR HTML MUST BE IDENTICAL to first WASM render**

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** tokens, css, architecture
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** design-system
+**Tags:** tokens, css, architecture, design-system
+**Language:** EN
+
+---
+
+**Intro:**
+Multiple sources defining tokens cause inconsistencies and loss of control. Tokens must originate from a single engine.
+
+**Problem:**
+tokens are defined outside canonical engine causing inconsistency
+
+**Solution:**
+generate all tokens exclusively from tokens engine and consume as artifact
+
+**Signals:**
+- token override
+- duplicate definition
+- css conflict
+
+**Search Intent:**
+how to centralize design tokens engine
+
+**Keywords:**
+design tokens single source, css token engine architecture, frontend token generation, design system token governance
 
 ---
 

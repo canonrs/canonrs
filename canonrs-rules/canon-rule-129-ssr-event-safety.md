@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** hydration, ssr, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** core-runtime
+**Tags:** ssr, hydration, events, render
+**Language:** EN
+
+---
+
+**Intro:**
+Event handlers attached to dynamically generated nodes during SSR cause hydration mismatches due to non-deterministic listener reconstruction. This leads to runtime panics.
+
+**Problem:**
+dynamic event handlers in ssr lists break hydration determinism
+
+**Solution:**
+avoid event handlers in iterators and use delegation or csr only patterns
+
+**Signals:**
+- unreachable panic
+- hydration error
+- event binding failure
+
+**Search Intent:**
+why ssr events break in lists
+
+**Keywords:**
+leptos ssr event handler issue, hydration mismatch dynamic list, event handler iterator problem, ssr closure mismatch leptos
 
 ---
 

@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, tokens, components
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** tokens, preset, css, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Coupling components to preset values prevents runtime theming and requires rebuilds. Proper token indirection enables dynamic switching.
+
+**Problem:**
+components depend on preset values causing rebuild and coupling
+
+**Solution:**
+ensure components use tokens so preset changes only affect variable values
+
+**Signals:**
+- hardcoded color
+- rebuild required
+- theme break
+
+**Search Intent:**
+how to make components preset agnostic
+
+**Keywords:**
+preset switching css tokens, component token indirection, design system theming runtime, frontend preset architecture
 
 ---
 

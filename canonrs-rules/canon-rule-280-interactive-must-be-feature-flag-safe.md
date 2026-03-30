@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** interactive, build
 **Version:** 1.0.0  
 **Date:** 2026-02-13
+
+**Category:** core-runtime
+**Tags:** interactive, feature-flags, hydration, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+Feature flags that alter DOM structure create hydration mismatches and unstable rendering. Structural output must remain consistent.
+
+**Problem:**
+feature flags change dom structure causing hydration mismatch
+
+**Solution:**
+preserve structural output and control behavior via attributes
+
+**Signals:**
+- hydration mismatch
+- dom divergence
+- conditional rendering bugs
+
+**Search Intent:**
+how to use feature flags without breaking hydration
+
+**Keywords:**
+feature flags ssr hydration, dom stability rendering, conditional rendering pitfalls, frontend feature isolation
 
 ---
 

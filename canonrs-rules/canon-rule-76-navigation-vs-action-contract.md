@@ -4,12 +4,36 @@
 
 
 **Severity:** HIGH
-**Scope:** components, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** component-architecture
+**Tags:** html, a11y, semantics
+**Language:** EN
+
 ---
 
+**Intro:**
+Mixing navigation and action semantics creates invalid HTML and accessibility issues. Components must strictly separate link navigation from button actions.
+
+**Problem:**
+anchors nested in buttons causing invalid html and interaction conflicts
+
+**Solution:**
+separate navigation components using a tags and action components using button tags
+
+**Signals:**
+- button link nesting
+- keyboard navigation issues
+- aria conflicts
+
+**Search Intent:**
+when to use a vs button
+
+**Keywords:**
+a vs button html semantics, invalid nested interactive elements, navigation vs action components, accessibility button link rules
+
+---
 
 ---
 

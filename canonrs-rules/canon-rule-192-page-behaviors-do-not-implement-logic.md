@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** architecture, behavior, pages
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** behavior
+**Tags:** behavior, pages, architecture, logic
+**Language:** EN
+
+---
+
+**Intro:**
+Allowing page behaviors to implement logic leads to duplication and loss of reuse. Behavior must remain centralized in framework layers.
+
+**Problem:**
+page behaviors implement logic causing duplication and architecture collapse
+
+**Solution:**
+restrict page behaviors to wiring and delegate logic to framework behaviors
+
+**Signals:**
+- logic in behavior
+- duplication
+- unscalable
+
+**Search Intent:**
+how to prevent logic in page behaviors
+
+**Keywords:**
+page behavior architecture rule, frontend behavior separation, logic centralization pattern, framework behavior design
 
 ---
 

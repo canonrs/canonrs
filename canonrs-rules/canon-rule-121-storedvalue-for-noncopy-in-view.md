@@ -2,9 +2,35 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** leptos, ssr, state
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** state-reactivity
+**Tags:** leptos, closures, ownership, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+Leptos view closures require Fn semantics for reactivity, but moving non-Copy values forces FnOnce and breaks compilation. This commonly occurs when String, Vec, or structs are captured directly inside view! closures.
+
+**Problem:**
+non-copy values in view closures cause FnOnce errors and break reactivity
+
+**Solution:**
+wrap all non-copy values in StoredValue before view and access via get_value or with_value
+
+**Signals:**
+- E0525 error
+- expected Fn found FnOnce
+- closure moves value
+- re-render failure
+
+**Search Intent:**
+how to fix FnOnce closure leptos
+
+**Keywords:**
+leptos storedvalue usage, fnonce vs fn leptos, closure move error leptos, leptos non copy closure
 
 ---
 

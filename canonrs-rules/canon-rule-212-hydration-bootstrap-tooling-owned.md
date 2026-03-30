@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** hydration, wasm
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** core-runtime
+**Tags:** hydration, wasm, bootstrap, tooling
+**Language:** EN
+
+---
+
+**Intro:**
+Manual wasm bootstrap conflicts with tooling lifecycle and causes duplicated initialization. Ownership must remain in tooling.
+
+**Problem:**
+application controls wasm bootstrap causing lifecycle conflicts
+
+**Solution:**
+delegate bootstrap to tooling and expose only entrypoint
+
+**Signals:**
+- double init
+- unexpected behavior
+- bootstrap conflict
+
+**Search Intent:**
+how to fix wasm bootstrap conflict leptos
+
+**Keywords:**
+wasm bootstrap leptos, hydration lifecycle control, frontend wasm startup pattern, tooling owned bootstrap
 
 ---
 

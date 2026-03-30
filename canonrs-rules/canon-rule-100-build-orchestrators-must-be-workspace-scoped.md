@@ -2,9 +2,35 @@
 
 **Status:** ENFORCED  
 **Severity:** MEDIUM  
-**Scope:** build, workspace, leptos
 **Version:** 1.0.0  
 **Date:** 2025-01-15
+
+**Category:** build-tooling
+**Tags:** workspace, cargo-leptos, build, configuration
+**Language:** EN
+
+---
+
+**Intro:**
+Build orchestrator configuration in Leptos fails when defined at crate level instead of workspace root. Tools like cargo-leptos require centralized metadata to resolve paths, assets, and hot reload correctly.
+
+**Problem:**
+build configuration in member crates is ignored or conflicts in workspace builds
+
+**Solution:**
+define all build orchestrator metadata in workspace root cargo.toml
+
+**Signals:**
+- metadata not found
+- hot reload broken
+- asset 404
+- config conflict
+
+**Search Intent:**
+how to fix cargo leptos metadata
+
+**Keywords:**
+cargo leptos workspace config, leptos build metadata error, workspace metadata leptos, cargo leptos configuration root
 
 ---
 

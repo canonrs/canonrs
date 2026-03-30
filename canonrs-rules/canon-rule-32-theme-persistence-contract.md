@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** state, theming
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -28,10 +27,10 @@ theme-preset=<preset>; Path=/; Max-Age=31536000; SameSite=Lax
 
 ### Prohibited Storage Methods
 
-❌ `localStorage` - Not SSR-safe, causes flash  
-❌ `sessionStorage` - Lost on tab close  
-❌ `IndexedDB` - Overcomplicated for theme  
-❌ Client-only state - No SSR hydration  
+❌ `localStorage` - Not SSR-safe, causes flash
+❌ `sessionStorage` - Lost on tab close
+❌ `IndexedDB` - Overcomplicated for theme
+❌ Client-only state - No SSR hydration
 
 **Exception:** Fallback to `localStorage` only if cookies are disabled by user.
 
@@ -50,7 +49,7 @@ theme-preset=<preset>; Path=/; Max-Age=31536000; SameSite=Lax
 pub async fn get_theme_from_cookie() -> Result<(String, String), ServerFnError> {
     use axum::http::header::COOKIE;
     let headers = extract::<axum::http::HeaderMap>().await?;
-    
+
     // Parse cookies...
     Ok((mode, preset))
 }
@@ -105,7 +104,7 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
                     const getCookie = (name) => { /* ... */ };
                     const mode = getCookie('theme-mode') || 'system';
                     const preset = getCookie('theme-preset') || 'default';
-                    
+
                     // Apply BEFORE any rendering
                     document.documentElement.classList.add(resolveMode(mode));
                     document.documentElement.setAttribute('data-theme', preset);
@@ -137,15 +136,15 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
         if (parts.length === 2) return parts.pop().split(';').shift();
         return null;
     };
-    
+
     const savedMode = getCookie('theme-mode') || 'system';
     const savedPreset = getCookie('theme-preset') || 'default';
-    
+
     let resolvedMode = savedMode;
     if (savedMode === 'system') {
         resolvedMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    
+
     const html = document.documentElement;
     html.classList.remove('light', 'dark');
     html.classList.add(resolvedMode);
@@ -210,6 +209,34 @@ html.innerHTML = getCookie('theme-preset');
 ```
 
 **✅ SAFE:**
+**Category:** state-reactivity
+**Tags:** theme, cookies, ssr, state
+**Language:** EN
+
+---
+
+**Intro:**
+Using client-only storage for theme state causes SSR mismatch and visual flash. Persistence must be SSR-safe.
+
+**Problem:**
+theme persistence via client storage breaks ssr and causes flash
+
+**Solution:**
+persist theme using http cookies with server synchronization
+
+**Signals:**
+- flash of wrong theme
+- hydration mismatch
+- theme reset
+
+**Search Intent:**
+how to persist theme ssr safely
+
+**Keywords:**
+theme persistence ssr cookies, avoid flash of incorrect theme, leptos theme hydration, cookie based ui state
+
+---
+
 ```javascript
 html.setAttribute('data-theme', getCookie('theme-preset'));
 ```
@@ -299,5 +326,4 @@ fn save_theme() { /* ... */ } // ❌ NO!
 - [Leptos SSR Guide](https://book.leptos.dev/ssr/index.html)
 - [Canon Rule #21: Canonical Color Tokens](./canon-rule-21-canonical-color-tokens.md)
 - [Canon Rule #25: Theme Presets Contract](./canon-rule-25-theme-presets-contract.md)
-
 

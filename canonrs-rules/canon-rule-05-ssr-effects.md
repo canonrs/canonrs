@@ -2,12 +2,36 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** ssr, behavior
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** core-runtime
+**Tags:** ssr, effects, browser api, wasm
+**Language:** EN
+
 ---
 
+**Intro:**
+Using browser APIs or async runtime features during SSR leads to runtime panics and undefined behavior. Leptos components must isolate client-only logic to prevent crashes and security issues.
+
+**Problem:**
+browser apis and effects execute on server causing runtime failures
+
+**Solution:**
+guard all browser and async logic with wasm cfg conditions
+
+**Signals:**
+- window undefined
+- spawn_local panic
+- context not found
+
+**Search Intent:**
+how to prevent leptos ssr panic
+
+**Keywords:**
+leptos ssr effects, browser api ssr panic, leptos cfg wasm guard, spawn_local ssr error
+
+---
 
 ## Critical Rule
 **BROWSER APIs MUST NEVER RUN ON SERVER**

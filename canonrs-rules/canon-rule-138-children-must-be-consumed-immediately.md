@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** leptos, layout, components
 **Version:** 1.0.0
 **Date:** 2025-01-23
+
+**Category:** component-architecture
+**Tags:** children, leptos, ownership, render
+**Language:** EN
+
+---
+
+**Intro:**
+Forwarding or storing Children breaks ownership semantics in Leptos due to FnOnce behavior. This leads to compilation errors and unstable rendering.
+
+**Problem:**
+children forwarding breaks ownership and causes render instability
+
+**Solution:**
+consume children immediately in the receiving component
+
+**Signals:**
+- move error
+- ownership violation
+- render failure
+
+**Search Intent:**
+why children must be consumed leptos
+
+**Keywords:**
+leptos children ownership, fnonce children issue, children forwarding error, component render ownership
 
 ---
 

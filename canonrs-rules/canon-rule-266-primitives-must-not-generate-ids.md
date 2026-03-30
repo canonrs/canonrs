@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** primitives, build
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** component-architecture
+**Tags:** primitives, ids, ssr, hydration
+**Language:** EN
+
+---
+
+**Intro:**
+Auto-generated ids create nondeterministic markup and hydration issues. Identity must be externally controlled.
+
+**Problem:**
+primitives generate ids causing mismatch between ssr and csr
+
+**Solution:**
+require ids to be passed externally and forbid internal generation
+
+**Signals:**
+- hydration warning
+- id mismatch
+- runtime conflict
+
+**Search Intent:**
+why primitives should not generate ids
+
+**Keywords:**
+deterministic id generation ssr, leptos hydration id mismatch, frontend component identity, primitive id contract
 
 ---
 

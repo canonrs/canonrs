@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** components, css
 **Version:** 1.0.0  
 **Date:** 2026-01-30
+
+**Category:** design-system
+**Tags:** css, theming, tokens, components
+**Language:** EN
+
+---
+
+**Intro:**
+Embedding dark/light logic inside components creates duplication, inconsistency, and hydration mismatches. Theme resolution must be handled exclusively by CSS token layers.
+
+**Problem:**
+components implement dark light logic causing duplication and coupling
+
+**Solution:**
+keep components theme agnostic and delegate context resolution to css tokens
+
+**Signals:**
+- duplicate logic
+- theme inconsistency
+- hydration mismatch
+
+**Search Intent:**
+how to separate theming from components css
+
+**Keywords:**
+css theming tokens pattern, dark mode separation frontend, component theme agnostic design, design system theme architecture
 
 ---
 

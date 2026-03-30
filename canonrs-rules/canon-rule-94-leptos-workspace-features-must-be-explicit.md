@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** leptos, workspace
 **Version:** 1.0.0  
 **Date:** 2025-01-15
+
+**Category:** build-tooling
+**Tags:** leptos, workspace, features, cargo
+**Language:** EN
+
+---
+
+**Intro:**
+Leptos macro expansion fails when required features like nightly are not declared at the workspace level. Missing workspace feature flags cause cascading E0282 errors in view! macros despite correct code.
+
+**Problem:**
+workspace level features are missing causing leptos macro type inference failures
+
+**Solution:**
+declare leptos features explicitly in workspace dependencies instead of member crates
+
+**Signals:**
+- E0282 error
+- cannot infer type
+- view macro failure
+
+**Search Intent:**
+how to fix leptos E0282 view macro
+
+**Keywords:**
+leptos workspace features nightly, cargo workspace feature resolution, leptos E0282 error fix, view macro type inference leptos
 
 ---
 

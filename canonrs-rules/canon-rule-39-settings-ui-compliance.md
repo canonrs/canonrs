@@ -3,7 +3,6 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** state, ui, theming
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
@@ -34,11 +33,11 @@ Settings UI components (Theme Toggle, Density Selector, Language Picker) are **L
 #[component]
 pub fn ThemeSettingsDropdown(
     #[prop(into, optional)] class: String,
-    
+
     /// Callback when theme changes (app handles persistence)
     #[prop(optional)]
     on_theme_change: Option<Callback<(String, String)>>,
-    
+
     /// Callback when density changes (app handles persistence)
     #[prop(optional)]
     on_density_change: Option<Callback<String>>,
@@ -60,7 +59,7 @@ let on_density_change = Callback::new(move |mode: String| {
 });
 
 view! {
-    <ThemeSettingsDropdown 
+    <ThemeSettingsDropdown
         on_theme_change=on_theme_change
         on_density_change=on_density_change
     />
@@ -82,10 +81,10 @@ pub fn ThemeSettingsDropdown(
     let density = use_density();
     let is_open = RwSignal::new(false);
     let presets = ThemeRegistry::available_presets();
-    
+
     let set_mode = move |new_mode| {
         theme.mode.set(new_mode);
-        
+
         if let Some(callback) = on_theme_change {
             let mode_str = match new_mode {
                 ThemeMode::Light => "light",
@@ -95,10 +94,10 @@ pub fn ThemeSettingsDropdown(
             callback.run((mode_str.to_string(), theme.preset.get()));
         }
     };
-    
+
     let set_preset = move |preset_id: String| {
         theme.preset.set(preset_id.clone());
-        
+
         if let Some(callback) = on_theme_change {
             let mode_str = match theme.mode.get() {
                 ThemeMode::Light => "light",
@@ -108,21 +107,21 @@ pub fn ThemeSettingsDropdown(
             callback.run((mode_str, preset_id));
         }
     };
-    
+
     let set_density = move |new_density: DensityMode| {
         density.mode.set(new_density);
-        
+
         if let Some(callback) = on_density_change {
             callback.run(new_density.as_str().to_string());
         }
     };
-    
+
     view! {
         <div class=format!("relative {}", class)>
             <Button on:click=move |_| is_open.update(|o| *o = !*o)>
                 <ThemeIcon mode=theme.mode />
             </Button>
-            
+
             <Show when=move || is_open.get()>
                 <div class="absolute right-0 mt-2 w-64 rounded-md border bg-popover p-4 shadow-lg">
                     // Mode buttons (Light/Dark/System)
@@ -149,65 +148,31 @@ pub fn ThemeSettingsDropdown(
 ```
 
 **Compliance Level:** Strict (100%)
+**Category:** component-architecture
+**Tags:** ui, settings, providers, callbacks
+**Language:** EN
 
+---
 
+**Intro:**
+Settings components mixing persistence and state logic break separation of concerns. UI must remain stateless.
 
+**Problem:**
+settings ui handles persistence and logic causing coupling
 
+**Solution:**
+expose state changes via callbacks and delegate persistence to app layer
 
+**Signals:**
+- coupling
+- state misuse
+- side effects
 
+**Search Intent:**
+how to design settings ui architecture
 
+**Keywords:**
+settings ui stateless pattern, callback driven ui design, frontend provider interaction, design system settings components
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 

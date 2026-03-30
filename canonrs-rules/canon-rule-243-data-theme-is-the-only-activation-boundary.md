@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** css, theming, architecture
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** design-system
+**Tags:** css, theming, tokens, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Multiple theme activation mechanisms create conflicts and inconsistent behavior. A single boundary ensures deterministic theming.
+
+**Problem:**
+themes use multiple activation mechanisms causing conflicts and leaks
+
+**Solution:**
+restrict theme activation exclusively to data theme attribute
+
+**Signals:**
+- theme leak
+- partial override
+- inconsistent behavior
+
+**Search Intent:**
+how to enforce single theme activation css
+
+**Keywords:**
+data theme css pattern, frontend theme activation boundary, design system theming control, css theme isolation
 
 ---
 

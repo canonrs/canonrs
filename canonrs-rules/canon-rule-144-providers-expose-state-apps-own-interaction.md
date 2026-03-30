@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** providers, state, architecture
 **Version:** 1.0.0
 **Date:** 2026-01-16
 
+**Category:** state-reactivity
+**Tags:** providers, state, architecture, ui
+**Language:** EN
+
 ---
+
+**Intro:**
+Embedding interaction logic inside providers creates coupling and breaks ownership boundaries. Providers must expose state only, leaving interaction decisions to the application layer.
+
+**Problem:**
+providers include interaction logic causing coupling and ownership violations
+
+**Solution:**
+limit providers to state exposure and mutation apis only
+
+**Signals:**
+- provider renders ui
+- implicit interaction
+- state coupling
+
+**Search Intent:**
+how to separate provider state and ui logic
+
+**Keywords:**
+provider state separation pattern, leptos provider architecture, state vs interaction boundary, context provider design rules
+
+---
+
 ## Context
 Providers are architectural primitives responsible for **state exposure**, not user interaction.
 Embedding toggles, buttons, or UI logic inside Providers breaks ownership boundaries and causes coupling.

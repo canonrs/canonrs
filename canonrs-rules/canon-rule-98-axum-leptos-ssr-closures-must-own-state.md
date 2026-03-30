@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** MEDIUM  
-**Scope:** leptos, ssr, architecture
 **Version:** 1.0.0  
 **Date:** 2025-01-15
+
+**Category:** component-architecture
+**Tags:** axum, ownership, closures, rust
+**Language:** EN
+
+---
+
+**Intro:**
+Sharing state across Axum router closures causes borrow checker errors due to move semantics. Each closure must own its own cloned state to satisfy lifetime requirements.
+
+**Problem:**
+shared state across closures causes borrow of moved value errors
+
+**Solution:**
+clone state before each closure and move ownership into closures
+
+**Signals:**
+- E0382 error
+- borrow of moved value
+- closure ownership issue
+
+**Search Intent:**
+how to fix borrow of moved value axum
+
+**Keywords:**
+axum closure ownership rust, borrow of moved value fix, leptos options clone closure, rust move closure pattern
 
 ---
 

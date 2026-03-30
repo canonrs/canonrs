@@ -3,9 +3,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** layout, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** component-architecture
+**Tags:** layout, zones, hierarchy
+**Language:** EN
+
+---
+
+**Intro:**
+Unstructured layouts lead to inconsistent UI hierarchy and unpredictable responsive behavior. Canon enforces fixed spatial zones to standardize component placement and eliminate layout ambiguity.
+
+**Problem:**
+components are placed without spatial rules causing layout inconsistency
+
+**Solution:**
+enforce five canonical layout zones with strict nesting and responsibilities
+
+**Signals:**
+- layout chaos
+- content outside container
+- z-index conflicts
+
+**Search Intent:**
+how to structure layout zones in ui architecture
+
+**Keywords:**
+layout zones architecture, ui spatial hierarchy system, canonical layout containers, component placement rules
 
 ---
 

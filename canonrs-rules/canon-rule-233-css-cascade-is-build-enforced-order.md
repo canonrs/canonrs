@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** css, build
 **Version:** 1.0.0  
 **Date:** 2026-02-13  
+
+**Category:** styling-css
+**Tags:** css, cascade, build, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect css ordering causes token conflicts and unstable themes. Order must be enforced at build level.
+
+**Problem:**
+css layers are loaded in wrong order causing inconsistencies and overrides
+
+**Solution:**
+enforce strict cascade order at bundler level with fixed sequence
+
+**Signals:**
+- token override
+- theme break
+- specificity issue
+
+**Search Intent:**
+how to enforce css cascade order build
+
+**Keywords:**
+css cascade architecture order, design system css layering, frontend css build order, token specificity issues css
 
 ---
 

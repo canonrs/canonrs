@@ -2,9 +2,35 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** leptos, components
 **Version:** 1.0.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** leptos, rendering, ssr, closures
+**Language:** EN
+
+---
+
+**Intro:**
+Using bool.then closures for conditional rendering introduces FnOnce semantics, type inference failures, and hydration mismatches. This creates unstable DOM structures and breaks reactive rendering.
+
+**Problem:**
+conditional rendering with then closures creates FnOnce errors and hydration issues
+
+**Solution:**
+use Show component for all conditional rendering instead of then closures
+
+**Signals:**
+- FnOnce error
+- hydration mismatch
+- type inference failure
+- expected element found nothing
+
+**Search Intent:**
+how to fix leptos conditional rendering
+
+**Keywords:**
+leptos show component, leptos conditional rendering fix, then closure leptos error, leptos hydration mismatch
 
 ---
 

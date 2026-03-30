@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** leptos, build
 **Version:** 1.0.0
 **Date:** 2026-01-13
+
+**Category:** build-tooling
+**Tags:** leptos, assets, pipeline
+**Language:** EN
+
+---
+
+**Intro:**
+Leptos development mode does not use Trunk for asset handling, leading to missing files when relying on Trunk hooks. Assets must be served from the configured public directory.
+
+**Problem:**
+assets not served in dev because trunk hooks are ignored
+
+**Solution:**
+place assets in public directory and configure leptos asset serving
+
+**Signals:**
+- 404 assets
+- missing files in dev
+- trunk hooks ignored
+
+**Search Intent:**
+why assets not loading in leptos dev mode
+
+**Keywords:**
+leptos asset pipeline dev, trunk ignored leptos watch, public assets directory leptos, leptos asset serving config
 
 ---
 

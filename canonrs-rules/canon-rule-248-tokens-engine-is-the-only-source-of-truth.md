@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** build, tokens, governance
 **Version:** 1.0.0
 **Date:** 2026-02-13
+
+**Category:** governance
+**Tags:** tokens, css, governance, build
+**Language:** EN
+
+---
+
+**Intro:**
+Manual edits to generated token files create drift and break reproducibility. Single source is required.
+
+**Problem:**
+generated token files are edited manually causing drift and inconsistency
+
+**Solution:**
+restrict all token generation to engine and forbid manual edits
+
+**Signals:**
+- diff drift
+- inconsistent css
+- build mismatch
+
+**Search Intent:**
+why generated tokens must not be edited
+
+**Keywords:**
+tokens engine single source, generated css immutability, design system governance tokens, frontend token build pipeline
 
 ---
 

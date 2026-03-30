@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** design-system, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-26
+
+**Category:** governance
+**Tags:** design-system, packages, versioning, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Direct file imports from design system internals create tight coupling and break versioning guarantees. Applications become fragile and fail across environments.
+
+**Problem:**
+apps import design system files directly causing coupling and breakage
+
+**Solution:**
+consume design system only through versioned package exports
+
+**Signals:**
+- path import
+- ci break
+- coupling
+
+**Search Intent:**
+how to consume design system via
+
+**Keywords:**
+design system package contract, no relative imports architecture, frontend package boundaries, versioned design system usage
 
 ---
 

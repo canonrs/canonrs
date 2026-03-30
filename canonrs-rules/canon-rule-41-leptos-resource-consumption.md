@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** MEDIUM
-**Scope:** leptos, state
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** state-reactivity
+**Tags:** leptos, resource, ssr, reactivity
+**Language:** EN
+
+---
+
+**Intro:**
+Treating Resource as Future breaks reactivity and causes silent rendering failures. It must be consumed correctly.
+
+**Problem:**
+resource is awaited instead of accessed reactively causing render failure
+
+**Solution:**
+consume resource via reactive methods like get and transition
+
+**Signals:**
+- frozen ui
+- no render
+- silent failure
+
+**Search Intent:**
+how to use leptos resource correctly
+
+**Keywords:**
+leptos resource get vs await, reactive resource consumption, ssr resource pattern leptos, transition component usage
 
 ---
 
@@ -418,4 +443,3 @@ Resource::new() → .get() → Transition → SSR-safe
 
 
 ---
-

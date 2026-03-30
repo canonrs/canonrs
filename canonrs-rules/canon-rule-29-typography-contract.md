@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** tokens, design-system
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** typography, tokens, accessibility, css
+**Language:** EN
+
+---
+
+**Intro:**
+Typography inconsistency reduces readability and breaks design system coherence. A strict typographic scale ensures hierarchy and accessibility.
+
+**Problem:**
+inconsistent typography usage breaks readability and system consistency
+
+**Solution:**
+enforce canonical font stacks, sizes, weights, and line heights
+
+**Signals:**
+- mixed font sizes
+- poor readability
+- contrast issues
+
+**Search Intent:**
+how to standardize typography design system
+
+**Keywords:**
+typography scale design system, font tokens css system, wcag readable text guidelines, responsive typography patterns
 
 ---
 

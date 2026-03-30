@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** css, architecture
 **Version:** 1.0.0  
 **Date:** 2026-01-28
+
+**Category:** styling-css
+**Tags:** css, entrypoint, imports, architecture
+**Language:** EN
+
+---
+
+**Intro:**
+Multiple CSS entrypoints cause inconsistent imports, ordering issues, and missing tokens. This leads to unpredictable styling behavior across applications.
+
+**Problem:**
+multiple css entrypoints cause ordering bugs and missing styles
+
+**Solution:**
+expose a single canonical css entrypoint for all applications
+
+**Signals:**
+- missing tokens
+- import drift
+- css inconsistency
+
+**Search Intent:**
+how to enforce single css entrypoint design system
+
+**Keywords:**
+css single entrypoint pattern, design system css import order, frontend css architecture, canonical css bundle
 
 ---
 
@@ -42,4 +67,3 @@ Multiple CSS entrypoints cause import drift, ordering bugs, and missing tokens.
 ## Exceptions
 
 None.
-

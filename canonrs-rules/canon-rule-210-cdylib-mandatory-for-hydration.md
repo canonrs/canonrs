@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** build, wasm, hydration
 **Version:** 1.0.0  
 **Date:** 2026-02-03
+
+**Category:** build-tooling
+**Tags:** wasm, hydration, build, rust
+**Language:** EN
+
+---
+
+**Intro:**
+Missing crate type prevents wasm generation and causes silent hydration failures. Explicit configuration is required.
+
+**Problem:**
+cdylib crate type is missing causing wasm generation failure
+
+**Solution:**
+declare cdylib crate type to ensure proper wasm output
+
+**Signals:**
+- no wasm
+- hydration fail
+- build error
+
+**Search Intent:**
+how to fix missing cdylib wasm hydration
+
+**Keywords:**
+cdylib wasm rust, leptos hydration build error, wasm crate type config, frontend rust wasm setup
 
 ---
 

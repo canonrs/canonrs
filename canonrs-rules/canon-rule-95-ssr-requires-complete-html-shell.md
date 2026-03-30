@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** leptos, ssr
 **Version:** 1.0.0  
 **Date:** 2025-01-15
+
+**Category:** core-runtime
+**Tags:** ssr, hydration, html, leptos
+**Language:** EN
+
+---
+
+**Intro:**
+Leptos SSR requires a full HTML document structure to support meta injection and hydration. Missing html head or body tags causes runtime panics and empty responses.
+
+**Problem:**
+missing html shell prevents SSR rendering and hydration
+
+**Solution:**
+provide full html head and body structure through shell function
+
+**Signals:**
+- ERR_EMPTY_RESPONSE
+- leptos_meta panic
+- missing head tag
+
+**Search Intent:**
+how to fix leptos ssr empty response
+
+**Keywords:**
+leptos ssr html shell, leptos_meta head tag error, hydration scripts placement leptos, ssr empty response fix
 
 ---
 

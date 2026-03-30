@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** HIGH
-**Scope:** components, ui
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** component-architecture
+**Tags:** scale, components, performance, architecture
+**Language:** EN
+
 ---
+
+**Intro:**
+Choosing components without considering scale leads to performance issues or unnecessary complexity. Human-scale and machine-scale components have fundamentally different constraints.
+
+**Problem:**
+components are used outside their intended scale causing performance or complexity issues
+
+**Solution:**
+choose components explicitly based on data scale and cognitive constraints
+
+**Signals:**
+- slow rendering
+- over engineering
+- wrong component
+
+**Search Intent:**
+when to use human scale vs
+
+**Keywords:**
+human vs machine scale components, frontend scale architecture, ui performance scaling pattern, component selection based on scale
+
+---
+
 **Short statement (easy to remember):**  
 Build for humans or build for machines. Never pretend one is the other.
 

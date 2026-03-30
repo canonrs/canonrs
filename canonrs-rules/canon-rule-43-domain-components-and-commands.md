@@ -3,9 +3,34 @@
 **Status:** ENFORCED
 
 **Severity:** HIGH
-**Scope:** components, architecture
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** component-architecture
+**Tags:** cqrs, components, state, ssr
+**Language:** EN
+
+---
+
+**Intro:**
+Mixing state mutation and rendering inside the same component breaks CQRS and leads to tightly coupled UI logic. Domain components must remain read-only while command execution is delegated to a separate layer.
+
+**Problem:**
+domain components execute commands directly causing coupling between ui and state mutation
+
+**Solution:**
+separate read and write using domain components command components and orchestrators
+
+**Signals:**
+- spawn_local in view
+- button triggers mutation in domain
+- mixed read write logic
+
+**Search Intent:**
+how to separate read and write
+
+**Keywords:**
+cqrs frontend leptos, separate read write components, domain vs command components, leptos state mutation pattern
 
 ---
 
@@ -667,4 +692,3 @@ GLUE  (Orchestrator) → Coordinate both
 
 
 ---
-

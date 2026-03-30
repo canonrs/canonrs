@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** CRITICAL  
-**Scope:** css, theming
 **Version:** 1.0.0  
 **Date:** 2026-01-27
+
+**Category:** styling-css
+**Tags:** css, order, cascade, theming
+**Language:** EN
+
+---
+
+**Intro:**
+Incorrect CSS load order breaks cascade rules and causes inconsistent styling. Tokens and themes may be overridden unexpectedly.
+
+**Problem:**
+css files are loaded in wrong order causing cascade issues
+
+**Solution:**
+enforce strict canonical load order for all css layers
+
+**Signals:**
+- style override
+- theme broken
+- visual inconsistency
+
+**Search Intent:**
+how to fix css load order issues
+
+**Keywords:**
+css load order cascade, design system css order, theming override issue, frontend css layering
 
 ---
 

@@ -2,11 +2,37 @@
 
 **Status:** ENFORCED
 **Severity:** MEDIUM
-**Scope:** state, ssr
 **Version:** 1.0.0
 **Date:** 2025-01-16
 
+**Category:** state-reactivity
+**Tags:** realtime, consistency, state, architecture
+**Language:** EN
+
 ---
+
+**Intro:**
+Confusing real-time guarantees with eventual consistency leads to incorrect system design and poor UX expectations. Each model has distinct constraints.
+
+**Problem:**
+real time and eventual consistency are misused causing incorrect ux and system design
+
+**Solution:**
+choose real time or eventual consistency explicitly based on guarantees required
+
+**Signals:**
+- polling misuse
+- latency issue
+- over engineering
+
+**Search Intent:**
+when to use realtime vs eventual consistency
+
+**Keywords:**
+realtime vs eventual consistency, frontend data sync strategy, websocket vs polling decision, state consistency architecture
+
+---
+
 **Short statement (easy to remember):**  
 Real-time is guarantee. Eventual is acceptance.
 

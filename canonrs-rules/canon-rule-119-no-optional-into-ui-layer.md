@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** components, design-system
 **Version:** 1.1.0
 **Date:** 2025-01-22
+
+**Category:** component-architecture
+**Tags:** props, ui, leptos, types
+**Language:** EN
+
+---
+
+**Intro:**
+Using #[prop(optional, into)] in UI components causes type ambiguity and widespread compiler errors. It breaks ergonomics and increases complexity at call sites.
+
+**Problem:**
+optional into props create type ambiguity and compiler errors
+
+**Solution:**
+use explicit option types in ui components and avoid implicit conversions
+
+**Signals:**
+- e0308 error
+- type mismatch
+- ambiguous props
+
+**Search Intent:**
+how to fix leptos prop optional
+
+**Keywords:**
+leptos prop optional into error, ui component option types, leptos type inference props, rust option prop pattern
 
 ---
 

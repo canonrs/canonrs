@@ -4,9 +4,34 @@
 
 
 **Severity:** LOW
-**Scope:** components
 **Version:** 1.0.0
 **Date:** 2025-01-16
+
+**Category:** design-system
+**Tags:** layout, template, css
+**Language:** EN
+
+---
+
+**Intro:**
+Using generic layout classes in templates causes inconsistent page structure and styling conflicts. ComponentPage must enforce canonical layout classes for centralized control.
+
+**Problem:**
+generic classes break layout consistency across component pages
+
+**Solution:**
+use canon-page and canon-rail classes as mandatory layout contract
+
+**Signals:**
+- content not centered
+- inconsistent page width
+- layout drift
+
+**Search Intent:**
+how to enforce consistent layout in component templates
+
+**Keywords:**
+canon page layout classes, centralized layout template, component page css contract, design system layout consistency
 
 ---
 

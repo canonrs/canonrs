@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Scope:** components, design-system
 **Version:** 1.0.0
 **Date:** 2026-01-17
+
+**Category:** component-architecture
+**Tags:** callbacks, design-system, wasm, events
+**Language:** EN
+
+---
+
+**Intro:**
+Creating inline event handlers in UI components increases externref usage and leads to runtime crashes. Callback handling must be decoupled from component rendering.
+
+**Problem:**
+inline handlers create externrefs leading to wasm runtime limits
+
+**Solution:**
+pass callbacks as props and delegate execution to shell via data attributes
+
+**Signals:**
+- externref overflow
+- runtime crash
+- event handler issue
+
+**Search Intent:**
+how to avoid wasm callback limits
+
+**Keywords:**
+leptos callback props pattern, wasm event handler externref, ui callback architecture, design system event delegation
 
 ---
 

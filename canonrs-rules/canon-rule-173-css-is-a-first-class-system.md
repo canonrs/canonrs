@@ -2,9 +2,34 @@
 
 **Status:** ENFORCED  
 **Severity:** HIGH  
-**Scope:** architecture, css
 **Version:** 1.0.0  
 **Date:** 2026-01-28
+
+**Category:** governance
+**Tags:** css, architecture, design-system, rules
+**Language:** EN
+
+---
+
+**Intro:**
+Treating CSS as secondary leads to unstructured styling and hard-to-debug issues. CSS must follow strict architectural rules like any other system.
+
+**Problem:**
+css is treated as ad hoc leading to inconsistent and untraceable styling
+
+**Solution:**
+treat css as a governed system with strict architectural rules
+
+**Signals:**
+- css hacks
+- inconsistent styles
+- debug difficulty
+
+**Search Intent:**
+how to structure css as system not decoration
+
+**Keywords:**
+css architecture system, design system css governance, frontend styling rules, css structured approach
 
 ---
 
@@ -42,4 +67,3 @@ Treating CSS as secondary leads to untraceable UI bugs.
 ## Exceptions
 
 None.
-
