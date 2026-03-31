@@ -1,0 +1,38 @@
+# Form
+
+id: form
+label: Form
+family: interactive
+category: Form
+intent: Form container with submit handling
+description: Form component
+composable: true
+capabilities: 
+required_parts: 
+optional_parts: 
+tags: form, submit, validation, input, fields
+keywords: 
+pain: Forms mix validation, submission and accessibility inconsistently
+promise: Form lifecycle and validation state enforced at container level
+why: FormPrimitive encodes validation, disabled and submission states into attributes. ARIA states like busy and invalid are derived automatically. This guarantees consistent form behavior across all inputs.
+rules: CR-001, CR-004
+use_cases: user forms, checkout flows
+related: input, input_group, input_otp, textarea, field, label, checkbox, form_error_summary
+
+## before
+// ❌ Typical
+view! {
+  <form>
+    <input />
+  </form>
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <Form>
+    <FormField>
+      <FormLabel>"Name"</FormLabel>
+    </FormField>
+  </Form>
+}

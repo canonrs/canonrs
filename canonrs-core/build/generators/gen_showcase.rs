@@ -1,10 +1,21 @@
 //! gen_showcase.rs — gera src/generated/showcase.json
-//! SOURCE: canonrs-server/src/ui/*/_ui.rs @canon-showcase-* fields
+//! SOURCE: canonrs-server/src/ui/*/builder.md
 
 use std::path::Path;
 use std::fs;
 use crate::build::types::ShowcaseEntry;
-use crate::build::parsers::extract_canon_field;
+use crate::build::parsers::extract_builder_field;
+
+fn extract_section(content: &str, section: &str) -> String {
+    let marker = format!("## {}", section);
+    if let Some(start) = content.find(&marker) {
+        let rest = &content[start + marker.len()..];
+        let end = rest.find("\n## ").unwrap_or(rest.len());
+        rest[..end].trim().to_string()
+    } else {
+        String::new()
+    }
+}
 
 pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
     let mut entries: Vec<ShowcaseEntry> = vec![];
@@ -17,37 +28,31 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
     for entry in dir_entries.flatten() {
         let path = entry.path();
         if !path.is_dir() { continue; }
-        let dir_name = path.file_name()
-            .and_then(|n| n.to_str())
-            .unwrap_or("")
-            .to_string();
-        let ui_file = path.join(format!("{}_ui.rs", dir_name));
-        let content = match fs::read_to_string(&ui_file) {
+        let builder_file = path.join("builder.md");
+        let content = match fs::read_to_string(&builder_file) {
             Ok(c) => c,
             Err(_) => continue,
         };
-        if !content.contains("@canon-id:") { continue; }
-        // só gera se tiver @canon-pain (sinal que foi preenchido)
-        let pain = match extract_canon_field(&content, "canon-pain") {
+        let pain = match extract_builder_field(&content, "pain") {
             Some(v) => v,
             None => continue,
         };
-        let id          = extract_canon_field(&content, "canon-id").unwrap_or_default();
-        let label       = extract_canon_field(&content, "canon-label").unwrap_or_default();
-        let category    = extract_canon_field(&content, "canon-category").unwrap_or_default();
-        let description = extract_canon_field(&content, "canon-description").unwrap_or_default();
-        let keywords    = extract_canon_field(&content, "canon-keywords").unwrap_or_default();
-        let promise     = extract_canon_field(&content, "canon-promise").unwrap_or_default();
-        let why         = extract_canon_field(&content, "canon-why").unwrap_or_default();
-        let before      = extract_canon_field(&content, "canon-before").unwrap_or_default();
-        let after       = extract_canon_field(&content, "canon-after").unwrap_or_default();
-        let rules       = extract_canon_field(&content, "canon-rules")
+        let id          = extract_builder_field(&content, "id").unwrap_or_default();
+        let label       = extract_builder_field(&content, "label").unwrap_or_default();
+        let category    = extract_builder_field(&content, "category").unwrap_or_default();
+        let description = extract_builder_field(&content, "description").unwrap_or_default();
+        let keywords    = extract_builder_field(&content, "keywords").unwrap_or_default();
+        let promise     = extract_builder_field(&content, "promise").unwrap_or_default();
+        let why         = extract_builder_field(&content, "why").unwrap_or_default();
+        let before      = extract_section(&content, "before");
+        let after       = extract_section(&content, "after");
+        let rules       = extract_builder_field(&content, "rules")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
-        let use_cases   = extract_canon_field(&content, "canon-use-cases")
+        let use_cases   = extract_builder_field(&content, "use_cases")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
-        let related     = extract_canon_field(&content, "canon-related")
+        let related     = extract_builder_field(&content, "related")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
 

@@ -1,14 +1,3 @@
-//! @canon-id: page-header
-//! @canon-label: Page Header
-//! @canon-family: layout
-//! @canon-category: Display
-//! @canon-intent: Page title and actions bar
-//! @canon-description: Page header with title and actions
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: page-header, title, heading, actions, breadcrumb
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

@@ -1,14 +1,3 @@
-//! @canon-id: modal
-//! @canon-label: Modal
-//! @canon-family: overlay
-//! @canon-category: Overlay
-//! @canon-intent: Generic modal container
-//! @canon-description: Modal window component
-//! @canon-composable: true
-//! @canon-capabilities: OpenClose, FocusTrap, AriaModal
-//! @canon-required-parts:
-//! @canon-optional-parts: ModalOverlay, ModalContent, ModalClose
-//! @canon-tags: modal, window, popup, overlay, dialog
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ModalPrimitive, ModalOverlayPrimitive, ModalContentPrimitive};

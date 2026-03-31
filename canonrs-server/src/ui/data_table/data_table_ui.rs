@@ -1,14 +1,3 @@
-//! @canon-id: data-table
-//! @canon-label: Data Table
-//! @canon-family: data_display
-//! @canon-category: Data
-//! @canon-intent: Display sortable, filterable tabular data
-//! @canon-description: Sortable data table component
-//! @canon-composable: true
-//! @canon-capabilities: Multiple
-//! @canon-required-parts:
-//! @canon-optional-parts: DataTablePagination, DataTableToolbar, DataTableColumn
-//! @canon-tags: data-table, table, data, grid, sortable, filterable
 
 use leptos::prelude::*;
 use std::sync::Arc;

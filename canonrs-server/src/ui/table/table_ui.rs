@@ -1,14 +1,3 @@
-//! @canon-id: table
-//! @canon-label: Table
-//! @canon-family: data_display
-//! @canon-category: Data
-//! @canon-intent: Display tabular data
-//! @canon-description: HTML table component
-//! @canon-composable: true
-//! @canon-capabilities: Selected
-//! @canon-required-parts: TableHeader, TableBody, TableRow, TableHead, TableCell
-//! @canon-optional-parts: TableFooter, TableCaption, TableWrapper
-//! @canon-tags: table, tabular, rows, columns, data
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

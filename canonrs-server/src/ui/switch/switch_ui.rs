@@ -1,14 +1,3 @@
-//! @canon-id: switch
-//! @canon-label: Switch
-//! @canon-family: input
-//! @canon-category: Form
-//! @canon-intent: Toggle between on and off states
-//! @canon-description: Toggle switch on off
-//! @canon-composable: false
-//! @canon-capabilities: Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: switch, toggle, on, off, activate
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{SwitchPrimitive, SwitchThumbPrimitive};

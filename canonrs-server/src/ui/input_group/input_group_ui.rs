@@ -1,14 +1,3 @@
-//! @canon-id: input-group
-//! @canon-label: Input Group
-//! @canon-family: utility
-//! @canon-category: Form
-//! @canon-intent: Group input with prefix or suffix elements
-//! @canon-description: Input group with addons
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: input-group, prefix, suffix, addon, field
 
 use leptos::prelude::*;
 use canonrs_core::primitives::InputGroupPrimitive;

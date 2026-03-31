@@ -1,14 +1,3 @@
-//! @canon-id: skeleton
-//! @canon-label: Skeleton
-//! @canon-family: feedback
-//! @canon-category: Feedback
-//! @canon-intent: Show placeholder while content loads
-//! @canon-description: Loading skeleton placeholder
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: skeleton, loading, placeholder, shimmer
 
 use leptos::prelude::*;
 use canonrs_core::primitives::SkeletonPrimitive;

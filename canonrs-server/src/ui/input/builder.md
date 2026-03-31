@@ -1,0 +1,32 @@
+# Input
+
+id: input
+label: Input
+family: input
+category: Form
+intent: Capture text or data from user
+description: Text input field
+composable: false
+capabilities: Value, Disabled
+required_parts: 
+optional_parts: 
+tags: input, field, text, form
+keywords: 
+pain: Inputs accept invalid visual states without consistent validation mapping
+promise: Variant and size strictly constrained via typed enums
+why: InputVariant and InputSize define allowed visual states at compile-time. DisabledState is mapped to both DOM and ARIA. This guarantees consistent rendering and prevents invalid combinations.
+rules: CR-001, CR-004
+use_cases: forms, search fields
+related: input_group, input_otp, textarea, field, label, checkbox, form_error_summary
+
+## before
+// ❌ Typical
+view! {
+  <input class="input error large" />
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <Input variant=InputVariant::Error size=InputSize::Lg />
+}

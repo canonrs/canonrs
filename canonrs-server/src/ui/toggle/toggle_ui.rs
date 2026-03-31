@@ -1,14 +1,3 @@
-//! @canon-id: toggle
-//! @canon-label: Toggle
-//! @canon-family: input
-//! @canon-category: Form
-//! @canon-intent: Toggle a pressed state
-//! @canon-description: Toggle button
-//! @canon-composable: false
-//! @canon-capabilities: Pressed, Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: toggle, activate, button, on, off, press
 
 use leptos::prelude::*;
 use canonrs_core::primitives::TogglePrimitive;

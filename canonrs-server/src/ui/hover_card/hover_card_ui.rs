@@ -1,14 +1,3 @@
-//! @canon-id: hover-card
-//! @canon-label: Hover Card
-//! @canon-family: overlay
-//! @canon-category: Overlay
-//! @canon-intent: Show rich preview on hover
-//! @canon-description: Hover card popup
-//! @canon-composable: true
-//! @canon-capabilities: OpenClose
-//! @canon-required-parts: HoverCardTrigger, HoverCardContent
-//! @canon-optional-parts:
-//! @canon-tags: hover-card, preview, card, hover, popup
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

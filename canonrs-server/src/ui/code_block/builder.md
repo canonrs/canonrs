@@ -1,0 +1,32 @@
+# Code Block
+
+id: code-block
+label: Code Block
+family: data_display
+category: Display
+intent: Display syntax-highlighted code
+description: Syntax-highlighted code display
+composable: false
+capabilities: 
+required_parts: 
+optional_parts: 
+tags: code-block, code, syntax, highlight, snippet, technical
+keywords: 
+pain: Code blocks rely on client-side highlighting causing hydration mismatch
+promise: SSR-safe syntax highlighting with deterministic DOM output
+why: CodeBlockPrimitive supports SSR-safe rendering with precomputed HTML. The contract ensures no client mutation is required. This prevents hydration mismatch and ensures consistent output.
+rules: CR-001, CR-004
+use_cases: docs, code snippets
+related: avatar, icon, logo, markdown, chart, stat, inline_meta, kbd
+
+## before
+// ❌ Typical
+view! {
+  <pre><code>{highlight(code)}</code></pre>
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <CodeBlock code="fn main() {}" language="rust" />
+}

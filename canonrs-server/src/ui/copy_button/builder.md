@@ -1,0 +1,32 @@
+# Copy Button
+
+id: copy-button
+label: Copy Button
+family: utility
+category: Action
+intent: Copy text to clipboard on click
+description: Clipboard copy button
+composable: false
+capabilities: 
+required_parts: 
+optional_parts: 
+tags: copy-button, copy, clipboard, button, action
+keywords: 
+pain: Copy buttons require manual state handling and feedback UI
+promise: Copy state lifecycle fully encoded in DOM state machine
+why: CopyButton encodes idle, copied, and error states via data-rs-state. Behavior layer handles transitions without JS wiring. This guarantees consistent feedback and eliminates manual state management.
+rules: CR-001, CR-004
+use_cases: code snippets, share links
+related: button, button_group, icon_button, link
+
+## before
+// ❌ Typical
+view! {
+  <button on:click=copy>"Copy"</button>
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <CopyButton id="copy" text="value" />
+}

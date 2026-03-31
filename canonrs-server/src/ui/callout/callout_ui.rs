@@ -1,14 +1,3 @@
-//! @canon-id: callout
-//! @canon-label: Callout
-//! @canon-family: feedback
-//! @canon-category: Feedback
-//! @canon-intent: Highlight important contextual information
-//! @canon-description: Callout info box
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts: CalloutIcon, CalloutTitle, CalloutDescription
-//! @canon-tags: callout, highlight, info, note, warning, tip
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

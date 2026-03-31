@@ -1,14 +1,3 @@
-//! @canon-id: pagination
-//! @canon-label: Pagination
-//! @canon-family: navigation
-//! @canon-category: Navigation
-//! @canon-intent: Navigate between pages of content
-//! @canon-description: Page navigation control
-//! @canon-composable: true
-//! @canon-capabilities: Active, Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts: PaginationContent, PaginationItem, PaginationLink
-//! @canon-tags: pagination, pages, next, prev, navigate
 
 use leptos::prelude::*;
 use canonrs_core::meta::ActivityState;

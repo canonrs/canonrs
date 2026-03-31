@@ -1,14 +1,3 @@
-//! @canon-id: copy-button
-//! @canon-label: Copy Button
-//! @canon-family: utility
-//! @canon-category: Action
-//! @canon-intent: Copy text to clipboard on click
-//! @canon-description: Clipboard copy button
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: copy-button, copy, clipboard, button, action
 
 use leptos::prelude::*;
 

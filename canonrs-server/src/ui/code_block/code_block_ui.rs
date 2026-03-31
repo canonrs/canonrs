@@ -1,14 +1,3 @@
-//! @canon-id: code-block
-//! @canon-label: Code Block
-//! @canon-family: data_display
-//! @canon-category: Display
-//! @canon-intent: Display syntax-highlighted code
-//! @canon-description: Syntax-highlighted code display
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: code-block, code, syntax, highlight, snippet, technical
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

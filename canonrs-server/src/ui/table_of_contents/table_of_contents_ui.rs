@@ -1,14 +1,3 @@
-//! @canon-id: table-of-contents
-//! @canon-label: Table of Contents
-//! @canon-family: utility
-//! @canon-category: Navigation
-//! @canon-intent: Navigate document sections via anchors
-//! @canon-description: Document table of contents
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: table-of-contents, index, summary, anchors, navigation, document
 
 use leptos::prelude::*;
 use canonrs_core::TocItem;

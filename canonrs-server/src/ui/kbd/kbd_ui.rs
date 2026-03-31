@@ -1,14 +1,3 @@
-//! @canon-id: kbd
-//! @canon-label: Kbd
-//! @canon-family: typography
-//! @canon-category: Display
-//! @canon-intent: Display keyboard shortcut
-//! @canon-description: Keyboard shortcut display
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: kbd, keyboard, shortcut, ctrl, cmd
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{KbdPrimitive, KbdGroupPrimitive, KbdSeparatorPrimitive};

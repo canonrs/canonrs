@@ -1,14 +1,3 @@
-//! @canon-id: collapsible
-//! @canon-label: Collapsible
-//! @canon-family: layout
-//! @canon-category: Navigation
-//! @canon-intent: Show and hide content sections
-//! @canon-description: Collapsible section
-//! @canon-composable: true
-//! @canon-capabilities: OpenClose
-//! @canon-required-parts: CollapsibleTrigger, CollapsibleContent
-//! @canon-optional-parts:
-//! @canon-tags: collapsible, collapse, expand, hide, toggle
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

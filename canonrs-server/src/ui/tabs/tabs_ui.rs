@@ -1,14 +1,3 @@
-//! @canon-id: tabs
-//! @canon-label: Tabs
-//! @canon-family: navigation
-//! @canon-category: Navigation
-//! @canon-intent: Switch between related content panels
-//! @canon-description: Tabbed navigation
-//! @canon-composable: true
-//! @canon-capabilities: Active
-//! @canon-required-parts: TabsList, TabsTrigger, TabsContent
-//! @canon-optional-parts:
-//! @canon-tags: tabs, navigation, tab, sections, panels
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

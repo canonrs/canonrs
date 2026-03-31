@@ -1,14 +1,3 @@
-//! @canon-id: progress
-//! @canon-label: Progress
-//! @canon-family: feedback
-//! @canon-category: Feedback
-//! @canon-intent: Show completion of a task
-//! @canon-description: Progress bar indicator
-//! @canon-composable: true
-//! @canon-capabilities: Value
-//! @canon-required-parts: ProgressIndicator
-//! @canon-optional-parts:
-//! @canon-tags: progress, bar, loading, percentage, completion
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ProgressPrimitive, ProgressIndicatorPrimitive};

@@ -1,10 +1,3 @@
-//! @canon-id: doc-progress
-//! @canon-label: Doc Progress
-//! @canon-family: utility
-//! @canon-category: Display
-//! @canon-intent: Indicate reading progress in a document
-//! @canon-description: Document progress indicator
-//! @canon-tags: doc-progress, document, progress, reading
 
 use leptos::prelude::*;
 use canonrs_core::primitives::doc_progress::{DocProgressPrimitive, DocProgressPortal};

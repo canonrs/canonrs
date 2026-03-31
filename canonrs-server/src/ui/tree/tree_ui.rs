@@ -1,14 +1,3 @@
-//! @canon-id: tree
-//! @canon-label: Tree
-//! @canon-family: data_display
-//! @canon-category: Display
-//! @canon-intent: Display hierarchical data
-//! @canon-description: Tree view component
-//! @canon-composable: true
-//! @canon-capabilities: Selected
-//! @canon-required-parts: TreeItem
-//! @canon-optional-parts: TreeGroup
-//! @canon-tags: tree, hierarchy, nodes, structure, explorer
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

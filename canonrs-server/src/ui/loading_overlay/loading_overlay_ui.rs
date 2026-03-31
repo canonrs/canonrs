@@ -1,14 +1,3 @@
-//! @canon-id: loading-overlay
-//! @canon-label: Loading Overlay
-//! @canon-family: utility
-//! @canon-category: Display
-//! @canon-intent: Block UI during async operations
-//! @canon-description: Full loading overlay
-//! @canon-composable: false
-//! @canon-capabilities: OpenClose
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: loading-overlay, loading, overlay, wait, spinner, block
 
 use leptos::prelude::*;
 use canonrs_core::primitives::LoadingOverlayPrimitive;

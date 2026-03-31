@@ -1,14 +1,3 @@
-//! @canon-id: toolbar
-//! @canon-label: Toolbar
-//! @canon-family: layout
-//! @canon-category: Layout
-//! @canon-intent: Action toolbar region
-//! @canon-description: Action toolbar component
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: toolbar, bar, actions, tools, editor, formatting
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ToolbarPrimitive, ToolbarSeparatorPrimitive, ToolbarOrientation};

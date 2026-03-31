@@ -1,14 +1,3 @@
-//! @canon-id: hero-ui
-//! @canon-label: Hero UI
-//! @canon-family: display
-//! @canon-category: Display
-//! @canon-intent: Semantic UI elements inside HeroBlock
-//! @canon-description: Hero typography and label components
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: hero, title, subtitle, description, heading
 
 use leptos::prelude::*;
 

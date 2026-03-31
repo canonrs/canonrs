@@ -1,14 +1,3 @@
-//! @canon-id: accordion
-//! @canon-label: Accordion
-//! @canon-family: layout
-//! @canon-category: Navigation
-//! @canon-intent: Expand and collapse content sections
-//! @canon-description: Expandable accordion sections
-//! @canon-composable: true
-//! @canon-capabilities: OpenClose, Multiple
-//! @canon-required-parts: AccordionItem, AccordionTrigger, AccordionContent
-//! @canon-optional-parts:
-//! @canon-tags: accordion, collapsible, expand, sections, faq
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

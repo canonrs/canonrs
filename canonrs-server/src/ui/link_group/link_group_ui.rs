@@ -1,14 +1,3 @@
-//! @canon-id: link-group
-//! @canon-label: Link Group
-//! @canon-family: navigation
-//! @canon-category: Navigation
-//! @canon-intent: Semantic group of navigation links with optional label
-//! @canon-description: Wrapper that organizes multiple NavItems into a labeled navigation group
-//! @canon-composable: true
-//! @canon-capabilities: Orientation, Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: link-group, nav-group, navigation, links, footer, sidebar, grouped
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{NavigationGroupPrimitive, NavigationGroupLabelPrimitive};

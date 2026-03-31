@@ -1,17 +1,3 @@
-//! @canon-id: site-logo
-//! @canon-label: Site Logo
-//! @canon-family: navigation
-//! @canon-category: Brand
-//! @canon-intent: Brand identity link pointing to home
-//! @canon-description: CanonRS logo combining SVG icon, wordmark and optional tagline
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: logo, brand, home, identity, canonrs, wordmark, icon, tagline
-//! @canon-prop: size | Select(sm:Small,md:Medium,lg:Large) | md | visual | size
-//! @canon-prop: variant | Select(brand:Brand,neutral:Neutral) | brand | visual | variant
-//! @canon-prop: href | Text | / | structural | href
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{LogoPrimitive, LogoIconPrimitive, LogoWordmarkPrimitive, LogoTaglinePrimitive};

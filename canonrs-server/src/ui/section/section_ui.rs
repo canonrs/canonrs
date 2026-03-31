@@ -1,14 +1,3 @@
-//! @canon-id: section-ui
-//! @canon-label: Section UI
-//! @canon-family: display
-//! @canon-category: Display
-//! @canon-intent: Semantic UI elements inside Section layout
-//! @canon-description: Section header typography components
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: section, title, subtitle, header
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{SectionHeaderPrimitive, SectionTitlePrimitive, SectionSubtitlePrimitive, SectionBadgePrimitive};

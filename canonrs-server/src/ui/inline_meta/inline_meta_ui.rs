@@ -1,14 +1,3 @@
-//! @canon-id: inline-meta
-//! @canon-label: Inline Meta
-//! @canon-family: display
-//! @canon-category: Display
-//! @canon-intent: Display structured metadata inline (label + value pairs)
-//! @canon-description: Inline metadata display for stats, versions, dates and counts
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts: InlineMetaLabel, InlineMetaValue
-//! @canon-tags: inline-meta, meta, label, value, stat, info, display
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{InlineMetaPrimitive, InlineMetaLabelPrimitive, InlineMetaValuePrimitive};

@@ -1,14 +1,3 @@
-//! @canon-id: separator
-//! @canon-label: Separator
-//! @canon-family: layout
-//! @canon-category: Layout
-//! @canon-intent: Visually divide content sections
-//! @canon-description: Visual divider line
-//! @canon-composable: false
-//! @canon-capabilities: Orientation
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: separator, divider, line, hr, section
 
 use leptos::prelude::*;
 use canonrs_core::Orientation;

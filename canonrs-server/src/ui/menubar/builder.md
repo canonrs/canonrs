@@ -1,0 +1,38 @@
+# Menubar
+
+id: menubar
+label: Menubar
+family: interactive
+category: Navigation
+intent: Horizontal application menu bar
+description: Menu bar navigation
+composable: true
+capabilities: OpenClose
+required_parts: MenubarMenu, MenubarTrigger
+optional_parts: MenubarContent, MenubarItem, MenubarSeparator
+tags: menubar, navigation, desktop, app
+keywords: 
+pain: Horizontal menus break ARIA roles and keyboard navigation
+promise: Menubar semantics and structure enforced via primitives
+why: MenubarPrimitive enforces role="menubar" and structured menu composition. Trigger and content follow strict ARIA relationships. This guarantees accessible and predictable navigation behavior.
+rules: CR-001, CR-004
+use_cases: desktop apps, top navigation
+related: dropdown_menu, context_menu, command
+
+## before
+// ❌ Typical
+view! {
+  <div class="menubar">
+    <button>"File"</button>
+  </div>
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <Menubar>
+    <MenubarMenu>
+      <MenubarTrigger>"File"</MenubarTrigger>
+    </MenubarMenu>
+  </Menubar>
+}

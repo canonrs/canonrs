@@ -1,0 +1,36 @@
+# Toolbar
+
+id: toolbar
+label: Toolbar
+family: layout
+category: Layout
+intent: Action toolbar region
+description: Action toolbar component
+composable: true
+capabilities: 
+required_parts: 
+optional_parts: 
+tags: toolbar, bar, actions, tools, editor, formatting
+keywords: 
+pain: Action groups lack orientation and accessibility semantics
+promise: Toolbar role and orientation enforced via contract
+why: ToolbarPrimitive encodes orientation and role="toolbar". ARIA labeling is explicit. This guarantees accessible grouping of actions.
+rules: CR-001, CR-004
+use_cases: editors, action bars
+related: card, resizable, scroll_area, aspect_ratio, page_header, separator
+
+## before
+// ❌ Typical
+view! {
+  <div class="toolbar">
+    <button>"Bold"</button>
+  </div>
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <Toolbar aria_label="Editor">
+    <button>"Bold"</button>
+  </Toolbar>
+}

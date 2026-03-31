@@ -212,39 +212,39 @@ pub(crate) fn parse_ui_components_semantic(ui_dir: &Path) -> HashMap<String, Sem
     for entry in entries.flatten() {
         let path = entry.path();
         if !path.is_dir() { continue; }
-        let dir_name = path.file_name()
+        let _dir_name = path.file_name()
             .and_then(|n| n.to_str())
             .unwrap_or("")
             .to_string();
-        // Encontra o *_ui.rs principal (mesmo nome do diretório)
-        let ui_file = path.join(format!("{}_ui.rs", dir_name));
-        let content = match fs::read_to_string(&ui_file) {
+        // Lê builder.md como fonte da verdade
+        let builder_file = path.join("builder.md");
+        let content = match fs::read_to_string(&builder_file) {
             Ok(c) => c,
             Err(_) => continue,
         };
-        // Só processa se tem @canon-id
-        let id = match extract_canon_field(&content, "canon-id") {
+        // Só processa se tem id:
+        let id = match extract_builder_field(&content, "id") {
             Some(v) => v,
             None => continue,
         };
-        let label       = extract_canon_field(&content, "canon-label").unwrap_or_default();
-        let description = extract_canon_field(&content, "canon-description").unwrap_or_default();
-        let family      = extract_canon_field(&content, "canon-family").unwrap_or_default();
-        let intent      = extract_canon_field(&content, "canon-intent").unwrap_or_default();
-        let catalog_category = extract_canon_field(&content, "canon-category").unwrap_or_default();
-        let composable  = extract_canon_field(&content, "canon-composable")
+        let label       = extract_builder_field(&content, "label").unwrap_or_default();
+        let description = extract_builder_field(&content, "description").unwrap_or_default();
+        let family      = extract_builder_field(&content, "family").unwrap_or_default();
+        let intent      = extract_builder_field(&content, "intent").unwrap_or_default();
+        let catalog_category = extract_builder_field(&content, "category").unwrap_or_default();
+        let composable  = extract_builder_field(&content, "composable")
             .map(|v| v == "true")
             .unwrap_or(false);
-        let capabilities = extract_canon_field(&content, "canon-capabilities")
+        let capabilities = extract_builder_field(&content, "capabilities")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
-        let catalog_tags = extract_canon_field(&content, "canon-tags")
+        let catalog_tags = extract_builder_field(&content, "tags")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
-        let required_parts = extract_canon_field(&content, "canon-required-parts")
+        let required_parts = extract_builder_field(&content, "required_parts")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
-        let optional_parts = extract_canon_field(&content, "canon-optional-parts")
+        let optional_parts = extract_builder_field(&content, "optional_parts")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
         map.insert(id.clone(), SemanticEntry {
@@ -282,4 +282,15 @@ fn split_outside_parens(s: &str) -> Vec<&str> {
     }
     if start < s.len() { result.push(s[start..].trim()); }
     result
+}
+
+pub(crate) fn extract_builder_field(content: &str, field: &str) -> Option<String> {
+    let needle = format!("{}: ", field);
+    for line in content.lines() {
+        let trimmed = line.trim();
+        if trimmed.starts_with(&needle) {
+            return Some(trimmed[needle.len()..].trim().to_string());
+        }
+    }
+    None
 }

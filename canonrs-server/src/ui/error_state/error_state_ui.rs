@@ -1,14 +1,3 @@
-//! @canon-id: error-state
-//! @canon-label: Error State
-//! @canon-family: feedback
-//! @canon-category: Feedback
-//! @canon-intent: Display error condition to user
-//! @canon-description: Error state display
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts: ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateAction
-//! @canon-tags: error-state, error, failure, problem, try-again
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

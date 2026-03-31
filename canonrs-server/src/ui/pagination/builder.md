@@ -1,0 +1,36 @@
+# Pagination
+
+id: pagination
+label: Pagination
+family: navigation
+category: Navigation
+intent: Navigate between pages of content
+description: Page navigation control
+composable: true
+capabilities: Active, Disabled
+required_parts: 
+optional_parts: PaginationContent, PaginationItem, PaginationLink
+tags: pagination, pages, next, prev, navigate
+keywords: 
+pain: Pagination links lack active state and disabled navigation semantics
+promise: Navigation state and accessibility enforced via structured primitives
+why: PaginationPrimitive encodes navigation semantics with aria-current and disabled states. Previous and next controls enforce accessibility automatically. This guarantees consistent pagination behavior.
+rules: CR-001, CR-004
+use_cases: tables, lists
+related: navigation_menu, sidebar, nav_item, breadcrumb, link_group
+
+## before
+// ❌ Typical
+view! {
+  <a class="active">"1"</a>
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <Pagination>
+    <PaginationContent>
+      <PaginationLink state=ActivityState::Active href="#">"1"</PaginationLink>
+    </PaginationContent>
+  </Pagination>
+}

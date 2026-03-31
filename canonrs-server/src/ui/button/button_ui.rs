@@ -1,15 +1,3 @@
-//! @canon-id: button
-//! @canon-label: Button
-//! @canon-family: interactive
-//! @canon-category: Action
-//! @canon-intent: Trigger an action or event
-//! @canon-description: Action button with variant and size
-//! @canon-composable: false
-//! @canon-capabilities: Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: button, action, submit, click, cta
-//! @canon-keywords: button rust leptos, ssr safe button leptos, canonical button component rust, governed ui button
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ButtonPrimitive, ButtonVariant as CoreVariant, ButtonSize as CoreSize};

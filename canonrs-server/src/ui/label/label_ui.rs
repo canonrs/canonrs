@@ -1,14 +1,3 @@
-//! @canon-id: label
-//! @canon-label: Label
-//! @canon-family: utility
-//! @canon-category: Form
-//! @canon-intent: Associate a label with a form control
-//! @canon-description: Form label component
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: label, form, accessibility, input
 
 use leptos::prelude::*;
 use canonrs_core::primitives::LabelPrimitive;

@@ -1,0 +1,34 @@
+# Sheet
+
+id: sheet
+label: Sheet
+family: overlay
+category: Overlay
+intent: Side panel for forms or navigation
+description: Sheet panel overlay
+composable: true
+capabilities: OpenClose, FocusTrap, KeyboardEsc
+required_parts: SheetContent
+optional_parts: SheetOverlay
+tags: sheet, panel, lateral, slide, drawer, mobile
+keywords: 
+pain: Side panels desync visibility, overlay and focus behavior
+promise: Sheet visibility and overlay fully governed via shared state
+why: SheetPrimitive maps VisibilityState to both panel and overlay. Side positioning is encoded structurally. This guarantees consistent slide-in behavior and accessibility.
+rules: CR-001, CR-004
+use_cases: mobile navigation, side panels
+related: dialog, alert_dialog, drawer, modal, confirm_dialog, tooltip, hover_card, popover
+
+## before
+// ❌ Typical
+view! {
+  {if open { view! { <div class="drawer">"Content"</div> } }}
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <Sheet>
+    <SheetContent aria_labelledby="title">"Content"</SheetContent>
+  </Sheet>
+}

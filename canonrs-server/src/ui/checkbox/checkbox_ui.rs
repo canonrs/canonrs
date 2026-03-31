@@ -1,14 +1,3 @@
-//! @canon-id: checkbox
-//! @canon-label: Checkbox
-//! @canon-family: input
-//! @canon-category: Form
-//! @canon-intent: Toggle a boolean value
-//! @canon-description: Checkbox input
-//! @canon-composable: false
-//! @canon-capabilities: Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: checkbox, check, tick, selection, multiple
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{CheckboxPrimitive, CheckboxIndicatorPrimitive};

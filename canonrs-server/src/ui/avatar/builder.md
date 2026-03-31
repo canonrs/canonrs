@@ -1,0 +1,35 @@
+# Avatar
+
+id: avatar
+label: Avatar
+family: data_display
+category: Display
+intent: Display user profile image with fallback
+description: User avatar image
+composable: true
+capabilities: 
+required_parts: 
+optional_parts: AvatarImage, AvatarFallback
+tags: avatar, photo, profile, user, image
+keywords: 
+pain: Avatar fallback logic breaks when image fails to load
+promise: Image and fallback visibility controlled by state system
+why: AvatarImage and AvatarFallback use VisibilityState to control rendering. The system ensures fallback is shown when image is unavailable. This avoids manual conditional logic and guarantees consistent behavior.
+rules: CR-001, CR-004
+use_cases: user profile, team lists
+related: icon, logo, code_block, markdown, chart, stat, inline_meta, kbd
+
+## before
+// ❌ Typical
+view! {
+  <img src="user.png" on:error=move |_| show_fallback() />
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <Avatar>
+    <AvatarImage src="user.png" alt="User" />
+    <AvatarFallback>"AB"</AvatarFallback>
+  </Avatar>
+}

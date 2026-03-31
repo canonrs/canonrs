@@ -1,0 +1,41 @@
+# Context Menu
+
+id: context-menu
+label: Context Menu
+family: interactive
+category: Action
+intent: Show menu on right-click
+description: Right-click context menu
+composable: true
+capabilities: OpenClose
+required_parts: ContextMenuTrigger, ContextMenuContent
+optional_parts: ContextMenuItem, ContextMenuSeparator
+tags: context-menu, right-click, menu, options, contextual
+keywords: 
+pain: Right-click menus lack consistent trigger and focus behavior
+promise: Context menu interaction and roles enforced structurally
+why: ContextMenuPrimitive defines trigger/content separation with ARIA roles. ActivityState and DisabledState ensure correct focus and navigation. This guarantees predictable contextual actions.
+rules: CR-001, CR-004
+use_cases: file actions, contextual tools
+related: dropdown_menu, menubar, command
+
+## before
+// ❌ Typical
+view! {
+  <div on:contextmenu=show_menu>
+    <div class="menu">"Item"</div>
+  </div>
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <ContextMenu>
+    <ContextMenuTrigger>
+      <span>"Right-click"</span>
+    </ContextMenuTrigger>
+    <ContextMenuContent>
+      <ContextMenuItem>"Item"</ContextMenuItem>
+    </ContextMenuContent>
+  </ContextMenu>
+}

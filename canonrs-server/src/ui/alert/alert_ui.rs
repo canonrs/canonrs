@@ -1,14 +1,3 @@
-//! @canon-id: alert
-//! @canon-label: Alert
-//! @canon-family: feedback
-//! @canon-category: Feedback
-//! @canon-intent: Display important static messages
-//! @canon-description: Alert message box
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts: AlertTitle, AlertDescription
-//! @canon-tags: alert, warning, info, message, error
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

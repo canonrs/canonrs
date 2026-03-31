@@ -1,14 +1,3 @@
-//! @canon-id: icon
-//! @canon-label: Icon
-//! @canon-family: utility
-//! @canon-category: Display
-//! @canon-intent: Display an SVG icon
-//! @canon-description: SVG icon display
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: icon, svg, symbol, visual
 
 use leptos::prelude::*;
 

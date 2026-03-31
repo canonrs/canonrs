@@ -1,14 +1,3 @@
-//! @canon-id: menu
-//! @canon-label: Menu
-//! @canon-family: utility
-//! @canon-category: Navigation
-//! @canon-intent: Static vertical menu list
-//! @canon-description: Menu component
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: menu, list, options, actions, items
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

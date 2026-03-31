@@ -1,14 +1,3 @@
-//! @canon-id: radio-group
-//! @canon-label: Radio Group
-//! @canon-family: input
-//! @canon-category: Form
-//! @canon-intent: Group radio buttons for single selection
-//! @canon-description: Group of radio buttons
-//! @canon-composable: false
-//! @canon-capabilities: Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: radio-group, radio, group, options, alternatives, choice
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{RadioGroupPrimitive, RadioGroupItemPrimitive};

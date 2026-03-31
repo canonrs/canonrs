@@ -1,14 +1,3 @@
-//! @canon-id: popover
-//! @canon-label: Popover
-//! @canon-family: overlay
-//! @canon-category: Overlay
-//! @canon-intent: Show contextual floating content
-//! @canon-description: Floating popover component
-//! @canon-composable: true
-//! @canon-capabilities: OpenClose, FocusTrap
-//! @canon-required-parts: PopoverTrigger, PopoverContent
-//! @canon-optional-parts:
-//! @canon-tags: popover, floating, tooltip, overlay, context
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{PopoverPrimitive, PopoverContentPrimitive};

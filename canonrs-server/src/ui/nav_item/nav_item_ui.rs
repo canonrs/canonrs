@@ -1,14 +1,3 @@
-//! @canon-id: nav-item
-//! @canon-label: Nav Item
-//! @canon-family: navigation
-//! @canon-category: Navigation
-//! @canon-intent: Single navigation link item
-//! @canon-description: Single navigation item
-//! @canon-composable: false
-//! @canon-capabilities: Active, Disabled
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: nav-item, link, menu-item, navigation, page
 
 use leptos::prelude::*;
 use canonrs_core::primitives::NavItemPrimitive;

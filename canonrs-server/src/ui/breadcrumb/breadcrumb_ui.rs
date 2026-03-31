@@ -1,14 +1,3 @@
-//! @canon-id: breadcrumb
-//! @canon-label: Breadcrumb
-//! @canon-family: navigation
-//! @canon-category: Navigation
-//! @canon-intent: Show current location in hierarchy
-//! @canon-description: Navigation breadcrumb trail
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts: BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator
-//! @canon-tags: breadcrumb, path, navigation, trail, location
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

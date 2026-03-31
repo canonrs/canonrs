@@ -1,14 +1,3 @@
-//! @canon-id: sheet
-//! @canon-label: Sheet
-//! @canon-family: overlay
-//! @canon-category: Overlay
-//! @canon-intent: Side panel for forms or navigation
-//! @canon-description: Sheet panel overlay
-//! @canon-composable: true
-//! @canon-capabilities: OpenClose, FocusTrap, KeyboardEsc
-//! @canon-required-parts: SheetContent
-//! @canon-optional-parts: SheetOverlay
-//! @canon-tags: sheet, panel, lateral, slide, drawer, mobile
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{SheetPrimitive, SheetOverlayPrimitive, SheetContentPrimitive, SheetSide};

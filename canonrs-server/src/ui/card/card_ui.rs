@@ -1,14 +1,3 @@
-//! @canon-id: card
-//! @canon-label: Card
-//! @canon-family: layout
-//! @canon-category: Display
-//! @canon-intent: Group related content in a container
-//! @canon-description: Card component
-//! @canon-composable: true
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts: CardHeader, CardTitle, CardDescription, CardContent, CardFooter
-//! @canon-tags: card, container, group, content
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

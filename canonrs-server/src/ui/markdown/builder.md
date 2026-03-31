@@ -1,0 +1,32 @@
+# Markdown
+
+id: markdown
+label: Markdown
+family: data_display
+category: Display
+intent: Render markdown content as HTML
+description: Rendered markdown content
+composable: false
+capabilities: 
+required_parts: 
+optional_parts: 
+tags: markdown, text, rich-text, content, document, blog
+keywords: 
+pain: Client-side markdown rendering causes hydration mismatch and inconsistent DOM
+promise: SSR-safe markdown rendering with deterministic DOM output
+why: MarkdownPrimitive injects HTML only during SSR and avoids client mutation. Content and TOC are generated as stable HTML structure. This guarantees hydration-safe rendering with no runtime divergence.
+rules: CR-001, CR-004
+use_cases: docs, blog content
+related: avatar, icon, logo, code_block, chart, stat, inline_meta, kbd
+
+## before
+// ❌ Typical
+view! {
+  <div inner_html={render_markdown(md)} />
+}
+
+## after
+// ✅ CanonRS
+view! {
+  <MarkdownSurface rendered=rendered />
+}

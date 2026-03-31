@@ -1,14 +1,3 @@
-//! @canon-id: carousel
-//! @canon-label: Carousel
-//! @canon-family: data_display
-//! @canon-category: Display
-//! @canon-intent: Cycle through items horizontally
-//! @canon-description: Image carousel slider
-//! @canon-composable: true
-//! @canon-capabilities: KeyboardArrows
-//! @canon-required-parts: CarouselTrack, CarouselItem
-//! @canon-optional-parts: CarouselPrev, CarouselNext, CarouselIndicators
-//! @canon-tags: carousel, slider, gallery, images, slideshow
 
 use leptos::prelude::*;
 use canonrs_core::ToggleState;

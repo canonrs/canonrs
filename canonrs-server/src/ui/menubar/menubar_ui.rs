@@ -1,14 +1,3 @@
-//! @canon-id: menubar
-//! @canon-label: Menubar
-//! @canon-family: interactive
-//! @canon-category: Navigation
-//! @canon-intent: Horizontal application menu bar
-//! @canon-description: Menu bar navigation
-//! @canon-composable: true
-//! @canon-capabilities: OpenClose
-//! @canon-required-parts: MenubarMenu, MenubarTrigger
-//! @canon-optional-parts: MenubarContent, MenubarItem, MenubarSeparator
-//! @canon-tags: menubar, navigation, desktop, app
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{

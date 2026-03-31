@@ -1,14 +1,3 @@
-//! @canon-id: form-error-summary
-//! @canon-label: Form Error Summary
-//! @canon-family: utility
-//! @canon-category: Form
-//! @canon-intent: Summarize form validation errors
-//! @canon-description: Form validation error summary
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: form-error-summary, error, validation, form, summary
 
 use leptos::prelude::*;
 use canonrs_core::primitives::FormErrorSummaryPrimitive;

@@ -1,14 +1,3 @@
-//! @canon-id: pulse
-//! @canon-label: Pulse
-//! @canon-family: feedback
-//! @canon-category: Feedback
-//! @canon-intent: Animated attention indicator
-//! @canon-description: Pulse animation wrapper
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: pulse, animation, glow, attention, highlight, ping
 
 use leptos::prelude::*;
 use canonrs_core::primitives::PulsePrimitive;
