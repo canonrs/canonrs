@@ -1,7 +1,11 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! DocProgress Primitive - Progress bar for document reading
-//! Pure SSR component, zero state, zero effects
+//! DocProgress Primitive
+//!
+//! Dois modos:
+//!   1. Standalone — renderiza a barra com posicionamento próprio
+//!   2. Portal — renderiza um portal anchor; o behavior injeta a barra no slot
+//!      declarado pelo site via [data-rs-doc-progress-portal]
 
 use leptos::prelude::*;
 
@@ -22,6 +26,25 @@ pub fn DocProgressPrimitive(
             aria-valuemax="100"
             aria-valuenow=progress_str
             aria-label="Reading progress"
+            class=class
+        >
+            <div data-rs-doc-progress-bar="" />
+        </div>
+    }
+}
+
+/// Portal anchor — coloque onde quiser no layout
+/// O behavior vai injetar a barra aqui
+#[component]
+pub fn DocProgressPortal(
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-doc-progress-portal=""
+            data-rs-component="DocProgressPortal"
+            data-rs-behavior="feedback"
+            aria-hidden="true"
             class=class
         >
             <div data-rs-doc-progress-bar="" />

@@ -102,7 +102,7 @@ pub mod section;
 pub mod separator;
 pub mod aspect_ratio;
 pub mod doc_progress;
-pub use doc_progress::DocProgress;
+pub use doc_progress::{DocProgress, DocProgressSlot};
 
 pub mod animate;
 pub mod virtual_list;

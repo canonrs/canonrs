@@ -1,7 +1,13 @@
 /* =============================================================================
    DocProgress UI - Reading Progress Indicator
    Family D: Navigation
+
+   Dois modos:
+     [data-rs-doc-progress]        → standalone: fixed no topo da viewport
+     [data-rs-doc-progress-portal] → portal: sem posicionamento, flui no layout
    ============================================================================= */
+
+/* ── Standalone ──────────────────────────────────────────────────────────────── */
 
 [data-rs-doc-progress] {
   position: fixed;
@@ -13,6 +19,20 @@
   z-index: var(--doc-progress-z-index);
   overflow: hidden;
 }
+
+/* ── Portal ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-doc-progress-portal] {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--doc-progress-height);
+  background: var(--doc-progress-bg);
+  overflow: hidden;
+}
+
+/* ── Bar (compartilhado) ─────────────────────────────────────────────────────── */
 
 [data-rs-doc-progress-bar] {
   position: absolute;

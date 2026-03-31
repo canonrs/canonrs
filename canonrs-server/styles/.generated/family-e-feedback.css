@@ -243,8 +243,6 @@
   --pulse-ease: var(--motion-ease-standard);
   --pulse-delay: calc(var(--motion-duration-slow) / 2);
   --doc-progress-height: 3px;
-  --doc-progress-bg: var(--theme-action-primary-bg);
-  --doc-progress-track-bg: var(--theme-surface-border);
   --doc-progress-radius: var(--radius-full);
   --doc-progress-z-index: var(--layer-sticky);
   --doc-progress-duration: var(--motion-duration-fast);

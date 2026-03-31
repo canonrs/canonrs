@@ -11,6 +11,7 @@ pub const HEADER_API: ComponentApi = ComponentApi {
         PropDef { name: "actions", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "_style", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "bottom", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

@@ -309,8 +309,7 @@ pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
 
     // DocProgress — reading progress indicator
     FamilyToken::new("doc-progress-height", "3px"),
-    FamilyToken::new("doc-progress-bg", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("doc-progress-track-bg", "var(--theme-surface-border)"),
+    // doc-progress tokens canonical em family_d_navigation
     FamilyToken::new("doc-progress-radius", "var(--radius-full)"),
     FamilyToken::new("doc-progress-z-index", "var(--layer-sticky)"),
     FamilyToken::new("doc-progress-duration", "var(--motion-duration-fast)"),

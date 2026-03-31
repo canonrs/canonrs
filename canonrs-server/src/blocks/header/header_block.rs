@@ -18,6 +18,7 @@ pub fn Header(
     #[prop(optional)] actions: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
     #[prop(default = String::new(), into)] _style: String,
+    #[prop(optional)] bottom: Option<ChildrenFn>,
 ) -> impl IntoView {
     view! {
         <header data-rs-block="" data-rs-component="Header" class=class>
@@ -25,6 +26,7 @@ pub fn Header(
             {nav.map(|n| view! { <nav data-rs-region="nav">{n()}</nav> })}
             {center.map(|c| view! { <div data-rs-region="center">{c()}</div> })}
             {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
+            {bottom.map(|b| view! { <div data-rs-region="bottom">{b()}</div> })}
         </header>
     }
 }

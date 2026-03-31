@@ -126,6 +126,17 @@
   --toc-button-padding-x: var(--space-sm);
   --toc-button-padding-y: var(--space-sm);
   --toc-button-radius: var(--radius-sm);
+  --toc-link-fg-ancestor: var(--theme-surface-fg);
+  --toc-link-bg-ancestor: transparent;
+  --toc-link-border-ancestor: color-mix(in srgb, var(--theme-action-primary-bg) 40%, transparent);
+  --toc-link-font-weight-ancestor: var(--font-weight-medium);
+  --toc-expand-btn-bg-hover: var(--theme-surface-muted);
+  --toc-expand-btn-fg-active: var(--theme-action-primary-bg);
+  --toc-expand-btn-bg-active: color-mix(in srgb, var(--theme-action-primary-bg) 10%, transparent);
+  --toc-subtree-gap: var(--space-2xs);
+  --toc-child-max-height: 2.5rem;
+  --toc-subtree-indent: var(--space-sm);
+  --toc-indent-l2: var(--space-sm);
   --tabs-gap: var(--space-sm);
   --tabs-border-color: var(--theme-surface-border);
   --tabs-border-width: 1px;

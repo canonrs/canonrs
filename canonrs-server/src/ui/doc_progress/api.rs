@@ -9,3 +9,10 @@ pub const DOCPROGRESS_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const DOCPROGRESSSLOT_API: ComponentApi = ComponentApi {
+    id: "doc-progress-slot",
+    props: &[
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

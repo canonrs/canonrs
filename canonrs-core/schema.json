@@ -1003,8 +1003,7 @@
         "doc-progress",
         "document",
         "progress",
-        "reading",
-        "steps"
+        "reading"
       ],
       "component_name": "DocProgress",
       "description": "Document progress indicator",

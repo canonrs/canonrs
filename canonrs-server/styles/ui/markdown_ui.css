@@ -173,7 +173,7 @@
   font-size: var(--markdown-h1-font-size);
   font-weight: var(--markdown-h1-font-weight);
   line-height: var(--markdown-h1-line-height);
-  color: var(--markdown-heading-fg);
+  color: var(--theme-action-primary-bg);
   margin-top: var(--markdown-h1-margin-top);
   margin-bottom: var(--space-lg);
 }
@@ -182,7 +182,7 @@
   font-size: var(--markdown-h2-font-size);
   font-weight: var(--markdown-h2-font-weight);
   line-height: var(--markdown-h2-line-height);
-  color: var(--markdown-heading-fg);
+  color: color-mix(in srgb, var(--theme-action-primary-bg) 85%, var(--theme-surface-fg));
   margin-top: var(--markdown-h2-margin-top);
   margin-bottom: var(--space-md);
   padding-top: var(--space-md);
@@ -192,7 +192,7 @@
 [data-rs-markdown-content] h3 {
   font-size: var(--markdown-h3-font-size);
   font-weight: var(--markdown-h3-font-weight);
-  color: var(--markdown-heading-fg);
+  color: color-mix(in srgb, var(--theme-action-primary-bg) 70%, var(--theme-surface-fg));
   margin-top: var(--markdown-h3-margin-top);
   margin-bottom: var(--space-sm);
 }
@@ -200,7 +200,7 @@
 [data-rs-markdown-content] h4 {
   font-size: var(--markdown-h4-font-size);
   font-weight: var(--markdown-h4-font-weight);
-  color: var(--markdown-heading-fg);
+  color: color-mix(in srgb, var(--theme-action-primary-bg) 55%, var(--theme-surface-fg));
   margin-top: var(--markdown-h4-margin-top);
   margin-bottom: var(--space-xs);
 }
@@ -212,6 +212,12 @@
   color: var(--markdown-heading-fg);
   margin-top: var(--space-lg);
   margin-bottom: var(--space-xs);
+}
+
+/* ── Selection ──────────────────────────────────────────────────────────────── */
+
+[data-rs-markdown-content] ::selection {
+  background: color-mix(in srgb, var(--theme-action-primary-bg) 30%, transparent);
 }
 
 /* ── Paragraph ───────────────────────────────────────────────────────────────── */
@@ -232,20 +238,23 @@
 /* ── Links ───────────────────────────────────────────────────────────────────── */
 
 [data-rs-markdown-content] a {
-  color: var(--markdown-link-fg);
-  text-decoration: underline;
+  color: var(--theme-action-primary-bg);
+  text-decoration: none;
   text-underline-offset: var(--space-2xs);
-  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+  transition: all var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-markdown-content] a:hover { opacity: 0.8; }
+[data-rs-markdown-content] a:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
 
 /* ── Blockquote ──────────────────────────────────────────────────────────────── */
 
 [data-rs-markdown-content] blockquote {
-  border-left: var(--markdown-blockquote-border-width) solid var(--markdown-blockquote-border);
+  border-left: var(--markdown-blockquote-border-width) solid var(--theme-action-primary-bg);
   padding-left: var(--markdown-blockquote-padding-left);
-  color: var(--markdown-blockquote-fg);
+  color: var(--theme-surface-fg-muted);
   font-style: italic;
 }
 
@@ -255,11 +264,11 @@
 [data-rs-md-inline-code] {
   font-family: var(--font-family-mono);
   font-size: var(--markdown-inline-code-font-size);
-  background: var(--markdown-inline-code-bg);
-  color: var(--markdown-inline-code-fg);
+  background: color-mix(in srgb, var(--theme-action-primary-bg) 10%, transparent);
+  color: var(--theme-action-primary-bg);
   padding: var(--markdown-inline-code-padding-y) var(--markdown-inline-code-padding-x);
   border-radius: var(--markdown-inline-code-radius);
-  border: 1px solid var(--theme-surface-border-muted);
+  border: 1px solid color-mix(in srgb, var(--theme-action-primary-bg) 20%, transparent);
 }
 
 /* code block isolado */

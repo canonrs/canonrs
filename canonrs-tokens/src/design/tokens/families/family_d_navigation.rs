@@ -161,6 +161,25 @@ pub const FAMILY_D_NAVIGATION: &[FamilyToken] = &[
     FamilyToken::new("toc-button-padding-y",         "var(--space-sm)"),
     FamilyToken::new("toc-button-radius",            "var(--radius-sm)"),
 
+    // TOC ancestor state
+    FamilyToken::new("toc-link-fg-ancestor",          "var(--theme-surface-fg)"),
+    FamilyToken::new("toc-link-bg-ancestor",          "transparent"),
+    FamilyToken::new("toc-link-border-ancestor",      "color-mix(in srgb, var(--theme-action-primary-bg) 40%, transparent)"),
+    FamilyToken::new("toc-link-font-weight-ancestor", "var(--font-weight-medium)"),
+
+    // TOC expand button states
+    FamilyToken::new("toc-expand-btn-bg-hover",       "var(--theme-surface-muted)"),
+    FamilyToken::new("toc-expand-btn-fg-active",      "var(--theme-action-primary-bg)"),
+    FamilyToken::new("toc-expand-btn-bg-active",      "color-mix(in srgb, var(--theme-action-primary-bg) 10%, transparent)"),
+
+    // TOC subtree animation
+    FamilyToken::new("toc-subtree-gap",               "var(--space-2xs)"),
+    FamilyToken::new("toc-child-max-height",          "2.5rem"),
+    FamilyToken::new("toc-subtree-indent",            "var(--space-sm)"),
+
+    // TOC level indentation
+    FamilyToken::new("toc-indent-l2",                 "var(--space-sm)"),
+
     // Tabs
     FamilyToken::new("tabs-gap", "var(--space-sm)"),
     FamilyToken::new("tabs-border-color", "var(--theme-surface-border)"),
