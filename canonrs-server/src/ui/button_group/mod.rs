@@ -8,3 +8,6 @@ pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
 pub use button_group_ui::ButtonGroupPreview;
+
+pub mod preview;
+pub use preview::ButtonGroupShowcasePreview;

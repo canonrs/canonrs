@@ -11,3 +11,6 @@ pub use types::{ComboboxOption, ComboboxSelectionMode};
 pub use examples::*;
 
 pub use combobox_ui::ComboboxPreview;
+
+pub mod preview;
+pub use preview::ComboboxShowcasePreview;

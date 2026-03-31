@@ -5,3 +5,6 @@ pub const EXAMPLES: &str = include_str!("examples.rs");
 pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
+
+pub mod preview;
+pub use preview::LinkShowcasePreview;

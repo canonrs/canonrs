@@ -7,3 +7,6 @@ pub use copy_button_ui::*;
 pub use examples::*;
 
 pub use copy_button_ui::CopyButtonPreview;
+
+pub mod preview;
+pub use preview::CopyButtonShowcasePreview;

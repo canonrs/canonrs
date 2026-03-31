@@ -22,7 +22,6 @@ pub fn ComboboxPrimitive(
             data-rs-behavior="combobox"
             data-rs-state=s.data_rs_state
             role="combobox"
-            aria-controls="combobox-list"
             aria-expanded=s.aria_expanded
             aria-haspopup="listbox"
             class=class
@@ -77,11 +76,9 @@ pub fn ComboboxListPrimitive(
         <div
             data-rs-combobox-list=""
             data-rs-role="list"
-            id="combobox-list"
             data-rs-component="ComboboxList"
             data-rs-state=s.data_rs_state
             role="listbox"
-            hidden=s.hidden
             class=class
         >
             {children()}

@@ -7,3 +7,6 @@ pub use select_ui::*;
 pub use examples::*;
 
 pub use select_ui::SelectPreview;
+
+pub mod preview;
+pub use preview::SelectShowcasePreview;

@@ -29,7 +29,11 @@
 
 [data-rs-combobox-list] {
   display: none;
-  position: fixed;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 4px;
   background: var(--combobox-popover-bg);
   border-radius: var(--combobox-popover-radius);
   box-shadow: var(--combobox-popover-shadow);
@@ -65,4 +69,13 @@
 [data-rs-combobox][data-rs-disabled="true"] {
   opacity: var(--combobox-disabled-opacity);
   pointer-events: none;
+}
+
+[data-rs-combobox-item][data-rs-visible="false"] {
+  display: none;
+}
+
+[data-rs-combobox-item][data-rs-focused="true"] {
+  background: var(--combobox-item-hover-bg);
+  outline: none;
 }
