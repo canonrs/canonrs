@@ -1,0 +1,35 @@
+/* =============================================================================
+   Stack UI - CanonRS
+   Family H: Layout
+   Layout primitive — flex container com direction e gap tokenizados
+   ============================================================================= */
+
+[data-rs-component="Stack"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+[data-rs-component="Stack"][data-rs-direction="horizontal"] {
+  flex-direction: row;
+  align-items: center;
+}
+
+[data-rs-component="Stack"][data-rs-direction="vertical"] {
+  flex-direction: column;
+}
+
+/* Gap tokenizado via data-rs-gap */
+[data-rs-component="Stack"][data-rs-gap="2xs"] { gap: var(--space-2xs); }
+[data-rs-component="Stack"][data-rs-gap="xs"]  { gap: var(--space-xs); }
+[data-rs-component="Stack"][data-rs-gap="sm"]  { gap: var(--space-sm); }
+[data-rs-component="Stack"][data-rs-gap="md"]  { gap: var(--space-md); }
+[data-rs-component="Stack"][data-rs-gap="lg"]  { gap: var(--space-lg); }
+[data-rs-component="Stack"][data-rs-gap="xl"]  { gap: var(--space-xl); }
+[data-rs-component="Stack"][data-rs-gap="2xl"] { gap: var(--space-2xl); }
+[data-rs-component="Stack"][data-rs-gap="0"]   { gap: 0; }
+
+/* Region items — pass-through sem layout próprio */
+[data-rs-component="Stack"] [data-rs-region="items"] {
+  display: contents;
+}

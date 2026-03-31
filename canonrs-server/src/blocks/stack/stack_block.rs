@@ -24,6 +24,7 @@ impl StackDirection {
 #[component]
 pub fn Stack(
     #[prop(default = StackDirection::Vertical)] direction: StackDirection,
+    #[prop(into, default = String::new())] gap: String,
     #[prop(default = String::new(), into)] class: String,
     #[prop(default = String::new(), into)] style: String,
     #[prop(optional)] items: Option<ChildrenFn>,
@@ -33,6 +34,7 @@ pub fn Stack(
             data-rs-block=""
             data-rs-component="Stack"
             data-rs-direction=direction.as_str()
+            data-rs-gap=gap
             class=class
             style=style
         >

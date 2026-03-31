@@ -11,8 +11,8 @@
   border-right: var(--sidebar-border);
   overflow-y: auto;
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
 }
 
 [data-rs-layout][data-rs-component="ThreePane"] [data-rs-region="center"] {
@@ -29,8 +29,8 @@
   border-left: var(--sidebar-border);
   overflow-y: auto;
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
   padding: var(--layout-padding);
 }
 

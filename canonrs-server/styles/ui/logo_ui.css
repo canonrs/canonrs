@@ -9,6 +9,7 @@
   gap: var(--logo-gap);
   text-decoration: none;
   flex-shrink: 0;
+  margin-right: 24px;
 }
 
 [data-rs-logo-icon] {

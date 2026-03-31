@@ -37,12 +37,13 @@
 /* ── SIZES ──────────────────────────────────────────────────── */
 [data-rs-button][data-rs-size="xs"] {
   height: calc(var(--button-height) - var(--space-sm));
-  padding: var(--space-xs) var(--space-sm);
+  padding: var(--button-xs-padding-y) var(--button-xs-padding-x);
   font-size: var(--font-size-xs);
 }
 
 [data-rs-button][data-rs-size="sm"] {
   height: calc(var(--button-height) - var(--space-xs));
+  padding: var(--button-sm-padding-y) var(--button-sm-padding-x);
   font-size: var(--font-size-sm);
 }
 

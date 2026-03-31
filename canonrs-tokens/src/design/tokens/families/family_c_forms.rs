@@ -32,9 +32,30 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("kbd-shadow", "var(--shadow-sm)"),
 
     // Button
-    FamilyToken::new("button-height", "var(--space-2xl)"),
-    FamilyToken::new("button-padding-x", "var(--space-md)"),
-    FamilyToken::new("button-padding-y", "var(--space-sm)"),
+    // Button sizes — enterprise scale (xs=24px, sm=32px, md=36px, lg=40px, xl=48px)
+    FamilyToken::new("button-height",           "2.25rem"),   // md = 36px
+    FamilyToken::new("button-padding-x",        "var(--space-md)"),
+    FamilyToken::new("button-padding-y",        "0.375rem"),
+
+    FamilyToken::new("button-xs-height",        "1.5rem"),    // 24px
+    FamilyToken::new("button-xs-padding-x",     "var(--space-sm)"),
+    FamilyToken::new("button-xs-padding-y",     "0.125rem"),
+    FamilyToken::new("button-xs-font-size",     "var(--font-size-xs)"),
+
+    FamilyToken::new("button-sm-height",        "2rem"),      // 32px
+    FamilyToken::new("button-sm-padding-x",     "0.75rem"),
+    FamilyToken::new("button-sm-padding-y",     "0.25rem"),
+    FamilyToken::new("button-sm-font-size",     "var(--font-size-sm)"),
+
+    FamilyToken::new("button-lg-height",        "2.5rem"),    // 40px
+    FamilyToken::new("button-lg-padding-x",     "var(--space-lg)"),
+    FamilyToken::new("button-lg-padding-y",     "0.5rem"),
+    FamilyToken::new("button-lg-font-size",     "var(--font-size-md)"),
+
+    FamilyToken::new("button-xl-height",        "3rem"),      // 48px
+    FamilyToken::new("button-xl-padding-x",     "var(--space-xl)"),
+    FamilyToken::new("button-xl-padding-y",     "0.625rem"),
+    FamilyToken::new("button-xl-font-size",     "var(--font-size-lg)"),
     FamilyToken::new("button-radius", "var(--radius-sm)"),
     FamilyToken::new("button-gap", "var(--space-sm)"),
     

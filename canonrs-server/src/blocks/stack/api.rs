@@ -6,6 +6,7 @@ pub const STACK_API: ComponentApi = ComponentApi {
     id: "stack",
     props: &[
         PropDef { name: "direction", kind: PropType::String, required: false, default: Some("vertical"), description: "" },
+        PropDef { name: "gap", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "style", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "items", kind: PropType::String, required: false, default: None, description: "" },
