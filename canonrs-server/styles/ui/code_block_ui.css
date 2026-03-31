@@ -52,17 +52,17 @@
   user-select: none;
 }
 
-/* Copy feedback — highlight */
+/* Copy feedback — highlight forte */
 [data-rs-code-block][data-rs-copied="true"] {
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--theme-action-primary-bg) 40%, transparent);
-  background: color-mix(in srgb, var(--theme-action-primary-bg) 4%, transparent);
-  transition: box-shadow 0.2s ease, background 0.2s ease;
+  border-color: var(--theme-action-primary-bg);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-action-primary-bg) 50%, transparent);
+  background: color-mix(in srgb, var(--theme-action-primary-bg) 10%, transparent);
+  transition: all 0.2s ease;
 }
 
-/* Hover border */
+/* Hover border — discreto */
 [data-rs-code-block]:hover {
-  border-color: rgba(255,255,255,0.12);
-  transition: border-color 0.2s ease;
+  border-color: color-mix(in srgb, var(--theme-action-primary-bg) 25%, transparent);
 }
 
 /* Copy button — show on hover */
