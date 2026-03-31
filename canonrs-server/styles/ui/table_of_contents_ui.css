@@ -204,3 +204,26 @@
   content: none;
   display: none;
 }
+
+/* TOC enterprise */
+[data-rs-toc-link] {
+  font-size: 12px;
+  color: var(--theme-surface-fg-muted);
+  transition: color 0.15s ease;
+  text-decoration: none;
+  display: block;
+  padding: 2px 0;
+}
+
+[data-rs-toc-link]:hover {
+  color: var(--theme-surface-fg);
+}
+
+[data-rs-toc-item][data-rs-state="active"] [data-rs-toc-link] {
+  color: var(--theme-action-primary-bg);
+  font-weight: 500;
+}
+
+[data-rs-toc-item][data-rs-state="ancestor"] [data-rs-toc-link] {
+  color: var(--theme-surface-fg);
+}

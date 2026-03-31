@@ -358,6 +358,18 @@
       "variant": "feature"
     },
     {
+      "category": "layout",
+      "container": true,
+      "id": "three-pane",
+      "regions": [
+        "left",
+        "center",
+        "right"
+      ],
+      "type": "layout",
+      "variant": "page"
+    },
+    {
       "category": "data",
       "container": true,
       "id": "timeline",

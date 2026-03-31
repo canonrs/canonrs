@@ -28,7 +28,7 @@
 - Total: 27
 
 ## Layouts
-- Total: 7
+- Total: 8
 
 ### Block list
 - `card` (block) regions: [header, content, footer]
@@ -61,6 +61,7 @@
 - `split-view` (layout) regions: [left, right]
 - `stack` (block) regions: [items]
 - `stat-card` (block) regions: [icon, label, value, change]
+- `three-pane` (layout) regions: [left, center, right]
 - `timeline` (block) regions: [header, items, footer]
 - `toolbar` (block) regions: [left, center, right]
 - `wizard` (block) regions: [steps, body, actions]

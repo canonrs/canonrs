@@ -33,9 +33,9 @@ leptos component types, ssr component classification, leptos state vs effects, i
 
 ---
 
-## Classification
+# Classification
 
-| Type                     | Estado      | Effects | Browser APIs | Exemplo         |
+| Type                     | State      | Effects | APIs Browser | Exemple         |
 | ------------------------ | ----------- | ------- | ------------ | --------------- |
 | **Type 1 - Pure**        | ❌          | ❌      | ❌           | Label, Badge    |
 | **Type 2 - Stateful**    | ✅ RwSignal | ❌      | ❌           | Toggle, Tabs    |
@@ -49,7 +49,7 @@ pub fn Label(children: Children) -> impl IntoView {
 }
 ```
 
-**Characteristics:**
+### Characteristics:
 - No internal state
 - No side effects
 - SSR-safe by default
@@ -66,7 +66,7 @@ pub fn Toggle(checked: RwSignal<bool>) -> impl IntoView {
 }
 ```
 
-**Characteristics:**
+### Characteristics:
 - Uses `RwSignal` for state
 - No browser APIs
 - No Effects
@@ -86,12 +86,12 @@ pub fn Dialog(open: RwSignal<bool>) -> impl IntoView {
 }
 ```
 
-**Characteristics:**
+### Characteristics:
 - Uses Effects with `#[cfg]` guards
 - May use browser APIs (document, window)
 - SSR placeholder when needed
 
-## Decision Tree
+###  Decision Tree
 ```
 Has internal state? 
   ├─ No  → Type 1

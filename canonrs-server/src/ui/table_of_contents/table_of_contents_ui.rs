@@ -13,6 +13,7 @@
 use leptos::prelude::*;
 use canonrs_core::TocItem;
 use canonrs_core::primitives::table_of_contents::*;
+#[cfg(feature = "ssr")]
 use canonrs_core::VisibilityState;
 
 #[component]
@@ -22,20 +23,32 @@ pub fn TableOfContents(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = "On this page".to_string())] title: String,
 ) -> impl IntoView {
-    view! {
-        <TocPrimitive class=class mode=mode>
-            <TocTitlePrimitive>
-                {title}
-            </TocTitlePrimitive>
-            {match mode {
-                TocMode::Simple  => render_simple(items).into_any(),
-                TocMode::Expand  => render_expand(items).into_any(),
-                TocMode::Nested  => render_nested(items).into_any(),
-            }}
-        </TocPrimitive>
+    #[cfg(feature = "ssr")]
+    {
+        view! {
+            <TocPrimitive class=class mode=mode>
+                <TocTitlePrimitive>
+                    {title}
+                </TocTitlePrimitive>
+                {match mode {
+                    TocMode::Simple  => render_simple(items).into_any(),
+                    TocMode::Expand  => render_expand(items).into_any(),
+                    TocMode::Nested  => render_nested(items).into_any(),
+                }}
+            </TocPrimitive>
+        }.into_any()
+    }
+    #[cfg(not(feature = "ssr"))]
+    {
+        let _ = items;
+        let _ = mode;
+        let _ = class;
+        let _ = title;
+        view! { <nav data-rs-toc="" data-rs-component="TableOfContents"></nav> }.into_any()
     }
 }
 
+#[cfg(feature = "ssr")]
 fn render_simple(items: Vec<TocItem>) -> impl IntoView {
     view! {
         <TocListPrimitive>
@@ -58,6 +71,7 @@ fn render_simple(items: Vec<TocItem>) -> impl IntoView {
     }
 }
 
+#[cfg(feature = "ssr")]
 fn render_expand(items: Vec<TocItem>) -> impl IntoView {
     view! {
         <TocListPrimitive>
@@ -81,6 +95,7 @@ fn render_expand(items: Vec<TocItem>) -> impl IntoView {
     }
 }
 
+#[cfg(feature = "ssr")]
 fn render_nested(items: Vec<TocItem>) -> impl IntoView {
     let tree = build_tree(items);
     view! {
@@ -91,11 +106,13 @@ fn render_nested(items: Vec<TocItem>) -> impl IntoView {
 }
 
 #[derive(Clone)]
+#[cfg(feature = "ssr")]
 struct TocNode {
     item: TocItem,
     children: Vec<TocNode>,
 }
 
+#[cfg(feature = "ssr")]
 fn build_tree(items: Vec<TocItem>) -> Vec<TocNode> {
     let mut roots: Vec<TocNode> = Vec::new();
     let mut stack: Vec<(u8, usize)> = Vec::new();
@@ -121,6 +138,7 @@ fn build_tree(items: Vec<TocItem>) -> Vec<TocNode> {
     roots
 }
 
+#[cfg(feature = "ssr")]
 fn get_node_mut<'a>(nodes: &'a mut Vec<TocNode>, path: &[usize]) -> Option<&'a mut TocNode> {
     if path.is_empty() { return None; }
     let mut current = nodes.get_mut(path[0])?;
@@ -130,6 +148,7 @@ fn get_node_mut<'a>(nodes: &'a mut Vec<TocNode>, path: &[usize]) -> Option<&'a m
     Some(current)
 }
 
+#[cfg(feature = "ssr")]
 fn render_tree_nodes(nodes: Vec<TocNode>) -> Vec<AnyView> {
     nodes.into_iter().map(|node| {
         let has_children = !node.children.is_empty();

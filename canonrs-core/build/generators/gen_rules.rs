@@ -59,7 +59,7 @@ pub(crate) fn parse_rules(rules_dir: &Path) -> Vec<RuleInfo> {
             .map(|s| s.split(',').map(|x| x.trim().to_string()).filter(|x| !x.is_empty()).collect())
             .unwrap_or_default();
         let body     = extract_body(&src);
-        let slug     = fname.trim_start_matches("canon-rule-").to_string();
+        let slug     = fname.trim_start_matches("canon-rule-").splitn(2, '-').nth(1).unwrap_or(&fname).to_string();
 
         rules.push(RuleInfo {
             number, slug, title, status, severity, category, tags, language,

@@ -31,7 +31,7 @@ impl TocExtractor {
                         let id = if current_text.is_empty() {
                             format!("heading-{}", heading_counter)
                         } else {
-                            slugify(&current_text)
+                            slugify(current_text.trim())
                         };
                         toc_items.push(TocItem::new(id, current_text.clone(), current_level));
                         heading_counter += 1;
@@ -92,7 +92,7 @@ impl TocExtractor {
                         let slug = if current_text.is_empty() {
                             format!("heading-{}", heading_counter)
                         } else {
-                            slugify(&current_text)
+                            slugify(current_text.trim())
                         };
                         let id = if id_prefix.is_empty() {
                             slug

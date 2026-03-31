@@ -50,9 +50,9 @@
 }
 
 [data-rs-copy-button][data-rs-state="copied"] {
-  background: var(--copy-button-success-bg, var(--color-success));
-  color: var(--copy-button-success-fg, white);
-  border-color: var(--copy-button-success-border, var(--color-success));
+  background: var(--theme-action-primary-bg);
+  color: var(--theme-action-primary-fg);
+  border-color: var(--theme-action-primary-bg);
 }
 
 /* State: error */

@@ -326,4 +326,61 @@ pub const FAMILY_F_DATA: &[FamilyToken] = &[
     FamilyToken::new("markdown-toc-indent-l3",           "var(--space-md)"),
     FamilyToken::new("markdown-toc-indent-l4",           "var(--space-lg)"),
     FamilyToken::new("markdown-toc-indent-l5",           "var(--space-xl)"),
+
+    // ── Content typography ────────────────────────────────────────────────────
+    // Headings
+    FamilyToken::new("markdown-h1-font-size",        "var(--font-size-2xl)"),
+    FamilyToken::new("markdown-h1-font-weight",      "var(--font-weight-bold)"),
+    FamilyToken::new("markdown-h1-line-height",      "var(--line-height-tight)"),
+    FamilyToken::new("markdown-h1-margin-top",       "0px"),
+    FamilyToken::new("markdown-h1-margin-bottom",    "var(--space-lg)"),
+
+    FamilyToken::new("markdown-h2-font-size",        "var(--font-size-xl)"),
+    FamilyToken::new("markdown-h2-font-weight",      "var(--font-weight-semibold)"),
+    FamilyToken::new("markdown-h2-line-height",      "var(--line-height-tight)"),
+    FamilyToken::new("markdown-h2-margin-top",       "var(--space-2xl)"),
+    FamilyToken::new("markdown-h2-margin-bottom",    "var(--space-md)"),
+    FamilyToken::new("markdown-h2-border-color",     "var(--theme-surface-border-muted)"),
+
+    FamilyToken::new("markdown-h3-font-size",        "var(--font-size-lg)"),
+    FamilyToken::new("markdown-h3-font-weight",      "var(--font-weight-semibold)"),
+    FamilyToken::new("markdown-h3-margin-top",       "var(--space-xl)"),
+    FamilyToken::new("markdown-h3-margin-bottom",    "var(--space-sm)"),
+
+    FamilyToken::new("markdown-h4-font-size",        "var(--font-size-md)"),
+    FamilyToken::new("markdown-h4-font-weight",      "var(--font-weight-semibold)"),
+    FamilyToken::new("markdown-h4-margin-top",       "var(--space-lg)"),
+    FamilyToken::new("markdown-h4-margin-bottom",    "var(--space-xs)"),
+
+    // Paragraph & lists
+    FamilyToken::new("markdown-p-margin-bottom",     "var(--space-md)"),
+    FamilyToken::new("markdown-li-margin-bottom",    "var(--space-xs)"),
+    FamilyToken::new("markdown-list-padding-left",   "var(--space-xl)"),
+    FamilyToken::new("markdown-list-margin-bottom",  "var(--space-md)"),
+
+    // Spacing between blocks (lobotomized owl)
+    FamilyToken::new("markdown-block-gap",           "var(--space-md)"),
+
+    // Blockquote
+    FamilyToken::new("markdown-blockquote-padding-left", "var(--space-lg)"),
+    FamilyToken::new("markdown-blockquote-margin-y",     "var(--space-lg)"),
+    FamilyToken::new("markdown-blockquote-border-width", "var(--space-xs)"),
+
+    // Inline code
+    FamilyToken::new("markdown-inline-code-font-size",   "var(--font-size-sm)"),
+    FamilyToken::new("markdown-inline-code-padding-x",   "var(--space-xs)"),
+    FamilyToken::new("markdown-inline-code-padding-y",   "var(--space-2xs)"),
+
+    // Code block spacing
+    FamilyToken::new("markdown-code-block-margin-bottom", "var(--space-lg)"),
+
+    // Table
+    FamilyToken::new("markdown-table-font-size",         "var(--font-size-sm)"),
+    FamilyToken::new("markdown-table-margin-bottom",     "var(--space-lg)"),
+    FamilyToken::new("markdown-table-header-font-size",  "var(--font-size-xs)"),
+    FamilyToken::new("markdown-table-header-font-weight","var(--font-weight-semibold)"),
+    FamilyToken::new("markdown-table-cell-padding-x",    "var(--space-md)"),
+    FamilyToken::new("markdown-table-cell-padding-y",    "var(--space-sm)"),
+    FamilyToken::new("markdown-table-border-color",      "var(--theme-surface-border-muted)"),
+    FamilyToken::new("markdown-table-header-bg",         "var(--theme-surface-muted)"),
 ];
