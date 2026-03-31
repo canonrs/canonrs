@@ -62,6 +62,10 @@ fn main() {
         generate_rules_llm(&rules, &rules_out.join("rules_llm.md"));
     }
 
+    // Showcase data
+    let showcase_out = Path::new("src/generated/showcase.json");
+    generate_showcase(Path::new("../canonrs-server/src/ui"), showcase_out);
+
     println!("cargo:warning=CanonRS SSOT: {} primitives, {} blocks/layouts",
         primitives.len(), blocks_layouts.len());
 }

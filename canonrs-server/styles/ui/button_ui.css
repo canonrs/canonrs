@@ -108,7 +108,7 @@
 }
 
 /* ── SEMANTIC VARIANTS ──────────────────────────────────────── */
-[data-rs-button][data-rs-variant="danger"] {
+[data-rs-button][data-rs-variant="destructive"] {
   background: var(--button-danger-bg);
   color: var(--button-danger-fg);
   border-color: var(--button-danger-bg);

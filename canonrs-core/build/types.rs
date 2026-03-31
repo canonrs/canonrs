@@ -59,3 +59,20 @@ pub(crate) struct PresetInfo {
     pub label: String,
     pub props: Vec<(String, String)>,
 }
+
+#[derive(Debug, Clone, serde::Serialize)]
+pub(crate) struct ShowcaseEntry {
+    pub id:          String,
+    pub label:       String,
+    pub category:    String,
+    pub description: String,
+    pub keywords:    String,
+    pub pain:        String,
+    pub promise:     String,
+    pub why:         String,
+    pub before:      String,
+    pub after:       String,
+    pub rules:       Vec<String>,
+    pub use_cases:   Vec<String>,
+    pub related:     Vec<String>,
+}

@@ -1,4 +1,4 @@
-[data-rs-layout][data-rs-component="page-single"] {
+[data-rs-layout][data-rs-component="Page"][data-rs-variant="single"] {
   container-type: inline-size;
   container-name: page-single;
   display: grid;
@@ -7,42 +7,66 @@
   background: var(--layout-bg);
 }
 
-[data-rs-layout][data-rs-component="page-with-sidebar"] {
+[data-rs-layout][data-rs-component="Page"][data-rs-variant="with-sidebar"] {
   display: grid;
   grid-template-columns: var(--page-layout-sidebar-width) 1fr;
   min-height: var(--layout-min-height);
   background: var(--layout-bg);
 }
 
-[data-rs-layout][data-rs-component="page-with-aside"] {
+[data-rs-layout][data-rs-component="Page"][data-rs-variant="with-aside"] {
   display: grid;
   grid-template-columns: 1fr var(--page-layout-aside-width);
   min-height: var(--layout-min-height);
   background: var(--layout-bg);
 }
 
-[data-rs-layout][data-rs-component="page-sidebar-and-aside"] {
+[data-rs-layout][data-rs-component="Page"][data-rs-variant="sidebar-and-aside"] {
   display: grid;
   grid-template-columns: var(--page-layout-sidebar-width) 1fr var(--page-layout-aside-width);
   min-height: var(--layout-min-height);
   background: var(--layout-bg);
 }
 
-[data-layout^="page"] [data-rs-region="sidebar"] {
+[data-rs-layout][data-rs-component="Page"] [data-rs-region="sidebar"] {
   border-right: var(--page-layout-sidebar-border);
   background: var(--page-layout-sidebar-bg);
   padding: var(--page-layout-sidebar-padding);
   overflow-y: auto;
+  position: sticky;
+  top: var(--header-height, 56px);
+  height: calc(100vh - var(--header-height, 56px));
 }
 
-[data-layout^="page"] [data-rs-region="content"] {
+[data-rs-layout][data-rs-component="Page"] [data-rs-region="content"] {
   padding: var(--page-layout-content-padding);
   overflow-y: auto;
+  min-width: 0;
 }
 
-[data-layout^="page"] [data-rs-region="aside"] {
+[data-rs-layout][data-rs-component="Page"] [data-rs-region="aside"] {
   border-left: var(--page-layout-aside-border);
   background: var(--page-layout-aside-bg);
   padding: var(--page-layout-aside-padding);
   overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  [data-rs-layout][data-rs-component="Page"][data-rs-variant="with-sidebar"],
+  [data-rs-layout][data-rs-component="Page"][data-rs-variant="with-aside"],
+  [data-rs-layout][data-rs-component="Page"][data-rs-variant="sidebar-and-aside"] {
+    grid-template-columns: 1fr;
+  }
+
+  [data-rs-layout][data-rs-component="Page"] [data-rs-region="sidebar"] {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: var(--page-layout-sidebar-border);
+  }
+
+  [data-rs-layout][data-rs-component="Page"] [data-rs-region="aside"] {
+    border-left: none;
+    border-top: var(--page-layout-aside-border);
+  }
 }
