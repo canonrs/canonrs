@@ -504,7 +504,6 @@ fn expand_parent_subtrees(toc: &Element, active_item: &Element) {
                     let is_ancestor = ancestor_subtrees.iter().any(|a| a.is_same_node(Some(&el)));
                     if !is_ancestor {
                         let _ = el.set_attribute("data-rs-state", "closed");
-                        let _ = el.set_attribute("hidden", "");
                         if let Some(gp) = el.parent_element() {
                             if let Ok(Some(btn)) = gp.query_selector("[data-rs-toc-expand-btn]") {
                                 let _ = btn.set_attribute("aria-expanded", "false");
@@ -520,7 +519,6 @@ fn expand_parent_subtrees(toc: &Element, active_item: &Element) {
     // Abrir ancestrais
     for subtree in &ancestor_subtrees {
         let _ = subtree.set_attribute("data-rs-state", "open");
-        let _ = subtree.remove_attribute("hidden");
         if let Some(grandparent) = subtree.parent_element() {
             if let Ok(Some(btn)) = grandparent.query_selector("[data-rs-toc-expand-btn]") {
                 let _ = btn.set_attribute("aria-expanded", "true");
@@ -538,6 +536,16 @@ fn setup_nested_expand(toc: &Element) -> BehaviorResult<()> {
         return Ok(());
     }
     let _ = toc.set_attribute("data-rs-toc-nested-attached", "1");
+
+    if let Ok(all_subtrees) = toc.query_selector_all("[data-rs-toc-subtree]") {
+        for i in 0..all_subtrees.length() {
+            if let Some(st) = all_subtrees.item(i) {
+                if let Ok(el) = st.dyn_into::<Element>() {
+                    let _ = el.set_attribute("data-rs-state", "closed");
+                }
+            }
+        }
+    }
 
     let buttons = toc.query_selector_all("[data-rs-toc-expand-btn]")
         .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
@@ -558,11 +566,7 @@ fn setup_nested_expand(toc: &Element) -> BehaviorResult<()> {
                         if let Ok(Some(subtree)) = parent.query_selector("[data-rs-toc-subtree]") {
                             let state = if is_expanded { "closed" } else { "open" };
                             let _ = subtree.set_attribute("data-rs-state", state);
-                            if is_expanded {
-                                let _ = subtree.set_attribute("hidden", "");
-                            } else {
-                                let _ = subtree.remove_attribute("hidden");
-                            }
+
                         }
                     }
                 }) as Box<dyn FnMut(_)>);

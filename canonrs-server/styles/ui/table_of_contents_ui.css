@@ -255,10 +255,12 @@
     opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-toc-subtree][data-rs-state="closed"] {
+[data-rs-toc-subtree]:not([data-rs-state="open"]) {
   transform: scaleY(0);
   opacity: 0;
   pointer-events: none;
+  height: 0;
+  overflow: hidden;
 }
 
 [data-rs-toc-subtree][data-rs-state="open"] {
