@@ -15,12 +15,15 @@ pub fn register() {
 
         if root.get_attribute("data-rs-select-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-select-attached", "1").ok();
+        if root.get_attribute("data-rs-state").is_none() {
+            root.set_attribute("data-rs-state", "closed").ok();
+        }
 
         let Ok(Some(trigger)) = root.query_selector("[data-rs-select-trigger]") else { return Ok(()); };
         let Ok(Some(content)) = root.query_selector("[data-rs-select-content]") else { return Ok(()); };
 
         // toggle open/close
-        let content_toggle = content.clone();
+        let _content_toggle = content.clone();
         let trigger_toggle = trigger.clone();
         let root_toggle = root.clone();
         let cb_toggle = Closure::wrap(Box::new(move |e: MouseEvent| {
@@ -28,22 +31,11 @@ pub fn register() {
             let is_open = root_toggle.get_attribute("data-rs-state").as_deref() == Some("open");
             if is_open {
                 root_toggle.set_attribute("data-rs-state", "closed").ok();
-                content_toggle.set_attribute("data-rs-state", "closed").ok();
-                content_toggle.set_attribute("hidden", "").ok();
+                // REMOVER — visibilidade deve ser derivada de data-rs-state via CSS
                 trigger_toggle.set_attribute("aria-expanded", "false").ok();
             } else {
-                // posicionar content
-                if let Ok(trigger_html) = trigger_toggle.clone().dyn_into::<web_sys::HtmlElement>() {
-                    if let Ok(content_html) = content_toggle.clone().dyn_into::<web_sys::HtmlElement>() {
-                        let rect = trigger_html.get_bounding_client_rect();
-                        content_html.style().set_property("left", &format!("{}px", rect.left())).ok();
-                        content_html.style().set_property("top", &format!("{}px", rect.bottom() + 4.0)).ok();
-                        content_html.style().set_property("min-width", &format!("{}px", rect.width())).ok();
-                    }
-                }
                 root_toggle.set_attribute("data-rs-state", "open").ok();
-                content_toggle.set_attribute("data-rs-state", "open").ok();
-                content_toggle.remove_attribute("hidden").ok();
+                // REMOVER — visibilidade deve ser derivada de data-rs-state via CSS
                 trigger_toggle.set_attribute("aria-expanded", "true").ok();
             }
         }) as Box<dyn FnMut(_)>);
@@ -90,7 +82,7 @@ pub fn register() {
                         }
                     }
 
-                    // update root value
+                    // update root value and close
                     root_item.set_attribute("data-rs-value", &value).ok();
                     root_item.set_attribute("data-rs-state", "closed").ok();
 
@@ -100,9 +92,8 @@ pub fn register() {
                     }
 
                     // close content
-                    if let Ok(Some(content)) = root_item.query_selector("[data-rs-select-content]") {
-                        content.set_attribute("data-rs-state", "closed").ok();
-                        content.set_attribute("hidden", "").ok();
+                    if let Ok(Some(_content)) = root_item.query_selector("[data-rs-select-content]") {
+                        // REMOVER — content reage ao state do root
                     }
                 }) as Box<dyn FnMut(_)>);
                 item.add_event_listener_with_callback("click", cb_item.as_ref().unchecked_ref()).ok();
@@ -110,20 +101,18 @@ pub fn register() {
             }
         }
 
-        // close outside
+        // close outside — usa capture:false e verifica containment
         let root_outside = root.clone();
         let cb_outside = Closure::wrap(Box::new(move |e: MouseEvent| {
-            if let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Node>().ok()) {
-                if !root_outside.contains(Some(&target)) {
-                    root_outside.set_attribute("data-rs-state", "closed").ok();
-                    if let Ok(Some(c)) = root_outside.query_selector("[data-rs-select-content]") {
-                        c.set_attribute("data-rs-state", "closed").ok();
-                        c.set_attribute("hidden", "").ok();
-                    }
-                    if let Ok(Some(t)) = root_outside.query_selector("[data-rs-select-trigger]") {
-                        t.set_attribute("aria-expanded", "false").ok();
-                    }
-                }
+            let target = match e.target().and_then(|t| t.dyn_into::<web_sys::Node>().ok()) {
+                Some(t) => t,
+                None => return,
+            };
+            if root_outside.contains(Some(&target)) { return; }
+            if root_outside.get_attribute("data-rs-state").as_deref() != Some("open") { return; }
+            root_outside.set_attribute("data-rs-state", "closed").ok();
+            if let Ok(Some(t)) = root_outside.query_selector("[data-rs-select-trigger]") {
+                t.set_attribute("aria-expanded", "false").ok();
             }
         }) as Box<dyn FnMut(_)>);
         web_sys::window().unwrap().document().unwrap()

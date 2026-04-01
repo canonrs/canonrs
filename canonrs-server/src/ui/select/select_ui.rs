@@ -1,6 +1,6 @@
 
 use leptos::prelude::*;
-use canonrs_core::meta::{SelectionState, DisabledState};
+use canonrs_core::meta::{SelectionState, DisabledState, VisibilityState};
 use canonrs_core::primitives::{
     SelectPrimitive, SelectTriggerPrimitive, SelectValuePrimitive,
     SelectContentPrimitive, SelectItemPrimitive, SelectSeparatorPrimitive,
@@ -13,7 +13,7 @@ pub fn Select(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectPrimitive class=class node_ref=node_ref.unwrap_or_default()>
+        <SelectPrimitive state=VisibilityState::Closed class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </SelectPrimitive>
     }
@@ -26,7 +26,7 @@ pub fn SelectTrigger(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectTriggerPrimitive disabled=disabled class=class>
+        <SelectTriggerPrimitive state=VisibilityState::Closed disabled=disabled class=class>
             {children()}
         </SelectTriggerPrimitive>
     }
@@ -51,7 +51,7 @@ pub fn SelectContent(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectContentPrimitive class=class>
+        <SelectContentPrimitive state=VisibilityState::Closed class=class>
             {children()}
         </SelectContentPrimitive>
     }

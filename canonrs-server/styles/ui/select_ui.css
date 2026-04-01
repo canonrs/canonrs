@@ -36,12 +36,13 @@
   padding-block: var(--select-content-padding-y);
 }
 
-[data-rs-select-content][data-state="closed"],
-[data-rs-select-content][hidden] {
+[data-rs-select][data-rs-state="closed"] [data-rs-select-content],
+[data-rs-select][data-rs-state=""] [data-rs-select-content],
+[data-rs-select]:not([data-rs-state]) [data-rs-select-content] {
   display: none;
 }
 
-[data-rs-select-content][data-state="open"] {
+[data-rs-select][data-rs-state="open"] [data-rs-select-content] {
   display: block;
 }
 

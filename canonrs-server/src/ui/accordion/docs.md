@@ -1,30 +1,31 @@
 # Accordion
 
-## When to use
-Use to show/hide sections of related content. Ideal for FAQs, settings panels, and navigation menus.
+## 1. Overview
+Accordion is a structural UI component designed to organize content into collapsible sections while maintaining strict behavioral guarantees. In CanonRS, it is not just a visual pattern but a fully typed interaction contract. The component enforces a predictable disclosure model where sections expand and collapse based on a defined selection strategy. Unlike traditional implementations, it eliminates ambiguity around multiple open states. The Accordion is composed of clearly defined sub-parts, ensuring a consistent DOM structure. Each item is encapsulated, preventing cross-item state leakage. The design ensures that interaction logic is encoded declaratively, not imperatively. This reduces the need for manual state handling. It integrates seamlessly with CanonRS primitives, inheriting consistent behavior. The component is SSR-safe by design. It supports both single and multiple expansion modes. It ensures that UI behavior remains deterministic across environments. The Accordion is optimized for composability and reuse. It is suitable for both simple and complex layouts. It aligns with CanonRS principles of declarative UI architecture.
 
-## Variants
-- `Single` — only one item open at a time (default)
-- `Multiple` — multiple items can be open simultaneously
+## 2. The Problem CanonRS Solves
+Traditional accordions rely heavily on manual state management. Developers often implement toggle logic incorrectly. This leads to inconsistent open and close behavior. Multiple items may remain open when only one should be allowed. State synchronization across items becomes fragile. Accessibility is frequently overlooked or incorrectly implemented. ARIA attributes are often missing or misapplied. SSR environments introduce additional complexity. Hydration mismatches can occur due to dynamic state logic. Developers must manually ensure consistency between server and client. This increases cognitive load and error probability. CanonRS solves these issues by encoding behavior into types. It enforces selection rules at compile-time. This eliminates invalid UI states entirely.
 
-## Props
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| selection | AccordionSelection | Single | Open mode |
-| collapsible | bool | true | Allow closing open item |
-| class | String | "" | CSS class |
-| id | Option<String> | None | HTML id |
+## 3. Architecture and Design
+Accordion in CanonRS is built as a thin UI wrapper over primitives. The core logic resides in AccordionPrimitive. UI components simply forward props and children. This ensures no duplication of logic. The architecture separates structure from behavior. Each sub-component maps directly to a primitive. AccordionItem defines a single collapsible unit. AccordionTrigger handles interaction events declaratively. AccordionContent manages visibility state. The selection model is enforced via AccordionSelection enum. This ensures compile-time guarantees. The design avoids imperative event handlers. Instead, it relies on data-rs attributes. These attributes act as the single source of truth. The system ensures consistent behavior across all instances. It maintains strict separation of concerns. This leads to predictable rendering and interaction.
 
-## Accessibility
-- Trigger uses `<button>` with `aria-expanded`
-- Content uses `aria-hidden` when closed
-- Keyboard: Enter/Space to toggle, Arrow keys to navigate
+## 4. Behavior and State Model
+The state model is fully declarative. Visibility is controlled through structured attributes. AccordionSelection defines allowed states. Single mode ensures only one item is open. Multiple mode allows concurrent expansions. Collapsible flag controls whether all items can close. State transitions are deterministic. No hidden mutable state exists. The DOM reflects the actual state at all times. Interaction is driven by attribute changes. This eliminates race conditions. It ensures consistency across renders. The model integrates with CanonRS state engine. It guarantees synchronization between UI and state. There is no need for external state management.
 
-## Behavior
-- State managed by behavior engine via `data-rs-accordion`
-- No JavaScript required on SSR render
-- Animations via CSS transitions on `data-rs-state`
+## 5. Accessibility Guarantees
+Accessibility is enforced at the primitive level. Proper ARIA roles are automatically applied. Each trigger is associated with its content. Screen readers can correctly interpret state changes. Keyboard navigation is supported by default. Focus management is consistent. Attributes such as aria-expanded are handled automatically. This prevents incorrect implementations. The component ensures compliance with accessibility standards. Developers do not need to manually configure roles. This reduces errors significantly.
 
-## Edge cases
-- `collapsible=false` prevents closing the last open item
-- Nested accordions are not supported
+## 6. SSR and Hydration Safety
+Accordion is fully SSR-compatible. The initial state is rendered consistently on the server. VisibilityState ensures deterministic output. Hydration does not introduce mismatches. There is no reliance on client-only logic. The DOM structure remains identical across environments. This prevents runtime errors. It ensures stable rendering. The component behaves identically in SSR and CSR contexts. This is critical for performance and reliability.
+
+## 7. Composition Model
+Accordion is highly composable. It allows nested structures. Each item is self-contained. Components can be combined freely. The structure enforces valid hierarchies. Invalid compositions are prevented. This ensures predictable behavior. Developers can extend functionality safely. The model supports reuse across layouts. It integrates with other CanonRS components seamlessly.
+
+## 8. Performance Characteristics
+Accordion is lightweight and efficient. It avoids unnecessary re-renders. State changes are minimal and localized. No heavy computation is involved. DOM updates are predictable. The component scales well with multiple items. It does not introduce performance bottlenecks. It is suitable for large datasets. The design prioritizes efficiency.
+
+## 9. Real Use Cases
+Accordion is ideal for FAQ sections. It works well in settings panels. It can be used in dashboards. It helps organize large content blocks. It improves readability and navigation. It is useful in documentation pages. It supports progressive disclosure patterns. It enhances user experience.
+
+## 10. Why This Is Different (CanonRS Philosophy)
+Accordion in CanonRS is fundamentally different from typical implementations. It is not just a UI widget but a behavioral contract. The system enforces correctness through types. It eliminates invalid states entirely. Behavior is encoded declaratively. There is no reliance on manual logic. Accessibility is guaranteed by design. SSR safety is built-in. The component integrates with a unified state system. It ensures consistency across the entire application. This approach reduces bugs and improves maintainability. It reflects CanonRS philosophy of strict, predictable UI systems.

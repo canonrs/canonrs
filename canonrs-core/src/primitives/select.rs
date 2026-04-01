@@ -81,7 +81,6 @@ pub fn SelectContentPrimitive(
             data-rs-component="SelectContent"
             data-rs-state=s.data_rs_state
             role="listbox"
-            hidden=s.hidden
             class=class
         >
             {children()}

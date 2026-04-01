@@ -4,7 +4,7 @@ use canonrs_core::primitives::{
     ComboboxPrimitive, ComboboxTriggerPrimitive,
     ComboboxListPrimitive, ComboboxItemPrimitive,
 };
-use canonrs_core::meta::{DisabledState, SelectionState};
+use canonrs_core::meta::{DisabledState, SelectionState, VisibilityState};
 
 #[component]
 pub fn Combobox(
@@ -13,7 +13,7 @@ pub fn Combobox(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxPrimitive class=class node_ref=node_ref.unwrap_or_default()>
+        <ComboboxPrimitive state=VisibilityState::Closed class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </ComboboxPrimitive>
     }
@@ -38,7 +38,7 @@ pub fn ComboboxList(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxListPrimitive class=class>
+        <ComboboxListPrimitive state=VisibilityState::Closed class=class>
             {children()}
         </ComboboxListPrimitive>
     }

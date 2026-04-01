@@ -15,6 +15,9 @@ pub fn register() {
 
         if root.get_attribute("data-rs-combobox-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-combobox-attached", "1").ok();
+        if root.get_attribute("data-rs-state").is_none() {
+            root.set_attribute("data-rs-state", "closed").ok();
+        }
 
         // abrir via focus/input no input interno
         let Ok(Some(input_el)) = root.query_selector("[data-rs-combobox-input]") else { return Ok(()); };
@@ -24,7 +27,6 @@ pub fn register() {
         let root_focus = root.clone();
         let cb_focus = Closure::wrap(Box::new(move |_: web_sys::FocusEvent| {
 root_focus.set_attribute("data-rs-state", "open").ok();
-            root_focus.set_attribute("aria-expanded", "true").ok();
         }) as Box<dyn FnMut(_)>);
         root.add_event_listener_with_callback("focusin", cb_focus.as_ref().unchecked_ref()).ok();
         cb_focus.forget();
@@ -43,9 +45,9 @@ root_focus.set_attribute("data-rs-state", "open").ok();
                         if let Ok(el) = node.dyn_into::<web_sys::HtmlElement>() {
                             let text = el.text_content().unwrap_or_default().to_lowercase();
                             if query.is_empty() || text.contains(&query) {
-                                el.remove_attribute("data-rs-visible").ok();
+                                el.set_attribute("data-rs-state", "visible").ok();
                             } else {
-                                el.set_attribute("data-rs-visible", "false").ok();
+                                el.set_attribute("data-rs-state", "hidden").ok();
                             }
                         }
                     }
@@ -66,7 +68,6 @@ root_focus.set_attribute("data-rs-state", "open").ok();
                 let inside = active.and_then(|el| el.closest("[data-rs-combobox]").ok().flatten()).is_some();
                 if !inside {
                     root_clone.set_attribute("data-rs-state", "closed").ok();
-                    root_clone.set_attribute("aria-expanded", "false").ok();
                 }
             }) as Box<dyn FnOnce()>);
             web_sys::window().unwrap()
@@ -85,7 +86,6 @@ root_focus.set_attribute("data-rs-state", "open").ok();
                     let inside_root = el.closest("[data-rs-combobox]").ok().flatten().is_some();
                     if !inside_list && !inside_root {
                         root_outside.set_attribute("data-rs-state", "closed").ok();
-                        root_outside.set_attribute("aria-expanded", "false").ok();
                     }
                 }
             }
@@ -103,13 +103,11 @@ root_focus.set_attribute("data-rs-state", "open").ok();
             match key.as_str() {
                 "Escape" => {
                     root_key.set_attribute("data-rs-state", "closed").ok();
-                    root_key.set_attribute("aria-expanded", "false").ok();
                 }
                 "ArrowDown" | "ArrowUp" => {
                     e.prevent_default();
                     if !is_open {
                         root_key.set_attribute("data-rs-state", "open").ok();
-                        root_key.set_attribute("aria-expanded", "true").ok();
                     }
                     let Ok(all_nodes) = root_key.query_selector_all("[data-rs-combobox-item]") else { return };
                     let mut items: Vec<web_sys::HtmlElement> = vec![];
@@ -118,7 +116,7 @@ root_focus.set_attribute("data-rs-state", "open").ok();
                     for i in 0..all_nodes.length() {
                         if let Some(node) = all_nodes.item(i) {
                             if let Ok(el) = node.dyn_into::<web_sys::HtmlElement>() {
-                                if el.get_attribute("data-rs-visible").as_deref() == Some("false") {
+                                if el.get_attribute("data-rs-state").as_deref() == Some("hidden") {
                                     continue;
                                 }
                                 if el.get_attribute("data-rs-focused").as_deref() == Some("true") {
@@ -166,7 +164,6 @@ root_focus.set_attribute("data-rs-state", "open").ok();
                                     }
                                     root_key.set_attribute("data-rs-value", &value).ok();
                                     root_key.set_attribute("data-rs-state", "closed").ok();
-                                    root_key.set_attribute("aria-expanded", "false").ok();
                                     el.remove_attribute("data-rs-focused").ok();
                                     if let Ok(event) = web_sys::CustomEvent::new("rs-change") {
                                         root_key.dispatch_event(&event).ok();
@@ -221,7 +218,6 @@ root_focus.set_attribute("data-rs-state", "open").ok();
 
                     root_item.set_attribute("data-rs-value", &value).ok();
                     root_item.set_attribute("data-rs-state", "closed").ok();
-                    root_item.set_attribute("aria-expanded", "false").ok();
 
                     // dispatch rs-change
                     if let Ok(event) = web_sys::CustomEvent::new("rs-change") {

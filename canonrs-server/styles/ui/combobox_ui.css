@@ -57,7 +57,7 @@
   background: var(--combobox-item-hover-bg);
 }
 
-[data-rs-combobox-item][data-selected="true"] {
+[data-rs-combobox-item][data-rs-state="selected"] {
   background: var(--combobox-item-selected-bg);
 }
 
@@ -71,7 +71,7 @@
   pointer-events: none;
 }
 
-[data-rs-combobox-item][data-rs-visible="false"] {
+[data-rs-combobox-item][data-rs-state="hidden"] {
   display: none;
 }
 
