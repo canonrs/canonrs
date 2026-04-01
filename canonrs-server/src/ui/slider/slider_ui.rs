@@ -17,13 +17,12 @@ pub fn Slider(
     #[prop(default = Orientation::Horizontal)] orientation: Orientation,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let clamped = value.clamp(min, max);
     view! {
         <SliderPrimitive
             min={min}
             max={max}
             step={step}
-            value={clamped}
+            value={value}
             orientation={orientation.as_str().to_string()}
             disabled=disabled
             class={class}

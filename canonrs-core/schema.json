@@ -825,7 +825,7 @@
       "variants": []
     },
     {
-      "behavior": "selection",
+      "behavior": "unknown",
       "capabilities": [
         "Value",
         "Disabled"
@@ -1985,7 +1985,7 @@
       "variants": []
     },
     {
-      "behavior": "selection",
+      "behavior": "unknown",
       "capabilities": [
         "Value",
         "Disabled"

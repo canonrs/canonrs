@@ -1,8 +1,7 @@
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{ColorPickerPrimitive, ColorPickerInputPrimitive, ColorPickerSwatchPrimitive};
-use canonrs_core::meta::DisabledState;
-use canonrs_core::meta::SelectionState;
+use canonrs_core::primitives::{ColorPickerPrimitive, ColorPickerTriggerPrimitive, ColorPickerInputPrimitive, ColorPickerSwatchPrimitive};
+use canonrs_core::meta::{DisabledState, SelectionState, VisibilityState};
 
 #[component]
 pub fn ColorPicker(
@@ -12,8 +11,10 @@ pub fn ColorPicker(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ColorPickerPrimitive class=class>
-            <ColorPickerInputPrimitive value=value name=name disabled=disabled />
+        <ColorPickerPrimitive state=VisibilityState::Closed disabled=disabled class=class>
+            <ColorPickerTriggerPrimitive state=VisibilityState::Closed disabled=disabled>
+                <ColorPickerInputPrimitive value=value name=name disabled=disabled />
+            </ColorPickerTriggerPrimitive>
         </ColorPickerPrimitive>
     }
 }
@@ -21,12 +22,11 @@ pub fn ColorPicker(
 #[component]
 pub fn ColorPickerSwatch(
     #[prop(into)] color: String,
-    #[prop(default = false)] selected: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let selected_state = if selected { SelectionState::Selected } else { SelectionState::Unselected };
     view! {
-        <ColorPickerSwatchPrimitive color=color selected=selected_state class=class />
+        <ColorPickerSwatchPrimitive color=color selected=selected class=class />
     }
 }
 

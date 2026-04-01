@@ -16,7 +16,7 @@ pub const COLORPICKERSWATCH_API: ComponentApi = ComponentApi {
     id: "color-picker-swatch",
     props: &[
         PropDef { name: "color", kind: PropType::String, required: true, default: None, description: "" },
-        PropDef { name: "selected", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
