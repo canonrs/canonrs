@@ -7,18 +7,16 @@ use canonrs_core::meta::{ActivityState, DisabledState};
 pub fn NavItem(
     #[prop(into)] label: String,
     #[prop(optional, into)] href: Option<String>,
-    #[prop(default = false)] active: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(optional)] icon: Option<Children>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let active_state = if active { ActivityState::Active } else { ActivityState::Inactive };
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <NavItemPrimitive
             href=href.unwrap_or_else(|| "".to_string())
-            active=active_state
-            disabled=disabled_state
+            active=active
+            disabled=disabled
             class=class
         >
             {icon.map(|i| view! { <span data-rs-nav-item-icon="">{i()}</span> })}

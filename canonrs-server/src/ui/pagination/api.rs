@@ -41,7 +41,7 @@ pub const PAGINATIONPREVIOUS_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -51,7 +51,7 @@ pub const PAGINATIONNEXT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

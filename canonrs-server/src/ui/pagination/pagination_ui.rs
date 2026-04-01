@@ -1,6 +1,6 @@
 
 use leptos::prelude::*;
-use canonrs_core::meta::ActivityState;
+use canonrs_core::meta::{ActivityState, DisabledState};
 use canonrs_core::primitives::{
     PaginationPrimitive, PaginationContentPrimitive, PaginationItemPrimitive,
     PaginationLinkPrimitive, PaginationPreviousPrimitive, PaginationNextPrimitive,
@@ -61,11 +61,11 @@ pub fn PaginationLink(
 pub fn PaginationPrevious(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationPreviousPrimitive href=href disabled=disabled.into() class=class>
+        <PaginationPreviousPrimitive href=href disabled=disabled class=class>
             {children()}
         </PaginationPreviousPrimitive>
     }
@@ -75,11 +75,11 @@ pub fn PaginationPrevious(
 pub fn PaginationNext(
     children: Children,
     #[prop(into, default = String::new())] href: String,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationNextPrimitive href=href disabled=disabled.into() class=class>
+        <PaginationNextPrimitive href=href disabled=disabled class=class>
             {children()}
         </PaginationNextPrimitive>
     }
