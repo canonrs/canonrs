@@ -80,8 +80,6 @@ pub fn HoverCardContentPrimitive(
             data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
             role="tooltip"
-            aria-hidden=s.aria_hidden
-            hidden=s.hidden
             class=class
         >
             {children()}

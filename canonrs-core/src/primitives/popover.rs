@@ -84,8 +84,6 @@ pub fn PopoverContentPrimitive(
             role="dialog"
             aria-modal="false"
             aria-label=aria_label
-            aria-hidden=s.aria_hidden
-            hidden=s.hidden
             tabindex="-1"
             class=class
         >

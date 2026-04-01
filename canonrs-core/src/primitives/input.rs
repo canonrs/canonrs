@@ -63,7 +63,7 @@ pub fn InputPrimitive(
             type=input_type
             class=class
             name={if name.is_empty() { None } else { Some(name) }}
-            prop:value=value
+            value=value
             placeholder={if placeholder.is_empty() { None } else { Some(placeholder) }}
             disabled=disabled.as_bool()
             aria-disabled=disabled.aria()

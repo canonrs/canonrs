@@ -38,7 +38,7 @@ pub fn FormSection(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <FormSectionPrimitive aria_label=aria_label class=class>
+        <FormSectionPrimitive aria_label=aria_label.unwrap_or_default() class=class>
             {children()}
         </FormSectionPrimitive>
     }

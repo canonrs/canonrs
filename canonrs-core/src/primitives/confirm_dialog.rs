@@ -44,7 +44,6 @@ pub fn ConfirmDialogPrimitive(
             aria-modal="true"
             aria-labelledby=aria_labelledby
             aria-describedby=aria_describedby
-            hidden=s.hidden
             tabindex="-1"
             class=class
         >

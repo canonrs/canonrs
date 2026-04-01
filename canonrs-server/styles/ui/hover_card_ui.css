@@ -5,7 +5,6 @@
 }
 
 [data-rs-hover-card-content] {
-  position: fixed;
   z-index: var(--hover-card-z-index);
   background: var(--hover-card-bg);
   color: var(--hover-card-fg);
@@ -21,7 +20,7 @@
   transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
-[data-rs-hover-card][data-rs-state="open"] [data-rs-hover-card-content] {
+[data-rs-hover-card-content][data-rs-state="open"] {
   opacity: 1;
   visibility: visible;
   transform: scale(1);

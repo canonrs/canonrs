@@ -5,9 +5,6 @@
 }
 
 [data-rs-popover-content] {
-  position: fixed;
-  left: var(--floating-x, 0);
-  top: var(--floating-y, 0);
   z-index: var(--popover-z-index);
   background: var(--popover-bg);
   color: var(--popover-fg);
@@ -23,7 +20,7 @@
   transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
 
-[data-rs-popover][data-rs-state="open"] [data-rs-popover-content] {
+[data-rs-popover-content][data-rs-state="open"] {
   opacity: 1;
   visibility: visible;
   transform: scale(1);

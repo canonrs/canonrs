@@ -81,8 +81,6 @@ pub fn TooltipContentPrimitive(
             data-rs-side=side.as_str()
             id=tooltip_id
             role="tooltip"
-            aria-hidden=s.aria_hidden
-            hidden=s.hidden
             class=class
         >
             {children()}

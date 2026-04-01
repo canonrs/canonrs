@@ -5,7 +5,6 @@
 }
 
 [data-rs-tooltip-content] {
-  position: fixed;
   z-index: var(--tooltip-z-index);
   background: var(--tooltip-bg);
   color: var(--tooltip-fg);
@@ -20,7 +19,7 @@
   transition: opacity 0.15s, visibility 0.15s;
 }
 
-[data-rs-tooltip][data-rs-state="open"] [data-rs-tooltip-content] {
+[data-rs-tooltip-content][data-rs-state="open"] {
   opacity: 1;
   visibility: visible;
 }

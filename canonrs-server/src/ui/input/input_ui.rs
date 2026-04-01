@@ -1,7 +1,6 @@
-
 use leptos::prelude::*;
-use leptos::prelude::event_target_value;
 use canonrs_core::primitives::{InputPrimitive, InputVariant, InputSize};
+use canonrs_core::meta::DisabledState;
 
 #[component]
 pub fn Input(
@@ -9,8 +8,7 @@ pub fn Input(
     #[prop(into, default = "text".to_string())] input_type: String,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
-    #[prop(optional)] on_input: Option<Callback<String>>,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = InputVariant::Default)] variant: InputVariant,
     #[prop(default = InputSize::Md)] size: InputSize,
     #[prop(into, default = String::new())] placeholder: String,
@@ -20,18 +18,13 @@ pub fn Input(
         <InputPrimitive
             class=class
             name=name
-            prop:value=value
-            disabled=disabled.into()
+            value=value
+            disabled=disabled
             placeholder=placeholder
             aria_label=aria_label
             input_type=input_type
             variant=variant
             size=size
-            on:input=move |ev| {
-                if let Some(cb) = on_input {
-                    cb.run(event_target_value(&ev));
-                }
-            }
         />
     }
 }

@@ -179,8 +179,8 @@ pub fn FormLabelPrimitive(
         <label
             data-rs-form-label=""
             for={if html_for.is_empty() { None } else { Some(html_for) }}
-            data-rs-required={if required { Some("") } else { None }}
-            aria-required={if required { Some("true") } else { None }}
+            data-rs-required={if required { "true" } else { "false" }}
+            aria-required={if required { "true" } else { "false" }}
             class=class
         >
             {children()}
