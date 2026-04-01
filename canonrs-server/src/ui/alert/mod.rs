@@ -1,4 +1,5 @@
 pub mod alert_ui;
+pub mod preview;
 
 pub use alert_ui::*;
 
@@ -7,3 +8,4 @@ pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
 pub use alert_ui::AlertPreview;
+pub use preview::AlertShowcasePreview;
