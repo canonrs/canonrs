@@ -148,7 +148,7 @@ impl FieldValidationState {
 
 #[component]
 pub fn FormFieldPrimitive(
-    children: Children,
+    children: ChildrenFn,
     #[prop(default = FieldValidationState::Idle)] validation: FieldValidationState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,

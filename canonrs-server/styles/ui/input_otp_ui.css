@@ -24,12 +24,12 @@
   font-weight: var(--input-otp-font-weight);
 }
 
-[data-rs-input-otp-slot][data-active="true"] {
+[data-rs-input-otp-slot][data-rs-state="active"] {
   background: var(--input-otp-slot-active-bg);
   border-color: var(--input-otp-slot-active-border);
 }
 
-[data-rs-input-otp-slot][data-disabled="true"] {
+[data-rs-input-otp-slot][data-rs-state="disabled"] {
   background: var(--input-otp-slot-disabled-bg);
   color: var(--input-otp-slot-disabled-fg);
   opacity: var(--forms-disabled-opacity);

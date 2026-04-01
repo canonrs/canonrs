@@ -1,4 +1,5 @@
 pub mod field_ui;
+pub mod preview;
 pub mod variants;
 pub mod types;
 
@@ -9,3 +10,5 @@ pub use types::FieldLegendVariant;
 pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
+
+pub use preview::FieldShowcasePreview;

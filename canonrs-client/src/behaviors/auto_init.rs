@@ -21,6 +21,7 @@ pub(crate) fn register_all_behaviors() {
     popover_behavior::register();
     select_behavior::register();
     slider_behavior::register();
+    input_otp_behavior::register();
     sheet_behavior::register();
     switch_behavior::register();
     theme_toggle_behavior::register();

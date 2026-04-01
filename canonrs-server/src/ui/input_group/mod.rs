@@ -1,4 +1,5 @@
 pub mod input_group_ui;
+pub mod preview;
 
 pub use input_group_ui::InputGroup;
 #[cfg(feature = "examples")]
@@ -7,3 +8,4 @@ pub mod examples;
 pub use examples::*;
 
 pub use input_group_ui::InputGroupPreview;
+pub use preview::InputGroupShowcasePreview;

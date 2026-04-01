@@ -20,7 +20,7 @@ pub fn InputOtpSlotPrimitive(
             aria-hidden="true"
             class=class
         >
-            {children()}
+            <span data-rs-slot-inner="">{children()}</span>
         </div>
     }
 }

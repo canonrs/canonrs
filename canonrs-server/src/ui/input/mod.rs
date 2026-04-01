@@ -1,4 +1,5 @@
 pub mod input_ui;
+pub mod preview;
 mod masked_input_ui;
 pub mod types;
 pub mod variants;
@@ -11,3 +12,4 @@ pub use canonrs_core::primitives::{InputVariant, InputSize};
 pub mod examples;
 
 pub use input_ui::InputPreview;
+pub use preview::InputShowcasePreview;
