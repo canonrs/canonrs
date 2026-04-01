@@ -48,7 +48,7 @@ pub const COMMANDITEM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "value", kind: PropType::String, required: false, default: None, description: "" },
-        PropDef { name: "selected", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

@@ -18,6 +18,16 @@ fn close_all(root: &web_sys::Element) {
                     menu.set_attribute("data-rs-state", "closed").ok();
                     if let Ok(Some(trigger)) = menu.query_selector("[data-rs-menubar-trigger]") {
                         trigger.set_attribute("aria-expanded", "false").ok();
+                        trigger.set_attribute("data-rs-state", "closed").ok();
+                    }
+                    // remover content do body portal se existir
+                    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+                        if let Some(menu_id) = menu.get_attribute("data-rs-menu-id") {
+                            let portal_sel = format!("[data-rs-menubar-portal='{}']", menu_id);
+                            if let Ok(Some(portal)) = doc.query_selector(&portal_sel) {
+                                portal.remove();
+                            }
+                        }
                     }
                 }
             }
@@ -31,6 +41,17 @@ pub fn register() {
 
         if root.get_attribute("data-rs-menubar-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-menubar-attached", "1").ok();
+
+        // atribuir IDs únicos aos menus
+        let menus = root.query_selector_all("[data-rs-menubar-menu]")
+            .map_err(|_| crate::BehaviorError::JsError { message: "query menus".into() })?;
+        for i in 0..menus.length() {
+            if let Some(node) = menus.item(i) {
+                if let Ok(menu) = node.dyn_into::<Element>() {
+                    menu.set_attribute("data-rs-menu-id", &format!("menubar-menu-{}", i)).ok();
+                }
+            }
+        }
 
         let triggers = root.query_selector_all("[data-rs-menubar-trigger]")
             .map_err(|_| crate::BehaviorError::JsError { message: "query triggers".into() })?;
@@ -52,19 +73,42 @@ pub fn register() {
                 };
                 let is_open = menu.get_attribute("data-rs-state").as_deref() == Some("open");
 
-                // fechar todos
                 close_all(&root_click);
 
-                // se estava fechado, abrir + posicionar
                 if !is_open {
                     menu.set_attribute("data-rs-state", "open").ok();
                     trigger_click.set_attribute("aria-expanded", "true").ok();
+                    trigger_click.set_attribute("data-rs-state", "open").ok();
 
+                    let doc = match web_sys::window().and_then(|w| w.document()) {
+                        Some(d) => d,
+                        None => return,
+                    };
+                    let body = match doc.body() {
+                        Some(b) => b,
+                        None => return,
+                    };
+
+                    // clonar content e mover para body
                     if let Ok(Some(content)) = menu.query_selector("[data-rs-menubar-content]") {
-                        if let Ok(content_el) = content.dyn_into::<HtmlElement>() {
-                            let rect = trigger_click.get_bounding_client_rect();
-                            content_el.style().set_property("left", &format!("{}px", rect.left())).ok();
-                            content_el.style().set_property("top", &format!("{}px", rect.bottom() + 4.0)).ok();
+                        let rect = trigger_click.get_bounding_client_rect();
+                        let x = rect.left();
+                        let y = rect.bottom() + 4.0;
+                        let menu_id = menu.get_attribute("data-rs-menu-id").unwrap_or_default();
+
+                        // criar portal wrapper
+                        if let Ok(portal) = doc.create_element("div") {
+                            portal.set_attribute("data-rs-menubar-portal", &menu_id).ok();
+                            portal.set_attribute("style", &format!(
+                                "position:fixed;left:{}px;top:{}px;z-index:9999;",
+                                x, y
+                            )).ok();
+
+                            // clonar content para portal (mantém original no DOM)
+                            if let Ok(clone) = content.clone_node_with_deep(true) {
+                                portal.append_child(&clone).ok();
+                            }
+                            body.append_child(&portal).ok();
                         }
                     }
                 }
@@ -77,7 +121,9 @@ pub fn register() {
         let root_outside = root.clone();
         let cb_outside = Closure::wrap(Box::new(move |e: MouseEvent| {
             if let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) {
-                if target.closest("[data-rs-menubar]").ok().flatten().is_none() {
+                let in_menubar = target.closest("[data-rs-menubar]").ok().flatten().is_some();
+                let in_portal = target.closest("[data-rs-menubar-portal]").ok().flatten().is_some();
+                if !in_menubar && !in_portal {
                     close_all(&root_outside);
                 }
             }

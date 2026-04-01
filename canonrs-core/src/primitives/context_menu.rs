@@ -53,7 +53,6 @@ pub fn ContextMenuContentPrimitive(
             data-rs-context-menu-content=""
             data-rs-state=s.data_rs_state
             role="menu"
-            hidden=s.hidden
             class=class
         >
             {children()}

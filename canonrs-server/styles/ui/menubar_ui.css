@@ -29,7 +29,6 @@
 
 [data-rs-menubar-content] {
   display: none;
-  position: fixed;
   background: var(--menubar-content-bg);
   padding-block: var(--menubar-content-padding-y);
   border-radius: var(--menubar-content-radius);
@@ -38,7 +37,8 @@
   z-index: 50;
 }
 
-[data-rs-menubar-menu][data-rs-state="open"] [data-rs-menubar-content] {
+[data-rs-menubar-portal] [data-rs-menubar-content] {
+  display: none;
   display: flex;
   flex-direction: column;
 }

@@ -25,7 +25,6 @@
 [data-rs-command-list] {
   padding: var(--command-list-padding);
   max-height: var(--command-list-max-height);
-  overflow-y: auto;
 }
 
 [data-rs-command-item] {

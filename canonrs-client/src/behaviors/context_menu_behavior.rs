@@ -24,8 +24,8 @@ pub fn register() {
                 e.prevent_default();
                 if let Ok(Some(content)) = root_clone.query_selector("[data-rs-context-menu-content]") {
                     if let Ok(c) = content.dyn_into::<HtmlElement>() {
-                        c.style().set_property("left", &format!("{}px", e.client_x())).ok();
-                        c.style().set_property("top", &format!("{}px", e.client_y())).ok();
+                        c.style().set_property("--context-menu-x", &format!("{}px", e.client_x())).ok();
+                        c.style().set_property("--context-menu-y", &format!("{}px", e.client_y())).ok();
                     }
                 }
                 root_clone.set_attribute("data-rs-state", "open").ok();

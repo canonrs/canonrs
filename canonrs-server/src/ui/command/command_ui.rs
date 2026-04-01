@@ -73,12 +73,11 @@ pub fn CommandGroup(
 pub fn CommandItem(
     children: Children,
     #[prop(optional, into)] value: Option<String>,
-    #[prop(default = false)] selected: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let selected_state = if selected { SelectionState::Selected } else { SelectionState::Unselected };
     view! {
-        <CommandItemPrimitive value=value.unwrap_or_default() selected=selected_state class=class>
+        <CommandItemPrimitive value=value.unwrap_or_default() selected=selected class=class>
             {children()}
         </CommandItemPrimitive>
     }
