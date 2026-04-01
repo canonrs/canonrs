@@ -44,7 +44,6 @@ pub fn ConfirmDialogPrimitive(
             aria-modal="true"
             aria-labelledby=aria_labelledby
             aria-describedby=aria_describedby
-            aria-hidden=s.aria_hidden
             hidden=s.hidden
             tabindex="-1"
             class=class
@@ -64,7 +63,6 @@ pub fn ConfirmDialogOverlayPrimitive(
         <div
             data-rs-confirm-dialog-overlay=""
             data-rs-state=s.data_rs_state
-            aria-hidden="true"
             class=class
         />
     }

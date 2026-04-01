@@ -40,8 +40,6 @@ pub fn DrawerPrimitive(
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
-            aria-hidden=s.aria_hidden
-            hidden=s.hidden
             class=class
         >
             {children()}
@@ -82,7 +80,6 @@ pub fn DrawerOverlayPrimitive(
         <div
             data-rs-drawer-overlay=""
             data-rs-state=s.data_rs_state
-            aria-hidden="true"
             class=class
         />
     }

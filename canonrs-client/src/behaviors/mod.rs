@@ -1,4 +1,5 @@
 mod dom_utils;
+pub mod overlay_portal;
 pub use dom_utils::node_list_iter;
 
 mod behavior_error;

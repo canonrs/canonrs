@@ -19,8 +19,6 @@ pub fn DialogPrimitive(
             data-rs-component="Dialog"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
-            aria-hidden=s.aria_hidden
-            hidden=s.hidden
             class=class
         >
             {children()}
@@ -40,6 +38,8 @@ pub fn DialogTriggerPrimitive(
         <button
             type="button"
             data-rs-dialog-trigger=""
+            data-rs-button=""
+            data-rs-variant="primary"
             data-rs-state=s.data_rs_state
             aria-haspopup="dialog"
             aria-expanded=s.aria_expanded
@@ -63,7 +63,6 @@ pub fn DialogPortalPrimitive(
             data-rs-component="DialogPortal"
             data-rs-behavior="portal"
             data-rs-state=s.data_rs_state
-            hidden=s.hidden
         >
             {children()}
         </div>
@@ -80,7 +79,6 @@ pub fn DialogOverlayPrimitive(
         <div
             data-rs-dialog-overlay=""
             data-rs-state=s.data_rs_state
-            aria-hidden="true"
             class=class
         />
     }

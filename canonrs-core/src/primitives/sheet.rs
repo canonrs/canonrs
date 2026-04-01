@@ -40,8 +40,6 @@ pub fn SheetPrimitive(
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
-            aria-hidden=s.aria_hidden
-            hidden=s.hidden
             class=class
         >
             {children()}
@@ -104,7 +102,6 @@ pub fn SheetOverlayPrimitive(
         <div
             data-rs-sheet-overlay=""
             data-rs-state=s.data_rs_state
-            aria-hidden="true"
             class=class
         />
     }

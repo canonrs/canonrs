@@ -19,8 +19,6 @@ pub fn ModalPrimitive(
             data-rs-component="Modal"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
-            aria-hidden=s.aria_hidden
-            hidden=s.hidden
             class=class
         >
             {children()}
@@ -61,7 +59,6 @@ pub fn ModalOverlayPrimitive(
         <div
             data-rs-modal-overlay=""
             data-rs-state=s.data_rs_state
-            aria-hidden="true"
             class=class
         />
     }

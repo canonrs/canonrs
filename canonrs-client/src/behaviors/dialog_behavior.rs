@@ -1,6 +1,5 @@
 //! @canon-level: strict
-//! Dialog Behavior — DOM as source of truth
-//! aria-labelledby/describedby gerados automaticamente via DOM traversal
+//! Dialog Behavior — portal pattern for correct overlay positioning
 
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
@@ -11,7 +10,7 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use web_sys::{HtmlElement, KeyboardEvent, MouseEvent};
+use web_sys::{HtmlElement, MouseEvent, KeyboardEvent, Element};
 
 #[cfg(feature = "hydrate")]
 thread_local! {
@@ -21,13 +20,9 @@ thread_local! {
 #[cfg(feature = "hydrate")]
 fn lock_scroll() {
     OPEN_COUNT.with(|c| {
-        let n = c.get() + 1;
-        c.set(n);
+        let n = c.get() + 1; c.set(n);
         if n == 1 {
-            if let Some(body) = web_sys::window()
-                .and_then(|w| w.document())
-                .and_then(|d| d.body())
-            {
+            if let Some(body) = web_sys::window().unwrap().document().unwrap().body() {
                 body.style().set_property("overflow", "hidden").ok();
             }
         }
@@ -37,13 +32,9 @@ fn lock_scroll() {
 #[cfg(feature = "hydrate")]
 fn unlock_scroll() {
     OPEN_COUNT.with(|c| {
-        let n = c.get().saturating_sub(1);
-        c.set(n);
+        let n = c.get().saturating_sub(1); c.set(n);
         if n == 0 {
-            if let Some(body) = web_sys::window()
-                .and_then(|w| w.document())
-                .and_then(|d| d.body())
-            {
+            if let Some(body) = web_sys::window().unwrap().document().unwrap().body() {
                 body.style().remove_property("overflow").ok();
             }
         }
@@ -51,19 +42,17 @@ fn unlock_scroll() {
 }
 
 #[cfg(feature = "hydrate")]
-fn get_focusable(container: &web_sys::Element) -> Vec<web_sys::Element> {
+fn get_focusable(container: &Element) -> Vec<Element> {
     let sel = concat!(
         "a[href],button:not([disabled]),input:not([disabled]),",
         "select:not([disabled]),textarea:not([disabled]),",
-        "[tabindex]:not([tabindex='-1'])"
+        "[tabindex]:not([tabindex=\"-1\"])"
     );
     let mut out = vec![];
     if let Ok(list) = container.query_selector_all(sel) {
         for i in 0..list.length() {
             if let Some(n) = list.item(i) {
-                if let Ok(el) = n.dyn_into::<web_sys::Element>() {
-                    out.push(el);
-                }
+                if let Ok(el) = n.dyn_into::<Element>() { out.push(el); }
             }
         }
     }
@@ -71,169 +60,118 @@ fn get_focusable(container: &web_sys::Element) -> Vec<web_sys::Element> {
 }
 
 #[cfg(feature = "hydrate")]
-fn wire_aria(root: &web_sys::Element) {
+fn get_portal_id(root: &Element) -> String {
+    root.get_attribute("data-rs-dialog-portal-id").unwrap_or_else(|| {
+        let id = format!("dialog-portal-{}", (js_sys::Math::random() * 1e9) as u64);
+        root.set_attribute("data-rs-dialog-portal-id", &id).ok();
+        id
+    })
+}
+
+#[cfg(feature = "hydrate")]
+fn mount_portal(root: &Element, doc: &web_sys::Document, portal_id: &str) {
+    unmount_portal(doc, portal_id);
+    let body = match doc.body() { Some(b) => b, None => return };
+    let portal = match doc.create_element("div").ok() { Some(p) => p, None => return };
+    portal.set_attribute("data-rs-overlay-portal", portal_id).ok();
+    if let Ok(Some(overlay)) = root.query_selector("[data-rs-dialog-overlay]") {
+        if let Ok(clone) = overlay.clone_node_with_deep(true) { portal.append_child(&clone).ok(); }
+    }
     if let Ok(Some(content)) = root.query_selector("[data-rs-dialog-content]") {
-        if let Ok(Some(title)) = root.query_selector("[data-rs-dialog-title]") {
-            let id = "rs-dialog-title";
-            title.set_attribute("id", id).ok();
-            content.set_attribute("aria-labelledby", id).ok();
-        }
-        if let Ok(Some(desc)) = root.query_selector("[data-rs-dialog-description]") {
-            let id = "rs-dialog-desc";
-            desc.set_attribute("id", id).ok();
-            content.set_attribute("aria-describedby", id).ok();
-        }
+        if let Ok(clone) = content.clone_node_with_deep(true) { portal.append_child(&clone).ok(); }
+    }
+    body.append_child(&portal).ok();
+}
+
+#[cfg(feature = "hydrate")]
+fn unmount_portal(doc: &web_sys::Document, portal_id: &str) {
+    if let Ok(Some(el)) = doc.query_selector(&format!("[data-rs-overlay-portal='{}']", portal_id)) {
+        el.remove();
     }
 }
 
 #[cfg(feature = "hydrate")]
-fn open_dialog(root: &web_sys::Element, trigger: &Option<web_sys::Element>) {
-    root.set_attribute("data-rs-state", "open").ok();
-    if let Some(t) = trigger {
-        t.set_attribute("aria-expanded", "true").ok();
-    }
-    lock_scroll();
-    let focusable = get_focusable(root);
-    if let Some(first) = focusable.first() {
-        if let Ok(el) = first.clone().dyn_into::<HtmlElement>() {
-            el.focus().ok();
-        }
-    }
-}
-
-#[cfg(feature = "hydrate")]
-fn close_dialog(root: &web_sys::Element, trigger: &Option<web_sys::Element>) {
+fn close_dialog(root: &Element, trigger: &Option<Element>, portal_id: String) {
     root.set_attribute("data-rs-state", "closed").ok();
-    if let Some(t) = trigger {
-        t.set_attribute("aria-expanded", "false").ok();
-        if let Ok(el) = t.clone().dyn_into::<HtmlElement>() {
-            el.focus().ok();
-        }
-    }
+    if let Some(t) = trigger { t.set_attribute("aria-expanded", "false").ok(); }
     unlock_scroll();
+    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+        unmount_portal(&doc, &portal_id);
+    }
+    if let Some(t) = trigger {
+        if let Ok(el) = t.clone().dyn_into::<HtmlElement>() { el.focus().ok(); }
+    }
 }
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior(
-        "data-rs-dialog",
-        Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
-            if root.get_attribute("data-rs-dialog-attached").as_deref() == Some("1") {
-                return Ok(());
-            }
-            root.set_attribute("data-rs-dialog-attached", "1").ok();
+    register_behavior("data-rs-dialog", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
+        if root.get_attribute("data-rs-dialog-attached").as_deref() == Some("1") { return Ok(()); }
+        root.set_attribute("data-rs-dialog-attached", "1").ok();
 
-            wire_aria(root);
+        let trigger = root.query_selector("[data-rs-dialog-trigger]").ok().flatten();
+        let portal_id = get_portal_id(root);
 
-            let trigger = root.query_selector("[data-rs-dialog-trigger]").ok().flatten();
-
-            // trigger click
-            if let Some(ref t) = trigger {
-                let root_c = root.clone();
-                let trigger_c = trigger.clone();
-                let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-                    let is_open =
-                        root_c.get_attribute("data-rs-state").as_deref() == Some("open");
-                    if is_open {
-                        close_dialog(&root_c, &trigger_c);
-                    } else {
-                        open_dialog(&root_c, &trigger_c);
-                    }
-                }) as Box<dyn FnMut(MouseEvent)>);
-                t.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
-                cb.forget();
-            }
-
-            // overlay click
-            if let Ok(Some(overlay)) = root.query_selector("[data-rs-dialog-overlay]") {
-                let root_c = root.clone();
-                let trigger_c = trigger.clone();
-                let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-                    close_dialog(&root_c, &trigger_c);
-                }) as Box<dyn FnMut(MouseEvent)>);
-                overlay
-                    .add_event_listener_with_callback("click", cb.as_ref().unchecked_ref())
-                    .ok();
-                cb.forget();
-            }
-
-            // close buttons
-            if let Ok(btns) = root.query_selector_all("[data-rs-dialog-close]") {
-                for i in 0..btns.length() {
-                    if let Some(node) = btns.item(i) {
-                        if let Ok(btn) = node.dyn_into::<web_sys::Element>() {
-                            let root_c = root.clone();
-                            let trigger_c = trigger.clone();
-                            let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
-                                close_dialog(&root_c, &trigger_c);
-                            }) as Box<dyn FnMut(MouseEvent)>);
-                            btn.add_event_listener_with_callback(
-                                "click",
-                                cb.as_ref().unchecked_ref(),
-                            )
-                            .ok();
-                            cb.forget();
+        if let Some(ref t) = trigger {
+            let root_clone = root.clone();
+            let trigger_clone = trigger.clone();
+            let portal_id_clone = portal_id.clone();
+            let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                let is_open = root_clone.get_attribute("data-rs-state").as_deref() == Some("open");
+                if is_open {
+                    close_dialog(&root_clone, &trigger_clone, portal_id_clone.clone());
+                } else {
+                    root_clone.set_attribute("data-rs-state", "open").ok();
+                    if let Some(ref t) = trigger_clone { t.set_attribute("aria-expanded", "true").ok(); }
+                    lock_scroll();
+                    let doc = match web_sys::window().and_then(|w| w.document()) { Some(d) => d, None => return };
+                    mount_portal(&root_clone, &doc, &portal_id_clone);
+                    let pid = portal_id_clone.clone();
+                    let root_del = root_clone.clone();
+                    let trigger_del = trigger_clone.clone();
+                    let cb_del = Closure::wrap(Box::new(move |e: MouseEvent| {
+                        if root_del.get_attribute("data-rs-state").as_deref() != Some("open") { return; }
+                        let target = match e.target().and_then(|t| t.dyn_into::<Element>().ok()) { Some(t) => t, None => return };
+                        let is_overlay = target.has_attribute("data-rs-dialog-overlay") || target.closest("[data-rs-dialog-overlay]").ok().flatten().is_some();
+                        let is_close = target.has_attribute("data-rs-dialog-close") || target.closest("[data-rs-dialog-close]").ok().flatten().is_some();
+                        if is_overlay || is_close {
+                            close_dialog(&root_del, &trigger_del, pid.clone());
                         }
-                    }
-                }
-            }
-
-            // ESC
-            let root_esc = root.clone();
-            let trigger_esc = trigger.clone();
-            let cb_esc = Closure::wrap(Box::new(move |e: KeyboardEvent| {
-                if e.key() == "Escape"
-                    && root_esc.get_attribute("data-rs-state").as_deref() == Some("open")
-                {
-                    close_dialog(&root_esc, &trigger_esc);
-                }
-            }) as Box<dyn FnMut(KeyboardEvent)>);
-            web_sys::window()
-                .unwrap()
-                .add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref())
-                .ok();
-            cb_esc.forget();
-
-            // Tab trap
-            let root_trap = root.clone();
-            let cb_trap = Closure::wrap(Box::new(move |e: KeyboardEvent| {
-                if root_trap.get_attribute("data-rs-state").as_deref() != Some("open")
-                    || e.key() != "Tab"
-                {
-                    return;
-                }
-                let focusable = get_focusable(&root_trap);
-                if focusable.is_empty() {
-                    return;
-                }
-                let first = focusable.first().unwrap().clone();
-                let last = focusable.last().unwrap().clone();
-                let active = web_sys::window()
-                    .and_then(|w| w.document())
-                    .and_then(|d| d.active_element());
-                if e.shift_key() {
-                    if active.as_ref() == Some(&first) {
-                        e.prevent_default();
-                        if let Ok(el) = last.dyn_into::<HtmlElement>() {
+                    }) as Box<dyn FnMut(_)>);
+                    doc.add_event_listener_with_callback("click", cb_del.as_ref().unchecked_ref()).ok();
+                    cb_del.forget();
+                    let portal_sel = format!("[data-rs-overlay-portal='{}']", portal_id_clone);
+                    if let Ok(Some(portal)) = doc.query_selector(&portal_sel) {
+                        let focusable = get_focusable(&portal);
+                        if let Some(first) = focusable.first() {
+                            if let Ok(el) = first.clone().dyn_into::<HtmlElement>() {
+                            let win = web_sys::window().unwrap();
+                            let sx = win.scroll_x().unwrap_or(0.0);
+                            let sy = win.scroll_y().unwrap_or(0.0);
                             el.focus().ok();
+                            win.scroll_to_with_x_and_y(sx, sy);
+                        }
                         }
                     }
-                } else if active.as_ref() == Some(&last) {
-                    e.prevent_default();
-                    if let Ok(el) = first.dyn_into::<HtmlElement>() {
-                        el.focus().ok();
-                    }
                 }
-            }) as Box<dyn FnMut(KeyboardEvent)>);
-            web_sys::window()
-                .unwrap()
-                .add_event_listener_with_callback("keydown", cb_trap.as_ref().unchecked_ref())
-                .ok();
-            cb_trap.forget();
+            }) as Box<dyn FnMut(_)>);
+            t.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
+            cb.forget();
+        }
 
-            Ok(())
-        }),
-    );
+        let root_esc = root.clone();
+        let trigger_esc = trigger.clone();
+        let portal_id_esc = portal_id.clone();
+        let cb_esc = Closure::wrap(Box::new(move |e: KeyboardEvent| {
+            if e.key() == "Escape" && root_esc.get_attribute("data-rs-state").as_deref() == Some("open") {
+                close_dialog(&root_esc, &trigger_esc, portal_id_esc.clone());
+            }
+        }) as Box<dyn FnMut(_)>);
+        web_sys::window().unwrap().add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref()).ok();
+        cb_esc.forget();
+
+        Ok(())
+    }));
 }
 
 #[cfg(not(feature = "hydrate"))]
