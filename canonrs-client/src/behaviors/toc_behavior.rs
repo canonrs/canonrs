@@ -365,11 +365,8 @@ fn update_section_progress(toc_item: &Element, heading_id: &str) {
     // Posição do ponto dentro do item do TOC (0-100%)
     let position = read.clamp(0.0, 100.0);
 
-    if let Ok(item_el) = toc_item.clone().dyn_into::<web_sys::HtmlElement>() {
-        let style = item_el.style();
-        let _ = style.set_property("--toc-section-progress", &format!("{:.1}%", read));
-        let _ = style.set_property("--toc-reading-position", &format!("{:.1}%", position));
-    }
+    let _ = toc_item.set_attribute("data-rs-progress", &format!("{:.1}", read));
+    let _ = toc_item.set_attribute("data-rs-position", &format!("{:.1}", position));
 }
 
 #[cfg(feature = "hydrate")]
@@ -451,7 +448,7 @@ fn reveal_siblings_expand(toc: &Element, active_item: &Element) {
         for i in 0..all_children.length() {
             if let Some(child) = all_children.item(i) {
                 if let Ok(el) = child.dyn_into::<Element>() {
-                    let _ = el.remove_attribute("data-rs-visible");
+                    let _ = el.set_attribute("data-rs-state", "hidden");
                 }
             }
         }
@@ -473,7 +470,7 @@ fn reveal_siblings_expand(toc: &Element, active_item: &Element) {
                             .unwrap_or(2);
                         if item_level <= parent_level && el != *active_item { break; }
                         if item_level > parent_level {
-                            let _ = el.set_attribute("data-rs-visible", "true");
+                            let _ = el.set_attribute("data-rs-state", "visible");
                         }
                     }
                 }
@@ -504,7 +501,7 @@ fn expand_parent_subtrees(toc: &Element, active_item: &Element) {
                     let is_ancestor = ancestor_subtrees.iter().any(|a| a.is_same_node(Some(&el)));
                     if !is_ancestor {
                         let _ = el.set_attribute("data-rs-state", "closed");
-                        let _ = el.set_attribute("hidden", "");
+                        // REMOVER — visibilidade controlada apenas por data-rs-state
                         if let Some(gp) = el.parent_element() {
                             if let Ok(Some(btn)) = gp.query_selector("[data-rs-toc-expand-btn]") {
                                 let _ = btn.set_attribute("aria-expanded", "false");
@@ -520,7 +517,7 @@ fn expand_parent_subtrees(toc: &Element, active_item: &Element) {
     // Abrir ancestrais
     for subtree in &ancestor_subtrees {
         let _ = subtree.set_attribute("data-rs-state", "open");
-        let _ = subtree.remove_attribute("hidden");
+        // REMOVER — visibilidade via data-rs-state
         if let Some(grandparent) = subtree.parent_element() {
             if let Ok(Some(btn)) = grandparent.query_selector("[data-rs-toc-expand-btn]") {
                 let _ = btn.set_attribute("aria-expanded", "true");
@@ -559,9 +556,9 @@ fn setup_nested_expand(toc: &Element) -> BehaviorResult<()> {
                             let state = if is_expanded { "closed" } else { "open" };
                             let _ = subtree.set_attribute("data-rs-state", state);
                             if is_expanded {
-                                let _ = subtree.set_attribute("hidden", "");
+                                // REMOVER — hidden não deve ser manipulado pelo behavior
                             } else {
-                                let _ = subtree.remove_attribute("hidden");
+                                // REMOVER — visibilidade via data-rs-state
                             }
                         }
                     }

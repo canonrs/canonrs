@@ -97,7 +97,6 @@ pub fn TocSubtreePrimitive(
         <ul
             data-rs-toc-subtree=""
             data-rs-state=s.data_rs_state
-            hidden=s.hidden
             class=class
         >
             {children()}

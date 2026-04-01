@@ -15,9 +15,7 @@ use std::cell::{Cell, RefCell};
 
 #[cfg(feature = "hydrate")]
 fn update_slider_ui(slider_el: &web_sys::Element, percent: f64) {
-    if let Ok(html) = slider_el.clone().dyn_into::<HtmlElement>() {
-        html.style().set_property("--slider-percent", &format!("{:.4}%", percent)).ok();
-    }
+    slider_el.set_attribute("data-rs-percent", &format!("{:.4}", percent)).ok();
 }
 
 #[cfg(feature = "hydrate")]
@@ -63,14 +61,14 @@ pub fn register() {
             let x = (e.client_x() as f64 - rect.left()).max(0.0).min(rect.width());
             let pct = (x / rect.width()) * 100.0;
             let value = min + (pct / 100.0) * (max - min);
-            slider_el_move.set_attribute("aria-valuenow", &format!("{:.2}", value)).ok();
+            slider_el_move.set_attribute("data-rs-value", &format!("{:.2}", value)).ok();
             update_slider_ui(&slider_el_move, pct);
 
             let init = web_sys::CustomEventInit::new();
             init.set_detail(&wasm_bindgen::JsValue::from_f64(value));
             init.set_bubbles(true);
             init.set_cancelable(false);
-            if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("slider-change", &init) {
+            if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-change", &init) {
                 slider_el_move.dispatch_event(&event).ok();
             }
         }) as Box<dyn FnMut(_)>);
@@ -80,12 +78,12 @@ pub fn register() {
             if *active_up.borrow() == Some(e.pointer_id()) {
                 is_dragging_up.set(false);
                 *active_up.borrow_mut() = None;
-                let val: f64 = slider_el_up.get_attribute("aria-valuenow")
+                let val: f64 = slider_el_up.get_attribute("data-rs-value")
                     .and_then(|s| s.parse().ok()).unwrap_or(0.0);
                 let init = web_sys::CustomEventInit::new();
                 init.set_detail(&wasm_bindgen::JsValue::from_f64(val));
                 init.set_bubbles(true);
-                if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("slider-change", &init) {
+                if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-change", &init) {
                     slider_el_up.dispatch_event(&event).ok();
                 }
             }

@@ -23,7 +23,7 @@ pub fn Slider(
             max={max}
             step={step}
             value={value}
-            orientation={orientation.as_str().to_string()}
+            orientation=orientation.as_str().to_string()
             disabled=disabled
             class={class}
         >
