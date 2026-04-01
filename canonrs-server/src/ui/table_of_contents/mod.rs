@@ -1,4 +1,5 @@
 mod table_of_contents_ui;
+pub mod preview;
 pub use table_of_contents_ui::*;
 pub use canonrs_core::primitives::table_of_contents::TocMode;
 pub use navigation_provider::{NavigationProvider, NavigationContext, use_navigation};
@@ -8,3 +9,4 @@ pub mod examples;
 pub use examples::*;
 pub mod navigation_provider;
 pub use table_of_contents_ui::TableOfContentsPreview;
+pub use preview::TableOfContentsShowcasePreview;

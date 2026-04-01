@@ -67,7 +67,6 @@ pub fn CollapsibleContentPrimitive(
             data-rs-state=s.data_rs_state
             role="region"
             aria-hidden=s.aria_hidden
-            hidden=s.hidden
             class=class
         >
             {children()}

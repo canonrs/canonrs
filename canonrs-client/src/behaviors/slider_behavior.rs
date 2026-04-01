@@ -16,6 +16,9 @@ use std::cell::{Cell, RefCell};
 #[cfg(feature = "hydrate")]
 fn update_slider_ui(slider_el: &web_sys::Element, percent: f64) {
     slider_el.set_attribute("data-rs-percent", &format!("{:.4}", percent)).ok();
+    if let Ok(html) = slider_el.clone().dyn_into::<web_sys::HtmlElement>() {
+        html.style().set_property("--slider-percent", &format!("{:.4}%", percent)).ok();
+    }
 }
 
 #[cfg(feature = "hydrate")]

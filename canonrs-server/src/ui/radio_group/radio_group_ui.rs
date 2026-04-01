@@ -6,10 +6,11 @@ use canonrs_core::meta::{SelectionState, DisabledState};
 #[component]
 pub fn RadioGroup(
     children: Children,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <RadioGroupPrimitive class=class>
+        <RadioGroupPrimitive disabled=disabled class=class>
             {children()}
         </RadioGroupPrimitive>
     }
@@ -20,16 +21,14 @@ pub fn RadioGroupItem(
     children: Children,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
-    #[prop(default = false)] checked: bool,
-    #[prop(default = false)] disabled: bool,
+    #[prop(default = SelectionState::Unselected)] selected: SelectionState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let selected_state = if checked { SelectionState::Selected } else { SelectionState::Unselected };
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <RadioGroupItemPrimitive
-            selected=selected_state
-            disabled=disabled_state
+            selected=selected
+            disabled=disabled
             value=value
             name=name
             class=class

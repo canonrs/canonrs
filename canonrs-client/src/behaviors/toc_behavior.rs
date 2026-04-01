@@ -301,6 +301,13 @@ fn setup_scroll_spy(toc: &Element, mode: &str) -> BehaviorResult<()> {
     threshold.push(&JsValue::from_f64(0.0));
     opts.set_threshold(&threshold);
 
+    // Se o TOC tem data-rs-scroll-root, usa esse elemento como root do observer
+    if let Some(scroll_root_id) = toc.get_attribute("data-rs-scroll-root") {
+        if let Ok(Some(scroll_el)) = document().query_selector(&format!("#{}", scroll_root_id)) {
+            opts.set_root(Some(&scroll_el));
+        }
+    }
+
     // Cleanup observer anterior
     if let Some(window) = web_sys::window() {
         if let Ok(existing) = js_sys::Reflect::get(&window, &"__tocObserver".into()) {

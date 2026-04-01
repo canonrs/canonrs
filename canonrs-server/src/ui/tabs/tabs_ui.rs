@@ -1,5 +1,6 @@
 
 use leptos::prelude::*;
+use canonrs_core::meta::ActivityState;
 use canonrs_core::primitives::{
     TabsPrimitive, TabsListPrimitive,
     TabsTriggerPrimitive, TabsContentPrimitive,
@@ -33,11 +34,11 @@ pub fn TabsList(
 pub fn TabsTrigger(
     #[prop(into)] value: String,
     children: Children,
-    #[prop(default = false)] active: bool,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TabsTriggerPrimitive value=value active=active.into() class=class>
+        <TabsTriggerPrimitive value=value active=active class=class>
             {children()}
         </TabsTriggerPrimitive>
     }
@@ -47,11 +48,11 @@ pub fn TabsTrigger(
 pub fn TabsContent(
     #[prop(into)] value: String,
     children: Children,
-    #[prop(default = false)] active: bool,
+    #[prop(default = ActivityState::Inactive)] active: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TabsContentPrimitive value=value active=active.into() class=class>
+        <TabsContentPrimitive value=value active=active class=class>
             {children()}
         </TabsContentPrimitive>
     }
@@ -62,10 +63,10 @@ pub fn TabsPreview() -> impl IntoView {
     view! {
         <Tabs>
             <TabsList>
-                <TabsTrigger value="tab1" active=true>"Tab 1"</TabsTrigger>
+                <TabsTrigger value="tab1" active=ActivityState::Active>"Tab 1"</TabsTrigger>
                 <TabsTrigger value="tab2">"Tab 2"</TabsTrigger>
             </TabsList>
-            <TabsContent value="tab1" active=true>"Content 1"</TabsContent>
+            <TabsContent value="tab1" active=ActivityState::Active>"Content 1"</TabsContent>
             <TabsContent value="tab2">"Content 2"</TabsContent>
         </Tabs>
     }
