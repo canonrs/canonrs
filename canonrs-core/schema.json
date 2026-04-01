@@ -1782,7 +1782,7 @@
       "variants": []
     },
     {
-      "behavior": "selection",
+      "behavior": "unknown",
       "capabilities": [
         "Disabled"
       ],

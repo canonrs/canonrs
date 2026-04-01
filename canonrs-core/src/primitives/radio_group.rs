@@ -17,7 +17,6 @@ pub fn RadioGroupPrimitive(
         <div
             data-rs-radio-group=""
             data-rs-component="RadioGroup"
-            data-rs-behavior="selection"
             data-rs-disabled=d.data_rs_disabled
             role="radiogroup"
             aria-disabled=d.aria_disabled
@@ -42,6 +41,7 @@ pub fn RadioGroupItemPrimitive(
     view! {
         <label
             data-rs-radio-group-item=""
+            data-rs-component="RadioGroupItem"
             data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             class=class
@@ -52,6 +52,7 @@ pub fn RadioGroupItemPrimitive(
                 name=name
                 value=value
                 checked=sel.aria_selected
+                aria-checked=sel.aria_selected
                 aria-disabled=d.aria_disabled
             />
             <span data-rs-radio-group-indicator="" />
