@@ -1,3 +1,4 @@
+#![recursion_limit = "512"]
 //! CanonRS Server — SSR UI components + Axum integration
 
 pub mod ui;

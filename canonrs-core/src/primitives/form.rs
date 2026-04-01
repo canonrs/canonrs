@@ -98,7 +98,7 @@ pub fn FormSectionPrimitive(
         <section
             data-rs-form-section=""
             role="group"
-            aria-label=aria_label
+            aria-label=aria_label.unwrap_or_default()
             class=class
         >
             {children()}
@@ -178,12 +178,12 @@ pub fn FormLabelPrimitive(
     view! {
         <label
             data-rs-form-label=""
-            for={if html_for.is_empty() { None } else { Some(html_for) }}
+            for=html_for
             data-rs-required={if required { "true" } else { "false" }}
             aria-required={if required { "true" } else { "false" }}
             class=class
         >
-            {children()}
+            <span data-rs-label-text="">{children()}</span>
         </label>
     }
 }
@@ -200,7 +200,7 @@ pub fn FormErrorPrimitive(
             aria-live="polite"
             class=class
         >
-            {children()}
+            <span data-rs-error-text="">{children()}</span>
         </div>
     }
 }
@@ -212,7 +212,7 @@ pub fn FormHintPrimitive(
 ) -> impl IntoView {
     view! {
         <div data-rs-form-hint="" class=class>
-            {children()}
+            <span data-rs-form-hint-text="">{children()}</span>
         </div>
     }
 }

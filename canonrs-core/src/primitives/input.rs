@@ -62,12 +62,12 @@ pub fn InputPrimitive(
             data-rs-disabled=disabled.as_str()
             type=input_type
             class=class
-            name={if name.is_empty() { None } else { Some(name) }}
+            name=name
             value=value
-            placeholder={if placeholder.is_empty() { None } else { Some(placeholder) }}
+            placeholder=placeholder
             disabled=disabled.as_bool()
             aria-disabled=disabled.aria()
-            aria-label={if aria_label.is_empty() { None } else { Some(aria_label) }}
+            aria-label=aria_label
         />
     }
 }
