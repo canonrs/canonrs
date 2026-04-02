@@ -22,10 +22,6 @@ pub fn render_markdown(md: &str) -> RenderedMarkdown {
     renderer::render_markdown(md)
 }
 
-// Cliente nunca recomputa — retorna default vazio
-// A estrutura DOM deve ser idêntica entre SSR e cliente:
-// isso é garantido porque MarkdownSurface é SSR-only leaf node —
-// o cliente hidrата o HTML já renderizado sem re-renderizar filhos.
 #[cfg(not(feature = "ssr"))]
 pub fn render_markdown(_: &str) -> RenderedMarkdown { RenderedMarkdown::default() }
 
@@ -39,3 +35,6 @@ pub fn render_markdown_with_prefix(_: &str, _: &str) -> RenderedMarkdown { Rende
 pub fn render_with_prefix(md: &str, prefix: &str) -> RenderedMarkdown {
     render_markdown_with_prefix(md, prefix)
 }
+
+pub mod preview;
+pub use preview::MarkdownShowcasePreview;

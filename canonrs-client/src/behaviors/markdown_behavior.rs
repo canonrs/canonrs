@@ -11,7 +11,7 @@ use web_sys::Element;
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
-    register_behavior("data-markdown", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
+    register_behavior("data-rs-markdown", Box::new(|root: &web_sys::Element, _state: &ComponentState| {
         setup_toc_toggle(root)?;
         setup_scroll_spy(root)?;
         Ok(())
@@ -22,21 +22,21 @@ pub fn register() {
 
 #[cfg(feature = "hydrate")]
 fn setup_toc_toggle(container: &Element) -> BehaviorResult<()> {
-    if container.get_attribute("data-toc-toggle-attached").as_deref() == Some("1") {
+    if container.get_attribute("data-rs-toc-toggle-attached").as_deref() == Some("1") {
         return Ok(());
     }
-    let _ = container.set_attribute("data-toc-toggle-attached", "1");
+    let _ = container.set_attribute("data-rs-toc-toggle-attached", "1");
 
-    let Some(btn) = container.query_selector("[data-md-toolbar-item][data-action='toggle-toc']")
+    let Some(btn) = container.query_selector("[data-rs-markdown-toolbar-item][data-rs-action='toggle-toc']")
         .ok().flatten() else { return Ok(()); };
 
     let container_clone = container.clone();
 
     let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {
-        let Some(toc) = container_clone.query_selector("[data-md-toc]").ok().flatten() else { return };
-        let current = toc.get_attribute("data-state").unwrap_or_else(|| "open".to_string());
+        let Some(toc) = container_clone.query_selector("[data-rs-markdown-toc]").ok().flatten() else { return };
+        let current = toc.get_attribute("data-rs-state").unwrap_or_else(|| "open".to_string());
         let next = if current == "open" { "closed" } else { "open" };
-        let _ = toc.set_attribute("data-state", next);
+        let _ = toc.set_attribute("data-rs-state", next);
     }) as Box<dyn FnMut(_)>);
 
     btn.add_event_listener_with_callback("click", closure.as_ref().unchecked_ref())
@@ -49,12 +49,12 @@ fn setup_toc_toggle(container: &Element) -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
-    if container.get_attribute("data-scroll-spy-attached").as_deref() == Some("1") {
+    if container.get_attribute("data-rs-scroll-spy-attached").as_deref() == Some("1") {
         return Ok(());
     }
-    let _ = container.set_attribute("data-scroll-spy-attached", "1");
+    let _ = container.set_attribute("data-rs-scroll-spy-attached", "1");
 
-    let headings = container.query_selector_all("[data-md-heading]")
+    let headings = container.query_selector_all("[data-rs-md-heading]")
         .map_err(|_| crate::BehaviorError::JsError { message: "query failed".into() })?;
 
     if headings.length() == 0 {
@@ -75,12 +75,12 @@ fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
             if id.is_empty() { continue }
 
             // Remove active AND ancestor from all toc items
-            if let Ok(all_links) = container_clone.query_selector_all("[data-toc-link]") {
+            if let Ok(all_links) = container_clone.query_selector_all("[data-rs-toc-link]") {
                 for j in 0..all_links.length() {
                     if let Some(link) = all_links.item(j) {
                         if let Ok(el) = link.dyn_into::<Element>() {
                             if let Some(li) = el.parent_element() {
-                                let _ = li.set_attribute("data-state", "idle");
+                                let _ = li.set_attribute("data-rs-state", "idle");
                             }
                         }
                     }
@@ -91,27 +91,27 @@ fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
             let selector = format!("[data-toc-link][href='#{}']", id);
             if let Ok(Some(link)) = container_clone.query_selector(&selector) {
                 if let Some(li) = link.parent_element() {
-                    let _ = li.set_attribute("data-state", "active");
+                    let _ = li.set_attribute("data-rs-state", "active");
 
                     // Set ancestor state: mark last seen item at each parent level
-                    if let Some(level_str) = li.get_attribute("data-level") {
+                    if let Some(level_str) = li.get_attribute("data-rs-level") {
                         if let Ok(current_level) = level_str.parse::<i32>() {
                             let mut last_at_level: [Option<Element>; 6] = Default::default();
                             
-                            if let Ok(all_items) = container_clone.query_selector_all("[data-toc-item]") {
+                            if let Ok(all_items) = container_clone.query_selector_all("[data-rs-toc-item]") {
                                 for j in 0..all_items.length() {
                                     if let Some(item) = all_items.item(j) {
                                         if let Ok(el) = item.dyn_into::<Element>() {
                                             if el.is_same_node(Some(&li)) {
                                                 for parent_level in 1..current_level {
                                                     if let Some(ancestor) = &last_at_level[parent_level as usize] {
-                                                        let _ = ancestor.set_attribute("data-state", "ancestor");
+                                                        let _ = ancestor.set_attribute("data-rs-state", "ancestor");
                                                     }
                                                 }
                                                 break;
                                             }
                                             
-                                            if let Some(lvl_str) = el.get_attribute("data-level") {
+                                            if let Some(lvl_str) = el.get_attribute("data-rs-level") {
                                                 if let Ok(lvl) = lvl_str.parse::<i32>() {
                                                     if lvl > 0 && lvl < 6 {
                                                         last_at_level[lvl as usize] = Some(el.clone());
@@ -135,6 +135,13 @@ fn setup_scroll_spy(container: &Element) -> BehaviorResult<()> {
     let threshold = js_sys::Array::new();
     threshold.push(&JsValue::from_f64(0.0));
     opts.set_threshold(&threshold);
+
+    // Use scroll viewport as root if available
+    if let Ok(Some(viewport)) = container.query_selector("[data-rs-scroll-viewport]") {
+        if let Ok(el) = viewport.dyn_into::<web_sys::Element>() {
+            opts.set_root(Some(&el));
+        }
+    }
 
     let observer = web_sys::IntersectionObserver::new_with_options(
         callback.as_ref().unchecked_ref(),

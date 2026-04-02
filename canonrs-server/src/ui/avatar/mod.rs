@@ -7,3 +7,6 @@ pub use avatar_ui::*;
 pub use examples::*;
 
 pub use avatar_ui::AvatarPreview;
+
+pub mod preview;
+pub use preview::AvatarShowcasePreview;

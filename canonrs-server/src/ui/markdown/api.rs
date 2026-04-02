@@ -13,3 +13,29 @@ pub const MARKDOWNSURFACE_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const MARKDOWNTOC_API: ComponentApi = ComponentApi {
+    id: "markdown-t-o-c",
+    props: &[
+        PropDef { name: "toc", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "#[allow(unused_variables)] id", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "#[allow(unused_variables)] scroll_target", kind: PropType::String, required: false, default: None, description: "" },
+    ],
+};
+
+pub const MARKDOWNCONTENT_API: ComponentApi = ComponentApi {
+    id: "markdown-content",
+    props: &[
+        PropDef { name: "rendered", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "#[allow(unused_variables)] id", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const MARKDOWNLAYOUT_API: ComponentApi = ComponentApi {
+    id: "markdown-layout",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "toc_position", kind: PropType::Enum(&["top", "sidebar"]), required: false, default: Some("sidebar"), description: "" },
+    ],
+};
+

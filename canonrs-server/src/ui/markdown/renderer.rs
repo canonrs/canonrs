@@ -64,6 +64,7 @@ struct RenderContext<'a> {
 
     // code block state
     in_code_block:   bool,
+    in_thead:        bool,
     code_lang:       String,
     code_buf:        String,
 }
@@ -78,6 +79,7 @@ impl<'a> RenderContext<'a> {
             heading_level:   HeadingLevel::H2,
             heading_buf:     String::new(),
             in_code_block:   false,
+            in_thead:        false,
             code_lang:       String::new(),
             code_buf:        String::new(),
         }
@@ -182,12 +184,12 @@ impl<'a> RenderContext<'a> {
             // ── Tables ────────────────────────────────────────────────────────
             Event::Start(Tag::Table(_))    => self.html.push_str("<table data-rs-md-table=\"\">"),
             Event::End(TagEnd::Table)      => self.html.push_str("</table>"),
-            Event::Start(Tag::TableHead)   => self.html.push_str("<thead data-rs-md-thead=\"\"><tr data-rs-md-tr=\"\">"),
-            Event::End(TagEnd::TableHead)  => self.html.push_str("</tr></thead>"),
+            Event::Start(Tag::TableHead)   => { self.html.push_str("<thead data-rs-md-thead=\"\"><tr data-rs-md-tr=\"\">"); self.in_thead = true; },
+            Event::End(TagEnd::TableHead)  => { self.html.push_str("</tr></thead>"); self.in_thead = false; },
             Event::Start(Tag::TableRow)    => self.html.push_str("<tr data-rs-md-tr=\"\">"),
             Event::End(TagEnd::TableRow)   => self.html.push_str("</tr>"),
-            Event::Start(Tag::TableCell)   => self.html.push_str("<td data-rs-md-td=\"\">"),
-            Event::End(TagEnd::TableCell)  => self.html.push_str("</td>"),
+            Event::Start(Tag::TableCell)   => { if self.in_thead { self.html.push_str("<th data-rs-md-th=\"\">"); } else { self.html.push_str("<td data-rs-md-td=\"\">"); } },
+            Event::End(TagEnd::TableCell)  => { if self.in_thead { self.html.push_str("</th>"); } else { self.html.push_str("</td>"); } },
 
             // ── Misc ──────────────────────────────────────────────────────────
             Event::Rule          => self.html.push_str("<hr data-rs-md-hr=\"\">"),
