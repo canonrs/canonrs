@@ -1,10 +1,10 @@
 use crate::design::tokens::FamilyToken;
 
-/// FAMILY H — Layout & Composition
+// Components: Layout — PageHeader, PageLayout, Sidebar, Section, Separator, Header, Footer
 /// Components: PageHeader, PageLayout, Sidebar, Section, Separator, BlockHeader, BlockFooter, Footer, Header
 /// Scope: Page structure, layout regions, compositional hierarchy
 
-pub const FAMILY_H_LAYOUT: &[FamilyToken] = &[
+pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     // Layout foundation
     FamilyToken::new("layout-gap", "var(--space-md)"),
     FamilyToken::new("layout-padding", "var(--space-md)"),

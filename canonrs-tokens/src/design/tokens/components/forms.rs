@@ -1,10 +1,10 @@
 use crate::design::tokens::FamilyToken;
 
-/// FAMILY C — Forms & Inputs
+// Components: Forms — Button, Field, Input, Select, Switch, Toggle, Slider, Calendar, ColorPicker, Label, Textarea
 /// Components: Button, Field, Input, Select, Switch, Toggle, Slider, Calendar, ColorPicker, Label, RadioGroup, Textarea, Kbd, ButtonGroup
 /// Scope: Data entry, validation, form composition
 
-pub const FAMILY_C_FORMS: &[FamilyToken] = &[
+pub const FORMS_TOKENS: &[FamilyToken] = &[
     // Forms foundation
     FamilyToken::new("forms-color", "var(--theme-action-primary-bg)"),
     FamilyToken::new("forms-radius", "var(--radius-sm)"),

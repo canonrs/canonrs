@@ -23,4 +23,5 @@
   --color-popover-foreground: var(--theme-overlay-fg);
   --color-destructive: var(--theme-state-error-bg);
   --color-destructive-foreground: var(--theme-state-error-fg);
+  --color-ring: var(--theme-action-focus-ring);
 }

@@ -1,11 +1,11 @@
-//! Family S: Interactive State Transformations
-//!
-//! Purpose: Visual transformations for states - NOT boolean flags
-//! State logic lives in data-attributes, not tokens
+// Family S: Interactive State Transformations
+//
+// Purpose: Visual transformations for states - NOT boolean flags
+// State logic lives in data-attributes, not tokens
 
 use crate::design::tokens::FamilyToken;
 
-pub const FAMILY_S_STATE: &[FamilyToken] = &[
+pub const STATE_TOKENS: &[FamilyToken] = &[
     // Opacity modifiers
     FamilyToken::new("state-opacity-hover",    "0.92"),
     FamilyToken::new("state-opacity-active",   "0.85"),

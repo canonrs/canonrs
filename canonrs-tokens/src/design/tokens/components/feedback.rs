@@ -1,10 +1,10 @@
 use crate::design::tokens::FamilyToken;
 
-/// FAMILY E — Feedback & Status
+// Components: Feedback — Alert, AlertDialog, Callout, Badge, Toast, Banner, EmptyState, ErrorState, Spinner, Progress, Skeleton
 /// Components: Alert, AlertDialog, Callout, Badge, Toast, Banner, InlineNotice, EmptyState, ErrorState, StatusDot, Spinner, Progress, Skeleton, DocProgress, EmptyTable
 /// Scope: User feedback, status indicators, loading states (excludes: state tokens, z-index)
 
-pub const FAMILY_E_FEEDBACK: &[FamilyToken] = &[
+pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     // Feedback foundation
     FamilyToken::new("feedback-color", "var(--theme-action-primary-bg)"),
 

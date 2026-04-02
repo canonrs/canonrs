@@ -1,10 +1,10 @@
 use crate::design::tokens::FamilyToken;
 
-/// FAMILY A — Overlay & Portals
+// Components: Overlay — Dialog, Sheet, Popover, Drawer, HoverCard, Tooltip, DropdownMenu, Modal
 /// Components: Dialog, Sheet, Popover, Drawer, HoverCard, Tooltip, DropdownMenu, ContextMenu, Modal
 /// Scope: Overlays, modals, popovers, floating elements
 
-pub const FAMILY_A_OVERLAY: &[FamilyToken] = &[
+pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     // Overlay foundation
     FamilyToken::new("overlay-z-index", "var(--layer-overlay)"),
     FamilyToken::new("overlay-backdrop-bg", "rgba(0, 0, 0, 0.5)"),
