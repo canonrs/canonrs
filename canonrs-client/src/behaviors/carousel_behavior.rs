@@ -21,12 +21,12 @@ pub fn register() {
 
 #[cfg(feature = "hydrate")]
 fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
-    if carousel.get_attribute("data-carousel-attached").as_deref() == Some("1") {
+    if carousel.get_attribute("data-rs-carousel-attached").as_deref() == Some("1") {
         return Ok(());
     }
-    let _ = carousel.set_attribute("data-carousel-attached", "1");
+    let _ = carousel.set_attribute("data-rs-carousel-attached", "1");
 
-    let Some(wrapper) = carousel.query_selector("[data-carousel-wrapper]")
+    let Some(wrapper) = carousel.query_selector("[data-rs-carousel-wrapper]")
         .ok().flatten() else {
         return Ok(());
     };
@@ -34,17 +34,17 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
     let wrapper_el: web_sys::HtmlElement = wrapper.dyn_into()
         .map_err(|_| crate::BehaviorError::JsError { message: "cast wrapper".into() })?;
 
-    let initial_index = wrapper_el.get_attribute("data-initial-index")
+    let initial_index = wrapper_el.get_attribute("data-rs-initial-index")
         .and_then(|s| s.parse::<usize>().ok())
         .unwrap_or(0);
     
-    let autoplay = wrapper_el.has_attribute("data-autoplay");
-    let loop_mode = wrapper_el.has_attribute("data-loop");
-    let interval = wrapper_el.get_attribute("data-interval")
+    let autoplay = wrapper_el.has_attribute("data-rs-autoplay");
+    let loop_mode = wrapper_el.has_attribute("data-rs-loop");
+    let interval = wrapper_el.get_attribute("data-rs-interval")
         .and_then(|s| s.parse::<i32>().ok())
         .unwrap_or(5000);
 
-    let items = carousel.query_selector_all("[data-carousel-item]")
+    let items = carousel.query_selector_all("[data-rs-carousel-item]")
         .map_err(|_| crate::BehaviorError::JsError { message: "query items".into() })?;
     
     let total_items = items.length() as usize;
@@ -53,12 +53,12 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
     }
 
     // Generate indicators
-    if let Some(indicators_container) = carousel.query_selector("[data-carousel-indicators]").ok().flatten() {
+    if let Some(indicators_container) = carousel.query_selector("[data-rs-carousel-indicators]").ok().flatten() {
         for i in 0..total_items {
             let dot = document().create_element("button")
                 .map_err(|_| crate::BehaviorError::JsError { message: "create dot".into() })?;
-            let _ = dot.set_attribute("data-carousel-dot", "");
-            let _ = dot.set_attribute("data-index", &i.to_string());
+            let _ = dot.set_attribute("data-rs-carousel-dot", "");
+            let _ = dot.set_attribute("data-rs-index", &i.to_string());
             let _ = dot.set_attribute("aria-label", &format!("Go to slide {}", i + 1));
             
             let carousel_clone = carousel.clone();
@@ -76,7 +76,7 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
     go_to_slide(carousel, initial_index);
 
     // Setup prev/next
-    if let Some(prev) = carousel.query_selector("[data-carousel-prev]").ok().flatten() {
+    if let Some(prev) = carousel.query_selector("[data-rs-carousel-prev]").ok().flatten() {
         let carousel_clone = carousel.clone();
         let total = total_items;
         let on_click = Closure::wrap(Box::new(move |_: web_sys::Event| {
@@ -86,7 +86,7 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
         on_click.forget();
     }
 
-    if let Some(next) = carousel.query_selector("[data-carousel-next]").ok().flatten() {
+    if let Some(next) = carousel.query_selector("[data-rs-carousel-next]").ok().flatten() {
         let carousel_clone = carousel.clone();
         let total = total_items;
         let on_click = Closure::wrap(Box::new(move |_: web_sys::Event| {
@@ -141,25 +141,25 @@ fn setup_carousel(carousel: &Element) -> BehaviorResult<()> {
 
 #[cfg(feature = "hydrate")]
 fn get_current_index(carousel: &Element) -> usize {
-    carousel.get_attribute("data-current-index")
+    carousel.get_attribute("data-rs-current-index")
         .and_then(|s| s.parse::<usize>().ok())
         .unwrap_or(0)
 }
 
 #[cfg(feature = "hydrate")]
 fn go_to_slide(carousel: &Element, index: usize) {
-    let _ = carousel.set_attribute("data-current-index", &index.to_string());
+    let _ = carousel.set_attribute("data-rs-current-index", &index.to_string());
 
     // Update items - cast Node to Element
-    if let Ok(items) = carousel.query_selector_all("[data-carousel-item]") {
+    if let Ok(items) = carousel.query_selector_all("[data-rs-carousel-item]") {
         for i in 0..items.length() {
             if let Some(node) = items.item(i) {
                 if let Ok(item) = node.dyn_into::<Element>() {
                     if i == index as u32 {
-                        item.set_attribute("data-active", "").ok();
+                        item.set_attribute("data-rs-active", "").ok();
                         item.set_attribute("aria-hidden", "false").ok();
                     } else {
-                        item.remove_attribute("data-active").ok();
+                        item.remove_attribute("data-rs-active").ok();
                         item.set_attribute("aria-hidden", "true").ok();
                     }
                 }
@@ -168,15 +168,15 @@ fn go_to_slide(carousel: &Element, index: usize) {
     }
 
     // Update indicators - cast Node to Element
-    if let Ok(dots) = carousel.query_selector_all("[data-carousel-dot]") {
+    if let Ok(dots) = carousel.query_selector_all("[data-rs-carousel-dot]") {
         for i in 0..dots.length() {
             if let Some(node) = dots.item(i) {
                 if let Ok(dot) = node.dyn_into::<Element>() {
                     if i == index as u32 {
-                        dot.set_attribute("data-active", "").ok();
+                        dot.set_attribute("data-rs-active", "").ok();
                         dot.set_attribute("aria-current", "true").ok();
                     } else {
-                        dot.remove_attribute("data-active").ok();
+                        dot.remove_attribute("data-rs-active").ok();
                         dot.remove_attribute("aria-current").ok();
                     }
                 }

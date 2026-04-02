@@ -3,8 +3,7 @@
 //! Chart Primitive - Canvas + overlay enterprise architecture
 
 use leptos::prelude::*;
-use crate::meta::{ActivityState, ChartGridState, ChartLegendState};
-use crate::infra::state_engine::activity_attrs;
+use crate::meta::{ChartGridState, ChartLegendState};
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum ChartType {
@@ -45,7 +44,6 @@ pub fn ChartPrimitive(
     children: Children,
 ) -> impl IntoView {
     let aria = aria_label.unwrap_or_else(|| format!("{} chart", chart_type.as_str()));
-    let a = activity_attrs(if chart_animate { ActivityState::Active } else { ActivityState::Inactive });
     view! {
         <div
             data-rs-chart=""
@@ -53,7 +51,7 @@ pub fn ChartPrimitive(
             data-rs-behavior="chart"
             data-rs-chart-type=chart_type.as_str()
             data-rs-chart-height={height.to_string()}
-            data-rs-state=a.data_rs_state
+            data-rs-animation={if chart_animate { "auto" } else { "none" }}
             data-rs-value=value.unwrap_or_default()
             role="img"
             aria-label=aria

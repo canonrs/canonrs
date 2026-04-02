@@ -1,34 +1,64 @@
 /* ============================================
    ANIMATE
-   Family H: Utilities
+   Family I: Animation
    ============================================ */
 
+@keyframes rs-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes rs-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes rs-slide-in {
+  from { opacity: 0; transform: translateY(var(--animate-slide-distance, 8px)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rs-slide-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(var(--animate-slide-distance, 8px)); }
+}
+
+@keyframes rs-scale-in {
+  from { opacity: 0; transform: scale(var(--animate-scale-from, 0.95)); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes rs-scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(var(--animate-scale-from, 0.95)); }
+}
+
+/* Base — dispara uma vez */
 [data-rs-animate] {
-  animation-duration: var(--animate-duration-normal);
-  animation-timing-function: var(--animate-ease-standard);
-  animation-delay: var(--animate-delay-none);
+  animation-duration: var(--animate-duration, 600ms);
+  animation-timing-function: var(--animate-ease, ease-in-out);
+  animation-delay: var(--animate-delay, 0ms);
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
 }
 
-[data-rs-animate][data-duration="fast"] {
-  animation-duration: var(--animate-duration-fast);
-}
+/* Animation names */
+[data-rs-animate][data-rs-animation="fade-in"]   { animation-name: rs-fade-in; }
+[data-rs-animate][data-rs-animation="fade-out"]  { animation-name: rs-fade-out; }
+[data-rs-animate][data-rs-animation="slide-in"]  { animation-name: rs-slide-in; }
+[data-rs-animate][data-rs-animation="slide-out"] { animation-name: rs-slide-out; }
+[data-rs-animate][data-rs-animation="scale-in"]  { animation-name: rs-scale-in; }
+[data-rs-animate][data-rs-animation="scale-out"] { animation-name: rs-scale-out; }
 
-[data-rs-animate][data-duration="slow"] {
-  animation-duration: var(--animate-duration-slow);
-}
+/* Easing */
+[data-rs-animate][data-rs-easing="ease-in"]     { animation-timing-function: ease-in; }
+[data-rs-animate][data-rs-easing="ease-out"]    { animation-timing-function: ease-out; }
+[data-rs-animate][data-rs-easing="ease-in-out"] { animation-timing-function: ease-in-out; }
+[data-rs-animate][data-rs-easing="linear"]      { animation-timing-function: linear; }
 
-[data-rs-animate][data-easing="emphasized"] {
-  animation-timing-function: var(--animate-ease-emphasized);
-}
-
-[data-rs-animate][data-easing="linear"] {
-  animation-timing-function: var(--animate-ease-linear);
-}
-
-[data-rs-animate][data-delay="short"] {
-  animation-delay: var(--animate-delay-short);
-}
-
-[data-rs-animate][data-delay="long"] {
-  animation-delay: var(--animate-delay-long);
+/* Preview/demo — força infinite para visualização contínua */
+[data-rs-preview-dev-stage] [data-rs-animate] {
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 2.8s;
 }
