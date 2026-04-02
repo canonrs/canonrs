@@ -1,11 +1,11 @@
 /* family-a-overlay */
 [data-theme] {
   --overlay-z-index: var(--layer-overlay);
-  --overlay-backdrop-bg: rgba(0, 0, 0, 0.5);
+  --overlay-backdrop-bg: var(--color-overlay-50);
   --overlay-backdrop-blur: 4px;
   --overlay-transition-duration: var(--motion-duration-normal);
   --overlay-transition-ease: var(--motion-ease-standard);
-  --dialog-overlay-bg: rgba(0, 0, 0, 0.5);
+  --dialog-overlay-bg: var(--color-overlay-50);
   --dialog-overlay-z-index: var(--layer-overlay);
   --dialog-content-bg: var(--theme-surface-bg);
   --dialog-content-fg: var(--theme-surface-fg);
@@ -33,7 +33,7 @@
   --modal-popup-padding: var(--space-lg);
   --modal-popup-radius: var(--radius-lg);
   --modal-popup-bg: var(--theme-surface-bg);
-  --modal-backdrop-bg: rgba(0, 0, 0, 0.5);
+  --modal-backdrop-bg: var(--color-overlay-50);
   --dropdown-menu-bg: var(--theme-overlay-bg);
   --dropdown-menu-fg: var(--color-popover-foreground);
   --dropdown-menu-padding-y: var(--space-xs);

@@ -6,7 +6,6 @@
   --checkbox-size: 1.25rem;
   --checkbox-radius: var(--radius-sm);
   --checkbox-bg: var(--theme-surface-bg);
-  --checkbox-bg-checked: var(--theme-action-primary-bg);
   --checkbox-fg-checked: var(--color-primary-foreground);
   --checkbox-border-color: var(--theme-surface-border);
   --checkbox-border-width: 1px;
@@ -15,7 +14,6 @@
   --checkbox-disabled-opacity: var(--state-disabled-opacity);
   --radio-size: 1.25rem;
   --radio-bg: var(--theme-surface-bg);
-  --radio-bg-checked: var(--theme-action-primary-bg);
   --radio-border-color: var(--theme-surface-border);
   --radio-border-width: 1px;
   --radio-border-color-checked: var(--theme-action-primary-bg);
@@ -34,8 +32,6 @@
   --tabs-trigger-padding-y: var(--space-sm);
   --tabs-trigger-radius: var(--radius-sm);
   --tabs-trigger-fg: var(--theme-surface-fg-muted);
-  --tabs-trigger-fg-active: var(--theme-surface-fg);
-  --tabs-trigger-bg-active: var(--theme-action-accent-bg);
   --tabs-trigger-font-size: var(--font-size-sm);
   --tabs-trigger-font-weight: var(--font-weight-medium);
   --tabs-trigger-transition-duration: var(--motion-duration-fast);
@@ -45,7 +41,6 @@
   --accordion-item-border-color: var(--theme-surface-border);
   --accordion-item-border-radius: var(--radius-md);
   --accordion-trigger-bg: transparent;
-  --accordion-trigger-bg-hover: var(--theme-surface-muted);
   --accordion-trigger-fg: var(--theme-surface-fg);
   --accordion-trigger-padding-x: var(--space-md);
   --accordion-trigger-padding-y: var(--space-sm);
@@ -59,7 +54,6 @@
   --accordion-icon-rotation: 180deg;
   --collapsible-gap: var(--space-sm);
   --collapsible-trigger-bg: transparent;
-  --collapsible-trigger-bg-hover: var(--theme-surface-muted);
   --collapsible-trigger-padding: var(--space-sm);
   --collapsible-trigger-radius: var(--radius-sm);
   --collapsible-content-padding: var(--space-sm);
@@ -111,8 +105,6 @@
   --menu-item-padding: var(--space-sm) var(--space-sm);
   --menu-item-radius: var(--radius-sm);
   --menu-item-fg: var(--theme-surface-fg);
-  --menu-item-bg-hover: var(--theme-action-accent-bg);
-  --menu-item-bg-active: var(--theme-action-accent-bg);
   --menu-item-font-size: var(--font-size-sm);
   --menu-item-transition-duration: var(--motion-duration-fast);
   --menu-item-transition-ease: var(--motion-ease-standard);
@@ -124,8 +116,6 @@
   --menubar-trigger-padding: var(--space-sm) var(--space-sm);
   --menubar-trigger-radius: var(--radius-sm);
   --menubar-trigger-fg: var(--theme-surface-fg);
-  --menubar-trigger-bg-hover: var(--theme-action-accent-bg);
-  --menubar-trigger-bg-expanded: var(--theme-action-accent-bg);
   --menubar-content-bg: var(--theme-overlay-bg);
   --menubar-content-padding-y: var(--space-xs);
   --menubar-content-radius: var(--radius-md);
@@ -134,7 +124,6 @@
   --menubar-subitem-height: var(--space-xl);
   --menubar-subitem-padding: var(--space-sm) var(--space-md);
   --menubar-subitem-fg: var(--theme-surface-fg);
-  --menubar-subitem-bg-hover: var(--theme-action-accent-bg);
   --menubar-subitem-radius: var(--radius-sm);
   --menubar-subitem-transition: var(--motion-duration-fast);
   --menubar-separator-height: 1px;
@@ -146,8 +135,6 @@
   --tree-item-padding: var(--space-xs) var(--space-sm);
   --tree-item-radius: var(--radius-sm);
   --tree-item-fg: var(--theme-surface-fg);
-  --tree-item-bg-hover: var(--theme-action-accent-bg);
-  --tree-item-bg-selected: var(--theme-action-accent-bg);
   --tree-item-font-size: var(--font-size-sm);
   --tree-icon-size: var(--space-md);
   --tree-icon-rotation: 90deg;
@@ -183,5 +170,4 @@
   --command-empty-padding: var(--space-xl) var(--space-md);
   --command-gap: var(--space-xs);
   --command-padding: var(--space-xs);
-  --command-item-bg-hover: var(--theme-action-accent-bg);
 }

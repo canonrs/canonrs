@@ -7,13 +7,13 @@ use crate::design::tokens::FamilyToken;
 pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     // Overlay foundation
     FamilyToken::new("overlay-z-index", "var(--layer-overlay)"),
-    FamilyToken::new("overlay-backdrop-bg", "rgba(0, 0, 0, 0.5)"),
+    FamilyToken::new("overlay-backdrop-bg", "var(--color-overlay-50)"),
     FamilyToken::new("overlay-backdrop-blur", "4px"),
     FamilyToken::new("overlay-transition-duration", "var(--motion-duration-normal)"),
     FamilyToken::new("overlay-transition-ease", "var(--motion-ease-standard)"),
 
     // Dialog
-    FamilyToken::new("dialog-overlay-bg", "rgba(0, 0, 0, 0.5)"),
+    FamilyToken::new("dialog-overlay-bg", "var(--color-overlay-50)"),
     FamilyToken::new("dialog-overlay-z-index", "var(--layer-overlay)"),
     FamilyToken::new("dialog-content-bg", "var(--theme-surface-bg)"),
     FamilyToken::new("dialog-content-fg", "var(--theme-surface-fg)"),
@@ -43,7 +43,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("modal-popup-padding", "var(--space-lg)"),
     FamilyToken::new("modal-popup-radius", "var(--radius-lg)"),
     FamilyToken::new("modal-popup-bg", "var(--theme-surface-bg)"),
-    FamilyToken::new("modal-backdrop-bg", "rgba(0, 0, 0, 0.5)"),
+    FamilyToken::new("modal-backdrop-bg", "var(--color-overlay-50)"),
 
     // DropdownMenu
     FamilyToken::new("dropdown-menu-bg", "var(--theme-overlay-bg)"),

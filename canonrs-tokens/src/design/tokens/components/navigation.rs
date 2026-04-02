@@ -30,8 +30,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("sidebar-menu-item-padding-y", "var(--space-sm)"),
     FamilyToken::new("sidebar-menu-item-radius", "var(--radius-sm)"),
     FamilyToken::new("sidebar-menu-item-fg", "var(--theme-surface-fg)"),
-    FamilyToken::new("sidebar-menu-item-bg-hover", "var(--theme-action-accent-bg)"),
-    FamilyToken::new("sidebar-menu-item-bg-active", "var(--theme-action-accent-bg)"),
     FamilyToken::new("sidebar-menu-item-font-size", "var(--font-size-sm)"),
     FamilyToken::new("sidebar-header-padding", "var(--space-md)"),
     FamilyToken::new("sidebar-content-padding", "var(--space-md)"),
@@ -40,7 +38,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("sidebar-menu-item-bg", "transparent"),
     FamilyToken::new("sidebar-menu-item-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("sidebar-menu-item-transition-ease", "var(--motion-ease-standard)"),
-    FamilyToken::new("sidebar-menu-item-fg-active", "var(--theme-surface-fg)"),
     FamilyToken::new("sidebar-menu-item-font-weight-active", "var(--font-weight-medium)"),
     FamilyToken::new("sidebar-group-label-padding-x", "var(--space-sm)"),
     FamilyToken::new("sidebar-group-label-padding-y", "var(--space-xs)"),
@@ -59,8 +56,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("navigation-menu-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("navigation-menu-border-width", "1px"),
     FamilyToken::new("navigation-menu-trigger-fg", "var(--theme-surface-fg)"),
-    FamilyToken::new("navigation-menu-trigger-bg-hover", "var(--theme-action-accent-bg)"),
-    FamilyToken::new("navigation-menu-trigger-bg-expanded", "var(--theme-action-accent-bg)"),
     FamilyToken::new("navigation-menu-trigger-icon-size", "var(--space-md)"),
     FamilyToken::new("navigation-menu-trigger-icon-rotation", "180deg"),
     FamilyToken::new("navigation-menu-trigger-transition-duration", "var(--motion-duration-normal)"),
@@ -69,10 +64,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("navigation-menu-item-height", "var(--size-nav-item)"),
     FamilyToken::new("navigation-menu-item-padding-x", "var(--space-md)"),
     FamilyToken::new("navigation-menu-item-padding-y", "var(--space-sm)"),
-    FamilyToken::new("navigation-menu-item-bg-hover", "var(--theme-action-accent-bg)"),
-    FamilyToken::new("navigation-menu-item-bg-active", "var(--theme-action-accent-bg)"),
     FamilyToken::new("navigation-menu-link-fg", "var(--theme-surface-fg)"),
-    FamilyToken::new("navigation-menu-link-fg-hover", "var(--theme-action-primary-bg)"),
     FamilyToken::new("navigation-menu-link-text-decoration", "none"),
     FamilyToken::new("navigation-menu-content-bg", "var(--theme-overlay-bg)"),
     FamilyToken::new("navigation-menu-content-padding", "var(--space-md)"),
@@ -87,10 +79,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("pagination-item-padding", "var(--space-sm)"),
     FamilyToken::new("pagination-item-radius", "var(--radius-sm)"),
     FamilyToken::new("pagination-item-bg", "transparent"),
-    FamilyToken::new("pagination-item-bg-hover", "var(--theme-action-accent-bg)"),
-    FamilyToken::new("pagination-item-bg-active", "var(--theme-action-primary-bg)"),
     FamilyToken::new("pagination-item-fg", "var(--theme-surface-fg)"),
-    FamilyToken::new("pagination-item-fg-active", "var(--theme-action-primary-fg)"),
     FamilyToken::new("pagination-item-font-size", "var(--font-size-sm)"),
     FamilyToken::new("pagination-item-font-weight", "var(--font-weight-normal)"),
     FamilyToken::new("pagination-item-font-weight-active", "var(--font-weight-medium)"),
@@ -112,8 +101,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
 
     // TOC Link
     FamilyToken::new("toc-link-fg",                  "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("toc-link-fg-hover",            "var(--theme-surface-fg)"),
-    FamilyToken::new("toc-link-bg-hover",            "var(--theme-surface-muted)"),
     FamilyToken::new("toc-link-font-size",           "var(--font-size-sm)"),
     FamilyToken::new("toc-link-padding-x",           "var(--space-sm)"),
     FamilyToken::new("toc-link-padding-y",           "var(--space-xs)"),
@@ -121,8 +108,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("toc-link-border-width",        "2px"),
 
     // TOC Active State
-    FamilyToken::new("toc-link-fg-active",           "var(--theme-action-primary-bg)"),
-    FamilyToken::new("toc-link-bg-active",           "var(--theme-surface-muted)"),
     FamilyToken::new("toc-link-border-active",       "var(--theme-action-primary-bg)"),
     FamilyToken::new("toc-link-font-weight-active",  "var(--font-weight-semibold)"),
 
@@ -153,7 +138,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
 
     // TOC legacy (kept for compat)
     FamilyToken::new("toc-item-fg",                  "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("toc-item-fg-hover",            "var(--theme-surface-fg)"),
     FamilyToken::new("toc-item-active-fg",           "var(--theme-action-primary-bg)"),
     FamilyToken::new("toc-item-font-size",           "var(--font-size-sm)"),
     FamilyToken::new("toc-item-indent-step",         "var(--space-md)"),
@@ -168,9 +152,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("toc-link-font-weight-ancestor", "var(--font-weight-medium)"),
 
     // TOC expand button states
-    FamilyToken::new("toc-expand-btn-bg-hover",       "var(--theme-surface-muted)"),
-    FamilyToken::new("toc-expand-btn-fg-active",      "var(--theme-action-primary-bg)"),
-    FamilyToken::new("toc-expand-btn-bg-active",      "color-mix(in srgb, var(--theme-action-primary-bg) 10%, transparent)"),
 
     // TOC subtree animation
     FamilyToken::new("toc-subtree-gap",               "var(--space-2xs)"),
@@ -185,8 +166,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("tabs-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("tabs-border-width", "1px"),
     FamilyToken::new("tab-fg", "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("tab-fg-hover", "var(--theme-surface-fg)"),
-    FamilyToken::new("tab-fg-active", "var(--theme-surface-fg)"),
     FamilyToken::new("tab-padding-x", "var(--space-md)"),
     FamilyToken::new("tab-padding-y", "var(--space-sm)"),
     FamilyToken::new("tab-font-size", "var(--font-size-sm)"),
@@ -200,8 +179,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
 
     // Breadcrumb
     FamilyToken::new("breadcrumb-fg", "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("breadcrumb-fg-hover", "var(--theme-surface-fg)"),
-    FamilyToken::new("breadcrumb-fg-active", "var(--theme-surface-fg)"),
     FamilyToken::new("breadcrumb-font-size", "var(--font-size-sm)"),
     FamilyToken::new("breadcrumb-font-weight", "var(--font-weight-normal)"),
     FamilyToken::new("breadcrumb-font-weight-active", "var(--font-weight-medium)"),
@@ -214,8 +191,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
 
     // Link
     FamilyToken::new("link-fg", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("link-fg-hover", "var(--color-primary-hover)"),
-    FamilyToken::new("link-fg-active", "var(--color-primary-active)"),
     FamilyToken::new("link-font-weight", "var(--font-weight-normal)"),
     FamilyToken::new("link-text-decoration", "none"),
     FamilyToken::new("link-text-decoration-hover", "underline"),
@@ -237,11 +212,9 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("toolbar-padding", "var(--space-sm)"),
     // Breadcrumb (tokens simplificados faltantes)
     FamilyToken::new("breadcrumb-item-fg", "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("breadcrumb-item-fg-hover", "var(--theme-surface-fg)"),
 
     // Menu (tokens simplificados faltantes)
     FamilyToken::new("menu-item-bg", "transparent"),
-    FamilyToken::new("menu-item-bg-selected", "var(--theme-action-accent-bg)"),
     FamilyToken::new("menu-item-padding-x", "var(--space-sm)"),
     FamilyToken::new("menu-item-padding-y", "var(--space-sm)"),
 

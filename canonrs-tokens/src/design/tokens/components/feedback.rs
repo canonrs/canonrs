@@ -44,7 +44,7 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("alert-close-size", "var(--space-md)"),
 
     // Alert Dialog
-    FamilyToken::new("alert-dialog-overlay-bg", "rgba(0, 0, 0, 0.5)"),
+    FamilyToken::new("alert-dialog-overlay-bg", "var(--color-overlay-50)"),
     FamilyToken::new("alert-dialog-overlay-opacity", "0.5"),
     FamilyToken::new("alert-dialog-overlay-blur", "4px"),
     FamilyToken::new("alert-dialog-content-bg", "var(--theme-surface-bg)"),

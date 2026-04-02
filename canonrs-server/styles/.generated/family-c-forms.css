@@ -33,7 +33,6 @@
   --button-outline-fg: var(--theme-action-primary-bg);
   --button-outline-border: var(--theme-surface-border);
   --button-ghost-bg: transparent;
-  --button-ghost-bg-hover: var(--theme-action-accent-bg);
   --button-ghost-fg: var(--theme-surface-fg);
   --button-danger-bg: var(--color-destructive);
   --button-danger-fg: var(--color-destructive-foreground);
@@ -156,9 +155,7 @@
   --switch-height: var(--space-lg);
   --switch-radius: var(--radius-full);
   --switch-track-bg: var(--color-secondary);
-  --switch-track-bg-checked: var(--theme-action-primary-bg);
   --switch-thumb-bg: var(--theme-action-primary-bg);
-  --switch-thumb-bg-checked: var(--theme-surface-bg);
   --switch-thumb-size: var(--space-md);
   --switch-thumb-radius: var(--radius-full);
   --switch-thumb-translate-unchecked: var(--space-xs);
@@ -205,9 +202,6 @@
   --calendar-cell-font-size: var(--font-size-sm);
   --calendar-cell-fg: var(--theme-surface-fg);
   --calendar-cell-fg-disabled: var(--theme-surface-fg-muted);
-  --calendar-cell-fg-selected: var(--color-primary-foreground);
-  --calendar-cell-bg-hover: var(--theme-action-accent-bg);
-  --calendar-cell-bg-selected: var(--theme-action-primary-bg);
   --calendar-cell-bg-disabled: transparent;
   --calendar-transition-duration: var(--motion-duration-fast);
   --calendar-transition-ease: var(--motion-ease-standard);
@@ -280,7 +274,6 @@
   --form-label-font-size: var(--font-size-sm);
   --radio-group-item-size: 1rem;
   --radio-group-item-bg: var(--theme-surface-bg);
-  --radio-group-item-bg-checked: var(--theme-action-primary-bg);
   --radio-group-item-border-color: var(--theme-action-primary-bg);
   --radio-group-item-border-width: 2px;
   --form-section-gap: var(--space-md);

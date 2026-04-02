@@ -30,7 +30,7 @@
   --alert-close-fg: var(--theme-surface-fg);
   --alert-close-fg-hover: var(--theme-surface-fg-muted);
   --alert-close-size: var(--space-md);
-  --alert-dialog-overlay-bg: rgba(0, 0, 0, 0.5);
+  --alert-dialog-overlay-bg: var(--color-overlay-50);
   --alert-dialog-overlay-opacity: 0.5;
   --alert-dialog-overlay-blur: 4px;
   --alert-dialog-content-bg: var(--theme-surface-bg);

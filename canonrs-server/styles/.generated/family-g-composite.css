@@ -52,12 +52,12 @@
   --builder-block-hover-border: 1px solid var(--theme-action-primary-bg);
   --builder-block-drag-opacity: 0.4;
   --builder-remove-size: 18px;
-  --builder-remove-bg: var(--theme-destructive-bg, #ef4444);
+  --builder-remove-bg: var(--color-destructive);
   --builder-insert-line-color: var(--theme-action-primary-bg);
   --builder-insert-line-height: 3px;
   --builder-dropzone-active-border: var(--theme-action-primary-bg);
-  --builder-dropzone-hover-bg: rgba(99,102,241,0.12);
-  --builder-dropzone-drag-bg: rgba(99,102,241,0.06);
-  --builder-dropzone-drag-border: #a5b4fc;
+  --builder-dropzone-hover-bg: var(--color-primary-alpha-12);
+  --builder-dropzone-drag-bg: var(--color-primary-alpha-06);
+  --builder-dropzone-drag-border: var(--color-primary-border-soft);
   --builder-container-indent: var(--space-sm);
 }
