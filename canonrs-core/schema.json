@@ -996,7 +996,7 @@
       "variants": []
     },
     {
-      "behavior": "feedback",
+      "behavior": "progress",
       "capabilities": [],
       "catalog_category": "Display",
       "catalog_tags": [

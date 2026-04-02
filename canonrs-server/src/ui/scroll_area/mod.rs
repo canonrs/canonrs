@@ -9,3 +9,6 @@ pub use scroll_area_ui::ScrollArea;
 pub use examples::*;
 
 pub use scroll_area_ui::ScrollAreaPreview;
+
+pub mod preview;
+pub use preview::ScrollAreaShowcasePreview;

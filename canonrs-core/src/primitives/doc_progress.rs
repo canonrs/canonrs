@@ -1,13 +1,24 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! DocProgress Primitive
-//!
-//! Dois modos:
-//!   1. Standalone — renderiza a barra com posicionamento próprio
-//!   2. Portal — renderiza um portal anchor; o behavior injeta a barra no slot
-//!      declarado pelo site via [data-rs-doc-progress-portal]
 
 use leptos::prelude::*;
+
+#[derive(Clone, Copy, PartialEq, Default)]
+pub enum DocProgressPosition {
+    Top,
+    #[default]
+    Bottom,
+}
+
+impl DocProgressPosition {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            DocProgressPosition::Top    => "top",
+            DocProgressPosition::Bottom => "bottom",
+        }
+    }
+}
 
 #[component]
 pub fn DocProgressPrimitive(
@@ -19,7 +30,7 @@ pub fn DocProgressPrimitive(
         <div
             data-rs-doc-progress=""
             data-rs-component="DocProgress"
-            data-rs-behavior="feedback"
+            data-rs-behavior="progress"
             data-rs-progress=progress_str.clone()
             role="progressbar"
             aria-valuemin="0"
@@ -33,17 +44,19 @@ pub fn DocProgressPrimitive(
     }
 }
 
-/// Portal anchor — coloque onde quiser no layout
-/// O behavior vai injetar a barra aqui
 #[component]
 pub fn DocProgressPortal(
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] scroll_target: String,
+    #[prop(default = DocProgressPosition::Top)] position: DocProgressPosition,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-doc-progress-portal=""
             data-rs-component="DocProgressPortal"
-            data-rs-behavior="feedback"
+            data-rs-behavior="progress"
+            data-rs-scroll-target=scroll_target
+            data-rs-position=position.as_str()
             aria-hidden="true"
             class=class
         >

@@ -7,3 +7,6 @@ pub mod examples;
 pub use examples::*;
 
 pub use aspect_ratio_ui::AspectRatioPreview;
+
+pub mod preview;
+pub use preview::AspectRatioShowcasePreview;

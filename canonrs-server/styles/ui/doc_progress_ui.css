@@ -7,7 +7,7 @@
      [data-rs-doc-progress-portal] → portal: sem posicionamento, flui no layout
    ============================================================================= */
 
-/* ── Standalone ──────────────────────────────────────────────────────────────── */
+/* ── Standalone ────────────────────────────────────────────────────────────── */
 
 [data-rs-doc-progress] {
   position: fixed;
@@ -20,16 +20,26 @@
   overflow: hidden;
 }
 
-/* ── Portal ──────────────────────────────────────────────────────────────────── */
+/* ── Portal ─────────────────────────────────────────────────────────────────── */
 
 [data-rs-doc-progress-portal] {
   position: absolute;
-  bottom: 0;
   left: 0;
   right: 0;
   height: var(--doc-progress-height);
   background: var(--doc-progress-bg);
   overflow: hidden;
+  z-index: var(--doc-progress-z-index);
+}
+
+[data-rs-doc-progress-portal][data-rs-position="top"] {
+  top: 0;
+  bottom: auto;
+}
+
+[data-rs-doc-progress-portal][data-rs-position="bottom"] {
+  bottom: 0;
+  top: auto;
 }
 
 /* ── Bar (compartilhado) ─────────────────────────────────────────────────────── */

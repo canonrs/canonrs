@@ -13,6 +13,8 @@ pub const DOCPROGRESSSLOT_API: ComponentApi = ComponentApi {
     id: "doc-progress-slot",
     props: &[
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "scroll_target", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "position", kind: PropType::Enum(&["top", "bottom"]), required: false, default: Some("top"), description: "" },
     ],
 };
 

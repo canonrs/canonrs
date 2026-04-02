@@ -28,6 +28,7 @@ pub fn ScrollAreaPrimitive(
     #[prop(default = ScrollOrientation::Vertical)] orientation: ScrollOrientation,
     #[prop(default = true)] auto_hide: bool,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] viewport_id: Option<String>,
 ) -> impl IntoView {
     let show_v = matches!(orientation, ScrollOrientation::Vertical | ScrollOrientation::Both);
     let show_h = matches!(orientation, ScrollOrientation::Horizontal | ScrollOrientation::Both);
@@ -44,6 +45,7 @@ pub fn ScrollAreaPrimitive(
         >
             <div
                 data-rs-scroll-viewport=""
+                id={viewport_id}
                 role="presentation"
                 tabindex="0"
             >

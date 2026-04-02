@@ -6,3 +6,6 @@ pub use resizable_ui::{Resizable, ResizablePanel, ResizableHandle, ResizablePrev
 pub use canonrs_core::primitives::ResizableOrientation;
 #[cfg(feature = "examples")]
 pub use examples::*;
+
+pub mod preview;
+pub use preview::ResizableShowcasePreview;

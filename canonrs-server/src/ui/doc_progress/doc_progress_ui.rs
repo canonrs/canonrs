@@ -1,8 +1,8 @@
-
 use leptos::prelude::*;
-use canonrs_core::primitives::doc_progress::{DocProgressPrimitive, DocProgressPortal};
+use canonrs_core::primitives::doc_progress::{DocProgressPrimitive, DocProgressPortal, DocProgressPosition};
 
-/// Standalone — barra com posicionamento próprio (fixed top)
+pub use canonrs_core::primitives::doc_progress::DocProgressPosition as DocProgressSlotPosition;
+
 #[component]
 pub fn DocProgress(
     #[prop(into, default = String::new())] class: String,
@@ -12,13 +12,13 @@ pub fn DocProgress(
     }
 }
 
-/// Portal — coloque dentro do header ou onde quiser
-/// O behavior injeta o scroll tracking aqui
 #[component]
 pub fn DocProgressSlot(
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] scroll_target: String,
+    #[prop(default = DocProgressPosition::Top)] position: DocProgressPosition,
 ) -> impl IntoView {
     view! {
-        <DocProgressPortal class=class />
+        <DocProgressPortal class=class scroll_target=scroll_target position=position />
     }
 }

@@ -6085,3 +6085,883 @@ restrict access to public apis and enforce visibility boundaries
 
 ---
 
+## CR-282 — No Raw Text Nodes in SSR Boundaries
+
+- **Category:** core-runtime
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+text nodes rendered in SSR differ from expected element nodes in hydration phase
+
+### Solution
+
+always wrap text content in explicit HTML elements
+
+### Signals
+
+- hydration panic
+- expected text node mismatch
+- tachys failed_to_cast_text_node
+
+---
+
+## CR-283 — Stable DOM Structure Required for Hydration
+
+- **Category:** core-runtime
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+ssr and wasm generate different dom trees causing hydration mismatch
+
+### Solution
+
+ensure identical node hierarchy regardless of state
+
+### Signals
+
+- hydration panic
+- dom mismatch warning
+- inconsistent node tree
+
+---
+
+## CR-284 — Children Must Be Structurally Stable
+
+- **Category:** component-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+optional children modify node count causing mismatch between ssr and client
+
+### Solution
+
+ensure children count and position remain stable regardless of state
+
+### Signals
+
+- hydration mismatch
+- missing node errors
+- inconsistent children length
+
+---
+
+## CR-285 — Overlay Must Use Container Pattern
+
+- **Category:** component-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+overlay implemented as standalone content breaks layering and interaction model
+
+### Solution
+
+use container pattern separating content and overlay layers
+
+### Signals
+
+- overlay not blocking interaction
+- overlay rendered as content
+- layering issues
+
+---
+
+## CR-286 — Overlay Must Block Interaction
+
+- **Category:** behavior
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+overlay does not block pointer events allowing unintended interaction
+
+### Solution
+
+enforce pointer-event blocking and layering via z-index
+
+### Signals
+
+- click through overlay
+- focus leakage
+- interaction during loading
+
+---
+
+## CR-287 — State Must Control Visibility
+
+- **Category:** state-reactivity
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+state is defined but does not affect visibility or rendering
+
+### Solution
+
+bind state directly to DOM visibility via attributes or CSS selectors
+
+### Signals
+
+- state changes without visual effect
+- inconsistent UI behavior
+- hidden elements still interactive
+
+---
+
+## CR-288 — aria-hidden Must Match Visibility
+
+- **Category:** accessibility
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+aria-hidden does not match real visibility state
+
+### Solution
+
+synchronize aria-hidden with actual DOM visibility
+
+### Signals
+
+- screen reader reads hidden content
+- accessibility audit failures
+- inconsistent aria state
+
+---
+
+## CR-289 — Overlay Must Be Visually Present
+
+- **Category:** design-system
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+overlay exists structurally but has no visual representation
+
+### Solution
+
+ensure overlay has visible feedback such as spinner, backdrop, or indicator
+
+### Signals
+
+- invisible overlay
+- user confusion
+- no loading feedback
+
+---
+
+## CR-290 — Interactive Components Must Emit Events
+
+- **Category:** behavior
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+components mutate state without emitting events
+
+### Solution
+
+emit standardized events such as rs-change on state updates
+
+### Signals
+
+- no event emitted
+- integration failure
+- non-reactive components
+
+---
+
+## CR-291 — data-rs-value Is Canonical Output
+
+- **Category:** behavior
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+component state is not accessible externally
+
+### Solution
+
+expose value via data-rs-value attribute
+
+### Signals
+
+- missing data-rs-value
+- integration failure
+- state inaccessible
+
+---
+
+## CR-292 — Select Is Canonical Interaction Model
+
+- **Category:** behavior
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+components implement inconsistent interaction patterns
+
+### Solution
+
+standardize all interactions on Select model: state + value + event
+
+### Signals
+
+- inconsistent component behavior
+- missing events
+- integration failures
+
+---
+
+## CR-293 — No Duplicate State Outside DOM
+
+- **Category:** state-reactivity
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+state exists in multiple sources causing desynchronization
+
+### Solution
+
+use DOM as single source of truth via data attributes
+
+### Signals
+
+- inconsistent UI state
+- mismatch between DOM and logic
+- stale values
+
+---
+
+## CR-294 — No Hidden Interactive Elements
+
+- **Category:** accessibility
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+interactive elements exist inside hidden containers
+
+### Solution
+
+disable or remove interactivity when element is hidden
+
+### Signals
+
+- focus leaks
+- keyboard navigation issues
+- accessibility violations
+
+---
+
+## CR-295 — No Conditional Rendering for Structure
+
+- **Category:** core-runtime
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+if/else modifies node structure between SSR and client
+
+### Solution
+
+use stable structure and conditionally change content or visibility
+
+### Signals
+
+- hydration mismatch
+- missing nodes
+- runtime panic
+
+---
+
+## CR-296 — Components Must Be Composable
+
+- **Category:** component-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+components cannot interact with others
+
+### Solution
+
+design components with standardized contracts
+
+### Signals
+
+- isolated components
+- integration failure
+- duplicated logic
+
+---
+
+## CR-297 — Overlay State Must Be Deterministic
+
+- **Category:** state-reactivity
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+overlay visibility depends on implicit logic
+
+### Solution
+
+bind overlay behavior strictly to explicit state
+
+### Signals
+
+- inconsistent overlay visibility
+- unpredictable UI
+- state mismatch
+
+---
+
+## CR-298 — DOM Is Single Source of Truth
+
+- **Category:** governance
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+state is stored outside DOM and becomes inconsistent
+
+### Solution
+
+use DOM attributes as canonical state representation
+
+### Signals
+
+- state divergence
+- inconsistent rendering
+- debugging complexity
+
+---
+
+## CR-299 — No Implicit Visual State
+
+- **Category:** design-system
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+visual changes occur without explicit state mapping
+
+### Solution
+
+map all visual changes to explicit state attributes
+
+### Signals
+
+- inconsistent styling
+- unclear state representation
+- css conflicts
+
+---
+
+## CR-300 — No Side Effects in Primitives
+
+- **Category:** component-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+primitives contain logic or side effects
+
+### Solution
+
+keep primitives pure and move logic to behaviors
+
+### Signals
+
+- unpredictable rendering
+- hydration issues
+- side effects in view
+
+---
+
+## CR-301 — Events Must Be Standardized
+
+- **Category:** behavior
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+custom or inconsistent event naming breaks integration
+
+### Solution
+
+use canonical event names such as rs-change
+
+### Signals
+
+- inconsistent event names
+- integration issues
+- duplicated logic
+
+---
+
+## CR-302 — State Must Be Serializable in DOM
+
+- **Category:** governance
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+component state is hidden in memory and not exposed
+
+### Solution
+
+serialize all state into data-rs-* attributes
+
+### Signals
+
+- hydration mismatch
+- integration failure
+- state inaccessible
+
+---
+
+## CR-303 — No Random or Time-Based Rendering
+
+- **Category:** core-runtime
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+render output differs between server and client
+
+### Solution
+
+remove randomness or isolate to client-only execution
+
+### Signals
+
+- hydration mismatch
+- flickering UI
+- inconsistent DOM
+
+---
+
+## CR-304 — No Optional DOM Nodes
+
+- **Category:** core-runtime
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+DOM structure differs between SSR and client
+
+### Solution
+
+always render nodes and control visibility via attributes
+
+### Signals
+
+- hydration panic
+- node mismatch
+- inconsistent structure
+
+---
+
+## CR-305 — All Text Must Be Wrapped
+
+- **Category:** core-runtime
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+text nodes mismatch between SSR and client
+
+### Solution
+
+wrap all text inside explicit elements
+
+### Signals
+
+- expected text node error
+- hydration panic
+- string mismatch
+
+---
+
+## CR-306 — Components Must Declare Behavior
+
+- **Category:** behavior
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+behavior is implicit or missing
+
+### Solution
+
+declare behavior via data-rs-behavior
+
+### Signals
+
+- missing interaction
+- behavior not attached
+- inconsistent UX
+
+---
+
+## CR-307 — No Inline Style for Logic
+
+- **Category:** styling-css
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+logic embedded in style attributes
+
+### Solution
+
+move logic to state attributes and CSS
+
+### Signals
+
+- style conditions
+- inconsistent rendering
+- duplication
+
+---
+
+## CR-308 — All Interactions Must Emit Events
+
+- **Category:** behavior
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+state changes are not externally observable
+
+### Solution
+
+emit canonical events after state changes
+
+### Signals
+
+- silent updates
+- integration failure
+- missing reactions
+
+---
+
+## CR-309 — No Component-Specific Event Names
+
+- **Category:** governance
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+components emit custom event names
+
+### Solution
+
+use canonical event names
+
+### Signals
+
+- inconsistent events
+- integration complexity
+- duplicated logic
+
+---
+
+## CR-310 — Components Must Be SSR Safe
+
+- **Category:** core-runtime
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+component output differs between environments
+
+### Solution
+
+ensure deterministic and environment-independent rendering
+
+### Signals
+
+- hydration mismatch
+- runtime panic
+- inconsistent UI
+
+---
+
+## CR-311 — No Implicit DOM Order Dependency
+
+- **Category:** component-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+logic relies on child position
+
+### Solution
+
+use explicit attributes and selectors
+
+### Signals
+
+- fragile components
+- order-based bugs
+- unpredictable behavior
+
+---
+
+## CR-312 — Behaviors Must Be Idempotent
+
+- **Category:** behavior
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+multiple attachments create duplicated listeners and inconsistent state
+
+### Solution
+
+ensure behavior attachment is idempotent using guards
+
+### Signals
+
+- duplicated events
+- multiple listeners firing
+- unstable toggle behavior
+
+---
+
+## CR-313 — No DOM Mutation Outside Behavior Layer
+
+- **Category:** component-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+components mutate DOM directly
+
+### Solution
+
+restrict DOM mutation to behavior layer only
+
+### Signals
+
+- unpredictable UI updates
+- duplicated logic
+- inconsistent DOM state
+
+---
+
+## CR-314 — State Must Not Live in Behavior
+
+- **Category:** behavior
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+state stored inside behavior logic
+
+### Solution
+
+externalize state to DOM attributes
+
+### Signals
+
+- hidden state
+- inconsistent behavior
+- debugging difficulty
+
+---
+
+## CR-315 — Every State Change Must Update DOM
+
+- **Category:** state-reactivity
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+state changes not reflected in DOM
+
+### Solution
+
+update data-rs-* attributes on every change
+
+### Signals
+
+- stale UI
+- mismatch between state and DOM
+- integration failure
+
+---
+
+## CR-316 — No Implicit Default State
+
+- **Category:** state-reactivity
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+state defaults are implicit
+
+### Solution
+
+always define explicit initial state
+
+### Signals
+
+- inconsistent initial render
+- unpredictable behavior
+- missing attributes
+
+---
+
+## CR-317 — All Components Must Be Composable
+
+- **Category:** component-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+components cannot be reused or composed
+
+### Solution
+
+design components with explicit contracts
+
+### Signals
+
+- rigid components
+- duplication
+- poor reuse
+
+---
+
+## CR-318 — No Hidden Side Effects
+
+- **Category:** state-reactivity
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+side effects occur implicitly
+
+### Solution
+
+make all side effects explicit
+
+### Signals
+
+- unexpected updates
+- difficult debugging
+- inconsistent state
+
+---
+
+## CR-319 — Behaviors Must Be Stateless
+
+- **Category:** behavior
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+behavior stores internal state
+
+### Solution
+
+derive state from DOM
+
+### Signals
+
+- inconsistent behavior
+- state desync
+- debugging difficulty
+
+---
+
+## CR-320 — DOM Is the Single Source of Truth
+
+- **Category:** governance
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+multiple sources of truth exist
+
+### Solution
+
+centralize all state in DOM
+
+### Signals
+
+- state divergence
+- inconsistent UI
+- integration issues
+
+---
+
+## CR-321 — Integration Must Be Declarative
+
+- **Category:** governance
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+integration is manual and imperative
+
+### Solution
+
+use declarative data-rs-* attributes
+
+### Signals
+
+- complex wiring
+- tight coupling
+- brittle integrations
+
+---
+
