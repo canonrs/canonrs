@@ -6,3 +6,6 @@ pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
 pub use empty_state_ui::EmptyStatePreview;
+
+pub mod preview;
+pub use preview::EmptyStateShowcasePreview;

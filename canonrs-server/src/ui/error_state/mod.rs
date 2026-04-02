@@ -8,3 +8,6 @@ pub mod examples;
 pub use examples::*;
 
 pub use error_state_ui::ErrorStatePreview;
+
+pub mod preview;
+pub use preview::ErrorStateShowcasePreview;

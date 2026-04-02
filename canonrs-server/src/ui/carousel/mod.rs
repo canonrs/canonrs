@@ -8,3 +8,6 @@ pub use carousel_ui::{Carousel, CarouselTrack, CarouselItem, CarouselPrev, Carou
 pub use examples::*;
 
 pub use carousel_ui::CarouselPreview;
+
+pub mod preview;
+pub use preview::CarouselShowcasePreview;

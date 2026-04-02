@@ -7,3 +7,6 @@ pub mod examples;
 pub use examples::*;
 
 pub use animate_ui::AnimatePreview;
+
+pub mod preview;
+pub use preview::AnimateShowcasePreview;

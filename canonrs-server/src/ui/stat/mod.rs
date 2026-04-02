@@ -10,3 +10,6 @@ pub use stat_ui::{
 pub use examples::*;
 
 pub use stat_ui::StatPreview;
+
+pub mod preview;
+pub use preview::StatShowcasePreview;

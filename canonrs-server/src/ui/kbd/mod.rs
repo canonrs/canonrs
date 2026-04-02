@@ -5,3 +5,6 @@ pub mod examples;
 pub use kbd_ui::{Kbd, KbdSize, KbdVariant, KbdGroup, KbdSeparator};
 #[cfg(feature = "examples")]
 pub use examples::*;
+
+pub mod preview;
+pub use preview::KbdShowcasePreview;

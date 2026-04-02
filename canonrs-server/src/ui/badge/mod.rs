@@ -5,3 +5,6 @@ pub use badge_ui::*;
 pub mod examples;
 #[cfg(feature = "examples")]
 pub use examples::*;
+
+pub mod preview;
+pub use preview::BadgeShowcasePreview;
