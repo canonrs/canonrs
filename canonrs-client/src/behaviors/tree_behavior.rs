@@ -85,11 +85,52 @@ fn toggle_expand(item: &Element) {
 }
 
 #[cfg(feature = "hydrate")]
+fn init_depths(root: &Element) {
+    let doc = match web_sys::window().and_then(|w| w.document()) { Some(d) => d, None => return };
+    if let Ok(all) = root.query_selector_all("[data-rs-tree-item]") {
+        for i in 0..all.length() {
+            if let Some(node) = all.item(i) {
+                if let Ok(item) = node.dyn_into::<Element>() {
+                    // calcular depth contando ancestrais data-rs-tree-group
+                    let mut depth = 0usize;
+                    let mut cur = item.parent_element();
+                    while let Some(parent) = cur {
+                        if parent.has_attribute("data-rs-tree-group") { depth += 1; }
+                        cur = parent.parent_element();
+                    }
+                    item.set_attribute("data-rs-depth", &depth.to_string()).ok();
+
+                    // injetar toggle button se has_children e ainda não tem
+                    if item.get_attribute("data-rs-expanded").is_some()
+                        && item.query_selector("[data-rs-tree-toggle]").ok().flatten().is_none()
+                    {
+                        if let Ok(btn) = doc.create_element("button") {
+                            btn.set_attribute("data-rs-tree-toggle", "").ok();
+                            btn.set_attribute("type", "button").ok();
+                            btn.set_attribute("aria-hidden", "true").ok();
+                            btn.set_attribute("tabindex", "-1").ok();
+                            btn.set_inner_html("▶");
+                            if let Some(first) = item.first_child() {
+                                item.insert_before(&btn, Some(&first)).ok();
+                            } else {
+                                item.append_child(&btn).ok();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-rs-tree", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
 
         if root.get_attribute("data-rs-tree-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-tree-attached", "1").ok();
+
+        init_depths(root);
 
         // click em items
         let items = root.query_selector_all("[data-rs-tree-item]")

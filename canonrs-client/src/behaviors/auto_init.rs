@@ -26,6 +26,7 @@ pub(crate) fn register_all_behaviors() {
     switch_behavior::register();
     theme_toggle_behavior::register();
     toggle_behavior::register();
+    toggle_group_behavior::register();
     tooltip_behavior::register();
     tree_behavior::register();
     resizable_behavior::register();
@@ -46,9 +47,7 @@ toc_behavior::register();
 }
 pub fn init_canonrs_behaviors() {
     register_all_behaviors();
-    super::behavior_discovery::inject_behaviors_from_meta();
     #[cfg(debug_assertions)]
-    super::behavior_discovery::audit_behaviors();
     if let Err(e) = behavior_registry::init_behavior_registry() {
         web_sys::console::warn_1(&format!("behavior_registry init failed: {:?}", e).into());
     }

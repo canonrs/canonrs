@@ -7,6 +7,7 @@ pub const LOADINGOVERLAY_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "state", kind: PropType::String, required: false, default: Some("idle"), description: "" },
+        PropDef { name: "mode", kind: PropType::Enum(&["blocking", "subtle", "skeleton"]), required: false, default: Some("blocking"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

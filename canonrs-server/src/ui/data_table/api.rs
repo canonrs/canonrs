@@ -2,13 +2,19 @@
 // Source: *_ui.rs
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
-pub const DATATABLECORE<T>_API: ComponentApi = ComponentApi {
-    id: "data-table-core<-t>",
+pub const DATATABLEFULL<T>_API: ComponentApi = ComponentApi {
+    id: "data-table-full<-t>",
     props: &[
         PropDef { name: "data", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "columns", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "density", kind: PropType::Enum(&["compact", "comfortable", "spacious"]), required: false, default: Some("default()"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "page_size", kind: PropType::Number, required: false, default: Some("10"), description: "" },
+        PropDef { name: "selectable", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "sync_chart", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "sync_scope", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "show_density", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "expand_render", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

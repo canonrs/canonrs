@@ -103,6 +103,8 @@ pub mod toc_behavior;
 #[cfg(feature = "hydrate")]
 pub mod toggle_behavior;
 #[cfg(feature = "hydrate")]
+pub mod toggle_group_behavior;
+#[cfg(feature = "hydrate")]
 pub mod toolbar_behavior;
 #[cfg(feature = "hydrate")]
 pub mod tooltip_behavior;
@@ -114,10 +116,6 @@ pub use behavior_registry::*;
 
 #[cfg(feature = "hydrate")]
 pub use auto_init::init_canonrs_behaviors;
-#[cfg(feature = "hydrate")]
-pub mod behavior_discovery;
-#[cfg(feature = "hydrate")]
-pub use behavior_discovery::audit_behaviors;
 
 pub mod tabs_behavior;
 

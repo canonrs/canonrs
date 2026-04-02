@@ -17,7 +17,6 @@ pub fn InputOtpSlotPrimitive(
         <div
             data-rs-input-otp-slot=""
             data-rs-state=a.data_rs_state
-            aria-hidden="true"
             class=class
         >
             <span data-rs-slot-inner="">{children()}</span>

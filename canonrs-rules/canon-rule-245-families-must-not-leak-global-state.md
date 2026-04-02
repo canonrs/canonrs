@@ -56,8 +56,9 @@ If families override globals:
 - Cascade loses determinism
 
 ---
+## Patterns
 
-## Forbidden Pattern
+### Forbidden Pattern
 
 Inside family-x:
 
@@ -69,7 +70,7 @@ Inside family-x:
 
 ---
 
-## Canonical Pattern
+### Canonical Pattern
 
 Family defines domain-scoped variables only:
 
@@ -84,8 +85,9 @@ Families provide structure.
 They do not override system layers.
 
 ---
+## Contract
 
-## Enforcement
+### Enforcement
 
 - families are generated after semantic
 - families are scoped to [data-theme]
@@ -93,7 +95,7 @@ They do not override system layers.
 
 ---
 
-## Exceptions
+### Exceptions
 
 None.
 

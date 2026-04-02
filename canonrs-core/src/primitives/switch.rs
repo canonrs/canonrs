@@ -34,7 +34,6 @@ pub fn SwitchPrimitive(
                 name=if name.is_empty() { None } else { Some(name) }
                 value=value
                 checked=checked == SelectionState::Selected
-                aria-hidden="true"
                 tabindex="-1"
             />
             {children()}

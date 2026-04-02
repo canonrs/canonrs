@@ -7,3 +7,6 @@ pub mod examples;
 pub use examples::*;
 
 pub use skeleton_ui::SkeletonPreview;
+
+pub mod preview;
+pub use preview::SkeletonShowcasePreview;

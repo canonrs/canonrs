@@ -7,3 +7,6 @@ pub mod examples;
 pub use examples::*;
 
 pub use spinner_ui::SpinnerPreview;
+
+pub mod preview;
+pub use preview::SpinnerShowcasePreview;

@@ -1453,7 +1453,7 @@
       "variants": []
     },
     {
-      "behavior": "overlay",
+      "behavior": "unknown",
       "capabilities": [
         "OpenClose"
       ],

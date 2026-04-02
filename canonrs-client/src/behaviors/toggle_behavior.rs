@@ -1,4 +1,4 @@
-//! Toggle Behavior - sincroniza data-rs-state com input:checked
+//! Toggle Behavior - sincroniza data-rs-state + emite rs-change
 #[cfg(feature = "hydrate")]
 use super::{register_behavior, ComponentState};
 #[cfg(feature = "hydrate")]
@@ -17,10 +17,26 @@ pub fn register() {
         if root.get_attribute("data-rs-toggle-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-toggle-attached", "1").ok();
 
+        // inicializar data-rs-value com estado atual
+        let initial = if root.get_attribute("data-rs-state").as_deref() == Some("on") { "on" } else { "off" };
+        root.set_attribute("data-rs-value", initial).ok();
+
         let root_clone = root.clone();
         let closure = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
             let is_on = root_clone.get_attribute("data-rs-state").as_deref() == Some("on");
-            root_clone.set_attribute("data-rs-state", if is_on { "off" } else { "on" }).ok();
+            let new_state = if is_on { "off" } else { "on" };
+            root_clone.set_attribute("data-rs-state", new_state).ok();
+            root_clone.set_attribute("data-rs-value", new_state).ok();
+
+            // dispatch rs-change
+            {
+                let init = web_sys::CustomEventInit::new();
+                init.set_bubbles(true);
+                init.set_detail(&wasm_bindgen::JsValue::from_str(new_state));
+                if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-change", &init) {
+                    root_clone.dispatch_event(&event).ok();
+                }
+            }
         }) as Box<dyn FnMut(_)>);
 
         if let Ok(el) = root.clone().dyn_into::<HtmlElement>() {

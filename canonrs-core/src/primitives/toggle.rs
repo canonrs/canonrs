@@ -31,7 +31,6 @@ pub fn TogglePrimitive(
                 type="checkbox"
                 data-rs-toggle-input=""
                 checked=t.data_rs_state == "on"
-                aria-hidden="true"
                 tabindex="-1"
             />
             <span data-rs-toggle-content="">

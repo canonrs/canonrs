@@ -7,3 +7,6 @@ pub mod examples;
 pub use examples::*;
 
 pub use progress_ui::ProgressPreview;
+
+pub mod preview;
+pub use preview::ProgressShowcasePreview;

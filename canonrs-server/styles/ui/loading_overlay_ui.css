@@ -3,26 +3,72 @@
    Family E: Feedback & Status
    ============================================ */
 
-[data-rs-loading-overlay] {
+[data-rs-overlay-container] {
   position: relative;
+  isolation: isolate;
 }
 
-[data-rs-loading-overlay]::before {
-  content: "";
+[data-rs-overlay-content] {
+  width: 100%;
+}
+
+/* Overlay: hidden by default — explicit state binding */
+[data-rs-loading-overlay] {
   position: absolute;
   inset: 0;
   z-index: var(--loading-overlay-z-index);
-  background: var(--loading-overlay-bg);
-  opacity: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
   transition: opacity var(--loading-overlay-transition-duration) var(--loading-overlay-transition-ease);
 }
 
-[data-rs-loading-overlay][data-rs-loading="true"]::before {
-  opacity: var(--loading-overlay-opacity);
+/* State binding: loading → visible + blocking */
+[data-rs-overlay-container][data-rs-state="loading"] [data-rs-loading-overlay] {
+  display: flex;
   pointer-events: all;
 }
 
-[data-rs-loading-overlay][data-rs-loading="true"] {
+/* Idle → content interactive */
+[data-rs-overlay-container][data-rs-state="idle"] [data-rs-overlay-content] {
+  pointer-events: auto;
+  user-select: auto;
+}
+
+/* Loading → content blocked */
+[data-rs-overlay-container][data-rs-state="loading"] [data-rs-overlay-content] {
   pointer-events: none;
+  user-select: none;
+}
+
+/* Mode: blocking (default) */
+[data-rs-overlay-container][data-rs-overlay-mode="blocking"] [data-rs-loading-overlay] {
+  background: var(--loading-overlay-bg);
+  opacity: var(--loading-overlay-opacity);
+}
+
+/* Mode: subtle */
+[data-rs-overlay-container][data-rs-overlay-mode="subtle"] [data-rs-loading-overlay] {
+  background: var(--loading-overlay-bg);
+  opacity: 0.4;
+}
+
+/* Mode: skeleton */
+[data-rs-overlay-container][data-rs-overlay-mode="skeleton"] [data-rs-loading-overlay] {
+  background: transparent;
+  opacity: 1;
+}
+
+/* Spinner default */
+[data-rs-loading-overlay-spinner] {
+  font-size: var(--font-size-xl);
+  color: var(--theme-surface-fg);
+  animation: overlay-spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes overlay-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }

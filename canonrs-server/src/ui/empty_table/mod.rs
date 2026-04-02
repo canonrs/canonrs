@@ -1,4 +1,5 @@
 pub mod empty_table_ui;
+pub mod preview;
 
 pub use empty_table_ui::EmptyTable;
 #[cfg(feature = "examples")]
@@ -7,3 +8,4 @@ pub mod examples;
 pub use examples::*;
 
 pub use empty_table_ui::EmptyTablePreview;
+pub use preview::EmptyTableShowcasePreview;
