@@ -365,3 +365,33 @@ impl LoadingState {
         }
     }
 }
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum ChartGridState {
+    #[default]
+    Visible,
+    Hidden,
+}
+impl ChartGridState {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Visible => "visible", Self::Hidden => "hidden" }
+    }
+}
+impl From<bool> for ChartGridState {
+    fn from(b: bool) -> Self { if b { Self::Visible } else { Self::Hidden } }
+}
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum ChartLegendState {
+    #[default]
+    Visible,
+    Hidden,
+}
+impl ChartLegendState {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Visible => "visible", Self::Hidden => "hidden" }
+    }
+}
+impl From<bool> for ChartLegendState {
+    fn from(b: bool) -> Self { if b { Self::Visible } else { Self::Hidden } }
+}

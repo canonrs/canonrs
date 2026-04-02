@@ -15,6 +15,8 @@ pub mod calendar;
 pub mod callout;
 pub mod card;
 pub mod chart;
+pub mod chart_data;
+pub use chart_data::*;
 pub mod checkbox;
 pub mod code_block;
 pub mod collapsible;

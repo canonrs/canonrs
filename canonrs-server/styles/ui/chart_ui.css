@@ -42,12 +42,12 @@
   transition: opacity 0.1s ease;
 }
 
-[data-rs-chart-tooltip][data-rs-state="hidden"] {
+[data-rs-chart-tooltip][data-rs-state="closed"] {
   opacity: 0;
   visibility: hidden;
 }
 
-[data-rs-chart-tooltip][data-rs-state="visible"] {
+[data-rs-chart-tooltip][data-rs-state="open"] {
   opacity: 1;
   visibility: visible;
 }
@@ -64,7 +64,7 @@
   transition: opacity 0.1s ease;
 }
 
-[data-rs-chart-crosshair][data-rs-state="visible"] {
+[data-rs-chart-crosshair][data-rs-state="open"] {
   opacity: 1;
 }
 

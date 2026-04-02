@@ -733,7 +733,7 @@
       "variants": []
     },
     {
-      "behavior": "data-display",
+      "behavior": "chart",
       "capabilities": [],
       "catalog_category": "Display",
       "catalog_tags": [

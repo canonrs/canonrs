@@ -1,38 +1,8 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{ChartPrimitive, ChartType};
+use canonrs_core::{ChartGridState, ChartLegendState};
 pub use canonrs_core::primitives::ChartType as ChartKind;
-
-#[derive(Clone, Debug, Default, PartialEq)]
-pub struct ChartSeries {
-    pub name: String,
-    pub data: Vec<f64>,
-    pub color: Option<String>,
-}
-
-#[derive(Clone, Debug, Default, PartialEq)]
-pub struct ChartData {
-    pub labels: Vec<String>,
-    pub series: Vec<ChartSeries>,
-}
-
-impl ChartData {
-    pub fn to_json(&self) -> String {
-        let labels = self.labels.iter()
-            .map(|l| format!("{:?}", l))
-            .collect::<Vec<_>>()
-            .join(",");
-        let series = self.series.iter().map(|s| {
-            let data = s.data.iter()
-                .map(|d| d.to_string())
-                .collect::<Vec<_>>()
-                .join(",");
-            let color = s.color.as_deref().unwrap_or("");
-            format!(r#"{{"name":"{}","data":[{}],"color":"{}"}}"#, s.name, data, color)
-        }).collect::<Vec<_>>().join(",");
-        format!(r#"{{"labels":[{}],"series":[{}]}}"#, labels, series)
-    }
-}
+pub use canonrs_core::{ChartData, ChartSeries};
 
 #[component]
 pub fn Chart(
@@ -47,6 +17,8 @@ pub fn Chart(
     #[prop(optional)] _max_width: Option<u32>,
     #[prop(into, default = String::new())] _sync_table: String,
     #[prop(into, default = String::new())] _sync_scope: String,
+    #[prop(into, optional)] value: Option<String>,
+    #[prop(into, optional)] aria_label: Option<String>,
 ) -> impl IntoView {
     let json = data.to_json();
     view! {
@@ -54,13 +26,14 @@ pub fn Chart(
             class=class
             chart_type=chart_type
             height=height
+            value=value.unwrap_or_default()
+            aria_label=aria_label.unwrap_or_default()
+            chart_data=json
+            chart_grid=ChartGridState::from(show_grid)
+            chart_legend=ChartLegendState::from(show_legend)
+            chart_animate=animate
         >
-            <div
-    data-rs-chart-data={json}
-    data-rs-chart-grid={show_grid.to_string()}
-    data-rs-chart-legend={show_legend.to_string()}
-    data-rs-chart-animate={animate.to_string()}
-/>
+            <span style="display:none" />
         </ChartPrimitive>
     }
 }

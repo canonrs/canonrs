@@ -16,6 +16,8 @@ pub const CHART_API: ComponentApi = ComponentApi {
         PropDef { name: "_max_width", kind: PropType::Number, required: false, default: None, description: "" },
         PropDef { name: "_sync_table", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "_sync_scope", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "value", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

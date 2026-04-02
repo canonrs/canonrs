@@ -97,6 +97,7 @@ pub use icon::IconShowcasePreview;
 pub use logo::LogoShowcasePreview;
 pub use code_block::CodeBlockShowcasePreview;
 pub use markdown::MarkdownShowcasePreview;
+pub use chart::ChartShowcasePreview;
 pub use badge::Badge;
 pub use input::Input;
 pub use tabs::{Tabs, TabsList, TabsTrigger, TabsContent};

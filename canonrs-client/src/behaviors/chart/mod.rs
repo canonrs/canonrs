@@ -34,8 +34,12 @@ pub(crate) fn register() {
     register_behavior("data-rs-chart", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
         let chart_type   = root.get_attribute("data-rs-chart-type").unwrap_or_else(|| "line".to_string());
         let height: f64  = root.get_attribute("data-rs-chart-height").and_then(|h| h.parse().ok()).unwrap_or(320.0);
-        let show_grid    = root.get_attribute("data-rs-chart-grid").as_deref()    != Some("false");
-        let show_legend  = root.get_attribute("data-rs-chart-legend").as_deref()  != Some("false");
+        let show_grid = root.query_selector("[data-rs-chart-grid]").ok().flatten()
+            .and_then(|el| el.get_attribute("data-rs-state"))
+            .as_deref() != Some("hidden");
+        let show_legend = root.query_selector("[data-rs-chart-legend]").ok().flatten()
+            .and_then(|el| el.get_attribute("data-rs-state"))
+            .as_deref() != Some("hidden");
         let show_tooltip = root.get_attribute("data-rs-chart-tooltip").as_deref() != Some("false");
         let sync_table   = root.get_attribute("data-rs-chart-sync-table");
 
