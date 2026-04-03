@@ -3,6 +3,9 @@ use super::*;
 pub(crate) fn register_all_behaviors() {
     accordion_behavior::register();
     button_behavior::register();
+    input_behavior::register();
+    input_group_behavior::register();
+    textarea_behavior::register();
     icon_button_behavior::register();
     button_group_behavior::register();
     alert_behavior::register();

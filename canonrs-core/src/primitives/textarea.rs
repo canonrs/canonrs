@@ -24,7 +24,7 @@ pub fn TextareaPrimitive(
         <textarea
             data-rs-textarea=""
             data-rs-component="Textarea"
-            data-rs-behavior="form"
+            data-rs-behavior="textarea"
             data-rs-disabled=d.data_rs_disabled
             data-rs-readonly={if readonly { Some("") } else { None }}
             data-rs-required={if required { Some("") } else { None }}

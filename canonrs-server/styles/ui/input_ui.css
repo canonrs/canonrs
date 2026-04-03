@@ -46,15 +46,16 @@
 }
 
 [data-rs-input][data-rs-variant="warning"] {
-  border-color: var(--validation-warning);
+  border-color: var(--input-warning-border);
 }
 
-[data-rs-input]:focus-visible {
+[data-rs-input][data-rs-state~="focus"] {
   outline: var(--input-focus-ring-width) solid var(--input-focus-ring-color);
   outline-offset: var(--input-focus-ring-offset);
 }
 
-[data-rs-input]:disabled {
+[data-rs-input][data-rs-state~="disabled"] {
   opacity: var(--input-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
 }

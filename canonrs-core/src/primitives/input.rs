@@ -57,6 +57,7 @@ pub fn InputPrimitive(
         <input
             data-rs-input=""
             data-rs-component="Input"
+            data-rs-behavior="input"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-disabled=disabled.as_str()

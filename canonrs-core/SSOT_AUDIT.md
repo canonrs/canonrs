@@ -1,11 +1,11 @@
 # CanonRS SSOT Audit
 
 ## Components
-- Primitives: 87
+- Primitives: 88
 - Semantic (components.toml): 88
-- Complete: 81
+- Complete: 82
 - Missing semantic: 6
-- Orphan semantic: 7
+- Orphan semantic: 6
 
 ### Missing semantic
 - `alert-dialog-content`
@@ -19,7 +19,6 @@
 - `alert-dialog`
 - `copy-button`
 - `hero-ui`
-- `input-group`
 - `link-group`
 - `section-ui`
 - `site-logo`

@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
    TEXTAREA - Family C Forms tokens compliant
+   State via data-rs-state — zero pseudo-class state selectors
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-textarea] {
@@ -12,28 +13,36 @@
   color: var(--input-fg);
   border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-radius);
+  font-family: var(--input-font-family);
+  font-size: var(--input-font-size);
+  font-weight: var(--input-font-weight);
   resize: var(--textarea-resize);
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
+[data-rs-textarea]::placeholder {
+  color: var(--input-placeholder);
+}
+
 [data-rs-textarea][data-rs-variant="error"] {
-  border-color: var(--validation-error);
+  border-color: var(--input-error-border);
 }
 
 [data-rs-textarea][data-rs-variant="success"] {
-  border-color: var(--validation-success);
+  border-color: var(--input-success-border);
 }
 
 [data-rs-textarea][data-rs-variant="warning"] {
-  border-color: var(--validation-warning);
+  border-color: var(--input-warning-border);
 }
 
-[data-rs-textarea]:focus-visible {
-  outline: none;
-  border-color: var(--forms-color);
+[data-rs-textarea][data-rs-state~="focus"] {
+  outline: var(--input-focus-ring-width) solid var(--input-focus-ring-color);
+  outline-offset: var(--input-focus-ring-offset);
 }
 
-[data-rs-textarea]:disabled {
-  opacity: var(--forms-disabled-opacity);
+[data-rs-textarea][data-rs-state~="disabled"] {
+  opacity: var(--input-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
 }

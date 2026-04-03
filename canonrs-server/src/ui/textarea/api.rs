@@ -8,7 +8,7 @@ pub const TEXTAREA_API: ComponentApi = ComponentApi {
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "placeholder", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "readonly", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "required", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "aria_labelledby", kind: PropType::String, required: false, default: None, description: "" },

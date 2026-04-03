@@ -16,6 +16,12 @@ pub mod accordion_behavior;
 #[cfg(feature = "hydrate")]
 pub mod button_behavior;
 #[cfg(feature = "hydrate")]
+pub mod input_behavior;
+#[cfg(feature = "hydrate")]
+pub mod input_group_behavior;
+#[cfg(feature = "hydrate")]
+pub mod textarea_behavior;
+#[cfg(feature = "hydrate")]
 pub mod button_group_behavior;
 #[cfg(feature = "hydrate")]
 pub mod input_otp_behavior;

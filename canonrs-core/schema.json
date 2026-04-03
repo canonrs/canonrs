@@ -1318,7 +1318,7 @@
       "variants": []
     },
     {
-      "behavior": "unknown",
+      "behavior": "input",
       "capabilities": [
         "Value",
         "Disabled"
@@ -1337,6 +1337,27 @@
       "id": "input",
       "intent": "Capture text or data from user",
       "label": "Input",
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "input-group",
+      "capabilities": [],
+      "catalog_category": "Form",
+      "catalog_tags": [
+        "input-group",
+        "prefix",
+        "suffix",
+        "addon",
+        "field"
+      ],
+      "component_name": "InputGroup",
+      "description": "Input group with addons",
+      "family": "utility",
+      "has_semantic": true,
+      "id": "input-group",
+      "intent": "Group input with prefix or suffix elements",
+      "label": "Input Group",
       "type": "component",
       "variants": []
     },
@@ -2165,7 +2186,7 @@
       "variants": []
     },
     {
-      "behavior": "form",
+      "behavior": "textarea",
       "capabilities": [
         "Value",
         "Disabled"

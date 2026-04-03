@@ -2,18 +2,20 @@
 //! InputGroup Primitive - HTML puro
 
 use leptos::prelude::*;
-use crate::meta::ActivityState;
+use crate::meta::ToggleState;
 
 #[component]
 pub fn InputGroupPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = ActivityState::Inactive)] merge_radius: ActivityState,
+    #[prop(default = ToggleState::Off)] merge_radius: ToggleState,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-input-group=""
-            data-rs-merge-radius={if merge_radius == ActivityState::Active { Some("") } else { None }}
+            data-rs-component="InputGroup"
+            data-rs-behavior="input-group"
+            data-rs-state={if merge_radius == ToggleState::On { Some("merge-radius") } else { None }}
             class=class
         >
             {children()}

@@ -131,7 +131,9 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("input-focus-ring-width", "var(--state-focus-ring-width)"),
     FamilyToken::new("input-focus-ring-color", "var(--state-focus-ring-color)"),
     FamilyToken::new("input-focus-ring-offset", "var(--state-focus-ring-offset)"),
-    FamilyToken::new("input-error-border", "var(--color-destructive)"),
+    FamilyToken::new("input-focus-ring-shadow", "0 0 0 var(--state-focus-ring-width) var(--state-focus-ring-color)"),
+    FamilyToken::new("input-error-border",   "var(--color-destructive)"),
+    FamilyToken::new("input-warning-border", "var(--color-warning)"),
     FamilyToken::new("input-success-border", "var(--color-success)"),
     FamilyToken::new("input-sm-height", "var(--size-input-sm)"),
     FamilyToken::new("input-sm-font-size", "var(--font-size-xs)"),
@@ -141,6 +143,9 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("input-group-gap", "0"),
     FamilyToken::new("input-group-radius-merge", "0"),
     FamilyToken::new("input-group-align", "center"),
+    FamilyToken::new("input-group-addon-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("input-group-addon-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("input-group-addon-border", "var(--theme-surface-border)"),
 
     // Input OTP
     FamilyToken::new("input-otp-slot-size", "var(--space-2xl)"),

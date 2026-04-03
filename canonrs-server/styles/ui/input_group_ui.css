@@ -1,34 +1,86 @@
 /* ═══════════════════════════════════════════════════════════════
    INPUT GROUP - Family C Forms tokens compliant
+   State via data-rs-state — zero pseudo-class state selectors
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-input-group] {
   display: flex;
   align-items: var(--input-group-align);
   gap: var(--input-group-gap);
+  background: var(--input-bg);
+  border: var(--input-border-width) solid var(--input-group-addon-border);
+  border-radius: var(--input-radius);
+  overflow: hidden;
 }
 
-[data-rs-input-group][data-rs-merge-radius] > * {
-  border-radius: var(--input-group-radius-merge);
+[data-rs-input-group][data-rs-state~="attached"] {
+  gap: 0;
+}
+
+[data-rs-input-group] > * {
+  background: transparent;
+  border: none;
 }
 
 [data-rs-input-group-addon] {
   display: inline-flex;
   align-items: center;
   padding: var(--input-padding-y) var(--input-padding-x);
-  background: var(--theme-surface-bg-subtle);
-  border: var(--input-border-width) solid var(--input-border-color);
-  color: var(--theme-surface-fg-muted);
+  color: var(--input-group-addon-fg);
   white-space: nowrap;
+  border-inline-end: var(--input-border-width) solid var(--input-group-addon-border);
+  flex-shrink: 0;
 }
 
-[data-rs-input-group][data-rs-merge-radius] > [data-rs-input-group-addon]:first-child {
-  border-top-left-radius: var(--input-radius);
-  border-bottom-left-radius: var(--input-radius);
-  border-right: 0;
+[data-rs-input-group-addon][data-rs-state~="last"] {
+  border-inline-end: none;
+  border-inline-start: var(--input-border-width) solid var(--input-group-addon-border);
 }
 
-[data-rs-input-group][data-rs-merge-radius] > [data-rs-input]:last-child {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+[data-rs-input-group] [data-rs-input] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  height: 100%;
+  min-width: 0;
+}
+
+/* ── FOCUS WITHIN ───────────────────────────────────────────── */
+[data-rs-input-group][data-rs-state~="focus-within"] {
+  border-color: var(--input-focus-ring-color);
+  box-shadow: var(--input-focus-ring-shadow);
+}
+
+[data-rs-input-group][data-rs-state~="focus-within"] [data-rs-input-group-addon] {
+  color: var(--input-fg);
+}
+
+/* ── VALIDATION ─────────────────────────────────────────────── */
+[data-rs-input-group][data-rs-validation="error"] {
+  border-color: var(--input-error-border);
+  box-shadow:
+    var(--input-focus-ring-shadow, 0 0 0 transparent),
+    var(--validation-error-shadow);
+}
+
+[data-rs-input-group][data-rs-validation="success"] {
+  border-color: var(--input-success-border);
+  box-shadow:
+    var(--input-focus-ring-shadow, 0 0 0 transparent),
+    var(--validation-success-shadow);
+}
+
+[data-rs-input-group][data-rs-validation="warning"] {
+  border-color: var(--input-warning-border);
+  box-shadow:
+    var(--input-focus-ring-shadow, 0 0 0 transparent),
+    var(--validation-warning-shadow);
+}
+
+/* ── DISABLED ───────────────────────────────────────────────── */
+[data-rs-input-group][data-rs-state~="disabled"] {
+  opacity: var(--input-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
 }

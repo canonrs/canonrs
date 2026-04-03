@@ -106,7 +106,9 @@
   --input-focus-ring-width: var(--state-focus-ring-width);
   --input-focus-ring-color: var(--state-focus-ring-color);
   --input-focus-ring-offset: var(--state-focus-ring-offset);
+  --input-focus-ring-shadow: 0 0 0 var(--state-focus-ring-width) var(--state-focus-ring-color);
   --input-error-border: var(--color-destructive);
+  --input-warning-border: var(--color-warning);
   --input-success-border: var(--color-success);
   --input-sm-height: var(--size-input-sm);
   --input-sm-font-size: var(--font-size-xs);
@@ -116,6 +118,9 @@
   --input-group-gap: 0;
   --input-group-radius-merge: 0;
   --input-group-align: center;
+  --input-group-addon-bg: var(--theme-surface-muted);
+  --input-group-addon-fg: var(--theme-surface-fg-muted);
+  --input-group-addon-border: var(--theme-surface-border);
   --input-otp-slot-size: var(--space-2xl);
   --input-otp-slot-bg: var(--theme-surface-bg);
   --input-otp-slot-fg: var(--theme-surface-fg);
