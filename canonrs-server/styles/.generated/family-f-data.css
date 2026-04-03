@@ -90,6 +90,10 @@
   --icon-button-bg-hover: var(--theme-surface-muted);
   --icon-button-bg-active: var(--theme-action-accent-bg);
   --icon-button-ghost-bg-hover: var(--theme-surface-muted);
+  --icon-button-ghost-opacity: 0.5;
+  --icon-button-border: none;
+  --icon-button-rotate-from: 0deg;
+  --icon-button-rotate-to: 360deg;
   --icon-button-subtle-bg: var(--theme-surface-muted);
   --icon-button-subtle-fg: var(--theme-surface-fg);
   --icon-button-pressed-bg: var(--theme-action-accent-bg);
@@ -218,8 +222,8 @@
   --copy-button-bg: transparent;
   --copy-button-fg: var(--theme-surface-fg);
   --copy-button-border: var(--theme-surface-border);
-  --copy-button-copied-bg: var(--theme-state-success-bg);
-  --copy-button-copied-fg: var(--color-success);
+  --copy-button-copied-bg: var(--color-success);
+  --copy-button-copied-fg: var(--color-success-foreground);
   --copy-button-transition-duration: var(--motion-duration-normal);
   --copy-button-transition-ease: var(--motion-ease-standard);
   --scroll-area-bg: transparent;

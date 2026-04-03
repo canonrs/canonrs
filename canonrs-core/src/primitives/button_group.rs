@@ -17,7 +17,7 @@ pub fn ButtonGroupPrimitive(
             data-rs-button-group=""
             data-rs-component="ButtonGroup"
             data-rs-behavior="action"
-            data-rs-attached={if attached == ToggleState::On { Some("true") } else { None }}
+            data-rs-state={if attached == ToggleState::On { Some("attached") } else { None }}
             role="group"
             aria-label=aria_label
             class=class

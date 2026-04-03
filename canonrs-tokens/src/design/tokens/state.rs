@@ -21,6 +21,9 @@ pub const STATE_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("state-focus-ring-style",  "solid"),
     FamilyToken::new("state-focus-ring-color",  "var(--theme-action-focus-ring)"),
 
+    // Filter modifiers
+    FamilyToken::new("state-filter-hover", "brightness(1.15)"),
+
     // Transition infrastructure
     FamilyToken::new("focus-ring-shadow",          "0 0 0 var(--state-focus-ring-width) var(--state-focus-ring-color)"),
     FamilyToken::new("state-transition-duration", "var(--motion-duration-fast)"),

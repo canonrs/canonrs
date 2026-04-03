@@ -1,7 +1,6 @@
-
 use leptos::prelude::*;
 use canonrs_core::ToggleState;
-use canonrs_core::primitives::ButtonGroupPrimitive;
+use canonrs_core::primitives::{ButtonGroupPrimitive, ButtonPrimitive, ButtonVariant as CoreVariant};
 
 #[component]
 pub fn ButtonGroup(
@@ -20,10 +19,10 @@ pub fn ButtonGroup(
 #[component]
 pub fn ButtonGroupPreview() -> impl IntoView {
     view! {
-        <ButtonGroup>
-            <button type="button" data-rs-button="" data-ui-variant="outline">"Left"</button>
-            <button type="button" data-rs-button="" data-ui-variant="outline">"Center"</button>
-            <button type="button" data-rs-button="" data-ui-variant="outline">"Right"</button>
+        <ButtonGroup aria_label="Preview group">
+            <ButtonPrimitive variant=CoreVariant::Outline>"Left"</ButtonPrimitive>
+            <ButtonPrimitive variant=CoreVariant::Outline>"Center"</ButtonPrimitive>
+            <ButtonPrimitive variant=CoreVariant::Outline>"Right"</ButtonPrimitive>
         </ButtonGroup>
     }
 }

@@ -32,8 +32,8 @@
   gap: var(--space-xs);
 }
 
-[data-rs-copied-content],
-[data-rs-error-content] {
+[data-rs-copy-button]:not([data-rs-state~="copied"]):not([data-rs-state~="error"]) [data-rs-copied-content],
+[data-rs-copy-button]:not([data-rs-state~="copied"]):not([data-rs-state~="error"]) [data-rs-error-content] {
   display: none;
 }
 
@@ -55,6 +55,10 @@
   gap: var(--space-xs);
 }
 
+[data-rs-copy-button][data-rs-state~="copied"] [data-rs-error-content] {
+  display: none;
+}
+
 [data-rs-copy-button][data-rs-state~="copied"] {
   background: var(--copy-button-copied-bg);
   color: var(--copy-button-copied-fg);
@@ -70,6 +74,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
+}
+
+[data-rs-copy-button][data-rs-state~="error"] [data-rs-copied-content] {
+  display: none;
 }
 
 [data-rs-copy-button][data-rs-state~="error"] {

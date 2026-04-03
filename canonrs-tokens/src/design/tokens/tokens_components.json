@@ -72,7 +72,7 @@
   {
     "component": "button",
     "file": "button_ui.css",
-    "tokens": "button-*, space-*, radius-*, motion-*, size-*, font-*",
+    "tokens": "button-*, space-*, radius-*, motion-*, size-*, font-*, line-height-*, state-*, focus-ring-*, validation-*, filter-*",
     "foundation": "spacing, radius, motion, interaction, typography",
     "family": "family-c-forms"
   },
@@ -177,8 +177,8 @@
   {
     "component": "copy_button",
     "file": "copy_button_ui.css",
-    "tokens": "copy-button-*, space-*, radius-*, motion-*, font-*",
-    "foundation": "spacing, radius, motion, typography",
+    "tokens": "copy-button-*, space-*, radius-*, motion-*, font-*, state-*",
+    "foundation": "spacing, radius, motion, typography, interaction",
     "family": "family-f-data"
   },
   {
@@ -275,7 +275,7 @@
   {
     "component": "icon_button",
     "file": "icon_button_ui.css",
-    "tokens": "icon-button-*, size-*, radius-*, motion-*, font-*",
+    "tokens": "icon-button-*, size-*, radius-*, motion-*, font-*, state-*, button-*, focus-ring-*",
     "foundation": "size, radius, motion, interaction, typography",
     "family": "family-f-data"
   },

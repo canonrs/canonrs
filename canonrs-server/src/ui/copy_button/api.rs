@@ -9,7 +9,7 @@ pub const COPYBUTTON_API: ComponentApi = ComponentApi {
         PropDef { name: "target", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "reset_delay", kind: PropType::Number, required: false, default: Some("2000"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "id", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "id", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some("Copy to clipboard"), description: "" },
     ],
 };

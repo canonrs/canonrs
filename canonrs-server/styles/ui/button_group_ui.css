@@ -12,28 +12,28 @@
 }
 
 /* ── ATTACHED — merged borders ──────────────────────────────── */
-[data-rs-button-group][data-rs-state="attached"] {
+[data-rs-button-group][data-rs-state~="attached"] {
   gap: 0;
 }
 
-[data-rs-button-group][data-rs-state="attached"] > [data-rs-button] {
+[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button] {
   border-radius: var(--button-group-radius-merge);
   margin-left: var(--button-group-border-overlap);
 }
 
-[data-rs-button-group][data-rs-state="attached"] > [data-rs-button][data-rs-state~="first"] {
+[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="first"] {
   border-start-start-radius: var(--button-radius);
   border-end-start-radius: var(--button-radius);
   margin-left: 0;
 }
 
-[data-rs-button-group][data-rs-state="attached"] > [data-rs-button][data-rs-state~="last"] {
+[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="last"] {
   border-start-end-radius: var(--button-radius);
   border-end-end-radius: var(--button-radius);
 }
 
-[data-rs-button-group][data-rs-state="attached"] > [data-rs-button][data-rs-state~="focus"],
-[data-rs-button-group][data-rs-state="attached"] > [data-rs-button][data-rs-state~="hover"] {
+[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="focus"],
+[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="hover"] {
   position: relative;
   z-index: 1;
 }

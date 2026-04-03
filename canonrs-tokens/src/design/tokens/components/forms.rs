@@ -54,6 +54,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("button-outline-border", "var(--theme-surface-border)"),
     FamilyToken::new("button-ghost-bg", "transparent"),
     FamilyToken::new("button-ghost-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("button-ghost-bg-hover", "var(--color-accent)"),
     FamilyToken::new("button-danger-bg", "var(--color-destructive)"),
     FamilyToken::new("button-danger-fg", "var(--color-destructive-foreground)"),
     FamilyToken::new("button-success-bg", "var(--color-success)"),

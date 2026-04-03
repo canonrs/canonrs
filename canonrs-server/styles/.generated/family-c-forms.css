@@ -37,6 +37,7 @@
   --button-outline-border: var(--theme-surface-border);
   --button-ghost-bg: transparent;
   --button-ghost-fg: var(--theme-surface-fg);
+  --button-ghost-bg-hover: var(--color-accent);
   --button-danger-bg: var(--color-destructive);
   --button-danger-fg: var(--color-destructive-foreground);
   --button-success-bg: var(--color-success);

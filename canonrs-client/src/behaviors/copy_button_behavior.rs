@@ -60,11 +60,6 @@ fn fallback_copy(text: &str) {
 
 #[cfg(feature = "hydrate")]
 fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
-    if btn.get_attribute("data-rs-copy-attached").as_deref() == Some("1") {
-        return Ok(());
-    }
-    let _ = btn.set_attribute("data-rs-copy-attached", "1");
-    let _ = btn.set_attribute("data-rs-state", "idle");
 
     let btn_clone = btn.clone();
 
@@ -102,15 +97,6 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
 
         let _ = btn_clone.set_attribute("data-rs-state", "copied");
 
-        // Highlight parent CodeBlock
-        if let Ok(Some(parent)) = btn_clone.closest("[data-rs-code-block]") {
-            let _ = parent.set_attribute("data-rs-copied", "true");
-            let parent_clone = parent.clone();
-            reset_after_fn(800, move || {
-                let _ = parent_clone.remove_attribute("data-rs-copied");
-            });
-        }
-
         let delay = btn_clone.get_attribute("data-rs-reset-delay")
             .and_then(|d| d.parse::<i32>().ok())
             .unwrap_or(1300);
@@ -123,18 +109,6 @@ fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
 
     closure.forget();
     Ok(())
-}
-
-#[cfg(feature = "hydrate")]
-fn reset_after_fn<F: FnOnce() + 'static>(ms: i32, f: F) {
-    let closure = Closure::once(Box::new(f) as Box<dyn FnOnce()>);
-    let _ = web_sys::window()
-        .unwrap()
-        .set_timeout_with_callback_and_timeout_and_arguments_0(
-            closure.as_ref().unchecked_ref(),
-            ms,
-        );
-    closure.forget();
 }
 
 #[cfg(feature = "hydrate")]

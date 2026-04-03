@@ -152,14 +152,14 @@
 }
 
 [data-rs-button][data-rs-variant="ghost"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
-  background: var(--theme-action-accent-bg);
+  background: var(--button-ghost-bg-hover);
   opacity: 1;
 }
 
 [data-rs-button][data-rs-variant="link"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   opacity: 1;
   text-decoration-thickness: 3px;
-  filter: brightness(1.15);
+  filter: var(--state-filter-hover);
 }
 
 [data-rs-button][data-rs-state~="active"]:not([data-rs-state~="disabled"]) {
@@ -181,7 +181,7 @@
   box-shadow: var(--focus-ring-shadow);
 }
 
-[data-rs-button][data-rs-state~="focus"]:not(:focus-visible) {
+[data-rs-button][data-rs-state~="focus"]:not(:focus-visible):not([data-rs-validation]) {
   box-shadow: none;
 }
 

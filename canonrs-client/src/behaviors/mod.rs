@@ -16,6 +16,8 @@ pub mod accordion_behavior;
 #[cfg(feature = "hydrate")]
 pub mod button_behavior;
 #[cfg(feature = "hydrate")]
+pub mod button_group_behavior;
+#[cfg(feature = "hydrate")]
 pub mod input_otp_behavior;
 #[cfg(feature = "hydrate")]
 pub mod alert_behavior;
@@ -56,6 +58,7 @@ pub mod drawer_behavior;
 pub mod dropdown_menu_behavior;
 #[cfg(feature = "hydrate")]
 pub mod hover_card_behavior;
+#[cfg(feature = "hydrate")]
 #[cfg(feature = "hydrate")]
 pub mod icon_button_behavior;
 #[cfg(feature = "hydrate")]

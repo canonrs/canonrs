@@ -15,6 +15,7 @@ pub fn IconButtonShowcasePreview() -> impl IntoView {
                 </IconButton>
             </div>
             <p data-rs-showcase-preview-anchor="">"Accessibility and loading state enforced in button contract."</p>
+
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variants"</span>
                 <div data-rs-showcase-preview-row="">
@@ -26,6 +27,7 @@ pub fn IconButtonShowcasePreview() -> impl IntoView {
                     <IconButton aria_label="Destructive".to_string() variant=IconButtonVariant::Destructive>"★"</IconButton>
                 </div>
             </div>
+
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Sizes"</span>
                 <div data-rs-showcase-preview-row="">
@@ -36,15 +38,37 @@ pub fn IconButtonShowcasePreview() -> impl IntoView {
                     <IconButton aria_label="Xl".to_string() size=IconButtonSize::Xl variant=IconButtonVariant::Solid>"★"</IconButton>
                 </div>
             </div>
+
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States"</span>
-                <div data-rs-showcase-preview-row="">
-                    <IconButton aria_label="Default".to_string()>"★"</IconButton>
-                    <IconButton aria_label="Pressed".to_string() pressed=ToggleState::On>"★"</IconButton>
-                    <IconButton aria_label="Disabled".to_string() disabled=DisabledState::Disabled>"★"</IconButton>
-                    <IconButton aria_label="Loading".to_string() loading=LoadingState::Loading>"★"</IconButton>
+                <div data-rs-preview-dev-grid="">
+                    <div data-rs-showcase-preview-section="">
+                        <span data-rs-showcase-preview-label="">"Default"</span>
+                        <div data-rs-showcase-preview-row="">
+                            <IconButton aria_label="Default".to_string() variant=IconButtonVariant::Solid>"★"</IconButton>
+                        </div>
+                    </div>
+                    <div data-rs-showcase-preview-section="">
+                        <span data-rs-showcase-preview-label="">"Pressed"</span>
+                        <div data-rs-showcase-preview-row="">
+                            <IconButton aria_label="Pressed".to_string() variant=IconButtonVariant::Solid pressed=ToggleState::On>"★"</IconButton>
+                        </div>
+                    </div>
+                    <div data-rs-showcase-preview-section="">
+                        <span data-rs-showcase-preview-label="">"Disabled"</span>
+                        <div data-rs-showcase-preview-row="">
+                            <IconButton aria_label="Disabled".to_string() variant=IconButtonVariant::Solid disabled=DisabledState::Disabled>"★"</IconButton>
+                        </div>
+                    </div>
+                    <div data-rs-showcase-preview-section="">
+                        <span data-rs-showcase-preview-label="">"Loading"</span>
+                        <div data-rs-showcase-preview-row="">
+                            <IconButton aria_label="Loading".to_string() variant=IconButtonVariant::Solid loading=LoadingState::Loading>"★"</IconButton>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     }
 }

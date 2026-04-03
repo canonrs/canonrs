@@ -1249,7 +1249,7 @@
       "variants": []
     },
     {
-      "behavior": "button",
+      "behavior": "icon-button",
       "capabilities": [
         "Disabled"
       ],

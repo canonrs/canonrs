@@ -7,13 +7,13 @@ pub fn CopyButton(
     #[prop(into, optional)] target: Option<String>,
     #[prop(default = 2000)] reset_delay: u32,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into)] id: String,
+    #[prop(into, optional)] id: Option<String>,
     #[prop(into, default = "Copy to clipboard".to_string())] aria_label: String,
 ) -> impl IntoView {
     view! {
         <button
             class=class
-            id=id
+            id=id.unwrap_or_default()
             data-rs-copy-button=""
             data-rs-copy-text={text}
             data-rs-copy-target={target}

@@ -69,12 +69,12 @@ pub fn IconButtonPrimitive(
             type="button"
             data-rs-icon-button=""
             data-rs-component="IconButton"
-            data-rs-behavior="button"
+            data-rs-behavior="icon-button"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-disabled=d.data_rs_disabled
             data-rs-loading=la.data_rs_state
-            data-rs-state=if d.disabled { Some("disabled") } else { ta.as_ref().map(|t| t.data_rs_state) }
+            data-rs-state=if d.disabled { Some("disabled") } else if la.aria_busy.is_some() { Some("loading") } else { ta.as_ref().map(|t| t.data_rs_state) }
             disabled=d.disabled
             aria-disabled=d.aria_disabled
             aria-busy=la.aria_busy
@@ -82,7 +82,7 @@ pub fn IconButtonPrimitive(
             aria-label=aria_label
             class=class
         >
-            {children()}
+            <span data-rs-icon-button-inner="">{children()}</span>
         </button>
     }
 }
