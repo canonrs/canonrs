@@ -2,446 +2,624 @@
   {
     "component": "accordion",
     "file": "accordion_ui.css",
-    "header": "/* ============================================\n   ACCORDION\n   @tokens: accordion-*, space-*, motion-*\n   @foundation: spacing, motion\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "accordion-*, space-*, motion-*",
+    "foundation": "spacing, motion",
+    "family": "family-b-selection"
   },
   {
     "component": "alert",
     "file": "alert_ui.css",
-    "header": "/* ============================================\n   ALERT\n   @tokens: alert-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "alert-*, space-*, radius-*, font-*, motion-*",
+    "foundation": "spacing, radius, typography, motion",
+    "family": "family-e-feedback"
   },
   {
     "component": "alert_dialog",
     "file": "alert_dialog_ui.css",
-    "header": "/* ============================================\n   ALERT DIALOG\n   @tokens: alert-dialog-*, space-*, radius-*, shadow-*, motion-*\n   @foundation: spacing, radius, shadow, motion\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "alert-dialog-*, space-*, radius-*, shadow-*, motion-*",
+    "foundation": "spacing, radius, shadow, motion",
+    "family": "family-a-overlay"
   },
   {
     "component": "animate",
     "file": "animate_ui.css",
-    "header": "/* ============================================\n   ANIMATE\n   @tokens: animate-*, motion-*, transform-*, opacity-*\n   @foundation: motion, interaction\n   @family: family-i-animation\n   ============================================ */"
+    "tokens": "animate-*, motion-*, transform-*, opacity-*",
+    "foundation": "motion, interaction",
+    "family": "family-i-animation"
   },
   {
     "component": "aspect_ratio",
     "file": "aspect_ratio_ui.css",
-    "header": "/* ============================================\n   ASPECT RATIO\n   @tokens: aspect-ratio-*, size-*\n   @foundation: spacing\n   @family: family-h-layout\n   ============================================ */"
+    "tokens": "aspect-ratio-*, size-*",
+    "foundation": "size",
+    "family": "family-h-layout"
   },
   {
     "component": "avatar",
     "file": "avatar_ui.css",
-    "header": "/* ============================================\n   AVATAR\n   @tokens: avatar-*, size-*, radius-*\n   @foundation: spacing, radius\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "avatar-*, size-*, radius-*, font-*",
+    "foundation": "spacing, size, radius, typography",
+    "family": "family-f-data"
   },
   {
     "component": "badge",
     "file": "badge_ui.css",
-    "header": "/* ============================================\n   BADGE\n   @tokens: badge-*, space-*, radius-*, font-*\n   @foundation: spacing, radius, typography\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "badge-*, space-*, radius-*, font-*, motion-*",
+    "foundation": "spacing, radius, typography, motion",
+    "family": "family-e-feedback"
   },
   {
     "component": "banner",
     "file": "banner_ui.css",
-    "header": "/* ============================================\n   BANNER\n   @tokens: banner-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "banner-*, space-*, radius-*, font-*",
+    "foundation": "spacing, radius, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "breadcrumb",
     "file": "breadcrumb_ui.css",
-    "header": "/* ============================================\n   BREADCRUMB\n   @tokens: breadcrumb-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "breadcrumb-*, space-*, font-*, motion-*",
+    "foundation": "spacing, radius, shadow, typography, motion",
+    "family": "family-d-navigation"
   },
   {
     "component": "builder_block",
     "file": "builder_block_ui.css",
-    "header": "/* ============================================\n   BUILDER BLOCK\n   @tokens: builder-block-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-j-blocks\n   ============================================ */"
+    "tokens": "builder-block-*, builder-*, composite-*, dz-*, space-*, radius-*",
+    "foundation": "spacing, radius, motion, z",
+    "family": "family-j-blocks"
   },
   {
     "component": "button",
     "file": "button_ui.css",
-    "header": "/* ============================================\n   BUTTON\n   @tokens: button-*, space-*, radius-*, motion-*, size-*\n   @foundation: spacing, radius, motion, interaction\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "button-*, space-*, radius-*, motion-*, size-*, font-*",
+    "foundation": "spacing, radius, motion, interaction, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "button_group",
     "file": "button_group_ui.css",
-    "header": "/* ============================================\n   BUTTON GROUP\n   @tokens: button-group-*, space-*, radius-*, border-*\n   @foundation: spacing, radius, border\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "button-group-*, button-*, space-*, radius-*, border-*",
+    "foundation": "spacing, radius, border",
+    "family": "family-c-forms"
   },
   {
     "component": "calendar",
     "file": "calendar_ui.css",
-    "header": "/* ============================================\n   CALENDAR\n   @tokens: calendar-*, space-*, size-*, radius-*\n   @foundation: spacing, radius\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "calendar-*, forms-*, space-*, size-*, radius-*, motion-*, font-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-b-selection"
   },
   {
     "component": "callout",
     "file": "callout_ui.css",
-    "header": "/* ============================================\n   CALLOUT\n   @tokens: callout-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "callout-*, space-*, radius-*, font-*",
+    "foundation": "spacing, radius, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "card",
     "file": "card_ui.css",
-    "header": "/* ============================================\n   CARD\n   @tokens: card-*, space-*, radius-*, shadow-*\n   @foundation: spacing, radius, shadow\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "card-*, space-*, radius-*, shadow-*, font-*",
+    "foundation": "spacing, radius, shadow, typography",
+    "family": "family-f-data"
   },
   {
     "component": "carousel",
     "file": "carousel_ui.css",
-    "header": "/* ============================================\n   CAROUSEL\n   @tokens: carousel-*, size-*, motion-*\n   @foundation: spacing, motion\n   @family: family-g-composite\n   ============================================ */"
+    "tokens": "carousel-*, size-*, space-*, radius-*, motion-*, font-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-g-composite"
   },
   {
     "component": "chart",
     "file": "chart_ui.css",
-    "header": "/* ============================================\n   CHART\n   @tokens: chart-*, size-*, space-*, motion-*\n   @foundation: spacing, motion\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "chart-*, size-*, space-*, radius-*, motion-*, font-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-f-data"
   },
   {
     "component": "checkbox",
     "file": "checkbox_ui.css",
-    "header": "/* ============================================\n   CHECKBOX\n   @tokens: checkbox-*, size-*, radius-*\n   @foundation: spacing, radius\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "checkbox-*, size-*, radius-*, motion-*",
+    "foundation": "size, radius, motion",
+    "family": "family-b-selection"
   },
   {
     "component": "code_block",
     "file": "code_block_ui.css",
-    "header": "/* ============================================\n   CODE BLOCK\n   @tokens: code-block-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "code-block-*, space-*, radius-*, font-*",
+    "foundation": "spacing, radius, typography",
+    "family": "family-f-data"
   },
   {
     "component": "collapsible",
     "file": "collapsible_ui.css",
-    "header": "/* ============================================\n   COLLAPSIBLE\n   @tokens: collapsible-*, space-*, motion-*\n   @foundation: spacing, motion\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "collapsible-*, space-*, motion-*",
+    "foundation": "spacing, motion",
+    "family": "family-b-selection"
   },
   {
     "component": "color_picker",
     "file": "color_picker_ui.css",
-    "header": "/* ============================================\n   COLOR PICKER\n   @tokens: color-picker-*, size-*, radius-*\n   @foundation: spacing, radius\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "color-picker-*, size-*, space-*, radius-*, motion-*, font-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "combobox",
     "file": "combobox_ui.css",
-    "header": "/* ============================================\n   COMBOBOX\n   @tokens: combobox-*, space-*, size-*, radius-*, shadow-*\n   @foundation: spacing, radius, shadow\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "combobox-*, space-*, size-*, radius-*, shadow-*, motion-*, font-*",
+    "foundation": "spacing, size, radius, shadow, motion, typography",
+    "family": "family-b-selection"
   },
   {
     "component": "command",
     "file": "command_ui.css",
-    "header": "/* ============================================\n   COMMAND\n   @tokens: command-*, space-*\n   @foundation: spacing\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "command-*, space-*, size-*, radius-*, shadow-*, font-*",
+    "foundation": "spacing, size, radius, shadow, typography",
+    "family": "family-b-selection"
   },
   {
     "component": "confirm_dialog",
     "file": "confirm_dialog_ui.css",
-    "header": "/* ============================================\n   CONFIRM DIALOG\n   @tokens: confirm-dialog-*, space-*, radius-*, shadow-*\n   @foundation: spacing, radius, shadow\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "confirm-dialog-*, space-*, radius-*, shadow-*, motion-*, font-*",
+    "foundation": "spacing, radius, shadow, motion, typography",
+    "family": "family-a-overlay"
   },
   {
     "component": "context_menu",
     "file": "context_menu_ui.css",
-    "header": "/* ============================================\n   CONTEXT MENU\n   @tokens: context-menu-*, space-*, radius-*, shadow-*\n   @foundation: spacing, radius, shadow\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "context-menu-*, space-*, radius-*, shadow-*, font-*",
+    "foundation": "spacing, radius, shadow, typography",
+    "family": "family-a-overlay"
   },
   {
     "component": "copy_button",
     "file": "copy_button_ui.css",
-    "header": "/* ============================================\n   COPY BUTTON\n   @tokens: copy-button-*, space-*, radius-*, motion-*\n   @foundation: spacing, radius, motion\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "copy-button-*, space-*, radius-*, motion-*, font-*",
+    "foundation": "spacing, radius, motion, typography",
+    "family": "family-f-data"
   },
   {
     "component": "data_table",
     "file": "data_table_ui.css",
-    "header": "/* ============================================\n   DATA TABLE\n   @tokens: data-table-*, space-*, border-*, font-*\n   @foundation: spacing, border, typography\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "data-table-*, datatable-*, table-*, space-*, border-*, font-*, radius-*, motion-*",
+    "foundation": "spacing, radius, border, motion, typography",
+    "family": "family-f-data"
   },
   {
     "component": "dialog",
     "file": "dialog_ui.css",
-    "header": "/* ============================================\n   DIALOG\n   @tokens: dialog-*, space-*, radius-*, shadow-*, motion-*\n   @foundation: spacing, radius, shadow, motion\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "dialog-*, space-*, radius-*, shadow-*, motion-*, font-*",
+    "foundation": "spacing, radius, shadow, motion, typography",
+    "family": "family-a-overlay"
   },
   {
     "component": "doc_progress",
     "file": "doc_progress_ui.css",
-    "header": "/* ============================================\n   DOC PROGRESS\n   @tokens: doc-progress-*, size-*\n   @foundation: spacing\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "doc-progress-*, size-*",
+    "foundation": "size",
+    "family": "family-e-feedback"
   },
   {
     "component": "drawer",
     "file": "drawer_ui.css",
-    "header": "/* ============================================\n   DRAWER\n   @tokens: drawer-*, size-*, motion-*\n   @foundation: spacing, motion\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "drawer-*, size-*, space-*, radius-*, motion-*, font-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-a-overlay"
   },
   {
     "component": "dropdown_menu",
     "file": "dropdown_menu_ui.css",
-    "header": "/* ============================================\n   DROPDOWN MENU\n   @tokens: dropdown-menu-*, space-*, radius-*, shadow-*\n   @foundation: spacing, radius, shadow\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "dropdown-menu-*, space-*, radius-*, shadow-*, font-*",
+    "foundation": "spacing, radius, shadow, typography",
+    "family": "family-a-overlay"
   },
   {
     "component": "empty_state",
     "file": "empty_state_ui.css",
-    "header": "/* ============================================\n   EMPTY STATE\n   @tokens: empty-state-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "empty-state-*, space-*, size-*, font-*",
+    "foundation": "spacing, size, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "empty_table",
     "file": "empty_table_ui.css",
-    "header": "/* ============================================\n   EMPTY TABLE\n   @tokens: empty-table-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "empty-table-*, space-*, font-*",
+    "foundation": "spacing, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "error_state",
     "file": "error_state_ui.css",
-    "header": "/* ============================================\n   ERROR STATE\n   @tokens: error-state-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "error-state-*, space-*, size-*, font-*",
+    "foundation": "spacing, size, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "field",
     "file": "field_ui.css",
-    "header": "/* ============================================\n   FIELD\n   @tokens: field-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "field-*, space-*, font-*",
+    "foundation": "spacing, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "form",
     "file": "form_ui.css",
-    "header": "/* ============================================\n   FORM\n   @tokens: form-*, space-*\n   @foundation: spacing\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "form-*, space-*, font-*, radius-*, border-*",
+    "foundation": "spacing, radius, border, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "form_error_summary",
     "file": "form_error_summary_ui.css",
-    "header": "/* ============================================\n   FORM ERROR SUMMARY\n   @tokens: form-error-summary-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "form-error-summary-*, space-*, font-*, radius-*",
+    "foundation": "spacing, radius, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "hover_card",
     "file": "hover_card_ui.css",
-    "header": "/* ============================================\n   HOVER CARD\n   @tokens: hover-card-*, space-*, radius-*, shadow-*\n   @foundation: spacing, radius, shadow\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "hover-card-*, space-*, radius-*, shadow-*, motion-*",
+    "foundation": "spacing, radius, shadow, motion",
+    "family": "family-a-overlay"
   },
   {
     "component": "icon",
     "file": "icon_ui.css",
-    "header": "/* ============================================\n   ICON\n   @tokens: icon-*, size-*\n   @foundation: spacing\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "icon-*, size-*",
+    "foundation": "size, motion",
+    "family": "family-f-data"
   },
   {
     "component": "icon_button",
     "file": "icon_button_ui.css",
-    "header": "/* ============================================\n   ICON BUTTON\n   @tokens: icon-button-*, size-*, radius-*, motion-*, interaction-*\n   @foundation: spacing, radius, motion, interaction\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "icon-button-*, size-*, radius-*, motion-*, font-*",
+    "foundation": "size, radius, motion, interaction, typography",
+    "family": "family-f-data"
   },
   {
     "component": "inline_meta",
     "file": "inline_meta_ui.css",
-    "header": "/* ============================================\n   INLINE META\n   @tokens: inline-meta-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "inline-meta-*, space-*, font-*",
+    "foundation": "spacing, typography",
+    "family": "family-f-data"
   },
   {
     "component": "inline_notice",
     "file": "inline_notice_ui.css",
-    "header": "/* ============================================\n   INLINE NOTICE\n   @tokens: inline-notice-*, space-*\n   @foundation: spacing\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "inline-notice-*, space-*, radius-*, font-*",
+    "foundation": "spacing, radius, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "input",
     "file": "input_ui.css",
-    "header": "/* ============================================\n   INPUT\n   @tokens: input-*, size-*, space-*, radius-*, border-*\n   @foundation: spacing, radius, border\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "input-*, size-*, space-*, radius-*, border-*, font-*, motion-*",
+    "foundation": "spacing, size, radius, border, motion, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "input_group",
     "file": "input_group_ui.css",
-    "header": "/* ============================================\n   INPUT GROUP\n   @tokens: input-group-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "input-group-*, input-*, space-*, radius-*",
+    "foundation": "spacing, radius",
+    "family": "family-c-forms"
   },
   {
     "component": "input_otp",
     "file": "input_otp_ui.css",
-    "header": "/* ============================================\n   INPUT OTP\n   @tokens: input-otp-*, size-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "input-otp-*, forms-*, size-*, space-*, radius-*, font-*",
+    "foundation": "spacing, size, radius, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "kbd",
     "file": "kbd_ui.css",
-    "header": "/* ============================================\n   KBD\n   @tokens: kbd-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "kbd-*, space-*, radius-*, font-*, shadow-*",
+    "foundation": "spacing, radius, shadow, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "label",
     "file": "label_ui.css",
-    "header": "/* ============================================\n   LABEL\n   @tokens: label-*, font-*\n   @foundation: typography\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "label-*, font-*",
+    "foundation": "typography",
+    "family": "family-c-forms"
   },
   {
     "component": "link",
     "file": "link_ui.css",
-    "header": "/* ============================================\n   LINK\n   @tokens: link-*, font-*, interaction-*\n   @foundation: typography, interaction\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "link-*, font-*, motion-*",
+    "foundation": "typography, motion",
+    "family": "family-d-navigation"
   },
   {
     "component": "link_group",
     "file": "link_group_ui.css",
-    "header": "/* ============================================\n   LINK GROUP\n   @tokens: link-group-*, space-*\n   @foundation: spacing\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "link-group-*, space-*, font-*",
+    "foundation": "spacing, typography",
+    "family": "family-d-navigation"
   },
   {
     "component": "list_item",
     "file": "list_item_ui.css",
-    "header": "/* ============================================\n   LIST ITEM\n   @tokens: list-item-*, space-*\n   @foundation: spacing\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "list-item-*, list-*, space-*, radius-*, font-*",
+    "foundation": "spacing, radius, motion, typography",
+    "family": "family-f-data"
   },
   {
     "component": "loading_overlay",
     "file": "loading_overlay_ui.css",
-    "header": "/* ============================================\n   LOADING OVERLAY\n   @tokens: loading-overlay-*, blur-*, z-*\n   @foundation: blur, z\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "loading-overlay-*, motion-*, font-*",
+    "foundation": "motion, interaction, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "logo",
     "file": "logo_ui.css",
-    "header": "/* ============================================\n   LOGO\n   @tokens: logo-*, size-*\n   @foundation: spacing\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "logo-*, size-*, font-*",
+    "foundation": "size, typography",
+    "family": "family-f-data"
   },
   {
     "component": "markdown",
     "file": "markdown_ui.css",
-    "header": "/* ============================================\n   MARKDOWN\n   @tokens: markdown-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "markdown-*, md-*, space-*, font-*, radius-*, border-*, motion-*",
+    "foundation": "spacing, radius, border, motion, typography",
+    "family": "family-f-data"
   },
   {
     "component": "menu",
     "file": "menu_ui.css",
-    "header": "/* ============================================\n   MENU\n   @tokens: menu-*, space-*\n   @foundation: spacing\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "menu-*, space-*, radius-*, font-*",
+    "foundation": "spacing, radius, typography",
+    "family": "family-b-selection"
   },
   {
     "component": "menubar",
     "file": "menubar_ui.css",
-    "header": "/* ============================================\n   MENUBAR\n   @tokens: menubar-*, space-*\n   @foundation: spacing\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "menubar-*, space-*, radius-*, shadow-*, font-*",
+    "foundation": "spacing, radius, shadow, typography",
+    "family": "family-b-selection"
   },
   {
     "component": "modal",
     "file": "modal_ui.css",
-    "header": "/* ============================================\n   MODAL\n   @tokens: modal-*, space-*, radius-*, shadow-*, motion-*, z-*\n   @foundation: spacing, radius, shadow, motion, z\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "modal-*, dialog-*, space-*, radius-*, shadow-*, motion-*",
+    "foundation": "spacing, radius, shadow, motion",
+    "family": "family-a-overlay"
   },
   {
     "component": "nav_item",
     "file": "nav_item_ui.css",
-    "header": "/* ============================================\n   NAV ITEM\n   @tokens: nav-item-*, space-*\n   @foundation: spacing\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "nav-item-*, space-*, font-*, radius-*",
+    "foundation": "spacing, radius, typography",
+    "family": "family-d-navigation"
   },
   {
     "component": "navigation_menu",
     "file": "navigation_menu_ui.css",
-    "header": "/* ============================================\n   NAVIGATION MENU\n   @tokens: navigation-menu-*, space-*\n   @foundation: spacing\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "navigation-menu-*, space-*, radius-*, shadow-*, motion-*, font-*",
+    "foundation": "spacing, radius, shadow, motion, typography, z",
+    "family": "family-d-navigation"
   },
   {
     "component": "page_header",
     "file": "page_header_ui.css",
-    "header": "/* ============================================\n   PAGE HEADER\n   @tokens: page-header-*, space-*\n   @foundation: spacing\n   @family: family-h-layout\n   ============================================ */"
+    "tokens": "page-header-*, space-*, font-*, border-*",
+    "foundation": "spacing, border, typography",
+    "family": "family-h-layout"
   },
   {
     "component": "pagination",
     "file": "pagination_ui.css",
-    "header": "/* ============================================\n   PAGINATION\n   @tokens: pagination-*, space-*\n   @foundation: spacing\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "pagination-*, space-*, size-*, radius-*, font-*, motion-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-d-navigation"
   },
   {
     "component": "popover",
     "file": "popover_ui.css",
-    "header": "/* ============================================\n   POPOVER\n   @tokens: popover-*, space-*, radius-*, shadow-*\n   @foundation: spacing, radius, shadow\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "popover-*, space-*, radius-*, shadow-*, motion-*",
+    "foundation": "spacing, radius, shadow, motion",
+    "family": "family-a-overlay"
   },
   {
     "component": "progress",
     "file": "progress_ui.css",
-    "header": "/* ============================================\n   PROGRESS\n   @tokens: progress-*, size-*\n   @foundation: spacing\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "progress-*, size-*, radius-*, motion-*",
+    "foundation": "size, radius, motion",
+    "family": "family-e-feedback"
   },
   {
     "component": "pulse",
     "file": "pulse_ui.css",
-    "header": "/* ============================================\n   PULSE\n   @tokens: pulse-*, motion-*\n   @foundation: motion\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "pulse-*, size-*, motion-*",
+    "foundation": "size, motion",
+    "family": "family-e-feedback"
   },
   {
     "component": "radio",
     "file": "radio_ui.css",
-    "header": "/* ============================================\n   RADIO\n   @tokens: radio-*, size-*, radius-*\n   @foundation: spacing, radius\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "radio-*, size-*, radius-*, motion-*",
+    "foundation": "size, radius, motion",
+    "family": "family-b-selection"
   },
   {
     "component": "radio_group",
     "file": "radio_group_ui.css",
-    "header": "/* ============================================\n   RADIO GROUP\n   @tokens: radio-group-*, space-*\n   @foundation: spacing\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "radio-group-*, radio-*, forms-*, space-*, font-*, motion-*",
+    "foundation": "spacing, motion, typography",
+    "family": "family-b-selection"
   },
   {
     "component": "resizable",
     "file": "resizable_ui.css",
-    "header": "/* ============================================\n   RESIZABLE\n   @tokens: resizable-*, size-*\n   @foundation: spacing\n   @family: family-g-composite\n   ============================================ */"
+    "tokens": "resizable-*, size-*, space-*, radius-*",
+    "foundation": "size, spacing, radius",
+    "family": "family-g-composite"
   },
   {
     "component": "scroll_area",
     "file": "scroll_area_ui.css",
-    "header": "/* ============================================\n   SCROLL AREA\n   @tokens: scroll-area-*, size-*\n   @foundation: spacing\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "scroll-area-*, scrollbar-*, scroll-*, size-*, radius-*, motion-*",
+    "foundation": "size, radius, motion",
+    "family": "family-f-data"
   },
   {
     "component": "section",
     "file": "section_ui.css",
-    "header": "/* ============================================\n   SECTION\n   @tokens: section-*, space-*\n   @foundation: spacing\n   @family: family-h-layout\n   ============================================ */"
+    "tokens": "section-*, space-*, font-*, radius-*, shadow-*",
+    "foundation": "spacing, radius, shadow, typography",
+    "family": "family-h-layout"
   },
   {
     "component": "select",
     "file": "select_ui.css",
-    "header": "/* ============================================\n   SELECT\n   @tokens: select-*, size-*, space-*, radius-*, border-*, shadow-*\n   @foundation: spacing, radius, border, shadow\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "select-*, size-*, space-*, radius-*, border-*, shadow-*, font-*, motion-*",
+    "foundation": "spacing, size, radius, border, shadow, motion, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "separator",
     "file": "separator_ui.css",
-    "header": "/* ============================================\n   SEPARATOR\n   @tokens: separator-*, size-*\n   @foundation: spacing\n   @family: family-h-layout\n   ============================================ */"
+    "tokens": "separator-*, size-*",
+    "foundation": "size",
+    "family": "family-h-layout"
   },
   {
     "component": "sheet",
     "file": "sheet_ui.css",
-    "header": "/* ============================================\n   SHEET\n   @tokens: sheet-*, size-*, motion-*\n   @foundation: spacing, motion\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "sheet-*, size-*, space-*, radius-*, motion-*, font-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-a-overlay"
   },
   {
     "component": "sidebar",
     "file": "sidebar_ui.css",
-    "header": "/* ============================================\n   SIDEBAR\n   @tokens: sidebar-*, size-*, space-*\n   @foundation: spacing\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "sidebar-*, badge-*, size-*, space-*, radius-*, font-*",
+    "foundation": "spacing, size, radius, typography",
+    "family": "family-d-navigation"
   },
   {
     "component": "skeleton",
     "file": "skeleton_ui.css",
-    "header": "/* ============================================\n   SKELETON\n   @tokens: skeleton-*, size-*, motion-*\n   @foundation: spacing, motion\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "skeleton-*, size-*, radius-*, motion-*",
+    "foundation": "size, radius, motion",
+    "family": "family-e-feedback"
   },
   {
     "component": "slider",
     "file": "slider_ui.css",
-    "header": "/* ============================================\n   SLIDER\n   @tokens: slider-*, size-*\n   @foundation: spacing\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "slider-*, size-*, radius-*, motion-*",
+    "foundation": "size, radius, motion, interaction",
+    "family": "family-c-forms"
   },
   {
     "component": "spinner",
     "file": "spinner_ui.css",
-    "header": "/* ============================================\n   SPINNER\n   @tokens: spinner-*, size-*, motion-*\n   @foundation: spacing, motion\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "spinner-*, size-*, motion-*",
+    "foundation": "size, motion",
+    "family": "family-e-feedback"
   },
   {
     "component": "stack",
     "file": "stack_ui.css",
-    "header": "/* ============================================\n   STACK\n   @tokens: stack-*, space-*\n   @foundation: spacing\n   @family: family-h-layout\n   ============================================ */"
+    "tokens": "stack-*, space-*",
+    "foundation": "spacing",
+    "family": "family-h-layout"
   },
   {
     "component": "stat",
     "file": "stat_ui.css",
-    "header": "/* ============================================\n   STAT\n   @tokens: stat-*, space-*, font-*\n   @foundation: spacing, typography\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "stat-*, space-*, font-*, size-*",
+    "foundation": "spacing, size, radius, typography",
+    "family": "family-f-data"
   },
   {
     "component": "status_dot",
     "file": "status_dot_ui.css",
-    "header": "/* ============================================\n   STATUS DOT\n   @tokens: status-dot-*, size-*\n   @foundation: spacing\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "status-dot-*, size-*, radius-*",
+    "foundation": "size, radius, motion",
+    "family": "family-e-feedback"
   },
   {
     "component": "switch",
     "file": "switch_ui.css",
-    "header": "/* ============================================\n   SWITCH\n   @tokens: switch-*, size-*, radius-*\n   @foundation: spacing, radius\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "switch-*, size-*, radius-*, motion-*",
+    "foundation": "size, radius, motion",
+    "family": "family-c-forms"
   },
   {
     "component": "table",
     "file": "table_ui.css",
-    "header": "/* ============================================\n   TABLE\n   @tokens: table-*, space-*, border-*, font-*\n   @foundation: spacing, border, typography\n   @family: family-f-data\n   ============================================ */"
+    "tokens": "table-*, space-*, border-*, font-*, motion-*",
+    "foundation": "spacing, border, motion, typography",
+    "family": "family-f-data"
   },
   {
     "component": "table_of_contents",
     "file": "table_of_contents_ui.css",
-    "header": "/* ============================================\n   TABLE OF CONTENTS\n   @tokens: toc-*, space-*\n   @foundation: spacing\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "toc-*, space-*, font-*, radius-*, motion-*",
+    "foundation": "spacing, radius, motion, typography",
+    "family": "family-d-navigation"
   },
   {
     "component": "tabs",
     "file": "tabs_ui.css",
-    "header": "/* ============================================\n   TABS\n   @tokens: tabs-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "tabs-*, tab-*, space-*, radius-*, font-*, motion-*",
+    "foundation": "spacing, radius, motion, typography",
+    "family": "family-b-selection"
   },
   {
     "component": "textarea",
     "file": "textarea_ui.css",
-    "header": "/* ============================================\n   TEXTAREA\n   @tokens: textarea-*, size-*, space-*, radius-*, border-*\n   @foundation: spacing, radius, border\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "textarea-*, input-*, forms-*, size-*, space-*, radius-*, border-*, font-*, motion-*",
+    "foundation": "spacing, size, radius, border, motion, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "toast",
     "file": "toast_ui.css",
-    "header": "/* ============================================\n   TOAST\n   @tokens: toast-*, space-*, radius-*, shadow-*, motion-*\n   @foundation: spacing, radius, shadow, motion\n   @family: family-e-feedback\n   ============================================ */"
+    "tokens": "toast-*, space-*, radius-*, shadow-*, motion-*, font-*",
+    "foundation": "spacing, radius, shadow, motion, typography",
+    "family": "family-e-feedback"
   },
   {
     "component": "toggle",
     "file": "toggle_ui.css",
-    "header": "/* ============================================\n   TOGGLE\n   @tokens: toggle-*, size-*, radius-*\n   @foundation: spacing, radius\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "toggle-*, size-*, radius-*, motion-*, font-*",
+    "foundation": "size, radius, motion, typography",
+    "family": "family-c-forms"
   },
   {
     "component": "toggle_group",
     "file": "toggle_group_ui.css",
-    "header": "/* ============================================\n   TOGGLE GROUP\n   @tokens: toggle-group-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-c-forms\n   ============================================ */"
+    "tokens": "toggle-group-*, toggle-*, space-*, radius-*",
+    "foundation": "spacing, radius",
+    "family": "family-c-forms"
   },
   {
     "component": "toolbar",
     "file": "toolbar_ui.css",
-    "header": "/* ============================================\n   TOOLBAR\n   @tokens: toolbar-*, space-*\n   @foundation: spacing\n   @family: family-d-navigation\n   ============================================ */"
+    "tokens": "toolbar-*, space-*, radius-*, border-*",
+    "foundation": "spacing, radius, border",
+    "family": "family-d-navigation"
   },
   {
     "component": "tooltip",
     "file": "tooltip_ui.css",
-    "header": "/* ============================================\n   TOOLTIP\n   @tokens: tooltip-*, space-*, radius-*\n   @foundation: spacing, radius\n   @family: family-a-overlay\n   ============================================ */"
+    "tokens": "tooltip-*, space-*, radius-*, shadow-*, font-*, motion-*",
+    "foundation": "spacing, radius, shadow, motion, typography",
+    "family": "family-a-overlay"
   },
   {
     "component": "tree",
     "file": "tree_ui.css",
-    "header": "/* ============================================\n   TREE\n   @tokens: tree-*, space-*\n   @foundation: spacing\n   @family: family-b-selection\n   ============================================ */"
+    "tokens": "tree-*, space-*, size-*, radius-*, font-*, motion-*",
+    "foundation": "spacing, size, radius, motion, typography",
+    "family": "family-b-selection"
   }
 ]
