@@ -192,6 +192,8 @@ pub use toggle_group::ToggleGroupPrimitive;
 pub use toolbar::*;
 pub use tree::*;
 pub use virtual_list::*;
+pub mod input_otp;
+pub use input_otp::*;
 pub mod input_otp_slot;
 pub use input_otp_slot::*;
 pub mod data_table;

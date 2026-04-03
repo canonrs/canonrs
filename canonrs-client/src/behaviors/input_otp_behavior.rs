@@ -7,21 +7,18 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "hydrate")]
 use wasm_bindgen::JsCast;
 #[cfg(feature = "hydrate")]
-use web_sys::{HtmlInputElement, InputEvent, KeyboardEvent, MouseEvent};
+use web_sys::{HtmlInputElement, InputEvent, MouseEvent};
 
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-rs-input-otp", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
-        if root.get_attribute("data-rs-otp-attached").as_deref() == Some("1") { return Ok(()); }
-        root.set_attribute("data-rs-otp-attached", "1").ok();
-
         let input_el: HtmlInputElement = match root.clone().dyn_into() {
             Ok(el) => el,
             Err(_) => return Ok(()),
         };
 
         // container é o div.input-otp-container (avô do input)
-        let container = match root.parent_element().and_then(|p| p.parent_element()) {
+        let container = match root.parent_element() {
             Some(c) => c,
             None => return Ok(()),
         };
@@ -66,30 +63,6 @@ pub fn register() {
         }) as Box<dyn FnMut(_)>);
         input_el.add_event_listener_with_callback("input", cb_input.as_ref().unchecked_ref()).ok();
         cb_input.forget();
-
-        // backspace
-        let input_for_key = input_el.clone();
-        let cb_key = Closure::wrap(Box::new(move |e: KeyboardEvent| {
-            if e.key() == "Backspace" {
-                let value = input_for_key.value();
-                if !value.is_empty() {
-                    let new_val = value[..value.len()-1].to_string();
-                    let _ = js_sys::Reflect::set(
-                        &input_for_key,
-                        &"value".into(),
-                        &new_val.into(),
-                    );
-                    if let Ok(event) = web_sys::Event::new("input") {
-                        input_for_key.dispatch_event(&event).ok();
-                    }
-                }
-            }
-        }) as Box<dyn FnMut(_)>);
-        input_el.add_event_listener_with_callback("keydown", cb_key.as_ref().unchecked_ref()).ok();
-        cb_key.forget();
-
-        // inicializar slots
-        update_slots();
 
         Ok(())
     }));

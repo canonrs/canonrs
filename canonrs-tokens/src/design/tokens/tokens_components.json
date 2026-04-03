@@ -310,7 +310,7 @@
   {
     "component": "input_otp",
     "file": "input_otp_ui.css",
-    "tokens": "input-otp-*, forms-*, size-*, space-*, radius-*, font-*",
+    "tokens": "input-otp-*, input-*, forms-*, size-*, space-*, radius-*, font-*",
     "foundation": "spacing, size, radius, typography",
     "family": "family-c-forms"
   },

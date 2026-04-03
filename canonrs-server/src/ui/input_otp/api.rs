@@ -9,7 +9,7 @@ pub const INPUTOTP_API: ComponentApi = ComponentApi {
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
-        PropDef { name: "length", kind: PropType::Number, required: false, default: Some("6"), description: "" },
+        PropDef { name: "length", kind: PropType::Number, required: false, default: Some("6u32"), description: "" },
     ],
 };
 

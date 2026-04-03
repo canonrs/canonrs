@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
    INPUT OTP - Family C Forms tokens compliant
+   State via data-rs-state — zero pseudo-class state selectors
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-input-otp] {
@@ -7,6 +8,18 @@
   inset: 0;
   opacity: 0;
   pointer-events: none;
+}
+
+[data-rs-input-otp-container] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+[data-rs-input-otp-slots] {
+  display: flex;
+  gap: var(--space-xs);
 }
 
 [data-rs-input-otp-slot] {
@@ -24,13 +37,13 @@
   font-weight: var(--input-otp-font-weight);
 }
 
-[data-rs-input-otp-slot][data-rs-state="active"] {
+[data-rs-input-otp-slot][data-rs-state~="active"] {
   background: var(--input-otp-slot-active-bg);
   border-color: var(--input-otp-slot-active-border);
 }
 
-[data-rs-input-otp-slot][data-rs-state="disabled"] {
+[data-rs-input-otp-slot][data-rs-state~="disabled"] {
   background: var(--input-otp-slot-disabled-bg);
   color: var(--input-otp-slot-disabled-fg);
-  opacity: var(--forms-disabled-opacity);
+  opacity: var(--input-disabled-opacity);
 }
