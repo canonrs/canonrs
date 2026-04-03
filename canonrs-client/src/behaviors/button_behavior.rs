@@ -53,7 +53,7 @@ fn remove_states(el: &web_sys::Element, to_remove: &[&str]) {
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-rs-button", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
-        if root.has_attribute("disabled")
+        if root.has_attribute("data-rs-disabled") || root.get_attribute("aria-disabled").as_deref() == Some("true")
             || root.get_attribute("aria-disabled").as_deref() == Some("true") {
             root.set_attribute("data-rs-state", "disabled").ok();
             return Ok(());

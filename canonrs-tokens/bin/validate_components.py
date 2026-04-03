@@ -4,6 +4,7 @@ CanonRS Component Token Validator v2
 #1 - token usado deve existir no sistema
 #2 - ALWAYS_ALLOWED minimo (sem bypass de theme-*)
 #3 - token declarado no contrato mas nao usado (unused)
+#4 - state engine: behaviors devem usar padroes canonicos
 """
 
 import json
@@ -12,11 +13,11 @@ import sys
 import os
 import glob
 
-JSON_PATH  = "../src/design/tokens/tokens_components.json"
-CSS_DIR    = "../../canonrs-server/styles/ui"
-TOKENS_DIR = "../src/design/tokens"
+JSON_PATH    = "../src/design/tokens/tokens_components.json"
+CSS_DIR      = "../../canonrs-server/styles/ui"
+TOKENS_DIR   = "../src/design/tokens"
+BEHAVIORS_DIR= "../../canonrs-client/src/behaviors"
 
-# Apenas tokens de runtime que nao sao declarados em Rust
 RUNTIME_ALLOWED = [
     "--theme-",
     "--primitive-",
@@ -35,6 +36,25 @@ FOUNDATION_PREFIXES = {
     "color":       ["--color-"],
 }
 
+# State engine anti-patterns
+STATE_ENGINE_VIOLATIONS = [
+    'get_attribute("data-rs-disabled").as_deref() == Some("disabled")',
+    'get_attribute("data-rs-state").as_deref() == Some("disabled")',
+    'data-rs-open',
+    'data-rs-active',
+    'data-rs-visible',
+    'data-rs-attached',
+    'data-rs-copy-attached',
+]
+
+# Allowed patterns (canonical)
+STATE_ENGINE_ALLOWED = [
+    'has_attribute("data-rs-disabled")',
+    'add_state',
+    'remove_state',
+    'remove_states',
+]
+
 
 def extract_declared_tokens(tokens_dir):
     declared = set()
@@ -44,6 +64,22 @@ def extract_declared_tokens(tokens_dir):
             for match in pattern.finditer(f.read()):
                 declared.add(f"--{match.group(1)}")
     return declared
+
+
+def check_state_engine_violations(behaviors_dir):
+    errors = []
+    for rs_file in glob.glob(f"{behaviors_dir}/*.rs"):
+        with open(rs_file) as f:
+            content = f.read()
+        filename = os.path.basename(rs_file)
+        for violation in STATE_ENGINE_VIOLATIONS:
+            if violation in content:
+                # check if it is in a comment
+                for line in content.splitlines():
+                    if violation in line and not line.strip().startswith("//"):
+                        errors.append(f"[STATE-ENGINE] {filename} -- viola padrao canonico: {violation[:50]}")
+                        break
+    return errors
 
 
 def extract_vars(css):
@@ -83,7 +119,7 @@ def check_unused(tokens, vars_used, declared):
 def validate(component, declared):
     css_file = os.path.join(CSS_DIR, component["file"])
     if not os.path.exists(css_file):
-        return [f"[MISSING] {component["file"]} -- file not found"], []
+        return [f"[MISSING] {component['file']} -- file not found"], []
     with open(css_file) as f:
         css = f.read()
     vars_used   = extract_vars(css)
@@ -106,9 +142,10 @@ def validate(component, declared):
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_path  = os.path.join(script_dir, JSON_PATH)
-    global CSS_DIR, TOKENS_DIR
-    CSS_DIR    = os.path.join(script_dir, CSS_DIR)
-    TOKENS_DIR = os.path.join(script_dir, TOKENS_DIR)
+    global CSS_DIR, TOKENS_DIR, BEHAVIORS_DIR
+    CSS_DIR      = os.path.join(script_dir, CSS_DIR)
+    TOKENS_DIR   = os.path.join(script_dir, TOKENS_DIR)
+    BEHAVIORS_DIR= os.path.join(script_dir, BEHAVIORS_DIR)
 
     declared = extract_declared_tokens(TOKENS_DIR)
 
@@ -117,6 +154,14 @@ def main():
 
     target      = sys.argv[1] if len(sys.argv) > 1 else None
     show_unused = "--unused" in sys.argv
+
+    # #4 state engine check (global, nao por componente)
+    if not target:
+        se_errors = check_state_engine_violations(BEHAVIORS_DIR)
+        if se_errors:
+            print("\n[STATE-ENGINE VIOLATIONS]")
+            for e in se_errors:
+                print(f"   {e}")
 
     total_errors = 0
     total_ok     = 0
@@ -127,16 +172,16 @@ def main():
             continue
         errors, unused = validate(comp, declared)
         if errors:
-            print(f"\n[ERRO] {comp["component"].upper()}")
+            print(f"\n[ERRO] {comp['component'].upper()}")
             for e in errors:
                 print(f"   {e}")
             total_errors += len(errors)
         else:
             total_ok += 1
             if target:
-                print(f"\n[OK] {comp["component"].upper()} -- clean")
+                print(f"\n[OK] {comp['component'].upper()} -- clean")
         if show_unused and unused:
-            print(f"\n[UNUSED] {comp["component"].upper()}")
+            print(f"\n[UNUSED] {comp['component'].upper()}")
             for u in unused:
                 print(f"   {u}")
             total_unused += len(unused)

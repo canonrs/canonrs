@@ -28,6 +28,16 @@
   --radio-group-label-font-size: var(--font-size-sm);
   --radio-transition-duration: var(--motion-duration-fast);
   --radio-disabled-opacity: var(--state-disabled-opacity);
+  --radio-bg-checked: var(--color-primary);
+  --radio-focus-ring-width: var(--state-focus-ring-width);
+  --radio-focus-ring-color: var(--state-focus-ring-color);
+  --radio-dot-color-checked: var(--color-primary-foreground);
+  --radio-dot-color-disabled: var(--theme-surface-fg-muted);
+  --radio-bg-disabled: var(--theme-surface-muted);
+  --radio-border-color-disabled: var(--theme-surface-border);
+  --radio-fg-disabled: var(--theme-surface-fg-muted);
+  --radio-border-color-hover: var(--color-primary);
+  --radio-focus-ring-shadow: 0 0 0 var(--state-focus-ring-width) var(--state-focus-ring-color);
   --tabs-gap: var(--space-xs);
   --tabs-list-bg: var(--theme-surface-muted);
   --tabs-list-padding: var(--space-xs);

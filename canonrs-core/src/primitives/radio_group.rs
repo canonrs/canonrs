@@ -40,7 +40,7 @@ pub fn RadioGroupItemPrimitive(
     let d = disabled_attrs(disabled);
     view! {
         <label
-            data-rs-radio-group-item=""
+            data-rs-radio=""
             data-rs-component="RadioGroupItem"
             data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
@@ -48,14 +48,14 @@ pub fn RadioGroupItemPrimitive(
         >
             <input
                 type="radio"
-                data-rs-radio-group-input=""
+                data-rs-radio-input=""
                 name=name
                 value=value
                 checked=sel.aria_selected
                 aria-checked=sel.aria_selected
                 aria-disabled=d.aria_disabled
             />
-            <span data-rs-radio-group-indicator="" />
+            <span data-rs-radio-indicator="" />
             {children()}
         </label>
     }

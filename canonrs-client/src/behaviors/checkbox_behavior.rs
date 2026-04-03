@@ -37,7 +37,7 @@ fn remove_state(el: &web_sys::Element, to_remove: &str) {
 #[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-rs-checkbox-input", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
-        if root.has_attribute("disabled") {
+        if root.has_attribute("data-rs-disabled") || root.get_attribute("aria-disabled").as_deref() == Some("true") || root.has_attribute("data-rs-disabled") || root.get_attribute("aria-disabled").as_deref() == Some("true") {
             add_state(root, "disabled");
             return Ok(());
         }

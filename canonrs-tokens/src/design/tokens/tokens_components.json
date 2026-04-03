@@ -443,8 +443,8 @@
   {
     "component": "radio",
     "file": "radio_ui.css",
-    "tokens": "radio-*, size-*, radius-*, motion-*",
-    "foundation": "size, radius, motion",
+    "tokens": "radio-*, size-*, radius-*, motion-*, state-*",
+    "foundation": "size, radius, motion, interaction",
     "family": "family-b-selection"
   },
   {

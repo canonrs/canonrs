@@ -21,7 +21,7 @@ pub fn RadioPrimitive(
         <label
             data-rs-radio=""
             data-rs-component="Radio"
-            data-rs-behavior="selection"
+            data-rs-behavior="radio"
             data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             class=class

@@ -38,6 +38,16 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("radio-group-label-font-size", "var(--font-size-sm)"),
     FamilyToken::new("radio-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("radio-disabled-opacity", "var(--state-disabled-opacity)"),
+    FamilyToken::new("radio-bg-checked",      "var(--color-primary)"),
+    FamilyToken::new("radio-focus-ring-width","var(--state-focus-ring-width)"),
+    FamilyToken::new("radio-focus-ring-color","var(--state-focus-ring-color)"),
+    FamilyToken::new("radio-dot-color-checked",  "var(--color-primary-foreground)"),
+    FamilyToken::new("radio-dot-color-disabled",  "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("radio-bg-disabled",         "var(--theme-surface-muted)"),
+    FamilyToken::new("radio-border-color-disabled","var(--theme-surface-border)"),
+    FamilyToken::new("radio-fg-disabled",         "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("radio-border-color-hover",   "var(--color-primary)"),
+    FamilyToken::new("radio-focus-ring-shadow",   "0 0 0 var(--state-focus-ring-width) var(--state-focus-ring-color)"),
 
     // Tabs
     FamilyToken::new("tabs-gap", "var(--space-xs)"),
