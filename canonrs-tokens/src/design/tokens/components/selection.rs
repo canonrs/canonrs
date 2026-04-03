@@ -20,6 +20,10 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("checkbox-border-color-checked", "var(--theme-action-primary-bg)"),
     FamilyToken::new("checkbox-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("checkbox-disabled-opacity", "var(--state-disabled-opacity)"),
+    FamilyToken::new("checkbox-bg-checked",      "var(--color-primary)"),
+    FamilyToken::new("checkbox-gap",             "var(--space-sm)"),
+    FamilyToken::new("checkbox-focus-ring-width","var(--state-focus-ring-width)"),
+    FamilyToken::new("checkbox-focus-ring-color","var(--state-focus-ring-color)"),
 
     // Radio
     FamilyToken::new("radio-size", "1.25rem"),

@@ -21,7 +21,7 @@ pub fn CheckboxPrimitive(
             type="checkbox"
             data-rs-checkbox-input=""
             data-rs-component="Checkbox"
-            data-rs-behavior="form"
+            data-rs-behavior="checkbox"
             data-rs-state=a.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             checked=is_checked

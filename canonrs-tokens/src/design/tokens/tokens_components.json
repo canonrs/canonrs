@@ -121,8 +121,8 @@
   {
     "component": "checkbox",
     "file": "checkbox_ui.css",
-    "tokens": "checkbox-*, size-*, radius-*, motion-*",
-    "foundation": "size, radius, motion",
+    "tokens": "checkbox-*, size-*, radius-*, motion-*, state-*",
+    "foundation": "size, radius, motion, interaction",
     "family": "family-b-selection"
   },
   {

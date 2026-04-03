@@ -1,4 +1,7 @@
-/* CHECKBOX - Family B Selection */
+/* ═══════════════════════════════════════════════════════════════
+   CHECKBOX - Family B Selection tokens compliant
+   State via data-rs-state — zero pseudo-class state selectors
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-checkbox-input] {
   position: absolute;
@@ -10,7 +13,7 @@
 [data-rs-checkbox-wrapper] {
   display: inline-flex;
   align-items: center;
-  gap: var(--checkbox-gap, 0.5rem);
+  gap: var(--checkbox-gap);
   cursor: pointer;
 }
 
@@ -25,20 +28,29 @@
   background: var(--checkbox-bg);
   color: transparent;
   transition: all var(--checkbox-transition-duration);
+  flex-shrink: 0;
 }
 
-[data-rs-checkbox-input]:checked + [data-rs-checkbox-indicator] {
+/* ── CHECKED ────────────────────────────────────────────────── */
+[data-rs-checkbox-input][data-rs-state~="active"] ~ [data-rs-checkbox-indicator] {
   background: var(--checkbox-bg-checked);
   border-color: var(--checkbox-border-color-checked);
   color: var(--checkbox-fg-checked);
 }
 
-[data-rs-checkbox-input]:disabled ~ [data-rs-checkbox-indicator] {
+/* ── DISABLED ───────────────────────────────────────────────── */
+[data-rs-checkbox-input][data-rs-state~="disabled"] ~ [data-rs-checkbox-indicator],
+[data-rs-checkbox-input][data-rs-disabled="disabled"] ~ [data-rs-checkbox-indicator] {
   opacity: var(--checkbox-disabled-opacity);
   cursor: not-allowed;
 }
 
-[data-rs-checkbox-input]:focus-visible ~ [data-rs-checkbox-indicator] {
+[data-rs-checkbox-wrapper]:has([data-rs-disabled="disabled"]) {
+  cursor: not-allowed;
+}
+
+/* ── FOCUS ──────────────────────────────────────────────────── */
+[data-rs-checkbox-input][data-rs-state~="focus"] ~ [data-rs-checkbox-indicator] {
   outline: var(--checkbox-focus-ring-width) solid var(--checkbox-focus-ring-color);
-  outline-offset: 2px;
+  outline-offset: var(--state-focus-ring-offset);
 }

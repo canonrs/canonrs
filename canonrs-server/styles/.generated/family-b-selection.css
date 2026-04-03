@@ -12,6 +12,10 @@
   --checkbox-border-color-checked: var(--theme-action-primary-bg);
   --checkbox-transition-duration: var(--motion-duration-fast);
   --checkbox-disabled-opacity: var(--state-disabled-opacity);
+  --checkbox-bg-checked: var(--color-primary);
+  --checkbox-gap: var(--space-sm);
+  --checkbox-focus-ring-width: var(--state-focus-ring-width);
+  --checkbox-focus-ring-color: var(--state-focus-ring-color);
   --radio-size: 1.25rem;
   --radio-bg: var(--theme-surface-bg);
   --radio-border-color: var(--theme-surface-border);
