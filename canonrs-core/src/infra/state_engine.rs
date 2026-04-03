@@ -60,13 +60,13 @@ pub struct ActivityAttrs {
 pub fn selection_attrs(state: SelectionState) -> SelectionAttrs {
     let selected = state == SelectionState::Selected;
     SelectionAttrs {
-        data_rs_state: state.as_str(),
+        data_rs_state: if selected { Some("selected") } else { None },
         aria_selected: if selected { Some("true") } else { None },
     }
 }
 
 pub struct SelectionAttrs {
-    pub data_rs_state: &'static str,
+    pub data_rs_state: Option<&'static str>,
     pub aria_selected: Option<&'static str>,
 }
 

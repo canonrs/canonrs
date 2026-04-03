@@ -220,6 +220,7 @@
   --copy-button-error-fg: var(--color-destructive-foreground);
   --copy-button-error-border: var(--color-destructive);
   --copy-button-bg: transparent;
+  --copy-button-bg-hover: var(--theme-surface-muted);
   --copy-button-fg: var(--theme-surface-fg);
   --copy-button-border: var(--theme-surface-border);
   --copy-button-copied-bg: var(--color-success);

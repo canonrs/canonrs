@@ -114,7 +114,7 @@ pub mod switch_behavior;
 #[cfg(feature = "hydrate")]
 pub mod theme_toggle_behavior;
 #[cfg(feature = "hydrate")]
-pub mod toc_behavior;
+pub mod table_of_contents_behavior;
 #[cfg(feature = "hydrate")]
 pub mod toggle_behavior;
 #[cfg(feature = "hydrate")]

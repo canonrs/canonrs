@@ -4,622 +4,1114 @@
     "file": "accordion_ui.css",
     "tokens": "accordion-*, space-*, motion-*",
     "foundation": "spacing, motion",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "open",
+      "closed",
+      "disabled"
+    ],
+    "behavior": "accordion_behavior.rs",
+    "registered": true
   },
   {
     "component": "alert",
     "file": "alert_ui.css",
     "tokens": "alert-*, space-*, radius-*, font-*, motion-*",
     "foundation": "spacing, radius, typography, motion",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "alert_dialog",
     "file": "alert_dialog_ui.css",
     "tokens": "alert-dialog-*, space-*, radius-*, shadow-*, motion-*",
     "foundation": "spacing, radius, shadow, motion",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "alert_dialog_behavior.rs",
+    "registered": true
   },
   {
     "component": "animate",
     "file": "animate_ui.css",
     "tokens": "animate-*, motion-*, transform-*, opacity-*",
     "foundation": "motion, interaction",
-    "family": "family-i-animation"
+    "family": "family-i-animation",
+    "states": [
+      "active",
+      "inactive"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "aspect_ratio",
     "file": "aspect_ratio_ui.css",
     "tokens": "aspect-ratio-*, size-*",
     "foundation": "size",
-    "family": "family-h-layout"
+    "family": "family-h-layout",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "avatar",
     "file": "avatar_ui.css",
     "tokens": "avatar-*, size-*, radius-*, font-*",
     "foundation": "spacing, size, radius, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "loading",
+      "error"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "badge",
     "file": "badge_ui.css",
     "tokens": "badge-*, space-*, radius-*, font-*, motion-*",
     "foundation": "spacing, radius, typography, motion",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "banner",
     "file": "banner_ui.css",
     "tokens": "banner-*, space-*, radius-*, font-*",
     "foundation": "spacing, radius, typography",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "breadcrumb",
     "file": "breadcrumb_ui.css",
     "tokens": "breadcrumb-*, space-*, font-*, motion-*",
     "foundation": "spacing, radius, shadow, typography, motion",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "active"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "builder_block",
     "file": "builder_block_ui.css",
     "tokens": "builder-block-*, builder-*, composite-*, dz-*, space-*, radius-*",
     "foundation": "spacing, radius, motion, z",
-    "family": "family-j-blocks"
+    "family": "family-j-blocks",
+    "states": [
+      "active",
+      "selected"
+    ],
+    "behavior": "builder_block_behavior.rs",
+    "registered": true
   },
   {
     "component": "button",
     "file": "button_ui.css",
     "tokens": "button-*, space-*, radius-*, motion-*, size-*, font-*, line-height-*, state-*, focus-ring-*, validation-*, filter-*",
     "foundation": "spacing, radius, motion, interaction, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "hover",
+      "active",
+      "focus",
+      "disabled"
+    ],
+    "behavior": "button_behavior.rs",
+    "registered": true
   },
   {
     "component": "button_group",
     "file": "button_group_ui.css",
     "tokens": "button-group-*, button-*, space-*, radius-*, border-*",
     "foundation": "spacing, radius, border",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "first",
+      "last"
+    ],
+    "behavior": "button_group_behavior.rs",
+    "registered": true
   },
   {
     "component": "calendar",
     "file": "calendar_ui.css",
     "tokens": "calendar-*, forms-*, space-*, size-*, radius-*, motion-*, font-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "selected",
+      "disabled"
+    ],
+    "behavior": "calendar_behavior.rs",
+    "registered": true
   },
   {
     "component": "callout",
     "file": "callout_ui.css",
     "tokens": "callout-*, space-*, radius-*, font-*",
     "foundation": "spacing, radius, typography",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "card",
     "file": "card_ui.css",
     "tokens": "card-*, space-*, radius-*, shadow-*, font-*",
     "foundation": "spacing, radius, shadow, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "carousel",
     "file": "carousel_ui.css",
     "tokens": "carousel-*, size-*, space-*, radius-*, motion-*, font-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-g-composite"
+    "family": "family-g-composite",
+    "states": [
+      "active",
+      "inactive"
+    ],
+    "behavior": "carousel_behavior.rs",
+    "registered": true
   },
   {
     "component": "chart",
     "file": "chart_ui.css",
     "tokens": "chart-*, size-*, space-*, radius-*, motion-*, font-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "loading",
+      "error"
+    ],
+    "behavior": "chart_behavior.rs",
+    "registered": true
   },
   {
     "component": "checkbox",
     "file": "checkbox_ui.css",
     "tokens": "checkbox-*, size-*, radius-*, motion-*, state-*",
     "foundation": "size, radius, motion, interaction",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "active",
+      "focus",
+      "disabled"
+    ],
+    "behavior": "checkbox_behavior.rs",
+    "registered": true
   },
   {
     "component": "code_block",
     "file": "code_block_ui.css",
     "tokens": "code-block-*, space-*, radius-*, font-*",
     "foundation": "spacing, radius, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "copied"
+    ],
+    "behavior": "code_block_behavior.rs",
+    "registered": true
   },
   {
     "component": "collapsible",
     "file": "collapsible_ui.css",
     "tokens": "collapsible-*, space-*, motion-*",
     "foundation": "spacing, motion",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "collapsible_behavior.rs",
+    "registered": true
   },
   {
     "component": "color_picker",
     "file": "color_picker_ui.css",
     "tokens": "color-picker-*, size-*, space-*, radius-*, motion-*, font-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "selected",
+      "disabled"
+    ],
+    "behavior": "color_picker_behavior.rs",
+    "registered": true
   },
   {
     "component": "combobox",
     "file": "combobox_ui.css",
     "tokens": "combobox-*, space-*, size-*, radius-*, shadow-*, motion-*, font-*",
     "foundation": "spacing, size, radius, shadow, motion, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "open",
+      "closed",
+      "selected",
+      "disabled"
+    ],
+    "behavior": "combobox_behavior.rs",
+    "registered": true
   },
   {
     "component": "command",
     "file": "command_ui.css",
     "tokens": "command-*, space-*, size-*, radius-*, shadow-*, font-*",
     "foundation": "spacing, size, radius, shadow, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "active"
+    ],
+    "behavior": "command_behavior.rs",
+    "registered": true
   },
   {
     "component": "confirm_dialog",
     "file": "confirm_dialog_ui.css",
     "tokens": "confirm-dialog-*, space-*, radius-*, shadow-*, motion-*, font-*",
     "foundation": "spacing, radius, shadow, motion, typography",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "confirm_dialog_behavior.rs",
+    "registered": true
   },
   {
     "component": "context_menu",
     "file": "context_menu_ui.css",
     "tokens": "context-menu-*, space-*, radius-*, shadow-*, font-*",
     "foundation": "spacing, radius, shadow, typography",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "context_menu_behavior.rs",
+    "registered": true
   },
   {
     "component": "copy_button",
     "file": "copy_button_ui.css",
     "tokens": "copy-button-*, space-*, radius-*, motion-*, font-*, state-*",
     "foundation": "spacing, radius, motion, typography, interaction",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "hover",
+      "copied",
+      "error"
+    ],
+    "behavior": "copy_button_behavior.rs",
+    "registered": true
   },
   {
     "component": "data_table",
     "file": "data_table_ui.css",
     "tokens": "data-table-*, datatable-*, table-*, space-*, border-*, font-*, radius-*, motion-*",
     "foundation": "spacing, radius, border, motion, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "loading",
+      "error",
+      "selected"
+    ],
+    "behavior": "data_table_behavior.rs",
+    "registered": true
   },
   {
     "component": "dialog",
     "file": "dialog_ui.css",
     "tokens": "dialog-*, space-*, radius-*, shadow-*, motion-*, font-*",
     "foundation": "spacing, radius, shadow, motion, typography",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "dialog_behavior.rs",
+    "registered": true
   },
   {
     "component": "doc_progress",
     "file": "doc_progress_ui.css",
     "tokens": "doc-progress-*, size-*",
     "foundation": "size",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "active",
+      "inactive"
+    ],
+    "behavior": "doc_progress_behavior.rs",
+    "registered": true
   },
   {
     "component": "drawer",
     "file": "drawer_ui.css",
     "tokens": "drawer-*, size-*, space-*, radius-*, motion-*, font-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "drawer_behavior.rs",
+    "registered": true
   },
   {
     "component": "dropdown_menu",
     "file": "dropdown_menu_ui.css",
     "tokens": "dropdown-menu-*, space-*, radius-*, shadow-*, font-*",
     "foundation": "spacing, radius, shadow, typography",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "dropdown_menu_behavior.rs",
+    "registered": true
   },
   {
     "component": "empty_state",
     "file": "empty_state_ui.css",
     "tokens": "empty-state-*, space-*, size-*, font-*",
     "foundation": "spacing, size, typography",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "empty_table",
     "file": "empty_table_ui.css",
     "tokens": "empty-table-*, space-*, font-*",
     "foundation": "spacing, typography",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "error_state",
     "file": "error_state_ui.css",
     "tokens": "error-state-*, space-*, size-*, font-*",
     "foundation": "spacing, size, typography",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "error"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "field",
     "file": "field_ui.css",
     "tokens": "field-*, space-*, font-*",
     "foundation": "spacing, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "focus",
+      "disabled",
+      "error"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "form",
     "file": "form_ui.css",
     "tokens": "form-*, space-*, font-*, radius-*, border-*",
     "foundation": "spacing, radius, border, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "loading",
+      "error"
+    ],
+    "behavior": "form_behavior.rs",
+    "registered": true
   },
   {
     "component": "form_error_summary",
     "file": "form_error_summary_ui.css",
     "tokens": "form-error-summary-*, space-*, font-*, radius-*",
     "foundation": "spacing, radius, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "error"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "hover_card",
     "file": "hover_card_ui.css",
     "tokens": "hover-card-*, space-*, radius-*, shadow-*, motion-*",
     "foundation": "spacing, radius, shadow, motion",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "hover_card_behavior.rs",
+    "registered": true
   },
   {
     "component": "icon",
     "file": "icon_ui.css",
     "tokens": "icon-*, size-*",
     "foundation": "size, motion",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "icon_button",
     "file": "icon_button_ui.css",
     "tokens": "icon-button-*, size-*, radius-*, motion-*, font-*, state-*, button-*, focus-ring-*",
     "foundation": "size, radius, motion, interaction, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "hover",
+      "active",
+      "focus",
+      "disabled",
+      "loading"
+    ],
+    "behavior": "icon_button_behavior.rs",
+    "registered": true
   },
   {
     "component": "inline_meta",
     "file": "inline_meta_ui.css",
     "tokens": "inline-meta-*, space-*, font-*",
     "foundation": "spacing, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "inline_notice",
     "file": "inline_notice_ui.css",
     "tokens": "inline-notice-*, space-*, radius-*, font-*",
     "foundation": "spacing, radius, typography",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "error"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "input",
     "file": "input_ui.css",
     "tokens": "input-*, size-*, space-*, radius-*, border-*, font-*, motion-*",
     "foundation": "spacing, size, radius, border, motion, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "focus",
+      "disabled"
+    ],
+    "behavior": "input_behavior.rs",
+    "registered": true
   },
   {
     "component": "input_group",
     "file": "input_group_ui.css",
-    "tokens": "input-group-*, input-*, space-*, radius-*",
+    "tokens": "input-group-*, input-*, space-*, radius-*, border-*, state-*, validation-*, focus-ring-*",
     "foundation": "spacing, radius",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "focus-within"
+    ],
+    "behavior": "input_group_behavior.rs",
+    "registered": true
   },
   {
     "component": "input_otp",
     "file": "input_otp_ui.css",
     "tokens": "input-otp-*, input-*, forms-*, size-*, space-*, radius-*, font-*",
     "foundation": "spacing, size, radius, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "active"
+    ],
+    "behavior": "input_otp_behavior.rs",
+    "registered": true
   },
   {
     "component": "kbd",
     "file": "kbd_ui.css",
     "tokens": "kbd-*, space-*, radius-*, font-*, shadow-*",
     "foundation": "spacing, radius, shadow, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "label",
     "file": "label_ui.css",
     "tokens": "label-*, font-*",
     "foundation": "typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "link",
     "file": "link_ui.css",
     "tokens": "link-*, font-*, motion-*",
     "foundation": "typography, motion",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "active"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "link_group",
     "file": "link_group_ui.css",
     "tokens": "link-group-*, space-*, font-*",
     "foundation": "spacing, typography",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "active"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "list_item",
     "file": "list_item_ui.css",
     "tokens": "list-item-*, list-*, space-*, radius-*, font-*",
     "foundation": "spacing, radius, motion, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "selected"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "loading_overlay",
     "file": "loading_overlay_ui.css",
     "tokens": "loading-overlay-*, motion-*, font-*",
     "foundation": "motion, z, blur",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "loading"
+    ],
+    "behavior": "loading_overlay_behavior.rs",
+    "registered": true
   },
   {
     "component": "logo",
     "file": "logo_ui.css",
     "tokens": "logo-*, size-*, font-*",
     "foundation": "size, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "markdown",
     "file": "markdown_ui.css",
     "tokens": "markdown-*, md-*, space-*, font-*, radius-*, border-*, motion-*",
     "foundation": "spacing, radius, border, motion, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "menu",
     "file": "menu_ui.css",
     "tokens": "menu-*, space-*, radius-*, font-*",
     "foundation": "spacing, radius, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "menu_behavior.rs",
+    "registered": true
   },
   {
     "component": "menubar",
     "file": "menubar_ui.css",
     "tokens": "menubar-*, space-*, radius-*, shadow-*, font-*",
     "foundation": "spacing, radius, shadow, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "active"
+    ],
+    "behavior": "menubar_behavior.rs",
+    "registered": true
   },
   {
     "component": "modal",
     "file": "modal_ui.css",
     "tokens": "modal-*, dialog-*, space-*, radius-*, shadow-*, motion-*",
     "foundation": "spacing, radius, shadow, motion",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "modal_behavior.rs",
+    "registered": true
   },
   {
     "component": "nav_item",
     "file": "nav_item_ui.css",
     "tokens": "nav-item-*, space-*, font-*, radius-*",
     "foundation": "spacing, radius, typography",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "active",
+      "disabled"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "navigation_menu",
     "file": "navigation_menu_ui.css",
     "tokens": "navigation-menu-*, space-*, radius-*, shadow-*, motion-*, font-*",
     "foundation": "spacing, radius, shadow, typography, z",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "open",
+      "closed",
+      "active"
+    ],
+    "behavior": "navigation_menu_behavior.rs",
+    "registered": true
   },
   {
     "component": "page_header",
     "file": "page_header_ui.css",
     "tokens": "page-header-*, space-*, font-*, border-*",
     "foundation": "spacing, border, typography",
-    "family": "family-h-layout"
+    "family": "family-h-layout",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "pagination",
     "file": "pagination_ui.css",
     "tokens": "pagination-*, space-*, size-*, radius-*, font-*, motion-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "active",
+      "disabled"
+    ],
+    "behavior": "pagination_behavior.rs",
+    "registered": true
   },
   {
     "component": "popover",
     "file": "popover_ui.css",
     "tokens": "popover-*, space-*, radius-*, shadow-*, motion-*",
     "foundation": "spacing, radius, shadow, motion",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "popover_behavior.rs",
+    "registered": true
   },
   {
     "component": "progress",
     "file": "progress_ui.css",
     "tokens": "progress-*, size-*, radius-*, motion-*",
     "foundation": "size, radius, motion",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "loading"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "pulse",
     "file": "pulse_ui.css",
     "tokens": "pulse-*, size-*, motion-*",
     "foundation": "size, motion",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "active"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "radio",
     "file": "radio_ui.css",
     "tokens": "radio-*, size-*, radius-*, motion-*, state-*",
     "foundation": "size, radius, motion, interaction",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "selected",
+      "focus",
+      "disabled"
+    ],
+    "behavior": "radio_behavior.rs",
+    "registered": true
   },
   {
     "component": "radio_group",
     "file": "radio_group_ui.css",
     "tokens": "radio-group-*, radio-*, forms-*, space-*, font-*, motion-*",
     "foundation": "spacing, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "selected",
+      "focus",
+      "disabled"
+    ],
+    "behavior": "radio_group_behavior.rs",
+    "registered": true
   },
   {
     "component": "resizable",
     "file": "resizable_ui.css",
     "tokens": "resizable-*, size-*, space-*, radius-*",
     "foundation": "size, spacing, radius",
-    "family": "family-g-composite"
+    "family": "family-g-composite",
+    "states": [
+      "active",
+      "inactive"
+    ],
+    "behavior": "resizable_behavior.rs",
+    "registered": true
   },
   {
     "component": "scroll_area",
     "file": "scroll_area_ui.css",
     "tokens": "scroll-area-*, scrollbar-*, scroll-*, size-*, radius-*, motion-*",
     "foundation": "size, radius, motion",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "active"
+    ],
+    "behavior": "scroll_area_behavior.rs",
+    "registered": true
   },
   {
     "component": "section",
     "file": "section_ui.css",
     "tokens": "section-*, space-*, font-*, radius-*, shadow-*",
     "foundation": "spacing, radius, shadow, typography",
-    "family": "family-h-layout"
+    "family": "family-h-layout",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "select",
     "file": "select_ui.css",
     "tokens": "select-*, size-*, space-*, radius-*, border-*, shadow-*, font-*, motion-*",
     "foundation": "spacing, size, radius, border, shadow, motion, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "open",
+      "closed",
+      "selected",
+      "disabled"
+    ],
+    "behavior": "select_behavior.rs",
+    "registered": true
   },
   {
     "component": "separator",
     "file": "separator_ui.css",
     "tokens": "separator-*, size-*",
     "foundation": "size",
-    "family": "family-h-layout"
+    "family": "family-h-layout",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "sheet",
     "file": "sheet_ui.css",
     "tokens": "sheet-*, size-*, space-*, radius-*, motion-*, font-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "sheet_behavior.rs",
+    "registered": true
   },
   {
     "component": "sidebar",
     "file": "sidebar_ui.css",
     "tokens": "sidebar-*, badge-*, size-*, space-*, radius-*, font-*",
     "foundation": "spacing, size, radius, typography",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "open",
+      "closed",
+      "active",
+      "disabled"
+    ],
+    "behavior": "sidebar_behavior.rs",
+    "registered": true
   },
   {
     "component": "skeleton",
     "file": "skeleton_ui.css",
     "tokens": "skeleton-*, size-*, radius-*, motion-*",
     "foundation": "size, radius, motion",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "loading"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "slider",
     "file": "slider_ui.css",
     "tokens": "slider-*, size-*, radius-*, motion-*",
     "foundation": "size, radius, motion, interaction",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "active",
+      "disabled"
+    ],
+    "behavior": "slider_behavior.rs",
+    "registered": true
   },
   {
     "component": "spinner",
     "file": "spinner_ui.css",
     "tokens": "spinner-*, size-*, motion-*",
     "foundation": "size, motion",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "loading"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "stack",
     "file": "stack_ui.css",
     "tokens": "stack-*, space-*",
     "foundation": "spacing",
-    "family": "family-h-layout"
+    "family": "family-h-layout",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "stat",
     "file": "stat_ui.css",
     "tokens": "stat-*, space-*, font-*, size-*",
     "foundation": "spacing, size, radius, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "status_dot",
     "file": "status_dot_ui.css",
     "tokens": "status-dot-*, size-*, radius-*",
     "foundation": "size, radius, motion",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "active",
+      "inactive"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "switch",
     "file": "switch_ui.css",
     "tokens": "switch-*, size-*, radius-*, motion-*",
     "foundation": "size, radius, motion",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "on",
+      "off",
+      "disabled"
+    ],
+    "behavior": "switch_behavior.rs",
+    "registered": true
   },
   {
     "component": "table",
     "file": "table_ui.css",
     "tokens": "table-*, space-*, border-*, font-*, motion-*",
     "foundation": "spacing, border, motion, typography",
-    "family": "family-f-data"
+    "family": "family-f-data",
+    "states": [
+      "loading",
+      "error",
+      "selected"
+    ],
+    "behavior": null,
+    "registered": false
   },
   {
     "component": "table_of_contents",
     "file": "table_of_contents_ui.css",
     "tokens": "toc-*, space-*, font-*, radius-*, motion-*",
     "foundation": "spacing, radius, motion, typography",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "active",
+      "open",
+      "closed"
+    ],
+    "behavior": "table_of_contents_behavior.rs",
+    "registered": true
   },
   {
     "component": "tabs",
     "file": "tabs_ui.css",
     "tokens": "tabs-*, tab-*, space-*, radius-*, font-*, motion-*",
     "foundation": "spacing, radius, motion, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "active",
+      "inactive",
+      "disabled"
+    ],
+    "behavior": "tabs_behavior.rs",
+    "registered": true
   },
   {
     "component": "textarea",
     "file": "textarea_ui.css",
     "tokens": "textarea-*, input-*, forms-*, size-*, space-*, radius-*, border-*, font-*, motion-*",
     "foundation": "spacing, size, radius, border, motion, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "focus",
+      "disabled"
+    ],
+    "behavior": "textarea_behavior.rs",
+    "registered": true
   },
   {
     "component": "toast",
     "file": "toast_ui.css",
     "tokens": "toast-*, space-*, radius-*, shadow-*, motion-*, font-*",
     "foundation": "spacing, radius, shadow, motion, typography",
-    "family": "family-e-feedback"
+    "family": "family-e-feedback",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "toast_behavior.rs",
+    "registered": true
   },
   {
     "component": "toggle",
     "file": "toggle_ui.css",
     "tokens": "toggle-*, size-*, radius-*, motion-*, font-*",
     "foundation": "size, radius, motion, typography",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "on",
+      "off",
+      "disabled"
+    ],
+    "behavior": "toggle_behavior.rs",
+    "registered": true
   },
   {
     "component": "toggle_group",
     "file": "toggle_group_ui.css",
     "tokens": "toggle-group-*, toggle-*, space-*, radius-*",
     "foundation": "spacing, radius",
-    "family": "family-c-forms"
+    "family": "family-c-forms",
+    "states": [
+      "on",
+      "off",
+      "disabled"
+    ],
+    "behavior": "toggle_group_behavior.rs",
+    "registered": true
   },
   {
     "component": "toolbar",
     "file": "toolbar_ui.css",
     "tokens": "toolbar-*, space-*, radius-*, border-*",
     "foundation": "spacing, radius",
-    "family": "family-d-navigation"
+    "family": "family-d-navigation",
+    "states": [
+      "active"
+    ],
+    "behavior": "toolbar_behavior.rs",
+    "registered": true
   },
   {
     "component": "tooltip",
     "file": "tooltip_ui.css",
     "tokens": "tooltip-*, space-*, radius-*, shadow-*, font-*, motion-*",
     "foundation": "spacing, radius, shadow, motion, typography",
-    "family": "family-a-overlay"
+    "family": "family-a-overlay",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "tooltip_behavior.rs",
+    "registered": true
   },
   {
     "component": "tree",
     "file": "tree_ui.css",
     "tokens": "tree-*, space-*, size-*, radius-*, font-*, motion-*",
     "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-b-selection"
+    "family": "family-b-selection",
+    "states": [
+      "open",
+      "closed",
+      "selected",
+      "disabled",
+      "active"
+    ],
+    "behavior": "tree_behavior.rs",
+    "registered": true
   }
 ]

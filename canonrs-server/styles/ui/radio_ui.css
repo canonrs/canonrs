@@ -69,14 +69,14 @@
 
 /* ── DISABLED ───────────────────────────────────────────────── */
 [data-rs-radio][data-rs-state~="disabled"],
-[data-rs-radio-group][data-rs-state~="disabled"] [data-rs-radio] {
+[data-rs-radio-group][data-rs-disabled] [data-rs-radio] {
   opacity: var(--radio-disabled-opacity);
   cursor: not-allowed;
   pointer-events: none;
 }
 
 [data-rs-radio][data-rs-state~="disabled"] [data-rs-radio-indicator],
-[data-rs-radio-group][data-rs-state~="disabled"] [data-rs-radio] [data-rs-radio-indicator] {
+[data-rs-radio-group][data-rs-disabled] [data-rs-radio] [data-rs-radio-indicator] {
   background: var(--radio-bg-disabled);
   border-color: var(--radio-border-color-disabled);
 }

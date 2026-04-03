@@ -31,7 +31,7 @@ pub fn RadioPrimitive(
                 data-rs-radio-input=""
                 name=name
                 value=value
-                checked=sel.data_rs_state == "selected"
+                checked=sel.data_rs_state == Some("selected")
                 aria-checked=sel.aria_selected
                 aria-disabled=d.aria_disabled
             />

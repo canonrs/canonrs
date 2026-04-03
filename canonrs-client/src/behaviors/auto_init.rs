@@ -43,7 +43,7 @@ pub(crate) fn register_all_behaviors() {
     copy_button_behavior::register();
     toast_behavior::register();
     markdown_behavior::register();
-toc_behavior::register();
+table_of_contents_behavior::register();
     chart::register();
     scroll_area_behavior::register();
     list_behavior::register();

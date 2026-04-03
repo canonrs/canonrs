@@ -61,6 +61,32 @@ fn fallback_copy(text: &str) {
 #[cfg(feature = "hydrate")]
 fn setup_copy_button(btn: &Element) -> BehaviorResult<()> {
 
+    // hover
+    {
+        let el = btn.clone();
+        let cb = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
+            let mut states = el.get_attribute("data-rs-state").unwrap_or_default();
+            if !states.split_whitespace().any(|s| s == "hover") {
+                states = format!("{} hover", states).trim().to_string();
+            }
+            el.set_attribute("data-rs-state", &states).ok();
+        }) as Box<dyn FnMut(_)>);
+        btn.add_event_listener_with_callback("mouseenter", cb.as_ref().unchecked_ref()).ok();
+        cb.forget();
+    }
+    {
+        let el = btn.clone();
+        let cb = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
+            if let Some(states) = el.get_attribute("data-rs-state") {
+                let filtered = states.split_whitespace().filter(|s| *s != "hover").collect::<Vec<_>>().join(" ");
+                if filtered.is_empty() { el.remove_attribute("data-rs-state").ok(); }
+                else { el.set_attribute("data-rs-state", &filtered).ok(); }
+            }
+        }) as Box<dyn FnMut(_)>);
+        btn.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref()).ok();
+        cb.forget();
+    }
+
     let btn_clone = btn.clone();
 
     let closure = Closure::wrap(Box::new(move |_: web_sys::Event| {

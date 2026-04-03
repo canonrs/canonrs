@@ -116,6 +116,46 @@ def check_unused(tokens, vars_used, declared):
     return warnings
 
 
+
+def check_states_in_css(states, css):
+    errors = []
+    for state in states:
+        selector = f'[data-rs-state~="{state}"]'
+        if selector not in css:
+            errors.append(f"[STATE-CSS] estado '{state}' declarado mas sem seletor CSS correspondente")
+    return errors
+
+
+def check_states_in_behavior(states, behavior_file, behaviors_dir):
+    if not behavior_file:
+        return []
+    path = os.path.join(behaviors_dir, behavior_file)
+    if not os.path.exists(path):
+        return [f"[BEHAVIOR-MISSING] {behavior_file} -- arquivo nao encontrado"]
+    errors = []
+    with open(path) as f:
+        content = f.read()
+    for state in states:
+        if f'add_state(' not in content and f'"{state}"' not in content:
+            errors.append(f"[STATE-BEHAVIOR] estado '{state}' nao orquestrado no behavior")
+        elif f'"{state}"' not in content:
+            errors.append(f"[STATE-BEHAVIOR] estado '{state}' nao encontrado no behavior")
+    return errors
+
+
+def check_registered(behavior_file, registered, auto_init_path):
+    if not behavior_file or registered is None:
+        return []
+    if not registered:
+        return []
+    with open(auto_init_path) as f:
+        content = f.read()
+    module = behavior_file.replace(".rs", "")
+    if f"{module}::register()" not in content:
+        return [f"[NOT-REGISTERED] {behavior_file} -- nao registrado em auto_init.rs"]
+    return []
+
+
 def validate(component, declared):
     css_file = os.path.join(CSS_DIR, component["file"])
     if not os.path.exists(css_file):
@@ -135,6 +175,18 @@ def validate(component, declared):
         ok, msg = is_allowed(var, tokens, foundations, declared)
         if not ok:
             errors.append(msg)
+
+    # #4 states check
+    states = component.get("states", [])
+    behavior_file = component.get("behavior", None)
+    registered = component.get("registered", None)
+
+    errors += check_states_in_css(states, css)
+    errors += check_states_in_behavior(states, behavior_file, BEHAVIORS_DIR)
+
+    auto_init = os.path.join(BEHAVIORS_DIR, "auto_init.rs")
+    errors += check_registered(behavior_file, registered, auto_init)
+
     unused = check_unused(tokens, used_set, declared)
     return errors, unused
 
