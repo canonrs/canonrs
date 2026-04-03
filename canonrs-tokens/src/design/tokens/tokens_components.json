@@ -783,7 +783,7 @@
     "component": "radio",
     "file": "radio_ui.css",
     "tokens": "radio-*, size-*, radius-*, motion-*, state-*",
-    "foundation": "size, radius, motion, interaction",
+    "foundation": "size, radius, motion, interaction, shadow",
     "family": "family-b-selection",
     "states": [
       "selected",
@@ -797,7 +797,7 @@
     "component": "radio_group",
     "file": "radio_group_ui.css",
     "tokens": "radio-group-*, radio-*, forms-*, space-*, font-*, motion-*",
-    "foundation": "spacing, typography",
+    "foundation": "spacing, typography, motion",
     "family": "family-b-selection",
     "states": [
       "selected",

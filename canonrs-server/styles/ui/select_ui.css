@@ -25,6 +25,12 @@
   outline-offset: var(--select-focus-ring-offset);
 }
 
+/* ── ITEM FOCUS (keyboard nav) ──────────────────────────────── */
+[data-rs-select-item][data-rs-state~="focus"] {
+  background: var(--select-item-hover-bg);
+  outline: none;
+}
+
 /* ── DISABLED ───────────────────────────────────────────────── */
 [data-rs-select][data-rs-state~="disabled"] [data-rs-select-trigger],
 [data-rs-select-trigger][data-rs-state~="disabled"] {
