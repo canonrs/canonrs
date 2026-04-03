@@ -11,7 +11,6 @@ use canonrs_tokens::design::tokens::layers::LAYERS_TOKENS;
 use canonrs_tokens::design::tokens::foundation::*;
 use canonrs_tokens::design::tokens::semantics::*;
 use canonrs_tokens::design::tokens::primitives::PRIMITIVE_VALUES;
-use canonrs_tokens::design::tokens::core::CORE_TOKENS;
 use std::fs;
 use std::path::Path;
 
@@ -28,7 +27,7 @@ fn main() {
     println!("\n🔧 Step 1b: Generating fonts (@font-face)...");
     font_generator::generate(generated_path);
 
-    println!("\n🔧 Step 2: Generating foundation (core)...");
+    println!("\n🔧 Step 2: Generating foundation...");
     generate_core(generated_path);
 
     println!("\n🔧 Step 3: Generating families...");
@@ -78,9 +77,15 @@ fn generate_primitives(output_dir: &Path) {
 
 fn generate_core(output_dir: &Path) {
     let mut css = String::from("/* FOUNDATION - Core tokens */\n:root {\n");
-    for token in CORE_TOKENS {
-        css.push_str(&format!("  --{}: {};\n", token.name, token.value));
-    }
+    // Foundation layers
+    for token in FOUNDATION_SPACING   { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_RADIUS    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_MOTION    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_TYPOGRAPHY{ css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_COLOR     { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_SHADOW    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_BORDER    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_INTERACTION{ css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     css.push_str("}\n");
 
     fs::write(output_dir.join("core.css"), css).ok();

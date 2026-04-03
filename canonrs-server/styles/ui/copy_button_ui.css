@@ -1,5 +1,6 @@
 /* ============================================
    COPY BUTTON — Enterprise Level
+   State via data-rs-state — zero pseudo-class state selectors
    ============================================ */
 
 [data-rs-copy-button] {
@@ -7,20 +8,24 @@
   align-items: center;
   gap: var(--space-xs);
   padding: var(--space-xs) var(--space-sm);
-  background: var(--copy-button-bg, transparent);
-  color: var(--copy-button-fg, currentColor);
-  border: 1px solid var(--copy-button-border, var(--theme-surface-border));
+  background: var(--copy-button-bg);
+  color: var(--copy-button-fg);
+  border: 1px solid var(--copy-button-border);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-sm);
   cursor: pointer;
-  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+  transition:
+    background var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-copy-button]:hover {
-  background: var(--copy-button-bg-hover, var(--theme-surface-muted));
+[data-rs-copy-button][data-rs-state~="hover"] {
+  background: var(--copy-button-bg-hover);
 }
 
-/* State: idle - show copy content */
+/* ── CONTENT VISIBILITY ─────────────────────────────────────── */
 [data-rs-copy-content] {
   display: inline-flex;
   align-items: center;
@@ -32,51 +37,52 @@
   display: none;
 }
 
-/* State: copying */
-[data-rs-copy-button][data-rs-state="copying"] {
+/* ── STATE: copying ─────────────────────────────────────────── */
+[data-rs-copy-button][data-rs-state~="copying"] {
   cursor: wait;
-  opacity: 0.7;
+  opacity: var(--state-opacity-disabled);
+  pointer-events: none;
 }
 
-/* State: copied */
-[data-rs-copy-button][data-rs-state="copied"] [data-rs-copy-content] {
+/* ── STATE: copied ──────────────────────────────────────────── */
+[data-rs-copy-button][data-rs-state~="copied"] [data-rs-copy-content] {
   display: none;
 }
 
-[data-rs-copy-button][data-rs-state="copied"] [data-rs-copied-content] {
+[data-rs-copy-button][data-rs-state~="copied"] [data-rs-copied-content] {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
-[data-rs-copy-button][data-rs-state="copied"] {
-  background: var(--theme-action-primary-bg);
-  color: var(--theme-action-primary-fg);
-  border-color: var(--theme-action-primary-bg);
+[data-rs-copy-button][data-rs-state~="copied"] {
+  background: var(--copy-button-copied-bg);
+  color: var(--copy-button-copied-fg);
+  border-color: var(--copy-button-copied-bg);
 }
 
-/* State: error */
-[data-rs-copy-button][data-rs-state="error"] [data-rs-copy-content] {
+/* ── STATE: error ───────────────────────────────────────────── */
+[data-rs-copy-button][data-rs-state~="error"] [data-rs-copy-content] {
   display: none;
 }
 
-[data-rs-copy-button][data-rs-state="error"] [data-rs-error-content] {
+[data-rs-copy-button][data-rs-state~="error"] [data-rs-error-content] {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
-[data-rs-copy-button][data-rs-state="error"] {
-  background: var(--copy-button-error-bg, var(--color-destructive));
-  color: var(--copy-button-error-fg, white);
-  border-color: var(--copy-button-error-border, var(--color-destructive));
+[data-rs-copy-button][data-rs-state~="error"] {
+  background: var(--copy-button-error-bg);
+  color: var(--copy-button-error-fg);
+  border-color: var(--copy-button-error-border);
 }
 
-/* Icons */
+/* ── ICONS ──────────────────────────────────────────────────── */
 [data-rs-copy-icon],
 [data-rs-copied-icon],
 [data-rs-error-icon] {
-  width: var(--copy-button-icon-size, 16px);
-  height: var(--copy-button-icon-size, 16px);
+  width: var(--copy-button-icon-size);
+  height: var(--copy-button-icon-size);
   flex-shrink: 0;
 }

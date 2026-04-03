@@ -1,24 +1,29 @@
 /* ============================================
    ICON BUTTON — Enterprise Action Button
-   Family F: Data
+   State via data-rs-state — zero pseudo-class state selectors
    ============================================ */
 
 [data-rs-icon-button] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
   border: none;
   border-radius: var(--icon-button-radius);
-  
   cursor: pointer;
-  transition: 
-    background var(--icon-button-transition-duration) var(--icon-button-transition-ease),
-    border-color var(--icon-button-transition-duration) var(--icon-button-transition-ease),
-    box-shadow var(--icon-button-transition-duration) var(--icon-button-transition-ease);
+  transition:
+    background var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/* Sizes */
+/* ── SIZES ──────────────────────────────────────────────────── */
+[data-rs-icon-button][data-rs-size="xs"] {
+  width: var(--icon-button-size-xs);
+  height: var(--icon-button-size-xs);
+  padding: var(--icon-button-padding-xs);
+}
+
 [data-rs-icon-button][data-rs-size="sm"] {
   width: var(--icon-button-size-sm);
   height: var(--icon-button-size-sm);
@@ -37,77 +42,111 @@
   padding: var(--icon-button-padding-lg);
 }
 
-/* Variant: default (transparent with hover) */
+[data-rs-icon-button][data-rs-size="xl"] {
+  width: var(--icon-button-size-xl);
+  height: var(--icon-button-size-xl);
+  padding: var(--icon-button-padding-xl);
+}
+
+/* ── VARIANTS ───────────────────────────────────────────────── */
 [data-rs-icon-button][data-rs-variant="default"] {
   background: var(--icon-button-bg);
   color: var(--icon-button-fg);
+  border: 1px solid var(--theme-surface-border);
 }
 
-[data-rs-icon-button][data-rs-variant="default"]:hover:not(:disabled) {
+[data-rs-icon-button][data-rs-variant="default"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   background: var(--icon-button-bg-hover);
 }
 
-[data-rs-icon-button][data-rs-variant="default"]:active:not(:disabled) {
+[data-rs-icon-button][data-rs-variant="default"][data-rs-state~="active"]:not([data-rs-state~="disabled"]) {
   background: var(--icon-button-bg-active);
 }
 
-/* Variant: ghost */
 [data-rs-icon-button][data-rs-variant="ghost"] {
   background: transparent;
-  color: var(--icon-button-fg);
+  color: var(--theme-surface-fg);
+  opacity: 0.7;
 }
 
-[data-rs-icon-button][data-rs-variant="ghost"]:hover:not(:disabled) {
+[data-rs-icon-button][data-rs-variant="ghost"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   background: var(--icon-button-ghost-bg-hover);
 }
 
-/* Variant: outline */
 [data-rs-icon-button][data-rs-variant="outline"] {
   background: transparent;
   color: var(--icon-button-fg);
   border: 1px solid var(--icon-button-outline-border);
 }
 
-[data-rs-icon-button][data-rs-variant="outline"]:hover:not(:disabled) {
+[data-rs-icon-button][data-rs-variant="outline"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   background: var(--icon-button-bg-hover);
 }
 
-/* Variant: solid */
 [data-rs-icon-button][data-rs-variant="solid"] {
   background: var(--icon-button-solid-bg);
   color: var(--icon-button-solid-fg);
 }
 
-[data-rs-icon-button][data-rs-variant="solid"]:hover:not(:disabled) {
-  opacity: 0.9;
+[data-rs-icon-button][data-rs-variant="solid"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
+  opacity: var(--state-opacity-hover);
 }
 
-/* Variant: destructive */
+[data-rs-icon-button][data-rs-variant="subtle"] {
+  background: var(--icon-button-subtle-bg);
+  color: var(--icon-button-subtle-fg);
+  border: 1px solid transparent;
+}
+
+[data-rs-icon-button][data-rs-variant="subtle"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
+  background: var(--icon-button-bg-hover);
+}
+
 [data-rs-icon-button][data-rs-variant="destructive"] {
   background: var(--icon-button-destructive-bg);
   color: var(--icon-button-destructive-fg);
 }
 
-[data-rs-icon-button][data-rs-variant="destructive"]:hover:not(:disabled) {
-  opacity: 0.9;
+[data-rs-icon-button][data-rs-variant="destructive"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
+  opacity: var(--state-opacity-hover);
 }
 
-/* Focus-visible (enterprise requirement) */
-[data-rs-icon-button]:focus-visible {
+/* ── PRESSED (toggle) ───────────────────────────────────────── */
+[data-rs-icon-button][data-rs-state~="on"] {
+  background: var(--icon-button-pressed-bg);
+  color: var(--icon-button-pressed-fg);
+}
+
+/* ── STATES ─────────────────────────────────────────────────── */
+[data-rs-icon-button][data-rs-state~="active"]:not([data-rs-state~="disabled"]) {
+  opacity: var(--state-opacity-active);
+  transform: var(--button-active-transform);
+}
+
+[data-rs-icon-button][data-rs-state~="focus"]:focus-visible {
   outline: none;
-  box-shadow: var(--icon-button-focus-ring);
+  box-shadow: var(--focus-ring-shadow);
 }
 
-/* Disabled state */
-[data-rs-icon-button]:disabled {
+[data-rs-icon-button][data-rs-state~="focus"]:not(:focus-visible) {
+  box-shadow: none;
+}
+
+[data-rs-icon-button][data-rs-state~="disabled"] {
   cursor: not-allowed;
   color: var(--icon-button-fg-disabled);
-  opacity: 0.5;
+  opacity: var(--state-opacity-disabled);
+  pointer-events: none;
 }
 
-/* Loading state */
-[data-rs-icon-button][data-rs-loading][aria-busy="true"] {
+[data-rs-icon-button][data-rs-state~="loading"] {
   cursor: wait;
   opacity: var(--icon-button-loading-opacity);
   pointer-events: none;
+  animation: rs-spin 1s linear infinite;
+}
+
+@keyframes rs-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }

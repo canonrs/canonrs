@@ -12,6 +12,9 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("forms-disabled-opacity", "var(--state-disabled-opacity)"),
 
     // Validation
+    FamilyToken::new("validation-error-shadow",  "0 0 0 var(--state-focus-ring-width) var(--color-error)"),
+    FamilyToken::new("validation-warning-shadow","0 0 0 var(--state-focus-ring-width) var(--color-warning)"),
+    FamilyToken::new("validation-success-shadow","0 0 0 var(--state-focus-ring-width) var(--color-success)"),
     FamilyToken::new("validation-error", "var(--color-destructive)"),
     FamilyToken::new("validation-warning", "var(--color-warning)"),
     FamilyToken::new("validation-success", "var(--color-success)"),
@@ -32,7 +35,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("button-sm-padding-y",     "0.25rem"),
     FamilyToken::new("button-sm-font-size",     "var(--font-size-sm)"),
 
-    FamilyToken::new("button-lg-height",        "2.5rem"),    // 40px
+    FamilyToken::new("button-lg-height",        "2.75rem"),    // 40px
     FamilyToken::new("button-lg-padding-x",     "var(--space-lg)"),
     FamilyToken::new("button-lg-padding-y",     "0.5rem"),
     FamilyToken::new("button-lg-font-size",     "var(--font-size-md)"),
@@ -59,7 +62,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("button-warning-fg", "var(--theme-surface-fg)"),
 
     // Button variants — extended
-    FamilyToken::new("button-secondary-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("button-secondary-bg", "var(--theme-surface-muted)"),
     FamilyToken::new("button-secondary-fg", "var(--theme-surface-fg)"),
     FamilyToken::new("button-secondary-border", "var(--theme-surface-border)"),
     FamilyToken::new("button-link-bg", "transparent"),
@@ -76,6 +79,8 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("button-default-border", "var(--theme-surface-border)"),
 
     // Button Group
+    FamilyToken::new("button-active-transform",    "translateY(1px)"),
+    FamilyToken::new("button-group-border-overlap", "-1px"),
     FamilyToken::new("button-group-gap", "var(--space-xs)"),
     FamilyToken::new("button-group-direction", "row"),
     FamilyToken::new("button-group-align", "center"),

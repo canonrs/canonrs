@@ -36,7 +36,8 @@ impl ButtonSize {
     pub fn to_core(&self) -> CoreSize {
         match self {
             Self::Xs | Self::Sm => CoreSize::Sm,
-            Self::Lg | Self::Xl => CoreSize::Lg,
+            Self::Lg => CoreSize::Lg,
+            Self::Xl => CoreSize::Xl,
             Self::Md            => CoreSize::Md,
         }
     }

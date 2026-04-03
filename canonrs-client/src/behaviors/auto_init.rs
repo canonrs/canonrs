@@ -2,6 +2,7 @@
 use super::*;
 pub(crate) fn register_all_behaviors() {
     accordion_behavior::register();
+    button_behavior::register();
     alert_behavior::register();
     overlay_behavior::register();
     simple_overlay_behavior::register();

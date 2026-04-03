@@ -4,6 +4,9 @@
   --forms-radius: var(--radius-sm);
   --forms-padding-y: var(--space-sm);
   --forms-disabled-opacity: var(--state-disabled-opacity);
+  --validation-error-shadow: 0 0 0 var(--state-focus-ring-width) var(--color-error);
+  --validation-warning-shadow: 0 0 0 var(--state-focus-ring-width) var(--color-warning);
+  --validation-success-shadow: 0 0 0 var(--state-focus-ring-width) var(--color-success);
   --validation-error: var(--color-destructive);
   --validation-warning: var(--color-warning);
   --validation-success: var(--color-success);
@@ -18,7 +21,7 @@
   --button-sm-padding-x: 0.75rem;
   --button-sm-padding-y: 0.25rem;
   --button-sm-font-size: var(--font-size-sm);
-  --button-lg-height: 2.5rem;
+  --button-lg-height: 2.75rem;
   --button-lg-padding-x: var(--space-lg);
   --button-lg-padding-y: 0.5rem;
   --button-lg-font-size: var(--font-size-md);
@@ -40,7 +43,7 @@
   --button-success-fg: var(--color-success-foreground);
   --button-warning-bg: var(--color-warning);
   --button-warning-fg: var(--theme-surface-fg);
-  --button-secondary-bg: var(--theme-surface-bg);
+  --button-secondary-bg: var(--theme-surface-muted);
   --button-secondary-fg: var(--theme-surface-fg);
   --button-secondary-border: var(--theme-surface-border);
   --button-link-bg: transparent;
@@ -55,6 +58,8 @@
   --button-default-bg: var(--theme-surface-bg);
   --button-default-fg: var(--theme-surface-fg);
   --button-default-border: var(--theme-surface-border);
+  --button-active-transform: translateY(1px);
+  --button-group-border-overlap: -1px;
   --button-group-gap: var(--space-xs);
   --button-group-direction: row;
   --button-group-align: center;

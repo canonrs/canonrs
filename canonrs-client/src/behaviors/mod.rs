@@ -14,6 +14,8 @@ mod auto_init;
 #[cfg(feature = "hydrate")]
 pub mod accordion_behavior;
 #[cfg(feature = "hydrate")]
+pub mod button_behavior;
+#[cfg(feature = "hydrate")]
 pub mod input_otp_behavior;
 #[cfg(feature = "hydrate")]
 pub mod alert_behavior;

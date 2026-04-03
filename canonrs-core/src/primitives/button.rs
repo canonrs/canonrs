@@ -33,18 +33,22 @@ impl ButtonVariant {
 
 #[derive(Clone, PartialEq, Default, Debug)]
 pub enum ButtonSize {
+    Xs,
+    Sm,
     #[default]
     Md,
-    Sm,
     Lg,
+    Xl,
     Icon,
 }
 impl ButtonSize {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Md   => "md",
+            Self::Xs   => "xs",
             Self::Sm   => "sm",
+            Self::Md   => "md",
             Self::Lg   => "lg",
+            Self::Xl   => "xl",
             Self::Icon => "icon",
         }
     }
@@ -87,12 +91,12 @@ pub fn ButtonPrimitive(
             type=button_type.as_str()
             data-rs-button=""
             data-rs-component="Button"
-            data-rs-behavior="action"
+            data-rs-behavior="button"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-disabled=d.data_rs_disabled
             data-rs-loading=la.data_rs_state
-            data-rs-state=ta.as_ref().map(|t| t.data_rs_state)
+            data-rs-state=if d.disabled { Some("disabled") } else { ta.as_ref().map(|t| t.data_rs_state) }
             disabled=d.disabled
             aria-disabled=d.aria_disabled
             aria-busy=la.aria_busy

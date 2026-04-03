@@ -609,7 +609,7 @@
       "variants": []
     },
     {
-      "behavior": "action",
+      "behavior": "button",
       "capabilities": [
         "Disabled"
       ],
@@ -1249,7 +1249,7 @@
       "variants": []
     },
     {
-      "behavior": "action",
+      "behavior": "button",
       "capabilities": [
         "Disabled"
       ],

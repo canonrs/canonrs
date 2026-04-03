@@ -1,4 +1,3 @@
-pub mod core;
 pub mod primitives;
 pub mod foundation;
 pub mod semantics;

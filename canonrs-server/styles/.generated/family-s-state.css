@@ -9,6 +9,7 @@
   --state-focus-ring-offset: 2px;
   --state-focus-ring-style: solid;
   --state-focus-ring-color: var(--theme-action-focus-ring);
+  --focus-ring-shadow: 0 0 0 var(--state-focus-ring-width) var(--state-focus-ring-color);
   --state-transition-duration: var(--motion-duration-fast);
   --state-transition-ease: var(--motion-ease-standard);
 }

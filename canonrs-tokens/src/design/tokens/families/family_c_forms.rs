@@ -32,7 +32,7 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("button-sm-padding-y",     "0.25rem"),
     FamilyToken::new("button-sm-font-size",     "var(--font-size-sm)"),
 
-    FamilyToken::new("button-lg-height",        "2.5rem"),    // 40px
+    FamilyToken::new("button-lg-height",        "2.75rem"),    // 40px
     FamilyToken::new("button-lg-padding-x",     "var(--space-lg)"),
     FamilyToken::new("button-lg-padding-y",     "0.5rem"),
     FamilyToken::new("button-lg-font-size",     "var(--font-size-md)"),
@@ -60,7 +60,7 @@ pub const FAMILY_C_FORMS: &[FamilyToken] = &[
     FamilyToken::new("button-warning-fg", "var(--theme-surface-fg)"),
 
     // Button variants — extended
-    FamilyToken::new("button-secondary-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("button-secondary-bg", "var(--theme-surface-muted)"),
     FamilyToken::new("button-secondary-fg", "var(--theme-surface-fg)"),
     FamilyToken::new("button-secondary-border", "var(--theme-surface-border)"),
     FamilyToken::new("button-link-bg", "transparent"),

@@ -8,11 +8,11 @@ pub const ICONBUTTON_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "aria_label", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "size", kind: PropType::String, required: false, default: Some("md"), description: "" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "ghost", "outline", "solid", "destructive"]), required: false, default: Some("default"), description: "" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "" },
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "loading", kind: PropType::String, required: false, default: Some("idle"), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
-        PropDef { name: "id", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "pressed", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
