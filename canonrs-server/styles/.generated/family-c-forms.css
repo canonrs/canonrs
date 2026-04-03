@@ -157,8 +157,8 @@
   --select-item-height: var(--size-input-sm);
   --select-item-padding: var(--space-sm) var(--space-sm);
   --select-item-hover-bg: var(--theme-action-accent-bg);
-  --select-item-selected-bg: var(--theme-action-accent-bg);
-  --select-item-selected-fg: var(--color-accent-foreground);
+  --select-item-selected-bg: var(--theme-action-primary-bg);
+  --select-item-selected-fg: var(--theme-action-primary-fg);
   --select-separator-color: var(--theme-surface-border);
   --select-separator-height: 1px;
   --select-separator-margin-y: var(--space-xs);

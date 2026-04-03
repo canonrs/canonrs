@@ -129,17 +129,27 @@ def check_states_in_css(states, css):
 def check_states_in_behavior(states, behavior_file, behaviors_dir):
     if not behavior_file:
         return []
-    path = os.path.join(behaviors_dir, behavior_file)
-    if not os.path.exists(path):
-        return [f"[BEHAVIOR-MISSING] {behavior_file} -- arquivo nao encontrado"]
+    full_path = os.path.join(behaviors_dir, behavior_file)
+    if not os.path.exists(full_path):
+        return [
+            f"[BEHAVIOR-MISSING] {behavior_file} nao encontrado\n"
+            f"            esperado em: {full_path}"
+        ]
     errors = []
-    with open(path) as f:
+    with open(full_path) as f:
         content = f.read()
+    has_add_state = 'add_state(' in content
     for state in states:
-        if f'add_state(' not in content and f'"{state}"' not in content:
-            errors.append(f"[STATE-BEHAVIOR] estado '{state}' nao orquestrado no behavior")
+        if not has_add_state and f'"{state}"' not in content:
+            errors.append(
+                f"[STATE-BEHAVIOR] estado '{state}' ausente no behavior\n"
+                f"            adicione: add_state(el, \"{state}\") em {behavior_file}"
+            )
         elif f'"{state}"' not in content:
-            errors.append(f"[STATE-BEHAVIOR] estado '{state}' nao encontrado no behavior")
+            errors.append(
+                f"[STATE-BEHAVIOR] estado '{state}' nao encontrado em {behavior_file}\n"
+                f"            adicione: add_state(el, \"{state}\")"
+            )
     return errors
 
 
@@ -152,14 +162,17 @@ def check_registered(behavior_file, registered, auto_init_path):
         content = f.read()
     module = behavior_file.replace(".rs", "")
     if f"{module}::register()" not in content:
-        return [f"[NOT-REGISTERED] {behavior_file} -- nao registrado em auto_init.rs"]
+        return [
+            f"[NOT-REGISTERED] {behavior_file} nao registrado\n"
+            f"            adicione em auto_init.rs: {module}::register();"
+        ]
     return []
 
 
 def validate(component, declared):
     css_file = os.path.join(CSS_DIR, component["file"])
     if not os.path.exists(css_file):
-        return [f"[MISSING] {component['file']} -- file not found"], []
+        return [f"[MISSING] {component['file']} nao encontrado\n            esperado em: {css_file}"], []
     with open(css_file) as f:
         css = f.read()
     vars_used   = extract_vars(css)

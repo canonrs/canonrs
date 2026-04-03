@@ -15,6 +15,16 @@ pub fn register() {
 
         if root.get_attribute("data-rs-select-attached").as_deref() == Some("1") { return Ok(()); }
         root.set_attribute("data-rs-select-attached", "1").ok();
+
+        // sync disabled state
+        if root.has_attribute("data-rs-disabled") {
+            let states = root.get_attribute("data-rs-state").unwrap_or_default();
+            if !states.split_whitespace().any(|s| s == "disabled") {
+                let new_states = format!("{} disabled", states).trim().to_string();
+                root.set_attribute("data-rs-state", &new_states).ok();
+            }
+            return Ok(());
+        }
         if root.get_attribute("data-rs-state").is_none() {
             root.set_attribute("data-rs-state", "closed").ok();
         }
@@ -98,6 +108,26 @@ pub fn register() {
                 }) as Box<dyn FnMut(_)>);
                 item.add_event_listener_with_callback("click", cb_item.as_ref().unchecked_ref()).ok();
                 cb_item.forget();
+                // hover on item
+                { let it = item.clone();
+                  let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                      let s = it.get_attribute("data-rs-state").unwrap_or_default();
+                      if !s.split_whitespace().any(|x| x == "hover") {
+                          it.set_attribute("data-rs-state", &format!("{} hover", s).trim().to_string()).ok();
+                      }
+                  }) as Box<dyn FnMut(_)>);
+                  item.add_event_listener_with_callback("mouseenter", cb.as_ref().unchecked_ref()).ok();
+                  cb.forget(); }
+                { let it = item.clone();
+                  let cb = Closure::wrap(Box::new(move |_: MouseEvent| {
+                      if let Some(s) = it.get_attribute("data-rs-state") {
+                          let f = s.split_whitespace().filter(|x| *x != "hover").collect::<Vec<_>>().join(" ");
+                          if f.is_empty() { it.remove_attribute("data-rs-state").ok(); }
+                          else { it.set_attribute("data-rs-state", &f).ok(); }
+                      }
+                  }) as Box<dyn FnMut(_)>);
+                  item.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref()).ok();
+                  cb.forget(); }
             }
         }
 

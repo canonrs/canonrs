@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
-   RADIO GROUP - Family C Forms tokens compliant
+   RADIO GROUP - Family B Selection tokens compliant
+   State via data-rs-state — zero pseudo-class state selectors
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-radio-group] {
@@ -8,45 +9,34 @@
   gap: var(--radio-group-gap);
 }
 
-[data-rs-radio-item-wrapper] {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--radio-group-item-gap);
-  cursor: pointer;
-}
-
-[data-rs-radio-item-wrapper] [data-rs-radio-group-item]:disabled ~ * {
-  opacity: var(--forms-disabled-opacity);
+/* ── GROUP DISABLED ─────────────────────────────────────────── */
+[data-rs-radio-group][data-rs-disabled] [data-rs-radio] {
+  opacity: var(--radio-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
+  color: var(--radio-fg-disabled);
 }
 
-[data-rs-radio-item-label] {
-  color: var(--radio-group-label-fg);
-  font-size: var(--radio-group-label-font-size);
-  font-weight: var(--radio-group-label-font-weight);
+[data-rs-radio-group][data-rs-disabled] [data-rs-radio] [data-rs-radio-indicator] {
+  background: var(--radio-bg-disabled);
+  border-color: var(--radio-border-color-disabled);
 }
 
-[data-rs-radio-group-item]:disabled ~ [data-rs-radio-item-label] {
-  color: var(--radio-group-label-fg-disabled);
+[data-rs-radio-group][data-rs-disabled] [data-rs-radio][data-rs-state~="selected"] [data-rs-radio-indicator]::after {
+  opacity: 1;
+  background: var(--radio-dot-color-disabled);
 }
 
-[data-rs-radio-group-item] {
-  appearance: none;
-  width: var(--radio-group-item-size);
-  height: var(--radio-group-item-size);
-  border: var(--radio-group-item-border-width) solid var(--radio-group-item-border-color);
-  border-radius: 50%;
-  background: var(--radio-group-item-bg);
-  cursor: pointer;
-  transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+/* ── FOCUS (via radio behavior no item) ────────────────────── */
+[data-rs-radio-group] [data-rs-radio][data-rs-state~="focus"] [data-rs-radio-indicator] {
+  box-shadow: var(--radio-focus-ring-shadow);
+  outline: none;
 }
 
-[data-rs-radio-group-item]:checked {
-  background: var(--radio-group-item-bg-checked);
-  box-shadow: inset 0 0 0 var(--radio-group-item-indicator-size) var(--theme-surface-bg);
-}
-
-[data-rs-radio-group-item]:disabled {
-  opacity: var(--forms-disabled-opacity);
+/* ── DISABLED (estado no item via behavior/SSR) ─────────────── */
+[data-rs-radio-group] [data-rs-radio][data-rs-state~="disabled"] {
+  opacity: var(--radio-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
+  color: var(--radio-fg-disabled);
 }

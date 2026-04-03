@@ -40,8 +40,8 @@ pub fn SelectShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Select>
-                        <SelectTrigger disabled=DisabledState::Disabled>
+                    <Select disabled=DisabledState::Disabled>
+                        <SelectTrigger>
                             <SelectValue placeholder="Disabled...">"Disabled"</SelectValue>
                         </SelectTrigger>
                         <SelectContent>

@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
    SELECT - Family C Forms tokens compliant
+   State via data-rs-state — zero pseudo-class state selectors
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-select-trigger] {
@@ -18,14 +19,18 @@
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-select-trigger]:focus-visible {
+/* ── FOCUS ──────────────────────────────────────────────────── */
+[data-rs-select-trigger][data-rs-state~="focus"] {
   outline: var(--select-focus-ring-width) solid var(--select-focus-ring-color);
   outline-offset: var(--select-focus-ring-offset);
 }
 
-[data-rs-select-trigger][data-rs-disabled="true"] {
+/* ── DISABLED ───────────────────────────────────────────────── */
+[data-rs-select][data-rs-state~="disabled"] [data-rs-select-trigger],
+[data-rs-select-trigger][data-rs-state~="disabled"] {
   opacity: var(--select-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 [data-rs-select-content] {
@@ -36,13 +41,14 @@
   padding-block: var(--select-content-padding-y);
 }
 
-[data-rs-select][data-rs-state="closed"] [data-rs-select-content],
+/* ── OPEN / CLOSED ──────────────────────────────────────────── */
+[data-rs-select][data-rs-state~="closed"] [data-rs-select-content],
 [data-rs-select][data-rs-state=""] [data-rs-select-content],
 [data-rs-select]:not([data-rs-state]) [data-rs-select-content] {
   display: none;
 }
 
-[data-rs-select][data-rs-state="open"] [data-rs-select-content] {
+[data-rs-select][data-rs-state~="open"] [data-rs-select-content] {
   display: block;
 }
 
@@ -55,11 +61,13 @@
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-select-item]:hover {
+/* ── ITEM HOVER ─────────────────────────────────────────────── */
+[data-rs-select-item][data-rs-state~="hover"] {
   background: var(--select-item-hover-bg);
 }
 
-[data-rs-select-item][data-rs-state="selected"] {
+/* ── ITEM SELECTED ──────────────────────────────────────────── */
+[data-rs-select-item][data-rs-state~="selected"] {
   background: var(--select-item-selected-bg);
   color: var(--select-item-selected-fg);
 }

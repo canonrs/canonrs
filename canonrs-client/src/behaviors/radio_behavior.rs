@@ -35,11 +35,54 @@ fn remove_state(el: &web_sys::Element, to_remove: &str) {
 }
 
 #[cfg(feature = "hydrate")]
+fn is_disabled(root: &web_sys::Element) -> bool {
+    let self_disabled = root.has_attribute("data-rs-disabled")
+        || root.get_attribute("aria-disabled").as_deref() == Some("true");
+    let parent_disabled = root
+        .parent_element()
+        .map(|p| p.has_attribute("data-rs-disabled"))
+        .unwrap_or(false);
+    self_disabled || parent_disabled
+}
+
+#[cfg(feature = "hydrate")]
+fn sync_disabled(root: &web_sys::Element) {
+    if is_disabled(root) {
+        add_state(root, "disabled");
+    } else {
+        remove_state(root, "disabled");
+    }
+}
+
+#[cfg(feature = "hydrate")]
 pub fn register() {
     register_behavior("data-rs-radio", Box::new(|root: &web_sys::Element, _state: &ComponentState| -> BehaviorResult<()> {
-        if root.has_attribute("data-rs-disabled") || root.get_attribute("aria-disabled").as_deref() == Some("true") {
-            add_state(root, "disabled");
+        // sync disabled on init
+        sync_disabled(root);
+
+        if is_disabled(root) {
+            // set native disabled on input
+            if let Ok(Some(input)) = root.query_selector("[data-rs-radio-input]") {
+                input.set_attribute("disabled", "").ok();
+            }
             return Ok(());
+        }
+
+        // observe data-rs-disabled attribute changes
+        {
+            let el = root.clone();
+            let cb = Closure::wrap(Box::new(move |_: js_sys::Array, _: web_sys::MutationObserver| {
+                sync_disabled(&el);
+            }) as Box<dyn FnMut(_, _)>);
+
+            let observer = web_sys::MutationObserver::new(cb.as_ref().unchecked_ref())
+                .map_err(|_| crate::BehaviorError::ObserverFailed { reason: "radio disabled observer".into() })?;
+
+            let init = web_sys::MutationObserverInit::new();
+            init.set_attributes(true);
+            init.set_attribute_filter(&js_sys::Array::of1(&"data-rs-disabled".into()));
+            observer.observe_with_options(root, &init).ok();
+            cb.forget();
         }
 
         // focus/blur on input
@@ -71,7 +114,6 @@ pub fn register() {
                             }
                         }
                     }
-                    // deselect siblings in same group
                 }) as Box<dyn FnMut(_)>);
                 input_el.add_event_listener_with_callback("change", cb.as_ref().unchecked_ref()).ok();
                 cb.forget();

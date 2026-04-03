@@ -148,6 +148,9 @@
   --link-text-decoration-hover: underline;
   --link-disabled-opacity: var(--state-disabled-opacity);
   --link-transition-duration: var(--motion-duration-fast);
+  --link-fg-hover: color-mix(in srgb, var(--theme-action-primary-bg) 80%, white);
+  --link-fg-active: var(--theme-action-primary-active);
+  --link-transition-ease: var(--motion-ease-standard);
   --link-transition-ease: var(--motion-ease-standard);
   --link-muted-fg: var(--theme-surface-fg-muted);
   --link-underline-decoration: underline;

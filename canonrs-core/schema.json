@@ -1426,7 +1426,7 @@
       "variants": []
     },
     {
-      "behavior": "action",
+      "behavior": "link",
       "capabilities": [
         "Disabled"
       ],

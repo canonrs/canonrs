@@ -5,6 +5,8 @@ pub(crate) fn register_all_behaviors() {
     button_behavior::register();
     checkbox_behavior::register();
     radio_behavior::register();
+    link_behavior::register();
+    radio_group_behavior::register();
     input_behavior::register();
     input_group_behavior::register();
     textarea_behavior::register();

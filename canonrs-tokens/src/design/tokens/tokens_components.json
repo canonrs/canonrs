@@ -591,10 +591,12 @@
     "foundation": "typography, motion",
     "family": "family-d-navigation",
     "states": [
-      "active"
+      "active",
+      "hover",
+      "disabled"
     ],
-    "behavior": null,
-    "registered": false
+    "behavior": "link_behavior.rs",
+    "registered": true
   },
   {
     "component": "link_group",

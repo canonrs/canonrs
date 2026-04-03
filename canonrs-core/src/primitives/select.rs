@@ -11,16 +11,24 @@ pub fn SelectPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
+    let d = disabled_attrs(disabled);
+    let state_str: Option<String> = match (disabled == DisabledState::Disabled, s.data_rs_state) {
+        (true, s)  => Some(format!("{} disabled", s).trim().to_string()),
+        (false, s) => Some(s.to_string()),
+    };
     view! {
         <div
             data-rs-select=""
             data-rs-component="Select"
             data-rs-role="root"
             data-rs-behavior="select"
-            data-rs-state=s.data_rs_state
+            data-rs-state=state_str
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
             class=class
             node_ref=node_ref.unwrap_or_default()
         >

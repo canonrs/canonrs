@@ -10,10 +10,11 @@ use canonrs_core::primitives::{
 pub fn Select(
     children: Children,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectPrimitive state=VisibilityState::Closed class=class node_ref=node_ref.unwrap_or_default()>
+        <SelectPrimitive state=VisibilityState::Closed disabled=disabled class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </SelectPrimitive>
     }
