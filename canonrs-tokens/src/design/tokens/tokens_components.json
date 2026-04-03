@@ -353,7 +353,7 @@
     "component": "loading_overlay",
     "file": "loading_overlay_ui.css",
     "tokens": "loading-overlay-*, motion-*, font-*",
-    "foundation": "motion, interaction, typography",
+    "foundation": "motion, z, blur",
     "family": "family-e-feedback"
   },
   {
@@ -402,7 +402,7 @@
     "component": "navigation_menu",
     "file": "navigation_menu_ui.css",
     "tokens": "navigation-menu-*, space-*, radius-*, shadow-*, motion-*, font-*",
-    "foundation": "spacing, radius, shadow, motion, typography, z",
+    "foundation": "spacing, radius, shadow, typography, z",
     "family": "family-d-navigation"
   },
   {
@@ -451,7 +451,7 @@
     "component": "radio_group",
     "file": "radio_group_ui.css",
     "tokens": "radio-group-*, radio-*, forms-*, space-*, font-*, motion-*",
-    "foundation": "spacing, motion, typography",
+    "foundation": "spacing, typography",
     "family": "family-b-selection"
   },
   {
@@ -605,7 +605,7 @@
     "component": "toolbar",
     "file": "toolbar_ui.css",
     "tokens": "toolbar-*, space-*, radius-*, border-*",
-    "foundation": "spacing, radius, border",
+    "foundation": "spacing, radius",
     "family": "family-d-navigation"
   },
   {
