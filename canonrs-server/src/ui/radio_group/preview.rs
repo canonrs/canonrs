@@ -7,6 +7,7 @@ pub fn RadioGroupShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <RadioGroupIsland
+                    selected_value=""
                     name="framework"
                     options=vec![
                         RadioOption { value: "leptos".into(), label: "Leptos".into(), disabled: false },
@@ -24,7 +25,7 @@ pub fn RadioGroupShowcasePreview() -> impl IntoView {
                 <div data-rs-showcase-preview-row="">
                     <RadioGroupIsland
                         name="size"
-                        selected_value="md"
+                        selected_value="md".to_string()
                         options=vec![
                             RadioOption { value: "sm".into(), label: "Small".into(),  disabled: false },
                             RadioOption { value: "md".into(), label: "Medium".into(), disabled: false },
@@ -38,6 +39,7 @@ pub fn RadioGroupShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-row="">
                     <RadioGroupIsland
+                    selected_value=""
                         name="dis"
                         disabled=true
                         options=vec![

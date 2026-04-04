@@ -10,7 +10,7 @@ pub struct RadioOption {
 #[island]
 pub fn RadioGroupIsland(
     #[prop(optional, into)] name: Option<String>,
-    #[prop(optional, into)] selected_value: Option<String>,
+    #[prop(into)] selected_value: String,
     #[prop(optional)] disabled: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
     options: Vec<RadioOption>,
@@ -19,7 +19,7 @@ pub fn RadioGroupIsland(
     let disabled = disabled.unwrap_or(false);
     let class    = class.unwrap_or_default();
 
-    let (selected, set_selected) = signal(selected_value.unwrap_or_default());
+    let (selected, set_selected) = signal(selected_value.clone());
     let (focused,  set_focused)  = signal::<Option<usize>>(None);
 
     let options_view = {
@@ -59,22 +59,11 @@ pub fn RadioGroupIsland(
                 }
             };
 
-            let initial_state = {
-                let value = value.clone();
-                let mut s = vec![];
-                if selected.get_untracked() == value { s.push("selected"); }
-                if is_disabled { s.push("disabled"); }
-                s.join(" ")
-            };
-
             view! {
                 <label
                     data-rs-radio=""
                     data-rs-component="Radio"
-                    data-rs-state=move || {
-                        let s = item_state();
-                        if s.is_empty() { initial_state.clone() } else { s }
-                    }
+                    data-rs-state=item_state
                     class=""
                 >
                     <input
