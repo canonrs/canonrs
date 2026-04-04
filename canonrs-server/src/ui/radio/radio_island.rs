@@ -85,6 +85,7 @@ pub fn RadioGroupIsland(
                         checked=move || selected.get() == value
                         disabled=is_disabled
                         aria-disabled=is_disabled.to_string()
+                        tabindex="-1"
                         on:change=on_change
                         on:focus=on_focus
                         on:blur=on_blur
