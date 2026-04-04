@@ -112,7 +112,7 @@
 }
 
 /* ── PRESSED (toggle) ───────────────────────────────────────── */
-[data-rs-icon-button][data-rs-state~="on"] {
+[data-rs-icon-button][data-rs-state~="pressed"] {
   background: var(--icon-button-pressed-bg);
   color: var(--icon-button-pressed-fg);
 }
@@ -123,13 +123,9 @@
   transform: var(--button-active-transform);
 }
 
-[data-rs-icon-button][data-rs-state~="focus"]:focus-visible {
+[data-rs-icon-button][data-rs-state~="focus"] {
   outline: none;
   box-shadow: var(--focus-ring-shadow);
-}
-
-[data-rs-icon-button][data-rs-state~="focus"]:not(:focus-visible) {
-  box-shadow: none;
 }
 
 [data-rs-icon-button][data-rs-state~="disabled"] {

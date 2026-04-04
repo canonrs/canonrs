@@ -10,8 +10,7 @@
       "closed",
       "disabled"
     ],
-    "behavior": "accordion_behavior.rs",
-    "registered": true
+    "island": "accordion_island.rs"
   },
   {
     "component": "alert",
@@ -23,8 +22,7 @@
       "open",
       "closed"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "alert_island.rs"
   },
   {
     "component": "alert_dialog",
@@ -36,8 +34,7 @@
       "open",
       "closed"
     ],
-    "behavior": "alert_dialog_behavior.rs",
-    "registered": true
+    "island": "alert_dialog_island.rs"
   },
   {
     "component": "animate",
@@ -49,8 +46,7 @@
       "active",
       "inactive"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "animate_island.rs"
   },
   {
     "component": "aspect_ratio",
@@ -59,8 +55,7 @@
     "foundation": "size",
     "family": "family-h-layout",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "aspect_ratio_island.rs"
   },
   {
     "component": "avatar",
@@ -72,8 +67,7 @@
       "loading",
       "error"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "avatar_island.rs"
   },
   {
     "component": "badge",
@@ -82,8 +76,7 @@
     "foundation": "spacing, radius, typography, motion",
     "family": "family-e-feedback",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "badge_island.rs"
   },
   {
     "component": "banner",
@@ -95,8 +88,7 @@
       "open",
       "closed"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "banner_island.rs"
   },
   {
     "component": "breadcrumb",
@@ -107,8 +99,7 @@
     "states": [
       "active"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "breadcrumb_island.rs"
   },
   {
     "component": "builder_block",
@@ -120,8 +111,7 @@
       "active",
       "selected"
     ],
-    "behavior": "builder_block_behavior.rs",
-    "registered": true
+    "island": "builder_block_island.rs"
   },
   {
     "component": "button",
@@ -135,21 +125,19 @@
       "focus",
       "disabled"
     ],
-    "behavior": "button_behavior.rs",
-    "registered": true
+    "island": "button_island.rs"
   },
   {
     "component": "button_group",
     "file": "button_group_ui.css",
-    "tokens": "button-group-*, button-*, space-*, radius-*, border-*",
-    "foundation": "spacing, radius, border",
+    "tokens": "button-group-*, button-*, space-*, radius-*, border-*, state-*, focus-ring-*",
+    "foundation": "spacing, radius, border, interaction",
     "family": "family-c-forms",
     "states": [
       "first",
       "last"
     ],
-    "behavior": "button_group_behavior.rs",
-    "registered": true
+    "island": "button_group_island.rs"
   },
   {
     "component": "calendar",
@@ -161,8 +149,7 @@
       "selected",
       "disabled"
     ],
-    "behavior": "calendar_behavior.rs",
-    "registered": true
+    "island": "calendar_island.rs"
   },
   {
     "component": "callout",
@@ -171,8 +158,7 @@
     "foundation": "spacing, radius, typography",
     "family": "family-e-feedback",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "callout_island.rs"
   },
   {
     "component": "card",
@@ -181,8 +167,7 @@
     "foundation": "spacing, radius, shadow, typography",
     "family": "family-f-data",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "card_island.rs"
   },
   {
     "component": "carousel",
@@ -194,8 +179,7 @@
       "active",
       "inactive"
     ],
-    "behavior": "carousel_behavior.rs",
-    "registered": true
+    "island": "carousel_island.rs"
   },
   {
     "component": "chart",
@@ -207,8 +191,7 @@
       "loading",
       "error"
     ],
-    "behavior": "chart_behavior.rs",
-    "registered": true
+    "island": "chart_island.rs"
   },
   {
     "component": "checkbox",
@@ -221,8 +204,7 @@
       "focus",
       "disabled"
     ],
-    "behavior": "checkbox_behavior.rs",
-    "registered": true
+    "island": "checkbox_island.rs"
   },
   {
     "component": "code_block",
@@ -233,8 +215,7 @@
     "states": [
       "copied"
     ],
-    "behavior": "code_block_behavior.rs",
-    "registered": true
+    "island": "code_block_island.rs"
   },
   {
     "component": "collapsible",
@@ -246,8 +227,7 @@
       "open",
       "closed"
     ],
-    "behavior": "collapsible_behavior.rs",
-    "registered": true
+    "island": "collapsible_island.rs"
   },
   {
     "component": "color_picker",
@@ -259,8 +239,7 @@
       "selected",
       "disabled"
     ],
-    "behavior": "color_picker_behavior.rs",
-    "registered": true
+    "island": "color_picker_island.rs"
   },
   {
     "component": "combobox",
@@ -274,8 +253,7 @@
       "selected",
       "disabled"
     ],
-    "behavior": "combobox_behavior.rs",
-    "registered": true
+    "island": "combobox_island.rs"
   },
   {
     "component": "command",
@@ -286,8 +264,7 @@
     "states": [
       "active"
     ],
-    "behavior": "command_behavior.rs",
-    "registered": true
+    "island": "command_island.rs"
   },
   {
     "component": "confirm_dialog",
@@ -299,8 +276,7 @@
       "open",
       "closed"
     ],
-    "behavior": "confirm_dialog_behavior.rs",
-    "registered": true
+    "island": "confirm_dialog_island.rs"
   },
   {
     "component": "context_menu",
@@ -312,8 +288,7 @@
       "open",
       "closed"
     ],
-    "behavior": "context_menu_behavior.rs",
-    "registered": true
+    "island": "context_menu_island.rs"
   },
   {
     "component": "copy_button",
@@ -326,8 +301,7 @@
       "copied",
       "error"
     ],
-    "behavior": "copy_button_behavior.rs",
-    "registered": true
+    "island": "copy_button_island.rs"
   },
   {
     "component": "data_table",
@@ -340,8 +314,7 @@
       "error",
       "selected"
     ],
-    "behavior": "data_table_behavior.rs",
-    "registered": true
+    "island": "data_table_island.rs"
   },
   {
     "component": "dialog",
@@ -353,8 +326,7 @@
       "open",
       "closed"
     ],
-    "behavior": "dialog_behavior.rs",
-    "registered": true
+    "island": "dialog_island.rs"
   },
   {
     "component": "doc_progress",
@@ -366,8 +338,7 @@
       "active",
       "inactive"
     ],
-    "behavior": "doc_progress_behavior.rs",
-    "registered": true
+    "island": "doc_progress_island.rs"
   },
   {
     "component": "drawer",
@@ -379,8 +350,7 @@
       "open",
       "closed"
     ],
-    "behavior": "drawer_behavior.rs",
-    "registered": true
+    "island": "drawer_island.rs"
   },
   {
     "component": "dropdown_menu",
@@ -392,8 +362,7 @@
       "open",
       "closed"
     ],
-    "behavior": "dropdown_menu_behavior.rs",
-    "registered": true
+    "island": "dropdown_menu_island.rs"
   },
   {
     "component": "empty_state",
@@ -402,8 +371,7 @@
     "foundation": "spacing, size, typography",
     "family": "family-e-feedback",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "empty_state_island.rs"
   },
   {
     "component": "empty_table",
@@ -412,8 +380,7 @@
     "foundation": "spacing, typography",
     "family": "family-e-feedback",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "empty_table_island.rs"
   },
   {
     "component": "error_state",
@@ -424,8 +391,7 @@
     "states": [
       "error"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "error_state_island.rs"
   },
   {
     "component": "field",
@@ -438,8 +404,7 @@
       "disabled",
       "error"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "field_island.rs"
   },
   {
     "component": "form",
@@ -451,8 +416,7 @@
       "loading",
       "error"
     ],
-    "behavior": "form_behavior.rs",
-    "registered": true
+    "island": "form_island.rs"
   },
   {
     "component": "form_error_summary",
@@ -463,8 +427,7 @@
     "states": [
       "error"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "form_error_summary_island.rs"
   },
   {
     "component": "hover_card",
@@ -476,8 +439,7 @@
       "open",
       "closed"
     ],
-    "behavior": "hover_card_behavior.rs",
-    "registered": true
+    "island": "hover_card_island.rs"
   },
   {
     "component": "icon",
@@ -486,8 +448,7 @@
     "foundation": "size, motion",
     "family": "family-f-data",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "icon_island.rs"
   },
   {
     "component": "icon_button",
@@ -502,8 +463,7 @@
       "disabled",
       "loading"
     ],
-    "behavior": "icon_button_behavior.rs",
-    "registered": true
+    "island": "icon_button_island.rs"
   },
   {
     "component": "inline_meta",
@@ -512,8 +472,7 @@
     "foundation": "spacing, typography",
     "family": "family-f-data",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "inline_meta_island.rs"
   },
   {
     "component": "inline_notice",
@@ -524,8 +483,7 @@
     "states": [
       "error"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "inline_notice_island.rs"
   },
   {
     "component": "input",
@@ -537,8 +495,7 @@
       "focus",
       "disabled"
     ],
-    "behavior": "input_behavior.rs",
-    "registered": true
+    "island": "input_island.rs"
   },
   {
     "component": "input_group",
@@ -549,8 +506,7 @@
     "states": [
       "focus-within"
     ],
-    "behavior": "input_group_behavior.rs",
-    "registered": true
+    "island": "input_group_island.rs"
   },
   {
     "component": "input_otp",
@@ -561,8 +517,7 @@
     "states": [
       "active"
     ],
-    "behavior": "input_otp_behavior.rs",
-    "registered": true
+    "island": "input_otp_island.rs"
   },
   {
     "component": "kbd",
@@ -571,8 +526,7 @@
     "foundation": "spacing, radius, shadow, typography",
     "family": "family-c-forms",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "kbd_island.rs"
   },
   {
     "component": "label",
@@ -581,8 +535,7 @@
     "foundation": "typography",
     "family": "family-c-forms",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "label_island.rs"
   },
   {
     "component": "link",
@@ -595,8 +548,7 @@
       "hover",
       "disabled"
     ],
-    "behavior": "link_behavior.rs",
-    "registered": true
+    "island": "link_island.rs"
   },
   {
     "component": "link_group",
@@ -607,8 +559,7 @@
     "states": [
       "active"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "link_group_island.rs"
   },
   {
     "component": "list_item",
@@ -619,8 +570,7 @@
     "states": [
       "selected"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "list_item_island.rs"
   },
   {
     "component": "loading_overlay",
@@ -631,8 +581,7 @@
     "states": [
       "loading"
     ],
-    "behavior": "loading_overlay_behavior.rs",
-    "registered": true
+    "island": "loading_overlay_island.rs"
   },
   {
     "component": "logo",
@@ -641,8 +590,7 @@
     "foundation": "size, typography",
     "family": "family-f-data",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "logo_island.rs"
   },
   {
     "component": "markdown",
@@ -651,8 +599,7 @@
     "foundation": "spacing, radius, border, motion, typography",
     "family": "family-f-data",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "markdown_island.rs"
   },
   {
     "component": "menu",
@@ -664,8 +611,7 @@
       "open",
       "closed"
     ],
-    "behavior": "menu_behavior.rs",
-    "registered": true
+    "island": "menu_island.rs"
   },
   {
     "component": "menubar",
@@ -676,8 +622,7 @@
     "states": [
       "active"
     ],
-    "behavior": "menubar_behavior.rs",
-    "registered": true
+    "island": "menubar_island.rs"
   },
   {
     "component": "modal",
@@ -689,8 +634,7 @@
       "open",
       "closed"
     ],
-    "behavior": "modal_behavior.rs",
-    "registered": true
+    "island": "modal_island.rs"
   },
   {
     "component": "nav_item",
@@ -702,8 +646,7 @@
       "active",
       "disabled"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "nav_item_island.rs"
   },
   {
     "component": "navigation_menu",
@@ -716,8 +659,7 @@
       "closed",
       "active"
     ],
-    "behavior": "navigation_menu_behavior.rs",
-    "registered": true
+    "island": "navigation_menu_island.rs"
   },
   {
     "component": "page_header",
@@ -726,8 +668,7 @@
     "foundation": "spacing, border, typography",
     "family": "family-h-layout",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "page_header_island.rs"
   },
   {
     "component": "pagination",
@@ -739,8 +680,7 @@
       "active",
       "disabled"
     ],
-    "behavior": "pagination_behavior.rs",
-    "registered": true
+    "island": "pagination_island.rs"
   },
   {
     "component": "popover",
@@ -752,8 +692,7 @@
       "open",
       "closed"
     ],
-    "behavior": "popover_behavior.rs",
-    "registered": true
+    "island": "popover_island.rs"
   },
   {
     "component": "progress",
@@ -764,8 +703,7 @@
     "states": [
       "loading"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "progress_island.rs"
   },
   {
     "component": "pulse",
@@ -776,8 +714,7 @@
     "states": [
       "active"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "pulse_island.rs"
   },
   {
     "component": "radio",
@@ -790,8 +727,7 @@
       "focus",
       "disabled"
     ],
-    "behavior": "radio_behavior.rs",
-    "registered": true
+    "island": "radio_island.rs"
   },
   {
     "component": "radio_group",
@@ -804,8 +740,7 @@
       "focus",
       "disabled"
     ],
-    "behavior": "radio_group_behavior.rs",
-    "registered": true
+    "island": "radio_group_island.rs"
   },
   {
     "component": "resizable",
@@ -817,8 +752,7 @@
       "active",
       "inactive"
     ],
-    "behavior": "resizable_behavior.rs",
-    "registered": true
+    "island": "resizable_island.rs"
   },
   {
     "component": "scroll_area",
@@ -829,8 +763,7 @@
     "states": [
       "active"
     ],
-    "behavior": "scroll_area_behavior.rs",
-    "registered": true
+    "island": "scroll_area_island.rs"
   },
   {
     "component": "section",
@@ -839,8 +772,7 @@
     "foundation": "spacing, radius, shadow, typography",
     "family": "family-h-layout",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "section_island.rs"
   },
   {
     "component": "select",
@@ -854,8 +786,7 @@
       "selected",
       "disabled"
     ],
-    "behavior": "select_behavior.rs",
-    "registered": true
+    "island": "select_island.rs"
   },
   {
     "component": "separator",
@@ -864,8 +795,7 @@
     "foundation": "size",
     "family": "family-h-layout",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "separator_island.rs"
   },
   {
     "component": "sheet",
@@ -877,8 +807,7 @@
       "open",
       "closed"
     ],
-    "behavior": "sheet_behavior.rs",
-    "registered": true
+    "island": "sheet_island.rs"
   },
   {
     "component": "sidebar",
@@ -892,8 +821,7 @@
       "active",
       "disabled"
     ],
-    "behavior": "sidebar_behavior.rs",
-    "registered": true
+    "island": "sidebar_island.rs"
   },
   {
     "component": "skeleton",
@@ -904,8 +832,7 @@
     "states": [
       "loading"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "skeleton_island.rs"
   },
   {
     "component": "slider",
@@ -917,8 +844,7 @@
       "active",
       "disabled"
     ],
-    "behavior": "slider_behavior.rs",
-    "registered": true
+    "island": "slider_island.rs"
   },
   {
     "component": "spinner",
@@ -929,8 +855,7 @@
     "states": [
       "loading"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "spinner_island.rs"
   },
   {
     "component": "stack",
@@ -939,8 +864,7 @@
     "foundation": "spacing",
     "family": "family-h-layout",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "stack_island.rs"
   },
   {
     "component": "stat",
@@ -949,8 +873,7 @@
     "foundation": "spacing, size, radius, typography",
     "family": "family-f-data",
     "states": [],
-    "behavior": null,
-    "registered": false
+    "island": "stat_island.rs"
   },
   {
     "component": "status_dot",
@@ -962,8 +885,7 @@
       "active",
       "inactive"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "status_dot_island.rs"
   },
   {
     "component": "switch",
@@ -976,8 +898,7 @@
       "off",
       "disabled"
     ],
-    "behavior": "switch_behavior.rs",
-    "registered": true
+    "island": "switch_island.rs"
   },
   {
     "component": "table",
@@ -990,8 +911,7 @@
       "error",
       "selected"
     ],
-    "behavior": null,
-    "registered": false
+    "island": "table_island.rs"
   },
   {
     "component": "table_of_contents",
@@ -1004,8 +924,7 @@
       "open",
       "closed"
     ],
-    "behavior": "table_of_contents_behavior.rs",
-    "registered": true
+    "island": "table_of_contents_island.rs"
   },
   {
     "component": "tabs",
@@ -1018,8 +937,7 @@
       "inactive",
       "disabled"
     ],
-    "behavior": "tabs_behavior.rs",
-    "registered": true
+    "island": "tabs_island.rs"
   },
   {
     "component": "textarea",
@@ -1031,8 +949,7 @@
       "focus",
       "disabled"
     ],
-    "behavior": "textarea_behavior.rs",
-    "registered": true
+    "island": "textarea_island.rs"
   },
   {
     "component": "toast",
@@ -1044,8 +961,7 @@
       "open",
       "closed"
     ],
-    "behavior": "toast_behavior.rs",
-    "registered": true
+    "island": "toast_island.rs"
   },
   {
     "component": "toggle",
@@ -1058,8 +974,7 @@
       "off",
       "disabled"
     ],
-    "behavior": "toggle_behavior.rs",
-    "registered": true
+    "island": "toggle_island.rs"
   },
   {
     "component": "toggle_group",
@@ -1072,8 +987,7 @@
       "off",
       "disabled"
     ],
-    "behavior": "toggle_group_behavior.rs",
-    "registered": true
+    "island": "toggle_group_island.rs"
   },
   {
     "component": "toolbar",
@@ -1084,8 +998,7 @@
     "states": [
       "active"
     ],
-    "behavior": "toolbar_behavior.rs",
-    "registered": true
+    "island": "toolbar_island.rs"
   },
   {
     "component": "tooltip",
@@ -1097,8 +1010,7 @@
       "open",
       "closed"
     ],
-    "behavior": "tooltip_behavior.rs",
-    "registered": true
+    "island": "tooltip_island.rs"
   },
   {
     "component": "tree",
@@ -1113,7 +1025,6 @@
       "disabled",
       "active"
     ],
-    "behavior": "tree_behavior.rs",
-    "registered": true
+    "island": "tree_island.rs"
   }
 ]

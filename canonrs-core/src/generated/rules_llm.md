@@ -6965,3 +6965,267 @@ use declarative data-rs-* attributes
 
 ---
 
+## CR-322 — Island DOM Shape Must Be Static
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+islands with dynamic DOM shape cause hydration mismatch and runtime panic
+
+### Solution
+
+keep island view structure static and fixed
+
+### Signals
+
+- failed_to_cast_marker_node
+- hydration panic
+- tachys cursor error
+
+---
+
+## CR-323 — Island Props Must Be Serializable
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+custom types without serde cause compile errors in island props
+
+### Solution
+
+derive serde traits or use primitive-compatible types
+
+### Signals
+
+- island compile error
+- trait bound not satisfied
+- failed to parse path
+
+---
+
+## CR-324 — Island View Must Be Isomorphic
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+SSR and hydrate produce different HTML causing hydration panic
+
+### Solution
+
+initialize signals with deterministic values derived from props
+
+### Signals
+
+- hydration mismatch
+- cursor panic
+- different attribute values SSR vs client
+
+---
+
+## CR-325 — Dynamic Lists Must Live Outside Islands
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+iterators, For component and inner_html inside islands break hydration
+
+### Solution
+
+move dynamic lists to SSR shell components outside the island
+
+### Signals
+
+- failed_to_cast_marker_node at list position
+- hydration panic on collection render
+- tachys cursor error inside island
+
+---
+
+## CR-326 — Island Event Handlers Must Be Cfg-Gated
+
+- **Category:** islands-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+web-sys and wasm-bindgen APIs are unavailable during SSR compilation
+
+### Solution
+
+gate all client-only logic with cfg(feature = hydrate)
+
+### Signals
+
+- web_sys not found in SSR build
+- wasm_bindgen unavailable
+- JsCast not in scope
+
+---
+
+## CR-327 — Signals Are the SSOT for Island State
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+DOM mutation and attribute reading as state source breaks the reactive model
+
+### Solution
+
+derive all state from signals initialized from props
+
+### Signals
+
+- reading data-rs-* attributes as state
+- set_attribute called directly
+- DOM scanning inside island
+
+---
+
+## CR-328 — Island Crate Must Be Linked in WASM Entry Point
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+islands defined in a separate crate are silently excluded from the WASM bundle
+
+### Solution
+
+add the island crate as a dependency and use it explicitly in the client crate
+
+### Signals
+
+- island function missing from generated JS
+- window.__leptos_islands undefined
+- island never hydrates
+
+---
+
+## CR-329 — HydrationScripts Must Declare Islands Mode
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+without islands=true the runtime does not connect leptos-island elements to WASM functions
+
+### Solution
+
+pass islands=true to HydrationScripts in the app shell
+
+### Signals
+
+- islands render as static HTML
+- no interaction after hydration
+- window.__leptos_islands undefined
+
+---
+
+## CR-330 — Island Props Must Use Serde Enums
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+`Option<String>` and `Option<bool>` with `#[prop(optional)]` always serialize as `null` in `data-props`, making the value invisible to the client after hydration.
+
+### Solution
+
+Define an enum with `#[derive(serde::Serialize, serde::Deserialize)]` for every prop that carries meaningful state across the SSR boundary.
+
+### Signals
+
+- prop always appears as `null` in `data-props` HTML attribute
+- client island never receives the intended value
+- state appears correct in SSR but resets after hydration
+
+---
+
+## CR-331 — Island SSR State Must Be Fully Materialized Without Signals
+
+- **Category:** islands-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+Signal values like `is_hover.get()` return their initial value during SSR but the rendered attribute may be empty if the closure does not account for static initial state separately.
+
+### Solution
+
+Pre-compute an `initial_state` string from all static booleans and use it as a fallback in the reactive closure.
+
+### Signals
+
+- `data-rs-state=""` in SSR output even when initial state was passed
+- state appears only after user interaction, not on page load
+- CSS that depends on initial state does not apply on first render
+
+---
+
+## CR-332 — Group Override Selector Must Match Base Specificity
+
+- **Category:** css-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+A group selector with fewer conditions than the child's base selector loses the cascade silently. The override is present in the CSS but never applies.
+
+### Solution
+
+Replicate all `:not()` conditions from the base child selector in the group override selector.
+
+### Signals
+
+- group override CSS is present in the bundle but has no visual effect
+- computed styles show the child's base rule winning
+- adding `!important` fixes it (forbidden — signals a specificity problem)
+
+---
+
+## CR-333 — Island CSS Must Use Descendant Selector Not Child Combinator
+
+- **Category:** css-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+A CSS rule using `>` between a parent component and an island child will never match because the DOM contains intermediate Leptos wrapper elements.
+
+### Solution
+
+Always use the descendant combinator (space) when writing selectors that span across island boundaries.
+
+### Signals
+
+- CSS rule is present in bundle but never applies to island children
+- rule works in isolation but breaks when component is wrapped in an island
+- DevTools shows the selector does not match despite correct DOM attributes
+
+---
+

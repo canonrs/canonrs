@@ -205,13 +205,89 @@ def validate(component, declared):
     return errors, unused
 
 
+
+
+ISLAND_DIR = "../../canonrs-server/src/ui"
+
+
+def check_island_props(island_file, island_dir, component):
+    """CR-330: island props must use serde enums, not Option<String> or Option<bool>"""
+    errors = []
+    # find island file
+    import glob
+    matches = glob.glob(f"{island_dir}/**/{island_file}", recursive=True)
+    if not matches:
+        errors.append(f"[ISLAND-MISSING] {island_file} nao encontrado")
+        return errors
+    with open(matches[0]) as f:
+        content = f.read()
+    lines = content.splitlines()
+    in_island = False
+    for line in lines:
+        if "#[island]" in line:
+            in_island = True
+        if in_island and "#[prop(optional" in line:
+            if "Option<String>" in line or "Option<bool>" in line:
+                # allow cosmetic props
+                cosmetic = any(p in line for p in ["class", "aria_label", "validation", "disabled", "text", "target", "href", "external"])
+                if not cosmetic:
+                    prop = line.strip()
+                    errors.append(
+                        f"[CR-330] {island_file} -- prop nao serde-safe: {prop[:80]}\n"
+                        f"            use enum com serde ao inves de Option<String>/Option<bool>"
+                    )
+        if in_island and ") -> impl IntoView" in line:
+            in_island = False
+    return errors
+
+
+def check_island_ssr_state(island_file, island_dir):
+    """CR-331: island SSR state must be fully materialized without signals"""
+    errors = []
+    import glob
+    matches = glob.glob(f"{island_dir}/**/{island_file}", recursive=True)
+    if not matches:
+        return errors
+    with open(matches[0]) as f:
+        content = f.read()
+    has_signals = "signal(" in content
+    has_data_rs_state = "data-rs-state" in content
+    has_initial_state = "initial_state" in content
+    if has_signals and has_data_rs_state and not has_initial_state:
+        errors.append(
+            f"[CR-331] {island_file} -- usa signals em data-rs-state sem initial_state materializado\n"
+            f"            adicione initial_state pre-computado como fallback SSR"
+        )
+    return errors
+
+
+def check_island_css_child_combinator(css_file):
+    """CR-333: CSS must not use > combinator across island boundaries"""
+    errors = []
+    if not os.path.exists(css_file):
+        return errors
+    with open(css_file) as f:
+        content = f.read()
+    lines = content.splitlines()
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("//") or line.strip().startswith("/*"):
+            continue
+        if re.search(r"> *\[data-rs-", line):
+            errors.append(
+                f"[CR-333] linha {i} -- child combinator (>) proibido em seletor que cruza island boundary\n"
+                f"            use descendant selector (espaco) ao inves de >\n"
+                f"            {line.strip()[:80]}"
+            )
+    return errors
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_path  = os.path.join(script_dir, JSON_PATH)
-    global CSS_DIR, TOKENS_DIR, BEHAVIORS_DIR
+    global CSS_DIR, TOKENS_DIR, BEHAVIORS_DIR, ISLAND_DIR
     CSS_DIR      = os.path.join(script_dir, CSS_DIR)
     TOKENS_DIR   = os.path.join(script_dir, TOKENS_DIR)
     BEHAVIORS_DIR= os.path.join(script_dir, BEHAVIORS_DIR)
+    ISLAND_DIR   = os.path.join(script_dir, ISLAND_DIR)
 
     declared = extract_declared_tokens(TOKENS_DIR)
 
@@ -237,6 +313,13 @@ def main():
         if target and comp["component"] != target:
             continue
         errors, unused = validate(comp, declared)
+        island_file = comp.get("island", None)
+        if island_file:
+            island_dir = os.path.join(script_dir, ISLAND_DIR)
+            errors += check_island_props(island_file, island_dir, comp["component"])
+            errors += check_island_ssr_state(island_file, island_dir)
+            css_file = os.path.join(CSS_DIR, comp["file"])
+            errors += check_island_css_child_combinator(css_file)
         if errors:
             print(f"\n[ERRO] {comp['component'].upper()}")
             for e in errors:

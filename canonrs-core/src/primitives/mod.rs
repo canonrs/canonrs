@@ -11,6 +11,8 @@ pub mod banner;
 pub mod breadcrumb;
 pub mod button;
 pub mod button_group;
+pub mod copy_button;
+pub use copy_button::CopyButtonPrimitive;
 pub mod calendar;
 pub mod callout;
 pub mod card;

@@ -129,6 +129,8 @@ pub mod input_otp;
 pub mod textarea;
 pub mod slider;
 pub use slider::SliderIsland;
+pub use button::ButtonIsland;
+pub use button_group::ButtonGroupIsland;
 pub mod label;
 pub mod switch;
 pub mod select;
@@ -137,6 +139,7 @@ pub mod toggle_group;
 
 // Family D - Navigation
 pub mod link;
+pub use link::{LinkIsland, LinkVariant};
 pub mod navigation_menu;
 pub mod link_group;
 pub mod nav_item;
@@ -174,9 +177,11 @@ pub mod scroll_area;
 pub mod avatar;
 pub mod icon;
 pub mod copy_button;
+pub use copy_button::CopyButtonIsland;
 pub mod stat;
 pub mod icon_button;
 pub use icon_button::icon_button_ui::{IconButton, IconButtonVariant};
+pub use icon_button::{IconButtonIsland, IconButtonSize};
 pub mod list_item;
 pub mod card;
 pub mod markdown;

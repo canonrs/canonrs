@@ -945,6 +945,27 @@
       "variants": []
     },
     {
+      "behavior": "copy-button",
+      "capabilities": [],
+      "catalog_category": "Action",
+      "catalog_tags": [
+        "copy-button",
+        "copy",
+        "clipboard",
+        "button",
+        "action"
+      ],
+      "component_name": "CopyButton",
+      "description": "Clipboard copy button",
+      "family": "utility",
+      "has_semantic": true,
+      "id": "copy-button",
+      "intent": "Copy text to clipboard on click",
+      "label": "Copy Button",
+      "type": "component",
+      "variants": []
+    },
+    {
       "behavior": "data",
       "capabilities": [
         "Multiple"

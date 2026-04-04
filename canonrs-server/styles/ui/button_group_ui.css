@@ -16,24 +16,41 @@
   gap: 0;
 }
 
-[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button] {
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button] {
   border-radius: var(--button-group-radius-merge);
   margin-left: var(--button-group-border-overlap);
 }
 
-[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="first"] {
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button][data-rs-state~="first"] {
   border-start-start-radius: var(--button-radius);
   border-end-start-radius: var(--button-radius);
   margin-left: 0;
 }
 
-[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="last"] {
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button][data-rs-state~="last"] {
   border-start-end-radius: var(--button-radius);
   border-end-end-radius: var(--button-radius);
 }
 
-[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="focus"],
-[data-rs-button-group][data-rs-state~="attached"] > [data-rs-button][data-rs-state~="hover"] {
+/* ── z-index base ───────────────────────────────────────────── */
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button] {
   position: relative;
+  z-index: 0;
+}
+
+/* ── z-index elevation on hover/focus ──────────────────────── */
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button][data-rs-state~="hover"],
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button][data-rs-state~="focus"] {
   z-index: 1;
+}
+
+/* ── hover opacity ──────────────────────────────────────────── */
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button][data-rs-state~="hover"]:not([data-rs-state~="disabled"]):not([data-rs-variant="ghost"]):not([data-rs-variant="link"]) {
+  opacity: var(--state-opacity-hover);
+}
+
+/* ── focus ring ─────────────────────────────────────────────── */
+[data-rs-button-group][data-rs-state~="attached"] [data-rs-button][data-rs-state~="focus"] {
+  outline: none;
+  box-shadow: var(--focus-ring-shadow);
 }

@@ -9,3 +9,6 @@ pub use examples::*;
 
 pub mod preview;
 pub use preview::ButtonGroupShowcasePreview;
+
+pub mod button_group_island;
+pub use button_group_island::ButtonGroupIsland;

@@ -101,6 +101,12 @@ pub fn SliderIsland(
     #[cfg(not(feature = "hydrate"))]
     let on_key = move |_: leptos::ev::KeyboardEvent| { let _ = current; };
 
+    let initial_state = {
+        let mut s = vec![];
+        if disabled { s.push("disabled"); }
+        s.join(" ")
+    };
+
     view! {
         <div
             data-rs-slider=""
@@ -114,7 +120,8 @@ pub fn SliderIsland(
                 if is_dragging.get() { s.push("active"); }
                 if is_focused.get() { s.push("focus"); }
                 if disabled { s.push("disabled"); }
-                s.join(" ")
+                let s = s.join(" ");
+                if s.is_empty() { initial_state.clone() } else { s }
             }
             role="slider"
             aria-valuemin=safe_min.to_string()
