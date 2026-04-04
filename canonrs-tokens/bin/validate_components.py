@@ -229,7 +229,7 @@ def check_island_props(island_file, island_dir, component):
         if in_island and "#[prop(optional" in line:
             if "Option<String>" in line or "Option<bool>" in line:
                 # allow cosmetic props
-                cosmetic = any(p in line for p in ["class", "aria_label", "validation", "disabled", "text", "target", "href", "external"])
+                cosmetic = any(p in line for p in ["class", "aria_label", "validation", "disabled", "text", "target", "href", "external", "placeholder", "selected_value", "value", "label", "name"])
                 if not cosmetic:
                     prop = line.strip()
                     errors.append(

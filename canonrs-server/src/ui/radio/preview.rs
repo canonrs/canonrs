@@ -1,17 +1,20 @@
 use leptos::prelude::*;
-use super::radio_ui::{Radio, RadioGroup, RadioGroupItem};
-use canonrs_core::meta::{SelectionState, DisabledState};
+use super::radio_island::{RadioGroupIsland, RadioOption};
 
 #[component]
 pub fn RadioShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <RadioGroup>
-                    <RadioGroupItem value="leptos" name="framework">"Leptos"</RadioGroupItem>
-                    <RadioGroupItem value="dioxus" name="framework" selected=SelectionState::Selected>"Dioxus"</RadioGroupItem>
-                    <RadioGroupItem value="yew" name="framework">"Yew"</RadioGroupItem>
-                </RadioGroup>
+                <RadioGroupIsland
+                    name="framework"
+                    selected_value="dioxus"
+                    options=vec![
+                        RadioOption { value: "leptos".into(), label: "Leptos".into(), disabled: false },
+                        RadioOption { value: "dioxus".into(), label: "Dioxus".into(), disabled: false },
+                        RadioOption { value: "yew".into(),    label: "Yew".into(),    disabled: false },
+                    ]
+                />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Selection state mapped directly to DOM and ARIA."
@@ -22,19 +25,41 @@ pub fn RadioShowcasePreview() -> impl IntoView {
                 <div data-rs-preview-dev-grid="">
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Unselected"</span>
-                        <Radio value="a" name="state-demo">"Option A"</Radio>
+                        <RadioGroupIsland
+                            name="state-a"
+                            options=vec![
+                                RadioOption { value: "a".into(), label: "Option A".into(), disabled: false },
+                            ]
+                        />
                     </div>
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Selected"</span>
-                        <Radio value="b" name="state-demo" selected=SelectionState::Selected>"Option B"</Radio>
+                        <RadioGroupIsland
+                            name="state-b"
+                            selected_value="b"
+                            options=vec![
+                                RadioOption { value: "b".into(), label: "Option B".into(), disabled: false },
+                            ]
+                        />
                     </div>
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Disabled"</span>
-                        <Radio value="c" name="state-demo" disabled=DisabledState::Disabled>"Option C"</Radio>
+                        <RadioGroupIsland
+                            name="state-c"
+                            options=vec![
+                                RadioOption { value: "c".into(), label: "Option C".into(), disabled: true },
+                            ]
+                        />
                     </div>
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Selected + Disabled"</span>
-                        <Radio value="d" name="state-demo" selected=SelectionState::Selected disabled=DisabledState::Disabled>"Option D"</Radio>
+                        <RadioGroupIsland
+                            name="state-d"
+                            selected_value="d"
+                            options=vec![
+                                RadioOption { value: "d".into(), label: "Option D".into(), disabled: true },
+                            ]
+                        />
                     </div>
                 </div>
             </div>
@@ -42,21 +67,29 @@ pub fn RadioShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Group — pre-selected"</span>
                 <div data-rs-showcase-preview-row="">
-                    <RadioGroup>
-                        <RadioGroupItem value="sm" name="size">"Small"</RadioGroupItem>
-                        <RadioGroupItem value="md" name="size" selected=SelectionState::Selected>"Medium"</RadioGroupItem>
-                        <RadioGroupItem value="lg" name="size">"Large"</RadioGroupItem>
-                    </RadioGroup>
+                    <RadioGroupIsland
+                        name="size"
+                        selected_value="md"
+                        options=vec![
+                            RadioOption { value: "sm".into(), label: "Small".into(),  disabled: false },
+                            RadioOption { value: "md".into(), label: "Medium".into(), disabled: false },
+                            RadioOption { value: "lg".into(), label: "Large".into(),  disabled: false },
+                        ]
+                    />
                 </div>
             </div>
 
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Group — disabled"</span>
                 <div data-rs-showcase-preview-row="">
-                    <RadioGroup disabled=DisabledState::Disabled>
-                        <RadioGroupItem value="a" name="disabled">"Option A"</RadioGroupItem>
-                        <RadioGroupItem value="b" name="disabled">"Option B"</RadioGroupItem>
-                    </RadioGroup>
+                    <RadioGroupIsland
+                        name="disabled"
+                        disabled=true
+                        options=vec![
+                            RadioOption { value: "a".into(), label: "Option A".into(), disabled: false },
+                            RadioOption { value: "b".into(), label: "Option B".into(), disabled: false },
+                        ]
+                    />
                 </div>
             </div>
 

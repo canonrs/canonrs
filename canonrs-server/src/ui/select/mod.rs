@@ -1,4 +1,7 @@
 pub mod select_ui;
+pub mod select_island;
+pub use select_island::{SelectIsland, SelectOption};
+
 #[cfg(feature = "examples")]
 pub mod examples;
 
