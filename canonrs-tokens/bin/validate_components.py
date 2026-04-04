@@ -21,6 +21,7 @@ BEHAVIORS_DIR= "../../canonrs-client/src/behaviors"
 RUNTIME_ALLOWED = [
     "--theme-",
     "--primitive-",
+    "--slider-fill",  # inline runtime property set by behavior
 ]
 
 FOUNDATION_PREFIXES = {

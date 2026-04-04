@@ -14,10 +14,28 @@ use std::rc::Rc;
 use std::cell::{Cell, RefCell};
 
 #[cfg(feature = "hydrate")]
+fn add_state(el: &web_sys::Element, state: &str) {
+    let mut s = el.get_attribute("data-rs-state").unwrap_or_default();
+    if !s.split_whitespace().any(|x| x == state) {
+        s = format!("{} {}", s, state).trim().to_string();
+    }
+    el.set_attribute("data-rs-state", &s).ok();
+}
+
+#[cfg(feature = "hydrate")]
+fn remove_state(el: &web_sys::Element, state: &str) {
+    if let Some(s) = el.get_attribute("data-rs-state") {
+        let f = s.split_whitespace().filter(|x| *x != state).collect::<Vec<_>>().join(" ");
+        if f.is_empty() { el.remove_attribute("data-rs-state").ok(); }
+        else { el.set_attribute("data-rs-state", &f).ok(); }
+    }
+}
+
+#[cfg(feature = "hydrate")]
 fn update_slider_ui(slider_el: &web_sys::Element, percent: f64) {
     slider_el.set_attribute("data-rs-percent", &format!("{:.4}", percent)).ok();
     if let Ok(html) = slider_el.clone().dyn_into::<web_sys::HtmlElement>() {
-        html.style().set_property("--slider-percent", &format!("{:.4}%", percent)).ok();
+        html.style().set_property("--slider-fill", &format!("{:.4}%", percent)).ok();
     }
 }
 
@@ -29,9 +47,16 @@ pub fn register() {
         if slider_el.get_attribute("data-rs-slider-attached").as_deref() == Some("1") { return Ok(()); }
         slider_el.set_attribute("data-rs-slider-attached", "1").ok();
 
+        // disabled state
+        if slider_el.has_attribute("data-rs-disabled") {
+            add_state(slider_el, "disabled");
+            return Ok(());
+        }
+
         let min: f64 = slider_el.get_attribute("aria-valuemin").and_then(|s| s.parse().ok()).unwrap_or(0.0);
         let max: f64 = slider_el.get_attribute("aria-valuemax").and_then(|s| s.parse().ok()).unwrap_or(100.0);
         let val: f64 = slider_el.get_attribute("aria-valuenow").and_then(|s| s.parse().ok()).unwrap_or(0.0);
+        let step: f64 = slider_el.get_attribute("data-rs-step").and_then(|s| s.parse().ok()).unwrap_or(0.0);
 
         let percent = ((val - min) / (max - min)) * 100.0;
         update_slider_ui(&slider_el, percent);
@@ -53,6 +78,7 @@ pub fn register() {
             is_dragging_down.set(true);
             *active_down.borrow_mut() = Some(e.pointer_id());
             slider_down.set_pointer_capture(e.pointer_id()).ok();
+            add_state(&slider_down.clone().dyn_into::<web_sys::Element>().unwrap(), "active");
         }) as Box<dyn FnMut(_)>);
 
         let slider_move = slider_html.clone();
@@ -63,7 +89,14 @@ pub fn register() {
             let rect = slider_move.get_bounding_client_rect();
             let x = (e.client_x() as f64 - rect.left()).max(0.0).min(rect.width());
             let pct = (x / rect.width()) * 100.0;
-            let value = min + (pct / 100.0) * (max - min);
+            let raw = min + (pct / 100.0) * (max - min);
+            let value = if step > 0.0 {
+                let snapped = (raw / step).round() * step;
+                snapped.clamp(min, max)
+            } else {
+                raw.clamp(min, max)
+            };
+            let pct = ((value - min) / (max - min)) * 100.0;
             slider_el_move.set_attribute("data-rs-value", &format!("{:.2}", value)).ok();
             update_slider_ui(&slider_el_move, pct);
 
@@ -81,6 +114,7 @@ pub fn register() {
             if *active_up.borrow() == Some(e.pointer_id()) {
                 is_dragging_up.set(false);
                 *active_up.borrow_mut() = None;
+                remove_state(&slider_el_up, "active");
                 let val: f64 = slider_el_up.get_attribute("data-rs-value")
                     .and_then(|s| s.parse().ok()).unwrap_or(0.0);
                 let init = web_sys::CustomEventInit::new();
@@ -98,6 +132,22 @@ pub fn register() {
         on_down.forget();
         on_move.forget();
         on_up.forget();
+
+        // focus state on thumb
+        if let Ok(Some(thumb)) = slider_el.query_selector("[data-rs-slider-thumb]") {
+            let thumb_in = thumb.clone();
+            let thumb_out = thumb.clone();
+            let on_focus = Closure::wrap(Box::new(move |_: web_sys::FocusEvent| {
+                add_state(&thumb_in, "focus");
+            }) as Box<dyn FnMut(_)>);
+            let on_blur = Closure::wrap(Box::new(move |_: web_sys::FocusEvent| {
+                remove_state(&thumb_out, "focus");
+            }) as Box<dyn FnMut(_)>);
+            thumb.add_event_listener_with_callback("focusin", on_focus.as_ref().unchecked_ref()).ok();
+            thumb.add_event_listener_with_callback("focusout", on_blur.as_ref().unchecked_ref()).ok();
+            on_focus.forget();
+            on_blur.forget();
+        }
 
         Ok(())
     }));

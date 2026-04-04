@@ -197,13 +197,13 @@ pub fn DataTableColumnManagementExample() -> impl IntoView {
                         view! {
                             <>
                                 <div on:click=move |_| density_mode.set("compact")>
-                                    <Button variant=if d == "compact" { ButtonVariant::Solid } else { ButtonVariant::Ghost }>"Compact"</Button>
+                                    <Button variant=if d == "compact" { ButtonVariant::Primary } else { ButtonVariant::Ghost }>"Compact"</Button>
                                 </div>
                                 <div on:click=move |_| density_mode.set("comfortable")>
-                                    <Button variant=if d == "comfortable" { ButtonVariant::Solid } else { ButtonVariant::Ghost }>"Comfortable"</Button>
+                                    <Button variant=if d == "comfortable" { ButtonVariant::Primary } else { ButtonVariant::Ghost }>"Comfortable"</Button>
                                 </div>
                                 <div on:click=move |_| density_mode.set("spacious")>
-                                    <Button variant=if d == "spacious" { ButtonVariant::Solid } else { ButtonVariant::Ghost }>"Spacious"</Button>
+                                    <Button variant=if d == "spacious" { ButtonVariant::Primary } else { ButtonVariant::Ghost }>"Spacious"</Button>
                                 </div>
                             </>
                         }

@@ -4,6 +4,7 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! ComponentMeta — metadata layer para AI/RAG/Decision Engine
+use serde::{Serialize, Deserialize};
 
 
 /// Typed capability enum — substitui &["open-close"] strings hardcoded
@@ -250,7 +251,7 @@ impl StateKind {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Default, Serialize, Deserialize)]
 pub enum DisabledState {
     #[default]
     Enabled,

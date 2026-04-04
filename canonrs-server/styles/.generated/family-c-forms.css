@@ -198,6 +198,10 @@
   --slider-disabled-opacity: var(--state-disabled-opacity);
   --slider-transition-duration: var(--motion-duration-fast);
   --slider-transition-ease: var(--motion-ease-standard);
+  --slider-mark-width: 1px;
+  --slider-mark-height: 6px;
+  --slider-mark-gap: var(--space-xs);
+  --slider-mark-color: var(--color-secondary);
   --calendar-bg: var(--theme-overlay-bg);
   --calendar-padding: var(--space-md);
   --calendar-radius: var(--radius-md);

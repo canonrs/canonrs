@@ -1,44 +1,68 @@
 use leptos::prelude::*;
-use canonrs_core::ButtonPrimitive;
+use canonrs_core::primitives::{ButtonPrimitive, ButtonVariant as CoreVariant, ButtonSize as CoreSize};
+use canonrs_core::DisabledState;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum ButtonVariant {
-    Solid, Outline, Ghost, Danger, Success, Warning,
+    #[default] Default,
+    Primary,
+    Secondary,
+    Outline,
+    Ghost,
+    Link,
+    Destructive,
 }
+
 impl ButtonVariant {
-    pub fn as_str(&self) -> &'static str {
+    pub fn to_core(&self) -> CoreVariant {
         match self {
-            Self::Solid => "solid", Self::Outline => "outline", Self::Ghost => "ghost",
-            Self::Danger => "danger", Self::Success => "success", Self::Warning => "warning",
+            Self::Default     => CoreVariant::Default,
+            Self::Primary     => CoreVariant::Primary,
+            Self::Secondary   => CoreVariant::Secondary,
+            Self::Outline     => CoreVariant::Outline,
+            Self::Ghost       => CoreVariant::Ghost,
+            Self::Link        => CoreVariant::Link,
+            Self::Destructive => CoreVariant::Destructive,
         }
     }
 }
 
-#[derive(Clone, Copy, Debug)]
-pub enum ButtonSize { Xs, Sm, Md, Lg, Xl }
+#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+pub enum ButtonSize { Xs, Sm, #[default] Md, Lg, Xl }
+
 impl ButtonSize {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Xs=>"xs", Self::Sm=>"sm", Self::Md=>"md", Self::Lg=>"lg", Self::Xl=>"xl" }
+    pub fn to_core(&self) -> CoreSize {
+        match self {
+            Self::Xs => CoreSize::Xs,
+            Self::Sm => CoreSize::Sm,
+            Self::Md => CoreSize::Md,
+            Self::Lg => CoreSize::Lg,
+            Self::Xl => CoreSize::Xl,
+        }
     }
 }
 
-#[component]
+#[island]
 pub fn Button(
     children: Children,
-    #[prop(default = ButtonVariant::Solid)] variant: ButtonVariant,
-    #[prop(default = ButtonSize::Md)] size: ButtonSize,
-    #[prop(default = false)] disabled: bool,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] aria_label: Option<String>,
+    #[prop(optional)] variant: Option<ButtonVariant>,
+    #[prop(optional)] size: Option<ButtonSize>,
+    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional, into)] class: Option<String>,
+    #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
+    let variant = variant.unwrap_or_default();
+    let size = size.unwrap_or_default();
+    let disabled = disabled.unwrap_or(false);
+    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
+
     view! {
         <ButtonPrimitive
-            attr:data-button=""
-            attr:data-ui-variant={variant.as_str()}
-            attr:data-ui-size={size.as_str()}
-            class={class}
-            disabled={disabled.into()}
-            aria_label={aria_label.unwrap_or_default()}
+            class=class.unwrap_or_default()
+            disabled=disabled_state
+            aria_label=aria_label.unwrap_or_default()
+            variant=variant.to_core()
+            size=size.to_core()
         >
             {children()}
         </ButtonPrimitive>

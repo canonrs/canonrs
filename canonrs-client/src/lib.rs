@@ -1,4 +1,9 @@
 //! CanonRS Client — WASM facade (ui-interactive + behaviors)
+#[cfg(feature = "hydrate")]
+use canonrs_server as _;
+#[allow(unused_imports)]
+#[cfg(feature = "hydrate")]
+
 
 pub use canonrs_core::primitives;
 #[allow(ambiguous_glob_reexports)]

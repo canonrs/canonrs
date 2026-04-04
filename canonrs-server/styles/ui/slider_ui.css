@@ -27,7 +27,7 @@
   left: 0;
   top: 0;
   height: 100%;
-  width: var(--slider-percent, 50%);
+  width: var(--slider-fill, 50%);
   background: var(--slider-range-bg);
   border-radius: var(--slider-track-radius);
   transition: width var(--slider-transition-duration) var(--slider-transition-ease);
@@ -36,7 +36,7 @@
 [data-rs-slider-thumb] {
   position: absolute;
   top: 50%;
-  left: var(--slider-percent, 50%);
+  left: var(--slider-fill, 50%);
   transform: translate(-50%, -50%);
   width: var(--slider-thumb-size);
   height: var(--slider-thumb-size);
@@ -57,7 +57,35 @@
   box-shadow: 0 0 0 var(--slider-thumb-focus-ring-width) var(--slider-thumb-focus-ring-color);
 }
 
-[data-rs-slider][data-rs-disabled="true"] {
+/* ── ACTIVE ─────────────────────────────────────────────────── */
+[data-rs-slider][data-rs-state~="active"] [data-rs-slider-thumb] {
+  cursor: grabbing;
+  box-shadow: 0 0 0 var(--slider-thumb-focus-ring-width) var(--slider-thumb-focus-ring-color);
+}
+
+/* ── DISABLED ───────────────────────────────────────────────── */
+[data-rs-slider][data-rs-state~="disabled"] {
   opacity: var(--slider-disabled-opacity);
   pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ── MARKS ──────────────────────────────────────────────────── */
+[data-rs-slider-marks] {
+  position: absolute;
+  bottom: calc(50% - var(--slider-track-height) / 2 - var(--slider-mark-gap) - var(--slider-mark-height));
+  left: 0;
+  width: 100%;
+  height: var(--slider-mark-height);
+  pointer-events: none;
+}
+
+[data-rs-slider-mark] {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: var(--slider-mark-width);
+  height: var(--slider-mark-height);
+  background: var(--slider-mark-color);
+  border-radius: var(--radius-full);
 }

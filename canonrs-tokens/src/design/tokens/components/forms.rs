@@ -235,6 +235,10 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("slider-disabled-opacity", "var(--state-disabled-opacity)"),
     FamilyToken::new("slider-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("slider-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("slider-mark-width", "1px"),
+    FamilyToken::new("slider-mark-height", "6px"),
+    FamilyToken::new("slider-mark-gap", "var(--space-xs)"),
+    FamilyToken::new("slider-mark-color", "var(--color-secondary)"),
 
     // Calendar
     FamilyToken::new("calendar-bg", "var(--theme-overlay-bg)"),

@@ -128,6 +128,7 @@ pub mod input_group;
 pub mod input_otp;
 pub mod textarea;
 pub mod slider;
+pub use slider::SliderIsland;
 pub mod label;
 pub mod switch;
 pub mod select;
