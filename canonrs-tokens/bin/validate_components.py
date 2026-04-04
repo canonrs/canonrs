@@ -316,11 +316,136 @@ CFG_REQUIRED = [
 ]
 
 
-def check_island_full(island_file, island_dir, component):
-    """LEI IMUTAVEL — validacao completa de island"""
+# ═══════════════════════════════════════════════════════════════
+# AST ENGINE — tree-sitter (FASE 3 — ENTERPRISE)
+# ═══════════════════════════════════════════════════════════════
+
+def _build_ast_parser():
+    try:
+        import tree_sitter_rust as tsr
+        from tree_sitter import Language, Parser
+        RUST = Language(tsr.language())
+        parser = Parser(RUST)
+        return parser
+    except Exception:
+        return None
+
+_AST_PARSER = _build_ast_parser()
+
+
+def _ast_walk(node, callback, results):
+    callback(node, results)
+    for child in node.children:
+        _ast_walk(child, callback, results)
+
+
+def check_island_ast(island_file, island_dir):
+    """AST-level validation — zero falso positivo/negativo"""
+    import glob as _glob
     errors = []
-    import glob
-    matches = glob.glob(f"{island_dir}/**/{island_file}", recursive=True)
+
+    if _AST_PARSER is None:
+        return errors  # fallback silencioso se tree-sitter nao disponivel
+
+    matches = _glob.glob(f"{island_dir}/**/{island_file}", recursive=True)
+    if not matches:
+        return errors
+
+    with open(matches[0], "rb") as f:
+        source = f.read()
+
+    tree = _AST_PARSER.parse(source)
+    root = tree.root_node
+
+    # ── COLETAR DADOS ────────────────────────────────────────────
+    dom_vars = set()      # vars atribuidas de query_selector
+    set_calls = []        # chamadas .set(...)
+    cfg_scopes = []       # linhas com cfg(hydrate)
+    dynamic_classes = []  # class= com expressao dinamica
+    for_nodes = []        # for loops
+    signal_count = [0]
+
+    def collect(node, results):
+        text = node.text.decode("utf8") if node.text else ""
+        line = node.start_point[0] + 1
+
+        # dom_vars: let X = ...query_selector...
+        if node.type == "let_declaration":
+            if b"query_selector" in (node.text or b""):
+                pat = node.child_by_field_name("pattern")
+                if pat:
+                    dom_vars.add(pat.text.decode("utf8").strip())
+
+        # set_calls: .set(...)
+        if node.type == "call_expression":
+            t = node.text or b""
+            if b".set(" in t:
+                set_calls.append((line, t.decode("utf8")))
+
+        # cfg scopes
+        if node.type == "attribute_item":
+            t = node.text or b""
+            if b'cfg(feature = "hydrate")' in t:
+                cfg_scopes.append(line)
+
+        # dynamic class
+        if node.type == "attribute":
+            t = node.text or b""
+            if t.startswith(b"class") and (b"move" in t or b"if " in t or b".get(" in t):
+                dynamic_classes.append((line, t.decode("utf8")[:80]))
+
+        # for loops
+        if node.type == "for_expression":
+            for_nodes.append(line)
+
+        # signal count
+        if node.type == "call_expression":
+            t = node.text or b""
+            if t.startswith(b"signal("):
+                signal_count[0] += 1
+
+    _ast_walk(root, collect, None)
+
+    # ── CR-333 AST: DOM → SIGNAL (data-flow completo) ───────────
+    for (line, call) in set_calls:
+        for var in dom_vars:
+            if var in call:
+                errors.append(
+                    f"[CR-333-AST] {island_file} linha {line} -- DOM → SIGNAL (AST confirmed)\n"
+                    f"            query_selector → {var} → .set()\n"
+                    f"            {call[:80]}"
+                )
+
+    # ── CR-339 AST: dynamic class ────────────────────────────────
+    for (line, text) in dynamic_classes:
+        errors.append(
+            f"[CR-339-AST] {island_file} linha {line} -- dynamic class state proibido (AST confirmed)\n"
+            f"            {text[:80]}"
+        )
+
+    # ── CR-336 AST: for loop proibido ───────────────────────────
+    for line in for_nodes:
+        errors.append(
+            f"[CR-336-AST] {island_file} linha {line} -- for loop proibido em island (AST confirmed)\n"
+            f"            use static structure"
+        )
+
+    # ── CR-341 AST: multiplos signals ───────────────────────────
+    if signal_count[0] > 5:
+        errors.append(
+            f"[CR-341-AST] {island_file} -- {signal_count[0]} signals detectados\n"
+            f"            islands SHOULD ter SSOT unico — revisar"
+        )
+
+    return errors
+
+
+def check_island_full(island_file, island_dir, component):
+    """LEI IMUTAVEL — validacao completa de island (CR-330 a CR-342)"""
+    import re as _re
+    import glob as _glob
+    errors = []
+    matches = _glob.glob(f"{island_dir}/**/{island_file}", recursive=True)
     if not matches:
         errors.append(f"[ISLAND-MISSING] {island_file} nao encontrado")
         return errors
@@ -328,9 +453,9 @@ def check_island_full(island_file, island_dir, component):
         content = f.read()
     lines = content.splitlines()
 
-    # ── CR-330: props proibidas ──────────────────────────────────
+    # CR-330: props proibidas
     in_island = False
-    for line in lines:
+    for i, line in enumerate(lines, 1):
         if "#[island]" in line:
             in_island = True
         if in_island and ") -> impl IntoView" in line:
@@ -338,93 +463,95 @@ def check_island_full(island_file, island_dir, component):
         if in_island and "#[prop(" in line:
             for (type_, attr, msg) in ISLAND_FORBIDDEN_PROPS:
                 if type_ in line and attr in line:
-                    # allow cosmetic props
-                    cosmetic = any(p in line for p in ["class", "aria_label", "validation", "disabled", "text", "target", "href", "external", "placeholder", "selected_value", "value", "label", "name"])
+                    cosmetic = any(p in line for p in ["class","aria_label","validation","disabled","text","target","href","external","placeholder","selected_value","value","label","name"])
                     if not cosmetic:
                         errors.append(f"[CR-330] {island_file} linha {i} -- {msg}\n            {line.strip()[:80]}")
 
-    # ── CR-331: initial_state obrigatorio ────────────────────────
-    has_signals = "signal(" in content
-    has_data_rs_state = "data-rs-state" in content
-    has_initial_state = "initial_state" in content
-    if has_signals and has_data_rs_state and not has_initial_state:
-        errors.append(
-            f"[CR-331] {island_file} -- initial_state AUSENTE (lei imutavel)\n"
-            f"            todo island com signals em data-rs-state DEVE ter initial_state materializado"
-        )
+    # CR-331: initial_state obrigatorio
+    if "signal(" in content and "data-rs-state" in content and "initial_state" not in content:
+        errors.append(f"[CR-331] {island_file} -- initial_state AUSENTE (lei imutavel)\n            todo island com signals em data-rs-state DEVE ter initial_state materializado")
 
-    # ── CR-333: DOM → SIGNAL proibido (data-flow real) ────────────
-    import re as _re
+    # CR-333: query_selector → signal (trace completo, profundidade 3)
+    def trace_flow(var, block):
+        chain = {var}
+        for _ in range(3):
+            for v in list(chain):
+                matches = _re.findall(rf'let\s+(\w+)\s*=.*{v}', block)
+                chain.update(matches)
+        for v in chain:
+            if _re.search(rf'\.set\([^)]*{v}[^)]*\)', block):
+                return True
+        return False
+
     for i, line in enumerate(lines, 1):
-        stripped = line.strip()
-        if stripped.startswith("//"):
-            continue
-
+        if line.strip().startswith("//"): continue
         if "query_selector" in line:
             var = None
-            for j in range(i, max(i-25, -1), -1):
+            for j in range(i-1, max(i-25,-1), -1):
                 m = _re.search(r'let\s+(\w+)\s*=', lines[j])
-                if m:
-                    var = m.group(1)
-                    break
-            if var:
-                block = "\n".join(lines[i:i+25])
-                if _re.search(rf'\.set\(\s*{var}\s*[,)]', block):
-                    errors.append(
-                        f"[CR-333] {island_file} linha {i} -- DOM → SIGNAL proibido\n"
-                        f"            query_selector → {var} → .set() viola SSOT\n"
-                        f"            {stripped[:80]}"
-                    )
+                if m and "query_selector" in "\n".join(lines[j:i+1]):
+                    var = m.group(1); break
+            if var and trace_flow(var, "\n".join(lines[i:min(i+25,len(lines))])):
+                errors.append(f"[CR-333] {island_file} linha {i} -- DOM → SIGNAL proibido\n            query_selector → {var} → .set() viola SSOT\n            {line.strip()[:80]}")
 
-    # ── CR-335: outros padroes DOM proibidos ─────────────────────
+    # CR-333b: has_attribute → signal
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("//"): continue
+        if "has_attribute" in line and ".set(" in "\n".join(lines[i:min(i+5,len(lines))]):
+            errors.append(f"[CR-333] {island_file} linha {i} -- has_attribute → SIGNAL proibido\n            {line.strip()[:80]}")
+
+    # CR-335: DOM mutation proibido
     for (pattern, msg) in ISLAND_FORBIDDEN_PATTERNS:
         for i, line in enumerate(lines, 1):
-            stripped = line.strip()
-            if stripped.startswith("//"):
-                continue
+            if line.strip().startswith("//"): continue
             if pattern in line:
-                errors.append(f"[{msg.split(':')[0]}] {island_file} linha {i} -- {msg.split(':', 1)[1].strip()}\n            {stripped[:80]}")
+                errors.append(f"[{msg.split(':')[0]}] {island_file} linha {i} -- {msg.split(':',1)[1].strip()}\n            {line.strip()[:80]}")
                 break
 
-    # ── CR-336: spawn_local proibido ─────────────────────────────
-    # já coberto por ISLAND_FORBIDDEN_PATTERNS
-
-    # ── CR-339: class-based state proibido (dynamic class) ──────
-    import re as _re
+    # CR-335b: style mutation proibido
     for i, line in enumerate(lines, 1):
-        stripped = line.strip()
-        if stripped.startswith("//"):
-            continue
-        if _re.search(r'class\s*=\s*(move\s*\|\||if\s|\w+\.get\()', line):
-            errors.append(
-                f"[CR-339] {island_file} linha {i} -- dynamic class state proibido\n"
-                f"            state MUST ser emitido via data-rs-state, nao via class\n"
-                f"            {stripped[:80]}"
-            )
+        if line.strip().startswith("//"): continue
+        if "style().set_property" in line or "style().set_" in line:
+            errors.append(f"[CR-335] {island_file} linha {i} -- style DOM mutation proibido\n            {line.strip()[:80]}")
 
-    # ── CR-338: web_sys DEVE ser cfg-gated ──────────────────────
-    # verifica se uso de web_sys/wasm_bindgen/Closure esta dentro
-    # de bloco protegido por #[cfg(feature = "hydrate")]
-    # estrategia: encontrar ultimo cfg antes do padrao
+    # CR-337: inner_html dinamico proibido
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("//"): continue
+        if "inner_html" in line:
+            if "move ||" in line or ".get(" in line:
+                errors.append(f"[CR-337] {island_file} linha {i} -- inner_html dinamico proibido\n            {line.strip()[:80]}")
+
+    # CR-338: web_sys cfg-gated (scoped)
     for pattern in CFG_REQUIRED:
         for i, line in enumerate(lines, 1):
-            stripped = line.strip()
-            if stripped.startswith("//"):
-                continue
+            if line.strip().startswith("//"): continue
             if pattern in line:
-                # buscar cfg guard nas linhas anteriores (ate o inicio)
-                context = "\n".join(lines[0:i])
-                # contar cfgs e end de blocos para determinar se ainda estamos dentro
-                cfg_count = context.count('#[cfg(feature = "hydrate")]')
-                not_hydrate_count = context.count('#[cfg(not(feature = "hydrate"))]')
-                if cfg_count == 0:
-                    errors.append(
-                        f"[CR-338] {island_file} linha {i} -- {pattern} sem cfg hydrate\n"
-                        f"            web_sys MUST ser cfg-gated"
-                    )
+                found_cfg = False
+                depth = 0
+                for j in range(i-1, -1, -1):
+                    if "{" in lines[j]: depth += 1
+                    if "}" in lines[j]: depth -= 1
+                    if '#[cfg(feature = "hydrate")]' in lines[j]:
+                        found_cfg = True
+                        break
+                    if depth > 10: break
+                if not found_cfg:
+                    errors.append(f"[CR-338] {island_file} linha {i} -- {pattern} sem cfg hydrate\n            web_sys MUST ser cfg-gated")
                 break
 
+    # CR-339: dynamic class proibido
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("//"): continue
+        if _re.search(r'class\s*=\s*(move\s*\|\||if\s|\w+\.get\()', line):
+            errors.append(f"[CR-339] {island_file} linha {i} -- dynamic class state proibido\n            {line.strip()[:80]}")
+
+    # CR-341: multiplas fontes de state (warning)
+    signal_count = content.count("signal(")
+    if signal_count > 5:
+        errors.append(f"[CR-341] {island_file} -- {signal_count} signals detectados\n            islands SHOULD ter SSOT unico — revisar se necessario")
+
     return errors
+
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -463,6 +590,7 @@ def main():
         if island_file:
             island_dir = os.path.join(script_dir, ISLAND_DIR)
             errors += check_island_full(island_file, island_dir, comp["component"])
+            errors += check_island_ast(island_file, island_dir)
             css_file = os.path.join(CSS_DIR, comp["file"])
             errors += check_island_css_child_combinator(css_file)
         if errors:

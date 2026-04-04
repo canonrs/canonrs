@@ -124,6 +124,7 @@ pub use radio::{RadioGroupIsland, RadioOption};
 pub mod kbd;
 pub mod button_group;
 pub mod color_picker;
+pub use color_picker::{ColorPickerIsland, ColorSwatchGroupIsland, SwatchColor, ColorFormat};
 pub mod form_error_summary;
 pub mod field;
 pub mod input_group;
