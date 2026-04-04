@@ -17,7 +17,7 @@ promise: Role and aria-live automatically enforced by variant
 why: InlineNoticeVariant controls both semantic role and aria-live behavior. Error uses alert/assertive while others use status/polite. This guarantees correct urgency signaling without manual ARIA decisions.
 rules: CR-001, CR-004
 use_cases: form inline errors, contextual hints
-related: toast, alert, banner, callout, status_dot, inline_meta, badge
+related: toast, alert, banner, callout, status_dot
 
 
 file: inline_notice_ui.css
@@ -25,6 +25,10 @@ tokens: inline-notice-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: error
 island: inline_notice_island.rs
+
+pillar: feedback
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

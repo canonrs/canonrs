@@ -26,6 +26,10 @@ foundation: spacing, radius, motion, typography
 states: selected
 island: list_item_island.rs
 
+pillar: data
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

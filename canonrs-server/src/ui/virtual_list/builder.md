@@ -26,6 +26,10 @@ foundation: spacing, size
 states: 
 island: virtual_list_island.rs
 
+pillar: data
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

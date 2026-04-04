@@ -17,7 +17,7 @@ promise: Color selection and state enforced via structured primitives
 why: ColorPickerPrimitive uses SelectionState and VisibilityState for interaction control. The contract ensures consistent value handling and accessibility. This prevents ad-hoc color input implementations.
 rules: CR-001, CR-004
 use_cases: theme customization, design tools
-related: combobox, radio, radio_group, slider
+related: select, combobox, radio, radio_group, slider
 
 
 file: color_picker_ui.css
@@ -25,6 +25,10 @@ tokens: color-picker-*, size-*, space-*, radius-*, motion-*, font-*, state-*
 foundation: spacing, size, radius, motion, typography, interaction
 states: selected, disabled
 island: color_picker_island.rs
+
+pillar: select
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

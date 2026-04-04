@@ -17,7 +17,7 @@ promise: Validation, label and error state unified in a single contract
 why: FieldPrimitive encodes validation and disabled state into data attributes. FieldLabel and FieldError ensure correct ARIA mapping. This guarantees consistent field behavior and accessibility.
 rules: CR-001, CR-004
 use_cases: forms, input validation
-related: input, input_group, input_otp, textarea, label, checkbox, form_error_summary
+related: form, input, input_group, input_otp, textarea, label, checkbox, form_error_summary
 
 
 file: field_ui.css
@@ -25,6 +25,10 @@ tokens: field-*, space-*, font-*
 foundation: spacing, typography
 states: focus, disabled, error
 island: field_island.rs
+
+pillar: form
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

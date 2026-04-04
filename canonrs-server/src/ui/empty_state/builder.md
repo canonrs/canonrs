@@ -17,7 +17,7 @@ promise: Empty state intent and variant enforced via contract
 why: EmptyStatePrimitive encodes variant and ARIA role="status". Variants ensure consistent messaging patterns. This guarantees predictable feedback across all empty states.
 rules: CR-001, CR-004
 use_cases: no results, empty dashboards
-related: error_state
+related: error_state, animate
 
 
 file: empty_state_ui.css
@@ -25,6 +25,10 @@ tokens: empty-state-*, space-*, size-*, font-*
 foundation: spacing, size, typography
 states: 
 island: empty_state_island.rs
+
+pillar: feedback_state
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

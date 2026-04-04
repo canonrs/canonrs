@@ -26,6 +26,10 @@ foundation: spacing, typography
 states: 
 island: empty_table_island.rs
 
+pillar: data
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

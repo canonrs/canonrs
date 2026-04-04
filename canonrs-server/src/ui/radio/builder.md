@@ -17,7 +17,7 @@ promise: Selection state mapped directly to DOM and ARIA
 why: RadioPrimitive maps SelectionState to checked and aria attributes. Disabled state is also enforced structurally. This guarantees consistent selection behavior.
 rules: CR-001, CR-004
 use_cases: forms, single choice inputs
-related: combobox, radio_group, color_picker, slider
+related: select, combobox, radio_group, color_picker, slider
 
 
 file: radio_ui.css
@@ -25,6 +25,10 @@ tokens: radio-*, size-*, radius-*, motion-*, state-*
 foundation: size, radius, motion, interaction, shadow
 states: selected, focus, disabled
 island: radio_island.rs
+
+pillar: select
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

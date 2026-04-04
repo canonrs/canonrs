@@ -17,7 +17,7 @@ promise: Variant and size strictly constrained via typed enums
 why: InputVariant and InputSize define allowed visual states at compile-time. DisabledState is mapped to both DOM and ARIA. This guarantees consistent rendering and prevents invalid combinations.
 rules: CR-001, CR-004
 use_cases: forms, search fields
-related: input_group, input_otp, textarea, field, label, checkbox, form_error_summary
+related: form, input_group, input_otp, textarea, field, label, checkbox, form_error_summary
 
 
 file: input_ui.css
@@ -25,6 +25,10 @@ tokens: input-*, size-*, space-*, radius-*, border-*, font-*, motion-*
 foundation: spacing, size, radius, border, motion, typography
 states: focus, disabled
 island: input_island.rs
+
+pillar: form
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

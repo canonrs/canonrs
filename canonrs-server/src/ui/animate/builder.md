@@ -17,7 +17,7 @@ promise: Animation type and easing enforced through typed enums
 why: AnimationName and AnimationEasing define allowed motion patterns. The primitive encodes animation parameters into data-rs attributes, avoiding class-based drift. This ensures consistent animation behavior across SSR and client.
 rules: CR-001, CR-004
 use_cases: page transitions, modal animations
-related: carousel
+related: empty_state, error_state
 
 
 file: animate_ui.css
@@ -25,6 +25,10 @@ tokens: animate-*, motion-*, transform-*, opacity-*
 foundation: motion, interaction
 states: active, inactive
 island: animate_island.rs
+
+pillar: feedback_state
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

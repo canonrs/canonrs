@@ -26,6 +26,10 @@ foundation: spacing, radius, border, typography
 states: loading, error
 island: form_island.rs
 
+pillar: form
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

@@ -26,6 +26,10 @@ foundation: spacing, radius, shadow, motion
 states: open, closed
 island: alert_dialog_island.rs
 
+pillar: overlay
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

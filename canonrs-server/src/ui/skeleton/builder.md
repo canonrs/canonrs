@@ -17,7 +17,7 @@ promise: Skeleton state and variant standardized via structure
 why: SkeletonPrimitive encodes variant and loading state with aria-busy. This guarantees consistent placeholder rendering and accessibility feedback.
 rules: CR-001, CR-004
 use_cases: loading states, content placeholders
-related: spinner, pulse, loading_overlay, doc_progress
+related: progress, spinner, pulse, loading_overlay, doc_progress
 
 
 file: skeleton_ui.css
@@ -25,6 +25,10 @@ tokens: skeleton-*, size-*, radius-*, motion-*
 foundation: size, radius, motion
 states: loading
 island: skeleton_island.rs
+
+pillar: progress
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

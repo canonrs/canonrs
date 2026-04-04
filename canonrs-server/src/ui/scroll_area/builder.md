@@ -26,6 +26,10 @@ foundation: size, radius, motion
 states: active
 island: scroll_area_island.rs
 
+pillar: layout
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

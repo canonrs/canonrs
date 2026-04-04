@@ -17,7 +17,7 @@ promise: Command palette semantics and selection fully enforced
 why: CommandPrimitive enforces listbox semantics with structured input, grouping and items. SelectionState and ActivityState control highlight and selection behavior. This guarantees consistent keyboard navigation and accessibility.
 rules: CR-001, CR-004
 use_cases: command palette, quick navigation
-related: dropdown_menu, context_menu, menubar
+related: dropdown_menu, context_menu, menubar, menu
 
 
 file: command_ui.css
@@ -25,6 +25,10 @@ tokens: command-*, space-*, size-*, radius-*, shadow-*, font-*
 foundation: spacing, size, radius, shadow, typography
 states: active
 island: command_island.rs
+
+pillar: menu
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

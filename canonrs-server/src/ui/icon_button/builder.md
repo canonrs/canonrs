@@ -26,6 +26,10 @@ foundation: size, radius, motion, interaction, typography
 states: hover, active, focus, disabled, loading
 island: icon_button_island.rs
 
+pillar: action
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

@@ -17,7 +17,7 @@ promise: Trigger and content state always synchronized via shared visibility sta
 why: CollapsiblePrimitive shares VisibilityState across trigger and content. This ensures both reflect the same open/closed state. The contract eliminates manual sync logic.
 rules: CR-001, CR-004
 use_cases: faq sections, expandable panels
-related: 
+related: accordion
 
 
 file: collapsible_ui.css
@@ -25,6 +25,10 @@ tokens: collapsible-*, space-*, motion-*
 foundation: spacing, motion
 states: open, closed
 island: collapsible_island.rs
+
+pillar: accordion
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

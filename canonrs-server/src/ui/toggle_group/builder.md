@@ -17,7 +17,7 @@ promise: Group behavior and selection mode enforced structurally
 why: ToggleGroupPrimitive encodes multiple selection and disabled state at container level. Child toggles inherit behavior. This guarantees consistent grouped interactions.
 rules: CR-001, CR-004
 use_cases: toolbars, option groups
-related: switch
+related: switch, toggle
 
 
 file: toggle_group_ui.css
@@ -25,6 +25,10 @@ tokens: toggle-group-*, toggle-*, space-*, radius-*
 foundation: spacing, radius
 states: on, off, disabled
 island: toggle_group_island.rs
+
+pillar: toggle
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

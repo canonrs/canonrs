@@ -17,7 +17,7 @@ promise: Grouped inputs maintain consistent structure and visual merging
 why: InputGroupPrimitive encodes merge-radius behavior via ActivityState. This ensures inputs and addons render as a unified control. It prevents layout inconsistencies across grouped inputs.
 rules: CR-001, CR-004
 use_cases: email fields, currency inputs
-related: input, input_otp, textarea, field, label, checkbox, form_error_summary
+related: form, input, input_otp, textarea, field, label, checkbox, form_error_summary
 
 
 file: input_group_ui.css
@@ -25,6 +25,10 @@ tokens: input-group-*, input-*, space-*, radius-*, border-*, state-*, validation
 foundation: spacing, radius
 states: focus-within
 island: input_group_island.rs
+
+pillar: form
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

@@ -26,6 +26,10 @@ foundation: spacing, radius, typography
 states: active, disabled
 island: nav_item_island.rs
 
+pillar: navigation
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

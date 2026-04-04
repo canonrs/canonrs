@@ -17,7 +17,7 @@ promise: Slide state and navigation semantics enforced via structured primitives
 why: CarouselPrimitive defines roles and slide semantics including aria labels and state. ActivityState and VisibilityState control active and hidden slides. This ensures accessibility and predictable slideshow behavior.
 rules: CR-001, CR-004
 use_cases: image galleries, feature sliders
-related: 
+related: avatar, icon, logo, code_block, markdown, chart, stat, inline_meta, kbd, badge
 
 
 file: carousel_ui.css
@@ -25,6 +25,10 @@ tokens: carousel-*, size-*, space-*, radius-*, motion-*, font-*
 foundation: spacing, size, radius, motion, typography
 states: active, inactive
 island: carousel_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

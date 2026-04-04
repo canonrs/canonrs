@@ -26,6 +26,10 @@ foundation: size
 states: 
 island: separator_island.rs
 
+pillar: layout
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

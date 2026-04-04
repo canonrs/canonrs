@@ -17,7 +17,7 @@ promise: All form errors announced together with structured summary
 why: FormErrorSummaryPrimitive uses role="alert" with aria-atomic to ensure full error announcement. Errors are grouped and structured. This guarantees accessibility and visibility of all validation issues.
 rules: CR-001, CR-004
 use_cases: form validation, multi-field errors
-related: input, input_group, input_otp, textarea, field, label, checkbox
+related: form, input, input_group, input_otp, textarea, field, label, checkbox
 
 
 file: form_error_summary_ui.css
@@ -25,6 +25,10 @@ tokens: form-error-summary-*, space-*, font-*, radius-*
 foundation: spacing, radius, typography
 states: error
 island: form_error_summary_island.rs
+
+pillar: form
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

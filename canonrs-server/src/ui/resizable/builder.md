@@ -26,6 +26,10 @@ foundation: size, spacing, radius
 states: active, inactive
 island: resizable_island.rs
 
+pillar: layout
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

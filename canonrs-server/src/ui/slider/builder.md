@@ -17,7 +17,7 @@ promise: Value clamped and ARIA attributes enforced automatically
 why: SliderPrimitive clamps value within min/max and maps percent and aria-valuenow. Track and thumb are structurally defined. This guarantees consistent interaction behavior.
 rules: CR-001, CR-004
 use_cases: volume control, range selection
-related: combobox, radio, radio_group, color_picker
+related: select, combobox, radio, radio_group, color_picker
 
 
 file: slider_ui.css
@@ -25,6 +25,10 @@ tokens: slider-*, size-*, radius-*, motion-*
 foundation: size, radius, motion, interaction
 states: active, disabled
 island: slider_island.rs
+
+pillar: select
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

@@ -17,7 +17,7 @@ promise: Menubar semantics and structure enforced via primitives
 why: MenubarPrimitive enforces role="menubar" and structured menu composition. Trigger and content follow strict ARIA relationships. This guarantees accessible and predictable navigation behavior.
 rules: CR-001, CR-004
 use_cases: desktop apps, top navigation
-related: dropdown_menu, context_menu, command
+related: dropdown_menu, context_menu, menu, command
 
 
 file: menubar_ui.css
@@ -25,6 +25,10 @@ tokens: menubar-*, space-*, radius-*, shadow-*, font-*
 foundation: spacing, radius, shadow, typography
 states: active
 island: menubar_island.rs
+
+pillar: menu
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

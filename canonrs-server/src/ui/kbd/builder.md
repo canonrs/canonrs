@@ -17,7 +17,7 @@ promise: Shortcut representation standardized via size and variant enums
 why: KbdPrimitive encodes size and variant into data attributes. Group and separator primitives enforce consistent composition. This guarantees uniform shortcut display.
 rules: CR-001, CR-004
 use_cases: shortcuts, docs
-related: avatar, icon, logo, code_block, markdown, chart, stat, inline_meta
+related: avatar, icon, logo, code_block, markdown, chart, stat, inline_meta, badge, carousel
 
 
 file: kbd_ui.css
@@ -25,6 +25,10 @@ tokens: kbd-*, space-*, radius-*, font-*, shadow-*
 foundation: spacing, radius, shadow, typography
 states: 
 island: kbd_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

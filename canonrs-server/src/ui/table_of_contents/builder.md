@@ -17,7 +17,7 @@ promise: TOC hierarchy and state derived from structured data model
 why: TocPrimitive encodes mode and item states with hierarchical structure. SSR rendering ensures deterministic output. This guarantees consistent navigation.
 rules: CR-001, CR-004
 use_cases: docs navigation, long pages
-related: collapsible
+related: tabs
 
 
 file: table_of_contents_ui.css
@@ -25,6 +25,10 @@ tokens: toc-*, space-*, font-*, radius-*, motion-*
 foundation: spacing, radius, motion, typography
 states: active, open, closed
 island: table_of_contents_island.rs
+
+pillar: tabs
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

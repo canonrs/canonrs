@@ -17,7 +17,7 @@ promise: Hero content structured via explicit semantic primitives
 why: HeroPrimitive defines a structural block with dedicated parts like title, description and actions. Each part is explicitly declared. This guarantees predictable layout composition.
 rules: CR-001, CR-004
 use_cases: landing pages, marketing headers
-related: 
+related: card, resizable, scroll_area, aspect_ratio, page_header, toolbar, separator
 
 
 file: hero_ui.css
@@ -25,6 +25,10 @@ tokens: hero-*, space-*, font-*
 foundation: spacing, typography
 states: 
 island: hero_island.rs
+
+pillar: layout
+
+badges: SSR Safe, Hydration Safe, Token Driven, Zero Drift, Deterministic API
 
 ## before
 // ❌ Typical

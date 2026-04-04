@@ -17,7 +17,7 @@ promise: SSR-safe syntax highlighting with deterministic DOM output
 why: CodeBlockPrimitive supports SSR-safe rendering with precomputed HTML. The contract ensures no client mutation is required. This prevents hydration mismatch and ensures consistent output.
 rules: CR-001, CR-004
 use_cases: docs, code snippets
-related: avatar, icon, logo, markdown, chart, stat, inline_meta, kbd
+related: avatar, icon, logo, markdown, chart, stat, inline_meta, kbd, badge, carousel
 
 
 file: code_block_ui.css
@@ -25,6 +25,10 @@ tokens: code-block-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: copied
 island: code_block_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

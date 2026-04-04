@@ -17,7 +17,7 @@ promise: Semantic role and urgency enforced via variant
 why: CalloutVariant determines role and aria-live behavior. The primitive encodes these semantics directly into the DOM. This guarantees consistent accessibility and meaning across all callouts.
 rules: CR-001, CR-004
 use_cases: tips, warnings
-related: toast, alert, banner, inline_notice, status_dot, inline_meta, badge
+related: toast, alert, banner, inline_notice, status_dot
 
 
 file: callout_ui.css
@@ -25,6 +25,10 @@ tokens: callout-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: 
 island: callout_island.rs
+
+pillar: feedback
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

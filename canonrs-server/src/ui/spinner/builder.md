@@ -17,7 +17,7 @@ promise: Spinner state and size strictly controlled via enums
 why: SpinnerPrimitive encodes size and LoadingState into ARIA attributes. aria-busy and role=status are enforced. This guarantees accessible loading indicators.
 rules: CR-001, CR-004
 use_cases: loading indicators, async feedback
-related: skeleton, pulse, loading_overlay, doc_progress
+related: progress, skeleton, pulse, loading_overlay, doc_progress
 
 
 file: spinner_ui.css
@@ -25,6 +25,10 @@ tokens: spinner-*, size-*, motion-*
 foundation: size, motion
 states: loading
 island: spinner_island.rs
+
+pillar: progress
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

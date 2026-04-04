@@ -26,6 +26,10 @@ foundation: spacing, motion
 states: open, closed, disabled
 island: accordion_island.rs
 
+pillar: accordion
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

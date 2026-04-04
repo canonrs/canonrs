@@ -17,7 +17,7 @@ promise: Chart structure and data binding enforced via contract
 why: ChartPrimitive separates rendering (canvas) from data (data-rs attributes). ChartType enforces visualization type at compile-time. This guarantees consistent rendering and interaction patterns.
 rules: CR-001, CR-004
 use_cases: analytics dashboards, data visualization
-related: avatar, icon, logo, code_block, markdown, stat, inline_meta, kbd
+related: avatar, icon, logo, code_block, markdown, stat, inline_meta, kbd, badge, carousel
 
 
 file: chart_ui.css
@@ -25,6 +25,10 @@ tokens: chart-*, size-*, space-*, radius-*, motion-*, font-*
 foundation: spacing, size, radius, motion, typography
 states: loading, error
 island: chart_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

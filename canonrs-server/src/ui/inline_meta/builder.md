@@ -17,7 +17,7 @@ promise: Metadata pairs structured and consistently rendered
 why: InlineMetaPrimitive separates label and value into explicit primitives. This enforces consistent layout and semantics. It prevents ad-hoc inline data rendering.
 rules: CR-001, CR-004
 use_cases: stats display, metadata labels
-related: avatar, icon, logo, code_block, markdown, chart, stat, kbd
+related: avatar, icon, logo, code_block, markdown, chart, stat, kbd, badge, carousel
 
 
 file: inline_meta_ui.css
@@ -25,6 +25,10 @@ tokens: inline-meta-*, space-*, font-*
 foundation: spacing, typography
 states: 
 island: inline_meta_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

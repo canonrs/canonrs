@@ -26,6 +26,10 @@ foundation: spacing, size, radius, typography
 states: open, closed, active, disabled
 island: sidebar_island.rs
 
+pillar: navigation
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

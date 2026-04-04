@@ -17,7 +17,7 @@ promise: Interactivity explicitly defined and enforced by type
 why: BadgeInteractivity defines whether the badge is static or interactive. The primitive encodes this into data attributes, preventing misuse. This ensures consistent semantics and avoids accidental clickable badges.
 rules: CR-001, CR-004
 use_cases: status labels, notifications
-related: toast, alert, banner, callout, inline_notice, status_dot, inline_meta
+related: avatar, icon, logo, code_block, markdown, chart, stat, inline_meta, kbd, carousel
 
 
 file: badge_ui.css
@@ -25,6 +25,10 @@ tokens: badge-*, space-*, radius-*, font-*, motion-*
 foundation: spacing, radius, typography, motion
 states: 
 island: badge_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

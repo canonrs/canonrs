@@ -26,6 +26,10 @@ foundation: spacing, border, typography
 states: 
 island: page_header_island.rs
 
+pillar: layout
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

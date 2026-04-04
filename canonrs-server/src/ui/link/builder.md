@@ -26,6 +26,10 @@ foundation: typography, motion
 states: active, hover, disabled
 island: link_island.rs
 
+pillar: action
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

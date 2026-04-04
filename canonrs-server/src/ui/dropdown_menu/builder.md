@@ -17,7 +17,7 @@ promise: Menu interaction and state fully encoded via primitives
 why: DropdownMenuPrimitive defines trigger/content with ARIA roles. ToggleState and ActivityState manage selection and highlight. This guarantees consistent menu behavior.
 rules: CR-001, CR-004
 use_cases: actions menu, user menu
-related: context_menu, menubar, command
+related: context_menu, menubar, menu, command
 
 
 file: dropdown_menu_ui.css
@@ -25,6 +25,10 @@ tokens: dropdown-menu-*, space-*, radius-*, shadow-*, font-*
 foundation: spacing, radius, shadow, typography
 states: open, closed
 island: dropdown_menu_island.rs
+
+pillar: menu
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

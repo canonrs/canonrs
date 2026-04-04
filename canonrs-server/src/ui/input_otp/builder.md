@@ -17,7 +17,7 @@ promise: OTP slots and active state managed automatically
 why: InputOtp distributes value across slots using ActivityState. Each slot reflects position and focus without manual logic. This guarantees synchronized UI and input state.
 rules: CR-001, CR-004
 use_cases: 2FA codes, verification inputs
-related: input, input_group, textarea, field, label, checkbox, form_error_summary
+related: form, input, input_group, textarea, field, label, checkbox, form_error_summary
 
 
 file: input_otp_ui.css
@@ -25,6 +25,10 @@ tokens: input-otp-*, input-*, forms-*, size-*, space-*, radius-*, font-*
 foundation: spacing, size, radius, typography
 states: active
 island: input_otp_island.rs
+
+pillar: form
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

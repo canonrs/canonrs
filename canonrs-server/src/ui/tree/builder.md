@@ -26,6 +26,10 @@ foundation: spacing, size, radius, motion, typography
 states: open, closed, selected, disabled, active
 island: tree_island.rs
 
+pillar: data
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

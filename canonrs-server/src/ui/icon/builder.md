@@ -17,7 +17,7 @@ promise: Icon size and variant enforced via typed enums
 why: Icon component encodes size and variant through enums. These map directly to data attributes. This guarantees consistent rendering and eliminates class-based inconsistencies.
 rules: CR-001, CR-004
 use_cases: buttons, status indicators
-related: avatar, logo, code_block, markdown, chart, stat, inline_meta, kbd
+related: avatar, logo, code_block, markdown, chart, stat, inline_meta, kbd, badge, carousel
 
 
 file: icon_ui.css
@@ -25,6 +25,10 @@ tokens: icon-*, size-*
 foundation: size, motion
 states: 
 island: icon_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

@@ -26,6 +26,10 @@ foundation: spacing, radius, motion, typography, interaction
 states: hover, copied, error
 island: copy_button_island.rs
 
+pillar: action
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

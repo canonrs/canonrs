@@ -17,7 +17,7 @@ promise: Group semantics and exclusivity enforced at container level
 why: RadioGroupPrimitive enforces role="radiogroup" and shared disabled state. Items derive selection state consistently. This guarantees exclusive selection behavior.
 rules: CR-001, CR-004
 use_cases: settings, forms
-related: combobox, radio, color_picker, slider
+related: select, combobox, radio, color_picker, slider
 
 
 file: radio_group_ui.css
@@ -25,6 +25,10 @@ tokens: radio-group-*, radio-*, forms-*, space-*, font-*, motion-*
 foundation: spacing, typography, motion
 states: selected, focus, disabled
 island: radio_group_island.rs
+
+pillar: select
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

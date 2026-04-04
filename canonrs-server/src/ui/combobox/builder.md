@@ -17,7 +17,7 @@ promise: Combobox roles and interaction fully enforced by structure
 why: ComboboxPrimitive defines proper ARIA roles and input behavior. SelectionState and VisibilityState control dropdown interaction. This guarantees accessible and predictable combobox behavior.
 rules: CR-001, CR-004
 use_cases: autocomplete, search dropdown
-related: radio, radio_group, color_picker, slider
+related: select, radio, radio_group, color_picker, slider
 
 
 file: combobox_ui.css
@@ -25,6 +25,10 @@ tokens: combobox-*, space-*, size-*, radius-*, shadow-*, motion-*, font-*
 foundation: spacing, size, radius, shadow, motion, typography
 states: open, closed, selected, disabled
 island: combobox_island.rs
+
+pillar: select
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

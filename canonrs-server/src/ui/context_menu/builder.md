@@ -17,7 +17,7 @@ promise: Context menu interaction and roles enforced structurally
 why: ContextMenuPrimitive defines trigger/content separation with ARIA roles. ActivityState and DisabledState ensure correct focus and navigation. This guarantees predictable contextual actions.
 rules: CR-001, CR-004
 use_cases: file actions, contextual tools
-related: dropdown_menu, menubar, command
+related: dropdown_menu, menubar, menu, command
 
 
 file: context_menu_ui.css
@@ -25,6 +25,10 @@ tokens: context-menu-*, space-*, radius-*, shadow-*, font-*
 foundation: spacing, radius, shadow, typography
 states: open, closed
 island: context_menu_island.rs
+
+pillar: menu
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

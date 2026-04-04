@@ -17,7 +17,7 @@ promise: SSR-safe markdown rendering with deterministic DOM output
 why: MarkdownPrimitive injects HTML only during SSR and avoids client mutation. Content and TOC are generated as stable HTML structure. This guarantees hydration-safe rendering with no runtime divergence.
 rules: CR-001, CR-004
 use_cases: docs, blog content
-related: avatar, icon, logo, code_block, chart, stat, inline_meta, kbd
+related: avatar, icon, logo, code_block, chart, stat, inline_meta, kbd, badge, carousel
 
 
 file: markdown_ui.css
@@ -25,6 +25,10 @@ tokens: markdown-*, md-*, space-*, font-*, radius-*, border-*, motion-*
 foundation: spacing, radius, border, motion, typography
 states: 
 island: markdown_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

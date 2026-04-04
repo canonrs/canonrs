@@ -17,7 +17,7 @@ promise: Image and fallback visibility controlled by state system
 why: AvatarImage and AvatarFallback use VisibilityState to control rendering. The system ensures fallback is shown when image is unavailable. This avoids manual conditional logic and guarantees consistent behavior.
 rules: CR-001, CR-004
 use_cases: user profile, team lists
-related: icon, logo, code_block, markdown, chart, stat, inline_meta, kbd
+related: icon, logo, code_block, markdown, chart, stat, inline_meta, kbd, badge, carousel
 
 
 file: avatar_ui.css
@@ -25,6 +25,10 @@ tokens: avatar-*, size-*, radius-*, font-*
 foundation: spacing, size, radius, typography
 states: loading, error
 island: avatar_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

@@ -26,6 +26,10 @@ foundation: spacing, radius, typography
 states: open, closed
 island: menu_island.rs
 
+pillar: menu
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

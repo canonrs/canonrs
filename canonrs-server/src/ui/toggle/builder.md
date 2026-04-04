@@ -26,6 +26,10 @@ foundation: size, radius, motion, typography
 states: on, off, disabled
 island: toggle_island.rs
 
+pillar: toggle
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

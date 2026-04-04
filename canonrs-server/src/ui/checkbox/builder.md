@@ -17,7 +17,7 @@ promise: Checked state mapped explicitly to activity state
 why: CheckboxPrimitive maps ActivityState to checked and ARIA attributes. This ensures UI and accessibility stay in sync. The contract prevents mismatched boolean and DOM state.
 rules: CR-001, CR-004
 use_cases: forms, multi-selection
-related: input, input_group, input_otp, textarea, field, label, form_error_summary
+related: form, input, input_group, input_otp, textarea, field, label, form_error_summary
 
 
 file: checkbox_ui.css
@@ -25,6 +25,10 @@ tokens: checkbox-*, size-*, radius-*, motion-*, state-*
 foundation: size, radius, motion, interaction
 states: active, focus, disabled
 island: checkbox_island.rs
+
+pillar: form
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

@@ -26,6 +26,10 @@ foundation: spacing, size, radius, border, shadow, motion, typography
 states: open, closed, selected, disabled
 island: select_island.rs
 
+pillar: select
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

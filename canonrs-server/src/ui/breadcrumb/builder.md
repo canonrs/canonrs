@@ -26,6 +26,10 @@ foundation: spacing, radius, shadow, typography, motion
 states: active
 island: breadcrumb_island.rs
 
+pillar: navigation
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

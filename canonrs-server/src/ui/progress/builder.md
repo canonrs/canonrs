@@ -26,6 +26,10 @@ foundation: size, radius, motion
 states: loading
 island: progress_island.rs
 
+pillar: progress
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

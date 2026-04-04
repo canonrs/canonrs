@@ -26,6 +26,10 @@ foundation: spacing, size, radius, motion, typography
 states: active, disabled
 island: pagination_island.rs
 
+pillar: navigation
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

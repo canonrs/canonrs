@@ -17,7 +17,7 @@ promise: Loading visibility and aria-busy managed automatically
 why: LoadingOverlayPrimitive maps LoadingState to visibility and ARIA attributes. Overlay visibility is derived automatically. This guarantees consistent loading feedback without manual logic.
 rules: CR-001, CR-004
 use_cases: async operations, page blocking
-related: spinner, skeleton, pulse, doc_progress
+related: progress, spinner, skeleton, pulse, doc_progress
 
 
 file: loading_overlay_ui.css
@@ -25,6 +25,10 @@ tokens: loading-overlay-*, motion-*, font-*
 foundation: motion, z, blur
 states: loading
 island: loading_overlay_island.rs
+
+pillar: progress
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

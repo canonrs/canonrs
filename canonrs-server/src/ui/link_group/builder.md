@@ -26,6 +26,10 @@ foundation: spacing, typography
 states: active
 island: link_group_island.rs
 
+pillar: navigation
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

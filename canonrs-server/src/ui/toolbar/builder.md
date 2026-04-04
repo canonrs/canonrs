@@ -26,6 +26,10 @@ foundation: spacing, radius
 states: active
 island: toolbar_island.rs
 
+pillar: layout
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
+
 ## before
 // ❌ Typical
 view! {

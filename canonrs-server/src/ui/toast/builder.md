@@ -17,7 +17,7 @@ promise: Variant enforces correct role and aria-live automatically
 why: ToastVariant defines role and aria-live behavior per type. Lifecycle and visibility are encoded structurally. This guarantees correct notification semantics and timing.
 rules: CR-001, CR-004
 use_cases: system notifications, user feedback
-related: alert, banner, callout, inline_notice, status_dot, inline_meta, badge
+related: alert, banner, callout, inline_notice, status_dot
 
 
 file: toast_ui.css
@@ -25,6 +25,10 @@ tokens: toast-*, space-*, radius-*, shadow-*, motion-*, font-*
 foundation: spacing, radius, shadow, motion, typography
 states: open, closed
 island: toast_island.rs
+
+pillar: feedback
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

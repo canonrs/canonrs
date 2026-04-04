@@ -17,7 +17,7 @@ promise: Progress tracking injected automatically via behavior layer
 why: DocProgressPrimitive exposes progress via data attributes and ARIA. Portal variant allows injection anywhere in layout. This guarantees consistent scroll tracking without custom JS.
 rules: CR-001, CR-004
 use_cases: docs reading, long articles
-related: spinner, skeleton, pulse, loading_overlay
+related: progress, spinner, skeleton, pulse, loading_overlay
 
 
 file: doc_progress_ui.css
@@ -25,6 +25,10 @@ tokens: doc-progress-*, size-*
 foundation: size
 states: active, inactive
 island: doc_progress_island.rs
+
+pillar: progress
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

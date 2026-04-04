@@ -17,7 +17,7 @@ promise: Active state governs trigger and content without manual wiring
 why: TabsPrimitive uses ActivityState to synchronize triggers and panels. ARIA roles and visibility are derived automatically. This guarantees consistent tab behavior.
 rules: CR-001, CR-004
 use_cases: panel navigation, settings
-related: collapsible, table_of_contents
+related: table_of_contents
 
 
 file: tabs_ui.css
@@ -25,6 +25,10 @@ tokens: tabs-*, tab-*, space-*, radius-*, font-*, motion-*
 foundation: spacing, radius, motion, typography
 states: active, inactive, disabled
 island: tabs_island.rs
+
+pillar: tabs
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
 
 ## before
 // ❌ Typical

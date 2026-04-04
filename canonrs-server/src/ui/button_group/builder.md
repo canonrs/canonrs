@@ -26,6 +26,10 @@ foundation: spacing, radius, border, interaction
 states: first, last
 island: button_group_island.rs
 
+pillar: action
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

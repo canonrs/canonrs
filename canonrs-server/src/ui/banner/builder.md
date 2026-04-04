@@ -17,7 +17,7 @@ promise: Visibility and ARIA behavior enforced by state and variant
 why: BannerVariant controls semantic role and aria-live behavior. VisibilityState ensures correct open/hidden state without runtime logic. This guarantees accessible, consistent page-level messaging.
 rules: CR-001, CR-004
 use_cases: system announcements, warnings
-related: toast, alert, callout, inline_notice, status_dot, inline_meta, badge
+related: toast, alert, callout, inline_notice, status_dot
 
 
 file: banner_ui.css
@@ -25,6 +25,10 @@ tokens: banner-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: open, closed
 island: banner_island.rs
+
+pillar: feedback
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

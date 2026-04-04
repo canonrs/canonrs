@@ -17,7 +17,7 @@ promise: Error feedback always announced and structurally consistent
 why: ErrorStatePrimitive enforces role="status" with aria-live="assertive". This guarantees immediate announcement of critical errors. Structure ensures consistent composition of icon, title and actions.
 rules: CR-001, CR-004
 use_cases: api failures, form submission errors
-related: empty_state
+related: empty_state, animate
 
 
 file: error_state_ui.css
@@ -25,6 +25,10 @@ tokens: error-state-*, space-*, size-*, font-*
 foundation: spacing, size, typography
 states: error
 island: error_state_island.rs
+
+pillar: feedback_state
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

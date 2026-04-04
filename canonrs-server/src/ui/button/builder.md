@@ -26,6 +26,10 @@ foundation: spacing, radius, motion, interaction, typography
 states: hover, active, focus, disabled
 island: button_island.rs
 
+pillar: action
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {

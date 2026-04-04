@@ -17,7 +17,7 @@ promise: Metric layout and semantics enforced via structured primitives
 why: StatPrimitive enforces composition of value, label and optional delta. Size, alignment and trend are encoded via attributes. This guarantees consistent KPI display.
 rules: CR-001, CR-004
 use_cases: dashboards, analytics
-related: avatar, icon, logo, code_block, markdown, chart, inline_meta, kbd
+related: avatar, icon, logo, code_block, markdown, chart, inline_meta, kbd, badge, carousel
 
 
 file: stat_ui.css
@@ -25,6 +25,10 @@ tokens: stat-*, space-*, font-*, size-*
 foundation: spacing, size, radius, typography
 states: 
 island: stat_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

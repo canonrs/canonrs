@@ -17,7 +17,7 @@ promise: Brand identity structure and navigation behavior enforced in a single c
 why: LogoPrimitive enforces anchor semantics, size and variant at the root element. Icon, wordmark and tagline are explicitly structured parts. This guarantees consistent brand rendering and correct navigation behavior.
 rules: CR-001, CR-004
 use_cases: site header, app navigation
-related: avatar, icon, code_block, markdown, chart, stat, inline_meta, kbd
+related: avatar, icon, code_block, markdown, chart, stat, inline_meta, kbd, badge, carousel
 
 
 file: logo_ui.css
@@ -25,6 +25,10 @@ tokens: logo-*, size-*, font-*
 foundation: size, typography
 states: 
 island: logo_island.rs
+
+pillar: content_display
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift
 
 ## before
 // ❌ Typical

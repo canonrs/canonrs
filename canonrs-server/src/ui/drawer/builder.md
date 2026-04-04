@@ -26,6 +26,10 @@ foundation: spacing, size, radius, motion, typography
 states: open, closed
 island: drawer_island.rs
 
+pillar: overlay
+
+badges: SSR Safe, Hydration Safe, Token Driven, Deterministic API, Zero Drift, Island Architecture
+
 ## before
 // ❌ Typical
 view! {
