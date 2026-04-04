@@ -2,7 +2,7 @@
 
 id: input-otp
 label: OTP Input
-family: utility
+family: family-c-forms
 category: Form
 intent: Capture one-time password codes
 description: One-time password input
@@ -18,6 +18,13 @@ why: InputOtp distributes value across slots using ActivityState. Each slot refl
 rules: CR-001, CR-004
 use_cases: 2FA codes, verification inputs
 related: input, input_group, textarea, field, label, checkbox, form_error_summary
+
+
+file: input_otp_ui.css
+tokens: input-otp-*, input-*, forms-*, size-*, space-*, radius-*, font-*
+foundation: spacing, size, radius, typography
+states: active
+island: input_otp_island.rs
 
 ## before
 // ❌ Typical

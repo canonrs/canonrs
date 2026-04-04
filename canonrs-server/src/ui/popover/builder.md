@@ -2,7 +2,7 @@
 
 id: popover
 label: Popover
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Show contextual floating content
 description: Floating popover component
@@ -18,6 +18,13 @@ why: PopoverPrimitive uses VisibilityState across trigger and content. ARIA attr
 rules: CR-001, CR-004
 use_cases: context actions, tooltips with actions
 related: dialog, alert_dialog, drawer, sheet, modal, confirm_dialog, tooltip, hover_card
+
+
+file: popover_ui.css
+tokens: popover-*, space-*, radius-*, shadow-*, motion-*
+foundation: spacing, radius, shadow, motion
+states: open, closed
+island: popover_island.rs
 
 ## before
 // ❌ Typical

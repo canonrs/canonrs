@@ -2,7 +2,7 @@
 
 id: spinner
 label: Spinner
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Indicate loading or processing
 description: Loading spinner
@@ -18,6 +18,13 @@ why: SpinnerPrimitive encodes size and LoadingState into ARIA attributes. aria-b
 rules: CR-001, CR-004
 use_cases: loading indicators, async feedback
 related: skeleton, pulse, loading_overlay, doc_progress
+
+
+file: spinner_ui.css
+tokens: spinner-*, size-*, motion-*
+foundation: size, motion
+states: loading
+island: spinner_island.rs
 
 ## before
 // ❌ Typical

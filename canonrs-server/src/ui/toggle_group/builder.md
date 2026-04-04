@@ -2,7 +2,7 @@
 
 id: toggle-group
 label: Toggle Group
-family: interactive
+family: family-c-forms
 category: Action
 intent: Group of toggle buttons with single or multiple selection
 description: Group of toggle buttons
@@ -18,6 +18,13 @@ why: ToggleGroupPrimitive encodes multiple selection and disabled state at conta
 rules: CR-001, CR-004
 use_cases: toolbars, option groups
 related: switch
+
+
+file: toggle_group_ui.css
+tokens: toggle-group-*, toggle-*, space-*, radius-*
+foundation: spacing, radius
+states: on, off, disabled
+island: toggle_group_island.rs
 
 ## before
 // ❌ Typical

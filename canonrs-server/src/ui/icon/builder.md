@@ -2,7 +2,7 @@
 
 id: icon
 label: Icon
-family: utility
+family: family-f-data
 category: Display
 intent: Display an SVG icon
 description: SVG icon display
@@ -18,6 +18,13 @@ why: Icon component encodes size and variant through enums. These map directly t
 rules: CR-001, CR-004
 use_cases: buttons, status indicators
 related: avatar, logo, code_block, markdown, chart, stat, inline_meta, kbd
+
+
+file: icon_ui.css
+tokens: icon-*, size-*
+foundation: size, motion
+states: 
+island: icon_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: copy-button
 label: Copy Button
-family: utility
+family: family-f-data
 category: Action
 intent: Copy text to clipboard on click
 description: Clipboard copy button
@@ -18,6 +18,13 @@ why: CopyButton encodes idle, copied, and error states via data-rs-state. Behavi
 rules: CR-001, CR-004
 use_cases: code snippets, share links
 related: button, button_group, icon_button, link
+
+
+file: copy_button_ui.css
+tokens: copy-button-*, space-*, radius-*, motion-*, font-*, state-*
+foundation: spacing, radius, motion, typography, interaction
+states: hover, copied, error
+island: copy_button_island.rs
 
 ## before
 // ❌ Typical

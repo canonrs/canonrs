@@ -2,7 +2,7 @@
 
 id: chart
 label: Chart
-family: data_display
+family: family-f-data
 category: Display
 intent: Visualize data graphically
 description: Data chart visualization
@@ -18,6 +18,13 @@ why: ChartPrimitive separates rendering (canvas) from data (data-rs attributes).
 rules: CR-001, CR-004
 use_cases: analytics dashboards, data visualization
 related: avatar, icon, logo, code_block, markdown, stat, inline_meta, kbd
+
+
+file: chart_ui.css
+tokens: chart-*, size-*, space-*, radius-*, motion-*, font-*
+foundation: spacing, size, radius, motion, typography
+states: loading, error
+island: chart_island.rs
 
 ## before
 // ❌ Typical

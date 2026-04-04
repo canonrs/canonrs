@@ -2,7 +2,7 @@
 
 id: dropdown-menu
 label: Dropdown Menu
-family: interactive
+family: family-a-overlay
 category: Action
 intent: Show contextual action menu
 description: Dropdown menu
@@ -18,6 +18,13 @@ why: DropdownMenuPrimitive defines trigger/content with ARIA roles. ToggleState 
 rules: CR-001, CR-004
 use_cases: actions menu, user menu
 related: context_menu, menubar, command
+
+
+file: dropdown_menu_ui.css
+tokens: dropdown-menu-*, space-*, radius-*, shadow-*, font-*
+foundation: spacing, radius, shadow, typography
+states: open, closed
+island: dropdown_menu_island.rs
 
 ## before
 // ❌ Typical

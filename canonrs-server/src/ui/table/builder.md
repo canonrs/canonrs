@@ -2,7 +2,7 @@
 
 id: table
 label: Table
-family: data_display
+family: family-f-data
 category: Data
 intent: Display tabular data
 description: HTML table component
@@ -18,6 +18,13 @@ why: TablePrimitive encodes state, striped and hoverable behavior. Rows and head
 rules: CR-001, CR-004
 use_cases: data grids, reports
 related: data_table, virtual_list, empty_table, tree, list_item
+
+
+file: table_ui.css
+tokens: table-*, space-*, border-*, font-*, motion-*
+foundation: spacing, border, motion, typography
+states: loading, error, selected
+island: table_island.rs
 
 ## before
 // ❌ Typical

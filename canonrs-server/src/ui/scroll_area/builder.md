@@ -2,7 +2,7 @@
 
 id: scroll-area
 label: Scroll Area
-family: layout
+family: family-f-data
 category: Layout
 intent: Scrollable container with custom scrollbar
 description: Scrollable area container
@@ -18,6 +18,13 @@ why: ScrollAreaPrimitive defines viewport, scrollbars and orientation explicitly
 rules: CR-001, CR-004
 use_cases: long lists, logs
 related: card, resizable, aspect_ratio, page_header, toolbar, separator
+
+
+file: scroll_area_ui.css
+tokens: scroll-area-*, scrollbar-*, scroll-*, size-*, radius-*, motion-*
+foundation: size, radius, motion
+states: active
+island: scroll_area_island.rs
 
 ## before
 // ❌ Typical

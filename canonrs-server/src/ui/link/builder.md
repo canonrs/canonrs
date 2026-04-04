@@ -2,7 +2,7 @@
 
 id: link
 label: Link
-family: typography
+family: family-d-navigation
 category: Navigation
 intent: Navigate to a URL or trigger action
 description: Hyperlink
@@ -18,6 +18,13 @@ why: LinkPrimitive controls variant, disabled and external behavior. It automati
 rules: CR-001, CR-004
 use_cases: navigation, external links
 related: button, button_group, icon_button, copy_button
+
+
+file: link_ui.css
+tokens: link-*, font-*, motion-*
+foundation: typography, motion
+states: active, hover, disabled
+island: link_island.rs
 
 ## before
 // ❌ Typical

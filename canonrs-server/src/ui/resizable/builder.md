@@ -2,7 +2,7 @@
 
 id: resizable
 label: Resizable
-family: layout
+family: family-g-composite
 category: Layout
 intent: Split panels with draggable divider
 description: Resizable panel component
@@ -18,6 +18,13 @@ why: ResizablePrimitive defines orientation and size limits via attributes. Pane
 rules: CR-001, CR-004
 use_cases: editors, dashboards
 related: card, scroll_area, aspect_ratio, page_header, toolbar, separator
+
+
+file: resizable_ui.css
+tokens: resizable-*, size-*, space-*, radius-*
+foundation: size, spacing, radius
+states: active, inactive
+island: resizable_island.rs
 
 ## before
 // ❌ Typical

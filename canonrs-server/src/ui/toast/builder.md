@@ -2,7 +2,7 @@
 
 id: toast
 label: Toast
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Show brief non-blocking notifications
 description: Toast notification message
@@ -18,6 +18,13 @@ why: ToastVariant defines role and aria-live behavior per type. Lifecycle and vi
 rules: CR-001, CR-004
 use_cases: system notifications, user feedback
 related: alert, banner, callout, inline_notice, status_dot, inline_meta, badge
+
+
+file: toast_ui.css
+tokens: toast-*, space-*, radius-*, shadow-*, motion-*, font-*
+foundation: spacing, radius, shadow, motion, typography
+states: open, closed
+island: toast_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: carousel
 label: Carousel
-family: data_display
+family: family-g-composite
 category: Display
 intent: Cycle through items horizontally
 description: Image carousel slider
@@ -18,6 +18,13 @@ why: CarouselPrimitive defines roles and slide semantics including aria labels a
 rules: CR-001, CR-004
 use_cases: image galleries, feature sliders
 related: 
+
+
+file: carousel_ui.css
+tokens: carousel-*, size-*, space-*, radius-*, motion-*, font-*
+foundation: spacing, size, radius, motion, typography
+states: active, inactive
+island: carousel_island.rs
 
 ## before
 // ❌ Typical

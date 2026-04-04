@@ -2,7 +2,7 @@
 
 id: inline-notice
 label: Inline Notice
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Show inline contextual feedback
 description: Inline notice message
@@ -18,6 +18,13 @@ why: InlineNoticeVariant controls both semantic role and aria-live behavior. Err
 rules: CR-001, CR-004
 use_cases: form inline errors, contextual hints
 related: toast, alert, banner, callout, status_dot, inline_meta, badge
+
+
+file: inline_notice_ui.css
+tokens: inline-notice-*, space-*, radius-*, font-*
+foundation: spacing, radius, typography
+states: error
+island: inline_notice_island.rs
 
 ## before
 // ❌ Typical

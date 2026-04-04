@@ -2,7 +2,7 @@
 
 id: empty-table
 label: Empty Table
-family: utility
+family: family-e-feedback
 category: Display
 intent: Show empty state inside a table
 description: Empty table state display
@@ -18,6 +18,13 @@ why: EmptyTablePrimitive enforces correct table structure using tr and td with c
 rules: CR-001, CR-004
 use_cases: empty data grids, admin tables
 related: table, data_table, virtual_list, tree, list_item
+
+
+file: empty_table_ui.css
+tokens: empty-table-*, space-*, font-*
+foundation: spacing, typography
+states: 
+island: empty_table_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: nav-item
 label: Nav Item
-family: navigation
+family: family-d-navigation
 category: Navigation
 intent: Single navigation link item
 description: Single navigation item
@@ -18,6 +18,13 @@ why: NavItemPrimitive encodes ActivityState and DisabledState into data attribut
 rules: CR-001, CR-004
 use_cases: sidebars, menus
 related: navigation_menu, sidebar, breadcrumb, pagination, link_group
+
+
+file: nav_item_ui.css
+tokens: nav-item-*, space-*, font-*, radius-*
+foundation: spacing, radius, typography
+states: active, disabled
+island: nav_item_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: label
 label: Label
-family: utility
+family: family-c-forms
 category: Form
 intent: Associate a label with a form control
 description: Form label component
@@ -18,6 +18,13 @@ why: LabelPrimitive ensures proper for/id mapping and required state. ARIA attri
 rules: CR-001, CR-004
 use_cases: forms, inputs
 related: input, input_group, input_otp, textarea, field, checkbox, form_error_summary
+
+
+file: label_ui.css
+tokens: label-*, font-*
+foundation: typography
+states: 
+island: label_island.rs
 
 ## before
 // ❌ Typical

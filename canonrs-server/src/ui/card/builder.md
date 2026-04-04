@@ -2,7 +2,7 @@
 
 id: card
 label: Card
-family: layout
+family: family-f-data
 category: Display
 intent: Group related content in a container
 description: Card component
@@ -18,6 +18,13 @@ why: CardPrimitive enforces a semantic region with structured subcomponents like
 rules: CR-001, CR-004
 use_cases: dashboards, content grouping
 related: resizable, scroll_area, aspect_ratio, page_header, toolbar, separator
+
+
+file: card_ui.css
+tokens: card-*, space-*, radius-*, shadow-*, font-*
+foundation: spacing, radius, shadow, typography
+states: 
+island: card_island.rs
 
 ## before
 // ❌ Typical

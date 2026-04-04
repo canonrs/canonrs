@@ -2,7 +2,7 @@
 
 id: menu
 label: Menu
-family: utility
+family: family-b-selection
 category: Navigation
 intent: Static vertical menu list
 description: Menu component
@@ -18,6 +18,13 @@ why: MenuItemPrimitive encodes selection, disabled and activity states into data
 rules: CR-001, CR-004
 use_cases: dropdown lists, action menus
 related: dropdown_menu, context_menu, menubar, command
+
+
+file: menu_ui.css
+tokens: menu-*, space-*, radius-*, font-*
+foundation: spacing, radius, typography
+states: open, closed
+island: menu_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: navigation-menu
 label: Navigation Menu
-family: navigation
+family: family-d-navigation
 category: Navigation
 intent: Primary site navigation with submenus
 description: Navigation menu
@@ -18,6 +18,13 @@ why: NavigationMenu uses DOM structure and data-rs-state instead of ids. Trigger
 rules: CR-001, CR-004
 use_cases: site navigation, dropdown navigation
 related: sidebar, nav_item, breadcrumb, pagination, link_group
+
+
+file: navigation_menu_ui.css
+tokens: navigation-menu-*, space-*, radius-*, shadow-*, motion-*, font-*
+foundation: spacing, radius, shadow, typography, z
+states: open, closed, active
+island: navigation_menu_island.rs
 
 ## before
 // ❌ Typical

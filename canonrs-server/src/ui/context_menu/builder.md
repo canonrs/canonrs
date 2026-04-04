@@ -2,7 +2,7 @@
 
 id: context-menu
 label: Context Menu
-family: interactive
+family: family-a-overlay
 category: Action
 intent: Show menu on right-click
 description: Right-click context menu
@@ -18,6 +18,13 @@ why: ContextMenuPrimitive defines trigger/content separation with ARIA roles. Ac
 rules: CR-001, CR-004
 use_cases: file actions, contextual tools
 related: dropdown_menu, menubar, command
+
+
+file: context_menu_ui.css
+tokens: context-menu-*, space-*, radius-*, shadow-*, font-*
+foundation: spacing, radius, shadow, typography
+states: open, closed
+island: context_menu_island.rs
 
 ## before
 // ❌ Typical

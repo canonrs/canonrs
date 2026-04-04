@@ -2,7 +2,7 @@
 
 id: tree
 label: Tree
-family: data_display
+family: family-b-selection
 category: Display
 intent: Display hierarchical data
 description: Tree view component
@@ -18,6 +18,13 @@ why: TreePrimitive and TreeItemPrimitive encode selection, focus and expansion v
 rules: CR-001, CR-004
 use_cases: file explorers, nested navigation
 related: table, data_table, virtual_list, empty_table, list_item
+
+
+file: tree_ui.css
+tokens: tree-*, space-*, size-*, radius-*, font-*, motion-*
+foundation: spacing, size, radius, motion, typography
+states: open, closed, selected, disabled, active
+island: tree_island.rs
 
 ## before
 // ❌ Typical

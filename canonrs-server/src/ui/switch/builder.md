@@ -2,7 +2,7 @@
 
 id: switch
 label: Switch
-family: input
+family: family-c-forms
 category: Form
 intent: Toggle between on and off states
 description: Toggle switch on off
@@ -18,6 +18,13 @@ why: SwitchPrimitive maps SelectionState to checked and data attributes. Disable
 rules: CR-001, CR-004
 use_cases: settings, toggles
 related: toggle_group
+
+
+file: switch_ui.css
+tokens: switch-*, size-*, radius-*, motion-*
+foundation: size, radius, motion
+states: on, off, disabled
+island: switch_island.rs
 
 ## before
 // ❌ Typical

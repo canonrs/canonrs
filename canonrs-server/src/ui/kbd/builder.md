@@ -2,7 +2,7 @@
 
 id: kbd
 label: Kbd
-family: typography
+family: family-c-forms
 category: Display
 intent: Display keyboard shortcut
 description: Keyboard shortcut display
@@ -18,6 +18,13 @@ why: KbdPrimitive encodes size and variant into data attributes. Group and separ
 rules: CR-001, CR-004
 use_cases: shortcuts, docs
 related: avatar, icon, logo, code_block, markdown, chart, stat, inline_meta
+
+
+file: kbd_ui.css
+tokens: kbd-*, space-*, radius-*, font-*, shadow-*
+foundation: spacing, radius, shadow, typography
+states: 
+island: kbd_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: avatar
 label: Avatar
-family: data_display
+family: family-f-data
 category: Display
 intent: Display user profile image with fallback
 description: User avatar image
@@ -18,6 +18,13 @@ why: AvatarImage and AvatarFallback use VisibilityState to control rendering. Th
 rules: CR-001, CR-004
 use_cases: user profile, team lists
 related: icon, logo, code_block, markdown, chart, stat, inline_meta, kbd
+
+
+file: avatar_ui.css
+tokens: avatar-*, size-*, radius-*, font-*
+foundation: spacing, size, radius, typography
+states: loading, error
+island: avatar_island.rs
 
 ## before
 // ❌ Typical

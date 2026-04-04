@@ -2,7 +2,7 @@
 
 id: textarea
 label: Textarea
-family: input
+family: family-c-forms
 category: Form
 intent: Capture multi-line text from user
 description: Multi-line text input
@@ -18,6 +18,13 @@ why: TextareaPrimitive encodes disabled, readonly and required into both DOM and
 rules: CR-001, CR-004
 use_cases: comments, descriptions
 related: input, input_group, input_otp, field, label, checkbox, form_error_summary
+
+
+file: textarea_ui.css
+tokens: textarea-*, input-*, forms-*, size-*, space-*, radius-*, border-*, font-*, motion-*
+foundation: spacing, size, radius, border, motion, typography
+states: focus, disabled
+island: textarea_island.rs
 
 ## before
 // ❌ Typical

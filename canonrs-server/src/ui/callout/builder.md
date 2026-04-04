@@ -2,7 +2,7 @@
 
 id: callout
 label: Callout
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Highlight important contextual information
 description: Callout info box
@@ -18,6 +18,13 @@ why: CalloutVariant determines role and aria-live behavior. The primitive encode
 rules: CR-001, CR-004
 use_cases: tips, warnings
 related: toast, alert, banner, inline_notice, status_dot, inline_meta, badge
+
+
+file: callout_ui.css
+tokens: callout-*, space-*, radius-*, font-*
+foundation: spacing, radius, typography
+states: 
+island: callout_island.rs
 
 ## before
 // ❌ Typical

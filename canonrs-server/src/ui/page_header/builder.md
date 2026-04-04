@@ -2,7 +2,7 @@
 
 id: page-header
 label: Page Header
-family: layout
+family: family-h-layout
 category: Display
 intent: Page title and actions bar
 description: Page header with title and actions
@@ -18,6 +18,13 @@ why: PageHeaderPrimitive defines structured parts like title, description and ac
 rules: CR-001, CR-004
 use_cases: dashboards, admin pages
 related: card, resizable, scroll_area, aspect_ratio, toolbar, separator
+
+
+file: page_header_ui.css
+tokens: page-header-*, space-*, font-*, border-*
+foundation: spacing, border, typography
+states: 
+island: page_header_island.rs
 
 ## before
 // ❌ Typical

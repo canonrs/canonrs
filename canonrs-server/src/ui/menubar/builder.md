@@ -2,7 +2,7 @@
 
 id: menubar
 label: Menubar
-family: interactive
+family: family-b-selection
 category: Navigation
 intent: Horizontal application menu bar
 description: Menu bar navigation
@@ -18,6 +18,13 @@ why: MenubarPrimitive enforces role="menubar" and structured menu composition. T
 rules: CR-001, CR-004
 use_cases: desktop apps, top navigation
 related: dropdown_menu, context_menu, command
+
+
+file: menubar_ui.css
+tokens: menubar-*, space-*, radius-*, shadow-*, font-*
+foundation: spacing, radius, shadow, typography
+states: active
+island: menubar_island.rs
 
 ## before
 // ❌ Typical

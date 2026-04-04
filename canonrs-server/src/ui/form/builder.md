@@ -2,7 +2,7 @@
 
 id: form
 label: Form
-family: interactive
+family: family-c-forms
 category: Form
 intent: Form container with submit handling
 description: Form component
@@ -18,6 +18,13 @@ why: FormPrimitive encodes validation, disabled and submission states into attri
 rules: CR-001, CR-004
 use_cases: user forms, checkout flows
 related: input, input_group, input_otp, textarea, field, label, checkbox, form_error_summary
+
+
+file: form_ui.css
+tokens: form-*, space-*, font-*, radius-*, border-*
+foundation: spacing, radius, border, typography
+states: loading, error
+island: form_island.rs
 
 ## before
 // ❌ Typical

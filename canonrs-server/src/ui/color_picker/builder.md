@@ -2,7 +2,7 @@
 
 id: color-picker
 label: Color Picker
-family: input
+family: family-c-forms
 category: Form
 intent: Select a color value
 description: Color picker input
@@ -18,6 +18,13 @@ why: ColorPickerPrimitive uses SelectionState and VisibilityState for interactio
 rules: CR-001, CR-004
 use_cases: theme customization, design tools
 related: combobox, radio, radio_group, slider
+
+
+file: color_picker_ui.css
+tokens: color-picker-*, size-*, space-*, radius-*, motion-*, font-*, state-*
+foundation: spacing, size, radius, motion, typography, interaction
+states: selected, disabled
+island: color_picker_island.rs
 
 ## before
 // ❌ Typical

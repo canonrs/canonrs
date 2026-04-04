@@ -2,7 +2,7 @@
 
 id: markdown
 label: Markdown
-family: data_display
+family: family-f-data
 category: Display
 intent: Render markdown content as HTML
 description: Rendered markdown content
@@ -18,6 +18,13 @@ why: MarkdownPrimitive injects HTML only during SSR and avoids client mutation. 
 rules: CR-001, CR-004
 use_cases: docs, blog content
 related: avatar, icon, logo, code_block, chart, stat, inline_meta, kbd
+
+
+file: markdown_ui.css
+tokens: markdown-*, md-*, space-*, font-*, radius-*, border-*, motion-*
+foundation: spacing, radius, border, motion, typography
+states: 
+island: markdown_island.rs
 
 ## before
 // ❌ Typical

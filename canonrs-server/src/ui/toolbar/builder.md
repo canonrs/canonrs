@@ -2,7 +2,7 @@
 
 id: toolbar
 label: Toolbar
-family: layout
+family: family-d-navigation
 category: Layout
 intent: Action toolbar region
 description: Action toolbar component
@@ -18,6 +18,13 @@ why: ToolbarPrimitive encodes orientation and role="toolbar". ARIA labeling is e
 rules: CR-001, CR-004
 use_cases: editors, action bars
 related: card, resizable, scroll_area, aspect_ratio, page_header, separator
+
+
+file: toolbar_ui.css
+tokens: toolbar-*, space-*, radius-*, border-*
+foundation: spacing, radius
+states: active
+island: toolbar_island.rs
 
 ## before
 // ❌ Typical

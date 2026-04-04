@@ -2,7 +2,7 @@
 
 id: animate
 label: Animate
-family: utility
+family: family-i-animation
 category: Display
 intent: Apply CSS animations to children
 description: Animation wrapper component
@@ -18,6 +18,13 @@ why: AnimationName and AnimationEasing define allowed motion patterns. The primi
 rules: CR-001, CR-004
 use_cases: page transitions, modal animations
 related: carousel
+
+
+file: animate_ui.css
+tokens: animate-*, motion-*, transform-*, opacity-*
+foundation: motion, interaction
+states: active, inactive
+island: animate_island.rs
 
 ## before
 // ❌ Typical

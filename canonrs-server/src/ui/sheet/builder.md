@@ -2,7 +2,7 @@
 
 id: sheet
 label: Sheet
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Side panel for forms or navigation
 description: Sheet panel overlay
@@ -18,6 +18,13 @@ why: SheetPrimitive maps VisibilityState to both panel and overlay. Side positio
 rules: CR-001, CR-004
 use_cases: mobile navigation, side panels
 related: dialog, alert_dialog, drawer, modal, confirm_dialog, tooltip, hover_card, popover
+
+
+file: sheet_ui.css
+tokens: sheet-*, size-*, space-*, radius-*, motion-*, font-*
+foundation: spacing, size, radius, motion, typography
+states: open, closed
+island: sheet_island.rs
 
 ## before
 // ❌ Typical

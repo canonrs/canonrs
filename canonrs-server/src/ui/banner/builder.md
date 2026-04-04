@@ -2,7 +2,7 @@
 
 id: banner
 label: Banner
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Display persistent page-level messages
 description: Banner message
@@ -18,6 +18,13 @@ why: BannerVariant controls semantic role and aria-live behavior. VisibilityStat
 rules: CR-001, CR-004
 use_cases: system announcements, warnings
 related: toast, alert, callout, inline_notice, status_dot, inline_meta, badge
+
+
+file: banner_ui.css
+tokens: banner-*, space-*, radius-*, font-*
+foundation: spacing, radius, typography
+states: open, closed
+island: banner_island.rs
 
 ## before
 // ❌ Typical

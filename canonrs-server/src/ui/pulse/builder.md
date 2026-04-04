@@ -2,7 +2,7 @@
 
 id: pulse
 label: Pulse
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Animated attention indicator
 description: Pulse animation wrapper
@@ -18,6 +18,13 @@ why: PulsePrimitive encodes variant, size and speed as enums mapped to data attr
 rules: CR-001, CR-004
 use_cases: status indicators, attention highlights
 related: spinner, skeleton, loading_overlay, doc_progress
+
+
+file: pulse_ui.css
+tokens: pulse-*, size-*, motion-*
+foundation: size, motion
+states: active
+island: pulse_island.rs
 
 ## before
 // ❌ Typical

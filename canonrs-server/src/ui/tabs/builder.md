@@ -2,7 +2,7 @@
 
 id: tabs
 label: Tabs
-family: navigation
+family: family-b-selection
 category: Navigation
 intent: Switch between related content panels
 description: Tabbed navigation
@@ -18,6 +18,13 @@ why: TabsPrimitive uses ActivityState to synchronize triggers and panels. ARIA r
 rules: CR-001, CR-004
 use_cases: panel navigation, settings
 related: collapsible, table_of_contents
+
+
+file: tabs_ui.css
+tokens: tabs-*, tab-*, space-*, radius-*, font-*, motion-*
+foundation: spacing, radius, motion, typography
+states: active, inactive, disabled
+island: tabs_island.rs
 
 ## before
 // ❌ Typical

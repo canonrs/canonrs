@@ -2,7 +2,7 @@
 
 id: hover-card
 label: Hover Card
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Show rich preview on hover
 description: Hover card popup
@@ -18,6 +18,13 @@ why: HoverCardPrimitive uses VisibilityState and side enums to control display. 
 rules: CR-001, CR-004
 use_cases: user previews, tooltips with content
 related: dialog, alert_dialog, drawer, sheet, modal, confirm_dialog, tooltip, popover
+
+
+file: hover_card_ui.css
+tokens: hover-card-*, space-*, radius-*, shadow-*, motion-*
+foundation: spacing, radius, shadow, motion
+states: open, closed
+island: hover_card_island.rs
 
 ## before
 // ❌ Typical

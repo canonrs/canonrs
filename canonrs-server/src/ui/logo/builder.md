@@ -2,7 +2,7 @@
 
 id: site-logo
 label: Site Logo
-family: navigation
+family: family-f-data
 category: Brand
 intent: Brand identity link pointing to home
 description: CanonRS logo combining SVG icon, wordmark and optional tagline
@@ -18,6 +18,13 @@ why: LogoPrimitive enforces anchor semantics, size and variant at the root eleme
 rules: CR-001, CR-004
 use_cases: site header, app navigation
 related: avatar, icon, code_block, markdown, chart, stat, inline_meta, kbd
+
+
+file: logo_ui.css
+tokens: logo-*, size-*, font-*
+foundation: size, typography
+states: 
+island: logo_island.rs
 
 ## before
 // ❌ Typical

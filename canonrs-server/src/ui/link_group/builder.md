@@ -2,7 +2,7 @@
 
 id: link-group
 label: Link Group
-family: navigation
+family: family-d-navigation
 category: Navigation
 intent: Semantic group of navigation links with optional label
 description: Wrapper that organizes multiple NavItems into a labeled navigation group
@@ -18,6 +18,13 @@ why: LinkGroup uses NavigationGroup primitives to enforce grouping and labeling.
 rules: CR-001, CR-004
 use_cases: sidebars, footers
 related: navigation_menu, sidebar, nav_item, breadcrumb, pagination
+
+
+file: link_group_ui.css
+tokens: link-group-*, space-*, font-*
+foundation: spacing, typography
+states: active
+island: link_group_island.rs
 
 ## before
 // ❌ Typical

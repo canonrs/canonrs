@@ -553,22 +553,137 @@ def check_island_full(island_file, island_dir, component):
     return errors
 
 
+
+BUILDER_DIR = "../../canonrs-server/src/ui"
+
+
+def parse_builder(builder_path):
+    """Parse builder.md — SSOT para todos os componentes"""
+    comp = {}
+    with open(builder_path) as f:
+        lines = f.readlines()
+
+    # campos simples key: value
+    simple_fields = ["id", "label", "family", "category", "intent", "description",
+                     "composable", "capabilities", "required_parts", "optional_parts",
+                     "tags", "keywords", "pain", "promise", "why", "rules",
+                     "use_cases", "related", "file", "tokens", "foundation",
+                     "states", "island"]
+
+    in_before = False
+    in_after = False
+    before_lines = []
+    after_lines = []
+
+    for line in lines:
+        stripped = line.rstrip()
+
+        # titulo
+        if stripped.startswith("# ") and "component" not in comp:
+            comp["label"] = stripped[2:].strip()
+            continue
+
+        # before/after blocos
+        if stripped == "## before":
+            in_before = True
+            in_after = False
+            continue
+        if stripped == "## after":
+            in_before = False
+            in_after = True
+            continue
+
+        if in_before:
+            before_lines.append(line.rstrip())
+            continue
+        if in_after:
+            after_lines.append(line.rstrip())
+            continue
+
+        # campos simples
+        if ":" in stripped and not stripped.startswith("#"):
+            key, _, val = stripped.partition(":")
+            key = key.strip()
+            val = val.strip()
+            if key in simple_fields:
+                comp[key] = val
+
+    comp["before"] = "\n".join(before_lines).strip()
+    comp["after"] = "\n".join(after_lines).strip()
+
+    # normalizar states
+    states_raw = comp.get("states", "")
+    if states_raw:
+        comp["states"] = [s.strip() for s in states_raw.split(",") if s.strip()]
+    else:
+        comp["states"] = []
+
+    # component name = id ou folder
+    comp["component"] = comp.get("id", "").replace("-", "_")
+
+    return comp
+
+
+def load_components_from_builders(builder_dir, script_dir):
+    """Carrega todos os componentes a partir dos builder.md"""
+    import glob as _glob
+    builders = _glob.glob(f"{builder_dir}/**/builder.md", recursive=True)
+    components = []
+    for b in sorted(builders):
+        try:
+            comp = parse_builder(b)
+            if comp.get("component"):
+                components.append(comp)
+        except Exception as e:
+            print(f"[WARN] erro ao parsear {b}: {e}")
+    return components
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_path  = os.path.join(script_dir, JSON_PATH)
-    global CSS_DIR, TOKENS_DIR, BEHAVIORS_DIR, ISLAND_DIR
+    global CSS_DIR, TOKENS_DIR, BEHAVIORS_DIR, ISLAND_DIR, BUILDER_DIR
     CSS_DIR      = os.path.join(script_dir, CSS_DIR)
     TOKENS_DIR   = os.path.join(script_dir, TOKENS_DIR)
     BEHAVIORS_DIR= os.path.join(script_dir, BEHAVIORS_DIR)
     ISLAND_DIR   = os.path.join(script_dir, ISLAND_DIR)
+    BUILDER_DIR  = os.path.join(script_dir, BUILDER_DIR)
 
     declared = extract_declared_tokens(TOKENS_DIR)
 
+    # SSOT: ler componentes dos builder.md
+    components = load_components_from_builders(BUILDER_DIR, script_dir)
+    # fallback JSON para campos nao presentes no builder
     with open(json_path) as f:
-        components = json.load(f)
+        json_components = json.load(f)
+    json_map = {c['component']: c for c in json_components}
+    for comp in components:
+        json_comp = json_map.get(comp['component'], {})
+        # herdar campos do JSON que nao estao no builder
+        for field in ['file', 'tokens', 'foundation', 'states', 'island']:
+            if not comp.get(field):
+                comp[field] = json_comp.get(field, comp.get(field, ''))
 
     target      = sys.argv[1] if len(sys.argv) > 1 else None
     show_unused = "--unused" in sys.argv
+    generate_json = "--generate" in sys.argv
+
+    if generate_json:
+        json_output = []
+        for comp in components:
+            entry = {
+                "component": comp["component"],
+                "file":      comp.get("file", ""),
+                "tokens":    comp.get("tokens", ""),
+                "foundation": comp.get("foundation", ""),
+                "family":    comp.get("family", ""),
+                "states":    comp.get("states", []),
+                "island":    comp.get("island", ""),
+            }
+            json_output.append(entry)
+        with open(json_path, "w") as f:
+            json.dump(json_output, f, indent=2)
+        print(f"[OK] tokens_components.json gerado com {len(json_output)} componentes")
+        return
 
     # #4 state engine check (global, nao por componente)
     if not target:

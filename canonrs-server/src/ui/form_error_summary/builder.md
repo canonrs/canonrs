@@ -2,7 +2,7 @@
 
 id: form-error-summary
 label: Form Error Summary
-family: utility
+family: family-c-forms
 category: Form
 intent: Summarize form validation errors
 description: Form validation error summary
@@ -18,6 +18,13 @@ why: FormErrorSummaryPrimitive uses role="alert" with aria-atomic to ensure full
 rules: CR-001, CR-004
 use_cases: form validation, multi-field errors
 related: input, input_group, input_otp, textarea, field, label, checkbox
+
+
+file: form_error_summary_ui.css
+tokens: form-error-summary-*, space-*, font-*, radius-*
+foundation: spacing, radius, typography
+states: error
+island: form_error_summary_island.rs
 
 ## before
 // ❌ Typical

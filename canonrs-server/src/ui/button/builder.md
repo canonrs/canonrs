@@ -2,7 +2,7 @@
 
 id: button
 label: Button
-family: interactive
+family: family-c-forms
 category: Action
 intent: Trigger an action or event
 description: Action button with variant and size
@@ -18,6 +18,13 @@ why: ButtonVariant and ButtonSize define allowed visual and behavioral states. T
 rules: CR-001, CR-004, CR-148
 use_cases: form submit, cta actions
 related: button_group, icon_button, copy_button, link
+
+
+file: button_ui.css
+tokens: button-*, space-*, radius-*, motion-*, size-*, font-*, line-height-*, state-*, focus-ring-*, validation-*, filter-*
+foundation: spacing, radius, motion, interaction, typography
+states: hover, active, focus, disabled
+island: button_island.rs
 
 ## before
 // ❌ Typical

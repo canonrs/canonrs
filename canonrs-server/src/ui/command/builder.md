@@ -2,7 +2,7 @@
 
 id: command
 label: Command
-family: interactive
+family: family-b-selection
 category: Action
 intent: Command palette for quick actions
 description: Command palette
@@ -18,6 +18,13 @@ why: CommandPrimitive enforces listbox semantics with structured input, grouping
 rules: CR-001, CR-004
 use_cases: command palette, quick navigation
 related: dropdown_menu, context_menu, menubar
+
+
+file: command_ui.css
+tokens: command-*, space-*, size-*, radius-*, shadow-*, font-*
+foundation: spacing, size, radius, shadow, typography
+states: active
+island: command_island.rs
 
 ## before
 // ❌ Typical

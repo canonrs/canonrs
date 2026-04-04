@@ -2,7 +2,7 @@
 
 id: tooltip
 label: Tooltip
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Show brief label on hover/focus
 description: Hover tooltip
@@ -18,6 +18,13 @@ why: TooltipPrimitive uses visibility state and DOM structure instead of ids. ar
 rules: CR-001, CR-004
 use_cases: hints, help text
 related: dialog, alert_dialog, drawer, sheet, modal, confirm_dialog, hover_card, popover
+
+
+file: tooltip_ui.css
+tokens: tooltip-*, space-*, radius-*, shadow-*, font-*, motion-*
+foundation: spacing, radius, shadow, motion, typography
+states: open, closed
+island: tooltip_island.rs
 
 ## before
 // ❌ Typical

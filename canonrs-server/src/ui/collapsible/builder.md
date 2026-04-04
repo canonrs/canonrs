@@ -2,7 +2,7 @@
 
 id: collapsible
 label: Collapsible
-family: layout
+family: family-b-selection
 category: Navigation
 intent: Show and hide content sections
 description: Collapsible section
@@ -18,6 +18,13 @@ why: CollapsiblePrimitive shares VisibilityState across trigger and content. Thi
 rules: CR-001, CR-004
 use_cases: faq sections, expandable panels
 related: 
+
+
+file: collapsible_ui.css
+tokens: collapsible-*, space-*, motion-*
+foundation: spacing, motion
+states: open, closed
+island: collapsible_island.rs
 
 ## before
 // ❌ Typical

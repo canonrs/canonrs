@@ -102,18 +102,6 @@
     "island": "breadcrumb_island.rs"
   },
   {
-    "component": "builder_block",
-    "file": "builder_block_ui.css",
-    "tokens": "builder-block-*, builder-*, composite-*, dz-*, space-*, radius-*",
-    "foundation": "spacing, radius, motion, z",
-    "family": "family-j-blocks",
-    "states": [
-      "active",
-      "selected"
-    ],
-    "island": "builder_block_island.rs"
-  },
-  {
     "component": "button",
     "file": "button_ui.css",
     "tokens": "button-*, space-*, radius-*, motion-*, size-*, font-*, line-height-*, state-*, focus-ring-*, validation-*, filter-*",
@@ -138,18 +126,6 @@
       "last"
     ],
     "island": "button_group_island.rs"
-  },
-  {
-    "component": "calendar",
-    "file": "calendar_ui.css",
-    "tokens": "calendar-*, forms-*, space-*, size-*, radius-*, motion-*, font-*",
-    "foundation": "spacing, size, radius, motion, typography",
-    "family": "family-b-selection",
-    "states": [
-      "selected",
-      "disabled"
-    ],
-    "island": "calendar_island.rs"
   },
   {
     "component": "callout",
@@ -430,6 +406,15 @@
     "island": "form_error_summary_island.rs"
   },
   {
+    "component": "hero_ui",
+    "file": "hero_ui.css",
+    "tokens": "hero-*, space-*, font-*",
+    "foundation": "spacing, typography",
+    "family": "family-h-layout",
+    "states": [],
+    "island": "hero_island.rs"
+  },
+  {
     "component": "hover_card",
     "file": "hover_card_ui.css",
     "tokens": "hover-card-*, space-*, radius-*, shadow-*, motion-*",
@@ -584,7 +569,7 @@
     "island": "loading_overlay_island.rs"
   },
   {
-    "component": "logo",
+    "component": "site_logo",
     "file": "logo_ui.css",
     "tokens": "logo-*, size-*, font-*",
     "foundation": "size, typography",
@@ -766,7 +751,7 @@
     "island": "scroll_area_island.rs"
   },
   {
-    "component": "section",
+    "component": "section_ui",
     "file": "section_ui.css",
     "tokens": "section-*, space-*, font-*, radius-*, shadow-*",
     "foundation": "spacing, radius, shadow, typography",
@@ -856,15 +841,6 @@
       "loading"
     ],
     "island": "spinner_island.rs"
-  },
-  {
-    "component": "stack",
-    "file": "stack_ui.css",
-    "tokens": "stack-*, space-*",
-    "foundation": "spacing",
-    "family": "family-h-layout",
-    "states": [],
-    "island": "stack_island.rs"
   },
   {
     "component": "stat",
@@ -1026,5 +1002,14 @@
       "active"
     ],
     "island": "tree_island.rs"
+  },
+  {
+    "component": "virtual_list",
+    "file": "virtual_list_ui.css",
+    "tokens": "virtual-list-*, size-*, space-*",
+    "foundation": "spacing, size",
+    "family": "family-f-data",
+    "states": [],
+    "island": "virtual_list_island.rs"
   }
 ]

@@ -2,7 +2,7 @@
 
 id: code-block
 label: Code Block
-family: data_display
+family: family-f-data
 category: Display
 intent: Display syntax-highlighted code
 description: Syntax-highlighted code display
@@ -18,6 +18,13 @@ why: CodeBlockPrimitive supports SSR-safe rendering with precomputed HTML. The c
 rules: CR-001, CR-004
 use_cases: docs, code snippets
 related: avatar, icon, logo, markdown, chart, stat, inline_meta, kbd
+
+
+file: code_block_ui.css
+tokens: code-block-*, space-*, radius-*, font-*
+foundation: spacing, radius, typography
+states: copied
+island: code_block_island.rs
 
 ## before
 // ❌ Typical

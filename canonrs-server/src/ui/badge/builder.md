@@ -2,7 +2,7 @@
 
 id: badge
 label: Badge
-family: data_display
+family: family-e-feedback
 category: Display
 intent: Display status, count or label
 description: Status badge label
@@ -18,6 +18,13 @@ why: BadgeInteractivity defines whether the badge is static or interactive. The 
 rules: CR-001, CR-004
 use_cases: status labels, notifications
 related: toast, alert, banner, callout, inline_notice, status_dot, inline_meta
+
+
+file: badge_ui.css
+tokens: badge-*, space-*, radius-*, font-*, motion-*
+foundation: spacing, radius, typography, motion
+states: 
+island: badge_island.rs
 
 ## before
 // ❌ Typical

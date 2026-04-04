@@ -2,7 +2,7 @@
 
 id: virtual-list
 label: Virtual List
-family: data_display
+family: family-f-data
 category: Display
 intent: Efficiently render large lists
 description: Virtualized list for large datasets
@@ -18,6 +18,13 @@ why: VirtualListPrimitive encodes list structure and item indexing. Viewport and
 rules: CR-001, CR-004
 use_cases: logs, large datasets
 related: table, data_table, empty_table, tree, list_item
+
+
+file: virtual_list_ui.css
+tokens: virtual-list-*, size-*, space-*
+foundation: spacing, size
+states: 
+island: virtual_list_island.rs
 
 ## before
 // ❌ Typical

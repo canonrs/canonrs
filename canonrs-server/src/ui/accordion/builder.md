@@ -2,7 +2,7 @@
 
 id: accordion
 label: Accordion
-family: layout
+family: family-b-selection
 category: Navigation
 intent: Expand and collapse content sections
 description: Expandable accordion sections
@@ -18,6 +18,13 @@ why: AccordionSelection defines whether single or multiple items can be open. Th
 rules: CR-001, CR-004
 use_cases: faq sections, settings panels
 related: collapsible
+
+
+file: accordion_ui.css
+tokens: accordion-*, space-*, motion-*
+foundation: spacing, motion
+states: open, closed, disabled
+island: accordion_island.rs
 
 ## before
 // ❌ Typical

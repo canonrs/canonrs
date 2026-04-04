@@ -2,7 +2,7 @@
 
 id: error-state
 label: Error State
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Display error condition to user
 description: Error state display
@@ -18,6 +18,13 @@ why: ErrorStatePrimitive enforces role="status" with aria-live="assertive". This
 rules: CR-001, CR-004
 use_cases: api failures, form submission errors
 related: empty_state
+
+
+file: error_state_ui.css
+tokens: error-state-*, space-*, size-*, font-*
+foundation: spacing, size, typography
+states: error
+island: error_state_island.rs
 
 ## before
 // ❌ Typical

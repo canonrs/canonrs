@@ -2,7 +2,7 @@
 
 id: skeleton
 label: Skeleton
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Show placeholder while content loads
 description: Loading skeleton placeholder
@@ -18,6 +18,13 @@ why: SkeletonPrimitive encodes variant and loading state with aria-busy. This gu
 rules: CR-001, CR-004
 use_cases: loading states, content placeholders
 related: spinner, pulse, loading_overlay, doc_progress
+
+
+file: skeleton_ui.css
+tokens: skeleton-*, size-*, radius-*, motion-*
+foundation: size, radius, motion
+states: loading
+island: skeleton_island.rs
 
 ## before
 // ❌ Typical

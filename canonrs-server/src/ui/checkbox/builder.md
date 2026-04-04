@@ -2,7 +2,7 @@
 
 id: checkbox
 label: Checkbox
-family: input
+family: family-b-selection
 category: Form
 intent: Toggle a boolean value
 description: Checkbox input
@@ -18,6 +18,13 @@ why: CheckboxPrimitive maps ActivityState to checked and ARIA attributes. This e
 rules: CR-001, CR-004
 use_cases: forms, multi-selection
 related: input, input_group, input_otp, textarea, field, label, form_error_summary
+
+
+file: checkbox_ui.css
+tokens: checkbox-*, size-*, radius-*, motion-*, state-*
+foundation: size, radius, motion, interaction
+states: active, focus, disabled
+island: checkbox_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: loading-overlay
 label: Loading Overlay
-family: utility
+family: family-e-feedback
 category: Display
 intent: Block UI during async operations
 description: Full loading overlay
@@ -18,6 +18,13 @@ why: LoadingOverlayPrimitive maps LoadingState to visibility and ARIA attributes
 rules: CR-001, CR-004
 use_cases: async operations, page blocking
 related: spinner, skeleton, pulse, doc_progress
+
+
+file: loading_overlay_ui.css
+tokens: loading-overlay-*, motion-*, font-*
+foundation: motion, z, blur
+states: loading
+island: loading_overlay_island.rs
 
 ## before
 // ❌ Typical

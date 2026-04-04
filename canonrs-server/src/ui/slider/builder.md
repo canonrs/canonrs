@@ -2,7 +2,7 @@
 
 id: slider
 label: Slider
-family: input
+family: family-c-forms
 category: Form
 intent: Select a value within a range
 description: Range slider input
@@ -18,6 +18,13 @@ why: SliderPrimitive clamps value within min/max and maps percent and aria-value
 rules: CR-001, CR-004
 use_cases: volume control, range selection
 related: combobox, radio, radio_group, color_picker
+
+
+file: slider_ui.css
+tokens: slider-*, size-*, radius-*, motion-*
+foundation: size, radius, motion, interaction
+states: active, disabled
+island: slider_island.rs
 
 ## before
 // ❌ Typical

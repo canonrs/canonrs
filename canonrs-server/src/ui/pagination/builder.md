@@ -2,7 +2,7 @@
 
 id: pagination
 label: Pagination
-family: navigation
+family: family-d-navigation
 category: Navigation
 intent: Navigate between pages of content
 description: Page navigation control
@@ -18,6 +18,13 @@ why: PaginationPrimitive encodes navigation semantics with aria-current and disa
 rules: CR-001, CR-004
 use_cases: tables, lists
 related: navigation_menu, sidebar, nav_item, breadcrumb, link_group
+
+
+file: pagination_ui.css
+tokens: pagination-*, space-*, size-*, radius-*, font-*, motion-*
+foundation: spacing, size, radius, motion, typography
+states: active, disabled
+island: pagination_island.rs
 
 ## before
 // ❌ Typical

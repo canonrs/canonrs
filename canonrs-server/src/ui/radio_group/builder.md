@@ -2,7 +2,7 @@
 
 id: radio-group
 label: Radio Group
-family: input
+family: family-b-selection
 category: Form
 intent: Group radio buttons for single selection
 description: Group of radio buttons
@@ -18,6 +18,13 @@ why: RadioGroupPrimitive enforces role="radiogroup" and shared disabled state. I
 rules: CR-001, CR-004
 use_cases: settings, forms
 related: combobox, radio, color_picker, slider
+
+
+file: radio_group_ui.css
+tokens: radio-group-*, radio-*, forms-*, space-*, font-*, motion-*
+foundation: spacing, typography, motion
+states: selected, focus, disabled
+island: radio_group_island.rs
 
 ## before
 // ❌ Typical

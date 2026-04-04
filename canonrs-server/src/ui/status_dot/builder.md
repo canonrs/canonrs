@@ -2,7 +2,7 @@
 
 id: status-dot
 label: Status Dot
-family: data_display
+family: family-e-feedback
 category: Display
 intent: Indicate user presence or availability
 description: Status indicator dot
@@ -18,6 +18,13 @@ why: StatusDotVariant encodes only presence states like online or busy. ARIA lab
 rules: CR-001, CR-004
 use_cases: user presence, chat apps
 related: toast, alert, banner, callout, inline_notice, inline_meta, badge
+
+
+file: status_dot_ui.css
+tokens: status-dot-*, size-*, radius-*
+foundation: size, radius, motion
+states: active, inactive
+island: status_dot_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: field
 label: Field
-family: utility
+family: family-c-forms
 category: Form
 intent: Wrap a form input with label and error
 description: Form field wrapper with label and error
@@ -18,6 +18,13 @@ why: FieldPrimitive encodes validation and disabled state into data attributes. 
 rules: CR-001, CR-004
 use_cases: forms, input validation
 related: input, input_group, input_otp, textarea, label, checkbox, form_error_summary
+
+
+file: field_ui.css
+tokens: field-*, space-*, font-*
+foundation: spacing, typography
+states: focus, disabled, error
+island: field_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: stat
 label: Stat
-family: data_display
+family: family-f-data
 category: Display
 intent: Display a key metric with label
 description: Metric stat display
@@ -18,6 +18,13 @@ why: StatPrimitive enforces composition of value, label and optional delta. Size
 rules: CR-001, CR-004
 use_cases: dashboards, analytics
 related: avatar, icon, logo, code_block, markdown, chart, inline_meta, kbd
+
+
+file: stat_ui.css
+tokens: stat-*, space-*, font-*, size-*
+foundation: spacing, size, radius, typography
+states: 
+island: stat_island.rs
 
 ## before
 // ❌ Typical

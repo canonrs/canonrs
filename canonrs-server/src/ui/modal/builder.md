@@ -2,7 +2,7 @@
 
 id: modal
 label: Modal
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Generic modal container
 description: Modal window component
@@ -18,6 +18,13 @@ why: ModalPrimitive maps VisibilityState to aria-hidden and hidden attributes. T
 rules: CR-001, CR-004
 use_cases: dialogs, overlays
 related: dialog, alert_dialog, drawer, sheet, confirm_dialog, tooltip, hover_card, popover
+
+
+file: modal_ui.css
+tokens: modal-*, dialog-*, space-*, radius-*, shadow-*, motion-*
+foundation: spacing, radius, shadow, motion
+states: open, closed
+island: modal_island.rs
 
 ## before
 // ❌ Typical

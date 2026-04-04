@@ -2,7 +2,7 @@
 
 id: empty-state
 label: Empty State
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Display when no content is available
 description: Empty state placeholder
@@ -18,6 +18,13 @@ why: EmptyStatePrimitive encodes variant and ARIA role="status". Variants ensure
 rules: CR-001, CR-004
 use_cases: no results, empty dashboards
 related: error_state
+
+
+file: empty_state_ui.css
+tokens: empty-state-*, space-*, size-*, font-*
+foundation: spacing, size, typography
+states: 
+island: empty_state_island.rs
 
 ## before
 // ❌ Typical

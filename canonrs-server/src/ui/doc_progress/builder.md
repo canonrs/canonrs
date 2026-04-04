@@ -2,7 +2,7 @@
 
 id: doc-progress
 label: Doc Progress
-family: utility
+family: family-e-feedback
 category: Display
 intent: Indicate reading progress in a document
 description: Document progress indicator
@@ -18,6 +18,13 @@ why: DocProgressPrimitive exposes progress via data attributes and ARIA. Portal 
 rules: CR-001, CR-004
 use_cases: docs reading, long articles
 related: spinner, skeleton, pulse, loading_overlay
+
+
+file: doc_progress_ui.css
+tokens: doc-progress-*, size-*
+foundation: size
+states: active, inactive
+island: doc_progress_island.rs
 
 ## before
 // ❌ Typical

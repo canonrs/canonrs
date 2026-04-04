@@ -2,7 +2,7 @@
 
 id: aspect-ratio
 label: Aspect Ratio
-family: layout
+family: family-h-layout
 category: Display
 intent: Maintain consistent width/height ratio
 description: Aspect ratio container
@@ -18,6 +18,13 @@ why: AspectRatioPrimitive encodes width/height ratio in data attributes. The str
 rules: CR-001, CR-004
 use_cases: video containers, image previews
 related: card, resizable, scroll_area, page_header, toolbar, separator
+
+
+file: aspect_ratio_ui.css
+tokens: aspect-ratio-*, size-*
+foundation: size
+states: 
+island: aspect_ratio_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: sidebar
 label: Sidebar
-family: navigation
+family: family-d-navigation
 category: Navigation
 intent: Vertical navigation panel
 description: Sidebar navigation component
@@ -18,6 +18,13 @@ why: SidebarPrimitive encodes visibility, variant and navigation semantics. Menu
 rules: CR-001, CR-004
 use_cases: app navigation, admin panels
 related: navigation_menu, nav_item, breadcrumb, pagination, link_group
+
+
+file: sidebar_ui.css
+tokens: sidebar-*, badge-*, size-*, space-*, radius-*, font-*
+foundation: spacing, size, radius, typography
+states: open, closed, active, disabled
+island: sidebar_island.rs
 
 ## before
 // ❌ Typical

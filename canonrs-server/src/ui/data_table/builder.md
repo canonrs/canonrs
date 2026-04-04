@@ -2,7 +2,7 @@
 
 id: data-table
 label: Data Table
-family: data_display
+family: family-f-data
 category: Data
 intent: Display sortable, filterable tabular data
 description: Sortable data table component
@@ -18,6 +18,13 @@ why: DataTablePrimitive separates head, body and cells with explicit sort metada
 rules: CR-001, CR-004
 use_cases: admin dashboards, data grids
 related: table, virtual_list, empty_table, tree, list_item
+
+
+file: data_table_ui.css
+tokens: data-table-*, datatable-*, table-*, space-*, border-*, font-*, radius-*, motion-*
+foundation: spacing, radius, border, motion, typography
+states: loading, error, selected
+island: data_table_island.rs
 
 ## before
 // ❌ Typical

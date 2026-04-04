@@ -2,7 +2,7 @@
 
 id: input-group
 label: Input Group
-family: utility
+family: family-c-forms
 category: Form
 intent: Group input with prefix or suffix elements
 description: Input group with addons
@@ -18,6 +18,13 @@ why: InputGroupPrimitive encodes merge-radius behavior via ActivityState. This e
 rules: CR-001, CR-004
 use_cases: email fields, currency inputs
 related: input, input_otp, textarea, field, label, checkbox, form_error_summary
+
+
+file: input_group_ui.css
+tokens: input-group-*, input-*, space-*, radius-*, border-*, state-*, validation-*, focus-ring-*
+foundation: spacing, radius
+states: focus-within
+island: input_group_island.rs
 
 ## before
 // ❌ Typical

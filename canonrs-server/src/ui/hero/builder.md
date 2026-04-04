@@ -2,7 +2,7 @@
 
 id: hero-ui
 label: Hero UI
-family: display
+family: family-h-layout
 category: Display
 intent: Semantic UI elements inside HeroBlock
 description: Hero typography and label components
@@ -18,6 +18,13 @@ why: HeroPrimitive defines a structural block with dedicated parts like title, d
 rules: CR-001, CR-004
 use_cases: landing pages, marketing headers
 related: 
+
+
+file: hero_ui.css
+tokens: hero-*, space-*, font-*
+foundation: spacing, typography
+states: 
+island: hero_island.rs
 
 ## before
 // ❌ Typical

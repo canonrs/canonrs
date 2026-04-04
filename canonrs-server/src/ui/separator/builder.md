@@ -2,7 +2,7 @@
 
 id: separator
 label: Separator
-family: layout
+family: family-h-layout
 category: Layout
 intent: Visually divide content sections
 description: Visual divider line
@@ -18,6 +18,13 @@ why: SeparatorPrimitive encodes orientation and decorative behavior. ARIA roles 
 rules: CR-001, CR-004
 use_cases: layout separation, menus
 related: card, resizable, scroll_area, aspect_ratio, page_header, toolbar
+
+
+file: separator_ui.css
+tokens: separator-*, size-*
+foundation: size
+states: 
+island: separator_island.rs
 
 ## before
 // ❌ Typical

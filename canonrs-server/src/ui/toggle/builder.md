@@ -2,7 +2,7 @@
 
 id: toggle
 label: Toggle
-family: input
+family: family-c-forms
 category: Form
 intent: Toggle a pressed state
 description: Toggle button
@@ -18,6 +18,13 @@ why: TogglePrimitive maps ToggleState to data-rs-state and checkbox checked stat
 rules: CR-001, CR-004
 use_cases: formatting tools, feature toggles
 related: switch, toggle_group
+
+
+file: toggle_ui.css
+tokens: toggle-*, size-*, radius-*, motion-*, font-*
+foundation: size, radius, motion, typography
+states: on, off, disabled
+island: toggle_island.rs
 
 ## before
 // ❌ Typical

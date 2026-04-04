@@ -2,7 +2,7 @@
 
 id: radio
 label: Radio
-family: input
+family: family-b-selection
 category: Form
 intent: Select one option from a group
 description: Radio button input
@@ -18,6 +18,13 @@ why: RadioPrimitive maps SelectionState to checked and aria attributes. Disabled
 rules: CR-001, CR-004
 use_cases: forms, single choice inputs
 related: combobox, radio_group, color_picker, slider
+
+
+file: radio_ui.css
+tokens: radio-*, size-*, radius-*, motion-*, state-*
+foundation: size, radius, motion, interaction, shadow
+states: selected, focus, disabled
+island: radio_island.rs
 
 ## before
 // ❌ Typical

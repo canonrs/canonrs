@@ -2,7 +2,7 @@
 
 id: select
 label: Select
-family: input
+family: family-c-forms
 category: Form
 intent: Choose one option from a list
 description: Dropdown select input
@@ -18,6 +18,13 @@ why: SelectPrimitive encodes open state, selection and disabled behavior via dat
 rules: CR-001, CR-004
 use_cases: forms, filters
 related: combobox, radio, radio_group, color_picker, slider
+
+
+file: select_ui.css
+tokens: select-*, size-*, space-*, radius-*, border-*, shadow-*, font-*, motion-*
+foundation: spacing, size, radius, border, shadow, motion, typography
+states: open, closed, selected, disabled
+island: select_island.rs
 
 ## before
 // ❌ Typical

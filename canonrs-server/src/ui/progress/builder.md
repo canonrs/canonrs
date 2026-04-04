@@ -2,7 +2,7 @@
 
 id: progress
 label: Progress
-family: feedback
+family: family-e-feedback
 category: Feedback
 intent: Show completion of a task
 description: Progress bar indicator
@@ -18,6 +18,13 @@ why: ProgressPrimitive clamps value between 0–100 and maps it to aria-valuenow
 rules: CR-001, CR-004
 use_cases: file upload, task completion
 related: spinner, skeleton, pulse, loading_overlay, doc_progress
+
+
+file: progress_ui.css
+tokens: progress-*, size-*, radius-*, motion-*
+foundation: size, radius, motion
+states: loading
+island: progress_island.rs
 
 ## before
 // ❌ Typical

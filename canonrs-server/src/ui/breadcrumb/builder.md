@@ -2,7 +2,7 @@
 
 id: breadcrumb
 label: Breadcrumb
-family: navigation
+family: family-d-navigation
 category: Navigation
 intent: Show current location in hierarchy
 description: Navigation breadcrumb trail
@@ -18,6 +18,13 @@ why: ActivityState defines whether a breadcrumb link is active. The primitive ma
 rules: CR-001, CR-004
 use_cases: navigation trails, hierarchy display
 related: navigation_menu, sidebar, nav_item, pagination, link_group
+
+
+file: breadcrumb_ui.css
+tokens: breadcrumb-*, space-*, font-*, motion-*
+foundation: spacing, radius, shadow, typography, motion
+states: active
+island: breadcrumb_island.rs
 
 ## before
 // ❌ Typical

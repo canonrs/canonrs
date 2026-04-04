@@ -2,7 +2,7 @@
 
 id: button-group
 label: Button Group
-family: utility
+family: family-c-forms
 category: Action
 intent: Group related action buttons together
 description: Group of action buttons
@@ -18,6 +18,13 @@ why: ButtonGroupPrimitive defines role="group" and controlled attachment state v
 rules: CR-001, CR-004
 use_cases: toolbar actions, segmented controls
 related: button, icon_button, copy_button, link
+
+
+file: button_group_ui.css
+tokens: button-group-*, button-*, space-*, radius-*, border-*, state-*, focus-ring-*
+foundation: spacing, radius, border, interaction
+states: first, last
+island: button_group_island.rs
 
 ## before
 // ❌ Typical

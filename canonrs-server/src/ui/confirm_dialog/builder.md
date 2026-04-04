@@ -2,7 +2,7 @@
 
 id: confirm-dialog
 label: Confirm Dialog
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Ask user to confirm an action
 description: Confirmation dialog
@@ -18,6 +18,13 @@ why: ConfirmDialogPrimitive enforces role="alertdialog" with variant-driven sema
 rules: CR-001, CR-004
 use_cases: delete confirmation, critical actions
 related: dialog, alert_dialog, drawer, sheet, modal, tooltip, hover_card, popover
+
+
+file: confirm_dialog_ui.css
+tokens: confirm-dialog-*, space-*, radius-*, shadow-*, motion-*, font-*
+foundation: spacing, radius, shadow, motion, typography
+states: open, closed
+island: confirm_dialog_island.rs
 
 ## before
 // ❌ Typical

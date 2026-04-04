@@ -2,7 +2,7 @@
 
 id: icon-button
 label: Icon Button
-family: interactive
+family: family-f-data
 category: Action
 intent: Trigger an action with an icon button
 description: Button with icon only
@@ -18,6 +18,13 @@ why: IconButtonPrimitive requires aria-label and encodes loading and disabled st
 rules: CR-001, CR-004
 use_cases: close actions, toolbar buttons
 related: button, button_group, copy_button, link
+
+
+file: icon_button_ui.css
+tokens: icon-button-*, size-*, radius-*, motion-*, font-*, state-*, button-*, focus-ring-*
+foundation: size, radius, motion, interaction, typography
+states: hover, active, focus, disabled, loading
+island: icon_button_island.rs
 
 ## before
 // ❌ Typical

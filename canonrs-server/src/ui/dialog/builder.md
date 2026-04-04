@@ -2,7 +2,7 @@
 
 id: dialog
 label: Dialog
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Display critical content requiring user interaction
 description: Modal dialog component
@@ -18,6 +18,13 @@ why: DialogPrimitive defines overlay, portal and content with ARIA compliance. V
 rules: CR-001, CR-004
 use_cases: modals, forms
 related: alert_dialog, drawer, sheet, modal, confirm_dialog, tooltip, hover_card, popover
+
+
+file: dialog_ui.css
+tokens: dialog-*, space-*, radius-*, shadow-*, motion-*, font-*
+foundation: spacing, radius, shadow, motion, typography
+states: open, closed
+island: dialog_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: alert-dialog
 label: Alert Dialog
-family: overlay
+family: family-a-overlay
 category: Overlay
 intent: Confirm destructive actions with user
 description: Alert dialog for critical confirmations
@@ -18,6 +18,13 @@ why: AlertDialog reuses Dialog but enforces role="alertdialog" and assertive ari
 rules: CR-001, CR-004
 use_cases: delete confirmation, critical actions
 related: dialog, drawer, sheet, modal, confirm_dialog, tooltip, hover_card, popover
+
+
+file: alert_dialog_ui.css
+tokens: alert-dialog-*, space-*, radius-*, shadow-*, motion-*
+foundation: spacing, radius, shadow, motion
+states: open, closed
+island: alert_dialog_island.rs
 
 ## before
 // ❌ Typical

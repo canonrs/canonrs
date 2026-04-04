@@ -2,7 +2,7 @@
 
 id: list-item
 label: List Item
-family: data_display
+family: family-f-data
 category: Display
 intent: Display a single item in a list
 description: Single list item with title and description
@@ -18,6 +18,13 @@ why: ListItem encodes selectable, selected and disabled states into data attribu
 rules: CR-001, CR-004
 use_cases: menus, lists
 related: table, data_table, virtual_list, empty_table, tree
+
+
+file: list_item_ui.css
+tokens: list-item-*, list-*, space-*, radius-*, font-*
+foundation: spacing, radius, motion, typography
+states: selected
+island: list_item_island.rs
 
 ## before
 // ❌ Typical

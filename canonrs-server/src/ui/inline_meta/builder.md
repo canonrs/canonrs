@@ -2,7 +2,7 @@
 
 id: inline-meta
 label: Inline Meta
-family: display
+family: family-f-data
 category: Display
 intent: Display structured metadata inline (label + value pairs)
 description: Inline metadata display for stats, versions, dates and counts
@@ -18,6 +18,13 @@ why: InlineMetaPrimitive separates label and value into explicit primitives. Thi
 rules: CR-001, CR-004
 use_cases: stats display, metadata labels
 related: avatar, icon, logo, code_block, markdown, chart, stat, kbd
+
+
+file: inline_meta_ui.css
+tokens: inline-meta-*, space-*, font-*
+foundation: spacing, typography
+states: 
+island: inline_meta_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: combobox
 label: Combobox
-family: input
+family: family-b-selection
 category: Form
 intent: Search and select from a list
 description: Searchable combo box
@@ -18,6 +18,13 @@ why: ComboboxPrimitive defines proper ARIA roles and input behavior. SelectionSt
 rules: CR-001, CR-004
 use_cases: autocomplete, search dropdown
 related: radio, radio_group, color_picker, slider
+
+
+file: combobox_ui.css
+tokens: combobox-*, space-*, size-*, radius-*, shadow-*, motion-*, font-*
+foundation: spacing, size, radius, shadow, motion, typography
+states: open, closed, selected, disabled
+island: combobox_island.rs
 
 ## before
 // ❌ Typical

@@ -2,7 +2,7 @@
 
 id: input
 label: Input
-family: input
+family: family-c-forms
 category: Form
 intent: Capture text or data from user
 description: Text input field
@@ -18,6 +18,13 @@ why: InputVariant and InputSize define allowed visual states at compile-time. Di
 rules: CR-001, CR-004
 use_cases: forms, search fields
 related: input_group, input_otp, textarea, field, label, checkbox, form_error_summary
+
+
+file: input_ui.css
+tokens: input-*, size-*, space-*, radius-*, border-*, font-*, motion-*
+foundation: spacing, size, radius, border, motion, typography
+states: focus, disabled
+island: input_island.rs
 
 ## before
 // ❌ Typical

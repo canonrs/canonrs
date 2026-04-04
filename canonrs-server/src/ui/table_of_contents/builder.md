@@ -2,7 +2,7 @@
 
 id: table-of-contents
 label: Table of Contents
-family: utility
+family: family-d-navigation
 category: Navigation
 intent: Navigate document sections via anchors
 description: Document table of contents
@@ -18,6 +18,13 @@ why: TocPrimitive encodes mode and item states with hierarchical structure. SSR 
 rules: CR-001, CR-004
 use_cases: docs navigation, long pages
 related: collapsible
+
+
+file: table_of_contents_ui.css
+tokens: toc-*, space-*, font-*, radius-*, motion-*
+foundation: spacing, radius, motion, typography
+states: active, open, closed
+island: table_of_contents_island.rs
 
 ## before
 // ❌ Typical
