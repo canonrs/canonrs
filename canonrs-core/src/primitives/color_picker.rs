@@ -19,6 +19,7 @@ pub fn ColorPickerPrimitive(
         <div
             data-rs-color-picker=""
             data-rs-component="ColorPicker"
+            data-rs-behavior="color-picker"
             data-rs-state=s.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled
@@ -51,7 +52,7 @@ pub fn ColorPickerTriggerPrimitive(
             aria-label="Open color picker"
             class=class
         >
-            <div data-rs-color-swatch="" data-rs-color=color />
+<div data-rs-color-swatch="" data-rs-color=color.clone() style=format!("background-color:{}", color) />
             {children()}
         </button>
     }

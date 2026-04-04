@@ -228,7 +228,7 @@
   --color-picker-border-width: 1px;
   --color-picker-trigger-size: var(--space-3xl);
   --color-picker-trigger-radius: var(--radius-sm);
-  --color-picker-swatch-size: var(--size-input-sm);
+  --color-picker-swatch-size: 1.75rem;
   --color-picker-swatch-radius: var(--radius-xs);
   --color-picker-swatch-border-width: 1px;
   --color-picker-swatch-border-color: var(--theme-surface-border);
@@ -260,6 +260,7 @@
   --color-picker-label-font-family: var(--font-family-mono);
   --color-picker-label-key-fg: var(--theme-surface-fg-muted);
   --color-picker-label-value-fg: var(--theme-surface-fg);
+  --color-picker-disabled-opacity: var(--state-disabled-opacity);
   --form-gap: var(--space-lg);
   --form-actions-gap: var(--space-sm);
   --form-actions-justify: flex-end;

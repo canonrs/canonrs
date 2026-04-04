@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::color_picker_ui::{ColorPicker, ColorPickerSwatch};
+use super::color_picker_ui::{ColorPicker, ColorPickerSwatch, ColorPickerDisplay, ColorFormat};
 use canonrs_core::meta::{SelectionState, DisabledState};
 
 #[component]
@@ -20,6 +20,15 @@ pub fn ColorPickerShowcasePreview() -> impl IntoView {
                     <ColorPickerSwatch color="#22c55e" />
                     <ColorPickerSwatch color="#f59e0b" />
                     <ColorPickerSwatch color="#8b5cf6" />
+                </div>
+            </div>
+            <div data-rs-showcase-preview-section="">
+                <span data-rs-showcase-preview-label="">"Color Format Display"</span>
+                <div data-rs-showcase-preview-row="">
+                    <ColorPickerDisplay value="#3b82f6" format=ColorFormat::Hex />
+                    <ColorPickerDisplay value="rgb(59, 130, 246)" format=ColorFormat::Rgb />
+                    <ColorPickerDisplay value="hsl(217, 91%, 60%)" format=ColorFormat::Hsl />
+                    <ColorPickerDisplay value="cmyk(76%, 47%, 0%, 4%)" format=ColorFormat::Cmyk />
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">

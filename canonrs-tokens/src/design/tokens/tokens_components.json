@@ -252,8 +252,8 @@
   {
     "component": "color_picker",
     "file": "color_picker_ui.css",
-    "tokens": "color-picker-*, size-*, space-*, radius-*, motion-*, font-*",
-    "foundation": "spacing, size, radius, motion, typography",
+    "tokens": "color-picker-*, size-*, space-*, radius-*, motion-*, font-*, state-*",
+    "foundation": "spacing, size, radius, motion, typography, interaction",
     "family": "family-c-forms",
     "states": [
       "selected",

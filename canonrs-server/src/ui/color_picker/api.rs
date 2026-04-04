@@ -21,3 +21,12 @@ pub const COLORPICKERSWATCH_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const COLORPICKERDISPLAY_API: ComponentApi = ComponentApi {
+    id: "color-picker-display",
+    props: &[
+        PropDef { name: "value", kind: PropType::String, required: false, default: Some("#3b82f6"), description: "" },
+        PropDef { name: "format", kind: PropType::String, required: false, default: Some("hex"), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

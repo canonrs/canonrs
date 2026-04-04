@@ -269,7 +269,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("color-picker-border-width", "1px"),
     FamilyToken::new("color-picker-trigger-size", "var(--space-3xl)"),
     FamilyToken::new("color-picker-trigger-radius", "var(--radius-sm)"),
-    FamilyToken::new("color-picker-swatch-size", "var(--size-input-sm)"),
+    FamilyToken::new("color-picker-swatch-size", "1.75rem"),
     FamilyToken::new("color-picker-swatch-radius", "var(--radius-xs)"),
     FamilyToken::new("color-picker-swatch-border-width", "1px"),
     FamilyToken::new("color-picker-swatch-border-color", "var(--theme-surface-border)"),
@@ -307,6 +307,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("color-picker-label-font-family", "var(--font-family-mono)"),
     FamilyToken::new("color-picker-label-key-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("color-picker-label-value-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("color-picker-disabled-opacity", "var(--state-disabled-opacity)"),
 
     // Form
     FamilyToken::new("form-gap", "var(--space-lg)"),

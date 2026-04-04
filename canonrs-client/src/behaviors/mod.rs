@@ -19,6 +19,7 @@ pub mod button_behavior;
 pub mod checkbox_behavior;
 #[cfg(feature = "hydrate")]
 pub mod radio_behavior;
+pub mod color_picker_behavior;
 pub mod link_behavior;
 pub mod radio_group_behavior;
 #[cfg(feature = "hydrate")]

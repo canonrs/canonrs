@@ -825,7 +825,7 @@
       "variants": []
     },
     {
-      "behavior": "unknown",
+      "behavior": "color-picker",
       "capabilities": [
         "Value",
         "Disabled"
