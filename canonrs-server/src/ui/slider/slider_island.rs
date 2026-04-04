@@ -31,12 +31,6 @@ pub fn SliderIsland(
         if let Some(target) = e.current_target() {
             let el = target.unchecked_into::<web_sys::HtmlElement>();
             el.set_pointer_capture(e.pointer_id()).ok();
-            let el_el = el.unchecked_into::<web_sys::Element>();
-            let mut s = el_el.get_attribute("data-rs-state").unwrap_or_default();
-            if !s.contains("active") {
-                s = format!("{} active", s).trim().to_string();
-                el_el.set_attribute("data-rs-state", &s).ok();
-            }
         }
     };
     #[cfg(not(feature = "hydrate"))]

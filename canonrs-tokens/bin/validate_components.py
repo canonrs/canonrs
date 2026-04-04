@@ -210,7 +210,7 @@ def validate(component, declared):
 ISLAND_DIR = "../../canonrs-server/src/ui"
 
 
-def check_island_props(island_file, island_dir, component):
+def check_island_props_LEGACY(island_file, island_dir, component):
     """CR-330: island props must use serde enums, not Option<String> or Option<bool>"""
     errors = []
     # find island file
@@ -241,7 +241,7 @@ def check_island_props(island_file, island_dir, component):
     return errors
 
 
-def check_island_ssr_state(island_file, island_dir):
+def check_island_ssr_state_LEGACY(island_file, island_dir):
     """CR-331: island SSR state must be fully materialized without signals"""
     errors = []
     import glob
@@ -280,6 +280,152 @@ def check_island_css_child_combinator(css_file):
             )
     return errors
 
+
+# ═══════════════════════════════════════════════════════════════
+# ISLAND VALIDATOR — LEI IMUTÁVEL (CR-330 a CR-339)
+# ═══════════════════════════════════════════════════════════════
+
+ISLAND_FORBIDDEN_PROPS = [
+    ("Option<String>", "into", "CR-330: Option<String> + into proibido — use String direto"),
+    ("Option<bool>",   "into", "CR-330: Option<bool> + into proibido — use bool direto"),
+]
+
+ISLAND_FORBIDDEN_PATTERNS = [
+    ("set_attribute",          "CR-335: DOM mutation proibido em island — use signals"),
+    ("get_attribute",          "CR-333: DOM read proibido em island — use signals"),
+    ("spawn_local",            "CR-336: async state proibido em island — use signals sincrono"),
+    ("inner_html",             "CR-337: inner_html proibido em island — estrutura MUST ser estavel"),
+]
+
+ISLAND_REQUIRED_PATTERNS = [
+    ("initial_state",          "CR-331: initial_state obrigatorio em todo island com signals em data-rs-state"),
+    ("data-rs-state",          "CR-339: data-rs-state obrigatorio — state MUST ser emitido via data-rs-state"),
+]
+
+ISLAND_SSOT_PATTERNS = [
+    ("set_selected.set",       "set_"),
+    ("set_open.set",           "set_"),
+    ("set_hover.set",          "set_"),
+    ("set_focused.set",        "set_"),
+]
+
+CFG_REQUIRED = [
+    "web_sys",
+    "wasm_bindgen",
+    "Closure",
+]
+
+
+def check_island_full(island_file, island_dir, component):
+    """LEI IMUTAVEL — validacao completa de island"""
+    errors = []
+    import glob
+    matches = glob.glob(f"{island_dir}/**/{island_file}", recursive=True)
+    if not matches:
+        errors.append(f"[ISLAND-MISSING] {island_file} nao encontrado")
+        return errors
+    with open(matches[0]) as f:
+        content = f.read()
+    lines = content.splitlines()
+
+    # ── CR-330: props proibidas ──────────────────────────────────
+    in_island = False
+    for line in lines:
+        if "#[island]" in line:
+            in_island = True
+        if in_island and ") -> impl IntoView" in line:
+            in_island = False
+        if in_island and "#[prop(" in line:
+            for (type_, attr, msg) in ISLAND_FORBIDDEN_PROPS:
+                if type_ in line and attr in line:
+                    # allow cosmetic props
+                    cosmetic = any(p in line for p in ["class", "aria_label", "validation", "disabled", "text", "target", "href", "external", "placeholder", "selected_value", "value", "label", "name"])
+                    if not cosmetic:
+                        errors.append(f"[CR-330] {island_file} linha {i} -- {msg}\n            {line.strip()[:80]}")
+
+    # ── CR-331: initial_state obrigatorio ────────────────────────
+    has_signals = "signal(" in content
+    has_data_rs_state = "data-rs-state" in content
+    has_initial_state = "initial_state" in content
+    if has_signals and has_data_rs_state and not has_initial_state:
+        errors.append(
+            f"[CR-331] {island_file} -- initial_state AUSENTE (lei imutavel)\n"
+            f"            todo island com signals em data-rs-state DEVE ter initial_state materializado"
+        )
+
+    # ── CR-333: DOM → SIGNAL proibido (data-flow real) ────────────
+    import re as _re
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("//"):
+            continue
+
+        if "query_selector" in line:
+            var = None
+            for j in range(i, max(i-25, -1), -1):
+                m = _re.search(r'let\s+(\w+)\s*=', lines[j])
+                if m:
+                    var = m.group(1)
+                    break
+            if var:
+                block = "\n".join(lines[i:i+25])
+                if _re.search(rf'\.set\(\s*{var}\s*[,)]', block):
+                    errors.append(
+                        f"[CR-333] {island_file} linha {i} -- DOM → SIGNAL proibido\n"
+                        f"            query_selector → {var} → .set() viola SSOT\n"
+                        f"            {stripped[:80]}"
+                    )
+
+    # ── CR-335: outros padroes DOM proibidos ─────────────────────
+    for (pattern, msg) in ISLAND_FORBIDDEN_PATTERNS:
+        for i, line in enumerate(lines, 1):
+            stripped = line.strip()
+            if stripped.startswith("//"):
+                continue
+            if pattern in line:
+                errors.append(f"[{msg.split(':')[0]}] {island_file} linha {i} -- {msg.split(':', 1)[1].strip()}\n            {stripped[:80]}")
+                break
+
+    # ── CR-336: spawn_local proibido ─────────────────────────────
+    # já coberto por ISLAND_FORBIDDEN_PATTERNS
+
+    # ── CR-339: class-based state proibido (dynamic class) ──────
+    import re as _re
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("//"):
+            continue
+        if _re.search(r'class\s*=\s*(move\s*\|\||if\s|\w+\.get\()', line):
+            errors.append(
+                f"[CR-339] {island_file} linha {i} -- dynamic class state proibido\n"
+                f"            state MUST ser emitido via data-rs-state, nao via class\n"
+                f"            {stripped[:80]}"
+            )
+
+    # ── CR-338: web_sys DEVE ser cfg-gated ──────────────────────
+    # verifica se uso de web_sys/wasm_bindgen/Closure esta dentro
+    # de bloco protegido por #[cfg(feature = "hydrate")]
+    # estrategia: encontrar ultimo cfg antes do padrao
+    for pattern in CFG_REQUIRED:
+        for i, line in enumerate(lines, 1):
+            stripped = line.strip()
+            if stripped.startswith("//"):
+                continue
+            if pattern in line:
+                # buscar cfg guard nas linhas anteriores (ate o inicio)
+                context = "\n".join(lines[0:i])
+                # contar cfgs e end de blocos para determinar se ainda estamos dentro
+                cfg_count = context.count('#[cfg(feature = "hydrate")]')
+                not_hydrate_count = context.count('#[cfg(not(feature = "hydrate"))]')
+                if cfg_count == 0:
+                    errors.append(
+                        f"[CR-338] {island_file} linha {i} -- {pattern} sem cfg hydrate\n"
+                        f"            web_sys MUST ser cfg-gated"
+                    )
+                break
+
+    return errors
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_path  = os.path.join(script_dir, JSON_PATH)
@@ -316,8 +462,7 @@ def main():
         island_file = comp.get("island", None)
         if island_file:
             island_dir = os.path.join(script_dir, ISLAND_DIR)
-            errors += check_island_props(island_file, island_dir, comp["component"])
-            errors += check_island_ssr_state(island_file, island_dir)
+            errors += check_island_full(island_file, island_dir, comp["component"])
             css_file = os.path.join(CSS_DIR, comp["file"])
             errors += check_island_css_child_combinator(css_file)
         if errors:

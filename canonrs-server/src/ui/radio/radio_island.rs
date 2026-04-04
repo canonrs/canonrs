@@ -59,11 +59,22 @@ pub fn RadioGroupIsland(
                 }
             };
 
+            let initial_state = {
+                let value = value.clone();
+                let mut s = vec![];
+                if selected.get_untracked() == value { s.push("selected"); }
+                if is_disabled { s.push("disabled"); }
+                s.join(" ")
+            };
+
             view! {
                 <label
                     data-rs-radio=""
                     data-rs-component="Radio"
-                    data-rs-state=item_state
+                    data-rs-state=move || {
+                        let s = item_state();
+                        if s.is_empty() && !initial_state.is_empty() { initial_state.clone() } else { s }
+                    }
                     class=""
                 >
                     <input
