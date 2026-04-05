@@ -19,31 +19,30 @@
   border: none;
 }
 
-[data-rs-menubar-trigger]:hover {
+[data-rs-menubar-trigger]:hover:not([data-rs-state~="open"]) {
   background: var(--menubar-trigger-bg-hover);
 }
 
-[data-rs-menubar-menu][data-rs-state="open"] [data-rs-menubar-trigger] {
+[data-rs-menubar-menu][data-rs-state~="open"] [data-rs-menubar-trigger] {
   background: var(--menubar-trigger-bg-expanded);
 }
 
 [data-rs-menubar-content] {
-  display: none;
   background: var(--menubar-content-bg);
   padding-block: var(--menubar-content-padding-y);
   border-radius: var(--menubar-content-radius);
   box-shadow: var(--menubar-content-shadow);
   min-width: var(--menubar-content-min-width);
-  z-index: 50;
+  z-index: var(--layer-overlay);
 }
 
 [data-rs-menubar-portal] [data-rs-menubar-content] {
-  display: none;
   display: flex;
   flex-direction: column;
 }
 
-[data-rs-menubar-subitem] {
+[data-rs-menubar-subitem],
+[data-rs-menubar-item] {
   display: flex;
   align-items: center;
   width: 100%;
@@ -55,10 +54,11 @@
   background: transparent;
   border: none;
   text-align: left;
-  transition: background var(--menubar-subitem-transition);
+  transition: background var(--menubar-transition-duration) var(--menubar-transition-ease);
 }
 
-[data-rs-menubar-subitem]:hover {
+[data-rs-menubar-subitem]:hover:not([data-rs-state~="active"]),
+[data-rs-menubar-item]:hover:not([data-rs-state~="active"]) {
   background: var(--menubar-subitem-bg-hover);
 }
 
@@ -66,4 +66,30 @@
   height: var(--menubar-separator-height);
   background: var(--menubar-separator-bg);
   margin: var(--menubar-separator-margin);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-menubar-menu][data-rs-state~="open"] [data-rs-menubar-content] {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+[data-rs-menubar-menu][data-rs-state~="closed"] [data-rs-menubar-content],
+[data-rs-menubar-content][hidden] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+[data-rs-menubar-trigger][data-rs-state~="active"] {
+  background: var(--menubar-trigger-bg-expanded);
+  color: var(--menubar-trigger-fg-expanded);
 }

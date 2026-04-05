@@ -24,11 +24,11 @@
   transition: background var(--menu-item-transition-duration) var(--menu-item-transition-ease);
 }
 
-[data-rs-menu-item]:hover {
+[data-rs-menu-item]:hover:not([data-rs-state~="selected"]):not([aria-disabled="true"]) {
   background: var(--menu-item-bg-hover);
 }
 
-[data-rs-menu-item][data-rs-selected="true"] {
+[data-rs-menu-item][data-rs-state~="selected"] {
   background: var(--menu-item-bg-active);
 }
 
@@ -48,5 +48,19 @@
 [data-rs-menu-separator] {
   height: 1px;
   background: var(--theme-surface-border);
-  margin: var(--space-xs) 0;
+  margin: var(--menu-separator-margin);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-menu-item][data-rs-state~="selected"] {
+  background: var(--menu-item-bg-active);
+  color: var(--menu-item-fg-active);
+}
+
+[data-rs-menu-item][data-rs-state~="disabled"],
+[data-rs-menu-item][aria-disabled="true"] {
+  opacity: var(--state-disabled-opacity);
+  pointer-events: none;
+  cursor: not-allowed;
 }

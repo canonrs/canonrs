@@ -129,6 +129,13 @@
   --context-menu-label-padding: var(--space-sm) var(--space-sm);
   --context-menu-shortcut-fg: var(--theme-surface-fg-muted);
   --context-menu-shortcut-font-size: var(--font-size-xs);
+  --context-menu-x: 0px;
+  --context-menu-y: 0px;
+  --context-menu-z-index: var(--layer-overlay);
+  --context-menu-padding: var(--space-xs);
+  --context-menu-item-fg: var(--theme-surface-fg);
+  --context-menu-transition-duration: var(--motion-duration-fast);
+  --context-menu-transition-ease: var(--motion-ease-standard);
   --menu-bg: var(--theme-surface-bg);
   --menu-padding: var(--space-sm);
   --menu-gap: var(--space-xs);
@@ -139,6 +146,10 @@
   --menu-item-font-size: var(--font-size-sm);
   --menu-item-transition-duration: var(--motion-duration-fast);
   --menu-item-transition-ease: var(--motion-ease-standard);
+  --menu-item-bg-hover: var(--theme-surface-muted);
+  --menu-item-bg-active: var(--theme-action-accent-bg);
+  --menu-item-fg-active: var(--theme-action-accent-fg);
+  --menu-separator-margin: var(--space-xs) 0;
   --menubar-bg: var(--theme-surface-bg);
   --menubar-border-color: var(--theme-surface-border);
   --menubar-border-width: 0 0 1px 0;
@@ -160,6 +171,12 @@
   --menubar-separator-height: 1px;
   --menubar-separator-bg: var(--theme-surface-border);
   --menubar-separator-margin: var(--space-xs) 0;
+  --menubar-trigger-bg-hover: var(--theme-surface-muted);
+  --menubar-trigger-bg-expanded: var(--theme-action-accent-bg);
+  --menubar-trigger-fg-expanded: var(--theme-action-accent-fg);
+  --menubar-subitem-bg-hover: var(--theme-action-accent-bg);
+  --menubar-transition-duration: var(--motion-duration-fast);
+  --menubar-transition-ease: var(--motion-ease-standard);
   --tree-gap: var(--space-xs);
   --tree-indent: var(--space-md);
   --tree-item-height: var(--space-xl);

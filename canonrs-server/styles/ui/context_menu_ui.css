@@ -15,17 +15,13 @@
   border-radius: var(--context-menu-radius);
   box-shadow: var(--context-menu-shadow);
   padding: var(--context-menu-padding);
-  min-width: 200px;
+  min-width: var(--context-menu-min-width);
   opacity: 0;
   visibility: hidden;
   transform: scale(0.95);
-  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
-}
-
-[data-rs-context-menu][data-rs-state="open"] [data-rs-context-menu-content] {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
+  transition: opacity var(--context-menu-transition-duration) var(--context-menu-transition-ease),
+    visibility var(--context-menu-transition-duration) var(--context-menu-transition-ease),
+    transform var(--context-menu-transition-duration) var(--context-menu-transition-ease);
 }
 
 [data-rs-context-menu-item] {
@@ -38,7 +34,7 @@
   border-radius: calc(var(--context-menu-radius) / 2);
 }
 
-[data-rs-context-menu-item]:hover {
+[data-rs-context-menu-item]:hover:not([data-rs-state~="active"]):not([aria-disabled="true"]) {
   background: var(--context-menu-item-hover-bg);
 }
 
@@ -46,4 +42,18 @@
   height: 1px;
   background: var(--context-menu-border-color);
   margin: var(--space-xs) 0;
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-context-menu][data-rs-state~="open"] [data-rs-context-menu-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+[data-rs-context-menu][data-rs-state~="closed"] [data-rs-context-menu-content] {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
 }

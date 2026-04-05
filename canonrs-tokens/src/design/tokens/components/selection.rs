@@ -149,6 +149,13 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("context-menu-label-padding", "var(--space-sm) var(--space-sm)"),
     FamilyToken::new("context-menu-shortcut-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("context-menu-shortcut-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("context-menu-x", "0px"),
+    FamilyToken::new("context-menu-y", "0px"),
+    FamilyToken::new("context-menu-z-index", "var(--layer-overlay)"),
+    FamilyToken::new("context-menu-padding", "var(--space-xs)"),
+    FamilyToken::new("context-menu-item-fg", "var(--theme-surface-fg)"),
+    FamilyToken::new("context-menu-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("context-menu-transition-ease", "var(--motion-ease-standard)"),
 
     // Menu
     FamilyToken::new("menu-bg", "var(--theme-surface-bg)"),
@@ -161,6 +168,10 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("menu-item-font-size", "var(--font-size-sm)"),
     FamilyToken::new("menu-item-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("menu-item-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("menu-item-bg-hover", "var(--theme-surface-muted)"),
+    FamilyToken::new("menu-item-bg-active", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("menu-item-fg-active", "var(--theme-action-accent-fg)"),
+    FamilyToken::new("menu-separator-margin", "var(--space-xs) 0"),
 
     // Menubar
     FamilyToken::new("menubar-bg", "var(--theme-surface-bg)"),
@@ -188,6 +199,12 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("menubar-separator-height", "1px"),
     FamilyToken::new("menubar-separator-bg", "var(--theme-surface-border)"),
     FamilyToken::new("menubar-separator-margin", "var(--space-xs) 0"),
+    FamilyToken::new("menubar-trigger-bg-hover", "var(--theme-surface-muted)"),
+    FamilyToken::new("menubar-trigger-bg-expanded", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("menubar-trigger-fg-expanded", "var(--theme-action-accent-fg)"),
+    FamilyToken::new("menubar-subitem-bg-hover", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("menubar-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("menubar-transition-ease", "var(--motion-ease-standard)"),
 
     // Tree
     FamilyToken::new("tree-gap", "var(--space-xs)"),

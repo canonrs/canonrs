@@ -21,7 +21,7 @@ related: dropdown_menu, context_menu, menu, command
 
 
 file: menubar_ui.css
-tokens: menubar-*, space-*, radius-*, shadow-*, font-*
+tokens: menubar-*, space-*, radius-*, shadow-*, font-*, layer-*
 foundation: spacing, radius, shadow, typography
 states: active
 island: menubar_island.rs

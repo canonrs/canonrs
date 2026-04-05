@@ -1,43 +1,39 @@
 use leptos::prelude::*;
-use super::menu_ui::{Menu, MenuItem, MenuGroup, MenuLabel, MenuSeparator};
-use canonrs_core::meta::{DisabledState, SelectionState};
+use super::menu_island::{MenuIsland, MenuIslandItem};
+
+fn main_items() -> Vec<MenuIslandItem> {
+    vec![
+        MenuIslandItem { label: "New file".into(),         value: "new".into(),      disabled: false },
+        MenuIslandItem { label: "Open file".into(),        value: "open".into(),     disabled: false },
+        MenuIslandItem { label: "Save".into(),             value: "save".into(),     disabled: false },
+        MenuIslandItem { label: "Export (disabled)".into(), value: "export".into(), disabled: true  },
+    ]
+}
+
+fn edit_items() -> Vec<MenuIslandItem> {
+    vec![
+        MenuIslandItem { label: "Cut".into(),   value: "cut".into(),   disabled: false },
+        MenuIslandItem { label: "Copy".into(),  value: "copy".into(),  disabled: false },
+        MenuIslandItem { label: "Paste".into(), value: "paste".into(), disabled: false },
+        MenuIslandItem { label: "Undo".into(),  value: "undo".into(),  disabled: false },
+        MenuIslandItem { label: "Redo".into(),  value: "redo".into(),  disabled: false },
+    ]
+}
 
 #[component]
 pub fn MenuShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Menu aria_label="Main menu">
-                    <MenuLabel>"Actions"</MenuLabel>
-                    <MenuGroup>
-                        <MenuItem>"New file"</MenuItem>
-                        <MenuItem>"Open file"</MenuItem>
-                        <MenuItem selected=SelectionState::Selected>"Save"</MenuItem>
-                    </MenuGroup>
-                    <MenuSeparator />
-                    <MenuItem disabled=DisabledState::Disabled>"Export (disabled)"</MenuItem>
-                </Menu>
+                <MenuIsland items=main_items() selected="save" aria_label="Main menu" />
             </div>
             <p data-rs-showcase-preview-anchor="">
-                "Menu interaction fully governed via structured ARIA and state attributes."
+                "Menu interaction fully governed via signal — SSR-safe, hydration-safe."
             </p>
             <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"With groups"</span>
+                <span data-rs-showcase-preview-label="">"Edit menu"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Menu aria_label="Edit menu">
-                        <MenuLabel>"Edit"</MenuLabel>
-                        <MenuGroup>
-                            <MenuItem>"Cut"</MenuItem>
-                            <MenuItem>"Copy"</MenuItem>
-                            <MenuItem>"Paste"</MenuItem>
-                        </MenuGroup>
-                        <MenuSeparator />
-                        <MenuLabel>"History"</MenuLabel>
-                        <MenuGroup>
-                            <MenuItem>"Undo"</MenuItem>
-                            <MenuItem>"Redo"</MenuItem>
-                        </MenuGroup>
-                    </Menu>
+                    <MenuIsland items=edit_items() aria_label="Edit menu" />
                 </div>
             </div>
         </div>

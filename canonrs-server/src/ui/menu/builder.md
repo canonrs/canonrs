@@ -22,8 +22,8 @@ related: dropdown_menu, context_menu, menubar, command
 
 file: menu_ui.css
 tokens: menu-*, space-*, radius-*, font-*
-foundation: spacing, radius, typography
-states: open, closed
+foundation: spacing, radius, typography, interaction
+states: selected, disabled
 island: menu_island.rs
 
 pillar: menu
