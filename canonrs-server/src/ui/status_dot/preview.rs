@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::status_dot_ui::StatusDot;
-use canonrs_core::primitives::StatusDotVariant;
+use super::status_dot_island::{StatusDotIsland, StatusDotIslandVariant};
 
 #[component]
 pub fn StatusDotShowcasePreview() -> impl IntoView {
@@ -8,11 +7,11 @@ pub fn StatusDotShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;flex-direction:column;gap:var(--space-sm);">
-                    <StatusDot variant=StatusDotVariant::Online>"Online"</StatusDot>
-                    <StatusDot variant=StatusDotVariant::Away>"Away"</StatusDot>
-                    <StatusDot variant=StatusDotVariant::Busy>"Busy"</StatusDot>
-                    <StatusDot variant=StatusDotVariant::DoNotDisturb>"Do not disturb"</StatusDot>
-                    <StatusDot variant=StatusDotVariant::Offline>"Offline"</StatusDot>
+                    <StatusDotIsland variant=StatusDotIslandVariant::Online       label="Online" />
+                    <StatusDotIsland variant=StatusDotIslandVariant::Away         label="Away" />
+                    <StatusDotIsland variant=StatusDotIslandVariant::Busy         label="Busy" />
+                    <StatusDotIsland variant=StatusDotIslandVariant::DoNotDisturb label="Do not disturb" />
+                    <StatusDotIsland variant=StatusDotIslandVariant::Offline      label="Offline" />
                 </div>
             </div>
             <p data-rs-showcase-preview-anchor="">

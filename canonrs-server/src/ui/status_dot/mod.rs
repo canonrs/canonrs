@@ -1,6 +1,8 @@
 pub mod status_dot_ui;
+pub mod status_dot_island;
 pub mod preview;
 pub use status_dot_ui::*;
+pub use status_dot_island::{StatusDotIsland, StatusDotIslandVariant};
 
 #[cfg(feature = "examples")]
 pub mod examples;
