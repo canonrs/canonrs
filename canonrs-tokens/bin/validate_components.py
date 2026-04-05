@@ -265,6 +265,26 @@ def check_island_ssr_state_LEGACY(island_file, island_dir):
     return errors
 
 
+def check_hover_override_active(css_file):
+    """CR-337: hover must not override active state"""
+    errors = []
+    if not os.path.exists(css_file):
+        return errors
+    with open(css_file) as f:
+        css_content = f.read()
+    lines = css_content.splitlines()
+    for i, line in enumerate(lines, 1):
+        if ":hover" in line and "data-rs-state" not in line:
+            # check if there's a :not([data-rs-state~="active"]) guard
+            if ':not([data-rs-state~="active"])' not in line:
+                errors.append(
+                    f"[CR-337] linha {i} -- hover sem guard :not([data-rs-state~=\"active\"])\n"
+                    f"            adicione :not([data-rs-state~=\"active\"]) ao seletor hover\n"
+                    f"            {line.strip()[:80]}"
+                )
+    return errors
+
+
 def check_island_css_child_combinator(css_file):
     """CR-333: CSS must not use > combinator across island boundaries"""
     errors = []
@@ -504,6 +524,20 @@ def check_island_full(island_file, island_dir, component):
         if "has_attribute" in line and ".set(" in "\n".join(lines[i:min(i+5,len(lines))]):
             errors.append(f"[CR-333] {island_file} linha {i} -- has_attribute → SIGNAL proibido\n            {line.strip()[:80]}")
 
+    # CR-334: use_context inside closure proibido
+    import re as _re2
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("//"): continue
+        if "use_context" in line:
+            # check if inside a closure (move ||)
+            block_before = "\n".join(lines[max(0,i-10):i])
+            if "move |" in block_before or "move||" in block_before:
+                errors.append(
+                    f"[CR-334] {island_file} linha {i} -- use_context dentro de closure proibido\n"
+                    f"            capture use_context no root do componente antes de qualquer closure\n"
+                    f"            {line.strip()[:80]}"
+                )
+
     # CR-335: DOM mutation proibido
     for (pattern, msg) in ISLAND_FORBIDDEN_PATTERNS:
         for i, line in enumerate(lines, 1):
@@ -712,6 +746,7 @@ def main():
             errors += check_island_ast(island_file, island_dir)
             css_file = os.path.join(CSS_DIR, comp["file"])
             errors += check_island_css_child_combinator(css_file)
+            errors += check_hover_override_active(css_file)
         if errors:
             print(f"\n[ERRO] {comp['component'].upper()}")
             for e in errors:
