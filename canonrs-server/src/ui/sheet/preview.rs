@@ -1,37 +1,30 @@
 use leptos::prelude::*;
-use super::sheet_ui::{Sheet, SheetOverlay, SheetContent};
-use canonrs_core::primitives::SheetSide;
+use super::sheet_island::SheetIsland;
 
 #[component]
 pub fn SheetShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Sheet side=SheetSide::Right>
-                    <button type="button" data-rs-sheet-trigger="" data-rs-button="" data-rs-variant="primary">"Open Sheet"</button>
-                    <SheetOverlay />
-                    <SheetContent aria_labelledby="sheet-title-1">
-                        <h2 id="sheet-title-1">"Sheet Title"</h2>
-                        <p>"Sheet content slides in from the side. State fully governed via shared visibility."</p>
-                        <button type="button" data-rs-sheet-close="" data-rs-button="" data-rs-variant="outline">"Close"</button>
-                    </SheetContent>
-                </Sheet>
+                <SheetIsland
+                    trigger_label="Open Sheet"
+                    title="Sheet Title"
+                    description="Sheet slides in from the right. Visibility fully governed via shared state."
+                    close_label="Close"
+                />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Sheet visibility and overlay fully governed via shared state."
             </p>
             <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"From left"</span>
+                <span data-rs-showcase-preview-label="">"Settings panel"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Sheet side=SheetSide::Left>
-                        <button type="button" data-rs-sheet-trigger="" data-rs-button="" data-rs-variant="outline">"Open left"</button>
-                        <SheetOverlay />
-                        <SheetContent aria_labelledby="sheet-title-2">
-                            <h2 id="sheet-title-2">"Navigation"</h2>
-                            <p>"Left sheet for navigation or filters."</p>
-                            <button type="button" data-rs-sheet-close="" data-rs-button="" data-rs-variant="outline">"Close"</button>
-                        </SheetContent>
-                    </Sheet>
+                    <SheetIsland
+                        trigger_label="Open settings"
+                        title="Settings"
+                        description="Manage your account settings and preferences."
+                        close_label="Close"
+                    />
                 </div>
             </div>
         </div>

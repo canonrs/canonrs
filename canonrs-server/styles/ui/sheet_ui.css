@@ -1,76 +1,124 @@
-/* SHEET - Family A Overlay */
+/* SHEET - Family A Overlay — default right, direction-aware */
 
 [data-rs-sheet] {
-  position: relative;
+  display: contents;
+}
+
+[data-rs-sheet-portal] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--sheet-overlay-z-index);
+  pointer-events: none;
+}
+
+[data-rs-sheet][data-rs-state~="open"] [data-rs-sheet-portal] {
+  pointer-events: auto;
+}
+
+[data-rs-sheet][data-rs-state~="closed"] [data-rs-sheet-portal] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 [data-rs-sheet-overlay] {
   position: fixed;
   inset: 0;
-  background: var(--sheet-overlay-bg);
   z-index: var(--sheet-overlay-z-index);
-  display: none;
+  background: var(--sheet-overlay-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--sheet-transition-duration, var(--motion-duration-normal)) var(--sheet-transition-ease, var(--motion-ease-standard)),
+    visibility var(--sheet-transition-duration, var(--motion-duration-normal)) var(--sheet-transition-ease, var(--motion-ease-standard));
 }
 
-[data-rs-sheet][data-rs-state="open"] [data-rs-sheet-overlay] {
-  display: block;
+[data-rs-sheet][data-rs-state~="open"] [data-rs-sheet-overlay] {
+  opacity: 1;
+  visibility: visible;
 }
 
+/* Content base */
 [data-rs-sheet-content] {
   position: fixed;
-  top: 0;
-  bottom: 0;
-  width: var(--sheet-content-width);
-  background: var(--sheet-content-bg);
-  color: var(--sheet-content-fg);
-  padding: var(--sheet-content-padding);
-  box-shadow: var(--sheet-content-shadow);
-  overflow-y: auto;
   z-index: calc(var(--sheet-overlay-z-index) + 1);
-  transition: transform 0.3s ease;
-  display: none;
+  background: var(--sheet-bg);
+  color: var(--sheet-fg);
+  padding: var(--sheet-padding);
+  box-shadow: var(--sheet-shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--sheet-transition-duration, var(--motion-duration-normal)) var(--sheet-transition-ease, var(--motion-ease-standard)),
+    transform var(--sheet-transition-duration, var(--motion-duration-normal)) var(--sheet-transition-ease, var(--motion-ease-standard)),
+    visibility var(--sheet-transition-duration, var(--motion-duration-normal)) var(--sheet-transition-ease, var(--motion-ease-standard));
 }
 
-[data-rs-sheet][data-rs-state="open"] [data-rs-sheet-content] {
-  display: block;
-}
-
-[data-rs-sheet][data-rs-side="right"] [data-rs-sheet-content] {
+/* Right (default) */
+[data-rs-sheet][data-rs-side="right"] [data-rs-sheet-content],
+[data-rs-sheet]:not([data-rs-side]) [data-rs-sheet-content] {
+  top: 0;
   right: 0;
-  transform: translateX(100%);
+  bottom: 0;
+  width: var(--sheet-width);
+  transform: var(--sheet-transform-closed-right);
 }
 
+[data-rs-sheet][data-rs-side="right"][data-rs-state~="open"] [data-rs-sheet-content],
+[data-rs-sheet]:not([data-rs-side])[data-rs-state~="open"] [data-rs-sheet-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: var(--sheet-transform-open);
+}
+
+/* Left */
 [data-rs-sheet][data-rs-side="left"] [data-rs-sheet-content] {
+  top: 0;
   left: 0;
-  transform: translateX(-100%);
+  bottom: 0;
+  width: var(--sheet-width);
+  transform: var(--sheet-transform-closed-left);
 }
 
+[data-rs-sheet][data-rs-side="left"][data-rs-state~="open"] [data-rs-sheet-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: var(--sheet-transform-open);
+}
+
+/* Top */
 [data-rs-sheet][data-rs-side="top"] [data-rs-sheet-content] {
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
-  height: auto;
-  transform: translateY(-100%);
+  height: var(--sheet-height);
+  transform: var(--sheet-transform-closed-top);
 }
 
+[data-rs-sheet][data-rs-side="top"][data-rs-state~="open"] [data-rs-sheet-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: var(--sheet-transform-open);
+}
+
+/* Bottom */
 [data-rs-sheet][data-rs-side="bottom"] [data-rs-sheet-content] {
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
-  height: auto;
-  transform: translateY(100%);
+  height: var(--sheet-height);
+  transform: var(--sheet-transform-closed-bottom);
 }
 
-[data-rs-sheet][data-rs-state="open"] [data-rs-sheet-content] {
-  transform: translate(0);
+[data-rs-sheet][data-rs-side="bottom"][data-rs-state~="open"] [data-rs-sheet-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: var(--sheet-transform-open);
 }
 
 [data-rs-sheet-title] {
   color: var(--sheet-title-fg);
   font-size: var(--sheet-title-font-size);
   font-weight: var(--sheet-title-font-weight);
+  margin-bottom: var(--sheet-header-gap);
 }
 
 [data-rs-sheet-description] {
