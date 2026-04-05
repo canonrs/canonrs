@@ -17,13 +17,9 @@
   opacity: 0;
   visibility: hidden;
   transform: scale(0.95);
-  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
-}
-
-[data-rs-dropdown-menu][data-rs-state="open"] [data-rs-dropdown-menu-content] {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1);
+  transition: opacity var(--dropdown-menu-transition-duration) var(--dropdown-menu-transition-ease),
+    visibility var(--dropdown-menu-transition-duration) var(--dropdown-menu-transition-ease),
+    transform var(--dropdown-menu-transition-duration) var(--dropdown-menu-transition-ease);
 }
 
 [data-rs-dropdown-menu-item] {
@@ -34,11 +30,11 @@
   cursor: pointer;
 }
 
-[data-rs-dropdown-menu-item]:hover {
+[data-rs-dropdown-menu-item]:hover:not([data-rs-state~="active"]) {
   background: var(--dropdown-menu-item-hover-bg);
 }
 
-[data-rs-dropdown-menu-item][data-selected="true"] {
+[data-rs-dropdown-menu-item][data-rs-state~="selected"] {
   background: var(--dropdown-menu-item-selected-bg);
 }
 
@@ -62,10 +58,24 @@
   font: inherit;
 }
 
-[data-rs-dropdown-menu-checkbox-item]:hover {
+[data-rs-dropdown-menu-checkbox-item]:hover:not([data-rs-state~="checked"]) {
   background: var(--dropdown-menu-item-hover-bg);
 }
 
-[data-rs-dropdown-menu-checkbox-item][aria-checked="true"] {
+[data-rs-dropdown-menu-checkbox-item][data-rs-state~="checked"] {
   background: var(--dropdown-menu-item-selected-bg);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-dropdown-menu][data-rs-state~="open"] [data-rs-dropdown-menu-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+[data-rs-dropdown-menu][data-rs-state~="closed"] [data-rs-dropdown-menu-content] {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
 }

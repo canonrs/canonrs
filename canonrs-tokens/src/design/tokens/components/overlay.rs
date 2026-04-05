@@ -62,5 +62,10 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("dropdown-menu-separator-color", "var(--theme-surface-border)"),
     FamilyToken::new("dropdown-menu-separator-margin-y", "var(--space-xs)"),
     FamilyToken::new("dropdown-menu-padding", "var(--space-xs)"),
+    FamilyToken::new("dropdown-menu-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("dropdown-menu-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("dropdown-menu-item-hover-fg", "var(--theme-action-accent-fg)"),
+    FamilyToken::new("dropdown-menu-item-checked-bg", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("dropdown-menu-item-checked-fg", "var(--theme-action-accent-fg)"),
 
 ];

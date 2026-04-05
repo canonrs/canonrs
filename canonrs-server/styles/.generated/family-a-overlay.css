@@ -50,4 +50,9 @@
   --dropdown-menu-separator-color: var(--theme-surface-border);
   --dropdown-menu-separator-margin-y: var(--space-xs);
   --dropdown-menu-padding: var(--space-xs);
+  --dropdown-menu-transition-duration: var(--motion-duration-fast);
+  --dropdown-menu-transition-ease: var(--motion-ease-standard);
+  --dropdown-menu-item-hover-fg: var(--theme-action-accent-fg);
+  --dropdown-menu-item-checked-bg: var(--theme-action-accent-bg);
+  --dropdown-menu-item-checked-fg: var(--theme-action-accent-fg);
 }

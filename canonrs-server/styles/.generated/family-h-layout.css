@@ -77,7 +77,7 @@
   --hero-align: center;
   --hero-min-height: 80vh;
   --header-bg: var(--theme-surface-bg);
-  --layout-divider-color: rgba(0,0,0,0.08);
+  --layout-divider-color: color-mix(in srgb, var(--theme-surface-fg) 8%, transparent);
   --layout-header-border-color: var(--layout-divider-color);
   --header-border: 1px solid var(--layout-header-border-color);
   --header-height: var(--layout-height-header);
