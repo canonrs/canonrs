@@ -1,16 +1,12 @@
 use leptos::prelude::*;
-use super::callout_ui::{Callout, CalloutIcon, CalloutTitle, CalloutDescription};
-use canonrs_core::primitives::CalloutVariant;
+use super::callout_island::{CalloutIsland, CalloutIslandVariant};
 
 #[component]
 pub fn CalloutShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Callout variant=CalloutVariant::Info>
-                    <CalloutTitle>"Information"</CalloutTitle>
-                    <CalloutDescription>"New features are available in the latest release of CanonRS."</CalloutDescription>
-                </Callout>
+                <CalloutIsland variant=CalloutIslandVariant::Info title="Information" description="New features are available in the latest release." />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Semantic role and urgency enforced via variant."
@@ -18,21 +14,9 @@ pub fn CalloutShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variants"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-sm);">
-                    <Callout variant=CalloutVariant::Success>
-                        <CalloutIcon>"✓"</CalloutIcon>
-                        <CalloutTitle>"Success"</CalloutTitle>
-                        <CalloutDescription>"Your changes have been deployed to production."</CalloutDescription>
-                    </Callout>
-                    <Callout variant=CalloutVariant::Warning>
-                        <CalloutIcon>"⚠"</CalloutIcon>
-                        <CalloutTitle>"Warning"</CalloutTitle>
-                        <CalloutDescription>"This action cannot be undone. Proceed with caution."</CalloutDescription>
-                    </Callout>
-                    <Callout variant=CalloutVariant::Error>
-                        <CalloutIcon>"✕"</CalloutIcon>
-                        <CalloutTitle>"Error"</CalloutTitle>
-                        <CalloutDescription>"Build failed due to type errors. Check the logs."</CalloutDescription>
-                    </Callout>
+                    <CalloutIsland variant=CalloutIslandVariant::Success     icon="✓" title="Success"     description="Your changes have been deployed." />
+                    <CalloutIsland variant=CalloutIslandVariant::Warning     icon="⚠" title="Warning"     description="This action cannot be undone." />
+                    <CalloutIsland variant=CalloutIslandVariant::Destructive icon="✕" title="Error"       description="Build failed due to type errors." />
                 </div>
             </div>
         </div>
