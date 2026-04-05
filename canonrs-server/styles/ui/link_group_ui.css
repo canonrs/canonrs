@@ -21,5 +21,12 @@
   color: var(--link-group-label-color);
   margin-bottom: var(--link-group-label-margin-bottom);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--link-group-label-letter-spacing);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-navigation-group] [data-rs-nav-item][data-rs-state~="active"] {
+  color: var(--theme-action-primary-bg);
+  font-weight: var(--font-weight-semibold);
 }

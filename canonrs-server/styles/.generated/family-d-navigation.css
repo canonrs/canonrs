@@ -161,6 +161,7 @@
   --breadcrumb-fg-hover: var(--theme-action-primary-bg);
   --breadcrumb-fg-active: var(--theme-surface-fg);
   --breadcrumb-collapse-border-width: 1px;
+  --link-group-label-letter-spacing: 0.05em;
   --link-fg: var(--theme-action-primary-bg);
   --link-font-weight: var(--font-weight-normal);
   --link-text-decoration: none;

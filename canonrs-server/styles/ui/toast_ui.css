@@ -46,11 +46,12 @@
   box-shadow: var(--toast-shadow);
   
   /* Animation */
-  animation: toast-slide-in 0.2s ease-out;
+  animation: toast-slide-in var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-toast][data-rs-state="closed"] {
-  animation: toast-slide-out 0.2s ease-in forwards;
+[data-rs-toast][data-rs-state~="closed"] {
+  display: none;
+  animation: toast-slide-out var(--motion-duration-fast) var(--motion-ease-standard) forwards;
   pointer-events: none;
 }
 
@@ -90,4 +91,17 @@
     opacity: 0;
     visibility: hidden;
   }
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-toast][data-rs-state~="open"] {
+  display: flex;
+  animation: toast-slide-in var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-toast][data-rs-state~="closed"] {
+  display: none;
+  animation: toast-slide-out var(--motion-duration-fast) var(--motion-ease-standard) forwards;
+  pointer-events: none;
 }

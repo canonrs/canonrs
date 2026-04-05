@@ -868,7 +868,7 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
         if in_island and "#[prop(" in line:
             for (type_, attr, msg) in ISLAND_FORBIDDEN_PROPS:
                 if type_ in line and attr in line:
-                    cosmetic = any(p in line for p in ["class","aria_label","validation","disabled","text","target","href","external","placeholder","selected_value","value","label","name","title","mode","initial","selected","aria_label","separator","empty_text","placeholder"])
+                    cosmetic = any(p in line for p in ["class","aria_label","validation","disabled","text","target","href","external","placeholder","selected_value","value","label","name","title","mode","initial","selected","aria_label","separator","empty_text","placeholder","description"])
                     if not cosmetic:
                         errors.append(f"[CR-330] {island_file} linha {i} -- {msg}\n            {line.strip()[:80]}")
 

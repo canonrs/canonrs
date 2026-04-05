@@ -21,7 +21,7 @@ related: navigation_menu, sidebar, nav_item, breadcrumb, pagination
 
 
 file: link_group_ui.css
-tokens: link-group-*, space-*, font-*
+tokens: link-group-*, nav-item-*, space-*, font-*
 foundation: spacing, typography
 states: active
 island: link_group_island.rs
