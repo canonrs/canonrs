@@ -29,6 +29,9 @@
   --sidebar-menu-item-transition-duration: var(--motion-duration-fast);
   --sidebar-menu-item-transition-ease: var(--motion-ease-standard);
   --sidebar-menu-item-font-weight-active: var(--font-weight-medium);
+  --sidebar-menu-item-bg-hover: var(--theme-surface-muted);
+  --sidebar-menu-item-bg-active: var(--theme-action-accent-bg);
+  --sidebar-menu-item-fg-active: var(--theme-action-accent-fg);
   --sidebar-group-label-padding-x: var(--space-sm);
   --sidebar-group-label-padding-y: var(--space-xs);
   --sidebar-group-label-font-size: var(--font-size-xs);
@@ -58,6 +61,14 @@
   --navigation-menu-content-padding: var(--space-md);
   --navigation-menu-content-radius: var(--radius-md);
   --navigation-menu-content-shadow: var(--shadow-lg);
+  --navigation-menu-trigger-bg-hover: var(--theme-surface-muted);
+  --navigation-menu-trigger-bg-active: var(--theme-action-accent-bg);
+  --navigation-menu-trigger-fg-active: var(--theme-action-accent-fg);
+  --navigation-menu-link-fg-hover: var(--theme-action-primary-bg);
+  --navigation-menu-content-border-width: 1px;
+  --navigation-menu-content-border-color: var(--theme-surface-border);
+  --navigation-menu-z-index: var(--layer-overlay);
+  --navigation-menu-content-min-width: var(--layout-width-sm);
   --navigation-menu-content-border-color: var(--theme-surface-border);
   --navigation-menu-content-border-width: 1px;
   --pagination-gap: var(--space-sm);

@@ -22,7 +22,7 @@ related: navigation_menu, nav_item, breadcrumb, pagination, link_group
 
 file: sidebar_ui.css
 tokens: sidebar-*, badge-*, size-*, space-*, radius-*, font-*
-foundation: spacing, size, radius, typography
+foundation: spacing, size, radius, typography, interaction, color
 states: open, closed, active, disabled
 island: sidebar_island.rs
 

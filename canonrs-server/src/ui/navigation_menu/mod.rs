@@ -1,7 +1,9 @@
 pub mod navigation_menu_ui;
+pub mod navigation_menu_island;
 pub mod preview;
 
 pub use navigation_menu_ui::*;
+pub use navigation_menu_island::{NavigationMenuIsland, NavMenuIslandItem, NavMenuIslandLink};
 pub const EXAMPLES: &str = include_str!("examples.rs");
 #[cfg(feature = "examples")]
 pub mod examples;

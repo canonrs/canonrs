@@ -44,8 +44,8 @@
   transition: background var(--navigation-menu-trigger-transition-duration) var(--motion-ease-standard);
 }
 
-[data-rs-navigation-menu-trigger]:hover,
-[data-rs-navigation-menu-trigger][aria-expanded="true"] {
+[data-rs-navigation-menu-trigger]:hover:not([data-rs-state~="open"]),
+[data-rs-navigation-menu-trigger][data-rs-state~="open"] {
   background: var(--navigation-menu-trigger-bg-hover);
 }
 
@@ -60,28 +60,26 @@
   display: none;
 }
 
-[data-rs-navigation-menu-item]:hover::after {
-  display: block;
+[data-rs-navigation-menu-item][data-rs-state~="open"]::after {
+  visibility: visible;
 }
 
 [data-rs-navigation-menu-content] {
   position: absolute;
   top: calc(100% + var(--space-sm));
   left: 0;
-  z-index: var(--z-dropdown, 100);
-  min-width: 12rem;
+  z-index: var(--navigation-menu-z-index);
+  min-width: var(--navigation-menu-content-min-width, 12rem);
   background: var(--navigation-menu-content-bg);
   border: var(--navigation-menu-content-border-width) solid var(--navigation-menu-content-border-color);
   border-radius: var(--navigation-menu-content-radius);
   box-shadow: var(--navigation-menu-content-shadow);
   padding: var(--navigation-menu-content-padding);
-  display: none;
   flex-direction: column;
   gap: var(--space-xs);
 }
 
-[data-rs-navigation-menu-item]:hover [data-rs-navigation-menu-content],
-[data-rs-navigation-menu-item]:focus-within [data-rs-navigation-menu-content] {
+[data-rs-navigation-menu-item][data-rs-state~="open"] [data-rs-navigation-menu-content] {
   display: flex;
 }
 
@@ -99,7 +97,29 @@
   white-space: nowrap;
 }
 
-[data-rs-navigation-menu-link]:hover {
+[data-rs-navigation-menu-link]:hover:not([data-rs-state~="active"]) {
   background: var(--navigation-menu-trigger-bg-hover);
   color: var(--navigation-menu-link-fg-hover);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-navigation-menu-item][data-rs-state~="open"] [data-rs-navigation-menu-content] {
+  display: flex;
+}
+
+[data-rs-navigation-menu-item][data-rs-state~="closed"] [data-rs-navigation-menu-content],
+[data-rs-navigation-menu-content][hidden] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+[data-rs-navigation-menu-trigger][data-rs-state~="active"] {
+  background: var(--navigation-menu-trigger-bg-active);
+  color: var(--navigation-menu-trigger-fg-active);
 }

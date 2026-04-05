@@ -1,53 +1,37 @@
 use leptos::prelude::*;
-use super::sidebar_ui::{
-    Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarMenuGroup,
-    SidebarSeparator,
-};
-use canonrs_core::meta::{VisibilityState, ActivityState};
+use super::sidebar_island::{SidebarIsland, SidebarIslandItem};
+
+fn main_items() -> Vec<SidebarIslandItem> {
+    vec![
+        SidebarIslandItem { label: "Dashboard".into(),  href: "#".into(), active: true,  disabled: false, group: Some("Main".into()) },
+        SidebarIslandItem { label: "Components".into(), href: "#".into(), active: false, disabled: false, group: Some("Main".into()) },
+        SidebarIslandItem { label: "Tokens".into(),     href: "#".into(), active: false, disabled: false, group: Some("Main".into()) },
+        SidebarIslandItem { label: "Preferences".into(),href: "#".into(), active: false, disabled: false, group: Some("Settings".into()) },
+        SidebarIslandItem { label: "Team".into(),       href: "#".into(), active: false, disabled: false, group: Some("Settings".into()) },
+    ]
+}
+
+fn collapsed_items() -> Vec<SidebarIslandItem> {
+    vec![
+        SidebarIslandItem { label: "Home".into(),  href: "#".into(), active: false, disabled: false, group: None },
+        SidebarIslandItem { label: "About".into(), href: "#".into(), active: false, disabled: false, group: None },
+    ]
+}
 
 #[component]
 pub fn SidebarShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Sidebar state=VisibilityState::Open>
-                    <SidebarHeader>
-                        <span style="font-weight:600;">"CanonRS"</span>
-                    </SidebarHeader>
-                    <SidebarContent>
-                        <SidebarMenu>
-                            <SidebarMenuGroup label="Main">
-                                <SidebarMenuItem href="#".to_string() active=ActivityState::Active>"Dashboard"</SidebarMenuItem>
-                                <SidebarMenuItem href="#".to_string()>"Components"</SidebarMenuItem>
-                                <SidebarMenuItem href="#".to_string()>"Tokens"</SidebarMenuItem>
-                            </SidebarMenuGroup>
-                            <SidebarSeparator />
-                            <SidebarMenuGroup label="Settings">
-                                <SidebarMenuItem href="#".to_string()>"Preferences"</SidebarMenuItem>
-                                <SidebarMenuItem href="#".to_string()>"Team"</SidebarMenuItem>
-                            </SidebarMenuGroup>
-                        </SidebarMenu>
-                    </SidebarContent>
-                    <SidebarFooter>
-                        <span style="font-size:var(--font-size-xs);opacity:0.5;">"v0.1.0"</span>
-                    </SidebarFooter>
-                </Sidebar>
+                <SidebarIsland items=main_items() initial_open=true />
             </div>
             <p data-rs-showcase-preview-anchor="">
-                "Navigation state and structure enforced at component level."
+                "Navigation state and structure governed by signal — SSR-safe, hydration-safe."
             </p>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Collapsed"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Sidebar state=VisibilityState::Closed>
-                        <SidebarContent>
-                            <SidebarMenu>
-                                <SidebarMenuItem href="#".to_string()>"Home"</SidebarMenuItem>
-                                <SidebarMenuItem href="#".to_string()>"About"</SidebarMenuItem>
-                            </SidebarMenu>
-                        </SidebarContent>
-                    </Sidebar>
+                    <SidebarIsland items=collapsed_items() initial_open=false />
                 </div>
             </div>
         </div>
