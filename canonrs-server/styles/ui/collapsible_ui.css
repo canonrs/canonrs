@@ -14,6 +14,7 @@
   padding: var(--collapsible-trigger-padding);
   background: var(--collapsible-trigger-bg);
   border-radius: var(--collapsible-trigger-radius);
+  color: var(--collapsible-trigger-fg);
   cursor: pointer;
   transition: background var(--collapsible-transition-duration) var(--collapsible-transition-ease);
 }
@@ -25,6 +26,10 @@
 [data-rs-collapsible-content] {
   padding: var(--collapsible-content-padding);
   display: none;
+}
+
+[data-rs-collapsible][data-rs-state~="open"] [data-rs-collapsible-trigger] {
+  color: var(--collapsible-trigger-fg-open);
 }
 
 [data-rs-collapsible][data-rs-state~="open"] [data-rs-collapsible-content] {

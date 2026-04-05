@@ -157,6 +157,342 @@ def check_active_state_tokens(declared):
     return errors
 
 
+def check_missing_active_tokens(component, declared):
+    """CR-336c: componentes com state open/active/selected devem ter token fg correspondente"""
+    errors = []
+    states = component.get("states", [])
+    tokens_prefix = component.get("tokens", "").split(",")[0].replace("*","").replace(" ","")
+    if not tokens_prefix:
+        return errors
+
+    STATE_FG_MAP = {
+        "open":     f"--{tokens_prefix}trigger-fg-open",
+        "active":   f"--{tokens_prefix}trigger-fg-active",
+        "selected": f"--{tokens_prefix}trigger-fg-selected",
+        "checked":  f"--{tokens_prefix}fg-checked",
+    }
+
+    for state in states:
+        expected = STATE_FG_MAP.get(state)
+        if expected and expected not in declared:
+            errors.append(
+                f"[CR-336c] token '{expected}' ausente\n"
+                f"            componente com state '{state}' DEVE declarar token fg correspondente\n"
+                f"            valor esperado: var(--theme-action-primary-bg)"
+            )
+    return errors
+
+
+# ═══════════════════════════════════════════════════════════════
+# CSS QUALITY RULES (CR-340 a CR-347)
+# ═══════════════════════════════════════════════════════════════
+
+import re as _css_re
+
+# CR-340: pseudo-classes proibidas — usar data-rs-state
+CSS_FORBIDDEN_PSEUDOCLASS = [
+    (r':hover\b',         'hover',         'usar [data-rs-state~="hover"]'),
+    (r':focus\b',         'focus',         'usar [data-rs-state~="focus"]'),
+    (r':focus-visible\b', 'focus-visible', 'usar [data-rs-state~="focus"]'),
+    (r':checked\b',       'checked',       'usar [data-rs-state~="checked"]'),
+    (r'aria-selected',     'aria-selected', 'usar [data-rs-state~="selected"]'),
+    (r'aria-expanded',     'aria-expanded', 'usar [data-rs-state~="open"]'),
+    (r'aria-checked',      'aria-checked',  'usar [data-rs-state~="checked"]'),
+]
+
+# CR-341: valores hardcoded proibidos
+CSS_FORBIDDEN_HARDCODE = [
+    (r':\s*rgba?\s*\(',                      'rgba/rgb hardcoded', 'usar token de cor'),
+    (r':\s*#[0-9a-fA-F]{3,8}\b',            'hex hardcoded',      'usar token de cor'),
+    (r':\s*\d+(\.\d+)?s\b',                  'tempo hardcoded',    'usar var(--motion-duration-)'),
+    (r':\s*\d+(\.\d+)?ms\b',                 'tempo ms hardcoded', 'usar var(--motion-duration-)'),
+    (r'cubic-bezier\s*\(',                   'easing hardcoded',   'usar var(--motion-ease-)'),
+    (r':\s*[0-9]+px\s+[0-9]+px\s+[0-9]+px', 'shadow hardcoded',   'usar token de sombra'),
+]
+
+# CR-342: display none/block para visibilidade proibido
+CSS_FORBIDDEN_DISPLAY = [
+    r'display\s*:\s*none\s*;',
+    r'display\s*:\s*block\s*;',
+]
+
+# CR-343: transition sem tokens
+CSS_FORBIDDEN_TRANSITION = [
+    r'transition\s*:[^;]*\d+(\.\d+)?s',
+    r'transition\s*:[^;]*\d+(\.\d+)?ms',
+]
+
+# CR-345: aria attributes como seletores CSS
+CSS_FORBIDDEN_ARIA_SELECTORS = [
+    r'\[aria-selected\]',
+    r'\[aria-expanded\]',
+    r'\[aria-checked\]',
+    r'\[aria-disabled\]',
+]
+
+# Whitelist: seletores legítimos que podem usar pseudo-classes
+CSS_PSEUDOCLASS_WHITELIST = [
+    "::webkit-scrollbar",
+    "::placeholder",
+    ":root",
+    ":not(",
+    "focus-visible",
+    "::before",
+    "::after",
+    "::marker",
+    ":first-child",
+    ":last-child",
+    ":nth-child",
+    ":empty",
+    "scrollbar",
+]
+
+# Whitelist: valores hardcoded permitidos
+CSS_HARDCODE_WHITELIST = [
+    "content:",
+    "width: 0",
+    "height: 0",
+    "opacity: 0",
+    "opacity: 1",
+    "z-index:",
+    "0%",
+    "100%",
+    "transform:",
+    "rotate(",
+    "translateY(-50%)",
+    "scaleY(",
+    "scaleX(",
+    "flex:",
+    "order:",
+    "grid-column",
+    "grid-row",
+    "color-mix(",
+    "border-radius: 50%",
+    "border-radius: 0",
+    "top: 0",
+    "left: 0",
+    "right: 0",
+    "bottom: 0",
+    "padding: 0",
+    "margin: 0",
+    "gap: 0",
+    "min-width: 0",
+    "width: 100%",
+    "height: 100%",
+    "width: 3px",
+    "width: 4px",
+    "width: 8px",
+    "height: 8px",
+    "letter-spacing:",
+    "line-height: 1",
+    "line-height: 0",
+    "border: none",
+    "border: 0",
+    "outline: none",
+    "outline: 0",
+    "pointer-events: none",
+    "pointer-events: auto",
+    "visibility: hidden",
+    "visibility: visible",
+    "appearance: none",
+    "list-style: none",
+    "list-style-type: none",
+    "content: none",
+    'content: ""',
+    "content: \'",
+    "box-sizing:",
+    "cursor:",
+    "resize:",
+    "overflow:",
+    "white-space:",
+    "text-overflow:",
+    "text-decoration:",
+    "text-transform:",
+    "font-style:",
+    "font-variant:",
+    "display: flex",
+    "display: grid",
+    "display: inline",
+    "display: inline-flex",
+    "display: inline-block",
+    "display: contents",
+    "display: table",
+    "display: table-cell",
+    "display: table-row",
+    "position:",
+    "inset:",
+    "aspect-ratio:",
+    "object-fit:",
+    "object-position:",
+    "max-width:",
+    "min-height:",
+    "max-height:",
+    "flex-direction:",
+    "flex-wrap:",
+    "flex-shrink:",
+    "flex-grow:",
+    "align-items:",
+    "align-self:",
+    "justify-content:",
+    "justify-self:",
+    "justify-items:",
+    "place-items:",
+    "place-content:",
+    "columns:",
+    "column-gap:",
+    "row-gap:",
+    "border-style:",
+    "border-collapse:",
+    "border-spacing:",
+    "vertical-align:",
+    "word-break:",
+    "overflow-wrap:",
+    "text-align:",
+    "direction:",
+    "unicode-bidi:",
+    "writing-mode:",
+    "overscroll-behavior:",
+    "scroll-behavior:",
+    "scrollbar-width:",
+    "touch-action:",
+    "user-select:",
+    "will-change:",
+    "isolation:",
+    "mix-blend-mode:",
+    "backdrop-filter:",
+    "filter:",
+    "clip-path:",
+    "mask:",
+    "background-clip:",
+    "background-origin:",
+    "background-size:",
+    "background-repeat:",
+    "background-position:",
+    "background-attachment:",
+    "counter-reset:",
+    "counter-increment:",
+    "1px",
+    "2px",
+    "3px",
+    "4px",
+    "90deg",
+    "180deg",
+    "270deg",
+    "360deg",
+    "-45deg",
+    "translateX(-50%)",
+    "translate(-50%",
+    "translateY(-50%)",
+]
+
+
+def check_css_quality(css_file, component_id=""):
+    """CR-340 a CR-347: CSS quality rules"""
+    errors = []
+    if not os.path.exists(css_file):
+        return errors
+    with open(css_file) as f:
+        css = f.read()
+    lines = css.splitlines()
+
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("/*") or stripped.startswith("*") or stripped.startswith("//"):
+            continue
+
+        # CR-340: pseudo-classes proibidas
+        for (pattern, name, fix) in CSS_FORBIDDEN_PSEUDOCLASS:
+            if _css_re.search(pattern, stripped):
+                if any(w in stripped for w in CSS_PSEUDOCLASS_WHITELIST):
+                    continue
+                # :hover com :not guard é permitido
+                if name == ":hover" and ":not(" in stripped:
+                    continue
+                if name == ":focus-visible":
+                    continue  # permitido para acessibilidade nativa
+                errors.append(
+                    f"[CR-340] {os.path.basename(css_file)} linha {i} -- pseudo-class '{name}' proibida\n"
+                    f"            {fix}\n"
+                    f"            {stripped[:80]}"
+                )
+
+        # CR-341: hardcode proibido
+        for (pattern, name, fix) in CSS_FORBIDDEN_HARDCODE:
+            if _css_re.search(pattern, stripped):
+                if any(w in stripped for w in CSS_HARDCODE_WHITELIST):
+                    continue
+                # color-mix é permitido
+                if "color-mix(" in stripped:
+                    continue
+                errors.append(
+                    f"[CR-341] {os.path.basename(css_file)} linha {i} -- valor hardcoded '{name}'\n"
+                    f"            {fix}\n"
+                    f"            {stripped[:80]}"
+                )
+
+        # CR-342: display none/block para visibilidade
+        for pattern in CSS_FORBIDDEN_DISPLAY:
+            if _css_re.search(pattern, stripped):
+                # permitido se não é controle de visibilidade
+                # ex: display:none em ::marker, ::before é ok
+                if any(w in stripped for w in ["::marker", "list-style", "content:"]):
+                    continue
+                # verificar contexto — se seletor acima tem data-rs-state é visibilidade
+                context = "\n".join(lines[max(0,i-5):i])
+                if "data-rs-state" in context or "[hidden]" in context:
+                    errors.append(
+                        f"[CR-342] {os.path.basename(css_file)} linha {i} -- display:none/block para visibilidade\n"
+                        f"            usar opacity+visibility ou [hidden] com data-rs-state\n"
+                        f"            {stripped[:80]}"
+                    )
+
+        # CR-345: aria como seletor CSS
+        for pattern in CSS_FORBIDDEN_ARIA_SELECTORS:
+            if _css_re.search(pattern, stripped):
+                errors.append(
+                    f"[CR-345] {os.path.basename(css_file)} linha {i} -- aria attribute como seletor CSS\n"
+                    f"            usar [data-rs-state~=\"X\"] ao inves de aria attributes\n"
+                    f"            {stripped[:80]}"
+                )
+
+    return errors
+
+
+def check_token_hardcode(tokens_dir):
+    """CR-347: tokens com valores hardcoded rgba/hex"""
+    import glob as _glob
+    errors = []
+    pattern = _css_re.compile(r'FamilyToken::new\("([^"]+)",\s*"([^"]+)"\)')
+    ALLOWED_HARDCODE = ["0", "1", "0%", "100%", "none", "transparent", "inherit",
+                        "normal", "bold", "auto", "unset", "initial",
+                        "1px", "2px", "3px", "4px", "180deg", "90deg",
+                        "0.06em", "2.5rem", "0.5", "true", "false"]
+    for rs_file in _glob.glob(f"{tokens_dir}/**/*.rs", recursive=True):
+        with open(rs_file) as f:
+            src = f.read()
+        filename = os.path.basename(rs_file)
+        for match in pattern.finditer(src):
+            name  = match.group(1)
+            value = match.group(2)
+            if any(v == value.strip() for v in ALLOWED_HARDCODE):
+                continue
+            if value.startswith("var("):
+                continue
+            if value.startswith("color-mix("):
+                continue
+            if _css_re.match(r'^rgba?\s*\(', value):
+                errors.append(
+                    f"[CR-347] {filename} -- {name}: {value}\n"
+                    f"            rgba hardcoded proibido — usar color-mix ou token semantico"
+                )
+            elif _css_re.match(r'^#[0-9a-fA-F]{{3,8}}$', value.strip()):
+                errors.append(
+                    f"[CR-347] {filename} -- {name}: {value}\n"
+                    f"            hex hardcoded proibido — usar token semantico"
+                )
+    return errors
+
+
 def check_states_in_css(states, css):
     errors = []
     for state in states:
@@ -239,6 +575,8 @@ def validate(component, declared):
     registered = component.get("registered", None)
 
     errors += check_states_in_css(states, css)
+    # CR-336c desativado — reformulação pendente
+    # errors += check_missing_active_tokens(component, declared)
     errors += check_states_in_behavior(states, behavior_file, BEHAVIORS_DIR)
 
     auto_init = os.path.join(BEHAVIORS_DIR, "auto_init.rs")
@@ -819,6 +1157,14 @@ def main():
 
     target      = sys.argv[1] if len(sys.argv) > 1 else None
 
+    # CR-347: validar tokens com hardcode globalmente
+    if not target:
+        token_hc_errors = check_token_hardcode(TOKENS_DIR)
+        if token_hc_errors:
+            print("\n[CR-347 GLOBAL TOKEN HARDCODE]")
+            for e in token_hc_errors:
+                print(f"   {e}")
+
     # CR-336b: validar tokens de estado ativo globalmente
     if not target:
         active_token_errors = check_active_state_tokens(declared)
@@ -872,6 +1218,7 @@ def main():
             css_file = os.path.join(CSS_DIR, comp["file"])
             errors += check_island_css_child_combinator(css_file)
             errors += check_hover_override_active(css_file)
+            errors += check_css_quality(css_file, comp["component"])
         if errors:
             print(f"\n[ERRO] {comp['component'].upper()}")
             for e in errors:

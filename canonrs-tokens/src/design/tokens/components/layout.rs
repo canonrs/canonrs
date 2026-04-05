@@ -105,7 +105,7 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
 
     // Header
     FamilyToken::new("header-bg", "var(--theme-surface-bg)"),
-    FamilyToken::new("layout-divider-color", "rgba(0,0,0,0.08)"),
+    FamilyToken::new("layout-divider-color", "color-mix(in srgb, var(--theme-surface-fg) 8%, transparent)"),
     FamilyToken::new("layout-header-border-color", "var(--layout-divider-color)"),
     FamilyToken::new("header-border", "1px solid var(--layout-header-border-color)"),
     FamilyToken::new("header-height", "var(--layout-height-header)"),
