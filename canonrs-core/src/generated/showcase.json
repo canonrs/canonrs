@@ -7,9 +7,9 @@
     "keywords": "",
     "pain": "Accordion allows invalid multi-open logic without enforced selection mode",
     "promise": "Selection mode enforced via type, preventing invalid open states",
-    "why": "AccordionSelection defines whether single or multiple items can be open. The primitive encodes state and behavior in data-rs attributes, ensuring consistent disclosure logic. VisibilityState guarantees SSR-safe open/closed state without runtime drift.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"accordion\">\n    <button on:click=move |_| toggle(1)>\"Item 1\"</button>\n    {if open == 1 { view! { <div>\"Content\"</div> } } else { view! {} }}\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Accordion selection=AccordionSelection::Single>\n    <AccordionItem>\n      <AccordionTrigger>\"Item 1\"</AccordionTrigger>\n      <AccordionContent>\"Content\"</AccordionContent>\n    </AccordionItem>\n  </Accordion>\n}",
+    "why": "AccordionSelection defines whether single or multiple items can be open. The primitive encodes state and behavior in data-rs attributes, ensuring consistent disclosure logic. VisibilityState guarantees SSR-safe open/closed state without runtime drift.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"accordion\">\n    <button on:click=move |_| toggle(1)>\"Item 1\"</button>\n    {if open == 1 { view! { <div>\"Content\"</div> } } else { view! {} }}\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Accordion selection=AccordionSelection::Single>\n    <AccordionItem>\n      <AccordionTrigger>\"Item 1\"</AccordionTrigger>\n      <AccordionContent>\"Content\"</AccordionContent>\n    </AccordionItem>\n  </Accordion>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -42,9 +42,9 @@
     "keywords": "",
     "pain": "Alerts use wrong ARIA roles causing accessibility issues silently",
     "promise": "Correct ARIA role and live region enforced by variant",
-    "why": "AlertVariant controls both semantic role and aria-live behavior. The primitive guarantees correct accessibility mapping at compile-time. This prevents incorrect alert semantics without relying on developer discipline.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"alert alert-error\">\"Error occurred\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Alert variant=AlertVariant::Destructive>\n    <AlertTitle>\"Error\"</AlertTitle>\n    <AlertDescription>\"Error occurred\"</AlertDescription>\n  </Alert>\n}",
+    "why": "AlertVariant controls both semantic role and aria-live behavior. The primitive guarantees correct accessibility mapping at compile-time. This prevents incorrect alert semantics without relying on developer discipline.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"alert alert-error\">\"Error occurred\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Alert variant=AlertVariant::Destructive>\n    <AlertTitle>\"Error\"</AlertTitle>\n    <AlertDescription>\"Error occurred\"</AlertDescription>\n  </Alert>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -80,9 +80,9 @@
     "keywords": "",
     "pain": "Destructive dialogs lack proper role and accessibility enforcement",
     "promise": "Alertdialog role and accessibility guaranteed by component contract",
-    "why": "AlertDialog reuses Dialog but enforces role=\"alertdialog\" and assertive aria-live. The specialized content primitive ensures critical actions are announced correctly. This prevents misuse of generic dialogs for destructive flows.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"modal\">\n    <p>\"Delete account?\"</p>\n    <button>\"Confirm\"</button>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <AlertDialog>\n    <AlertDialogTrigger>\"Delete\"</AlertDialogTrigger>\n    <AlertDialogPortal>\n      <AlertDialogContent>\n        <AlertDialogTitle>\"Confirm\"</AlertDialogTitle>\n        <AlertDialogDescription>\"This cannot be undone\"</AlertDialogDescription>\n      </AlertDialogContent>\n    </AlertDialogPortal>\n  </AlertDialog>\n}",
+    "why": "AlertDialog reuses Dialog but enforces role=\"alertdialog\" and assertive aria-live. The specialized content primitive ensures critical actions are announced correctly. This prevents misuse of generic dialogs for destructive flows.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"modal\">\n    <p>\"Delete account?\"</p>\n    <button>\"Confirm\"</button>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <AlertDialog>\n    <AlertDialogTrigger>\"Delete\"</AlertDialogTrigger>\n    <AlertDialogPortal>\n      <AlertDialogContent>\n        <AlertDialogTitle>\"Confirm\"</AlertDialogTitle>\n        <AlertDialogDescription>\"This cannot be undone\"</AlertDialogDescription>\n      </AlertDialogContent>\n    </AlertDialogPortal>\n  </AlertDialog>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -122,9 +122,9 @@
     "keywords": "",
     "pain": "Animations rely on fragile class names and inconsistent timing values",
     "promise": "Animation type and easing enforced through typed enums",
-    "why": "AnimationName and AnimationEasing define allowed motion patterns. The primitive encodes animation parameters into data-rs attributes, avoiding class-based drift. This ensures consistent animation behavior across SSR and client.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"fade-in ease-in-out duration-300\">\"Content\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Animate animation=AnimationName::FadeIn duration=\"300ms\">\n    \"Content\"\n  </Animate>\n}",
+    "why": "AnimationName and AnimationEasing define allowed motion patterns. The primitive encodes animation parameters into data-rs attributes, avoiding class-based drift. This ensures consistent animation behavior across SSR and client.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"fade-in ease-in-out duration-300\">\"Content\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Animate animation=AnimationName::FadeIn duration=\"300ms\">\n    \"Content\"\n  </Animate>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -157,9 +157,9 @@
     "keywords": "",
     "pain": "Aspect ratios break on resize causing layout shift and inconsistent rendering",
     "promise": "Aspect ratio enforced structurally with no layout drift",
-    "why": "AspectRatioPrimitive encodes width/height ratio in data attributes. The structure guarantees consistent layout regardless of content size. This eliminates runtime calculations and ensures SSR-safe rendering.",
-    "before": "// ❌ Typical\nview! {\n  <div style=\"position:relative;padding-top:56.25%\">\n    <img src=\"img.png\" style=\"position:absolute;width:100%;height:100%\" />\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <AspectRatio ratio_w=16.0 ratio_h=9.0>\n    <img src=\"img.png\" />\n  </AspectRatio>\n}",
+    "why": "AspectRatioPrimitive encodes width/height ratio in data attributes. The structure guarantees consistent layout regardless of content size. This eliminates runtime calculations and ensures SSR-safe rendering.\n",
+    "before": "// ❌ Typical\nview! {\n  <div style=\"position:relative;padding-top:56.25%\">\n    <img src=\"img.png\" style=\"position:absolute;width:100%;height:100%\" />\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <AspectRatio ratio_w=16.0 ratio_h=9.0>\n    <img src=\"img.png\" />\n  </AspectRatio>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -196,9 +196,9 @@
     "keywords": "",
     "pain": "Avatar fallback logic breaks when image fails to load",
     "promise": "Image and fallback visibility controlled by state system",
-    "why": "AvatarImage and AvatarFallback use VisibilityState to control rendering. The system ensures fallback is shown when image is unavailable. This avoids manual conditional logic and guarantees consistent behavior.",
-    "before": "// ❌ Typical\nview! {\n  <img src=\"user.png\" on:error=move |_| show_fallback() />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Avatar>\n    <AvatarImage src=\"user.png\" alt=\"User\" />\n    <AvatarFallback>\"AB\"</AvatarFallback>\n  </Avatar>\n}",
+    "why": "AvatarImage and AvatarFallback use VisibilityState to control rendering. The system ensures fallback is shown when image is unavailable. This avoids manual conditional logic and guarantees consistent behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <img src=\"user.png\" on:error=move |_| show_fallback() />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Avatar>\n    <AvatarImage src=\"user.png\" alt=\"User\" />\n    <AvatarFallback>\"AB\"</AvatarFallback>\n  </Avatar>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -239,9 +239,9 @@
     "keywords": "",
     "pain": "Badges mix interactive and static behavior without clear intent",
     "promise": "Interactivity explicitly defined and enforced by type",
-    "why": "BadgeInteractivity defines whether the badge is static or interactive. The primitive encodes this into data attributes, preventing misuse. This ensures consistent semantics and avoids accidental clickable badges.",
-    "before": "// ❌ Typical\nview! {\n  <span class=\"badge clickable\">\"New\"</span>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Badge interactivity=BadgeInteractivity::Static>\n    \"New\"\n  </Badge>\n}",
+    "why": "BadgeInteractivity defines whether the badge is static or interactive. The primitive encodes this into data attributes, preventing misuse. This ensures consistent semantics and avoids accidental clickable badges.\n",
+    "before": "// ❌ Typical\nview! {\n  <span class=\"badge clickable\">\"New\"</span>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Badge interactivity=BadgeInteractivity::Static>\n    \"New\"\n  </Badge>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -282,9 +282,9 @@
     "keywords": "",
     "pain": "Banner messages lack consistent visibility and accessibility behavior",
     "promise": "Visibility and ARIA behavior enforced by state and variant",
-    "why": "BannerVariant controls semantic role and aria-live behavior. VisibilityState ensures correct open/hidden state without runtime logic. This guarantees accessible, consistent page-level messaging.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"banner\">\"Maintenance scheduled\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Banner>\n    <BannerContent>\"Maintenance scheduled\"</BannerContent>\n  </Banner>\n}",
+    "why": "BannerVariant controls semantic role and aria-live behavior. VisibilityState ensures correct open/hidden state without runtime logic. This guarantees accessible, consistent page-level messaging.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"banner\">\"Maintenance scheduled\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Banner>\n    <BannerContent>\"Maintenance scheduled\"</BannerContent>\n  </Banner>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -320,9 +320,9 @@
     "keywords": "",
     "pain": "Breadcrumbs fail to mark current page correctly for accessibility",
     "promise": "Current page state enforced via activity state mapping",
-    "why": "ActivityState defines whether a breadcrumb link is active. The primitive maps this to aria-current automatically. This ensures correct navigation semantics without manual ARIA handling.",
-    "before": "// ❌ Typical\nview! {\n  <nav>\n    <a href=\"#\">Home</a>\n    <span>\"/\"</span>\n    <a class=\"active\">Page</a>\n  </nav>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Breadcrumb>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">\"Home\"</BreadcrumbLink>\n    </BreadcrumbItem>\n    <BreadcrumbSeparator>\"/\"</BreadcrumbSeparator>\n    <BreadcrumbItem>\n      <BreadcrumbPage>\"Page\"</BreadcrumbPage>\n    </BreadcrumbItem>\n  </Breadcrumb>\n}",
+    "why": "ActivityState defines whether a breadcrumb link is active. The primitive maps this to aria-current automatically. This ensures correct navigation semantics without manual ARIA handling.\n",
+    "before": "// ❌ Typical\nview! {\n  <nav>\n    <a href=\"#\">Home</a>\n    <span>\"/\"</span>\n    <a class=\"active\">Page</a>\n  </nav>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Breadcrumb>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"#\">\"Home\"</BreadcrumbLink>\n    </BreadcrumbItem>\n    <BreadcrumbSeparator>\"/\"</BreadcrumbSeparator>\n    <BreadcrumbItem>\n      <BreadcrumbPage>\"Page\"</BreadcrumbPage>\n    </BreadcrumbItem>\n  </Breadcrumb>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -358,9 +358,9 @@
     "keywords": "button rust leptos, ssr safe button leptos, canonical button component rust, governed ui button",
     "pain": "Buttons rely on string classes causing inconsistent variants and states",
     "promise": "Variant and size enforced at compile-time via enums",
-    "why": "ButtonVariant and ButtonSize define allowed visual and behavioral states. The primitive encodes these into data attributes, ensuring consistent rendering. This eliminates invalid combinations and style drift.",
-    "before": "// ❌ Typical\nview! {\n  <button class=\"btn btn-primary btn-md\">\"Submit\"</button>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Button variant=ButtonVariant::Primary size=ButtonSize::Md>\n    \"Submit\"\n  </Button>\n}",
+    "why": "ButtonVariant and ButtonSize define allowed visual and behavioral states. The primitive encodes these into data attributes, ensuring consistent rendering. This eliminates invalid combinations and style drift.\n",
+    "before": "// ❌ Typical\nview! {\n  <button class=\"btn btn-primary btn-md\">\"Submit\"</button>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Button variant=ButtonVariant::Primary size=ButtonSize::Md>\n    \"Submit\"\n  </Button>\n}\n",
     "rules": [
       "CR-001",
       "CR-004",
@@ -397,9 +397,9 @@
     "keywords": "",
     "pain": "Grouped buttons lose semantic grouping and accessibility context",
     "promise": "Group semantics and attachment enforced via component contract",
-    "why": "ButtonGroupPrimitive defines role=\"group\" and controlled attachment state via ToggleState. This ensures grouped actions are treated as a single logical unit. The contract guarantees consistent accessibility and visual cohesion.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"btn-group\">\n    <button>\"Left\"</button>\n    <button>\"Right\"</button>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <ButtonGroup>\n    <Button>\"Left\"</Button>\n    <Button>\"Right\"</Button>\n  </ButtonGroup>\n}",
+    "why": "ButtonGroupPrimitive defines role=\"group\" and controlled attachment state via ToggleState. This ensures grouped actions are treated as a single logical unit. The contract guarantees consistent accessibility and visual cohesion.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"btn-group\">\n    <button>\"Left\"</button>\n    <button>\"Right\"</button>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <ButtonGroup>\n    <Button>\"Left\"</Button>\n    <Button>\"Right\"</Button>\n  </ButtonGroup>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -435,9 +435,9 @@
     "keywords": "",
     "pain": "Callouts use inconsistent roles and lack semantic intent",
     "promise": "Semantic role and urgency enforced via variant",
-    "why": "CalloutVariant determines role and aria-live behavior. The primitive encodes these semantics directly into the DOM. This guarantees consistent accessibility and meaning across all callouts.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"callout warning\">\"Be careful\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Callout variant=CalloutVariant::Warning>\n    <CalloutTitle>\"Warning\"</CalloutTitle>\n    <CalloutDescription>\"Be careful\"</CalloutDescription>\n  </Callout>\n}",
+    "why": "CalloutVariant determines role and aria-live behavior. The primitive encodes these semantics directly into the DOM. This guarantees consistent accessibility and meaning across all callouts.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"callout warning\">\"Be careful\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Callout variant=CalloutVariant::Warning>\n    <CalloutTitle>\"Warning\"</CalloutTitle>\n    <CalloutDescription>\"Be careful\"</CalloutDescription>\n  </Callout>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -473,9 +473,9 @@
     "keywords": "",
     "pain": "Content containers lack consistent structure and semantic regions",
     "promise": "Card structure enforced with defined regions and roles",
-    "why": "CardPrimitive enforces a semantic region with structured subcomponents like header and content. This guarantees consistent layout composition. The contract prevents ad-hoc container misuse.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"card\">\n    <h3>\"Title\"</h3>\n    <p>\"Content\"</p>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Card>\n    <CardHeader>\n      <CardTitle>\"Title\"</CardTitle>\n    </CardHeader>\n    <CardContent>\"Content\"</CardContent>\n  </Card>\n}",
+    "why": "CardPrimitive enforces a semantic region with structured subcomponents like header and content. This guarantees consistent layout composition. The contract prevents ad-hoc container misuse.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"card\">\n    <h3>\"Title\"</h3>\n    <p>\"Content\"</p>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Card>\n    <CardHeader>\n      <CardTitle>\"Title\"</CardTitle>\n    </CardHeader>\n    <CardContent>\"Content\"</CardContent>\n  </Card>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -512,9 +512,9 @@
     "keywords": "",
     "pain": "Carousels break accessibility and state synchronization across slides",
     "promise": "Slide state and navigation semantics enforced via structured primitives",
-    "why": "CarouselPrimitive defines roles and slide semantics including aria labels and state. ActivityState and VisibilityState control active and hidden slides. This ensures accessibility and predictable slideshow behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"carousel\">\n    <div class=\"slide active\">\"Slide 1\"</div>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Carousel>\n    <CarouselTrack>\n      <CarouselItem>\"Slide 1\"</CarouselItem>\n    </CarouselTrack>\n  </Carousel>\n}",
+    "why": "CarouselPrimitive defines roles and slide semantics including aria labels and state. ActivityState and VisibilityState control active and hidden slides. This ensures accessibility and predictable slideshow behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"carousel\">\n    <div class=\"slide active\">\"Slide 1\"</div>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Carousel>\n    <CarouselTrack>\n      <CarouselItem>\"Slide 1\"</CarouselItem>\n    </CarouselTrack>\n  </Carousel>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -556,9 +556,9 @@
     "keywords": "",
     "pain": "Charts mix rendering logic and data, causing inconsistent behavior",
     "promise": "Chart structure and data binding enforced via contract",
-    "why": "ChartPrimitive separates rendering (canvas) from data (data-rs attributes). ChartType enforces visualization type at compile-time. This guarantees consistent rendering and interaction patterns.",
-    "before": "// ❌ Typical\nview! {\n  <canvas id=\"chart\"></canvas>\n  <script>renderChart(data)</script>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Chart data=data chart_type=ChartType::Line />\n}",
+    "why": "ChartPrimitive separates rendering (canvas) from data (data-rs attributes). ChartType enforces visualization type at compile-time. This guarantees consistent rendering and interaction patterns.\n",
+    "before": "// ❌ Typical\nview! {\n  <canvas id=\"chart\"></canvas>\n  <script>renderChart(data)</script>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Chart data=data chart_type=ChartType::Line />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -600,9 +600,9 @@
     "keywords": "",
     "pain": "Checkbox state desyncs between UI and internal state",
     "promise": "Checked state mapped explicitly to activity state",
-    "why": "CheckboxPrimitive maps ActivityState to checked and ARIA attributes. This ensures UI and accessibility stay in sync. The contract prevents mismatched boolean and DOM state.",
-    "before": "// ❌ Typical\nview! {\n  <input type=\"checkbox\" checked=state />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Checkbox checked=true>\"Remember me\"</Checkbox>\n}",
+    "why": "CheckboxPrimitive maps ActivityState to checked and ARIA attributes. This ensures UI and accessibility stay in sync. The contract prevents mismatched boolean and DOM state.\n",
+    "before": "// ❌ Typical\nview! {\n  <input type=\"checkbox\" checked=state />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Checkbox checked=true>\"Remember me\"</Checkbox>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -642,9 +642,9 @@
     "keywords": "",
     "pain": "Code blocks rely on client-side highlighting causing hydration mismatch",
     "promise": "SSR-safe syntax highlighting with deterministic DOM output",
-    "why": "CodeBlockPrimitive supports SSR-safe rendering with precomputed HTML. The contract ensures no client mutation is required. This prevents hydration mismatch and ensures consistent output.",
-    "before": "// ❌ Typical\nview! {\n  <pre><code>{highlight(code)}</code></pre>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <CodeBlock code=\"fn main() {}\" language=\"rust\" />\n}",
+    "why": "CodeBlockPrimitive supports SSR-safe rendering with precomputed HTML. The contract ensures no client mutation is required. This prevents hydration mismatch and ensures consistent output.\n",
+    "before": "// ❌ Typical\nview! {\n  <pre><code>{highlight(code)}</code></pre>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <CodeBlock code=\"fn main() {}\" language=\"rust\" />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -685,9 +685,9 @@
     "keywords": "",
     "pain": "Collapsible sections lose sync between trigger and content state",
     "promise": "Trigger and content state always synchronized via shared visibility state",
-    "why": "CollapsiblePrimitive shares VisibilityState across trigger and content. This ensures both reflect the same open/closed state. The contract eliminates manual sync logic.",
-    "before": "// ❌ Typical\nview! {\n  <button on:click=toggle>\"Toggle\"</button>\n  {if open { view! { <div>\"Content\"</div> } }}\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Collapsible>\n    <CollapsibleTrigger>\"Toggle\"</CollapsibleTrigger>\n    <CollapsibleContent>\"Content\"</CollapsibleContent>\n  </Collapsible>\n}",
+    "why": "CollapsiblePrimitive shares VisibilityState across trigger and content. This ensures both reflect the same open/closed state. The contract eliminates manual sync logic.\n",
+    "before": "// ❌ Typical\nview! {\n  <button on:click=toggle>\"Toggle\"</button>\n  {if open { view! { <div>\"Content\"</div> } }}\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Collapsible>\n    <CollapsibleTrigger>\"Toggle\"</CollapsibleTrigger>\n    <CollapsibleContent>\"Content\"</CollapsibleContent>\n  </Collapsible>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -720,9 +720,9 @@
     "keywords": "",
     "pain": "Color inputs lack consistent selection and accessibility behavior",
     "promise": "Color selection and state enforced via structured primitives",
-    "why": "ColorPickerPrimitive uses SelectionState and VisibilityState for interaction control. The contract ensures consistent value handling and accessibility. This prevents ad-hoc color input implementations.",
-    "before": "// ❌ Typical\nview! {\n  <input type=\"color\" value=\"#000\" />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <ColorPicker value=\"#000000\" />\n}",
+    "why": "ColorPickerPrimitive uses SelectionState and VisibilityState for interaction control. The contract ensures consistent value handling and accessibility. This prevents ad-hoc color input implementations.\n",
+    "before": "// ❌ Typical\nview! {\n  <input type=\"color\" value=\"#000\" />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <ColorPicker value=\"#000000\" />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -759,9 +759,9 @@
     "keywords": "",
     "pain": "Searchable selects break ARIA roles and keyboard navigation",
     "promise": "Combobox roles and interaction fully enforced by structure",
-    "why": "ComboboxPrimitive defines proper ARIA roles and input behavior. SelectionState and VisibilityState control dropdown interaction. This guarantees accessible and predictable combobox behavior.",
-    "before": "// ❌ Typical\nview! {\n  <input type=\"text\" />\n  <ul><li>\"Option\"</li></ul>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Combobox>\n    <ComboboxTrigger>\"Select...\"</ComboboxTrigger>\n    <ComboboxList>\n      <ComboboxItem value=\"1\">\"Option\"</ComboboxItem>\n    </ComboboxList>\n  </Combobox>\n}",
+    "why": "ComboboxPrimitive defines proper ARIA roles and input behavior. SelectionState and VisibilityState control dropdown interaction. This guarantees accessible and predictable combobox behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <input type=\"text\" />\n  <ul><li>\"Option\"</li></ul>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Combobox>\n    <ComboboxTrigger>\"Select...\"</ComboboxTrigger>\n    <ComboboxList>\n      <ComboboxItem value=\"1\">\"Option\"</ComboboxItem>\n    </ComboboxList>\n  </Combobox>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -798,9 +798,9 @@
     "keywords": "",
     "pain": "Command palette lacks keyboard navigation and ARIA consistency",
     "promise": "Command palette semantics and selection fully enforced",
-    "why": "CommandPrimitive enforces listbox semantics with structured input, grouping and items. SelectionState and ActivityState control highlight and selection behavior. This guarantees consistent keyboard navigation and accessibility.",
-    "before": "// ❌ Typical\nview! {\n  <input placeholder=\"Search\" />\n  <div class=\"list\">\n    <div>\"Item\"</div>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Command>\n    <CommandInput placeholder=\"Search...\" />\n    <CommandList>\n      <CommandItem>\"Item\"</CommandItem>\n    </CommandList>\n  </Command>\n}",
+    "why": "CommandPrimitive enforces listbox semantics with structured input, grouping and items. SelectionState and ActivityState control highlight and selection behavior. This guarantees consistent keyboard navigation and accessibility.\n",
+    "before": "// ❌ Typical\nview! {\n  <input placeholder=\"Search\" />\n  <div class=\"list\">\n    <div>\"Item\"</div>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Command>\n    <CommandInput placeholder=\"Search...\" />\n    <CommandList>\n      <CommandItem>\"Item\"</CommandItem>\n    </CommandList>\n  </Command>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -836,9 +836,9 @@
     "keywords": "",
     "pain": "Confirmation dialogs miss ARIA roles and destructive intent signaling",
     "promise": "Confirmation semantics and intent enforced via variant and structure",
-    "why": "ConfirmDialogPrimitive enforces role=\"alertdialog\" with variant-driven semantics. VisibilityState controls lifecycle and accessibility attributes. This guarantees proper focus and urgency communication.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"modal\">\"Are you sure?\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <ConfirmDialog />\n}",
+    "why": "ConfirmDialogPrimitive enforces role=\"alertdialog\" with variant-driven semantics. VisibilityState controls lifecycle and accessibility attributes. This guarantees proper focus and urgency communication.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"modal\">\"Are you sure?\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <ConfirmDialog />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -878,9 +878,9 @@
     "keywords": "",
     "pain": "Right-click menus lack consistent trigger and focus behavior",
     "promise": "Context menu interaction and roles enforced structurally",
-    "why": "ContextMenuPrimitive defines trigger/content separation with ARIA roles. ActivityState and DisabledState ensure correct focus and navigation. This guarantees predictable contextual actions.",
-    "before": "// ❌ Typical\nview! {\n  <div on:contextmenu=show_menu>\n    <div class=\"menu\">\"Item\"</div>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <ContextMenu>\n    <ContextMenuTrigger>\n      <span>\"Right-click\"</span>\n    </ContextMenuTrigger>\n    <ContextMenuContent>\n      <ContextMenuItem>\"Item\"</ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n}",
+    "why": "ContextMenuPrimitive defines trigger/content separation with ARIA roles. ActivityState and DisabledState ensure correct focus and navigation. This guarantees predictable contextual actions.\n",
+    "before": "// ❌ Typical\nview! {\n  <div on:contextmenu=show_menu>\n    <div class=\"menu\">\"Item\"</div>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <ContextMenu>\n    <ContextMenuTrigger>\n      <span>\"Right-click\"</span>\n    </ContextMenuTrigger>\n    <ContextMenuContent>\n      <ContextMenuItem>\"Item\"</ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -916,9 +916,9 @@
     "keywords": "",
     "pain": "Copy buttons require manual state handling and feedback UI",
     "promise": "Copy state lifecycle fully encoded in DOM state machine",
-    "why": "CopyButton encodes idle, copied, and error states via data-rs-state. Behavior layer handles transitions without JS wiring. This guarantees consistent feedback and eliminates manual state management.",
-    "before": "// ❌ Typical\nview! {\n  <button on:click=copy>\"Copy\"</button>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <CopyButton id=\"copy\" text=\"value\" />\n}",
+    "why": "CopyButton encodes idle, copied, and error states via data-rs-state. Behavior layer handles transitions without JS wiring. This guarantees consistent feedback and eliminates manual state management.\n",
+    "before": "// ❌ Typical\nview! {\n  <button on:click=copy>\"Copy\"</button>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <CopyButton id=\"copy\" text=\"value\" />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -954,9 +954,9 @@
     "keywords": "",
     "pain": "Tables mix rendering, sorting and state with no structure",
     "promise": "Table structure and sorting semantics enforced at component level",
-    "why": "DataTablePrimitive separates head, body and cells with explicit sort metadata. SelectionState and density are encoded as attributes. This guarantees consistent behavior across all tables.",
-    "before": "// ❌ Typical\nview! {\n  <table>\n    <tr><td>\"A\"</td></tr>\n  </table>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <DataTableCore data=data columns=columns />\n}",
+    "why": "DataTablePrimitive separates head, body and cells with explicit sort metadata. SelectionState and density are encoded as attributes. This guarantees consistent behavior across all tables.\n",
+    "before": "// ❌ Typical\nview! {\n  <table>\n    <tr><td>\"A\"</td></tr>\n  </table>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <DataTableCore data=data columns=columns />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -993,9 +993,9 @@
     "keywords": "",
     "pain": "Dialogs break focus trap and accessibility roles",
     "promise": "Dialog accessibility and lifecycle enforced via primitives",
-    "why": "DialogPrimitive defines overlay, portal and content with ARIA compliance. VisibilityState guarantees correct open/close synchronization. This ensures safe modal behavior across SSR and client.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"modal\">\"Content\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Dialog>\n    <DialogTrigger>\"Open\"</DialogTrigger>\n    <DialogPortal>\n      <DialogOverlay />\n      <DialogContent>\n        <DialogTitle>\"Title\"</DialogTitle>\n      </DialogContent>\n    </DialogPortal>\n  </Dialog>\n}",
+    "why": "DialogPrimitive defines overlay, portal and content with ARIA compliance. VisibilityState guarantees correct open/close synchronization. This ensures safe modal behavior across SSR and client.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"modal\">\"Content\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Dialog>\n    <DialogTrigger>\"Open\"</DialogTrigger>\n    <DialogPortal>\n      <DialogOverlay />\n      <DialogContent>\n        <DialogTitle>\"Title\"</DialogTitle>\n      </DialogContent>\n    </DialogPortal>\n  </Dialog>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1035,9 +1035,9 @@
     "keywords": "",
     "pain": "Scroll progress indicators require manual scroll tracking logic",
     "promise": "Progress tracking injected automatically via behavior layer",
-    "why": "DocProgressPrimitive exposes progress via data attributes and ARIA. Portal variant allows injection anywhere in layout. This guarantees consistent scroll tracking without custom JS.",
-    "before": "// ❌ Typical\nwindow.onscroll = () => updateProgress();",
-    "after": "// ✅ CanonRS\nview! {\n  <DocProgress />\n}",
+    "why": "DocProgressPrimitive exposes progress via data attributes and ARIA. Portal variant allows injection anywhere in layout. This guarantees consistent scroll tracking without custom JS.\n",
+    "before": "// ❌ Typical\nwindow.onscroll = () => updateProgress();\n",
+    "after": "// ✅ CanonRS\nview! {\n  <DocProgress />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1073,9 +1073,9 @@
     "keywords": "",
     "pain": "Slide panels lack consistent direction and accessibility semantics",
     "promise": "Drawer direction and visibility enforced via typed contract",
-    "why": "DrawerPrimitive encodes side and visibility with DrawerSide and VisibilityState. ARIA attributes ensure accessibility compliance. This guarantees predictable slide behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"drawer left\">\"Content\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Drawer>\n    <DrawerOverlay />\n    <DrawerContent aria_labelledby=\"title\" />\n  </Drawer>\n}",
+    "why": "DrawerPrimitive encodes side and visibility with DrawerSide and VisibilityState. ARIA attributes ensure accessibility compliance. This guarantees predictable slide behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"drawer left\">\"Content\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Drawer>\n    <DrawerOverlay />\n    <DrawerContent aria_labelledby=\"title\" />\n  </Drawer>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1115,9 +1115,9 @@
     "keywords": "",
     "pain": "Dropdown menus break keyboard navigation and selection state",
     "promise": "Menu interaction and state fully encoded via primitives",
-    "why": "DropdownMenuPrimitive defines trigger/content with ARIA roles. ToggleState and ActivityState manage selection and highlight. This guarantees consistent menu behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"dropdown\">\n    <button>\"Open\"</button>\n    <div class=\"menu\">\"Item\"</div>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <DropdownMenu>\n    <DropdownMenuTrigger>\"Open\"</DropdownMenuTrigger>\n    <DropdownMenuContent>\n      <DropdownMenuItem>\"Item\"</DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n}",
+    "why": "DropdownMenuPrimitive defines trigger/content with ARIA roles. ToggleState and ActivityState manage selection and highlight. This guarantees consistent menu behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"dropdown\">\n    <button>\"Open\"</button>\n    <div class=\"menu\">\"Item\"</div>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <DropdownMenu>\n    <DropdownMenuTrigger>\"Open\"</DropdownMenuTrigger>\n    <DropdownMenuContent>\n      <DropdownMenuItem>\"Item\"</DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1153,9 +1153,9 @@
     "keywords": "",
     "pain": "Empty states are inconsistent and lack semantic meaning",
     "promise": "Empty state intent and variant enforced via contract",
-    "why": "EmptyStatePrimitive encodes variant and ARIA role=\"status\". Variants ensure consistent messaging patterns. This guarantees predictable feedback across all empty states.",
-    "before": "// ❌ Typical\nview! {\n  <div>\"No data\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <EmptyState>\n    <EmptyStateTitle>\"No data\"</EmptyStateTitle>\n  </EmptyState>\n}",
+    "why": "EmptyStatePrimitive encodes variant and ARIA role=\"status\". Variants ensure consistent messaging patterns. This guarantees predictable feedback across all empty states.\n",
+    "before": "// ❌ Typical\nview! {\n  <div>\"No data\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <EmptyState>\n    <EmptyStateTitle>\"No data\"</EmptyStateTitle>\n  </EmptyState>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1188,9 +1188,9 @@
     "keywords": "",
     "pain": "Empty table rows break layout and screen reader semantics",
     "promise": "Empty state rendered as valid table row with proper ARIA",
-    "why": "EmptyTablePrimitive enforces correct table structure using tr and td with colspan. It preserves row semantics while exposing status via aria-live. This guarantees no layout or accessibility break inside tables.",
-    "before": "// ❌ Typical\nview! {\n  <tbody>\n    <div>\"No data\"</div>\n  </tbody>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <tbody>\n    <EmptyTable colspan=3u32 />\n  </tbody>\n}",
+    "why": "EmptyTablePrimitive enforces correct table structure using tr and td with colspan. It preserves row semantics while exposing status via aria-live. This guarantees no layout or accessibility break inside tables.\n",
+    "before": "// ❌ Typical\nview! {\n  <tbody>\n    <div>\"No data\"</div>\n  </tbody>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <tbody>\n    <EmptyTable colspan=3u32 />\n  </tbody>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1226,9 +1226,9 @@
     "keywords": "",
     "pain": "Error messages inconsistent and not announced to assistive technologies",
     "promise": "Error feedback always announced and structurally consistent",
-    "why": "ErrorStatePrimitive enforces role=\"status\" with aria-live=\"assertive\". This guarantees immediate announcement of critical errors. Structure ensures consistent composition of icon, title and actions.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"error\">\"Something went wrong\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <ErrorState>\n    <ErrorStateTitle>\"Error\"</ErrorStateTitle>\n  </ErrorState>\n}",
+    "why": "ErrorStatePrimitive enforces role=\"status\" with aria-live=\"assertive\". This guarantees immediate announcement of critical errors. Structure ensures consistent composition of icon, title and actions.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"error\">\"Something went wrong\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <ErrorState>\n    <ErrorStateTitle>\"Error\"</ErrorStateTitle>\n  </ErrorState>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1261,9 +1261,9 @@
     "keywords": "",
     "pain": "Form fields lose validation and accessibility linkage between label and input",
     "promise": "Validation, label and error state unified in a single contract",
-    "why": "FieldPrimitive encodes validation and disabled state into data attributes. FieldLabel and FieldError ensure correct ARIA mapping. This guarantees consistent field behavior and accessibility.",
-    "before": "// ❌ Typical\nview! {\n  <label>\"Email\"</label>\n  <input />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Field>\n    <FieldLabel>\"Email\"</FieldLabel>\n  </Field>\n}",
+    "why": "FieldPrimitive encodes validation and disabled state into data attributes. FieldLabel and FieldError ensure correct ARIA mapping. This guarantees consistent field behavior and accessibility.\n",
+    "before": "// ❌ Typical\nview! {\n  <label>\"Email\"</label>\n  <input />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Field>\n    <FieldLabel>\"Email\"</FieldLabel>\n  </Field>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1302,9 +1302,9 @@
     "keywords": "",
     "pain": "Forms mix validation, submission and accessibility inconsistently",
     "promise": "Form lifecycle and validation state enforced at container level",
-    "why": "FormPrimitive encodes validation, disabled and submission states into attributes. ARIA states like busy and invalid are derived automatically. This guarantees consistent form behavior across all inputs.",
-    "before": "// ❌ Typical\nview! {\n  <form>\n    <input />\n  </form>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Form>\n    <FormField>\n      <FormLabel>\"Name\"</FormLabel>\n    </FormField>\n  </Form>\n}",
+    "why": "FormPrimitive encodes validation, disabled and submission states into attributes. ARIA states like busy and invalid are derived automatically. This guarantees consistent form behavior across all inputs.\n",
+    "before": "// ❌ Typical\nview! {\n  <form>\n    <input />\n  </form>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Form>\n    <FormField>\n      <FormLabel>\"Name\"</FormLabel>\n    </FormField>\n  </Form>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1344,9 +1344,9 @@
     "keywords": "",
     "pain": "Form errors scattered and not announced collectively",
     "promise": "All form errors announced together with structured summary",
-    "why": "FormErrorSummaryPrimitive uses role=\"alert\" with aria-atomic to ensure full error announcement. Errors are grouped and structured. This guarantees accessibility and visibility of all validation issues.",
-    "before": "// ❌ Typical\nview! {\n  <div>\"Error\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <FormErrorSummary errors=vec![] />\n}",
+    "why": "FormErrorSummaryPrimitive uses role=\"alert\" with aria-atomic to ensure full error announcement. Errors are grouped and structured. This guarantees accessibility and visibility of all validation issues.\n",
+    "before": "// ❌ Typical\nview! {\n  <div>\"Error\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <FormErrorSummary errors=vec![] />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1385,9 +1385,9 @@
     "keywords": "",
     "pain": "Hero sections lack consistent structure and semantic grouping",
     "promise": "Hero content structured via explicit semantic primitives",
-    "why": "HeroPrimitive defines a structural block with dedicated parts like title, description and actions. Each part is explicitly declared. This guarantees predictable layout composition.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"hero\">\n    <h1>\"Title\"</h1>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <HeroTitle>\"Title\"</HeroTitle>\n}",
+    "why": "HeroPrimitive defines a structural block with dedicated parts like title, description and actions. Each part is explicitly declared. This guarantees predictable layout composition.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"hero\">\n    <h1>\"Title\"</h1>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <HeroTitle>\"Title\"</HeroTitle>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1425,9 +1425,9 @@
     "keywords": "",
     "pain": "Hover previews break focus and visibility synchronization",
     "promise": "Hover state and positioning enforced via visibility contract",
-    "why": "HoverCardPrimitive uses VisibilityState and side enums to control display. Trigger and content share synchronized state. This guarantees consistent hover behavior and accessibility.",
-    "before": "// ❌ Typical\nview! {\n  <div on:mouseover=show>\"Hover\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <HoverCard>\n    <HoverCardTrigger>\"Hover\"</HoverCardTrigger>\n    <HoverCardContent>\"Content\"</HoverCardContent>\n  </HoverCard>\n}",
+    "why": "HoverCardPrimitive uses VisibilityState and side enums to control display. Trigger and content share synchronized state. This guarantees consistent hover behavior and accessibility.\n",
+    "before": "// ❌ Typical\nview! {\n  <div on:mouseover=show>\"Hover\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <HoverCard>\n    <HoverCardTrigger>\"Hover\"</HoverCardTrigger>\n    <HoverCardContent>\"Content\"</HoverCardContent>\n  </HoverCard>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1467,9 +1467,9 @@
     "keywords": "",
     "pain": "Icons lack consistent sizing and variant handling",
     "promise": "Icon size and variant enforced via typed enums",
-    "why": "Icon component encodes size and variant through enums. These map directly to data attributes. This guarantees consistent rendering and eliminates class-based inconsistencies.",
-    "before": "// ❌ Typical\nview! {\n  <svg class=\"icon-lg\">\"★\"</svg>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Icon size=IconSize::Md>\"★\"</Icon>\n}",
+    "why": "Icon component encodes size and variant through enums. These map directly to data attributes. This guarantees consistent rendering and eliminates class-based inconsistencies.\n",
+    "before": "// ❌ Typical\nview! {\n  <svg class=\"icon-lg\">\"★\"</svg>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Icon size=IconSize::Md>\"★\"</Icon>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1510,9 +1510,9 @@
     "keywords": "",
     "pain": "Icon buttons miss accessibility labels and loading state handling",
     "promise": "Accessibility and loading state enforced in button contract",
-    "why": "IconButtonPrimitive requires aria-label and encodes loading and disabled states. ARIA attributes are derived automatically. This guarantees accessible and predictable behavior.",
-    "before": "// ❌ Typical\nview! {\n  <button><svg /></button>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <IconButton aria_label=\"Close\">\"×\"</IconButton>\n}",
+    "why": "IconButtonPrimitive requires aria-label and encodes loading and disabled states. ARIA attributes are derived automatically. This guarantees accessible and predictable behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <button><svg /></button>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <IconButton aria_label=\"Close\">\"×\"</IconButton>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1548,9 +1548,9 @@
     "keywords": "",
     "pain": "Inline metadata mixes labels and values without structure",
     "promise": "Metadata pairs structured and consistently rendered",
-    "why": "InlineMetaPrimitive separates label and value into explicit primitives. This enforces consistent layout and semantics. It prevents ad-hoc inline data rendering.",
-    "before": "// ❌ Typical\nview! {\n  <span>\"Rules: 284\"</span>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <InlineMeta>\n    <InlineMetaLabel>\"Rules\"</InlineMetaLabel>\n    <InlineMetaValue>\"284\"</InlineMetaValue>\n  </InlineMeta>\n}",
+    "why": "InlineMetaPrimitive separates label and value into explicit primitives. This enforces consistent layout and semantics. It prevents ad-hoc inline data rendering.\n",
+    "before": "// ❌ Typical\nview! {\n  <span>\"Rules: 284\"</span>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <InlineMeta>\n    <InlineMetaLabel>\"Rules\"</InlineMetaLabel>\n    <InlineMetaValue>\"284\"</InlineMetaValue>\n  </InlineMeta>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1591,9 +1591,9 @@
     "keywords": "",
     "pain": "Inline messages use wrong ARIA roles and urgency levels",
     "promise": "Role and aria-live automatically enforced by variant",
-    "why": "InlineNoticeVariant controls both semantic role and aria-live behavior. Error uses alert/assertive while others use status/polite. This guarantees correct urgency signaling without manual ARIA decisions.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"notice error\">\"Error\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <InlineNotice variant=InlineNoticeVariant::Error>\n    <InlineNoticeContent>\"Error\"</InlineNoticeContent>\n  </InlineNotice>\n}",
+    "why": "InlineNoticeVariant controls both semantic role and aria-live behavior. Error uses alert/assertive while others use status/polite. This guarantees correct urgency signaling without manual ARIA decisions.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"notice error\">\"Error\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <InlineNotice variant=InlineNoticeVariant::Error>\n    <InlineNoticeContent>\"Error\"</InlineNoticeContent>\n  </InlineNotice>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1629,9 +1629,9 @@
     "keywords": "",
     "pain": "Inputs accept invalid visual states without consistent validation mapping",
     "promise": "Variant and size strictly constrained via typed enums",
-    "why": "InputVariant and InputSize define allowed visual states at compile-time. DisabledState is mapped to both DOM and ARIA. This guarantees consistent rendering and prevents invalid combinations.",
-    "before": "// ❌ Typical\nview! {\n  <input class=\"input error large\" />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Input variant=InputVariant::Error size=InputSize::Lg />\n}",
+    "why": "InputVariant and InputSize define allowed visual states at compile-time. DisabledState is mapped to both DOM and ARIA. This guarantees consistent rendering and prevents invalid combinations.\n",
+    "before": "// ❌ Typical\nview! {\n  <input class=\"input error large\" />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Input variant=InputVariant::Error size=InputSize::Lg />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1671,9 +1671,9 @@
     "keywords": "",
     "pain": "Input addons break alignment and border radius consistency",
     "promise": "Grouped inputs maintain consistent structure and visual merging",
-    "why": "InputGroupPrimitive encodes merge-radius behavior via ActivityState. This ensures inputs and addons render as a unified control. It prevents layout inconsistencies across grouped inputs.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"input-group\">\n    <span>@</span>\n    <input />\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <InputGroup merge_radius=true>\n    <span data-rs-input-group-addon=\"\">\"@\"</span>\n  </InputGroup>\n}",
+    "why": "InputGroupPrimitive encodes merge-radius behavior via ActivityState. This ensures inputs and addons render as a unified control. It prevents layout inconsistencies across grouped inputs.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"input-group\">\n    <span>@</span>\n    <input />\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <InputGroup merge_radius=true>\n    <span data-rs-input-group-addon=\"\">\"@\"</span>\n  </InputGroup>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1713,9 +1713,9 @@
     "keywords": "",
     "pain": "OTP inputs require complex state sync across multiple fields",
     "promise": "OTP slots and active state managed automatically",
-    "why": "InputOtp distributes value across slots using ActivityState. Each slot reflects position and focus without manual logic. This guarantees synchronized UI and input state.",
-    "before": "// ❌ Typical\n// multiple inputs with manual focus handling",
-    "after": "// ✅ CanonRS\nview! {\n  <InputOtp length=6 />\n}",
+    "why": "InputOtp distributes value across slots using ActivityState. Each slot reflects position and focus without manual logic. This guarantees synchronized UI and input state.\n",
+    "before": "// ❌ Typical\n// multiple inputs with manual focus handling\n",
+    "after": "// ✅ CanonRS\nview! {\n  <InputOtp length=6 />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1755,9 +1755,9 @@
     "keywords": "",
     "pain": "Keyboard shortcuts displayed inconsistently with ad-hoc styling",
     "promise": "Shortcut representation standardized via size and variant enums",
-    "why": "KbdPrimitive encodes size and variant into data attributes. Group and separator primitives enforce consistent composition. This guarantees uniform shortcut display.",
-    "before": "// ❌ Typical\nview! {\n  <span class=\"kbd\">Ctrl + K</span>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <KbdGroup>\n    <Kbd>\"Ctrl\"</Kbd>\n    <KbdSeparator />\n    <Kbd>\"K\"</Kbd>\n  </KbdGroup>\n}",
+    "why": "KbdPrimitive encodes size and variant into data attributes. Group and separator primitives enforce consistent composition. This guarantees uniform shortcut display.\n",
+    "before": "// ❌ Typical\nview! {\n  <span class=\"kbd\">Ctrl + K</span>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <KbdGroup>\n    <Kbd>\"Ctrl\"</Kbd>\n    <KbdSeparator />\n    <Kbd>\"K\"</Kbd>\n  </KbdGroup>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1798,9 +1798,9 @@
     "keywords": "",
     "pain": "Labels not correctly associated with inputs, breaking accessibility",
     "promise": "Label-to-input association enforced via explicit html_for contract",
-    "why": "LabelPrimitive ensures proper for/id mapping and required state. ARIA attributes are derived automatically. This guarantees accessible labeling without manual wiring.",
-    "before": "// ❌ Typical\nview! {\n  <label>\"Email\"</label>\n  <input />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Label for_id=\"email\">\"Email\"</Label>\n}",
+    "why": "LabelPrimitive ensures proper for/id mapping and required state. ARIA attributes are derived automatically. This guarantees accessible labeling without manual wiring.\n",
+    "before": "// ❌ Typical\nview! {\n  <label>\"Email\"</label>\n  <input />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Label for_id=\"email\">\"Email\"</Label>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1839,9 +1839,9 @@
     "keywords": "",
     "pain": "Links misuse target, rel and disabled states inconsistently",
     "promise": "Navigation semantics and external behavior enforced structurally",
-    "why": "LinkPrimitive controls variant, disabled and external behavior. It automatically sets target and rel attributes. This guarantees safe navigation and consistent semantics.",
-    "before": "// ❌ Typical\nview! {\n  <a href=\"/\" target=\"_blank\">\"Link\"</a>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Link href=\"/\" external=true>\"Link\"</Link>\n}",
+    "why": "LinkPrimitive controls variant, disabled and external behavior. It automatically sets target and rel attributes. This guarantees safe navigation and consistent semantics.\n",
+    "before": "// ❌ Typical\nview! {\n  <a href=\"/\" target=\"_blank\">\"Link\"</a>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Link href=\"/\" external=true>\"Link\"</Link>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1876,9 +1876,9 @@
     "keywords": "",
     "pain": "Navigation links lack grouping semantics and structural consistency",
     "promise": "Grouped navigation structured with direction and labeling contract",
-    "why": "LinkGroup uses NavigationGroup primitives to enforce grouping and labeling. Direction is encoded via enum. This guarantees consistent navigation structure across layouts.",
-    "before": "// ❌ Typical\nview! {\n  <div>\n    <a>\"A\"</a>\n    <a>\"B\"</a>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <LinkGroup>\n    <NavItem label=\"A\" href=\"/a\" />\n  </LinkGroup>\n}",
+    "why": "LinkGroup uses NavigationGroup primitives to enforce grouping and labeling. Direction is encoded via enum. This guarantees consistent navigation structure across layouts.\n",
+    "before": "// ❌ Typical\nview! {\n  <div>\n    <a>\"A\"</a>\n    <a>\"B\"</a>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <LinkGroup>\n    <NavItem label=\"A\" href=\"/a\" />\n  </LinkGroup>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1914,9 +1914,9 @@
     "keywords": "",
     "pain": "Lists lack consistent selection, disabled and accessibility states",
     "promise": "Selection and interaction states encoded via structured attributes",
-    "why": "ListItem encodes selectable, selected and disabled states into data attributes. ARIA attributes are derived automatically. This guarantees consistent list interaction behavior.",
-    "before": "// ❌ Typical\nview! {\n  <li class=\"active\">\"Item\"</li>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <List>\n    <ListItem selectable=true selected=true>\"Item\"</ListItem>\n  </List>\n}",
+    "why": "ListItem encodes selectable, selected and disabled states into data attributes. ARIA attributes are derived automatically. This guarantees consistent list interaction behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <li class=\"active\">\"Item\"</li>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <List>\n    <ListItem selectable=true selected=true>\"Item\"</ListItem>\n  </List>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1952,9 +1952,9 @@
     "keywords": "",
     "pain": "Loading states require manual visibility and aria synchronization",
     "promise": "Loading visibility and aria-busy managed automatically",
-    "why": "LoadingOverlayPrimitive maps LoadingState to visibility and ARIA attributes. Overlay visibility is derived automatically. This guarantees consistent loading feedback without manual logic.",
-    "before": "// ❌ Typical\nview! {\n  {if loading { view! { <div class=\"overlay\">\"Loading\"</div> } }}\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <LoadingOverlay state=LoadingState::Loading>\n    \"Content\"\n  </LoadingOverlay>\n}",
+    "why": "LoadingOverlayPrimitive maps LoadingState to visibility and ARIA attributes. Overlay visibility is derived automatically. This guarantees consistent loading feedback without manual logic.\n",
+    "before": "// ❌ Typical\nview! {\n  {if loading { view! { <div class=\"overlay\">\"Loading\"</div> } }}\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <LoadingOverlay state=LoadingState::Loading>\n    \"Content\"\n  </LoadingOverlay>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -1991,9 +1991,9 @@
     "keywords": "",
     "pain": "Client-side markdown rendering causes hydration mismatch and inconsistent DOM",
     "promise": "SSR-safe markdown rendering with deterministic DOM output",
-    "why": "MarkdownPrimitive injects HTML only during SSR and avoids client mutation. Content and TOC are generated as stable HTML structure. This guarantees hydration-safe rendering with no runtime divergence.",
-    "before": "// ❌ Typical\nview! {\n  <div inner_html={render_markdown(md)} />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <MarkdownSurface rendered=rendered />\n}",
+    "why": "MarkdownPrimitive injects HTML only during SSR and avoids client mutation. Content and TOC are generated as stable HTML structure. This guarantees hydration-safe rendering with no runtime divergence.\n",
+    "before": "// ❌ Typical\nview! {\n  <div inner_html={render_markdown(md)} />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <MarkdownSurface rendered=rendered />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2034,9 +2034,9 @@
     "keywords": "",
     "pain": "Menus lack consistent selection, disabled and focus behavior",
     "promise": "Menu interaction fully governed via structured ARIA and state attributes",
-    "why": "MenuItemPrimitive encodes selection, disabled and activity states into data-rs and ARIA attributes. Navigation semantics are enforced at the container level. This guarantees predictable keyboard and accessibility behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"menu\">\n    <button class=\"active\">\"Item\"</button>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Menu>\n    <MenuItem selected=true>\"Item\"</MenuItem>\n  </Menu>\n}",
+    "why": "MenuItemPrimitive encodes selection, disabled and activity states into data-rs and ARIA attributes. Navigation semantics are enforced at the container level. This guarantees predictable keyboard and accessibility behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"menu\">\n    <button class=\"active\">\"Item\"</button>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Menu>\n    <MenuItem selected=true>\"Item\"</MenuItem>\n  </Menu>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2072,9 +2072,9 @@
     "keywords": "",
     "pain": "Horizontal menus break ARIA roles and keyboard navigation",
     "promise": "Menubar semantics and structure enforced via primitives",
-    "why": "MenubarPrimitive enforces role=\"menubar\" and structured menu composition. Trigger and content follow strict ARIA relationships. This guarantees accessible and predictable navigation behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"menubar\">\n    <button>\"File\"</button>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>\"File\"</MenubarTrigger>\n    </MenubarMenu>\n  </Menubar>\n}",
+    "why": "MenubarPrimitive enforces role=\"menubar\" and structured menu composition. Trigger and content follow strict ARIA relationships. This guarantees accessible and predictable navigation behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"menubar\">\n    <button>\"File\"</button>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>\"File\"</MenubarTrigger>\n    </MenubarMenu>\n  </Menubar>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2110,9 +2110,9 @@
     "keywords": "",
     "pain": "Modals desync visibility, aria-hidden and focus management",
     "promise": "Modal visibility and accessibility fully synchronized via state",
-    "why": "ModalPrimitive maps VisibilityState to aria-hidden and hidden attributes. Trigger and content share the same state contract. This guarantees consistent open/close behavior and accessibility.",
-    "before": "// ❌ Typical\nview! {\n  {if open { view! { <div class=\"modal\">\"Content\"</div> } }}\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Modal state=VisibilityState::Open>\n    <ModalContent>\"Content\"</ModalContent>\n  </Modal>\n}",
+    "why": "ModalPrimitive maps VisibilityState to aria-hidden and hidden attributes. Trigger and content share the same state contract. This guarantees consistent open/close behavior and accessibility.\n",
+    "before": "// ❌ Typical\nview! {\n  {if open { view! { <div class=\"modal\">\"Content\"</div> } }}\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Modal state=VisibilityState::Open>\n    <ModalContent>\"Content\"</ModalContent>\n  </Modal>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2152,9 +2152,9 @@
     "keywords": "",
     "pain": "Navigation links lack active state and accessibility consistency",
     "promise": "Active and disabled navigation states enforced structurally",
-    "why": "NavItemPrimitive encodes ActivityState and DisabledState into data attributes and ARIA. aria-current is derived automatically. This guarantees consistent navigation behavior and accessibility.",
-    "before": "// ❌ Typical\nview! {\n  <a class=\"active\" href=\"/\">\"Home\"</a>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <NavItem label=\"Home\" active=true />\n}",
+    "why": "NavItemPrimitive encodes ActivityState and DisabledState into data attributes and ARIA. aria-current is derived automatically. This guarantees consistent navigation behavior and accessibility.\n",
+    "before": "// ❌ Typical\nview! {\n  <a class=\"active\" href=\"/\">\"Home\"</a>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <NavItem label=\"Home\" active=true />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2190,9 +2190,9 @@
     "keywords": "",
     "pain": "Nested navigation menus require id wiring and break interaction consistency",
     "promise": "Trigger-content relationship enforced without id wiring",
-    "why": "NavigationMenu uses DOM structure and data-rs-state instead of ids. Trigger and content are linked via closest/sibling logic. This guarantees stable interaction without manual wiring.",
-    "before": "// ❌ Typical\nview! {\n  <button id=\"trigger\">\"Menu\"</button>\n  <div id=\"content\">\"Items\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <NavigationMenu>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>\"Menu\"</NavigationMenuTrigger>\n      <NavigationMenuContent>\"Items\"</NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenu>\n}",
+    "why": "NavigationMenu uses DOM structure and data-rs-state instead of ids. Trigger and content are linked via closest/sibling logic. This guarantees stable interaction without manual wiring.\n",
+    "before": "// ❌ Typical\nview! {\n  <button id=\"trigger\">\"Menu\"</button>\n  <div id=\"content\">\"Items\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <NavigationMenu>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>\"Menu\"</NavigationMenuTrigger>\n      <NavigationMenuContent>\"Items\"</NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenu>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2229,9 +2229,9 @@
     "keywords": "",
     "pain": "Page headers mix title, actions and breadcrumbs inconsistently",
     "promise": "Header structure enforced with explicit semantic regions",
-    "why": "PageHeaderPrimitive defines structured parts like title, description and actions. Each region is explicitly declared. This guarantees consistent layout composition across pages.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"header\">\n    <h1>\"Title\"</h1>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <PageHeader>\n    <PageHeaderContent>\n      <PageHeaderTitle>\"Title\"</PageHeaderTitle>\n    </PageHeaderContent>\n  </PageHeader>\n}",
+    "why": "PageHeaderPrimitive defines structured parts like title, description and actions. Each region is explicitly declared. This guarantees consistent layout composition across pages.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"header\">\n    <h1>\"Title\"</h1>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <PageHeader>\n    <PageHeaderContent>\n      <PageHeaderTitle>\"Title\"</PageHeaderTitle>\n    </PageHeaderContent>\n  </PageHeader>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2268,9 +2268,9 @@
     "keywords": "",
     "pain": "Pagination links lack active state and disabled navigation semantics",
     "promise": "Navigation state and accessibility enforced via structured primitives",
-    "why": "PaginationPrimitive encodes navigation semantics with aria-current and disabled states. Previous and next controls enforce accessibility automatically. This guarantees consistent pagination behavior.",
-    "before": "// ❌ Typical\nview! {\n  <a class=\"active\">\"1\"</a>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Pagination>\n    <PaginationContent>\n      <PaginationLink state=ActivityState::Active href=\"#\">\"1\"</PaginationLink>\n    </PaginationContent>\n  </Pagination>\n}",
+    "why": "PaginationPrimitive encodes navigation semantics with aria-current and disabled states. Previous and next controls enforce accessibility automatically. This guarantees consistent pagination behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <a class=\"active\">\"1\"</a>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Pagination>\n    <PaginationContent>\n      <PaginationLink state=ActivityState::Active href=\"#\">\"1\"</PaginationLink>\n    </PaginationContent>\n  </Pagination>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2307,9 +2307,9 @@
     "keywords": "",
     "pain": "Popovers lose sync between trigger state and content visibility",
     "promise": "Trigger and content visibility governed by shared state contract",
-    "why": "PopoverPrimitive uses VisibilityState across trigger and content. ARIA attributes and positioning are derived automatically. This guarantees consistent overlay behavior without manual sync.",
-    "before": "// ❌ Typical\nview! {\n  <button on:click=toggle>\"Open\"</button>\n  {if open { view! { <div>\"Popover\"</div> } }}\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Popover>\n    <button data-rs-popover-trigger=\"\">\"Open\"</button>\n    <PopoverContent>\"Popover\"</PopoverContent>\n  </Popover>\n}",
+    "why": "PopoverPrimitive uses VisibilityState across trigger and content. ARIA attributes and positioning are derived automatically. This guarantees consistent overlay behavior without manual sync.\n",
+    "before": "// ❌ Typical\nview! {\n  <button on:click=toggle>\"Open\"</button>\n  {if open { view! { <div>\"Popover\"</div> } }}\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Popover>\n    <button data-rs-popover-trigger=\"\">\"Open\"</button>\n    <PopoverContent>\"Popover\"</PopoverContent>\n  </Popover>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2349,9 +2349,9 @@
     "keywords": "",
     "pain": "Progress bars overflow or misreport values beyond valid range",
     "promise": "Progress value always clamped and ARIA-compliant",
-    "why": "ProgressPrimitive clamps value between 0–100 and maps it to aria-valuenow. Indicator movement is derived from this value. This guarantees consistent visual and accessibility behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"progress\" style=\"width:150%\"></div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Progress value=75.0 />\n}",
+    "why": "ProgressPrimitive clamps value between 0–100 and maps it to aria-valuenow. Indicator movement is derived from this value. This guarantees consistent visual and accessibility behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"progress\" style=\"width:150%\"></div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Progress value=75.0 />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2387,9 +2387,9 @@
     "keywords": "",
     "pain": "Animations applied inconsistently with arbitrary classes and speeds",
     "promise": "Animation variant, size and speed strictly typed",
-    "why": "PulsePrimitive encodes variant, size and speed as enums mapped to data attributes. This removes class-based inconsistencies. It guarantees predictable animation behavior.",
-    "before": "// ❌ Typical\nview! {\n  <span class=\"pulse-fast big\"></span>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Pulse variant=PulseVariant::Emphasized speed=PulseSpeed::Fast />\n}",
+    "why": "PulsePrimitive encodes variant, size and speed as enums mapped to data attributes. This removes class-based inconsistencies. It guarantees predictable animation behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <span class=\"pulse-fast big\"></span>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Pulse variant=PulseVariant::Emphasized speed=PulseSpeed::Fast />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2425,9 +2425,9 @@
     "keywords": "",
     "pain": "Radio inputs desync checked state and accessibility attributes",
     "promise": "Selection state mapped directly to DOM and ARIA",
-    "why": "RadioPrimitive maps SelectionState to checked and aria attributes. Disabled state is also enforced structurally. This guarantees consistent selection behavior.",
-    "before": "// ❌ Typical\nview! {\n  <input type=\"radio\" checked />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Radio value=\"a\" name=\"group\" checked=true>\"Option\"</Radio>\n}",
+    "why": "RadioPrimitive maps SelectionState to checked and aria attributes. Disabled state is also enforced structurally. This guarantees consistent selection behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <input type=\"radio\" checked />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Radio value=\"a\" name=\"group\" checked=true>\"Option\"</Radio>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2464,9 +2464,9 @@
     "keywords": "",
     "pain": "Radio groups lose exclusivity and accessibility grouping",
     "promise": "Group semantics and exclusivity enforced at container level",
-    "why": "RadioGroupPrimitive enforces role=\"radiogroup\" and shared disabled state. Items derive selection state consistently. This guarantees exclusive selection behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div>\n    <input type=\"radio\" name=\"a\" />\n    <input type=\"radio\" name=\"a\" />\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <RadioGroup>\n    <RadioGroupItem name=\"a\" value=\"1\">\"One\"</RadioGroupItem>\n  </RadioGroup>\n}",
+    "why": "RadioGroupPrimitive enforces role=\"radiogroup\" and shared disabled state. Items derive selection state consistently. This guarantees exclusive selection behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div>\n    <input type=\"radio\" name=\"a\" />\n    <input type=\"radio\" name=\"a\" />\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <RadioGroup>\n    <RadioGroupItem name=\"a\" value=\"1\">\"One\"</RadioGroupItem>\n  </RadioGroup>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2503,9 +2503,9 @@
     "keywords": "",
     "pain": "Resizable panels break layout constraints and overflow limits",
     "promise": "Panel sizes constrained and behavior encoded structurally",
-    "why": "ResizablePrimitive defines orientation and size limits via attributes. Panels and handles follow strict composition. This guarantees controlled resizing behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"split\">\n    <div></div>\n    <div></div>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Resizable>\n    <ResizablePanel />\n    <ResizableHandle />\n  </Resizable>\n}",
+    "why": "ResizablePrimitive defines orientation and size limits via attributes. Panels and handles follow strict composition. This guarantees controlled resizing behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"split\">\n    <div></div>\n    <div></div>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Resizable>\n    <ResizablePanel />\n    <ResizableHandle />\n  </Resizable>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2543,9 +2543,9 @@
     "keywords": "",
     "pain": "Custom scroll containers break keyboard navigation and accessibility",
     "promise": "Scroll behavior and accessibility enforced via structured container",
-    "why": "ScrollAreaPrimitive defines viewport, scrollbars and orientation explicitly. ARIA roles and keyboard access are enforced. This guarantees accessible scrolling behavior.",
-    "before": "// ❌ Typical\nview! {\n  <div style=\"overflow:auto;height:200px\"></div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <ScrollArea>\n    <div>\"Content\"</div>\n  </ScrollArea>\n}",
+    "why": "ScrollAreaPrimitive defines viewport, scrollbars and orientation explicitly. ARIA roles and keyboard access are enforced. This guarantees accessible scrolling behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <div style=\"overflow:auto;height:200px\"></div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <ScrollArea>\n    <div>\"Content\"</div>\n  </ScrollArea>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2576,6 +2576,26 @@
     "island_src": ""
   },
   {
+    "id": "section-ui",
+    "label": "Section UI",
+    "category": "Display",
+    "description": "Section header typography components",
+    "keywords": "",
+    "pain": "",
+    "promise": "",
+    "why": "",
+    "before": "",
+    "after": "",
+    "rules": [],
+    "use_cases": [],
+    "related": [],
+    "badges": [],
+    "pillar": "",
+    "primitive_src": "",
+    "ui_src": "",
+    "island_src": ""
+  },
+  {
     "id": "select",
     "label": "Select",
     "category": "Form",
@@ -2583,9 +2603,9 @@
     "keywords": "",
     "pain": "Select components require manual state sync between trigger and options",
     "promise": "Selection, visibility and interaction fully governed by structure",
-    "why": "SelectPrimitive encodes open state, selection and disabled behavior via data attributes. Trigger and content are synchronized without id wiring. This guarantees consistent dropdown behavior.",
-    "before": "// ❌ Typical\nview! {\n  <select>\n    <option>\"A\"</option>\n  </select>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Select>\n    <SelectTrigger>\n      <SelectValue placeholder=\"Select...\" />\n    </SelectTrigger>\n    <SelectContent>\n      <SelectItem value=\"a\">\"A\"</SelectItem>\n    </SelectContent>\n  </Select>\n}",
+    "why": "SelectPrimitive encodes open state, selection and disabled behavior via data attributes. Trigger and content are synchronized without id wiring. This guarantees consistent dropdown behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <select>\n    <option>\"A\"</option>\n  </select>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Select>\n    <SelectTrigger>\n      <SelectValue placeholder=\"Select...\" />\n    </SelectTrigger>\n    <SelectContent>\n      <SelectItem value=\"a\">\"A\"</SelectItem>\n    </SelectContent>\n  </Select>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2621,9 +2641,9 @@
     "keywords": "",
     "pain": "Dividers lack semantic meaning and accessibility roles",
     "promise": "Separator semantics enforced via orientation and role contract",
-    "why": "SeparatorPrimitive encodes orientation and decorative behavior. ARIA roles are derived automatically. This guarantees semantic and accessible separators.",
-    "before": "// ❌ Typical\nview! {\n  <hr />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Separator />\n}",
+    "why": "SeparatorPrimitive encodes orientation and decorative behavior. ARIA roles are derived automatically. This guarantees semantic and accessible separators.\n",
+    "before": "// ❌ Typical\nview! {\n  <hr />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Separator />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2660,9 +2680,9 @@
     "keywords": "",
     "pain": "Side panels desync visibility, overlay and focus behavior",
     "promise": "Sheet visibility and overlay fully governed via shared state",
-    "why": "SheetPrimitive maps VisibilityState to both panel and overlay. Side positioning is encoded structurally. This guarantees consistent slide-in behavior and accessibility.",
-    "before": "// ❌ Typical\nview! {\n  {if open { view! { <div class=\"drawer\">\"Content\"</div> } }}\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Sheet>\n    <SheetContent aria_labelledby=\"title\">\"Content\"</SheetContent>\n  </Sheet>\n}",
+    "why": "SheetPrimitive maps VisibilityState to both panel and overlay. Side positioning is encoded structurally. This guarantees consistent slide-in behavior and accessibility.\n",
+    "before": "// ❌ Typical\nview! {\n  {if open { view! { <div class=\"drawer\">\"Content\"</div> } }}\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Sheet>\n    <SheetContent aria_labelledby=\"title\">\"Content\"</SheetContent>\n  </Sheet>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2702,9 +2722,9 @@
     "keywords": "",
     "pain": "Sidebars lose active state, disabled links and structural consistency",
     "promise": "Navigation state and structure enforced at component level",
-    "why": "SidebarPrimitive encodes visibility, variant and navigation semantics. Menu items derive active and disabled states automatically. This guarantees consistent navigation behavior.",
-    "before": "// ❌ Typical\nview! {\n  <aside>\n    <a class=\"active\">\"Home\"</a>\n  </aside>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Sidebar>\n    <SidebarMenu>\n      <SidebarMenuItem active=ActivityState::Active href=\"/\">\"Home\"</SidebarMenuItem>\n    </SidebarMenu>\n  </Sidebar>\n}",
+    "why": "SidebarPrimitive encodes visibility, variant and navigation semantics. Menu items derive active and disabled states automatically. This guarantees consistent navigation behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <aside>\n    <a class=\"active\">\"Home\"</a>\n  </aside>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Sidebar>\n    <SidebarMenu>\n      <SidebarMenuItem active=ActivityState::Active href=\"/\">\"Home\"</SidebarMenuItem>\n    </SidebarMenu>\n  </Sidebar>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2741,9 +2761,9 @@
     "keywords": "",
     "pain": "Brand logos implemented inconsistently across layouts and break navigation semantics",
     "promise": "Brand identity structure and navigation behavior enforced in a single contract",
-    "why": "LogoPrimitive enforces anchor semantics, size and variant at the root element. Icon, wordmark and tagline are explicitly structured parts. This guarantees consistent brand rendering and correct navigation behavior.",
-    "before": "// ❌ Typical\nview! {\n  <a href=\"/\" class=\"logo\">\n    <img src=\"/logo.svg\" />\n    <span>\"Brand\"</span>\n  </a>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Logo>\n    <LogoWordmarkPrimitive>\"Brand\"</LogoWordmarkPrimitive>\n  </Logo>\n}",
+    "why": "LogoPrimitive enforces anchor semantics, size and variant at the root element. Icon, wordmark and tagline are explicitly structured parts. This guarantees consistent brand rendering and correct navigation behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <a href=\"/\" class=\"logo\">\n    <img src=\"/logo.svg\" />\n    <span>\"Brand\"</span>\n  </a>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Logo>\n    <LogoWordmarkPrimitive>\"Brand\"</LogoWordmarkPrimitive>\n  </Logo>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2784,9 +2804,9 @@
     "keywords": "",
     "pain": "Loading placeholders inconsistent and lack accessibility semantics",
     "promise": "Skeleton state and variant standardized via structure",
-    "why": "SkeletonPrimitive encodes variant and loading state with aria-busy. This guarantees consistent placeholder rendering and accessibility feedback.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"skeleton\"></div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Skeleton variant=SkeletonVariant::Text />\n}",
+    "why": "SkeletonPrimitive encodes variant and loading state with aria-busy. This guarantees consistent placeholder rendering and accessibility feedback.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"skeleton\"></div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Skeleton variant=SkeletonVariant::Text />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2822,9 +2842,9 @@
     "keywords": "",
     "pain": "Sliders allow invalid values and break accessibility attributes",
     "promise": "Value clamped and ARIA attributes enforced automatically",
-    "why": "SliderPrimitive clamps value within min/max and maps percent and aria-valuenow. Track and thumb are structurally defined. This guarantees consistent interaction behavior.",
-    "before": "// ❌ Typical\nview! {\n  <input type=\"range\" value=\"200\" />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Slider min=0.0 max=100.0 value=50.0 />\n}",
+    "why": "SliderPrimitive clamps value within min/max and maps percent and aria-valuenow. Track and thumb are structurally defined. This guarantees consistent interaction behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <input type=\"range\" value=\"200\" />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Slider min=0.0 max=100.0 value=50.0 />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2861,9 +2881,9 @@
     "keywords": "",
     "pain": "Loading indicators lack consistent size and accessibility state",
     "promise": "Spinner state and size strictly controlled via enums",
-    "why": "SpinnerPrimitive encodes size and LoadingState into ARIA attributes. aria-busy and role=status are enforced. This guarantees accessible loading indicators.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"spinner\"></div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Spinner size=SpinnerSize::Large />\n}",
+    "why": "SpinnerPrimitive encodes size and LoadingState into ARIA attributes. aria-busy and role=status are enforced. This guarantees accessible loading indicators.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"spinner\"></div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Spinner size=SpinnerSize::Large />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2899,9 +2919,9 @@
     "keywords": "",
     "pain": "Metrics displayed without consistent structure or alignment",
     "promise": "Metric layout and semantics enforced via structured primitives",
-    "why": "StatPrimitive enforces composition of value, label and optional delta. Size, alignment and trend are encoded via attributes. This guarantees consistent KPI display.",
-    "before": "// ❌ Typical\nview! {\n  <div>\n    <h1>\"100\"</h1>\n    <p>\"Users\"</p>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Stat>\n    <StatValue>\"100\"</StatValue>\n    <StatLabel>\"Users\"</StatLabel>\n  </Stat>\n}",
+    "why": "StatPrimitive enforces composition of value, label and optional delta. Size, alignment and trend are encoded via attributes. This guarantees consistent KPI display.\n",
+    "before": "// ❌ Typical\nview! {\n  <div>\n    <h1>\"100\"</h1>\n    <p>\"Users\"</p>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Stat>\n    <StatValue>\"100\"</StatValue>\n    <StatLabel>\"Users\"</StatLabel>\n  </Stat>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2942,9 +2962,9 @@
     "keywords": "",
     "pain": "Status indicators mix semantic feedback with presence states",
     "promise": "Presence states strictly separated from semantic feedback",
-    "why": "StatusDotVariant encodes only presence states like online or busy. ARIA labels are derived automatically. This guarantees correct semantic usage.",
-    "before": "// ❌ Typical\nview! {\n  <span class=\"green-dot\"></span>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <StatusDot variant=StatusDotVariant::Online />\n}",
+    "why": "StatusDotVariant encodes only presence states like online or busy. ARIA labels are derived automatically. This guarantees correct semantic usage.\n",
+    "before": "// ❌ Typical\nview! {\n  <span class=\"green-dot\"></span>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <StatusDot variant=StatusDotVariant::Online />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -2980,9 +3000,9 @@
     "keywords": "",
     "pain": "Toggle inputs desync visual state and checked value",
     "promise": "Toggle state mapped directly to DOM and interaction state",
-    "why": "SwitchPrimitive maps SelectionState to checked and data attributes. Disabled state is enforced consistently. This guarantees reliable toggle behavior.",
-    "before": "// ❌ Typical\nview! {\n  <input type=\"checkbox\" checked />\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Switch checked=true>\"On\"</Switch>\n}",
+    "why": "SwitchPrimitive maps SelectionState to checked and data attributes. Disabled state is enforced consistently. This guarantees reliable toggle behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <input type=\"checkbox\" checked />\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Switch checked=true>\"On\"</Switch>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3016,9 +3036,9 @@
     "keywords": "",
     "pain": "Tables lack consistent state handling and accessibility attributes",
     "promise": "Table state, sorting and selection enforced structurally",
-    "why": "TablePrimitive encodes state, striped and hoverable behavior. Rows and headers derive selection and sort semantics. This guarantees consistent data table behavior.",
-    "before": "// ❌ Typical\nview! {\n  <table>\n    <tr><td>\"Data\"</td></tr>\n  </table>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Table>\n    <TableBody>\n      <TableRow>\n        <TableCell>\"Data\"</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n}",
+    "why": "TablePrimitive encodes state, striped and hoverable behavior. Rows and headers derive selection and sort semantics. This guarantees consistent data table behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <table>\n    <tr><td>\"Data\"</td></tr>\n  </table>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Table>\n    <TableBody>\n      <TableRow>\n        <TableCell>\"Data\"</TableCell>\n      </TableRow>\n    </TableBody>\n  </Table>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3054,9 +3074,9 @@
     "keywords": "",
     "pain": "TOC structures inconsistent and hard to sync with document hierarchy",
     "promise": "TOC hierarchy and state derived from structured data model",
-    "why": "TocPrimitive encodes mode and item states with hierarchical structure. SSR rendering ensures deterministic output. This guarantees consistent navigation.",
-    "before": "// ❌ Typical\nview! {\n  <ul>\n    <li><a href=\"#a\">\"A\"</a></li>\n  </ul>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <TableOfContents items=items />\n}",
+    "why": "TocPrimitive encodes mode and item states with hierarchical structure. SSR rendering ensures deterministic output. This guarantees consistent navigation.\n",
+    "before": "// ❌ Typical\nview! {\n  <ul>\n    <li><a href=\"#a\">\"A\"</a></li>\n  </ul>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <TableOfContents items=items />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3088,9 +3108,9 @@
     "keywords": "",
     "pain": "Tabs require manual state sync between triggers and panels",
     "promise": "Active state governs trigger and content without manual wiring",
-    "why": "TabsPrimitive uses ActivityState to synchronize triggers and panels. ARIA roles and visibility are derived automatically. This guarantees consistent tab behavior.",
-    "before": "// ❌ Typical\nview! {\n  <button>\"Tab\"</button>\n  <div>\"Content\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Tabs>\n    <TabsList>\n      <TabsTrigger value=\"a\" active=true>\"Tab\"</TabsTrigger>\n    </TabsList>\n    <TabsContent value=\"a\" active=true>\"Content\"</TabsContent>\n  </Tabs>\n}",
+    "why": "TabsPrimitive uses ActivityState to synchronize triggers and panels. ARIA roles and visibility are derived automatically. This guarantees consistent tab behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <button>\"Tab\"</button>\n  <div>\"Content\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Tabs>\n    <TabsList>\n      <TabsTrigger value=\"a\" active=true>\"Tab\"</TabsTrigger>\n    </TabsList>\n    <TabsContent value=\"a\" active=true>\"Content\"</TabsContent>\n  </Tabs>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3113,7 +3133,7 @@
     "pillar": "tabs",
     "primitive_src": "//! @canon-level: strict\n//! @canon-owner: primitives-team\n//! Tabs Primitive - data-rs-state SSR + behavior\n\nuse leptos::prelude::*;\nuse crate::meta::{ActivityState, DisabledState};\nuse crate::infra::state_engine::{activity_attrs, disabled_attrs};\n\n#[derive(Clone, Copy, PartialEq, Default, Debug)]\npub enum TabsOrientation {\n    #[default]\n    Horizontal,\n    Vertical,\n}\nimpl TabsOrientation {\n    pub fn as_str(&self) -> &'static str {\n        match self { Self::Horizontal => \"horizontal\", Self::Vertical => \"vertical\" }\n    }\n}\n\n#[component]\npub fn TabsPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div\n            data-rs-tabs=\"\"\n            data-rs-component=\"Tabs\"\n            data-rs-behavior=\"navigation\"\n            class=class\n        >\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn TabsListPrimitive(\n    children: Children,\n    #[prop(default = TabsOrientation::Horizontal)] orientation: TabsOrientation,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div\n            data-rs-tabs-list=\"\"\n            role=\"tablist\"\n            aria-orientation=orientation.as_str()\n            class=class\n        >\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn TabsTriggerPrimitive(\n    children: Children,\n    #[prop(into)] value: String,\n    #[prop(default = ActivityState::Inactive)] active: ActivityState,\n    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    let s = activity_attrs(active);\n    let d = disabled_attrs(disabled);\n    view! {\n        <button\n            type=\"button\"\n            role=\"tab\"\n            data-rs-tabs-trigger=\"\"\n            data-rs-value=value\n            data-rs-state=s.data_rs_state\n            data-rs-disabled=d.data_rs_disabled\n            aria-selected=s.aria_selected\n            aria-disabled=d.aria_disabled\n            class=class\n        >\n            {children()}\n        </button>\n    }\n}\n\n#[component]\npub fn TabsContentPrimitive(\n    children: Children,\n    #[prop(into)] value: String,\n    #[prop(default = ActivityState::Inactive)] active: ActivityState,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    let s = activity_attrs(active);\n    view! {\n        <div\n            data-rs-tabs-content=\"\"\n            data-rs-value=value\n            data-rs-state=s.data_rs_state\n            role=\"tabpanel\"\n            hidden=s.hidden\n            class=class\n        >\n            {children()}\n        </div>\n    }\n}\n",
     "ui_src": "\nuse leptos::prelude::*;\nuse canonrs_core::meta::ActivityState;\nuse canonrs_core::primitives::{\n    TabsPrimitive, TabsListPrimitive,\n    TabsTriggerPrimitive, TabsContentPrimitive,\n};\n\n#[component]\npub fn Tabs(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <TabsPrimitive class=class>\n            {children()}\n        </TabsPrimitive>\n    }\n}\n\n#[component]\npub fn TabsList(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <TabsListPrimitive class=class>\n            {children()}\n        </TabsListPrimitive>\n    }\n}\n\n#[component]\npub fn TabsTrigger(\n    #[prop(into)] value: String,\n    children: Children,\n    #[prop(default = ActivityState::Inactive)] active: ActivityState,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <TabsTriggerPrimitive value=value active=active class=class>\n            {children()}\n        </TabsTriggerPrimitive>\n    }\n}\n\n#[component]\npub fn TabsContent(\n    #[prop(into)] value: String,\n    children: Children,\n    #[prop(default = ActivityState::Inactive)] active: ActivityState,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <TabsContentPrimitive value=value active=active class=class>\n            {children()}\n        </TabsContentPrimitive>\n    }\n}\n\n#[component]\npub fn TabsPreview() -> impl IntoView {\n    view! {\n        <Tabs>\n            <TabsList>\n                <TabsTrigger value=\"tab1\" active=ActivityState::Active>\"Tab 1\"</TabsTrigger>\n                <TabsTrigger value=\"tab2\">\"Tab 2\"</TabsTrigger>\n            </TabsList>\n            <TabsContent value=\"tab1\" active=ActivityState::Active>\"Content 1\"</TabsContent>\n            <TabsContent value=\"tab2\">\"Content 2\"</TabsContent>\n        </Tabs>\n    }\n}\n",
-    "island_src": ""
+    "island_src": "use leptos::prelude::*;\n\n#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]\npub struct TabItem {\n    pub value:    String,\n    pub label:    String,\n    pub content:  String,\n    pub disabled: bool,\n}\n\n#[island]\npub fn TabsIsland(\n    tabs: Vec<TabItem>,\n    #[prop(into)] active: String,\n    #[prop(optional, into)] class: Option<String>,\n) -> impl IntoView {\n    let class = class.unwrap_or_default();\n    let (active_tab, set_active_tab) = signal(active.clone());\n\n    let initial_state_trigger = |value: &str| -> String {\n        if value == active { \"active\".into() } else { \"inactive\".into() }\n    };\n\n    let initial_state_content = |value: &str| -> String {\n        if value == active { \"active\".into() } else { \"inactive\".into() }\n    };\n\n    let triggers_view = tabs.iter().map(|tab| {\n        let value     = tab.value.clone();\n        let label     = tab.label.clone();\n        let disabled  = tab.disabled;\n        let initial   = initial_state_trigger(&value);\n\n        let on_click = {\n            let value = value.clone();\n            move |_: leptos::ev::MouseEvent| {\n                if !disabled { set_active_tab.set(value.clone()); }\n            }\n        };\n\n        #[cfg(feature = \"hydrate\")]\n        let on_keydown = {\n            let value = value.clone();\n            move |e: leptos::ev::KeyboardEvent| {\n                match e.key().as_str() {\n                    \"Enter\" | \" \" => {\n                        e.prevent_default();\n                        if !disabled { set_active_tab.set(value.clone()); }\n                    }\n                    _ => {}\n                }\n            }\n        };\n        #[cfg(not(feature = \"hydrate\"))]\n        let on_keydown = move |_: leptos::ev::KeyboardEvent| {};\n\n        let item_state = {\n            let value = value.clone();\n            move || if active_tab.get() == value { \"active\".to_string() } else { \"inactive\".to_string() }\n        };\n\n        view! {\n            <button\n                type=\"button\"\n                role=\"tab\"\n                data-rs-tabs-trigger=\"\"\n                data-rs-value=value.clone()\n                data-rs-state=move || { let s = item_state(); if s.is_empty() { initial.clone() } else { s } }\n                aria-selected=move || (active_tab.get() == value).to_string()\n                aria-disabled=disabled.to_string()\n                disabled=disabled\n                on:click=on_click\n                on:keydown=on_keydown\n            >\n                {label}\n            </button>\n        }\n    }).collect::<Vec<_>>();\n\n    let contents_view = tabs.iter().map(|tab| {\n        let value    = tab.value.clone();\n        let content  = tab.content.clone();\n        let initial  = initial_state_content(&value);\n\n        let item_state = {\n            let value = value.clone();\n            move || if active_tab.get() == value { \"active\".to_string() } else { \"inactive\".to_string() }\n        };\n\n        let is_hidden = {\n            let value = value.clone();\n            move || active_tab.get() != value\n        };\n\n        view! {\n            <div\n                data-rs-tabs-content=\"\"\n                data-rs-value=value.clone()\n                data-rs-state=move || { let s = item_state(); if s.is_empty() { initial.clone() } else { s } }\n                role=\"tabpanel\"\n                hidden=is_hidden\n            >\n                {content}\n            </div>\n        }\n    }).collect::<Vec<_>>();\n\n    view! {\n        <div\n            data-rs-tabs=\"\"\n            data-rs-component=\"Tabs\"\n            class=class\n        >\n            <div\n                data-rs-tabs-list=\"\"\n                role=\"tablist\"\n                aria-orientation=\"horizontal\"\n            >\n                {triggers_view}\n            </div>\n            {contents_view}\n        </div>\n    }\n}\n\n#[derive(Clone, Debug, PartialEq)]\npub struct TabsContext(pub RwSignal<String>);\n\n#[island]\npub fn TabsRootIsland(\n    children: Children,\n    #[prop(into)] initial: String,\n) -> impl IntoView {\n    let active = RwSignal::new(initial);\n    provide_context(TabsContext(active));\n    view! {\n        <div data-rs-tabs=\"\" data-rs-component=\"Tabs\">\n            {children()}\n        </div>\n    }\n}\n\n#[island]\npub fn TabsTriggerIsland(\n    children: Children,\n    #[prop(into)] value: String,\n    #[prop(optional)] disabled: Option<bool>,\n) -> impl IntoView {\n    use canonrs_core::meta::ActivityState;\n    let disabled = disabled.unwrap_or(false);\n    let ctx = use_context::<TabsContext>();\n    let value2 = value.clone();\n\n    let signal = ctx.as_ref().map(|TabsContext(a)| *a);\n    let value3 = value2.clone();\n    let state = move || {\n        signal.map(|a| if a.get() == value2 { ActivityState::Active.as_str() } else { ActivityState::Inactive.as_str() })\n              .unwrap_or(ActivityState::Inactive.as_str())\n    };\n    let is_active = move || signal.map(|a| a.get() == value3).unwrap_or(false);\n\n    #[cfg(feature = \"hydrate\")]\n    let on_click = {\n        let value = value.clone();\n        let ctx = ctx.clone();\n        move |_: leptos::ev::MouseEvent| {\n            if !disabled {\n                if let Some(TabsContext(active)) = ctx.as_ref() {\n                    active.set(value.clone());\n                }\n            }\n        }\n    };\n    #[cfg(not(feature = \"hydrate\"))]\n    let on_click = move |_: leptos::ev::MouseEvent| {};\n\n    view! {\n        <button\n            type=\"button\"\n            role=\"tab\"\n            data-rs-tabs-trigger=\"\"\n            data-rs-value=value.clone()\n            data-rs-state=state\n            aria-selected=is_active\n            disabled=disabled\n            on:click=on_click\n        >\n            {children()}\n        </button>\n    }\n}\n\n#[island]\npub fn TabsContentIsland(\n    children: Children,\n    #[prop(into)] value: String,\n) -> impl IntoView {\n    let ctx = use_context::<TabsContext>();\n    let value2 = value.clone();\n\n    use canonrs_core::meta::ActivityState;\n    let signal = ctx.as_ref().map(|TabsContext(a)| *a);\n    let value3 = value2.clone();\n    let state = move || {\n        signal.map(|a| if a.get() == value2 { ActivityState::Active.as_str() } else { ActivityState::Inactive.as_str() })\n              .unwrap_or(ActivityState::Inactive.as_str())\n    };\n    let hidden = move || signal.map(|a| a.get() != value3).unwrap_or(true);\n\n    view! {\n        <div\n            data-rs-tabs-content=\"\"\n            data-rs-value=value\n            data-rs-state=state\n            hidden=hidden\n            role=\"tabpanel\"\n        >\n            {children()}\n        </div>\n    }\n}\n"
   },
   {
     "id": "textarea",
@@ -3123,9 +3143,9 @@
     "keywords": "",
     "pain": "Textarea misses required, readonly and aria attributes consistency",
     "promise": "All form states mapped directly to DOM and ARIA",
-    "why": "TextareaPrimitive encodes disabled, readonly and required into both DOM and ARIA attributes. Label and description linkage is explicit. This guarantees accessible multi-line input behavior.",
-    "before": "// ❌ Typical\nview! {\n  <textarea placeholder=\"Type...\"></textarea>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Textarea placeholder=\"Type...\" required=true />\n}",
+    "why": "TextareaPrimitive encodes disabled, readonly and required into both DOM and ARIA attributes. Label and description linkage is explicit. This guarantees accessible multi-line input behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <textarea placeholder=\"Type...\"></textarea>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Textarea placeholder=\"Type...\" required=true />\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3165,9 +3185,9 @@
     "keywords": "",
     "pain": "Notifications misuse urgency, role and lifecycle behavior",
     "promise": "Variant enforces correct role and aria-live automatically",
-    "why": "ToastVariant defines role and aria-live behavior per type. Lifecycle and visibility are encoded structurally. This guarantees correct notification semantics and timing.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"toast error\">\"Error\"</div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Toast variant=ToastVariant::Error>\n    <ToastTitle>\"Error\"</ToastTitle>\n  </Toast>\n}",
+    "why": "ToastVariant defines role and aria-live behavior per type. Lifecycle and visibility are encoded structurally. This guarantees correct notification semantics and timing.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"toast error\">\"Error\"</div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Toast variant=ToastVariant::Error>\n    <ToastTitle>\"Error\"</ToastTitle>\n  </Toast>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3204,9 +3224,9 @@
     "keywords": "",
     "pain": "Toggle buttons desync pressed state and visual representation",
     "promise": "Pressed state mapped directly to DOM and interaction state",
-    "why": "TogglePrimitive maps ToggleState to data-rs-state and checkbox checked state. Disabled and aria-label are enforced. This guarantees consistent toggle behavior.",
-    "before": "// ❌ Typical\nview! {\n  <button class=\"active\">\"On\"</button>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Toggle pressed=true>\"On\"</Toggle>\n}",
+    "why": "TogglePrimitive maps ToggleState to data-rs-state and checkbox checked state. Disabled and aria-label are enforced. This guarantees consistent toggle behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <button class=\"active\">\"On\"</button>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Toggle pressed=true>\"On\"</Toggle>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3240,9 +3260,9 @@
     "keywords": "",
     "pain": "Grouped toggles lack exclusivity and shared disabled state",
     "promise": "Group behavior and selection mode enforced structurally",
-    "why": "ToggleGroupPrimitive encodes multiple selection and disabled state at container level. Child toggles inherit behavior. This guarantees consistent grouped interactions.",
-    "before": "// ❌ Typical\nview! {\n  <div>\n    <button>\"A\"</button>\n    <button>\"B\"</button>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <ToggleGroup multiple=false>\n    <Toggle>\"A\"</Toggle>\n  </ToggleGroup>\n}",
+    "why": "ToggleGroupPrimitive encodes multiple selection and disabled state at container level. Child toggles inherit behavior. This guarantees consistent grouped interactions.\n",
+    "before": "// ❌ Typical\nview! {\n  <div>\n    <button>\"A\"</button>\n    <button>\"B\"</button>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <ToggleGroup multiple=false>\n    <Toggle>\"A\"</Toggle>\n  </ToggleGroup>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3276,9 +3296,9 @@
     "keywords": "",
     "pain": "Action groups lack orientation and accessibility semantics",
     "promise": "Toolbar role and orientation enforced via contract",
-    "why": "ToolbarPrimitive encodes orientation and role=\"toolbar\". ARIA labeling is explicit. This guarantees accessible grouping of actions.",
-    "before": "// ❌ Typical\nview! {\n  <div class=\"toolbar\">\n    <button>\"Bold\"</button>\n  </div>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Toolbar aria_label=\"Editor\">\n    <button>\"Bold\"</button>\n  </Toolbar>\n}",
+    "why": "ToolbarPrimitive encodes orientation and role=\"toolbar\". ARIA labeling is explicit. This guarantees accessible grouping of actions.\n",
+    "before": "// ❌ Typical\nview! {\n  <div class=\"toolbar\">\n    <button>\"Bold\"</button>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Toolbar aria_label=\"Editor\">\n    <button>\"Bold\"</button>\n  </Toolbar>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3315,9 +3335,9 @@
     "keywords": "",
     "pain": "Tooltip requires id wiring and loses sync between trigger and content",
     "promise": "Trigger-content relationship enforced without manual wiring",
-    "why": "TooltipPrimitive uses visibility state and DOM structure instead of ids. aria-describedby is optional but supported. This guarantees consistent overlay behavior.",
-    "before": "// ❌ Typical\nview! {\n  <span title=\"Info\">\"Hover\"</span>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Tooltip>\n    <TooltipTrigger>\"Hover\"</TooltipTrigger>\n    <TooltipContent>\"Info\"</TooltipContent>\n  </Tooltip>\n}",
+    "why": "TooltipPrimitive uses visibility state and DOM structure instead of ids. aria-describedby is optional but supported. This guarantees consistent overlay behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <span title=\"Info\">\"Hover\"</span>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Tooltip>\n    <TooltipTrigger>\"Hover\"</TooltipTrigger>\n    <TooltipContent>\"Info\"</TooltipContent>\n  </Tooltip>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3357,9 +3377,9 @@
     "keywords": "",
     "pain": "Tree structures lose selection, expansion and focus consistency",
     "promise": "Hierarchy state fully governed via structured attributes",
-    "why": "TreePrimitive and TreeItemPrimitive encode selection, focus and expansion via data attributes. ARIA roles are enforced. This guarantees accessible hierarchical navigation.",
-    "before": "// ❌ Typical\nview! {\n  <ul>\n    <li>\"Item\"</li>\n  </ul>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <Tree>\n    <TreeItem has_children=true>\"Item\"</TreeItem>\n  </Tree>\n}",
+    "why": "TreePrimitive and TreeItemPrimitive encode selection, focus and expansion via data attributes. ARIA roles are enforced. This guarantees accessible hierarchical navigation.\n",
+    "before": "// ❌ Typical\nview! {\n  <ul>\n    <li>\"Item\"</li>\n  </ul>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Tree>\n    <TreeItem has_children=true>\"Item\"</TreeItem>\n  </Tree>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"
@@ -3396,9 +3416,9 @@
     "keywords": "",
     "pain": "Large lists render all items causing performance degradation",
     "promise": "List virtualization enforced structurally for large datasets",
-    "why": "VirtualListPrimitive encodes list structure and item indexing. Viewport and content separation enable virtualization logic. This guarantees scalable rendering.",
-    "before": "// ❌ Typical\nview! {\n  <ul>\n    {items.map(|i| view! { <li>{i}</li> })}\n  </ul>\n}",
-    "after": "// ✅ CanonRS\nview! {\n  <VirtualList items_count=1000 item_height=40.0>\n    \"Item\"\n  </VirtualList>\n}",
+    "why": "VirtualListPrimitive encodes list structure and item indexing. Viewport and content separation enable virtualization logic. This guarantees scalable rendering.\n",
+    "before": "// ❌ Typical\nview! {\n  <ul>\n    {items.map(|i| view! { <li>{i}</li> })}\n  </ul>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <VirtualList items_count=1000 item_height=40.0>\n    \"Item\"\n  </VirtualList>\n}\n",
     "rules": [
       "CR-001",
       "CR-004"

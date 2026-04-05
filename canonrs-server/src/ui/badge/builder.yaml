@@ -1,0 +1,38 @@
+id: badge
+label: Badge
+family: family-e-feedback
+category: Display
+intent: Display status, count or label
+description: Status badge label
+composable: false
+capabilities: 
+required_parts: []
+optional_parts: []
+tags: ["badge", "tag", "status", "label", "notification"]
+keywords: 
+pain: Badges mix interactive and static behavior without clear intent
+promise: Interactivity explicitly defined and enforced by type
+why: |
+  BadgeInteractivity defines whether the badge is static or interactive. The primitive encodes this into data attributes, preventing misuse. This ensures consistent semantics and avoids accidental clickable badges.
+rules: ["CR-001", "CR-004"]
+use_cases: ["status labels", "notifications"]
+related: ["avatar", "icon", "logo", "code_block", "markdown", "chart", "stat", "inline_meta", "kbd", "carousel"]
+file: badge_ui.css
+tokens: badge-*, space-*, radius-*, font-*, motion-*
+foundation: spacing, radius, typography, motion
+states: []
+island: badge_island.rs
+pillar: content_display
+badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
+before: |
+  // ❌ Typical
+  view! {
+    <span class="badge clickable">"New"</span>
+  }
+after: |
+  // ✅ CanonRS
+  view! {
+    <Badge interactivity=BadgeInteractivity::Static>
+      "New"
+    </Badge>
+  }

@@ -1,0 +1,34 @@
+id: input-otp
+label: OTP Input
+family: family-c-forms
+category: Form
+intent: Capture one-time password codes
+description: One-time password input
+composable: false
+capabilities: 
+required_parts: []
+optional_parts: []
+tags: ["input-otp", "otp", "code", "verification", "sms", "token", "pin"]
+keywords: 
+pain: OTP inputs require complex state sync across multiple fields
+promise: OTP slots and active state managed automatically
+why: |
+  InputOtp distributes value across slots using ActivityState. Each slot reflects position and focus without manual logic. This guarantees synchronized UI and input state.
+rules: ["CR-001", "CR-004"]
+use_cases: ["2FA codes", "verification inputs"]
+related: ["form", "input", "input_group", "textarea", "field", "label", "checkbox", "form_error_summary"]
+file: input_otp_ui.css
+tokens: input-otp-*, input-*, forms-*, size-*, space-*, radius-*, font-*
+foundation: spacing, size, radius, typography
+states: ["active"]
+island: input_otp_island.rs
+pillar: form
+badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
+before: |
+  // ❌ Typical
+  // multiple inputs with manual focus handling
+after: |
+  // ✅ CanonRS
+  view! {
+    <InputOtp length=6 />
+  }

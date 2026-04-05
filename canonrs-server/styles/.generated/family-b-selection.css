@@ -50,6 +50,15 @@
   --tabs-trigger-font-weight: var(--font-weight-medium);
   --tabs-trigger-transition-duration: var(--motion-duration-fast);
   --tabs-content-padding: var(--space-md);
+  --tabs-list-gap: var(--space-xs);
+  --tabs-trigger-fg-active: var(--color-primary-foreground);
+  --tabs-trigger-bg-active: var(--theme-action-primary-bg);
+  --tabs-trigger-disabled-opacity: var(--state-disabled-opacity);
+  --tabs-trigger-bg-hover: var(--theme-surface-muted);
+  --tabs-trigger-fg-hover: var(--theme-surface-fg);
+  --tabs-trigger-focus-ring-color: var(--theme-action-primary-bg);
+  --tabs-trigger-focus-ring-width: var(--focus-ring-width);
+  --tabs-trigger-focus-ring-offset: var(--focus-ring-offset);
   --accordion-gap: var(--space-sm);
   --accordion-item-border-width: 1px;
   --accordion-item-border-color: var(--theme-surface-border);

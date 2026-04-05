@@ -1,0 +1,38 @@
+id: modal
+label: Modal
+family: family-a-overlay
+category: Overlay
+intent: Generic modal container
+description: Modal window component
+composable: true
+capabilities: OpenClose, FocusTrap, AriaModal
+required_parts: []
+optional_parts: ["ModalOverlay", "ModalContent", "ModalClose"]
+tags: ["modal", "window", "popup", "overlay", "dialog"]
+keywords: 
+pain: Modals desync visibility, aria-hidden and focus management
+promise: Modal visibility and accessibility fully synchronized via state
+why: |
+  ModalPrimitive maps VisibilityState to aria-hidden and hidden attributes. Trigger and content share the same state contract. This guarantees consistent open/close behavior and accessibility.
+rules: ["CR-001", "CR-004"]
+use_cases: ["dialogs", "overlays"]
+related: ["dialog", "alert_dialog", "drawer", "sheet", "confirm_dialog", "tooltip", "hover_card", "popover"]
+file: modal_ui.css
+tokens: modal-*, dialog-*, space-*, radius-*, shadow-*, motion-*
+foundation: spacing, radius, shadow, motion
+states: ["open", "closed"]
+island: modal_island.rs
+pillar: overlay
+badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
+before: |
+  // ❌ Typical
+  view! {
+    {if open { view! { <div class="modal">"Content"</div> } }}
+  }
+after: |
+  // ✅ CanonRS
+  view! {
+    <Modal state=VisibilityState::Open>
+      <ModalContent>"Content"</ModalContent>
+    </Modal>
+  }

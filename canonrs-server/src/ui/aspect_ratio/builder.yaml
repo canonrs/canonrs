@@ -1,0 +1,40 @@
+id: aspect-ratio
+label: Aspect Ratio
+family: family-h-layout
+category: Display
+intent: Maintain consistent width/height ratio
+description: Aspect ratio container
+composable: false
+capabilities: 
+required_parts: []
+optional_parts: []
+tags: ["aspect-ratio", "ratio", "16:9", "4:3", "image", "video"]
+keywords: 
+pain: Aspect ratios break on resize causing layout shift and inconsistent rendering
+promise: Aspect ratio enforced structurally with no layout drift
+why: |
+  AspectRatioPrimitive encodes width/height ratio in data attributes. The structure guarantees consistent layout regardless of content size. This eliminates runtime calculations and ensures SSR-safe rendering.
+rules: ["CR-001", "CR-004"]
+use_cases: ["video containers", "image previews"]
+related: ["card", "resizable", "scroll_area", "page_header", "toolbar", "separator"]
+file: aspect_ratio_ui.css
+tokens: aspect-ratio-*, size-*
+foundation: size
+states: []
+island: aspect_ratio_island.rs
+pillar: layout
+badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
+before: |
+  // ❌ Typical
+  view! {
+    <div style="position:relative;padding-top:56.25%">
+      <img src="img.png" style="position:absolute;width:100%;height:100%" />
+    </div>
+  }
+after: |
+  // ✅ CanonRS
+  view! {
+    <AspectRatio ratio_w=16.0 ratio_h=9.0>
+      <img src="img.png" />
+    </AspectRatio>
+  }

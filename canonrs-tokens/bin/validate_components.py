@@ -123,7 +123,11 @@ def check_states_in_css(states, css):
     for state in states:
         selector = f'[data-rs-state~="{state}"]'
         if selector not in css:
-            errors.append(f"[STATE-CSS] estado '{state}' declarado mas sem seletor CSS correspondente")
+            errors.append(
+                f"[STATE-CSS] estado '{state}' declarado mas sem seletor CSS correspondente\n"
+                f"            adicione: [data-rs-X][data-rs-state~=\"{state}\"] {{ ... }}\n"
+                f"            use ~= (contém) nao = (exato)"
+            )
     return errors
 
 

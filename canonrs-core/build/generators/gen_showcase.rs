@@ -1,20 +1,34 @@
 //! gen_showcase.rs — gera src/generated/showcase.json
-//! SOURCE: canonrs-server/src/ui/*/builder.md
+//! SOURCE: canonrs-server/src/ui/*/builder.yaml
 
 use std::path::Path;
 use std::fs;
 use crate::build::types::ShowcaseEntry;
-use crate::build::parsers::extract_builder_field;
+use serde::Deserialize;
 
-fn extract_section(content: &str, section: &str) -> String {
-    let marker = format!("## {}", section);
-    if let Some(start) = content.find(&marker) {
-        let rest = &content[start + marker.len()..];
-        let end = rest.find("\n## ").unwrap_or(rest.len());
-        rest[..end].trim().to_string()
-    } else {
-        String::new()
-    }
+#[derive(Debug, Deserialize)]
+#[allow(dead_code)]
+struct BuilderYaml {
+    id:            Option<String>,
+    label:         Option<String>,
+    category:      Option<String>,
+    description:   Option<String>,
+    keywords:      Option<String>,
+    pain:          Option<String>,
+    promise:       Option<String>,
+    why:           Option<String>,
+    before:        Option<String>,
+    after:         Option<String>,
+    rules:         Option<Vec<String>>,
+    use_cases:     Option<Vec<String>>,
+    related:       Option<Vec<String>>,
+    badges:        Option<Vec<String>>,
+    pillar:        Option<String>,
+    file:          Option<String>,
+    tokens:        Option<String>,
+    foundation:    Option<String>,
+    states:        Option<Vec<String>>,
+    island:        Option<String>,
 }
 
 pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
@@ -28,59 +42,67 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
     for entry in dir_entries.flatten() {
         let path = entry.path();
         if !path.is_dir() { continue; }
-        let builder_file = path.join("builder.md");
+
+        let builder_file = path.join("builder.yaml");
         let content = match fs::read_to_string(&builder_file) {
             Ok(c) => c,
             Err(_) => continue,
         };
-        let pain = match extract_builder_field(&content, "pain") {
-            Some(v) => v,
-            None => continue,
+
+        let builder: BuilderYaml = match serde_yaml::from_str(&content) {
+            Ok(b) => b,
+            Err(e) => {
+                println!("cargo:warning=Showcase YAML parse error in {:?}: {}", builder_file, e);
+                continue;
+            }
         };
-        let id          = extract_builder_field(&content, "id").unwrap_or_default();
-        let label       = extract_builder_field(&content, "label").unwrap_or_default();
-        let category    = extract_builder_field(&content, "category").unwrap_or_default();
-        let description = extract_builder_field(&content, "description").unwrap_or_default();
-        let keywords    = extract_builder_field(&content, "keywords").unwrap_or_default();
-        let promise     = extract_builder_field(&content, "promise").unwrap_or_default();
-        let why         = extract_builder_field(&content, "why").unwrap_or_default();
-        let before      = extract_section(&content, "before");
-        let after       = extract_section(&content, "after");
-        let rules       = extract_builder_field(&content, "rules")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
-            .unwrap_or_default();
-        let use_cases   = extract_builder_field(&content, "use_cases")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
-            .unwrap_or_default();
-        let related     = extract_builder_field(&content, "related")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
-            .unwrap_or_default();
-        let badges      = extract_builder_field(&content, "badges")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
-            .unwrap_or_default();
-        let pillar      = extract_builder_field(&content, "pillar").unwrap_or_default();
 
-        // source files — primitive em canonrs-core/src/primitives/
-        let primitives_dir = ui_dir.parent()
-            .and_then(|p| p.parent())
-            .and_then(|p| p.parent())
-            .map(|p| p.join("canonrs-core/src/primitives"))
-            .unwrap_or_default();
-        let primitive_file = primitives_dir.join(format!("{}.rs", id.replace('-', "_")));
-        let primitive_src = std::fs::read_to_string(&primitive_file).unwrap_or_default();
+        let id = match builder.id {
+            Some(v) if !v.is_empty() => v,
+            _ => {
+                println!("cargo:warning=Showcase missing id in {:?}", builder_file);
+                continue;
+            }
+        };
 
-        let ui_src = path.join(format!("{}_ui.rs", id.replace('-', "_")));
-        let ui_src = std::fs::read_to_string(&ui_src).unwrap_or_default();
+        // source files
+        let primitive_src = {
+            let p = ui_dir.parent()
+                .and_then(|p| p.parent())
+                .and_then(|p| p.parent())
+                .map(|p| p.join("canonrs-core/src/primitives"))
+                .unwrap_or_default()
+                .join(format!("{}.rs", id.replace('-', "_")));
+            fs::read_to_string(&p).unwrap_or_default()
+        };
 
-        let island_src = path.join(format!("{}_island.rs", id.replace('-', "_")));
-        let island_src = std::fs::read_to_string(&island_src).unwrap_or_default();
+        let ui_src = fs::read_to_string(
+            path.join(format!("{}_ui.rs", id.replace('-', "_")))
+        ).unwrap_or_default();
+
+        let island_src = fs::read_to_string(
+            path.join(format!("{}_island.rs", id.replace('-', "_")))
+        ).unwrap_or_default();
 
         entries.push(ShowcaseEntry {
-            id, label, category, description, keywords,
-            pain, promise, why, before, after,
-            rules, use_cases, related,
-            badges, pillar,
-            primitive_src, ui_src, island_src,
+            id,
+            label:         builder.label.unwrap_or_default(),
+            category:      builder.category.unwrap_or_default(),
+            description:   builder.description.unwrap_or_default(),
+            keywords:      builder.keywords.unwrap_or_default(),
+            pain:          builder.pain.unwrap_or_default(),
+            promise:       builder.promise.unwrap_or_default(),
+            why:           builder.why.unwrap_or_default(),
+            before:        builder.before.unwrap_or_default(),
+            after:         builder.after.unwrap_or_default(),
+            rules:         builder.rules.unwrap_or_default(),
+            use_cases:     builder.use_cases.unwrap_or_default(),
+            related:       builder.related.unwrap_or_default(),
+            badges:        builder.badges.unwrap_or_default(),
+            pillar:        builder.pillar.unwrap_or_default(),
+            primitive_src,
+            ui_src,
+            island_src,
         });
     }
 
@@ -93,4 +115,5 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
         fs::create_dir_all(parent).ok();
     }
     fs::write(out_path, json).expect("showcase json write failed");
+    println!("cargo:warning=CanonRS Showcase: showcase.json ({} components)", entries.len());
 }

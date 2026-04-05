@@ -62,6 +62,15 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("tabs-trigger-font-weight", "var(--font-weight-medium)"),
     FamilyToken::new("tabs-trigger-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("tabs-content-padding", "var(--space-md)"),
+    FamilyToken::new("tabs-list-gap", "var(--space-xs)"),
+    FamilyToken::new("tabs-trigger-fg-active", "var(--color-primary-foreground)"),
+    FamilyToken::new("tabs-trigger-bg-active", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("tabs-trigger-disabled-opacity", "var(--state-disabled-opacity)"),
+    FamilyToken::new("tabs-trigger-bg-hover", "var(--theme-surface-muted)"),
+    FamilyToken::new("tabs-trigger-fg-hover", "var(--theme-surface-fg)"),
+    FamilyToken::new("tabs-trigger-focus-ring-color", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("tabs-trigger-focus-ring-width", "var(--focus-ring-width)"),
+    FamilyToken::new("tabs-trigger-focus-ring-offset", "var(--focus-ring-offset)"),
 
     // Accordion
     FamilyToken::new("accordion-gap", "var(--space-sm)"),

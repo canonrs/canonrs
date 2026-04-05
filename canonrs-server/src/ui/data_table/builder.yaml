@@ -1,0 +1,38 @@
+id: data-table
+label: Data Table
+family: family-f-data
+category: Data
+intent: Display sortable, filterable tabular data
+description: Sortable data table component
+composable: true
+capabilities: Multiple
+required_parts: []
+optional_parts: ["DataTablePagination", "DataTableToolbar", "DataTableColumn"]
+tags: ["data-table", "table", "data", "grid", "sortable", "filterable"]
+keywords: 
+pain: Tables mix rendering, sorting and state with no structure
+promise: Table structure and sorting semantics enforced at component level
+why: |
+  DataTablePrimitive separates head, body and cells with explicit sort metadata. SelectionState and density are encoded as attributes. This guarantees consistent behavior across all tables.
+rules: ["CR-001", "CR-004"]
+use_cases: ["admin dashboards", "data grids"]
+related: ["table", "virtual_list", "empty_table", "tree", "list_item"]
+file: data_table_ui.css
+tokens: data-table-*, datatable-*, table-*, space-*, border-*, font-*, radius-*, motion-*
+foundation: spacing, radius, border, motion, typography
+states: ["loading", "error", "selected"]
+island: data_table_island.rs
+pillar: data
+badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
+before: |
+  // ❌ Typical
+  view! {
+    <table>
+      <tr><td>"A"</td></tr>
+    </table>
+  }
+after: |
+  // ✅ CanonRS
+  view! {
+    <DataTableCore data=data columns=columns />
+  }

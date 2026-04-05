@@ -1,0 +1,36 @@
+id: spinner
+label: Spinner
+family: family-e-feedback
+category: Feedback
+intent: Indicate loading or processing
+description: Loading spinner
+composable: false
+capabilities: 
+required_parts: []
+optional_parts: []
+tags: ["spinner", "loading", "circular", "wait"]
+keywords: 
+pain: Loading indicators lack consistent size and accessibility state
+promise: Spinner state and size strictly controlled via enums
+why: |
+  SpinnerPrimitive encodes size and LoadingState into ARIA attributes. aria-busy and role=status are enforced. This guarantees accessible loading indicators.
+rules: ["CR-001", "CR-004"]
+use_cases: ["loading indicators", "async feedback"]
+related: ["progress", "skeleton", "pulse", "loading_overlay", "doc_progress"]
+file: spinner_ui.css
+tokens: spinner-*, size-*, motion-*
+foundation: size, motion
+states: ["loading"]
+island: spinner_island.rs
+pillar: progress
+badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
+before: |
+  // ❌ Typical
+  view! {
+    <div class="spinner"></div>
+  }
+after: |
+  // ✅ CanonRS
+  view! {
+    <Spinner size=SpinnerSize::Large />
+  }

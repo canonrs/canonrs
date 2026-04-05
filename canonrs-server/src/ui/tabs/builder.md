@@ -21,7 +21,7 @@ related: table_of_contents
 
 
 file: tabs_ui.css
-tokens: tabs-*, tab-*, space-*, radius-*, font-*, motion-*
+tokens: tabs-*, space-*, radius-*, font-*, motion-*
 foundation: spacing, radius, motion, typography
 states: active, inactive, disabled
 island: tabs_island.rs

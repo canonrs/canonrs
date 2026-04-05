@@ -1,0 +1,38 @@
+id: loading-overlay
+label: Loading Overlay
+family: family-e-feedback
+category: Display
+intent: Block UI during async operations
+description: Full loading overlay
+composable: false
+capabilities: OpenClose
+required_parts: []
+optional_parts: []
+tags: ["loading-overlay", "loading", "overlay", "wait", "spinner", "block"]
+keywords: 
+pain: Loading states require manual visibility and aria synchronization
+promise: Loading visibility and aria-busy managed automatically
+why: |
+  LoadingOverlayPrimitive maps LoadingState to visibility and ARIA attributes. Overlay visibility is derived automatically. This guarantees consistent loading feedback without manual logic.
+rules: ["CR-001", "CR-004"]
+use_cases: ["async operations", "page blocking"]
+related: ["progress", "spinner", "skeleton", "pulse", "doc_progress"]
+file: loading_overlay_ui.css
+tokens: loading-overlay-*, motion-*, font-*
+foundation: motion, z, blur
+states: ["loading"]
+island: loading_overlay_island.rs
+pillar: progress
+badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
+before: |
+  // ❌ Typical
+  view! {
+    {if loading { view! { <div class="overlay">"Loading"</div> } }}
+  }
+after: |
+  // ✅ CanonRS
+  view! {
+    <LoadingOverlay state=LoadingState::Loading>
+      "Content"
+    </LoadingOverlay>
+  }
