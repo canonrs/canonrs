@@ -6,7 +6,7 @@
   display: inline-flex;
   align-items: center;
   width: 100%;
-  height: var(--input-height);
+  height: var(--input-md-height);
   padding: var(--input-padding-y) var(--input-padding-x);
   background: var(--input-bg);
   color: var(--input-fg);
@@ -52,6 +52,7 @@
 [data-rs-input][data-rs-state~="focus"] {
   outline: var(--input-focus-ring-width) solid var(--input-focus-ring-color);
   outline-offset: var(--input-focus-ring-offset);
+  box-shadow: var(--input-focus-ring-shadow);
 }
 
 [data-rs-input][data-rs-state~="disabled"] {

@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::input_ui::Input;
+use super::input_island::InputIsland;
 use canonrs_core::primitives::{InputVariant, InputSize};
 use canonrs_core::meta::DisabledState;
 
@@ -8,7 +9,7 @@ pub fn InputShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Input placeholder="Type something..." />
+                <InputIsland placeholder="Type something..." />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Variant and size strictly constrained via typed enums."
