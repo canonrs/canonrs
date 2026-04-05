@@ -98,6 +98,9 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("pagination-item-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("pagination-item-transition-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("pagination-ellipsis-fg", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("pagination-item-bg-hover", "var(--theme-surface-muted)"),
+    FamilyToken::new("pagination-item-bg-active", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("pagination-item-fg-active", "var(--color-primary-foreground)"),
 
     // ── Table of Contents ─────────────────────────────────────────────────────
     FamilyToken::new("toc-width",                    "var(--layout-width-toc)"),

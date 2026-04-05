@@ -84,6 +84,9 @@
   --pagination-item-transition-duration: var(--motion-duration-fast);
   --pagination-item-transition-ease: var(--motion-ease-standard);
   --pagination-ellipsis-fg: var(--theme-surface-fg-muted);
+  --pagination-item-bg-hover: var(--theme-surface-muted);
+  --pagination-item-bg-active: var(--theme-action-primary-bg);
+  --pagination-item-fg-active: var(--color-primary-foreground);
   --toc-width: var(--layout-width-toc);
   --toc-bg: transparent;
   --toc-gap: var(--space-xs);
