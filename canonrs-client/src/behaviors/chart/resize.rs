@@ -1,3 +1,4 @@
+#![cfg(feature = "hydrate")]
 //! Chart Resize Observer
 
 #[cfg(feature = "hydrate")]

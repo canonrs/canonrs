@@ -2,32 +2,62 @@
 
 [data-rs-tooltip] {
   position: relative;
+  display: inline-flex;
+}
+
+[data-rs-tooltip-trigger] {
+  cursor: default;
 }
 
 [data-rs-tooltip-content] {
+  position: absolute;
   z-index: var(--tooltip-z-index);
   background: var(--tooltip-bg);
   color: var(--tooltip-fg);
-  padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
+  padding: var(--tooltip-padding);
   border-radius: var(--tooltip-radius);
   font-size: var(--tooltip-font-size);
+  font-weight: var(--tooltip-font-weight);
   box-shadow: var(--tooltip-shadow);
   max-width: var(--tooltip-max-width);
+  white-space: nowrap;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.15s, visibility 0.15s;
+  transition: opacity var(--tooltip-transition-duration, var(--motion-duration-fast)) var(--tooltip-transition-ease, var(--motion-ease-standard)),
+    visibility var(--tooltip-transition-duration, var(--motion-duration-fast)) var(--tooltip-transition-ease, var(--motion-ease-standard));
 }
 
-[data-rs-tooltip-content][data-rs-state="open"] {
+/* Top (default) */
+[data-rs-tooltip-content][data-rs-side="top"],
+[data-rs-tooltip-content]:not([data-rs-side]) {
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Bottom */
+[data-rs-tooltip-content][data-rs-side="bottom"] {
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Left */
+[data-rs-tooltip-content][data-rs-side="left"] {
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Right */
+[data-rs-tooltip-content][data-rs-side="right"] {
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+[data-rs-tooltip-content][data-rs-state~="open"] {
   opacity: 1;
   visibility: visible;
-}
-
-[data-rs-tooltip-arrow] {
-  position: absolute;
-  width: var(--tooltip-arrow-size);
-  height: var(--tooltip-arrow-size);
-  background: var(--tooltip-bg);
-  transform: rotate(45deg);
 }

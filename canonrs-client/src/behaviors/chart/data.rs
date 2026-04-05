@@ -1,3 +1,4 @@
+#![cfg(feature = "hydrate")]
 //! Chart Data - parse e leitura de dados
 
 #[cfg(feature = "hydrate")]

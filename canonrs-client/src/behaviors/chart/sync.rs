@@ -1,3 +1,4 @@
+#![cfg(feature = "hydrate")]
 //! Chart ↔ DataTable sync
 
 #[cfg(feature = "hydrate")]

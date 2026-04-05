@@ -32,6 +32,45 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("dialog-close-fg-hover",           "var(--theme-surface-fg)"),
     FamilyToken::new("dialog-transition-duration",      "var(--motion-duration-normal)"),
 
+    // Popover
+    FamilyToken::new("popover-bg",               "var(--theme-surface-bg)"),
+    FamilyToken::new("popover-fg",               "var(--theme-surface-fg)"),
+    FamilyToken::new("popover-border-color",     "var(--theme-surface-border)"),
+    FamilyToken::new("popover-border-width",     "1px"),
+    FamilyToken::new("popover-radius",           "var(--radius-md)"),
+    FamilyToken::new("popover-shadow",           "var(--shadow-lg)"),
+    FamilyToken::new("popover-padding",          "var(--space-md)"),
+    FamilyToken::new("popover-width",            "18rem"),
+    FamilyToken::new("popover-z-index",          "var(--layer-overlay)"),
+    FamilyToken::new("popover-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("popover-transition-ease",  "var(--motion-ease-standard)"),
+
+    // HoverCard
+    FamilyToken::new("hover-card-bg",               "var(--theme-surface-bg)"),
+    FamilyToken::new("hover-card-fg",               "var(--theme-surface-fg)"),
+    FamilyToken::new("hover-card-border-color",     "var(--theme-surface-border)"),
+    FamilyToken::new("hover-card-border-width",     "1px"),
+    FamilyToken::new("hover-card-radius",           "var(--radius-md)"),
+    FamilyToken::new("hover-card-shadow",           "var(--shadow-lg)"),
+    FamilyToken::new("hover-card-padding",          "var(--space-md)"),
+    FamilyToken::new("hover-card-width",            "20rem"),
+    FamilyToken::new("hover-card-z-index",          "var(--layer-overlay)"),
+    FamilyToken::new("hover-card-transition-duration", "var(--motion-duration-fast)"),
+    FamilyToken::new("hover-card-transition-ease",  "var(--motion-ease-standard)"),
+
+    // Tooltip
+    FamilyToken::new("tooltip-bg",                "var(--theme-surface-fg)"),
+    FamilyToken::new("tooltip-fg",                "var(--theme-surface-bg)"),
+    FamilyToken::new("tooltip-padding",           "var(--space-xs) var(--space-sm)"),
+    FamilyToken::new("tooltip-radius",            "var(--radius-sm)"),
+    FamilyToken::new("tooltip-font-size",         "var(--font-size-xs)"),
+    FamilyToken::new("tooltip-font-weight",       "var(--font-weight-medium)"),
+    FamilyToken::new("tooltip-shadow",            "var(--shadow-md)"),
+    FamilyToken::new("tooltip-z-index",           "var(--layer-overlay)"),
+    FamilyToken::new("tooltip-transition-duration","var(--motion-duration-fast)"),
+    FamilyToken::new("tooltip-transition-ease",   "var(--motion-ease-standard)"),
+    FamilyToken::new("tooltip-max-width",         "16rem"),
+
     // ConfirmDialog
     FamilyToken::new("confirm-dialog-overlay-bg",            "var(--color-overlay-50)"),
     FamilyToken::new("confirm-dialog-overlay-z-index",       "var(--layer-overlay)"),

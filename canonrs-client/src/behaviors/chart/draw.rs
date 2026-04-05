@@ -1,3 +1,4 @@
+#![cfg(feature = "hydrate")]
 //! Chart Draw - line, bar, area, donut, grid
 
 #[cfg(feature = "hydrate")]

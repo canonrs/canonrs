@@ -1,3 +1,4 @@
+#![cfg(feature = "hydrate")]
 //! Chart Utils - helpers compartilhados
 
 #[cfg(feature = "hydrate")]

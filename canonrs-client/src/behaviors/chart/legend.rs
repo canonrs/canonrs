@@ -1,3 +1,4 @@
+#![cfg(feature = "hydrate")]
 //! Chart Legend
 
 #[cfg(feature = "hydrate")]

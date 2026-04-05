@@ -1,3 +1,4 @@
+#![cfg(feature = "hydrate")]
 //! Chart Tooltip
 
 #[cfg(feature = "hydrate")]
