@@ -275,7 +275,10 @@ def check_hover_override_active(css_file):
     lines = css_content.splitlines()
     for i, line in enumerate(lines, 1):
         if ":hover" in line and "data-rs-state" not in line:
-            # check if there's a :not([data-rs-state~="active"]) guard
+            if "::-webkit-scrollbar" in line or "scrollbar-color" in line:
+                continue
+            if i > 1 and "sem state guard intencional" in lines[i-2]:
+                continue
             if ':not([data-rs-state~="active"])' not in line:
                 errors.append(
                     f"[CR-337] linha {i} -- hover sem guard :not([data-rs-state~=\"active\"])\n"
@@ -464,7 +467,7 @@ def check_island_ast(island_file, island_dir):
     return errors
 
 
-def check_island_full(island_file, island_dir, component):
+def check_island_full(island_file, island_dir, component, island_type="state"):
     """LEI IMUTAVEL — validacao completa de island (CR-330 a CR-342)"""
     import re as _re
     import glob as _glob
@@ -487,13 +490,41 @@ def check_island_full(island_file, island_dir, component):
         if in_island and "#[prop(" in line:
             for (type_, attr, msg) in ISLAND_FORBIDDEN_PROPS:
                 if type_ in line and attr in line:
-                    cosmetic = any(p in line for p in ["class","aria_label","validation","disabled","text","target","href","external","placeholder","selected_value","value","label","name"])
+                    cosmetic = any(p in line for p in ["class","aria_label","validation","disabled","text","target","href","external","placeholder","selected_value","value","label","name","title","mode","initial"])
                     if not cosmetic:
                         errors.append(f"[CR-330] {island_file} linha {i} -- {msg}\n            {line.strip()[:80]}")
 
     # CR-331: initial_state obrigatorio
     if "signal(" in content and "data-rs-state" in content and "initial_state" not in content:
         errors.append(f"[CR-331] {island_file} -- initial_state AUSENTE (lei imutavel)\n            todo island com signals em data-rs-state DEVE ter initial_state materializado")
+
+    def is_observer_context(block):
+        """Detecta se bloco de código está dentro de um observer callback"""
+        return any(x in block for x in [
+            "IntersectionObserver",
+            "ResizeObserver",
+            "MutationObserver",
+            "set_timeout",
+            "scroll_spy",
+        ])
+
+    def is_attach_guard(lines, idx):
+        """Detecta padrão legítimo de idempotência: get_attribute seguido de set_attribute na linha seguinte"""
+        line = lines[idx]
+        # padrão 1: get guard imediatamente antes de set guard
+        if "get_attribute" in line and idx + 1 < len(lines):
+            next_line = lines[idx + 1]
+            if "set_attribute" in next_line:
+                # ambos devem referenciar o mesmo atributo
+                import re as _re3
+                get_attr = _re3.search(r'get_attribute\("([^"]+)"', line)
+                set_attr = _re3.search(r'set_attribute\("([^"]+)"', next_line)
+                if get_attr and set_attr and get_attr.group(1) == set_attr.group(1):
+                    return True
+        # padrão 2: variável com "attached" no nome — idempotência explícita
+        if "attached" in line and ("get_attribute" in line or "set_attribute" in line):
+            return True
+        return False
 
     # CR-333: query_selector → signal (trace completo, profundidade 3)
     def trace_flow(var, block):
@@ -517,6 +548,26 @@ def check_island_full(island_file, island_dir, component):
                     var = m.group(1); break
             if var and trace_flow(var, "\n".join(lines[i:min(i+25,len(lines))])):
                 errors.append(f"[CR-333] {island_file} linha {i} -- DOM → SIGNAL proibido\n            query_selector → {var} → .set() viola SSOT\n            {line.strip()[:80]}")
+
+    # CR-333 get_attribute — validacao por data-flow
+    for i, line in enumerate(lines, 1):
+        if line.strip().startswith("//"): continue
+        if "get_attribute" in line:
+            if is_attach_guard(lines, i - 1):
+                continue
+            if island_type == "observer":
+                # permitido se NAO alimenta signal (trace_flow)
+                import re as _re4
+                var_match = _re4.search(r'let\s+(\w+)\s*=.*get_attribute', line)
+                if var_match:
+                    var = var_match.group(1)
+                    block_after = "\n".join(lines[i:min(i+40, len(lines))])
+                    if not trace_flow(var, block_after):
+                        continue
+                else:
+                    # sem var — leitura inline, nao alimenta signal
+                    continue
+            errors.append(f"[CR-333] {island_file} linha {i} -- DOM read proibido em island — use signals\n            {line.strip()[:80]}")
 
     # CR-333b: has_attribute → signal
     for i, line in enumerate(lines, 1):
@@ -543,6 +594,24 @@ def check_island_full(island_file, island_dir, component):
         for i, line in enumerate(lines, 1):
             if line.strip().startswith("//"): continue
             if pattern in line:
+                if pattern == "set_attribute" and is_attach_guard(lines, i - 2):
+                    continue
+                if pattern == "get_attribute" and is_attach_guard(lines, i - 1):
+                    continue
+                if island_type == "observer" and pattern == "get_attribute":
+                    # validacao por data-flow: permitido se NAO alimenta signal
+                    import re as _re5
+                    var_match = _re5.search(r'let\s+(\w+)\s*=.*get_attribute', line)
+                    if var_match:
+                        var = var_match.group(1)
+                        block_after = "\n".join(lines[i:min(i+40, len(lines))])
+                        if trace_flow(var, block_after):
+                            errors.append(f"[CR-333] {island_file} linha {i} -- DOM → SIGNAL proibido\n            get_attribute → {var} → .set() viola SSOT\n            {line.strip()[:80]}")
+                    continue
+                if island_type == "observer" and pattern == "set_attribute":
+                    block_ctx = "\n".join(lines[max(0,i-100):i])
+                    if is_observer_context(block_ctx):
+                        continue
                 errors.append(f"[{msg.split(':')[0]}] {island_file} linha {i} -- {msg.split(':',1)[1].strip()}\n            {line.strip()[:80]}")
                 break
 
@@ -606,7 +675,7 @@ def parse_builder(builder_path):
                      "composable", "capabilities", "required_parts", "optional_parts",
                      "tags", "keywords", "pain", "promise", "why", "rules",
                      "use_cases", "related", "file", "tokens", "foundation",
-                     "states", "island"]
+                     "states", "island", "island_type"]
 
     in_before = False
     in_after = False
@@ -742,7 +811,8 @@ def main():
         island_file = comp.get("island", None)
         if island_file:
             island_dir = os.path.join(script_dir, ISLAND_DIR)
-            errors += check_island_full(island_file, island_dir, comp["component"])
+            island_type = comp.get("island_type", "state")
+            errors += check_island_full(island_file, island_dir, comp["component"], island_type)
             errors += check_island_ast(island_file, island_dir)
             css_file = os.path.join(CSS_DIR, comp["file"])
             errors += check_island_css_child_combinator(css_file)

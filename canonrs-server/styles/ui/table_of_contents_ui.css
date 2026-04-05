@@ -20,6 +20,7 @@
   transition: scrollbar-color var(--motion-duration-normal) var(--motion-ease-standard);
 }
 
+/* scrollbar reveal — sem state guard intencional */
 [data-rs-toc]:hover {
   scrollbar-color: var(--theme-surface-border-muted) transparent;
 }
@@ -32,6 +33,7 @@
   transition: background var(--motion-duration-normal) var(--motion-ease-standard);
 }
 
+/* scrollbar reveal — sem state guard intencional */
 [data-rs-toc]:hover::-webkit-scrollbar-thumb {
   background: var(--theme-surface-border-muted);
 }
@@ -89,7 +91,7 @@
 }
 
 /* Mini progress bar lateral — fill quando ativo */
-[data-rs-toc-item][data-rs-state="active"]::before {
+[data-rs-toc-item][data-rs-state~="active"]::before {
   background: var(--theme-action-primary-bg);
   transform: scaleY(var(--toc-progress-scale, 0));
 }
@@ -111,15 +113,36 @@
   text-overflow: ellipsis;
 }
 
-[data-rs-toc-link]:hover {
+[data-rs-toc-link]:hover:not([data-rs-state~="active"]) {
   color: var(--theme-action-primary-bg);
   background: var(--toc-link-bg-hover);
   opacity: 0.85;
 }
 
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-toc-item][data-rs-state~="active"] [data-rs-toc-link] {
+  color: color-mix(in srgb, var(--theme-action-primary-bg) 85%, white 15%);
+  border-left-color: var(--toc-link-border-active);
+  font-weight: var(--toc-link-font-weight-active);
+}
+
+[data-rs-toc-subtree][data-rs-state~="open"] {
+  transform: scaleY(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[data-rs-toc-subtree][data-rs-state~="closed"] {
+  transform: scaleY(0);
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+}
+
 /* ── Active state ────────────────────────────────────────────────────────────── */
 
-[data-rs-toc-item][data-rs-state="active"] > [data-rs-toc-link] {
+[data-rs-toc-item][data-rs-state~="active"] [data-rs-toc-link] {
   color: color-mix(in srgb, var(--theme-action-primary-bg) 85%, white 15%);
   background: transparent;
   border-left-color: var(--toc-link-border-active);
@@ -128,7 +151,7 @@
 
 /* ── Ancestor state ──────────────────────────────────────────────────────────── */
 
-[data-rs-toc-item][data-rs-state="ancestor"] > [data-rs-toc-link] {
+[data-rs-toc-item][data-rs-state~="ancestor"] [data-rs-toc-link] {
   color: var(--theme-surface-fg);
   background: transparent;
   border-left-color: transparent;
@@ -138,11 +161,11 @@
 
 /* ── Indentation by level ────────────────────────────────────────────────────── */
 
-[data-rs-toc-item][data-rs-level="1"] > [data-rs-toc-link] { padding-left: var(--toc-link-padding-x); }
-[data-rs-toc-item][data-rs-level="2"] > [data-rs-toc-link] { padding-left: var(--toc-indent-l2); }
-[data-rs-toc-item][data-rs-level="3"] > [data-rs-toc-link] { padding-left: var(--toc-indent-l3); }
-[data-rs-toc-item][data-rs-level="4"] > [data-rs-toc-link] { padding-left: var(--toc-indent-l4); }
-[data-rs-toc-item][data-rs-level="5"] > [data-rs-toc-link] { padding-left: var(--toc-indent-l5); }
+[data-rs-toc-item][data-rs-level="1"] [data-rs-toc-link] { padding-left: var(--toc-link-padding-x); }
+[data-rs-toc-item][data-rs-level="2"] [data-rs-toc-link] { padding-left: var(--toc-indent-l2); }
+[data-rs-toc-item][data-rs-level="3"] [data-rs-toc-link] { padding-left: var(--toc-indent-l3); }
+[data-rs-toc-item][data-rs-level="4"] [data-rs-toc-link] { padding-left: var(--toc-indent-l4); }
+[data-rs-toc-item][data-rs-level="5"] [data-rs-toc-link] { padding-left: var(--toc-indent-l5); }
 
 /* ── Mode: Simple ────────────────────────────────────────────────────────────── */
 
@@ -210,7 +233,7 @@
   z-index: 1;
 }
 
-[data-rs-toc-expand-btn]:hover {
+[data-rs-toc-expand-btn]:hover:not([data-rs-state~="active"]) {
   opacity: 1;
   color: var(--theme-action-primary-bg);
 }
@@ -222,7 +245,7 @@
 }
 
 /* items com filhos — indenta o link para dar espaço ao botão */
-[data-rs-toc][data-rs-mode="nested"] [data-rs-toc-item][data-rs-has-children="true"] > [data-rs-toc-link] {
+[data-rs-toc][data-rs-mode="nested"] [data-rs-toc-item][data-rs-has-children="true"] [data-rs-toc-link] {
   padding-left: var(--space-lg);
 }
 

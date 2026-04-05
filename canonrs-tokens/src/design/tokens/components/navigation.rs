@@ -160,6 +160,8 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
 
     // TOC level indentation
     FamilyToken::new("toc-indent-l2",                 "var(--space-sm)"),
+    FamilyToken::new("toc-link-bg-hover",             "var(--theme-surface-muted)"),
+    FamilyToken::new("toc-progress-scale",            "0"),
 
     // Tabs
     FamilyToken::new("tabs-gap", "var(--space-sm)"),

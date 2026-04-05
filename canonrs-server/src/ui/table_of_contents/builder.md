@@ -25,6 +25,7 @@ tokens: toc-*, space-*, font-*, radius-*, motion-*
 foundation: spacing, radius, motion, typography
 states: active, open, closed
 island: table_of_contents_island.rs
+island_type: observer
 
 pillar: tabs
 

@@ -7229,3 +7229,91 @@ Always use the descendant combinator (space) when writing selectors that span ac
 
 ---
 
+## CR-334 — Island State Must Propagate Via Context
+
+- **Category:** islands-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+Islands cannot share state via SSR component tree. Passing signals as props is not supported. DOM mutation as a workaround breaks the SSOT principle.
+
+### Solution
+
+Root island publishes state via `provide_context`. Child islands consume via `use_context` captured before any closure.
+
+### Signals
+
+- child island does not react to parent state changes
+- state shared via DOM attributes instead of signals
+- `use_context` called inside event handler closure
+
+---
+
+## CR-335 — Island Must Not Own UI Structure When Content Is Compositional
+
+- **Category:** islands-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+Islands receive `Vec<TabItem { content: String }>` forcing all content to be serialized as plain strings, losing Leptos component composition.
+
+### Solution
+
+Island wraps children via `Children`. SSR defines structure. Island provides context for state.
+
+### Signals
+
+- island prop contains HTML as string
+- `Vec<T>` with content fields passed to island
+- island renders cards, tables, or grids internally
+
+---
+
+## CR-336 — Token References Must Resolve to Existing Design Tokens
+
+- **Category:** tokens
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+`--tabs-trigger-bg-active: var(--theme-primary-bg)` — `--theme-primary-bg` does not exist in the token system. The tab active state renders incorrectly with no build error.
+
+### Solution
+
+Before declaring a token reference, verify the target token exists. Use the same token chain used by equivalent components (e.g. Button primary uses `--theme-action-primary-bg`).
+
+### Signals
+
+- active state renders with wrong color
+- component visually inconsistent with equivalent components
+- no build error despite broken visual
+
+---
+
+## CR-337 — Hover State Must Not Override Active State
+
+- **Category:** css-contracts
+- **Severity:** MEDIUM
+- **Status:** ENFORCED
+
+### Problem
+
+`[data-rs-tabs-trigger]:hover` overrides `[data-rs-tabs-trigger][data-rs-state~="active"]` when the user hovers over the active tab, removing the primary color and replacing it with the muted hover style.
+
+### Solution
+
+All hover selectors on stateful components must exclude the active state via `:not([data-rs-state~="active"])`.
+
+### Signals
+
+- active tab loses its color when hovered
+- selected item visually deselects on mouse-over
+- hover and active styles conflict
+
+---
+

@@ -118,6 +118,8 @@
   --toc-child-max-height: 2.5rem;
   --toc-subtree-indent: var(--space-sm);
   --toc-indent-l2: var(--space-sm);
+  --toc-link-bg-hover: var(--theme-surface-muted);
+  --toc-progress-scale: 0;
   --tabs-gap: var(--space-sm);
   --tabs-border-color: var(--theme-surface-border);
   --tabs-border-width: 1px;
