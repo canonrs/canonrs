@@ -37,13 +37,12 @@
 [data-rs-inline-notice-icon] {
   width: var(--inline-notice-icon-size);
   height: var(--inline-notice-icon-size);
-  color: var(--inline-notice-icon-color);
+  color: var(--inline-notice-fg);
   flex-shrink: 0;
 }
 
 [data-rs-inline-notice-content] {
   flex: 1;
-  font-size: var(--inline-notice-content-font-size);
-  line-height: var(--inline-notice-content-line-height);
-  color: var(--inline-notice-content-fg);
+  font-size: var(--inline-notice-font-size);
+  color: var(--inline-notice-fg);
 }

@@ -1,6 +1,8 @@
 pub mod inline_notice_ui;
+pub mod inline_notice_island;
 pub mod preview;
 pub use inline_notice_ui::*;
+pub use inline_notice_island::{InlineNoticeIsland, InlineNoticeIslandVariant};
 
 #[cfg(feature = "examples")]
 pub mod examples;

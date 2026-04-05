@@ -8,7 +8,7 @@
   gap: var(--callout-gap);
   padding-inline: var(--callout-padding-x);
   padding-block: var(--callout-padding-y);
-  border-left: var(--callout-border-width) solid;
+  border-left: var(--callout-border-accent-width, 4px) solid;
   border-radius: var(--callout-radius);
 }
 
