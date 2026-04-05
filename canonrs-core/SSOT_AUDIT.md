@@ -2,25 +2,101 @@
 
 ## Components
 - Primitives: 89
-- Semantic (components.toml): 88
-- Complete: 83
-- Missing semantic: 6
-- Orphan semantic: 5
+- Semantic (components.toml): 0
+- Complete: 0
+- Missing semantic: 89
+- Orphan semantic: 0
 
 ### Missing semantic
+- `accordion`
+- `alert`
 - `alert-dialog-content`
+- `animate`
+- `aspect-ratio`
+- `avatar`
+- `badge`
+- `banner`
+- `breadcrumb`
+- `button`
+- `button-group`
 - `calendar`
+- `callout`
+- `card`
+- `carousel`
+- `chart`
+- `checkbox`
+- `code-block`
+- `collapsible`
+- `color-picker`
+- `combobox`
+- `command`
+- `confirm-dialog`
+- `context-menu`
+- `copy-button`
+- `data-table`
+- `dialog`
+- `doc-progress`
+- `drawer`
+- `dropdown-menu`
+- `empty-state`
+- `empty-table`
+- `error-state`
+- `field`
+- `form`
+- `form-error-summary`
 - `hero`
+- `hover-card`
+- `icon`
+- `icon-button`
+- `inline-meta`
+- `inline-notice`
+- `input`
+- `input-group`
+- `input-otp`
+- `kbd`
+- `label`
+- `link`
+- `list-item`
+- `loading-overlay`
 - `logo`
+- `markdown`
+- `menu`
+- `menubar`
+- `modal`
+- `nav-item`
 - `navigation-group`
+- `navigation-menu`
+- `page-header`
+- `pagination`
+- `popover`
+- `progress`
+- `pulse`
+- `radio`
+- `radio-group`
+- `resizable`
+- `scroll-area`
 - `section-header`
-
-### Orphan semantic
-- `alert-dialog`
-- `hero-ui`
-- `link-group`
-- `section-ui`
-- `site-logo`
+- `select`
+- `separator`
+- `sheet`
+- `sidebar`
+- `skeleton`
+- `slider`
+- `spinner`
+- `stat`
+- `status-dot`
+- `switch`
+- `table`
+- `table-of-contents`
+- `tabs`
+- `textarea`
+- `toast`
+- `toggle`
+- `toggle-group`
+- `toolbar`
+- `tooltip`
+- `tree`
+- `virtual-list`
 
 ## Blocks
 - Total: 27

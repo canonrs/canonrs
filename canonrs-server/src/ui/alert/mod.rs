@@ -1,7 +1,9 @@
 pub mod alert_ui;
+pub mod alert_island;
 pub mod preview;
 
 pub use alert_ui::*;
+pub use alert_island::{AlertIsland, AlertIslandVariant};
 
 #[cfg(feature = "examples")]
 pub mod examples;
