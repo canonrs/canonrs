@@ -18,7 +18,7 @@
   transition: background var(--collapsible-transition-duration) var(--collapsible-transition-ease);
 }
 
-[data-rs-collapsible-trigger]:hover {
+[data-rs-collapsible-trigger]:hover:not([disabled]):not([data-rs-state~="open"]) {
   background: var(--collapsible-trigger-bg-hover);
 }
 
@@ -27,6 +27,10 @@
   display: none;
 }
 
-[data-rs-collapsible][data-rs-state="open"] [data-rs-collapsible-content] {
+[data-rs-collapsible][data-rs-state~="open"] [data-rs-collapsible-content] {
   display: block;
+}
+
+[data-rs-collapsible][data-rs-state~="closed"] [data-rs-collapsible-content] {
+  display: none;
 }

@@ -103,6 +103,7 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("collapsible-content-padding", "var(--space-sm)"),
     FamilyToken::new("collapsible-transition-duration", "var(--motion-duration-normal)"),
     FamilyToken::new("collapsible-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("collapsible-trigger-bg-hover", "var(--theme-surface-muted)"),
 
     // Combobox
     FamilyToken::new("combobox-bg", "var(--theme-surface-bg)"),

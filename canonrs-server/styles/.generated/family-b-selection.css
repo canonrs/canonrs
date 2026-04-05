@@ -87,6 +87,7 @@
   --collapsible-content-padding: var(--space-sm);
   --collapsible-transition-duration: var(--motion-duration-normal);
   --collapsible-transition-ease: var(--motion-ease-standard);
+  --collapsible-trigger-bg-hover: var(--theme-surface-muted);
   --combobox-bg: var(--theme-surface-bg);
   --combobox-fg: var(--theme-surface-fg);
   --combobox-border-color: var(--theme-surface-border);
