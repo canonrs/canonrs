@@ -5,7 +5,10 @@
 }
 
 [data-rs-dropdown-menu-content] {
-  position: fixed;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--space-2xs);
   z-index: var(--dropdown-menu-z-index);
   background: var(--dropdown-menu-bg);
   color: var(--dropdown-menu-fg);
