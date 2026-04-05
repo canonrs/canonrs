@@ -75,4 +75,9 @@ pub(crate) struct ShowcaseEntry {
     pub rules:       Vec<String>,
     pub use_cases:   Vec<String>,
     pub related:     Vec<String>,
+    pub badges:      Vec<String>,
+    pub pillar:      String,
+    pub primitive_src: String,
+    pub ui_src:        String,
+    pub island_src:    String,
 }

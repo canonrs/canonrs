@@ -24,3 +24,8 @@ pub mod component_definitions {
 }
 pub use component_meta::*;
 pub use block_meta::*;
+
+pub mod showcase {
+    pub const SHOWCASE_JSON: &str = include_str!("showcase.json");
+}
+pub use showcase::SHOWCASE_JSON;

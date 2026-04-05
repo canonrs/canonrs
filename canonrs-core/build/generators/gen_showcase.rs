@@ -55,11 +55,32 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
         let related     = extract_builder_field(&content, "related")
             .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
             .unwrap_or_default();
+        let badges      = extract_builder_field(&content, "badges")
+            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
+            .unwrap_or_default();
+        let pillar      = extract_builder_field(&content, "pillar").unwrap_or_default();
+
+        // source files — primitive em canonrs-core/src/primitives/
+        let primitives_dir = ui_dir.parent()
+            .and_then(|p| p.parent())
+            .and_then(|p| p.parent())
+            .map(|p| p.join("canonrs-core/src/primitives"))
+            .unwrap_or_default();
+        let primitive_file = primitives_dir.join(format!("{}.rs", id.replace('-', "_")));
+        let primitive_src = std::fs::read_to_string(&primitive_file).unwrap_or_default();
+
+        let ui_src = path.join(format!("{}_ui.rs", id.replace('-', "_")));
+        let ui_src = std::fs::read_to_string(&ui_src).unwrap_or_default();
+
+        let island_src = path.join(format!("{}_island.rs", id.replace('-', "_")));
+        let island_src = std::fs::read_to_string(&island_src).unwrap_or_default();
 
         entries.push(ShowcaseEntry {
             id, label, category, description, keywords,
             pain, promise, why, before, after,
             rules, use_cases, related,
+            badges, pillar,
+            primitive_src, ui_src, island_src,
         });
     }
 
