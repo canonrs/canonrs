@@ -32,6 +32,9 @@ fn main() {
 
     println!("\n🔧 Step 3: Generating families...");
     generate_family("family-a-overlay", OVERLAY_TOKENS, generated_path);
+    generate_family("family-a-dialog", DIALOG_TOKENS, generated_path);
+    generate_family("family-a-drawer", DRAWER_TOKENS, generated_path);
+    generate_family("family-a-dropdown", DROPDOWN_TOKENS, generated_path);
     generate_family("family-b-selection", SELECTION_TOKENS, generated_path);
     generate_family("family-c-forms", FORMS_TOKENS, generated_path);
     generate_family("family-d-navigation", NAVIGATION_TOKENS, generated_path);

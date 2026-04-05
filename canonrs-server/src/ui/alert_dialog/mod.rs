@@ -1,7 +1,9 @@
 pub mod alert_dialog_ui;
+pub mod alert_dialog_island;
 pub mod preview;
 
 pub use alert_dialog_ui::*;
+pub use alert_dialog_island::AlertDialogIsland;
 
 #[cfg(feature = "examples")]
 pub mod examples;

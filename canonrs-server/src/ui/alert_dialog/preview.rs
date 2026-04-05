@@ -1,31 +1,18 @@
 use leptos::prelude::*;
-use super::alert_dialog_ui::{
-    AlertDialog, AlertDialogTrigger, AlertDialogPortal, AlertDialogOverlay,
-    AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogClose,
-};
-use crate::ui::button::ButtonVariant;
+use super::alert_dialog_island::AlertDialogIsland;
 
 #[component]
 pub fn AlertDialogShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <AlertDialog>
-                    <AlertDialogTrigger>"Delete account"</AlertDialogTrigger>
-                    <AlertDialogPortal>
-                        <AlertDialogOverlay />
-                        <AlertDialogContent>
-                            <AlertDialogTitle>"Are you absolutely sure?"</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                "This action cannot be undone. Your account and all data will be permanently deleted."
-                            </AlertDialogDescription>
-                            <div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:flex-end;">
-                                <AlertDialogClose>"Cancel"</AlertDialogClose>
-                                <AlertDialogClose variant=ButtonVariant::Destructive>"Delete"</AlertDialogClose>
-                            </div>
-                        </AlertDialogContent>
-                    </AlertDialogPortal>
-                </AlertDialog>
+                <AlertDialogIsland
+                    trigger_label="Delete account"
+                    title="Are you absolutely sure?"
+                    description="This action cannot be undone. Your account will be permanently deleted."
+                    confirm_label="Delete"
+                    cancel_label="Cancel"
+                />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Alertdialog role and accessibility guaranteed by component contract."
@@ -33,22 +20,13 @@ pub fn AlertDialogShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Confirm action"</span>
                 <div data-rs-showcase-preview-row="">
-                    <AlertDialog>
-                        <AlertDialogTrigger variant=ButtonVariant::Outline>"Clear all data"</AlertDialogTrigger>
-                        <AlertDialogPortal>
-                            <AlertDialogOverlay />
-                            <AlertDialogContent>
-                                <AlertDialogTitle>"Clear all data?"</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    "All saved data will be removed. This cannot be recovered."
-                                </AlertDialogDescription>
-                                <div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:flex-end;">
-                                    <AlertDialogClose>"Cancel"</AlertDialogClose>
-                                    <AlertDialogClose variant=ButtonVariant::Primary>"Confirm"</AlertDialogClose>
-                                </div>
-                            </AlertDialogContent>
-                        </AlertDialogPortal>
-                    </AlertDialog>
+                    <AlertDialogIsland
+                        trigger_label="Clear all data"
+                        title="Clear all data?"
+                        description="All saved data will be removed. This cannot be recovered."
+                        confirm_label="Confirm"
+                        cancel_label="Cancel"
+                    />
                 </div>
             </div>
         </div>

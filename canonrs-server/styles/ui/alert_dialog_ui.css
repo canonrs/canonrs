@@ -54,3 +54,37 @@
   display: flex;
   gap: var(--alert-dialog-action-gap);
 }
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-alert-dialog-portal] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--alert-dialog-z-index, var(--layer-overlay));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+[data-rs-alert-dialog][data-rs-state~="open"] [data-rs-alert-dialog-portal] {
+  pointer-events: auto;
+}
+
+[data-rs-alert-dialog][data-rs-state~="closed"] [data-rs-alert-dialog-portal] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+[data-rs-alert-dialog][data-rs-state~="closed"] [data-rs-alert-dialog-overlay],
+[data-rs-alert-dialog][data-rs-state~="closed"] [data-rs-alert-dialog-content] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-rs-alert-dialog-content] {
+  position: relative;
+  top: unset;
+  left: unset;
+  transform: unset;
+}
