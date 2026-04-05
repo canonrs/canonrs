@@ -36,23 +36,27 @@
   cursor: pointer;
 }
 
-[data-rs-command-item]:hover {
+[data-rs-command-item]:hover:not([data-rs-state~="active"]) {
   background: var(--command-item-hover-bg);
 }
 
-[data-rs-command-item][data-rs-selected="true"] {
+[data-rs-command-item][data-rs-state~="active"] {
   background: var(--command-item-selected-bg);
 }
 
-[data-rs-command-item][data-rs-hidden="true"] {
-  display: none;
+[data-rs-command-item][hidden] {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
 }
 
 [data-rs-command-group-heading] {
   color: var(--command-group-heading-fg);
   font-size: var(--command-group-heading-font-size);
   padding: var(--command-group-heading-padding);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 [data-rs-command-separator] {
@@ -65,4 +69,11 @@
   color: var(--command-empty-fg);
   padding: var(--command-empty-padding);
   text-align: center;
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-command-item][data-rs-state~="active"] {
+  background: var(--command-item-active-bg);
+  color: var(--command-item-active-fg);
 }

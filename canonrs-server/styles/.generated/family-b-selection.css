@@ -212,6 +212,14 @@
   --command-group-heading-fg: var(--theme-surface-fg-muted);
   --command-group-heading-font-size: var(--font-size-xs);
   --command-group-heading-padding: var(--space-sm) var(--space-sm);
+  --command-item-active-bg: var(--theme-action-accent-bg);
+  --command-item-active-fg: var(--theme-action-accent-fg);
+  --command-separator-color: var(--theme-surface-border);
+  --command-separator-margin-y: var(--space-xs);
+  --command-empty-fg: var(--theme-surface-fg-muted);
+  --command-empty-padding: var(--space-md);
+  --command-padding: 0;
+  --command-gap: 0;
   --command-separator-color: var(--theme-surface-border);
   --command-separator-margin-y: var(--space-xs);
   --command-empty-fg: var(--theme-surface-fg-muted);
