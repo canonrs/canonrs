@@ -1,38 +1,84 @@
-/* ============================================
-   CONFIRM DIALOG
-   Family F: Overlays + Family A: Actions + Family E: Feedback
-   NOTE: Inherits all dialog.* tokens
-   ============================================ */
+/* CONFIRM DIALOG - Family A Overlay */
+
+[data-rs-confirm-dialog] {
+  display: contents;
+}
+
+[data-rs-confirm-dialog-portal] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--confirm-dialog-overlay-z-index);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-portal] {
+  pointer-events: auto;
+}
+
+[data-rs-confirm-dialog][data-rs-state~="closed"] [data-rs-confirm-dialog-portal] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+[data-rs-confirm-dialog-overlay] {
+  position: fixed;
+  inset: 0;
+  z-index: var(--confirm-dialog-overlay-z-index);
+  background: var(--confirm-dialog-overlay-bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard)),
+    visibility var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard));
+}
+
+[data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-overlay] {
+  opacity: 1;
+  visibility: visible;
+}
+
+[data-rs-confirm-dialog-content] {
+  position: relative;
+  z-index: calc(var(--confirm-dialog-overlay-z-index) + 1);
+  width: var(--confirm-dialog-content-width);
+  max-width: var(--confirm-dialog-content-max-width);
+  background: var(--confirm-dialog-content-bg);
+  color: var(--confirm-dialog-content-fg);
+  padding: var(--confirm-dialog-content-padding);
+  border-radius: var(--confirm-dialog-content-radius);
+  box-shadow: var(--confirm-dialog-content-shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
+  transition: opacity var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard)),
+    transform var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard)),
+    visibility var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard));
+}
+
+[data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-content] {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
 
 [data-rs-confirm-dialog-title] {
   color: var(--confirm-dialog-title-fg);
+  font-size: var(--confirm-dialog-title-font-size);
+  font-weight: var(--confirm-dialog-title-font-weight);
+  margin-bottom: var(--confirm-dialog-header-gap);
 }
 
-[data-rs-confirm-dialog-message] {
-  font-size: var(--confirm-dialog-message-font-size);
-  color: var(--confirm-dialog-message-fg);
+[data-rs-confirm-dialog-description] {
+  color: var(--confirm-dialog-description-fg);
+  font-size: var(--confirm-dialog-description-font-size);
 }
 
-[data-rs-confirm-dialog-actions] {
+[data-rs-confirm-dialog-footer] {
   display: flex;
-  gap: var(--confirm-dialog-actions-gap);
-  margin-top: var(--confirm-dialog-actions-margin-top);
-}
-
-[data-rs-confirm-button] {
-  background: var(--confirm-dialog-confirm-bg);
-  color: var(--confirm-dialog-confirm-fg);
-}
-
-[data-rs-confirm-button]:hover {
-  background: var(--confirm-dialog-confirm-bg-hover);
-}
-
-[data-rs-confirm-button][data-variant="destructive"] {
-  background: var(--confirm-dialog-destructive-bg);
-  color: var(--confirm-dialog-destructive-fg);
-}
-
-[data-rs-confirm-button][data-variant="destructive"]:hover {
-  background: var(--confirm-dialog-destructive-bg-hover);
+  justify-content: flex-end;
+  gap: var(--confirm-dialog-footer-gap);
+  margin-top: var(--confirm-dialog-footer-gap);
 }

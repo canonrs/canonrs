@@ -1,12 +1,13 @@
 use leptos::prelude::*;
-use super::confirm_dialog_ui::ConfirmDialog;
+use super::confirm_dialog_island::ConfirmDialogIsland;
 
 #[component]
 pub fn ConfirmDialogShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <ConfirmDialog
+                <ConfirmDialogIsland
+                    trigger_label="Delete item"
                     title="Delete item"
                     message="Are you sure you want to delete this item? This action cannot be undone."
                     confirm_text="Delete"
@@ -20,7 +21,8 @@ pub fn ConfirmDialogShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Non-destructive"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ConfirmDialog
+                    <ConfirmDialogIsland
+                        trigger_label="Save changes"
                         title="Save changes"
                         message="Do you want to save your changes before leaving?"
                         confirm_text="Save"
