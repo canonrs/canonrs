@@ -201,6 +201,9 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("breadcrumb-transition-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("breadcrumb-collapse-min-width", "12rem"),
     FamilyToken::new("breadcrumb-collapse-max-width", "20rem"),
+    FamilyToken::new("breadcrumb-fg-hover", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("breadcrumb-fg-active", "var(--theme-surface-fg)"),
+    FamilyToken::new("breadcrumb-collapse-border-width", "1px"),
 
     // Link
     FamilyToken::new("link-fg", "var(--theme-action-primary-bg)"),
@@ -249,6 +252,9 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("nav-item-hover-bg", "transparent"),
     FamilyToken::new("nav-item-hover-fg", "var(--theme-action-primary-bg)"),
     FamilyToken::new("nav-item-active-bg", "transparent"),
+    FamilyToken::new("nav-item-active-fg", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("nav-item-focus-ring-width", "var(--state-focus-ring-width)"),
+    FamilyToken::new("nav-item-focus-ring-color", "var(--theme-action-primary-bg)"),
     FamilyToken::new("nav-item-active-fg", "var(--theme-action-primary-bg)"),
 
     // Link Group

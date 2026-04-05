@@ -1,64 +1,30 @@
 use leptos::prelude::*;
-use super::breadcrumb_ui::{
-    Breadcrumb, BreadcrumbItem, BreadcrumbLink,
-    BreadcrumbSeparator, BreadcrumbPage, BreadcrumbEllipsis,
-};
-use canonrs_core::meta::ActivityState;
+use super::breadcrumb_island::{BreadcrumbIsland, BreadcrumbIslandItem};
 
 #[component]
 pub fn BreadcrumbShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">"Home"</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="#">"Components"</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>"Breadcrumb"</BreadcrumbPage>
-                    </BreadcrumbItem>
-                </Breadcrumb>
+                <BreadcrumbIsland items=vec![
+                    BreadcrumbIslandItem { label: "Home".into(),       href: Some("#".into()), is_page: false },
+                    BreadcrumbIslandItem { label: "Components".into(), href: Some("#".into()), is_page: false },
+                    BreadcrumbIslandItem { label: "Breadcrumb".into(), href: None,             is_page: true  },
+                ] />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Current page state enforced via activity state mapping."
             </p>
             <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"With ellipsis"</span>
+                <span data-rs-showcase-preview-label="">"Custom separator"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Breadcrumb>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href="#">"Home"</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
-                        <BreadcrumbEllipsis />
-                        <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href="#">"Components"</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>"Breadcrumb"</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </Breadcrumb>
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"Active link"</span>
-                <div data-rs-showcase-preview-row="">
-                    <Breadcrumb>
-                        <BreadcrumbItem>
-                            <BreadcrumbLink href="#" state=ActivityState::Active>"Home"</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator>"›"</BreadcrumbSeparator>
-                        <BreadcrumbItem>
-                            <BreadcrumbPage>"Current"</BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </Breadcrumb>
+                    <BreadcrumbIsland
+                        separator="›"
+                        items=vec![
+                            BreadcrumbIslandItem { label: "Home".into(),    href: Some("#".into()), is_page: false },
+                            BreadcrumbIslandItem { label: "Current".into(), href: None,             is_page: true  },
+                        ]
+                    />
                 </div>
             </div>
         </div>

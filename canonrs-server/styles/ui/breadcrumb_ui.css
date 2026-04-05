@@ -23,7 +23,7 @@
   transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
 }
 
-[data-rs-breadcrumb-link]:hover {
+[data-rs-breadcrumb-link]:hover:not([data-rs-state~="active"]) {
   color: var(--breadcrumb-fg-hover);
 }
 
@@ -50,7 +50,7 @@
   transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
 }
 
-[data-rs-breadcrumb-ellipsis-trigger]:hover {
+[data-rs-breadcrumb-ellipsis-trigger]:hover:not([data-rs-state~="active"]) {
   color: var(--breadcrumb-fg-hover);
 }
 
@@ -68,7 +68,7 @@
   margin-top: var(--breadcrumb-gap);
   padding: var(--breadcrumb-gap);
   background: var(--theme-surface-bg);
-  border: 1px solid var(--theme-surface-border);
+  border: var(--breadcrumb-collapse-border-width, 1px) solid var(--theme-surface-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
 }
@@ -78,4 +78,11 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--breadcrumb-gap);
+}
+
+/* ── States ──────────────────────────────────────────────────────────────────── */
+
+[data-rs-breadcrumb-link][data-rs-state~="active"] {
+  color: var(--breadcrumb-fg-active);
+  font-weight: var(--breadcrumb-font-weight-active);
 }

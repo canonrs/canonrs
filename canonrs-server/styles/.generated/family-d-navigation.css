@@ -155,6 +155,9 @@
   --breadcrumb-transition-ease: var(--motion-ease-standard);
   --breadcrumb-collapse-min-width: 12rem;
   --breadcrumb-collapse-max-width: 20rem;
+  --breadcrumb-fg-hover: var(--theme-action-primary-bg);
+  --breadcrumb-fg-active: var(--theme-surface-fg);
+  --breadcrumb-collapse-border-width: 1px;
   --link-fg: var(--theme-action-primary-bg);
   --link-font-weight: var(--font-weight-normal);
   --link-text-decoration: none;
@@ -194,6 +197,9 @@
   --nav-item-hover-bg: transparent;
   --nav-item-hover-fg: var(--theme-action-primary-bg);
   --nav-item-active-bg: transparent;
+  --nav-item-active-fg: var(--theme-action-primary-bg);
+  --nav-item-focus-ring-width: var(--state-focus-ring-width);
+  --nav-item-focus-ring-color: var(--theme-action-primary-bg);
   --nav-item-active-fg: var(--theme-action-primary-bg);
   --link-group-gap: var(--space-xs);
   --link-group-label-font-size: var(--font-size-xs);

@@ -22,7 +22,7 @@ related: navigation_menu, sidebar, breadcrumb, pagination, link_group
 
 file: nav_item_ui.css
 tokens: nav-item-*, space-*, font-*, radius-*
-foundation: spacing, radius, typography
+foundation: spacing, radius, typography, interaction, motion
 states: active, disabled
 island: nav_item_island.rs
 
