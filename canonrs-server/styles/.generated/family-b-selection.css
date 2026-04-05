@@ -75,6 +75,11 @@
   --accordion-content-padding-top: 0;
   --accordion-icon-size: var(--space-md);
   --accordion-icon-rotation: 180deg;
+  --accordion-trigger-bg-hover: var(--theme-surface-muted);
+  --accordion-trigger-fg-open: var(--theme-action-primary-bg);
+  --accordion-trigger-bg-open: var(--theme-surface-muted);
+  --accordion-trigger-fg-disabled: var(--theme-surface-fg-muted);
+  --accordion-trigger-opacity-disabled: var(--state-disabled-opacity);
   --collapsible-gap: var(--space-sm);
   --collapsible-trigger-bg: transparent;
   --collapsible-trigger-padding: var(--space-sm);

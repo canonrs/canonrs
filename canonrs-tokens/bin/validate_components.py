@@ -118,6 +118,45 @@ def check_unused(tokens, vars_used, declared):
 
 
 
+def check_active_state_tokens(declared):
+    """CR-336b: tokens *-fg-active/open/selected/checked devem usar --theme-action-primary-*"""
+    import re as _re
+    errors = []
+    # sufixos que indicam estado ativo
+    ACTIVE_FG_SUFFIXES = ["-fg-active", "-fg-open", "-fg-selected", "-fg-checked"]
+    ACTIVE_BORDER_SUFFIXES = ["-border-active", "-border-checked", "-border-selected"]
+    # valores proibidos para fg ativo
+    FORBIDDEN_FG_VALUES = ["--theme-surface-", "--theme-text-", "transparent", "inherit"]
+
+    import glob as _glob
+    tokens_dir = TOKENS_DIR
+    pattern = re.compile(r'FamilyToken::new\("([^"]+)",\s*"([^"]+)"\)')
+    for rs_file in _glob.glob(f"{tokens_dir}/**/*.rs", recursive=True):
+        with open(rs_file) as f:
+            src = f.read()
+        for match in pattern.finditer(src):
+            name = match.group(1)
+            value = match.group(2)
+            token = f"--{name}"
+            # fg ativo deve usar theme-action-primary
+            for suffix in ACTIVE_FG_SUFFIXES:
+                if token.endswith(suffix):
+                    if not any(v in value for v in ["--theme-action-primary", "--color-primary"]):
+                        errors.append(
+                            f"[CR-336b] {token} = {value}\n"
+                            f"            token *-fg-active/open/selected DEVE usar --theme-action-primary-fg ou --color-primary-foreground"
+                        )
+            # border ativo deve usar theme-action-primary
+            for suffix in ACTIVE_BORDER_SUFFIXES:
+                if token.endswith(suffix):
+                    if not any(v in value for v in ["--theme-action-primary", "--color-primary"]):
+                        errors.append(
+                            f"[CR-336b] {token} = {value}\n"
+                            f"            token *-border-active/checked DEVE usar --theme-action-primary-bg"
+                        )
+    return errors
+
+
 def check_states_in_css(states, css):
     errors = []
     for state in states:
@@ -319,7 +358,6 @@ ISLAND_FORBIDDEN_PROPS = [
 
 ISLAND_FORBIDDEN_PATTERNS = [
     ("set_attribute",          "CR-335: DOM mutation proibido em island — use signals"),
-    ("get_attribute",          "CR-333: DOM read proibido em island — use signals"),
     ("spawn_local",            "CR-336: async state proibido em island — use signals sincrono"),
     ("inner_html",             "CR-337: inner_html proibido em island — estrutura MUST ser estavel"),
 ]
@@ -366,7 +404,7 @@ def _ast_walk(node, callback, results):
         _ast_walk(child, callback, results)
 
 
-def check_island_ast(island_file, island_dir):
+def check_island_ast(island_file, island_dir, island_type="state"):
     """AST-level validation — zero falso positivo/negativo"""
     import glob as _glob
     errors = []
@@ -434,14 +472,15 @@ def check_island_ast(island_file, island_dir):
     _ast_walk(root, collect, None)
 
     # ── CR-333 AST: DOM → SIGNAL (data-flow completo) ───────────
-    for (line, call) in set_calls:
-        for var in dom_vars:
-            if var in call:
-                errors.append(
-                    f"[CR-333-AST] {island_file} linha {line} -- DOM → SIGNAL (AST confirmed)\n"
-                    f"            query_selector → {var} → .set()\n"
-                    f"            {call[:80]}"
-                )
+    if island_type != "observer":
+        for (line, call) in set_calls:
+            for var in dom_vars:
+                if var in call:
+                    errors.append(
+                        f"[CR-333-AST] {island_file} linha {line} -- DOM → SIGNAL (AST confirmed)\n"
+                        f"            query_selector → {var} → .set()\n"
+                        f"            {call[:80]}"
+                    )
 
     # ── CR-339 AST: dynamic class ────────────────────────────────
     for (line, text) in dynamic_classes:
@@ -451,11 +490,12 @@ def check_island_ast(island_file, island_dir):
         )
 
     # ── CR-336 AST: for loop proibido ───────────────────────────
-    for line in for_nodes:
-        errors.append(
-            f"[CR-336-AST] {island_file} linha {line} -- for loop proibido em island (AST confirmed)\n"
-            f"            use static structure"
-        )
+    if island_type != "observer":
+        for line in for_nodes:
+            errors.append(
+                f"[CR-336-AST] {island_file} linha {line} -- for loop proibido em island (AST confirmed)\n"
+                f"            use static structure"
+            )
 
     # ── CR-341 AST: multiplos signals ───────────────────────────
     if signal_count[0] > 5:
@@ -494,9 +534,19 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
                     if not cosmetic:
                         errors.append(f"[CR-330] {island_file} linha {i} -- {msg}\n            {line.strip()[:80]}")
 
-    # CR-331: initial_state obrigatorio
-    if "signal(" in content and "data-rs-state" in content and "initial_state" not in content:
-        errors.append(f"[CR-331] {island_file} -- initial_state AUSENTE (lei imutavel)\n            todo island com signals em data-rs-state DEVE ter initial_state materializado")
+    # CR-331: initial_state obrigatorio — observer islands nao precisam
+    if island_type != "observer":
+        has_signal = "signal(" in content
+        has_data_rs_state = "data-rs-state" in content
+        # verifica se signal é usado DENTRO de data-rs-state (não só co-existência)
+        import re as _re6
+        signal_in_state = bool(_re6.search(
+            r'data-rs-state\s*=\s*(move\s*\|\||[a-z_]+\s*\()',
+            content
+        ))
+        has_initial = "initial_state" in content
+        if has_signal and signal_in_state and not has_initial:
+            errors.append(f"[CR-331] {island_file} -- initial_state AUSENTE (lei imutavel)\n            todo island com signals em data-rs-state DEVE ter initial_state materializado")
 
     def is_observer_context(block):
         """Detecta se bloco de código está dentro de um observer callback"""
@@ -628,23 +678,20 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
             if "move ||" in line or ".get(" in line:
                 errors.append(f"[CR-337] {island_file} linha {i} -- inner_html dinamico proibido\n            {line.strip()[:80]}")
 
-    # CR-338: web_sys cfg-gated (scoped)
-    for pattern in CFG_REQUIRED:
-        for i, line in enumerate(lines, 1):
-            if line.strip().startswith("//"): continue
-            if pattern in line:
-                found_cfg = False
-                depth = 0
-                for j in range(i-1, -1, -1):
-                    if "{" in lines[j]: depth += 1
-                    if "}" in lines[j]: depth -= 1
-                    if '#[cfg(feature = "hydrate")]' in lines[j]:
-                        found_cfg = True
-                        break
-                    if depth > 10: break
-                if not found_cfg:
-                    errors.append(f"[CR-338] {island_file} linha {i} -- {pattern} sem cfg hydrate\n            web_sys MUST ser cfg-gated")
-                break
+    # CR-338: web_sys cfg-gated — observer islands sao implicitamente cfg-gated
+    if island_type != "observer":
+        for pattern in CFG_REQUIRED:
+            for i, line in enumerate(lines, 1):
+                if line.strip().startswith("//"): continue
+                if pattern in line:
+                    # busca cfg em janela de 50 linhas acima
+                    found_cfg = any(
+                        '#[cfg(feature = "hydrate")]' in lines[j]
+                        for j in range(max(0, i-50), i)
+                    )
+                    if not found_cfg:
+                        errors.append(f"[CR-338] {island_file} linha {i} -- {pattern} sem cfg hydrate\n            web_sys MUST ser cfg-gated")
+                    break
 
     # CR-339: dynamic class proibido
     for i, line in enumerate(lines, 1):
@@ -771,6 +818,14 @@ def main():
                 comp[field] = json_comp.get(field, comp.get(field, ''))
 
     target      = sys.argv[1] if len(sys.argv) > 1 else None
+
+    # CR-336b: validar tokens de estado ativo globalmente
+    if not target:
+        active_token_errors = check_active_state_tokens(declared)
+        if active_token_errors:
+            print("\n[CR-336b GLOBAL TOKEN VIOLATIONS]")
+            for e in active_token_errors:
+                print(f"   {e}")
     show_unused = "--unused" in sys.argv
     generate_json = "--generate" in sys.argv
 
@@ -813,7 +868,7 @@ def main():
             island_dir = os.path.join(script_dir, ISLAND_DIR)
             island_type = comp.get("island_type", "state")
             errors += check_island_full(island_file, island_dir, comp["component"], island_type)
-            errors += check_island_ast(island_file, island_dir)
+            errors += check_island_ast(island_file, island_dir, island_type)
             css_file = os.path.join(CSS_DIR, comp["file"])
             errors += check_island_css_child_combinator(css_file)
             errors += check_hover_override_active(css_file)

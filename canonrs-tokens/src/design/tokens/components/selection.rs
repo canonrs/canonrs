@@ -89,6 +89,11 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("accordion-content-padding-top", "0"),
     FamilyToken::new("accordion-icon-size", "var(--space-md)"),
     FamilyToken::new("accordion-icon-rotation", "180deg"),
+    FamilyToken::new("accordion-trigger-bg-hover", "var(--theme-surface-muted)"),
+    FamilyToken::new("accordion-trigger-fg-open", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("accordion-trigger-bg-open", "var(--theme-surface-muted)"),
+    FamilyToken::new("accordion-trigger-fg-disabled", "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("accordion-trigger-opacity-disabled", "var(--state-disabled-opacity)"),
 
     // Collapsible
     FamilyToken::new("collapsible-gap", "var(--space-sm)"),
