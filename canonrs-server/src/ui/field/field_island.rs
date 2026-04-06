@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::FieldPrimitive;
+use super::field_ui::Field;
+use super::variants::{FieldOrientation, FieldValidation};
 
 #[island]
 pub fn FieldIsland(
@@ -11,13 +12,13 @@ pub fn FieldIsland(
     let disabled = disabled.unwrap_or(false);
 
     view! {
-        <FieldPrimitive
-            attr:data-rs-orientation="vertical"
-            attr:data-rs-validation="none"
-            attr:data-rs-disabled=if disabled { "true" } else { "false" }
+        <Field
+            orientation=FieldOrientation::Vertical
+            _validation=FieldValidation::None
+            disabled=disabled
             class=class
         >
             {children()}
-        </FieldPrimitive>
+        </Field>
     }
 }

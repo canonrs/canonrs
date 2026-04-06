@@ -1066,6 +1066,12 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
 
     # CR-342: island DEVE usar UI, nao primitives diretamente
     # excecao: data_table usa primitives por necessidade de reatividade complexa
+    # CR-344: island DEVE importar UI explicitamente
+    import re as _re344
+    has_ui_import = bool(_re344.search(r'use (super|crate)::.*_ui::', content))
+    if not has_ui_import and component not in ['data_table']:
+        errors.append(f"[CR-344] {island_file} -- island NAO importa UI\n            todo island DEVE importar seu UI: use super::<component>_ui::")
+
     if component not in ['data_table']:
         import re as _re342
         primitive_pattern = _re342.findall(r'use canonrs_core::primitives::{([^}]+)}', content)

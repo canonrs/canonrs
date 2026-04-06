@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::FormErrorSummaryPrimitive;
+use super::form_error_summary_ui::{FormErrorSummary, FormError};
 
 #[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct FormErrorIslandItem {
@@ -15,24 +15,16 @@ pub fn FormErrorSummaryIsland(
 ) -> impl IntoView {
     let title  = title.unwrap_or_else(|| "Please fix the following errors:".to_string());
     let class  = class.unwrap_or_default();
-    let errors = errors.unwrap_or_default();
-
-    if errors.is_empty() {
-        return view! { <div></div> }.into_any();
-    }
+    let errors = errors.unwrap_or_default()
+        .into_iter()
+        .map(|e| FormError { field_label: e.field_label, message: e.message })
+        .collect::<Vec<_>>();
 
     view! {
-        <FormErrorSummaryPrimitive class=class>
-            <h3 data-rs-form-error-summary-title="">{title}</h3>
-            <ul data-rs-form-error-summary-list="">
-                {errors.into_iter().map(|error| view! {
-                    <li data-rs-form-error-summary-item="">
-                        <span data-rs-form-error-summary-item-link="">
-                            {error.field_label}{": "}{error.message}
-                        </span>
-                    </li>
-                }).collect::<Vec<_>>()}
-            </ul>
-        </FormErrorSummaryPrimitive>
-    }.into_any()
+        <FormErrorSummary
+            errors=errors
+            title=title
+            class=class
+        />
+    }
 }
