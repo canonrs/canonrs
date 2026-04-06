@@ -68,6 +68,17 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("datatable-density-comfortable-padding-x", "var(--space-md)"),
     FamilyToken::new("datatable-density-spacious-padding-y",    "var(--space-md)"),
     FamilyToken::new("datatable-density-spacious-padding-x",    "var(--space-lg)"),
+    // ── Virtual List ─────────────────────────────────────────────
+    FamilyToken::new("virtual-list-bg",               "var(--theme-surface-bg)"),
+    FamilyToken::new("virtual-list-border-color",     "var(--theme-surface-border)"),
+    FamilyToken::new("virtual-list-border-width",     "1px"),
+    FamilyToken::new("virtual-list-item-height",      "var(--space-2xl)"),
+    FamilyToken::new("virtual-list-item-fg",          "var(--theme-surface-fg)"),
+    FamilyToken::new("virtual-list-item-font-size",   "var(--font-size-sm)"),
+    FamilyToken::new("virtual-list-item-padding-x",   "var(--space-md)"),
+    FamilyToken::new("virtual-list-item-gap",         "var(--space-sm)"),
+    FamilyToken::new("virtual-list-item-bg-hover",    "color-mix(in srgb, var(--theme-surface-fg) 6%, transparent)"),
+    FamilyToken::new("virtual-list-item-bg-selected", "color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent)"),
 
     // ── Icon ──────────────────────────────────────────────────────────────────
     FamilyToken::new("icon-size-sm",       "var(--space-md)"),

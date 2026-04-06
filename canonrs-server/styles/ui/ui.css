@@ -84,6 +84,7 @@
 @import './status_dot_ui.css';
 @import './switch_ui.css';
 @import './table_ui.css';
+@import './virtual_list_ui.css';
 @import './table_of_contents_ui.css';
 @import './tabs_ui.css';
 @import './textarea_ui.css';

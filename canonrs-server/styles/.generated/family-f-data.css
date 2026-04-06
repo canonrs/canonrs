@@ -54,6 +54,16 @@
   --datatable-density-comfortable-padding-x: var(--space-md);
   --datatable-density-spacious-padding-y: var(--space-md);
   --datatable-density-spacious-padding-x: var(--space-lg);
+  --virtual-list-bg: var(--theme-surface-bg);
+  --virtual-list-border-color: var(--theme-surface-border);
+  --virtual-list-border-width: 1px;
+  --virtual-list-item-height: var(--space-2xl);
+  --virtual-list-item-fg: var(--theme-surface-fg);
+  --virtual-list-item-font-size: var(--font-size-sm);
+  --virtual-list-item-padding-x: var(--space-md);
+  --virtual-list-item-gap: var(--space-sm);
+  --virtual-list-item-bg-hover: color-mix(in srgb, var(--theme-surface-fg) 6%, transparent);
+  --virtual-list-item-bg-selected: color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent);
   --icon-size-sm: var(--space-md);
   --icon-size-md: var(--font-size-xl);
   --icon-size-lg: var(--space-lg);

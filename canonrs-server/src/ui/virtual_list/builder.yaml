@@ -18,7 +18,7 @@ rules: ["CR-001", "CR-004"]
 use_cases: ["logs", "large datasets"]
 related: ["table", "data_table", "empty_table", "tree", "list_item"]
 file: virtual_list_ui.css
-tokens: virtual-list-*, size-*, space-*
+tokens: virtual-list-*, size-*, space-*, table-*
 foundation: spacing, size
 states: []
 island: virtual_list_island.rs

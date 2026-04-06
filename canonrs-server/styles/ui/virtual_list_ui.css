@@ -1,0 +1,40 @@
+/* ═══════════════════════════════════════════════════════════════
+   VIRTUAL LIST - Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-virtual-list] {
+  width: 100%;
+  overflow: hidden;
+}
+
+[data-rs-virtual-list-viewport] {
+  width: 100%;
+  overflow-y: auto;
+  position: relative;
+  background: var(--virtual-list-bg);
+  border: var(--virtual-list-border-width) solid var(--virtual-list-border-color);
+}
+
+[data-rs-virtual-list-content] {
+  position: relative;
+  width: 100%;
+}
+
+[data-rs-virtual-list-item] {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--virtual-list-item-padding-x);
+  gap: var(--virtual-list-item-gap);
+  font-size: var(--virtual-list-item-font-size);
+  color: var(--virtual-list-item-fg);
+  border-bottom: var(--virtual-list-border-width) solid var(--virtual-list-border-color);
+  box-sizing: border-box;
+}
+
+[data-rs-virtual-list-item][data-rs-state~="hover"] {
+  background: var(--virtual-list-item-bg-hover);
+}
+
+[data-rs-virtual-list-item][data-rs-state~="selected"] {
+  background: var(--virtual-list-item-bg-selected);
+}
