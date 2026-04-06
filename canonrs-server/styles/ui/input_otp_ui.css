@@ -17,6 +17,17 @@
   gap: var(--space-xs);
 }
 
+[data-rs-input-otp-container][data-rs-state~="disabled"] {
+  opacity: var(--input-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+[data-rs-input-otp-container][data-rs-state~="disabled"] [data-rs-input-otp-slot] {
+  background: var(--input-otp-slot-disabled-bg);
+  color: var(--input-otp-slot-disabled-fg);
+}
+
 [data-rs-input-otp-slots] {
   display: flex;
   gap: var(--space-xs);
@@ -35,15 +46,11 @@
   font-family: var(--input-otp-font-family);
   font-size: var(--input-otp-font-size);
   font-weight: var(--input-otp-font-weight);
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard),
+              border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-rs-input-otp-slot][data-rs-state~="active"] {
   background: var(--input-otp-slot-active-bg);
   border-color: var(--input-otp-slot-active-border);
-}
-
-[data-rs-input-otp-slot][data-rs-state~="disabled"] {
-  background: var(--input-otp-slot-disabled-bg);
-  color: var(--input-otp-slot-disabled-fg);
-  opacity: var(--input-disabled-opacity);
 }
