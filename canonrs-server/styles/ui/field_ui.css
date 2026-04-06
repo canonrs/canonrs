@@ -5,23 +5,18 @@
 [data-rs-field] {
   display: flex;
   flex-direction: column;
-  gap: var(--field-gap);
+  gap: var(--field-orientation-gap-vertical);
 }
 
-[data-rs-field][data-orientation="horizontal"] {
+[data-rs-field][data-rs-orientation="horizontal"] {
   flex-direction: row;
   align-items: center;
   gap: var(--field-orientation-gap-horizontal);
 }
 
-[data-rs-field][data-orientation="vertical"] {
+[data-rs-field][data-rs-orientation="vertical"] {
+  flex-direction: column;
   gap: var(--field-orientation-gap-vertical);
-}
-
-[data-rs-field-input] {
-  height: var(--field-height);
-  padding: var(--field-padding);
-  border: var(--field-border);
 }
 
 [data-rs-field-label] {
@@ -30,7 +25,7 @@
   color: var(--field-label-fg);
 }
 
-[data-rs-field-label][disabled] {
+[data-rs-field][data-rs-disabled="true"] [data-rs-field-label] {
   color: var(--field-label-fg-disabled);
 }
 
@@ -51,19 +46,20 @@
   gap: var(--field-error-list-gap);
 }
 
-[data-rs-field][disabled] {
+[data-rs-field][data-rs-disabled="true"] {
   opacity: var(--field-disabled-opacity);
+  pointer-events: none;
 }
 
-[data-rs-field][data-validation="error"] [data-rs-field-label] {
+[data-rs-field][data-rs-validation="error"] [data-rs-field-label] {
   color: var(--field-validation-error-fg);
 }
 
-[data-rs-field][data-validation="warning"] [data-rs-field-label] {
+[data-rs-field][data-rs-validation="warning"] [data-rs-field-label] {
   color: var(--field-validation-warning-fg);
 }
 
-[data-rs-field][data-validation="success"] [data-rs-field-label] {
+[data-rs-field][data-rs-validation="success"] [data-rs-field-label] {
   color: var(--field-validation-success-fg);
 }
 
@@ -73,7 +69,7 @@
   margin-block: var(--field-separator-margin-y);
 }
 
-[data-rs-field-separator-label] {
+[data-rs-field-separator-content] {
   padding-inline: var(--field-separator-label-padding-x);
   color: var(--field-separator-label-fg);
 }
