@@ -868,7 +868,7 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
         if in_island and "#[prop(" in line:
             for (type_, attr, msg) in ISLAND_FORBIDDEN_PROPS:
                 if type_ in line and attr in line:
-                    cosmetic = any(p in line for p in ["class","aria_label","validation","disabled","text","target","href","external","placeholder","selected_value","value","label","name","title","mode","initial","selected","aria_label","separator","empty_text","placeholder","description"])
+                    cosmetic = any(p in line for p in ["class","aria_label","validation","disabled","text","target","href","external","placeholder","selected_value","value","label","name","title","mode","initial","selected","aria_label","separator","empty_text","placeholder","description","input_type","variant","size","format","density","trigger","aria_describedby","aria_labelledby","aria_label","rows","cols","for_id","html_for","href","url","action","method","enctype"])
                     if not cosmetic:
                         errors.append(f"[CR-330] {island_file} linha {i} -- {msg}\n            {line.strip()[:80]}")
 
@@ -1042,84 +1042,85 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
     if signal_count > 5:
         errors.append(f"[CR-341] {island_file} -- {signal_count} signals detectados\n            islands SHOULD ter SSOT unico — revisar se necessario")
 
-    return errors
 
+
+    # CR-343: preview DEVE usar island, nao UI diretamente no hero stage
+    import glob as _glob343
+    import re as _re343
+    _comp_ui_dir = _glob343.glob(f"{island_dir}/**/{component}", recursive=True)
+    _comp_dir = _comp_ui_dir[0] if _comp_ui_dir else f"{island_dir}/{component}"
+    preview_matches = _glob343.glob(f"{_comp_dir}/preview.rs", recursive=False)
+    if not preview_matches:
+        preview_matches = _glob343.glob(f"{island_dir}/{component}/preview.rs", recursive=False)
+    if preview_matches:
+        with open(preview_matches[0]) as pf:
+            preview_content = pf.read()
+        # verificar se preview importa island
+        has_island_import = bool(_re343.search(r'use.*[Ii]sland', preview_content))
+        # verificar se preview usa island no hero stage
+        has_island_in_hero = bool(_re343.search(r'<[A-Z]\w*Island', preview_content))
+        if not has_island_import and not has_island_in_hero:
+            errors.append(f"[CR-343] preview.rs -- preview NAO usa island\n            preview DEVE usar island no hero stage, nao UI diretamente")
+        elif has_island_import and not has_island_in_hero:
+            errors.append(f"[CR-343] preview.rs -- island importado mas nao usado no hero\n            use o island no data-rs-showcase-preview-stage")
+
+    # CR-342: island DEVE usar UI, nao primitives diretamente
+    # excecao: data_table usa primitives por necessidade de reatividade complexa
+    if component not in ['data_table']:
+        import re as _re342
+        primitive_pattern = _re342.findall(r'use canonrs_core::primitives::{([^}]+)}', content)
+        if primitive_pattern:
+            has_ui = bool(_re342.search(r'use (super|crate)::.*_ui::', content))
+            if not has_ui:
+                prims = primitive_pattern[0][:60]
+                errors.append(f'[CR-342] {island_file} -- island usa primitives diretamente sem UI\n            island DEVE usar UI como intermediario: {prims}')
+    return errors
 
 
 BUILDER_DIR = "../../canonrs-server/src/ui"
 
 
 def parse_builder(builder_path):
-    """Parse builder.md — SSOT para todos os componentes"""
-    comp = {}
+    """Parse builder.yaml — SSOT para todos os componentes"""
+    import yaml
     with open(builder_path) as f:
-        lines = f.readlines()
+        raw = yaml.safe_load(f)
+    if not raw:
+        return {}
+    comp = {}
+    comp["id"]         = raw.get("id", "")
+    comp["label"]      = raw.get("label", "")
+    comp["family"]     = raw.get("family", "")
+    comp["category"]   = raw.get("category", "")
+    comp["file"]       = raw.get("file", "") or ""
+    comp["tokens"]     = raw.get("tokens", "") or ""
+    comp["foundation"] = raw.get("foundation", "") or ""
+    comp["island"]     = raw.get("island", "") or ""
+    comp["before"]     = raw.get("before", "") or ""
+    comp["after"]      = raw.get("after", "") or ""
+    comp["pain"]       = raw.get("pain", "") or ""
+    comp["promise"]    = raw.get("promise", "") or ""
+    comp["why"]        = raw.get("why", "") or ""
+    comp["badges"]     = raw.get("badges", []) or []
+    comp["rules"]      = raw.get("rules", []) or []
 
-    # campos simples key: value
-    simple_fields = ["id", "label", "family", "category", "intent", "description",
-                     "composable", "capabilities", "required_parts", "optional_parts",
-                     "tags", "keywords", "pain", "promise", "why", "rules",
-                     "use_cases", "related", "file", "tokens", "foundation",
-                     "states", "island", "island_type"]
-
-    in_before = False
-    in_after = False
-    before_lines = []
-    after_lines = []
-
-    for line in lines:
-        stripped = line.rstrip()
-
-        # titulo
-        if stripped.startswith("# ") and "component" not in comp:
-            comp["label"] = stripped[2:].strip()
-            continue
-
-        # before/after blocos
-        if stripped == "## before":
-            in_before = True
-            in_after = False
-            continue
-        if stripped == "## after":
-            in_before = False
-            in_after = True
-            continue
-
-        if in_before:
-            before_lines.append(line.rstrip())
-            continue
-        if in_after:
-            after_lines.append(line.rstrip())
-            continue
-
-        # campos simples
-        if ":" in stripped and not stripped.startswith("#"):
-            key, _, val = stripped.partition(":")
-            key = key.strip()
-            val = val.strip()
-            if key in simple_fields:
-                comp[key] = val
-
-    comp["before"] = "\n".join(before_lines).strip()
-    comp["after"] = "\n".join(after_lines).strip()
-
-    # normalizar states
-    states_raw = comp.get("states", "")
-    if states_raw:
-        comp["states"] = [s.strip() for s in states_raw.split(",") if s.strip()]
+    # normalizar states — sempre lista
+    _states = raw.get("states", [])
+    if isinstance(_states, list):
+        comp["states"] = [s.strip().strip('"') for s in _states if s]
+    elif isinstance(_states, str):
+        comp["states"] = [s.strip().strip('"') for s in _states.split(",") if s.strip()]
     else:
         comp["states"] = []
 
-    # component name = id ou folder
-    comp["component"] = comp.get("id", "").replace("-", "_")
-
+    comp["component"] = comp["id"].replace("-", "_")
     return comp
 
 
 def load_components_from_builders(builder_dir, script_dir):
     """Carrega todos os componentes a partir dos builder.md"""
     import glob as _glob
-    builders = _glob.glob(f"{builder_dir}/**/builder.md", recursive=True)
+    builders = _glob.glob(f"{builder_dir}/**/builder.yaml", recursive=True)
     components = []
     for b in sorted(builders):
         try:

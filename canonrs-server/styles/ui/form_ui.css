@@ -87,3 +87,12 @@
 [data-rs-form][data-rs-state="submitting"] [data-rs-form-actions] {
   cursor: wait;
 }
+
+[data-rs-form][data-rs-state~="loading"] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+[data-rs-form][data-rs-state~="error"] [data-rs-form-field] {
+  border-color: var(--form-error-fg);
+}

@@ -1,7 +1,6 @@
 use leptos::prelude::*;
-use leptos::web_sys;
-use canonrs_core::primitives::{InputOtpPrimitive, InputOtpSlotPrimitive};
-use canonrs_core::meta::{ActivityState, DisabledState};
+use super::input_otp_ui::InputOtp;
+use canonrs_core::meta::DisabledState;
 
 #[island]
 pub fn InputOtpIsland(
@@ -14,70 +13,40 @@ pub fn InputOtpIsland(
     let length   = length.unwrap_or(6);
     let name     = name.unwrap_or_default();
     let class    = class.unwrap_or_default();
-    let disabled = disabled.unwrap_or(false);
+    let is_disabled = disabled.unwrap_or(false);
+    let init     = initial_value.unwrap_or_default();
 
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
+    let disabled_state = if is_disabled { DisabledState::Disabled } else { DisabledState::Enabled };
 
-    let init = initial_value.unwrap_or_default();
-    let value = RwSignal::new(init.clone());
+
 
     let container_ref = NodeRef::<leptos::html::Div>::new();
 
     let on_click = move |_: leptos::ev::MouseEvent| {
-        if let Some(container) = container_ref.get() {
+        #[cfg(feature = "hydrate")]
+        {
             use leptos::wasm_bindgen::JsCast;
-            if let Ok(Some(input)) = container.query_selector("[data-rs-input-otp]") {
-                if let Ok(el) = input.dyn_into::<web_sys::HtmlInputElement>() {
-                    let _ = el.focus();
+            if let Some(container) = container_ref.get() {
+                if let Ok(Some(input)) = container.query_selector("[data-rs-input-otp]") {
+                    if let Ok(el) = input.dyn_into::<leptos::web_sys::HtmlInputElement>() {
+                        let _ = el.focus();
+                    }
                 }
             }
         }
     };
 
-    let on_input = move |e: leptos::ev::Event| {
-        use leptos::wasm_bindgen::JsCast;
-        if let Some(input) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) {
-            value.set(input.value());
-        }
-    };
 
-    let slots_view = move || {
-        let v = value.get();
-        (0..length).map(|i| {
-            let ch = v.chars().nth(i as usize).map(|c| c.to_string()).unwrap_or_default();
-            let state = if !disabled && i == v.len() as u32 {
-                ActivityState::Active
-            } else {
-                ActivityState::Inactive
-            };
-            view! {
-                <InputOtpSlotPrimitive state=state>
-                    {ch}
-                </InputOtpSlotPrimitive>
-            }
-        }).collect::<Vec<_>>()
-    };
 
     view! {
-        <div
-            node_ref=container_ref
-            data-rs-input-otp-container=""
-            data-rs-state=if disabled { Some("disabled") } else { None }
-            class=class
-            on:click=on_click
-        >
-            <InputOtpPrimitive
+        <div node_ref=container_ref on:click=on_click>
+            <InputOtp
+                length=length
                 name=name
                 value=init
                 disabled=disabled_state
-                maxlength=length
-                inputmode="numeric".to_string()
-                autocomplete="one-time-code".to_string()
-                on:input=on_input
+                class=class
             />
-            <div data-rs-input-otp-slots="">
-                {slots_view}
-            </div>
         </div>
     }
 }

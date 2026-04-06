@@ -63,12 +63,17 @@ pub fn DataTableIsland(
     });
 
     let on_input = move |e: leptos::ev::Event| {
-        use leptos::wasm_bindgen::JsCast;
-        let val = e.target()
-            .and_then(|t| t.dyn_into::<leptos::web_sys::HtmlInputElement>().ok())
-            .map(|el| el.value())
-            .unwrap_or_default();
-        query.set(val);
+        #[cfg(feature = "hydrate")]
+        {
+            use leptos::wasm_bindgen::JsCast;
+            let val = e.target()
+                .and_then(|t| t.dyn_into::<leptos::web_sys::HtmlInputElement>().ok())
+                .map(|el| el.value())
+                .unwrap_or_default();
+            query.set(val);
+        }
+        #[cfg(not(feature = "hydrate"))]
+        let _ = e;
         page.set(1);
     };
 

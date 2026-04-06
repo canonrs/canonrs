@@ -20,5 +20,5 @@
 
 [data-rs-label][data-rs-required]::after {
   content: " *";
-  color: var(--form-label-required-color);
+  color: var(--label-fg);
 }

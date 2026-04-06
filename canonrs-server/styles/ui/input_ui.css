@@ -55,7 +55,7 @@
   box-shadow: var(--input-focus-ring-shadow);
 }
 
-[data-rs-input-group] [data-rs-input]:focus {
+[data-rs-input-group] [data-rs-input][data-rs-state~="focus"] {
   outline: none;
   box-shadow: none;
 }

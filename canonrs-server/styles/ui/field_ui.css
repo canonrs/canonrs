@@ -73,3 +73,16 @@
   padding-inline: var(--field-separator-label-padding-x);
   color: var(--field-separator-label-fg);
 }
+
+[data-rs-field][data-rs-state~="focus"] [data-rs-field-label] {
+  color: var(--field-label-fg);
+}
+
+[data-rs-field][data-rs-state~="disabled"] {
+  opacity: var(--field-disabled-opacity);
+  pointer-events: none;
+}
+
+[data-rs-field][data-rs-state~="error"] [data-rs-field-label] {
+  color: var(--field-validation-error-fg);
+}

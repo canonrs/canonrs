@@ -25,12 +25,22 @@
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
-[data-rs-table-row]:hover {
+[data-rs-table-row][data-rs-state~="hover"] {
   background: var(--table-row-bg-hover);
 }
 
-[data-rs-table-row][data-state="selected"] {
+[data-rs-table-row][data-rs-state~="selected"] {
   background: var(--table-row-bg-selected);
+}
+
+[data-rs-table-row][data-rs-state~="loading"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+[data-rs-table-row][data-rs-state~="error"] {
+  background: var(--theme-state-error-bg);
+  color: var(--theme-state-error-fg);
 }
 
 [data-rs-table-head] {
@@ -57,11 +67,11 @@
   text-align: left;
 }
 
-/* Striped variant (optional) */
+/* Striped variant */
 [data-rs-table][data-striped="true"] [data-rs-table-body] [data-rs-table-row]:nth-child(odd) {
   background: var(--table-row-bg-striped);
 }
 
-[data-rs-table][data-striped="true"] [data-rs-table-body] [data-rs-table-row]:nth-child(odd):hover {
+[data-rs-table][data-striped="true"] [data-rs-table-body] [data-rs-table-row]:nth-child(odd)[data-rs-state~="hover"] {
   background: var(--table-row-bg-hover);
 }

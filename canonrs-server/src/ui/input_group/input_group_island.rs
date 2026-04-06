@@ -1,5 +1,7 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::{InputPrimitive, InputVariant, InputSize};
+use crate::ui::input::input_ui::Input;
+use canonrs_core::primitives::InputVariant;
+use canonrs_core::primitives::InputSize;
 use canonrs_core::meta::DisabledState;
 
 #[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -37,7 +39,7 @@ pub fn InputGroupIsland(
             }.into_any(),
             InputGroupSlot::Input { placeholder, input_type, name } => {
                 view! {
-                    <InputPrimitive
+                    <Input
                         placeholder=placeholder
                         input_type=input_type
                         name=name

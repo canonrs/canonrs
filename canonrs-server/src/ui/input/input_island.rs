@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::{InputPrimitive, InputVariant, InputSize};
+use super::input_ui::Input;
+use canonrs_core::primitives::{InputVariant, InputSize};
 use canonrs_core::meta::DisabledState;
 
 #[island]
@@ -34,7 +35,7 @@ pub fn InputIsland(
     };
 
     view! {
-        <InputPrimitive
+        <Input
             class=class.unwrap_or_default()
             input_type=input_type.unwrap_or_else(|| "text".to_string())
             name=name.unwrap_or_default()

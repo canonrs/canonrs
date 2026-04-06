@@ -19,7 +19,7 @@ use_cases: ["email fields", "currency inputs"]
 related: ["form", "input", "input_otp", "textarea", "field", "label", "checkbox", "form_error_summary"]
 file: input_group_ui.css
 tokens: input-group-*, input-*, space-*, radius-*, border-*, state-*, validation-*, focus-ring-*
-foundation: spacing, radius
+foundation: spacing, radius, motion
 states: ["focus-within"]
 island: input_group_island.rs
 pillar: form

@@ -19,7 +19,7 @@ use_cases: ["2FA codes", "verification inputs"]
 related: ["form", "input", "input_group", "textarea", "field", "label", "checkbox", "form_error_summary"]
 file: input_otp_ui.css
 tokens: input-otp-*, input-*, forms-*, size-*, space-*, radius-*, font-*
-foundation: spacing, size, radius, typography
+foundation: spacing, size, radius, typography, motion
 states: ["active"]
 island: input_otp_island.rs
 pillar: form

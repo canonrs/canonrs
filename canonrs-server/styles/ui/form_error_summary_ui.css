@@ -45,6 +45,11 @@
   text-decoration: none;
 }
 
-[data-rs-form-error-summary-item-link]:hover {
+[data-rs-form-error-summary-item-link][data-rs-state~="hover"] {
   text-decoration: underline;
+}
+
+[data-rs-form-error-summary][data-rs-state~="error"] {
+  border-color: var(--form-error-summary-border-color);
+  background: var(--form-error-summary-bg);
 }

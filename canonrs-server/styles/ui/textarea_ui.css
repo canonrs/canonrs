@@ -4,7 +4,6 @@
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-textarea] {
-  display: block;
   width: 100%;
   min-height: var(--textarea-min-height);
   max-height: var(--textarea-max-height);
