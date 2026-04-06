@@ -1,6 +1,8 @@
 use leptos::prelude::*;
 use super::label_ui::Label;
+use super::label_island::LabelIsland;
 use crate::ui::input::Input;
+use crate::ui::input::input_island::InputIsland;
 
 #[component]
 pub fn LabelShowcasePreview() -> impl IntoView {
@@ -8,13 +10,14 @@ pub fn LabelShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;flex-direction:column;gap:var(--space-xs);">
-                    <Label for_id="label-input"><span>{"Username"}</span></Label>
-                    <Input placeholder="johndoe" />
+                    <LabelIsland text="Username" for_id="label-input" />
+                    <InputIsland placeholder="johndoe" />
                 </div>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Label-to-input association enforced via explicit html_for contract."
             </p>
+
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Multiple labels"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-sm);">
@@ -28,6 +31,7 @@ pub fn LabelShowcasePreview() -> impl IntoView {
                     </div>
                 </div>
             </div>
+
         </div>
     }
 }

@@ -1,7 +1,6 @@
-/* ============================================
-   LABEL
-   Family H: Utilities
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   LABEL - Family C Forms tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-label] {
   font-size: var(--label-font-size);
@@ -15,6 +14,11 @@
   color: var(--label-fg-muted);
 }
 
-[data-rs-label][disabled] {
+[data-rs-label][data-rs-disabled="true"] {
   color: var(--label-fg-disabled);
+}
+
+[data-rs-label][data-rs-required]::after {
+  content: " *";
+  color: var(--form-label-required-color);
 }
