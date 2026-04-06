@@ -173,6 +173,7 @@
   --error-state-actions-gap: var(--space-sm);
   --spinner-size: var(--space-lg);
   --spinner-border-width: 2px;
+  --spinner-stroke-width: 2px;
   --spinner-color: var(--theme-action-primary-bg);
   --spinner-track-color: var(--theme-surface-muted);
   --spinner-duration: var(--motion-duration-slow);

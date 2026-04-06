@@ -13,14 +13,13 @@
 
 [data-rs-progress-indicator] {
   height: 100%;
-  width: var(--progress-fill, 0%);
-  transition: width var(--progress-transition-duration) var(--progress-transition-ease);
+  width: 100%;
+  transition: transform var(--progress-transition-duration) var(--progress-transition-ease);
   background: var(--progress-fill-bg);
 }
 
 [data-rs-progress][data-rs-state~="loading"] [data-rs-progress-indicator],
 [data-rs-progress][data-rs-state~="indeterminate"] [data-rs-progress-indicator] {
-  width: 100%;
   animation: progress-indeterminate 1.5s ease-in-out infinite;
 }
 

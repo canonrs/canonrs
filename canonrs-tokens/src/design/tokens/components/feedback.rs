@@ -205,6 +205,7 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     // Spinner
     FamilyToken::new("spinner-size", "var(--space-lg)"),
     FamilyToken::new("spinner-border-width", "2px"),
+    FamilyToken::new("spinner-stroke-width", "2px"),
     FamilyToken::new("spinner-color", "var(--theme-action-primary-bg)"),
     FamilyToken::new("spinner-track-color", "var(--theme-surface-muted)"),
     FamilyToken::new("spinner-duration", "var(--motion-duration-slow)"),

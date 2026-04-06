@@ -23,7 +23,7 @@
   height: var(--spinner-size-large);
 }
 
-[data-rs-spinner][data-rs-paused="true"] {
+[data-rs-spinner][data-rs-state~="idle"] {
   opacity: var(--spinner-opacity-paused);
   animation-play-state: paused;
 }
@@ -33,6 +33,10 @@
   stroke-width: var(--spinner-stroke-width);
   stroke-linecap: round;
   fill: none;
+}
+
+[data-rs-spinner][data-rs-state~="loading"] {
+  animation-play-state: running;
 }
 
 @keyframes spinner-rotate {

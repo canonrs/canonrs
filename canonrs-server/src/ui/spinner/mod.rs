@@ -1,6 +1,9 @@
 pub mod spinner_ui;
 pub use spinner_ui::*;
 
+pub mod spinner_island;
+pub use spinner_island::*;
+
 #[cfg(feature = "examples")]
 pub mod examples;
 #[cfg(feature = "examples")]

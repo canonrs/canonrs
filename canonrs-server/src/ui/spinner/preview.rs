@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::spinner_ui::{Spinner, SpinnerSize};
+use super::spinner_island::SpinnerIsland;
 
 #[component]
 pub fn SpinnerShowcasePreview() -> impl IntoView {
@@ -7,7 +7,7 @@ pub fn SpinnerShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;align-items:center;gap:var(--space-md);">
-                    <Spinner size=SpinnerSize::Medium />
+                    <SpinnerIsland />
                 </div>
             </div>
             <p data-rs-showcase-preview-anchor="">
@@ -16,16 +16,16 @@ pub fn SpinnerShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Sizes"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
-                    <Spinner size=SpinnerSize::Small />
-                    <Spinner size=SpinnerSize::Medium />
-                    <Spinner size=SpinnerSize::Large />
+                    <SpinnerIsland size="small" />
+                    <SpinnerIsland size="medium" />
+                    <SpinnerIsland size="large" />
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
-                    <Spinner paused=false />
-                    <Spinner paused=true />
+                    <SpinnerIsland paused=false />
+                    <SpinnerIsland paused=true />
                 </div>
             </div>
         </div>
