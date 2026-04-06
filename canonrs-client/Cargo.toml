@@ -8,7 +8,6 @@ edition = "2021"
 [dependencies]
 leptos = { version = "0.8", default-features = false }
 canonrs-core = { path = "../canonrs-core" }
-canonrs-server = { path = "../canonrs-server", optional = true }
 time = { version = "0.3", features = ["macros", "formatting", "parsing"] }
 js-sys = "0.3"
 uuid = { version = "1", features = ["v4", "js", "serde"] }
@@ -34,7 +33,7 @@ ctor = { version = "0.2", optional = true }
 
 [features]
 default = []
-hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "ctor", "dep:canonrs-server", "canonrs-server/hydrate"]
+hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "ctor"]
 
 [lints]
 workspace = true
