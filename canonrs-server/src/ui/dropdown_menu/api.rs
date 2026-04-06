@@ -6,6 +6,7 @@ pub const DROPDOWNMENU_API: ComponentApi = ComponentApi {
     id: "dropdown-menu",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -14,6 +15,7 @@ pub const DROPDOWNMENUTRIGGER_API: ComponentApi = ComponentApi {
     id: "dropdown-menu-trigger",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -38,6 +40,7 @@ pub const DROPDOWNMENUITEM_API: ComponentApi = ComponentApi {
     id: "dropdown-menu-item",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -47,6 +50,7 @@ pub const DROPDOWNMENUCHECKBOXITEM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "checked", kind: PropType::String, required: false, default: Some("off"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

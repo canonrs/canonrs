@@ -421,7 +421,7 @@
   ],
   "components": [
     {
-      "behavior": "disclosure",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,
@@ -856,7 +856,7 @@
       "variants": []
     },
     {
-      "behavior": "overlay",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,
@@ -1051,7 +1051,7 @@
       "variants": []
     },
     {
-      "behavior": "input",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,
@@ -1621,7 +1621,7 @@
       "variants": []
     },
     {
-      "behavior": "navigation",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,

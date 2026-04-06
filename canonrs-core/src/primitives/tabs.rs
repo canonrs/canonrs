@@ -1,10 +1,10 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Tabs Primitive - data-rs-state SSR + behavior
+//! Tabs Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 use crate::meta::{ActivityState, DisabledState};
-use crate::infra::state_engine::{activity_attrs, disabled_attrs};
+use crate::infra::state_engine::activity_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TabsOrientation {
@@ -22,13 +22,14 @@ impl TabsOrientation {
 pub fn TabsPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     view! {
         <div
             data-rs-tabs=""
             data-rs-component="Tabs"
-            data-rs-behavior="navigation"
             class=class
+            node_ref=node_ref.unwrap_or_default()
         >
             {children()}
         </div>
@@ -62,17 +63,21 @@ pub fn TabsTriggerPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = activity_attrs(active);
-    let d = disabled_attrs(disabled);
+    let state_str = if disabled == DisabledState::Disabled {
+        format!("{} disabled", s.data_rs_state)
+    } else {
+        s.data_rs_state.to_string()
+    };
+    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     view! {
         <button
             type="button"
             role="tab"
             data-rs-tabs-trigger=""
             data-rs-value=value
-            data-rs-state=s.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-state=state_str
             aria-selected=s.aria_selected
-            aria-disabled=d.aria_disabled
+            aria-disabled=aria_disabled
             class=class
         >
             {children()}

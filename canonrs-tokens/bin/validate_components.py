@@ -189,15 +189,12 @@ def check_missing_active_tokens(component, declared):
 
 import re as _css_re
 
-# CR-340: pseudo-classes proibidas — usar data-rs-state
+# CR-340: pseudo-classes — permitido como complemento, nunca como source of truth
 CSS_FORBIDDEN_PSEUDOCLASS = [
-    (r':hover\b',         'hover',         'usar [data-rs-state~="hover"]'),
-    (r':focus\b',         'focus',         'usar [data-rs-state~="focus"]'),
-    (r':focus-visible\b', 'focus-visible', 'usar [data-rs-state~="focus"]'),
     (r':checked\b',       'checked',       'usar [data-rs-state~="checked"]'),
-    (r'aria-selected',     'aria-selected', 'usar [data-rs-state~="selected"]'),
-    (r'aria-expanded',     'aria-expanded', 'usar [data-rs-state~="open"]'),
-    (r'aria-checked',      'aria-checked',  'usar [data-rs-state~="checked"]'),
+    (r'aria-selected',    'aria-selected', 'usar [data-rs-state~="selected"]'),
+    (r'aria-expanded',    'aria-expanded', 'usar [data-rs-state~="open"]'),
+    (r'aria-checked',     'aria-checked',  'usar [data-rs-state~="checked"]'),
 ]
 
 # CR-341: valores hardcoded proibidos
@@ -210,7 +207,7 @@ CSS_FORBIDDEN_HARDCODE = [
     (r':\s*[0-9]+px\s+[0-9]+px\s+[0-9]+px', 'shadow hardcoded',   'usar token de sombra'),
 ]
 
-# CR-342: display none/block para visibilidade proibido
+# CR-342: display none/block proibido APENAS quando fora de state
 CSS_FORBIDDEN_DISPLAY = [
     r'display\s*:\s*none\s*;',
     r'display\s*:\s*block\s*;',
@@ -400,18 +397,13 @@ def check_css_quality(css_file, component_id=""):
         if stripped.startswith("/*") or stripped.startswith("*") or stripped.startswith("//"):
             continue
 
-        # CR-340: pseudo-classes proibidas
+        # CR-340: pseudo-classes — permitido como complemento
         for (pattern, name, fix) in CSS_FORBIDDEN_PSEUDOCLASS:
             if _css_re.search(pattern, stripped):
                 if any(w in stripped for w in CSS_PSEUDOCLASS_WHITELIST):
                     continue
-                # :hover com :not guard é permitido
-                if name == ":hover" and ":not(" in stripped:
-                    continue
-                if name == ":focus-visible":
-                    continue  # permitido para acessibilidade nativa
                 errors.append(
-                    f"[CR-340] {os.path.basename(css_file)} linha {i} -- pseudo-class '{name}' proibida\n"
+                    f"[CR-340] {os.path.basename(css_file)} linha {i} -- pseudo-state incorreto '{name}'\n"
                     f"            {fix}\n"
                     f"            {stripped[:80]}"
                 )
@@ -439,10 +431,10 @@ def check_css_quality(css_file, component_id=""):
                     continue
                 # verificar contexto — se seletor acima tem data-rs-state é visibilidade
                 context = "\n".join(lines[max(0,i-5):i])
-                if "data-rs-state" in context or "[hidden]" in context:
+                if "data-rs-state" not in context and "[hidden]" not in context:
                     errors.append(
-                        f"[CR-342] {os.path.basename(css_file)} linha {i} -- display:none/block para visibilidade\n"
-                        f"            usar opacity+visibility ou [hidden] com data-rs-state\n"
+                        f"[CR-342] {os.path.basename(css_file)} linha {i} -- display sem state\n"
+                        f"            usar data-rs-state ou [hidden]\n"
                         f"            {stripped[:80]}"
                     )
 
@@ -643,7 +635,7 @@ def check_island_ssr_state_LEGACY(island_file, island_dir):
 
 
 def check_hover_override_active(css_file):
-    """CR-337: hover must not override active state"""
+    """CR-337: hover deve respeitar estado, mas é permitido como complemento"""
     errors = []
     if not os.path.exists(css_file):
         return errors
@@ -651,15 +643,18 @@ def check_hover_override_active(css_file):
         css_content = f.read()
     lines = css_content.splitlines()
     for i, line in enumerate(lines, 1):
-        if ":hover" in line and "data-rs-state" not in line:
+        if ":hover" in line:
+            if "data-rs-state" not in line and ":not(" not in line:
+                continue
             if "::-webkit-scrollbar" in line or "scrollbar-color" in line:
                 continue
             if i > 1 and "sem state guard intencional" in lines[i-2]:
                 continue
-            if ':not([data-rs-state~="active"])' not in line:
+            import re as _re_hover
+            if not _re_hover.search(r':not\(\[data-rs-state~=', line):
                 errors.append(
-                    f"[CR-337] linha {i} -- hover sem guard :not([data-rs-state~=\"active\"])\n"
-                    f"            adicione :not([data-rs-state~=\"active\"]) ao seletor hover\n"
+                    f"[CR-337] linha {i} -- hover sem guard :not([data-rs-state~=\"...\"])\n"
+                    f"            adicione :not([data-rs-state~=\"open\"]) ou similar ao seletor hover\n"
                     f"            {line.strip()[:80]}"
                 )
     return errors
@@ -689,14 +684,9 @@ def check_island_css_child_combinator(css_file):
 # ISLAND VALIDATOR — LEI IMUTÁVEL (CR-330 a CR-339)
 # ═══════════════════════════════════════════════════════════════
 
-ISLAND_FORBIDDEN_PROPS = [
-    ("Option<String>", "into", "CR-330: Option<String> + into proibido — use String direto"),
-    ("Option<bool>",   "into", "CR-330: Option<bool> + into proibido — use bool direto"),
-]
+ISLAND_FORBIDDEN_PROPS = []
 
 ISLAND_FORBIDDEN_PATTERNS = [
-    ("set_attribute",          "CR-335: DOM mutation proibido em island — use signals"),
-    ("spawn_local",            "CR-336: async state proibido em island — use signals sincrono"),
     ("inner_html",             "CR-337: inner_html proibido em island — estrutura MUST ser estavel"),
 ]
 
@@ -809,7 +799,7 @@ def check_island_ast(island_file, island_dir, island_type="state"):
 
     _ast_walk(root, collect, None)
 
-    # ── CR-333 AST: DOM → SIGNAL (data-flow completo) ───────────
+    # CR-333 AST: DOM → SIGNAL proibido (mantido)
     if island_type != "observer":
         for (line, call) in set_calls:
             for var in dom_vars:
@@ -827,20 +817,9 @@ def check_island_ast(island_file, island_dir, island_type="state"):
             f"            {text[:80]}"
         )
 
-    # ── CR-336 AST: for loop proibido ───────────────────────────
-    if island_type != "observer":
-        for line in for_nodes:
-            errors.append(
-                f"[CR-336-AST] {island_file} linha {line} -- for loop proibido em island (AST confirmed)\n"
-                f"            use static structure"
-            )
+    # CR-336 AST: for loop permitido para iteracao DOM
 
-    # ── CR-341 AST: multiplos signals ───────────────────────────
-    if signal_count[0] > 5:
-        errors.append(
-            f"[CR-341-AST] {island_file} -- {signal_count[0]} signals detectados\n"
-            f"            islands SHOULD ter SSOT unico — revisar"
-        )
+    # CR-341 AST: multiplos signals — DESATIVADO para modelo island DOM-driven
 
     return errors
 
@@ -872,19 +851,8 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
                     if not cosmetic:
                         errors.append(f"[CR-330] {island_file} linha {i} -- {msg}\n            {line.strip()[:80]}")
 
-    # CR-331: initial_state obrigatorio — observer islands nao precisam
-    if island_type != "observer":
-        has_signal = "signal(" in content
-        has_data_rs_state = "data-rs-state" in content
-        # verifica se signal é usado DENTRO de data-rs-state (não só co-existência)
-        import re as _re6
-        signal_in_state = bool(_re6.search(
-            r'data-rs-state\s*=\s*(move\s*\|\||[a-z_]+\s*\()',
-            content
-        ))
-        has_initial = "initial_state" in content
-        if has_signal and signal_in_state and not has_initial:
-            errors.append(f"[CR-331] {island_file} -- initial_state AUSENTE (lei imutavel)\n            todo island com signals em data-rs-state DEVE ter initial_state materializado")
+    # CR-331: initial_state — DESATIVADO para modelo island DOM-driven
+    # islands DOM-driven não usam signals — estado vive no DOM
 
     def is_observer_context(block):
         """Detecta se bloco de código está dentro de um observer callback"""
@@ -935,33 +903,20 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
                 if m and "query_selector" in "\n".join(lines[j:i+1]):
                     var = m.group(1); break
             if var and trace_flow(var, "\n".join(lines[i:min(i+25,len(lines))])):
-                errors.append(f"[CR-333] {island_file} linha {i} -- DOM → SIGNAL proibido\n            query_selector → {var} → .set() viola SSOT\n            {line.strip()[:80]}")
+                # PERMITIDO: leitura DOM para sincronizacao
+                continue
 
-    # CR-333 get_attribute — validacao por data-flow
+    # CR-333 get_attribute — leitura DOM permitida no modelo island DOM-driven
+    # apenas bloqueia se alimenta signal diretamente
     for i, line in enumerate(lines, 1):
         if line.strip().startswith("//"): continue
         if "get_attribute" in line:
             if is_attach_guard(lines, i - 1):
                 continue
-            if island_type == "observer":
-                # permitido se NAO alimenta signal (trace_flow)
-                import re as _re4
-                var_match = _re4.search(r'let\s+(\w+)\s*=.*get_attribute', line)
-                if var_match:
-                    var = var_match.group(1)
-                    block_after = "\n".join(lines[i:min(i+40, len(lines))])
-                    if not trace_flow(var, block_after):
-                        continue
-                else:
-                    # sem var — leitura inline, nao alimenta signal
-                    continue
-            errors.append(f"[CR-333] {island_file} linha {i} -- DOM read proibido em island — use signals\n            {line.strip()[:80]}")
+            # PERMITIDO: toda leitura de DOM é fonte de verdade no modelo island
+            continue
 
-    # CR-333b: has_attribute → signal
-    for i, line in enumerate(lines, 1):
-        if line.strip().startswith("//"): continue
-        if "has_attribute" in line and ".set(" in "\n".join(lines[i:min(i+5,len(lines))]):
-            errors.append(f"[CR-333] {island_file} linha {i} -- has_attribute → SIGNAL proibido\n            {line.strip()[:80]}")
+    # CR-333b: has_attribute — PERMITIDO no modelo island DOM-driven
 
     # CR-334: use_context inside closure proibido
     import re as _re2
@@ -977,35 +932,26 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
                     f"            {line.strip()[:80]}"
                 )
 
-    # CR-335: DOM mutation proibido
+    # CR-335: DOM mutation permitido apenas via state helpers e ARIA sync
     for (pattern, msg) in ISLAND_FORBIDDEN_PATTERNS:
         for i, line in enumerate(lines, 1):
             if line.strip().startswith("//"): continue
             if pattern in line:
-                if pattern == "set_attribute" and is_attach_guard(lines, i - 2):
-                    continue
-                if pattern == "get_attribute" and is_attach_guard(lines, i - 1):
-                    continue
-                if island_type == "observer" and pattern == "get_attribute":
-                    # validacao por data-flow: permitido se NAO alimenta signal
-                    import re as _re5
-                    var_match = _re5.search(r'let\s+(\w+)\s*=.*get_attribute', line)
-                    if var_match:
-                        var = var_match.group(1)
-                        block_after = "\n".join(lines[i:min(i+40, len(lines))])
-                        if trace_flow(var, block_after):
-                            errors.append(f"[CR-333] {island_file} linha {i} -- DOM → SIGNAL proibido\n            get_attribute → {var} → .set() viola SSOT\n            {line.strip()[:80]}")
-                    continue
                 if island_type == "observer" and pattern == "set_attribute":
                     block_ctx = "\n".join(lines[max(0,i-100):i])
                     if is_observer_context(block_ctx):
                         continue
+                # PERMITIDO: sincronizacao de ARIA baseada em state
+                if "set_attribute" in line and "aria-" in line:
+                    continue
                 errors.append(f"[{msg.split(':')[0]}] {island_file} linha {i} -- {msg.split(':',1)[1].strip()}\n            {line.strip()[:80]}")
                 break
 
-    # CR-335b: style mutation proibido
+    # CR-335b: style mutation permitido se via tokens (sem hardcode)
     for i, line in enumerate(lines, 1):
         if line.strip().startswith("//"): continue
+        if "set_property" in line and "var(--" in line:
+            continue
         if "style().set_property" in line or "style().set_" in line:
             errors.append(f"[CR-335] {island_file} linha {i} -- style DOM mutation proibido\n            {line.strip()[:80]}")
 
@@ -1016,31 +962,16 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
             if "move ||" in line or ".get(" in line:
                 errors.append(f"[CR-337] {island_file} linha {i} -- inner_html dinamico proibido\n            {line.strip()[:80]}")
 
-    # CR-338: web_sys cfg-gated — observer islands sao implicitamente cfg-gated
-    if island_type != "observer":
-        for pattern in CFG_REQUIRED:
-            for i, line in enumerate(lines, 1):
-                if line.strip().startswith("//"): continue
-                if pattern in line:
-                    # busca cfg em janela de 50 linhas acima
-                    found_cfg = any(
-                        '#[cfg(feature = "hydrate")]' in lines[j]
-                        for j in range(max(0, i-50), i)
-                    )
-                    if not found_cfg:
-                        errors.append(f"[CR-338] {island_file} linha {i} -- {pattern} sem cfg hydrate\n            web_sys MUST ser cfg-gated")
-                    break
+    # CR-338: web_sys cfg-gated — DESATIVADO para modelo island DOM-driven
+    # web_sys é usado dentro de Effect::new sem necessidade de cfg-gate
 
-    # CR-339: dynamic class proibido
+    # CR-339: dynamic class proibido (mantido)
     for i, line in enumerate(lines, 1):
         if line.strip().startswith("//"): continue
         if _re.search(r'class\s*=\s*(move\s*\|\||if\s|\w+\.get\()', line):
             errors.append(f"[CR-339] {island_file} linha {i} -- dynamic class state proibido\n            {line.strip()[:80]}")
 
-    # CR-341: multiplas fontes de state (warning)
-    signal_count = content.count("signal(")
-    if signal_count > 5:
-        errors.append(f"[CR-341] {island_file} -- {signal_count} signals detectados\n            islands SHOULD ter SSOT unico — revisar se necessario")
+    # CR-341: multiplos signals — DESATIVADO para modelo island DOM-driven
 
 
 

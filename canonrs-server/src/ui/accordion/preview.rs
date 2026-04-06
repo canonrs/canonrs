@@ -32,7 +32,7 @@ pub fn AccordionShowcasePreview() -> impl IntoView {
                 <AccordionIsland items=faq_items() />
             </div>
             <p data-rs-showcase-preview-anchor="">
-                "Open/close state governed by signal — single or multiple selection."
+                "Open/close state governed by DOM — single or multiple selection."
             </p>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Multiple selection"</span>

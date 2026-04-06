@@ -53,21 +53,20 @@ pub fn InputPrimitive(
     #[prop(default = InputVariant::Default)] variant: InputVariant,
     #[prop(default = InputSize::Md)] size: InputSize,
 ) -> impl IntoView {
+    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     view! {
         <input
             data-rs-input=""
             data-rs-component="Input"
-            data-rs-behavior="input"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
-            data-rs-disabled=disabled.as_str()
             type=input_type
             class=class
             name=name
             value=value
             placeholder=placeholder
             disabled=disabled.as_bool()
-            aria-disabled=disabled.aria()
+            aria-disabled=aria_disabled
             aria-label=aria_label
         />
     }

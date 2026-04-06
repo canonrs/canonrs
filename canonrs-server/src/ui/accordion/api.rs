@@ -8,6 +8,7 @@ pub const ACCORDION_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "selection", kind: PropType::Enum(&["single", "multiple"]), required: false, default: Some("single"), description: "" },
         PropDef { name: "collapsible", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -16,6 +17,8 @@ pub const ACCORDIONITEM_API: ComponentApi = ComponentApi {
     id: "accordion-item",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("closed"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -24,6 +27,7 @@ pub const ACCORDIONTRIGGER_API: ComponentApi = ComponentApi {
     id: "accordion-trigger",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

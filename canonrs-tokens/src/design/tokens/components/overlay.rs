@@ -157,7 +157,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("dropdown-menu-border-width",          "1px"),
     FamilyToken::new("dropdown-menu-min-width",             "var(--layout-width-sm)"),
     FamilyToken::new("dropdown-menu-z-index",               "var(--layer-overlay)"),
-    FamilyToken::new("dropdown-menu-padding",               "var(--space-xs)"),
+    FamilyToken::new("dropdown-menu-padding-y",             "var(--space-xs)"),
     FamilyToken::new("dropdown-menu-item-height",           "var(--space-xl)"),
     FamilyToken::new("dropdown-menu-item-padding",          "var(--space-sm)"),
     FamilyToken::new("dropdown-menu-item-hover-bg",         "var(--theme-action-accent-bg)"),

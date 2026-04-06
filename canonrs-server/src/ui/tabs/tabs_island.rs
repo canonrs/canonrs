@@ -1,4 +1,131 @@
+//! @canon-level: strict
+//! Tabs Island — apenas muta DOM via web_sys
+//! SEM signals, SEM lógica de negócio, SEM estado reativo
+
 use leptos::prelude::*;
+
+use super::tabs_ui::{Tabs, TabsList, TabsTrigger, TabsContent};
+use canonrs_core::meta::{ActivityState, DisabledState};
+
+// ---------------------------------------------------------------------------
+// Helpers de estado — multi-state safe
+// ---------------------------------------------------------------------------
+
+fn add_state(el: &leptos::web_sys::Element, token: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    if current.split_whitespace().any(|t| t == token) { return; }
+    let next = format!("{} {}", current, token).trim().to_string();
+    let _ = el.set_attribute("data-rs-state", &next);
+}
+
+fn remove_state(el: &leptos::web_sys::Element, token: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    let next = current.split_whitespace()
+        .filter(|t| *t != token)
+        .collect::<Vec<_>>()
+        .join(" ");
+    let _ = el.set_attribute("data-rs-state", &next);
+}
+
+// ---------------------------------------------------------------------------
+// Helpers DOM
+// ---------------------------------------------------------------------------
+
+fn get_triggers(root: &leptos::web_sys::Element) -> Vec<leptos::web_sys::Element> {
+    let mut result = Vec::new();
+    let mut i = 0u32;
+    loop {
+        let selector = format!("[data-rs-tabs-trigger]:nth-of-type({})", i + 1);
+        match root.query_selector(&selector) {
+            Ok(Some(el)) => { result.push(el); i += 1; }
+            _ => break,
+        }
+    }
+    result
+}
+
+fn get_contents(root: &leptos::web_sys::Element) -> Vec<leptos::web_sys::Element> {
+    // busca todos os values dos triggers e localiza contents pelo value
+    let mut result = Vec::new();
+    let triggers = get_triggers(root);
+    for trigger in &triggers {
+        let v = trigger.get_attribute("data-rs-value").unwrap_or_default();
+        if v.is_empty() { continue; }
+        let selector = format!("[data-rs-tabs-content][data-rs-value='{}']", v);
+        if let Ok(Some(el)) = root.query_selector(&selector) {
+            result.push(el);
+        }
+    }
+    result
+}
+
+fn activate_tab(root: &leptos::web_sys::Element, value: &str) {
+
+    for trigger in get_triggers(root) {
+        let v = trigger.get_attribute("data-rs-value").unwrap_or_default();
+        let is_active = v == value;
+        remove_state(&trigger, "active");
+        remove_state(&trigger, "inactive");
+        if is_active { add_state(&trigger, "active"); } else { add_state(&trigger, "inactive"); }
+        let _ = trigger.set_attribute("aria-selected", if is_active { "true" } else { "false" });
+    }
+
+    for content in get_contents(root) {
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
+        let v = content.get_attribute("data-rs-value").unwrap_or_default();
+        let is_active = v == value;
+        remove_state(&content, "active");
+        remove_state(&content, "inactive");
+        if is_active {
+            add_state(&content, "active");
+            if let Ok(el) = content.clone().dyn_into::<web_sys::HtmlElement>() {
+                let _ = el.remove_attribute("hidden");
+            }
+        } else {
+            add_state(&content, "inactive");
+            if let Ok(el) = content.clone().dyn_into::<web_sys::HtmlElement>() {
+                let _ = el.set_attribute("hidden", "");
+            }
+        }
+    }
+}
+
+fn navigable_triggers(root: &leptos::web_sys::Element) -> Vec<leptos::web_sys::Element> {
+    get_triggers(root).into_iter()
+        .filter(|el| {
+            !el.get_attribute("data-rs-state")
+                .map(|s: String| s.contains("disabled"))
+                .unwrap_or(false)
+        })
+        .collect()
+}
+
+fn focused_trigger_index(items: &[leptos::web_sys::Element]) -> Option<usize> {
+    items.iter().position(|el| {
+        el.get_attribute("data-rs-state")
+            .map(|s: String| s.contains("focus"))
+            .unwrap_or(false)
+    })
+}
+
+fn active_trigger_index(items: &[leptos::web_sys::Element]) -> Option<usize> {
+    items.iter().position(|el| {
+        el.get_attribute("data-rs-state")
+            .map(|s: String| s.contains("active"))
+            .unwrap_or(false)
+    })
+}
+
+fn clear_focused(root: &leptos::web_sys::Element) {
+    for trigger in get_triggers(root) {
+        remove_state(&trigger, "focus");
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Struct de tab
+// ---------------------------------------------------------------------------
 
 #[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct TabItem {
@@ -8,135 +135,264 @@ pub struct TabItem {
     pub disabled: bool,
 }
 
+// ---------------------------------------------------------------------------
+// Island
+// ---------------------------------------------------------------------------
+
+static TABS_ID: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(1);
+
 #[island]
 pub fn TabsIsland(
     tabs: Vec<TabItem>,
-    #[prop(into)] active: String,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let (active_tab, set_active_tab) = signal(active.clone());
+    let class       = class.unwrap_or_default();
+    let island_id   = TABS_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed).to_string();
+    let first_value = tabs.first().map(|t| t.value.clone()).unwrap_or_default();
 
-    let initial_state_trigger = |value: &str| -> String {
-        if value == active { "active".into() } else { "inactive".into() }
-    };
+    let node_ref = NodeRef::<leptos::html::Div>::new();
 
-    let initial_state_content = |value: &str| -> String {
-        if value == active { "active".into() } else { "inactive".into() }
-    };
+    let id_for_effect = island_id.clone();
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
 
-    let triggers_view = tabs.iter().map(|tab| {
-        let value     = tab.value.clone();
-        let label     = tab.label.clone();
-        let disabled  = tab.disabled;
-        let initial   = initial_state_trigger(&value);
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
+        let _ = root.set_attribute("data-rs-tabs-id", &id_for_effect);
 
-        let on_click = {
-            let value = value.clone();
-            move |_: leptos::ev::MouseEvent| {
-                if !disabled { set_active_tab.set(value.clone()); }
-            }
-        };
+        // --- click trigger ---
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                let Some(target) = e.target()
+                    .and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                if let Ok(Some(trigger)) = target.closest("[data-rs-tabs-trigger]") {
+                    let state = trigger.get_attribute("data-rs-state").unwrap_or_default();
+                    if state.contains("disabled") { return; }
+                    let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
+                    activate_tab(&root_cb, &value);
+                    clear_focused(&root_cb);
+                }
+            }));
+            let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
 
-        #[cfg(feature = "hydrate")]
-        let on_keydown = {
-            let value = value.clone();
-            move |e: leptos::ev::KeyboardEvent| {
-                match e.key().as_str() {
+        // --- keydown (arrow navigation) ---
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+                let Some(target) = e.target()
+                    .and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                if target.closest("[data-rs-tabs-trigger]").ok().flatten().is_none() { return; }
+
+                let key = e.key();
+                match key.as_str() {
                     "Enter" | " " => {
                         e.prevent_default();
-                        if !disabled { set_active_tab.set(value.clone()); }
+                        if let Ok(Some(trigger)) = target.closest("[data-rs-tabs-trigger]") {
+                            let state = trigger.get_attribute("data-rs-state").unwrap_or_default();
+                            if !state.contains("disabled") {
+                                let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
+                                activate_tab(&root_cb, &value);
+                                clear_focused(&root_cb);
+                            }
+                        }
+                    }
+                    "ArrowRight" | "ArrowDown" | "ArrowLeft" | "ArrowUp" => {
+                        e.prevent_default();
+                        let items = navigable_triggers(&root_cb);
+                        let len = items.len();
+                        if len == 0 { return; }
+                        let cur = focused_trigger_index(&items)
+                            .or_else(|| active_trigger_index(&items))
+                            .unwrap_or(0);
+                        let next = match key.as_str() {
+                            "ArrowRight" | "ArrowDown" => (cur + 1) % len,
+                            "ArrowLeft"  | "ArrowUp"   => if cur == 0 { len - 1 } else { cur - 1 },
+                            _ => cur,
+                        };
+                        clear_focused(&root_cb);
+                        if let Some(el) = items.get(next) {
+                            add_state(el, "focus");
+                            if let Ok(btn) = el.clone().dyn_into::<web_sys::HtmlElement>() {
+                                let _ = btn.focus();
+                            }
+                        }
+                    }
+                    "Home" => {
+                        e.prevent_default();
+                        let items = navigable_triggers(&root_cb);
+                        if let Some(el) = items.first() {
+                            clear_focused(&root_cb);
+                            add_state(el, "focus");
+                            if let Ok(btn) = el.clone().dyn_into::<web_sys::HtmlElement>() {
+                                let _ = btn.focus();
+                            }
+                        }
+                    }
+                    "End" => {
+                        e.prevent_default();
+                        let items = navigable_triggers(&root_cb);
+                        if let Some(el) = items.last() {
+                            clear_focused(&root_cb);
+                            add_state(el, "focus");
+                            if let Ok(btn) = el.clone().dyn_into::<web_sys::HtmlElement>() {
+                                let _ = btn.focus();
+                            }
+                        }
                     }
                     _ => {}
                 }
-            }
-        };
-        #[cfg(not(feature = "hydrate"))]
-        let on_keydown = move |_: leptos::ev::KeyboardEvent| {};
+            }));
+            let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
 
-        let item_state = {
-            let value = value.clone();
-            move || if active_tab.get() == value { "active".to_string() } else { "inactive".to_string() }
-        };
+    // SSR — primeiro tab ativo por padrão, estado via primitive
+    let tabs_clone  = tabs.clone();
 
+    let triggers_view = tabs.into_iter().map(|tab| {
+        let active = if tab.value == first_value {
+            ActivityState::Active
+        } else {
+            ActivityState::Inactive
+        };
+        let disabled = if tab.disabled {
+            DisabledState::Disabled
+        } else {
+            DisabledState::Enabled
+        };
         view! {
-            <button
-                type="button"
-                role="tab"
-                data-rs-tabs-trigger=""
-                data-rs-value=value.clone()
-                data-rs-state=move || { let s = item_state(); if s.is_empty() { initial.clone() } else { s } }
-                aria-selected=move || (active_tab.get() == value).to_string()
-                aria-disabled=disabled.to_string()
-                disabled=disabled
-                on:click=on_click
-                on:keydown=on_keydown
-            >
-                {label}
-            </button>
+            <TabsTrigger value=tab.value.clone() active=active disabled=disabled>
+                {tab.label.clone()}
+            </TabsTrigger>
         }
     }).collect::<Vec<_>>();
 
-    let contents_view = tabs.iter().map(|tab| {
-        let value    = tab.value.clone();
-        let content  = tab.content.clone();
-        let initial  = initial_state_content(&value);
-
-        let item_state = {
-            let value = value.clone();
-            move || if active_tab.get() == value { "active".to_string() } else { "inactive".to_string() }
+    let contents_view = tabs_clone.into_iter().map(|tab| {
+        let active = if tab.value == first_value {
+            ActivityState::Active
+        } else {
+            ActivityState::Inactive
         };
-
-        let is_hidden = {
-            let value = value.clone();
-            move || active_tab.get() != value
-        };
-
         view! {
-            <div
-                data-rs-tabs-content=""
-                data-rs-value=value.clone()
-                data-rs-state=move || { let s = item_state(); if s.is_empty() { initial.clone() } else { s } }
-                role="tabpanel"
-                hidden=is_hidden
-            >
-                {content}
-            </div>
+            <TabsContent value=tab.value.clone() active=active>
+                {tab.content.clone()}
+            </TabsContent>
         }
     }).collect::<Vec<_>>();
 
     view! {
-        <div
-            data-rs-tabs=""
-            data-rs-component="Tabs"
-            class=class
-        >
-            <div
-                data-rs-tabs-list=""
-                role="tablist"
-                aria-orientation="horizontal"
-            >
+        <Tabs class=class node_ref=node_ref>
+            <TabsList>
                 {triggers_view}
-            </div>
+            </TabsList>
             {contents_view}
-        </div>
+        </Tabs>
     }
 }
 
-#[derive(Clone, Debug, PartialEq)]
-pub struct TabsContext(pub RwSignal<String>);
+// ---------------------------------------------------------------------------
+// Islands composáveis — para uso com children arbitrários
+// ---------------------------------------------------------------------------
+
+static TABS_ROOT_ID: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(1);
 
 #[island]
 pub fn TabsRootIsland(
     children: Children,
-    #[prop(into)] initial: String,
+    #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let active = RwSignal::new(initial);
-    provide_context(TabsContext(active));
+    let class     = class.unwrap_or_default();
+    let island_id = TABS_ROOT_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed).to_string();
+
+    let node_ref = NodeRef::<leptos::html::Div>::new();
+
+    let id_for_effect  = island_id.clone();
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
+
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
+        let _ = root.set_attribute("data-rs-tabs-id", &id_for_effect);
+
+        // --- click trigger ---
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                let Some(target) = e.target()
+                    .and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                if let Ok(Some(trigger)) = target.closest("[data-rs-tabs-trigger]") {
+                    let state = trigger.get_attribute("data-rs-state").unwrap_or_default();
+                    if state.contains("disabled") { return; }
+                    let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
+                    activate_tab(&root_cb, &value);
+                    clear_focused(&root_cb);
+                }
+            }));
+            let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+
+        // --- keydown ---
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+                let Some(target) = e.target()
+                    .and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                if target.closest("[data-rs-tabs-trigger]").ok().flatten().is_none() { return; }
+                let key = e.key();
+                match key.as_str() {
+                    "Enter" | " " => {
+                        e.prevent_default();
+                        if let Ok(Some(trigger)) = target.closest("[data-rs-tabs-trigger]") {
+                            let state = trigger.get_attribute("data-rs-state").unwrap_or_default();
+                            if !state.contains("disabled") {
+                                let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
+                                activate_tab(&root_cb, &value);
+                                clear_focused(&root_cb);
+                            }
+                        }
+                    }
+                    "ArrowRight" | "ArrowDown" | "ArrowLeft" | "ArrowUp" => {
+                        e.prevent_default();
+                        let items = navigable_triggers(&root_cb);
+                        let len = items.len();
+                        if len == 0 { return; }
+                        let cur = focused_trigger_index(&items)
+                            .or_else(|| active_trigger_index(&items))
+                            .unwrap_or(0);
+                        let next = match key.as_str() {
+                            "ArrowRight" | "ArrowDown" => (cur + 1) % len,
+                            "ArrowLeft"  | "ArrowUp"   => if cur == 0 { len - 1 } else { cur - 1 },
+                            _ => cur,
+                        };
+                        clear_focused(&root_cb);
+                        if let Some(el) = items.get(next) {
+                            add_state(el, "focus");
+                            if let Ok(btn) = el.clone().dyn_into::<web_sys::HtmlElement>() {
+                                let _ = btn.focus();
+                            }
+                        }
+                    }
+                    _ => {}
+                }
+            }));
+            let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
+
     view! {
-        <div data-rs-tabs="" data-rs-component="Tabs">
+        <Tabs class=class node_ref=node_ref>
             {children()}
-        </div>
+        </Tabs>
     }
 }
 
@@ -146,47 +402,13 @@ pub fn TabsTriggerIsland(
     #[prop(into)] value: String,
     #[prop(optional)] disabled: Option<bool>,
 ) -> impl IntoView {
-    use canonrs_core::meta::ActivityState;
     let disabled = disabled.unwrap_or(false);
-    let ctx = use_context::<TabsContext>();
-    let value2 = value.clone();
-
-    let signal = ctx.as_ref().map(|TabsContext(a)| *a);
-    let value3 = value2.clone();
-    let state = move || {
-        signal.map(|a| if a.get() == value2 { ActivityState::Active.as_str() } else { ActivityState::Inactive.as_str() })
-              .unwrap_or(ActivityState::Inactive.as_str())
-    };
-    let is_active = move || signal.map(|a| a.get() == value3).unwrap_or(false);
-
-    #[cfg(feature = "hydrate")]
-    let on_click = {
-        let value = value.clone();
-        let ctx = ctx.clone();
-        move |_: leptos::ev::MouseEvent| {
-            if !disabled {
-                if let Some(TabsContext(active)) = ctx.as_ref() {
-                    active.set(value.clone());
-                }
-            }
-        }
-    };
-    #[cfg(not(feature = "hydrate"))]
-    let on_click = move |_: leptos::ev::MouseEvent| {};
-
+    let active   = canonrs_core::meta::ActivityState::Inactive;
+    let dis      = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
-        <button
-            type="button"
-            role="tab"
-            data-rs-tabs-trigger=""
-            data-rs-value=value.clone()
-            data-rs-state=state
-            aria-selected=is_active
-            disabled=disabled
-            on:click=on_click
-        >
+        <TabsTrigger value=value active=active disabled=dis>
             {children()}
-        </button>
+        </TabsTrigger>
     }
 }
 
@@ -195,27 +417,9 @@ pub fn TabsContentIsland(
     children: Children,
     #[prop(into)] value: String,
 ) -> impl IntoView {
-    let ctx = use_context::<TabsContext>();
-    let value2 = value.clone();
-
-    use canonrs_core::meta::ActivityState;
-    let signal = ctx.as_ref().map(|TabsContext(a)| *a);
-    let value3 = value2.clone();
-    let state = move || {
-        signal.map(|a| if a.get() == value2 { ActivityState::Active.as_str() } else { ActivityState::Inactive.as_str() })
-              .unwrap_or(ActivityState::Inactive.as_str())
-    };
-    let hidden = move || signal.map(|a| a.get() != value3).unwrap_or(true);
-
     view! {
-        <div
-            data-rs-tabs-content=""
-            data-rs-value=value
-            data-rs-state=state
-            hidden=hidden
-            role="tabpanel"
-        >
+        <TabsContent value=value active=canonrs_core::meta::ActivityState::Inactive>
             {children()}
-        </div>
+        </TabsContent>
     }
 }

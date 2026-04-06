@@ -1,6 +1,5 @@
-
 use leptos::prelude::*;
-use canonrs_core::meta::ActivityState;
+use canonrs_core::meta::{ActivityState, DisabledState};
 use canonrs_core::primitives::{
     TabsPrimitive, TabsListPrimitive,
     TabsTriggerPrimitive, TabsContentPrimitive,
@@ -9,10 +8,11 @@ use canonrs_core::primitives::{
 #[component]
 pub fn Tabs(
     children: Children,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TabsPrimitive class=class>
+        <TabsPrimitive class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </TabsPrimitive>
     }
@@ -32,13 +32,14 @@ pub fn TabsList(
 
 #[component]
 pub fn TabsTrigger(
-    #[prop(into)] value: String,
     children: Children,
+    #[prop(into)] value: String,
     #[prop(default = ActivityState::Inactive)] active: ActivityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TabsTriggerPrimitive value=value active=active class=class>
+        <TabsTriggerPrimitive value=value active=active disabled=disabled class=class>
             {children()}
         </TabsTriggerPrimitive>
     }
@@ -46,8 +47,8 @@ pub fn TabsTrigger(
 
 #[component]
 pub fn TabsContent(
-    #[prop(into)] value: String,
     children: Children,
+    #[prop(into)] value: String,
     #[prop(default = ActivityState::Inactive)] active: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {

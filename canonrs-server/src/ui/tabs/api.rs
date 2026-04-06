@@ -6,6 +6,7 @@ pub const TABS_API: ComponentApi = ComponentApi {
     id: "tabs",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -24,6 +25,7 @@ pub const TABSTRIGGER_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "value", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "active", kind: PropType::String, required: false, default: Some("inactive"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

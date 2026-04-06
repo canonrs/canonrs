@@ -1,21 +1,22 @@
-
 use leptos::prelude::*;
 use canonrs_core::separator::SeparatorOrientation;
 use canonrs_core::primitives::{
     DropdownMenuPrimitive, DropdownMenuContentPrimitive,
     DropdownMenuGroupPrimitive, DropdownMenuItemPrimitive,
     DropdownMenuCheckboxItemPrimitive, DropdownMenuTriggerPrimitive,
-    DropdownMenuLabelPrimitive, SeparatorPrimitive,
+    DropdownMenuLabelPrimitive,
+    SeparatorPrimitive,
 };
-use canonrs_core::meta::ToggleState;
+use canonrs_core::meta::{DisabledState, ToggleState, VisibilityState};
 
 #[component]
 pub fn DropdownMenu(
     children: Children,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DropdownMenuPrimitive class=class>
+        <DropdownMenuPrimitive state=VisibilityState::Closed class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </DropdownMenuPrimitive>
     }
@@ -24,10 +25,11 @@ pub fn DropdownMenu(
 #[component]
 pub fn DropdownMenuTrigger(
     children: Children,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DropdownMenuTriggerPrimitive class=class>
+        <DropdownMenuTriggerPrimitive disabled=disabled class=class>
             {children()}
         </DropdownMenuTriggerPrimitive>
     }
@@ -60,10 +62,11 @@ pub fn DropdownMenuGroup(
 #[component]
 pub fn DropdownMenuItem(
     children: Children,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DropdownMenuItemPrimitive class=class>
+        <DropdownMenuItemPrimitive disabled=disabled class=class>
             {children()}
         </DropdownMenuItemPrimitive>
     }
@@ -73,10 +76,11 @@ pub fn DropdownMenuItem(
 pub fn DropdownMenuCheckboxItem(
     children: Children,
     #[prop(default = ToggleState::Off)] checked: ToggleState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <DropdownMenuCheckboxItemPrimitive checked=checked class=class>
+        <DropdownMenuCheckboxItemPrimitive checked=checked disabled=disabled class=class>
             {children()}
         </DropdownMenuCheckboxItemPrimitive>
     }

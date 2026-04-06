@@ -29,7 +29,7 @@ pub fn DropdownMenuShowcasePreview() -> impl IntoView {
                 <DropdownMenuIsland items=main_items() trigger_label="Options ▼" />
             </div>
             <p data-rs-showcase-preview-anchor="">
-                "Menu interaction and state governed by signal — SSR-safe, hydration-safe."
+                "Menu interaction governed by DOM — SSR-safe, hydration-safe."
             </p>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"With actions"</span>

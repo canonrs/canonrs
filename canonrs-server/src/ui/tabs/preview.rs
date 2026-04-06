@@ -7,7 +7,6 @@ pub fn TabsShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <TabsIsland
-                    active="overview"
                     tabs=vec![
                         TabItem { value: "overview".into(), label: "Overview".into(), content: "Overview content — structure drives state.".into(), disabled: false },
                         TabItem { value: "api".into(),      label: "API".into(),      content: "API reference content.".into(),                   disabled: false },
@@ -22,7 +21,6 @@ pub fn TabsShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"Second tab active"</span>
                 <div data-rs-showcase-preview-row="">
                     <TabsIsland
-                        active="b"
                         tabs=vec![
                             TabItem { value: "a".into(), label: "Tab A".into(), content: "Content A".into(), disabled: false },
                             TabItem { value: "b".into(), label: "Tab B".into(), content: "Content B".into(), disabled: false },
@@ -35,7 +33,6 @@ pub fn TabsShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"With disabled tab"</span>
                 <div data-rs-showcase-preview-row="">
                     <TabsIsland
-                        active="x"
                         tabs=vec![
                             TabItem { value: "x".into(), label: "Active".into(),   content: "Active content.".into(),   disabled: false },
                             TabItem { value: "y".into(), label: "Disabled".into(), content: "Disabled content.".into(), disabled: true  },

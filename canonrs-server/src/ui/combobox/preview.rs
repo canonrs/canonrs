@@ -1,5 +1,7 @@
 use leptos::prelude::*;
 use super::combobox_island::{ComboboxIsland, ComboboxOption};
+use super::combobox_ui::{Combobox, ComboboxInput, ComboboxList, ComboboxItem};
+use canonrs_core::meta::DisabledState;
 
 #[component]
 pub fn ComboboxShowcasePreview() -> impl IntoView {
@@ -23,30 +25,29 @@ pub fn ComboboxShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Pre-selected"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ComboboxIsland
-                        placeholder="Search size..."
-                        selected_value="md"
-                        options=vec![
-                            ComboboxOption { value: "xs".into(), label: "Extra Small".into(), disabled: false },
-                            ComboboxOption { value: "sm".into(), label: "Small".into(),       disabled: false },
-                            ComboboxOption { value: "md".into(), label: "Medium".into(),      disabled: false },
-                            ComboboxOption { value: "lg".into(), label: "Large".into(),       disabled: false },
-                            ComboboxOption { value: "xl".into(), label: "Extra Large".into(), disabled: false },
-                        ]
-                    />
+                    // SSR: item selecionado via selected=Selected, input reflete label
+                    <Combobox>
+                        <ComboboxInput placeholder="Search size..." />
+                        <ComboboxList>
+                            <ComboboxItem value="xs">"Extra Small"</ComboboxItem>
+                            <ComboboxItem value="sm">"Small"</ComboboxItem>
+                            <ComboboxItem value="md" selected=canonrs_core::meta::SelectionState::Selected>"Medium"</ComboboxItem>
+                            <ComboboxItem value="lg">"Large"</ComboboxItem>
+                            <ComboboxItem value="xl">"Extra Large"</ComboboxItem>
+                        </ComboboxList>
+                    </Combobox>
                 </div>
             </div>
 
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ComboboxIsland
-                        placeholder="Disabled..."
-                        disabled=true
-                        options=vec![
-                            ComboboxOption { value: "a".into(), label: "Option A".into(), disabled: false },
-                        ]
-                    />
+                    <Combobox disabled=DisabledState::Disabled>
+                        <ComboboxInput placeholder="Disabled..." disabled=DisabledState::Disabled />
+                        <ComboboxList>
+                            <ComboboxItem value="a">"Option A"</ComboboxItem>
+                        </ComboboxList>
+                    </Combobox>
                 </div>
             </div>
 

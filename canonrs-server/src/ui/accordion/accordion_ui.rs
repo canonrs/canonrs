@@ -1,5 +1,5 @@
-
 use leptos::prelude::*;
+use canonrs_core::meta::{VisibilityState, DisabledState};
 use canonrs_core::primitives::{
     AccordionPrimitive, AccordionItemPrimitive,
     AccordionTriggerPrimitive, AccordionContentPrimitive,
@@ -11,10 +11,11 @@ pub fn Accordion(
     children: Children,
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
     #[prop(default = true)] collapsible: bool,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AccordionPrimitive selection=selection collapsible=collapsible class=class>
+        <AccordionPrimitive selection=selection collapsible=collapsible class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </AccordionPrimitive>
     }
@@ -23,10 +24,12 @@ pub fn Accordion(
 #[component]
 pub fn AccordionItem(
     children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AccordionItemPrimitive class=class>
+        <AccordionItemPrimitive state=state disabled=disabled class=class>
             {children()}
         </AccordionItemPrimitive>
     }
@@ -35,10 +38,11 @@ pub fn AccordionItem(
 #[component]
 pub fn AccordionTrigger(
     children: Children,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AccordionTriggerPrimitive class=class>
+        <AccordionTriggerPrimitive disabled=disabled class=class>
             {children()}
         </AccordionTriggerPrimitive>
     }
