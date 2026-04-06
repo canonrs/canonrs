@@ -27,11 +27,12 @@
   border-radius: var(--list-item-radius);
 }
 
-[data-rs-list-item-content][data-rs-selectable]:hover:not([data-rs-disabled]) {
+[data-rs-list-item-content][data-rs-selectable][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-disabled]) {
   background: var(--list-item-bg-hover);
 }
 
 /* Selected */
+[data-rs-list-item-content][data-rs-state~="selected"],
 [data-rs-list-item-content][data-rs-selected] {
   background: var(--list-item-bg-selected);
 }

@@ -296,6 +296,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("list-item-bg-disabled",     "transparent"),
     FamilyToken::new("list-item-fg-disabled",     "var(--theme-surface-fg-muted)"),
     FamilyToken::new("list-item-focus-ring",      "0 0 0 2px var(--theme-action-focus-ring)"),
+    FamilyToken::new("list-item-bg-hover",        "color-mix(in srgb, var(--theme-surface-fg) 6%, transparent)"),
+    FamilyToken::new("list-item-bg-selected",     "color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent)"),
     FamilyToken::new("list-item-radius",          "var(--radius-sm)"),
     FamilyToken::new("list-title-font-size",      "var(--font-size-sm)"),
     FamilyToken::new("list-title-font-weight",    "var(--font-weight-semibold)"),
