@@ -28,24 +28,31 @@
   transition: all var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/* Hover quando NÃO checked */
-[data-rs-toggle]:hover:not(:has(input:checked)) [data-rs-toggle-content] {
+/* on */
+[data-rs-toggle][data-rs-state~="on"] [data-rs-toggle-content] {
+  background: var(--toggle-on-bg);
+  color: var(--toggle-on-fg);
+}
+
+/* off */
+[data-rs-toggle][data-rs-state~="off"] [data-rs-toggle-content] {
+  background: var(--toggle-off-bg);
+}
+
+/* hover */
+[data-rs-toggle][data-rs-state~="hover"]:not([data-rs-state~="active"]) [data-rs-toggle-content] {
   background: var(--toggle-hover-bg);
 }
 
-/* Checked state */
-[data-rs-toggle] input:checked + [data-rs-toggle-content] {
-  background: var(--toggle-active-bg);
-  color: var(--toggle-active-fg);
+/* disabled */
+[data-rs-toggle][data-rs-state~="disabled"] {
+  opacity: var(--toggle-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
-/* Checked + Hover (mantém fundo ativo) */
-[data-rs-toggle]:has(input:checked):hover [data-rs-toggle-content] {
-  background: var(--toggle-active-bg);
-}
-
-/* Focus */
-[data-rs-toggle]:focus-within [data-rs-toggle-content] {
+/* focus */
+[data-rs-toggle][data-rs-state~="focus"] [data-rs-toggle-content] {
   outline: none;
-  box-shadow: 0 0 0 var(--state-focus-ring-width) var(--toggle-active-bg);
+  box-shadow: 0 0 0 var(--toggle-focus-ring-width) var(--toggle-on-bg);
 }

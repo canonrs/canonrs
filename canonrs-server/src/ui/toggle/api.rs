@@ -12,3 +12,14 @@ pub const TOGGLE_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const TOGGLEREACTIVE_API: ComponentApi = ComponentApi {
+    id: "toggle-reactive",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "pressed", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+    ],
+};
+

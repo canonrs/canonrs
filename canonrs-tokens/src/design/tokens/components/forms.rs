@@ -219,7 +219,12 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("toggle-active-fg", "var(--color-accent-foreground)"),
     FamilyToken::new("toggle-group-gap", "var(--space-xs)"),
     FamilyToken::new("toggle-group-direction", "row"),
-    FamilyToken::new("toggle-group-wrap", "nowrap"),
+    FamilyToken::new("toggle-group-wrap",       "nowrap"),
+    FamilyToken::new("toggle-focus-ring-width", "2px"),
+    FamilyToken::new("toggle-on-bg",            "var(--theme-action-accent-bg)"),
+    FamilyToken::new("toggle-on-fg",            "var(--theme-action-accent-fg)"),
+    FamilyToken::new("toggle-off-bg",           "transparent"),
+    FamilyToken::new("toggle-disabled-opacity", "var(--state-disabled-opacity)"),
 
     // Slider
     FamilyToken::new("slider-height", "var(--font-size-xl)"),

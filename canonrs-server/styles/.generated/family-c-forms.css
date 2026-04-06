@@ -185,6 +185,11 @@
   --toggle-group-gap: var(--space-xs);
   --toggle-group-direction: row;
   --toggle-group-wrap: nowrap;
+  --toggle-focus-ring-width: 2px;
+  --toggle-on-bg: var(--theme-action-accent-bg);
+  --toggle-on-fg: var(--theme-action-accent-fg);
+  --toggle-off-bg: transparent;
+  --toggle-disabled-opacity: var(--state-disabled-opacity);
   --slider-height: var(--font-size-xl);
   --slider-padding: 0;
   --slider-track-bg: var(--color-secondary);
