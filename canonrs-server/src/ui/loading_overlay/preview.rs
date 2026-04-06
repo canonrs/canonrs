@@ -1,18 +1,17 @@
 use leptos::prelude::*;
-use super::loading_overlay_ui::{LoadingOverlay, LoadingOverlayMode};
-use canonrs_core::meta::LoadingState;
+use super::loading_overlay_island::LoadingOverlayIsland;
 
 #[component]
 pub fn LoadingOverlayShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <LoadingOverlay state=LoadingState::Loading mode=LoadingOverlayMode::Blocking>
+                <LoadingOverlayIsland state="loading">
                     <div style="padding:var(--space-lg);min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-sm);">
                         <span style="font-size:var(--font-size-sm);color:var(--theme-surface-fg);">"Título do card"</span>
                         <span style="font-size:var(--font-size-xs);color:var(--theme-surface-fg-muted);">"Descrição do conteúdo"</span>
                     </div>
-                </LoadingOverlay>
+                </LoadingOverlayIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Loading visibility and aria-busy managed automatically."
@@ -20,31 +19,31 @@ pub fn LoadingOverlayShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-sm);width:100%;">
-                    <LoadingOverlay state=LoadingState::Idle>
+                    <LoadingOverlayIsland>
                         <div style="padding:var(--space-md);min-height:72px;display:flex;align-items:center;justify-content:center;">
                             "Idle — conteúdo visível"
                         </div>
-                    </LoadingOverlay>
-                    <LoadingOverlay state=LoadingState::Loading>
+                    </LoadingOverlayIsland>
+                    <LoadingOverlayIsland state="loading">
                         <div style="padding:var(--space-md);min-height:72px;display:flex;align-items:center;justify-content:center;">
                             "Loading — conteúdo bloqueado"
                         </div>
-                    </LoadingOverlay>
+                    </LoadingOverlayIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Modes"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-sm);width:100%;">
-                    <LoadingOverlay state=LoadingState::Loading mode=LoadingOverlayMode::Blocking>
+                    <LoadingOverlayIsland state="loading" mode="blocking">
                         <div style="padding:var(--space-md);min-height:72px;display:flex;align-items:center;justify-content:center;">
                             "Blocking"
                         </div>
-                    </LoadingOverlay>
-                    <LoadingOverlay state=LoadingState::Loading mode=LoadingOverlayMode::Subtle>
+                    </LoadingOverlayIsland>
+                    <LoadingOverlayIsland state="loading" mode="subtle">
                         <div style="padding:var(--space-md);min-height:72px;display:flex;align-items:center;justify-content:center;">
-                            "Subtle"
+                            "Transparent"
                         </div>
-                    </LoadingOverlay>
+                    </LoadingOverlayIsland>
                 </div>
             </div>
         </div>

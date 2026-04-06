@@ -3,7 +3,6 @@ use super::pulse_ui::{Pulse, PulseVariant, PulseSize, PulseSpeed};
 
 #[island]
 pub fn PulseIsland(
-    children: Children,
     #[prop(optional, into)] variant: Option<String>,
     #[prop(optional, into)] size: Option<String>,
     #[prop(optional, into)] speed: Option<String>,
@@ -15,9 +14,9 @@ pub fn PulseIsland(
         _                  => PulseVariant::Default,
     };
     let size = match size.as_deref() {
-        Some("small")  => PulseSize::Small,
-        Some("large")  => PulseSize::Large,
-        _              => PulseSize::Medium,
+        Some("small") => PulseSize::Small,
+        Some("large") => PulseSize::Large,
+        _             => PulseSize::Medium,
     };
     let speed = match speed.as_deref() {
         Some("slow") => PulseSpeed::Slow,
@@ -28,7 +27,7 @@ pub fn PulseIsland(
 
     view! {
         <Pulse variant=variant size=size speed=speed class=cls>
-            {children()}
+            ""
         </Pulse>
     }
 }

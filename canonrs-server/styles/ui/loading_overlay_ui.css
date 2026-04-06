@@ -25,19 +25,19 @@
 }
 
 /* State binding: loading → visible + blocking */
-[data-rs-overlay-container][data-rs-state="loading"] [data-rs-loading-overlay] {
+[data-rs-overlay-container][data-rs-state~="loading"] [data-rs-loading-overlay] {
   display: flex;
   pointer-events: all;
 }
 
 /* Idle → content interactive */
-[data-rs-overlay-container][data-rs-state="idle"] [data-rs-overlay-content] {
+[data-rs-overlay-container][data-rs-state~="idle"] [data-rs-overlay-content] {
   pointer-events: auto;
   user-select: auto;
 }
 
 /* Loading → content blocked */
-[data-rs-overlay-container][data-rs-state="loading"] [data-rs-overlay-content] {
+[data-rs-overlay-container][data-rs-state~="loading"] [data-rs-overlay-content] {
   pointer-events: none;
   user-select: none;
 }
