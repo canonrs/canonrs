@@ -16,6 +16,7 @@
   font-family: var(--input-font-family);
   font-size: var(--input-font-size);
   font-weight: var(--input-font-weight);
+  line-height: var(--input-line-height);
   resize: var(--textarea-resize);
   transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
@@ -39,6 +40,7 @@
 [data-rs-textarea][data-rs-state~="focus"] {
   outline: var(--input-focus-ring-width) solid var(--input-focus-ring-color);
   outline-offset: var(--input-focus-ring-offset);
+  box-shadow: var(--input-focus-ring-shadow);
 }
 
 [data-rs-textarea][data-rs-state~="disabled"] {

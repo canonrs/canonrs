@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::textarea_ui::Textarea;
+use super::textarea_island::TextareaIsland;
 use canonrs_core::primitives::TextareaPrimitive;
 use canonrs_core::meta::DisabledState;
 
@@ -8,7 +9,7 @@ pub fn TextareaShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Textarea placeholder="Type here..." rows=3 />
+                <TextareaIsland placeholder="Type here..." rows=3 />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "All form states mapped directly to DOM and ARIA."
