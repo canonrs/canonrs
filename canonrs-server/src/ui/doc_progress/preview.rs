@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::doc_progress_ui::{DocProgressSlot, DocProgressSlotPosition};
+use super::doc_progress_island::DocProgressSlotIsland;
 use crate::ui::scroll_area::scroll_area_ui::ScrollArea;
 
 #[component]
@@ -11,20 +11,20 @@ pub fn DocProgressShowcasePreview() -> impl IntoView {
             </p>
             <div data-rs-showcase-preview-stage="">
                 <div style="position:relative;width:100%;height:400px;border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);overflow:hidden;">
-                    <DocProgressSlot
+                    <DocProgressSlotIsland
                         scroll_target="doc-progress-viewport"
-                        position=DocProgressSlotPosition::Top
+                        position="top"
                     />
                     <div style="height:100%;">
                         <ScrollArea viewport_id="doc-progress-viewport">
                             <div style="padding:var(--space-xl);display:flex;flex-direction:column;gap:var(--space-2xl);">
                                 <section>
                                     <h2 style="margin-bottom:var(--space-sm);">"Introduction"</h2>
-                                    <p>"This document tracks your reading progress as you scroll. The bar at the top fills proportionally to how far you have read."</p>
+                                    <p>"This document tracks your reading progress as you scroll."</p>
                                 </section>
                                 <section>
                                     <h2 style="margin-bottom:var(--space-sm);">"Getting Started"</h2>
-                                    <p>"DocProgress uses a behavior layer that observes scroll position and injects progress automatically."</p>
+                                    <p>"DocProgress uses a behavior layer that observes scroll position."</p>
                                 </section>
                                 <section>
                                     <h2 style="margin-bottom:var(--space-sm);">"Installation"</h2>
