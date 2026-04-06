@@ -1,6 +1,9 @@
 pub mod skeleton_ui;
 pub use skeleton_ui::*;
 
+pub mod skeleton_island;
+pub use skeleton_island::*;
+
 #[cfg(feature = "examples")]
 pub mod examples;
 #[cfg(feature = "examples")]

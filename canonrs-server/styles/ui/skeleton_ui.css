@@ -42,6 +42,10 @@
   border-radius: var(--skeleton-rectangle-radius);
 }
 
+[data-rs-skeleton][data-rs-state~="loading"]::after {
+  animation: skeleton-shimmer var(--skeleton-shimmer-duration) var(--skeleton-shimmer-easing) infinite;
+}
+
 @keyframes skeleton-shimmer {
   0% {
     transform: translateX(-100%);
