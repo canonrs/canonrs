@@ -8,6 +8,8 @@ pub const TOGGLEGROUP_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "multiple", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

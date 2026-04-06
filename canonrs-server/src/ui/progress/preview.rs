@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::progress_ui::Progress;
+use super::progress_island::ProgressIsland;
 
 #[component]
 pub fn ProgressShowcasePreview() -> impl IntoView {
@@ -7,7 +7,7 @@ pub fn ProgressShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;flex-direction:column;gap:var(--space-sm);width:100%;">
-                    <Progress value=43.0 />
+                    <ProgressIsland value=43.0 />
                 </div>
             </div>
             <p data-rs-showcase-preview-anchor="">
@@ -16,11 +16,11 @@ pub fn ProgressShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-sm);width:100%;">
-                    <Progress value=0.0 />
-                    <Progress value=25.0 />
-                    <Progress value=50.0 />
-                    <Progress value=75.0 />
-                    <Progress value=100.0 />
+                    <ProgressIsland value=0.0 />
+                    <ProgressIsland value=25.0 />
+                    <ProgressIsland value=50.0 />
+                    <ProgressIsland value=75.0 />
+                    <ProgressIsland value=100.0 />
                 </div>
             </div>
         </div>

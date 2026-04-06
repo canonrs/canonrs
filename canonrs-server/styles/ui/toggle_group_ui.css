@@ -3,9 +3,27 @@
    ============================================================================ */
 
 [data-rs-toggle-group] {
-  /* Layout */
   display: flex;
   gap: var(--toggle-group-gap);
   flex-direction: var(--toggle-group-direction);
   flex-wrap: var(--toggle-group-wrap);
+}
+
+/* state: on — via toggle tokens (herdados) */
+[data-rs-toggle-group] [data-rs-state~="on"] {
+  background: var(--toggle-on-bg);
+  color: var(--toggle-on-fg);
+}
+
+/* state: off */
+[data-rs-toggle-group] [data-rs-state~="off"] {
+  background: var(--toggle-off-bg);
+}
+
+/* state: disabled */
+[data-rs-toggle-group][data-rs-state~="disabled"],
+[data-rs-toggle-group] [data-rs-state~="disabled"] {
+  opacity: var(--toggle-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
 }

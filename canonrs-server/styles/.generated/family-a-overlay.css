@@ -134,7 +134,7 @@
   --dropdown-menu-border-width: 1px;
   --dropdown-menu-min-width: var(--layout-width-sm);
   --dropdown-menu-z-index: var(--layer-overlay);
-  --dropdown-menu-padding: var(--space-xs);
+  --dropdown-menu-padding-y: var(--space-xs);
   --dropdown-menu-item-height: var(--space-xl);
   --dropdown-menu-item-padding: var(--space-sm);
   --dropdown-menu-item-hover-bg: var(--theme-action-accent-bg);

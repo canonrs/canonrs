@@ -1681,7 +1681,7 @@
       "variants": []
     },
     {
-      "behavior": "toggle",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,

@@ -183,6 +183,7 @@
   --progress-fill-bg: var(--theme-action-primary-bg);
   --progress-transition-duration: var(--motion-duration-normal);
   --progress-transition-ease: var(--motion-ease-standard);
+  --progress-fill: 0%;
   --skeleton-bg: var(--theme-surface-muted);
   --skeleton-radius: var(--radius-md);
   --skeleton-pulse-duration: var(--motion-duration-slow);

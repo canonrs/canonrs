@@ -217,6 +217,7 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("progress-fill-bg", "var(--theme-action-primary-bg)"),
     FamilyToken::new("progress-transition-duration", "var(--motion-duration-normal)"),
     FamilyToken::new("progress-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("progress-fill", "0%"),
 
     // Skeleton
     FamilyToken::new("skeleton-bg", "var(--theme-surface-muted)"),

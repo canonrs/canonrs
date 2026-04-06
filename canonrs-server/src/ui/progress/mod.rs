@@ -1,6 +1,9 @@
 pub mod progress_ui;
 pub use progress_ui::*;
 
+pub mod progress_island;
+pub use progress_island::*;
+
 #[cfg(feature = "examples")]
 pub mod examples;
 #[cfg(feature = "examples")]

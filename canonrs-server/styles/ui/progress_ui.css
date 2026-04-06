@@ -3,36 +3,28 @@
    ============================================================================ */
 
 [data-rs-progress] {
-  /* Layout */
   position: relative;
   width: 100%;
   height: var(--progress-height);
   overflow: hidden;
   border-radius: var(--progress-radius);
-  
-  /* Visual */
   background: var(--progress-bg);
 }
 
 [data-rs-progress-indicator] {
-  /* Layout */
   height: 100%;
-  transition: width 0.3s ease;
-  
-  /* Visual */
+  width: var(--progress-fill, 0%);
+  transition: width var(--progress-transition-duration) var(--progress-transition-ease);
   background: var(--progress-fill-bg);
 }
 
-/* Estados */
-[data-rs-progress][data-rs-state="indeterminate"] [data-rs-progress-indicator] {
+[data-rs-progress][data-rs-state~="loading"] [data-rs-progress-indicator],
+[data-rs-progress][data-rs-state~="indeterminate"] [data-rs-progress-indicator] {
+  width: 100%;
   animation: progress-indeterminate 1.5s ease-in-out infinite;
 }
 
 @keyframes progress-indeterminate {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
