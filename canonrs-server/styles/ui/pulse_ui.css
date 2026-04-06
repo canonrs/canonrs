@@ -73,6 +73,11 @@
   --pulse-duration: var(--pulse-duration-fast);
 }
 
+[data-rs-pulse][data-rs-state~="active"]::before,
+[data-rs-pulse][data-rs-state~="active"]::after {
+  animation: pulse-ripple var(--pulse-duration) var(--pulse-ease) infinite;
+}
+
 /* Single keyframe - uses variant-specific scale */
 @keyframes pulse-ripple {
   0% {

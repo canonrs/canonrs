@@ -300,6 +300,8 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("pulse-duration-normal", "var(--motion-duration-slow)"),
     FamilyToken::new("pulse-duration-fast", "var(--motion-duration-fast)"),
     FamilyToken::new("pulse-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("pulse-duration", "var(--pulse-duration-normal)"),
+    FamilyToken::new("pulse-scale", "var(--pulse-scale-default)"),
 
     // DocProgress — reading progress indicator
     // doc-progress tokens canonical em family_d_navigation

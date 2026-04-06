@@ -236,6 +236,8 @@
   --pulse-duration-normal: var(--motion-duration-slow);
   --pulse-duration-fast: var(--motion-duration-fast);
   --pulse-ease: var(--motion-ease-standard);
+  --pulse-duration: var(--pulse-duration-normal);
+  --pulse-scale: var(--pulse-scale-default);
   --doc-progress-radius: var(--radius-full);
   --doc-progress-z-index: var(--layer-sticky);
   --doc-progress-duration: var(--motion-duration-fast);
