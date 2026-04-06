@@ -55,6 +55,11 @@
   box-shadow: var(--input-focus-ring-shadow);
 }
 
+[data-rs-input-group] [data-rs-input]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 [data-rs-input][data-rs-state~="disabled"] {
   opacity: var(--input-disabled-opacity);
   cursor: not-allowed;
