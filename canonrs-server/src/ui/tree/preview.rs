@@ -1,28 +1,34 @@
 use leptos::prelude::*;
+use super::tree_island::TreeIsland;
+use super::tree_node::TreeNode;
 use super::tree_ui::{Tree, TreeItem, TreeGroup};
 
 #[component]
 pub fn TreeShowcasePreview() -> impl IntoView {
+    let nodes = vec![
+        TreeNode::new("documents", "Documents", "folder")
+            .with_expanded(true)
+            .with_children(vec![
+                TreeNode::new("resume", "Resume.pdf", "file"),
+                TreeNode::new("projects", "Projects", "folder")
+                    .with_expanded(true)
+                    .with_children(vec![
+                        TreeNode::new("project-a", "project-a", "file"),
+                        TreeNode::new("project-b", "project-b", "file"),
+                    ]),
+            ]),
+        TreeNode::new("pictures", "Pictures", "folder")
+            .with_children(vec![
+                TreeNode::new("photo",  "photo.jpg",  "file"),
+                TreeNode::new("avatar", "avatar.png", "file"),
+            ]),
+        TreeNode::new("notes", "notes.txt", "file"),
+    ];
+
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Tree>
-                    <TreeItem has_children=true><span>{"Documents"}</span></TreeItem>
-                    <TreeGroup>
-                        <TreeItem><span>{"Resume.pdf"}</span></TreeItem>
-                        <TreeItem has_children=true><span>{"Projects"}</span></TreeItem>
-                        <TreeGroup>
-                            <TreeItem><span>{"project-a"}</span></TreeItem>
-                            <TreeItem><span>{"project-b"}</span></TreeItem>
-                        </TreeGroup>
-                    </TreeGroup>
-                    <TreeItem has_children=true><span>{"Pictures"}</span></TreeItem>
-                    <TreeGroup>
-                        <TreeItem><span>{"photo.jpg"}</span></TreeItem>
-                        <TreeItem><span>{"avatar.png"}</span></TreeItem>
-                    </TreeGroup>
-                    <TreeItem><span>{"notes.txt"}</span></TreeItem>
-                </Tree>
+                <TreeIsland nodes=nodes />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Hierarchy state fully governed via structured attributes."

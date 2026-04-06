@@ -221,7 +221,9 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("tree-indent-depth-1", "var(--space-lg)"),
     FamilyToken::new("tree-item-padding-x", "var(--space-sm)"),
     FamilyToken::new("tree-item-padding-y", "var(--space-xs)"),
-    FamilyToken::new("tree-row-height", "var(--space-2xl)"),
+    FamilyToken::new("tree-row-height",          "var(--space-2xl)"),
+    FamilyToken::new("tree-item-bg-hover",    "color-mix(in srgb, var(--theme-surface-fg) 6%, transparent)"),
+    FamilyToken::new("tree-item-bg-selected", "color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent)"),
 
     // Command
     FamilyToken::new("command-bg", "var(--theme-overlay-bg)"),

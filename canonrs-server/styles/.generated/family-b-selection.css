@@ -192,6 +192,8 @@
   --tree-item-padding-x: var(--space-sm);
   --tree-item-padding-y: var(--space-xs);
   --tree-row-height: var(--space-2xl);
+  --tree-item-bg-hover: color-mix(in srgb, var(--theme-surface-fg) 6%, transparent);
+  --tree-item-bg-selected: color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent);
   --command-bg: var(--theme-overlay-bg);
   --command-fg: var(--color-popover-foreground);
   --command-radius: var(--radius-md);

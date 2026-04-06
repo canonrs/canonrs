@@ -2,7 +2,7 @@
 ///
 /// **Type:** Pure data (no UI, no logic)
 /// **Purpose:** Represents hierarchical domain structure
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct TreeNode {
     /// Unique identifier
     pub id: String,
