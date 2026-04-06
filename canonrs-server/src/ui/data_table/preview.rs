@@ -1,40 +1,30 @@
 use leptos::prelude::*;
-use super::data_table_ui::{DataTableFull, DataTableColumn};
-
-#[derive(Clone)]
-struct User {
-    name: String,
-    role: String,
-    status: String,
-    score: u32,
-}
+use super::data_table_island::{DataTableIsland, DataTableIslandColumn};
 
 #[component]
-pub fn DataTableFullShowcasePreview() -> impl IntoView {
-    let data: Vec<User> = vec![
-        User { name: "Alice".to_string(), role: "Engineer".to_string(), status: "Active".to_string(), score: 98 },
-        User { name: "Bob".to_string(), role: "Designer".to_string(), status: "Active".to_string(), score: 87 },
-        User { name: "Carol".to_string(), role: "Manager".to_string(), status: "Away".to_string(), score: 76 },
-        User { name: "Dave".to_string(), role: "Engineer".to_string(), status: "Inactive".to_string(), score: 65 },
-        User { name: "Eve".to_string(), role: "Designer".to_string(), status: "Active".to_string(), score: 91 },
+pub fn DataTableStaticShowcasePreview() -> impl IntoView {
+    let island_columns = vec![
+        DataTableIslandColumn { key: "name".to_string(),   label: "Name".to_string() },
+        DataTableIslandColumn { key: "role".to_string(),   label: "Role".to_string() },
+        DataTableIslandColumn { key: "status".to_string(), label: "Status".to_string() },
+        DataTableIslandColumn { key: "score".to_string(),  label: "Score".to_string() },
     ];
 
-    let columns: Vec<DataTableColumn<User>> = vec![
-        DataTableColumn::new("name", "Name", |u: &User| u.name.clone()),
-        DataTableColumn::new("role", "Role", |u: &User| u.role.clone()),
-        DataTableColumn::new("status", "Status", |u: &User| u.status.clone()),
-        DataTableColumn::new("score", "Score", |u: &User| u.score.to_string()),
+    let island_rows = vec![
+        vec!["Alice".to_string(),  "Engineer".to_string(), "Active".to_string(),   "98".to_string()],
+        vec!["Bob".to_string(),    "Designer".to_string(), "Active".to_string(),   "87".to_string()],
+        vec!["Carol".to_string(),  "Manager".to_string(),  "Away".to_string(),     "76".to_string()],
+        vec!["Dave".to_string(),   "Engineer".to_string(), "Inactive".to_string(), "65".to_string()],
+        vec!["Eve".to_string(),    "Designer".to_string(), "Active".to_string(),   "91".to_string()],
     ];
 
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <DataTableFull
-                    data=data
-                    columns=columns
+                <DataTableIsland
+                    columns=island_columns
+                    rows=island_rows
                     page_size=3
-                    selectable=true
-                    show_density=true
                 />
             </div>
             <p data-rs-showcase-preview-anchor="">

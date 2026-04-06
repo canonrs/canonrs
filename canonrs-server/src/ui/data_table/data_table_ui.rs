@@ -26,7 +26,7 @@ impl<T> DataTableColumn<T> {
 }
 
 #[component]
-pub fn DataTableFull<T>(
+pub fn DataTableStatic<T>(
     data: Vec<T>,
     columns: Vec<DataTableColumn<T>>,
     #[prop(default = DataTableDensity::default())] density: DataTableDensity,
@@ -211,6 +211,162 @@ where
                 <button type="button" data-rs-action="next" disabled={total_pages <= 1}>
                     "Next"
                 </button>
+            </DataTablePaginationPrimitive>
+        </DataTablePrimitive>
+    }
+}
+
+use crate::ui::data_table::data_table_island::DataTableIslandColumn;
+use std::collections::HashSet;
+
+#[allow(unused_variables)]
+#[component]
+pub fn DataTableCore(
+    columns: Vec<DataTableIslandColumn>,
+    rows: Vec<Vec<String>>,
+    visible_set: HashSet<usize>,
+    sort_col: Option<usize>,
+    sort_asc: bool,
+    page: usize,
+    total_pages: usize,
+    hidden_cols: HashSet<usize>,
+    density: &'static str,
+    on_sort: Callback<usize>,
+    on_prev: Callback<()>,
+    on_next: Callback<()>,
+    on_input: Callback<leptos::ev::Event>,
+    on_col_toggle: Callback<usize>,
+    on_density: Callback<&'static str>,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    let class = class.unwrap_or_default();
+
+    let header_cells = columns.iter().enumerate().map(|(i, col)| {
+        let label = col.label.clone();
+        let direction = if sort_col == Some(i) {
+            if sort_asc { "▲" } else { "▼" }
+        } else { "↕" };
+        let is_hidden = hidden_cols.contains(&i);
+        view! {
+            <th
+                data-rs-datatable-head-cell=""
+                scope="col"
+                data-rs-col-index=i.to_string()
+                hidden=is_hidden
+                style="cursor:pointer"
+                on:click=move |_| on_sort.run(i)
+            >
+                <span data-rs-datatable-head-label="">{label}</span>
+                <span data-rs-datatable-sort-icon="" aria-hidden="true">{direction}</span>
+            </th>
+        }
+    }).collect::<Vec<_>>();
+
+    let body_rows = rows.iter().enumerate().map(|(idx, row)| {
+        let is_visible = visible_set.contains(&idx);
+        let cells = row.iter().enumerate().map(|(ci, val)| {
+            let val = val.clone();
+            let is_col_hidden = hidden_cols.contains(&ci);
+            view! {
+                <td
+                    data-rs-datatable-cell=""
+                    data-rs-col-index=ci.to_string()
+                    hidden=is_col_hidden
+                >{val}</td>
+            }
+        }).collect::<Vec<_>>();
+        view! {
+            <tr
+                data-rs-datatable-row=""
+                data-rs-row-id=idx.to_string()
+                data-rs-row-index=idx.to_string()
+                hidden=!is_visible
+            >
+                {cells}
+            </tr>
+        }
+    }).collect::<Vec<_>>();
+
+    let col_toggles = columns.iter().enumerate().map(|(i, col)| {
+        let label = col.label.clone();
+        let is_hidden = hidden_cols.contains(&i);
+        view! {
+            <button
+                type="button"
+                data-rs-col-toggle=i.to_string()
+                style=if is_hidden { "opacity:0.4" } else { "" }
+                on:click=move |_| on_col_toggle.run(i)
+            >{label}</button>
+        }
+    }).collect::<Vec<_>>();
+
+    view! {
+        <DataTablePrimitive
+            class=class
+            density=DataTableDensity::Comfortable
+            attr:data-rs-density=density
+        >
+            <DataTableToolbarPrimitive>
+                <input
+                    type="text"
+                    data-rs-datatable-filter=""
+                    placeholder="Search..."
+                    on:input=move |e| on_input.run(e)
+                />
+                <div style="display:flex;gap:4px;margin-left:auto">
+                    <button type="button"
+                        style=if density == "compact" { "font-weight:bold" } else { "" }
+                        on:click=move |_| on_density.run("compact")
+                    >"Compact"</button>
+                    <button type="button"
+                        style=if density == "comfortable" { "font-weight:bold" } else { "" }
+                        on:click=move |_| on_density.run("comfortable")
+                    >"Comfortable"</button>
+                    <button type="button"
+                        style=if density == "spacious" { "font-weight:bold" } else { "" }
+                        on:click=move |_| on_density.run("spacious")
+                    >"Spacious"</button>
+                </div>
+                <div style="display:flex;gap:4px">
+                    {col_toggles}
+                </div>
+            </DataTableToolbarPrimitive>
+
+            <DataTableScrollPrimitive>
+                <DataTableTablePrimitive>
+                    <DataTableHeadPrimitive>
+                        <DataTableHeadRowPrimitive>
+                            {header_cells}
+                        </DataTableHeadRowPrimitive>
+                    </DataTableHeadPrimitive>
+                    <DataTableBodyPrimitive>
+                        {body_rows}
+                    </DataTableBodyPrimitive>
+                </DataTableTablePrimitive>
+            </DataTableScrollPrimitive>
+
+            {visible_set.is_empty().then(|| view! {
+                <DataTableEmptyPrimitive>
+                    "No results found."
+                </DataTableEmptyPrimitive>
+            })}
+
+            <DataTablePaginationPrimitive>
+                <button
+                    type="button"
+                    data-rs-action="prev"
+                    disabled=page <= 1
+                    on:click=move |_| on_prev.run(())
+                >"Previous"</button>
+                <span data-rs-pagination-info="">
+                    {format!("{} of {}", page, total_pages)}
+                </span>
+                <button
+                    type="button"
+                    data-rs-action="next"
+                    disabled=page >= total_pages
+                    on:click=move |_| on_next.run(())
+                >"Next"</button>
             </DataTablePaginationPrimitive>
         </DataTablePrimitive>
     }

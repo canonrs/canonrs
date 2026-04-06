@@ -1,10 +1,12 @@
 mod data_table_ui;
+pub mod data_table_island;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
 pub use data_table_ui::*;
+pub use data_table_island::*;
 pub use data_table_ui::DataTableColumn;
 pub use canonrs_core::primitives::{DataTableDensity, SortDirection};
 
-pub use preview::DataTableFullShowcasePreview;
+pub use preview::DataTableStaticShowcasePreview;

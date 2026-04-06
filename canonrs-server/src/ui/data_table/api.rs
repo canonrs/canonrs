@@ -2,8 +2,8 @@
 // Source: *_ui.rs
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
-pub const DATATABLEFULL<T>_API: ComponentApi = ComponentApi {
-    id: "data-table-full<-t>",
+pub const DATATABLESTATIC<T>_API: ComponentApi = ComponentApi {
+    id: "data-table-static<-t>",
     props: &[
         PropDef { name: "data", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "columns", kind: PropType::String, required: true, default: None, description: "" },
@@ -15,6 +15,28 @@ pub const DATATABLEFULL<T>_API: ComponentApi = ComponentApi {
         PropDef { name: "sync_scope", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "show_density", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "expand_render", kind: PropType::String, required: false, default: None, description: "" },
+    ],
+};
+
+pub const DATATABLECORE_API: ComponentApi = ComponentApi {
+    id: "data-table-core",
+    props: &[
+        PropDef { name: "columns", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "rows", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "visible_set", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "sort_col", kind: PropType::Number, required: false, default: None, description: "" },
+        PropDef { name: "sort_asc", kind: PropType::Bool, required: true, default: None, description: "" },
+        PropDef { name: "page", kind: PropType::Number, required: true, default: None, description: "" },
+        PropDef { name: "total_pages", kind: PropType::Number, required: true, default: None, description: "" },
+        PropDef { name: "hidden_cols", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "density", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "on_sort", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "on_prev", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "on_next", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "on_input", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "on_col_toggle", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "on_density", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

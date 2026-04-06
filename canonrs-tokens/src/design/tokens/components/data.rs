@@ -38,6 +38,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("table-border-width",         "1px"),
     FamilyToken::new("table-row-height",           "var(--space-2xl)"),
     FamilyToken::new("table-row-bg-striped",       "color-mix(in srgb, var(--theme-surface-fg) 3%, transparent)"),
+    FamilyToken::new("table-row-bg-hover",         "color-mix(in srgb, var(--theme-surface-fg) 6%, transparent)"),
+    FamilyToken::new("table-row-bg-selected",      "color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent)"),
     FamilyToken::new("table-row-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("table-row-transition-ease",  "var(--motion-ease-standard)"),
     FamilyToken::new("table-cell-fg",              "var(--theme-surface-fg)"),
