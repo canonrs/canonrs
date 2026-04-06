@@ -14,3 +14,14 @@ pub const SWITCH_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const SWITCHREACTIVE_API: ComponentApi = ComponentApi {
+    id: "switch-reactive",
+    props: &[
+        PropDef { name: "checked", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
+    ],
+};
+

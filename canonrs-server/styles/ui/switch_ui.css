@@ -14,25 +14,11 @@
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-switch] input {
+[data-rs-switch-input] {
   position: absolute;
+  inset: 0;
   opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-[data-rs-switch] input:checked ~ [data-rs-switch-thumb] {
-  background: var(--switch-thumb-bg-checked);
-  transform: translateX(var(--switch-thumb-translate-checked));
-}
-
-[data-rs-switch]:has(input:checked) {
-  background: var(--switch-track-bg-checked);
-}
-
-[data-rs-switch]:has(input:disabled) {
-  opacity: var(--switch-disabled-opacity);
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
 [data-rs-switch-thumb] {
@@ -45,7 +31,21 @@
   transform: translateX(var(--switch-thumb-translate-unchecked));
 }
 
+[data-rs-switch][data-rs-state~="selected"] {
+  background: var(--switch-track-bg-checked);
+}
+
+[data-rs-switch][data-rs-state~="selected"] [data-rs-switch-thumb] {
+  background: var(--switch-thumb-bg-checked);
+  transform: translateX(var(--switch-thumb-translate-checked));
+}
+
+[data-rs-switch][data-rs-disabled] {
+  opacity: var(--switch-disabled-opacity);
+  cursor: not-allowed;
+}
+
 [data-rs-switch]:focus-within {
   outline: none;
-  box-shadow: 0 0 0 var(--state-focus-ring-width) var(--switch-track-bg-checked);
+  box-shadow: 0 0 0 var(--switch-focus-ring-width) var(--switch-track-bg-checked);
 }

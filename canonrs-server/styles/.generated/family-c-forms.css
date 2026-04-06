@@ -166,12 +166,15 @@
   --switch-height: var(--space-lg);
   --switch-radius: var(--radius-full);
   --switch-track-bg: var(--color-secondary);
-  --switch-thumb-bg: var(--theme-action-primary-bg);
+  --switch-thumb-bg: var(--theme-surface-bg);
   --switch-thumb-size: var(--space-md);
   --switch-thumb-radius: var(--radius-full);
   --switch-thumb-translate-unchecked: var(--space-xs);
   --switch-thumb-translate-checked: var(--space-lg);
   --switch-disabled-opacity: var(--state-disabled-opacity);
+  --switch-track-bg-checked: var(--theme-action-accent-bg);
+  --switch-thumb-bg-checked: var(--theme-action-accent-fg);
+  --switch-focus-ring-width: 2px;
   --toggle-padding: var(--space-sm) var(--space-sm);
   --toggle-radius: var(--radius-sm);
   --toggle-border-width: 1px;

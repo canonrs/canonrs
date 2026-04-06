@@ -199,12 +199,15 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("switch-height", "var(--space-lg)"),
     FamilyToken::new("switch-radius", "var(--radius-full)"),
     FamilyToken::new("switch-track-bg", "var(--color-secondary)"),
-    FamilyToken::new("switch-thumb-bg", "var(--theme-action-primary-bg)"),
+    FamilyToken::new("switch-thumb-bg", "var(--theme-surface-bg)"),
     FamilyToken::new("switch-thumb-size", "var(--space-md)"),
     FamilyToken::new("switch-thumb-radius", "var(--radius-full)"),
     FamilyToken::new("switch-thumb-translate-unchecked", "var(--space-xs)"),
     FamilyToken::new("switch-thumb-translate-checked", "var(--space-lg)"),
-    FamilyToken::new("switch-disabled-opacity", "var(--state-disabled-opacity)"),
+    FamilyToken::new("switch-disabled-opacity",      "var(--state-disabled-opacity)"),
+    FamilyToken::new("switch-track-bg-checked", "var(--theme-action-accent-bg)"),
+    FamilyToken::new("switch-thumb-bg-checked", "var(--theme-action-accent-fg)"),
+    FamilyToken::new("switch-focus-ring-width",      "2px"),
 
     // Toggle
     FamilyToken::new("toggle-padding", "var(--space-sm) var(--space-sm)"),
