@@ -23,7 +23,8 @@
   align-items: center;
   justify-content: var(--form-actions-justify);
   gap: var(--form-actions-gap);
-  padding-top: var(--space-sm);
+  padding-top: var(--form-actions-padding-top);
+  border-top: var(--form-actions-border-top);
 }
 
 /* ── Field ───────────────────────────────────────────────────── */
@@ -40,7 +41,7 @@
   color: var(--form-label-fg);
 }
 
-[data-rs-form-label][data-rs-required]::after {
+[data-rs-form-label][data-rs-required="true"]::after {
   content: " *";
   color: var(--form-label-required-color);
 }
@@ -64,10 +65,6 @@
 
 [data-rs-form-field][data-rs-state="invalid"] [data-rs-form-label] {
   color: var(--form-field-invalid-color);
-}
-
-[data-rs-form-field][data-rs-state="invalid"] [data-rs-form-error] {
-  display: block;
 }
 
 [data-rs-form-field][data-rs-state="warning"] [data-rs-form-label] {
