@@ -3,81 +3,67 @@
 //! Combobox Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::meta::{SelectionState, VisibilityState, DisabledState};
-use crate::infra::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs, selection_attrs};
+use crate::meta::{SelectionState, DisabledState};
+use crate::infra::state_engine::selection_attrs;
 
 #[component]
 pub fn ComboboxPrimitive(
     children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
+    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let state_str = if disabled == DisabledState::Disabled { "closed disabled" } else { "closed" };
     view! {
         <div
             data-rs-combobox=""
             data-rs-component="Combobox"
             data-rs-role="root"
-            data-rs-behavior="combobox"
-            data-rs-state=s.data_rs_state
+            data-rs-state=state_str
             role="combobox"
-            aria-expanded=s.aria_expanded
+            aria-expanded="false"
             aria-haspopup="listbox"
+            aria-disabled=aria_disabled
             class=class
             node_ref=node_ref.unwrap_or_default()
         >
-            <input
-                data-rs-combobox-input=""
-                data-rs-component="ComboboxInput"
-                type="text"
-                aria-autocomplete="list"
-                autocomplete="off"
-            />
             {children()}
         </div>
     }
 }
 
 #[component]
-pub fn ComboboxTriggerPrimitive(
-    children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+pub fn ComboboxInputPrimitive(
+    #[prop(into, default = String::new())] placeholder: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let t = trigger_attrs(state);
-    let d = disabled_attrs(disabled);
+    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     view! {
-        <button
-            type="button"
-            data-rs-combobox-trigger=""
-            data-rs-component="ComboboxTrigger"
-            aria-haspopup="listbox"
-            aria-expanded=t.aria_expanded
-            data-rs-state=t.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
+        <input
+            data-rs-combobox-input=""
+            data-rs-component="ComboboxInput"
+            type="text"
+            placeholder=placeholder
+            aria-autocomplete="list"
+            autocomplete="off"
+            aria-disabled=aria_disabled
             class=class
-        >
-            {children()}
-        </button>
+        />
     }
 }
 
 #[component]
 pub fn ComboboxListPrimitive(
     children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-combobox-list=""
             data-rs-role="list"
             data-rs-component="ComboboxList"
-            data-rs-state=s.data_rs_state
             role="listbox"
             class=class
         >
@@ -95,18 +81,24 @@ pub fn ComboboxItemPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let sel = selection_attrs(selected);
-    let d = disabled_attrs(disabled);
+    let base = sel.data_rs_state.unwrap_or("unselected");
+    let state_str = if disabled == DisabledState::Disabled {
+        format!("{} disabled", base)
+    } else {
+        base.to_string()
+    };
+    let aria_selected = sel.aria_selected.unwrap_or("false");
+    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     view! {
         <div
             data-rs-combobox-item=""
             data-rs-component="ComboboxItem"
-            data-rs-state=sel.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            data-rs-value={value}
+            data-rs-state=state_str
+            data-rs-value=value
             role="option"
             tabindex="-1"
-            aria-selected=sel.aria_selected
-            aria-disabled=d.aria_disabled
+            aria-selected=aria_selected
+            aria-disabled=aria_disabled
             class=class
         >
             {children()}

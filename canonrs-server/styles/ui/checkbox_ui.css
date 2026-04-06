@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
    CHECKBOX - Family B Selection tokens compliant
-   State via data-rs-state — zero pseudo-class state selectors
+   State via data-rs-state no root — zero pseudo-class state selectors
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-checkbox-input] {
@@ -32,25 +32,25 @@
 }
 
 /* ── CHECKED ────────────────────────────────────────────────── */
-[data-rs-checkbox-input][data-rs-state~="active"] ~ [data-rs-checkbox-indicator] {
+[data-rs-checkbox-island][data-rs-state~="active"] [data-rs-checkbox-indicator] {
   background: var(--checkbox-bg-checked);
   border-color: var(--checkbox-border-color-checked);
   color: var(--checkbox-fg-checked);
 }
 
 /* ── DISABLED ───────────────────────────────────────────────── */
-[data-rs-checkbox-input][data-rs-state~="disabled"] ~ [data-rs-checkbox-indicator],
-[data-rs-checkbox-input][data-rs-disabled="disabled"] ~ [data-rs-checkbox-indicator] {
+[data-rs-checkbox-island][data-rs-state~="disabled"] [data-rs-checkbox-indicator],
+[data-rs-checkbox-wrapper]:has([data-rs-disabled]) [data-rs-checkbox-indicator] {
   opacity: var(--checkbox-disabled-opacity);
   cursor: not-allowed;
 }
 
-[data-rs-checkbox-wrapper]:has([data-rs-disabled="disabled"]) {
+[data-rs-checkbox-wrapper]:has([data-rs-disabled]) {
   cursor: not-allowed;
 }
 
 /* ── FOCUS ──────────────────────────────────────────────────── */
-[data-rs-checkbox-input][data-rs-state~="focus"] ~ [data-rs-checkbox-indicator] {
+[data-rs-checkbox-island][data-rs-state~="focus"] [data-rs-checkbox-indicator] {
   outline: var(--checkbox-focus-ring-width) solid var(--checkbox-focus-ring-color);
   outline-offset: var(--state-focus-ring-offset);
 }

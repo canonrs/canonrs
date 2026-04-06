@@ -1,34 +1,32 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    ComboboxPrimitive, ComboboxTriggerPrimitive,
+    ComboboxPrimitive, ComboboxInputPrimitive,
     ComboboxListPrimitive, ComboboxItemPrimitive,
 };
-use canonrs_core::meta::{DisabledState, SelectionState, VisibilityState};
+use canonrs_core::meta::{DisabledState, SelectionState};
 
 #[component]
 pub fn Combobox(
     children: Children,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxPrimitive state=VisibilityState::Closed class=class node_ref=node_ref.unwrap_or_default()>
+        <ComboboxPrimitive disabled=disabled class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </ComboboxPrimitive>
     }
 }
 
 #[component]
-pub fn ComboboxTrigger(
-    children: Children,
+pub fn ComboboxInput(
+    #[prop(into, default = String::new())] placeholder: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxTriggerPrimitive disabled=disabled class=class>
-            {children()}
-        </ComboboxTriggerPrimitive>
+        <ComboboxInputPrimitive placeholder=placeholder disabled=disabled class=class />
     }
 }
 
@@ -38,7 +36,7 @@ pub fn ComboboxList(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxListPrimitive state=VisibilityState::Closed class=class>
+        <ComboboxListPrimitive class=class>
             {children()}
         </ComboboxListPrimitive>
     }
@@ -63,7 +61,7 @@ pub fn ComboboxItem(
 pub fn ComboboxPreview() -> impl IntoView {
     view! {
         <Combobox>
-            <ComboboxTrigger>"Select option..."</ComboboxTrigger>
+            <ComboboxInput placeholder="Search..." />
             <ComboboxList>
                 <ComboboxItem value="1">"Option 1"</ComboboxItem>
                 <ComboboxItem value="2">"Option 2"</ComboboxItem>

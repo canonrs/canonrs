@@ -21,9 +21,7 @@ pub fn CheckboxPrimitive(
             type="checkbox"
             data-rs-checkbox-input=""
             data-rs-component="Checkbox"
-            data-rs-behavior="checkbox"
-            data-rs-state=a.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-state=format!("{} {}", a.data_rs_state, if disabled == DisabledState::Disabled { "disabled" } else { "" }).trim().to_string()
             checked=is_checked
             disabled=d.disabled
             aria-checked=if is_checked { "true" } else { "false" }

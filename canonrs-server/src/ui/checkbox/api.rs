@@ -13,14 +13,3 @@ pub const CHECKBOX_API: ComponentApi = ComponentApi {
     ],
 };
 
-pub const CHECKBOXREACTIVE_API: ComponentApi = ComponentApi {
-    id: "checkbox-reactive",
-    props: &[
-        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "checked", kind: PropType::String, required: true, default: None, description: "" },
-        PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
-        PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "" },
-    ],
-};
-

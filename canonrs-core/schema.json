@@ -661,7 +661,7 @@
       "variants": []
     },
     {
-      "behavior": "checkbox",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,
@@ -721,7 +721,7 @@
       "variants": []
     },
     {
-      "behavior": "combobox",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,
@@ -1441,7 +1441,7 @@
       "variants": []
     },
     {
-      "behavior": "select",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,
@@ -1576,7 +1576,7 @@
       "variants": []
     },
     {
-      "behavior": "toggle",
+      "behavior": "unknown",
       "capabilities": null,
       "catalog_category": null,
       "catalog_tags": null,

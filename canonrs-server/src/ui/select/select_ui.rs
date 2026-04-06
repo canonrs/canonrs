@@ -1,4 +1,3 @@
-
 use leptos::prelude::*;
 use canonrs_core::meta::{SelectionState, DisabledState, VisibilityState};
 use canonrs_core::primitives::{
@@ -27,7 +26,7 @@ pub fn SelectTrigger(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectTriggerPrimitive state=VisibilityState::Closed disabled=disabled class=class>
+        <SelectTriggerPrimitive disabled=disabled class=class>
             {children()}
         </SelectTriggerPrimitive>
     }
@@ -52,7 +51,7 @@ pub fn SelectContent(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SelectContentPrimitive state=VisibilityState::Closed class=class>
+        <SelectContentPrimitive class=class>
             {children()}
         </SelectContentPrimitive>
     }
@@ -86,7 +85,7 @@ pub fn SelectPreview() -> impl IntoView {
     view! {
         <Select>
             <SelectTrigger>
-                <SelectValue>"Select an option..."</SelectValue>
+                <SelectValue placeholder="Select an option...">{""}</SelectValue>
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="a">"Option A"</SelectItem>

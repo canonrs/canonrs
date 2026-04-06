@@ -16,21 +16,19 @@ pub fn SwitchPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let sel = selection_attrs(checked);
-    let d = disabled_attrs(disabled);
+    let d   = disabled_attrs(disabled);
+    let state = format!("{} {}", sel.data_rs_state.unwrap_or(""), if disabled == DisabledState::Disabled { "disabled" } else { "" }).trim().to_string();
     view! {
         <label
             data-rs-switch=""
             data-rs-component="Switch"
-            data-rs-behavior="toggle"
-            data-rs-state=sel.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-state=state
             aria-disabled=d.aria_disabled
             class=class
         >
             <input
                 type="checkbox"
                 data-rs-switch-input=""
-                data-rs-disabled=d.data_rs_disabled
                 name=if name.is_empty() { None } else { Some(name) }
                 value=value
                 checked=checked == SelectionState::Selected
