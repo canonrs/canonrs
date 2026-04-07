@@ -1,4 +1,6 @@
 pub mod animate_ui;
+pub mod animate_island;
+pub use animate_island::AnimateIsland;
 
 pub use animate_ui::*;
 #[cfg(feature = "examples")]

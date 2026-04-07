@@ -33,8 +33,9 @@
   to   { opacity: 0; transform: scale(var(--animate-scale-from, 0.95)); }
 }
 
-/* Base — dispara uma vez */
+/* Base — sem animacao ate ativar */
 [data-rs-animate] {
+  animation-name: none;
   animation-duration: var(--animate-duration, 600ms);
   animation-timing-function: var(--animate-ease, ease-in-out);
   animation-delay: var(--animate-delay, 0ms);
@@ -42,13 +43,13 @@
   animation-iteration-count: 1;
 }
 
-/* Animation names */
-[data-rs-animate][data-rs-animation="fade-in"]   { animation-name: rs-fade-in; }
-[data-rs-animate][data-rs-animation="fade-out"]  { animation-name: rs-fade-out; }
-[data-rs-animate][data-rs-animation="slide-in"]  { animation-name: rs-slide-in; }
-[data-rs-animate][data-rs-animation="slide-out"] { animation-name: rs-slide-out; }
-[data-rs-animate][data-rs-animation="scale-in"]  { animation-name: rs-scale-in; }
-[data-rs-animate][data-rs-animation="scale-out"] { animation-name: rs-scale-out; }
+/* Dispara animacao so quando active */
+[data-rs-animate][data-rs-state~="active"][data-rs-animation="fade-in"]   { animation-name: rs-fade-in; }
+[data-rs-animate][data-rs-state~="active"][data-rs-animation="fade-out"]  { animation-name: rs-fade-out; }
+[data-rs-animate][data-rs-state~="active"][data-rs-animation="slide-in"]  { animation-name: rs-slide-in; }
+[data-rs-animate][data-rs-state~="active"][data-rs-animation="slide-out"] { animation-name: rs-slide-out; }
+[data-rs-animate][data-rs-state~="active"][data-rs-animation="scale-in"]  { animation-name: rs-scale-in; }
+[data-rs-animate][data-rs-state~="active"][data-rs-animation="scale-out"] { animation-name: rs-scale-out; }
 
 /* Easing */
 [data-rs-animate][data-rs-easing="ease-in"]     { animation-timing-function: ease-in; }
@@ -57,8 +58,14 @@
 [data-rs-animate][data-rs-easing="linear"]      { animation-timing-function: linear; }
 
 /* Preview/demo — força infinite para visualização contínua */
-[data-rs-preview-dev-stage] [data-rs-animate] {
+[data-rs-showcase-preview-hero] [data-rs-animate][data-rs-state~="active"] {
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  animation-duration: 2.8s;
+  animation-duration: var(--motion-duration-slow);
+}
+
+/* Reduced motion */
+[data-rs-animate][data-rs-animate-reduced] {
+  animation: none;
+  opacity: 1;
 }
