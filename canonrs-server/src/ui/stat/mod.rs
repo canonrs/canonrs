@@ -1,4 +1,9 @@
 pub mod stat_ui;
+pub mod stat_island;
+pub use stat_island::{
+    StatIsland, StatHeaderIsland, StatBodyIsland,
+    StatValueIsland, StatLabelIsland, StatDeltaIsland, StatIconIsland,
+};
 #[cfg(feature = "examples")]
 pub mod examples;
 

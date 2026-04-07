@@ -1,21 +1,24 @@
 use leptos::prelude::*;
-use super::stat_ui::{Stat, StatSize, StatTrend, StatAlign, StatHeader, StatBody, StatValue, StatLabel, StatDelta, StatIcon};
+use super::stat_island::{
+    StatIsland, StatHeaderIsland, StatBodyIsland,
+    StatValueIsland, StatLabelIsland, StatDeltaIsland, StatIconIsland,
+};
 
 #[component]
 pub fn StatShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <Stat size=StatSize::Lg trend=StatTrend::Increase>
-                    <StatHeader>
-                        <StatIcon>"📈"</StatIcon>
-                        <StatLabel>"Total Revenue"</StatLabel>
-                    </StatHeader>
-                    <StatBody>
-                        <StatValue>"$89,432"</StatValue>
-                        <StatDelta>"+18.2%"</StatDelta>
-                    </StatBody>
-                </Stat>
+                <StatIsland size="lg" trend="increase">
+                    <StatHeaderIsland>
+                        <StatIconIsland>"📈"</StatIconIsland>
+                        <StatLabelIsland>"Total Revenue"</StatLabelIsland>
+                    </StatHeaderIsland>
+                    <StatBodyIsland>
+                        <StatValueIsland>"$89,432"</StatValueIsland>
+                        <StatDeltaIsland>"+18.2%"</StatDeltaIsland>
+                    </StatBodyIsland>
+                </StatIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Metric layout and semantics enforced via structured primitives."
@@ -23,60 +26,60 @@ pub fn StatShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Trend variants"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Stat trend=StatTrend::Increase>
-                        <StatLabel>"Active Users"</StatLabel>
-                        <StatBody>
-                            <StatValue>"2,350"</StatValue>
-                            <StatDelta>"+12%"</StatDelta>
-                        </StatBody>
-                    </Stat>
-                    <Stat trend=StatTrend::Decrease>
-                        <StatLabel>"Bounce Rate"</StatLabel>
-                        <StatBody>
-                            <StatValue>"3.2%"</StatValue>
-                            <StatDelta>"-0.5%"</StatDelta>
-                        </StatBody>
-                    </Stat>
-                    <Stat trend=StatTrend::Neutral>
-                        <StatLabel>"Sessions"</StatLabel>
-                        <StatBody>
-                            <StatValue>"1,024"</StatValue>
-                            <StatDelta>"0%"</StatDelta>
-                        </StatBody>
-                    </Stat>
+                    <StatIsland trend="increase">
+                        <StatLabelIsland>"Active Users"</StatLabelIsland>
+                        <StatBodyIsland>
+                            <StatValueIsland>"2,350"</StatValueIsland>
+                            <StatDeltaIsland>"+12%"</StatDeltaIsland>
+                        </StatBodyIsland>
+                    </StatIsland>
+                    <StatIsland trend="decrease">
+                        <StatLabelIsland>"Bounce Rate"</StatLabelIsland>
+                        <StatBodyIsland>
+                            <StatValueIsland>"3.2%"</StatValueIsland>
+                            <StatDeltaIsland>"-0.5%"</StatDeltaIsland>
+                        </StatBodyIsland>
+                    </StatIsland>
+                    <StatIsland trend="neutral">
+                        <StatLabelIsland>"Sessions"</StatLabelIsland>
+                        <StatBodyIsland>
+                            <StatValueIsland>"1,024"</StatValueIsland>
+                            <StatDeltaIsland>"0%"</StatDeltaIsland>
+                        </StatBodyIsland>
+                    </StatIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Size variants"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Stat size=StatSize::Sm>
-                        <StatLabel>"Small"</StatLabel>
-                        <StatValue>"123"</StatValue>
-                    </Stat>
-                    <Stat size=StatSize::Md>
-                        <StatLabel>"Medium"</StatLabel>
-                        <StatValue>"4,567"</StatValue>
-                    </Stat>
-                    <Stat size=StatSize::Lg>
-                        <StatLabel>"Large"</StatLabel>
-                        <StatValue>"89,432"</StatValue>
-                    </Stat>
+                    <StatIsland size="sm">
+                        <StatLabelIsland>"Small"</StatLabelIsland>
+                        <StatValueIsland>"123"</StatValueIsland>
+                    </StatIsland>
+                    <StatIsland size="md">
+                        <StatLabelIsland>"Medium"</StatLabelIsland>
+                        <StatValueIsland>"4,567"</StatValueIsland>
+                    </StatIsland>
+                    <StatIsland size="lg">
+                        <StatLabelIsland>"Large"</StatLabelIsland>
+                        <StatValueIsland>"89,432"</StatValueIsland>
+                    </StatIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Align + Icon"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Stat align=StatAlign::Center>
-                        <StatLabel>"Centered"</StatLabel>
-                        <StatValue>"999"</StatValue>
-                    </Stat>
-                    <Stat>
-                        <StatHeader>
-                            <StatIcon>"💰"</StatIcon>
-                            <StatLabel>"Sales"</StatLabel>
-                        </StatHeader>
-                        <StatValue>"$12,234"</StatValue>
-                    </Stat>
+                    <StatIsland align="center">
+                        <StatLabelIsland>"Centered"</StatLabelIsland>
+                        <StatValueIsland>"999"</StatValueIsland>
+                    </StatIsland>
+                    <StatIsland>
+                        <StatHeaderIsland>
+                            <StatIconIsland>"💰"</StatIconIsland>
+                            <StatLabelIsland>"Sales"</StatLabelIsland>
+                        </StatHeaderIsland>
+                        <StatValueIsland>"$12,234"</StatValueIsland>
+                    </StatIsland>
                 </div>
             </div>
         </div>
