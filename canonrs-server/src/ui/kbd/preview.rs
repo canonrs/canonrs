@@ -1,16 +1,16 @@
 use leptos::prelude::*;
-use super::kbd_ui::{Kbd, KbdGroup, KbdSeparator, KbdSize, KbdVariant};
+use super::kbd_island::{KbdIsland, KbdGroupIsland, KbdSeparatorIsland};
 
 #[component]
 pub fn KbdShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <KbdGroup>
-                    <Kbd>"Ctrl"</Kbd>
-                    <KbdSeparator />
-                    <Kbd>"K"</Kbd>
-                </KbdGroup>
+                <KbdGroupIsland>
+                    <KbdIsland>"Ctrl"</KbdIsland>
+                    <KbdSeparatorIsland />
+                    <KbdIsland>"K"</KbdIsland>
+                </KbdGroupIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Shortcut representation standardized via size and variant enums."
@@ -18,39 +18,39 @@ pub fn KbdShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Size variants"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Kbd size=KbdSize::Sm>"Sm"</Kbd>
-                    <Kbd size=KbdSize::Md>"Md"</Kbd>
-                    <Kbd size=KbdSize::Lg>"Lg"</Kbd>
+                    <KbdIsland size="sm">"Sm"</KbdIsland>
+                    <KbdIsland size="md">"Md"</KbdIsland>
+                    <KbdIsland size="lg">"Lg"</KbdIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variant"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Kbd variant=KbdVariant::Default>"Default"</Kbd>
-                    <Kbd variant=KbdVariant::Outline>"Outline"</Kbd>
-                    <Kbd variant=KbdVariant::Ghost>"Ghost"</Kbd>
+                    <KbdIsland>"Default"</KbdIsland>
+                    <KbdIsland variant="outline">"Outline"</KbdIsland>
+                    <KbdIsland variant="ghost">"Ghost"</KbdIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Common shortcuts"</span>
                 <div data-rs-showcase-preview-row="">
-                    <KbdGroup>
-                        <Kbd>"Ctrl"</Kbd>
-                        <KbdSeparator />
-                        <Kbd>"C"</Kbd>
-                    </KbdGroup>
-                    <KbdGroup>
-                        <Kbd>"Ctrl"</Kbd>
-                        <KbdSeparator />
-                        <Kbd>"Shift"</Kbd>
-                        <KbdSeparator />
-                        <Kbd>"P"</Kbd>
-                    </KbdGroup>
-                    <KbdGroup>
-                        <Kbd>"⌘"</Kbd>
-                        <KbdSeparator />
-                        <Kbd>"Z"</Kbd>
-                    </KbdGroup>
+                    <KbdGroupIsland>
+                        <KbdIsland>"Ctrl"</KbdIsland>
+                        <KbdSeparatorIsland />
+                        <KbdIsland>"C"</KbdIsland>
+                    </KbdGroupIsland>
+                    <KbdGroupIsland>
+                        <KbdIsland>"Ctrl"</KbdIsland>
+                        <KbdSeparatorIsland />
+                        <KbdIsland>"Shift"</KbdIsland>
+                        <KbdSeparatorIsland />
+                        <KbdIsland>"P"</KbdIsland>
+                    </KbdGroupIsland>
+                    <KbdGroupIsland>
+                        <KbdIsland>"⌘"</KbdIsland>
+                        <KbdSeparatorIsland />
+                        <KbdIsland>"Z"</KbdIsland>
+                    </KbdGroupIsland>
                 </div>
             </div>
         </div>

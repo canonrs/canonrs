@@ -1,4 +1,6 @@
 pub mod kbd_ui;
+pub mod kbd_island;
+pub use kbd_island::{KbdIsland, KbdGroupIsland, KbdSeparatorIsland};
 #[cfg(feature = "examples")]
 pub mod examples;
 
