@@ -1,3 +1,21 @@
+#[island]
+pub fn MarkdownInit() -> impl IntoView {
+    #[cfg(target_arch = "wasm32")]
+    {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        let f = Closure::wrap(Box::new(move || {
+            crate::interactions::markdown::init_all();
+        }) as Box<dyn Fn()>);
+        leptos::web_sys::window()
+            .unwrap()
+            .request_animation_frame(f.as_ref().unchecked_ref())
+            .ok();
+        f.forget();
+    }
+    view! { <></> }
+}
+
 use leptos::prelude::*;
 use super::markdown_ui::{MarkdownSurface, MarkdownTOC, MarkdownContent, MarkdownLayout, RenderedMarkdown, TocPosition};
 
@@ -14,6 +32,7 @@ pub fn MarkdownSurfaceIsland(
         _               => TocPosition::Top,
     };
     view! {
+        <MarkdownInit />
         <MarkdownSurface
             rendered=rendered
             show_toc=show_toc.unwrap_or(true)

@@ -1,7 +1,6 @@
 use leptos::prelude::*;
 use super::table_of_contents_island::{TableOfContentsIsland, TocIslandItem};
-use crate::blocks::split::split_block::{Split, SplitRatio};
-use crate::ui::scroll_area::scroll_area_ui::ScrollArea;
+use crate::ui::scroll_area::scroll_area_island::ScrollAreaIsland;
 
 fn sample_items() -> Vec<TocIslandItem> {
     vec![
@@ -22,41 +21,37 @@ pub fn TableOfContentsShowcasePreview() -> impl IntoView {
             <p data-rs-showcase-preview-anchor="">
                 "TOC hierarchy and state derived from structured data model."
             </p>
-            <div data-rs-showcase-preview-stage="">
-                <Split
-                    ratio=SplitRatio::OneThird
-                    aside=leptos::children::ToChildren::to_children(|| view! {
-                        <div style="display:flex;flex-direction:row;gap:1rem;align-items:flex-start;">
-                            <div style="flex:1;min-width:0;">
-                                <span data-rs-showcase-preview-label="">"Simple"</span>
-                                <TableOfContentsIsland items=sample_items() mode="simple" title="On this page" />
-                            </div>
-                            <div style="flex:1;min-width:0;">
-                                <span data-rs-showcase-preview-label="">"Expand"</span>
-                                <TableOfContentsIsland items=sample_items() mode="expand" title="On this page" />
-                            </div>
-                            <div style="flex:1;min-width:0;">
-                                <span data-rs-showcase-preview-label="">"Nested"</span>
-                                <TableOfContentsIsland items=sample_items() mode="nested" title="On this page" />
-                            </div>
-                        </div>
-                    })
-                    main=leptos::children::ToChildren::to_children(|| view! {
-                        <div id="toc-scroll-root" style="height:400px;">
-                            <ScrollArea>
-                                <div style="padding:1rem;display:flex;flex-direction:column;gap:2rem;">
-                                    <section><h2 id="toc-intro">"Introduction"</h2><p>"Introduction content."</p></section>
-                                    <section><h2 id="toc-setup">"Setup"</h2><p>"Setup section."</p></section>
+            <div data-rs-showcase-preview-stage="" style="padding:0;">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 2fr;gap:var(--space-md);height:400px;width:100%;">
+                    <div style="display:flex;flex-direction:column;gap:var(--space-xs);">
+                        <span data-rs-showcase-preview-label="">"Simple"</span>
+                        <TableOfContentsIsland items=sample_items() mode="simple" title="On this page" />
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:var(--space-xs);">
+                        <span data-rs-showcase-preview-label="">"Expand"</span>
+                        <TableOfContentsIsland items=sample_items() mode="expand" title="On this page" />
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:var(--space-xs);">
+                        <span data-rs-showcase-preview-label="">"Nested"</span>
+                        <TableOfContentsIsland items=sample_items() mode="nested" title="On this page" />
+                    </div>
+                    <div style="height:400px;display:flex;flex-direction:column;">
+                        <span data-rs-showcase-preview-label="">"Content"</span>
+                        <div style="flex:1;min-height:0;">
+                            <ScrollAreaIsland>
+                                <div style="padding:var(--space-md);display:flex;flex-direction:column;gap:var(--space-xl);">
+                                    <section><h2 id="toc-intro">"Introduction"</h2><p>"Introduction content goes here."</p></section>
+                                    <section><h2 id="toc-setup">"Setup"</h2><p>"Setup section content."</p></section>
                                     <section><h3 id="toc-install">"Installation"</h3><p>"Install via cargo add canonrs."</p></section>
                                     <section><h3 id="toc-config">"Configuration"</h3><p>"Configure tokens, themes and behavior."</p></section>
                                     <section><h2 id="toc-usage">"Usage"</h2><p>"Import components from canonrs::ui."</p></section>
-                                    <section><h3 id="toc-advanced">"Advanced"</h3><p>"Advanced patterns include SSR and hydration."</p></section>
-                                    <section><h2 id="toc-api">"API Reference"</h2><p>"Full API reference."</p></section>
+                                    <section><h3 id="toc-advanced">"Advanced"</h3><p>"Advanced SSR and hydration patterns."</p></section>
+                                    <section><h2 id="toc-api">"API Reference"</h2><p>"Full API reference documentation."</p></section>
                                 </div>
-                            </ScrollArea>
+                            </ScrollAreaIsland>
                         </div>
-                    })
-                />
+                    </div>
+                </div>
             </div>
         </div>
     }

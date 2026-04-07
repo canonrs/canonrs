@@ -12,3 +12,5 @@ pub mod carousel;
 pub mod toggle_group;
 #[cfg(target_arch = "wasm32")]
 pub mod avatar;
+#[cfg(target_arch = "wasm32")]
+pub mod markdown;

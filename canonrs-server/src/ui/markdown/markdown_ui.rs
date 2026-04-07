@@ -67,11 +67,11 @@ fn build_html(
         out.push_str("</ul></nav></nav>");
     }
 
-    // TOC sidebar
+    // TOC sidebar — fora do scroll wrapper
     if has_toc && is_sidebar {
         let content_id = format!("{}-content", id);
         out.push_str(&format!(
-            "<aside data-rs-md-toc-sidebar=\"\" data-rs-scroll-target=\"{scroll_target}\"><nav data-rs-toc=\"\" data-rs-mode=\"expand\" id=\"{toc_id}\"><p data-rs-toc-title=\"\">On this page</p><ul data-rs-toc-list=\"\">",
+            "<aside data-rs-md-toc-sidebar=\"\" data-rs-scroll-target=\"{scroll_target}\"><nav data-rs-toc=\"\" data-rs-mode=\"nested\" id=\"{toc_id}\"><p data-rs-toc-title=\"\">On this page</p><ul data-rs-toc-list=\"\">",
             scroll_target = content_id,
             toc_id = toc_id
         ));

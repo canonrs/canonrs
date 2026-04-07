@@ -40,10 +40,10 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
                 "SSR-safe markdown rendering with deterministic DOM output."
             </p>
             <div data-rs-showcase-preview-stage="" style="width:100%;padding:0;">
-                <div style="display:grid;grid-template-columns:200px 1fr;width:100%;height:400px;">
-                    <div style="display:flex;flex-direction:column;overflow:hidden;height:400px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);height:400px;">
+                    <div style="height:400px;display:flex;flex-direction:column;">
                         <span data-rs-showcase-preview-label="">"With Table of Contents"</span>
-                        <div style="flex:1;overflow:hidden;">
+                        <div style="flex:1;min-height:0;">
                             <ScrollAreaIsland>
                                 <MarkdownSurfaceIsland
                                     rendered=rendered_toc
@@ -55,9 +55,9 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
                             </ScrollAreaIsland>
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;overflow:hidden;height:400px;">
+                    <div style="height:400px;display:flex;flex-direction:column;">
                         <span data-rs-showcase-preview-label="">"Only Markdown"</span>
-                        <div style="flex:1;overflow:hidden;">
+                        <div style="flex:1;min-height:0;">
                             <ScrollAreaIsland>
                                 <MarkdownSurfaceIsland
                                     rendered=rendered_plain
