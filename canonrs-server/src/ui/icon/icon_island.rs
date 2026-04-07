@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::icon_ui::{Icon, IconSize, IconVariant};
 
-#[island]
+#[component]
 pub fn IconIsland(
     children: Children,
     #[prop(optional, into)] size: Option<String>,

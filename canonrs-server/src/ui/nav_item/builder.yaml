@@ -34,4 +34,4 @@ after: |
   view! {
     <NavItem label="Home" active=true />
   }
-island_type: passthrough
+island_type: init

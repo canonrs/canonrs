@@ -43,4 +43,4 @@ after: |
       </SelectContent>
     </Select>
   }
-island_type: passthrough
+island_type: interaction

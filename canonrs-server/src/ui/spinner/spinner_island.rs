@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::spinner_ui::{Spinner, SpinnerSize};
 
-#[island]
+#[component]
 pub fn SpinnerIsland(
     #[prop(optional, into)] size: Option<String>,
     #[prop(optional)] paused: Option<bool>,

@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::pulse_ui::{Pulse, PulseVariant, PulseSize, PulseSpeed};
 
-#[island]
+#[component]
 pub fn PulseIsland(
     #[prop(optional, into)] variant: Option<String>,
     #[prop(optional, into)] size: Option<String>,

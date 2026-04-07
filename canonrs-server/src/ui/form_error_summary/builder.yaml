@@ -34,4 +34,4 @@ after: |
   view! {
     <FormErrorSummary errors=vec![] />
   }
-island_type: passthrough
+island_type: init

@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::label_ui::Label;
 
-#[island]
+#[component]
 pub fn LabelIsland(
     #[prop(optional, into)] text: Option<String>,
     #[prop(optional, into)] for_id: Option<String>,

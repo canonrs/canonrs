@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::skeleton_ui::{Skeleton, SkeletonVariant};
 
-#[island]
+#[component]
 pub fn SkeletonIsland(
     #[prop(optional, into)] variant: Option<String>,
     #[prop(optional, into)] class: Option<String>,
