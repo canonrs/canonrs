@@ -8,6 +8,7 @@ pub const INPUTGROUP_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "merge_radius", kind: PropType::String, required: false, default: Some("off"), description: "" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

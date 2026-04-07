@@ -34,4 +34,4 @@ after: |
   view! {
     <CopyButton id="copy" text="value" />
   }
-island_type: init
+island_type: interaction

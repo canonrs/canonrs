@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use super::link_island::{LinkIsland, LinkVariant};
+use super::link_island::LinkIsland;
+use canonrs_core::primitives::LinkVariant;
 
 #[component]
 pub fn LinkShowcasePreview() -> impl IntoView {

@@ -6,7 +6,7 @@ use leptos::prelude::*;
 use crate::meta::DisabledState;
 use crate::infra::state_engine::disabled_attrs;
 
-#[derive(Clone, Copy, PartialEq, Default, Debug)]
+#[derive(Clone, Copy, PartialEq, Default, Debug, serde::Serialize, serde::Deserialize)]
 pub enum LinkVariant {
     #[default]
     Default,
@@ -31,6 +31,7 @@ pub fn LinkPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = false)] external: bool,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::A>>,
 ) -> impl IntoView {
     let d = disabled_attrs(disabled);
     let target = if external { "_blank" } else { "" };
@@ -49,6 +50,7 @@ pub fn LinkPrimitive(
             rel=rel
             aria-disabled=d.aria_disabled
             class=class
+            node_ref=node_ref.unwrap_or_default()
         >
             {children()}
         </a>

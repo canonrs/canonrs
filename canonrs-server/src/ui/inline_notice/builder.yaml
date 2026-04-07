@@ -36,4 +36,4 @@ after: |
       <InlineNoticeContent>"Error"</InlineNoticeContent>
     </InlineNotice>
   }
-island_type: init
+island_type: passthrough

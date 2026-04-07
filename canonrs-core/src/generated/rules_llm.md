@@ -7363,3 +7363,28 @@ Register `pointerdown` on the handle. Register `pointermove` and `pointerup` on 
 
 ---
 
+## CR-340 — Passthrough Island Must Be Zero Logic
+
+- **Category:** island-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+When passthrough islands perform transformations such as string parsing, enum mapping, default resolution, or conditional rendering, they break the CanonRS architecture by introducing logic into a layer that must remain purely mechanical.
+
+### Solution
+
+Passthrough islands must accept fully typed props (enums, booleans, structured data) and forward them directly to UI components. All transformations must occur before the island (call site) or inside the UI layer.
+
+### Signals
+
+- usage of `match` inside island
+- usage of `unwrap_or`, `unwrap_or_default`, or fallback logic
+- string → enum conversion inside island
+- conditional rendering branches (`if`, `match`) in island
+- presence of parsing or normalization logic
+- island API accepts `String` where enum exists
+
+---
+

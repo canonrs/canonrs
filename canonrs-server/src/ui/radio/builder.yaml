@@ -34,4 +34,4 @@ after: |
   view! {
     <Radio value="a" name="group" checked=true>"Option"</Radio>
   }
-island_type: init
+island_type: interaction

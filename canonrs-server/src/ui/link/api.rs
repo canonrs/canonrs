@@ -11,6 +11,7 @@ pub const LINK_API: ComponentApi = ComponentApi {
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "external", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

@@ -1,4 +1,3 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{LinkPrimitive, LinkVariant};
 use canonrs_core::meta::DisabledState;
@@ -11,6 +10,7 @@ pub fn Link(
     #[prop(default = false)] disabled: bool,
     #[prop(default = false)] external: bool,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::A>>,
 ) -> impl IntoView {
     let disabled_state = DisabledState::from(disabled);
     view! {
@@ -20,6 +20,7 @@ pub fn Link(
             disabled=disabled_state
             external=external
             class=class
+            node_ref=node_ref.unwrap_or_default()
         >
             {children()}
         </LinkPrimitive>

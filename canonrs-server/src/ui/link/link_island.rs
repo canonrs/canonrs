@@ -1,22 +1,10 @@
+//! @canon-level: strict
+//! Link Island — apenas muta DOM via web_sys
+//! SEM signals, SEM lógica de negócio, SEM estado reativo
+
 use leptos::prelude::*;
-
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum LinkVariant {
-    #[default]
-    Default,
-    Muted,
-    Underline,
-}
-
-impl LinkVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Default   => "default",
-            Self::Muted     => "muted",
-            Self::Underline => "underline",
-        }
-    }
-}
+use super::link_ui::Link;
+use canonrs_core::primitives::LinkVariant;
 
 #[island]
 pub fn LinkIsland(
@@ -33,63 +21,76 @@ pub fn LinkIsland(
     let external = external.unwrap_or(false);
     let class    = class.unwrap_or_default();
 
-    let target = if external { "_blank" } else { "" };
-    let rel    = if external { "noopener noreferrer" } else { "" };
+    let node_ref = NodeRef::<leptos::html::A>::new();
 
-    let (is_hover,  set_hover)  = signal(false);
-    let (is_active, set_active) = signal(false);
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
 
-    let initial_state = {
-        let mut s = vec![];
-        if disabled { s.push("disabled"); }
-        s.join(" ")
-    };
+        let Some(el_html) = node_ref.get() else { return };
+        let el: web_sys::Element = (*el_html).clone().unchecked_into();
 
-    let state = move || {
-        let mut s = vec![];
-        if disabled        { s.push("disabled"); }
-        if is_hover.get()  { s.push("hover");    }
-        if is_active.get() { s.push("active");   }
-        s.join(" ")
-    };
-
-    #[cfg(feature = "hydrate")]
-    let on_mouseenter = move |_: leptos::ev::MouseEvent| { if !disabled { set_hover.set(true); } };
-    #[cfg(not(feature = "hydrate"))]
-    let on_mouseenter = move |_: leptos::ev::MouseEvent| { let _ = set_hover; };
-
-    #[cfg(feature = "hydrate")]
-    let on_mouseleave = move |_: leptos::ev::MouseEvent| { set_hover.set(false); set_active.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_mouseleave = move |_: leptos::ev::MouseEvent| { let _ = (set_hover, set_active); };
-
-    #[cfg(feature = "hydrate")]
-    let on_mousedown = move |_: leptos::ev::MouseEvent| { if !disabled { set_active.set(true); } };
-    #[cfg(not(feature = "hydrate"))]
-    let on_mousedown = move |_: leptos::ev::MouseEvent| { let _ = set_active; };
-
-    #[cfg(feature = "hydrate")]
-    let on_mouseup = move |_: leptos::ev::MouseEvent| { set_active.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_mouseup = move |_: leptos::ev::MouseEvent| { let _ = set_active; };
+        {
+            let el_cb = el.clone();
+            let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+                if !disabled {
+                    let state = el_cb.get_attribute("data-rs-state").unwrap_or_default();
+                    let next = format!("{} hover", state).trim().to_string();
+                    let _ = el_cb.set_attribute("data-rs-state", &next);
+                }
+            }));
+            let _ = el.add_event_listener_with_callback("mouseenter", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+        {
+            let el_cb = el.clone();
+            let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+                let state = el_cb.get_attribute("data-rs-state").unwrap_or_default();
+                let next = state.split_whitespace()
+                    .filter(|t| *t != "hover" && *t != "active")
+                    .collect::<Vec<_>>().join(" ");
+                let _ = el_cb.set_attribute("data-rs-state", &next);
+            }));
+            let _ = el.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+        {
+            let el_cb = el.clone();
+            let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+                if !disabled {
+                    let state = el_cb.get_attribute("data-rs-state").unwrap_or_default();
+                    let next = format!("{} active", state).trim().to_string();
+                    let _ = el_cb.set_attribute("data-rs-state", &next);
+                }
+            }));
+            let _ = el.add_event_listener_with_callback("mousedown", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+        {
+            let el_cb = el.clone();
+            let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+                let state = el_cb.get_attribute("data-rs-state").unwrap_or_default();
+                let next = state.split_whitespace()
+                    .filter(|t| *t != "active")
+                    .collect::<Vec<_>>().join(" ");
+                let _ = el_cb.set_attribute("data-rs-state", &next);
+            }));
+            let _ = el.add_event_listener_with_callback("mouseup", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
 
     view! {
-        <a
-            data-rs-link=""
-            data-rs-component="Link"
-            data-rs-variant=variant.as_str()
-            data-rs-state=move || { let s = state(); if s.is_empty() { initial_state.clone() } else { s } }
-            href=if disabled { "#".to_string() } else { href }
-            target=target
-            rel=rel
-            aria-disabled=disabled.to_string()
+        <Link
+            href=href
+            variant=variant
+            disabled=disabled
+            external=external
             class=class
-            on:mouseenter=on_mouseenter
-            on:mouseleave=on_mouseleave
-            on:mousedown=on_mousedown
-            on:mouseup=on_mouseup
+            node_ref=node_ref
         >
             {children()}
-        </a>
+        </Link>
     }
 }

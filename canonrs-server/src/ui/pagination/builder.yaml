@@ -38,4 +38,4 @@ after: |
       </PaginationContent>
     </Pagination>
   }
-island_type: init
+island_type: interaction

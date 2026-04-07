@@ -37,4 +37,4 @@ after: |
       <HoverCardContent>"Content"</HoverCardContent>
     </HoverCard>
   }
-island_type: init
+island_type: interaction

@@ -1,4 +1,3 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     CollapsiblePrimitive, CollapsibleTriggerPrimitive, CollapsibleContentPrimitive,
@@ -10,10 +9,10 @@ pub fn Collapsible(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
-
     view! {
-        <CollapsiblePrimitive state=state class=class>
+        <CollapsiblePrimitive state=state class=class node_ref=node_ref.unwrap_or_default()>
             {children()}
         </CollapsiblePrimitive>
     }

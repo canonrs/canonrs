@@ -12,6 +12,7 @@ pub fn CollapsiblePrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
     let d = disabled_attrs(disabled);
@@ -24,6 +25,7 @@ pub fn CollapsiblePrimitive(
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled
             class=class
+            node_ref=node_ref.unwrap_or_default()
         >
             {children()}
         </div>

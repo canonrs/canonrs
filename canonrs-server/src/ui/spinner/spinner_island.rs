@@ -1,23 +1,15 @@
 use leptos::prelude::*;
-use super::spinner_ui::{Spinner, SpinnerSize};
+use super::spinner_ui::Spinner;
+use canonrs_core::primitives::SpinnerSize;
 
 #[component]
 pub fn SpinnerIsland(
-    #[prop(optional, into)] size: Option<String>,
-    #[prop(optional)] paused: Option<bool>,
-    #[prop(optional, into)] aria_label: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = SpinnerSize::Medium)] size: SpinnerSize,
+    #[prop(default = false)] paused: bool,
+    #[prop(into, default = "Loading".to_string())] aria_label: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let size = match size.as_deref() {
-        Some("small") => SpinnerSize::Small,
-        Some("large") => SpinnerSize::Large,
-        _ => SpinnerSize::Medium,
-    };
-    let paused = paused.unwrap_or(false);
-    let aria_label = aria_label.unwrap_or_else(|| "Loading".to_string());
-    let cls = class.unwrap_or_default();
-
     view! {
-        <Spinner size=size paused=paused aria_label=aria_label class=cls />
+        <Spinner size=size paused=paused aria_label=aria_label class=class />
     }
 }

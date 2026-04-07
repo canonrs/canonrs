@@ -1,10 +1,10 @@
-use leptos::prelude::*;
+//! @canon-level: strict
+//! Collapsible Island — apenas muta DOM via web_sys
+//! SEM signals, SEM lógica de negócio, SEM estado reativo
 
-#[derive(Clone, Copy)]
-pub struct CollapsibleContext {
-    pub is_open:  ReadSignal<bool>,
-    pub set_open: WriteSignal<bool>,
-}
+use leptos::prelude::*;
+use super::collapsible_ui::{Collapsible, CollapsibleTrigger, CollapsibleContent};
+use canonrs_core::meta::VisibilityState;
 
 #[island]
 pub fn CollapsibleIsland(
@@ -12,24 +12,57 @@ pub fn CollapsibleIsland(
     #[prop(optional)] open: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class        = class.unwrap_or_default();
     let initial_open = open.unwrap_or(false);
-    let (is_open, set_open) = signal(initial_open);
+    let class        = class.unwrap_or_default();
+    let initial_state = if initial_open { VisibilityState::Open } else { VisibilityState::Closed };
 
-    let initial_state = if initial_open { "open" } else { "closed" };
-    let state = move || if is_open.get() { "open" } else { "closed" };
+    let node_ref = NodeRef::<leptos::html::Div>::new();
 
-    provide_context(CollapsibleContext { is_open, set_open });
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
+
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
+
+        let root_cb = root.clone();
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(target) = e.target()
+                .and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            if target.closest("[data-rs-collapsible-trigger]").ok().flatten().is_none() { return; }
+
+            let state = root_cb.get_attribute("data-rs-state").unwrap_or_default();
+            let is_open = state.contains("open");
+
+            if is_open {
+                let _ = root_cb.set_attribute("data-rs-state", "closed");
+                if let Ok(Some(content)) = root_cb.query_selector("[data-rs-collapsible-content]") {
+                    let _ = content.set_attribute("data-rs-state", "closed");
+                    let _ = content.set_attribute("aria-hidden", "true");
+                }
+                if let Ok(Some(trigger)) = root_cb.query_selector("[data-rs-collapsible-trigger]") {
+                    let _ = trigger.set_attribute("aria-expanded", "false");
+                }
+            } else {
+                let _ = root_cb.set_attribute("data-rs-state", "open");
+                if let Ok(Some(content)) = root_cb.query_selector("[data-rs-collapsible-content]") {
+                    let _ = content.set_attribute("data-rs-state", "open");
+                    let _ = content.set_attribute("aria-hidden", "false");
+                }
+                if let Ok(Some(trigger)) = root_cb.query_selector("[data-rs-collapsible-trigger]") {
+                    let _ = trigger.set_attribute("aria-expanded", "true");
+                }
+            }
+        }));
+        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
+    });
 
     view! {
-        <div
-            data-rs-collapsible=""
-            data-rs-component="Collapsible"
-            data-rs-state=move || { let s = state(); if s.is_empty() { initial_state } else { s } }
-            class=class
-        >
+        <Collapsible state=initial_state class=class node_ref=node_ref>
             {children()}
-        </div>
+        </Collapsible>
     }
 }
 
@@ -38,27 +71,10 @@ pub fn CollapsibleTriggerIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let ctx   = use_context::<CollapsibleContext>();
-    let is_expanded = move || ctx.map(|c| c.is_open.get()).unwrap_or(false);
-
-    #[cfg(feature = "hydrate")]
-    let on_click = move |_: leptos::ev::MouseEvent| {
-        if let Some(c) = ctx { c.set_open.update(|v| *v = !*v); }
-    };
-    #[cfg(not(feature = "hydrate"))]
-    let on_click = move |_: leptos::ev::MouseEvent| {};
-
     view! {
-        <button
-            type="button"
-            data-rs-collapsible-trigger=""
-            aria-expanded=move || is_expanded().to_string()
-            class=class
-            on:click=on_click
-        >
+        <CollapsibleTrigger class=class.unwrap_or_default()>
             {children()}
-        </button>
+        </CollapsibleTrigger>
     }
 }
 
@@ -67,24 +83,9 @@ pub fn CollapsibleContentIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class    = class.unwrap_or_default();
-    let ctx      = use_context::<CollapsibleContext>();
-    let is_open  = move || ctx.map(|c| c.is_open.get()).unwrap_or(false);
-    let is_open2 = move || ctx.map(|c| c.is_open.get()).unwrap_or(false);
-    let is_open3 = move || ctx.map(|c| c.is_open.get()).unwrap_or(false);
-    let state    = move || if is_open()  { "open" } else { "closed" };
-    let hidden   = move || !is_open2();
-    let aria     = move || (!is_open3()).to_string();
-
     view! {
-        <div
-            data-rs-collapsible-content=""
-            data-rs-state=state
-            aria-hidden=aria
-            hidden=hidden
-            class=class
-        >
+        <CollapsibleContent class=class.unwrap_or_default()>
             {children()}
-        </div>
+        </CollapsibleContent>
     }
 }

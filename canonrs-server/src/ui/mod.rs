@@ -75,7 +75,7 @@ pub use data_table::DataTableStaticShowcasePreview;
 pub use data_table::DataTableIsland;
 pub use data_table::DataTableIslandColumn;
 pub use input::InputIsland;
-pub use input_group::{InputGroupIsland, InputGroupSlot};
+pub use input_group::InputGroupIsland;
 pub use input_otp::InputOtpIsland;
 pub use textarea::TextareaIsland;
 pub use field::FieldIsland;

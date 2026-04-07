@@ -7,9 +7,10 @@ pub fn InputGroup(
     children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = ToggleState::Off)] merge_radius: ToggleState,
+    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     view! {
-        <InputGroupPrimitive class=class merge_radius=merge_radius>
+        <InputGroupPrimitive class=class merge_radius=merge_radius node_ref=node_ref.unwrap_or_default()>
             {children()}
         </InputGroupPrimitive>
     }

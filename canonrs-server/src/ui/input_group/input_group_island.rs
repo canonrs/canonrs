@@ -1,67 +1,60 @@
-use leptos::prelude::*;
-use crate::ui::input::input_ui::Input;
-use canonrs_core::primitives::InputVariant;
-use canonrs_core::primitives::InputSize;
-use canonrs_core::meta::DisabledState;
+//! @canon-level: strict
+//! InputGroup Island — apenas muta DOM via web_sys
+//! SEM signals, SEM lógica de negócio, SEM estado reativo
 
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub enum InputGroupSlot {
-    Addon(String),
-    Input {
-        placeholder: String,
-        input_type:  String,
-        name:        String,
-    },
-}
+use leptos::prelude::*;
+use super::input_group_ui::InputGroup;
+use canonrs_core::meta::ToggleState;
 
 #[island]
 pub fn InputGroupIsland(
-    slots: Vec<InputGroupSlot>,
+    children: Children,
     #[prop(optional)] merge_radius: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let merge_radius = merge_radius.unwrap_or(false);
+    let merge_radius = if merge_radius.unwrap_or(false) { ToggleState::On } else { ToggleState::Off };
     let class        = class.unwrap_or_default();
 
-    let focused = RwSignal::new(false);
+    let node_ref = NodeRef::<leptos::html::Div>::new();
 
-    let state = move || {
-        let mut s = vec![];
-        if merge_radius  { s.push("merge-radius"); }
-        if focused.get() { s.push("focus-within"); }
-        s.join(" ")
-    };
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
 
-    let slots_view = slots.into_iter().map(|slot| {
-        match slot {
-            InputGroupSlot::Addon(text) => view! {
-                <span data-rs-input-group-addon="">{text}</span>
-            }.into_any(),
-            InputGroupSlot::Input { placeholder, input_type, name } => {
-                view! {
-                    <Input
-                        placeholder=placeholder
-                        input_type=input_type
-                        name=name
-                        variant=InputVariant::Default
-                        size=InputSize::Md
-                        disabled=DisabledState::Enabled
-                        on:focus=move |_: leptos::ev::FocusEvent| { focused.set(true); }
-                        on:blur=move |_: leptos::ev::FocusEvent| { focused.set(false); }
-                    />
-                }.into_any()
-            }
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
+
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_| {
+                let state = root_cb.get_attribute("data-rs-state").unwrap_or_default();
+                if !state.contains("focus-within") {
+                    let next = format!("{} focus-within", state).trim().to_string();
+                    let _ = root_cb.set_attribute("data-rs-state", &next);
+                }
+            }));
+            let _ = root.add_event_listener_with_callback("focusin", cb.as_ref().unchecked_ref());
+            cb.forget();
         }
-    }).collect::<Vec<_>>();
+
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_| {
+                let state = root_cb.get_attribute("data-rs-state").unwrap_or_default();
+                let next = state.split_whitespace()
+                    .filter(|t| *t != "focus-within")
+                    .collect::<Vec<_>>().join(" ");
+                let _ = root_cb.set_attribute("data-rs-state", &next);
+            }));
+            let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
 
     view! {
-        <div
-            data-rs-input-group=""
-            data-rs-component="InputGroup"
-            data-rs-state=state
-            class=class
-        >
-            {slots_view}
-        </div>
+        <InputGroup merge_radius=merge_radius class=class node_ref=node_ref>
+            {children()}
+        </InputGroup>
     }
 }

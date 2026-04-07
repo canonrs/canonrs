@@ -42,4 +42,4 @@ after: |
       </DialogPortal>
     </Dialog>
   }
-island_type: init
+island_type: interaction
