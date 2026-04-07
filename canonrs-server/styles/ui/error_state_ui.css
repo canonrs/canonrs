@@ -8,15 +8,18 @@
   flex-direction: column;
   align-items: center;
   gap: var(--error-state-gap);
-  padding-inline: var(--error-state-padding-x);
-  padding-block: var(--error-state-padding-y);
+  padding: var(--error-state-padding);
   text-align: center;
+}
+
+[data-rs-error-state][data-rs-state~="error"] {
+  color: var(--error-state-title-fg);
 }
 
 [data-rs-error-state-icon] {
   width: var(--error-state-icon-size);
   height: var(--error-state-icon-size);
-  color: var(--error-state-icon-color);
+  color: var(--error-state-icon-fg);
 }
 
 [data-rs-error-state-title] {
@@ -27,13 +30,10 @@
 
 [data-rs-error-state-description] {
   font-size: var(--error-state-description-font-size);
-  line-height: var(--error-state-description-line-height);
   color: var(--error-state-description-fg);
-  max-width: var(--error-state-description-max-width);
 }
 
 [data-rs-error-state-actions] {
   display: flex;
   gap: var(--error-state-actions-gap);
-  margin-top: var(--error-state-actions-margin-top);
 }
