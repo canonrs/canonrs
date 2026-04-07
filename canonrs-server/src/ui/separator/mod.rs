@@ -8,3 +8,5 @@ pub use examples::*;
 
 pub mod preview;
 pub use preview::SeparatorShowcasePreview;
+pub mod separator_island;
+pub use separator_island::*;
