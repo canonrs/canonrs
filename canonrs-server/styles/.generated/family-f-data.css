@@ -252,6 +252,8 @@
   --scrollbar-thumb-active-bg: var(--theme-surface-fg);
   --scrollbar-transition: background var(--motion-duration-fast) var(--motion-ease-standard);
   --scrollbar-thumb-min-size: 40px;
+  --scroll-thumb-size: 40px;
+  --scroll-thumb-offset: 0px;
   --list-gap: var(--space-sm);
   --list-item-padding: var(--space-sm) var(--space-md);
   --list-item-padding-y: var(--space-sm);

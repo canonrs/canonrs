@@ -42,3 +42,4 @@ after: |
       </DropdownMenuContent>
     </DropdownMenu>
   }
+island_type: init

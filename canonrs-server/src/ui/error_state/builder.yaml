@@ -36,3 +36,4 @@ after: |
       <ErrorStateTitle>"Error"</ErrorStateTitle>
     </ErrorState>
   }
+island_type: passthrough

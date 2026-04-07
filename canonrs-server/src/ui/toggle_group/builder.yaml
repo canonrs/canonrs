@@ -39,3 +39,4 @@ after: |
       <Toggle>"A"</Toggle>
     </ToggleGroup>
   }
+island_type: init

@@ -32,3 +32,4 @@ after: |
   view! {
     <InputOtp length=6 />
   }
+island_type: init

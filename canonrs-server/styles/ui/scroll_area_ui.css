@@ -52,7 +52,7 @@
 /* auto-hide */
 [data-rs-scroll-area][data-rs-auto-hide="true"] [data-rs-scrollbar] { opacity: 0; }
 [data-rs-scroll-area][data-rs-auto-hide="true"]:hover [data-rs-scrollbar] { opacity: 1; }
-[data-rs-scroll-area][data-rs-auto-hide="true"] [data-rs-scrollbar][data-rs-state="dragging"] { opacity: 1; }
+[data-rs-scroll-area][data-rs-auto-hide="true"] [data-rs-scrollbar][data-rs-state~="active"] { opacity: 1; }
 
 /* ── Track ───────────────────────────────────── */
 [data-rs-scroll-track] {
@@ -88,9 +88,9 @@
   transform: translateX(var(--scroll-thumb-offset, 0px));
 }
 
-[data-rs-scroll-thumb][data-rs-state="hidden"] { opacity: 0; pointer-events: none; }
+[data-rs-scroll-thumb][data-rs-state~="hidden"] { opacity: 0; pointer-events: none; }
 [data-rs-scroll-thumb]:hover                { background: var(--scrollbar-thumb-hover-bg); }
-[data-rs-scroll-thumb][data-rs-state="dragging"] {
+[data-rs-scroll-thumb][data-rs-state~="active"] {
   background: var(--scrollbar-thumb-active-bg);
   cursor: grabbing;
 }

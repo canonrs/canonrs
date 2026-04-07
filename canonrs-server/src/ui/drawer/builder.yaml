@@ -37,3 +37,4 @@ after: |
       <DrawerContent aria_labelledby="title" />
     </Drawer>
   }
+island_type: init

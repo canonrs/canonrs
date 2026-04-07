@@ -34,3 +34,4 @@ after: |
   view! {
     <Toggle pressed=true>"On"</Toggle>
   }
+island_type: init

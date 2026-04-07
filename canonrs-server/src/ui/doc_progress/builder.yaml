@@ -32,3 +32,4 @@ after: |
   view! {
     <DocProgress />
   }
+island_type: init

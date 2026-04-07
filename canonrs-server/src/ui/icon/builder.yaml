@@ -34,3 +34,4 @@ after: |
   view! {
     <Icon size=IconSize::Md>"★"</Icon>
   }
+island_type: passthrough

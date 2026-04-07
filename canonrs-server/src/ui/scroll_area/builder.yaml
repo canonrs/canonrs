@@ -36,3 +36,4 @@ after: |
       <div>"Content"</div>
     </ScrollArea>
   }
+island_type: interaction

@@ -36,3 +36,4 @@ after: |
       <ToastTitle>"Error"</ToastTitle>
     </Toast>
   }
+island_type: init

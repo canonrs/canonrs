@@ -37,3 +37,4 @@ after: |
       <AlertDescription>"Error occurred"</AlertDescription>
     </Alert>
   }
+island_type: passthrough

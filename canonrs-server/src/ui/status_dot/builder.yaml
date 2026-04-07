@@ -34,3 +34,4 @@ after: |
   view! {
     <StatusDot variant=StatusDotVariant::Online />
   }
+island_type: passthrough

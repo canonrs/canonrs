@@ -42,3 +42,4 @@ after: |
       </CommandList>
     </Command>
   }
+island_type: init

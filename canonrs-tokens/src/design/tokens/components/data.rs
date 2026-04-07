@@ -287,6 +287,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("scrollbar-thumb-active-bg",       "var(--theme-surface-fg)"),
     FamilyToken::new("scrollbar-transition",            "background var(--motion-duration-fast) var(--motion-ease-standard)"),
     FamilyToken::new("scrollbar-thumb-min-size",        "40px"),
+    FamilyToken::new("scroll-thumb-size",               "40px"),
+    FamilyToken::new("scroll-thumb-offset",             "0px"),
 
     // ── ListItem ──────────────────────────────────────────────────────────────
     FamilyToken::new("list-gap",            "var(--space-sm)"),

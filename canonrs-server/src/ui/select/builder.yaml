@@ -43,3 +43,4 @@ after: |
       </SelectContent>
     </Select>
   }
+island_type: passthrough

@@ -34,3 +34,4 @@ after: |
   view! {
     <Switch checked=true>"On"</Switch>
   }
+island_type: init

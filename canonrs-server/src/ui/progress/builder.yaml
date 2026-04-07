@@ -34,3 +34,4 @@ after: |
   view! {
     <Progress value=75.0 />
   }
+island_type: init

@@ -36,3 +36,4 @@ after: |
       "Content"
     </LoadingOverlay>
   }
+island_type: init

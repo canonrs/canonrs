@@ -42,3 +42,4 @@ after: |
       </AccordionItem>
     </Accordion>
   }
+island_type: init

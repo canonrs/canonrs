@@ -43,3 +43,4 @@ after: |
       </ContextMenuContent>
     </ContextMenu>
   }
+island_type: init

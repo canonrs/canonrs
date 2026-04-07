@@ -42,3 +42,4 @@ after: |
       <CardContent>"Content"</CardContent>
     </Card>
   }
+island_type: passthrough

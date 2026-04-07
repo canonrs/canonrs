@@ -38,3 +38,4 @@ after: |
       <PopoverContent>"Popover"</PopoverContent>
     </Popover>
   }
+island_type: init

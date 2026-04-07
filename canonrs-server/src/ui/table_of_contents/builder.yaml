@@ -36,3 +36,4 @@ after: |
   view! {
     <TableOfContents items=items />
   }
+island_type: init

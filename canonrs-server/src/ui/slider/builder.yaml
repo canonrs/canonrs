@@ -34,3 +34,4 @@ after: |
   view! {
     <Slider min=0.0 max=100.0 value=50.0 />
   }
+island_type: interaction

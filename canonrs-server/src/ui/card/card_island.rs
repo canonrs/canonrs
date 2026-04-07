@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::card_ui::{Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
 
-#[island]
+#[component]
 pub fn CardIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
@@ -14,7 +14,7 @@ pub fn CardIsland(
     }
 }
 
-#[island]
+#[component]
 pub fn CardHeaderIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
@@ -27,7 +27,7 @@ pub fn CardHeaderIsland(
     }
 }
 
-#[island]
+#[component]
 pub fn CardTitleIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
@@ -40,7 +40,7 @@ pub fn CardTitleIsland(
     }
 }
 
-#[island]
+#[component]
 pub fn CardDescriptionIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
@@ -53,7 +53,7 @@ pub fn CardDescriptionIsland(
     }
 }
 
-#[island]
+#[component]
 pub fn CardContentIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
@@ -66,7 +66,7 @@ pub fn CardContentIsland(
     }
 }
 
-#[island]
+#[component]
 pub fn CardFooterIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,

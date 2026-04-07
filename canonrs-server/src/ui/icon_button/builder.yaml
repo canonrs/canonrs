@@ -34,3 +34,4 @@ after: |
   view! {
     <IconButton aria_label="Close">"×"</IconButton>
   }
+island_type: init

@@ -34,3 +34,4 @@ after: |
   view! {
     <CodeBlock code="fn main() {}" language="rust" />
   }
+island_type: passthrough

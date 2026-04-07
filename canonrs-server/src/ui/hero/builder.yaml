@@ -36,3 +36,4 @@ after: |
   view! {
     <HeroTitle>"Title"</HeroTitle>
   }
+island_type: passthrough

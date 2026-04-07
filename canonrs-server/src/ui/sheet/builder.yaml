@@ -36,3 +36,4 @@ after: |
       <SheetContent aria_labelledby="title">"Content"</SheetContent>
     </Sheet>
   }
+island_type: init

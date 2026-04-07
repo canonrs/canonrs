@@ -12,3 +12,5 @@ pub use scroll_area_ui::ScrollAreaPreview;
 
 pub mod preview;
 pub use preview::ScrollAreaShowcasePreview;
+pub mod scroll_area_island;
+pub use scroll_area_island::*;

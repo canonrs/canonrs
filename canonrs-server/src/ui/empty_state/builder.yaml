@@ -36,3 +36,4 @@ after: |
       <EmptyStateTitle>"No data"</EmptyStateTitle>
     </EmptyState>
   }
+island_type: passthrough

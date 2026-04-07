@@ -38,3 +38,4 @@ after: |
       <MenuItem selected=true>"Item"</MenuItem>
     </Menu>
   }
+island_type: init

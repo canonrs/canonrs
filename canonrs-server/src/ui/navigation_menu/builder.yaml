@@ -40,3 +40,4 @@ after: |
       </NavigationMenuItem>
     </NavigationMenu>
   }
+island_type: init

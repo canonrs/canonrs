@@ -34,3 +34,4 @@ after: |
   view! {
     <Spinner size=SpinnerSize::Large />
   }
+island_type: passthrough

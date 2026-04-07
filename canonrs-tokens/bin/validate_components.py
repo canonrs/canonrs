@@ -17,6 +17,9 @@ JSON_PATH    = "../src/design/tokens/tokens_components.json"
 CSS_DIR      = "../../canonrs-server/styles/ui"
 TOKENS_DIR   = "../src/design/tokens"
 BEHAVIORS_DIR= "../../canonrs-client/src/behaviors"
+ISLAND_DIR       = "../../canonrs-server/src/ui"
+INTERACTIONS_DIR = "../../canonrs-server/src/interactions"
+BUILDER_DIR      = "../../canonrs-server/src/ui"
 
 RUNTIME_ALLOWED = [
     "--theme-",
@@ -427,7 +430,7 @@ def check_css_quality(css_file, component_id=""):
             if _css_re.search(pattern, stripped):
                 # permitido se não é controle de visibilidade
                 # ex: display:none em ::marker, ::before é ok
-                if any(w in stripped for w in ["::marker", "list-style", "content:"]):
+                if any(w in stripped for w in ["::marker", "list-style", "content:", "::-webkit-scrollbar", "scrollbar-width", "-ms-overflow"]):
                     continue
                 # verificar contexto — se seletor acima tem data-rs-state é visibilidade
                 context = "\n".join(lines[max(0,i-5):i])
@@ -562,14 +565,30 @@ def validate(component, declared):
     elif island_type not in valid_island_types:
         errors.append(f"[CR-338] {component['id']} -- island_type invalido: '{island_type}' -- esperado: passthrough | init | interaction")
 
-    # CR-338: interactions deve ser bool
-    interactions = component.get("interactions", None)
-    if interactions is None:
-        errors.append(f"[CR-338] {component['id']} -- campo interactions ausente no builder.yaml (true | false)")
-    elif island_type == "interaction" and interactions is not True:
-        errors.append(f"[CR-338] {component['id']} -- island_type=interaction exige interactions: true")
-    elif island_type == "passthrough" and interactions is True:
-        errors.append(f"[CR-338] {component['id']} -- island_type=passthrough nao pode ter interactions: true")
+    # CR-338: validar estrutura do island conforme island_type
+    island_file = component.get("island", "")
+    if island_type and island_file:
+        import glob as _glob
+        matches = _glob.glob(f"{ISLAND_DIR}/**/{island_file}", recursive=True)
+        if not matches:
+            errors.append(f"[CR-338] {component['id']} -- island file '{island_file}' nao encontrado")
+        else:
+            with open(matches[0]) as _f:
+                island_src = _f.read()
+            if island_type == "passthrough":
+                if "#[island]" in island_src:
+                    errors.append(f"[CR-338] {component['id']} -- island_type=passthrough mas '{island_file}' contem #[island]\n             fix: troque #[island] por #[component] em {ISLAND_DIR}/{component['id']}/{island_file}")
+            elif island_type == "init":
+                if "#[island]" not in island_src:
+                    errors.append(f"[CR-338] {component['id']} -- island_type=init mas #[island] nao encontrado no arquivo")
+            elif island_type == "interaction":
+                if "#[island]" not in island_src:
+                    errors.append(f"[CR-338] {component['id']} -- island_type=interaction mas #[island] nao encontrado no arquivo")
+                _iid = component['id'].replace("-", "_")
+                interaction_file = os.path.join(INTERACTIONS_DIR, f"{_iid}.rs")
+                if not os.path.exists(interaction_file):
+                    errors.append(f"[CR-338] {component['id']} -- island_type=interaction exige arquivo de interactions\n             crie: {INTERACTIONS_DIR}/{component['id']}.rs")
+
 
     for var in vars_used:
         if var in seen:
@@ -598,7 +617,6 @@ def validate(component, declared):
 
 
 
-ISLAND_DIR = "../../canonrs-server/src/ui"
 
 
 def check_island_props_LEGACY(island_file, island_dir, component):
@@ -1032,7 +1050,6 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
     return errors
 
 
-BUILDER_DIR = "../../canonrs-server/src/ui"
 
 
 def parse_builder(builder_path):
@@ -1059,7 +1076,6 @@ def parse_builder(builder_path):
     comp["badges"]     = raw.get("badges", []) or []
     comp["rules"]      = raw.get("rules", []) or []
     comp["island_type"]   = raw.get("island_type", "") or ""
-    comp["interactions"]  = raw.get("interactions", False)
 
     # normalizar states — sempre lista
     _states = raw.get("states", [])
@@ -1091,11 +1107,13 @@ def load_components_from_builders(builder_dir, script_dir):
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_path  = os.path.join(script_dir, JSON_PATH)
-    global CSS_DIR, TOKENS_DIR, BEHAVIORS_DIR, ISLAND_DIR, BUILDER_DIR
+    global CSS_DIR, TOKENS_DIR, BEHAVIORS_DIR, ISLAND_DIR, BUILDER_DIR, INTERACTIONS_DIR
     CSS_DIR      = os.path.join(script_dir, CSS_DIR)
     TOKENS_DIR   = os.path.join(script_dir, TOKENS_DIR)
     BEHAVIORS_DIR= os.path.join(script_dir, BEHAVIORS_DIR)
-    ISLAND_DIR   = os.path.join(script_dir, ISLAND_DIR)
+    ISLAND_DIR       = os.path.join(script_dir, ISLAND_DIR)
+    INTERACTIONS_DIR = os.path.join(script_dir, INTERACTIONS_DIR)
+
     BUILDER_DIR  = os.path.join(script_dir, BUILDER_DIR)
 
     declared = extract_declared_tokens(TOKENS_DIR)

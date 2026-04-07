@@ -42,3 +42,4 @@ after: |
       </TableBody>
     </Table>
   }
+island_type: passthrough

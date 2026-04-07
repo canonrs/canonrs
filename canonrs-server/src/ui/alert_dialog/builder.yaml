@@ -45,3 +45,4 @@ after: |
       </AlertDialogPortal>
     </AlertDialog>
   }
+island_type: init

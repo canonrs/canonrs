@@ -37,3 +37,4 @@ after: |
       <InlineMetaValue>"284"</InlineMetaValue>
     </InlineMeta>
   }
+island_type: passthrough

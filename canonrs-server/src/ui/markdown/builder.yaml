@@ -34,3 +34,4 @@ after: |
   view! {
     <MarkdownSurface rendered=rendered />
   }
+island_type: passthrough

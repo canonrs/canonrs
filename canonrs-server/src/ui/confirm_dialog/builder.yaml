@@ -34,3 +34,4 @@ after: |
   view! {
     <ConfirmDialog />
   }
+island_type: init

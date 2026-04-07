@@ -37,3 +37,4 @@ after: |
       <TooltipContent>"Info"</TooltipContent>
     </Tooltip>
   }
+island_type: init

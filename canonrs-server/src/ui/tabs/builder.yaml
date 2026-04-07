@@ -40,3 +40,4 @@ after: |
       <TabsContent value="a" active=true>"Content"</TabsContent>
     </Tabs>
   }
+island_type: init

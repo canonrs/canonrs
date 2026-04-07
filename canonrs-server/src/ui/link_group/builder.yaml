@@ -39,3 +39,4 @@ after: |
       <NavItem label="A" href="/a" />
     </LinkGroup>
   }
+island_type: passthrough

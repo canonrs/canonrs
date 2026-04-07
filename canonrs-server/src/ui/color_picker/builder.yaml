@@ -34,3 +34,4 @@ after: |
   view! {
     <ColorPicker value="#000000" />
   }
+island_type: interaction

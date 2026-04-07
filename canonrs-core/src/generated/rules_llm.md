@@ -7317,3 +7317,49 @@ All hover selectors on stateful components must exclude the active state via `:n
 
 ---
 
+## CR-338 — Island Boundary Rule
+
+- **Category:** leptos-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+A `#[island]` wrapping layout structure causes Leptos to emit an empty shell in SSR. The DOM never reaches the browser on first paint. Flex chains, height inheritance, and CSS selectors all fail silently.
+
+### Solution
+
+Split every interactive component into three layers: SSR layout component, minimal init island, and optional interaction module.
+
+### Signals
+
+- component renders empty in SSR curl output
+- flex/grid layout collapses despite correct CSS
+- `height: 100%` has no effect on island children
+- `display: contents` on `leptos-island` is used as a workaround (forbidden)
+
+---
+
+## CR-339 — Pointer Capture Must Register Move and Up on Document
+
+- **Category:** interaction-architecture
+- **Severity:** HIGH
+- **Status:** ENFORCED
+
+### Problem
+
+`pointermove` registered on the drag handle stops firing when the pointer moves faster than the element boundary. The drag freezes mid-interaction even though `setPointerCapture` was called.
+
+### Solution
+
+Register `pointerdown` on the handle. Register `pointermove` and `pointerup` on `document`. Use `setPointerCapture` on the handle to ensure the pointer ID is tracked correctly.
+
+### Signals
+
+- drag stops when moving fast
+- bar does not follow pointer outside element bounds
+- `pointerup` not detected when releasing outside the handle
+- interaction works correctly on slow movement but breaks on fast movement
+
+---
+

@@ -34,3 +34,4 @@ after: |
   view! {
     <Separator />
   }
+island_type: passthrough

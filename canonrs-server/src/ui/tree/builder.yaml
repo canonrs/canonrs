@@ -38,3 +38,4 @@ after: |
       <TreeItem has_children=true>"Item"</TreeItem>
     </Tree>
   }
+island_type: interaction

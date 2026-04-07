@@ -40,3 +40,4 @@ after: |
       </ComboboxList>
     </Combobox>
   }
+island_type: interaction

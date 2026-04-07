@@ -38,3 +38,4 @@ after: |
       <Kbd>"K"</Kbd>
     </KbdGroup>
   }
+island_type: passthrough

@@ -38,3 +38,4 @@ after: |
       </PaginationContent>
     </Pagination>
   }
+island_type: init

@@ -34,3 +34,4 @@ after: |
   view! {
     <Link href="/" external=true>"Link"</Link>
   }
+island_type: passthrough

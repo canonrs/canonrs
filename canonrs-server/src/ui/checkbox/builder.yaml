@@ -34,3 +34,4 @@ after: |
   view! {
     <Checkbox checked=true>"Remember me"</Checkbox>
   }
+island_type: init

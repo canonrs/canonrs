@@ -46,3 +46,4 @@ after: |
       </BreadcrumbItem>
     </Breadcrumb>
   }
+island_type: passthrough
