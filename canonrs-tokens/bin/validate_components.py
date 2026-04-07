@@ -553,6 +553,24 @@ def validate(component, declared):
     errors  = []
     seen    = set()
     used_set = set(vars_used)
+
+    # CR-338: island_type obrigatorio
+    island_type = component.get("island_type", "")
+    valid_island_types = ["passthrough", "init", "interaction"]
+    if not island_type:
+        errors.append(f"[CR-338] {component['id']} -- island_type ausente no builder.yaml (passthrough | init | interaction)")
+    elif island_type not in valid_island_types:
+        errors.append(f"[CR-338] {component['id']} -- island_type invalido: '{island_type}' -- esperado: passthrough | init | interaction")
+
+    # CR-338: interactions deve ser bool
+    interactions = component.get("interactions", None)
+    if interactions is None:
+        errors.append(f"[CR-338] {component['id']} -- campo interactions ausente no builder.yaml (true | false)")
+    elif island_type == "interaction" and interactions is not True:
+        errors.append(f"[CR-338] {component['id']} -- island_type=interaction exige interactions: true")
+    elif island_type == "passthrough" and interactions is True:
+        errors.append(f"[CR-338] {component['id']} -- island_type=passthrough nao pode ter interactions: true")
+
     for var in vars_used:
         if var in seen:
             continue
@@ -1040,6 +1058,8 @@ def parse_builder(builder_path):
     comp["why"]        = raw.get("why", "") or ""
     comp["badges"]     = raw.get("badges", []) or []
     comp["rules"]      = raw.get("rules", []) or []
+    comp["island_type"]   = raw.get("island_type", "") or ""
+    comp["interactions"]  = raw.get("interactions", False)
 
     # normalizar states — sempre lista
     _states = raw.get("states", [])

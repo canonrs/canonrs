@@ -19,7 +19,7 @@ use_cases: ["editors", "dashboards"]
 related: ["card", "scroll_area", "aspect_ratio", "page_header", "toolbar", "separator"]
 file: resizable_ui.css
 tokens: resizable-*, size-*, space-*, radius-*
-foundation: size, spacing, radius
+foundation: size, spacing, radius, motion
 states: ["active", "inactive"]
 island: resizable_island.rs
 pillar: layout
@@ -40,3 +40,5 @@ after: |
       <ResizableHandle />
     </Resizable>
   }
+island_type: interaction
+interactions: true
