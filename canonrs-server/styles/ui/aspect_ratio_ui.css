@@ -8,9 +8,7 @@
   width: 100%;
 }
 
-[data-rs-aspect-ratio-inner] {
-  position: absolute;
-  inset: 0;
+[data-rs-aspect-ratio-content] {
   width: 100%;
   height: 100%;
   overflow: hidden;

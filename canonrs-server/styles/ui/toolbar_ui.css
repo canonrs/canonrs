@@ -43,3 +43,31 @@
   position: relative;
   z-index: 1;
 }
+
+[data-rs-toolbar][data-rs-state~="active"] {
+  border-color: var(--theme-action-primary-bg);
+}
+
+[data-rs-toolbar-item] {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--theme-surface-fg);
+  cursor: pointer;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-toolbar-item]:hover {
+  background: var(--theme-surface-muted);
+}
+
+[data-rs-toolbar-item]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+}
+
+[data-rs-toolbar-item][aria-pressed="true"] {
+  background: var(--theme-action-primary-bg);
+  color: var(--theme-action-primary-fg);
+}

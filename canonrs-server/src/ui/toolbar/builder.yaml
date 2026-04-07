@@ -38,4 +38,4 @@ after: |
       <button>"Bold"</button>
     </Toolbar>
   }
-island_type: passthrough
+island_type: interaction

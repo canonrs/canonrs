@@ -8,3 +8,5 @@ pub mod scroll_area;
 pub mod chart;
 #[cfg(target_arch = "wasm32")]
 pub mod carousel;
+#[cfg(target_arch = "wasm32")]
+pub mod toggle_group;

@@ -25,8 +25,8 @@ pub fn ToggleIsland(
             None => return,
         };
 
-        if el.has_attribute("data-rs-attached") { return; }
-        el.set_attribute("data-rs-attached", "1").ok();
+        if el.has_attribute("data-rs-js-attached") { return; }
+        el.set_attribute("data-rs-js-attached", "1").ok();
 
         if disabled { return; }
 

@@ -1,24 +1,27 @@
 use leptos::prelude::*;
-use super::toolbar_ui::{Toolbar, ToolbarSeparator};
-use super::ToolbarOrientation;
-use crate::ui::toggle::toggle_ui::Toggle;
+use super::toolbar_island::{ToolbarIsland, ToolbarItem};
 
 #[component]
 pub fn ToolbarShowcasePreview() -> impl IntoView {
+    let formatting_items = vec![
+        ToolbarItem { label: "B".into(),  value: "bold".into(),      disabled: false, separator_after: false },
+        ToolbarItem { label: "I".into(),  value: "italic".into(),    disabled: false, separator_after: false },
+        ToolbarItem { label: "U".into(),  value: "underline".into(), disabled: false, separator_after: true  },
+        ToolbarItem { label: "←".into(), value: "left".into(),      disabled: false, separator_after: false },
+        ToolbarItem { label: "↔".into(), value: "center".into(),    disabled: false, separator_after: false },
+        ToolbarItem { label: "→".into(), value: "right".into(),     disabled: false, separator_after: true  },
+        ToolbarItem { label: "🔗".into(), value: "link".into(),     disabled: false, separator_after: false },
+    ];
+    let vertical_items = vec![
+        ToolbarItem { label: "✂".into(),  value: "cut".into(),    disabled: false, separator_after: false },
+        ToolbarItem { label: "⎘".into(),  value: "copy".into(),   disabled: false, separator_after: false },
+        ToolbarItem { label: "📋".into(), value: "paste".into(),  disabled: false, separator_after: true  },
+        ToolbarItem { label: "🗑".into(), value: "delete".into(), disabled: false, separator_after: false },
+    ];
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="" style="width:100%;">
-                <Toolbar aria_label="Text formatting" orientation=ToolbarOrientation::Horizontal>
-                    <Toggle aria_label="Bold">"B"</Toggle>
-                    <Toggle aria_label="Italic" pressed=true>"I"</Toggle>
-                    <Toggle aria_label="Underline">"U"</Toggle>
-                    <ToolbarSeparator />
-                    <Toggle aria_label="Align left">"←"</Toggle>
-                    <Toggle aria_label="Align center">"↔"</Toggle>
-                    <Toggle aria_label="Align right">"→"</Toggle>
-                    <ToolbarSeparator />
-                    <Toggle aria_label="Link">"🔗"</Toggle>
-                </Toolbar>
+                <ToolbarIsland items=formatting_items aria_label="Text formatting" />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Toolbar role and orientation enforced via contract."
@@ -26,13 +29,7 @@ pub fn ToolbarShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Vertical"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Toolbar aria_label="Actions" orientation=ToolbarOrientation::Vertical>
-                        <Toggle aria_label="Cut">"✂"</Toggle>
-                        <Toggle aria_label="Copy">"⎘"</Toggle>
-                        <Toggle aria_label="Paste">"📋"</Toggle>
-                        <ToolbarSeparator />
-                        <Toggle aria_label="Delete">"🗑"</Toggle>
-                    </Toolbar>
+                    <ToolbarIsland items=vertical_items aria_label="Actions" orientation="vertical" />
                 </div>
             </div>
         </div>
