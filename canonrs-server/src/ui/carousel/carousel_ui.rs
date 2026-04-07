@@ -49,9 +49,13 @@ pub fn CarouselTrack(
 pub fn CarouselItem(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] active: bool,
 ) -> impl IntoView {
+    use canonrs_core::meta::{ActivityState, VisibilityState};
+    let activity = if active { ActivityState::Active } else { ActivityState::Inactive };
+    let visibility = if active { VisibilityState::Open } else { VisibilityState::Closed };
     view! {
-        <CarouselItemPrimitive class={class}>
+        <CarouselItemPrimitive class={class} activity=activity visibility=visibility>
             {children()}
         </CarouselItemPrimitive>
     }

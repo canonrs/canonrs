@@ -27,6 +27,7 @@ pub const CAROUSELITEM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "active", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
     ],
 };
 

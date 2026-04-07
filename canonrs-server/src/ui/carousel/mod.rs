@@ -11,3 +11,5 @@ pub use carousel_ui::CarouselPreview;
 
 pub mod preview;
 pub use preview::CarouselShowcasePreview;
+pub mod carousel_island;
+pub use carousel_island::*;

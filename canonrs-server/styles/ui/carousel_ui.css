@@ -25,11 +25,14 @@
 [data-rs-carousel-item] {
   flex: 0 0 100%;
   width: 100%;
-  display: none;
 }
 
-[data-rs-carousel-item][data-rs-active] {
+[data-rs-carousel-item] {
   display: block;
+}
+
+[data-rs-carousel][data-rs-carousel-ready] [data-rs-carousel-item][data-rs-state~="inactive"] {
+  display: none;
 }
 
 /* Controls - prev/next buttons */
@@ -97,7 +100,7 @@
   padding: 0;
 }
 
-[data-rs-carousel-dot][data-rs-active] {
+[data-rs-carousel-dot][data-rs-state~="active"] {
   background: var(--carousel-indicator-active-bg);
   width: calc(var(--carousel-indicator-size) * 2);
 }
