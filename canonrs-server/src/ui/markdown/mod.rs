@@ -38,3 +38,5 @@ pub fn render_with_prefix(md: &str, prefix: &str) -> RenderedMarkdown {
 
 pub mod preview;
 pub use preview::MarkdownShowcasePreview;
+pub mod markdown_island;
+pub use markdown_island::*;

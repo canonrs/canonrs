@@ -37,4 +37,4 @@ after: |
       <AvatarFallback>"AB"</AvatarFallback>
     </Avatar>
   }
-island_type: passthrough
+island_type: init

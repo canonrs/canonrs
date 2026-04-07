@@ -3,3 +3,5 @@ pub use logo_ui::{Logo, LogoSize, LogoVariant};
 
 pub mod preview;
 pub use preview::LogoShowcasePreview;
+pub mod logo_island;
+pub use logo_island::*;

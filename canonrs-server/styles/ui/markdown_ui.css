@@ -96,7 +96,7 @@
 }
 
 [data-rs-toc-link][data-rs-state="active"],
-[data-rs-toc-item][data-rs-state="active"] > [data-rs-toc-link] {
+[data-rs-toc-item][data-rs-state="active"] [data-rs-toc-link] {
   color: var(--markdown-toc-link-fg-active);
   background: var(--markdown-toc-link-bg-active);
   border-left-color: var(--markdown-toc-link-border-active);
@@ -131,7 +131,7 @@
   border-radius: var(--radius-full);
 }
 
-[data-hide-toc="true"] [data-rs-md-toc-sidebar] { display: none; }
+[data-hide-toc="true"] [data-rs-md-toc-sidebar] { visibility: hidden; height: 0; overflow: hidden; }
 
 /* ── Layout ──────────────────────────────────────────────────────────────────── */
 
@@ -392,5 +392,5 @@ html { scroll-behavior: smooth; }
 
 [data-rs-markdown-content] [data-rs-code-block]:hover {
   border-color: color-mix(in srgb, var(--theme-action-primary-bg) 50%, transparent);
-  background: rgba(255,255,255,0.025);
+  background: var(--theme-surface-muted);
 }

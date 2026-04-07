@@ -131,3 +131,19 @@
 [data-rs-avatar-status][data-rs-pulse] {
   animation: avatar-pulse 2s ease-in-out infinite;
 }
+
+[data-rs-avatar][data-rs-state~="loading"] {
+  opacity: 0.6;
+}
+
+[data-rs-avatar][data-rs-state~="error"] [data-rs-avatar-image] {
+  display: none;
+}
+
+[data-rs-avatar-image][data-rs-state~="hidden"] {
+  display: none;
+}
+
+[data-rs-avatar-fallback][data-rs-state~="hidden"] {
+  display: none;
+}

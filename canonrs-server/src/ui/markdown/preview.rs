@@ -1,7 +1,7 @@
 use leptos::prelude::*;
-use super::markdown_ui::{MarkdownSurface, TocPosition};
+use super::markdown_island::MarkdownSurfaceIsland;
 use super::render_markdown;
-use crate::ui::scroll_area::scroll_area_ui::ScrollArea;
+use crate::ui::scroll_area::scroll_area_island::ScrollAreaIsland;
 
 #[component]
 pub fn MarkdownShowcasePreview() -> impl IntoView {
@@ -31,7 +31,7 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
         "All components follow the Canon contract.\n"
     );
 
-    let rendered_toc = render_markdown(sample);
+    let rendered_toc   = render_markdown(sample);
     let rendered_plain = render_markdown(sample);
 
     view! {
@@ -44,28 +44,28 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
                     <div style="display:flex;flex-direction:column;overflow:hidden;height:400px;">
                         <span data-rs-showcase-preview-label="">"With Table of Contents"</span>
                         <div style="flex:1;overflow:hidden;">
-                            <ScrollArea>
-                                <MarkdownSurface
+                            <ScrollAreaIsland>
+                                <MarkdownSurfaceIsland
                                     rendered=rendered_toc
                                     show_toc=true
                                     show_toolbar=false
-                                    toc_position=TocPosition::Sidebar
-                                    id="md-preview-toc".to_string()
+                                    toc_position="sidebar"
+                                    id="md-preview-toc"
                                 />
-                            </ScrollArea>
+                            </ScrollAreaIsland>
                         </div>
                     </div>
                     <div style="display:flex;flex-direction:column;overflow:hidden;height:400px;">
                         <span data-rs-showcase-preview-label="">"Only Markdown"</span>
                         <div style="flex:1;overflow:hidden;">
-                            <ScrollArea>
-                                <MarkdownSurface
+                            <ScrollAreaIsland>
+                                <MarkdownSurfaceIsland
                                     rendered=rendered_plain
                                     show_toc=false
                                     show_toolbar=false
-                                    id="md-preview-plain".to_string()
+                                    id="md-preview-plain"
                                 />
-                            </ScrollArea>
+                            </ScrollAreaIsland>
                         </div>
                     </div>
                 </div>

@@ -11,3 +11,5 @@ pub use code_block_ui::CodeBlockPreview;
 
 pub mod preview;
 pub use preview::CodeBlockShowcasePreview;
+pub mod code_block_island;
+pub use code_block_island::*;
