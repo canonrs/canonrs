@@ -118,3 +118,12 @@
   box-shadow: inset 3px 0 0 #6366f1;
   transition: background 0.15s ease, box-shadow 0.15s ease;
 }
+
+[data-rs-chart][data-rs-state~="loading"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+[data-rs-chart][data-rs-state~="error"] [data-rs-chart-canvas] {
+  opacity: 0.2;
+}

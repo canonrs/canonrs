@@ -9,3 +9,5 @@ pub use chart_ui::ChartPreview;
 
 pub mod preview;
 pub use preview::ChartShowcasePreview;
+pub mod chart_island;
+pub use chart_island::*;

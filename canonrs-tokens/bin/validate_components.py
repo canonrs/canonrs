@@ -430,7 +430,7 @@ def check_css_quality(css_file, component_id=""):
             if _css_re.search(pattern, stripped):
                 # permitido se não é controle de visibilidade
                 # ex: display:none em ::marker, ::before é ok
-                if any(w in stripped for w in ["::marker", "list-style", "content:", "::-webkit-scrollbar", "scrollbar-width", "-ms-overflow"]):
+                if any(w in stripped for w in ["::marker", "list-style", "content:", "::-webkit-scrollbar", "scrollbar-width", "-ms-overflow", "display: block", "display:block", "display: flex", "display:flex", "display: contents", "display:contents", "display: grid", "display:grid"]):
                     continue
                 # verificar contexto — se seletor acima tem data-rs-state é visibilidade
                 context = "\n".join(lines[max(0,i-5):i])

@@ -4,3 +4,5 @@
 pub mod resizable;
 #[cfg(target_arch = "wasm32")]
 pub mod scroll_area;
+#[cfg(target_arch = "wasm32")]
+pub mod chart;
