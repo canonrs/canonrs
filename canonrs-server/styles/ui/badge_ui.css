@@ -41,13 +41,9 @@
 }
 
 [data-rs-badge][data-rs-variant="outline"] {
-  background: rgba(148,163,184,0.08);
-  color: #94a3b8;
-  border: 1px solid rgba(148,163,184,0.2);
-  border-radius: 6px;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  background: var(--badge-bg-outline);
+  color: var(--badge-fg-outline);
+  border: 1px solid var(--badge-border-outline);
 }
 
 [data-rs-badge][data-interactive="true"] {
