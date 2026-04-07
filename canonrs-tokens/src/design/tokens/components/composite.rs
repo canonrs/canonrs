@@ -42,6 +42,7 @@ pub const COMPOSITE_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("resizable-handle-bg", "var(--theme-surface-border)"),
     FamilyToken::new("resizable-handle-hover-bg", "var(--theme-action-primary-bg)"),
     FamilyToken::new("resizable-handle-disabled-bg", "var(--theme-surface-muted)"),
+    FamilyToken::new("resizable-panel-basis", "50%"),
 
     // Carousel
     FamilyToken::new("carousel-bg", "transparent"),

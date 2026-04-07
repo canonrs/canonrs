@@ -1,4 +1,6 @@
 pub mod resizable_ui;
+pub mod resizable_island;
+pub use resizable_island::*;
 #[cfg(feature = "examples")]
 pub mod examples;
 

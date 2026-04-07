@@ -1,4 +1,6 @@
 pub mod icon_ui;
+pub mod icon_island;
+pub use icon_island::*;
 #[cfg(feature = "examples")]
 pub mod examples;
 

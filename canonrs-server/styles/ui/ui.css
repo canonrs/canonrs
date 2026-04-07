@@ -22,7 +22,6 @@
 @import './resizable_ui.css';
 @import './card_ui.css';
 @import './carousel_ui.css';
-@import './resizable_ui.css';
 @import './chart_ui.css';
 @import './checkbox_ui.css';
 @import './code_block_ui.css';
@@ -70,7 +69,6 @@
 @import './pulse_ui.css';
 @import './radio_group_ui.css';
 @import './radio_ui.css';
-@import './resizable_ui.css';
 @import './scroll_area_ui.css';
 @import './stack_ui.css';
 @import './select_ui.css';

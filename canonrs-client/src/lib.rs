@@ -8,6 +8,7 @@ pub use canonrs_core::infra::theme as providers;
 pub use canonrs_core::infra::theme::ThemeMode;
 
 pub mod behaviors;
+pub mod interactions;
 
 pub mod themes;
 pub mod ui;

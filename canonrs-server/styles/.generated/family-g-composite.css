@@ -26,6 +26,7 @@
   --resizable-handle-bg: var(--theme-surface-border);
   --resizable-handle-hover-bg: var(--theme-action-primary-bg);
   --resizable-handle-disabled-bg: var(--theme-surface-muted);
+  --resizable-panel-basis: 50%;
   --carousel-bg: transparent;
   --carousel-padding: 0;
   --carousel-content-gap: var(--space-sm);

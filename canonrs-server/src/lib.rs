@@ -2,6 +2,7 @@
 //! CanonRS Server — SSR UI components + Axum integration
 
 pub mod ui;
+pub mod interactions;
 pub mod blocks;
 pub mod layouts;
 pub mod pages;
