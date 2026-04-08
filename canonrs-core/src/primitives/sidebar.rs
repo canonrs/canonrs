@@ -29,6 +29,7 @@ pub fn SidebarPrimitive(
     view! {
         <aside
             data-rs-sidebar=""
+            data-rs-interaction="nav"
             data-rs-component="Sidebar"
             data-rs-behavior="navigation"
             data-rs-state=s.data_rs_state

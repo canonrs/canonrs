@@ -16,6 +16,7 @@ pub fn DialogPrimitive(
     view! {
         <div
             data-rs-dialog=""
+            data-rs-interaction="overlay"
             data-rs-component="Dialog"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

@@ -14,6 +14,7 @@ pub fn BreadcrumbPrimitive(
     view! {
         <nav
             data-rs-breadcrumb=""
+            data-rs-interaction="nav"
             data-rs-component="Breadcrumb"
             data-rs-behavior="navigation"
             aria-label="Breadcrumb"

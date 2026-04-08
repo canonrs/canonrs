@@ -15,6 +15,7 @@ pub fn CarouselPrimitive(
     view! {
         <div
             data-rs-carousel=""
+            data-rs-interaction="gesture"
             data-rs-component="Carousel"
             data-rs-behavior="slideshow"
             role="region"

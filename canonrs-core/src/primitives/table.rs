@@ -78,6 +78,7 @@ pub fn TablePrimitive(
     view! {
         <table
             data-rs-table=""
+            data-rs-interaction="data"
             data-rs-component="Table"
             data-rs-behavior="data"
             data-rs-state=state.as_str()

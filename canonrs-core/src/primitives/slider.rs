@@ -26,6 +26,7 @@ pub fn SliderPrimitive(
     view! {
         <div
             data-rs-slider=""
+            data-rs-interaction="gesture"
             data-rs-component="Slider"
             data-rs-orientation=orientation.clone()
             data-rs-disabled=d.data_rs_disabled

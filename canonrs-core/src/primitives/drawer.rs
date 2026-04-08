@@ -36,6 +36,7 @@ pub fn DrawerPrimitive(
     view! {
         <div
             data-rs-drawer=""
+            data-rs-interaction="overlay"
             data-rs-component="Drawer"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

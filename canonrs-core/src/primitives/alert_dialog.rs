@@ -24,6 +24,7 @@ pub fn AlertDialogContentPrimitive(
     view! {
         <div
             data-rs-dialog-content=""
+            data-rs-interaction="overlay"
             data-rs-component="AlertDialogContent"
             role="alertdialog"
             aria-modal="true"

@@ -36,6 +36,7 @@ pub fn PopoverPrimitive(
     view! {
         <div
             data-rs-popover=""
+            data-rs-interaction="overlay"
             data-rs-component="Popover"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

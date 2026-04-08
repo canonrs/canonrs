@@ -36,6 +36,7 @@ pub fn SheetPrimitive(
     view! {
         <div
             data-rs-sheet=""
+            data-rs-interaction="overlay"
             data-rs-component="Sheet"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

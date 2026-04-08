@@ -12,6 +12,7 @@ pub fn VirtualListPrimitive(
     view! {
         <div
             data-rs-virtual-list=""
+            data-rs-interaction="data"
             data-rs-component="VirtualList"
             data-rs-behavior="data"
             role="list"

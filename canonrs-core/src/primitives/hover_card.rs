@@ -36,6 +36,7 @@ pub fn HoverCardPrimitive(
     view! {
         <div
             data-rs-hover-card=""
+            data-rs-interaction="overlay"
             data-rs-component="HoverCard"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

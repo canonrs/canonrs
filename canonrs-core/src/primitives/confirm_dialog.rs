@@ -36,6 +36,7 @@ pub fn ConfirmDialogPrimitive(
     view! {
         <div
             data-rs-confirm-dialog=""
+            data-rs-interaction="overlay"
             data-rs-component="ConfirmDialog"
             data-rs-behavior="overlay"
             data-rs-variant=variant.as_str()

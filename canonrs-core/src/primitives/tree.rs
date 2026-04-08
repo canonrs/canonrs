@@ -31,6 +31,7 @@ pub fn TreePrimitive(
     view! {
         <div
             data-rs-tree=""
+            data-rs-interaction="selection"
             data-rs-component="Tree"
             data-rs-behavior="navigation"
             data-rs-selection=selection.as_str()

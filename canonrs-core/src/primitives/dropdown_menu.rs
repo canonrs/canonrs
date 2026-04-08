@@ -17,6 +17,7 @@ pub fn DropdownMenuPrimitive(
     view! {
         <div
             data-rs-dropdown-menu=""
+            data-rs-interaction="overlay"
             data-rs-component="DropdownMenu"
             data-rs-state=s.data_rs_state
             class=class

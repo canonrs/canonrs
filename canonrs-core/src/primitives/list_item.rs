@@ -27,7 +27,8 @@ pub fn ListItemPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <li data-rs-list-item="" class=class>
+        <li data-rs-list-item=""
+            data-rs-interaction="data" class=class>
             {children()}
         </li>
     }

@@ -16,6 +16,7 @@ pub fn ContextMenuPrimitive(
     view! {
         <div
             data-rs-context-menu=""
+            data-rs-interaction="overlay"
             data-rs-component="ContextMenu"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

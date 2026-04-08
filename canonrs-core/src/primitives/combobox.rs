@@ -18,6 +18,7 @@ pub fn ComboboxPrimitive(
     view! {
         <div
             data-rs-combobox=""
+            data-rs-interaction="selection"
             data-rs-component="Combobox"
             data-rs-role="root"
             data-rs-state=state_str

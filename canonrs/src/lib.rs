@@ -45,6 +45,11 @@ pub mod behaviors {
     pub use canonrs_client::behaviors::*;
 }
 
+#[cfg(all(feature = "hydrate", target_arch = "wasm32"))]
+pub mod runtime {
+    pub use canonrs_client::runtime::init;
+}
+
 #[cfg(feature = "ssr")]
 pub fn canonrs_css() -> &'static str {
     include_str!(concat!(env!("OUT_DIR"), "/canonrs.css"))

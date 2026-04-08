@@ -10,6 +10,7 @@ pub fn LinkGroupPrimitive(
     view! {
         <nav
             data-rs-link-group=""
+            data-rs-interaction="nav"
             data-rs-component="LinkGroup"
             data-rs-behavior="navigation"
             class=class

@@ -16,6 +16,7 @@ pub fn ModalPrimitive(
     view! {
         <div
             data-rs-modal=""
+            data-rs-interaction="overlay"
             data-rs-component="Modal"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

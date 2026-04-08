@@ -36,6 +36,7 @@ pub fn ScrollAreaPrimitive(
     view! {
         <div
             data-rs-scroll-area=""
+            data-rs-interaction="gesture"
             data-rs-component="ScrollArea"
             data-rs-behavior="scroll"
             data-rs-orientation=orientation.as_str()

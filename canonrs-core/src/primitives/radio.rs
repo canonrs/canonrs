@@ -29,6 +29,7 @@ pub fn RadioPrimitive(
     view! {
         <label
             data-rs-radio=""
+            data-rs-interaction="selection"
             data-rs-component="Radio"
             data-rs-behavior="radio"
             data-rs-state=state_str

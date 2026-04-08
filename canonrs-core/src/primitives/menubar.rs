@@ -14,6 +14,7 @@ pub fn MenubarPrimitive(
     view! {
         <div
             data-rs-menubar=""
+            data-rs-interaction="nav"
             data-rs-component="Menubar"
             data-rs-behavior="navigation"
             role="menubar"

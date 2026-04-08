@@ -30,6 +30,7 @@ pub fn ToolbarPrimitive(
     view! {
         <div
             data-rs-toolbar=""
+            data-rs-interaction="nav"
             data-rs-component="Toolbar"
             data-rs-behavior="actions"
             data-rs-variant=orientation.as_str()

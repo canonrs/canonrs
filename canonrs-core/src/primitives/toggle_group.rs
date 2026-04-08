@@ -18,6 +18,7 @@ pub fn ToggleGroupPrimitive(
     view! {
         <div
             data-rs-toggle-group=""
+            data-rs-interaction="selection"
             data-rs-component="ToggleGroup"
             data-rs-multiple=if multiple { "true" } else { "false" }
             data-rs-state=state_str

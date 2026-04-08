@@ -24,6 +24,7 @@ pub fn SelectPrimitive(
     view! {
         <div
             data-rs-select=""
+            data-rs-interaction="selection"
             data-rs-component="Select"
             data-rs-role="root"
             data-rs-state=state_str

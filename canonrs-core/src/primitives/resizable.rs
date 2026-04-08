@@ -33,6 +33,7 @@ pub fn ResizablePrimitive(
     view! {
         <div
             data-rs-resizable=""
+            data-rs-interaction="gesture"
             data-rs-component="Resizable"
             data-rs-behavior="resize"
             data-rs-orientation=orientation.as_str()

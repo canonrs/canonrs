@@ -18,6 +18,7 @@ pub fn ColorPickerPrimitive(
     view! {
         <div
             data-rs-color-picker=""
+            data-rs-interaction="selection"
             data-rs-component="ColorPicker"
             data-rs-behavior="color-picker"
             data-rs-state=s.data_rs_state

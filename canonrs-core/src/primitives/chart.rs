@@ -47,6 +47,7 @@ pub fn ChartPrimitive(
     view! {
         <div
             data-rs-chart=""
+            data-rs-interaction="data"
             data-rs-component="Chart"
             data-rs-behavior="chart"
             data-rs-chart-type=chart_type.as_str()

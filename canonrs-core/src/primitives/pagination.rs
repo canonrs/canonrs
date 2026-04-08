@@ -14,6 +14,7 @@ pub fn PaginationPrimitive(
     view! {
         <nav
             data-rs-pagination=""
+            data-rs-interaction="nav"
             data-rs-component="Pagination"
             data-rs-behavior="navigation"
             aria-label="Page navigation"
