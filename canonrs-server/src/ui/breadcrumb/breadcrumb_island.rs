@@ -14,7 +14,6 @@ pub fn BreadcrumbInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::breadcrumb::init_all();
         });
     }
     view! { <></> }

@@ -18,7 +18,6 @@ pub fn ComboboxInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::combobox::init_all();
         });
     }
     view! { <></> }

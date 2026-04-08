@@ -10,7 +10,6 @@ pub fn MenubarInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::menubar::init_all();
         });
     }
     view! { <></> }

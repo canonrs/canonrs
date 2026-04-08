@@ -11,7 +11,6 @@ pub fn HoverCardInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::hover_card::init_all();
         });
     }
     view! { <></> }

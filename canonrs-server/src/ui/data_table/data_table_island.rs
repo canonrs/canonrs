@@ -15,7 +15,6 @@ pub fn DataTableInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::data_table::init_all();
         });
     }
 

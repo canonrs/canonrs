@@ -9,7 +9,6 @@ pub fn ResizableInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::resizable::init_all();
         });
     }
     view! { <></> }

@@ -8,7 +8,6 @@ pub fn ScrollAreaInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::scroll_area::init_all();
         });
     }
     view! { <></> }

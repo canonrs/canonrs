@@ -16,7 +16,6 @@ pub fn SidebarInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::sidebar::init_all();
         });
     }
     view! { <></> }

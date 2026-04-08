@@ -29,6 +29,11 @@ gloo-timers = { version = "0.3.0", features = ["futures"] }
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 once_cell = "1"
+canonrs-interactions-gesture  = { path = "../canonrs-interactions-gesture",  optional = true }
+canonrs-interactions-overlay   = { path = "../canonrs-interactions-overlay",   optional = true }
+canonrs-interactions-nav       = { path = "../canonrs-interactions-nav",       optional = true }
+canonrs-interactions-data      = { path = "../canonrs-interactions-data",      optional = true }
+canonrs-interactions-content   = { path = "../canonrs-interactions-content",   optional = true }
 ctor = { version = "0.2", optional = true }
 
 [features]

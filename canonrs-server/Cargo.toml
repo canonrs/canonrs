@@ -29,7 +29,7 @@ wasm-bindgen-futures = { version = "0.4", optional = true }
 default = []
 examples = []
 ssr = ["axum", "tokio", "tower", "tower-http", "leptos_axum", "leptos/ssr", "leptos_meta/ssr", "leptos_router/ssr", "canonrs-core/ssr", "syntect", "pulldown-cmark", "html-escape"]
-hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "dep:web-sys", "dep:wasm-bindgen", "dep:js-sys", "dep:wasm-bindgen-futures", "dep:canonrs-client", "full"]
+hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "dep:web-sys", "dep:wasm-bindgen", "dep:js-sys", "dep:wasm-bindgen-futures", "dep:canonrs-client"]
 
 # ── Interaction groups — repassados para canonrs-client ──────────────────────
 ix_gesture   = ["dep:canonrs-client", "canonrs-client/ix_gesture"]

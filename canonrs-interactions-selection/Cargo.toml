@@ -1,0 +1,30 @@
+[package]
+name = "canonrs-interactions-selection"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = [
+    "Window", "Document", "Element", "HtmlElement",
+    "EventTarget", "MouseEvent", "PointerEvent", "KeyboardEvent",
+    "FocusEvent", "WheelEvent", "TouchEvent",
+    "CssStyleDeclaration", "DomRect", "NodeList",
+    "console", "ResizeObserver", "ResizeObserverEntry",
+    "ResizeObserverSize", "ScrollToOptions", "ScrollBehavior",
+    "MutationObserver", "MutationObserverInit", "MutationRecord",
+    "HtmlInputElement", "HtmlTextAreaElement", "HtmlSelectElement",
+    "HtmlCanvasElement", "CanvasRenderingContext2d",
+    "IntersectionObserver", "IntersectionObserverInit", "IntersectionObserverEntry",
+    "CustomEvent", "CustomEventInit", "Blob", "Url",
+    "HtmlAnchorElement", "FileList", "File", "FileReader",
+    "History", "ScrollToOptions", "ScrollBehavior",
+] }
+
+[features]
+default = []

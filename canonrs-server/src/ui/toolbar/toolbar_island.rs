@@ -19,7 +19,6 @@ pub fn ToolbarInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::toolbar::init_all();
         });
     }
     view! { <></> }

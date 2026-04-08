@@ -14,7 +14,6 @@ pub fn PaginationInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::pagination::init_all();
         });
     }
     view! { <></> }

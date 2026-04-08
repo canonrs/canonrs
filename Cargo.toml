@@ -7,6 +7,12 @@ members = [
     "canonrs-style",
     "canonrs-core",
     "canonrs-client",
+    "canonrs-interactions-gesture",
+    "canonrs-interactions-overlay",
+    "canonrs-interactions-selection",
+    "canonrs-interactions-nav",
+    "canonrs-interactions-data",
+    "canonrs-interactions-content",
     "canonrs-server",
 ]
 
@@ -36,6 +42,7 @@ wasm-bindgen-futures = { version = "0.4" }
 canonrs-style = { path = "canonrs-style" }
 canonrs-core = { path = "canonrs-core" }
 canonrs-client = { path = "canonrs-client" }
+canonrs-interactions-gesture = { path = "canonrs-interactions-gesture" }
 canonrs-server = { path = "canonrs-server", default-features = false }
 
 [workspace.lints.rust]

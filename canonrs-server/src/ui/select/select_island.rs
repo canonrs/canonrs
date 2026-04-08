@@ -16,9 +16,8 @@ pub struct SelectOption {
 pub fn SelectInit() -> impl IntoView {
     #[cfg(target_arch = "wasm32")]
     {
-                use wasm_bindgen_futures::spawn_local;
+        use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::select::init_all();
         });
     }
     view! { <></> }

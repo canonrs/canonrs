@@ -11,7 +11,6 @@ pub fn PopoverInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::popover::init_all();
         });
     }
     view! { <></> }

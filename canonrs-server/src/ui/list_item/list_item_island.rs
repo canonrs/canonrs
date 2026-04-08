@@ -10,7 +10,6 @@ pub fn ListItemInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::list_item::init_all();
         });
     }
     view! { <></> }

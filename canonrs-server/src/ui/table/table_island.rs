@@ -13,7 +13,6 @@ pub fn TableInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::table::init_all();
         });
     }
     view! { <></> }

@@ -20,7 +20,6 @@ pub fn ToggleGroupInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::toggle_group::init_all();
         });
     }
     view! { <></> }

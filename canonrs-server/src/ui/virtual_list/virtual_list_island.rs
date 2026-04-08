@@ -10,7 +10,6 @@ pub fn VirtualListInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::virtual_list::init_all();
         });
     }
     view! { <></> }

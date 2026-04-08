@@ -3,78 +3,78 @@
 
 // ── ix_gesture ────────────────────────────────────────────────────────────────
 #[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub mod resizable;
+pub use canonrs_interactions_gesture::resizable;
 #[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub mod slider;
+pub use canonrs_interactions_gesture::slider;
 #[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub mod carousel;
+pub use canonrs_interactions_gesture::carousel;
 #[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub mod scroll_area;
+pub use canonrs_interactions_gesture::scroll_area;
 
 // ── ix_overlay ────────────────────────────────────────────────────────────────
 #[cfg(feature = "ix_overlay")]
-pub mod modal;
+pub use canonrs_interactions_overlay::modal;
 #[cfg(feature = "ix_overlay")]
-pub mod drawer;
+pub use canonrs_interactions_overlay::drawer;
 #[cfg(feature = "ix_overlay")]
-pub mod sheet;
+pub use canonrs_interactions_overlay::sheet;
 #[cfg(feature = "ix_overlay")]
-pub mod alert_dialog;
+pub use canonrs_interactions_overlay::alert_dialog;
 #[cfg(feature = "ix_overlay")]
-pub mod dialog;
+pub use canonrs_interactions_overlay::dialog;
 #[cfg(feature = "ix_overlay")]
-pub mod confirm_dialog;
+pub use canonrs_interactions_overlay::confirm_dialog;
 #[cfg(feature = "ix_overlay")]
-pub mod popover;
+pub use canonrs_interactions_overlay::popover;
 #[cfg(feature = "ix_overlay")]
-pub mod hover_card;
+pub use canonrs_interactions_overlay::hover_card;
 #[cfg(feature = "ix_overlay")]
-pub mod context_menu;
+pub use canonrs_interactions_overlay::context_menu;
 #[cfg(feature = "ix_overlay")]
-pub mod dropdown_menu;
+pub use canonrs_interactions_overlay::dropdown_menu;
 
 // ── ix_selection ──────────────────────────────────────────────────────────────
 #[cfg(all(target_arch = "wasm32", feature = "ix_selection"))]
-pub mod select;
+pub use canonrs_interactions_selection::select;
 #[cfg(all(target_arch = "wasm32", feature = "ix_selection"))]
-pub mod combobox;
+pub use canonrs_interactions_selection::combobox;
 #[cfg(all(target_arch = "wasm32", feature = "ix_selection"))]
-pub mod color_picker;
+pub use canonrs_interactions_selection::color_picker;
 #[cfg(all(target_arch = "wasm32", feature = "ix_selection"))]
-pub mod radio;
+pub use canonrs_interactions_selection::radio;
 #[cfg(all(target_arch = "wasm32", feature = "ix_selection"))]
-pub mod toggle_group;
+pub use canonrs_interactions_selection::toggle_group;
 #[cfg(all(target_arch = "wasm32", feature = "ix_selection"))]
-pub mod tree;
+pub use canonrs_interactions_selection::tree;
 
 // ── ix_nav ────────────────────────────────────────────────────────────────────
 #[cfg(all(target_arch = "wasm32", feature = "ix_nav"))]
-pub mod sidebar;
+pub use canonrs_interactions_nav::sidebar;
 #[cfg(all(target_arch = "wasm32", feature = "ix_nav"))]
-pub mod menubar;
+pub use canonrs_interactions_nav::menubar;
 #[cfg(all(target_arch = "wasm32", feature = "ix_nav"))]
-pub mod toolbar;
+pub use canonrs_interactions_nav::toolbar;
 #[cfg(all(target_arch = "wasm32", feature = "ix_nav"))]
-pub mod breadcrumb;
+pub use canonrs_interactions_nav::breadcrumb;
 #[cfg(all(target_arch = "wasm32", feature = "ix_nav"))]
-pub mod link_group;
+pub use canonrs_interactions_nav::link_group;
 #[cfg(all(target_arch = "wasm32", feature = "ix_nav"))]
-pub mod pagination;
+pub use canonrs_interactions_nav::pagination;
 
 // ── ix_data ───────────────────────────────────────────────────────────────────
 #[cfg(all(target_arch = "wasm32", feature = "ix_data"))]
-pub mod data_table;
+pub use canonrs_interactions_data::data_table;
 #[cfg(all(target_arch = "wasm32", feature = "ix_data"))]
-pub mod table;
+pub use canonrs_interactions_data::table;
 #[cfg(all(target_arch = "wasm32", feature = "ix_data"))]
-pub mod virtual_list;
+pub use canonrs_interactions_data::virtual_list;
 #[cfg(all(target_arch = "wasm32", feature = "ix_data"))]
-pub mod list_item;
+pub use canonrs_interactions_data::list_item;
 #[cfg(all(target_arch = "wasm32", feature = "ix_data"))]
-pub mod chart;
+pub use canonrs_interactions_data::chart;
 
 // ── ix_content ────────────────────────────────────────────────────────────────
 #[cfg(all(target_arch = "wasm32", feature = "ix_content"))]
-pub mod markdown;
+pub use canonrs_interactions_content::markdown;
 #[cfg(all(target_arch = "wasm32", feature = "ix_content"))]
-pub mod copy_button;
+pub use canonrs_interactions_content::copy_button;

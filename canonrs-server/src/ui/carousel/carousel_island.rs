@@ -8,7 +8,6 @@ pub fn CarouselInit() -> impl IntoView {
     {
                 use wasm_bindgen_futures::spawn_local;
         spawn_local(async move {
-            canonrs_client::interactions::carousel::init_all();
         });
     }
     view! { <></> }
