@@ -18,7 +18,7 @@ fn remove_state(el: &Element, token: &str) {
 }
 
 fn get_items(root: &Element) -> Vec<Element> {
-    let Ok(list) = root.query_selector_all("[data-rs-combobox]") else { return vec![] };
+    let Ok(list) = root.query_selector_all("[data-rs-combobox-item]") else { return vec![] };
     (0..list.length()).filter_map(|i| list.item(i)).filter_map(|n| n.dyn_into::<Element>().ok()).collect()
 }
 

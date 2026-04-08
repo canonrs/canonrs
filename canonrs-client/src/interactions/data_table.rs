@@ -6,6 +6,22 @@ use web_sys::{HtmlInputElement, HtmlElement};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
+// ─── State helpers (HtmlElement) ─────────────────────────────────────────────
+
+fn add_state_html(el: &HtmlElement, state: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    if !current.split_whitespace().any(|s| s == state) {
+        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
+        let _ = el.set_attribute("data-rs-state", &next);
+    }
+}
+
+fn remove_state_html(el: &HtmlElement, state: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
+    let _ = el.set_attribute("data-rs-state", &next.join(" "));
+}
+
 // ─── Entry point ─────────────────────────────────────────────────────────────
 
 pub fn init_all() {
@@ -70,7 +86,7 @@ fn apply_filter(table: &HtmlElement, q: &str) {
                 if let Ok(el) = node.dyn_into::<HtmlElement>() {
                     let text = el.inner_text().to_lowercase();
                     let show = q.is_empty() || text.contains(q);
-                    let _ = el.set_attribute("data-rs-filtered", if show { "visible" } else { "hidden" });
+                    if show { remove_state_html(&el, "hidden"); } else { add_state_html(&el, "hidden"); }
                     if show { visible += 1; }
                 }
             }
@@ -197,7 +213,7 @@ fn set_page(table: &HtmlElement, page: usize) {
         let visible_rows: Vec<HtmlElement> = (0..list.length())
             .filter_map(|i| list.item(i))
             .filter_map(|n| n.dyn_into::<HtmlElement>().ok())
-            .filter(|el| el.get_attribute("data-rs-filtered").as_deref() != Some("hidden"))
+            .filter(|el| !el.get_attribute("data-rs-state").unwrap_or_default().split_whitespace().any(|s| s == "hidden"))
             .collect();
         let start = (page - 1) * page_size;
         let end = start + page_size;
@@ -238,7 +254,7 @@ fn bind_density(table: &HtmlElement) {
                                     if let Some(btn_node) = all.item(j) {
                                         if let Ok(btn) = btn_node.dyn_into::<HtmlElement>() {
                                             let is_active = btn.get_attribute("data-rs-density-btn").as_deref() == Some(&d);
-                                            let _ = btn.set_attribute("data-active", if is_active { "true" } else { "false" });
+                                            if is_active { remove_state_html(&btn, "inactive"); add_state_html(&btn, "active"); } else { remove_state_html(&btn, "active"); add_state_html(&btn, "inactive"); }
                                         }
                                     }
                                 }
@@ -331,7 +347,7 @@ fn count_visible(table: &HtmlElement) -> usize {
         .map(|list| (0..list.length())
             .filter_map(|i| list.item(i))
             .filter_map(|n| n.dyn_into::<HtmlElement>().ok())
-            .filter(|el| el.get_attribute("data-rs-filtered").as_deref() != Some("hidden"))
+            .filter(|el| !el.get_attribute("data-rs-state").unwrap_or_default().split_whitespace().any(|s| s == "hidden"))
             .count())
         .unwrap_or(0)
 }
