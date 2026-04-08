@@ -1,38 +1,35 @@
+//! Textarea Island — Canon Rule #340
+//! Passthrough only. Zero logic, zero transformation.
+
 use leptos::prelude::*;
 use super::textarea_ui::Textarea;
 use canonrs_core::meta::DisabledState;
 
-#[island]
+#[component]
 pub fn TextareaIsland(
-    #[prop(optional, into)] value: Option<String>,
-    #[prop(optional, into)] placeholder: Option<String>,
-    #[prop(optional, into)] name: Option<String>,
-    #[prop(optional)] disabled: Option<bool>,
-    #[prop(optional)] readonly: Option<bool>,
-    #[prop(optional)] required: Option<bool>,
-    #[prop(optional, into)] aria_labelledby: Option<String>,
-    #[prop(optional, into)] aria_describedby: Option<String>,
-    #[prop(optional)] rows: Option<u32>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] value:            String,
+    #[prop(into, default = String::new())] placeholder:      String,
+    #[prop(into, default = String::new())] name:             String,
+    #[prop(default = DisabledState::Enabled)] disabled:      DisabledState,
+    #[prop(default = false)] readonly:                       bool,
+    #[prop(default = false)] required:                       bool,
+    #[prop(into, default = String::new())] aria_labelledby:  String,
+    #[prop(into, default = String::new())] aria_describedby: String,
+    #[prop(default = 3u32)] rows:                            u32,
+    #[prop(into, default = String::new())] class:            String,
 ) -> impl IntoView {
-    let disabled_state = if disabled.unwrap_or(false) {
-        DisabledState::Disabled
-    } else {
-        DisabledState::Enabled
-    };
-
     view! {
         <Textarea
-            value=value.unwrap_or_default()
-            placeholder=placeholder.unwrap_or_default()
-            name=name.unwrap_or_default()
-            disabled=disabled_state
-            readonly=readonly.unwrap_or(false)
-            required=required.unwrap_or(false)
-            aria_labelledby=aria_labelledby.unwrap_or_default()
-            aria_describedby=aria_describedby.unwrap_or_default()
-            rows=rows.unwrap_or(3)
-            class=class.unwrap_or_default()
+            value=value
+            placeholder=placeholder
+            name=name
+            disabled=disabled
+            readonly=readonly
+            required=required
+            aria_labelledby=aria_labelledby
+            aria_describedby=aria_describedby
+            rows=rows
+            class=class
         />
     }
 }

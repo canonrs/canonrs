@@ -1,6 +1,7 @@
 //! LinkGroup Interaction Engine — active state sync via data-rs-current (DOM-driven)
 
 use wasm_bindgen::JsCast;
+use crate::shared::{remove_state, is_initialized, mark_initialized};
 use web_sys::Element;
 
 fn add_state(el: &Element, state: &str) {
@@ -11,13 +12,10 @@ fn add_state(el: &Element, state: &str) {
     }
 }
 
-fn remove_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    el.set_attribute("data-rs-state", &next.join(" ")).ok();
-}
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     let Ok(links) = root.query_selector_all("[data-rs-nav-item]") else { return };
     for i in 0..links.length() {
         if let Some(node) = links.item(i) {

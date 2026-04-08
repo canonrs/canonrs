@@ -1,21 +1,11 @@
 //! Select Interaction Engine
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{add_state, remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
-fn add_state(el: &Element, token: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if current.split_whitespace().any(|t| t == token) { return; }
-    let next = format!("{} {}", current, token).trim().to_string();
-    let _ = el.set_attribute("data-rs-state", &next);
-}
 
-fn remove_state(el: &Element, token: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next = current.split_whitespace().filter(|t| *t != token).collect::<Vec<_>>().join(" ");
-    let _ = el.set_attribute("data-rs-state", &next);
-}
 
 fn get_items(root: &Element) -> Vec<Element> {
     let mut result = Vec::new();
@@ -76,6 +66,8 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     // click
     { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };

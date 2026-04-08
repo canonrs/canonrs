@@ -1,5 +1,6 @@
 //! CanonRS Client — WASM facade (ui-interactive + islands)
 pub mod engines;
+pub mod shared;
 #[allow(unused_imports)]
 #[cfg(feature = "hydrate")]
 pub use canonrs_core::primitives;

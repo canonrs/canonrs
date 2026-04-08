@@ -2,21 +2,10 @@
 //! Single/multiple selection, keyboard navigation, disabled state
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{add_state, remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, KeyboardEvent, MouseEvent};
 
-fn add_state(el: &Element, token: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if current.split_whitespace().any(|t| t == token) { return; }
-    let next = format!("{} {}", current, token).trim().to_string();
-    el.set_attribute("data-rs-state", &next).ok();
-}
-
-fn remove_state(el: &Element, token: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next = current.split_whitespace().filter(|t| *t != token).collect::<Vec<_>>().join(" ");
-    el.set_attribute("data-rs-state", &next).ok();
-}
 
 fn get_toggles(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-toggle]") else { return vec![] };
@@ -67,6 +56,8 @@ fn toggle_item(root: &Element, item: &Element) {
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     // click
     {
         let root_c = root.clone();

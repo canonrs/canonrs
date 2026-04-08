@@ -1,6 +1,7 @@
 //! Radio Interaction Engine — keyboard navigation + selection sync
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
@@ -12,11 +13,6 @@ fn add_state(el: &Element, state: &str) {
     }
 }
 
-fn remove_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    el.set_attribute("data-rs-state", &next.join(" ")).ok();
-}
 
 fn get_items(root: &Element) -> Vec<Element> {
     let mut result = Vec::new();
@@ -45,6 +41,8 @@ fn select_item(root: &Element, value: &str) {
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     // click → select
     {
         let root_cb = root.clone();

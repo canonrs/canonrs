@@ -34,4 +34,4 @@ after: |
   view! {
     <Input variant=InputVariant::Error size=InputSize::Lg />
   }
-island_type: init
+island_type: passthrough

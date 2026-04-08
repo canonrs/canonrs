@@ -4,8 +4,11 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlImageElement};
+use crate::shared::{is_initialized, mark_initialized};
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     let Ok(Some(img_node)) = root.query_selector("[data-rs-avatar-image]") else {
         // no image — show fallback directly
         show_fallback(&root);

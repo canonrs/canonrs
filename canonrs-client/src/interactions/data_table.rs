@@ -60,19 +60,17 @@ fn bind_filter(table: &HtmlElement) {
     };
 
     let table_clone = table.clone();
+    let input_clone = input.clone();
     let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::Event| {
-        let q = input.value().to_lowercase();
+        let q = input_clone.value().to_lowercase();
         apply_filter(&table_clone, &q);
         set_page(&table_clone, 1);
         update_pagination_ui(&table_clone);
     }));
 
-    table
-        .query_selector("[data-rs-datatable-filter]")
-        .ok()
-        .flatten()
-        .and_then(|el| el.dyn_into::<web_sys::EventTarget>().ok())
-        .map(|et| et.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref()).ok());
+    let _ = input
+        .dyn_ref::<web_sys::EventTarget>()
+        .map(|et| et.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref()));
 
     cb.forget();
 }
@@ -86,7 +84,11 @@ fn apply_filter(table: &HtmlElement, q: &str) {
                 if let Ok(el) = node.dyn_into::<HtmlElement>() {
                     let text = el.inner_text().to_lowercase();
                     let show = q.is_empty() || text.contains(q);
-                    if show { remove_state_html(&el, "hidden"); } else { add_state_html(&el, "hidden"); }
+                    if show {
+                        let _ = el.remove_attribute("data-rs-filtered");
+                    } else {
+                        let _ = el.set_attribute("data-rs-filtered", "hidden");
+                    }
                     if show { visible += 1; }
                 }
             }
@@ -165,7 +167,7 @@ fn apply_sort(table: &HtmlElement, col: Option<usize>, asc: bool) {
             .filter_map(|node| {
                 let el = node.clone().dyn_into::<HtmlElement>().ok()?;
                 let val = if let Some(c) = col {
-                    el.query_selector(&format!("[data-rs-col-index=\'{}\']", c))
+                    el.query_selector(&format!("[data-rs-col-index='{}']", c))
                         .ok().flatten()
                         .map(|td| td.text_content().unwrap_or_default())
                         .unwrap_or_default()
@@ -205,21 +207,31 @@ fn bind_pagination(table: &HtmlElement) {
     }
 }
 
+// FIX #342: set_page agora esconde TODAS as rows primeiro,
+// depois mostra apenas as visíveis (sem data-rs-filtered) da página atual.
 fn set_page(table: &HtmlElement, page: usize) {
     let _ = table.set_attribute("data-rs-current-page", &page.to_string());
     let page_size = get_attr_usize(table, "data-rs-page-size", 10);
     let rows = table.query_selector_all("[data-rs-datatable-row]").ok();
     if let Some(list) = rows {
+        // Passo 1: esconde todas
+        for i in 0..list.length() {
+            if let Some(node) = list.item(i) {
+                if let Some(el) = node.dyn_into::<HtmlElement>().ok() {
+                    let _ = el.set_attribute("hidden", "");
+                }
+            }
+        }
+        // Passo 2: mostra só as não-filtradas da página
         let visible_rows: Vec<HtmlElement> = (0..list.length())
             .filter_map(|i| list.item(i))
             .filter_map(|n| n.dyn_into::<HtmlElement>().ok())
-            .filter(|el| !el.get_attribute("data-rs-state").unwrap_or_default().split_whitespace().any(|s| s == "hidden"))
+            .filter(|el| el.get_attribute("data-rs-filtered").is_none())
             .collect();
         let start = (page - 1) * page_size;
         let end = start + page_size;
         for (i, el) in visible_rows.iter().enumerate() {
             if i >= start && i < end { let _ = el.remove_attribute("hidden"); }
-            else { let _ = el.set_attribute("hidden", ""); }
         }
     }
 }
@@ -347,7 +359,7 @@ fn count_visible(table: &HtmlElement) -> usize {
         .map(|list| (0..list.length())
             .filter_map(|i| list.item(i))
             .filter_map(|n| n.dyn_into::<HtmlElement>().ok())
-            .filter(|el| !el.get_attribute("data-rs-state").unwrap_or_default().split_whitespace().any(|s| s == "hidden"))
+            .filter(|el| el.get_attribute("data-rs-filtered").is_none())
             .count())
         .unwrap_or(0)
 }

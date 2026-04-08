@@ -1,6 +1,7 @@
 //! Resizable Interaction Engine
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
 use std::cell::RefCell;
@@ -14,13 +15,10 @@ fn add_state(el: &Element, state: &str) {
     }
 }
 
-fn remove_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    el.set_attribute("data-rs-state", &next.join(" ")).ok();
-}
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     web_sys::console::log_1(&"[resizable] init called".into());
     let orientation = root.get_attribute("data-rs-orientation").unwrap_or_else(|| "horizontal".to_string());
     let min_size = root.get_attribute("data-rs-min-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(20.0);

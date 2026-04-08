@@ -51,7 +51,7 @@ pub fn SwitchIsland(
     });
 
     view! {
-        <div node_ref=root data-rs-switch-island="">
+        <div node_ref=root data-rs-switch-island="" data-rs-state=if initial { "selected" } else { "" }>
             <Switch
                 checked=initial
                 disabled=disabled

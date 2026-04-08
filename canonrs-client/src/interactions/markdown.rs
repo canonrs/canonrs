@@ -4,6 +4,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
+use crate::shared::{is_initialized, mark_initialized};
 
 fn setup_copy_buttons(root: &Element) {
     let Ok(btns) = root.query_selector_all("[data-rs-copy-button]") else { return };
@@ -62,6 +63,8 @@ fn setup_copy_buttons(root: &Element) {
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     setup_copy_buttons(&root);
     setup_toc(&root);
 }

@@ -3,6 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlCanvasElement, HtmlElement};
+use crate::shared::{is_initialized, mark_initialized};
 use crate::engines::chart_engine::{
     read_chart_data, parse_chart_data, set_canvas_dpi, draw_chart, Series,
 };
@@ -17,6 +18,8 @@ fn dispatch_custom_event(target: &Element, name: &str, detail: &js_sys::Object) 
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     let Ok(Some(canvas_node)) = root.query_selector("[data-rs-chart-canvas]") else { return };
     let Ok(canvas) = canvas_node.dyn_into::<HtmlCanvasElement>() else { return };
 
@@ -87,6 +90,7 @@ fn bind_legend(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, lab
     }
 }
 
+#[allow(unused_variables)]
 fn bind_tooltip(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, labels: &[String], series: &Series, show_grid: bool, height: f64, sync_table: &Option<String>) {
     let pad_l   = 50.0;
     let chart_w = canvas.unchecked_ref::<HtmlElement>().offset_width() as f64 - pad_l - 20.0;
@@ -172,6 +176,8 @@ fn bind_resize(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, lab
     obs_cb.forget();
 }
 
+#[allow(unused_variables)]
+#[allow(unused_variables)]
 fn bind_datatable_sync(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, labels: &[String], series: &Series, show_grid: bool, height: f64, sync_table: &Option<String>) {
     if sync_table.is_none() { return; }
     let canvas_c = canvas.clone(); let root_c = root.clone();

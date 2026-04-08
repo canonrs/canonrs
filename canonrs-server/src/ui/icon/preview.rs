@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::icon_island::IconIsland;
+use super::icon_ui::{IconSize, IconVariant};
 
 #[component]
 pub fn IconShowcasePreview() -> impl IntoView {
@@ -7,9 +8,9 @@ pub fn IconShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;align-items:center;gap:var(--space-md);">
-                    <IconIsland size="lg" variant="primary">"★"</IconIsland>
-                    <IconIsland size="lg">"★"</IconIsland>
-                    <IconIsland size="lg" variant="muted">"★"</IconIsland>
+                    <IconIsland size=IconSize::Lg variant=IconVariant::Primary>"★"</IconIsland>
+                    <IconIsland size=IconSize::Lg>"★"</IconIsland>
+                    <IconIsland size=IconSize::Lg variant=IconVariant::Muted>"★"</IconIsland>
                 </div>
             </div>
             <p data-rs-showcase-preview-anchor="">
@@ -18,20 +19,20 @@ pub fn IconShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Sizes"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
-                    <IconIsland size="sm">"★"</IconIsland>
-                    <IconIsland size="md">"★"</IconIsland>
-                    <IconIsland size="lg">"★"</IconIsland>
+                    <IconIsland size=IconSize::Sm>"★"</IconIsland>
+                    <IconIsland size=IconSize::Md>"★"</IconIsland>
+                    <IconIsland size=IconSize::Lg>"★"</IconIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variants"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
                     <IconIsland>"★"</IconIsland>
-                    <IconIsland variant="muted">"★"</IconIsland>
-                    <IconIsland variant="primary">"★"</IconIsland>
-                    <IconIsland variant="destructive">"★"</IconIsland>
-                    <IconIsland variant="success">"★"</IconIsland>
-                    <IconIsland variant="warning">"★"</IconIsland>
+                    <IconIsland variant=IconVariant::Muted>"★"</IconIsland>
+                    <IconIsland variant=IconVariant::Primary>"★"</IconIsland>
+                    <IconIsland variant=IconVariant::Destructive>"★"</IconIsland>
+                    <IconIsland variant=IconVariant::Success>"★"</IconIsland>
+                    <IconIsland variant=IconVariant::Warning>"★"</IconIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">

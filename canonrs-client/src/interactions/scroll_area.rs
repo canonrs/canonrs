@@ -2,6 +2,7 @@
 //! Thumb sync, drag (pointer events), track click, auto-hide
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent, MouseEvent};
 use std::cell::RefCell;
@@ -15,11 +16,6 @@ fn add_state(el: &Element, state: &str) {
     }
 }
 
-fn remove_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    el.set_attribute("data-rs-state", &next.join(" ")).ok();
-}
 
 fn update_thumb(viewport: &HtmlElement, scrollbar: &Element, thumb: &HtmlElement, is_vertical: bool) {
     if is_vertical {
@@ -162,6 +158,8 @@ fn setup_scrollbar(root: &Element, viewport: &HtmlElement, orientation: &str) {
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     let Ok(Some(vp_node)) = root.query_selector("[data-rs-scroll-viewport]") else { return };
     let Ok(viewport) = vp_node.dyn_into::<HtmlElement>() else { return };
 

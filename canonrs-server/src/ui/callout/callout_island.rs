@@ -1,13 +1,12 @@
+//! Callout Island — Canon Rule #340
+//! Passthrough only. Zero logic, zero transformation.
+
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, Default)]
+#[derive(Clone, Copy, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum CalloutIslandVariant {
-    #[default]
-    Default,
-    Info,
-    Success,
-    Warning,
-    Destructive,
+    #[default] Default,
+    Info, Success, Warning, Destructive,
 }
 
 impl CalloutIslandVariant {
@@ -22,17 +21,14 @@ impl CalloutIslandVariant {
     }
 }
 
-#[island]
+#[component]
 pub fn CalloutIsland(
-    #[prop(optional, into)] title: Option<String>,
-    #[prop(optional, into)] description: Option<String>,
-    #[prop(optional, into)] icon: Option<String>,
-    #[prop(optional)] variant: Option<CalloutIslandVariant>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(optional, into)] title:                          Option<String>,
+    #[prop(optional, into)] description:                    Option<String>,
+    #[prop(optional, into)] icon:                           Option<String>,
+    #[prop(default = CalloutIslandVariant::Default)] variant: CalloutIslandVariant,
+    #[prop(into, default = String::new())] class:           String,
 ) -> impl IntoView {
-    let class   = class.unwrap_or_default();
-    let variant = variant.unwrap_or_default();
-
     view! {
         <div
             data-rs-callout=""

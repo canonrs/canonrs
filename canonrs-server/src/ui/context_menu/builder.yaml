@@ -43,4 +43,4 @@ after: |
       </ContextMenuContent>
     </ContextMenu>
   }
-island_type: init
+island_type: interaction

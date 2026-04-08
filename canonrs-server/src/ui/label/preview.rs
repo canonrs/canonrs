@@ -10,7 +10,7 @@ pub fn LabelShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;flex-direction:column;gap:var(--space-xs);">
-                    <LabelIsland text="Username" for_id="label-input" />
+                    <LabelIsland for_id="label-input">"Username"</LabelIsland>
                     <InputIsland placeholder="johndoe" />
                 </div>
             </div>

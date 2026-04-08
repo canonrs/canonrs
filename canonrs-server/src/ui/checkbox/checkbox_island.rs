@@ -83,14 +83,15 @@ pub fn CheckboxIsland(
         }
     });
 
-    let checked_state  = if initial  { ActivityState::Active }   else { ActivityState::Inactive };
-    let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
-
     view! {
-        <div node_ref=root data-rs-checkbox-island="">
+        <div
+            node_ref=root
+            data-rs-checkbox-island=""
+            data-rs-state=if initial { "active" } else { "inactive" }
+        >
             <Checkbox
-                checked=checked_state
-                disabled=disabled_state
+                checked=if initial { ActivityState::Active } else { ActivityState::Inactive }
+                disabled=if disabled { DisabledState::Disabled } else { DisabledState::Enabled }
                 name=name
                 class=class
             >

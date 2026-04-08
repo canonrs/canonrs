@@ -3,13 +3,14 @@ use super::stat_island::{
     StatIsland, StatHeaderIsland, StatBodyIsland,
     StatValueIsland, StatLabelIsland, StatDeltaIsland, StatIconIsland,
 };
+use super::stat_ui::{StatSize, StatAlign, StatTrend};
 
 #[component]
 pub fn StatShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <StatIsland size="lg" trend="increase">
+                <StatIsland size=StatSize::Lg trend=StatTrend::Increase>
                     <StatHeaderIsland>
                         <StatIconIsland>"📈"</StatIconIsland>
                         <StatLabelIsland>"Total Revenue"</StatLabelIsland>
@@ -26,21 +27,21 @@ pub fn StatShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Trend variants"</span>
                 <div data-rs-showcase-preview-row="">
-                    <StatIsland trend="increase">
+                    <StatIsland trend=StatTrend::Increase>
                         <StatLabelIsland>"Active Users"</StatLabelIsland>
                         <StatBodyIsland>
                             <StatValueIsland>"2,350"</StatValueIsland>
                             <StatDeltaIsland>"+12%"</StatDeltaIsland>
                         </StatBodyIsland>
                     </StatIsland>
-                    <StatIsland trend="decrease">
+                    <StatIsland trend=StatTrend::Decrease>
                         <StatLabelIsland>"Bounce Rate"</StatLabelIsland>
                         <StatBodyIsland>
                             <StatValueIsland>"3.2%"</StatValueIsland>
                             <StatDeltaIsland>"-0.5%"</StatDeltaIsland>
                         </StatBodyIsland>
                     </StatIsland>
-                    <StatIsland trend="neutral">
+                    <StatIsland trend=StatTrend::Neutral>
                         <StatLabelIsland>"Sessions"</StatLabelIsland>
                         <StatBodyIsland>
                             <StatValueIsland>"1,024"</StatValueIsland>
@@ -52,15 +53,15 @@ pub fn StatShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Size variants"</span>
                 <div data-rs-showcase-preview-row="">
-                    <StatIsland size="sm">
+                    <StatIsland size=StatSize::Sm>
                         <StatLabelIsland>"Small"</StatLabelIsland>
                         <StatValueIsland>"123"</StatValueIsland>
                     </StatIsland>
-                    <StatIsland size="md">
+                    <StatIsland size=StatSize::Md>
                         <StatLabelIsland>"Medium"</StatLabelIsland>
                         <StatValueIsland>"4,567"</StatValueIsland>
                     </StatIsland>
-                    <StatIsland size="lg">
+                    <StatIsland size=StatSize::Lg>
                         <StatLabelIsland>"Large"</StatLabelIsland>
                         <StatValueIsland>"89,432"</StatValueIsland>
                     </StatIsland>
@@ -69,7 +70,7 @@ pub fn StatShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Align + Icon"</span>
                 <div data-rs-showcase-preview-row="">
-                    <StatIsland align="center">
+                    <StatIsland align=StatAlign::Center>
                         <StatLabelIsland>"Centered"</StatLabelIsland>
                         <StatValueIsland>"999"</StatValueIsland>
                     </StatIsland>

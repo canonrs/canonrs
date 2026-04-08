@@ -1,3 +1,4 @@
+use canonrs_core::primitives::EmptyStateVariant;
 use leptos::prelude::*;
 use super::empty_state_island::{
     EmptyStateIsland, EmptyStateIconIsland, EmptyStateTitleIsland,
@@ -27,17 +28,17 @@ pub fn EmptyStateShowcasePreview() -> impl IntoView {
                         <EmptyStateTitleIsland>"Default"</EmptyStateTitleIsland>
                         <EmptyStateDescriptionIsland>"Nothing here yet."</EmptyStateDescriptionIsland>
                     </EmptyStateIsland>
-                    <EmptyStateIsland variant="no-results">
+                    <EmptyStateIsland variant=EmptyStateVariant::NoResults>
                         <EmptyStateIconIsland>"🔍"</EmptyStateIconIsland>
                         <EmptyStateTitleIsland>"No results"</EmptyStateTitleIsland>
                         <EmptyStateDescriptionIsland>"No matches for your query."</EmptyStateDescriptionIsland>
                     </EmptyStateIsland>
-                    <EmptyStateIsland variant="no-data">
+                    <EmptyStateIsland variant=EmptyStateVariant::NoData>
                         <EmptyStateIconIsland>"📊"</EmptyStateIconIsland>
                         <EmptyStateTitleIsland>"No data"</EmptyStateTitleIsland>
                         <EmptyStateDescriptionIsland>"Start by adding some entries."</EmptyStateDescriptionIsland>
                     </EmptyStateIsland>
-                    <EmptyStateIsland variant="error">
+                    <EmptyStateIsland variant=EmptyStateVariant::Error>
                         <EmptyStateIconIsland>"⚠️"</EmptyStateIconIsland>
                         <EmptyStateTitleIsland>"Something went wrong"</EmptyStateTitleIsland>
                         <EmptyStateDescriptionIsland>"Please try again later."</EmptyStateDescriptionIsland>

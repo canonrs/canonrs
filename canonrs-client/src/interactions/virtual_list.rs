@@ -3,8 +3,11 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
+use crate::shared::{is_initialized, mark_initialized};
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     let items_count = root.get_attribute("data-items-count")
         .and_then(|s| s.parse::<usize>().ok())
         .unwrap_or(0);

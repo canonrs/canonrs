@@ -1,6 +1,7 @@
 //! Sidebar Interaction Engine
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
@@ -12,11 +13,6 @@ fn add_state(el: &Element, state: &str) {
     }
 }
 
-fn remove_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    el.set_attribute("data-rs-state", &next.join(" ")).ok();
-}
 
 fn is_expanded(root: &Element) -> bool {
     root.get_attribute("data-rs-state").map(|s| s.contains("expanded")).unwrap_or(false)
@@ -27,6 +23,8 @@ fn is_pinned(root: &Element) -> bool {
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     let is_rail = root.get_attribute("data-rs-variant").as_deref() == Some("rail");
 
     // restore pin from localStorage

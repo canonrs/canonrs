@@ -36,4 +36,4 @@ after: |
       <ModalContent>"Content"</ModalContent>
     </Modal>
   }
-island_type: init
+island_type: interaction

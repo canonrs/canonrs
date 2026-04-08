@@ -1,21 +1,11 @@
 //! Combobox Interaction Engine
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{add_state, remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlInputElement};
 
-fn add_state(el: &Element, token: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if current.split_whitespace().any(|t| t == token) { return; }
-    let next = format!("{} {}", current, token).trim().to_string();
-    let _ = el.set_attribute("data-rs-state", &next);
-}
 
-fn remove_state(el: &Element, token: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next = current.split_whitespace().filter(|t| *t != token).collect::<Vec<_>>().join(" ");
-    let _ = el.set_attribute("data-rs-state", &next);
-}
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(list) = root.query_selector_all("[data-rs-combobox-item]") else { return vec![] };
@@ -89,6 +79,8 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 }
 
 pub fn init(root: Element) {
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
     { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |_| {
         if is_disabled(&rc) { return; }
         let q = get_input(&rc).map(|i| i.value()).unwrap_or_default();

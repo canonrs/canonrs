@@ -1,6 +1,7 @@
 //! CopyButton Interaction Engine
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use wasm_bindgen::JsValue;
 use wasm_bindgen_futures::spawn_local;
@@ -14,11 +15,6 @@ fn add_state(el: &Element, state: &str) {
     }
 }
 
-fn remove_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    el.set_attribute("data-rs-state", &next.join(" ")).ok();
-}
 
 fn copy_to_clipboard(text: String, el_ok: Element, el_err: Element, reset_delay: i32) {
     let json_text = js_sys::JSON::stringify(&JsValue::from_str(&text))
@@ -61,6 +57,8 @@ fn copy_to_clipboard(text: String, el_ok: Element, el_err: Element, reset_delay:
 }
 
 pub fn init(el: Element) {
+    if is_initialized(&el) { return; }
+    mark_initialized(&el);
     let reset_delay = el.get_attribute("data-rs-reset-delay")
         .and_then(|s| s.parse::<i32>().ok())
         .unwrap_or(2000);

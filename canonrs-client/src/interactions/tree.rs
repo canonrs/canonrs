@@ -1,6 +1,7 @@
 //! Tree Interaction Engine — expand/collapse + keyboard navigation
 
 use wasm_bindgen::prelude::*;
+use crate::shared::{remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
@@ -12,42 +13,29 @@ fn add_state(el: &Element, state: &str) {
     }
 }
 
-fn remove_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    el.set_attribute("data-rs-state", &next.join(" ")).ok();
-}
-
 fn is_expanded(el: &Element) -> bool {
     el.get_attribute("data-rs-state").map(|s| s.contains("expanded")).unwrap_or(false)
 }
 
 fn get_items(root: &Element) -> Vec<Element> {
-    let mut result = Vec::new();
-    let Ok(nodes) = root.query_selector_all("[data-rs-tree-item]") else { return result };
-    for i in 0..nodes.length() {
-        if let Some(n) = nodes.item(i) {
-            if let Ok(el) = n.dyn_into::<Element>() { result.push(el); }
-        }
-    }
-    result
+    let Ok(nodes) = root.query_selector_all("[data-rs-tree-item]") else { return vec![] };
+    (0..nodes.length()).filter_map(|i| nodes.item(i)).filter_map(|n| n.dyn_into::<Element>().ok()).collect()
 }
 
 pub fn init(root: Element) {
-    // click → toggle expand
+    if is_initialized(&root) { return; }
+    mark_initialized(&root);
+
     {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(item) = target.closest("[data-rs-tree-item]").ok().flatten() else { return };
-            let has_children = item.get_attribute("data-rs-has-children").as_deref() == Some("true");
-            if !has_children { return; }
+            if item.get_attribute("data-rs-has-children").as_deref() != Some("true") { return; }
             if is_expanded(&item) {
-                remove_state(&item, "expanded");
-                add_state(&item, "collapsed");
+                remove_state(&item, "expanded"); add_state(&item, "collapsed");
                 let _ = item.set_attribute("aria-expanded", "false");
             } else {
-                remove_state(&item, "collapsed");
-                add_state(&item, "expanded");
+                remove_state(&item, "collapsed"); add_state(&item, "expanded");
                 let _ = item.set_attribute("aria-expanded", "true");
             }
         }));
@@ -55,7 +43,6 @@ pub fn init(root: Element) {
         cb.forget();
     }
 
-    // keyboard navigation
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
@@ -66,25 +53,19 @@ pub fn init(root: Element) {
             if len == 0 { return; }
             let pos = items.iter().position(|el| el.contains(Some(&target)));
             match e.key().as_str() {
-                "ArrowDown" => {
-                    e.prevent_default();
+                "ArrowDown" => { e.prevent_default();
                     if let Some(p) = pos {
-                        let next = (p + 1).min(len - 1);
-                        if let Ok(el) = items[next].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
+                        if let Ok(el) = items[(p + 1).min(len - 1)].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
                     }
                 }
-                "ArrowUp" => {
-                    e.prevent_default();
+                "ArrowUp" => { e.prevent_default();
                     if let Some(p) = pos {
-                        let prev = if p == 0 { 0 } else { p - 1 };
-                        if let Ok(el) = items[prev].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
+                        if let Ok(el) = items[if p == 0 { 0 } else { p - 1 }].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
                     }
                 }
-                "Enter" | " " => {
-                    e.prevent_default();
+                "Enter" | " " => { e.prevent_default();
                     if let Some(item) = target.closest("[data-rs-tree-item]").ok().flatten() {
-                        let has_children = item.get_attribute("data-rs-has-children").as_deref() == Some("true");
-                        if has_children {
+                        if item.get_attribute("data-rs-has-children").as_deref() == Some("true") {
                             if is_expanded(&item) {
                                 remove_state(&item, "expanded"); add_state(&item, "collapsed");
                                 let _ = item.set_attribute("aria-expanded", "false");
@@ -106,7 +87,7 @@ pub fn init(root: Element) {
 pub fn init_all() {
     let win = match web_sys::window() { Some(w) => w, None => return };
     let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-tree-item]") { Ok(n) => n, Err(_) => return };
+    let nodes = match doc.query_selector_all("[data-rs-tree]") { Ok(n) => n, Err(_) => return };
     for i in 0..nodes.length() {
         if let Some(node) = nodes.item(i) {
             if let Ok(el) = node.dyn_into::<Element>() { init(el); }
