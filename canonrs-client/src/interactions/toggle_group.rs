@@ -67,10 +67,8 @@ fn toggle_item(root: &Element, item: &Element) {
 }
 
 pub fn init(root: Element) {
-    let key = JsValue::from_str("__rs_toggle_group_bound");
-    let root_val = JsCast::unchecked_ref::<JsValue>(&root);
-    if js_sys::Reflect::get(root_val, &key).ok().filter(|v| v.is_truthy()).is_some() { return; }
-    js_sys::Reflect::set(root_val, &key, &JsValue::TRUE).ok();
+    if root.get_attribute("data-rs-initialized").as_deref() == Some("true") { return; }
+    let _ = root.set_attribute("data-rs-initialized", "true");
 
     // click
     {

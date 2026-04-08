@@ -291,10 +291,8 @@ fn draw_donut(canvas: &HtmlCanvasElement, labels: &[String], series: &[(String, 
 }
 
 pub fn init(root: Element) {
-    let key = JsValue::from_str("__rs_chart_bound");
-    let root_val = JsCast::unchecked_ref::<JsValue>(&root);
-    if js_sys::Reflect::get(root_val, &key).ok().filter(|v| v.is_truthy()).is_some() { return; }
-    js_sys::Reflect::set(root_val, &key, &JsValue::TRUE).ok();
+    if root.get_attribute("data-rs-initialized").as_deref() == Some("true") { return; }
+    let _ = root.set_attribute("data-rs-initialized", "true");
 
     let Ok(Some(canvas_node)) = root.query_selector("[data-rs-chart-canvas]") else { return };
     let Ok(canvas) = canvas_node.dyn_into::<HtmlCanvasElement>() else { return };

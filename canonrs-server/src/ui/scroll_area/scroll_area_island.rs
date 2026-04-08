@@ -6,16 +6,10 @@ use canonrs_core::primitives::ScrollOrientation;
 pub fn ScrollAreaInit() -> impl IntoView {
     #[cfg(target_arch = "wasm32")]
     {
-        use leptos::wasm_bindgen::prelude::*;
-        use leptos::wasm_bindgen::JsCast;
-        let f = Closure::wrap(Box::new(move || {
-            crate::interactions::scroll_area::init_all();
-        }) as Box<dyn Fn()>);
-        leptos::web_sys::window()
-            .unwrap()
-            .request_animation_frame(f.as_ref().unchecked_ref())
-            .ok();
-        f.forget();
+                use wasm_bindgen_futures::spawn_local;
+        spawn_local(async move {
+            canonrs_client::interactions::scroll_area::init_all();
+        });
     }
     view! { <></> }
 }

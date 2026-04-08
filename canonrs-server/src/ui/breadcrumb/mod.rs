@@ -7,7 +7,11 @@ mod navigation_provider;
 pub mod examples;
 
 pub use breadcrumb_ui::*;
-pub use breadcrumb_island::{BreadcrumbIsland, BreadcrumbIslandItem};
+pub use breadcrumb_island::{
+    BreadcrumbIsland, BreadcrumbInit,
+    BreadcrumbItemIsland, BreadcrumbLinkIsland,
+    BreadcrumbPageIsland, BreadcrumbSeparatorIsland, BreadcrumbEllipsisIsland,
+};
 pub use breadcrumb_auto::*;
 pub use navigation_provider::*;
 pub use breadcrumb_ui::BreadcrumbPreview;

@@ -22,10 +22,8 @@ fn remove_state(el: &Element, state: &str) {
 
 pub fn init(root: Element) {
     web_sys::console::log_1(&"[resizable] init called".into());
-    let key = JsValue::from_str("__rs_resizable_bound");
-    let root_val = JsCast::unchecked_ref::<JsValue>(&root);
-    if js_sys::Reflect::get(root_val, &key).ok().filter(|v| v.is_truthy()).is_some() { return; }
-    js_sys::Reflect::set(root_val, &key, &JsValue::TRUE).ok();
+    if root.get_attribute("data-rs-initialized").as_deref() == Some("true") { return; }
+    let _ = root.set_attribute("data-rs-initialized", "true");
 
     let orientation = root.get_attribute("data-rs-orientation").unwrap_or_else(|| "horizontal".to_string());
     let min_size = root.get_attribute("data-rs-min-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(20.0);

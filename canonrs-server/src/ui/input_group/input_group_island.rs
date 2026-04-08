@@ -6,13 +6,29 @@ use leptos::prelude::*;
 use super::input_group_ui::InputGroup;
 use canonrs_core::meta::ToggleState;
 
+fn add_state(el: &leptos::web_sys::Element, token: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    if current.split_whitespace().any(|t| t == token) { return; }
+    let next = format!("{} {}", current, token).trim().to_string();
+    let _ = el.set_attribute("data-rs-state", &next);
+}
+
+fn remove_state(el: &leptos::web_sys::Element, token: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    let next = current.split_whitespace()
+        .filter(|t| *t != token)
+        .collect::<Vec<_>>()
+        .join(" ");
+    let _ = el.set_attribute("data-rs-state", &next);
+}
+
 #[island]
 pub fn InputGroupIsland(
     children: Children,
     #[prop(optional)] merge_radius: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let merge_radius = if merge_radius.unwrap_or(false) { ToggleState::On } else { ToggleState::Off };
+    let merge_radius = merge_radius.unwrap_or(false);
     let class        = class.unwrap_or_default();
 
     let node_ref = NodeRef::<leptos::html::Div>::new();
@@ -28,11 +44,7 @@ pub fn InputGroupIsland(
         {
             let root_cb = root.clone();
             let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_| {
-                let state = root_cb.get_attribute("data-rs-state").unwrap_or_default();
-                if !state.contains("focus-within") {
-                    let next = format!("{} focus-within", state).trim().to_string();
-                    let _ = root_cb.set_attribute("data-rs-state", &next);
-                }
+                add_state(&root_cb, "focus-within");
             }));
             let _ = root.add_event_listener_with_callback("focusin", cb.as_ref().unchecked_ref());
             cb.forget();
@@ -41,11 +53,7 @@ pub fn InputGroupIsland(
         {
             let root_cb = root.clone();
             let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_| {
-                let state = root_cb.get_attribute("data-rs-state").unwrap_or_default();
-                let next = state.split_whitespace()
-                    .filter(|t| *t != "focus-within")
-                    .collect::<Vec<_>>().join(" ");
-                let _ = root_cb.set_attribute("data-rs-state", &next);
+                remove_state(&root_cb, "focus-within");
             }));
             let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
             cb.forget();
@@ -53,7 +61,7 @@ pub fn InputGroupIsland(
     });
 
     view! {
-        <InputGroup merge_radius=merge_radius class=class node_ref=node_ref>
+        <InputGroup merge_radius=if merge_radius { ToggleState::On } else { ToggleState::Off } class=class node_ref=node_ref>
             {children()}
         </InputGroup>
     }

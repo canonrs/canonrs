@@ -1,16 +1,18 @@
 use leptos::prelude::*;
-use super::data_table_island::{DataTableIsland, DataTableIslandColumn};
+use super::data_table_island::DataTableInit;
+use super::data_table_ui::DataTableStatic;
+use super::data_table_ui::DataTableColumn;
 
 #[component]
 pub fn DataTableStaticShowcasePreview() -> impl IntoView {
-    let island_columns = vec![
-        DataTableIslandColumn { key: "name".to_string(),   label: "Name".to_string() },
-        DataTableIslandColumn { key: "role".to_string(),   label: "Role".to_string() },
-        DataTableIslandColumn { key: "status".to_string(), label: "Status".to_string() },
-        DataTableIslandColumn { key: "score".to_string(),  label: "Score".to_string() },
+    let columns: Vec<DataTableColumn<Vec<String>>> = vec![
+        DataTableColumn::new("name",   "Name",   |r: &Vec<String>| r[0].clone()),
+        DataTableColumn::new("role",   "Role",   |r: &Vec<String>| r[1].clone()),
+        DataTableColumn::new("status", "Status", |r: &Vec<String>| r[2].clone()),
+        DataTableColumn::new("score",  "Score",  |r: &Vec<String>| r[3].clone()),
     ];
 
-    let island_rows = vec![
+    let data = vec![
         vec!["Alice".to_string(),  "Engineer".to_string(), "Active".to_string(),   "98".to_string()],
         vec!["Bob".to_string(),    "Designer".to_string(), "Active".to_string(),   "87".to_string()],
         vec!["Carol".to_string(),  "Manager".to_string(),  "Away".to_string(),     "76".to_string()],
@@ -21,9 +23,10 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <DataTableIsland
-                    columns=island_columns
-                    rows=island_rows
+                <DataTableInit />
+                <DataTableStatic
+                    data=data
+                    columns=columns
                     page_size=3
                 />
             </div>

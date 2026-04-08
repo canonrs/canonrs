@@ -7388,3 +7388,67 @@ Passthrough islands must accept fully typed props (enums, booleans, structured d
 
 ---
 
+## CR-341 — Init Island Must Be DOM-Driven and Zero State
+
+- **Category:** island-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+When init islands introduce signals, internal state, prop transformations, or logic, they break the CanonRS architecture by duplicating state outside the DOM and creating hydration inconsistencies and unpredictable behavior.
+
+### Solution
+
+Init islands must read state from the DOM, react to browser events via `web_sys`, and mutate DOM attributes using canonical helpers. They must remain stateless and purely mechanical.
+
+### Signals
+
+- usage of `signal`, `RwSignal`, `ReadSignal`
+- presence of `match`, `if` logic unrelated to DOM state
+- prop transformation (`unwrap_or`, enum mapping, parsing)
+- local variables storing state (e.g. `is_open`, `active`)
+- event handlers defined via `on:click`, `on:mouseenter`
+- duplicated state between DOM and Rust
+
+---
+
+## CR-342 — Interaction Island Must Delegate to Client Module
+
+- **Category:** interaction-architecture
+- **Severity:** CRITICAL
+- **Status:** ENFORCED
+
+### Problem
+
+Implementing interaction logic inside islands introduces:
+- state outside the DOM (violates source of truth)
+- SSR/hydration inconsistencies
+- duplicated logic across components
+- tight coupling between UI and behavior
+
+Islands become mini frameworks instead of thin bridges.
+
+### Solution
+
+Interaction islands must:
+- only bootstrap the interaction
+- call a client module (`init_all` or equivalent)
+- never implement behavior logic
+
+All interaction logic must live in:
+```
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-client/src/interactions/
+```
+
+### Signals
+
+- pointer events inside island (`pointerdown`, `pointermove`, `pointerup`)
+- drag logic implemented in island
+- keyboard navigation logic inside island
+- layout mutation (`getBoundingClientRect`, inline styles)
+- signals controlling interaction state
+- loops managing DOM interaction state
+
+---
+

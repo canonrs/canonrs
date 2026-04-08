@@ -1,65 +1,77 @@
-use leptos::prelude::*;
+//! @canon-level: strict
+//! Breadcrumb Island — bootstrap only, delegates to interaction engine
 
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct BreadcrumbIslandItem {
-    pub label:    String,
-    pub href:     Option<String>,
-    pub is_page:  bool,
-}
+use leptos::prelude::*;
+use super::breadcrumb_ui::{
+    Breadcrumb, BreadcrumbItem, BreadcrumbLink,
+    BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis,
+};
+use canonrs_core::meta::ActivityState;
 
 #[island]
+pub fn BreadcrumbInit() -> impl IntoView {
+    #[cfg(target_arch = "wasm32")]
+    {
+                use wasm_bindgen_futures::spawn_local;
+        spawn_local(async move {
+            canonrs_client::interactions::breadcrumb::init_all();
+        });
+    }
+    view! { <></> }
+}
+
+#[component]
 pub fn BreadcrumbIsland(
-    items: Vec<BreadcrumbIslandItem>,
-    #[prop(optional, into)] separator: Option<String>,
+    children: Children,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class     = class.unwrap_or_default();
-    let separator = separator.unwrap_or_else(|| "/".to_string());
-    let len       = items.len();
-
-    let items_view = items.into_iter().enumerate().map(|(idx, item)| {
-        let is_last = idx == len - 1;
-        let sep     = separator.clone();
-
-        let link_view = if item.is_page || is_last {
-            view! {
-                <span data-rs-breadcrumb-page="" aria-current="page">
-                    {item.label}
-                </span>
-            }.into_any()
-        } else {
-            let href = item.href.unwrap_or_default();
-            view! {
-                <a data-rs-breadcrumb-link="" href=href data-rs-state="inactive">
-                    {item.label}
-                </a>
-            }.into_any()
-        };
-
-        view! {
-            <li data-rs-breadcrumb-item="">
-                {link_view}
-            </li>
-            {if !is_last {
-                view! {
-                    <li data-rs-breadcrumb-separator="" aria-hidden="true">{sep}</li>
-                }.into_any()
-            } else {
-                view! { <></> }.into_any()
-            }}
-        }
-    }).collect::<Vec<_>>();
-
     view! {
-        <nav
-            data-rs-breadcrumb=""
-            data-rs-component="Breadcrumb"
-            aria-label="Breadcrumb"
-            class=class
-        >
-            <ol data-rs-breadcrumb-list="">
-                {items_view}
-            </ol>
-        </nav>
+        <BreadcrumbInit />
+        <Breadcrumb class=class.unwrap_or_default()>{children()}</Breadcrumb>
     }
+}
+
+#[component]
+pub fn BreadcrumbItemIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <BreadcrumbItem class=class.unwrap_or_default()>{children()}</BreadcrumbItem> }
+}
+
+#[component]
+pub fn BreadcrumbLinkIsland(
+    children: Children,
+    #[prop(optional, into)] href: Option<String>,
+    #[prop(default = ActivityState::Inactive)] state: ActivityState,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! {
+        <BreadcrumbLink href=href.unwrap_or_default() state=state class=class.unwrap_or_default()>
+            {children()}
+        </BreadcrumbLink>
+    }
+}
+
+#[component]
+pub fn BreadcrumbPageIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <BreadcrumbPage class=class.unwrap_or_default()>{children()}</BreadcrumbPage> }
+}
+
+#[component]
+pub fn BreadcrumbSeparatorIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <BreadcrumbSeparator class=class.unwrap_or_default()>{children()}</BreadcrumbSeparator> }
+}
+
+#[component]
+pub fn BreadcrumbEllipsisIsland(
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <BreadcrumbEllipsis class=class.unwrap_or_default() /> }
 }

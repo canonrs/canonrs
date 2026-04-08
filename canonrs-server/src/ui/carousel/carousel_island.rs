@@ -6,16 +6,10 @@ use canonrs_core::ToggleState;
 pub fn CarouselInit() -> impl IntoView {
     #[cfg(target_arch = "wasm32")]
     {
-        use leptos::wasm_bindgen::prelude::*;
-        use leptos::wasm_bindgen::JsCast;
-        let f = Closure::wrap(Box::new(move || {
-            crate::interactions::carousel::init_all();
-        }) as Box<dyn Fn()>);
-        leptos::web_sys::window()
-            .unwrap()
-            .request_animation_frame(f.as_ref().unchecked_ref())
-            .ok();
-        f.forget();
+                use wasm_bindgen_futures::spawn_local;
+        spawn_local(async move {
+            canonrs_client::interactions::carousel::init_all();
+        });
     }
     view! { <></> }
 }
@@ -23,22 +17,20 @@ pub fn CarouselInit() -> impl IntoView {
 #[component]
 pub fn CarouselIsland(
     children: Children,
-    #[prop(optional)] initial_index: Option<usize>,
-    #[prop(optional, into)] autoplay: Option<bool>,
-    #[prop(optional)] interval: Option<u32>,
-    #[prop(optional)] loop_state: Option<bool>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = 0)] initial_index: usize,
+    #[prop(default = ToggleState::Off)] autoplay: ToggleState,
+    #[prop(default = 5000)] interval: u32,
+    #[prop(default = ToggleState::On)] loop_state: ToggleState,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let ap = if autoplay.unwrap_or(false) { ToggleState::On } else { ToggleState::Off };
-    let lp = if loop_state.unwrap_or(true) { ToggleState::On } else { ToggleState::Off };
     view! {
         <CarouselInit />
         <Carousel
-            initial_index=initial_index.unwrap_or(0)
-            autoplay=ap
-            interval=interval.unwrap_or(5000)
-            loop_state=lp
-            class=class.unwrap_or_default()
+            initial_index=initial_index
+            autoplay=autoplay
+            interval=interval
+            loop_state=loop_state
+            class=class
         >
             {children()}
         </Carousel>

@@ -5,7 +5,11 @@ pub mod preview;
 pub mod examples;
 
 pub use menubar_ui::*;
-pub use menubar_island::{MenubarIsland, MenubarIslandMenu, MenubarIslandItem};
+pub use menubar_island::{
+    MenubarIsland, MenubarInit,
+    MenubarMenuIsland, MenubarTriggerIsland,
+    MenubarContentIsland, MenubarItemIsland, MenubarSeparatorIsland,
+};
 #[cfg(feature = "examples")]
 pub use examples::*;
 

@@ -1,101 +1,30 @@
 use leptos::prelude::*;
-use super::radio_island::{RadioGroupIsland, RadioOption};
+use super::radio_island::{RadioGroupIsland, RadioGroupItemIsland};
+use canonrs_core::meta::{SelectionState, DisabledState};
 
 #[component]
 pub fn RadioShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <RadioGroupIsland
-                    name="framework"
-                    selected_value="dioxus".to_string()
-                    options=vec![
-                        RadioOption { value: "leptos".into(), label: "Leptos".into(), disabled: false },
-                        RadioOption { value: "dioxus".into(), label: "Dioxus".into(), disabled: false },
-                        RadioOption { value: "yew".into(),    label: "Yew".into(),    disabled: false },
-                    ]
-                />
+                <RadioGroupIsland>
+                    <RadioGroupItemIsland value="leptos" name="framework">"Leptos"</RadioGroupItemIsland>
+                    <RadioGroupItemIsland value="dioxus" name="framework" selected=SelectionState::Selected>"Dioxus"</RadioGroupItemIsland>
+                    <RadioGroupItemIsland value="yew" name="framework">"Yew"</RadioGroupItemIsland>
+                </RadioGroupIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Selection state mapped directly to DOM and ARIA."
             </p>
-
             <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"States"</span>
-                <div data-rs-preview-dev-grid="">
-                    <div data-rs-showcase-preview-section="">
-                        <span data-rs-showcase-preview-label="">"Unselected"</span>
-                        <RadioGroupIsland
-                    selected_value=""
-                            name="state-a"
-                            options=vec![
-                                RadioOption { value: "a".into(), label: "Option A".into(), disabled: false },
-                            ]
-                        />
-                    </div>
-                    <div data-rs-showcase-preview-section="">
-                        <span data-rs-showcase-preview-label="">"Selected"</span>
-                        <RadioGroupIsland
-                            name="state-b"
-                            selected_value="b".to_string()
-                            options=vec![
-                                RadioOption { value: "b".into(), label: "Option B".into(), disabled: false },
-                            ]
-                        />
-                    </div>
-                    <div data-rs-showcase-preview-section="">
-                        <span data-rs-showcase-preview-label="">"Disabled"</span>
-                        <RadioGroupIsland
-                    selected_value=""
-                            name="state-c"
-                            options=vec![
-                                RadioOption { value: "c".into(), label: "Option C".into(), disabled: true },
-                            ]
-                        />
-                    </div>
-                    <div data-rs-showcase-preview-section="">
-                        <span data-rs-showcase-preview-label="">"Selected + Disabled"</span>
-                        <RadioGroupIsland
-                            name="state-d"
-                            selected_value="d".to_string()
-                            options=vec![
-                                RadioOption { value: "d".into(), label: "Option D".into(), disabled: true },
-                            ]
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"Group — pre-selected"</span>
+                <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-row="">
-                    <RadioGroupIsland
-                        name="size"
-                        selected_value="md".to_string()
-                        options=vec![
-                            RadioOption { value: "sm".into(), label: "Small".into(),  disabled: false },
-                            RadioOption { value: "md".into(), label: "Medium".into(), disabled: false },
-                            RadioOption { value: "lg".into(), label: "Large".into(),  disabled: false },
-                        ]
-                    />
+                    <RadioGroupIsland disabled=DisabledState::Disabled>
+                        <RadioGroupItemIsland value="a" name="disabled">"Option A"</RadioGroupItemIsland>
+                        <RadioGroupItemIsland value="b" name="disabled">"Option B"</RadioGroupItemIsland>
+                    </RadioGroupIsland>
                 </div>
             </div>
-
-            <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"Group — disabled"</span>
-                <div data-rs-showcase-preview-row="">
-                    <RadioGroupIsland
-                    selected_value=""
-                        name="disabled"
-                        disabled=true
-                        options=vec![
-                            RadioOption { value: "a".into(), label: "Option A".into(), disabled: false },
-                            RadioOption { value: "b".into(), label: "Option B".into(), disabled: false },
-                        ]
-                    />
-                </div>
-            </div>
-
         </div>
     }
 }

@@ -1,24 +1,25 @@
 use leptos::prelude::*;
-use super::list_item_island::{ListItemIsland, ListIslandItem};
+use super::list_item_island::{ListIsland, ListItemIsland, ListItemTitleIsland, ListItemDescriptionIsland};
 
 #[component]
 pub fn ListItemShowcasePreview() -> impl IntoView {
-    let items = vec![
-        ListIslandItem { label: "Alice Johnson".into(), description: Some("Engineer · Active".into()), disabled: false },
-        ListIslandItem { label: "Bob Smith".into(),     description: Some("Designer · Away".into()),   disabled: false },
-        ListIslandItem { label: "Carol White".into(),   description: Some("Manager · Active".into()),  disabled: false },
-    ];
-
-    let items_selectable = vec![
-        ListIslandItem { label: "Alice Johnson".into(), description: Some("Engineer".into()), disabled: false },
-        ListIslandItem { label: "Bob Smith".into(),     description: Some("Designer".into()), disabled: false },
-        ListIslandItem { label: "Carol White".into(),   description: Some("Disabled".into()),  disabled: true  },
-    ];
-
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <ListItemIsland items=items />
+                <ListIsland>
+                    <ListItemIsland>
+                        <ListItemTitleIsland>"Alice Johnson"</ListItemTitleIsland>
+                        <ListItemDescriptionIsland>"Engineer · Active"</ListItemDescriptionIsland>
+                    </ListItemIsland>
+                    <ListItemIsland>
+                        <ListItemTitleIsland>"Bob Smith"</ListItemTitleIsland>
+                        <ListItemDescriptionIsland>"Designer · Away"</ListItemDescriptionIsland>
+                    </ListItemIsland>
+                    <ListItemIsland>
+                        <ListItemTitleIsland>"Carol White"</ListItemTitleIsland>
+                        <ListItemDescriptionIsland>"Manager · Active"</ListItemDescriptionIsland>
+                    </ListItemIsland>
+                </ListIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Selection and interaction states encoded via structured attributes."
@@ -26,7 +27,20 @@ pub fn ListItemShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Selectable"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ListItemIsland items=items_selectable multiple=false />
+                    <ListIsland>
+                        <ListItemIsland selectable=true>
+                            <ListItemTitleIsland>"Alice Johnson"</ListItemTitleIsland>
+                            <ListItemDescriptionIsland>"Engineer"</ListItemDescriptionIsland>
+                        </ListItemIsland>
+                        <ListItemIsland selectable=true>
+                            <ListItemTitleIsland>"Bob Smith"</ListItemTitleIsland>
+                            <ListItemDescriptionIsland>"Designer"</ListItemDescriptionIsland>
+                        </ListItemIsland>
+                        <ListItemIsland selectable=true disabled=true>
+                            <ListItemTitleIsland>"Carol White"</ListItemTitleIsland>
+                            <ListItemDescriptionIsland>"Disabled"</ListItemDescriptionIsland>
+                        </ListItemIsland>
+                    </ListIsland>
                 </div>
             </div>
         </div>

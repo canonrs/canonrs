@@ -6,7 +6,10 @@ pub mod preview;
 pub mod examples;
 
 pub use color_picker_ui::*;
-pub use color_picker_island::{ColorPickerIsland, ColorSwatchGroupIsland, SwatchColor, ColorFormat};
+pub use color_picker_island::{
+    ColorPickerIsland, ColorPickerInit,
+    ColorPickerSwatchIsland, ColorPickerDisplayIsland,
+};
 
 pub use color_picker_ui::ColorPickerPreview;
 pub use preview::ColorPickerShowcasePreview;

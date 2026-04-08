@@ -6,6 +6,22 @@ use leptos::prelude::*;
 use super::collapsible_ui::{Collapsible, CollapsibleTrigger, CollapsibleContent};
 use canonrs_core::meta::VisibilityState;
 
+fn add_state(el: &leptos::web_sys::Element, token: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    if current.split_whitespace().any(|t| t == token) { return; }
+    let next = format!("{} {}", current, token).trim().to_string();
+    let _ = el.set_attribute("data-rs-state", &next);
+}
+
+fn remove_state(el: &leptos::web_sys::Element, token: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    let next = current.split_whitespace()
+        .filter(|t| *t != token)
+        .collect::<Vec<_>>()
+        .join(" ");
+    let _ = el.set_attribute("data-rs-state", &next);
+}
+
 #[island]
 pub fn CollapsibleIsland(
     children: Children,
@@ -32,26 +48,31 @@ pub fn CollapsibleIsland(
                 .and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             if target.closest("[data-rs-collapsible-trigger]").ok().flatten().is_none() { return; }
 
-            let state = root_cb.get_attribute("data-rs-state").unwrap_or_default();
-            let is_open = state.contains("open");
+            let is_open = root_cb.get_attribute("data-rs-state")
+                .map(|s| s.contains("open"))
+                .unwrap_or(false);
 
             if is_open {
-                let _ = root_cb.set_attribute("data-rs-state", "closed");
-                if let Ok(Some(content)) = root_cb.query_selector("[data-rs-collapsible-content]") {
-                    let _ = content.set_attribute("data-rs-state", "closed");
-                    let _ = content.set_attribute("aria-hidden", "true");
-                }
+                remove_state(&root_cb, "open");
+                add_state(&root_cb, "closed");
                 if let Ok(Some(trigger)) = root_cb.query_selector("[data-rs-collapsible-trigger]") {
                     let _ = trigger.set_attribute("aria-expanded", "false");
                 }
-            } else {
-                let _ = root_cb.set_attribute("data-rs-state", "open");
                 if let Ok(Some(content)) = root_cb.query_selector("[data-rs-collapsible-content]") {
-                    let _ = content.set_attribute("data-rs-state", "open");
-                    let _ = content.set_attribute("aria-hidden", "false");
+                    remove_state(&content, "open");
+                    add_state(&content, "closed");
+                    let _ = content.set_attribute("aria-hidden", "true");
                 }
+            } else {
+                remove_state(&root_cb, "closed");
+                add_state(&root_cb, "open");
                 if let Ok(Some(trigger)) = root_cb.query_selector("[data-rs-collapsible-trigger]") {
                     let _ = trigger.set_attribute("aria-expanded", "true");
+                }
+                if let Ok(Some(content)) = root_cb.query_selector("[data-rs-collapsible-content]") {
+                    remove_state(&content, "closed");
+                    add_state(&content, "open");
+                    let _ = content.set_attribute("aria-hidden", "false");
                 }
             }
         }));

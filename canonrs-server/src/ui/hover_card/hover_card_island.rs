@@ -1,61 +1,47 @@
+//! @canon-level: strict
+//! HoverCard Island — bootstrap only, delegates to interaction engine
+
 use leptos::prelude::*;
+use super::hover_card_ui::{HoverCard, HoverCardTrigger, HoverCardContent};
+use canonrs_core::meta::VisibilityState;
 
 #[island]
+pub fn HoverCardInit() -> impl IntoView {
+    #[cfg(target_arch = "wasm32")]
+    {
+                use wasm_bindgen_futures::spawn_local;
+        spawn_local(async move {
+            canonrs_client::interactions::hover_card::init_all();
+        });
+    }
+    view! { <></> }
+}
+
+#[component]
 pub fn HoverCardIsland(
-    #[prop(into)] trigger: String,
-    #[prop(into)] content: String,
+    children: Children,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let (is_open, set_open) = signal(false);
-    let _ = set_open;
-
-    let state = move || if is_open.get() { "open" } else { "closed" };
-
-    #[cfg(feature = "hydrate")]
-    let on_show = move |_: leptos::ev::MouseEvent| { set_open.set(true); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_show = move |_: leptos::ev::MouseEvent| {};
-
-    #[cfg(feature = "hydrate")]
-    let on_hide = move |_: leptos::ev::MouseEvent| { set_open.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_hide = move |_: leptos::ev::MouseEvent| {};
-
-    #[cfg(feature = "hydrate")]
-    let on_focus = move |_: leptos::ev::FocusEvent| { set_open.set(true); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_focus = move |_: leptos::ev::FocusEvent| {};
-
-    #[cfg(feature = "hydrate")]
-    let on_blur = move |_: leptos::ev::FocusEvent| { set_open.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_blur = move |_: leptos::ev::FocusEvent| {};
-
     view! {
-        <span
-            data-rs-hover-card=""
-            data-rs-component="HoverCard"
-            data-rs-state=move || state()
-            class=class
-        >
-            <span
-                data-rs-hover-card-trigger=""
-                tabindex="0"
-                on:mouseenter=on_show
-                on:mouseleave=on_hide
-                on:focus=on_focus
-                on:blur=on_blur
-            >
-                {trigger}
-            </span>
-            <div
-                data-rs-hover-card-content=""
-                data-rs-state=move || state()
-                role="region"
-            >
-                {content}
-            </div>
-        </span>
+        <HoverCardInit />
+        <HoverCard state=VisibilityState::Closed class=class.unwrap_or_default()>
+            {children()}
+        </HoverCard>
     }
+}
+
+#[component]
+pub fn HoverCardTriggerIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <HoverCardTrigger class=class.unwrap_or_default()>{children()}</HoverCardTrigger> }
+}
+
+#[component]
+pub fn HoverCardContentIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <HoverCardContent class=class.unwrap_or_default()>{children()}</HoverCardContent> }
 }

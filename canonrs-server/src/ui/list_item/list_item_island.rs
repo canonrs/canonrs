@@ -1,77 +1,64 @@
-use leptos::prelude::*;
-use super::list_item_ui::{List, ListItem, ListItemTitle, ListItemDescription, ListSelectionMode};
+//! @canon-level: strict
+//! ListItem Island — bootstrap only, delegates to interaction engine
 
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct ListIslandItem {
-    pub label:       String,
-    pub description: Option<String>,
-    pub disabled:    bool,
-}
+use leptos::prelude::*;
+use super::list_item_ui::{List, ListItem, ListItemTitle, ListItemDescription};
 
 #[island]
-pub fn ListItemIsland(
-    items: Vec<ListIslandItem>,
-    #[prop(optional)] multiple: Option<bool>,
+pub fn ListItemInit() -> impl IntoView {
+    #[cfg(target_arch = "wasm32")]
+    {
+                use wasm_bindgen_futures::spawn_local;
+        spawn_local(async move {
+            canonrs_client::interactions::list_item::init_all();
+        });
+    }
+    view! { <></> }
+}
+
+#[component]
+pub fn ListIsland(
+    children: Children,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let multiple       = multiple.unwrap_or(false);
-    let class          = class.unwrap_or_default();
-    let selection_mode = if multiple { ListSelectionMode::Multiple } else { ListSelectionMode::Single };
-
-    let selected     = RwSignal::new(Vec::<usize>::new());
-    let hovered      = RwSignal::new(Option::<usize>::None);
-    let stored_items = StoredValue::new(items);
-
     view! {
-        <List _selection_mode=selection_mode class=class>
-            {move || {
-                stored_items.get_value().into_iter().enumerate().map(|(i, item)| {
-                    let disabled = item.disabled;
-                    let label    = item.label.clone();
-                    let desc     = item.description.clone();
-
-                    view! {
-                        <ListItem
-                            selectable=true
-                            selected=false
-                            disabled=disabled
-                            on:click=move |_| {
-                                if disabled { return; }
-                                selected.update(|sel| {
-                                    if multiple {
-                                        if sel.contains(&i) { sel.retain(|&x| x != i); }
-                                        else { sel.push(i); }
-                                    } else {
-                                        if sel.contains(&i) { sel.clear(); }
-                                        else { *sel = vec![i]; }
-                                    }
-                                });
-                            }
-                            on:mouseenter=move |_| { hovered.set(Some(i)); }
-                            on:mouseleave=move |_| { hovered.set(None); }
-                        >
-                            <div
-                                data-rs-list-item-content=""
-                                data-rs-selectable=""
-                                data-rs-state=move || {
-                                    let is_selected = selected.get().contains(&i);
-                                    let is_hovered  = hovered.get() == Some(i);
-                                    match (is_selected, is_hovered, disabled) {
-                                        (_, _, true)     => "disabled",
-                                        (true, true, _)  => "selected hover",
-                                        (true, false, _) => "selected",
-                                        (false, true, _) => "hover",
-                                        _                => "",
-                                    }
-                                }
-                            >
-                                <ListItemTitle>{label}</ListItemTitle>
-                                {desc.map(|d| view! { <ListItemDescription>{d}</ListItemDescription> })}
-                            </div>
-                        </ListItem>
-                    }
-                }).collect::<Vec<_>>()
-            }}
-        </List>
+        <ListItemInit />
+        <List class=class.unwrap_or_default()>{children()}</List>
     }
+}
+
+#[component]
+pub fn ListItemIsland(
+    children: Children,
+    #[prop(optional)] selectable: Option<bool>,
+    #[prop(optional)] selected: Option<bool>,
+    #[prop(optional)] disabled: Option<bool>,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! {
+        <ListItem
+            selectable=selectable.unwrap_or(false)
+            selected=selected.unwrap_or(false)
+            disabled=disabled.unwrap_or(false)
+            class=class.unwrap_or_default()
+        >
+            {children()}
+        </ListItem>
+    }
+}
+
+#[component]
+pub fn ListItemTitleIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ListItemTitle class=class.unwrap_or_default()>{children()}</ListItemTitle> }
+}
+
+#[component]
+pub fn ListItemDescriptionIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ListItemDescription class=class.unwrap_or_default()>{children()}</ListItemDescription> }
 }

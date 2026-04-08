@@ -1,4 +1,3 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{NavigationGroupPrimitive, NavigationGroupLabelPrimitive};
 
@@ -21,7 +20,7 @@ impl LinkGroupDirection {
 #[component]
 pub fn LinkGroup(
     children: Children,
-    #[prop(optional)] label: Option<ChildrenFn>,
+    #[prop(optional)] label: Option<std::sync::Arc<dyn Fn() -> AnyView + Send + Sync>>,
     #[prop(default = LinkGroupDirection::Vertical)] direction: LinkGroupDirection,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {

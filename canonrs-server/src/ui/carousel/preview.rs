@@ -1,8 +1,6 @@
 use leptos::prelude::*;
-use super::carousel_island::{
-    CarouselIsland, CarouselTrackIsland, CarouselItemIsland,
-    CarouselPrevIsland, CarouselNextIsland, CarouselIndicatorsIsland,
-};
+use super::carousel_island::{CarouselIsland, CarouselTrackIsland, CarouselItemIsland, CarouselPrevIsland, CarouselNextIsland};
+use canonrs_core::ToggleState;
 
 #[component]
 pub fn CarouselShowcasePreview() -> impl IntoView {
@@ -11,52 +9,28 @@ pub fn CarouselShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-stage="">
                 <CarouselIsland>
                     <CarouselTrackIsland>
-                        <CarouselItemIsland>
-                            <div style="padding:2rem;background:var(--theme-surface-raised);border-radius:var(--radius-md);text-align:center;">
-                                "Slide 1 — Design Systems"
-                            </div>
-                        </CarouselItemIsland>
-                        <CarouselItemIsland>
-                            <div style="padding:2rem;background:var(--theme-surface-raised);border-radius:var(--radius-md);text-align:center;">
-                                "Slide 2 — Primitives"
-                            </div>
-                        </CarouselItemIsland>
-                        <CarouselItemIsland>
-                            <div style="padding:2rem;background:var(--theme-surface-raised);border-radius:var(--radius-md);text-align:center;">
-                                "Slide 3 — Behaviors"
-                            </div>
-                        </CarouselItemIsland>
+                        <CarouselItemIsland active=true>"Slide 1"</CarouselItemIsland>
+                        <CarouselItemIsland>"Slide 2"</CarouselItemIsland>
+                        <CarouselItemIsland>"Slide 3"</CarouselItemIsland>
                     </CarouselTrackIsland>
                     <CarouselPrevIsland>"←"</CarouselPrevIsland>
                     <CarouselNextIsland>"→"</CarouselNextIsland>
-                    <CarouselIndicatorsIsland><span /></CarouselIndicatorsIsland>
                 </CarouselIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
-                "Slide state and navigation semantics enforced via structured primitives."
+                "Sequential navigation with optional autoplay and loop."
             </p>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Autoplay"</span>
                 <div data-rs-showcase-preview-row="">
-                    <CarouselIsland autoplay=true interval=3000u32>
+                    <CarouselIsland autoplay=ToggleState::On interval=3000u32>
                         <CarouselTrackIsland>
-                            <CarouselItemIsland>
-                                <div style="padding:1.5rem;background:var(--theme-surface-raised);border-radius:var(--radius-md);text-align:center;">
-                                    "Auto A"
-                                </div>
-                            </CarouselItemIsland>
-                            <CarouselItemIsland>
-                                <div style="padding:1.5rem;background:var(--theme-surface-raised);border-radius:var(--radius-md);text-align:center;">
-                                    "Auto B"
-                                </div>
-                            </CarouselItemIsland>
-                            <CarouselItemIsland>
-                                <div style="padding:1.5rem;background:var(--theme-surface-raised);border-radius:var(--radius-md);text-align:center;">
-                                    "Auto C"
-                                </div>
-                            </CarouselItemIsland>
+                            <CarouselItemIsland active=true>"Auto 1"</CarouselItemIsland>
+                            <CarouselItemIsland>"Auto 2"</CarouselItemIsland>
+                            <CarouselItemIsland>"Auto 3"</CarouselItemIsland>
                         </CarouselTrackIsland>
-                        <CarouselIndicatorsIsland><span /></CarouselIndicatorsIsland>
+                        <CarouselPrevIsland>"←"</CarouselPrevIsland>
+                        <CarouselNextIsland>"→"</CarouselNextIsland>
                     </CarouselIsland>
                 </div>
             </div>
