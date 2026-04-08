@@ -22,15 +22,12 @@ fn remove_state(el: &Element, state: &str) {
 
 pub fn init(root: Element) {
     web_sys::console::log_1(&"[resizable] init called".into());
-    if root.get_attribute("data-rs-initialized").as_deref() == Some("true") { return; }
-    let _ = root.set_attribute("data-rs-initialized", "true");
-
     let orientation = root.get_attribute("data-rs-orientation").unwrap_or_else(|| "horizontal".to_string());
     let min_size = root.get_attribute("data-rs-min-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(20.0);
     let max_size = root.get_attribute("data-rs-max-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(80.0);
     let is_horizontal = orientation == "horizontal";
 
-    if let Ok(panels) = root.query_selector_all("[data-rs-resizable-panel]") {
+    if let Ok(panels) = root.query_selector_all("[data-rs-resizable]") {
         for i in 0..panels.length() {
             if let Some(node) = panels.item(i) {
                 if let Ok(el) = node.dyn_into::<HtmlElement>() {
@@ -46,7 +43,7 @@ pub fn init(root: Element) {
     let Ok(Some(hn)) = root.query_selector("[data-rs-resizable-handle]") else { return };
     let Ok(handle) = hn.dyn_into::<HtmlElement>() else { return };
 
-    let panels_qs = match root.query_selector_all("[data-rs-resizable-panel]") { Ok(n) => n, Err(_) => return };
+    let panels_qs = match root.query_selector_all("[data-rs-resizable]") { Ok(n) => n, Err(_) => return };
     let Some(p0n) = panels_qs.item(0) else { return };
     let Some(p1n) = panels_qs.item(1) else { return };
     let Ok(p0) = p0n.dyn_into::<HtmlElement>() else { return };
@@ -119,48 +116,14 @@ pub fn init(root: Element) {
     on_up.forget();
 }
 
-fn try_init_all(doc: &web_sys::Document) {
-    web_sys::console::log_1(&"[resizable] try_init_all".into());
-    let containers = match doc.query_selector_all("[data-rs-resizable]") { Ok(n) => n, Err(_) => return };
-    for i in 0..containers.length() {
-        if let Some(node) = containers.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() {
-                init(el);
-            }
-        }
-    }
-}
 
 pub fn init_all() {
     let win = match web_sys::window() { Some(w) => w, None => return };
     let doc = match win.document() { Some(d) => d, None => return };
-
-    try_init_all(&doc);
-
-    let doc_obs = doc.clone();
-    let cb = Closure::wrap(Box::new(move |_: js_sys::Array, _: web_sys::MutationObserver| {
-        try_init_all(&doc_obs);
-    }) as Box<dyn FnMut(_, _)>);
-
-    let observer = match web_sys::MutationObserver::new(cb.as_ref().unchecked_ref()) {
-        Ok(o) => o,
-        Err(_) => { cb.forget(); return },
-    };
-
-    let opts = web_sys::MutationObserverInit::new();
-    opts.set_child_list(true);
-    opts.set_subtree(true);
-
-    if let Some(body) = doc.body() {
-        observer.observe_with_options(&body, &opts).ok();
+    let nodes = match doc.query_selector_all("[data-rs-resizable]") { Ok(n) => n, Err(_) => return };
+    for i in 0..nodes.length() {
+        if let Some(node) = nodes.item(i) {
+            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
+        }
     }
-
-    cb.forget();
-    let obs_clone = observer.clone();
-    let win2 = win.clone();
-    let disconnect = Closure::wrap(Box::new(move || {
-        obs_clone.disconnect();
-    }) as Box<dyn Fn()>);
-    win2.set_timeout_with_callback_and_timeout_and_arguments_0(disconnect.as_ref().unchecked_ref(), 5000).ok();
-    disconnect.forget();
 }

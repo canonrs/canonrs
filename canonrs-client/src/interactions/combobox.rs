@@ -18,7 +18,7 @@ fn remove_state(el: &Element, token: &str) {
 }
 
 fn get_items(root: &Element) -> Vec<Element> {
-    let Ok(list) = root.query_selector_all("[data-rs-combobox-item]") else { return vec![] };
+    let Ok(list) = root.query_selector_all("[data-rs-combobox]") else { return vec![] };
     (0..list.length()).filter_map(|i| list.item(i)).filter_map(|n| n.dyn_into::<Element>().ok()).collect()
 }
 
@@ -89,9 +89,6 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 }
 
 pub fn init(root: Element) {
-    if root.get_attribute("data-rs-initialized").as_deref() == Some("true") { return; }
-    let _ = root.set_attribute("data-rs-initialized", "true");
-
     { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |_| {
         if is_disabled(&rc) { return; }
         let q = get_input(&rc).map(|i| i.value()).unwrap_or_default();
@@ -155,23 +152,13 @@ pub fn init(root: Element) {
     })); if let Some(doc) = web_sys::window().and_then(|w| w.document()) { let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()); } cb.forget(); }
 }
 
-fn try_init_all(doc: &web_sys::Document) {
-    let nodes = match doc.query_selector_all("[data-rs-combobox]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(n) = nodes.item(i) { if let Ok(el) = n.dyn_into::<Element>() { init(el); } }
-    }
-}
-
 pub fn init_all() {
     let win = match web_sys::window() { Some(w) => w, None => return };
     let doc = match win.document() { Some(d) => d, None => return };
-    try_init_all(&doc);
-    let doc_obs = doc.clone();
-    let cb = Closure::wrap(Box::new(move |_: js_sys::Array, _: web_sys::MutationObserver| {
-        try_init_all(&doc_obs);
-    }) as Box<dyn FnMut(_, _)>);
-    let observer = match web_sys::MutationObserver::new(cb.as_ref().unchecked_ref()) { Ok(o) => o, Err(_) => { cb.forget(); return } };
-    let opts = web_sys::MutationObserverInit::new(); opts.set_child_list(true); opts.set_subtree(true);
-    if let Some(body) = doc.body() { observer.observe_with_options(&body, &opts).ok(); }
-    cb.forget();
+    let nodes = match doc.query_selector_all("[data-rs-combobox]") { Ok(n) => n, Err(_) => return };
+    for i in 0..nodes.length() {
+        if let Some(node) = nodes.item(i) {
+            if let Ok(el) = node.dyn_into::<web_sys::Element>() { init(el); }
+        }
+    }
 }
