@@ -68,6 +68,7 @@ pub mod menu;
 pub mod menubar;
 pub mod modal;
 pub mod navigation_group;
+pub mod link_group;
 pub mod navigation_menu;
 pub mod nav_item;
 pub mod page_header;
@@ -149,6 +150,7 @@ pub use menu::{MenuPrimitive, MenuItemPrimitive, MenuGroupPrimitive, MenuLabelPr
 pub use menubar::*;
 pub use modal::*;
 pub use navigation_group::*;
+pub use link_group::*;
 pub use navigation_menu::*;
 pub use nav_item::*;
 pub use page_header::*;

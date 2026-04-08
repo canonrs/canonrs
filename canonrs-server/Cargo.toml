@@ -29,7 +29,16 @@ wasm-bindgen-futures = { version = "0.4", optional = true }
 default = []
 examples = []
 ssr = ["axum", "tokio", "tower", "tower-http", "leptos_axum", "leptos/ssr", "leptos_meta/ssr", "leptos_router/ssr", "canonrs-core/ssr", "syntect", "pulldown-cmark", "html-escape"]
-hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "dep:web-sys", "dep:wasm-bindgen", "dep:js-sys", "dep:wasm-bindgen-futures", "dep:canonrs-client"]
+hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "dep:web-sys", "dep:wasm-bindgen", "dep:js-sys", "dep:wasm-bindgen-futures", "dep:canonrs-client", "full"]
+
+# ── Interaction groups — repassados para canonrs-client ──────────────────────
+ix_gesture   = ["dep:canonrs-client", "canonrs-client/ix_gesture"]
+ix_overlay   = ["dep:canonrs-client", "canonrs-client/ix_overlay"]
+ix_selection = ["dep:canonrs-client", "canonrs-client/ix_selection"]
+ix_nav       = ["dep:canonrs-client", "canonrs-client/ix_nav"]
+ix_data      = ["dep:canonrs-client", "canonrs-client/ix_data"]
+ix_content   = ["dep:canonrs-client", "canonrs-client/ix_content"]
+full         = ["ix_gesture", "ix_overlay", "ix_selection", "ix_nav", "ix_data", "ix_content"]
 
 [lints]
 workspace = true

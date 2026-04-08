@@ -1,75 +1,112 @@
+//! Avatar Island — Canon Rule #341
+//! DOM-driven, zero state. Image load/error via web_sys + Effect.
+
 use leptos::prelude::*;
 use super::avatar_ui::{Avatar, AvatarImage, AvatarFallback, AvatarSize, AvatarShape, AvatarStatus};
-
-#[island]
-pub fn AvatarInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-            canonrs_client::interactions::avatar::init_all();
-        });
-    }
-    view! { <></> }
-}
 
 #[component]
 pub fn AvatarIsland(
     children: Children,
-    #[prop(optional, into)] size: Option<String>,
-    #[prop(optional, into)] shape: Option<String>,
-    #[prop(optional, into)] status: Option<String>,
-    #[prop(optional)] animated: Option<bool>,
-    #[prop(optional)] badge: Option<i32>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = AvatarSize::Md)] size:      AvatarSize,
+    #[prop(default = AvatarShape::Circle)] shape: AvatarShape,
+    #[prop(default = AvatarStatus::Online)] status: AvatarStatus,
+    #[prop(default = false)] animated:            bool,
+    #[prop(default = 0i32)] badge:                i32,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let size_val = match size.as_deref() {
-        Some("xs") => AvatarSize::Xs,
-        Some("sm") => AvatarSize::Sm,
-        Some("lg") => AvatarSize::Lg,
-        Some("xl") => AvatarSize::Xl,
-        _          => AvatarSize::Md,
-    };
-    let shape_val = match shape.as_deref() {
-        Some("square")  => AvatarShape::Square,
-        Some("rounded") => AvatarShape::Rounded,
-        _               => AvatarShape::Circle,
-    };
-    let status_val: Option<AvatarStatus> = match status.as_deref() {
-        Some("online")  => Some(AvatarStatus::Online),
-        Some("offline") => Some(AvatarStatus::Offline),
-        Some("busy")    => Some(AvatarStatus::Busy),
-        Some("away")    => Some(AvatarStatus::Away),
-        _               => None,
-    };
+    let node_ref = NodeRef::<leptos::html::Div>::new();
+
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
+
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
+
+        if root.has_attribute("data-rs-attached") { return; }
+        let _ = root.set_attribute("data-rs-attached", "1");
+
+        let img_node = match root.query_selector("[data-rs-avatar-image]").ok().flatten() {
+            Some(el) => el,
+            None => {
+                // no image — show fallback
+                if let Ok(Some(fb)) = root.query_selector("[data-rs-avatar-fallback]") {
+                    let _ = fb.remove_attribute("hidden");
+                    let _ = fb.set_attribute("data-rs-state", "visible");
+                }
+                return;
+            }
+        };
+
+        let img = match img_node.dyn_into::<web_sys::HtmlImageElement>() {
+            Ok(el) => el, Err(_) => return,
+        };
+
+        if img.complete() && img.natural_width() > 0 {
+            let _ = root.set_attribute("data-rs-state", "loaded");
+            return;
+        }
+
+        let _ = root.set_attribute("data-rs-state", "loading");
+
+        // onload
+        {
+            let root_c = root.clone();
+            let cb = Closure::wrap(Box::new(move || {
+                let _ = root_c.set_attribute("data-rs-state", "loaded");
+                if let Ok(Some(fb)) = root_c.query_selector("[data-rs-avatar-fallback]") {
+                    let _ = fb.set_attribute("hidden", "");
+                }
+            }) as Box<dyn Fn()>);
+            img.set_onload(Some(cb.as_ref().unchecked_ref()));
+            cb.forget();
+        }
+
+        // onerror
+        {
+            let root_c = root.clone();
+            let cb = Closure::wrap(Box::new(move || {
+                let _ = root_c.set_attribute("data-rs-state", "error");
+                if let Ok(Some(fb)) = root_c.query_selector("[data-rs-avatar-fallback]") {
+                    let _ = fb.remove_attribute("hidden");
+                    let _ = fb.set_attribute("data-rs-state", "visible");
+                }
+            }) as Box<dyn Fn()>);
+            img.set_onerror(Some(cb.as_ref().unchecked_ref()));
+            cb.forget();
+        }
+    });
+
     view! {
-        <AvatarInit />
-        <Avatar
-            size=size_val
-            shape=shape_val
-            status=status_val.unwrap_or(AvatarStatus::Online)
-            animated=animated.unwrap_or(false)
-            badge=badge.unwrap_or(0)
-            class=class.unwrap_or_default()
-        >
-            {children()}
-        </Avatar>
+        <div node_ref=node_ref>
+            <Avatar
+                size=size
+                shape=shape
+                status=status
+                animated=animated
+                badge=badge
+                class=class
+            >
+                {children()}
+            </Avatar>
+        </div>
     }
 }
 
 #[component]
 pub fn AvatarImageIsland(
-    src: String,
-    alt: String,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into)] src: String,
+    #[prop(into)] alt: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <AvatarImage src=src alt=alt class=class.unwrap_or_default() /> }
+    view! { <AvatarImage src=src alt=alt class=class /> }
 }
 
 #[component]
 pub fn AvatarFallbackIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <AvatarFallback class=class.unwrap_or_default()>{children()}</AvatarFallback> }
+    view! { <AvatarFallback class=class>{children()}</AvatarFallback> }
 }

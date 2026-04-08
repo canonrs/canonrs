@@ -25,7 +25,7 @@ pub fn init(root: Element) {
     let max_size = root.get_attribute("data-rs-max-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(80.0);
     let is_horizontal = orientation == "horizontal";
 
-    if let Ok(panels) = root.query_selector_all("[data-rs-resizable]") {
+    if let Ok(panels) = root.query_selector_all("[data-rs-resizable-panel]") {
         for i in 0..panels.length() {
             if let Some(node) = panels.item(i) {
                 if let Ok(el) = node.dyn_into::<HtmlElement>() {
@@ -41,7 +41,7 @@ pub fn init(root: Element) {
     let Ok(Some(hn)) = root.query_selector("[data-rs-resizable-handle]") else { return };
     let Ok(handle) = hn.dyn_into::<HtmlElement>() else { return };
 
-    let panels_qs = match root.query_selector_all("[data-rs-resizable]") { Ok(n) => n, Err(_) => return };
+    let panels_qs = match root.query_selector_all("[data-rs-resizable-panel]") { Ok(n) => n, Err(_) => return };
     let Some(p0n) = panels_qs.item(0) else { return };
     let Some(p1n) = panels_qs.item(1) else { return };
     let Ok(p0) = p0n.dyn_into::<HtmlElement>() else { return };

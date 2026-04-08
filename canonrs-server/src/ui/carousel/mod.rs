@@ -12,4 +12,4 @@ pub use carousel_ui::CarouselPreview;
 pub mod preview;
 pub use preview::CarouselShowcasePreview;
 pub mod carousel_island;
-pub use carousel_island::*;
+pub use carousel_island::{CarouselIsland, CarouselTrackIsland, CarouselItemIsland, CarouselPrevIsland, CarouselNextIsland, CarouselInit};

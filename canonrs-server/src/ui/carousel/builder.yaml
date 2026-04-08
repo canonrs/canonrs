@@ -41,3 +41,4 @@ after: |
     </Carousel>
   }
 island_type: interaction
+ix_group: ix_gesture

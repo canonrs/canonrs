@@ -37,3 +37,4 @@ after: |
     <DataTableCore data=data columns=columns />
   }
 island_type: interaction
+ix_group: ix_data

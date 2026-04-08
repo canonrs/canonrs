@@ -70,3 +70,10 @@ fn bind_escape() {
         .map(|et| et.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref()));
     cb.forget();
 }
+
+pub fn init(root: web_sys::Element) {
+    use wasm_bindgen::JsCast;
+    if let Ok(el) = root.dyn_into::<web_sys::HtmlElement>() {
+        init_drawer(el);
+    }
+}

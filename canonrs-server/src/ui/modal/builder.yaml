@@ -37,3 +37,4 @@ after: |
     </Modal>
   }
 island_type: interaction
+ix_group: ix_overlay

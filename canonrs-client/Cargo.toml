@@ -35,5 +35,16 @@ ctor = { version = "0.2", optional = true }
 default = []
 hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "ctor"]
 
+# ── Interaction groups — opt-in tree-shaking ─────────────────────────────────
+ix_gesture   = []
+ix_overlay   = []
+ix_selection = []
+ix_nav       = []
+ix_data      = []
+ix_content   = []
+
+# full = todos os grupos (compatibilidade retroativa)
+full = ["ix_gesture", "ix_overlay", "ix_selection", "ix_nav", "ix_data", "ix_content"]
+
 [lints]
 workspace = true

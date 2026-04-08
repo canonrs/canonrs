@@ -35,3 +35,4 @@ after: |
     <Radio value="a" name="group" checked=true>"Option"</Radio>
   }
 island_type: interaction
+ix_group: ix_selection

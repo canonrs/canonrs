@@ -174,3 +174,7 @@ fn navigable_items(root: &Element) -> Vec<Element> {
 fn focused_index(items: &[Element]) -> Option<usize> {
     items.iter().position(|el| el.get_attribute("data-rs-state").map(|s| s.contains("focus")).unwrap_or(false))
 }
+
+pub fn init(root: web_sys::Element) {
+    init_dropdown(root);
+}

@@ -1,6 +1,4 @@
 pub mod select_ui;
-pub mod select_island;
-pub use select_island::{SelectIsland, SelectOption};
 
 #[cfg(feature = "examples")]
 pub mod examples;
@@ -13,3 +11,5 @@ pub use select_ui::SelectPreview;
 
 pub mod preview;
 pub use preview::SelectShowcasePreview;
+pub mod select_island;
+pub use select_island::{SelectIsland, SelectOption, SelectInit};

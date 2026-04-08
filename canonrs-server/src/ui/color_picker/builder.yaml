@@ -35,3 +35,4 @@ after: |
     <ColorPicker value="#000000" />
   }
 island_type: interaction
+ix_group: ix_selection

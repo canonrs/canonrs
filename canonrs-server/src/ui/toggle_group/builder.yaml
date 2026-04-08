@@ -39,4 +39,5 @@ after: |
       <Toggle>"A"</Toggle>
     </ToggleGroup>
   }
-island_type: init
+island_type: interaction
+ix_group: ix_selection

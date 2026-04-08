@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use canonrs_core::primitives::{NavigationGroupPrimitive, NavigationGroupLabelPrimitive};
+use canonrs_core::primitives::{LinkGroupPrimitive, LinkGroupLabelPrimitive};
 
 #[derive(Clone, Copy, PartialEq, Default)]
 pub enum LinkGroupDirection {
@@ -25,16 +25,16 @@ pub fn LinkGroup(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <NavigationGroupPrimitive class=class>
+        <LinkGroupPrimitive class=class>
             {label.map(|l| view! {
-                <NavigationGroupLabelPrimitive>
+                <LinkGroupLabelPrimitive>
                     {l()}
-                </NavigationGroupLabelPrimitive>
+                </LinkGroupLabelPrimitive>
             })}
             <div data-rs-link-group-items="" data-rs-direction=direction.as_str()>
                 {children()}
             </div>
-        </NavigationGroupPrimitive>
+        </LinkGroupPrimitive>
     }
 }
 

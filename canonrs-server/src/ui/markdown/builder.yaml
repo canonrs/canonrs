@@ -35,3 +35,4 @@ after: |
     <MarkdownSurface rendered=rendered />
   }
 island_type: interaction
+ix_group: ix_content

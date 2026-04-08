@@ -1,10 +1,10 @@
 # CanonRS SSOT Audit
 
 ## Components
-- Primitives: 89
+- Primitives: 90
 - Semantic (components.toml): 0
 - Complete: 0
-- Missing semantic: 89
+- Missing semantic: 90
 - Orphan semantic: 0
 
 ### Missing semantic
@@ -56,6 +56,7 @@
 - `kbd`
 - `label`
 - `link`
+- `link-group`
 - `list-item`
 - `loading-overlay`
 - `logo`

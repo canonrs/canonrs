@@ -363,3 +363,10 @@ fn count_visible(table: &HtmlElement) -> usize {
             .count())
         .unwrap_or(0)
 }
+
+pub fn init(root: web_sys::Element) {
+    use wasm_bindgen::JsCast;
+    if let Ok(el) = root.dyn_into::<web_sys::HtmlElement>() {
+        init_table(el);
+    }
+}

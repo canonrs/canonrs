@@ -4,7 +4,7 @@ use canonrs_core::primitives::{
     CodeBlockPrimitive, CodeBlockHeaderPrimitive, CodeBlockLanguagePrimitive,
     CodeBlockFilenamePrimitive,
 };
-use crate::ui::copy_button::copy_button_island::CopyButtonIsland;
+use crate::ui::copy_button::copy_button_island::CopyButtonIsland; // island kept intentionally
 #[cfg(feature = "ssr")]
 use super::highlighter::highlight;
 

@@ -83,3 +83,10 @@ fn bind_click_outside(doc: &web_sys::Document) {
         .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
     cb.forget();
 }
+
+pub fn init(root: web_sys::Element) {
+    use wasm_bindgen::JsCast;
+    if let Ok(el) = root.dyn_into::<web_sys::HtmlElement>() {
+        init_context_menu(el);
+    }
+}
