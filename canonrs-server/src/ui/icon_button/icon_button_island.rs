@@ -1,27 +1,15 @@
+//! IconButton Island — Canon Rule #341
+//! DOM-driven, zero state. Lógica via web_sys + Effect.
+
 use leptos::prelude::*;
-use canonrs_core::primitives::IconButtonVariant as CoreVariant;
 
 #[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum IconButtonVariant {
     #[default] Default,
-    Ghost,
-    Outline,
-    Solid,
-    Subtle,
-    Destructive,
+    Ghost, Outline, Solid, Subtle, Destructive,
 }
 
 impl IconButtonVariant {
-    pub fn to_core(&self) -> CoreVariant {
-        match self {
-            Self::Default     => CoreVariant::Default,
-            Self::Ghost       => CoreVariant::Ghost,
-            Self::Outline     => CoreVariant::Outline,
-            Self::Solid       => CoreVariant::Solid,
-            Self::Subtle      => CoreVariant::Subtle,
-            Self::Destructive => CoreVariant::Destructive,
-        }
-    }
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::Default     => "default",
@@ -41,99 +29,129 @@ pub enum IconButtonSize {
 
 impl IconButtonSize {
     pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Xs => "xs",
-            Self::Sm => "sm",
-            Self::Md => "md",
-            Self::Lg => "lg",
-            Self::Xl => "xl",
-        }
+        match self { Self::Xs => "xs", Self::Sm => "sm", Self::Md => "md", Self::Lg => "lg", Self::Xl => "xl" }
     }
 }
 
 #[island]
 pub fn IconButtonIsland(
     children: Children,
-    #[prop(optional, into)] aria_label: Option<String>,
-    #[prop(optional)] variant: Option<IconButtonVariant>,
-    #[prop(optional)] size: Option<IconButtonSize>,
-    #[prop(optional)] disabled: Option<bool>,
-    #[prop(optional)] pressed: Option<bool>,
-    #[prop(optional)] loading: Option<bool>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(optional, into)] aria_label:  Option<String>,
+    #[prop(optional)] variant:           Option<IconButtonVariant>,
+    #[prop(optional)] size:              Option<IconButtonSize>,
+    #[prop(optional)] disabled:          Option<bool>,
+    #[prop(optional)] pressed:           Option<bool>,
+    #[prop(optional)] loading:           Option<bool>,
+    #[prop(optional, into)] class:       Option<String>,
 ) -> impl IntoView {
-    let variant  = variant.unwrap_or_default();
-    let size     = size.unwrap_or_default();
-    let disabled = disabled.unwrap_or(false);
-    let class    = class.unwrap_or_default();
     let aria_label = aria_label.unwrap_or_default();
-
-    let (is_hover,   set_hover)   = signal(false);
-    let (is_active,  set_active)  = signal(false);
-    let (is_focus,   set_focus)   = signal(false);
-    let (is_pressed, set_pressed) = signal(pressed.unwrap_or(false));
-    let loading = loading.unwrap_or(false);
-
-    let state = move || {
-        let mut s = vec![];
-        if disabled          { s.push("disabled"); }
-        if is_hover.get()    { s.push("hover");    }
-        if is_active.get()   { s.push("active");   }
-        if is_focus.get()    { s.push("focus");    }
-        if is_pressed.get()  { s.push("pressed");  }
-        if loading           { s.push("loading");  }
-        s.join(" ")
-    };
+    let variant    = variant.unwrap_or_default();
+    let size       = size.unwrap_or_default();
+    let disabled   = disabled.unwrap_or(false);
+    let pressed    = pressed.unwrap_or(false);
+    let loading    = loading.unwrap_or(false);
+    let class      = class.unwrap_or_default();
 
     let initial_state = {
         let mut s = vec![];
-        if disabled              { s.push("disabled"); }
-        if pressed.unwrap_or(false) { s.push("pressed"); }
-        if loading             { s.push("loading"); }
+        if disabled { s.push("disabled"); }
+        if pressed  { s.push("pressed");  }
+        if loading  { s.push("loading");  }
         s.join(" ")
     };
 
-    #[cfg(feature = "hydrate")]
-    let on_mouseenter = move |_: leptos::ev::MouseEvent| { if !disabled && !loading { set_hover.set(true); } };
-    #[cfg(not(feature = "hydrate"))]
-    let on_mouseenter = move |_: leptos::ev::MouseEvent| { let _ = set_hover; };
+    let node_ref = NodeRef::<leptos::html::Button>::new();
 
-    #[cfg(feature = "hydrate")]
-    let on_mouseleave = move |_: leptos::ev::MouseEvent| { set_hover.set(false); set_active.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_mouseleave = move |_: leptos::ev::MouseEvent| { let _ = (set_hover, set_active); };
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
 
-    #[cfg(feature = "hydrate")]
-    let on_pointerdown = move |_: leptos::ev::PointerEvent| { if !disabled { set_active.set(true); } };
-    #[cfg(not(feature = "hydrate"))]
-    let on_pointerdown = move |_: leptos::ev::PointerEvent| { let _ = set_active; };
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
 
-    #[cfg(feature = "hydrate")]
-    let on_pointerup = move |_: leptos::ev::PointerEvent| { set_active.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_pointerup = move |_: leptos::ev::PointerEvent| { let _ = set_active; };
+        if root.has_attribute("data-rs-attached") { return; }
+        let _ = root.set_attribute("data-rs-attached", "1");
 
-    #[cfg(feature = "hydrate")]
-    let on_pointercancel = move |_: leptos::ev::PointerEvent| { set_active.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_pointercancel = move |_: leptos::ev::PointerEvent| { let _ = set_active; };
+        let add = |el: &web_sys::Element, token: &str| {
+            let cur = el.get_attribute("data-rs-state").unwrap_or_default();
+            if cur.split_whitespace().any(|t| t == token) { return; }
+            let _ = el.set_attribute("data-rs-state", &format!("{} {}", cur, token).trim().to_string());
+        };
+        let remove = |el: &web_sys::Element, token: &str| {
+            let cur = el.get_attribute("data-rs-state").unwrap_or_default();
+            let _ = el.set_attribute("data-rs-state", &cur.split_whitespace().filter(|t| *t != token).collect::<Vec<_>>().join(" "));
+        };
 
-    #[cfg(feature = "hydrate")]
-    let on_focus = move |_: leptos::ev::FocusEvent| { if !disabled { set_focus.set(true); } };
-    #[cfg(not(feature = "hydrate"))]
-    let on_focus = move |_: leptos::ev::FocusEvent| { let _ = set_focus; };
+        // mouseenter
+        { let r = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+              if r.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") { return; }
+              add(&r, "hover");
+          }));
+          let _ = root.add_event_listener_with_callback("mouseenter", cb.as_ref().unchecked_ref());
+          cb.forget(); }
 
-    #[cfg(feature = "hydrate")]
-    let on_blur = move |_: leptos::ev::FocusEvent| { set_focus.set(false); };
-    #[cfg(not(feature = "hydrate"))]
-    let on_blur = move |_: leptos::ev::FocusEvent| { let _ = set_focus; };
+        // mouseleave
+        { let r = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+              remove(&r, "hover"); remove(&r, "active");
+          }));
+          let _ = root.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref());
+          cb.forget(); }
 
-    #[cfg(feature = "hydrate")]
-    let on_click = move |_: leptos::ev::MouseEvent| {
-        if !disabled { set_pressed.update(|p| *p = !*p); }
-    };
-    #[cfg(not(feature = "hydrate"))]
-    let on_click = move |_: leptos::ev::MouseEvent| { let _ = set_pressed; };
+        // pointerdown
+        { let r = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::PointerEvent| {
+              if r.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") { return; }
+              add(&r, "active");
+          }));
+          let _ = root.add_event_listener_with_callback("pointerdown", cb.as_ref().unchecked_ref());
+          cb.forget(); }
+
+        // pointerup + pointercancel
+        for ev in ["pointerup", "pointercancel"] {
+            let r = root.clone();
+            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::PointerEvent| {
+                remove(&r, "active");
+            }));
+            let _ = root.add_event_listener_with_callback(ev, cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+
+        // focus
+        { let r = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::FocusEvent| {
+              if r.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") { return; }
+              add(&r, "focus");
+          }));
+          let _ = root.add_event_listener_with_callback("focus", cb.as_ref().unchecked_ref());
+          cb.forget(); }
+
+        // blur
+        { let r = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::FocusEvent| {
+              remove(&r, "focus");
+          }));
+          let _ = root.add_event_listener_with_callback("blur", cb.as_ref().unchecked_ref());
+          cb.forget(); }
+
+        // click → toggle pressed
+        { let r = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+              let state = r.get_attribute("data-rs-state").unwrap_or_default();
+              if state.contains("disabled") { return; }
+              if state.contains("pressed") {
+                  remove(&r, "pressed");
+                  let _ = r.set_attribute("aria-pressed", "false");
+              } else {
+                  add(&r, "pressed");
+                  let _ = r.set_attribute("aria-pressed", "true");
+              }
+          }));
+          let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+          cb.forget(); }
+    });
 
     view! {
         <button
@@ -142,20 +160,13 @@ pub fn IconButtonIsland(
             data-rs-component="IconButton"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
-            data-rs-state=move || { let s = state(); if s.is_empty() { initial_state.clone() } else { s } }
+            data-rs-state=initial_state
             aria-disabled=disabled.to_string()
-            aria-pressed=is_pressed.get().to_string()
+            aria-pressed=pressed.to_string()
             aria-label=aria_label
             disabled=disabled
             class=class
-            on:mouseenter=on_mouseenter
-            on:mouseleave=on_mouseleave
-            on:pointerdown=on_pointerdown
-            on:pointerup=on_pointerup
-            on:pointercancel=on_pointercancel
-            on:focus=on_focus
-            on:blur=on_blur
-            on:click=on_click
+            node_ref=node_ref
         >
             <span data-rs-icon-button-inner="">{children()}</span>
         </button>

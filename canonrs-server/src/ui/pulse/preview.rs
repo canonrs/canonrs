@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::pulse_island::PulseIsland;
+use super::pulse_ui::{PulseVariant, PulseSize, PulseSpeed};
 
 #[component]
 pub fn PulseShowcasePreview() -> impl IntoView {
@@ -16,25 +17,25 @@ pub fn PulseShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variants"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
-                    <PulseIsland variant="subtle" />
+                    <PulseIsland variant=PulseVariant::Subtle />
                     <PulseIsland />
-                    <PulseIsland variant="emphasized" />
+                    <PulseIsland variant=PulseVariant::Emphasized />
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Sizes"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
-                    <PulseIsland size="small" />
-                    <PulseIsland size="medium" />
-                    <PulseIsland size="large" />
+                    <PulseIsland size=PulseSize::Small />
+                    <PulseIsland size=PulseSize::Medium />
+                    <PulseIsland size=PulseSize::Large />
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Speed"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
-                    <PulseIsland speed="slow" />
-                    <PulseIsland speed="normal" />
-                    <PulseIsland speed="fast" />
+                    <PulseIsland speed=PulseSpeed::Slow />
+                    <PulseIsland speed=PulseSpeed::Normal />
+                    <PulseIsland speed=PulseSpeed::Fast />
                 </div>
             </div>
         </div>

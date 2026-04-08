@@ -1,12 +1,12 @@
+//! Banner Island — Canon Rule #341
+//! DOM-driven, zero state. Lógica via web_sys + Effect.
+
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, Default)]
+#[derive(Clone, Copy, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum BannerIslandVariant {
-    #[default]
-    Info,
-    Success,
-    Warning,
-    Error,
+    #[default] Info,
+    Success, Warning, Error,
 }
 
 impl BannerIslandVariant {
@@ -22,48 +22,59 @@ impl BannerIslandVariant {
 
 #[island]
 pub fn BannerIsland(
-    #[prop(optional, into)] content: Option<String>,
-    #[prop(optional)] variant: Option<BannerIslandVariant>,
+    #[prop(optional, into)] content:                         Option<String>,
+    #[prop(optional)] variant:    Option<BannerIslandVariant>,
     #[prop(optional)] dismissible: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class       = class.unwrap_or_default();
     let variant     = variant.unwrap_or_default();
     let dismissible = dismissible.unwrap_or(true);
-    let (is_open, set_open) = signal(true);
-    let initial_state = "open";
-    let state  = move || if is_open.get() { "open" } else { "closed" };
-    let hidden = move || !is_open.get();
-    let _ = set_open;
+    let class       = class.unwrap_or_default();
 
-    #[cfg(feature = "hydrate")]
-    let on_close = move |_: leptos::ev::MouseEvent| set_open.set(false);
-    #[cfg(not(feature = "hydrate"))]
-    let on_close = move |_: leptos::ev::MouseEvent| {};
+    let node_ref = NodeRef::<leptos::html::Div>::new();
+
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
+        use leptos::wasm_bindgen::JsCast;
+        use leptos::web_sys;
+
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
+
+        if root.has_attribute("data-rs-attached") { return; }
+        let _ = root.set_attribute("data-rs-attached", "1");
+
+        if let Ok(Some(btn)) = root.query_selector("[data-rs-banner-close]") {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+                let _ = root_cb.set_attribute("data-rs-state", "closed");
+                if let Ok(el) = root_cb.clone().dyn_into::<web_sys::HtmlElement>() {
+                    el.set_hidden(true);
+                }
+            }));
+            let _ = btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
 
     view! {
         <div
             data-rs-banner=""
             data-rs-component="Banner"
             data-rs-variant=variant.as_str()
-            data-rs-state=move || { let s = state(); if s.is_empty() { initial_state } else { s } }
+            data-rs-state="open"
             role="status"
             aria-live="polite"
-            hidden=hidden
             class=class
+            node_ref=node_ref
         >
-            <div data-rs-banner-content="">
-                {content}
-            </div>
+            <div data-rs-banner-content="">{content}</div>
             {dismissible.then(|| view! {
                 <button
                     type="button"
                     data-rs-banner-close=""
                     aria-label="Close banner"
-                    on:click=on_close
-                >
-                    "×"
-                </button>
+                >"×"</button>
             })}
         </div>
     }

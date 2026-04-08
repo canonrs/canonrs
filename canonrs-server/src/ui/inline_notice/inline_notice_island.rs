@@ -1,13 +1,12 @@
+//! InlineNotice Island — Canon Rule #340
+//! Passthrough only. Zero logic, zero transformation.
+
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, Default)]
+#[derive(Clone, Copy, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub enum InlineNoticeIslandVariant {
-    #[default]
-    Default,
-    Info,
-    Success,
-    Warning,
-    Error,
+    #[default] Default,
+    Info, Success, Warning, Error,
 }
 
 impl InlineNoticeIslandVariant {
@@ -21,29 +20,20 @@ impl InlineNoticeIslandVariant {
         }
     }
     pub fn role(&self) -> &'static str {
-        match self {
-            Self::Error => "alert",
-            _           => "status",
-        }
+        match self { Self::Error => "alert", _ => "status" }
     }
     pub fn aria_live(&self) -> &'static str {
-        match self {
-            Self::Error => "assertive",
-            _           => "polite",
-        }
+        match self { Self::Error => "assertive", _ => "polite" }
     }
 }
 
-#[island]
+#[component]
 pub fn InlineNoticeIsland(
     #[prop(optional, into)] content: Option<String>,
-    #[prop(optional, into)] icon: Option<String>,
-    #[prop(optional)] variant: Option<InlineNoticeIslandVariant>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(optional, into)] icon:    Option<String>,
+    #[prop(default = InlineNoticeIslandVariant::Default)] variant: InlineNoticeIslandVariant,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let class   = class.unwrap_or_default();
-    let variant = variant.unwrap_or_default();
-
     view! {
         <div
             data-rs-inline-notice=""

@@ -7,55 +7,55 @@ use super::page_header_ui::{
 #[component]
 pub fn PageHeaderIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PageHeader class=class.unwrap_or_default()>{children()}</PageHeader> }
+    view! { <PageHeader class=class>{children()}</PageHeader> }
 }
 
 #[component]
 pub fn PageHeaderBreadcrumbsIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PageHeaderBreadcrumbs class=class.unwrap_or_default()>{children()}</PageHeaderBreadcrumbs> }
+    view! { <PageHeaderBreadcrumbs class=class>{children()}</PageHeaderBreadcrumbs> }
 }
 
 #[component]
 pub fn PageHeaderContentIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PageHeaderContent class=class.unwrap_or_default()>{children()}</PageHeaderContent> }
+    view! { <PageHeaderContent class=class>{children()}</PageHeaderContent> }
 }
 
 #[component]
 pub fn PageHeaderTitleIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PageHeaderTitle class=class.unwrap_or_default()>{children()}</PageHeaderTitle> }
+    view! { <PageHeaderTitle class=class>{children()}</PageHeaderTitle> }
 }
 
 #[component]
 pub fn PageHeaderDescriptionIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PageHeaderDescription class=class.unwrap_or_default()>{children()}</PageHeaderDescription> }
+    view! { <PageHeaderDescription class=class>{children()}</PageHeaderDescription> }
 }
 
 #[component]
 pub fn PageHeaderActionsIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PageHeaderActions class=class.unwrap_or_default()>{children()}</PageHeaderActions> }
+    view! { <PageHeaderActions class=class>{children()}</PageHeaderActions> }
 }
 
 #[component]
 pub fn PageHeaderTabsIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PageHeaderTabs class=class.unwrap_or_default()>{children()}</PageHeaderTabs> }
+    view! { <PageHeaderTabs class=class>{children()}</PageHeaderTabs> }
 }

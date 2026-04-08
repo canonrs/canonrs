@@ -1,3 +1,6 @@
+//! NavigationMenu Island — Canon Rule #341
+//! DOM-driven, zero state. Lógica via web_sys + Effect.
+
 use leptos::prelude::*;
 
 #[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -8,9 +11,9 @@ pub struct NavMenuIslandLink {
 
 #[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct NavMenuIslandItem {
-    pub trigger:  String,
-    pub links:    Vec<NavMenuIslandLink>,
-    pub href:     Option<String>,
+    pub trigger: String,
+    pub links:   Vec<NavMenuIslandLink>,
+    pub href:    Option<String>,
 }
 
 #[island]
@@ -19,53 +22,123 @@ pub fn NavigationMenuIsland(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     let class = class.unwrap_or_default();
-    let (active, set_active) = signal(Option::<usize>::None);
-    let _ = set_active;
-    let initial_state = "closed"; // CR-331 compliance
 
-    #[cfg(feature = "hydrate")]
-    {
+    let node_ref = NodeRef::<leptos::html::Nav>::new();
+
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
         use leptos::wasm_bindgen::JsCast;
-        use leptos::wasm_bindgen::closure::Closure;
         use leptos::web_sys;
 
-        // fechar ao clicar fora
-        let cb = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            if active.get_untracked().is_some() { set_active.set(None); }
-        }) as Box<dyn FnMut(_)>);
-        web_sys::window().unwrap().document().unwrap()
-            .add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
-        cb.forget();
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::HtmlElement = (*root_html).clone().unchecked_into();
 
-        // ESC fecha tudo
-        let cb_esc = Closure::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
-            if e.key() == "Escape" { set_active.set(None); }
-        }) as Box<dyn FnMut(_)>);
-        web_sys::window().unwrap()
-            .add_event_listener_with_callback("keydown", cb_esc.as_ref().unchecked_ref()).ok();
-        cb_esc.forget();
-    }
+        if root.has_attribute("data-rs-attached") { return; }
+        let _ = root.set_attribute("data-rs-attached", "1");
 
-    let items_view = items.iter().enumerate().map(|(idx, item)| {
+        // click trigger → toggle content
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                e.stop_propagation();
+                let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                let Some(trigger) = target.closest("[data-rs-navigation-menu-trigger]").ok().flatten() else { return };
+                let Some(item) = trigger.closest("[data-rs-navigation-menu-item]").ok().flatten() else { return };
+                let content = item.query_selector("[data-rs-navigation-menu-content]").ok().flatten();
+                let is_open = item.get_attribute("data-rs-state").as_deref() == Some("open");
+
+                // close all
+                let mut idx = 0u32;
+                loop {
+                    let sel = format!("[data-rs-navigation-menu-item]:nth-of-type({})", idx + 1);
+                    match root_cb.query_selector(&sel) {
+                        Ok(Some(el)) => {
+                            let _ = el.set_attribute("data-rs-state", "closed");
+                            if let Ok(Some(c)) = el.query_selector("[data-rs-navigation-menu-content]") {
+                                if let Ok(h) = c.dyn_into::<web_sys::HtmlElement>() { h.set_hidden(true); }
+                            }
+                            if let Ok(Some(t)) = el.query_selector("[data-rs-navigation-menu-trigger]") {
+                                let _ = t.set_attribute("aria-expanded", "false");
+                            }
+                            idx += 1;
+                        }
+                        _ => break,
+                    }
+                }
+
+                // open clicked if was closed
+                if !is_open {
+                    let _ = item.set_attribute("data-rs-state", "open");
+                    let _ = trigger.set_attribute("aria-expanded", "true");
+                    if let Some(c) = content {
+                        let _ = c.set_attribute("data-rs-state", "open");
+                        if let Ok(h) = c.dyn_into::<web_sys::HtmlElement>() { h.set_hidden(false); }
+                    }
+                }
+            }));
+            let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+
+        // click outside → close all
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                if root_cb.contains(Some(&target)) { return; }
+                let mut idx = 0u32;
+                loop {
+                    let sel = format!("[data-rs-navigation-menu-item]:nth-of-type({})", idx + 1);
+                    match root_cb.query_selector(&sel) {
+                        Ok(Some(el)) => {
+                            let _ = el.set_attribute("data-rs-state", "closed");
+                            if let Ok(Some(c)) = el.query_selector("[data-rs-navigation-menu-content]") {
+                                if let Ok(h) = c.dyn_into::<web_sys::HtmlElement>() { h.set_hidden(true); }
+                            }
+                            idx += 1;
+                        }
+                        _ => break,
+                    }
+                }
+            }));
+            let win = match web_sys::window() { Some(w) => w, None => return };
+            if let Some(doc) = win.document() {
+                let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+            }
+            cb.forget();
+        }
+
+        // ESC → close all
+        {
+            let root_cb = root.clone();
+            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+                if e.key() != "Escape" { return; }
+                let mut idx = 0u32;
+                loop {
+                    let sel = format!("[data-rs-navigation-menu-item]:nth-of-type({})", idx + 1);
+                    match root_cb.query_selector(&sel) {
+                        Ok(Some(el)) => {
+                            let _ = el.set_attribute("data-rs-state", "closed");
+                            if let Ok(Some(c)) = el.query_selector("[data-rs-navigation-menu-content]") {
+                                if let Ok(h) = c.dyn_into::<web_sys::HtmlElement>() { h.set_hidden(true); }
+                            }
+                            idx += 1;
+                        }
+                        _ => break,
+                    }
+                }
+            }));
+            let win = match web_sys::window() { Some(w) => w, None => return };
+            let _ = win.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    });
+
+    let items_view = items.iter().map(|item| {
         let trigger  = item.trigger.clone();
         let links    = item.links.clone();
         let href     = item.href.clone();
         let has_menu = !links.is_empty();
-
-        let is_open  = move || active.get() == Some(idx);
-        let is_open2 = move || active.get() == Some(idx);
-        let state    = move || { let s = if is_open() { "open" } else { "closed" }; if s.is_empty() { initial_state } else { s } };
-        let hidden   = move || !is_open2();
-
-        #[cfg(feature = "hydrate")]
-        let on_trigger = move |e: leptos::ev::MouseEvent| {
-            e.stop_propagation();
-            set_active.update(|v| {
-                *v = if *v == Some(idx) { None } else { Some(idx) };
-            });
-        };
-        #[cfg(not(feature = "hydrate"))]
-        let on_trigger = move |_: leptos::ev::MouseEvent| {};
 
         let links_view = links.iter().map(|link| {
             let href  = link.href.clone();
@@ -78,7 +151,7 @@ pub fn NavigationMenuIsland(
         }).collect::<Vec<_>>();
 
         view! {
-            <li data-rs-navigation-menu-item="" data-rs-state=state>
+            <li data-rs-navigation-menu-item="" data-rs-state="closed">
                 {if let Some(h) = href {
                     view! {
                         <a data-rs-navigation-menu-link="" href=h>{trigger}</a>
@@ -88,9 +161,8 @@ pub fn NavigationMenuIsland(
                         <button
                             type="button"
                             data-rs-navigation-menu-trigger=""
-                            aria-expanded=move || is_open().to_string()
+                            aria-expanded="false"
                             aria-haspopup="true"
-                            on:click=on_trigger
                         >
                             {trigger}
                         </button>
@@ -98,8 +170,8 @@ pub fn NavigationMenuIsland(
                             view! {
                                 <div
                                     data-rs-navigation-menu-content=""
-                                    data-rs-state=move || if is_open2() { "open" } else { "closed" }
-                                    hidden=hidden
+                                    data-rs-state="closed"
+                                    hidden=true
                                 >
                                     <ul>{links_view}</ul>
                                 </div>
@@ -118,6 +190,7 @@ pub fn NavigationMenuIsland(
             data-rs-navigation-menu=""
             data-rs-component="NavigationMenu"
             class=class
+            node_ref=node_ref
         >
             <ul data-rs-navigation-menu-list="">
                 {items_view}

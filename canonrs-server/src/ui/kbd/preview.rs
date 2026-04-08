@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::kbd_island::{KbdIsland, KbdGroupIsland, KbdSeparatorIsland};
+use super::kbd_ui::{KbdSize, KbdVariant};
 
 #[component]
 pub fn KbdShowcasePreview() -> impl IntoView {
@@ -18,17 +19,17 @@ pub fn KbdShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Size variants"</span>
                 <div data-rs-showcase-preview-row="">
-                    <KbdIsland size="sm">"Sm"</KbdIsland>
-                    <KbdIsland size="md">"Md"</KbdIsland>
-                    <KbdIsland size="lg">"Lg"</KbdIsland>
+                    <KbdIsland size=KbdSize::Sm>"Sm"</KbdIsland>
+                    <KbdIsland size=KbdSize::Md>"Md"</KbdIsland>
+                    <KbdIsland size=KbdSize::Lg>"Lg"</KbdIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variant"</span>
                 <div data-rs-showcase-preview-row="">
                     <KbdIsland>"Default"</KbdIsland>
-                    <KbdIsland variant="outline">"Outline"</KbdIsland>
-                    <KbdIsland variant="ghost">"Ghost"</KbdIsland>
+                    <KbdIsland variant=KbdVariant::Outline>"Outline"</KbdIsland>
+                    <KbdIsland variant=KbdVariant::Ghost>"Ghost"</KbdIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">

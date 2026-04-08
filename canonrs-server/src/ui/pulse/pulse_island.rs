@@ -1,33 +1,15 @@
+//! Pulse Island — Canon Rule #340
+//! Passthrough only. Zero logic, zero transformation.
+
 use leptos::prelude::*;
 use super::pulse_ui::{Pulse, PulseVariant, PulseSize, PulseSpeed};
 
 #[component]
 pub fn PulseIsland(
-    #[prop(optional, into)] variant: Option<String>,
-    #[prop(optional, into)] size: Option<String>,
-    #[prop(optional, into)] speed: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = PulseVariant::Default)] variant: PulseVariant,
+    #[prop(default = PulseSize::Medium)] size:         PulseSize,
+    #[prop(default = PulseSpeed::Normal)] speed:       PulseSpeed,
+    #[prop(into, default = String::new())] class:      String,
 ) -> impl IntoView {
-    let variant = match variant.as_deref() {
-        Some("subtle")     => PulseVariant::Subtle,
-        Some("emphasized") => PulseVariant::Emphasized,
-        _                  => PulseVariant::Default,
-    };
-    let size = match size.as_deref() {
-        Some("small") => PulseSize::Small,
-        Some("large") => PulseSize::Large,
-        _             => PulseSize::Medium,
-    };
-    let speed = match speed.as_deref() {
-        Some("slow") => PulseSpeed::Slow,
-        Some("fast") => PulseSpeed::Fast,
-        _            => PulseSpeed::Normal,
-    };
-    let cls = class.unwrap_or_default();
-
-    view! {
-        <Pulse variant=variant size=size speed=speed class=cls>
-            ""
-        </Pulse>
-    }
+    view! { <Pulse variant=variant size=size speed=speed class=class>{""}</Pulse> }
 }

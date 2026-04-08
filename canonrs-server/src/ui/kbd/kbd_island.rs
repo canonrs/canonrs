@@ -1,36 +1,25 @@
+//! Kbd Island — Canon Rule #340
+//! Passthrough only. Zero logic, zero transformation.
+
 use leptos::prelude::*;
 use super::kbd_ui::{Kbd, KbdGroup, KbdSeparator, KbdSize, KbdVariant};
 
 #[component]
 pub fn KbdIsland(
     children: Children,
-    #[prop(optional, into)] size: Option<String>,
-    #[prop(optional, into)] variant: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = KbdSize::Md)] size:          KbdSize,
+    #[prop(default = KbdVariant::Default)] variant: KbdVariant,
+    #[prop(into, default = String::new())] class:  String,
 ) -> impl IntoView {
-    let size_val = match size.as_deref() {
-        Some("sm") => KbdSize::Sm,
-        Some("lg") => KbdSize::Lg,
-        _          => KbdSize::Md,
-    };
-    let variant_val = match variant.as_deref() {
-        Some("outline") => KbdVariant::Outline,
-        Some("ghost")   => KbdVariant::Ghost,
-        _               => KbdVariant::Default,
-    };
-    view! {
-        <Kbd size=size_val variant=variant_val class=class.unwrap_or_default()>
-            {children()}
-        </Kbd>
-    }
+    view! { <Kbd size=size variant=variant class=class>{children()}</Kbd> }
 }
 
 #[component]
 pub fn KbdGroupIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <KbdGroup class=class.unwrap_or_default()>{children()}</KbdGroup> }
+    view! { <KbdGroup class=class>{children()}</KbdGroup> }
 }
 
 #[component]

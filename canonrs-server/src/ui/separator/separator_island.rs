@@ -1,25 +1,24 @@
+//! Separator Island — Canon Rule #340
+//! Passthrough only. Zero logic, zero transformation.
+
 use leptos::prelude::*;
 use super::separator_ui::Separator;
 use canonrs_core::Orientation;
 
 #[component]
 pub fn SeparatorIsland(
-    #[prop(optional, into)] orientation: Option<String>,
-    #[prop(optional)] decorative: Option<bool>,
-    #[prop(optional, into)] aria_label: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
-    #[prop(optional, into)] id: Option<String>,
+    #[prop(default = Orientation::Horizontal)] orientation: Orientation,
+    #[prop(default = true)] decorative:                     bool,
+    #[prop(into, default = String::new())] aria_label:      String,
+    #[prop(into, default = String::new())] class:           String,
+    #[prop(optional)] id:                                  Option<String>,
 ) -> impl IntoView {
-    let orient = match orientation.as_deref() {
-        Some("vertical") => Orientation::Vertical,
-        _ => Orientation::Horizontal,
-    };
     view! {
         <Separator
-            orientation=orient
-            decorative=decorative.unwrap_or(true)
-            aria_label=aria_label.unwrap_or_default()
-            class=class.unwrap_or_default()
+            orientation=orientation
+            decorative=decorative
+            aria_label=aria_label
+            class=class
             id=id.unwrap_or_default()
         />
     }

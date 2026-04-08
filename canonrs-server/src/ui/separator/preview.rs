@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::separator_island::SeparatorIsland;
+use canonrs_core::Orientation;
 
 #[component]
 pub fn SeparatorShowcasePreview() -> impl IntoView {
@@ -19,9 +20,9 @@ pub fn SeparatorShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"Vertical"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);height:40px;">
                     <span>"Left"</span>
-                    <SeparatorIsland orientation="vertical" />
+                    <SeparatorIsland orientation=Orientation::Vertical />
                     <span>"Center"</span>
-                    <SeparatorIsland orientation="vertical" />
+                    <SeparatorIsland orientation=Orientation::Vertical />
                     <span>"Right"</span>
                 </div>
             </div>
