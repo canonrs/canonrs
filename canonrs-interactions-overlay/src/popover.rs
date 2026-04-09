@@ -3,12 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, query, positioning};
-
-fn open(root: &Element) {
-    positioning::auto_side(root, "[data-rs-popover-content]");
-    state::open(root);
-}
+use crate::runtime::{lifecycle, state, query};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
@@ -18,7 +13,7 @@ pub fn init(root: Element) {
             let Some(current) = query::safe_current(&e) else { return };
             let Some(target)  = query::safe_target(&e)  else { return };
             if query::closest(&target, "[data-rs-popover-trigger]") {
-                if state::is_open(&current) { state::close(&current); } else { open(&current); }
+                state::toggle(&current);
                 return;
             }
             if query::closest(&target, "[data-rs-popover-close]") { state::close(&current); }

@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, positioning};
+use crate::runtime::{lifecycle, state};
 
 fn resolve(e: &web_sys::PointerEvent) -> Option<(Element, Element)> {
     let root = e.current_target()?.dyn_into::<Element>().ok()?;
@@ -17,8 +17,7 @@ pub fn init(root: Element) {
 
     {
         let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::wrap(Box::new(move |e: web_sys::PointerEvent| {
-            let Some((r, c)) = resolve(&e) else { return };
-            positioning::auto_side(&r, "[data-rs-hover-card-content]");
+            let Some((_, c)) = resolve(&e) else { return };
             state::open(&c);
         }));
         let _ = root.add_event_listener_with_callback("pointerenter", cb.as_ref().unchecked_ref());

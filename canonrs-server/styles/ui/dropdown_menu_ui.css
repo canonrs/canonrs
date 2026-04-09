@@ -82,3 +82,8 @@
   visibility: hidden;
   transform: scale(0.95);
 }
+
+[data-rs-showcase-preview-stage] > [data-rs-dropdown-menu],
+[data-rs-showcase-preview-row] > [data-rs-dropdown-menu] {
+  height: auto;
+}

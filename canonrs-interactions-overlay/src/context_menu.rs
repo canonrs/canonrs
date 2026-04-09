@@ -1,92 +1,78 @@
-//! ContextMenu Interaction — Canon Rule #342
-//! Toda a lógica vive aqui. Island apenas chama init_all().
+//! ContextMenu Interaction Engine
+//! Posicionamento via coordenadas do contextmenu event (x/y absolutos)
 
-use web_sys::HtmlElement;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
+use web_sys::{Element, HtmlElement};
+use crate::runtime::{lifecycle, state, query};
 
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-context-menu]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<HtmlElement>() { init_context_menu(el); }
-        }
+fn position_and_open(root: &Element, x: i32, y: i32) {
+    let Ok(Some(content)) = root.query_selector("[data-rs-context-menu-content]") else { return };
+    let Ok(el) = content.clone().dyn_into::<HtmlElement>() else { return };
+    if let Ok(root_html) = root.clone().dyn_into::<HtmlElement>() {
+        let _ = root_html.style().set_property("--context-menu-x", &format!("{}px", x));
+        let _ = root_html.style().set_property("--context-menu-y", &format!("{}px", y));
     }
-    bind_click_outside(&doc);
+    state::open(&content);
 }
 
-fn init_context_menu(root: HtmlElement) {
-    let root_clone = root.clone();
-    let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-        e.prevent_default();
-        e.stop_propagation();
-        let x = e.client_x();
-        let y = e.client_y();
-        set_open(&root_clone, true, x, y);
-    }));
-    let _ = root.dyn_ref::<web_sys::EventTarget>()
-        .map(|et| et.add_event_listener_with_callback("contextmenu", cb.as_ref().unchecked_ref()));
-    cb.forget();
+pub fn init(root: Element) {
+    if !lifecycle::init_guard(&root) { return; }
 
-    // fecha ao clicar em item
-    let items = root.query_selector_all("[data-rs-context-menu-item]").ok();
-    if let Some(list) = items {
-        for i in 0..list.length() {
-            if let Some(node) = list.item(i) {
-                if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    let root_clone = root.clone();
-                    let disabled = el.get_attribute("aria-disabled").as_deref() == Some("true");
-                    let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-                        if !disabled { set_open(&root_clone, false, 0, 0); }
-                    }));
-                    let _ = el.dyn_ref::<web_sys::EventTarget>()
-                        .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
-                    cb.forget();
-                }
+    // contextmenu — abre no ponto do click direito
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            e.prevent_default();
+            let Some(current) = e.current_target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            // fechar outros context menus abertos
+            query::each("[data-rs-context-menu][data-rs-initialized='true']", |node| {
+                if state::is_open(&node) { state::close(&node); }
+            });
+            position_and_open(&current, e.client_x(), e.client_y());
+            state::open(&current);
+        });
+        let _ = root.add_event_listener_with_callback("contextmenu", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
+    // click em item — fecha
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            let Some(current) = e.current_target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            let Some(target)  = query::safe_target(&e) else { return };
+            if query::closest(&target, "[data-rs-context-menu-item]") {
+                let disabled = target.get_attribute("aria-disabled").as_deref() == Some("true");
+                if !disabled { state::close(&current); }
             }
-        }
+        });
+        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
     }
-}
 
-fn set_open(root: &HtmlElement, open: bool, x: i32, y: i32) {
-    let _ = root.set_attribute("data-rs-state", if open { "open" } else { "closed" });
-    let content = root.query_selector("[data-rs-context-menu-content]").ok().flatten();
-    if let Some(el) = content.and_then(|e| e.dyn_into::<HtmlElement>().ok()) {
-        if open {
-            let _ = el.style().set_property("left", &format!("{}px", x));
-            let _ = el.style().set_property("top",  &format!("{}px", y));
-            el.set_hidden(false);
-            let _ = el.set_attribute("data-rs-state", "open");
-        } else {
-            el.set_hidden(true);
-            let _ = el.set_attribute("data-rs-state", "closed");
+    // outside click — fecha via document
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
+            query::each("[data-rs-context-menu][data-rs-initialized='true']", |node| {
+                if state::is_open(&node) { state::close(&node); }
+            });
+        });
+        if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+            let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         }
+        cb.forget();
     }
-}
 
-fn bind_click_outside(doc: &web_sys::Document) {
-    let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-        let win = match web_sys::window() { Some(w) => w, None => return };
-        let doc = match win.document() { Some(d) => d, None => return };
-        let nodes = match doc.query_selector_all("[data-rs-context-menu][data-rs-state='open']") { Ok(n) => n, Err(_) => return };
-        for i in 0..nodes.length() {
-            if let Some(node) = nodes.item(i) {
-                if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    set_open(&el, false, 0, 0);
-                }
-            }
+    // Escape
+    {
+        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
+            if e.key() != "Escape" { return; }
+            query::each("[data-rs-context-menu][data-rs-initialized='true']", |node| {
+                if state::is_open(&node) { state::close(&node); }
+            });
+        });
+        if let Some(win) = web_sys::window() {
+            let _ = win.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
         }
-    }));
-    let _ = doc.dyn_ref::<web_sys::EventTarget>()
-        .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
-    cb.forget();
-}
-
-pub fn init(root: web_sys::Element) {
-    use wasm_bindgen::JsCast;
-    if let Ok(el) = root.dyn_into::<web_sys::HtmlElement>() {
-        init_context_menu(el);
+        cb.forget();
     }
 }
