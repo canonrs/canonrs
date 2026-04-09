@@ -32,7 +32,7 @@ pub fn init(root: Element) {
                     let size = el.get_attribute("data-rs-default-size")
                         .and_then(|s| s.parse::<f64>().ok())
                         .unwrap_or(50.0);
-                    el.style().set_property("--resizable-panel-basis", &format!("{}%", size)).ok();
+                    el.style().set_property("flex-basis", &format!("{}%", size)).ok();
                 }
             }
         }
@@ -88,8 +88,9 @@ pub fn init(root: Element) {
         web_sys::console::log_1(&format!("[resizable] client_x={} offset={} size={}", e.client_x(), offset, size).into());
         let pct = ((pos - offset) / size * 100.0).max(min_size).min(max_size);
         web_sys::console::log_1(&format!("[resizable] pct={}", pct).into());
-        p0_move.style().set_property("--resizable-panel-basis", &format!("{}%", pct)).ok();
-        p1_move.style().set_property("--resizable-panel-basis", &format!("{}%", 100.0 - pct)).ok();
+        web_sys::console::log_1(&format!("[resizable] setting flex-basis: {}%", pct).into());
+        p0_move.style().set_property("flex-basis", &format!("{}%", pct)).ok();
+        p1_move.style().set_property("flex-basis", &format!("{}%", 100.0 - pct)).ok();
     }) as Box<dyn FnMut(_)>);
 
     let handle_up = handle.clone();
@@ -106,8 +107,8 @@ pub fn init(root: Element) {
     handle.add_event_listener_with_callback("pointerdown", on_down.as_ref().unchecked_ref()).ok();
     // move e up registrados no document, não no handle
     let doc_el: &web_sys::EventTarget = doc.as_ref();
-    doc_el.add_event_listener_with_callback("pointermove", on_move.as_ref().unchecked_ref()).ok();
-    doc_el.add_event_listener_with_callback("pointerup",   on_up.as_ref().unchecked_ref()).ok();
+    handle.add_event_listener_with_callback("pointermove", on_move.as_ref().unchecked_ref()).ok();
+    handle.add_event_listener_with_callback("pointerup",   on_up.as_ref().unchecked_ref()).ok();
 
     on_down.forget();
     on_move.forget();

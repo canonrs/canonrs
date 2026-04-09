@@ -1,0 +1,8 @@
+[package]
+name = "canonrs-orchestrator"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "canonrs-orchestrator"
+path = "src/main.rs"

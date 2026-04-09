@@ -10,9 +10,19 @@ fn main() {
     // declarar antes do return para o Cargo usar cache corretamente
     println!("cargo:rerun-if-changed=build.rs");
 
-    // Em modo dev, pular wasm-pack para acelerar o build
-    if std::env::var("LEPTOS_WATCH").is_ok() || std::env::var("CANON_SKIP_WASM").is_ok() {
-        println!("cargo:warning=[canon] skipping wasm-pack in dev/watch mode");
+    // copiar canon-loader.js sempre (mesmo em dev)
+    let manifest_dir_early = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let rs_canonrs_early   = manifest_dir_early.parent().unwrap();
+    let loader_src_early   = rs_canonrs_early.join("canonrs-client/src/loader/canon-loader.js");
+    let site_js_early      = rs_canonrs_early.parent().unwrap().parent().unwrap()
+        .join("products/canonrs-site/public/js");
+    fs::create_dir_all(&site_js_early).ok();
+    fs::copy(&loader_src_early, site_js_early.join("canon-loader.js")).ok();
+    println!("cargo:rerun-if-changed={}", loader_src_early.display());
+
+    // CANON_SKIP_WASM pode ser usado para pular explicitamente
+    if std::env::var("CANON_SKIP_WASM").is_ok() {
+        println!("cargo:warning=[canon] skipping wasm-pack (CANON_SKIP_WASM set)");
         return;
     }
     let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
@@ -26,7 +36,12 @@ fn main() {
     for group in &groups {
         let crate_path = rs_canonrs.join(format!("canonrs-interactions-{}", group));
 
-        println!("cargo:rerun-if-changed={}", crate_path.join("src").display());
+        // monitorar arquivos individuais do src
+        if let Ok(entries) = std::fs::read_dir(crate_path.join("src")) {
+            for entry in entries.filter_map(|e| e.ok()) {
+                println!("cargo:rerun-if-changed={}", entry.path().display());
+            }
+        }
 
         let dist = crate_path.join(format!("dist/{}", group));
         let dest = out_dir.join(group);
@@ -76,5 +91,15 @@ fn main() {
 
         println!("cargo:warning=[canon] wasm built: {}", group);
     }
+
+    // copiar canon-loader.js para public/js do site
+    let loader_src = rs_canonrs.join("canonrs-client/src/loader/canon-loader.js");
+    let site_js    = rs_canonrs.parent().unwrap().parent().unwrap()
+        .join("products/canonrs-site/public/js");
+    fs::create_dir_all(&site_js).expect("failed to create public/js");
+    fs::copy(&loader_src, site_js.join("canon-loader.js"))
+        .expect("failed to copy canon-loader.js");
+    println!("cargo:warning=[canon] loader copied");
+    println!("cargo:rerun-if-changed={}", loader_src.display());
 
 }
