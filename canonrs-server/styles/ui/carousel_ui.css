@@ -6,6 +6,13 @@
 [data-rs-carousel] {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  min-height: 200px;
+}
+
+[data-rs-showcase-preview-stage] [data-rs-carousel],
+[data-rs-showcase-preview-row] [data-rs-carousel] {
+  height: 280px;
 }
 
 [data-rs-carousel-wrapper] {
@@ -25,10 +32,15 @@
 [data-rs-carousel-item] {
   flex: 0 0 100%;
   width: 100%;
+  color: var(--theme-surface-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-[data-rs-carousel-item] {
+[data-rs-carousel-item][aria-hidden="false"] {
   display: block;
+  visibility: visible;
 }
 
 [data-rs-carousel][data-rs-carousel-ready] [data-rs-carousel-item][data-rs-state~="inactive"] {
@@ -112,4 +124,5 @@
 /* Accessibility */
 [data-rs-carousel-item][aria-hidden="true"] {
   visibility: hidden;
+  display: none;
 }

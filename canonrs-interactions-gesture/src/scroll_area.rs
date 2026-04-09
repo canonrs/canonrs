@@ -8,6 +8,13 @@ use web_sys::{Element, HtmlElement, PointerEvent, MouseEvent};
 use std::cell::RefCell;
 use std::rc::Rc;
 
+
+fn is_element_alive(el: &web_sys::HtmlElement) -> bool {
+    use wasm_bindgen::JsValue;
+    let val: &JsValue = el.as_ref();
+    !val.is_undefined() && !val.is_null()
+}
+
 fn add_state(el: &Element, state: &str) {
     let current = el.get_attribute("data-rs-state").unwrap_or_default();
     if !current.split_whitespace().any(|s| s == state) {
@@ -71,6 +78,7 @@ fn setup_scrollbar(root: &Element, viewport: &HtmlElement, orientation: &str) {
         let sb = scrollbar_node.clone();
         let th = thumb.clone();
         let on_scroll = Closure::wrap(Box::new(move |_: web_sys::Event| {
+            if !is_element_alive(&vp) { return; }
             update_thumb(&vp, &sb, &th, is_vertical);
         }) as Box<dyn FnMut(_)>);
         viewport.add_event_listener_with_callback("scroll", on_scroll.as_ref().unchecked_ref()).ok();
@@ -104,6 +112,7 @@ fn setup_scrollbar(root: &Element, viewport: &HtmlElement, orientation: &str) {
 
         let vp_move   = viewport.clone();
         let on_move = Closure::wrap(Box::new(move |e: PointerEvent| {
+            if !is_element_alive(&vp_move) { return; }
             if !*id_move.borrow() { return; }
             if *ap_move.borrow() != Some(e.pointer_id()) { return; }
             let (start_pos, start_scroll, scroll_size, client_size) = *ds_move.borrow();
@@ -141,7 +150,8 @@ fn setup_scrollbar(root: &Element, viewport: &HtmlElement, orientation: &str) {
         let vp_click  = viewport.clone();
         let thumb_click = thumb.clone();
         let on_click = Closure::wrap(Box::new(move |e: MouseEvent| {
-            let target: Element = e.target().unwrap().dyn_into().unwrap();
+            if !is_element_alive(&vp_click) { return; }
+            let target: Element = match e.target().and_then(|t| t.dyn_into::<Element>().ok()) { Some(t) => t, None => return };
             if target.has_attribute("data-rs-scroll-thumb") { return; }
             let rect      = thumb_click.get_bounding_client_rect();
             let click_pos = if is_vertical { e.client_y() as f64 } else { e.client_x() as f64 };
@@ -159,9 +169,9 @@ fn setup_scrollbar(root: &Element, viewport: &HtmlElement, orientation: &str) {
 
 pub fn init(root: Element) {
     if is_initialized(&root) { return; }
-    mark_initialized(&root);
     let Ok(Some(vp_node)) = root.query_selector("[data-rs-scroll-viewport]") else { return };
     let Ok(viewport) = vp_node.dyn_into::<HtmlElement>() else { return };
+    mark_initialized(&root);
 
     setup_scrollbar(&root, &viewport, "vertical");
     setup_scrollbar(&root, &viewport, "horizontal");

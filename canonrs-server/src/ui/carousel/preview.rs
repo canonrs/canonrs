@@ -9,9 +9,9 @@ pub fn CarouselShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-stage="">
                 <CarouselIsland>
                     <CarouselTrackIsland>
-                        <CarouselItemIsland active=true>"Slide 1"</CarouselItemIsland>
-                        <CarouselItemIsland>"Slide 2"</CarouselItemIsland>
-                        <CarouselItemIsland>"Slide 3"</CarouselItemIsland>
+                        <CarouselItemIsland active=true><div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:var(--font-size-xl);">"Slide 1"</div></CarouselItemIsland>
+                        <CarouselItemIsland><div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:var(--font-size-xl);">"Slide 2"</div></CarouselItemIsland>
+                        <CarouselItemIsland><div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:var(--font-size-xl);">"Slide 3"</div></CarouselItemIsland>
                     </CarouselTrackIsland>
                     <CarouselPrevIsland>"←"</CarouselPrevIsland>
                     <CarouselNextIsland>"→"</CarouselNextIsland>
@@ -25,9 +25,9 @@ pub fn CarouselShowcasePreview() -> impl IntoView {
                 <div data-rs-showcase-preview-row="">
                     <CarouselIsland autoplay=ToggleState::On interval=3000u32>
                         <CarouselTrackIsland>
-                            <CarouselItemIsland active=true>"Auto 1"</CarouselItemIsland>
-                            <CarouselItemIsland>"Auto 2"</CarouselItemIsland>
-                            <CarouselItemIsland>"Auto 3"</CarouselItemIsland>
+                            <CarouselItemIsland active=true><div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:var(--font-size-xl);">"Auto 1"</div></CarouselItemIsland>
+                            <CarouselItemIsland><div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:var(--font-size-xl);">"Auto 2"</div></CarouselItemIsland>
+                            <CarouselItemIsland><div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:var(--font-size-xl);">"Auto 3"</div></CarouselItemIsland>
                         </CarouselTrackIsland>
                         <CarouselPrevIsland>"←"</CarouselPrevIsland>
                         <CarouselNextIsland>"→"</CarouselNextIsland>

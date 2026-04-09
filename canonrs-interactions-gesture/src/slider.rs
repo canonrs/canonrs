@@ -4,8 +4,14 @@ use wasm_bindgen::prelude::*;
 use crate::shared::{add_state, remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use std::cell::RefCell;
+use std::cell::Cell;
 use std::rc::Rc;
+
+fn is_element_alive(el: &web_sys::Element) -> bool {
+    use wasm_bindgen::JsValue;
+    let val: &JsValue = el.as_ref();
+    !val.is_undefined() && !val.is_null()
+}
 
 fn get_min(el: &Element) -> f64 { el.get_attribute("data-rs-min").and_then(|s| s.parse().ok()).unwrap_or(0.0) }
 fn get_max(el: &Element) -> f64 { el.get_attribute("data-rs-max").and_then(|s| s.parse().ok()).unwrap_or(100.0) }
@@ -24,63 +30,82 @@ fn set_value(el: &Element, value: f64) {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
-    if root.get_attribute("data-rs-state").map(|s| s.contains("disabled")).unwrap_or(false) { return; }
+    if root.has_attribute("data-rs-disabled") && root.get_attribute("aria-disabled").as_deref() == Some("true") { return; }
 
-    let active_pointer: Rc<RefCell<Option<i32>>> = Rc::new(RefCell::new(None));
+    let dragging:   Rc<Cell<bool>> = Rc::new(Cell::new(false));
+    let active_ptr: Rc<Cell<i32>>  = Rc::new(Cell::new(-1));
+
     let win = match web_sys::window() { Some(w) => w, None => return };
     let doc = match win.document() { Some(d) => d, None => return };
 
+    // pointerdown no root
     {
-        let root_cb = root.clone(); let ap = active_pointer.clone();
-        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::wrap(Box::new(move |e: web_sys::PointerEvent| {
+        let root_cb = root.clone();
+        let drag_d = dragging.clone(); let ptr_d = active_ptr.clone();
+        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::new(move |e: web_sys::PointerEvent| {
+            if !is_element_alive(&root_cb) { return; }
             e.prevent_default();
-            *ap.borrow_mut() = Some(e.pointer_id());
-            add_state(&root_cb, "active");
+            e.stop_propagation();
+            web_sys::console::log_1(&format!("[slider] pointerdown ptr={}", e.pointer_id()).into());
+            drag_d.set(true);
+            ptr_d.set(e.pointer_id());
             if let Ok(el) = root_cb.clone().dyn_into::<web_sys::HtmlElement>() {
                 el.set_pointer_capture(e.pointer_id()).ok();
                 let rect = el.get_bounding_client_rect();
                 let x = (e.client_x() as f64 - rect.left()).max(0.0).min(rect.width());
                 set_value(&root_cb, get_min(&root_cb) + (x / rect.width()) * (get_max(&root_cb) - get_min(&root_cb)));
             }
-        }));
+            add_state(&root_cb, "active");
+        });
         let _ = root.add_event_listener_with_callback("pointerdown", cb.as_ref().unchecked_ref());
         cb.forget();
     }
 
+    // pointermove no document
     {
-        let root_cb = root.clone(); let ap = active_pointer.clone();
-        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::wrap(Box::new(move |e: web_sys::PointerEvent| {
-            if *ap.borrow() != Some(e.pointer_id()) { return; }
+        let root_cb = root.clone();
+        let drag_m = dragging.clone(); let ptr_m = active_ptr.clone();
+        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::new(move |e: web_sys::PointerEvent| {
+            web_sys::console::log_1(&format!("[slider] pointermove drag={} ptr={} evt={}", drag_m.get(), ptr_m.get(), e.pointer_id()).into());
+            if !drag_m.get() || ptr_m.get() != e.pointer_id() { return; }
+            if !is_element_alive(&root_cb) { return; }
             if let Ok(el) = root_cb.clone().dyn_into::<web_sys::HtmlElement>() {
                 let rect = el.get_bounding_client_rect();
                 let x = (e.client_x() as f64 - rect.left()).max(0.0).min(rect.width());
                 set_value(&root_cb, get_min(&root_cb) + (x / rect.width()) * (get_max(&root_cb) - get_min(&root_cb)));
             }
-        }));
-        let _ = doc.add_event_listener_with_callback("pointermove", cb.as_ref().unchecked_ref());
+        });
+        let doc_target: &web_sys::EventTarget = doc.as_ref();
+        doc_target.add_event_listener_with_callback("pointermove", cb.as_ref().unchecked_ref()).ok();
         cb.forget();
     }
 
-    {
-        let root_cb = root.clone(); let ap = active_pointer.clone();
-        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::wrap(Box::new(move |e: web_sys::PointerEvent| {
-            if *ap.borrow() == Some(e.pointer_id()) {
-                *ap.borrow_mut() = None;
-                remove_state(&root_cb, "active");
-            }
-        }));
-        let _ = doc.add_event_listener_with_callback("pointerup", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_| { add_state(&rc, "focus"); })); let _ = root.add_event_listener_with_callback("focus", cb.as_ref().unchecked_ref()); cb.forget(); }
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_| { remove_state(&rc, "focus"); })); let _ = root.add_event_listener_with_callback("blur", cb.as_ref().unchecked_ref()); cb.forget(); }
-
+    // pointerup no document
     {
         let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+        let drag_u = dragging.clone(); let ptr_u = active_ptr.clone();
+        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::new(move |e: web_sys::PointerEvent| {
+            if ptr_u.get() != e.pointer_id() { return; }
+            if !is_element_alive(&root_cb) { return; }
+            web_sys::console::log_1(&"[slider] pointerup".into());
+            drag_u.set(false);
+            ptr_u.set(-1);
+            remove_state(&root_cb, "active");
+        });
+        let doc_target: &web_sys::EventTarget = doc.as_ref();
+        doc_target.add_event_listener_with_callback("pointerup", cb.as_ref().unchecked_ref()).ok();
+        cb.forget();
+    }
+
+    // focus/blur
+    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_| { if !is_element_alive(&rc) { return; } add_state(&rc, "focus"); }); let _ = root.add_event_listener_with_callback("focus", cb.as_ref().unchecked_ref()); cb.forget(); }
+    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_| { if !is_element_alive(&rc) { return; } remove_state(&rc, "focus"); }); let _ = root.add_event_listener_with_callback("blur", cb.as_ref().unchecked_ref()); cb.forget(); }
+
+    // keydown
+    {
+        let root_cb = root.clone();
+        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
+            if !is_element_alive(&root_cb) { return; }
             let min = get_min(&root_cb); let max = get_max(&root_cb); let step = get_step(&root_cb);
             let cur = root_cb.get_attribute("data-rs-value").and_then(|s| s.parse::<f64>().ok()).unwrap_or(min);
             let inc = if step > 0.0 { step } else { 1.0 };
@@ -92,19 +117,9 @@ pub fn init(root: Element) {
                 _ => return,
             };
             set_value(&root_cb, new_val);
-        }));
+        });
         let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
         cb.forget();
     }
-}
-
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-slider]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
-        }
-    }
+    web_sys::console::log_1(&"[slider] init complete".into());
 }
