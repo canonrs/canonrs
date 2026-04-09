@@ -51,24 +51,6 @@ pub mod runtime {
     pub use canonrs_client::runtime::init;
 }
 
-#[cfg(feature = "ssr")]
-pub fn canonrs_css() -> &'static str {
-    include_str!(concat!(env!("OUT_DIR"), "/canonrs.css"))
-}
-
-#[cfg(feature = "ssr")]
-pub fn canonrs_wasm(group: &str) -> Option<&'static [u8]> {
-    match group {
-        "gesture"   => Some(include_bytes!(concat!(env!("OUT_DIR"), "/wasm/gesture/canonrs_interactions_gesture_bg.wasm"))),
-        "overlay"   => Some(include_bytes!(concat!(env!("OUT_DIR"), "/wasm/overlay/canonrs_interactions_overlay_bg.wasm"))),
-        "selection" => Some(include_bytes!(concat!(env!("OUT_DIR"), "/wasm/selection/canonrs_interactions_selection_bg.wasm"))),
-        "nav"       => Some(include_bytes!(concat!(env!("OUT_DIR"), "/wasm/nav/canonrs_interactions_nav_bg.wasm"))),
-        "data"      => Some(include_bytes!(concat!(env!("OUT_DIR"), "/wasm/data/canonrs_interactions_data_bg.wasm"))),
-        "content"   => Some(include_bytes!(concat!(env!("OUT_DIR"), "/wasm/content/canonrs_interactions_content_bg.wasm"))),
-        _ => None,
-    }
-}
-
 pub mod block_types {
     pub use canonrs_core::block_types::*;
 }
@@ -96,4 +78,8 @@ pub mod infra {
     pub mod constraint_engine {
         pub use canonrs_core::infra::constraint_engine::*;
     }
+}
+#[cfg(feature = "ssr")]
+pub fn canonrs_css() -> &'static str {
+    include_str!(concat!(env!("OUT_DIR"), "/canonrs.css"))
 }

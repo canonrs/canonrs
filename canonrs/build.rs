@@ -10,6 +10,17 @@ fn main() {
     // declarar antes do return para o Cargo usar cache corretamente
     println!("cargo:rerun-if-changed=build.rs");
 
+    // copiar canonrs.bundle.css para OUT_DIR/canonrs.css
+    let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let rs_canonrs   = manifest_dir.parent().unwrap();
+    let css_src      = rs_canonrs.join("canonrs-server/styles/canonrs.bundle.css");
+    let out_dir      = PathBuf::from(std::env::var("OUT_DIR").unwrap());
+    if css_src.exists() {
+        fs::copy(&css_src, out_dir.join("canonrs.css")).expect("failed to copy canonrs.css");
+        println!("cargo:warning=[canon] css copied");
+    }
+    println!("cargo:rerun-if-changed={}", css_src.display());
+
     // copiar canon-loader.js sempre (mesmo em dev)
     let manifest_dir_early = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     let rs_canonrs_early   = manifest_dir_early.parent().unwrap();
@@ -36,12 +47,6 @@ fn main() {
     for group in &groups {
         let crate_path = rs_canonrs.join(format!("canonrs-interactions-{}", group));
 
-        // monitorar arquivos individuais do src
-        if let Ok(entries) = std::fs::read_dir(crate_path.join("src")) {
-            for entry in entries.filter_map(|e| e.ok()) {
-                println!("cargo:rerun-if-changed={}", entry.path().display());
-            }
-        }
 
         let dist = crate_path.join(format!("dist/{}", group));
         let dest = out_dir.join(group);

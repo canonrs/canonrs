@@ -10,13 +10,13 @@ pub fn ResizableShowcasePreview() -> impl IntoView {
                 <div style="width:100%;height:280px;display:flex;">
                     <ResizableIsland>
                         <ResizablePanelIsland default_size=50u32>
-                            <div style="padding:var(--space-md);height:100%;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(255,255,255,0.06);">
+                            <div style="padding:var(--space-md);height:100%;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(255,255,255,0.06);overflow:hidden;">
                                 "Left Panel"
                             </div>
                         </ResizablePanelIsland>
                         <ResizableHandleIsland />
                         <ResizablePanelIsland default_size=50u32>
-                            <div style="padding:var(--space-md);height:100%;display:flex;align-items:center;justify-content:center;">
+                            <div style="padding:var(--space-md);height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                                 "Right Panel"
                             </div>
                         </ResizablePanelIsland>
@@ -31,13 +31,13 @@ pub fn ResizableShowcasePreview() -> impl IntoView {
                 <div data-rs-showcase-preview-row="" style="width:100%;height:280px;display:flex;flex-direction:column;">
                     <ResizableIsland orientation=ResizableOrientation::Vertical>
                         <ResizablePanelIsland default_size=50u32>
-                            <div style="padding:var(--space-md);width:100%;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <div style="padding:var(--space-md);width:100%;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.06);overflow:hidden;">
                                 "Top Panel"
                             </div>
                         </ResizablePanelIsland>
                         <ResizableHandleIsland />
                         <ResizablePanelIsland default_size=50u32>
-                            <div style="padding:var(--space-md);width:100%;display:flex;align-items:center;justify-content:center;">
+                            <div style="padding:var(--space-md);width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                                 "Bottom Panel"
                             </div>
                         </ResizablePanelIsland>
