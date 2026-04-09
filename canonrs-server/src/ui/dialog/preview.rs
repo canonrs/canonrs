@@ -2,8 +2,10 @@ use leptos::prelude::*;
 use super::dialog_island::{
     DialogIsland, DialogTriggerIsland, DialogPortalIsland,
     DialogOverlayIsland, DialogContentIsland, DialogTitleIsland,
-    DialogDescriptionIsland, DialogCloseIsland,
+    DialogDescriptionIsland, DialogCloseIsland, DialogFooterIsland,
 };
+use crate::ui::button::button_island::ButtonIsland;
+use canonrs_core::primitives::ButtonVariant;
 
 #[component]
 pub fn DialogShowcasePreview() -> impl IntoView {
@@ -17,7 +19,10 @@ pub fn DialogShowcasePreview() -> impl IntoView {
                         <DialogContentIsland>
                             <DialogTitleIsland>"Confirm action"</DialogTitleIsland>
                             <DialogDescriptionIsland>"Are you sure? This action cannot be undone."</DialogDescriptionIsland>
-                            <DialogCloseIsland>"Cancel"</DialogCloseIsland>
+                            <DialogFooterIsland>
+                                <DialogCloseIsland>"Cancel"</DialogCloseIsland>
+                                <ButtonIsland variant=ButtonVariant::Primary>"Confirm"</ButtonIsland>
+                            </DialogFooterIsland>
                         </DialogContentIsland>
                     </DialogPortalIsland>
                 </DialogIsland>
@@ -35,7 +40,10 @@ pub fn DialogShowcasePreview() -> impl IntoView {
                             <DialogContentIsland>
                                 <DialogTitleIsland>"Edit profile"</DialogTitleIsland>
                                 <DialogDescriptionIsland>"Update your profile information below."</DialogDescriptionIsland>
-                                <DialogCloseIsland>"Save changes"</DialogCloseIsland>
+                                <DialogFooterIsland>
+                                    <DialogCloseIsland>"Cancel"</DialogCloseIsland>
+                                    <ButtonIsland variant=ButtonVariant::Primary>"Save changes"</ButtonIsland>
+                                </DialogFooterIsland>
                             </DialogContentIsland>
                         </DialogPortalIsland>
                     </DialogIsland>

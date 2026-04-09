@@ -5,7 +5,7 @@ use leptos::prelude::*;
 use super::dialog_ui::{
     Dialog, DialogTrigger, DialogPortal,
     DialogOverlay, DialogContent, DialogTitle,
-    DialogDescription, DialogClose,
+    DialogDescription, DialogClose, DialogFooter,
 };
 
 
@@ -70,4 +70,12 @@ pub fn DialogCloseIsland(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! { <DialogClose class=class.unwrap_or_default()>{children()}</DialogClose> }
+}
+
+#[component]
+pub fn DialogFooterIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <DialogFooter class=class.unwrap_or_default()>{children()}</DialogFooter> }
 }

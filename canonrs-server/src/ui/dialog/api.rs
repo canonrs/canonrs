@@ -64,3 +64,11 @@ pub const DIALOGCLOSE_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const DIALOGFOOTER_API: ComponentApi = ComponentApi {
+    id: "dialog-footer",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

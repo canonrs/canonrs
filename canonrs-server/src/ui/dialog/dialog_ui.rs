@@ -1,6 +1,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
+    DialogFooter as DialogFooterPrimitive,
     DialogPrimitive, DialogPortalPrimitive,
     DialogOverlayPrimitive, DialogContentPrimitive, DialogTitlePrimitive,
     DialogDescriptionPrimitive, DialogTriggerPrimitive, DialogClosePrimitive,
@@ -96,6 +97,14 @@ pub fn DialogClose(
             {children()}
         </DialogClosePrimitive>
     }
+}
+
+#[component]
+pub fn DialogFooter(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <DialogFooterPrimitive class=class>{children()}</DialogFooterPrimitive> }
 }
 
 #[component]

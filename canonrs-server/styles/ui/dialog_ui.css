@@ -69,3 +69,10 @@
   color: var(--dialog-description-fg);
   font-size: var(--dialog-description-font-size);
 }
+
+[data-rs-dialog-footer] {
+  display: flex;
+  gap: var(--dialog-footer-gap);
+  justify-content: flex-end;
+  padding-top: var(--dialog-header-gap);
+}

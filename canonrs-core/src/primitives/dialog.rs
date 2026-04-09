@@ -148,3 +148,15 @@ pub fn DialogClosePrimitive(
         </button>
     }
 }
+
+#[component]
+pub fn DialogFooter(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-dialog-footer="" class=class>
+            {children()}
+        </div>
+    }
+}

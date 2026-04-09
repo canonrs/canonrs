@@ -16,6 +16,11 @@ export function init_overlay(el) {
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
+        __wbg___wbindgen_is_null_ac34f5003991759a: function(arg0) {
+            const ret = arg0 === null;
+            _assertBoolean(ret);
+            return ret;
+        },
         __wbg___wbindgen_is_undefined_9e4d92534c42d778: function(arg0) {
             const ret = arg0 === undefined;
             _assertBoolean(ret);
