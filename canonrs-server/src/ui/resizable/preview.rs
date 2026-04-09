@@ -1,3 +1,4 @@
+use canonrs_core::primitives::ResizableOrientation;
 use leptos::prelude::*;
 use super::resizable_island::{ResizableIsland, ResizablePanelIsland, ResizableHandleIsland};
 
@@ -28,7 +29,7 @@ pub fn ResizableShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Vertical"</span>
                 <div data-rs-showcase-preview-row="" style="width:100%;height:280px;display:flex;flex-direction:column;">
-                    <ResizableIsland orientation="vertical">
+                    <ResizableIsland orientation=ResizableOrientation::Vertical>
                         <ResizablePanelIsland default_size=50u32>
                             <div style="padding:var(--space-md);width:100%;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.06);">
                                 "Top Panel"

@@ -1,21 +1,8 @@
-//! @canon-level: strict
-//! Slider Island — bootstrap only, delegates to interaction engine
-
+//! Slider Island — Canon Rule passthrough
 use leptos::prelude::*;
 use super::slider_ui::{Slider, SliderWithMarks};
 use canonrs_core::meta::DisabledState;
 use canonrs_core::Orientation;
-
-#[island]
-pub fn SliderInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
 
 #[component]
 pub fn SliderIsland(
@@ -28,7 +15,6 @@ pub fn SliderIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SliderInit />
         <Slider min=min max=max step=step value=value disabled=disabled orientation=orientation class=class />
     }
 }
@@ -44,7 +30,6 @@ pub fn SliderWithMarksIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SliderInit />
         <SliderWithMarks min=min max=max step=step value=value disabled=disabled orientation=orientation class=class />
     }
 }

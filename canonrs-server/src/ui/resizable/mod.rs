@@ -10,4 +10,4 @@ pub use examples::*;
 pub mod preview;
 pub use preview::ResizableShowcasePreview;
 pub mod resizable_island;
-pub use resizable_island::{ResizableIsland, ResizablePanelIsland, ResizableHandleIsland, ResizableInit};
+pub use resizable_island::{ResizableIsland, ResizablePanelIsland, ResizableHandleIsland};

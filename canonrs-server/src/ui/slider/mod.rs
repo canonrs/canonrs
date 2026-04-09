@@ -7,4 +7,4 @@ pub mod examples;
 pub use slider_ui::SliderPreview;
 pub use preview::SliderShowcasePreview;
 pub mod slider_island;
-pub use slider_island::{SliderIsland, SliderWithMarksIsland, SliderInit};
+pub use slider_island::{SliderIsland, SliderWithMarksIsland};

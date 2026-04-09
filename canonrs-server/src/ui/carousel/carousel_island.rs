@@ -1,17 +1,7 @@
+//! Carousel Island — Canon Rule passthrough
 use leptos::prelude::*;
 use super::carousel_ui::{Carousel, CarouselTrack, CarouselItem, CarouselPrev, CarouselNext, CarouselIndicators};
 use canonrs_core::ToggleState;
-
-#[island]
-pub fn CarouselInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
 
 #[component]
 pub fn CarouselIsland(
@@ -23,14 +13,7 @@ pub fn CarouselIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <CarouselInit />
-        <Carousel
-            initial_index=initial_index
-            autoplay=autoplay
-            interval=interval
-            loop_state=loop_state
-            class=class
-        >
+        <Carousel initial_index=initial_index autoplay=autoplay interval=interval loop_state=loop_state class=class>
             {children()}
         </Carousel>
     }
@@ -39,40 +22,40 @@ pub fn CarouselIsland(
 #[component]
 pub fn CarouselTrackIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <CarouselTrack class=class.unwrap_or_default()>{children()}</CarouselTrack> }
+    view! { <CarouselTrack class=class>{children()}</CarouselTrack> }
 }
 
 #[component]
 pub fn CarouselItemIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
-    #[prop(optional)] active: Option<bool>,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] active: bool,
 ) -> impl IntoView {
-    view! { <CarouselItem class=class.unwrap_or_default() active=active.unwrap_or(false)>{children()}</CarouselItem> }
+    view! { <CarouselItem class=class active=active>{children()}</CarouselItem> }
 }
 
 #[component]
 pub fn CarouselPrevIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <CarouselPrev class=class.unwrap_or_default()>{children()}</CarouselPrev> }
+    view! { <CarouselPrev class=class>{children()}</CarouselPrev> }
 }
 
 #[component]
 pub fn CarouselNextIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <CarouselNext class=class.unwrap_or_default()>{children()}</CarouselNext> }
+    view! { <CarouselNext class=class>{children()}</CarouselNext> }
 }
 
 #[component]
 pub fn CarouselIndicatorsIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <CarouselIndicators class=class.unwrap_or_default()>{children()}</CarouselIndicators> }
+    view! { <CarouselIndicators class=class>{children()}</CarouselIndicators> }
 }
