@@ -10,7 +10,7 @@
 
 use leptos::prelude::*;
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum StatusDotVariant {
     Online,
     #[default]

@@ -21,29 +21,21 @@ pub fn init_all(groups: Vec<String>) {
         };
 
         let group = el.get_attribute("data-rs-interaction").unwrap_or_default();
-
         if !groups.contains(&group) { continue; }
 
         match group.as_str() {
-            #[cfg(feature = "ix_gesture")]
-            "gesture" => {
-                if el.has_attribute("data-rs-resizable")   { crate::interactions::resizable::init(el.clone()); }
-                if el.has_attribute("data-rs-slider")      { crate::interactions::slider::init(el.clone()); }
-                if el.has_attribute("data-rs-carousel")    { crate::interactions::carousel::init(el.clone()); }
-                if el.has_attribute("data-rs-scroll-area") { crate::interactions::scroll_area::init(el.clone()); }
-            }
             #[cfg(feature = "ix_overlay")]
             "overlay" => {
-                if el.has_attribute("data-rs-modal")           { crate::interactions::modal::init(el.clone()); }
-                if el.has_attribute("data-rs-drawer")          { crate::interactions::drawer::init(el.clone()); }
-                if el.has_attribute("data-rs-sheet")           { crate::interactions::sheet::init(el.clone()); }
-                if el.has_attribute("data-rs-alert-dialog")    { crate::interactions::alert_dialog::init(el.clone()); }
-                if el.has_attribute("data-rs-dialog")          { crate::interactions::dialog::init(el.clone()); }
-                if el.has_attribute("data-rs-confirm-dialog")  { crate::interactions::confirm_dialog::init(el.clone()); }
-                if el.has_attribute("data-rs-popover")         { crate::interactions::popover::init(el.clone()); }
-                if el.has_attribute("data-rs-hover-card")      { crate::interactions::hover_card::init(el.clone()); }
-                if el.has_attribute("data-rs-context-menu")    { crate::interactions::context_menu::init(el.clone()); }
-                if el.has_attribute("data-rs-dropdown-menu")   { crate::interactions::dropdown_menu::init(el.clone()); }
+                if el.has_attribute("data-rs-modal")          { crate::interactions::modal::init(el.clone()); }
+                if el.has_attribute("data-rs-drawer")         { crate::interactions::drawer::init(el.clone()); }
+                if el.has_attribute("data-rs-sheet")          { crate::interactions::sheet::init(el.clone()); }
+                if el.has_attribute("data-rs-alert-dialog")   { crate::interactions::alert_dialog::init(el.clone()); }
+                if el.has_attribute("data-rs-dialog")         { crate::interactions::dialog::init(el.clone()); }
+                if el.has_attribute("data-rs-confirm-dialog") { crate::interactions::confirm_dialog::init(el.clone()); }
+                if el.has_attribute("data-rs-popover")        { crate::interactions::popover::init(el.clone()); }
+                if el.has_attribute("data-rs-hover-card")     { crate::interactions::hover_card::init(el.clone()); }
+                if el.has_attribute("data-rs-context-menu")   { crate::interactions::context_menu::init(el.clone()); }
+                if el.has_attribute("data-rs-dropdown-menu")  { crate::interactions::dropdown_menu::init(el.clone()); }
             }
             #[cfg(feature = "ix_selection")]
             "selection" => {
@@ -56,12 +48,12 @@ pub fn init_all(groups: Vec<String>) {
             }
             #[cfg(feature = "ix_nav")]
             "nav" => {
-                if el.has_attribute("data-rs-sidebar")     { crate::interactions::sidebar::init(el.clone()); }
-                if el.has_attribute("data-rs-menubar")     { crate::interactions::menubar::init(el.clone()); }
-                if el.has_attribute("data-rs-toolbar")     { crate::interactions::toolbar::init(el.clone()); }
-                if el.has_attribute("data-rs-breadcrumb")  { crate::interactions::breadcrumb::init(el.clone()); }
-                if el.has_attribute("data-rs-link-group")  { crate::interactions::link_group::init(el.clone()); }
-                if el.has_attribute("data-rs-pagination")  { crate::interactions::pagination::init(el.clone()); }
+                if el.has_attribute("data-rs-sidebar")    { crate::interactions::sidebar::init(el.clone()); }
+                if el.has_attribute("data-rs-menubar")    { crate::interactions::menubar::init(el.clone()); }
+                if el.has_attribute("data-rs-toolbar")    { crate::interactions::toolbar::init(el.clone()); }
+                if el.has_attribute("data-rs-breadcrumb") { crate::interactions::breadcrumb::init(el.clone()); }
+                if el.has_attribute("data-rs-link-group") { crate::interactions::link_group::init(el.clone()); }
+                if el.has_attribute("data-rs-pagination") { crate::interactions::pagination::init(el.clone()); }
             }
             #[cfg(feature = "ix_data")]
             "data" => {

@@ -38,7 +38,7 @@ ix_selection = ["dep:canonrs-client", "canonrs-client/ix_selection"]
 ix_nav       = ["dep:canonrs-client", "canonrs-client/ix_nav"]
 ix_data      = ["dep:canonrs-client", "canonrs-client/ix_data"]
 ix_content   = ["dep:canonrs-client", "canonrs-client/ix_content"]
-full         = ["ix_gesture", "ix_overlay", "ix_selection", "ix_nav", "ix_data", "ix_content"]
+full         = ["ix_overlay", "ix_selection", "ix_nav", "ix_data", "ix_content"]
 
 [lints]
 workspace = true

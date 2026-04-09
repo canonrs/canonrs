@@ -1,15 +1,6 @@
 //! CanonRS Interaction Engine
 //! Tree-shaking via feature flags: ix_gesture, ix_overlay, ix_selection, ix_nav, ix_data, ix_content
 
-// ── ix_gesture ────────────────────────────────────────────────────────────────
-#[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub use canonrs_interactions_gesture::resizable;
-#[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub use canonrs_interactions_gesture::slider;
-#[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub use canonrs_interactions_gesture::carousel;
-#[cfg(all(target_arch = "wasm32", feature = "ix_gesture"))]
-pub use canonrs_interactions_gesture::scroll_area;
 
 // ── ix_overlay ────────────────────────────────────────────────────────────────
 #[cfg(feature = "ix_overlay")]

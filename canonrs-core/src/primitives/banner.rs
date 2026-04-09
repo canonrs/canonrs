@@ -6,7 +6,7 @@ use leptos::prelude::*;
 use crate::meta::VisibilityState;
 use crate::infra::state_engine::visibility_attrs;
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum BannerVariant {
     #[default]
     Info,

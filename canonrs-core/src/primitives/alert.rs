@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, Default, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
 pub enum AlertVariant {
     #[default]
     Default,

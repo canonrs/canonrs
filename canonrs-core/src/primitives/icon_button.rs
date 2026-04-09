@@ -6,7 +6,7 @@ use leptos::prelude::*;
 use crate::meta::{DisabledState, LoadingState, ToggleState};
 use crate::infra::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
 
-#[derive(Clone, PartialEq, Default, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum IconButtonSize {
     Xs,
     Sm,
@@ -27,7 +27,7 @@ impl IconButtonSize {
     }
 }
 
-#[derive(Clone, PartialEq, Default, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum IconButtonVariant {
     #[default]
     Default,

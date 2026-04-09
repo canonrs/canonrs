@@ -5,7 +5,7 @@ use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState};
 use crate::infra::state_engine::visibility_attrs;
 
-#[derive(Clone, Copy, PartialEq, Default, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
 pub enum AccordionSelection {
     #[default]
     Single,

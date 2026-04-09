@@ -6,7 +6,7 @@ use leptos::prelude::*;
 use crate::meta::{DisabledState, LoadingState, ToggleState};
 use crate::infra::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
 
-#[derive(Clone, PartialEq, Default, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum ButtonVariant {
     #[default]
     Default,
@@ -31,7 +31,7 @@ impl ButtonVariant {
     }
 }
 
-#[derive(Clone, PartialEq, Default, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum ButtonSize {
     Xs,
     Sm,
@@ -54,7 +54,25 @@ impl ButtonSize {
     }
 }
 
-#[derive(Clone, PartialEq, Default, Debug)]
+#[derive(Clone, Copy, PartialEq, Default, Debug, serde::Serialize, serde::Deserialize)]
+pub enum ButtonStateHint {
+    #[default] None,
+    First, Last, Hover, Focus,
+}
+
+impl ButtonStateHint {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::None  => "",
+            Self::First => "first",
+            Self::Last  => "last",
+            Self::Hover => "hover",
+            Self::Focus => "focus",
+        }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Default, Debug, serde::Serialize, serde::Deserialize)]
 pub enum ButtonType {
     #[default]
     Button,

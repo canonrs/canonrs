@@ -6,7 +6,7 @@ use leptos::prelude::*;
 use crate::meta::VisibilityState;
 use crate::infra::state_engine::visibility_attrs;
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastVariant {
     #[default]
     Default,
@@ -34,7 +34,7 @@ impl ToastVariant {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastLifecycle {
     #[default]
     Open,
@@ -48,7 +48,7 @@ impl ToastLifecycle {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastPosition {
     #[default]
     TopRight,
