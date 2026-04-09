@@ -12,4 +12,4 @@ pub use examples::*;
 pub use radio_ui::RadioPreview;
 pub use preview::RadioShowcasePreview;
 pub mod radio_island;
-pub use radio_island::{RadioGroupIsland, RadioIsland, RadioGroupItemIsland, RadioInit};
+pub use radio_island::{RadioGroupIsland, RadioIsland, RadioGroupItemIsland};

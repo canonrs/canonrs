@@ -12,16 +12,7 @@ pub struct ComboboxOption {
     pub disabled: bool,
 }
 
-#[island]
-pub fn ComboboxInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn ComboboxIsland(
@@ -33,7 +24,6 @@ pub fn ComboboxIsland(
     let class       = class.unwrap_or_default();
 
     view! {
-        <ComboboxInit />
         <Combobox class=class>
             <ComboboxInput placeholder=placeholder />
             <ComboboxList>

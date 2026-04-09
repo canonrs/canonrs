@@ -4,16 +4,7 @@
 use leptos::prelude::*;
 use super::virtual_list_ui::VirtualList;
 
-#[island]
-pub fn VirtualListInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn VirtualListIsland(
@@ -22,7 +13,6 @@ pub fn VirtualListIsland(
     children: Children,
 ) -> impl IntoView {
     view! {
-        <VirtualListInit />
         <VirtualList items_count=items_count item_height=item_height>
             {children()}
         </VirtualList>

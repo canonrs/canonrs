@@ -10,4 +10,4 @@ pub use examples::*;
 pub use menubar_ui::MenubarPreview;
 pub use preview::MenubarShowcasePreview;
 pub mod menubar_island;
-pub use menubar_island::{MenubarIsland, MenubarMenuIsland, MenubarTriggerIsland, MenubarContentIsland, MenubarItemIsland, MenubarSeparatorIsland, MenubarInit};
+pub use menubar_island::{MenubarIsland, MenubarMenuIsland, MenubarTriggerIsland, MenubarContentIsland, MenubarItemIsland, MenubarSeparatorIsland};

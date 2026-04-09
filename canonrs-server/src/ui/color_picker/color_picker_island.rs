@@ -5,16 +5,7 @@ use leptos::prelude::*;
 use super::color_picker_ui::{ColorPicker, ColorPickerSwatch, ColorPickerDisplay, ColorFormat};
 use canonrs_core::meta::{DisabledState, SelectionState};
 
-#[island]
-pub fn ColorPickerInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn ColorPickerIsland(
@@ -24,7 +15,6 @@ pub fn ColorPickerIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ColorPickerInit />
         <ColorPicker value=value name=name disabled=disabled class=class />
     }
 }

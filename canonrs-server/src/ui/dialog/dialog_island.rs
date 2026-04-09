@@ -8,16 +8,7 @@ use super::dialog_ui::{
     DialogDescription, DialogClose,
 };
 
-#[island]
-pub fn DialogInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn DialogIsland(
@@ -25,7 +16,6 @@ pub fn DialogIsland(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <DialogInit />
         <Dialog class=class.unwrap_or_default()>{children()}</Dialog>
     }
 }

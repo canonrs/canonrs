@@ -8,16 +8,7 @@ use super::breadcrumb_ui::{
 };
 use canonrs_core::meta::ActivityState;
 
-#[island]
-pub fn BreadcrumbInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn BreadcrumbIsland(
@@ -25,7 +16,6 @@ pub fn BreadcrumbIsland(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <BreadcrumbInit />
         <Breadcrumb class=class.unwrap_or_default()>{children()}</Breadcrumb>
     }
 }

@@ -10,16 +10,7 @@ use super::sidebar_ui::{
 use canonrs_core::primitives::SidebarVariant;
 use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
 
-#[island]
-pub fn SidebarInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn SidebarIsland(
@@ -29,7 +20,6 @@ pub fn SidebarIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <SidebarInit />
         <Sidebar state=state variant=variant class=class>{children()}</Sidebar>
     }
 }

@@ -12,16 +12,7 @@ pub struct SelectOption {
     pub disabled: bool,
 }
 
-#[island]
-pub fn SelectInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-        use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn SelectIsland(
@@ -38,7 +29,6 @@ pub fn SelectIsland(
     }).collect::<Vec<_>>();
 
     view! {
-        <SelectInit />
         <Select class=class>
             <SelectTrigger>
                 <SelectValue placeholder=placeholder>{""}</SelectValue>

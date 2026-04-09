@@ -1,13 +1,4 @@
-#[island]
-pub fn MarkdownInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 use leptos::prelude::*;
 use super::markdown_ui::{MarkdownSurface, MarkdownTOC, MarkdownContent, MarkdownLayout, RenderedMarkdown, TocPosition};
@@ -25,7 +16,6 @@ pub fn MarkdownSurfaceIsland(
         _               => TocPosition::Top,
     };
     view! {
-        <MarkdownInit />
         <MarkdownSurface
             rendered=rendered
             show_toc=show_toc.unwrap_or(true)

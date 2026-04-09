@@ -3,16 +3,7 @@ use super::chart_ui::Chart;
 use canonrs_core::primitives::ChartType;
 use canonrs_core::ChartData;
 
-#[island]
-pub fn ChartInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn ChartIsland(
@@ -27,7 +18,6 @@ pub fn ChartIsland(
     #[prop(into, default = String::new())] aria_label: String,
 ) -> impl IntoView {
     view! {
-        <ChartInit />
         <Chart
             data=data
             chart_type=chart_type

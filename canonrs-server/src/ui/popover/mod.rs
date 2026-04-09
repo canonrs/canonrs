@@ -7,4 +7,4 @@ pub use popover_ui::*;
 pub use popover_ui::PopoverPreview;
 pub use preview::PopoverShowcasePreview;
 pub mod popover_island;
-pub use popover_island::{PopoverIsland, PopoverContentIsland, PopoverInit};
+pub use popover_island::{PopoverIsland, PopoverContentIsland};

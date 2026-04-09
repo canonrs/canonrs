@@ -14,16 +14,7 @@ pub struct ToggleGroupItem {
 
 static TOGGLE_GROUP_ID: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(1);
 
-#[island]
-pub fn ToggleGroupInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[island]
 pub fn ToggleGroupIsland(
@@ -56,7 +47,6 @@ pub fn ToggleGroupIsland(
     }).collect::<Vec<_>>();
 
     view! {
-        <ToggleGroupInit />
         <ToggleGroup multiple=multiple class=class attr:data-rs-toggle-group-id=island_id>
             {items_view}
         </ToggleGroup>

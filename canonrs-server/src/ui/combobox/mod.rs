@@ -17,4 +17,4 @@ pub use combobox_ui::ComboboxPreview;
 pub mod preview;
 pub use preview::ComboboxShowcasePreview;
 pub mod combobox_island;
-pub use combobox_island::{ComboboxIsland, ComboboxOption, ComboboxInit};
+pub use combobox_island::{ComboboxIsland, ComboboxOption};

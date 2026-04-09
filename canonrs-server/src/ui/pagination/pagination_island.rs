@@ -8,16 +8,7 @@ use super::pagination_ui::{
 };
 use canonrs_core::meta::{ActivityState, DisabledState};
 
-#[island]
-pub fn PaginationInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn PaginationIsland(
@@ -25,7 +16,6 @@ pub fn PaginationIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationInit />
         <Pagination class=class>{children()}</Pagination>
     }
 }

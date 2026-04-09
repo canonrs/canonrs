@@ -4,16 +4,7 @@
 use leptos::prelude::*;
 use super::list_item_ui::{List, ListItem, ListItemTitle, ListItemDescription};
 
-#[island]
-pub fn ListItemInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn ListIsland(
@@ -21,7 +12,6 @@ pub fn ListIsland(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <ListItemInit />
         <List class=class.unwrap_or_default()>{children()}</List>
     }
 }

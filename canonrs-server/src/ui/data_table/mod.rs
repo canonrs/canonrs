@@ -9,4 +9,4 @@ pub use canonrs_core::primitives::{DataTableDensity, SortDirection};
 
 pub use preview::DataTableStaticShowcasePreview;
 pub mod data_table_island;
-pub use data_table_island::{DataTableInit, DataTableIslandColumn};
+pub use data_table_island::{DataTableIslandColumn};

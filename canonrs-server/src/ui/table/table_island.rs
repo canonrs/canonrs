@@ -7,16 +7,7 @@ use canonrs_core::primitives::SortDirection;
 use canonrs_core::meta::SelectionState;
 pub use super::table_ui::TableState;
 
-#[island]
-pub fn TableInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct TableIslandColumn {
@@ -31,7 +22,6 @@ pub fn TableIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <TableInit />
         <Table striped=striped hoverable=hoverable class=class>{children()}</Table>
     }
 }

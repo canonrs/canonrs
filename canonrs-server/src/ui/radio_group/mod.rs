@@ -6,7 +6,7 @@ pub mod preview;
 pub mod examples;
 
 pub use radio_group_ui::*;
-pub use radio_group_island::{RadioGroupIsland, RadioIsland, RadioGroupItemIsland, RadioInit};
+pub use radio_group_island::{RadioGroupIsland, RadioIsland, RadioGroupItemIsland};
 
 #[cfg(feature = "examples")]
 pub use examples::*;

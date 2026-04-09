@@ -4,16 +4,7 @@
 use leptos::prelude::*;
 use super::copy_button_ui::CopyButton;
 
-#[island]
-pub fn CopyButtonInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn CopyButtonIsland(
@@ -25,7 +16,6 @@ pub fn CopyButtonIsland(
     #[prop(into, default = "Copy to clipboard".to_string())] aria_label: String,
 ) -> impl IntoView {
     view! {
-        <CopyButtonInit />
         <CopyButton
             text=text.unwrap_or_default()
             target=target.unwrap_or_default()

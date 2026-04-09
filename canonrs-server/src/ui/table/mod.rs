@@ -7,4 +7,4 @@ pub use table_ui::*;
 
 pub use preview::TableShowcasePreview;
 pub mod table_island;
-pub use table_island::{TableIsland, TableHeaderIsland, TableBodyIsland, TableRowIsland, TableHeadIsland, TableCellIsland, TableInit};
+pub use table_island::{TableIsland, TableHeaderIsland, TableBodyIsland, TableRowIsland, TableHeadIsland, TableCellIsland};

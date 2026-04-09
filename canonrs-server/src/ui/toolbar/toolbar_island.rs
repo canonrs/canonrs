@@ -13,16 +13,7 @@ pub struct ToolbarItem {
     pub separator_after: bool,
 }
 
-#[island]
-pub fn ToolbarInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn ToolbarIsland(
@@ -56,7 +47,6 @@ pub fn ToolbarIsland(
     }).collect::<Vec<_>>();
 
     view! {
-        <ToolbarInit />
         <Toolbar aria_label=aria_label orientation=orient class=class>
             {items_view}
         </Toolbar>

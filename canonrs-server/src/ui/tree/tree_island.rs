@@ -5,16 +5,7 @@ use leptos::prelude::*;
 use super::tree_ui::{Tree, TreeItem, TreeGroup};
 use super::tree_node::TreeNode;
 
-#[island]
-pub fn TreeInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 fn render_nodes(nodes: Vec<TreeNode>) -> impl IntoView {
     nodes.into_iter().map(|node| {
@@ -39,7 +30,6 @@ pub fn TreeIsland(
 ) -> impl IntoView {
     let class = class.unwrap_or_default();
     view! {
-        <TreeInit />
         <Tree class=class>
             {render_nodes(nodes)}
         </Tree>

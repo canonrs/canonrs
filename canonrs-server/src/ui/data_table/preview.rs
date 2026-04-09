@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use super::data_table_island::DataTableInit;
 use super::data_table_ui::DataTableStatic;
 use super::data_table_ui::DataTableColumn;
 
@@ -23,7 +22,6 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <DataTableInit />
                 <DataTableStatic
                     data=data
                     columns=columns

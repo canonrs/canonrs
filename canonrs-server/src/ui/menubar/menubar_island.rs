@@ -4,16 +4,7 @@
 use leptos::prelude::*;
 use super::menubar_ui::{Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator};
 
-#[island]
-pub fn MenubarInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn MenubarIsland(
@@ -21,7 +12,6 @@ pub fn MenubarIsland(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! {
-        <MenubarInit />
         <Menubar class=class.unwrap_or_default()>{children()}</Menubar>
     }
 }

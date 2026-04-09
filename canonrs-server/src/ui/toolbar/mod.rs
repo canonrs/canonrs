@@ -10,4 +10,4 @@ pub use examples::*;
 pub mod preview;
 pub use preview::ToolbarShowcasePreview;
 pub mod toolbar_island;
-pub use toolbar_island::{ToolbarIsland, ToolbarItem, ToolbarInit};
+pub use toolbar_island::{ToolbarIsland, ToolbarItem};

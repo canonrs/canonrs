@@ -5,16 +5,7 @@ use leptos::prelude::*;
 use super::radio_ui::{Radio, RadioGroup, RadioGroupItem};
 use canonrs_core::meta::{SelectionState, DisabledState};
 
-#[island]
-pub fn RadioInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn RadioGroupIsland(
@@ -23,7 +14,6 @@ pub fn RadioGroupIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <RadioInit />
         <RadioGroup disabled=disabled class=class>{children()}</RadioGroup>
     }
 }

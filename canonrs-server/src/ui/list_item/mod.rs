@@ -9,4 +9,4 @@ pub use examples::*;
 pub use list_item_ui::ListItemPreview;
 pub use preview::ListItemShowcasePreview;
 pub mod list_item_island;
-pub use list_item_island::{ListIsland, ListItemIsland, ListItemTitleIsland, ListItemDescriptionIsland, ListItemInit};
+pub use list_item_island::{ListIsland, ListItemIsland, ListItemTitleIsland, ListItemDescriptionIsland};

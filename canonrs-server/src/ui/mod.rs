@@ -72,7 +72,6 @@ pub use checkbox::CheckboxShowcasePreview;
 pub use form_error_summary::FormErrorSummaryShowcasePreview;
 pub use table::TableShowcasePreview;
 pub use data_table::DataTableStaticShowcasePreview;
-pub use data_table::DataTableInit;
 pub use data_table::DataTableIslandColumn;
 pub use input::InputIsland;
 pub use input_group::InputGroupIsland;
@@ -131,7 +130,7 @@ pub use combobox::{ComboboxIsland, ComboboxOption};
 pub mod command;
 pub mod radio_group;
 pub mod radio;
-pub use radio::{RadioGroupIsland, RadioIsland, RadioGroupItemIsland, RadioInit};
+pub use radio::{RadioGroupIsland, RadioIsland, RadioGroupItemIsland};
 pub mod kbd;
 pub mod button_group;
 pub mod color_picker;
@@ -207,6 +206,8 @@ pub mod resizable;
 
 // Family H - Layout
 pub mod section;
+pub mod runtime_island;
+pub use runtime_island::RuntimeIsland;
 pub mod separator;
 pub mod aspect_ratio;
 pub mod doc_progress;

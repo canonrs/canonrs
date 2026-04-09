@@ -4,16 +4,7 @@
 use leptos::prelude::*;
 use super::confirm_dialog_ui::ConfirmDialog;
 
-#[island]
-pub fn ConfirmDialogInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-                use wasm_bindgen_futures::spawn_local;
-        spawn_local(async move {
-        });
-    }
-    view! { <></> }
-}
+
 
 #[component]
 pub fn ConfirmDialogIsland(
@@ -25,7 +16,6 @@ pub fn ConfirmDialogIsland(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ConfirmDialogInit />
         <ConfirmDialog
             title=title
             message=message
