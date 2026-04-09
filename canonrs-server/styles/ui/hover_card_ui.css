@@ -33,3 +33,31 @@
   opacity: 1;
   visibility: visible;
 }
+
+[data-rs-hover-card-content][data-rs-side="bottom"],
+[data-rs-hover-card-content]:not([data-rs-side]) {
+  top: calc(100% + 8px);
+  bottom: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-rs-hover-card-content][data-rs-side="top"] {
+  bottom: calc(100% + 8px);
+  top: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-rs-hover-card-content][data-rs-side="right"] {
+  left: calc(100% + 8px);
+  top: 0;
+  transform: none;
+}
+
+[data-rs-hover-card-content][data-rs-side="left"] {
+  right: calc(100% + 8px);
+  left: auto;
+  top: 0;
+  transform: none;
+}

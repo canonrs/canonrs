@@ -57,3 +57,8 @@
   opacity: 1;
   visibility: visible;
 }
+
+[data-rs-showcase-preview-stage] > [data-rs-popover],
+[data-rs-showcase-preview-row] > [data-rs-popover] {
+  height: auto;
+}
