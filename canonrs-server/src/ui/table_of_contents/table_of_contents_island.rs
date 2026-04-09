@@ -1,15 +1,8 @@
 use leptos::prelude::*;
 
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct TocIslandItem {
-    pub id:    String,
-    pub text:  String,
-    pub level: u8,
-}
-
 #[island]
 pub fn TableOfContentsIsland(
-    items: Vec<TocIslandItem>,
+    children: Children,
     #[prop(optional, into)] class: Option<String>,
     #[prop(optional, into)] title: Option<String>,
     #[prop(optional, into)] mode: Option<String>,
@@ -35,26 +28,7 @@ pub fn TableOfContentsIsland(
         });
     }
 
-    let initial_state = "idle";
-
-    let items_view = items.iter().map(|item| {
-        let href  = format!("#{}", item.id);
-        let id    = item.id.clone();
-        let text  = item.text.clone();
-        let level = item.level.to_string();
-        let is_child = item.level > 2;
-        view! {
-            <li
-                data-rs-toc-item=""
-                data-rs-target=id
-                data-rs-level=level
-                data-rs-state=initial_state
-                data-child=is_child.to_string()
-            >
-                <a data-rs-toc-link="" href=href>{text}</a>
-            </li>
-        }
-    }).collect::<Vec<_>>();
+    let _initial_state = "idle";
 
     view! {
         <nav
@@ -66,7 +40,7 @@ pub fn TableOfContentsIsland(
         >
             <p data-rs-toc-title="">{title}</p>
             <ul data-rs-toc-list="">
-                {items_view}
+                {children()}
             </ul>
         </nav>
     }

@@ -5,7 +5,8 @@ pub mod preview;
 pub mod examples;
 
 pub use banner_ui::*;
-pub use banner_island::{BannerIsland, BannerIslandVariant};
+pub use banner_island::BannerIsland;
+pub use canonrs_core::primitives::BannerVariant;
 
 pub use banner_ui::BannerPreview;
 pub use preview::BannerShowcasePreview;

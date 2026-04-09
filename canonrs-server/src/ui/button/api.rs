@@ -6,8 +6,8 @@ pub const BUTTON_API: ComponentApi = ComponentApi {
     id: "button",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "primary", "secondary", "outline", "ghost", "link", "destructive"]), required: false, default: Some("primary"), description: "" },
-        PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl"]), required: false, default: Some("md"), description: "" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "destructive", "outline", "secondary", "ghost", "link", "primary"]), required: false, default: Some("primary"), description: "" },
+        PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl", "icon"]), required: false, default: Some("md"), description: "" },
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "" },

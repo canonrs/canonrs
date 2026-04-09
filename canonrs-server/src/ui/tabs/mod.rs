@@ -3,7 +3,7 @@ pub mod tabs_island;
 pub mod preview;
 
 pub use tabs_ui::*;
-pub use tabs_island::{TabsIsland, TabItem, TabsRootIsland, TabsTriggerIsland, TabsContentIsland};
+pub use tabs_island::{TabsRootIsland, TabsTriggerIsland, TabsContentIsland};
 pub const EXAMPLES: &str = include_str!("examples.rs");
 #[cfg(feature = "examples")]
 pub mod examples;

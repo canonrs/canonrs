@@ -1,38 +1,18 @@
-//! ButtonGroup Island — Canon Rule #340 + #341
-//! Passthrough + DOM-driven state. Zero signals.
-
+//! ButtonGroup Island — Canon Rule passthrough
 use leptos::prelude::*;
-
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ButtonGroupAttached {
-    #[default] Detached,
-    Attached,
-}
-
-impl ButtonGroupAttached {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Attached => "attached", Self::Detached => "" }
-    }
-}
+use canonrs_core::ToggleState;
+use super::button_group_ui::ButtonGroup;
 
 #[component]
 pub fn ButtonGroupIsland(
     children: Children,
-    #[prop(default = ButtonGroupAttached::Detached)] attached: ButtonGroupAttached,
-    #[prop(into, default = String::new())] class:              String,
-    #[prop(optional, into)] aria_label:                        Option<String>,
+    #[prop(default = ToggleState::Off)] attached: ToggleState,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-button-group=""
-            data-rs-component="ButtonGroup"
-            data-rs-behavior="action"
-            data-rs-state=attached.as_str()
-            role="group"
-            aria-label=aria_label
-            class=class
-        >
+        <ButtonGroup class=class attached=attached aria_label=aria_label.unwrap_or_default()>
             {children()}
-        </div>
+        </ButtonGroup>
     }
 }

@@ -1,8 +1,10 @@
 use leptos::prelude::*;
-use super::button_island::{ButtonIsland, ButtonVariant, ButtonSize};
+use super::button_island::ButtonIsland;
+use canonrs_core::primitives::{ButtonVariant, ButtonSize};
 use canonrs_core::primitives::ButtonPrimitive;
 use canonrs_core::primitives::ButtonVariant as CoreVariant;
-use crate::ui::button_group::button_group_island::{ButtonGroupIsland, ButtonGroupAttached};
+use crate::ui::button_group::button_group_island::ButtonGroupIsland;
+use canonrs_core::ToggleState;
 
 #[component]
 pub fn ButtonPreview() -> impl IntoView {
@@ -73,7 +75,7 @@ pub fn ButtonPreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Button Group — attached"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ButtonGroupIsland attached=ButtonGroupAttached::Attached aria_label="Group attached">
+                    <ButtonGroupIsland attached=ToggleState::On aria_label="Group attached">
                         <ButtonIsland variant=ButtonVariant::Primary>"One"</ButtonIsland>
                         <ButtonIsland variant=ButtonVariant::Primary>"Two"</ButtonIsland>
                         <ButtonIsland variant=ButtonVariant::Primary>"Three"</ButtonIsland>

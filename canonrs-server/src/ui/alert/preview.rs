@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use super::alert_island::{AlertIsland, AlertIslandVariant};
+use super::alert_island::AlertIsland;
+use canonrs_core::primitives::AlertVariant;
 
 #[component]
 pub fn AlertShowcasePreview() -> impl IntoView {
@@ -14,10 +15,10 @@ pub fn AlertShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variants"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-sm);">
-                    <AlertIsland variant=AlertIslandVariant::Success     title="Success"     description="Your changes have been saved." />
-                    <AlertIsland variant=AlertIslandVariant::Warning     title="Warning"     description="Session expires in 5 minutes." />
-                    <AlertIsland variant=AlertIslandVariant::Destructive title="Error"       description="Failed to save changes." />
-                    <AlertIsland variant=AlertIslandVariant::Info        title="Info"        description="A new version is available." />
+                    <AlertIsland variant=AlertVariant::Success     title="Success"     description="Your changes have been saved." />
+                    <AlertIsland variant=AlertVariant::Warning     title="Warning"     description="Session expires in 5 minutes." />
+                    <AlertIsland variant=AlertVariant::Destructive title="Error"       description="Failed to save changes." />
+                    <AlertIsland variant=AlertVariant::Default        title="Info"        description="A new version is available." />
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">

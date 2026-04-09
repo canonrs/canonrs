@@ -1,39 +1,21 @@
-//! @canon-level: strict
-//! Select Island — bootstrap only, delegates to interaction engine
-
+//! Select Island — Canon Rule passthrough
 use leptos::prelude::*;
-use super::select_ui::{Select, SelectTrigger, SelectValue, SelectContent, SelectItem};
-use canonrs_core::meta::DisabledState;
-
-#[derive(Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub struct SelectOption {
-    pub value: String,
-    pub label: String,
-    pub disabled: bool,
-}
-
-
+use super::select_ui::{Select, SelectTrigger, SelectValue, SelectContent};
 
 #[component]
 pub fn SelectIsland(
-    #[prop(optional, into)] placeholder: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
-    options: Vec<SelectOption>,
+    children: Children,
+    #[prop(into, default = String::from("Select..."))] placeholder: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let placeholder = placeholder.unwrap_or_else(|| "Select...".to_string());
-    let class       = class.unwrap_or_default();
-
-    let options_view = options.into_iter().map(|opt| {
-        let disabled = if opt.disabled { DisabledState::Disabled } else { DisabledState::Enabled };
-        view! { <SelectItem value=opt.value disabled=disabled>{opt.label}</SelectItem> }
-    }).collect::<Vec<_>>();
-
     view! {
         <Select class=class>
             <SelectTrigger>
                 <SelectValue placeholder=placeholder>{""}</SelectValue>
             </SelectTrigger>
-            <SelectContent>{options_view}</SelectContent>
+            <SelectContent>
+                {children()}
+            </SelectContent>
         </Select>
     }
 }

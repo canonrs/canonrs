@@ -216,13 +216,12 @@ where
     }
 }
 
-use crate::ui::data_table::data_table_island::DataTableIslandColumn;
 use std::collections::HashSet;
 
 #[allow(unused_variables)]
 #[component]
 pub fn DataTableCore(
-    columns: Vec<DataTableIslandColumn>,
+    columns: Vec<DataTableColumn<String>>,
     rows: Vec<Vec<String>>,
     visible_set: HashSet<usize>,
     sort_col: Option<usize>,

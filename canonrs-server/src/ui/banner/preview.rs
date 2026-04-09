@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use super::banner_island::{BannerIsland, BannerIslandVariant};
+use super::banner_island::BannerIsland;
+use canonrs_core::primitives::BannerVariant;
 
 #[component]
 pub fn BannerShowcasePreview() -> impl IntoView {
@@ -14,9 +15,9 @@ pub fn BannerShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Variants"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-sm);">
-                    <BannerIsland variant=BannerIslandVariant::Success content="Your account has been verified." />
-                    <BannerIsland variant=BannerIslandVariant::Warning content="Your subscription expires in 3 days." />
-                    <BannerIsland variant=BannerIslandVariant::Error   content="Payment failed. Please update billing." />
+                    <BannerIsland variant=BannerVariant::Success content="Your account has been verified." />
+                    <BannerIsland variant=BannerVariant::Warning content="Your subscription expires in 3 days." />
+                    <BannerIsland variant=BannerVariant::Error   content="Payment failed. Please update billing." />
                 </div>
             </div>
         </div>

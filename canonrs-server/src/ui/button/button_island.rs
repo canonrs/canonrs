@@ -2,50 +2,7 @@
 //! DOM-driven, zero state. Lógica via web_sys + Effect.
 
 use leptos::prelude::*;
-
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ButtonVariant {
-    #[default] Default,
-    Primary, Secondary, Outline, Ghost, Link, Destructive,
-}
-
-impl ButtonVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Default     => "default",
-            Self::Primary     => "primary",
-            Self::Secondary   => "secondary",
-            Self::Outline     => "outline",
-            Self::Ghost       => "ghost",
-            Self::Link        => "link",
-            Self::Destructive => "destructive",
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ButtonSize {
-    Xs, Sm, #[default] Md, Lg, Xl, Icon,
-}
-
-impl ButtonSize {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Xs   => "xs",
-            Self::Sm   => "sm",
-            Self::Md   => "md",
-            Self::Lg   => "lg",
-            Self::Xl   => "xl",
-            Self::Icon => "icon",
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum ButtonStateHint {
-    #[default] None,
-    First, Last, Hover, Focus,
-}
+use canonrs_core::primitives::{ButtonVariant, ButtonSize, ButtonStateHint};
 
 #[island]
 pub fn ButtonIsland(

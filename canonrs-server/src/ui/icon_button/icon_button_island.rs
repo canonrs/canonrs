@@ -3,35 +3,7 @@
 
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum IconButtonVariant {
-    #[default] Default,
-    Ghost, Outline, Solid, Subtle, Destructive,
-}
-
-impl IconButtonVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Default     => "default",
-            Self::Ghost       => "ghost",
-            Self::Outline     => "outline",
-            Self::Solid       => "solid",
-            Self::Subtle      => "subtle",
-            Self::Destructive => "destructive",
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum IconButtonSize {
-    Xs, Sm, #[default] Md, Lg, Xl,
-}
-
-impl IconButtonSize {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Xs => "xs", Self::Sm => "sm", Self::Md => "md", Self::Lg => "lg", Self::Xl => "xl" }
-    }
-}
+use canonrs_core::primitives::{IconButtonVariant, IconButtonSize};
 
 #[island]
 pub fn IconButtonIsland(

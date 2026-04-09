@@ -1,32 +1,17 @@
+//! Command Island — Canon Rule init (DOM-driven)
 use leptos::prelude::*;
-
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct CommandIslandItem {
-    pub label: String,
-    pub value: String,
-    pub group: Option<String>,
-}
 
 #[island]
 pub fn CommandIsland(
-    items: Vec<CommandIslandItem>,
+    children: Children,
     #[prop(optional, into)] placeholder: Option<String>,
     #[prop(optional, into)] empty_text: Option<String>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
-    let empty_text  = empty_text.unwrap_or_else(|| "No results found.".to_string());
     let class       = class.unwrap_or_default();
+    let placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
+    let _empty_text = empty_text.unwrap_or_else(|| "No results found.".to_string());
     let (query, set_query) = signal(String::new());
-    let _ = set_query;
-
-    let filtered = move || {
-        let q = query.get().to_lowercase();
-        items.iter()
-            .filter(|item| q.is_empty() || item.label.to_lowercase().contains(&q))
-            .cloned()
-            .collect::<Vec<_>>()
-    };
 
     #[cfg(feature = "hydrate")]
     let on_input = move |e: leptos::ev::Event| {
@@ -40,12 +25,10 @@ pub fn CommandIsland(
     #[cfg(not(feature = "hydrate"))]
     let on_input = move |_: leptos::ev::Event| {};
 
+    let _ = (query, set_query);
+
     view! {
-        <div
-            data-rs-command=""
-            data-rs-component="Command"
-            class=class
-        >
+        <div data-rs-command="" data-rs-component="Command" class=class>
             <div data-rs-command-input-wrapper="">
                 <input
                     data-rs-command-input=""
@@ -55,27 +38,26 @@ pub fn CommandIsland(
                 />
             </div>
             <div data-rs-command-list="" role="listbox">
-                {move || {
-                    let items = filtered();
-                    if items.is_empty() {
-                        view! {
-                            <div data-rs-command-empty="">{empty_text.clone()}</div>
-                        }.into_any()
-                    } else {
-                        items.into_iter().map(|item| {
-                            view! {
-                                <div
-                                    data-rs-command-item=""
-                                    role="option"
-                                    data-rs-value=item.value.clone()
-                                >
-                                    {item.label}
-                                </div>
-                            }
-                        }).collect_view().into_any()
-                    }
-                }}
+                {children()}
             </div>
+        </div>
+    }
+}
+
+#[component]
+pub fn CommandItemIsland(
+    children: Children,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(optional, into)] group: Option<String>,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-command-item=""
+            role="option"
+            data-rs-value=value
+            data-rs-group=group.unwrap_or_default()
+        >
+            {children()}
         </div>
     }
 }

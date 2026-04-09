@@ -5,7 +5,7 @@ pub mod preview;
 pub mod examples;
 
 pub use menu_ui::*;
-pub use menu_island::{MenuIsland, MenuIslandItem};
+pub use menu_island::{MenuIsland, MenuItemIsland};
 #[cfg(feature = "examples")]
 pub use examples::*;
 

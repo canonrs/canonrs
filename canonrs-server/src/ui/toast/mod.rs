@@ -5,7 +5,8 @@ pub mod preview;
 pub mod examples;
 
 pub use toast_ui::*;
-pub use toast_island::{ToastIsland, ToastIslandVariant, ToastViewportIsland};
+pub use toast_island::{ToastIsland, ToastViewportIsland};
+pub use canonrs_core::primitives::ToastVariant;
 
 pub use toast_ui::ToastPreview;
 pub use preview::ToastShowcasePreview;

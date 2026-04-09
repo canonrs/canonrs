@@ -1,27 +1,23 @@
 use leptos::prelude::*;
-use super::toolbar_island::{ToolbarIsland, ToolbarItem};
+use super::toolbar_island::{ToolbarIsland, ToolbarItemIsland, ToolbarSeparatorIsland};
+use canonrs_core::primitives::ToolbarOrientation;
 
 #[component]
 pub fn ToolbarShowcasePreview() -> impl IntoView {
-    let formatting_items = vec![
-        ToolbarItem { label: "B".into(),  value: "bold".into(),      disabled: false, separator_after: false },
-        ToolbarItem { label: "I".into(),  value: "italic".into(),    disabled: false, separator_after: false },
-        ToolbarItem { label: "U".into(),  value: "underline".into(), disabled: false, separator_after: true  },
-        ToolbarItem { label: "←".into(), value: "left".into(),      disabled: false, separator_after: false },
-        ToolbarItem { label: "↔".into(), value: "center".into(),    disabled: false, separator_after: false },
-        ToolbarItem { label: "→".into(), value: "right".into(),     disabled: false, separator_after: true  },
-        ToolbarItem { label: "🔗".into(), value: "link".into(),     disabled: false, separator_after: false },
-    ];
-    let vertical_items = vec![
-        ToolbarItem { label: "✂".into(),  value: "cut".into(),    disabled: false, separator_after: false },
-        ToolbarItem { label: "⎘".into(),  value: "copy".into(),   disabled: false, separator_after: false },
-        ToolbarItem { label: "📋".into(), value: "paste".into(),  disabled: false, separator_after: true  },
-        ToolbarItem { label: "🗑".into(), value: "delete".into(), disabled: false, separator_after: false },
-    ];
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="" style="width:100%;">
-                <ToolbarIsland items=formatting_items aria_label="Text formatting" />
+                <ToolbarIsland aria_label="Text formatting">
+                    <ToolbarItemIsland value="bold">"B"</ToolbarItemIsland>
+                    <ToolbarItemIsland value="italic">"I"</ToolbarItemIsland>
+                    <ToolbarItemIsland value="underline">"U"</ToolbarItemIsland>
+                    <ToolbarSeparatorIsland />
+                    <ToolbarItemIsland value="left">"←"</ToolbarItemIsland>
+                    <ToolbarItemIsland value="center">"↔"</ToolbarItemIsland>
+                    <ToolbarItemIsland value="right">"→"</ToolbarItemIsland>
+                    <ToolbarSeparatorIsland />
+                    <ToolbarItemIsland value="link">"🔗"</ToolbarItemIsland>
+                </ToolbarIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Toolbar role and orientation enforced via contract."
@@ -29,7 +25,13 @@ pub fn ToolbarShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Vertical"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ToolbarIsland items=vertical_items aria_label="Actions" orientation="vertical" />
+                    <ToolbarIsland aria_label="Actions" orientation=ToolbarOrientation::Vertical>
+                        <ToolbarItemIsland value="cut">"✂"</ToolbarItemIsland>
+                        <ToolbarItemIsland value="copy">"⎘"</ToolbarItemIsland>
+                        <ToolbarItemIsland value="paste">"📋"</ToolbarItemIsland>
+                        <ToolbarSeparatorIsland />
+                        <ToolbarItemIsland value="delete">"🗑"</ToolbarItemIsland>
+                    </ToolbarIsland>
                 </div>
             </div>
         </div>

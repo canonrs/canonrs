@@ -1,38 +1,18 @@
-//! @canon-level: strict
-//! Combobox Island — bootstrap only, delegates to interaction engine
-
+//! Combobox Island — Canon Rule passthrough
 use leptos::prelude::*;
-use super::combobox_ui::{Combobox, ComboboxInput, ComboboxList, ComboboxItem};
-use canonrs_core::meta::DisabledState;
-
-#[derive(Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub struct ComboboxOption {
-    pub value: String,
-    pub label: String,
-    pub disabled: bool,
-}
-
-
+use super::combobox_ui::{Combobox, ComboboxInput, ComboboxList};
 
 #[component]
 pub fn ComboboxIsland(
-    #[prop(optional, into)] placeholder: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
-    options: Vec<ComboboxOption>,
+    children: Children,
+    #[prop(into, default = String::from("Search..."))] placeholder: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let placeholder = placeholder.unwrap_or_else(|| "Search...".to_string());
-    let class       = class.unwrap_or_default();
-
     view! {
         <Combobox class=class>
             <ComboboxInput placeholder=placeholder />
             <ComboboxList>
-                {options.into_iter().map(|opt| {
-                    let disabled = if opt.disabled { DisabledState::Disabled } else { DisabledState::Enabled };
-                    view! {
-                        <ComboboxItem value=opt.value disabled=disabled>{opt.label}</ComboboxItem>
-                    }
-                }).collect::<Vec<_>>()}
+                {children()}
             </ComboboxList>
         </Combobox>
     }

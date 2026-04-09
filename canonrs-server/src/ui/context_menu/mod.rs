@@ -8,4 +8,4 @@ pub use context_menu_ui::*;
 pub use context_menu_ui::ContextMenuPreview;
 pub use preview::ContextMenuShowcasePreview;
 pub mod context_menu_island;
-pub use context_menu_island::{ContextMenuIsland, ContextMenuIslandItem};
+pub use context_menu_island::{ContextMenuIsland, ContextMenuTriggerIsland, ContextMenuContentIsland, ContextMenuItemIsland};

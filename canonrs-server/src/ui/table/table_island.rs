@@ -9,11 +9,6 @@ pub use super::table_ui::TableState;
 
 
 
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct TableIslandColumn {
-    pub label: String,
-}
-
 #[component]
 pub fn TableIsland(
     children: Children,

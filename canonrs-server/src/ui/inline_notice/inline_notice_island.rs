@@ -1,37 +1,12 @@
-//! InlineNotice Island — Canon Rule #340
-//! Passthrough only. Zero logic, zero transformation.
-
+//! InlineNotice Island — Canon Rule passthrough
 use leptos::prelude::*;
-
-#[derive(Clone, Copy, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum InlineNoticeIslandVariant {
-    #[default] Default,
-    Info, Success, Warning, Error,
-}
-
-impl InlineNoticeIslandVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Default => "default",
-            Self::Info    => "info",
-            Self::Success => "success",
-            Self::Warning => "warning",
-            Self::Error   => "error",
-        }
-    }
-    pub fn role(&self) -> &'static str {
-        match self { Self::Error => "alert", _ => "status" }
-    }
-    pub fn aria_live(&self) -> &'static str {
-        match self { Self::Error => "assertive", _ => "polite" }
-    }
-}
+use canonrs_core::primitives::InlineNoticeVariant;
 
 #[component]
 pub fn InlineNoticeIsland(
     #[prop(optional, into)] content: Option<String>,
     #[prop(optional, into)] icon:    Option<String>,
-    #[prop(default = InlineNoticeIslandVariant::Default)] variant: InlineNoticeIslandVariant,
+    #[prop(default = InlineNoticeVariant::Default)] variant: InlineNoticeVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {

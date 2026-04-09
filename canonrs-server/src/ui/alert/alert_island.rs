@@ -1,38 +1,12 @@
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, Default)]
-pub enum AlertIslandVariant {
-    #[default]
-    Default,
-    Destructive,
-    Success,
-    Warning,
-    Info,
-}
-
-impl AlertIslandVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Default     => "default",
-            Self::Destructive => "destructive",
-            Self::Success     => "success",
-            Self::Warning     => "warning",
-            Self::Info        => "info",
-        }
-    }
-    pub fn role(&self) -> &'static str {
-        match self {
-            Self::Destructive => "alert",
-            _                 => "status",
-        }
-    }
-}
+use canonrs_core::primitives::AlertVariant;
 
 #[island]
 pub fn AlertIsland(
     #[prop(optional, into)] title: Option<String>,
     #[prop(optional, into)] description: Option<String>,
-    #[prop(optional)] variant: Option<AlertIslandVariant>,
+    #[prop(optional)] variant: Option<AlertVariant>,
     #[prop(optional)] dismissible: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {

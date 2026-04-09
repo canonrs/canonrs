@@ -31,6 +31,12 @@ impl StatusDotVariant {
         }
     }
 
+    pub fn state(&self) -> &'static str {
+        match self {
+            Self::Online => "active",
+            _            => "inactive",
+        }
+    }
     pub fn aria_label(&self) -> &'static str {
         match self {
             Self::Online       => "Online",

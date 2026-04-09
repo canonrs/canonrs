@@ -3,7 +3,8 @@ pub mod alert_island;
 pub mod preview;
 
 pub use alert_ui::*;
-pub use alert_island::{AlertIsland, AlertIslandVariant};
+pub use alert_island::AlertIsland;
+pub use canonrs_core::primitives::AlertVariant;
 
 #[cfg(feature = "examples")]
 pub mod examples;

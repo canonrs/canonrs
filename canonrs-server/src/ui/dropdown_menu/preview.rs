@@ -1,32 +1,18 @@
 use leptos::prelude::*;
-use super::dropdown_menu_island::{DropdownMenuIsland, DropdownMenuIslandItem};
-
-fn main_items() -> Vec<DropdownMenuIslandItem> {
-    vec![
-        DropdownMenuIslandItem { label: "Profile".into(),  value: "profile".into(),  disabled: false },
-        DropdownMenuIslandItem { label: "Settings".into(), value: "settings".into(), disabled: false },
-        DropdownMenuIslandItem { label: "Billing".into(),  value: "billing".into(),  disabled: false },
-        DropdownMenuIslandItem { label: "Sign out".into(), value: "signout".into(),  disabled: false },
-    ]
-}
-
-fn action_items() -> Vec<DropdownMenuIslandItem> {
-    vec![
-        DropdownMenuIslandItem { label: "New".into(),   value: "new".into(),   disabled: false },
-        DropdownMenuIslandItem { label: "Open".into(),  value: "open".into(),  disabled: false },
-        DropdownMenuIslandItem { label: "Save".into(),  value: "save".into(),  disabled: false },
-        DropdownMenuIslandItem { label: "Cut".into(),   value: "cut".into(),   disabled: false },
-        DropdownMenuIslandItem { label: "Copy".into(),  value: "copy".into(),  disabled: false },
-        DropdownMenuIslandItem { label: "Paste".into(), value: "paste".into(), disabled: false },
-    ]
-}
+use super::dropdown_menu_island::{DropdownMenuIsland, DropdownMenuItemIsland};
+use canonrs_core::meta::DisabledState;
 
 #[component]
 pub fn DropdownMenuShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <DropdownMenuIsland items=main_items() trigger_label="Options ▼" />
+                <DropdownMenuIsland trigger_label="Options ▼">
+                    <DropdownMenuItemIsland>"Profile"</DropdownMenuItemIsland>
+                    <DropdownMenuItemIsland>"Settings"</DropdownMenuItemIsland>
+                    <DropdownMenuItemIsland>"Billing"</DropdownMenuItemIsland>
+                    <DropdownMenuItemIsland>"Sign out"</DropdownMenuItemIsland>
+                </DropdownMenuIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Menu interaction governed by DOM — SSR-safe, hydration-safe."
@@ -34,7 +20,14 @@ pub fn DropdownMenuShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"With actions"</span>
                 <div data-rs-showcase-preview-row="">
-                    <DropdownMenuIsland items=action_items() trigger_label="Actions ▼" />
+                    <DropdownMenuIsland trigger_label="Actions ▼">
+                        <DropdownMenuItemIsland>"New"</DropdownMenuItemIsland>
+                        <DropdownMenuItemIsland>"Open"</DropdownMenuItemIsland>
+                        <DropdownMenuItemIsland>"Save"</DropdownMenuItemIsland>
+                        <DropdownMenuItemIsland disabled=DisabledState::Disabled>"Cut"</DropdownMenuItemIsland>
+                        <DropdownMenuItemIsland>"Copy"</DropdownMenuItemIsland>
+                        <DropdownMenuItemIsland>"Paste"</DropdownMenuItemIsland>
+                    </DropdownMenuIsland>
                 </div>
             </div>
         </div>

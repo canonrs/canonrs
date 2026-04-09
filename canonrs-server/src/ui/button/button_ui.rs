@@ -1,48 +1,6 @@
-
 use leptos::prelude::*;
-use canonrs_core::primitives::{ButtonPrimitive, ButtonVariant as CoreVariant, ButtonSize as CoreSize};
-use canonrs_core::DisabledState;
-
-#[derive(Clone, Copy, Debug, PartialEq, Default)]
-pub enum ButtonVariant {
-    #[default]
-    Default,
-    Primary,
-    Secondary,
-    Outline,
-    Ghost,
-    Link,
-    Destructive,
-}
-
-impl ButtonVariant {
-    pub fn to_core(&self) -> CoreVariant {
-        match self {
-            Self::Default     => CoreVariant::Default,
-            Self::Primary     => CoreVariant::Primary,
-            Self::Secondary   => CoreVariant::Secondary,
-            Self::Outline     => CoreVariant::Outline,
-            Self::Ghost       => CoreVariant::Ghost,
-            Self::Link        => CoreVariant::Link,
-            Self::Destructive => CoreVariant::Destructive,
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub enum ButtonSize { Xs, Sm, Md, Lg, Xl }
-
-impl ButtonSize {
-    pub fn to_core(&self) -> CoreSize {
-        match self {
-            Self::Xs => CoreSize::Xs,
-            Self::Sm => CoreSize::Sm,
-            Self::Lg => CoreSize::Lg,
-            Self::Xl => CoreSize::Xl,
-            Self::Md            => CoreSize::Md,
-        }
-    }
-}
+use canonrs_core::primitives::{ButtonPrimitive, ButtonVariant, ButtonSize};
+use canonrs_core::meta::DisabledState;
 
 #[component]
 pub fn Button(
@@ -58,8 +16,8 @@ pub fn Button(
             class=class
             disabled=disabled
             aria_label=aria_label.unwrap_or_default()
-            variant=variant.to_core()
-            size=size.to_core()
+            variant=variant
+            size=size
         >
             {children()}
         </ButtonPrimitive>

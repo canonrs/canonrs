@@ -3,27 +3,12 @@
 
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-pub enum BannerIslandVariant {
-    #[default] Info,
-    Success, Warning, Error,
-}
-
-impl BannerIslandVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Info    => "info",
-            Self::Success => "success",
-            Self::Warning => "warning",
-            Self::Error   => "error",
-        }
-    }
-}
+use canonrs_core::primitives::BannerVariant;
 
 #[island]
 pub fn BannerIsland(
     #[prop(optional, into)] content:                         Option<String>,
-    #[prop(optional)] variant:    Option<BannerIslandVariant>,
+    #[prop(optional)] variant:    Option<BannerVariant>,
     #[prop(optional)] dismissible: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {

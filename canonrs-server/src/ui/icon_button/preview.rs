@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use super::icon_button_island::{IconButtonIsland, IconButtonVariant, IconButtonSize};
+use super::icon_button_island::IconButtonIsland;
+use canonrs_core::primitives::{IconButtonVariant, IconButtonSize};
 
 #[component]
 pub fn IconButtonShowcasePreview() -> impl IntoView {

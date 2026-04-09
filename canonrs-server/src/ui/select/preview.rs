@@ -1,75 +1,61 @@
 use leptos::prelude::*;
-use super::select_island::{SelectIsland, SelectOption};
+use super::select_island::SelectIsland;
 use super::select_ui::{Select, SelectTrigger, SelectValue, SelectContent, SelectItem};
-use canonrs_core::meta::DisabledState;
+use canonrs_core::meta::{DisabledState, SelectionState};
 
 #[component]
 pub fn SelectShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <SelectIsland
-                    placeholder="Choose a framework..."
-                    options=vec![
-                        SelectOption { value: "leptos".into(),  label: "Leptos".into(),         disabled: false },
-                        SelectOption { value: "dioxus".into(),  label: "Dioxus".into(),         disabled: false },
-                        SelectOption { value: "yew".into(),     label: "Yew (disabled)".into(), disabled: true  },
-                    ]
-                />
+                <SelectIsland placeholder="Choose a framework...">
+                    <SelectItem value="leptos">"Leptos"</SelectItem>
+                    <SelectItem value="dioxus">"Dioxus"</SelectItem>
+                    <SelectItem value="yew" disabled=DisabledState::Disabled>"Yew (disabled)"</SelectItem>
+                </SelectIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Selection, visibility and interaction fully governed by structure."
             </p>
-
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Pre-selected"</span>
                 <div data-rs-showcase-preview-row="">
-                    // SSR: estado inicial via SelectItem selected=Selected
                     <Select>
                         <SelectTrigger>
                             <SelectValue placeholder="Select size...">"Medium"</SelectValue>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="sm">"Small"</SelectItem>
-                            <SelectItem value="md" selected=canonrs_core::meta::SelectionState::Selected>"Medium"</SelectItem>
+                            <SelectItem value="md" selected=SelectionState::Selected>"Medium"</SelectItem>
                             <SelectItem value="lg">"Large"</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
             </div>
-
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"With disabled options"</span>
                 <div data-rs-showcase-preview-row="">
-                    <SelectIsland
-                        placeholder="Select plan..."
-                        options=vec![
-                            SelectOption { value: "free".into(),       label: "Free".into(),                  disabled: false },
-                            SelectOption { value: "pro".into(),        label: "Pro".into(),                   disabled: false },
-                            SelectOption { value: "enterprise".into(), label: "Enterprise (disabled)".into(), disabled: true  },
-                            SelectOption { value: "custom".into(),     label: "Custom (disabled)".into(),     disabled: true  },
-                        ]
-                    />
+                    <SelectIsland placeholder="Select plan...">
+                        <SelectItem value="free">"Free"</SelectItem>
+                        <SelectItem value="pro">"Pro"</SelectItem>
+                        <SelectItem value="enterprise" disabled=DisabledState::Disabled>"Enterprise (disabled)"</SelectItem>
+                        <SelectItem value="custom" disabled=DisabledState::Disabled>"Custom (disabled)"</SelectItem>
+                    </SelectIsland>
                 </div>
             </div>
-
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Many options — keyboard nav"</span>
                 <div data-rs-showcase-preview-row="">
-                    <SelectIsland
-                        placeholder="Select country..."
-                        options=vec![
-                            SelectOption { value: "br".into(), label: "Brazil".into(),         disabled: false },
-                            SelectOption { value: "us".into(), label: "United States".into(),  disabled: false },
-                            SelectOption { value: "de".into(), label: "Germany".into(),        disabled: false },
-                            SelectOption { value: "jp".into(), label: "Japan".into(),          disabled: false },
-                            SelectOption { value: "fr".into(), label: "France".into(),         disabled: false },
-                            SelectOption { value: "uk".into(), label: "United Kingdom".into(), disabled: false },
-                        ]
-                    />
+                    <SelectIsland placeholder="Select country...">
+                        <SelectItem value="br">"Brazil"</SelectItem>
+                        <SelectItem value="us">"United States"</SelectItem>
+                        <SelectItem value="de">"Germany"</SelectItem>
+                        <SelectItem value="jp">"Japan"</SelectItem>
+                        <SelectItem value="fr">"France"</SelectItem>
+                        <SelectItem value="uk">"United Kingdom"</SelectItem>
+                    </SelectIsland>
                 </div>
             </div>
-
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-row="">
@@ -83,7 +69,6 @@ pub fn SelectShowcasePreview() -> impl IntoView {
                     </Select>
                 </div>
             </div>
-
         </div>
     }
 }

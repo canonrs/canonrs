@@ -108,24 +108,6 @@ fn toggle_item(root: &leptos::web_sys::Element, item: &leptos::web_sys::Element)
     }
 }
 
-// ---------------------------------------------------------------------------
-// Struct de item
-// ---------------------------------------------------------------------------
-
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct AccordionIslandItem {
-    pub value:    String,
-    pub trigger:  String,
-    pub content:  String,
-    pub disabled: bool,
-}
-
-#[derive(Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, Default)]
-pub enum AccordionSelectionMode {
-    #[default]
-    Single,
-    Multiple,
-}
 
 // ---------------------------------------------------------------------------
 // Island
@@ -135,20 +117,15 @@ static ACCORDION_ID: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32
 
 #[island]
 pub fn AccordionIsland(
-    items: Vec<AccordionIslandItem>,
-    #[prop(optional)] selection: Option<AccordionSelectionMode>,
+    children: Children,
+    #[prop(optional)] selection: Option<AccordionSelection>,
     #[prop(optional)] collapsible: Option<bool>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let selection   = selection.unwrap_or_default();
-    let collapsible = collapsible.unwrap_or(true);
-    let class       = class.unwrap_or_default();
-    let island_id   = ACCORDION_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed).to_string();
-
-    let acc_selection = match selection {
-        AccordionSelectionMode::Single   => AccordionSelection::Single,
-        AccordionSelectionMode::Multiple => AccordionSelection::Multiple,
-    };
+    let collapsible   = collapsible.unwrap_or(true);
+    let class         = class.unwrap_or_default();
+    let island_id     = ACCORDION_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed).to_string();
+    let acc_selection = selection.unwrap_or(AccordionSelection::Single);
 
     let node_ref = NodeRef::<leptos::html::Div>::new();
 
@@ -254,28 +231,31 @@ pub fn AccordionIsland(
         }
     });
 
-    // SSR — estrutura pura, todos fechados
-    let items_view = items.into_iter().map(|item| {
-        let disabled = if item.disabled {
-            DisabledState::Disabled
-        } else {
-            DisabledState::Enabled
-        };
-        view! {
-            <AccordionItem state=VisibilityState::Closed disabled=disabled>
-                <AccordionTrigger disabled=disabled>
-                    {item.trigger}
-                </AccordionTrigger>
-                <AccordionContent>
-                    {item.content}
-                </AccordionContent>
-            </AccordionItem>
-        }
-    }).collect::<Vec<_>>();
-
     view! {
         <Accordion selection=acc_selection collapsible=collapsible class=class node_ref=node_ref>
-            {items_view}
+            {children()}
         </Accordion>
     }
+}
+
+#[component]
+pub fn AccordionItemIsland(
+    children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+) -> impl IntoView {
+    view! { <AccordionItem state=state disabled=disabled>{children()}</AccordionItem> }
+}
+
+#[component]
+pub fn AccordionTriggerIsland(
+    children: Children,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+) -> impl IntoView {
+    view! { <AccordionTrigger disabled=disabled>{children()}</AccordionTrigger> }
+}
+
+#[component]
+pub fn AccordionContentIsland(children: Children) -> impl IntoView {
+    view! { <AccordionContent>{children()}</AccordionContent> }
 }

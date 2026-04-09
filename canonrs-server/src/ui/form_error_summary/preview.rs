@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::form_error_summary_ui::{FormErrorSummary, FormError};
-use super::form_error_summary_island::{FormErrorSummaryIsland, FormErrorIslandItem};
+use super::form_error_summary_island::FormErrorSummaryIsland;
 
 #[component]
 pub fn FormErrorSummaryShowcasePreview() -> impl IntoView {
@@ -9,15 +9,14 @@ pub fn FormErrorSummaryShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-stage="">
                 <FormErrorSummaryIsland
                     errors=vec![
-                        FormErrorIslandItem { field_label: "Email".to_string(),    message: "Required field.".to_string() },
-                        FormErrorIslandItem { field_label: "Password".to_string(), message: "Must be at least 8 characters.".to_string() },
+                        FormError { field_label: "Email".to_string(),    message: "Required field.".to_string() },
+                        FormError { field_label: "Password".to_string(), message: "Must be at least 8 characters.".to_string() },
                     ]
                 />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "All form errors announced together with structured summary."
             </p>
-
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Single error"</span>
                 <div data-rs-showcase-preview-row="">
@@ -29,7 +28,6 @@ pub fn FormErrorSummaryShowcasePreview() -> impl IntoView {
                     />
                 </div>
             </div>
-
         </div>
     }
 }

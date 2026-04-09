@@ -1,100 +1,91 @@
+//! ContextMenu Island — Canon Rule init (DOM-driven)
 use leptos::prelude::*;
-
-#[derive(Clone, PartialEq, serde::Serialize, serde::Deserialize)]
-pub struct ContextMenuIslandItem {
-    pub label:    String,
-    pub value:    String,
-    pub disabled: bool,
-}
 
 #[island]
 pub fn ContextMenuIsland(
     children: Children,
-    items: Vec<ContextMenuIslandItem>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let (is_open, set_open) = signal(false);
-    let _ = set_open;
-    let (pos_x, set_x) = signal(0i32);
-    let _ = set_x;
-    let (pos_y, set_y) = signal(0i32);
-    let _ = set_y;
+    let class         = class.unwrap_or_default();
+    let node_ref      = NodeRef::<leptos::html::Div>::new();
 
-    let state         = move || if is_open.get() { "open" } else { "closed" };
-    let initial_state = "closed";
-    let content_hidden = move || !is_open.get();
-    let content_state  = move || if is_open.get() { "open" } else { "closed" };
-    let left_style = move || format!("left:{}px;top:{}px;", pos_x.get(), pos_y.get());
-
-    #[cfg(feature = "hydrate")]
-    {
+    Effect::new(move |_| {
+        use leptos::wasm_bindgen::prelude::*;
         use leptos::wasm_bindgen::JsCast;
-        use leptos::wasm_bindgen::closure::Closure;
         use leptos::web_sys;
 
-        // click-outside fecha
-        let cb_close = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            if is_open.get_untracked() { set_open.set(false); }
-        }) as Box<dyn FnMut(_)>);
-        let doc = web_sys::window().unwrap().document().unwrap();
-        doc.add_event_listener_with_callback("click", cb_close.as_ref().unchecked_ref()).ok();
-        cb_close.forget();
-    }
+        let Some(root_html) = node_ref.get() else { return };
+        let root: web_sys::Element = (*root_html).clone().unchecked_into();
+        if root.has_attribute("data-rs-attached") { return; }
+        let _ = root.set_attribute("data-rs-attached", "1");
 
-    #[cfg(feature = "hydrate")]
-    let on_contextmenu = move |e: leptos::ev::MouseEvent| {
-        e.prevent_default();
-        e.stop_propagation();
-        set_x.set(e.client_x());
-        set_y.set(e.client_y());
-        set_open.set(true);
-    };
-    #[cfg(not(feature = "hydrate"))]
-    let on_contextmenu = move |_: leptos::ev::MouseEvent| {};
+        let content_sel = "[data-rs-context-menu-content]";
 
-    let items_view = items.iter().map(|item| {
-        let disabled = item.disabled;
-        let label    = item.label.clone();
-        #[cfg(feature = "hydrate")]
-        let on_click = move |_: leptos::ev::MouseEvent| {
-            if !disabled { set_open.set(false); }
-        };
-        #[cfg(not(feature = "hydrate"))]
-        let on_click = move |_: leptos::ev::MouseEvent| {};
+        // contextmenu → show
+        { let rc = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            e.prevent_default(); e.stop_propagation();
+            if let Ok(Some(content)) = rc.query_selector(content_sel) {
+                let _ = content.set_attribute("data-rs-state", "open");
+                let _ = content.set_attribute("style", &format!("left:{}px;top:{}px;", e.client_x(), e.client_y()));
+                if let Ok(el) = content.dyn_into::<web_sys::HtmlElement>() { el.set_hidden(false); }
+            }
+        }));
+        let _ = root.add_event_listener_with_callback("contextmenu", cb.as_ref().unchecked_ref());
+        cb.forget(); }
 
-        view! {
-            <div
-                data-rs-context-menu-item=""
-                role="menuitem"
-                aria-disabled=disabled.to_string()
-                on:click=on_click
-            >
-                {label}
-            </div>
+        // click outside → close
+        { let rc = root.clone();
+          let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            if !rc.contains(Some(&t)) {
+                if let Ok(Some(content)) = rc.query_selector(content_sel) {
+                    let _ = content.set_attribute("data-rs-state", "closed");
+                    if let Ok(el) = content.dyn_into::<web_sys::HtmlElement>() { el.set_hidden(true); }
+                }
+            }
+        }));
+        if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+            let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         }
-    }).collect::<Vec<_>>();
+        cb.forget(); }
+    });
 
     view! {
         <div
             data-rs-context-menu=""
             data-rs-component="ContextMenu"
-            data-rs-state=move || { let s = state(); if s.is_empty() { initial_state } else { s } }
+            data-rs-state="closed"
             class=class
-            on:contextmenu=on_contextmenu
+            node_ref=node_ref
         >
-            <div data-rs-context-menu-trigger="">
-                {children()}
-            </div>
-            <div
-                data-rs-context-menu-content=""
-                data-rs-state=content_state
-                hidden=content_hidden
-                role="menu"
-                style=left_style
-            >
-                {items_view}
-            </div>
+            {children()}
+        </div>
+    }
+}
+
+#[component]
+pub fn ContextMenuTriggerIsland(children: Children) -> impl IntoView {
+    view! { <div data-rs-context-menu-trigger="">{children()}</div> }
+}
+
+#[component]
+pub fn ContextMenuContentIsland(children: Children) -> impl IntoView {
+    view! {
+        <div data-rs-context-menu-content="" data-rs-state="closed" role="menu" hidden=true>
+            {children()}
+        </div>
+    }
+}
+
+#[component]
+pub fn ContextMenuItemIsland(
+    children: Children,
+    #[prop(default = false)] disabled: bool,
+) -> impl IntoView {
+    view! {
+        <div data-rs-context-menu-item="" role="menuitem" aria-disabled=disabled.to_string()>
+            {children()}
         </div>
     }
 }

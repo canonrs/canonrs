@@ -1,45 +1,10 @@
 use leptos::prelude::*;
 
-#[derive(Clone, Copy, PartialEq, serde::Serialize, serde::Deserialize, Default)]
-pub enum StatusDotIslandVariant {
-    Online,
-    #[default]
-    Offline,
-    Away,
-    Busy,
-    DoNotDisturb,
-}
-
-impl StatusDotIslandVariant {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Online       => "online",
-            Self::Offline      => "offline",
-            Self::Away         => "away",
-            Self::Busy         => "busy",
-            Self::DoNotDisturb => "do-not-disturb",
-        }
-    }
-    pub fn aria_label(&self) -> &'static str {
-        match self {
-            Self::Online       => "Online",
-            Self::Offline      => "Offline",
-            Self::Away         => "Away",
-            Self::Busy         => "Busy",
-            Self::DoNotDisturb => "Do not disturb",
-        }
-    }
-    pub fn state(&self) -> &'static str {
-        match self {
-            Self::Online => "active",
-            _            => "inactive",
-        }
-    }
-}
+use canonrs_core::primitives::StatusDotVariant;
 
 #[island]
 pub fn StatusDotIsland(
-    #[prop(optional)] variant: Option<StatusDotIslandVariant>,
+    #[prop(optional)] variant: Option<StatusDotVariant>,
     #[prop(optional, into)] label: Option<String>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {

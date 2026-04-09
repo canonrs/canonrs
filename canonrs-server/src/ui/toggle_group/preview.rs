@@ -1,18 +1,16 @@
 use leptos::prelude::*;
-use super::toggle_group_island::{ToggleGroupIsland, ToggleGroupItem};
+use super::toggle_group_island::{ToggleGroupIsland, ToggleGroupItemIsland};
 
 #[component]
 pub fn ToggleGroupShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <ToggleGroupIsland
-                    items=vec![
-                        ToggleGroupItem { value: "left".into(),   label: "Left".into(),   on: true,  disabled: false },
-                        ToggleGroupItem { value: "center".into(), label: "Center".into(), on: false, disabled: false },
-                        ToggleGroupItem { value: "right".into(),  label: "Right".into(),  on: false, disabled: false },
-                    ]
-                />
+                <ToggleGroupIsland>
+                    <ToggleGroupItemIsland value="left" on=true>"Left"</ToggleGroupItemIsland>
+                    <ToggleGroupItemIsland value="center">"Center"</ToggleGroupItemIsland>
+                    <ToggleGroupItemIsland value="right">"Right"</ToggleGroupItemIsland>
+                </ToggleGroupIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Group behavior and selection mode enforced structurally."
@@ -20,27 +18,21 @@ pub fn ToggleGroupShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Multiple selection"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ToggleGroupIsland
-                        multiple=true
-                        items=vec![
-                            ToggleGroupItem { value: "bold".into(),      label: "Bold".into(),      on: true,  disabled: false },
-                            ToggleGroupItem { value: "italic".into(),    label: "Italic".into(),    on: true,  disabled: false },
-                            ToggleGroupItem { value: "underline".into(), label: "Underline".into(), on: false, disabled: false },
-                            ToggleGroupItem { value: "strike".into(),    label: "Strike".into(),    on: false, disabled: false },
-                        ]
-                    />
+                    <ToggleGroupIsland multiple=true>
+                        <ToggleGroupItemIsland value="bold" on=true>"Bold"</ToggleGroupItemIsland>
+                        <ToggleGroupItemIsland value="italic" on=true>"Italic"</ToggleGroupItemIsland>
+                        <ToggleGroupItemIsland value="underline">"Underline"</ToggleGroupItemIsland>
+                        <ToggleGroupItemIsland value="strike">"Strike"</ToggleGroupItemIsland>
+                    </ToggleGroupIsland>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ToggleGroupIsland
-                        disabled=true
-                        items=vec![
-                            ToggleGroupItem { value: "a".into(), label: "Option A".into(), on: false, disabled: false },
-                            ToggleGroupItem { value: "b".into(), label: "Option B".into(), on: false, disabled: false },
-                        ]
-                    />
+                    <ToggleGroupIsland disabled=true>
+                        <ToggleGroupItemIsland value="a">"Option A"</ToggleGroupItemIsland>
+                        <ToggleGroupItemIsland value="b">"Option B"</ToggleGroupItemIsland>
+                    </ToggleGroupIsland>
                 </div>
             </div>
         </div>
