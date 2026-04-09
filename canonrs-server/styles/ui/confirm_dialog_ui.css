@@ -4,6 +4,10 @@
   display: contents;
 }
 
+[data-rs-confirm-dialog][data-rs-state~="closed"] [data-rs-confirm-dialog-portal] {
+  display: none;
+}
+
 [data-rs-confirm-dialog-portal] {
   position: fixed;
   inset: 0;
@@ -16,12 +20,11 @@
 
 [data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-portal] {
   pointer-events: auto;
+  display: flex;
 }
 
 [data-rs-confirm-dialog][data-rs-state~="closed"] [data-rs-confirm-dialog-portal] {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  display: none;
 }
 
 [data-rs-confirm-dialog-overlay] {

@@ -1,61 +1,96 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    DialogPrimitive, DialogOverlayPrimitive,
-    DialogContentPrimitive, DialogTitlePrimitive,
-    DialogDescriptionPrimitive, DialogClosePrimitive,
+    ConfirmDialogPrimitive, ConfirmDialogTriggerPrimitive, ConfirmDialogPortalPrimitive,
+    ConfirmDialogOverlayPrimitive, ConfirmDialogContentPrimitive,
+    ConfirmDialogTitlePrimitive, ConfirmDialogDescriptionPrimitive,
+    ConfirmDialogFooterPrimitive, ConfirmDialogCancelPrimitive,
+    ConfirmDialogConfirmPrimitive, ConfirmDialogVariant,
 };
-use crate::ui::button::Button;
 
 #[component]
 pub fn ConfirmDialog(
-    #[prop(default = "Confirm".to_string(), into)] title: String,
-    #[prop(default = "Are you sure you want to continue?".to_string(), into)] message: String,
-    #[prop(default = "Confirm".to_string(), into)] confirm_text: String,
-    #[prop(default = "Cancel".to_string(), into)] cancel_text: String,
-    #[prop(default = false)] destructive: bool,
+    children: Children,
+    #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let title = StoredValue::new(title);
-    let message = StoredValue::new(message);
-    let confirm_text = StoredValue::new(confirm_text);
-    let cancel_text = StoredValue::new(cancel_text);
-
-    let confirm_class = move || {
-        if destructive {
-            "bg-destructive text-destructive-foreground hover:bg-destructive/90"
-        } else {
-            "bg-primary text-primary-foreground hover:bg-primary/90"
-        }
-    };
-
     view! {
-        <DialogPrimitive class=class>
-            <DialogOverlayPrimitive />
-            <DialogContentPrimitive>
-                <div class="flex items-center justify-between mb-4">
-                    <DialogTitlePrimitive>
-                        {move || title.get_value()}
-                    </DialogTitlePrimitive>
-                    <DialogClosePrimitive>"×"</DialogClosePrimitive>
-                </div>
-                <DialogDescriptionPrimitive>
-                    {move || message.get_value()}
-                </DialogDescriptionPrimitive>
-                <div class="flex gap-3 justify-end mt-6">
-                    <DialogClosePrimitive class="px-4 py-2".to_string()>
-                        {move || cancel_text.get_value()}
-                    </DialogClosePrimitive>
-                    <Button class=format!("px-4 py-2 {}", confirm_class())>
-                        {move || confirm_text.get_value()}
-                    </Button>
-                </div>
-            </DialogContentPrimitive>
-        </DialogPrimitive>
+        <ConfirmDialogPrimitive variant=variant class=class>
+            {children()}
+        </ConfirmDialogPrimitive>
     }
 }
 
 #[component]
+pub fn ConfirmDialogTrigger(
+    children: Children,
+    #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogTriggerPrimitive variant=variant class=class>{children()}</ConfirmDialogTriggerPrimitive> }
+}
+
+#[component]
+pub fn ConfirmDialogPortal(children: Children) -> impl IntoView {
+    view! { <ConfirmDialogPortalPrimitive>{children()}</ConfirmDialogPortalPrimitive> }
+}
+
+#[component]
+pub fn ConfirmDialogOverlay(
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogOverlayPrimitive class=class /> }
+}
+
+#[component]
+pub fn ConfirmDialogContent(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogContentPrimitive class=class>{children()}</ConfirmDialogContentPrimitive> }
+}
+
+#[component]
+pub fn ConfirmDialogTitle(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogTitlePrimitive class=class>{children()}</ConfirmDialogTitlePrimitive> }
+}
+
+#[component]
+pub fn ConfirmDialogDescription(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogDescriptionPrimitive class=class>{children()}</ConfirmDialogDescriptionPrimitive> }
+}
+
+#[component]
+pub fn ConfirmDialogFooter(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogFooterPrimitive class=class>{children()}</ConfirmDialogFooterPrimitive> }
+}
+
+#[component]
+pub fn ConfirmDialogCancel(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogCancelPrimitive class=class>{children()}</ConfirmDialogCancelPrimitive> }
+}
+
+#[component]
+pub fn ConfirmDialogConfirm(
+    children: Children,
+    #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <ConfirmDialogConfirmPrimitive variant=variant class=class>{children()}</ConfirmDialogConfirmPrimitive> }
+}
+
+#[component]
 pub fn ConfirmDialogPreview() -> impl IntoView {
-    view! { <ConfirmDialog /> }
+    view! { <ConfirmDialog><ConfirmDialogTrigger>"Open"</ConfirmDialogTrigger></ConfirmDialog> }
 }

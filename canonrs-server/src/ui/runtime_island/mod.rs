@@ -8,6 +8,7 @@ pub fn RuntimeIsland() -> impl IntoView {
     #[cfg(target_arch = "wasm32")]
     {
         canonrs_client::runtime::init();
+        canonrs_client::runtime::expose_runtime();
     }
     view! { <></> }
 }

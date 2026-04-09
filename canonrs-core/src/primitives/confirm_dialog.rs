@@ -16,7 +16,7 @@ pub enum ConfirmDialogVariant {
 impl ConfirmDialogVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Default     => "default",
+            Self::Default     => "primary",
             Self::Destructive => "destructive",
             Self::Warning     => "warning",
         }
@@ -118,6 +118,8 @@ pub fn ConfirmDialogCancelPrimitive(
         <button
             type="button"
             data-rs-confirm-dialog-cancel=""
+            data-rs-button=""
+            data-rs-variant="ghost"
             aria-label=aria_label
             class=class
         >
@@ -137,6 +139,7 @@ pub fn ConfirmDialogConfirmPrimitive(
         <button
             type="button"
             data-rs-confirm-dialog-confirm=""
+            data-rs-button=""
             data-rs-variant=variant.as_str()
             aria-label=aria_label
             class=class
@@ -144,4 +147,48 @@ pub fn ConfirmDialogConfirmPrimitive(
             {children()}
         </button>
     }
+}
+
+#[component]
+pub fn ConfirmDialogTriggerPrimitive(
+    children: Children,
+    #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <button
+            type="button"
+            data-rs-confirm-dialog-trigger=""
+            data-rs-button=""
+            data-rs-variant=variant.as_str()
+            aria-haspopup="alertdialog"
+            class=class
+        >
+            {children()}
+        </button>
+    }
+}
+
+#[component]
+pub fn ConfirmDialogPortalPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-confirm-dialog-portal="" class=class>{children()}</div> }
+}
+
+#[component]
+pub fn ConfirmDialogContentPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-confirm-dialog-content="" class=class>{children()}</div> }
+}
+
+#[component]
+pub fn ConfirmDialogFooterPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-confirm-dialog-footer="" class=class>{children()}</div> }
 }

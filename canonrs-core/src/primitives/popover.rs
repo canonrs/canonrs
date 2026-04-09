@@ -58,6 +58,8 @@ pub fn PopoverTriggerPrimitive(
         <button
             type="button"
             data-rs-popover-trigger=""
+            data-rs-button=""
+            data-rs-variant="outline"
             data-rs-state=t.data_rs_state
             aria-haspopup="dialog"
             aria-expanded=t.aria_expanded

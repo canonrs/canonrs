@@ -5,11 +5,73 @@ use crate::catalog_types::{ComponentApi, PropDef, PropType};
 pub const CONFIRMDIALOG_API: ComponentApi = ComponentApi {
     id: "confirm-dialog",
     props: &[
-        PropDef { name: "title", kind: PropType::String, required: false, default: Some("Confirm"), description: "" },
-        PropDef { name: "message", kind: PropType::String, required: false, default: Some("Are you sure you want to continue?"), description: "" },
-        PropDef { name: "confirm_text", kind: PropType::String, required: false, default: Some("Confirm"), description: "" },
-        PropDef { name: "cancel_text", kind: PropType::String, required: false, default: Some("Cancel"), description: "" },
-        PropDef { name: "destructive", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "destructive", "warning"]), required: false, default: Some("default"), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const CONFIRMDIALOGTRIGGER_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-trigger",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "destructive", "warning"]), required: false, default: Some("default"), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const CONFIRMDIALOGPORTAL_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-portal",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+    ],
+};
+
+pub const CONFIRMDIALOGCONTENT_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-content",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const CONFIRMDIALOGTITLE_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-title",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const CONFIRMDIALOGDESCRIPTION_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-description",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const CONFIRMDIALOGFOOTER_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-footer",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const CONFIRMDIALOGCANCEL_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-cancel",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const CONFIRMDIALOGCONFIRM_API: ComponentApi = ComponentApi {
+    id: "confirm-dialog-confirm",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "destructive", "warning"]), required: false, default: Some("default"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

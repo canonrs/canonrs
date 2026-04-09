@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::popover_island::{PopoverIsland, PopoverContentIsland};
+use super::popover_island::{PopoverIsland, PopoverTriggerIsland, PopoverContentIsland};
 
 #[component]
 pub fn PopoverShowcasePreview() -> impl IntoView {
@@ -7,7 +7,7 @@ pub fn PopoverShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <PopoverIsland>
-                    <button type="button" data-rs-popover-trigger="">"Open Popover"</button>
+                    <PopoverTriggerIsland>"Open Popover"</PopoverTriggerIsland>
                     <PopoverContentIsland>
                         "Configure your preferences here."
                     </PopoverContentIsland>
@@ -20,7 +20,7 @@ pub fn PopoverShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"With filter"</span>
                 <div data-rs-showcase-preview-row="">
                     <PopoverIsland>
-                        <button type="button" data-rs-popover-trigger="">"Filter"</button>
+                        <PopoverTriggerIsland>"Filter"</PopoverTriggerIsland>
                         <PopoverContentIsland>
                             "Apply filters to narrow your search."
                         </PopoverContentIsland>

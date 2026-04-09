@@ -64,7 +64,21 @@
   transform: scale(1);
 }
 
+[data-rs-modal-title] {
+  color: var(--modal-title-fg);
+  font-size: var(--modal-title-font-size);
+  font-weight: var(--modal-title-font-weight);
+  margin-bottom: var(--modal-header-gap);
+}
+
 [data-rs-modal-description] {
   color: var(--modal-description-fg);
   font-size: var(--modal-description-font-size);
+}
+
+[data-rs-modal-footer] {
+  display: flex;
+  gap: var(--modal-footer-gap);
+  justify-content: flex-end;
+  padding-top: var(--modal-header-gap);
 }

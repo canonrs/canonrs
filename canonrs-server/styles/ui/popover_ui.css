@@ -2,7 +2,8 @@
 
 [data-rs-popover] {
   position: relative;
-  display: inline-flex;
+  display: inline-block;
+  overflow: visible;
 }
 
 [data-rs-popover-content] {
@@ -28,6 +29,12 @@
   left: 0;
 }
 
+[data-rs-showcase-preview-stage],
+[data-rs-showcase-preview-hero],
+[data-rs-showcase-preview-row] {
+  overflow: visible;
+}
+
 /* Top */
 [data-rs-popover-content][data-rs-side="top"] {
   bottom: calc(100% + 6px);
@@ -46,7 +53,7 @@
   top: 0;
 }
 
-[data-rs-popover-content][data-rs-state~="open"] {
+[data-rs-popover][data-rs-state~="open"] [data-rs-popover-content] {
   opacity: 1;
   visibility: visible;
 }

@@ -3,6 +3,8 @@ pub mod accordion;
 pub mod has_meta;
 pub mod alert;
 pub mod alert_dialog;
+pub mod confirm_dialog;
+pub use confirm_dialog::*;
 pub mod animate;
 pub mod aspect_ratio;
 pub mod avatar;

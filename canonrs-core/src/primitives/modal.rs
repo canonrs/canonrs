@@ -39,6 +39,8 @@ pub fn ModalTriggerPrimitive(
         <button
             type="button"
             data-rs-modal-trigger=""
+            data-rs-button=""
+            data-rs-variant="primary"
             data-rs-state=s.data_rs_state
             aria-haspopup="dialog"
             aria-expanded=s.aria_expanded
@@ -85,4 +87,48 @@ pub fn ModalContentPrimitive(
             {children()}
         </div>
     }
+}
+
+#[component]
+pub fn ModalPortalPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-modal-portal="" class=class>{children()}</div> }
+}
+
+#[component]
+pub fn ModalTitlePrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <h2 data-rs-modal-title="" class=class>{children()}</h2> }
+}
+
+#[component]
+pub fn ModalDescriptionPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <p data-rs-modal-description="" class=class>{children()}</p> }
+}
+
+#[component]
+pub fn ModalClosePrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <button type="button" data-rs-modal-close="" data-rs-button="" data-rs-variant="ghost" class=class>
+            {children()}
+        </button>
+    }
+}
+
+#[component]
+pub fn ModalFooterPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-modal-footer="" class=class>{children()}</div> }
 }

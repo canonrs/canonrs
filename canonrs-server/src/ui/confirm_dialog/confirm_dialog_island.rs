@@ -1,28 +1,87 @@
-//! @canon-level: strict
-//! ConfirmDialog Island — bootstrap only, delegates to interaction engine
-
+//! ConfirmDialog Island — Canon Rule #340 passthrough
 use leptos::prelude::*;
-use super::confirm_dialog_ui::ConfirmDialog;
-
-
+use super::confirm_dialog_ui::{
+    ConfirmDialog, ConfirmDialogTrigger, ConfirmDialogPortal, ConfirmDialogOverlay,
+    ConfirmDialogContent, ConfirmDialogTitle, ConfirmDialogDescription,
+    ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm,
+};
+use canonrs_core::primitives::ConfirmDialogVariant;
 
 #[component]
 pub fn ConfirmDialogIsland(
-    #[prop(into, default = "Confirm".to_string())] title: String,
-    #[prop(into, default = "Are you sure you want to continue?".to_string())] message: String,
-    #[prop(into, default = "Confirm".to_string())] confirm_text: String,
-    #[prop(into, default = "Cancel".to_string())] cancel_text: String,
-    #[prop(default = false)] destructive: bool,
+    children: Children,
+    #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <ConfirmDialog
-            title=title
-            message=message
-            confirm_text=confirm_text
-            cancel_text=cancel_text
-            destructive=destructive
-            class=class
-        />
-    }
+    view! { <ConfirmDialog variant=variant class=class>{children()}</ConfirmDialog> }
+}
+
+#[component]
+pub fn ConfirmDialogTriggerIsland(
+    children: Children,
+    #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogTrigger variant=variant class=class.unwrap_or_default()>{children()}</ConfirmDialogTrigger> }
+}
+
+#[component]
+pub fn ConfirmDialogPortalIsland(children: Children) -> impl IntoView {
+    view! { <ConfirmDialogPortal>{children()}</ConfirmDialogPortal> }
+}
+
+#[component]
+pub fn ConfirmDialogOverlayIsland(
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogOverlay class=class.unwrap_or_default() /> }
+}
+
+#[component]
+pub fn ConfirmDialogContentIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogContent class=class.unwrap_or_default()>{children()}</ConfirmDialogContent> }
+}
+
+#[component]
+pub fn ConfirmDialogTitleIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogTitle class=class.unwrap_or_default()>{children()}</ConfirmDialogTitle> }
+}
+
+#[component]
+pub fn ConfirmDialogDescriptionIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogDescription class=class.unwrap_or_default()>{children()}</ConfirmDialogDescription> }
+}
+
+#[component]
+pub fn ConfirmDialogFooterIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogFooter class=class.unwrap_or_default()>{children()}</ConfirmDialogFooter> }
+}
+
+#[component]
+pub fn ConfirmDialogCancelIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogCancel class=class.unwrap_or_default()>{children()}</ConfirmDialogCancel> }
+}
+
+#[component]
+pub fn ConfirmDialogConfirmIsland(
+    children: Children,
+    #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <ConfirmDialogConfirm variant=variant class=class.unwrap_or_default()>{children()}</ConfirmDialogConfirm> }
 }

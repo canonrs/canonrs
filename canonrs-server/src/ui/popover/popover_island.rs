@@ -2,7 +2,7 @@
 //! Popover Island — bootstrap only, delegates to interaction engine
 
 use leptos::prelude::*;
-use super::popover_ui::{Popover, PopoverContent};
+use super::popover_ui::{Popover, PopoverTrigger, PopoverContent};
 use canonrs_core::meta::VisibilityState;
 
 
@@ -25,4 +25,12 @@ pub fn PopoverContentIsland(
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
     view! { <PopoverContent class=class.unwrap_or_default()>{children()}</PopoverContent> }
+}
+
+#[component]
+pub fn PopoverTriggerIsland(
+    children: Children,
+    #[prop(optional, into)] class: Option<String>,
+) -> impl IntoView {
+    view! { <PopoverTrigger class=class.unwrap_or_default()>{children()}</PopoverTrigger> }
 }

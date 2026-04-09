@@ -11,6 +11,22 @@ pub const MODAL_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const MODALTRIGGER_API: ComponentApi = ComponentApi {
+    id: "modal-trigger",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const MODALPORTAL_API: ComponentApi = ComponentApi {
+    id: "modal-portal",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
 pub const MODALOVERLAY_API: ComponentApi = ComponentApi {
     id: "modal-overlay",
     props: &[
@@ -20,6 +36,38 @@ pub const MODALOVERLAY_API: ComponentApi = ComponentApi {
 
 pub const MODALCONTENT_API: ComponentApi = ComponentApi {
     id: "modal-content",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const MODALTITLE_API: ComponentApi = ComponentApi {
+    id: "modal-title",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const MODALDESCRIPTION_API: ComponentApi = ComponentApi {
+    id: "modal-description",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const MODALCLOSE_API: ComponentApi = ComponentApi {
+    id: "modal-close",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const MODALFOOTER_API: ComponentApi = ComponentApi {
+    id: "modal-footer",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
