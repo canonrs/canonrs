@@ -5,6 +5,10 @@
 use leptos::prelude::*;
 use crate::meta::ActivityState;
 use crate::infra::state_engine::activity_attrs;
+use std::sync::atomic::{AtomicU32, Ordering};
+#[allow(dead_code)]
+static RESIZABLE_UID: AtomicU32 = AtomicU32::new(0);
+static RESIZABLE_ID: AtomicU32 = AtomicU32::new(0);
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum ResizableOrientation {
@@ -33,6 +37,7 @@ pub fn ResizablePrimitive(
     view! {
         <div
             data-rs-resizable=""
+            data-rs-uid=RESIZABLE_ID.fetch_add(1, Ordering::SeqCst).to_string()
             data-rs-interaction="gesture"
             data-rs-component="Resizable"
             data-rs-behavior="resize"

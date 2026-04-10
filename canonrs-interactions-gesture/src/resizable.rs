@@ -1,117 +1,91 @@
 //! Resizable Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
-use std::cell::RefCell;
-use std::rc::Rc;
+use crate::runtime::lifecycle;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
+fn find_drag_root(doc: &web_sys::Document, ptr_id: i32) -> Option<Element> {
+    let nodes = doc.query_selector_all("[data-rs-resizable][data-rs-drag-ptr]").ok()?;
+    for i in 0..nodes.length() {
+        let el = nodes.item(i)?.dyn_into::<Element>().ok()?;
+        let ptr = el.get_attribute("data-rs-drag-ptr").and_then(|s| s.parse::<i32>().ok()).unwrap_or(-1);
+        if ptr == ptr_id { return Some(el); }
     }
+    None
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    let orientation = root.get_attribute("data-rs-orientation").unwrap_or_else(|| "horizontal".to_string());
-    let min_size = root.get_attribute("data-rs-min-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(20.0);
-    let max_size = root.get_attribute("data-rs-max-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(80.0);
-    let is_horizontal = orientation == "horizontal";
+    if !lifecycle::init_guard(&root) { web_sys::console::log_1(&"[R] BLOCKED".into()); return; }
 
-    if let Ok(panels) = root.query_selector_all("[data-rs-resizable-panel]") {
-        for i in 0..panels.length() {
-            if let Some(node) = panels.item(i) {
-                if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    let size = el.get_attribute("data-rs-default-size")
-                        .and_then(|s| s.parse::<f64>().ok())
-                        .unwrap_or(50.0);
-                    el.style().set_property("--resizable-panel-basis", &format!("{}%", size)).ok();
-                }
+    let orientation = root.get_attribute("data-rs-orientation").unwrap_or_else(|| "horizontal".to_string());
+    let min_size: f64 = root.get_attribute("data-rs-min-size").and_then(|s| s.parse().ok()).unwrap_or(20.0);
+    let max_size: f64 = root.get_attribute("data-rs-max-size").and_then(|s| s.parse().ok()).unwrap_or(80.0);
+    let is_horizontal: bool = orientation == "horizontal";
+
+    if let Ok(nodes) = root.query_selector_all("[data-rs-resizable-panel]") {
+        for i in 0..nodes.length() {
+            if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<HtmlElement>().ok()) {
+                let sz = n.get_attribute("data-rs-default-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(50.0);
+                let _ = n.style().set_property("--resizable-panel-basis", &format!("{}%", sz));
             }
         }
     }
 
     let Ok(Some(hn)) = root.query_selector("[data-rs-resizable-handle]") else { return };
     let Ok(handle) = hn.dyn_into::<HtmlElement>() else { return };
+    let doc = web_sys::window().and_then(|w| w.document()).unwrap();
 
-    let panels_qs = match root.query_selector_all("[data-rs-resizable-panel]") { Ok(n) => n, Err(_) => return };
-    let Some(p0n) = panels_qs.item(0) else { return };
-    let Some(p1n) = panels_qs.item(1) else { return };
-    let Ok(p0) = p0n.dyn_into::<HtmlElement>() else { return };
-    let Ok(p1) = p1n.dyn_into::<HtmlElement>() else { return };
-
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-
-    let is_dragging: Rc<RefCell<bool>> = Rc::new(RefCell::new(false));
-    let active_pointer: Rc<RefCell<Option<i32>>> = Rc::new(RefCell::new(None));
-    let container_rect: Rc<RefCell<(f64, f64)>> = Rc::new(RefCell::new((0.0, 0.0)));
-
-    let id_down = is_dragging.clone(); let id_move = is_dragging.clone(); let id_up = is_dragging.clone();
-    let ap_down = active_pointer.clone(); let ap_move = active_pointer.clone(); let ap_up = active_pointer.clone();
-    let cr_down = container_rect.clone(); let cr_move = container_rect.clone();
-
-    let root_down = root.clone();
-    let handle_down = handle.clone();
-    let on_down = Closure::wrap(Box::new(move |e: PointerEvent| {
-        e.prevent_default();
-        e.stop_propagation();
-        let Ok(container) = root_down.clone().dyn_into::<HtmlElement>() else { return };
-        let rect = container.get_bounding_client_rect();
-        let size   = if is_horizontal { rect.width()  } else { rect.height() };
-        let offset = if is_horizontal { rect.left()   } else { rect.top()    };
-        *cr_down.borrow_mut() = (size, offset);
-        *id_down.borrow_mut() = true;
-        *ap_down.borrow_mut() = Some(e.pointer_id());
-        handle_down.set_pointer_capture(e.pointer_id()).ok();
-        add_state(&handle_down.clone().into(), "active");
-        remove_state(&handle_down.clone().into(), "inactive");
+    // pointerdown via document delegation
+    let cb_down = Closure::wrap(Box::new(move |e: PointerEvent| {
+        let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        if target.closest("[data-rs-resizable-handle]").ok().flatten().is_none() { return; }
+        let Some(root_el) = target.closest("[data-rs-resizable]").ok().flatten()
+            .and_then(|r| r.dyn_into::<HtmlElement>().ok()) else { return };
+        let rect = root_el.get_bounding_client_rect();
+        let root_orient = root_el.get_attribute("data-rs-orientation").unwrap_or_default();
+        let (size, offset) = if root_orient == "horizontal" { (rect.width(), rect.left()) } else { (rect.height(), rect.top()) };
+        // so setar se nao ha drag ativo
+        if root_el.get_attribute("data-rs-drag-ptr").is_some() { return; }
+        let _ = root_el.set_attribute("data-rs-drag-ptr", &e.pointer_id().to_string());
+        let _ = root_el.set_attribute("data-rs-drag-size", &size.to_string());
+        let _ = root_el.set_attribute("data-rs-drag-offset", &offset.to_string());
     }) as Box<dyn FnMut(_)>);
+    doc.add_event_listener_with_callback("pointerdown", cb_down.as_ref().unchecked_ref()).ok();
+    cb_down.forget();
 
-    let p0_move = p0.clone();
-    let p1_move = p1.clone();
-    let on_move = Closure::wrap(Box::new(move |e: PointerEvent| {
-        if !*id_move.borrow() { return; }
-        if *ap_move.borrow() != Some(e.pointer_id()) { return; }
-        let (size, offset) = *cr_move.borrow();
+    // pointermove
+    let cb_move = Closure::wrap(Box::new(move |e: PointerEvent| {
+        let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+        let Some(root_el) = find_drag_root(&doc, e.pointer_id()) else { return };
+        let size   = root_el.get_attribute("data-rs-drag-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
+        let offset = root_el.get_attribute("data-rs-drag-offset").and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
         if size == 0.0 { return; }
-        let pos = if is_horizontal { e.client_x() as f64 } else { e.client_y() as f64 };
-        let pct = ((pos - offset) / size * 100.0).max(min_size).min(max_size);
-        p0_move.style().set_property("--resizable-panel-basis", &format!("{}%", pct)).ok();
-        p1_move.style().set_property("--resizable-panel-basis", &format!("{}%", 100.0 - pct)).ok();
+        let orient = root_el.get_attribute("data-rs-orientation").unwrap_or_default();
+        let pos = if orient == "horizontal" { e.client_x() as f64 } else { e.client_y() as f64 };
+        let orient2 = root_el.get_attribute("data-rs-orientation").unwrap_or_default();
+        let min_s = root_el.get_attribute("data-rs-min-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(20.0);
+        let max_s = root_el.get_attribute("data-rs-max-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(80.0);
+        let _ = orient2;
+        let pct = ((pos - offset) / size * 100.0).max(min_s).min(max_s);
+        let Ok(panels) = root_el.query_selector_all("[data-rs-resizable-panel]") else { return };
+        let p0 = panels.item(0).and_then(|n| n.dyn_into::<HtmlElement>().ok());
+        let p1 = panels.item(1).and_then(|n| n.dyn_into::<HtmlElement>().ok());
+        let (Some(p0), Some(p1)) = (p0, p1) else { return };
+        let _ = p0.style().set_property("--resizable-panel-basis", &format!("{}%", pct));
+        let _ = p1.style().set_property("--resizable-panel-basis", &format!("{}%", 100.0 - pct));
     }) as Box<dyn FnMut(_)>);
+    doc.add_event_listener_with_callback("pointermove", cb_move.as_ref().unchecked_ref()).ok();
+    cb_move.forget();
 
-    let handle_up = handle.clone();
-    let on_up = Closure::wrap(Box::new(move |e: PointerEvent| {
-        if *ap_up.borrow() == Some(e.pointer_id()) {
-            *id_up.borrow_mut() = false;
-            *ap_up.borrow_mut() = None;
-            add_state(&handle_up.clone().into(), "inactive");
-            remove_state(&handle_up.clone().into(), "active");
-        }
+    // pointerup
+    let cb_up = Closure::wrap(Box::new(move |e: PointerEvent| {
+        let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+        let Some(root_el) = find_drag_root(&doc, e.pointer_id()) else { return };
+        let _ = root_el.remove_attribute("data-rs-drag-ptr");
+        let _ = root_el.remove_attribute("data-rs-drag-size");
+        let _ = root_el.remove_attribute("data-rs-drag-offset");
     }) as Box<dyn FnMut(_)>);
-
-    handle.add_event_listener_with_callback("pointerdown", on_down.as_ref().unchecked_ref()).ok();
-    let doc_el: &web_sys::EventTarget = doc.as_ref();
-    doc_el.add_event_listener_with_callback("pointermove", on_move.as_ref().unchecked_ref()).ok();
-    doc_el.add_event_listener_with_callback("pointerup",   on_up.as_ref().unchecked_ref()).ok();
-
-    on_down.forget();
-    on_move.forget();
-    on_up.forget();
-}
-
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-resizable]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
-        }
-    }
+    doc.add_event_listener_with_callback("pointerup", cb_up.as_ref().unchecked_ref()).ok();
+    cb_up.forget();
 }

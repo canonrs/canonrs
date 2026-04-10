@@ -2,6 +2,7 @@
 //! Grupo gesture: resizable, slider, carousel, scroll_area.
 
 pub mod shared;
+pub mod runtime;
 pub mod resizable;
 pub mod slider;
 pub mod carousel;
