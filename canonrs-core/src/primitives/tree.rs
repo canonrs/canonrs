@@ -3,8 +3,8 @@
 //! Tree Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::meta::{SelectionState, VisibilityState, DisabledState, ActivityState};
-use crate::infra::state_engine::{selection_attrs, visibility_attrs, disabled_attrs, activity_attrs};
+use crate::meta::{SelectionState, DisabledState, ActivityState};
+use crate::infra::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TreeSelectionMode {
@@ -21,6 +21,12 @@ impl TreeSelectionMode {
     }
 }
 
+fn tree_uid() -> String {
+    use std::sync::atomic::{AtomicU32, Ordering};
+    static CTR: AtomicU32 = AtomicU32::new(0);
+    format!("tr-{}", CTR.fetch_add(1, Ordering::Relaxed))
+}
+
 #[component]
 pub fn TreePrimitive(
     children: Children,
@@ -31,6 +37,7 @@ pub fn TreePrimitive(
     view! {
         <div
             data-rs-tree=""
+            data-rs-uid=tree_uid()
             data-rs-interaction="selection"
             data-rs-component="Tree"
             data-rs-behavior="navigation"
@@ -50,28 +57,29 @@ pub fn TreeItemPrimitive(
     children: Children,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(default = ActivityState::Inactive)] focused: ActivityState,
-    #[prop(default = VisibilityState::Closed)] expanded: VisibilityState,
+    #[prop(default = false)] expanded: bool,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = false)] has_children: bool,
+    #[prop(default = 0u8)] depth: u8,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = selection_attrs(selected);
     let f = activity_attrs(focused);
-    let e = visibility_attrs(expanded);
     let d = disabled_attrs(disabled);
-    // roving tabindex: focused item = 0, rest = -1
     let tabindex = if f.data_rs_state == "active" { "0" } else { "-1" };
+    let depth_str = depth.to_string();
     view! {
         <div
             data-rs-tree-item=""
             data-rs-state=s.data_rs_state
             data-rs-focused=f.data_rs_state
-            data-rs-expanded={if has_children { Some(e.data_rs_state) } else { None }}
+            data-rs-expanded={if has_children { Some(if expanded { "true" } else { "false" }) } else { None }}
             data-rs-disabled=d.data_rs_disabled
+            data-rs-depth=depth_str
             role="treeitem"
             tabindex=tabindex
             aria-selected=s.aria_selected
-            aria-expanded={if has_children { Some(e.aria_expanded) } else { None }}
+            aria-expanded={if has_children { Some(if expanded { "true" } else { "false" }) } else { None }}
             aria-disabled=d.aria_disabled
             class=class
         >

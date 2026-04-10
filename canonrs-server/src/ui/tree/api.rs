@@ -15,6 +15,7 @@ pub const TREEITEM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "has_children", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "depth", kind: PropType::String, required: false, default: Some("0u8"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

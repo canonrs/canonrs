@@ -194,6 +194,12 @@
   --tree-row-height: var(--space-2xl);
   --tree-item-bg-hover: color-mix(in srgb, var(--theme-surface-fg) 6%, transparent);
   --tree-item-bg-selected: color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent);
+  --tree-item-bg-active: color-mix(in srgb, var(--theme-action-accent-bg) 15%, transparent);
+  --tree-item-fg-muted: var(--theme-surface-fg-muted);
+  --tree-item-font-weight-parent: var(--font-weight-medium);
+  --tree-item-active-indicator: var(--theme-action-primary-bg);
+  --tree-item-height: var(--space-lg);
+  --tree-item-gap: var(--space-2xs);
   --command-bg: var(--theme-overlay-bg);
   --command-fg: var(--color-popover-foreground);
   --command-radius: var(--radius-md);

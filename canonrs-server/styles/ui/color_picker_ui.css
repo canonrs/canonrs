@@ -57,13 +57,16 @@
 }
 
 /* ── DISABLED ───────────────────────────────────────────────── */
+[data-rs-color-picker][data-rs-disabled],
 [data-rs-color-picker][data-rs-state~="disabled"],
+[data-rs-color-picker-trigger][data-rs-disabled],
 [data-rs-color-picker-trigger][data-rs-state~="disabled"] {
   opacity: var(--color-picker-disabled-opacity);
   pointer-events: none;
   cursor: not-allowed;
 }
 
+[data-rs-color-swatch][data-rs-disabled],
 [data-rs-color-swatch][data-rs-state~="disabled"] {
   opacity: var(--color-picker-disabled-opacity);
   pointer-events: none;
@@ -115,4 +118,38 @@
 
 [data-rs-color-display-value] {
   color: var(--color-picker-label-value-fg);
+}
+
+/* ── SWATCHES MODE ──────────────────────────────────────────────────────── */
+[data-rs-color-picker-swatches] {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+[data-rs-color-picker-swatches-row] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+  justify-content: center;
+}
+
+[data-rs-color-picker-swatch-preview] {
+  width: var(--color-picker-trigger-size);
+  height: var(--color-picker-trigger-size);
+  border: var(--color-picker-border-width) solid var(--color-picker-border-color);
+  border-radius: var(--color-picker-trigger-radius);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+[data-rs-color-picker-swatch-preview] [data-rs-color-swatch] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: inherit;
+  cursor: default;
 }

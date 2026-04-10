@@ -6,6 +6,12 @@ use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState};
 use crate::infra::state_engine::{selection_attrs, disabled_attrs};
 
+fn radio_group_uid() -> String {
+    use std::sync::atomic::{AtomicU32, Ordering};
+    static CTR: AtomicU32 = AtomicU32::new(0);
+    format!("rg-{}", CTR.fetch_add(1, Ordering::Relaxed))
+}
+
 #[component]
 pub fn RadioGroupPrimitive(
     children: Children,
@@ -16,6 +22,8 @@ pub fn RadioGroupPrimitive(
     view! {
         <div
             data-rs-radio-group=""
+            data-rs-uid=radio_group_uid()
+            data-rs-interaction="selection"
             data-rs-component="RadioGroup"
             data-rs-disabled=d.data_rs_disabled
             role="radiogroup"

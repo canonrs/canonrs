@@ -30,3 +30,12 @@ pub const COLORPICKERDISPLAY_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const COLORPICKERSWATCHES_API: ComponentApi = ComponentApi {
+    id: "color-picker-swatches",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "value", kind: PropType::String, required: false, default: Some("#000000"), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

@@ -1,72 +1,136 @@
 //! ColorPicker Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::runtime::{lifecycle, state};
+use crate::runtime::{lifecycle, state, context, popup, attrs};
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
+fn log(msg: &str) {
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(msg));
+}
 
+fn set_open(root: &Element, open: bool) {
+    if open { state::remove(root, "closed"); state::add(root, "open"); }
+    else     { state::remove(root, "open");  state::add(root, "closed"); }
+}
 
+fn close_color_picker(root: &Element) {
+    set_open(root, false);
+}
 
-fn is_open(root: &Element) -> bool {
-    root.get_attribute("data-rs-state").map(|s| s.contains("open")).unwrap_or(false)
+fn update_swatch_color(root: &Element, value: &str) {
+    if let Some(swatch) = attrs::query_one(root, "[data-rs-color-picker-trigger] [data-rs-color-swatch]") {
+        let _ = swatch.set_attribute("data-rs-color", value);
+        let _ = swatch.style().set_property("background-color", value);
+        log(&format!("[color-picker] swatch style updated to {}", value));
+    } else {
+        log("[color-picker] swatch NOT FOUND");
+    }
+    if let Some(trigger) = attrs::query_one(root, "[data-rs-color-picker-trigger]") {
+        let _ = trigger.set_attribute("data-rs-color", value);
+    }
+    let _ = root.set_attribute("data-rs-value", value);
 }
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
-    // toggle on trigger click
+    register();
+    context::propagate_owner(&root);
+
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_else(|| "NO-UID".to_string());
+    let is_swatches = root.has_attribute("data-rs-color-picker-swatches");
+    log(&format!("[color-picker] init uid={} swatches-mode={}", uid, is_swatches));
+
+    // click handler — toggle popup (normal) ou swatch select (swatches mode)
     {
-        let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            if target.closest("[data-rs-color-picker-trigger]").ok().flatten().is_none() { return; }
-            e.stop_propagation();
-            if is_open(&root_cb) {
-                state::remove(&root_cb, "open");
-                state::add(&root_cb, "closed");
-            } else {
-                state::remove(&root_cb, "closed");
-                state::add(&root_cb, "open");
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else {
+                log("[color-picker] click: no target");
+                return;
+            };
+            log(&format!("[color-picker] click target tag={}", t.tag_name()));
+            let Some(rc) = context::find_root(&t, "[data-rs-color-picker]") else {
+                log("[color-picker] click: find_root FAILED");
+                return;
+            };
+
+            // swatch clicado dentro do swatches row
+            if let Ok(Some(swatch_el)) = t.closest("[data-rs-color-swatch]") {
+                if rc.has_attribute("data-rs-color-picker-swatches") {
+                    e.stop_propagation();
+                    let color = swatch_el.get_attribute("data-rs-color").unwrap_or_default();
+                    log(&format!("[color-picker] swatch clicked color={}", color));
+                    // deselect all swatches
+                    if let Ok(nodes) = rc.query_selector_all("[data-rs-color-swatch]") {
+                        for i in 0..nodes.length() {
+                            if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
+                                state::remove(&n, "selected");
+                            }
+                        }
+                    }
+                    state::add(&swatch_el, "selected");
+                    update_swatch_color(&rc, &color);
+                    return;
+                }
+            }
+
+            // trigger normal — abre/fecha popup
+            if t.closest("[data-rs-color-picker-trigger]").ok().flatten().is_some() {
+                if !rc.has_attribute("data-rs-color-picker-swatches") {
+                    e.stop_propagation();
+                    let o = state::has(&rc, "open");
+                    log(&format!("[color-picker] click: toggling open={}", !o));
+                    set_open(&rc, !o);
+                }
             }
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         cb.forget();
     }
 
-    // input change → update swatch via data-rs-color only (token system)
+    // input change → update swatch color (apenas no picker normal)
     {
-        let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) else { return };
-            if target.get_attribute("data-rs-color-picker-input").is_none() { return; }
-            let value = target.value();
-            if let Ok(Some(swatch)) = root_cb.query_selector("[data-rs-color-picker-trigger]") {
-                let _ = swatch.set_attribute("data-rs-color", &value);
+            log("[color-picker] input event fired");
+            let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) else {
+                log("[color-picker] input: target is not HtmlInputElement");
+                return;
+            };
+            if target.get_attribute("data-rs-color-picker-input").is_none() {
+                log("[color-picker] input: missing data-rs-color-picker-input attr");
+                return;
             }
-            if let Ok(Some(display)) = root_cb.query_selector("[data-rs-color-display-value]") {
+            let el = target.clone().dyn_into::<Element>().unwrap();
+            log(&format!("[color-picker] input: owner={:?}", el.get_attribute("data-rs-owner")));
+            let Some(rc) = context::find_root(&el, "[data-rs-color-picker]") else {
+                log("[color-picker] input: find_root FAILED");
+                return;
+            };
+            let value = target.value();
+            log(&format!("[color-picker] input: value={}", value));
+            update_swatch_color(&rc, &value);
+            if let Some(display) = attrs::query_one(&rc, "[data-rs-color-display-value]") {
                 display.set_text_content(Some(&value));
                 let _ = display.set_attribute("data-rs-color-value", &value);
+                log("[color-picker] input: display updated");
+            } else {
+                log("[color-picker] input: display NOT FOUND (ok if not used)");
             }
         }));
         let _ = root.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref());
         cb.forget();
     }
+}
 
-    // click outside → close
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            if root_cb.contains(Some(&target)) { return; }
-            state::remove(&root_cb, "open");
-            state::add(&root_cb, "closed");
-        }));
-        if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
-            let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        }
-        cb.forget();
-    }
+pub fn register() {
+    use std::cell::Cell;
+    thread_local! { static REGISTERED: Cell<bool> = Cell::new(false); }
+    REGISTERED.with(|r| {
+        if r.get() { return; }
+        r.set(true);
+        popup::register_click_outside("[data-rs-color-picker]", close_color_picker);
+    });
 }
 
 pub fn init_all() {

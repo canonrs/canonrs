@@ -6,6 +6,12 @@ use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, VisibilityState};
 use crate::infra::state_engine::{disabled_attrs, selection_attrs, visibility_attrs};
 
+fn color_picker_uid() -> String {
+    use std::sync::atomic::{AtomicU32, Ordering};
+    static CTR: AtomicU32 = AtomicU32::new(0);
+    format!("cp-{}", CTR.fetch_add(1, Ordering::Relaxed))
+}
+
 #[component]
 pub fn ColorPickerPrimitive(
     children: Children,
@@ -18,6 +24,7 @@ pub fn ColorPickerPrimitive(
     view! {
         <div
             data-rs-color-picker=""
+            data-rs-uid=color_picker_uid()
             data-rs-interaction="selection"
             data-rs-component="ColorPicker"
             data-rs-behavior="color-picker"
@@ -89,6 +96,7 @@ pub fn ColorPickerSwatchPrimitive(
 ) -> impl IntoView {
     let sel = selection_attrs(selected);
     let aria = format!("Select color {}", color);
+    let bg = format!("background-color:{}", color);
     view! {
         <button
             type="button"
@@ -97,6 +105,7 @@ pub fn ColorPickerSwatchPrimitive(
             data-rs-color=color
             aria-selected=sel.aria_selected
             aria-label=aria
+            style=bg
             class=class
         />
     }

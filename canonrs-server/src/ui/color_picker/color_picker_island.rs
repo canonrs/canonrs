@@ -36,3 +36,17 @@ pub fn ColorPickerDisplayIsland(
 ) -> impl IntoView {
     view! { <ColorPickerDisplay value=value format=format class=class /> }
 }
+
+#[component]
+pub fn ColorPickerSwatchesIsland(
+    #[prop(into, default = "#3b82f6".to_string())] value: String,
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    use super::color_picker_ui::ColorPickerSwatches;
+    view! {
+        <ColorPickerSwatches value=value class=class>
+            {children()}
+        </ColorPickerSwatches>
+    }
+}

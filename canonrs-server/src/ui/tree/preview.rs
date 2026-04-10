@@ -7,19 +7,17 @@ pub fn TreeShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <TreeIsland>
-                    <TreeItemIsland>"Documents"</TreeItemIsland>
-                    <TreeItemIsland has_children=true>
-                        "Projects"
-                        <TreeGroupIsland>
-                            <TreeItemIsland>"canonrs"</TreeItemIsland>
-                            <TreeItemIsland>"monorepo"</TreeItemIsland>
-                        </TreeGroupIsland>
-                    </TreeItemIsland>
-                    <TreeItemIsland>"Settings"</TreeItemIsland>
+                    <TreeItemIsland depth=0>"Documents"</TreeItemIsland>
+                    <TreeItemIsland has_children=true depth=0>"Projects"</TreeItemIsland>
+                    <TreeGroupIsland>
+                        <TreeItemIsland depth=1>"canonrs"</TreeItemIsland>
+                        <TreeItemIsland depth=1>"monorepo"</TreeItemIsland>
+                    </TreeGroupIsland>
+                    <TreeItemIsland depth=0>"Settings"</TreeItemIsland>
                 </TreeIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
-                "Tree structure governed by DOM — keyboard nav and expand/collapse via data-rs-state."
+                "Tree structure governed by DOM — keyboard nav and expand/collapse via data-rs-expanded."
             </p>
         </div>
     }
