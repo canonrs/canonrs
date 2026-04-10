@@ -6,12 +6,16 @@ use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState};
 use crate::infra::state_engine::{selection_attrs, disabled_attrs};
 
-fn radio_group_uid() -> String {
-    use std::sync::atomic::{AtomicU32, Ordering};
-    static CTR: AtomicU32 = AtomicU32::new(0);
-    format!("rg-{}", CTR.fetch_add(1, Ordering::Relaxed))
-}
 
+
+
+
+
+
+
+
+
+fn radio_group_uid() -> String { crate::infra::uid::generate("rg") }
 #[component]
 pub fn RadioGroupPrimitive(
     children: Children,

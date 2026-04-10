@@ -5,20 +5,14 @@
 use leptos::prelude::*;
 use crate::meta::{SelectionState, VisibilityState, DisabledState};
 use crate::infra::state_engine::{visibility_attrs, selection_attrs};
-use std::sync::atomic::{AtomicU64, Ordering};
-use std::time::SystemTime;
 
-static SELECT_CTR: AtomicU64 = AtomicU64::new(0);
 
-fn select_uid() -> String {
-    let ctr = SELECT_CTR.fetch_add(1, Ordering::SeqCst);
-    let ts = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .map(|d| d.as_nanos() as u64)
-        .unwrap_or(ctr);
-    format!("sel-{:016x}-{:08x}", ts, ctr)
-}
 
+
+
+
+
+fn select_uid() -> String { crate::infra::uid::generate("sel") }
 #[component]
 pub fn SelectPrimitive(
     children: Children,

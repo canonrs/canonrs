@@ -5,12 +5,16 @@
 use leptos::prelude::*;
 use crate::meta::DisabledState;
 
-fn toggle_group_uid() -> String {
-    use std::sync::atomic::{AtomicU32, Ordering};
-    static CTR: AtomicU32 = AtomicU32::new(0);
-    format!("tg-{}", CTR.fetch_add(1, Ordering::Relaxed))
-}
 
+
+
+
+
+
+
+
+
+fn toggle_group_uid() -> String { crate::infra::uid::generate("tg") }
 #[component]
 pub fn ToggleGroupPrimitive(
     children: Children,

@@ -5,3 +5,5 @@ pub mod state_engine;
 pub mod dom_contract;
 pub mod constraint_engine;
 pub use constraint_engine::ConstraintEngine;
+
+pub mod uid;

@@ -73,6 +73,7 @@ pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     register();
     context::propagate_owner(&root);
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] init uid={}", root.get_attribute("data-rs-uid").unwrap_or_default())));
     // click
     { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };

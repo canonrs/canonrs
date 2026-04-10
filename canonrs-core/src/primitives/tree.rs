@@ -21,12 +21,16 @@ impl TreeSelectionMode {
     }
 }
 
-fn tree_uid() -> String {
-    use std::sync::atomic::{AtomicU32, Ordering};
-    static CTR: AtomicU32 = AtomicU32::new(0);
-    format!("tr-{}", CTR.fetch_add(1, Ordering::Relaxed))
-}
 
+
+
+
+
+
+
+
+
+fn tree_uid() -> String { crate::infra::uid::generate("tr") }
 #[component]
 pub fn TreePrimitive(
     children: Children,

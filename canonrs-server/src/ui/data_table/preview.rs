@@ -25,7 +25,7 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
                 <DataTableStatic
                     data=data
                     columns=columns
-                    page_size=3
+                    page_size=5
                 />
             </div>
             <p data-rs-showcase-preview-anchor="">

@@ -1,5 +1,7 @@
-//! Gesture Runtime — sub-sistema compartilhado para gesture interactions
+//! Gesture Runtime — shared helpers for all gesture interactions
 pub mod lifecycle;
 pub mod state;
-pub mod drag;
 pub mod attrs;
+pub mod drag;
+pub mod uid;
+pub mod context;

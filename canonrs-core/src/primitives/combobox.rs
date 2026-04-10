@@ -5,21 +5,14 @@
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState};
 use crate::infra::state_engine::selection_attrs;
-use std::sync::atomic::{AtomicU64, Ordering};
 
-static COMBOBOX_CTR: AtomicU64 = AtomicU64::new(0);
 
-fn combobox_uid() -> String {
-    // UUID v4 simplificado: timestamp + contador atomico
-    let ctr = COMBOBOX_CTR.fetch_add(1, Ordering::SeqCst);
-    format!("cbx-{:016x}-{:08x}", 
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(ctr),
-        ctr)
-}
 
+
+
+
+
+fn combobox_uid() -> String { crate::infra::uid::generate("cbx") }
 #[component]
 pub fn ComboboxPrimitive(
     children: Children,

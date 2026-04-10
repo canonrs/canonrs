@@ -6,12 +6,16 @@ use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, VisibilityState};
 use crate::infra::state_engine::{disabled_attrs, selection_attrs, visibility_attrs};
 
-fn color_picker_uid() -> String {
-    use std::sync::atomic::{AtomicU32, Ordering};
-    static CTR: AtomicU32 = AtomicU32::new(0);
-    format!("cp-{}", CTR.fetch_add(1, Ordering::Relaxed))
-}
 
+
+
+
+
+
+
+
+
+fn color_picker_uid() -> String { crate::infra::uid::generate("cp") }
 #[component]
 pub fn ColorPickerPrimitive(
     children: Children,

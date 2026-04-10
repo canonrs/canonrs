@@ -5,17 +5,17 @@
 use web_sys::{HtmlInputElement, HtmlElement};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state, attrs};
+use crate::runtime::{lifecycle, state, attrs, context};
 
 // ─── Entry point ─────────────────────────────────────────────────────────────
 
 pub fn init_all() {
     let win = match web_sys::window() { Some(w) => w, None => return };
     let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-data-table]") { Ok(n) => n, Err(_) => return };
+    let nodes = match doc.query_selector_all("[data-rs-datatable]") { Ok(n) => n, Err(_) => return };
     for i in 0..nodes.length() {
         if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<HtmlElement>() { init_table(el); }
+            if let Ok(el) = node.dyn_into::<web_sys::Element>() { init(el); }
         }
     }
 }
@@ -48,6 +48,7 @@ fn bind_filter(table: &HtmlElement) {
     let input_clone = input.clone();
     let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::Event| {
         let q = input_clone.value().to_lowercase();
+        web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[datatable] filter q='{}'", q)));
         apply_filter(&table_clone, &q);
         set_page(&table_clone, 1);
         update_pagination_ui(&table_clone);
@@ -61,6 +62,7 @@ fn bind_filter(table: &HtmlElement) {
 }
 
 fn apply_filter(table: &HtmlElement, q: &str) {
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[datatable] apply_filter q='{}' connected={}", q, table.is_connected())));
     let rows = table.query_selector_all("[data-rs-datatable-row]").ok();
     if let Some(list) = rows {
         let mut visible = 0usize;
@@ -116,6 +118,7 @@ fn bind_sort(table: &HtmlElement) {
 }
 
 fn handle_sort(table: &HtmlElement, col_idx: usize) {
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[datatable] handle_sort col={} connected={}", col_idx, table.is_connected())));
     let current_col = attrs::get_usize_html(table, "data-rs-sort-col", usize::MAX);
     let current_asc = table.get_attribute("data-rs-sort-asc").as_deref() == Some("true");
     let (new_col, new_asc) = if current_col == col_idx {
@@ -348,7 +351,13 @@ fn count_visible(table: &HtmlElement) -> usize {
 }
 
 pub fn init(root: web_sys::Element) {
-    if !lifecycle::init_guard(&root) { return; }
+    let uid = root.get_attribute("data-rs-uid");
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[datatable] init called uid={:?}", uid)));
+    if !lifecycle::init_guard(&root) { 
+        web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[datatable] BLOCKED by init_guard"));
+        return; 
+    }
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[datatable] init OK uid={}", uid.unwrap_or_default())));
     use wasm_bindgen::JsCast;
     if let Ok(el) = root.dyn_into::<web_sys::HtmlElement>() {
         init_table(el);

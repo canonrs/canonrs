@@ -145,6 +145,9 @@ function __wbg_get_imports() {
             _assertNum(ret);
             return ret;
         }, arguments); },
+        __wbg_log_6b5ca2e6124b2808: function() { return logError(function (arg0) {
+            console.log(arg0);
+        }, arguments); },
         __wbg_new_384a230f8673183c: function() { return handleError(function (arg0, arg1) {
             const ret = new CustomEvent(getStringFromWasm0(arg0, arg1));
             return ret;
@@ -242,6 +245,11 @@ function __wbg_get_imports() {
         __wbindgen_cast_0000000000000004: function() { return logError(function (arg0, arg1) {
             // Cast intrinsic for `Closure(Closure { dtor_idx: 34, function: Function { arguments: [NamedExternref("KeyboardEvent")], shim_idx: 15, ret: Unit, inner_ret: Some(Unit) }, mutable: false }) -> Externref`.
             const ret = makeClosure(arg0, arg1, wasm.wasm_bindgen__closure__destroy__hcf56db9cd85ff189, wasm_bindgen__convert__closures_____invoke__h7255c541f7c6589d);
+            return ret;
+        }, arguments); },
+        __wbindgen_cast_0000000000000005: function() { return logError(function (arg0, arg1) {
+            // Cast intrinsic for `Ref(String) -> Externref`.
+            const ret = getStringFromWasm0(arg0, arg1);
             return ret;
         }, arguments); },
         __wbindgen_init_externref_table: function() {
