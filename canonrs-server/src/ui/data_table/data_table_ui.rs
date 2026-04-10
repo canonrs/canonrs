@@ -9,9 +9,7 @@ use canonrs_core::primitives::{
     DataTableCellPrimitive, DataTablePaginationPrimitive, DataTableEmptyPrimitive,
     DataTableDensity, SortDirection,
 };
-use crate::ui::dropdown_menu::{
-    DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup,
-};
+use crate::ui::dropdown_menu::dropdown_menu_island::{DropdownMenuIsland};
 #[derive(Clone)]
 pub struct DataTableColumn<T> {
     pub key: String,
@@ -84,27 +82,20 @@ where
                         </button>
                     </div>
                 })}
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        "Columns"
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuGroup>
-                            {columns.iter().enumerate().map(|(idx, col)| {
-                                let label = col.label.clone();
-                                view! {
-                                    <div
-                                        data-rs-dropdown-menu-checkbox-item=""
-                                        aria-checked="true"
-                                        data-rs-col-index=idx.to_string()
-                                    >
-                                        {label}
-                                    </div>
-                                }
-                            }).collect::<Vec<_>>()}
-                        </DropdownMenuGroup>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <DropdownMenuIsland trigger_label="Columns">
+                    {columns.iter().enumerate().map(|(idx, col)| {
+                        let label = col.label.clone();
+                        view! {
+                            <div
+                                data-rs-dropdown-menu-checkbox-item=""
+                                aria-checked="true"
+                                data-rs-col-index=idx.to_string()
+                            >
+                                {label}
+                            </div>
+                        }
+                    }).collect::<Vec<_>>()}
+                </DropdownMenuIsland>
             </DataTableToolbarPrimitive>
 
             <DataTableScrollPrimitive>

@@ -28,36 +28,62 @@ fn init_table(table: HtmlElement) {
     bind_pagination(&table);
     bind_density(&table);
     bind_col_toggle(&table);
-    bind_col_dropdown(&table);
+    sync_density_state(&table);
+    sync_col_toggle_state(&table);
+}
+
+fn sync_col_toggle_state(table: &HtmlElement) {
+    let root: web_sys::Element = table.clone().into();
+    if let Ok(items) = root.query_selector_all("[data-rs-dropdown-menu-checkbox-item]") {
+        for i in 0..items.length() {
+            if let Some(el) = items.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                if !state::has(&el, "checked") && !state::has(&el, "unchecked") {
+                    state::add(&el, "checked");
+                    let _ = el.set_attribute("aria-checked", "true");
+                }
+            }
+        }
+    }
+}
+
+fn sync_density_state(table: &HtmlElement) {
+    let current = table.get_attribute("data-rs-density").unwrap_or_else(|| "comfortable".to_string());
+    let root: web_sys::Element = table.clone().into();
+    if let Ok(btns) = root.query_selector_all("[data-rs-density-btn]") {
+        for i in 0..btns.length() {
+            if let Some(b) = btns.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                let is_active = b.get_attribute("data-rs-density-btn").as_deref() == Some(current.as_str());
+                let _ = b.set_attribute("data-active", if is_active { "true" } else { "false" });
+            }
+        }
+    }
 }
 
 // ─── Filter ──────────────────────────────────────────────────────────────────
 
-fn bind_filter(table: &HtmlElement) {
-    let input = match table
-        .query_selector("[data-rs-datatable-filter]")
-        .ok()
-        .flatten()
+fn get_filter_input(root: &web_sys::Element) -> Option<HtmlInputElement> {
+    root.query_selector("[data-rs-datatable-filter]").ok().flatten()
         .and_then(|el| el.dyn_into::<HtmlInputElement>().ok())
-    {
-        Some(el) => el,
-        None => return,
-    };
+}
 
+fn bind_filter(table: &HtmlElement) {
+    let root: web_sys::Element = table.clone().into();
+    let Some(input) = get_filter_input(&root) else { return };
     let table_clone = table.clone();
-    let input_clone = input.clone();
-    let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::Event| {
-        let q = input_clone.value().to_lowercase();
+
+    let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
+        let q = get_filter_input(&rc).map(|i| i.value().to_lowercase()).unwrap_or_default();
         web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[datatable] filter q='{}'", q)));
-        apply_filter(&table_clone, &q);
-        set_page(&table_clone, 1);
-        update_pagination_ui(&table_clone);
+        if let Ok(t) = rc.dyn_into::<HtmlElement>() {
+            apply_filter(&t, &q);
+            set_page(&t, 1);
+            update_pagination_ui(&t);
+        }
     }));
 
-    let _ = input
-        .dyn_ref::<web_sys::EventTarget>()
-        .map(|et| et.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref()));
-
+    let _ = input.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref());
     cb.forget();
 }
 
@@ -99,17 +125,18 @@ fn bind_sort(table: &HtmlElement) {
     if let Some(list) = heads {
         for i in 0..list.length() {
             if let Some(node) = list.item(i) {
-                if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    let table_clone = table.clone();
-                    let el_clone = el.clone();
-                    let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-                        let col_idx = attrs::get_usize_html(&el_clone, "data-rs-col-index", 0);
-                        handle_sort(&table_clone, col_idx);
-                        set_page(&table_clone, 1);
-                        update_pagination_ui(&table_clone);
+                if let Ok(el) = node.dyn_into::<web_sys::Element>() {
+                    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                        let col_idx = attrs::get_usize(&t, "data-rs-col-index", 0);
+                        let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
+                        if let Ok(tbl) = rc.dyn_into::<HtmlElement>() {
+                            handle_sort(&tbl, col_idx);
+                            set_page(&tbl, 1);
+                            update_pagination_ui(&tbl);
+                        }
                     }));
-                    let _ = el.dyn_ref::<web_sys::EventTarget>()
-                        .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
+                    let _ = el.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
                     cb.forget();
                 }
             }
@@ -170,27 +197,36 @@ fn apply_sort(table: &HtmlElement, col: Option<usize>, asc: bool) {
 // ─── Pagination ───────────────────────────────────────────────────────────────
 
 fn bind_pagination(table: &HtmlElement) {
-    let prev = table.query_selector("[data-rs-action='prev']").ok().flatten();
-    let next = table.query_selector("[data-rs-action='next']").ok().flatten();
+    let root: web_sys::Element = table.clone().into();
+    let prev = table.query_selector("[data-rs-action='prev']").ok().flatten()
+        .and_then(|el| el.dyn_into::<web_sys::Element>().ok());
+    let next = table.query_selector("[data-rs-action='next']").ok().flatten()
+        .and_then(|el| el.dyn_into::<web_sys::Element>().ok());
+
     if let Some(btn) = prev {
-        let table_clone = table.clone();
-        let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            let p = attrs::get_usize_html(&table_clone, "data-rs-current-page", 1);
-            if p > 1 { set_page(&table_clone, p - 1); update_pagination_ui(&table_clone); }
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
+            if let Ok(tbl) = rc.dyn_into::<HtmlElement>() {
+                let p = attrs::get_usize_html(&tbl, "data-rs-current-page", 1);
+                if p > 1 { set_page(&tbl, p - 1); update_pagination_ui(&tbl); }
+            }
         }));
-        let _ = btn.dyn_ref::<web_sys::EventTarget>()
-            .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
+        let _ = btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         cb.forget();
     }
+
     if let Some(btn) = next {
-        let table_clone = table.clone();
-        let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            let p = attrs::get_usize_html(&table_clone, "data-rs-current-page", 1);
-            let tp = attrs::get_usize_html(&table_clone, "data-rs-total-pages", 1);
-            if p < tp { set_page(&table_clone, p + 1); update_pagination_ui(&table_clone); }
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
+            if let Ok(tbl) = rc.dyn_into::<HtmlElement>() {
+                let p = attrs::get_usize_html(&tbl, "data-rs-current-page", 1);
+                let tp = attrs::get_usize_html(&tbl, "data-rs-total-pages", 1);
+                if p < tp { set_page(&tbl, p + 1); update_pagination_ui(&tbl); }
+            }
         }));
-        let _ = btn.dyn_ref::<web_sys::EventTarget>()
-            .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
+        let _ = btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         cb.forget();
     }
 }
@@ -243,32 +279,30 @@ fn bind_density(table: &HtmlElement) {
     if let Some(list) = btns {
         for i in 0..list.length() {
             if let Some(node) = list.item(i) {
-                if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    let table_clone = table.clone();
-                    let el_clone = el.clone();
-                    let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-                        if let Some(d) = el_clone.get_attribute("data-rs-density-btn") {
-                            let _ = table_clone.set_attribute("data-rs-density", &d);
-                            if let Ok(all) = table_clone.query_selector_all("[data-rs-density-btn]") {
-                                for j in 0..all.length() {
-                                    if let Some(btn_node) = all.item(j) {
-                                        if let Ok(btn) = btn_node.dyn_into::<HtmlElement>() {
-                                            let is_active = btn.get_attribute("data-rs-density-btn").as_deref() == Some(&d);
-                                            if is_active { state::remove(&btn.clone().into(), "inactive"); state::add(&btn.clone().into(), "active"); } else { state::remove(&btn.clone().into(), "active"); state::add(&btn.clone().into(), "inactive"); }
-                                        }
-                                    }
+                if let Ok(el) = node.dyn_into::<web_sys::Element>() {
+                    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                        let Some(btn) = t.closest("[data-rs-density-btn]").ok().flatten() else { return };
+                        let Some(rc) = context::find_root(&btn, "[data-rs-datatable]") else { return };
+                        let Some(d) = btn.get_attribute("data-rs-density-btn") else { return };
+                        let _ = rc.set_attribute("data-rs-density", &d);
+                        if let Ok(all) = rc.query_selector_all("[data-rs-density-btn]") {
+                            for j in 0..all.length() {
+                                if let Some(b) = all.item(j).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                                    let is_active = b.get_attribute("data-rs-density-btn").as_deref() == Some(d.as_str());
+                                    let _ = b.set_attribute("data-active", if is_active { "true" } else { "false" });
                                 }
                             }
                         }
                     }));
-                    let _ = el.dyn_ref::<web_sys::EventTarget>()
-                        .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
+                    let _ = el.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
                     cb.forget();
                 }
             }
         }
     }
 }
+
 
 // ─── Column toggle ────────────────────────────────────────────────────────────
 
@@ -277,20 +311,31 @@ fn bind_col_toggle(table: &HtmlElement) {
     if let Some(list) = items {
         for i in 0..list.length() {
             if let Some(node) = list.item(i) {
-                if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    let table_clone = table.clone();
-                    let el_clone = el.clone();
-                    let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-                        if let Some(idx_str) = el_clone.get_attribute("data-rs-col-index") {
+                if let Ok(el) = node.dyn_into::<web_sys::Element>() {
+                    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+                        let Some(item) = t.closest("[data-rs-dropdown-menu-checkbox-item]").ok().flatten() else { return };
+                        e.stop_propagation();
+                        let Some(rc) = context::find_root(&item, "[data-rs-datatable]") else { return };
+                        if let Some(idx_str) = item.get_attribute("data-rs-col-index") {
                             if let Ok(idx) = idx_str.parse::<usize>() {
-                                toggle_column(&table_clone, idx);
-                                let checked = el_clone.get_attribute("aria-checked").as_deref() == Some("true");
-                                let _ = el_clone.set_attribute("aria-checked", if checked { "false" } else { "true" });
+                                if let Ok(tbl) = rc.clone().dyn_into::<HtmlElement>() {
+                                    toggle_column(&tbl, idx);
+                                }
+                                let checked = state::has(&item, "checked");
+                                if checked {
+                                    state::remove(&item, "checked");
+                                    state::add(&item, "unchecked");
+                                    let _ = item.set_attribute("aria-checked", "false");
+                                } else {
+                                    state::remove(&item, "unchecked");
+                                    state::add(&item, "checked");
+                                    let _ = item.set_attribute("aria-checked", "true");
+                                }
                             }
                         }
                     }));
-                    let _ = el.dyn_ref::<web_sys::EventTarget>()
-                        .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
+                    let _ = el.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
                     cb.forget();
                 }
             }
@@ -298,8 +343,13 @@ fn bind_col_toggle(table: &HtmlElement) {
     }
 }
 
+
 fn toggle_column(table: &HtmlElement, col_idx: usize) {
-    let selector = format!("[data-rs-col-index='{}']", col_idx);
+    // seleciona apenas células e headers da tabela, não checkbox items do dropdown
+    let selector = format!(
+        "[data-rs-datatable-head-cell][data-rs-col-index='{}'], [data-rs-datatable-cell][data-rs-col-index='{}']",
+        col_idx, col_idx
+    );
     let cells = table.query_selector_all(&selector).ok();
     if let Some(list) = cells {
         for i in 0..list.length() {
@@ -309,30 +359,6 @@ fn toggle_column(table: &HtmlElement, col_idx: usize) {
                 }
             }
         }
-    }
-}
-
-// ─── Column dropdown ──────────────────────────────────────────────────────────
-
-fn bind_col_dropdown(table: &HtmlElement) {
-    let trigger = table.query_selector("[data-rs-dropdown-menu-trigger]").ok().flatten();
-    if let Some(btn) = trigger {
-        let table_clone = table.clone();
-        let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            e.stop_propagation();
-            let menu = table_clone.query_selector("[data-rs-dropdown-menu]").ok().flatten();
-            if let Some(m) = menu {
-                let open = m.get_attribute("data-rs-state").as_deref() == Some("open");
-                let _ = m.set_attribute("data-rs-state", if open { "closed" } else { "open" });
-                let content = table_clone.query_selector("[data-rs-dropdown-menu-content]").ok().flatten();
-                if let Some(el) = content.and_then(|el| el.dyn_into::<HtmlElement>().ok()) {
-                    el.set_hidden(open);
-                }
-            }
-        }));
-        let _ = btn.dyn_ref::<web_sys::EventTarget>()
-            .map(|et| et.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()));
-        cb.forget();
     }
 }
 
