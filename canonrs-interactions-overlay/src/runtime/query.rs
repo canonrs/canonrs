@@ -3,11 +3,15 @@ use wasm_bindgen::JsCast;
 use web_sys::{Element, MouseEvent};
 
 pub fn safe_target(e: &MouseEvent) -> Option<Element> {
-    e.target()?.dyn_ref::<Element>().cloned()
+    let el = e.target()?.dyn_ref::<Element>()?.clone();
+    if !el.is_connected() { return None; }
+    Some(el)
 }
 
 pub fn safe_current(e: &MouseEvent) -> Option<Element> {
-    e.current_target()?.dyn_into::<Element>().ok()
+    let el = e.current_target()?.dyn_into::<Element>().ok()?;
+    if !el.is_connected() { return None; }
+    Some(el)
 }
 
 pub fn closest(el: &Element, selector: &str) -> bool {
@@ -20,6 +24,7 @@ pub fn each<F: Fn(Element)>(selector: &str, f: F) {
     for i in 0..nodes.length() {
         let Some(raw) = nodes.item(i) else { continue };
         let Ok(node)  = raw.dyn_into::<Element>() else { continue };
+        if !node.is_connected() { continue };
         f(node);
     }
 }

@@ -11,6 +11,14 @@ fn resolve(e: &web_sys::PointerEvent) -> Option<(Element, Element)> {
     Some((root, content))
 }
 
+fn is_leaving_root(e: &web_sys::PointerEvent, root: &Element) -> bool {
+    let related = e.related_target().and_then(|t| t.dyn_into::<Element>().ok());
+    match related {
+        Some(rel) => !root.contains(Some(rel.as_ref())),
+        None => true,
+    }
+}
+
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     let Ok(Some(_)) = root.query_selector("[data-rs-hover-card-trigger]") else { return };
@@ -26,8 +34,8 @@ pub fn init(root: Element) {
 
     {
         let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::wrap(Box::new(move |e: web_sys::PointerEvent| {
-            let Some((_, c)) = resolve(&e) else { return };
-            state::close(&c);
+            let Some((r, c)) = resolve(&e) else { return };
+            if is_leaving_root(&e, &r) { state::close(&c); }
         }));
         let _ = root.add_event_listener_with_callback("pointerleave", cb.as_ref().unchecked_ref());
         cb.forget();
