@@ -95,7 +95,8 @@
   background: var(--table-row-bg-striped);
 }
 
-[data-rs-datatable-row][data-rs-state~="hover"] {
+[data-rs-datatable-row][data-rs-state~="hover"],
+[data-rs-datatable-row]:hover {
   background: var(--table-row-bg-hover);
 }
 
@@ -247,4 +248,51 @@
 
 [data-rs-datatable-row][data-rs-state~="selected"] {
   background: var(--table-row-bg-selected);
+}
+
+/* ── SELECTION COLUMN ───────────────────────────────────────────────────────── */
+[data-rs-col-select] {
+  width: var(--table-select-col-width);
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+[data-rs-datatable-select-all],
+[data-rs-datatable-select-row] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: var(--table-select-checkbox-size);
+  height: var(--table-select-checkbox-size);
+  border: 1.5px solid var(--table-select-checkbox-border);
+  border-radius: var(--table-select-checkbox-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--motion-duration-fast), border-color var(--motion-duration-fast);
+  position: relative;
+  flex-shrink: 0;
+}
+
+[data-rs-datatable-select-all]:checked,
+[data-rs-datatable-select-row]:checked {
+  background: var(--table-select-checkbox-bg);
+  border-color: var(--table-select-checkbox-bg);
+}
+
+[data-rs-datatable-select-all]:checked::after,
+[data-rs-datatable-select-row]:checked::after {
+  content: "✓";
+  color: var(--theme-action-primary-fg);
+  font-size: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[data-rs-datatable-row][data-rs-state~="selected"] [data-rs-datatable-select-row] {
+  background: var(--table-select-checkbox-bg);
+  border-color: var(--table-select-checkbox-bg);
 }

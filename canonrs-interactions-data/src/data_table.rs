@@ -30,6 +30,7 @@ fn init_table(table: HtmlElement) {
     bind_col_toggle(&table);
     sync_density_state(&table);
     sync_col_toggle_state(&table);
+    bind_selection(&table);
 }
 
 fn sync_col_toggle_state(table: &HtmlElement) {
@@ -361,6 +362,141 @@ fn toggle_column(table: &HtmlElement, col_idx: usize) {
         }
     }
 }
+
+// ─── Selection ───────────────────────────────────────────────────────────────
+
+fn set_row_selected(row: &web_sys::Element, selected: bool) {
+    if selected {
+        state::remove(row, "unselected");
+        state::add(row, "selected");
+    } else {
+        state::remove(row, "selected");
+        state::add(row, "unselected");
+    }
+    // sincroniza checkbox da row
+    if let Some(cb) = row.query_selector("[data-rs-datatable-select-row]").ok().flatten()
+        .and_then(|el| el.dyn_into::<web_sys::HtmlInputElement>().ok())
+    {
+        cb.set_checked(selected);
+    }
+}
+
+fn get_selected_count(table: &web_sys::Element) -> (usize, usize) {
+    let Ok(rows) = table.query_selector_all("[data-rs-datatable-row]:not([hidden])") else { return (0, 0) };
+    let total = rows.length() as usize;
+    let selected = (0..rows.length())
+        .filter_map(|i| rows.item(i))
+        .filter_map(|n| n.dyn_into::<web_sys::Element>().ok())
+        .filter(|el| state::has(el, "selected"))
+        .count();
+    (selected, total)
+}
+
+fn sync_select_all(table: &web_sys::Element) {
+    let (selected, total) = get_selected_count(table);
+    if let Some(cb) = table.query_selector("[data-rs-datatable-select-all]").ok().flatten()
+        .and_then(|el| el.dyn_into::<web_sys::HtmlInputElement>().ok())
+    {
+        cb.set_checked(selected == total && total > 0);
+        cb.set_indeterminate(selected > 0 && selected < total);
+    }
+}
+
+fn bind_selection(table: &HtmlElement) {
+    if table.get_attribute("data-rs-selectable").as_deref() != Some("true") { return; }
+    let root: web_sys::Element = table.clone().into();
+
+    // select-all
+    if let Some(select_all) = root.query_selector("[data-rs-datatable-select-all]").ok().flatten()
+        .and_then(|el| el.dyn_into::<web_sys::Element>().ok())
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) else { return };
+            let Some(rc) = context::find_root(&t.clone().into(), "[data-rs-datatable]") else { return };
+            let checked = t.checked();
+            let Ok(rows) = rc.query_selector_all("[data-rs-datatable-row]") else { return };
+            for i in 0..rows.length() {
+                if let Some(row) = rows.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                    if row.get_attribute("hidden").is_none() {
+                        set_row_selected(&row, checked);
+                    }
+                }
+            }
+        }));
+        let _ = select_all.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
+    // row selection — listener na TBODY, um único listener
+    let tbody = match root.query_selector("[data-rs-datatable-body]").ok().flatten() {
+        Some(el) => el,
+        None => return,
+    };
+
+    use std::cell::Cell;
+    let last_idx: &'static Cell<usize> = Box::leak(Box::new(Cell::new(usize::MAX)));
+
+    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+        if t.has_attribute("data-rs-datatable-select-all") { return; }
+        if t.closest("[data-rs-datatable-head-cell]").ok().flatten().is_some() { return; }
+        if t.closest("[data-rs-action]").ok().flatten().is_some() { return; }
+        if t.closest("[data-rs-density-btn]").ok().flatten().is_some() { return; }
+        if t.closest("[data-rs-dropdown-menu]").ok().flatten().is_some() { return; }
+        // checkbox nativo — sincroniza estado da row
+        if t.has_attribute("data-rs-datatable-select-row") {
+            let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { return };
+            let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
+            if let Some(cb) = t.clone().dyn_into::<web_sys::HtmlInputElement>().ok() {
+                set_row_selected(&row, cb.checked());
+            }
+            sync_select_all(&rc);
+            return;
+        }
+
+        let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { return };
+        let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
+
+        let Ok(all_rows) = rc.query_selector_all("[data-rs-datatable-row]") else { return };
+        let rows_vec: Vec<web_sys::Element> = (0..all_rows.length())
+            .filter_map(|i| all_rows.item(i))
+            .filter_map(|n| n.dyn_into::<web_sys::Element>().ok())
+            .filter(|el| el.get_attribute("hidden").is_none())
+            .collect();
+
+        let clicked_idx = rows_vec.iter().position(|r| *r == row).unwrap_or(usize::MAX);
+        let prev_idx = last_idx.get();
+
+        if e.shift_key() && prev_idx != usize::MAX && clicked_idx != usize::MAX {
+            let (start, end) = if prev_idx <= clicked_idx { (prev_idx, clicked_idx) } else { (clicked_idx, prev_idx) };
+            let end = end.min(rows_vec.len().saturating_sub(1));
+            if start <= end {
+                for r in &rows_vec[start..=end] { set_row_selected(r, true); }
+            }
+        } else if e.ctrl_key() || e.meta_key() {
+            let selected = state::has(&row, "selected");
+            set_row_selected(&row, !selected);
+        } else {
+            let already_selected = state::has(&row, "selected");
+            let selected_count = rows_vec.iter().filter(|r| state::has(r, "selected")).count();
+            if already_selected && selected_count == 1 {
+                set_row_selected(&row, false);
+            } else {
+                for r in &rows_vec { set_row_selected(r, false); }
+                set_row_selected(&row, true);
+            }
+        }
+
+        last_idx.set(clicked_idx);
+        sync_select_all(&rc);
+    }));
+
+    let _ = tbody.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+    cb.forget();
+}
+
+
+
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

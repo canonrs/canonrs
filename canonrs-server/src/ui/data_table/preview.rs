@@ -32,6 +32,7 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
                     columns=columns
                     page_size=5
                     show_density=true
+                    selectable=true
                 />
             </div>
             <p data-rs-showcase-preview-anchor="">
