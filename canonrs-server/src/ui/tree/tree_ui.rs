@@ -28,8 +28,13 @@ pub fn TreeItem(
         view! {
             <TreeItemPrimitive has_children=true depth=depth class=class>
                 <span data-rs-tree-toggle="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </span>
+                <span data-rs-tree-icon="" data-rs-tree-icon-folder="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
                     </svg>
                 </span>
                 {children()}
@@ -39,6 +44,12 @@ pub fn TreeItem(
         view! {
             <TreeItemPrimitive has_children=false depth=depth class=class>
                 <span data-rs-tree-indent="" />
+                <span data-rs-tree-icon="" data-rs-tree-icon-file="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+                        <polyline points="13 2 13 9 20 9"/>
+                    </svg>
+                </span>
                 {children()}
             </TreeItemPrimitive>
         }.into_any()

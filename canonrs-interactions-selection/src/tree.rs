@@ -1,14 +1,10 @@
-//! Tree Interaction Engine — expand/collapse + keyboard navigation
+//! Tree Interaction Engine — expand/collapse + selection + keyboard navigation
 
 use wasm_bindgen::prelude::*;
-use crate::runtime::{lifecycle, context};
+use crate::runtime::{lifecycle, state, context};
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-
-fn log(msg: &str) {
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(msg));
-}
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-tree-item]") else { return vec![] };
@@ -31,58 +27,37 @@ fn is_disabled(item: &Element) -> bool {
 }
 
 fn toggle_expand(item: &Element) {
-    if !is_expandable(item) {
-        log("[tree] toggle_expand: item NOT expandable (no data-rs-expanded)");
-        return;
-    }
-    let current = item.get_attribute("data-rs-expanded").unwrap_or_default();
-    log(&format!("[tree] toggle_expand: current data-rs-expanded={}", current));
+    if !is_expandable(item) { return; }
     if is_expanded(item) {
         let _ = item.set_attribute("data-rs-expanded", "false");
         let _ = item.set_attribute("aria-expanded", "false");
-        log("[tree] toggle_expand: → false (collapsed)");
     } else {
         let _ = item.set_attribute("data-rs-expanded", "true");
         let _ = item.set_attribute("aria-expanded", "true");
-        log("[tree] toggle_expand: → true (expanded)");
     }
+}
+
+fn select_item(root: &Element, item: &Element) {
+    for i in get_items(root) {
+        state::remove(&i, "active");
+        state::remove(&i, "selected");
+    }
+    state::add(item, "active");
+    state::add(item, "selected");
 }
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     context::propagate_owner(&root);
 
-    let uid = root.get_attribute("data-rs-uid").unwrap_or_else(|| "NO-UID".to_string());
-    log(&format!("[tree] init uid={}", uid));
-
-    // log estado inicial de todos os items
-    for item in get_items(&root) {
-        let expanded = item.get_attribute("data-rs-expanded");
-        let text = item.text_content().unwrap_or_default();
-        let text = text.trim().chars().take(20).collect::<String>();
-        log(&format!("[tree] item={} expanded={:?} has_attr={}", text, expanded, item.has_attribute("data-rs-expanded")));
-    }
-
-    // click → expand/collapse
+    // click → select + expand/collapse
     {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else {
-                log("[tree] click: no target");
-                return;
-            };
-            log(&format!("[tree] click: tag={} owner={:?}", t.tag_name(), t.get_attribute("data-rs-owner")));
-            let Some(_rc) = context::find_root(&t, "[data-rs-tree]") else {
-                log("[tree] click: find_root FAILED");
-                return;
-            };
-            let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() else {
-                log("[tree] click: not inside tree-item");
-                return;
-            };
-            if is_disabled(&item) {
-                log("[tree] click: item disabled");
-                return;
-            }
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            let Some(rc) = context::find_root(&t, "[data-rs-tree]") else { return };
+            let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() else { return };
+            if is_disabled(&item) { return; }
+            select_item(&rc, &item);
             toggle_expand(&item);
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -129,7 +104,10 @@ pub fn init(root: Element) {
                 "Enter" | " " => {
                     e.prevent_default();
                     if let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() {
-                        if !is_disabled(&item) { toggle_expand(&item); }
+                        if !is_disabled(&item) {
+                            select_item(&rc, &item);
+                            toggle_expand(&item);
+                        }
                     }
                 }
                 _ => {}

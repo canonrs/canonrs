@@ -57,13 +57,23 @@
   color: var(--tree-item-fg);
 }
 
+/* ── FOCUS ───────────────────────────────────────────────────────────────── */
+[data-rs-tree-item][data-rs-state~="focus"] {
+  background: var(--tree-item-bg-focus);
+}
+
+[data-rs-tree-item]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+}
+
 /* ── SELECTED ────────────────────────────────────────────────────────────── */
 [data-rs-tree-item][data-rs-state~="selected"] {
   background: var(--tree-item-bg-selected);
   color: var(--tree-item-fg);
 }
 
-/* ── ACTIVE — strong indicator ───────────────────────────────────────────── */
+/* ── ACTIVE ──────────────────────────────────────────────────────────────── */
 [data-rs-tree-item][data-rs-state~="active"] {
   background: var(--tree-item-bg-active);
   color: var(--tree-item-fg);
@@ -88,19 +98,13 @@
   pointer-events: none;
 }
 
-/* ── FOCUS ───────────────────────────────────────────────────────────────── */
-[data-rs-tree-item]:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
-}
-
 /* ── TOGGLE CARET ────────────────────────────────────────────────────────── */
 [data-rs-tree-toggle] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--tree-icon-size);
-  height: var(--tree-icon-size);
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   background: transparent;
   border: none;
@@ -128,8 +132,8 @@
 /* ── INDENT SPACER ───────────────────────────────────────────────────────── */
 [data-rs-tree-indent] {
   display: inline-flex;
-  width: var(--tree-icon-size);
-  height: var(--tree-icon-size);
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
@@ -163,11 +167,10 @@
   position: relative;
 }
 
-/* Guide line */
 [data-rs-tree-group]::before {
   content: "";
   position: absolute;
-  left: calc(var(--tree-item-padding-x) + var(--tree-icon-size) / 2);
+  left: calc(var(--tree-indent-depth-1) - 6px);
   top: 0;
   bottom: 0;
   width: 1px;
