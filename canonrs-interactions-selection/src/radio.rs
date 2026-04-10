@@ -1,17 +1,12 @@
 //! Radio Interaction Engine — keyboard navigation + selection sync
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
+
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
-    }
-}
+
 
 
 fn get_items(root: &Element) -> Vec<Element> {
@@ -28,21 +23,20 @@ fn get_items(root: &Element) -> Vec<Element> {
 fn select_item(root: &Element, value: &str) {
     for item in get_items(root) {
         let item_value = item.get_attribute("data-rs-value").unwrap_or_default();
-        remove_state(&item, "selected");
-        remove_state(&item, "unselected");
+        state::remove(&item, "selected");
+        state::remove(&item, "unselected");
         if item_value == value {
-            add_state(&item, "selected");
+            state::add(&item, "selected");
             let _ = item.set_attribute("aria-checked", "true");
         } else {
-            add_state(&item, "unselected");
+            state::add(&item, "unselected");
             let _ = item.set_attribute("aria-checked", "false");
         }
     }
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if !lifecycle::init_guard(&root) { return; }
     // click → select
     {
         let root_cb = root.clone();

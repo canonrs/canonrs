@@ -1,11 +1,9 @@
 //! Combobox Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{add_state, remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state, popup, context};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlInputElement};
-
-
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(list) = root.query_selector_all("[data-rs-combobox-item]") else { return vec![] };
@@ -17,13 +15,14 @@ fn is_disabled(root: &Element) -> bool {
 }
 
 fn set_open(root: &Element, open: bool) {
-    if open { remove_state(root, "closed"); add_state(root, "open"); }
-    else { remove_state(root, "open"); add_state(root, "closed"); }
+    if open { state::remove(root, "closed"); state::add(root, "open"); }
+    else { state::remove(root, "open"); state::add(root, "closed"); }
     let _ = root.set_attribute("aria-expanded", if open { "true" } else { "false" });
 }
 
 fn is_open(root: &Element) -> bool {
-    root.get_attribute("data-rs-state").map(|s| s.contains("open")).unwrap_or(false)
+    let v = root.get_attribute("data-rs-state").map(|s| s.contains("open")).unwrap_or(false);
+    v
 }
 
 fn get_input(root: &Element) -> Option<HtmlInputElement> {
@@ -37,26 +36,35 @@ fn filter_items(root: &Element, query: &str) {
         let label = item.clone().dyn_into::<web_sys::HtmlElement>().ok()
             .and_then(|el| el.text_content()).unwrap_or_default().to_lowercase();
         let hidden = !q.is_empty() && !label.contains(&q);
-        if hidden { add_state(&item, "hidden"); } else { remove_state(&item, "hidden"); }
+        if hidden { state::add(&item, "hidden"); } else { state::remove(&item, "hidden"); }
     }
 }
 
 fn set_selected(root: &Element, value: &str) {
     for item in get_items(root) {
         let matches = item.get_attribute("data-rs-value").map(|v| v == value).unwrap_or(false);
-        remove_state(&item, "selected"); remove_state(&item, "unselected");
-        if matches { add_state(&item, "selected"); let _ = item.set_attribute("aria-selected", "true"); }
-        else { add_state(&item, "unselected"); let _ = item.set_attribute("aria-selected", "false"); }
+        state::remove(&item, "selected"); state::remove(&item, "unselected");
+        if matches { state::add(&item, "selected"); let _ = item.set_attribute("aria-selected", "true"); }
+        else { state::add(&item, "unselected"); let _ = item.set_attribute("aria-selected", "false"); }
     }
-    let label = get_items(root).into_iter()
+    let items = get_items(root);
+    for it in &items {
+    }
+    let label = items.into_iter()
         .find(|el| el.get_attribute("data-rs-value").map(|v| v == value).unwrap_or(false))
         .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
         .and_then(|el| el.text_content()).unwrap_or_default();
-    if let Some(input) = get_input(root) { input.set_value(&label); }
+    let input = get_input(root);
+    if let Some(input) = input {
+        input.set_value(&label);
+    }
 }
 
 fn restore_input(root: &Element) {
-    let label = get_items(root).into_iter()
+    let items = get_items(root);
+    for it in &items {
+    }
+    let label = items.into_iter()
         .find(|el| el.get_attribute("data-rs-state").map(|s| s.contains("selected")).unwrap_or(false))
         .and_then(|el| el.dyn_into::<web_sys::HtmlElement>().ok())
         .and_then(|el| el.text_content()).unwrap_or_default();
@@ -64,7 +72,7 @@ fn restore_input(root: &Element) {
 }
 
 fn clear_focused(root: &Element) {
-    for item in get_items(root) { remove_state(&item, "focus"); }
+    for item in get_items(root) { state::remove(&item, "focus"); }
 }
 
 fn navigable_items(root: &Element) -> Vec<Element> {
@@ -79,20 +87,31 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |_| {
+    if !lifecycle::init_guard(&root) { return; }
+    register();
+    context::propagate_owner(&root);
+
+    // input — sobe pelo current_target
+    { let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
+        let Some(t) = e.current_target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-combobox]") else { return };
         if is_disabled(&rc) { return; }
         let q = get_input(&rc).map(|i| i.value()).unwrap_or_default();
         filter_items(&rc, &q); set_open(&rc, true); clear_focused(&rc);
     })); if let Some(i) = get_input(&root) { let _ = i.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref()); } cb.forget(); }
 
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_| {
+    // focus no input
+    { let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |e: web_sys::FocusEvent| {
+        let Some(t) = e.current_target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-combobox]") else { return };
         if !is_disabled(&rc) { set_open(&rc, true); }
     })); if let Some(i) = get_input(&root) { let _ = i.add_event_listener_with_callback("focus", cb.as_ref().unchecked_ref()); } cb.forget(); }
 
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+    // click no item
+    { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        if t.has_attribute("data-rs-combobox-input") { return; }
+        let Some(rc) = context::find_root(&t, "[data-rs-combobox]") else { return };
         if let Ok(Some(item)) = t.closest("[data-rs-combobox-item]") {
             if item.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") { return; }
             e.stop_propagation();
@@ -101,16 +120,21 @@ pub fn init(root: Element) {
         }
     })); let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()); cb.forget(); }
 
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+    // mouseover
+    { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-combobox]") else { return };
         if let Ok(Some(item)) = t.closest("[data-rs-combobox-item]") {
             if !item.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") {
-                clear_focused(&rc); add_state(&item, "focus");
+                clear_focused(&rc); state::add(&item, "focus");
             }
         }
     })); let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref()); cb.forget(); }
 
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+    // keydown no input
+    { let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+        let Some(t) = e.current_target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-combobox]") else { return };
         if is_disabled(&rc) { return; }
         match e.key().as_str() {
             "Escape" | "Tab" => { restore_input(&rc); filter_items(&rc, ""); set_open(&rc, false); clear_focused(&rc); }
@@ -131,17 +155,27 @@ pub fn init(root: Element) {
                     ("ArrowDown", None) => 0, ("ArrowDown", Some(i)) => (i+1).min(len-1),
                     ("ArrowUp", None) => len-1, ("ArrowUp", Some(i)) => if i==0{0}else{i-1}, _ => 0,
                 };
-                clear_focused(&rc); if let Some(el) = items.get(next) { add_state(el, "focus"); }
+                clear_focused(&rc); if let Some(el) = items.get(next) { state::add(el, "focus"); }
             }
             _ => {}
         }
     })); if let Some(i) = get_input(&root) { let _ = i.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref()); } cb.forget(); }
+}
 
-    { let rc = root.clone(); let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-        if rc.contains(Some(&t)) { return; }
-        restore_input(&rc); filter_items(&rc, ""); set_open(&rc, false); clear_focused(&rc);
-    })); if let Some(doc) = web_sys::window().and_then(|w| w.document()) { let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()); } cb.forget(); }
+fn close_combobox(root: &web_sys::Element) {
+    filter_items(root, "");
+    set_open(root, false);
+    clear_focused(root);
+}
+
+pub fn register() {
+    use std::cell::Cell;
+    thread_local! { static REGISTERED: Cell<bool> = Cell::new(false); }
+    REGISTERED.with(|r| {
+        if r.get() { return; }
+        r.set(true);
+        popup::register_click_outside("[data-rs-combobox]", close_combobox);
+    });
 }
 
 pub fn init_all() {

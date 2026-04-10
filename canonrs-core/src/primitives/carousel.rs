@@ -3,6 +3,9 @@
 //! Carousel Primitive - Interactive slideshow
 
 use leptos::prelude::*;
+use std::sync::atomic::{AtomicU32, Ordering};
+#[allow(dead_code)]
+static CAROUSEL_UID: AtomicU32 = AtomicU32::new(0);
 use crate::meta::{ActivityState, DisabledState, VisibilityState};
 use crate::infra::state_engine::{activity_attrs, disabled_attrs, visibility_attrs};
 
@@ -15,6 +18,7 @@ pub fn CarouselPrimitive(
     view! {
         <div
             data-rs-carousel=""
+            data-rs-uid=CAROUSEL_UID.fetch_add(1, Ordering::SeqCst).to_string()
             data-rs-interaction="gesture"
             data-rs-component="Carousel"
             data-rs-behavior="slideshow"

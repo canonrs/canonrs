@@ -1,6 +1,6 @@
 //! canonrs-interactions-selection
 
-pub mod shared;
+pub mod runtime;
 pub mod select;
 pub mod combobox;
 pub mod color_picker;

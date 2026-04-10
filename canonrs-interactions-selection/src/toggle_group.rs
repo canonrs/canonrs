@@ -2,7 +2,8 @@
 //! Single/multiple selection, keyboard navigation, disabled state
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{add_state, remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
+
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, KeyboardEvent, MouseEvent};
 
@@ -33,31 +34,30 @@ fn toggle_item(root: &Element, item: &Element) {
     let currently_on = is_on(item);
     if !multiple {
         for toggle in get_toggles(root) {
-            remove_state(&toggle, "on");
-            add_state(&toggle, "off");
+            state::remove(&toggle, "on");
+            state::add(&toggle, "off");
             toggle.set_attribute("aria-pressed", "false").ok();
         }
         if !currently_on {
-            remove_state(item, "off");
-            add_state(item, "on");
+            state::remove(item, "off");
+            state::add(item, "on");
             item.set_attribute("aria-pressed", "true").ok();
         }
     } else {
         if currently_on {
-            remove_state(item, "on");
-            add_state(item, "off");
+            state::remove(item, "on");
+            state::add(item, "off");
             item.set_attribute("aria-pressed", "false").ok();
         } else {
-            remove_state(item, "off");
-            add_state(item, "on");
+            state::remove(item, "off");
+            state::add(item, "on");
             item.set_attribute("aria-pressed", "true").ok();
         }
     }
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if !lifecycle::init_guard(&root) { return; }
     // click
     {
         let root_c = root.clone();

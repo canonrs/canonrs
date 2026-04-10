@@ -2,6 +2,7 @@
 window.__canonLoader = {
   loaded: new Set(),
   mods: {},
+  initializedUids: new Set(),
 
   async loadGroup(group) {
     if (this.loaded.has(group)) {
@@ -26,21 +27,35 @@ window.__canonLoader = {
     const initFn = mod[`init_${group}`];
     if (typeof initFn !== 'function') return;
     document.querySelectorAll(`[data-rs-interaction="${group}"]`).forEach(el => {
-      if (el.hasAttribute('data-rs-initialized')) return;
+      if (this._isInitialized(el)) return;
+      this._markInitialized(el);
       try { initFn(el); } catch(e) { console.warn('[canon] init failed:', group, el, e); }
     });
   },
 
   initElement(el) {
     if (!(el instanceof Element)) return;
-    if (el.hasAttribute('data-rs-initialized')) return;
+    if (this._isInitialized(el)) return;
     const group = el.getAttribute('data-rs-interaction');
     if (!group) return;
     const mod = this.mods[group];
     if (!mod) { this.loadGroup(group); return; }
     const initFn = mod[`init_${group}`];
     if (typeof initFn !== 'function') return;
+    this._markInitialized(el);
     try { initFn(el); } catch(e) { console.warn('[canon] init failed:', group, el, e); }
+  },
+
+  _isInitialized(el) {
+    const uid = el.getAttribute('data-rs-uid');
+    if (uid) return this.initializedUids.has(uid);
+    return el.hasAttribute('data-rs-initialized');
+  },
+
+  _markInitialized(el) {
+    const uid = el.getAttribute('data-rs-uid');
+    if (uid) { this.initializedUids.add(uid); return; }
+    el.setAttribute('data-rs-initialized', 'true');
   }
 };
 

@@ -1,17 +1,12 @@
 //! ColorPicker Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
+
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
-    }
-}
+
 
 
 fn is_open(root: &Element) -> bool {
@@ -19,8 +14,7 @@ fn is_open(root: &Element) -> bool {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if !lifecycle::init_guard(&root) { return; }
     // toggle on trigger click
     {
         let root_cb = root.clone();
@@ -29,11 +23,11 @@ pub fn init(root: Element) {
             if target.closest("[data-rs-color-picker-trigger]").ok().flatten().is_none() { return; }
             e.stop_propagation();
             if is_open(&root_cb) {
-                remove_state(&root_cb, "open");
-                add_state(&root_cb, "closed");
+                state::remove(&root_cb, "open");
+                state::add(&root_cb, "closed");
             } else {
-                remove_state(&root_cb, "closed");
-                add_state(&root_cb, "open");
+                state::remove(&root_cb, "closed");
+                state::add(&root_cb, "open");
             }
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -65,8 +59,8 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if root_cb.contains(Some(&target)) { return; }
-            remove_state(&root_cb, "open");
-            add_state(&root_cb, "closed");
+            state::remove(&root_cb, "open");
+            state::add(&root_cb, "closed");
         }));
         if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
             let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());

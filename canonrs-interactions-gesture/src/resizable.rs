@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
-use crate::runtime::{lifecycle, drag};
+use crate::runtime::{lifecycle, drag, attrs};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
@@ -14,7 +14,7 @@ pub fn init(root: Element) {
     if let Ok(nodes) = root.query_selector_all("[data-rs-resizable-panel]") {
         for i in 0..nodes.length() {
             if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<HtmlElement>().ok()) {
-                let sz = n.get_attribute("data-rs-default-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(50.0);
+                let sz = attrs::get_f64(&n, "data-rs-default-size", 50.0);
                 let _ = n.style().set_property("--resizable-panel-basis", &format!("{}%", sz));
             }
         }
@@ -49,8 +49,8 @@ pub fn init(root: Element) {
         let size = drag::drag_size(&root_el); let offset = drag::drag_offset(&root_el);
         if size == 0.0 { return; }
         let orient = root_el.get_attribute("data-rs-orientation").unwrap_or_default();
-        let min_s  = root_el.get_attribute("data-rs-min-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(20.0);
-        let max_s  = root_el.get_attribute("data-rs-max-size").and_then(|s| s.parse::<f64>().ok()).unwrap_or(80.0);
+        let min_s  = attrs::get_f64(&root_el, "data-rs-min-size", 20.0);
+        let max_s  = attrs::get_f64(&root_el, "data-rs-max-size", 80.0);
         let pos = if orient == "horizontal" { e.client_x() as f64 } else { e.client_y() as f64 };
         let pct = ((pos - offset) / size * 100.0).max(min_s).min(max_s);
         let Ok(panels) = root_el.query_selector_all("[data-rs-resizable-panel]") else { return };

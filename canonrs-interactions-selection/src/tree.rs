@@ -1,17 +1,12 @@
 //! Tree Interaction Engine — expand/collapse + keyboard navigation
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
+
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
-    }
-}
+
 
 fn is_expanded(el: &Element) -> bool {
     el.get_attribute("data-rs-state").map(|s| s.contains("expanded")).unwrap_or(false)
@@ -23,8 +18,7 @@ fn get_items(root: &Element) -> Vec<Element> {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if !lifecycle::init_guard(&root) { return; }
 
     {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
@@ -32,10 +26,10 @@ pub fn init(root: Element) {
             let Some(item) = target.closest("[data-rs-tree-item]").ok().flatten() else { return };
             if item.get_attribute("data-rs-has-children").as_deref() != Some("true") { return; }
             if is_expanded(&item) {
-                remove_state(&item, "expanded"); add_state(&item, "collapsed");
+                state::remove(&item, "expanded"); state::add(&item, "collapsed");
                 let _ = item.set_attribute("aria-expanded", "false");
             } else {
-                remove_state(&item, "collapsed"); add_state(&item, "expanded");
+                state::remove(&item, "collapsed"); state::add(&item, "expanded");
                 let _ = item.set_attribute("aria-expanded", "true");
             }
         }));
@@ -67,10 +61,10 @@ pub fn init(root: Element) {
                     if let Some(item) = target.closest("[data-rs-tree-item]").ok().flatten() {
                         if item.get_attribute("data-rs-has-children").as_deref() == Some("true") {
                             if is_expanded(&item) {
-                                remove_state(&item, "expanded"); add_state(&item, "collapsed");
+                                state::remove(&item, "expanded"); state::add(&item, "collapsed");
                                 let _ = item.set_attribute("aria-expanded", "false");
                             } else {
-                                remove_state(&item, "collapsed"); add_state(&item, "expanded");
+                                state::remove(&item, "collapsed"); state::add(&item, "expanded");
                                 let _ = item.set_attribute("aria-expanded", "true");
                             }
                         }
