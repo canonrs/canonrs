@@ -23,6 +23,11 @@ function __wbg_get_imports() {
             getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
             getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
         },
+        __wbg___wbindgen_is_null_ac34f5003991759a: function(arg0) {
+            const ret = arg0 === null;
+            _assertBoolean(ret);
+            return ret;
+        },
         __wbg___wbindgen_is_undefined_9e4d92534c42d778: function(arg0) {
             const ret = arg0 === undefined;
             _assertBoolean(ret);
@@ -253,6 +258,11 @@ function __wbg_get_imports() {
                 result = false;
             }
             const ret = result;
+            _assertBoolean(ret);
+            return ret;
+        }, arguments); },
+        __wbg_isConnected_6110bc2c5462f90e: function() { return logError(function (arg0) {
+            const ret = arg0.isConnected;
             _assertBoolean(ret);
             return ret;
         }, arguments); },

@@ -5,29 +5,14 @@
 use web_sys::{HtmlInputElement, HtmlElement};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-
-// ─── State helpers (HtmlElement) ─────────────────────────────────────────────
-
-fn add_state_html(el: &HtmlElement, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        let _ = el.set_attribute("data-rs-state", &next);
-    }
-}
-
-fn remove_state_html(el: &HtmlElement, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
-    let _ = el.set_attribute("data-rs-state", &next.join(" "));
-}
+use crate::runtime::{lifecycle, state, attrs};
 
 // ─── Entry point ─────────────────────────────────────────────────────────────
 
 pub fn init_all() {
     let win = match web_sys::window() { Some(w) => w, None => return };
     let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-datatable]") { Ok(n) => n, Err(_) => return };
+    let nodes = match doc.query_selector_all("[data-rs-data-table]") { Ok(n) => n, Err(_) => return };
     for i in 0..nodes.length() {
         if let Some(node) = nodes.item(i) {
             if let Ok(el) = node.dyn_into::<HtmlElement>() { init_table(el); }
@@ -99,7 +84,7 @@ fn apply_filter(table: &HtmlElement, q: &str) {
             else { let _ = el.set_attribute("hidden", ""); }
         }
     }
-    let page_size = get_attr_usize(table, "data-rs-page-size", 10);
+    let page_size = attrs::get_usize_html(table, "data-rs-page-size", 10);
     let total = count_visible(table);
     let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
     let _ = table.set_attribute("data-rs-total-pages", &total_pages.to_string());
@@ -116,7 +101,7 @@ fn bind_sort(table: &HtmlElement) {
                     let table_clone = table.clone();
                     let el_clone = el.clone();
                     let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-                        let col_idx = get_attr_usize(&el_clone, "data-rs-col-index", 0);
+                        let col_idx = attrs::get_usize_html(&el_clone, "data-rs-col-index", 0);
                         handle_sort(&table_clone, col_idx);
                         set_page(&table_clone, 1);
                         update_pagination_ui(&table_clone);
@@ -131,7 +116,7 @@ fn bind_sort(table: &HtmlElement) {
 }
 
 fn handle_sort(table: &HtmlElement, col_idx: usize) {
-    let current_col = get_attr_usize(table, "data-rs-sort-col", usize::MAX);
+    let current_col = attrs::get_usize_html(table, "data-rs-sort-col", usize::MAX);
     let current_asc = table.get_attribute("data-rs-sort-asc").as_deref() == Some("true");
     let (new_col, new_asc) = if current_col == col_idx {
         if current_asc { (col_idx, false) } else { (usize::MAX, true) }
@@ -143,7 +128,7 @@ fn handle_sort(table: &HtmlElement, col_idx: usize) {
         for i in 0..list.length() {
             if let Some(node) = list.item(i) {
                 if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    let idx = get_attr_usize(&el, "data-rs-col-index", usize::MAX);
+                    let idx = attrs::get_usize_html(&el, "data-rs-col-index", usize::MAX);
                     let icon = el.query_selector("[data-rs-datatable-sort-icon]").ok().flatten();
                     if let Some(icon_el) = icon {
                         icon_el.set_text_content(Some(if new_col == usize::MAX || idx != new_col { "↕" }
@@ -171,7 +156,7 @@ fn apply_sort(table: &HtmlElement, col: Option<usize>, asc: bool) {
                         .ok().flatten()
                         .map(|td| td.text_content().unwrap_or_default())
                         .unwrap_or_default()
-                } else { get_attr_usize(&el, "data-rs-row-index", 0).to_string() };
+                } else { attrs::get_usize_html(&el, "data-rs-row-index", 0).to_string() };
                 Some((val, node))
             }).collect();
         indexed.sort_by(|(a, _), (b, _)| { let ord = a.cmp(b); if asc { ord } else { ord.reverse() } });
@@ -187,7 +172,7 @@ fn bind_pagination(table: &HtmlElement) {
     if let Some(btn) = prev {
         let table_clone = table.clone();
         let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            let p = get_attr_usize(&table_clone, "data-rs-current-page", 1);
+            let p = attrs::get_usize_html(&table_clone, "data-rs-current-page", 1);
             if p > 1 { set_page(&table_clone, p - 1); update_pagination_ui(&table_clone); }
         }));
         let _ = btn.dyn_ref::<web_sys::EventTarget>()
@@ -197,8 +182,8 @@ fn bind_pagination(table: &HtmlElement) {
     if let Some(btn) = next {
         let table_clone = table.clone();
         let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            let p = get_attr_usize(&table_clone, "data-rs-current-page", 1);
-            let tp = get_attr_usize(&table_clone, "data-rs-total-pages", 1);
+            let p = attrs::get_usize_html(&table_clone, "data-rs-current-page", 1);
+            let tp = attrs::get_usize_html(&table_clone, "data-rs-total-pages", 1);
             if p < tp { set_page(&table_clone, p + 1); update_pagination_ui(&table_clone); }
         }));
         let _ = btn.dyn_ref::<web_sys::EventTarget>()
@@ -211,7 +196,7 @@ fn bind_pagination(table: &HtmlElement) {
 // depois mostra apenas as visíveis (sem data-rs-filtered) da página atual.
 fn set_page(table: &HtmlElement, page: usize) {
     let _ = table.set_attribute("data-rs-current-page", &page.to_string());
-    let page_size = get_attr_usize(table, "data-rs-page-size", 10);
+    let page_size = attrs::get_usize_html(table, "data-rs-page-size", 10);
     let rows = table.query_selector_all("[data-rs-datatable-row]").ok();
     if let Some(list) = rows {
         // Passo 1: esconde todas
@@ -237,8 +222,8 @@ fn set_page(table: &HtmlElement, page: usize) {
 }
 
 fn update_pagination_ui(table: &HtmlElement) {
-    let page = get_attr_usize(table, "data-rs-current-page", 1);
-    let total_pages = get_attr_usize(table, "data-rs-total-pages", 1);
+    let page = attrs::get_usize_html(table, "data-rs-current-page", 1);
+    let total_pages = attrs::get_usize_html(table, "data-rs-total-pages", 1);
     if let Some(info) = table.query_selector("[data-rs-pagination-info]").ok().flatten() {
         info.set_text_content(Some(&format!("{} of {}", page, total_pages)));
     }
@@ -266,7 +251,7 @@ fn bind_density(table: &HtmlElement) {
                                     if let Some(btn_node) = all.item(j) {
                                         if let Ok(btn) = btn_node.dyn_into::<HtmlElement>() {
                                             let is_active = btn.get_attribute("data-rs-density-btn").as_deref() == Some(&d);
-                                            if is_active { remove_state_html(&btn, "inactive"); add_state_html(&btn, "active"); } else { remove_state_html(&btn, "active"); add_state_html(&btn, "inactive"); }
+                                            if is_active { state::remove(&btn.clone().into(), "inactive"); state::add(&btn.clone().into(), "active"); } else { state::remove(&btn.clone().into(), "active"); state::add(&btn.clone().into(), "inactive"); }
                                         }
                                     }
                                 }
@@ -350,9 +335,7 @@ fn bind_col_dropdown(table: &HtmlElement) {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-fn get_attr_usize(el: &HtmlElement, attr: &str, default: usize) -> usize {
-    el.get_attribute(attr).and_then(|v| v.parse().ok()).unwrap_or(default)
-}
+
 
 fn count_visible(table: &HtmlElement) -> usize {
     table.query_selector_all("[data-rs-datatable-row]").ok()
@@ -365,6 +348,7 @@ fn count_visible(table: &HtmlElement) -> usize {
 }
 
 pub fn init(root: web_sys::Element) {
+    if !lifecycle::init_guard(&root) { return; }
     use wasm_bindgen::JsCast;
     if let Ok(el) = root.dyn_into::<web_sys::HtmlElement>() {
         init_table(el);
