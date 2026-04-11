@@ -19,7 +19,7 @@ use_cases: ["data grids", "reports"]
 related: ["data_table", "virtual_list", "empty_table", "tree", "list_item"]
 file: table_ui.css
 tokens: table-*, space-*, border-*, font-*, motion-*
-foundation: spacing, border, motion, typography
+foundation: spacing, border, motion, typography, radius, shadow
 states: ["loading", "error", "selected"]
 island: table_island.rs
 pillar: data

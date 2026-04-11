@@ -1,18 +1,18 @@
-# Canon Rule #342: Interaction Must Be Implemented in Client Module (Island Optional)
+# Canon Rule #342: Interaction Island Must Delegate to Client Module
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Version:** 2.0.0
-**Date:** 2026-04-10
+**Version:** 3.0.0
+**Date:** 2026-04-11
 
 **Category:** interaction-architecture
-**Tags:** interaction, wasm, client, behavior, dom
+**Tags:** interaction, island, wasm, client, behavior, dom
 **Language:** EN
 
 ---
 
 **Intro:**
-Components with complex interaction must delegate all behavior to a client-side interaction module. The island is optional and must never implement interaction logic.
+Components with complex interaction must delegate all behavior to a client-side interaction module. The island defines the boundary and may act as a bootstrap trigger, but must never implement interaction logic.
 
 **Problem:**
 Placing interaction logic inside islands creates:
@@ -23,20 +23,7 @@ Placing interaction logic inside islands creates:
 
 **Solution:**
 All interaction logic must live in the client interaction layer.  
-The island (if present) acts only as a bootstrap trigger.
-
-**Signals:**
-- pointer/drag logic inside island
-- keyboard navigation logic inside island
-- layout mutation (`getBoundingClientRect`, inline styles)
-- state managed via signals in island
-- loops controlling interaction state
-
-**Search Intent:**
-interaction wasm architecture, move logic to client module, island should not handle interaction
-
-**Keywords:**
-interaction engine, wasm interaction, client module, canonical interaction pattern
+The island exists as a boundary and may trigger initialization, but does not contain behavior.
 
 ---
 
@@ -47,24 +34,53 @@ Interaction belongs to the **client layer**, not the island.
 ```
 Primitive = contract
 UI = proxy
-Island = optional bootstrap
+Island = boundary (and optional bootstrap)
 Interaction = behavior engine
 DOM = source of truth
 ```
 
 ---
 
+## Architecture
+
+Component (SSR HTML)
+→ data-rs-* attributes
+→ Interaction Island (boundary)
+→ canon-loader
+→ WASM interaction module
+→ DOM mutation
+→ CSS reaction
+
+---
+
 ## Contract
 
-- Interaction logic MUST:
-  - live in `canonrs-interactions-*`
-  - be initialized via `init_all`
-  - operate via DOM (`data-rs-*`)
+### Interaction Layer
 
-- Island:
-  - is OPTIONAL
-  - MUST NOT implement interaction logic
-  - MAY call client init
+- MUST live in `canonrs-interactions-*`
+- MUST expose `init_all()` or equivalent
+- MUST operate via DOM (`data-rs-*`)
+- MUST NOT depend on SSR hydration
+
+---
+
+### Island
+
+- MUST exist as a boundary component
+- MAY use `#[island]` for bootstrap (optional)
+- MUST NOT implement interaction logic
+- MUST NOT contain pointer/drag/keyboard logic
+- MUST NOT manage interaction state
+
+---
+
+## Signals (Violation Indicators)
+
+- pointer or drag logic inside island
+- keyboard navigation logic inside island
+- layout mutation (`getBoundingClientRect`, inline styles)
+- signals controlling interaction state
+- loops managing interaction behavior
 
 ---
 
@@ -87,5 +103,6 @@ None.
 
 ## Version History
 
-- 2.0.0 - Removed requirement for island, defined interaction as WASM-driven system (2026-04-10)
+- 3.0.0 - Island redefined as mandatory boundary; clarified bootstrap role (2026-04-11)
+- 2.0.0 - Interaction defined as WASM-driven system (2026-04-10)
 - 1.0.0 - Initial definition (2026-04-07)

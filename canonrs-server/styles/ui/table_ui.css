@@ -25,22 +25,8 @@
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
-[data-rs-table-row][data-rs-state~="hover"] {
-  background: var(--table-row-bg-hover);
-}
-
 [data-rs-table-row][data-rs-state~="selected"] {
   background: var(--table-row-bg-selected);
-}
-
-[data-rs-table-row][data-rs-state~="loading"] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-[data-rs-table-row][data-rs-state~="error"] {
-  background: var(--theme-state-error-bg);
-  color: var(--theme-state-error-fg);
 }
 
 [data-rs-table-head] {
@@ -67,19 +53,23 @@
   text-align: left;
 }
 
-/* Striped variant */
-[data-rs-table][data-striped="true"] [data-rs-table-body] [data-rs-table-row]:nth-child(odd) {
+/* ── HOVERABLE ───────────────────────────────────────────────────────────────── */
+[data-rs-table][data-rs-hoverable] [data-rs-table-row]:hover {
+  background: var(--table-row-bg-hover);
+}
+
+/* ── STRIPED ─────────────────────────────────────────────────────────────────── */
+[data-rs-table][data-rs-striped] [data-rs-table-body] [data-rs-table-row]:nth-of-type(odd) {
   background: var(--table-row-bg-striped);
 }
 
-[data-rs-table][data-striped="true"] [data-rs-table-body] [data-rs-table-row]:nth-child(odd)[data-rs-state~="hover"] {
+[data-rs-table][data-rs-striped] [data-rs-table-body] [data-rs-table-row]:nth-of-type(odd):hover {
   background: var(--table-row-bg-hover);
 }
 
 /* ── CLICKABLE ROW ───────────────────────────────────────────────────────────── */
 [data-rs-table-row][data-rs-action="navigate"] {
   cursor: pointer;
-  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-rs-table-row][data-rs-action="navigate"]:hover {
@@ -90,14 +80,14 @@
 [data-rs-table-cell][data-rs-copyable] {
   cursor: copy;
   position: relative;
-  transition: background var(--motion-duration-fast);
+  transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
 [data-rs-table-cell][data-rs-copyable]:hover {
   background: color-mix(in srgb, var(--theme-action-accent-bg) 8%, transparent);
 }
 
-[data-rs-table-cell][data-rs-copied="true"]::after {
+[data-rs-table-cell][data-rs-state~="copied"]::after {
   content: "Copied!";
   position: absolute;
   top: 50%;
@@ -125,6 +115,20 @@
   word-break: break-word;
   position: relative;
   z-index: 1;
-  background: var(--table-row-bg);
+  background: var(--theme-surface-bg);
   box-shadow: var(--shadow-sm);
+}
+
+/* ── TABLE STATE ─────────────────────────────────────────────────────────────── */
+[data-rs-table][data-rs-state~="loading"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+[data-rs-table][data-rs-state~="error"] {
+  outline: var(--table-border-width) solid var(--theme-state-error-fg);
+}
+
+[data-rs-table][data-rs-state~="empty"] [data-rs-table-body] {
+  opacity: 0.4;
 }

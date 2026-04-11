@@ -579,8 +579,8 @@ def validate(component, declared):
                 if "#[island]" in island_src:
                     errors.append(f"[CR-338] {component['id']} -- island_type=passthrough mas '{island_file}' contem #[island]\n             fix: troque #[island] por #[component] em {ISLAND_DIR}/{component['id']}/{island_file}")
             elif island_type == "init":
-                if "#[island]" not in island_src:
-                    errors.append(f"[CR-338] {component['id']} -- island_type=init mas #[island] nao encontrado no arquivo")
+                if "#[island]" in island_src:
+                    errors.append("[CR-338] " + component['id'] + " -- island_type=init mas island_file contem #[island] -- fix: use #[component]")
             elif island_type == "interaction":
                 pass  # interaction: #[component] correto, nao #[island] — CR-338 v2.1.0
                 _iid = component['id'].replace("-", "_")

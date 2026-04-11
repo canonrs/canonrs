@@ -7371,48 +7371,31 @@ Register `pointerdown` on the handle. Register `pointermove` and `pointerup` on 
 
 ### Problem
 
-When passthrough islands perform transformations such as parsing, enum mapping, fallback resolution, or conditional rendering, they break CanonRS by introducing logic into a layer that must remain purely mechanical.
+When passthrough islands perform parsing, enum mapping, fallback resolution, or conditional rendering, they introduce logic into a layer that must remain purely mechanical.
 
 ### Solution
 
 Passthrough islands must accept fully typed props and forward them directly to UI components. All transformations must occur before the island or inside the UI layer.
 
-### Signals
-
-- `match`, `if`, or branching inside island
-- `unwrap_or`, `unwrap_or_default`
-- string → enum conversion
-- conditional rendering
-- parsing or normalization logic
-- props typed as `String` when enum exists
-
 ---
 
 ## CR-341 — Init Island Must Be DOM-Driven and Zero State
 
-- **Category:** island-architecture
+- **Category:** runtime-architecture
 - **Severity:** CRITICAL
 - **Status:** ENFORCED
 
 ### Problem
 
-Using signals, internal variables, or business logic inside init islands creates duplicated state, hydration mismatch, and non-deterministic behavior.
+Placing logic, state, or event handling inside init islands creates duplication, breaks determinism, and conflicts with the CanonRS separation between UI and runtime layers.
 
 ### Solution
 
-Init islands must read state from `data-rs-*`, react to browser events via `web_sys`, and write state back to the DOM.
-
-### Signals
-
-- usage of signals (`signal`, `RwSignal`)
-- local state variables (`is_open`, `active`)
-- business logic or branching unrelated to DOM
-- prop transformation or parsing
-- `on:*` event bindings instead of `web_sys`
+Init islands must render SSR HTML and declare behavior via `data-rs-*`. The actual behavior is executed by the `canon-init-loader` and WASM init modules.
 
 ---
 
-## CR-342 — Interaction Must Be Implemented in Client Module (Island Optional)
+## CR-342 — Interaction Island Must Delegate to Client Module
 
 - **Category:** interaction-architecture
 - **Severity:** CRITICAL
@@ -7429,15 +7412,7 @@ Placing interaction logic inside islands creates:
 ### Solution
 
 All interaction logic must live in the client interaction layer.  
-The island (if present) acts only as a bootstrap trigger.
-
-### Signals
-
-- pointer/drag logic inside island
-- keyboard navigation logic inside island
-- layout mutation (`getBoundingClientRect`, inline styles)
-- state managed via signals in island
-- loops controlling interaction state
+The island exists as a boundary and may trigger initialization, but does not contain behavior.
 
 ---
 
