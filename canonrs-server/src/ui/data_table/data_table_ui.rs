@@ -9,7 +9,9 @@ use canonrs_core::primitives::{
     DataTableCellPrimitive, DataTablePaginationPrimitive, DataTableEmptyPrimitive,
     DataTableDensity, SortDirection,
 };
-use crate::ui::dropdown_menu::dropdown_menu_island::{DropdownMenuIsland};
+use crate::ui::dropdown_menu::dropdown_menu_island::{
+    DropdownMenuIsland, DropdownMenuItemIsland,
+};
 #[derive(Clone)]
 pub struct DataTableColumn<T> {
     pub key: String,
@@ -20,6 +22,23 @@ pub struct DataTableColumn<T> {
 impl<T> DataTableColumn<T> {
     pub fn new(key: impl Into<String>, label: impl Into<String>, render: impl Fn(&T) -> String + Send + Sync + 'static) -> Self {
         Self { key: key.into(), label: label.into(), render: std::sync::Arc::new(render) }
+    }
+}
+
+#[derive(Clone)]
+pub struct RowAction {
+    pub id: &'static str,
+    pub label: &'static str,
+    pub danger: bool,
+}
+
+impl RowAction {
+    pub fn new(id: &'static str, label: &'static str) -> Self {
+        Self { id, label, danger: false }
+    }
+    pub fn danger(mut self) -> Self {
+        self.danger = true;
+        self
     }
 }
 
@@ -35,6 +54,7 @@ pub fn DataTableStatic<T>(
     #[prop(into, default = String::new())] sync_scope: String,
     #[prop(default = false)] show_density: bool,
     #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
+    #[prop(default = vec![])] row_actions: Vec<RowAction>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
@@ -43,10 +63,12 @@ where
     let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
     let col_count = columns.len()
         + if selectable { 1 } else { 0 }
-        + if expand_render.is_some() { 1 } else { 0 };
+        + if expand_render.is_some() { 1 } else { 0 }
+        + if !row_actions.is_empty() { 1 } else { 0 };
     let visible_data = data.into_iter().enumerate().collect::<Vec<_>>();
     let cols = StoredValue::new(columns.clone());
     let expand_render = StoredValue::new(expand_render);
+    let row_actions = StoredValue::new(row_actions);
     let initial_density = density.as_str();
 
     view! {
@@ -162,6 +184,29 @@ where
                                             </DataTableCellPrimitive>
                                         }
                                     }).collect::<Vec<_>>()}
+                                    {(!row_actions.get_value().is_empty()).then(|| {
+                                        let actions = row_actions.get_value();
+                                        let row_id = idx.to_string();
+                                        view! {
+                                            <td data-rs-datatable-cell="" data-rs-col-actions="">
+                                                <DropdownMenuIsland>
+                                                    {actions.into_iter().map(|action| {
+                                                        let rid = row_id.clone();
+                                                        view! {
+                                                            <DropdownMenuItemIsland
+                                                                class={if action.danger { "danger".to_string() } else { String::new() }}
+                                                            >
+                                                                <span
+                                                                    data-rs-datatable-action=action.id
+                                                                    data-rs-row-id=rid
+                                                                >{action.label}</span>
+                                                            </DropdownMenuItemIsland>
+                                                        }
+                                                    }).collect::<Vec<_>>()}
+                                                </DropdownMenuIsland>
+                                            </td>
+                                        }
+                                    })}
                                 </DataTableRowPrimitive>
                             };
 

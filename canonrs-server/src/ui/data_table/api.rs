@@ -15,6 +15,7 @@ pub const DATATABLESTATIC<T>_API: ComponentApi = ComponentApi {
         PropDef { name: "sync_scope", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "show_density", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "expand_render", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: ")] row_actions", kind: PropType::String, required: false, default: Some("vec![]"), description: "" },
     ],
 };
 

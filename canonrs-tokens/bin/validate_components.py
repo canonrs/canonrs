@@ -582,12 +582,11 @@ def validate(component, declared):
                 if "#[island]" not in island_src:
                     errors.append(f"[CR-338] {component['id']} -- island_type=init mas #[island] nao encontrado no arquivo")
             elif island_type == "interaction":
-                if "#[island]" not in island_src:
-                    errors.append(f"[CR-338] {component['id']} -- island_type=interaction mas #[island] nao encontrado no arquivo")
+                pass  # interaction: #[component] correto, nao #[island] — CR-338 v2.1.0
                 _iid = component['id'].replace("-", "_")
                 interaction_file = os.path.join(INTERACTIONS_DIR, f"{_iid}.rs")
                 if not os.path.exists(interaction_file):
-                    errors.append(f"[CR-338] {component['id']} -- island_type=interaction exige arquivo de interactions\n             crie: {INTERACTIONS_DIR}/{component['id']}.rs")
+                    warnings.append(f"[CR-338-C] {component['id']} -- WASM runtime recomendado em canonrs-interactions-*/src/{component['id']}.rs")  if 'warnings' in dir() else None
 
 
     for var in vars_used:

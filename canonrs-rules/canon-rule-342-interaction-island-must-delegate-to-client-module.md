@@ -1,149 +1,91 @@
-# Canon Rule #342: Interaction Island Must Delegate to Client Module
+# Canon Rule #342: Interaction Must Be Implemented in Client Module (Island Optional)
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Version:** 1.0.0
-**Date:** 2026-04-07
+**Version:** 2.0.0
+**Date:** 2026-04-10
 
 **Category:** interaction-architecture
-**Tags:** interaction, island, client, wasm, delegation
+**Tags:** interaction, wasm, client, behavior, dom
 **Language:** EN
 
 ---
 
 **Intro:**
-Any component that requires complex interaction must delegate its behavior to a dedicated client interaction module. The island must not implement interaction logic.
+Components with complex interaction must delegate all behavior to a client-side interaction module. The island is optional and must never implement interaction logic.
 
 **Problem:**
-Implementing interaction logic inside islands introduces:
-- state outside the DOM (violates source of truth)
+Placing interaction logic inside islands creates:
+- duplicated state
 - SSR/hydration inconsistencies
-- duplicated logic across components
 - tight coupling between UI and behavior
-
-Islands become mini frameworks instead of thin bridges.
+- non-reusable logic
 
 **Solution:**
-Interaction islands must:
-- only bootstrap the interaction
-- call a client module (`init_all` or equivalent)
-- never implement behavior logic
-
-All interaction logic must live in:
-```
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-client/src/interactions/
-```
+All interaction logic must live in the client interaction layer.  
+The island (if present) acts only as a bootstrap trigger.
 
 **Signals:**
-- pointer events inside island (`pointerdown`, `pointermove`, `pointerup`)
-- drag logic implemented in island
+- pointer/drag logic inside island
 - keyboard navigation logic inside island
 - layout mutation (`getBoundingClientRect`, inline styles)
-- signals controlling interaction state
-- loops managing DOM interaction state
+- state managed via signals in island
+- loops controlling interaction state
+
+**Search Intent:**
+interaction wasm architecture, move logic to client module, island should not handle interaction
+
+**Keywords:**
+interaction engine, wasm interaction, client module, canonical interaction pattern
 
 ---
 
 ## Principle
 
-Interaction logic belongs to the **client interaction layer**, not to the island.
+Interaction belongs to the **client layer**, not the island.
 
 ```
 Primitive = contract
 UI = proxy
-Island = bootstrap only
+Island = optional bootstrap
 Interaction = behavior engine
 DOM = source of truth
 ```
 
 ---
 
-## Patterns
+## Contract
 
-### Forbidden Pattern
-```rust
-#[island]
-pub fn SliderIsland(...) -> impl IntoView {
-    let (value, set_value) = signal(0.0);
+- Interaction logic MUST:
+  - live in `canonrs-interactions-*`
+  - be initialized via `init_all`
+  - operate via DOM (`data-rs-*`)
 
-    let on_pointer_move = move |e| {
-        // ❌ interaction logic inside island
-        set_value.set(...);
-    };
-}
-```
-
-### Canonical Pattern
-```rust
-#[island]
-pub fn SliderInit() -> impl IntoView {
-    #[cfg(target_arch = "wasm32")]
-    {
-        use leptos::wasm_bindgen::prelude::*;
-        use leptos::wasm_bindgen::JsCast;
-
-        let f = Closure::wrap(Box::new(move || {
-            crate::interactions::slider::init_all();
-        }) as Box<dyn Fn()>);
-
-        leptos::web_sys::window()
-            .unwrap()
-            .request_animation_frame(f.as_ref().unchecked_ref())
-            .ok();
-
-        f.forget();
-    }
-
-    view! { <></> }
-}
-```
+- Island:
+  - is OPTIONAL
+  - MUST NOT implement interaction logic
+  - MAY call client init
 
 ---
 
-## Contract
+## Applies to
 
-### Enforcement
-
-- Island MUST NOT:
-  - implement pointer logic
-  - implement drag logic
-  - implement keyboard navigation logic (complex)
-  - mutate layout directly
-  - hold interaction state via signals
-
-- Island MUST:
-  - call client interaction module
-  - execute via `requestAnimationFrame` or equivalent
-  - remain stateless
-
-- Interaction logic MUST:
-  - live in `canonrs-client`
-  - read/write DOM via `data-rs-*`
-  - not depend on SSR
-
-### Applies to
-
+- datatable
 - resizable
 - slider
-- carousel
-- scroll_area
-- virtual_list (if interactive)
-- any drag-based component
+- drag/drop
+- virtual list
+- any complex interaction system
 
 ---
 
 ## Exceptions
 
-Allowed inside island:
-- simple event binding (init category)
-- DOM reads without behavior logic
-- ARIA sync
-
-NOT allowed:
-- full interaction engine
+None.
 
 ---
 
 ## Version History
 
-- 1.0.0 - Initial definition — formalizes separation between Island and Interaction (2026-04-07)
+- 2.0.0 - Removed requirement for island, defined interaction as WASM-driven system (2026-04-10)
+- 1.0.0 - Initial definition (2026-04-07)

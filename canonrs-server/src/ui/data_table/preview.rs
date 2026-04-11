@@ -1,6 +1,6 @@
 use leptos::prelude::*;
-use super::data_table_ui::DataTableStatic;
-use super::data_table_ui::DataTableColumn;
+use super::data_table_island::DataTableIsland;
+use super::data_table_ui::{DataTableColumn, RowAction};
 
 #[component]
 pub fn DataTableStaticShowcasePreview() -> impl IntoView {
@@ -27,12 +27,18 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <DataTableStatic
+                <DataTableIsland
                     data=data
                     columns=columns
                     page_size=5
                     show_density=true
                     selectable=true
+                    row_actions=vec![
+                        RowAction::new("view", "View"),
+                        RowAction::new("edit", "Edit"),
+                        RowAction::new("duplicate", "Duplicate"),
+                        RowAction::new("delete", "Delete").danger(),
+                    ]
                 />
             </div>
             <p data-rs-showcase-preview-anchor="">

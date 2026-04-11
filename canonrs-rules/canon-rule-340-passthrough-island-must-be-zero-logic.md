@@ -2,8 +2,8 @@
 
 **Status:** ENFORCED
 **Severity:** CRITICAL
-**Version:** 1.0.0
-**Date:** 2026-04-07
+**Version:** 1.1.0
+**Date:** 2026-04-10
 
 **Category:** island-architecture
 **Tags:** island, passthrough, api, typing, ui, contract, rust
@@ -12,82 +12,48 @@
 ---
 
 **Intro:**
-Passthrough islands exist only as SSR/hydration boundaries and must not contain any logic, transformation, or interpretation of props. They must forward typed data directly to UI components without modification.
+Passthrough islands exist only as SSR boundaries and must not contain any logic, transformation, or interpretation of props. They must forward typed data directly to UI components without modification.
 
 **Problem:**
-When passthrough islands perform transformations such as string parsing, enum mapping, default resolution, or conditional rendering, they break the CanonRS architecture by introducing logic into a layer that must remain purely mechanical.
+When passthrough islands perform transformations such as parsing, enum mapping, fallback resolution, or conditional rendering, they break CanonRS by introducing logic into a layer that must remain purely mechanical.
 
 **Solution:**
-Passthrough islands must accept fully typed props (enums, booleans, structured data) and forward them directly to UI components. All transformations must occur before the island (call site) or inside the UI layer.
+Passthrough islands must accept fully typed props and forward them directly to UI components. All transformations must occur before the island or inside the UI layer.
 
 **Signals:**
-- usage of `match` inside island
-- usage of `unwrap_or`, `unwrap_or_default`, or fallback logic
-- string → enum conversion inside island
-- conditional rendering branches (`if`, `match`) in island
-- presence of parsing or normalization logic
-- island API accepts `String` where enum exists
+- `match`, `if`, or branching inside island
+- `unwrap_or`, `unwrap_or_default`
+- string → enum conversion
+- conditional rendering
+- parsing or normalization logic
+- props typed as `String` when enum exists
 
 **Search Intent:**
-passthrough island logic, island should not transform props, enum vs string in UI architecture, rust island pattern clean architecture
+passthrough island logic, island should not transform props, enum vs string ui architecture
 
 **Keywords:**
-passthrough island, zero logic island, typed props rust ui, enum api design, canonical island pattern
+passthrough island, zero logic island, typed props rust ui, canonical island
 
 ---
 
 ## Principle
 
-Passthrough islands are **mechanical boundaries only**. They do not interpret, decide, or transform. They only forward already-valid, typed data to UI components.
-
----
-
-## Patterns
-
-### Forbidden Pattern
-```rust
-#[component]
-pub fn BadgeIsland(
-    #[prop(optional, into)] variant: Option<String>,
-) -> impl IntoView {
-    let variant_val = match variant.as_deref() {
-        Some("primary") => BadgeVariant::Primary,
-        _ => BadgeVariant::Default,
-    };
-
-    view! {
-        <Badge variant=variant_val />
-    }
-}
-```
-
-### Canonical Pattern
-```rust
-#[component]
-pub fn BadgeIsland(
-    #[prop(default = BadgeVariant::Default)] variant: BadgeVariant,
-) -> impl IntoView {
-    view! {
-        <Badge variant=variant />
-    }
-}
-```
+Passthrough islands are **mechanical boundaries only**.  
+They do not interpret, decide, or transform.
 
 ---
 
 ## Contract
 
-### Enforcement
+- MUST use `#[component]`, never `#[island]`
+- MUST forward props 1:1 to UI
+- MUST NOT contain logic, branching, or parsing
+- MUST NOT mutate DOM
+- MUST NOT introduce state
 
-- Passthrough islands MUST use `#[component]`, never `#[island]`
-- Props MUST be fully typed (enums, bool, structured types)
-- NO `match`, `if`, or branching logic allowed
-- NO `unwrap_or`, `unwrap_or_default`, or fallback logic
-- NO string parsing or conversion inside island
-- NO DOM construction beyond forwarding to UI
-- MUST be 1:1 proxy to UI component
+---
 
-### Exceptions
+## Exceptions
 
 None.
 
@@ -95,4 +61,5 @@ None.
 
 ## Version History
 
-- 1.0.0 - Initial definition — establishes zero-logic contract for passthrough islands (2026-04-07)
+- 1.1.0 - Clarified SSR-only boundary and zero-logic enforcement (2026-04-10)
+- 1.0.0 - Initial definition (2026-04-07)
