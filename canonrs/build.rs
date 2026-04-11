@@ -108,6 +108,11 @@ fn main() {
     // gera manifest.json
     generate_manifest(rs_canonrs, &groups[..]);
 
+    // gera bundle zip em release
+    if std::env::var("PROFILE").unwrap_or_default() == "release" {
+        generate_bundle_zip(rs_canonrs, &groups[..]);
+    }
+
     // copiar canon-loader.js para public/js do site
     let loader_src = rs_canonrs.join("canonrs-client/src/loader/canon-loader.js");
     let site_js    = rs_canonrs.parent().unwrap().parent().unwrap()
@@ -118,6 +123,44 @@ fn main() {
     println!("cargo:warning=[canon] loader copied");
     println!("cargo:rerun-if-changed={}", loader_src.display());
 
+}
+
+fn generate_bundle_zip(rs_canonrs: &std::path::Path, groups: &[&str]) {
+    let version = env!("CARGO_PKG_VERSION");
+    let dist_root = rs_canonrs.parent().unwrap().parent().unwrap().join("dist");
+    let bundle_dir = dist_root.join(format!("canonrs-{}", version));
+    let wasm_dir = bundle_dir.join("wasm");
+    fs::create_dir_all(&wasm_dir).ok();
+
+    // copia wasm assets
+    let assets = rs_canonrs.parent().unwrap().parent().unwrap()
+        .join("packages-rust/rs-canonrs/canonrs-server/assets/wasm");
+    for group in groups {
+        let src = assets.join(group);
+        let dst = wasm_dir.join(group);
+        fs::create_dir_all(&dst).ok();
+        if let Ok(entries) = fs::read_dir(&src) {
+            for entry in entries.filter_map(|e| e.ok()) {
+                fs::copy(entry.path(), dst.join(entry.file_name())).ok();
+            }
+        }
+    }
+
+    // copia bundle js e manifest
+    let site = rs_canonrs.parent().unwrap().parent().unwrap()
+        .join("products/canonrs-site/public");
+    fs::copy(site.join("js/canonrs.bundle.js"), bundle_dir.join("canonrs.bundle.js")).ok();
+    fs::copy(site.join("canonrs-manifest.json"), bundle_dir.join("manifest.json")).ok();
+
+    // gera tar.gz
+    let archive = dist_root.join(format!("canonrs-{}.tar.gz", version));
+    std::process::Command::new("tar")
+        .args(["-czf", archive.to_str().unwrap(), "-C",
+               dist_root.to_str().unwrap(),
+               &format!("canonrs-{}", version)])
+        .status().ok();
+
+    println!("cargo:warning=[canon] bundle: dist/canonrs-{}.tar.gz", version);
 }
 
 fn generate_manifest(rs_canonrs: &std::path::Path, groups: &[&str]) {
