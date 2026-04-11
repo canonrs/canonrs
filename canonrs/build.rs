@@ -38,6 +38,8 @@ fn main() {
         fs::write(site_js_early.join("canonrs.bundle.js"), bundle_content).ok();
     }
     println!("cargo:rerun-if-changed={}", loader_src_early.display());
+    let bundle_src_changed = rs_canonrs_early.join("canonrs-client/src/loader/canonrs.bundle.js");
+    println!("cargo:rerun-if-changed={}", bundle_src_changed.display());
 
     // CANON_SKIP_WASM pode ser usado para pular explicitamente
     if std::env::var("CANON_SKIP_WASM").is_ok() {
@@ -178,7 +180,7 @@ fn generate_manifest(rs_canonrs: &std::path::Path, groups: &[&str]) {
         version, entries
     );
     let dest = rs_canonrs.parent().unwrap().parent().unwrap()
-        .join("products/canonrs-site/public/canonrs-manifest.json");
+        .join("products/canonrs-site/public/js/canonrs-manifest.json");
     std::fs::write(&dest, manifest).ok();
     println!("cargo:warning=[canon] manifest generated");
 }

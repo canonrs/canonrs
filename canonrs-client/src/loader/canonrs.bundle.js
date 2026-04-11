@@ -3,7 +3,7 @@
 
 (async function () {
   const CANONRS_VERSION = '__CANONRS_VERSION__';
-  const MANIFEST_URL = '/canonrs-manifest.json';
+  const MANIFEST_URL = '/js/canonrs-manifest.json';
   const INIT_GROUPS = ['init'];
 
   // ── load manifest ──────────────────────────────────────────────────────────
@@ -20,28 +20,30 @@
   window.__canonLoader = {
     version: manifest.version,
     loaded: new Set(),
+    loading: new Map(),
     mods: {},
     initializedUids: new Set(),
 
     async loadGroup(group) {
       if (this.loaded.has(group)) { this.initGroup(group); return; }
+      if (this.loading.has(group)) { await this.loading.get(group); return; }
       const entry = manifest.groups[group];
       if (!entry) return;
-      try {
+      const promise = (async () => {
         const mod = await import(entry.js);
         await mod.default();
         this.loaded.add(group);
+        this.loading.delete(group);
         this.mods[group] = mod;
         console.log('[canonrs] loaded:', group);
-        // init groups: call init_all() directly
         if (INIT_GROUPS.includes(group)) {
           if (typeof mod.init_all === 'function') mod.init_all();
         } else {
           this.initGroup(group);
         }
-      } catch (e) {
-        console.warn('[canonrs] failed:', group, e);
-      }
+      })();
+      this.loading.set(group, promise);
+      try { await promise; } catch (e) { console.warn('[canonrs] failed:', group, e); }
     },
 
     initGroup(group) {
