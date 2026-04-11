@@ -1,106 +1,46 @@
-//! Tooltip Island — Canon Rule #341 + #342
-//! DOM-driven, zero state. Lógica via web_sys + Effect.
+//! @canon-level: strict
+//! Tooltip Island — Canon Rule #340 (zero-logic boundary)
+//! CR-342 v3.0.0: interaction delegated to canonrs-interactions-overlay
 
 use leptos::prelude::*;
+use super::tooltip_ui::{TooltipProvider, Tooltip, TooltipTrigger, TooltipContent};
+use canonrs_core::primitives::TooltipSide;
 
-#[island]
-pub fn TooltipIsland(
-    #[prop(into)] label: String,
-    #[prop(into)] content: String,
-    #[prop(optional, into)] side: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
+#[component]
+pub fn TooltipProviderIsland(
+    children: Children,
+    #[prop(default = 400)] delay_open: u32,
+    #[prop(default = 100)] delay_close: u32,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let class = class.unwrap_or_default();
-    let side  = side.unwrap_or_else(|| "top".to_string());
+    view! { <TooltipProvider delay_open=delay_open delay_close=delay_close class=class>{children()}</TooltipProvider> }
+}
 
-    let node_ref = NodeRef::<leptos::html::Span>::new();
+#[component]
+pub fn TooltipIsland(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <Tooltip class=class>{children()}</Tooltip> }
+}
 
-    Effect::new(move |_| {
-        use leptos::wasm_bindgen::prelude::*;
-        use leptos::wasm_bindgen::JsCast;
-        use leptos::web_sys;
+#[component]
+pub fn TooltipTriggerIsland(
+    children: Children,
+    #[prop(into, optional)] tooltip_id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    let tooltip_id = tooltip_id.unwrap_or_default();
+    view! { <TooltipTrigger tooltip_id=tooltip_id class=class>{children()}</TooltipTrigger> }
+}
 
-        let Some(root_html) = node_ref.get() else { return };
-        let root: web_sys::Element = (*root_html).clone().unchecked_into();
-
-        let trigger = match root.query_selector("[data-rs-tooltip-trigger]").ok().flatten() {
-            Some(el) => el, None => return,
-        };
-
-        // mouseenter → open
-        {
-            let root_cb = root.clone();
-            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-                let _ = root_cb.set_attribute("data-rs-state", "open");
-                if let Ok(Some(c)) = root_cb.query_selector("[data-rs-tooltip-content]") {
-                    let _ = c.set_attribute("data-rs-state", "open");
-                }
-            }));
-            let _ = trigger.add_event_listener_with_callback("mouseenter", cb.as_ref().unchecked_ref());
-            cb.forget();
-        }
-        // mouseleave → closed
-        {
-            let root_cb = root.clone();
-            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-                let _ = root_cb.set_attribute("data-rs-state", "closed");
-                if let Ok(Some(c)) = root_cb.query_selector("[data-rs-tooltip-content]") {
-                    let _ = c.set_attribute("data-rs-state", "closed");
-                }
-            }));
-            let _ = trigger.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref());
-            cb.forget();
-        }
-        // focus → open
-        {
-            let root_cb = root.clone();
-            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::FocusEvent| {
-                let _ = root_cb.set_attribute("data-rs-state", "open");
-                if let Ok(Some(c)) = root_cb.query_selector("[data-rs-tooltip-content]") {
-                    let _ = c.set_attribute("data-rs-state", "open");
-                }
-            }));
-            let _ = trigger.add_event_listener_with_callback("focus", cb.as_ref().unchecked_ref());
-            cb.forget();
-        }
-        // blur → closed
-        {
-            let root_cb = root.clone();
-            let cb = Closure::<dyn Fn(_)>::wrap(Box::new(move |_: web_sys::FocusEvent| {
-                let _ = root_cb.set_attribute("data-rs-state", "closed");
-                if let Ok(Some(c)) = root_cb.query_selector("[data-rs-tooltip-content]") {
-                    let _ = c.set_attribute("data-rs-state", "closed");
-                }
-            }));
-            let _ = trigger.add_event_listener_with_callback("blur", cb.as_ref().unchecked_ref());
-            cb.forget();
-        }
-    });
-
-    view! {
-        <span
-            data-rs-tooltip=""
-            data-rs-component="Tooltip"
-            data-rs-state="closed"
-            class=class
-            node_ref=node_ref
-        >
-            <span
-                data-rs-tooltip-trigger=""
-                tabindex="0"
-                aria-describedby="tooltip-content"
-            >
-                {label}
-            </span>
-            <span
-                data-rs-tooltip-content=""
-                data-rs-side=side
-                data-rs-state="closed"
-                role="tooltip"
-                id="tooltip-content"
-            >
-                {content}
-            </span>
-        </span>
-    }
+#[component]
+pub fn TooltipContentIsland(
+    children: Children,
+    #[prop(default = TooltipSide::Top)] side: TooltipSide,
+    #[prop(into, optional)] tooltip_id: Option<String>,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    let tooltip_id = tooltip_id.unwrap_or_default();
+    view! { <TooltipContent side=side tooltip_id=tooltip_id class=class>{children()}</TooltipContent> }
 }

@@ -1,8 +1,8 @@
 use leptos::prelude::*;
 use super::dialog_island::{
-    DialogIsland, DialogTriggerIsland, DialogPortalIsland,
-    DialogOverlayIsland, DialogContentIsland, DialogTitleIsland,
-    DialogDescriptionIsland, DialogCloseIsland, DialogFooterIsland,
+    DialogIsland, DialogTriggerIsland, DialogOverlayIsland,
+    DialogContentIsland, DialogTitleIsland, DialogDescriptionIsland,
+    DialogCloseIsland, DialogFooterIsland,
 };
 use crate::ui::button::button_island::ButtonIsland;
 use canonrs_core::primitives::ButtonVariant;
@@ -14,17 +14,15 @@ pub fn DialogShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-stage="">
                 <DialogIsland>
                     <DialogTriggerIsland>"Open Dialog"</DialogTriggerIsland>
-                    <DialogPortalIsland>
-                        <DialogOverlayIsland />
-                        <DialogContentIsland>
-                            <DialogTitleIsland>"Confirm action"</DialogTitleIsland>
-                            <DialogDescriptionIsland>"Are you sure? This action cannot be undone."</DialogDescriptionIsland>
-                            <DialogFooterIsland>
-                                <DialogCloseIsland>"Cancel"</DialogCloseIsland>
-                                <ButtonIsland variant=ButtonVariant::Primary>"Confirm"</ButtonIsland>
-                            </DialogFooterIsland>
-                        </DialogContentIsland>
-                    </DialogPortalIsland>
+                    <DialogOverlayIsland />
+                    <DialogContentIsland>
+                        <DialogTitleIsland>"Confirm action"</DialogTitleIsland>
+                        <DialogDescriptionIsland>"Are you sure? This action cannot be undone."</DialogDescriptionIsland>
+                        <DialogFooterIsland>
+                            <DialogCloseIsland>"Cancel"</DialogCloseIsland>
+                            <ButtonIsland variant=ButtonVariant::Primary>"Confirm"</ButtonIsland>
+                        </DialogFooterIsland>
+                    </DialogContentIsland>
                 </DialogIsland>
             </div>
             <p data-rs-showcase-preview-anchor="">
@@ -35,17 +33,15 @@ pub fn DialogShowcasePreview() -> impl IntoView {
                 <div data-rs-showcase-preview-row="">
                     <DialogIsland>
                         <DialogTriggerIsland>"Edit profile"</DialogTriggerIsland>
-                        <DialogPortalIsland>
-                            <DialogOverlayIsland />
-                            <DialogContentIsland>
-                                <DialogTitleIsland>"Edit profile"</DialogTitleIsland>
-                                <DialogDescriptionIsland>"Update your profile information below."</DialogDescriptionIsland>
-                                <DialogFooterIsland>
-                                    <DialogCloseIsland>"Cancel"</DialogCloseIsland>
-                                    <ButtonIsland variant=ButtonVariant::Primary>"Save changes"</ButtonIsland>
-                                </DialogFooterIsland>
-                            </DialogContentIsland>
-                        </DialogPortalIsland>
+                        <DialogOverlayIsland />
+                        <DialogContentIsland>
+                            <DialogTitleIsland>"Edit profile"</DialogTitleIsland>
+                            <DialogDescriptionIsland>"Update your profile information below."</DialogDescriptionIsland>
+                            <DialogFooterIsland>
+                                <DialogCloseIsland>"Cancel"</DialogCloseIsland>
+                                <ButtonIsland variant=ButtonVariant::Primary>"Save changes"</ButtonIsland>
+                            </DialogFooterIsland>
+                        </DialogContentIsland>
                     </DialogIsland>
                 </div>
             </div>

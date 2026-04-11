@@ -1,13 +1,15 @@
 //! canonrs-interactions-init
 //! Canon Init Loader — DOM micro-interactions (init type)
-//! Mirror of canon-loader pattern for lightweight DOM behaviors
+//! Tier S: registry-driven, selector-based, idempotent, zero state
 
 use wasm_bindgen::prelude::*;
 
 pub mod runtime;
 pub mod table;
+pub mod tooltip;
+pub mod table_row_sheet_preview;
 
 #[wasm_bindgen]
 pub fn init_all() {
-    table::init_all();
+    runtime::registry::scan_all();
 }

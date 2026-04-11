@@ -26,6 +26,18 @@ impl TooltipSide {
     }
 }
 
+fn tooltip_uid() -> String {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static CTR: AtomicU64 = AtomicU64::new(0);
+    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
+    format!("tt-{:016x}-{:08x}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_nanos() as u64)
+            .unwrap_or(ctr),
+        ctr)
+}
+
 #[component]
 pub fn TooltipPrimitive(
     children: Children,
@@ -36,6 +48,8 @@ pub fn TooltipPrimitive(
     view! {
         <div
             data-rs-tooltip=""
+            data-rs-uid=tooltip_uid()
+            data-rs-interaction="init"
             data-rs-component="Tooltip"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

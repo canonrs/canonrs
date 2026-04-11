@@ -131,6 +131,11 @@
   --sheet-close-fg-hover: var(--theme-surface-fg);
   --sheet-transition-duration: var(--motion-duration-normal);
   --sheet-transition-ease: var(--motion-ease-standard);
+  --sheet-transform-closed-right: translateX(100%);
+  --sheet-transform-closed-left: translateX(-100%);
+  --sheet-transform-closed-top: translateY(-100%);
+  --sheet-transform-closed-bottom: translateY(100%);
+  --sheet-transform-open: translateX(0) translateY(0);
   --dropdown-menu-bg: var(--theme-overlay-bg);
   --dropdown-menu-fg: var(--theme-surface-fg);
   --dropdown-menu-radius: var(--radius-md);

@@ -4,7 +4,6 @@ pub mod preview;
 pub mod examples;
 
 pub use drawer_ui::*;
-pub use drawer_ui::DrawerPreview;
 pub use preview::DrawerShowcasePreview;
 pub mod drawer_island;
 pub use drawer_island::DrawerIsland;

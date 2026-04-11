@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::drawer_island::DrawerIsland;
+use canonrs_core::primitives::DrawerSide;
 
 #[component]
 pub fn DrawerShowcasePreview() -> impl IntoView {
@@ -9,23 +10,21 @@ pub fn DrawerShowcasePreview() -> impl IntoView {
                 <DrawerIsland
                     trigger_label="Open Drawer"
                     title="Drawer Title"
-                    description="This drawer slides in from the side. State and direction enforced via typed contract."
+                    description="Slides in from the side. State governed via DOM."
                     close_label="Close"
-                    side="left"
                 />
             </div>
             <p data-rs-showcase-preview-anchor="">
-                "Drawer direction and visibility enforced via typed contract."
+                "Drawer visibility and overlay fully governed via shared state."
             </p>
             <div data-rs-showcase-preview-section="">
-                <span data-rs-showcase-preview-label="">"With content"</span>
+                <span data-rs-showcase-preview-label="">"Left side"</span>
                 <div data-rs-showcase-preview-row="">
                     <DrawerIsland
-                        trigger_label="Open settings"
-                        title="Settings"
-                        description="Manage your account settings and preferences."
+                        trigger_label="Open left"
+                        title="Left Drawer"
                         close_label="Close"
-                        side="right"
+                        side=DrawerSide::Left
                     />
                 </div>
             </div>

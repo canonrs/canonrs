@@ -1,7 +1,6 @@
 //! canonrs-interactions-overlay
 pub mod runtime;
 
-pub mod shared;
 pub mod modal;
 pub mod drawer;
 pub mod sheet;

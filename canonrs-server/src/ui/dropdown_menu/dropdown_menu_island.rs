@@ -15,10 +15,9 @@ pub fn DropdownMenuIsland(
     #[prop(optional, into)] trigger_label: Option<String>,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    let label = trigger_label.unwrap_or_else(|| "Options".to_string());
     view! {
         <DropdownMenu class=class.unwrap_or_default()>
-            <DropdownMenuTrigger>{label}</DropdownMenuTrigger>
+            <DropdownMenuTrigger>{trigger_label.unwrap_or_else(|| "Options".to_string())}</DropdownMenuTrigger>
             <DropdownMenuContent>{children()}</DropdownMenuContent>
         </DropdownMenu>
     }

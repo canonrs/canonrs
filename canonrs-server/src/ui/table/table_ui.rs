@@ -69,10 +69,16 @@ pub fn TableRow(
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(into, default = TextProp::from(""))] class: TextProp,
     #[prop(into, optional)] href: Option<String>,
+    #[prop(into, optional)] row_action: Option<String>,
+    #[prop(into, optional)] row_label: Option<String>,
+    #[prop(into, optional)] row_meta: Option<String>,
 ) -> impl IntoView {
     let href = href.unwrap_or_default();
+    let row_action = row_action.unwrap_or_default();
+    let row_label = row_label.unwrap_or_default();
+    let row_meta = row_meta.unwrap_or_default();
     view! {
-        <TableRowPrimitive selected=selected class=class href=href>
+        <TableRowPrimitive selected=selected class=class href=href row_action=row_action row_label=row_label row_meta=row_meta>
             {children.map(|c| c())}
         </TableRowPrimitive>
     }

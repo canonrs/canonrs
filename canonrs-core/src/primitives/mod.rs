@@ -165,7 +165,7 @@ pub use pagination::{
     PaginationNextPrimitive,
     PaginationEllipsisPrimitive,
 };
-pub use popover::{PopoverPrimitive, PopoverTriggerPrimitive, PopoverContentPrimitive};
+pub use popover::{PopoverPrimitive, PopoverTriggerPrimitive, PopoverContentPrimitive, PopoverSide};
 pub use progress::*;
 pub use pulse::*;
 pub use radio::*;

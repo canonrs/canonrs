@@ -26,6 +26,18 @@ impl HoverCardSide {
     }
 }
 
+fn hover_card_uid() -> String {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static CTR: AtomicU64 = AtomicU64::new(0);
+    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
+    format!("hc-{:016x}-{:08x}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_nanos() as u64)
+            .unwrap_or(ctr),
+        ctr)
+}
+
 #[component]
 pub fn HoverCardPrimitive(
     children: Children,
@@ -36,6 +48,7 @@ pub fn HoverCardPrimitive(
     view! {
         <div
             data-rs-hover-card=""
+            data-rs-uid=hover_card_uid()
             data-rs-interaction="overlay"
             data-rs-component="HoverCard"
             data-rs-behavior="overlay"

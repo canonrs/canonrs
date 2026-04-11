@@ -6,7 +6,16 @@ pub const DRAWER_API: ComponentApi = ComponentApi {
     id: "drawer",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "side", kind: PropType::Enum(&["right", "left", "top", "bottom"]), required: false, default: Some("right"), description: "" },
         PropDef { name: "state", kind: PropType::String, required: false, default: Some("closed"), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+
+pub const DRAWERTRIGGER_API: ComponentApi = ComponentApi {
+    id: "drawer-trigger",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -22,9 +31,8 @@ pub const DRAWERCONTENT_API: ComponentApi = ComponentApi {
     id: "drawer-content",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "aria_labelledby", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "aria_describedby", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "aria_labelledby", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

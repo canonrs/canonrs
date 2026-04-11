@@ -62,3 +62,7 @@
 [data-rs-showcase-preview-row] > [data-rs-popover] {
   height: auto;
 }
+
+[data-rs-showcase-preview-row] {
+  padding-block: var(--space-2xl);
+}

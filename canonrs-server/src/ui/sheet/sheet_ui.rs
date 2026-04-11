@@ -1,6 +1,6 @@
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{SheetPrimitive, SheetOverlayPrimitive, SheetContentPrimitive, SheetSide};
+use canonrs_core::primitives::{SheetPrimitive, SheetTriggerPrimitive, SheetOverlayPrimitive, SheetContentPrimitive, SheetSide};
 use canonrs_core::meta::VisibilityState;
 
 #[component]
@@ -55,4 +55,12 @@ pub fn SheetPreview() -> impl IntoView {
             </SheetContent>
         </Sheet>
     }
+}
+
+#[component]
+pub fn SheetTrigger(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SheetTriggerPrimitive class=class>{children()}</SheetTriggerPrimitive> }
 }

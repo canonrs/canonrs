@@ -4,29 +4,6 @@
   display: contents;
 }
 
-[data-rs-confirm-dialog][data-rs-state~="closed"] [data-rs-confirm-dialog-portal] {
-  display: none;
-}
-
-[data-rs-confirm-dialog-portal] {
-  position: fixed;
-  inset: 0;
-  z-index: var(--confirm-dialog-overlay-z-index);
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-portal] {
-  pointer-events: auto;
-  display: flex;
-}
-
-[data-rs-confirm-dialog][data-rs-state~="closed"] [data-rs-confirm-dialog-portal] {
-  display: none;
-}
-
 [data-rs-confirm-dialog-overlay] {
   position: fixed;
   inset: 0;
@@ -34,8 +11,9 @@
   background: var(--confirm-dialog-overlay-bg);
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard)),
-    visibility var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard));
+  transition:
+    opacity var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease),
+    visibility var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease);
 }
 
 [data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-overlay] {
@@ -44,7 +22,10 @@
 }
 
 [data-rs-confirm-dialog-content] {
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
   z-index: calc(var(--confirm-dialog-overlay-z-index) + 1);
   width: var(--confirm-dialog-content-width);
   max-width: var(--confirm-dialog-content-max-width);
@@ -55,16 +36,16 @@
   box-shadow: var(--confirm-dialog-content-shadow);
   opacity: 0;
   visibility: hidden;
-  transform: scale(0.95);
-  transition: opacity var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard)),
-    transform var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard)),
-    visibility var(--confirm-dialog-transition-duration, var(--motion-duration-normal)) var(--confirm-dialog-transition-ease, var(--motion-ease-standard));
+  transition:
+    opacity var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease),
+    transform var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease),
+    visibility var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease);
 }
 
 [data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-content] {
   opacity: 1;
   visibility: visible;
-  transform: scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 [data-rs-confirm-dialog-title] {
@@ -77,6 +58,7 @@
 [data-rs-confirm-dialog-description] {
   color: var(--confirm-dialog-description-fg);
   font-size: var(--confirm-dialog-description-font-size);
+  margin-bottom: var(--confirm-dialog-footer-gap);
 }
 
 [data-rs-confirm-dialog-footer] {

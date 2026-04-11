@@ -1,90 +1,64 @@
-/* ============================================
-   ALERT DIALOG
-   Family F: Overlays & Disclosure / Feedback
-   NOTE: Verify Primitive emits exact data-* attributes
-   ============================================ */
+/* ALERT DIALOG - Family A Overlay */
 
 [data-rs-alert-dialog-overlay] {
   position: fixed;
   inset: 0;
+  z-index: var(--alert-dialog-z-index, var(--layer-overlay));
   background: var(--alert-dialog-overlay-bg);
-  opacity: var(--alert-dialog-overlay-opacity);
-  backdrop-filter: blur(var(--alert-dialog-overlay-blur));
-  transition: opacity var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease),
+    visibility var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease);
 }
 
-[data-rs-alert-dialog-content] {
+[data-rs-dialog][data-rs-state~="open"] [data-rs-alert-dialog-overlay] {
+  opacity: 1;
+  visibility: visible;
+}
+
+[data-rs-alert-dialog-content],
+[data-rs-dialog-content][data-rs-component="AlertDialogContent"] {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.95);
+  z-index: calc(var(--alert-dialog-z-index, var(--layer-overlay)) + 1);
   width: var(--alert-dialog-content-width);
   background: var(--alert-dialog-content-bg);
   border-radius: var(--alert-dialog-content-radius);
   padding: var(--alert-dialog-content-padding);
   box-shadow: var(--alert-dialog-content-shadow);
-  transition: opacity var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease),
+    transform var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease),
+    visibility var(--alert-dialog-transition-duration) var(--alert-dialog-transition-ease);
 }
 
-[data-rs-alert-dialog-header] {
-  display: flex;
-  gap: var(--alert-dialog-header-gap);
-  padding: var(--alert-dialog-header-padding);
+[data-rs-dialog][data-rs-state~="open"] [data-rs-dialog-content][data-rs-component="AlertDialogContent"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 [data-rs-alert-dialog-title] {
   font-size: var(--alert-dialog-title-font-size);
   font-weight: var(--alert-dialog-title-font-weight);
   color: var(--alert-dialog-title-fg);
+  margin-bottom: var(--alert-dialog-header-gap);
 }
 
 [data-rs-alert-dialog-description] {
   font-size: var(--alert-dialog-description-font-size);
   line-height: var(--alert-dialog-description-line-height);
   color: var(--alert-dialog-description-fg);
-}
-
-[data-rs-alert-dialog-footer] {
-  display: flex;
-  gap: var(--alert-dialog-footer-gap);
-  padding: var(--alert-dialog-footer-padding);
+  margin-bottom: var(--alert-dialog-footer-gap);
 }
 
 [data-rs-alert-dialog-actions] {
   display: flex;
   gap: var(--alert-dialog-action-gap);
-}
-
-/* ── States ──────────────────────────────────────────────────────────────────── */
-
-[data-rs-alert-dialog-portal] {
-  position: fixed;
-  inset: 0;
-  z-index: var(--alert-dialog-z-index, var(--layer-overlay));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-[data-rs-alert-dialog][data-rs-state~="open"] [data-rs-alert-dialog-portal] {
-  pointer-events: auto;
-}
-
-[data-rs-alert-dialog][data-rs-state~="closed"] [data-rs-alert-dialog-portal] {
-  visibility: hidden;
-  pointer-events: none;
-}
-
-[data-rs-alert-dialog][data-rs-state~="closed"] [data-rs-alert-dialog-overlay],
-[data-rs-alert-dialog][data-rs-state~="closed"] [data-rs-alert-dialog-content] {
-  opacity: 0;
-  pointer-events: none;
-}
-
-[data-rs-alert-dialog-content] {
-  position: relative;
-  top: unset;
-  left: unset;
-  transform: unset;
+  justify-content: flex-end;
 }

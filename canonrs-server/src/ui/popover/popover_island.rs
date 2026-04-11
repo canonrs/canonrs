@@ -4,6 +4,7 @@
 use leptos::prelude::*;
 use super::popover_ui::{Popover, PopoverTrigger, PopoverContent};
 use canonrs_core::meta::VisibilityState;
+use canonrs_core::primitives::PopoverSide;
 
 
 
@@ -23,8 +24,9 @@ pub fn PopoverIsland(
 pub fn PopoverContentIsland(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
+    #[prop(default = PopoverSide::Bottom)] side: PopoverSide,
 ) -> impl IntoView {
-    view! { <PopoverContent class=class.unwrap_or_default()>{children()}</PopoverContent> }
+    view! { <PopoverContent side=side class=class.unwrap_or_default()>{children()}</PopoverContent> }
 }
 
 #[component]

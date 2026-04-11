@@ -29,3 +29,11 @@ pub const SHEETCONTENT_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const SHEETTRIGGER_API: ComponentApi = ComponentApi {
+    id: "sheet-trigger",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

@@ -1,6 +1,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{PopoverPrimitive, PopoverTriggerPrimitive, PopoverContentPrimitive};
+use canonrs_core::primitives::PopoverSide;
 use canonrs_core::meta::VisibilityState;
 
 #[component]
@@ -28,9 +29,10 @@ pub fn PopoverTrigger(
 pub fn PopoverContent(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = PopoverSide::Bottom)] side: PopoverSide,
 ) -> impl IntoView {
     view! {
-        <PopoverContentPrimitive class=class>
+        <PopoverContentPrimitive side=side class=class>
             {children()}
         </PopoverContentPrimitive>
     }

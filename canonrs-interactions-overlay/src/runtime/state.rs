@@ -1,7 +1,6 @@
 //! State — open/close/toggle/is_open (crash-proof + auto-positioning)
 use wasm_bindgen::JsValue;
 use web_sys::Element;
-use crate::shared::{add_state, remove_state};
 use crate::runtime::positioning;
 
 fn is_valid(el: &Element) -> bool {
@@ -53,4 +52,20 @@ pub fn set_scroll_lock(locked: bool) {
             else      { let _ = body.remove_attribute("data-rs-scroll-lock"); }
         }
     }
+}
+
+/// Add a state token to data-rs-state (idempotent)
+pub fn add_state(el: &web_sys::Element, state: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    if !current.split_whitespace().any(|s| s == state) {
+        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
+        el.set_attribute("data-rs-state", &next).ok();
+    }
+}
+
+/// Remove a state token from data-rs-state (idempotent)
+pub fn remove_state(el: &web_sys::Element, state: &str) {
+    let current = el.get_attribute("data-rs-state").unwrap_or_default();
+    let next: Vec<&str> = current.split_whitespace().filter(|s| *s != state).collect();
+    el.set_attribute("data-rs-state", &next.join(" ")).ok();
 }

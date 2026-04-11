@@ -37,13 +37,18 @@
   font-size: var(--table-header-font-size);
   font-weight: var(--table-header-font-weight);
   color: var(--table-header-fg);
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 [data-rs-table-cell] {
   padding-inline: var(--table-cell-padding-x);
   padding-block: var(--table-cell-padding-y);
   font-size: var(--table-cell-font-size);
+  font-weight: var(--font-weight-normal);
   color: var(--table-cell-fg);
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 [data-rs-table-caption] {

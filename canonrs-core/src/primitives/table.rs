@@ -140,17 +140,24 @@ pub fn TableRowPrimitive(
     children: Children,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(into, default = TextProp::from(""))] class: TextProp,
-    #[prop(into, optional)] href: Option<String>,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(into, default = String::new())] row_action: String,
+    #[prop(into, default = String::new())] row_label: String,
+    #[prop(into, default = String::new())] row_meta: String,
 ) -> impl IntoView {
     let s = selection_attrs(selected);
-    let href_attr = href.as_deref().unwrap_or_default().to_string();
-    let action_attr = href.as_ref().map(|_| "navigate");
+    let action_attr = if !row_action.is_empty() { Some(row_action.clone()) } else if !href.is_empty() { Some("navigate".to_string()) } else { None };
+    let href_attr = if href.is_empty() { None } else { Some(href) };
+    let row_label = if row_label.is_empty() { None } else { Some(row_label) };
+    let row_meta = if row_meta.is_empty() { None } else { Some(row_meta) };
     view! {
         <tr
             data-rs-table-row=""
             data-rs-state=s.data_rs_state
             data-rs-action=action_attr
             data-rs-href=href_attr
+            data-rs-label=row_label
+            data-rs-meta=row_meta
             role="row"
             aria-selected=s.aria_selected
             class=move || class.get().to_string()

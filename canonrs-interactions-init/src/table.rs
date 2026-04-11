@@ -15,12 +15,6 @@ fn query_all(selector: &str) -> Vec<Element> {
         .collect()
 }
 
-pub fn init_all() {
-    for el in query_all("[data-rs-table]") {
-        init(el);
-    }
-}
-
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     bind_clickable_rows(&root);

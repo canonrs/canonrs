@@ -152,6 +152,11 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("sheet-close-fg-hover",         "var(--theme-surface-fg)"),
     FamilyToken::new("sheet-transition-duration",    "var(--motion-duration-normal)"),
     FamilyToken::new("sheet-transition-ease",        "var(--motion-ease-standard)"),
+    FamilyToken::new("sheet-transform-closed-right",  "translateX(100%)"),
+    FamilyToken::new("sheet-transform-closed-left",   "translateX(-100%)"),
+    FamilyToken::new("sheet-transform-closed-top",    "translateY(-100%)"),
+    FamilyToken::new("sheet-transform-closed-bottom", "translateY(100%)"),
+    FamilyToken::new("sheet-transform-open",          "translateX(0) translateY(0)"),
 
     // DropdownMenu
     FamilyToken::new("dropdown-menu-bg",                    "var(--theme-overlay-bg)"),

@@ -160,6 +160,10 @@ function __wbg_get_imports() {
             getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
             getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
         }, arguments); },
+        __wbg_left_3b7c3c1030d5ca7a: function() { return logError(function (arg0) {
+            const ret = arg0.left;
+            return ret;
+        }, arguments); },
         __wbg_length_3f12bc1cab862cc3: function() { return logError(function (arg0) {
             const ret = arg0.length;
             _assertNum(ret);

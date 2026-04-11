@@ -1,7 +1,7 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    HoverCardPrimitive, HoverCardTriggerPrimitive, HoverCardContentPrimitive
+    HoverCardPrimitive, HoverCardTriggerPrimitive, HoverCardContentPrimitive,
+    HoverCardSide,
 };
 use canonrs_core::meta::VisibilityState;
 
@@ -23,31 +23,18 @@ pub fn HoverCardTrigger(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! {
-        <HoverCardTriggerPrimitive class=class>
-            {children()}
-        </HoverCardTriggerPrimitive>
-    }
+    view! { <HoverCardTriggerPrimitive class=class>{children()}</HoverCardTriggerPrimitive> }
 }
 
 #[component]
 pub fn HoverCardContent(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = HoverCardSide::Top)] side: HoverCardSide,
 ) -> impl IntoView {
     view! {
-        <HoverCardContentPrimitive class=class>
+        <HoverCardContentPrimitive side=side class=class>
             {children()}
         </HoverCardContentPrimitive>
-    }
-}
-
-#[component]
-pub fn HoverCardPreview() -> impl IntoView {
-    view! {
-        <HoverCard>
-            <HoverCardTrigger>"Hover me"</HoverCardTrigger>
-            <HoverCardContent>"Card content"</HoverCardContent>
-        </HoverCard>
     }
 }

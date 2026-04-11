@@ -6,6 +6,18 @@ use leptos::prelude::*;
 use crate::meta::VisibilityState;
 use crate::infra::state_engine::visibility_attrs;
 
+fn dialog_uid() -> String {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static CTR: AtomicU64 = AtomicU64::new(0);
+    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
+    format!("dl-{:016x}-{:08x}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_nanos() as u64)
+            .unwrap_or(ctr),
+        ctr)
+}
+
 #[component]
 pub fn DialogPrimitive(
     children: Children,
@@ -17,6 +29,7 @@ pub fn DialogPrimitive(
         <div
             data-rs-dialog=""
             data-rs-interaction="overlay"
+            data-rs-uid=dialog_uid()
             data-rs-component="Dialog"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

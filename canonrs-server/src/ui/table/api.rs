@@ -40,6 +40,9 @@ pub const TABLEROW_API: ComponentApi = ComponentApi {
         PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some("from("")"), description: "" },
         PropDef { name: "href", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "row_action", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "row_label", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "row_meta", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

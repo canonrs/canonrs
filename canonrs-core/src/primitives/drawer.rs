@@ -25,6 +25,18 @@ impl DrawerSide {
     }
 }
 
+fn drawer_uid() -> String {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static CTR: AtomicU64 = AtomicU64::new(0);
+    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
+    format!("dr-{:016x}-{:08x}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_nanos() as u64)
+            .unwrap_or(ctr),
+        ctr)
+}
+
 #[component]
 pub fn DrawerPrimitive(
     children: Children,
@@ -37,6 +49,7 @@ pub fn DrawerPrimitive(
         <div
             data-rs-drawer=""
             data-rs-interaction="overlay"
+            data-rs-uid=drawer_uid()
             data-rs-component="Drawer"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
@@ -60,6 +73,8 @@ pub fn DrawerTriggerPrimitive(
         <button
             type="button"
             data-rs-drawer-trigger=""
+            data-rs-button=""
+            data-rs-variant="primary"
             data-rs-state=s.data_rs_state
             aria-haspopup="dialog"
             aria-expanded=s.aria_expanded
