@@ -59,6 +59,30 @@ window.__canonLoader = {
   }
 };
 
+// Init groups — carregados via init_all() sem data-rs-interaction
+const INIT_GROUPS = ['init'];
+
+async function loadInitGroups() {
+  for (const group of INIT_GROUPS) {
+    try {
+      const mod = await import(`/wasm/${group}/canonrs_interactions_${group}.js`);
+      await mod.default();
+      if (typeof mod.init_all === 'function') {
+        mod.init_all();
+        console.log('[canon] loaded:', group);
+      }
+    } catch (e) {
+      console.warn('[canon] failed:', group, e);
+    }
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadInitGroups);
+} else {
+  loadInitGroups();
+}
+
 // MutationObserver — apenas novos elementos
 const startObserver = () => {
   const observer = new MutationObserver((mutations) => {

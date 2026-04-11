@@ -29,6 +29,14 @@ fn main() {
         .join("products/canonrs-site/public/js");
     fs::create_dir_all(&site_js_early).ok();
     fs::copy(&loader_src_early, site_js_early.join("canon-loader.js")).ok();
+    // copia canonrs.bundle.js
+    let bundle_src_early = rs_canonrs_early.join("canonrs-client/src/loader/canonrs.bundle.js");
+    if bundle_src_early.exists() {
+        let bundle_content = fs::read_to_string(&bundle_src_early).unwrap_or_default();
+        let version = env!("CARGO_PKG_VERSION");
+        let bundle_content = bundle_content.replace("__CANONRS_VERSION__", version);
+        fs::write(site_js_early.join("canonrs.bundle.js"), bundle_content).ok();
+    }
     println!("cargo:rerun-if-changed={}", loader_src_early.display());
 
     // CANON_SKIP_WASM pode ser usado para pular explicitamente
@@ -42,7 +50,7 @@ fn main() {
 
     fs::create_dir_all(&out_dir).expect("failed to create OUT_DIR/wasm");
 
-    let groups = ["gesture", "overlay", "selection", "nav", "data", "content"];
+    let groups = ["gesture", "overlay", "selection", "nav", "data", "content", "init"];
 
     for group in &groups {
         let crate_path = rs_canonrs.join(format!("canonrs-interactions-{}", group));
@@ -97,6 +105,9 @@ fn main() {
         println!("cargo:warning=[canon] wasm built: {}", group);
     }
 
+    // gera manifest.json
+    generate_manifest(rs_canonrs, &groups[..]);
+
     // copiar canon-loader.js para public/js do site
     let loader_src = rs_canonrs.join("canonrs-client/src/loader/canon-loader.js");
     let site_js    = rs_canonrs.parent().unwrap().parent().unwrap()
@@ -107,4 +118,24 @@ fn main() {
     println!("cargo:warning=[canon] loader copied");
     println!("cargo:rerun-if-changed={}", loader_src.display());
 
+}
+
+fn generate_manifest(rs_canonrs: &std::path::Path, groups: &[&str]) {
+    let version = env!("CARGO_PKG_VERSION");
+    let mut entries = String::new();
+    for (i, group) in groups.iter().enumerate() {
+        let comma = if i < groups.len() - 1 { "," } else { "" };
+        entries.push_str(&format!(
+            "    \"{g}\": {{\n      \"js\": \"/wasm/{g}/canonrs_interactions_{g}.js\",\n      \"wasm\": \"/wasm/{g}/canonrs_interactions_{g}_bg.wasm\"\n    }}{c}\n",
+            g = group, c = comma
+        ));
+    }
+    let manifest = format!(
+        "{{\n  \"version\": \"{}\",\n  \"groups\": {{\n{}  }}\n}}",
+        version, entries
+    );
+    let dest = rs_canonrs.parent().unwrap().parent().unwrap()
+        .join("products/canonrs-site/public/canonrs-manifest.json");
+    std::fs::write(&dest, manifest).ok();
+    println!("cargo:warning=[canon] manifest generated");
 }

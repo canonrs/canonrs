@@ -42,5 +42,4 @@ after: |
       </TableBody>
     </Table>
   }
-island_type: interaction
-ix_group: ix_data
+island_type: init

@@ -13,6 +13,7 @@ members = [
     "canonrs-interactions-selection",
     "canonrs-interactions-nav",
     "canonrs-interactions-data",
+    "canonrs-interactions-init",
     "canonrs-interactions-content",
     "canonrs-server",
 ]
