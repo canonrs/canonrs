@@ -32,6 +32,7 @@ fn init_table(table: HtmlElement) {
     sync_col_toggle_state(&table);
     bind_selection(&table);
     bind_bulk_bar(&table);
+    bind_context_menu(&table);
 }
 
 fn sync_col_toggle_state(table: &HtmlElement) {
@@ -635,7 +636,7 @@ fn bind_selection(table: &HtmlElement) {
 
             if t.has_attribute("data-rs-datatable-select-row") {
                 e.stop_propagation();
-                let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { return };
+                let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { web_sys::console::log_1(&"[ctx] no row found".into()); return };
                 let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
                 let rows = get_visible_rows(&rc);
                 let id = get_row_id(&row);
@@ -648,7 +649,7 @@ fn bind_selection(table: &HtmlElement) {
                 return;
             }
 
-            let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { return };
+            let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { web_sys::console::log_1(&"[ctx] no row found".into()); return };
             let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
             let rows = get_visible_rows(&rc);
             let ordered_ids = get_ordered_ids(&rows);
@@ -695,6 +696,73 @@ fn root_el(table: &HtmlElement) -> web_sys::Element {
 
 
 
+
+
+
+
+// ─── Context Menu ────────────────────────────────────────────────────────────
+
+fn bind_context_menu(table: &HtmlElement) {
+    let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { return };
+            let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
+            let row_id = row.get_attribute("data-rs-row-id").unwrap_or_default();
+            let selector = format!("[data-rs-datatable-row-context][data-rs-row-id='{}']", row_id);
+            let Some(ctx_root) = rc.query_selector(&selector).ok().flatten() else { return };
+            let Some(content) = ctx_root.query_selector("[data-rs-context-menu-content]").ok().flatten() else { return };
+
+            e.prevent_default();
+
+            // fecha outros context menus abertos
+            let Some(win) = web_sys::window() else { return };
+            let Some(d) = win.document() else { return };
+            if let Ok(list) = d.query_selector_all("[data-rs-context-menu][data-rs-state~='open']") {
+                for i in 0..list.length() {
+                    if let Some(el) = list.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                        state::remove(&el, "open");
+                        state::add(&el, "closed");
+                    }
+                }
+            }
+
+            // posiciona via CSS variables no ctx_root
+            let x = e.client_x();
+            let y = e.client_y();
+            if let Ok(el) = ctx_root.clone().dyn_into::<web_sys::HtmlElement>() {
+                let _ = el.style().set_property("--context-menu-x", &format!("{}px", x));
+                let _ = el.style().set_property("--context-menu-y", &format!("{}px", y));
+            }
+
+            // abre
+            state::remove(&ctx_root, "closed");
+            state::add(&ctx_root, "open");
+            let _ = content.remove_attribute("hidden");
+        }));
+        let _ = doc.add_event_listener_with_callback("contextmenu", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
+    // click fora — fecha
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+            let Some(win) = web_sys::window() else { return };
+            let Some(d) = win.document() else { return };
+            let Ok(list) = d.query_selector_all("[data-rs-context-menu][data-rs-state~='open']") else { return };
+            for i in 0..list.length() {
+                if let Some(el) = list.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                    state::remove(&el, "open");
+                    state::add(&el, "closed");
+                }
+            }
+        }));
+        let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+}
 
 
 

@@ -13,6 +13,9 @@ use canonrs_core::primitives::{
 use crate::ui::dropdown_menu::dropdown_menu_island::{
     DropdownMenuIsland, DropdownMenuItemIsland,
 };
+use crate::ui::context_menu::context_menu_ui::{
+    ContextMenuContent, ContextMenuItem,
+};
 #[derive(Clone)]
 pub struct DataTableColumn<T> {
     pub key: String,
@@ -199,6 +202,10 @@ where
                                 .map(|f| f(&row));
                             let has_expand = expand_content.is_some();
 
+                            let has_actions = !row_actions.get_value().is_empty();
+                            let ctx_actions = row_actions.get_value();
+                            let ctx_row_id = idx.to_string();
+
                             let main_row = view! {
                                 <DataTableRowPrimitive row_id=idx.to_string() row_index=idx>
                                     {has_expand.then(|| view! {
@@ -276,6 +283,26 @@ where
                                 </DataTableRowPrimitive>
                             };
 
+                            let context_menu = has_actions.then(|| {
+                                let rid = ctx_row_id.clone();
+                                view! {
+                                    <div data-rs-datatable-row-context="" data-rs-context-menu="" data-rs-row-id=rid>
+                                        <ContextMenuContent>
+                                            {ctx_actions.into_iter().map(|action| {
+                                                let rid2 = ctx_row_id.clone();
+                                                view! {
+                                                    <ContextMenuItem class={if action.danger { "danger".to_string() } else { String::new() }}>
+                                                        <span data-rs-datatable-action=action.id data-rs-row-id=rid2>
+                                                            {action.label}
+                                                        </span>
+                                                    </ContextMenuItem>
+                                                }
+                                            }).collect::<Vec<_>>()}
+                                        </ContextMenuContent>
+                                    </div>
+                                }
+                            });
+
                             let expand_row = expand_content.map(|content| view! {
                                 <tr
                                     data-rs-datatable-expand-row=""
@@ -293,7 +320,7 @@ where
                                 </tr>
                             });
 
-                            vec![main_row.into_any(), expand_row.map(|v| v.into_any()).unwrap_or_else(|| view! { <></> }.into_any())]
+                            vec![main_row.into_any(), expand_row.map(|v| v.into_any()).unwrap_or_else(|| view! { <></> }.into_any()), context_menu.map(|v| v.into_any()).unwrap_or_else(|| view! { <></> }.into_any())]
                         }).collect::<Vec<_>>()}
                     </DataTableBodyPrimitive>
                 </DataTableTablePrimitive>
