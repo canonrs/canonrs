@@ -23,7 +23,6 @@ pub mod providers {
 #[cfg(any(feature = "ssr", feature = "hydrate"))]
 pub mod ui {
     pub use canonrs_server::ui::*;
-    pub use canonrs_server::ui::runtime_island::RuntimeIsland;
 }
 
 #[cfg(any(feature = "ssr", feature = "hydrate"))]

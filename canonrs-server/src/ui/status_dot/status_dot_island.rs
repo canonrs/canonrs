@@ -1,29 +1,22 @@
-use leptos::prelude::*;
+//! @canon-level: strict
+//! StatusDot Island — Canon Rule #340 (zero-logic boundary)
 
+use leptos::prelude::*;
+use super::status_dot_ui::StatusDot;
 use canonrs_core::primitives::StatusDotVariant;
 
-#[island]
+#[component]
 pub fn StatusDotIsland(
-    #[prop(optional)] variant: Option<StatusDotVariant>,
-    #[prop(optional, into)] label: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = StatusDotVariant::Offline)] variant: StatusDotVariant,
+    #[prop(into, optional)] label: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let class   = class.unwrap_or_default();
-    let variant = variant.unwrap_or_default();
-    let aria    = variant.aria_label();
-
     view! {
         <span data-rs-status-dot-wrapper="" style="display:inline-flex;align-items:center;gap:var(--space-xs);">
-            <span
-                data-rs-status-dot=""
-                data-rs-component="StatusDot"
-                data-rs-variant=variant.as_str()
-                data-rs-state=variant.state()
-                role="img"
-                aria-label=aria
-                class=class
-            ></span>
-            {label.map(|l| view! { <span data-rs-status-dot-label="" style="white-space:nowrap;">{l}</span> })}
+            <StatusDot variant=variant class=class>
+                <span></span>
+            </StatusDot>
+            {label.map(|l| view! { <span data-rs-status-dot-label="">{l}</span> })}
         </span>
     }
 }

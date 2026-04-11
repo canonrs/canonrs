@@ -10,6 +10,17 @@ pub mod collapsible;
 pub mod switch;
 pub mod toggle;
 pub mod checkbox;
+pub mod alert;
+pub mod banner;
+pub mod button;
+pub mod doc_progress;
+pub mod icon_button;
+pub mod input_group;
+pub mod input_otp;
+pub mod menu;
+pub mod navigation_menu;
+pub mod toast;
+pub mod table_of_contents;
 
 #[wasm_bindgen]
 pub fn init_all() {

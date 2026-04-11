@@ -11,6 +11,8 @@ pub const BUTTON_API: ComponentApi = ComponentApi {
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "_validation", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "button_type", kind: PropType::String, required: false, default: Some("button"), description: "" },
     ],
 };
 

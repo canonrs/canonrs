@@ -10,6 +10,8 @@ pub fn Button(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional, into)] aria_label: Option<String>,
+    #[prop(optional, into)] _validation: Option<String>,
+    #[prop(default = canonrs_core::primitives::ButtonType::Button)] button_type: canonrs_core::primitives::ButtonType,
 ) -> impl IntoView {
     view! {
         <ButtonPrimitive
@@ -18,6 +20,7 @@ pub fn Button(
             aria_label=aria_label.unwrap_or_default()
             variant=variant
             size=size
+            button_type=button_type
         >
             {children()}
         </ButtonPrimitive>

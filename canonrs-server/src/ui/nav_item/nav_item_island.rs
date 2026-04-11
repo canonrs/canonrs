@@ -1,30 +1,16 @@
-use leptos::prelude::*;
+//! @canon-level: strict
+//! NavItem Island — Canon Rule #340 (zero-logic boundary)
 
-#[island]
+use leptos::prelude::*;
+use super::nav_item_ui::NavItem;
+
+#[component]
 pub fn NavItemIsland(
     #[prop(into)] label: String,
-    #[prop(optional, into)] href: Option<String>,
-    #[prop(optional)] active: Option<bool>,
-    #[prop(optional)] disabled: Option<bool>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(default = false)] active: bool,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let href     = href.unwrap_or_default();
-    let active   = active.unwrap_or(false);
-    let disabled = disabled.unwrap_or(false);
-    let class    = class.unwrap_or_default();
-    let state    = if active { "active" } else if disabled { "disabled" } else { "inactive" };
-
-    view! {
-        <a
-            data-rs-nav-item=""
-            data-rs-component="NavItem"
-            data-rs-state=state
-            href=href
-            aria-current=if active { "page" } else { "false" }
-            aria-disabled=disabled.to_string()
-            class=class
-        >
-            <span data-rs-nav-item-label="">{label}</span>
-        </a>
-    }
+    view! { <NavItem label=label href=href active=active.into() disabled=disabled.into() class=class /> }
 }

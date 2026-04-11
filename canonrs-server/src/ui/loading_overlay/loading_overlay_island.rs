@@ -1,27 +1,28 @@
+//! @canon-level: strict
+//! LoadingOverlay Island — Canon Rule #340 (zero-logic boundary)
+
 use leptos::prelude::*;
 use super::loading_overlay_ui::{LoadingOverlay, LoadingOverlayMode};
 use canonrs_core::meta::LoadingState;
 
-#[island]
+#[component]
 pub fn LoadingOverlayIsland(
     children: Children,
-    #[prop(optional, into)] state: Option<String>,
-    #[prop(optional, into)] mode: Option<String>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] state: String,
+    #[prop(into, default = String::new())] mode: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let state = match state.as_deref() {
-        Some("loading") => LoadingState::Loading,
-        _               => LoadingState::Idle,
+    let loading_state = match state.as_str() {
+        "loading" => LoadingState::Loading,
+        _         => LoadingState::Idle,
     };
-    let mode = match mode.as_deref() {
-        Some("subtle")   => LoadingOverlayMode::Subtle,
-        Some("skeleton") => LoadingOverlayMode::Skeleton,
-        _                   => LoadingOverlayMode::Blocking,
+    let overlay_mode = match mode.as_str() {
+        "subtle"   => LoadingOverlayMode::Subtle,
+        "skeleton" => LoadingOverlayMode::Skeleton,
+        _          => LoadingOverlayMode::Blocking,
     };
-    let cls = class.unwrap_or_default();
-
     view! {
-        <LoadingOverlay state=state mode=mode class=cls>
+        <LoadingOverlay state=loading_state mode=overlay_mode class=class>
             {children()}
         </LoadingOverlay>
     }

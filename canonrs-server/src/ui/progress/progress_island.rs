@@ -1,15 +1,13 @@
+//! @canon-level: strict
+//! Progress Island — Canon Rule #340 (zero-logic boundary)
+
 use leptos::prelude::*;
 use super::progress_ui::Progress;
 
-#[island]
+#[component]
 pub fn ProgressIsland(
-    #[prop(optional)] value: Option<f64>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = 0.0)] value: f64,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let val = value.unwrap_or(0.0).clamp(0.0, 100.0);
-    let cls = class.unwrap_or_default();
-
-    view! {
-        <Progress value=val class=cls />
-    }
+    view! { <Progress value=value.clamp(0.0, 100.0) class=class /> }
 }

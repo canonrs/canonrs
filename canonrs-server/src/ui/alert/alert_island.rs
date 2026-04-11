@@ -1,54 +1,23 @@
-use leptos::prelude::*;
+//! @canon-level: strict
+//! Alert Island — Canon Rule #340 (zero-logic boundary)
 
+use leptos::prelude::*;
+use super::alert_ui::{Alert, AlertTitle, AlertDescription, AlertCloseButton};
 use canonrs_core::primitives::AlertVariant;
 
-#[island]
+#[component]
 pub fn AlertIsland(
-    #[prop(optional, into)] title: Option<String>,
-    #[prop(optional, into)] description: Option<String>,
-    #[prop(optional)] variant: Option<AlertVariant>,
-    #[prop(optional)] dismissible: Option<bool>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, optional)] title: Option<String>,
+    #[prop(into, optional)] description: Option<String>,
+    #[prop(default = AlertVariant::Default)] variant: AlertVariant,
+    #[prop(default = false)] dismissible: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let class       = class.unwrap_or_default();
-    let variant     = variant.unwrap_or_default();
-    let dismissible = dismissible.unwrap_or(false);
-    let (is_open, set_open) = signal(true);
-    let initial_state = "open";
-    let state  = move || if is_open.get() { "open" } else { "closed" };
-    let hidden = move || !is_open.get();
-    let _ = set_open;
-
-    #[cfg(feature = "hydrate")]
-    let on_close = move |_: leptos::ev::MouseEvent| set_open.set(false);
-    #[cfg(not(feature = "hydrate"))]
-    let on_close = move |_: leptos::ev::MouseEvent| {};
-
     view! {
-        <div
-            data-rs-alert=""
-            data-rs-component="Alert"
-            data-rs-variant=variant.as_str()
-            data-rs-state=move || { let s = state(); if s.is_empty() { initial_state } else { s } }
-            role=variant.role()
-            aria-live=if variant.role() == "alert" { "assertive" } else { "polite" }
-            hidden=hidden
-            class=class
-        >
-            <div data-rs-alert-content="">
-                {title.map(|t| view! { <p data-rs-alert-title="">{t}</p> })}
-                {description.map(|d| view! { <p data-rs-alert-description="">{d}</p> })}
-            </div>
-            {dismissible.then(|| view! {
-                <button
-                    type="button"
-                    data-rs-alert-close=""
-                    aria-label="Close"
-                    on:click=on_close
-                >
-                    "×"
-                </button>
-            })}
-        </div>
+        <Alert variant=variant class=class>
+            {title.map(|t| view! { <AlertTitle>{t}</AlertTitle> })}
+            {description.map(|d| view! { <AlertDescription>{d}</AlertDescription> })}
+            {dismissible.then(|| view! { <AlertCloseButton>"×"</AlertCloseButton> })}
+        </Alert>
     }
 }

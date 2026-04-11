@@ -1,23 +1,18 @@
+//! @canon-level: strict
+//! Field Island — Canon Rule #340 (zero-logic boundary)
+
 use leptos::prelude::*;
 use super::field_ui::Field;
 use super::variants::{FieldOrientation, FieldValidation};
 
-#[island]
+#[component]
 pub fn FieldIsland(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
-    #[prop(optional)] disabled: Option<bool>,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let class    = class.unwrap_or_default();
-    let disabled = disabled.unwrap_or(false);
-
     view! {
-        <Field
-            orientation=FieldOrientation::Vertical
-            _validation=FieldValidation::None
-            disabled=disabled
-            class=class
-        >
+        <Field orientation=FieldOrientation::Vertical _validation=FieldValidation::None disabled=disabled class=class>
             {children()}
         </Field>
     }
