@@ -1,4 +1,3 @@
-
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     TableWrapperPrimitive, TablePrimitive, TableHeaderPrimitive,
@@ -18,8 +17,9 @@ pub fn Table(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let aria_label = aria_label.unwrap_or_default();
     view! {
-        <TableWrapperPrimitive aria_label=aria_label.unwrap_or_default() class=class>
+        <TableWrapperPrimitive aria_label=aria_label class=class>
             <TablePrimitive state=state striped=striped hoverable=hoverable>
                 {children.map(|c| c())}
             </TablePrimitive>
@@ -68,9 +68,11 @@ pub fn TableRow(
     #[prop(optional)] children: Option<Children>,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(into, default = TextProp::from(""))] class: TextProp,
+    #[prop(into, optional)] href: Option<String>,
 ) -> impl IntoView {
+    let href = href.unwrap_or_default();
     view! {
-        <TableRowPrimitive selected=selected class=class>
+        <TableRowPrimitive selected=selected class=class href=href>
             {children.map(|c| c())}
         </TableRowPrimitive>
     }
@@ -93,9 +95,11 @@ pub fn TableHead(
 pub fn TableCell(
     #[prop(optional)] children: Option<Children>,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] copyable: bool,
+    #[prop(default = false)] truncate: bool,
 ) -> impl IntoView {
     view! {
-        <TableCellPrimitive class=class>
+        <TableCellPrimitive class=class copyable=copyable truncate=truncate>
             {children.map(|c| c())}
         </TableCellPrimitive>
     }

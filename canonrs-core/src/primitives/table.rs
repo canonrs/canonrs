@@ -140,12 +140,17 @@ pub fn TableRowPrimitive(
     children: Children,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(into, default = TextProp::from(""))] class: TextProp,
+    #[prop(into, optional)] href: Option<String>,
 ) -> impl IntoView {
     let s = selection_attrs(selected);
+    let href_attr = href.as_deref().unwrap_or_default().to_string();
+    let action_attr = href.as_ref().map(|_| "navigate");
     view! {
         <tr
             data-rs-table-row=""
             data-rs-state=s.data_rs_state
+            data-rs-action=action_attr
+            data-rs-href=href_attr
             role="row"
             aria-selected=s.aria_selected
             class=move || class.get().to_string()
@@ -179,9 +184,16 @@ pub fn TableHeadPrimitive(
 pub fn TableCellPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] copyable: bool,
+    #[prop(default = false)] truncate: bool,
 ) -> impl IntoView {
     view! {
-        <td data-rs-table-cell="" class=class>
+        <td
+            data-rs-table-cell=""
+            data-rs-copyable={copyable.then(|| "")}
+            data-rs-truncate={truncate.then(|| "")}
+            class=class
+        >
             {children()}
         </td>
     }

@@ -39,6 +39,7 @@ pub const TABLEROW_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some("from("")"), description: "" },
+        PropDef { name: "href", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 
@@ -54,6 +55,8 @@ pub const TABLECELL_API: ComponentApi = ComponentApi {
     id: "table-cell",
     props: &[
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "copyable", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "truncate", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
     ],
 };
 
