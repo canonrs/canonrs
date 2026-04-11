@@ -31,6 +31,7 @@ fn init_table(table: HtmlElement) {
     sync_density_state(&table);
     sync_col_toggle_state(&table);
     bind_selection(&table);
+    bind_bulk_bar(&table);
 }
 
 fn sync_col_toggle_state(table: &HtmlElement) {
@@ -697,6 +698,61 @@ fn root_el(table: &HtmlElement) -> web_sys::Element {
 
 
 
+
+// ─── Bulk Action Bar ─────────────────────────────────────────────────────────
+
+fn update_bulk_bar(root: &web_sys::Element) {
+    let ids = root.get_attribute("data-rs-selected-ids").unwrap_or_default();
+    let count = ids.split(',').filter(|s| !s.is_empty()).count();
+    let bar = root.query_selector("[data-rs-datatable-bulk-bar]").ok().flatten();
+    if let Some(bar) = bar {
+        if count > 0 {
+            let _ = bar.remove_attribute("hidden");
+        } else {
+            let _ = bar.set_attribute("hidden", "");
+        }
+        if let Some(counter) = bar.query_selector("[data-rs-datatable-bulk-count]").ok().flatten() {
+            counter.set_text_content(Some(&format!("{} selected", count)));
+        }
+    }
+}
+
+fn bind_bulk_bar(table: &HtmlElement) {
+    let root: web_sys::Element = table.clone().into();
+
+    // listener no rs-selection-change — usa target para encontrar root correto
+    {
+        let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
+            let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            update_bulk_bar(&target);
+        }));
+        let _ = root.add_event_listener_with_callback("rs-selection-change", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
+    // bulk clear button
+    if let Some(clear_btn) = root.query_selector("[data-rs-datatable-bulk-clear]").ok().flatten()
+        .and_then(|el| el.dyn_into::<web_sys::Element>().ok())
+    {
+        let root_c = root.clone();
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+            let _ = root_c.set_attribute("data-rs-selected-ids", "");
+            let Ok(rows) = root_c.query_selector_all("[data-rs-datatable-row]") else { return };
+            for i in 0..rows.length() {
+                if let Some(row) = rows.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                    set_row_selected(&row, false);
+                }
+            }
+            sync_select_all(&root_c);
+            update_bulk_bar(&root_c);
+            if let Ok(event) = web_sys::CustomEvent::new("rs-selection-change") {
+                let _ = root_c.dispatch_event(&event);
+            }
+        }));
+        let _ = clear_btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

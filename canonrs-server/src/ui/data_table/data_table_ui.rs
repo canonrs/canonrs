@@ -3,6 +3,7 @@
 use leptos::prelude::*;
 use std::sync::Arc;
 use canonrs_core::primitives::{
+    DataTableBulkBarPrimitive,
     DataTablePrimitive, DataTableToolbarPrimitive, DataTableScrollPrimitive,
     DataTableTablePrimitive, DataTableHeadPrimitive, DataTableHeadRowPrimitive,
     DataTableHeadCellPrimitive, DataTableBodyPrimitive, DataTableRowPrimitive,
@@ -26,18 +27,40 @@ impl<T> DataTableColumn<T> {
 }
 
 #[derive(Clone)]
-pub struct RowAction {
+pub struct BulkAction {
     pub id: &'static str,
     pub label: &'static str,
     pub danger: bool,
 }
 
-impl RowAction {
+impl BulkAction {
     pub fn new(id: &'static str, label: &'static str) -> Self {
         Self { id, label, danger: false }
     }
     pub fn danger(mut self) -> Self {
         self.danger = true;
+        self
+    }
+}
+
+#[derive(Clone)]
+pub struct RowAction {
+    pub id: &'static str,
+    pub label: &'static str,
+    pub danger: bool,
+    pub inline: bool,
+}
+
+impl RowAction {
+    pub fn new(id: &'static str, label: &'static str) -> Self {
+        Self { id, label, danger: false, inline: false }
+    }
+    pub fn danger(mut self) -> Self {
+        self.danger = true;
+        self
+    }
+    pub fn inline(mut self) -> Self {
+        self.inline = true;
         self
     }
 }
@@ -55,6 +78,7 @@ pub fn DataTableStatic<T>(
     #[prop(default = false)] show_density: bool,
     #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
+    #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
@@ -69,6 +93,7 @@ where
     let cols = StoredValue::new(columns.clone());
     let expand_render = StoredValue::new(expand_render);
     let row_actions = StoredValue::new(row_actions);
+    let bulk_actions = StoredValue::new(bulk_actions);
     let initial_density = density.as_str();
 
     view! {
@@ -82,6 +107,23 @@ where
             attr:data-rs-chart-sync=sync_chart.clone()
             attr:data-rs-chart-sync-scope=sync_scope.clone()
         >
+            <DataTableBulkBarPrimitive>
+                <span data-rs-datatable-bulk-count="">"0 selected"</span>
+                <div data-rs-datatable-bulk-actions="">
+                    {bulk_actions.get_value().into_iter().map(|action| {
+                        view! {
+                            <button
+                                type="button"
+                                data-rs-datatable-bulk-action=action.id
+                                class={if action.danger { "danger".to_string() } else { String::new() }}
+                            >
+                                {action.label}
+                            </button>
+                        }
+                    }).collect::<Vec<_>>()}
+                </div>
+                <button type="button" data-rs-datatable-bulk-clear="">"✕ Clear"</button>
+            </DataTableBulkBarPrimitive>
             <DataTableToolbarPrimitive>
                 <input
                     type="text"
@@ -187,23 +229,47 @@ where
                                     {(!row_actions.get_value().is_empty()).then(|| {
                                         let actions = row_actions.get_value();
                                         let row_id = idx.to_string();
+                                        let inline_actions: Vec<RowAction> = actions.iter().filter(|a| a.inline).cloned().collect();
+                                        let menu_actions: Vec<RowAction> = actions.iter().filter(|a| !a.inline).cloned().collect();
                                         view! {
                                             <td data-rs-datatable-cell="" data-rs-col-actions="">
-                                                <DropdownMenuIsland>
-                                                    {actions.into_iter().map(|action| {
+                                                <div data-rs-datatable-actions-cell="">
+                                                    // inline buttons
+                                                    {inline_actions.into_iter().map(|action| {
                                                         let rid = row_id.clone();
                                                         view! {
-                                                            <DropdownMenuItemIsland
+                                                            <button
+                                                                type="button"
+                                                                data-rs-datatable-action=action.id
+                                                                data-rs-row-id=rid
+                                                                data-rs-datatable-inline-action=""
                                                                 class={if action.danger { "danger".to_string() } else { String::new() }}
                                                             >
-                                                                <span
-                                                                    data-rs-datatable-action=action.id
-                                                                    data-rs-row-id=rid
-                                                                >{action.label}</span>
-                                                            </DropdownMenuItemIsland>
+                                                                {action.label}
+                                                            </button>
                                                         }
                                                     }).collect::<Vec<_>>()}
-                                                </DropdownMenuIsland>
+                                                    // kebab menu
+                                                    {(!menu_actions.is_empty()).then(|| {
+                                                        view! {
+                                                            <DropdownMenuIsland>
+                                                                {menu_actions.into_iter().map(|action| {
+                                                                    let rid = row_id.clone();
+                                                                    view! {
+                                                                        <DropdownMenuItemIsland
+                                                                            class={if action.danger { "danger".to_string() } else { String::new() }}
+                                                                        >
+                                                                            <span
+                                                                                data-rs-datatable-action=action.id
+                                                                                data-rs-row-id=rid
+                                                                            >{action.label}</span>
+                                                                        </DropdownMenuItemIsland>
+                                                                    }
+                                                                }).collect::<Vec<_>>()}
+                                                            </DropdownMenuIsland>
+                                                        }
+                                                    })}
+                                                </div>
                                             </td>
                                         }
                                     })}

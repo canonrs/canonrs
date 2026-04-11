@@ -340,3 +340,114 @@
 .danger [data-rs-datatable-action] {
   color: var(--theme-status-error);
 }
+
+/* ── BULK ACTION BAR ─────────────────────────────────────────────────────────── */
+[data-rs-datatable-bulk-bar] {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--theme-action-accent-bg);
+  color: var(--theme-action-accent-fg);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-xs);
+  animation: bulk-bar-in var(--motion-duration-fast) var(--motion-easing-default);
+}
+
+[data-rs-datatable-bulk-bar][hidden] {
+  display: none;
+}
+
+@keyframes bulk-bar-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+[data-rs-datatable-bulk-count] {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  min-width: 6rem;
+}
+
+[data-rs-datatable-bulk-actions] {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+[data-rs-datatable-bulk-action] {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--theme-action-primary-fg) 30%, transparent);
+  background: transparent;
+  color: var(--theme-action-accent-fg);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  transition: background var(--motion-duration-fast);
+}
+
+[data-rs-datatable-bulk-action]:hover {
+  background: color-mix(in srgb, var(--theme-action-accent-fg) 15%, transparent);
+}
+
+[data-rs-datatable-bulk-action].danger {
+  border-color: var(--theme-status-error);
+  color: var(--theme-status-error);
+}
+
+[data-rs-datatable-bulk-clear] {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: var(--theme-action-accent-fg);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  opacity: 0.8;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: opacity var(--motion-duration-fast);
+}
+
+[data-rs-datatable-bulk-clear]:hover {
+  opacity: 1;
+}
+
+/* ── INLINE ROW ACTIONS ─────────────────────────────────────────────────────── */
+[data-rs-datatable-actions-cell] {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  justify-content: flex-end;
+}
+
+[data-rs-datatable-inline-action] {
+  background: transparent;
+  border: 1px solid var(--theme-surface-border);
+  border-radius: var(--radius-sm);
+  color: var(--theme-text-secondary);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  padding: var(--space-xs) var(--space-sm);
+  opacity: 0;
+  transition: opacity var(--motion-duration-fast), background var(--motion-duration-fast), color var(--motion-duration-fast);
+  white-space: nowrap;
+}
+
+[data-rs-datatable-row]:hover [data-rs-datatable-inline-action] {
+  opacity: 1;
+}
+
+[data-rs-datatable-inline-action]:hover {
+  background: var(--theme-surface-hover);
+  color: var(--theme-text-primary);
+}
+
+[data-rs-datatable-inline-action].danger {
+  border-color: var(--theme-status-error);
+  color: var(--theme-status-error);
+}
+
+[data-rs-datatable-inline-action].danger:hover {
+  background: color-mix(in srgb, var(--theme-status-error) 10%, transparent);
+}

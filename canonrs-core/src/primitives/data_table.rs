@@ -57,6 +57,18 @@ pub fn DataTablePrimitive(
 }
 
 #[component]
+pub fn DataTableBulkBarPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-datatable-bulk-bar="" hidden class=class>
+            {children()}
+        </div>
+    }
+}
+
+#[component]
 pub fn DataTableToolbarPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,

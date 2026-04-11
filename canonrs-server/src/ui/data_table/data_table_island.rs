@@ -3,7 +3,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::DataTableDensity;
-use super::data_table_ui::{DataTableStatic, DataTableColumn, RowAction};
+use super::data_table_ui::{DataTableStatic, DataTableColumn, RowAction, BulkAction};
 
 #[component]
 pub fn DataTableIsland<T>(
@@ -15,6 +15,7 @@ pub fn DataTableIsland<T>(
     #[prop(default = false)] selectable: bool,
     #[prop(default = false)] show_density: bool,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
+    #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
@@ -29,6 +30,7 @@ where
             selectable=selectable
             show_density=show_density
             row_actions=row_actions
+            bulk_actions=bulk_actions
         />
     }
 }

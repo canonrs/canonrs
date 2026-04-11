@@ -7371,20 +7371,20 @@ Register `pointerdown` on the handle. Register `pointermove` and `pointerup` on 
 
 ### Problem
 
-When passthrough islands perform transformations such as string parsing, enum mapping, default resolution, or conditional rendering, they break the CanonRS architecture by introducing logic into a layer that must remain purely mechanical.
+When passthrough islands perform transformations such as parsing, enum mapping, fallback resolution, or conditional rendering, they break CanonRS by introducing logic into a layer that must remain purely mechanical.
 
 ### Solution
 
-Passthrough islands must accept fully typed props (enums, booleans, structured data) and forward them directly to UI components. All transformations must occur before the island (call site) or inside the UI layer.
+Passthrough islands must accept fully typed props and forward them directly to UI components. All transformations must occur before the island or inside the UI layer.
 
 ### Signals
 
-- usage of `match` inside island
-- usage of `unwrap_or`, `unwrap_or_default`, or fallback logic
-- string → enum conversion inside island
-- conditional rendering branches (`if`, `match`) in island
-- presence of parsing or normalization logic
-- island API accepts `String` where enum exists
+- `match`, `if`, or branching inside island
+- `unwrap_or`, `unwrap_or_default`
+- string → enum conversion
+- conditional rendering
+- parsing or normalization logic
+- props typed as `String` when enum exists
 
 ---
 
@@ -7396,24 +7396,23 @@ Passthrough islands must accept fully typed props (enums, booleans, structured d
 
 ### Problem
 
-When init islands introduce signals, internal state, prop transformations, or logic, they break the CanonRS architecture by duplicating state outside the DOM and creating hydration inconsistencies and unpredictable behavior.
+Using signals, internal variables, or business logic inside init islands creates duplicated state, hydration mismatch, and non-deterministic behavior.
 
 ### Solution
 
-Init islands must read state from the DOM, react to browser events via `web_sys`, and mutate DOM attributes using canonical helpers. They must remain stateless and purely mechanical.
+Init islands must read state from `data-rs-*`, react to browser events via `web_sys`, and write state back to the DOM.
 
 ### Signals
 
-- usage of `signal`, `RwSignal`, `ReadSignal`
-- presence of `match`, `if` logic unrelated to DOM state
-- prop transformation (`unwrap_or`, enum mapping, parsing)
-- local variables storing state (e.g. `is_open`, `active`)
-- event handlers defined via `on:click`, `on:mouseenter`
-- duplicated state between DOM and Rust
+- usage of signals (`signal`, `RwSignal`)
+- local state variables (`is_open`, `active`)
+- business logic or branching unrelated to DOM
+- prop transformation or parsing
+- `on:*` event bindings instead of `web_sys`
 
 ---
 
-## CR-342 — Interaction Island Must Delegate to Client Module
+## CR-342 — Interaction Must Be Implemented in Client Module (Island Optional)
 
 - **Category:** interaction-architecture
 - **Severity:** CRITICAL
@@ -7421,34 +7420,24 @@ Init islands must read state from the DOM, react to browser events via `web_sys`
 
 ### Problem
 
-Implementing interaction logic inside islands introduces:
-- state outside the DOM (violates source of truth)
+Placing interaction logic inside islands creates:
+- duplicated state
 - SSR/hydration inconsistencies
-- duplicated logic across components
 - tight coupling between UI and behavior
-
-Islands become mini frameworks instead of thin bridges.
+- non-reusable logic
 
 ### Solution
 
-Interaction islands must:
-- only bootstrap the interaction
-- call a client module (`init_all` or equivalent)
-- never implement behavior logic
-
-All interaction logic must live in:
-```
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-client/src/interactions/
-```
+All interaction logic must live in the client interaction layer.  
+The island (if present) acts only as a bootstrap trigger.
 
 ### Signals
 
-- pointer events inside island (`pointerdown`, `pointermove`, `pointerup`)
-- drag logic implemented in island
+- pointer/drag logic inside island
 - keyboard navigation logic inside island
 - layout mutation (`getBoundingClientRect`, inline styles)
-- signals controlling interaction state
-- loops managing DOM interaction state
+- state managed via signals in island
+- loops controlling interaction state
 
 ---
 

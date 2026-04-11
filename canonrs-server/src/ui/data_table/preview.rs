@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::data_table_island::DataTableIsland;
-use super::data_table_ui::{DataTableColumn, RowAction};
+use super::data_table_ui::{DataTableColumn, RowAction, BulkAction};
 
 #[component]
 pub fn DataTableStaticShowcasePreview() -> impl IntoView {
@@ -34,10 +34,15 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
                     show_density=true
                     selectable=true
                     row_actions=vec![
+                        RowAction::new("edit", "Edit").inline(),
                         RowAction::new("view", "View"),
-                        RowAction::new("edit", "Edit"),
                         RowAction::new("duplicate", "Duplicate"),
                         RowAction::new("delete", "Delete").danger(),
+                    ]
+                    bulk_actions=vec![
+                        BulkAction::new("export", "Export"),
+                        BulkAction::new("archive", "Archive"),
+                        BulkAction::new("delete", "Delete").danger(),
                     ]
                 />
             </div>
