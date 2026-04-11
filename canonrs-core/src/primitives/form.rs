@@ -70,6 +70,8 @@ pub fn FormPrimitive(
     view! {
         <form
             data-rs-form=""
+            data-rs-uid=crate::infra::uid::generate("fo")
+            data-rs-interaction="init"
             data-rs-component="Form"
             data-rs-behavior="form"
             data-rs-state=v.data_rs_state

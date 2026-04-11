@@ -57,6 +57,8 @@ pub fn StatusDotPrimitive(
     view! {
         <span
             data-rs-status-dot=""
+            data-rs-uid=crate::infra::uid::generate("sd")
+            data-rs-interaction="init"
             data-rs-component="StatusDot"
             data-rs-behavior="indicator"
             data-rs-variant=variant.as_str()

@@ -15,6 +15,8 @@ pub fn MenuPrimitive(
     view! {
         <nav
             data-rs-menu=""
+            data-rs-uid=crate::infra::uid::generate("mn")
+            data-rs-interaction="init"
             data-rs-component="Menu"
             data-rs-behavior="navigation"
             aria-label=aria_label

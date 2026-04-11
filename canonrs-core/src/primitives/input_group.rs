@@ -14,6 +14,8 @@ pub fn InputGroupPrimitive(
     view! {
         <div
             data-rs-input-group=""
+            data-rs-uid=crate::infra::uid::generate("ig")
+            data-rs-interaction="init"
             data-rs-component="InputGroup"
             data-rs-behavior="input-group"
             data-rs-state={if merge_radius == ToggleState::On { Some("merge-radius") } else { None }}

@@ -41,6 +41,8 @@ pub fn FieldPrimitive(
     view! {
         <div
             data-rs-field=""
+            data-rs-uid=crate::infra::uid::generate("fi")
+            data-rs-interaction="init"
             data-rs-component="Field"
             data-rs-behavior="form"
             data-rs-state=validation.as_str()

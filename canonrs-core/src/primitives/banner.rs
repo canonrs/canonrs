@@ -51,6 +51,8 @@ pub fn BannerPrimitive(
     view! {
         <div
             data-rs-banner=""
+            data-rs-uid=crate::infra::uid::generate("bn")
+            data-rs-interaction="init"
             data-rs-component="Banner"
             data-rs-behavior="notification"
             data-rs-variant=variant.as_str()

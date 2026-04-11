@@ -21,6 +21,8 @@ pub fn InputOtpPrimitive(
     view! {
         <input
             data-rs-input-otp=""
+            data-rs-uid=crate::infra::uid::generate("otp")
+            data-rs-interaction="init"
             data-rs-component="InputOtp"
             data-rs-behavior="form"
             data-rs-disabled=d.data_rs_disabled

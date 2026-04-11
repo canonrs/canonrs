@@ -60,6 +60,8 @@ pub fn AnimatePrimitive(
     view! {
         <div
             data-rs-animate=""
+            data-rs-uid=crate::infra::uid::generate("an")
+            data-rs-interaction="init"
             data-rs-component="Animate"
             data-rs-behavior="animation"
             data-rs-animation=animation.as_str()

@@ -21,6 +21,8 @@ pub fn NavItemPrimitive(
     view! {
         <a
             data-rs-nav-item=""
+            data-rs-uid=crate::infra::uid::generate("ni")
+            data-rs-interaction="init"
             data-rs-component="NavItem"
             data-rs-behavior="navigation"
             data-rs-state=a.data_rs_state

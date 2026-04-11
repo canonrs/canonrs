@@ -15,6 +15,8 @@ pub fn ProgressPrimitive(
     view! {
         <div
             data-rs-progress=""
+            data-rs-uid=crate::infra::uid::generate("pr")
+            data-rs-interaction="init"
             data-rs-component="Progress"
             data-rs-behavior="feedback"
             role="progressbar"

@@ -47,6 +47,8 @@ pub fn LoadingOverlayPrimitive(
             </div>
             <div
                 data-rs-loading-overlay=""
+                data-rs-uid=crate::infra::uid::generate("lo")
+                data-rs-interaction="init"
                 aria-hidden=overlay_aria_hidden
                 aria-live="polite"
             >

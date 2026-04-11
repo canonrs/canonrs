@@ -51,6 +51,8 @@ pub fn TocPrimitive(
     view! {
         <nav
             data-rs-toc=""
+            data-rs-uid=crate::infra::uid::generate("toc")
+            data-rs-interaction="init"
             data-rs-component="TableOfContents"
             data-rs-behavior="navigation"
             data-rs-mode=mode.as_str()

@@ -29,6 +29,8 @@ pub fn DocProgressPrimitive(
     view! {
         <div
             data-rs-doc-progress=""
+            data-rs-uid=crate::infra::uid::generate("dp")
+            data-rs-interaction="init"
             data-rs-component="DocProgress"
             data-rs-behavior="progress"
             data-rs-progress=progress_str.clone()

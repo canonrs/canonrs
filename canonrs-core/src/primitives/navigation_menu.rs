@@ -14,6 +14,8 @@ pub fn NavigationMenuPrimitive(
     view! {
         <nav
             data-rs-navigation-menu=""
+            data-rs-uid=crate::infra::uid::generate("nm")
+            data-rs-interaction="init"
             data-rs-component="NavigationMenu"
             data-rs-behavior="navigation"
             class=class

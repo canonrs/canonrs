@@ -16,6 +16,8 @@ pub fn CommandPrimitive(
     view! {
         <div
             data-rs-command=""
+            data-rs-uid=crate::infra::uid::generate("cmd")
+            data-rs-interaction="init"
             data-rs-component="Command"
             data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state

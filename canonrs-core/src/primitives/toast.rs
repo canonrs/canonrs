@@ -86,6 +86,8 @@ pub fn ToastPrimitive(
     view! {
         <div
             data-rs-toast=""
+            data-rs-uid=crate::infra::uid::generate("ts")
+            data-rs-interaction="init"
             data-rs-component="Toast"
             data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
