@@ -87,7 +87,7 @@
   background: color-mix(in srgb, var(--theme-action-accent-bg) 8%, transparent);
 }
 
-[data-rs-table-cell][data-rs-state~="copied"]::after {
+[data-rs-table-cell][data-rs-copied="true"]::after {
   content: "Copied!";
   position: absolute;
   top: 50%;
