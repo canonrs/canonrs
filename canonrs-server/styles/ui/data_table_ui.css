@@ -351,7 +351,7 @@
   color: var(--theme-action-accent-fg);
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-xs);
-  animation: bulk-bar-in var(--motion-duration-fast) var(--motion-easing-default);
+  animation: bulk-bar-in var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-rs-datatable-bulk-bar][hidden] {
@@ -364,7 +364,7 @@
 }
 
 [data-rs-datatable-bulk-count] {
-  font-size: var(--text-sm);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   min-width: 6rem;
 }
@@ -383,7 +383,7 @@
   background: transparent;
   color: var(--theme-action-accent-fg);
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--font-size-sm);
   transition: background var(--motion-duration-fast);
 }
 
@@ -402,7 +402,7 @@
   border: none;
   color: var(--theme-action-accent-fg);
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--font-size-sm);
   opacity: 0.8;
   padding: var(--space-xs);
   border-radius: var(--radius-sm);
@@ -427,7 +427,7 @@
   border-radius: var(--radius-sm);
   color: var(--theme-text-secondary);
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--font-size-sm);
   padding: var(--space-xs) var(--space-sm);
   opacity: 0;
   transition: opacity var(--motion-duration-fast), background var(--motion-duration-fast), color var(--motion-duration-fast);
