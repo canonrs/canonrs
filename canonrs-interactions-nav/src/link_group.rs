@@ -1,33 +1,26 @@
 //! LinkGroup Interaction Engine — active state sync via data-rs-current (DOM-driven)
 
 use wasm_bindgen::JsCast;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
 use web_sys::Element;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
-    }
-}
 
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if lifecycle::is_initialized(&root) { return; }
+    lifecycle::mark_initialized(&root);
     let Ok(links) = root.query_selector_all("[data-rs-nav-item]") else { return };
     for i in 0..links.length() {
         if let Some(node) = links.item(i) {
             if let Ok(el) = node.dyn_into::<Element>() {
                 let is_active = el.get_attribute("data-rs-current").as_deref() == Some("true");
-                remove_state(&el, "active");
-                remove_state(&el, "inactive");
+                state::remove_state(&el, "active");
+                state::remove_state(&el, "inactive");
                 if is_active {
-                    add_state(&el, "active");
+                    state::add_state(&el, "active");
                     let _ = el.set_attribute("aria-current", "page");
                 } else {
-                    add_state(&el, "inactive");
+                    state::add_state(&el, "inactive");
                     let _ = el.set_attribute("aria-current", "false");
                 }
             }

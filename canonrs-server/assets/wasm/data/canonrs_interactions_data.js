@@ -358,6 +358,10 @@ function __wbg_get_imports() {
             const ret = arg0.ownerDocument;
             return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
         }, arguments); },
+        __wbg_parentElement_75863410a8617953: function() { return logError(function (arg0) {
+            const ret = arg0.parentElement;
+            return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
+        }, arguments); },
         __wbg_preventDefault_cdcfcd7e301b9702: function() { return logError(function (arg0) {
             arg0.preventDefault();
         }, arguments); },

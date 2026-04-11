@@ -18,6 +18,7 @@ web-sys = { version = "0.3", features = [
   "Location",
   "FocusEvent",
   "EventListener",
+  "HtmlInputElement",
 ] }
 js-sys = "0.3"
 wasm-bindgen-futures = "0.4"

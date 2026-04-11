@@ -1,17 +1,10 @@
 //! Pagination Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
-    }
-}
 
 
 fn get_current_page(root: &Element) -> usize {
@@ -39,13 +32,13 @@ fn set_page(root: &Element, page: usize) {
                 let link_page = el.get_attribute("data-rs-page")
                     .and_then(|s| s.parse::<usize>().ok())
                     .unwrap_or(0);
-                remove_state(&el, "active");
-                remove_state(&el, "inactive");
+                state::remove_state(&el, "active");
+                state::remove_state(&el, "inactive");
                 if link_page == page {
-                    add_state(&el, "active");
+                    state::add_state(&el, "active");
                     let _ = el.set_attribute("aria-current", "page");
                 } else {
-                    add_state(&el, "inactive");
+                    state::add_state(&el, "inactive");
                     let _ = el.set_attribute("aria-current", "false");
                 }
             }
@@ -54,20 +47,20 @@ fn set_page(root: &Element, page: usize) {
 
     // update prev/next disabled state
     if let Ok(Some(prev)) = root.query_selector("[data-rs-pagination-previous]") {
-        remove_state(&prev, "disabled"); remove_state(&prev, "inactive");
-        if page <= 1 { add_state(&prev, "disabled"); let _ = prev.set_attribute("aria-disabled", "true"); }
-        else { add_state(&prev, "inactive"); let _ = prev.set_attribute("aria-disabled", "false"); }
+        state::remove_state(&prev, "disabled"); state::remove_state(&prev, "inactive");
+        if page <= 1 { state::add_state(&prev, "disabled"); let _ = prev.set_attribute("aria-disabled", "true"); }
+        else { state::add_state(&prev, "inactive"); let _ = prev.set_attribute("aria-disabled", "false"); }
     }
     if let Ok(Some(next)) = root.query_selector("[data-rs-pagination-next]") {
-        remove_state(&next, "disabled"); remove_state(&next, "inactive");
-        if page >= total { add_state(&next, "disabled"); let _ = next.set_attribute("aria-disabled", "true"); }
-        else { add_state(&next, "inactive"); let _ = next.set_attribute("aria-disabled", "false"); }
+        state::remove_state(&next, "disabled"); state::remove_state(&next, "inactive");
+        if page >= total { state::add_state(&next, "disabled"); let _ = next.set_attribute("aria-disabled", "true"); }
+        else { state::add_state(&next, "inactive"); let _ = next.set_attribute("aria-disabled", "false"); }
     }
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if lifecycle::is_initialized(&root) { return; }
+    lifecycle::mark_initialized(&root);
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {

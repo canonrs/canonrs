@@ -42,4 +42,5 @@ after: |
       </AccordionItem>
     </Accordion>
   }
-island_type: init
+island_type: interaction
+ix_group: ix_nav

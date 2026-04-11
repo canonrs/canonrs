@@ -11,7 +11,7 @@ pub fn TableShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <div data-rs-table-context="">
+                <div data-rs-table-context="" data-rs-interaction="data">
                     <TableIsland hoverable=true>
                         <TableHeaderIsland>
                             <TableRowIsland>

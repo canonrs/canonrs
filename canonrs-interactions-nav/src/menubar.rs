@@ -1,17 +1,10 @@
 //! Menubar Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
-    }
-}
 
 
 fn get_menus(root: &Element) -> Vec<Element> {
@@ -27,8 +20,8 @@ fn get_menus(root: &Element) -> Vec<Element> {
 
 fn close_all(root: &Element) {
     for menu in get_menus(root) {
-        remove_state(&menu, "open");
-        add_state(&menu, "closed");
+        state::remove_state(&menu, "open");
+        state::add_state(&menu, "closed");
         if let Ok(Some(trigger)) = menu.query_selector("[data-rs-menubar-trigger]") {
             let _ = trigger.set_attribute("aria-expanded", "false");
         }
@@ -36,8 +29,8 @@ fn close_all(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if lifecycle::is_initialized(&root) { return; }
+    lifecycle::mark_initialized(&root);
     // click trigger → toggle menu
     {
         let root_cb = root.clone();
@@ -49,8 +42,8 @@ pub fn init(root: Element) {
             let is_open = menu.get_attribute("data-rs-state").map(|s| s.contains("open")).unwrap_or(false);
             close_all(&root_cb);
             if !is_open {
-                remove_state(&menu, "closed");
-                add_state(&menu, "open");
+                state::remove_state(&menu, "closed");
+                state::add_state(&menu, "open");
                 let _ = trigger.set_attribute("aria-expanded", "true");
             }
         }));

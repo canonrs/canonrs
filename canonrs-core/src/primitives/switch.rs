@@ -6,6 +6,12 @@ use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState};
 use crate::infra::state_engine::{disabled_attrs, selection_attrs};
 
+fn switch_uid() -> String {
+    use std::sync::atomic::{AtomicU32, Ordering};
+    static CTR: AtomicU32 = AtomicU32::new(0);
+    format!("sw-{}", CTR.fetch_add(1, Ordering::Relaxed))
+}
+
 #[component]
 pub fn SwitchPrimitive(
     children: Children,
@@ -21,6 +27,8 @@ pub fn SwitchPrimitive(
     view! {
         <label
             data-rs-switch=""
+            data-rs-uid=switch_uid()
+            data-rs-interaction="init"
             data-rs-component="Switch"
             data-rs-state=state
             aria-disabled=d.aria_disabled

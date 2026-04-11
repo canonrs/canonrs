@@ -74,13 +74,13 @@
     _isInitialized(el) {
       const uid = el.getAttribute('data-rs-uid');
       if (uid) return this.initializedUids.has(uid);
-      return el.hasAttribute('data-rs-initialized');
+      return false; // WASM owns initialization state
     },
 
     _markInitialized(el) {
       const uid = el.getAttribute('data-rs-uid');
       if (uid) { this.initializedUids.add(uid); return; }
-      el.setAttribute('data-rs-initialized', 'true');
+      // WASM owns data-rs-initialized — loader does not set it
     }
   };
 

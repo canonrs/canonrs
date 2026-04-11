@@ -11,24 +11,9 @@ pub fn Checkbox(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <label data-rs-checkbox-wrapper="">
-            <CheckboxPrimitive
-                checked=checked
-                disabled=disabled
-                name=name
-                class=class
-            />
-            <CheckboxIndicatorPrimitive>
-                "✓"
-            </CheckboxIndicatorPrimitive>
+        <CheckboxPrimitive checked=checked disabled=disabled name=name class=class>
+            <CheckboxIndicatorPrimitive>"✓"</CheckboxIndicatorPrimitive>
             {children()}
-        </label>
-    }
-}
-
-#[component]
-pub fn CheckboxPreview() -> impl IntoView {
-    view! {
-        <Checkbox>"Remember me"</Checkbox>
+        </CheckboxPrimitive>
     }
 }

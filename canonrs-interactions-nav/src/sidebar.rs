@@ -1,17 +1,10 @@
 //! Sidebar Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{remove_state, is_initialized, mark_initialized};
+use crate::runtime::{lifecycle, state};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
-fn add_state(el: &Element, state: &str) {
-    let current = el.get_attribute("data-rs-state").unwrap_or_default();
-    if !current.split_whitespace().any(|s| s == state) {
-        let next = if current.is_empty() { state.to_string() } else { format!("{} {}", current, state) };
-        el.set_attribute("data-rs-state", &next).ok();
-    }
-}
 
 
 fn is_expanded(root: &Element) -> bool {
@@ -23,8 +16,8 @@ fn is_pinned(root: &Element) -> bool {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if lifecycle::is_initialized(&root) { return; }
+    lifecycle::mark_initialized(&root);
     let is_rail = root.get_attribute("data-rs-variant").as_deref() == Some("rail");
 
     // restore pin from localStorage
@@ -33,8 +26,8 @@ pub fn init(root: Element) {
             if let Ok(Some(val)) = storage.get_item("sidebar-pinned") {
                 if val == "true" {
                     let _ = root.set_attribute("data-rs-pinned", "true");
-                    remove_state(&root, "collapsed");
-                    add_state(&root, "expanded");
+                    state::remove_state(&root, "collapsed");
+                    state::add_state(&root, "expanded");
                 }
             }
         }
@@ -48,11 +41,11 @@ pub fn init(root: Element) {
             if target.closest("[data-rs-sidebar-toggle]").ok().flatten().is_none() { return; }
             if is_pinned(&root_cb) { return; }
             if is_expanded(&root_cb) {
-                remove_state(&root_cb, "expanded");
-                add_state(&root_cb, "collapsed");
+                state::remove_state(&root_cb, "expanded");
+                state::add_state(&root_cb, "collapsed");
             } else {
-                remove_state(&root_cb, "collapsed");
-                add_state(&root_cb, "expanded");
+                state::remove_state(&root_cb, "collapsed");
+                state::add_state(&root_cb, "expanded");
             }
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -68,8 +61,8 @@ pub fn init(root: Element) {
             let pinned = is_pinned(&root_cb);
             let _ = root_cb.set_attribute("data-rs-pinned", if pinned { "false" } else { "true" });
             if !pinned {
-                remove_state(&root_cb, "collapsed");
-                add_state(&root_cb, "expanded");
+                state::remove_state(&root_cb, "collapsed");
+                state::add_state(&root_cb, "expanded");
             }
             if let Some(win) = web_sys::window() {
                 if let Ok(Some(storage)) = win.local_storage() {
@@ -86,8 +79,8 @@ pub fn init(root: Element) {
         {
             let root_cb = root.clone();
             let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-                remove_state(&root_cb, "collapsed");
-                add_state(&root_cb, "expanded");
+                state::remove_state(&root_cb, "collapsed");
+                state::add_state(&root_cb, "expanded");
             }));
             let _ = root.add_event_listener_with_callback("mouseenter", cb.as_ref().unchecked_ref());
             cb.forget();
@@ -96,8 +89,8 @@ pub fn init(root: Element) {
             let root_cb = root.clone();
             let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
                 if !is_pinned(&root_cb) {
-                    remove_state(&root_cb, "expanded");
-                    add_state(&root_cb, "collapsed");
+                    state::remove_state(&root_cb, "expanded");
+                    state::add_state(&root_cb, "collapsed");
                 }
             }));
             let _ = root.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref());

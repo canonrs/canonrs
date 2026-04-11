@@ -8,6 +8,7 @@ use crate::infra::state_engine::{activity_attrs, disabled_attrs};
 
 #[component]
 pub fn CheckboxPrimitive(
+    children: Children,
     #[prop(default = ActivityState::Inactive)] checked: ActivityState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] name: String,
@@ -16,19 +17,31 @@ pub fn CheckboxPrimitive(
     let a = activity_attrs(checked);
     let d = disabled_attrs(disabled);
     let is_checked = checked == ActivityState::Active;
+    let state = if disabled == DisabledState::Disabled {
+        format!("{} disabled", a.data_rs_state)
+    } else {
+        a.data_rs_state.to_string()
+    };
+
     view! {
-        <input
-            type="checkbox"
-            data-rs-checkbox-input=""
+        <label
+            data-rs-checkbox=""
+            data-rs-uid=crate::infra::uid::generate("cb")
+            data-rs-interaction="init"
             data-rs-component="Checkbox"
-            data-rs-state=format!("{} {}", a.data_rs_state, if disabled == DisabledState::Disabled { "disabled" } else { "" }).trim().to_string()
-            checked=is_checked
-            disabled=d.disabled
-            aria-checked=if is_checked { "true" } else { "false" }
+            data-rs-state=state
             aria-disabled=d.aria_disabled
-            name={if name.is_empty() { None } else { Some(name) }}
             class=class
-        />
+        >
+            <input
+                type="checkbox"
+                data-rs-checkbox-input=""
+                checked=is_checked
+                disabled=d.disabled
+                name={if name.is_empty() { None } else { Some(name) }}
+            />
+            {children()}
+        </label>
     }
 }
 

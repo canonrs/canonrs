@@ -18,6 +18,18 @@ impl TabsOrientation {
     }
 }
 
+fn tabs_uid() -> String {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static CTR: AtomicU64 = AtomicU64::new(0);
+    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
+    format!("tb-{:016x}-{:08x}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_nanos() as u64)
+            .unwrap_or(ctr),
+        ctr)
+}
+
 #[component]
 pub fn TabsPrimitive(
     children: Children,
@@ -27,6 +39,8 @@ pub fn TabsPrimitive(
     view! {
         <div
             data-rs-tabs=""
+            data-rs-uid=tabs_uid()
+            data-rs-interaction="nav"
             data-rs-component="Tabs"
             class=class
             node_ref=node_ref.unwrap_or_default()

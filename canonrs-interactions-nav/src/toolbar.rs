@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::shared::{is_initialized, mark_initialized};
+use crate::runtime::lifecycle;
 
 fn get_items(root: &Element) -> Vec<Element> {
     let mut result = Vec::new();
@@ -19,8 +19,8 @@ fn get_items(root: &Element) -> Vec<Element> {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if lifecycle::is_initialized(&root) { return; }
+    lifecycle::mark_initialized(&root);
     let is_vertical = root.get_attribute("data-rs-orientation").as_deref() == Some("vertical");
 
     // roving tabindex init

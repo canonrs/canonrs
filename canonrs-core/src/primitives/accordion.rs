@@ -17,6 +17,18 @@ impl AccordionSelection {
     }
 }
 
+fn accordion_uid() -> String {
+    use std::sync::atomic::{AtomicU64, Ordering};
+    static CTR: AtomicU64 = AtomicU64::new(0);
+    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
+    format!("ac-{:016x}-{:08x}",
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_nanos() as u64)
+            .unwrap_or(ctr),
+        ctr)
+}
+
 #[component]
 pub fn AccordionPrimitive(
     children: Children,
@@ -28,6 +40,8 @@ pub fn AccordionPrimitive(
     view! {
         <div
             data-rs-accordion=""
+            data-rs-uid=accordion_uid()
+            data-rs-interaction="nav"
             data-rs-component="Accordion"
             data-rs-selection=selection.as_str()
             data-rs-collapsible=if collapsible { "true" } else { "false" }
