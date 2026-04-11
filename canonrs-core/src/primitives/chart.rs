@@ -47,6 +47,7 @@ pub fn ChartPrimitive(
     view! {
         <div
             data-rs-chart=""
+            data-rs-uid=crate::infra::uid::generate("ch")
             data-rs-interaction="data"
             data-rs-component="Chart"
             data-rs-behavior="chart"

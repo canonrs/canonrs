@@ -29,6 +29,7 @@ pub fn SidebarPrimitive(
     view! {
         <aside
             data-rs-sidebar=""
+            data-rs-uid=crate::infra::uid::generate("sb")
             data-rs-interaction="nav"
             data-rs-component="Sidebar"
             data-rs-behavior="navigation"

@@ -26,6 +26,7 @@ pub fn SliderPrimitive(
     view! {
         <div
             data-rs-slider=""
+            data-rs-uid=crate::infra::uid::generate("sl")
             data-rs-interaction="gesture"
             data-rs-component="Slider"
             data-rs-orientation=orientation.clone()

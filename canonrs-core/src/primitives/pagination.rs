@@ -14,6 +14,7 @@ pub fn PaginationPrimitive(
     view! {
         <nav
             data-rs-pagination=""
+            data-rs-uid=crate::infra::uid::generate("pg")
             data-rs-interaction="nav"
             data-rs-component="Pagination"
             data-rs-behavior="navigation"

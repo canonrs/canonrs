@@ -28,6 +28,8 @@ pub fn ListItemPrimitive(
 ) -> impl IntoView {
     view! {
         <li data-rs-list-item=""
+            data-rs-uid=crate::infra::uid::generate("li")
+            data-rs-interaction="data"
             data-rs-interaction="data" class=class>
             {children()}
         </li>

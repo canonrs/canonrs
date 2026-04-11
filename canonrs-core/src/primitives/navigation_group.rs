@@ -13,6 +13,8 @@ pub fn NavigationGroupPrimitive(
     view! {
         <div
             data-rs-navigation-group=""
+            data-rs-uid=crate::infra::uid::generate("ng")
+            data-rs-interaction="nav"
             data-rs-component="NavigationGroup"
             data-rs-behavior="navigation"
             role="group"

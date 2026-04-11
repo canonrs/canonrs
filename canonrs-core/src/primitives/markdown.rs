@@ -18,6 +18,7 @@ pub fn MarkdownPrimitive(
         view! {
             <div
                 data-rs-markdown=""
+            data-rs-uid=crate::infra::uid::generate("md")
             data-rs-interaction="content"
                 data-rs-component="Markdown"
                 data-rs-behavior="content"

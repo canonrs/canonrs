@@ -57,6 +57,8 @@ pub fn InputPrimitive(
     view! {
         <input
             data-rs-input=""
+            data-rs-uid=crate::infra::uid::generate("inp")
+            data-rs-interaction="init"
             data-rs-component="Input"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()

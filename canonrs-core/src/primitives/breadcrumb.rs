@@ -14,6 +14,7 @@ pub fn BreadcrumbPrimitive(
     view! {
         <nav
             data-rs-breadcrumb=""
+            data-rs-uid=crate::infra::uid::generate("bc")
             data-rs-interaction="nav"
             data-rs-component="Breadcrumb"
             data-rs-behavior="navigation"
