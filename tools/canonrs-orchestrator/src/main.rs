@@ -16,7 +16,7 @@ fn root() -> PathBuf {
 fn build_group(root: &PathBuf, group: &str) {
     let crate_path = root.join(format!("packages-rust/rs-canonrs/canonrs-interactions-{}", group));
     let out_dir    = crate_path.join(format!("dist/{}", group));
-    let dest       = root.join(format!("packages-rust/rs-canonrs/canonrs-server/assets/wasm/{}", group));
+    let dest       = root.join(format!("packages-rust/rs-canonrs/canonrs-client/assets/wasm/{}", group));
 
     std::fs::create_dir_all(&dest).ok();
 
@@ -47,7 +47,7 @@ fn generate_bundle_zip(root: &PathBuf) {
     std::fs::create_dir_all(&wasm_dir).ok();
 
     // copia wasm assets
-    let assets = root.join("packages-rust/rs-canonrs/canonrs-server/assets/wasm");
+    let assets = root.join("packages-rust/rs-canonrs/canonrs-client/assets/wasm");
     if let Ok(groups) = std::fs::read_dir(&assets) {
         for group in groups.filter_map(|e| e.ok()) {
             let group_dest = wasm_dir.join(group.file_name());

@@ -30,7 +30,7 @@ canonrs_interactions_{group}.js       ← JS glue (wasm-bindgen)
 canonrs_interactions_{group}_bg.wasm  ← binário WASM
 
 Os arquivos são copiados para:
-canonrs-server/assets/wasm/{group}/
+canonrs-client/assets/wasm/{group}/
 
 O Leptos serve esses assets em `/wasm/{group}/`.
 

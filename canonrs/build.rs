@@ -136,7 +136,7 @@ fn generate_bundle_zip(rs_canonrs: &std::path::Path, groups: &[&str]) {
 
     // copia wasm assets
     let assets = rs_canonrs.parent().unwrap().parent().unwrap()
-        .join("packages-rust/rs-canonrs/canonrs-server/assets/wasm");
+        .join("packages-rust/rs-canonrs/canonrs-client/assets/wasm");
     for group in groups {
         let src = assets.join(group);
         let dst = wasm_dir.join(group);
