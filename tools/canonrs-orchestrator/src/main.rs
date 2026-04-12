@@ -20,18 +20,54 @@ fn build_group(root: &PathBuf, group: &str) {
 
     std::fs::create_dir_all(&dest).ok();
 
-    let status = Command::new("wasm-pack")
-        .args(["build", crate_path.to_str().unwrap(), "--target", "web",
-               "--out-dir", out_dir.to_str().unwrap(), "--dev"])
-        .status();
+    let release = std::env::var("CANON_RELEASE").is_ok();
+    let mut args = vec![
+        "build", crate_path.to_str().unwrap(),
+        "--target", "web",
+        "--out-dir", out_dir.to_str().unwrap(),
+    ];
+    if release { args.push("--release"); } else { args.push("--dev"); }
+
+    let status = Command::new("wasm-pack").args(&args).status();
 
     match status {
         Ok(s) if s.success() => {
             for entry in std::fs::read_dir(&out_dir).unwrap().filter_map(|e| e.ok()) {
                 let name = entry.file_name();
                 let name = name.to_str().unwrap();
-                if name.ends_with(".wasm") || (name.ends_with(".js") && !name.ends_with(".d.ts")) {
-                    std::fs::copy(entry.path(), dest.join(name)).ok();
+                if name.ends_with(".d.ts") { continue; }
+                if name.ends_with(".wasm") || name.ends_with(".js") {
+                    let dest_file = dest.join(name);
+                    std::fs::copy(entry.path(), &dest_file).ok();
+
+                    // wasm-opt -Oz para release
+                    if release && name.ends_with(".wasm") {
+                        let opt_out = dest.join(format!("{}.opt.wasm", &name[..name.len()-5]));
+                        let ok = Command::new("wasm-opt")
+                            .args(["-Oz", "--enable-bulk-memory",
+                                   dest_file.to_str().unwrap(),
+                                   "-o", opt_out.to_str().unwrap()])
+                            .status()
+                            .map(|s| s.success())
+                            .unwrap_or(false);
+                        if ok {
+                            std::fs::rename(&opt_out, &dest_file).ok();
+                            println!("[canon] wasm-opt: {}", name);
+                        }
+                    }
+
+                    // gzip
+                    if release {
+                        let gz = dest.join(format!("{}.gz", name));
+                        Command::new("gzip")
+                            .args(["-9", "-k", "-f", dest_file.to_str().unwrap()])
+                            .status().ok();
+                        let _ = gz;
+                        // brotli
+                        Command::new("brotli")
+                            .args(["-9", "-f", "-k", dest_file.to_str().unwrap()])
+                            .status().ok();
+                    }
                 }
             }
             println!("[canon] built: {}", group);
