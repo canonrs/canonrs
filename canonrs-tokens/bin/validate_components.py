@@ -557,17 +557,17 @@ def validate(component, declared):
     seen    = set()
     used_set = set(vars_used)
 
-    # CR-338: island_type obrigatorio
-    island_type = component.get("island_type", "")
-    valid_island_types = ["passthrough", "init", "interaction"]
-    if not island_type:
-        errors.append(f"[CR-338] {component['id']} -- island_type ausente no builder.yaml (passthrough | init | interaction)")
-    elif island_type not in valid_island_types:
-        errors.append(f"[CR-338] {component['id']} -- island_type invalido: '{island_type}' -- esperado: passthrough | init | interaction")
+    # CR-338: boundary_type obrigatorio
+    boundary_type = component.get("boundary_type", "")
+    valid_boundary_types = ["passthrough", "init", "interaction"]
+    if not boundary_type:
+        errors.append(f"[CR-338] {component['id']} -- boundary_type ausente no builder.yaml (passthrough | init | interaction)")
+    elif boundary_type not in valid_boundary_types:
+        errors.append(f"[CR-338] {component['id']} -- boundary_type invalido: '{boundary_type}' -- esperado: passthrough | init | interaction")
 
-    # CR-338: validar estrutura do island conforme island_type
+    # CR-338: validar estrutura do island conforme boundary_type
     island_file = component.get("island", "")
-    if island_type and island_file:
+    if boundary_type and island_file:
         import glob as _glob
         matches = _glob.glob(f"{ISLAND_DIR}/**/{island_file}", recursive=True)
         if not matches:
@@ -575,13 +575,13 @@ def validate(component, declared):
         else:
             with open(matches[0]) as _f:
                 island_src = _f.read()
-            if island_type == "passthrough":
+            if boundary_type == "passthrough":
                 if "#[island]" in island_src:
-                    errors.append(f"[CR-338] {component['id']} -- island_type=passthrough mas '{island_file}' contem #[island]\n             fix: troque #[island] por #[component] em {ISLAND_DIR}/{component['id']}/{island_file}")
-            elif island_type == "init":
+                    errors.append(f"[CR-338] {component['id']} -- boundary_type=passthrough mas '{island_file}' contem #[island]\n             fix: troque #[island] por #[component] em {ISLAND_DIR}/{component['id']}/{island_file}")
+            elif boundary_type == "init":
                 if "#[island]" in island_src:
-                    errors.append("[CR-338] " + component['id'] + " -- island_type=init mas island_file contem #[island] -- fix: use #[component]")
-            elif island_type == "interaction":
+                    errors.append("[CR-338] " + component['id'] + " -- boundary_type=init mas island_file contem #[island] -- fix: use #[component]")
+            elif boundary_type == "interaction":
                 pass  # interaction: #[component] correto, nao #[island] — CR-338 v2.1.0
                 _iid = component['id'].replace("-", "_")
                 interaction_file = os.path.join(INTERACTIONS_DIR, f"{_iid}.rs")
@@ -767,7 +767,7 @@ def _ast_walk(node, callback, results):
         _ast_walk(child, callback, results)
 
 
-def check_island_ast(island_file, island_dir, island_type="state"):
+def check_island_ast(island_file, island_dir, boundary_type="state"):
     """AST-level validation — zero falso positivo/negativo"""
     import glob as _glob
     errors = []
@@ -835,7 +835,7 @@ def check_island_ast(island_file, island_dir, island_type="state"):
     _ast_walk(root, collect, None)
 
     # CR-333 AST: DOM → SIGNAL proibido (mantido)
-    if island_type != "observer":
+    if boundary_type != "observer":
         for (line, call) in set_calls:
             for var in dom_vars:
                 if var in call:
@@ -859,7 +859,7 @@ def check_island_ast(island_file, island_dir, island_type="state"):
     return errors
 
 
-def check_island_full(island_file, island_dir, component, island_type="state"):
+def check_island_full(island_file, island_dir, component, boundary_type="state"):
     """LEI IMUTAVEL — validacao completa de island (CR-330 a CR-342)"""
     import re as _re
     import glob as _glob
@@ -972,7 +972,7 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
         for i, line in enumerate(lines, 1):
             if line.strip().startswith("//"): continue
             if pattern in line:
-                if island_type == "observer" and pattern == "set_attribute":
+                if boundary_type == "observer" and pattern == "set_attribute":
                     block_ctx = "\n".join(lines[max(0,i-100):i])
                     if is_observer_context(block_ctx):
                         continue
@@ -1022,9 +1022,9 @@ def check_island_full(island_file, island_dir, component, island_type="state"):
         with open(preview_matches[0]) as pf:
             preview_content = pf.read()
         # verificar se preview importa island
-        has_island_import = bool(_re343.search(r'use.*[Ii]sland', preview_content))
+        has_island_import = bool(_re343.search(r'use.*([Ii]sland|[Bb]oundary)', preview_content))
         # verificar se preview usa island no hero stage
-        has_island_in_hero = bool(_re343.search(r'<[A-Z]\w*Island', preview_content))
+        has_island_in_hero = bool(_re343.search(r'<[A-Z]\w*(Island|Boundary)', preview_content)) or bool(_re343.search(r'use.*boundary', preview_content))
         if not has_island_import and not has_island_in_hero:
             errors.append(f"[CR-343] preview.rs -- preview NAO usa island\n            preview DEVE usar island no hero stage, nao UI diretamente")
         elif has_island_import and not has_island_in_hero:
@@ -1074,7 +1074,7 @@ def parse_builder(builder_path):
     comp["why"]        = raw.get("why", "") or ""
     comp["badges"]     = raw.get("badges", []) or []
     comp["rules"]      = raw.get("rules", []) or []
-    comp["island_type"]   = raw.get("island_type", "") or ""
+    comp["boundary_type"]   = raw.get("boundary_type", "") or ""
 
     # normalizar states — sempre lista
     _states = raw.get("states", [])
@@ -1187,9 +1187,9 @@ def main():
         island_file = comp.get("island", None)
         if island_file:
             island_dir = os.path.join(script_dir, ISLAND_DIR)
-            island_type = comp.get("island_type", "state")
-            errors += check_island_full(island_file, island_dir, comp["component"], island_type)
-            errors += check_island_ast(island_file, island_dir, island_type)
+            boundary_type = comp.get("boundary_type", "state")
+            errors += check_island_full(island_file, island_dir, comp["component"], boundary_type)
+            errors += check_island_ast(island_file, island_dir, boundary_type)
             css_file = os.path.join(CSS_DIR, comp["file"])
             errors += check_island_css_child_combinator(css_file)
             errors += check_hover_override_active(css_file)

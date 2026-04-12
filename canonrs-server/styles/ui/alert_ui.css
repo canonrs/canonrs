@@ -4,6 +4,7 @@
    ============================================ */
 
 [data-rs-alert] {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--alert-gap);
@@ -44,14 +45,27 @@
 }
 
 [data-rs-alert-close] {
+  position: absolute;
+  top: var(--alert-padding-y);
+  right: var(--alert-padding-x);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: var(--alert-close-size);
   height: var(--alert-close-size);
   color: var(--alert-close-fg);
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 [data-rs-alert-close]:hover {
   color: var(--alert-close-fg-hover);
+}
+
+[data-rs-alert][data-rs-state="closed"] {
+  display: none;
 }
 
 [data-rs-alert-close][disabled] {

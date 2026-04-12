@@ -21,7 +21,7 @@ file: animate_ui.css
 tokens: animate-*, motion-*, transform-*, opacity-*
 foundation: motion, interaction
 states: ["active", "inactive"]
-island: animate_island.rs
+island: animate_boundary.rs
 pillar: feedback_state
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

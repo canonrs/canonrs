@@ -11,3 +11,9 @@ Cargo.lock
 /canonrs-ui-interactive/src/blocks.future
 canonrs-server/styles/.generated/
 canonrs-server/styles/canonrs.bundle.css
+
+
+# WASM artifacts — gerados pelo orchestrator, nunca commitar
+canonrs-client/assets/wasm/
+canonrs-interactions/dist/
+canonrs-interactions-*/dist/

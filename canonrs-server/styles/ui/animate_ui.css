@@ -14,31 +14,31 @@
 }
 
 @keyframes rs-slide-in {
-  from { opacity: 0; transform: translateY(var(--animate-slide-distance, 8px)); }
+  from { opacity: 0; transform: translateY(var(--animate-slide-distance)); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes rs-slide-out {
   from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(var(--animate-slide-distance, 8px)); }
+  to   { opacity: 0; transform: translateY(var(--animate-slide-distance)); }
 }
 
 @keyframes rs-scale-in {
-  from { opacity: 0; transform: scale(var(--animate-scale-from, 0.95)); }
+  from { opacity: 0; transform: scale(var(--animate-scale-from)); }
   to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes rs-scale-out {
   from { opacity: 1; transform: scale(1); }
-  to   { opacity: 0; transform: scale(var(--animate-scale-from, 0.95)); }
+  to   { opacity: 0; transform: scale(var(--animate-scale-from)); }
 }
 
 /* Base — sem animacao ate ativar */
 [data-rs-animate] {
   animation-name: none;
-  animation-duration: var(--animate-duration, 600ms);
-  animation-timing-function: var(--animate-ease, ease-in-out);
-  animation-delay: var(--animate-delay, 0ms);
+  animation-duration: var(--animate-duration);
+  animation-timing-function: var(--animate-ease);
+  animation-delay: var(--animate-delay);
   animation-fill-mode: both;
   animation-iteration-count: 1;
 }
@@ -62,6 +62,11 @@
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-duration: var(--motion-duration-slow);
+}
+
+/* Inactive — para animacao */
+[data-rs-animate][data-rs-state~="inactive"] {
+  animation-name: none;
 }
 
 /* Reduced motion */
