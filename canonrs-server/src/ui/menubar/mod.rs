@@ -9,5 +9,5 @@ pub use examples::*;
 
 pub use menubar_ui::MenubarPreview;
 pub use preview::MenubarShowcasePreview;
-pub mod menubar_island;
-pub use menubar_island::{MenubarIsland, MenubarMenuIsland, MenubarTriggerIsland, MenubarContentIsland, MenubarItemIsland, MenubarSeparatorIsland};
+pub mod boundary;
+pub use boundary::{Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator};

@@ -1,10 +1,10 @@
 use leptos::prelude::*;
-use super::modal_island::{
-    ModalIsland, ModalTriggerIsland, ModalOverlayIsland,
-    ModalContentIsland, ModalTitleIsland, ModalDescriptionIsland,
-    ModalCloseIsland, ModalFooterIsland,
+use super::boundary::{
+    Modal, ModalTrigger, ModalOverlay,
+    ModalContent, ModalTitle, ModalDescription,
+    ModalClose, ModalFooter,
 };
-use crate::ui::button::button_island::ButtonIsland;
+use crate::ui::button::Button;
 use canonrs_core::primitives::ButtonVariant;
 
 #[component]
@@ -12,18 +12,18 @@ pub fn ModalShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <ModalIsland>
-                    <ModalTriggerIsland>"Open Modal"</ModalTriggerIsland>
-                    <ModalOverlayIsland />
-                    <ModalContentIsland>
-                        <ModalTitleIsland>"Confirm action"</ModalTitleIsland>
-                        <ModalDescriptionIsland>"Are you sure? This action cannot be undone."</ModalDescriptionIsland>
-                        <ModalFooterIsland>
-                            <ModalCloseIsland>"Cancel"</ModalCloseIsland>
-                            <ButtonIsland variant=ButtonVariant::Primary>"Confirm"</ButtonIsland>
-                        </ModalFooterIsland>
-                    </ModalContentIsland>
-                </ModalIsland>
+                <Modal>
+                    <ModalTrigger>"Open Modal"</ModalTrigger>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalTitle>"Confirm action"</ModalTitle>
+                        <ModalDescription>"Are you sure? This action cannot be undone."</ModalDescription>
+                        <ModalFooter>
+                            <ModalClose>"Cancel"</ModalClose>
+                            <Button variant=ButtonVariant::Primary>"Confirm"</Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Modal accessibility and lifecycle enforced via primitives."
@@ -31,18 +31,18 @@ pub fn ModalShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Form dialog"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ModalIsland>
-                        <ModalTriggerIsland>"Edit profile"</ModalTriggerIsland>
-                        <ModalOverlayIsland />
-                        <ModalContentIsland>
-                            <ModalTitleIsland>"Edit profile"</ModalTitleIsland>
-                            <ModalDescriptionIsland>"Update your profile information below."</ModalDescriptionIsland>
-                            <ModalFooterIsland>
-                                <ModalCloseIsland>"Cancel"</ModalCloseIsland>
-                                <ButtonIsland variant=ButtonVariant::Primary>"Save changes"</ButtonIsland>
-                            </ModalFooterIsland>
-                        </ModalContentIsland>
-                    </ModalIsland>
+                    <Modal>
+                        <ModalTrigger>"Edit profile"</ModalTrigger>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalTitle>"Edit profile"</ModalTitle>
+                            <ModalDescription>"Update your profile information below."</ModalDescription>
+                            <ModalFooter>
+                                <ModalClose>"Cancel"</ModalClose>
+                                <Button variant=ButtonVariant::Primary>"Save changes"</Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
                 </div>
             </div>
         </div>

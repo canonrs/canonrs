@@ -10,5 +10,5 @@ pub use examples::*;
 
 pub use alert_dialog_ui::AlertDialogPreview;
 pub use preview::AlertDialogShowcasePreview;
-pub mod alert_dialog_island;
-pub use alert_dialog_island::AlertDialogIsland;
+pub mod boundary;
+pub use boundary::AlertDialog;

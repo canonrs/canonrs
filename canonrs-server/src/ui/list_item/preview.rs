@@ -1,25 +1,25 @@
 use leptos::prelude::*;
-use super::list_item_island::{ListIsland, ListItemIsland, ListItemTitleIsland, ListItemDescriptionIsland};
+use super::boundary::{List, ListItem, ListItemTitle, ListItemDescription};
 
 #[component]
 pub fn ListItemShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <ListIsland>
-                    <ListItemIsland>
-                        <ListItemTitleIsland>"Alice Johnson"</ListItemTitleIsland>
-                        <ListItemDescriptionIsland>"Engineer · Active"</ListItemDescriptionIsland>
-                    </ListItemIsland>
-                    <ListItemIsland>
-                        <ListItemTitleIsland>"Bob Smith"</ListItemTitleIsland>
-                        <ListItemDescriptionIsland>"Designer · Away"</ListItemDescriptionIsland>
-                    </ListItemIsland>
-                    <ListItemIsland>
-                        <ListItemTitleIsland>"Carol White"</ListItemTitleIsland>
-                        <ListItemDescriptionIsland>"Manager · Active"</ListItemDescriptionIsland>
-                    </ListItemIsland>
-                </ListIsland>
+                <List>
+                    <ListItem>
+                        <ListItemTitle>"Alice Johnson"</ListItemTitle>
+                        <ListItemDescription>"Engineer · Active"</ListItemDescription>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemTitle>"Bob Smith"</ListItemTitle>
+                        <ListItemDescription>"Designer · Away"</ListItemDescription>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemTitle>"Carol White"</ListItemTitle>
+                        <ListItemDescription>"Manager · Active"</ListItemDescription>
+                    </ListItem>
+                </List>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Selection and interaction states encoded via structured attributes."
@@ -27,20 +27,20 @@ pub fn ListItemShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Selectable"</span>
                 <div data-rs-showcase-preview-row="">
-                    <ListIsland>
-                        <ListItemIsland selectable=true>
-                            <ListItemTitleIsland>"Alice Johnson"</ListItemTitleIsland>
-                            <ListItemDescriptionIsland>"Engineer"</ListItemDescriptionIsland>
-                        </ListItemIsland>
-                        <ListItemIsland selectable=true>
-                            <ListItemTitleIsland>"Bob Smith"</ListItemTitleIsland>
-                            <ListItemDescriptionIsland>"Designer"</ListItemDescriptionIsland>
-                        </ListItemIsland>
-                        <ListItemIsland selectable=true disabled=true>
-                            <ListItemTitleIsland>"Carol White"</ListItemTitleIsland>
-                            <ListItemDescriptionIsland>"Disabled"</ListItemDescriptionIsland>
-                        </ListItemIsland>
-                    </ListIsland>
+                    <List>
+                        <ListItem selectable=true>
+                            <ListItemTitle>"Alice Johnson"</ListItemTitle>
+                            <ListItemDescription>"Engineer"</ListItemDescription>
+                        </ListItem>
+                        <ListItem selectable=true>
+                            <ListItemTitle>"Bob Smith"</ListItemTitle>
+                            <ListItemDescription>"Designer"</ListItemDescription>
+                        </ListItem>
+                        <ListItem selectable=true disabled=true>
+                            <ListItemTitle>"Carol White"</ListItemTitle>
+                            <ListItemDescription>"Disabled"</ListItemDescription>
+                        </ListItem>
+                    </List>
                 </div>
             </div>
         </div>

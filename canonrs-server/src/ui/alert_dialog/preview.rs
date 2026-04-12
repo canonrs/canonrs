@@ -1,12 +1,12 @@
 use leptos::prelude::*;
-use super::alert_dialog_island::AlertDialogIsland;
+use super::boundary::AlertDialog;
 
 #[component]
 pub fn AlertDialogShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <AlertDialogIsland
+                <AlertDialog
                     trigger_label="Delete Account"
                     title="Are you absolutely sure?"
                     description="This action cannot be undone. This will permanently delete your account."
@@ -20,7 +20,7 @@ pub fn AlertDialogShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Custom trigger"</span>
                 <div data-rs-showcase-preview-row="">
-                    <AlertDialogIsland
+                    <AlertDialog
                         trigger_label="Remove item"
                         title="Remove this item?"
                         description="This item will be permanently removed from your list."

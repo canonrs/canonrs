@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::empty_table_island::EmptyTableIsland;
+use super::boundary::EmptyTable;
 use crate::ui::table::{Table, TableHeader, TableBody, TableRow, TableHead};
 
 #[component]
@@ -7,7 +7,7 @@ pub fn EmptyTableShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <EmptyTableIsland
+                <EmptyTable
                     colspan=3u32
                     title="No data available"
                     description="Add your first item to get started."
@@ -27,7 +27,7 @@ pub fn EmptyTableShowcasePreview() -> impl IntoView {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <EmptyTableIsland
+                            <EmptyTable
                                 colspan=2u32
                                 title="No users found"
                                 description="Invite your team members to get started."

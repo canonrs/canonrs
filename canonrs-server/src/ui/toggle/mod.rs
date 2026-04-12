@@ -1,11 +1,10 @@
 pub mod toggle_ui;
-pub mod toggle_island;
+pub mod boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
 pub use toggle_ui::*;
-pub use toggle_island::*;
 #[cfg(feature = "examples")]
 pub use examples::*;
 

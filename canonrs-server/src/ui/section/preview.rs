@@ -1,7 +1,7 @@
 use leptos::prelude::*;
-use super::section_island::{
-    SectionHeaderIsland, SectionTitleIsland, SectionSubtitleIsland,
-    SectionBadgeIsland, SectionActionsIsland,
+use super::boundary::{
+    SectionHeader, SectionTitle, SectionSubtitle,
+    SectionBadge, SectionActions,
 };
 
 #[component]
@@ -9,10 +9,10 @@ pub fn SectionShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <SectionHeaderIsland>
-                    <SectionTitleIsland>"Section Title"</SectionTitleIsland>
-                    <SectionSubtitleIsland>"Section subtitle description."</SectionSubtitleIsland>
-                </SectionHeaderIsland>
+                <SectionHeader>
+                    <SectionTitle>"Section Title"</SectionTitle>
+                    <SectionSubtitle>"Section subtitle description."</SectionSubtitle>
+                </SectionHeader>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Semantic layout components for composing section headers."
@@ -20,28 +20,28 @@ pub fn SectionShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Header with badge"</span>
                 <div data-rs-showcase-preview-row="">
-                    <SectionHeaderIsland>
-                        <SectionTitleIsland>"Users"</SectionTitleIsland>
-                        <SectionBadgeIsland>"New"</SectionBadgeIsland>
-                    </SectionHeaderIsland>
+                    <SectionHeader>
+                        <SectionTitle>"Users"</SectionTitle>
+                        <SectionBadge>"New"</SectionBadge>
+                    </SectionHeader>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Header with actions"</span>
                 <div data-rs-showcase-preview-row="">
-                    <SectionHeaderIsland>
-                        <SectionTitleIsland>"Reports"</SectionTitleIsland>
-                        <SectionSubtitleIsland>"Monthly overview."</SectionSubtitleIsland>
-                        <SectionActionsIsland>
+                    <SectionHeader>
+                        <SectionTitle>"Reports"</SectionTitle>
+                        <SectionSubtitle>"Monthly overview."</SectionSubtitle>
+                        <SectionActions>
                             <span>"Export"</span>
-                        </SectionActionsIsland>
-                    </SectionHeaderIsland>
+                        </SectionActions>
+                    </SectionHeader>
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Title only"</span>
                 <div data-rs-showcase-preview-row="">
-                    <SectionTitleIsland>"Standalone Title"</SectionTitleIsland>
+                    <SectionTitle>"Standalone Title"</SectionTitle>
                 </div>
             </div>
         </div>

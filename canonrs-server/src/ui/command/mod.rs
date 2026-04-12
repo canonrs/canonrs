@@ -1,8 +1,8 @@
 pub mod command_ui;
-pub mod command_island;
+pub mod boundary;
 pub mod preview;
 pub use command_ui::*;
-pub use command_island::{CommandIsland, CommandItemIsland};
+pub use boundary::{Command, CommandItem};
 
 #[cfg(feature = "examples")]
 pub mod examples;

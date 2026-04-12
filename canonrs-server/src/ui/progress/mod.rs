@@ -1,8 +1,7 @@
 pub mod progress_ui;
 pub use progress_ui::*;
 
-pub mod progress_island;
-pub use progress_island::*;
+pub mod boundary;
 
 #[cfg(feature = "examples")]
 pub mod examples;

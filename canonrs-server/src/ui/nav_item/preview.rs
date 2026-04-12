@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::nav_item_island::NavItemIsland;
+use super::boundary::NavItem;
 
 #[component]
 pub fn NavItemShowcasePreview() -> impl IntoView {
@@ -7,10 +7,10 @@ pub fn NavItemShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;flex-direction:column;gap:var(--space-xs);">
-                    <NavItemIsland label="Dashboard" href="#" active=true />
-                    <NavItemIsland label="Components" href="#" />
-                    <NavItemIsland label="Tokens" href="#" />
-                    <NavItemIsland label="Settings" href="#" disabled=true />
+                    <NavItem label="Dashboard" href="#" active=true.into() />
+                    <NavItem label="Components" href="#" />
+                    <NavItem label="Tokens" href="#" />
+                    <NavItem label="Settings" href="#" disabled=true.into() />
                 </div>
             </div>
             <p data-rs-showcase-preview-anchor="">
@@ -19,9 +19,9 @@ pub fn NavItemShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Inactive"</span>
                 <div data-rs-showcase-preview-row="">
-                    <NavItemIsland label="Home" href="#" />
-                    <NavItemIsland label="About" href="#" />
-                    <NavItemIsland label="Contact" href="#" />
+                    <NavItem label="Home" href="#" />
+                    <NavItem label="About" href="#" />
+                    <NavItem label="Contact" href="#" />
                 </div>
             </div>
         </div>

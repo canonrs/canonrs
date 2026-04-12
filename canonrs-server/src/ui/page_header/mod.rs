@@ -10,5 +10,4 @@ pub use page_header_ui::PageHeaderPreview;
 
 pub mod preview;
 pub use preview::PageHeaderShowcasePreview;
-pub mod page_header_island;
-pub use page_header_island::*;
+pub mod boundary;

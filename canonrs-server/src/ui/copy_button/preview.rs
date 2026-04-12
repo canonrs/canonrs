@@ -1,12 +1,12 @@
 use leptos::prelude::*;
-use super::copy_button_island::CopyButtonIsland;
+use super::boundary::CopyButton;
 
 #[component]
 pub fn CopyButtonShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <CopyButtonIsland
+                <CopyButton
                     text="cargo add canonrs"
                     aria_label="Copy to clipboard"
                 />
@@ -18,11 +18,11 @@ pub fn CopyButtonShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States (idle → copied → reset)"</span>
                 <div data-rs-showcase-preview-row="">
-                    <CopyButtonIsland
+                    <CopyButton
                         text="npm install react"
                         aria_label="Copy npm"
                     />
-                    <CopyButtonIsland
+                    <CopyButton
                         text="cargo add leptos"
                         aria_label="Copy cargo"
                     />
@@ -32,7 +32,7 @@ pub fn CopyButtonShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Error state (no text)"</span>
                 <div data-rs-showcase-preview-row="">
-                    <CopyButtonIsland
+                    <CopyButton
                         aria_label="Copy empty"
                     />
                 </div>

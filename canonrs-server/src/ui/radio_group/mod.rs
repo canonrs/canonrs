@@ -1,12 +1,12 @@
 pub mod radio_group_ui;
-pub mod radio_group_island;
+pub mod boundary;
 pub mod preview;
 
 #[cfg(feature = "examples")]
 pub mod examples;
 
 pub use radio_group_ui::*;
-pub use radio_group_island::{RadioGroupIsland, RadioIsland, RadioGroupItemIsland};
+pub use boundary::{RadioGroup, Radio, RadioGroupItem};
 
 #[cfg(feature = "examples")]
 pub use examples::*;

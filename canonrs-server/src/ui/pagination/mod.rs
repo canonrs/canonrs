@@ -9,5 +9,5 @@ pub use examples::*;
 
 pub use pagination_ui::PaginationPreview;
 pub use preview::PaginationShowcasePreview;
-pub mod pagination_island;
-pub use pagination_island::{PaginationIsland, PaginationContentIsland, PaginationItemIsland, PaginationLinkIsland, PaginationPreviousIsland, PaginationNextIsland, PaginationEllipsisIsland};
+pub mod boundary;
+pub use boundary::{Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis};

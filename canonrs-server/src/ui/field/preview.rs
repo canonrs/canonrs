@@ -1,8 +1,7 @@
+use crate::ui::input::boundary::Input;
 use leptos::prelude::*;
 use super::field_ui::{Field, FieldLabel, FieldDescription, FieldError, FieldSet, FieldGroup, FieldContent};
 use super::variants::{FieldOrientation, FieldValidation};
-use crate::ui::input::input_island::InputIsland;
-use crate::ui::input::Input;
 
 #[component]
 pub fn FieldShowcasePreview() -> impl IntoView {
@@ -15,7 +14,7 @@ pub fn FieldShowcasePreview() -> impl IntoView {
                             <FieldLabel html_for="field-email"><span>{"Email"}</span></FieldLabel>
                             <FieldDescription><span>{"Enter your email address."}</span></FieldDescription>
                             <FieldContent>
-                                <InputIsland placeholder="john@example.com" />
+                                <Input placeholder="john@example.com" />
                             </FieldContent>
                         </Field>
                     </FieldGroup>

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::popover_island::{PopoverIsland, PopoverTriggerIsland, PopoverContentIsland};
+use super::boundary::{Popover, PopoverTrigger, PopoverContent};
 use canonrs_core::primitives::PopoverSide;
 
 #[component]
@@ -7,12 +7,12 @@ pub fn PopoverShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <PopoverIsland>
-                    <PopoverTriggerIsland>"Open Popover"</PopoverTriggerIsland>
-                    <PopoverContentIsland>
+                <Popover>
+                    <PopoverTrigger>"Open Popover"</PopoverTrigger>
+                    <PopoverContent>
                         <p>"This is a popover. Click outside to close."</p>
-                    </PopoverContentIsland>
-                </PopoverIsland>
+                    </PopoverContent>
+                </Popover>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Popover with keyboard and click-outside dismiss."
@@ -20,18 +20,18 @@ pub fn PopoverShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Sides"</span>
                 <div data-rs-showcase-preview-row="">
-                    <PopoverIsland>
-                        <PopoverTriggerIsland>"Bottom"</PopoverTriggerIsland>
-                        <PopoverContentIsland side=PopoverSide::Bottom>"Opens below"</PopoverContentIsland>
-                    </PopoverIsland>
-                    <PopoverIsland>
-                        <PopoverTriggerIsland>"Top"</PopoverTriggerIsland>
-                        <PopoverContentIsland side=PopoverSide::Top>"Opens above"</PopoverContentIsland>
-                    </PopoverIsland>
-                    <PopoverIsland>
-                        <PopoverTriggerIsland>"Right"</PopoverTriggerIsland>
-                        <PopoverContentIsland side=PopoverSide::Right>"Opens right"</PopoverContentIsland>
-                    </PopoverIsland>
+                    <Popover>
+                        <PopoverTrigger>"Bottom"</PopoverTrigger>
+                        <PopoverContent side=PopoverSide::Bottom>"Opens below"</PopoverContent>
+                    </Popover>
+                    <Popover>
+                        <PopoverTrigger>"Top"</PopoverTrigger>
+                        <PopoverContent side=PopoverSide::Top>"Opens above"</PopoverContent>
+                    </Popover>
+                    <Popover>
+                        <PopoverTrigger>"Right"</PopoverTrigger>
+                        <PopoverContent side=PopoverSide::Right>"Opens right"</PopoverContent>
+                    </Popover>
                 </div>
             </div>
         </div>

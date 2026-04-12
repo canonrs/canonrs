@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::doc_progress_island::DocProgressSlotIsland;
+use super::boundary::DocProgressSlot;
 use crate::ui::scroll_area::scroll_area_ui::ScrollArea;
 
 #[component]
@@ -11,7 +11,7 @@ pub fn DocProgressShowcasePreview() -> impl IntoView {
             </p>
             <div data-rs-showcase-preview-stage="">
                 <div style="position:relative;width:100%;height:400px;border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);overflow:hidden;">
-                    <DocProgressSlotIsland
+                    <DocProgressSlot
                         scroll_target="doc-progress-viewport"
                         position="top"
                     />

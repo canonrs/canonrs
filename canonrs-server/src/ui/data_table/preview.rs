@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::data_table_island::DataTableIsland;
+use super::boundary::DataTable;
 use super::data_table_ui::{DataTableColumn, RowAction, BulkAction};
 
 #[component]
@@ -27,7 +27,7 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <DataTableIsland
+                <DataTable
                     data=data
                     columns=columns
                     page_size=5

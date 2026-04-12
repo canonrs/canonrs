@@ -10,5 +10,4 @@ pub use aspect_ratio_ui::AspectRatioPreview;
 
 pub mod preview;
 pub use preview::AspectRatioShowcasePreview;
-pub mod aspect_ratio_island;
-pub use aspect_ratio_island::*;
+pub mod boundary;

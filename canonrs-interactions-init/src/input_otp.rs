@@ -8,8 +8,9 @@ use crate::runtime::{lifecycle, query};
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
+    let root_cb = root.clone();
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-        if let Some(input) = query::first(&root, "[data-rs-input-otp]") {
+        if let Some(input) = query::first(&root_cb, "[data-rs-input-otp]") {
             if let Ok(el) = input.dyn_into::<web_sys::HtmlInputElement>() {
                 let _ = el.focus();
             }

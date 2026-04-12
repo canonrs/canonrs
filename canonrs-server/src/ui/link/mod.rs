@@ -1,8 +1,8 @@
 pub mod link_ui;
 pub use link_ui::*;
 
-pub mod link_island;
-pub use link_island::LinkIsland;
+pub mod boundary;
+pub use boundary::Link;
 pub use canonrs_core::primitives::LinkVariant;
 
 pub const EXAMPLES: &str = include_str!("examples.rs");

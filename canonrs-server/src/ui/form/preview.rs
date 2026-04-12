@@ -1,31 +1,29 @@
 use leptos::prelude::*;
 use super::form_ui::{Form, FormActions, FormSection, FormField, FormLabel, FormHint, FormError, FieldValidationState, FormValidationState};
-use super::form_island::FormIsland;
 use crate::ui::button::button_ui::Button;
 use crate::ui::input::Input;
-use crate::ui::input::input_island::InputIsland;
 
 #[component]
 pub fn FormShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <FormIsland>
+                <Form>
                     <FormSection>
                         <FormField>
                             <FormLabel html_for="name" required=true><span>{"Full name"}</span></FormLabel>
                             <FormHint><span>{"Your full legal name."}</span></FormHint>
-                            <InputIsland placeholder="John Doe" />
+                            <Input placeholder="John Doe" />
                         </FormField>
                         <FormField>
                             <FormLabel html_for="email"><span>{"Email"}</span></FormLabel>
-                            <InputIsland placeholder="john@example.com" />
+                            <Input placeholder="john@example.com" />
                         </FormField>
                     </FormSection>
                     <FormActions>
                         <Button><span>{"Submit"}</span></Button>
                     </FormActions>
-                </FormIsland>
+                </Form>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 <span>{"Form lifecycle and validation state enforced at container level."}</span>

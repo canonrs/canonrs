@@ -1,7 +1,8 @@
 use leptos::prelude::*;
-use super::markdown_island::MarkdownSurfaceIsland;
+use super::markdown_ui::TocPosition;
+use super::boundary::MarkdownSurface;
 use super::render_markdown;
-use crate::ui::scroll_area::scroll_area_island::ScrollAreaIsland;
+use crate::ui::scroll_area::ScrollArea;
 
 #[component]
 pub fn MarkdownShowcasePreview() -> impl IntoView {
@@ -44,28 +45,28 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
                     <div style="height:400px;display:flex;flex-direction:column;">
                         <span data-rs-showcase-preview-label="">"With Table of Contents"</span>
                         <div style="flex:1;min-height:0;">
-                            <ScrollAreaIsland>
-                                <MarkdownSurfaceIsland
+                            <ScrollArea>
+                                <MarkdownSurface
                                     rendered=rendered_toc
                                     show_toc=true
                                     show_toolbar=false
-                                    toc_position="sidebar"
+                                    toc_position=TocPosition::Sidebar
                                     id="md-preview-toc"
                                 />
-                            </ScrollAreaIsland>
+                            </ScrollArea>
                         </div>
                     </div>
                     <div style="height:400px;display:flex;flex-direction:column;">
                         <span data-rs-showcase-preview-label="">"Only Markdown"</span>
                         <div style="flex:1;min-height:0;">
-                            <ScrollAreaIsland>
-                                <MarkdownSurfaceIsland
+                            <ScrollArea>
+                                <MarkdownSurface
                                     rendered=rendered_plain
                                     show_toc=false
                                     show_toolbar=false
                                     id="md-preview-plain"
                                 />
-                            </ScrollAreaIsland>
+                            </ScrollArea>
                         </div>
                     </div>
                 </div>

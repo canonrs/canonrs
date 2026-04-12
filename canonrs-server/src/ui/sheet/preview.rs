@@ -1,12 +1,12 @@
 use leptos::prelude::*;
-use super::sheet_island::SheetIsland;
+use super::boundary::Sheet;
 
 #[component]
 pub fn SheetShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <SheetIsland
+                <Sheet
                     trigger_label="Open Sheet"
                     title="Sheet Title"
                     description="Sheet slides in from the right. Visibility fully governed via shared state."
@@ -19,7 +19,7 @@ pub fn SheetShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Settings panel"</span>
                 <div data-rs-showcase-preview-row="">
-                    <SheetIsland
+                    <Sheet
                         trigger_label="Open settings"
                         title="Settings"
                         description="Manage your account settings and preferences."

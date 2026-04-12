@@ -1,9 +1,9 @@
 pub mod alert_ui;
-pub mod alert_island;
+pub mod boundary;
 pub mod preview;
 
 pub use alert_ui::*;
-pub use alert_island::AlertIsland;
+pub use boundary::Alert;
 pub use canonrs_core::primitives::AlertVariant;
 
 #[cfg(feature = "examples")]

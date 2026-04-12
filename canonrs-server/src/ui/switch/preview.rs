@@ -1,13 +1,13 @@
 use leptos::prelude::*;
-use super::switch_island::SwitchIsland;
+use super::boundary::Switch;
 
 #[component]
 pub fn SwitchShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <SwitchIsland />
-                <SwitchIsland checked=true />
+                <Switch />
+                <Switch checked=true />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Toggle state mapped directly to DOM and interaction state."
@@ -15,10 +15,10 @@ pub fn SwitchShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States"</span>
                 <div data-rs-showcase-preview-row="">
-                    <SwitchIsland />
-                    <SwitchIsland checked=true />
-                    <SwitchIsland disabled=true />
-                    <SwitchIsland checked=true disabled=true />
+                    <Switch />
+                    <Switch checked=true />
+                    <Switch disabled=true />
+                    <Switch checked=true disabled=true />
                 </div>
             </div>
         </div>

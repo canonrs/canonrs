@@ -1,18 +1,18 @@
 use leptos::prelude::*;
-use super::link_group_island::LinkGroupIsland;
-use crate::ui::nav_item::nav_item_island::NavItemIsland;
+use super::boundary::LinkGroup;
+use crate::ui::nav_item::NavItem;
 
 #[component]
 pub fn LinkGroupShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <LinkGroupIsland label=std::sync::Arc::new(|| view! { "Product" }.into_any())>
-                    <NavItemIsland label="Features" href="/features" active=true />
-                    <NavItemIsland label="Pricing" href="/pricing" />
-                    <NavItemIsland label="Changelog" href="/changelog" />
-                    <NavItemIsland label="Roadmap" href="/roadmap" />
-                </LinkGroupIsland>
+                <LinkGroup label=std::sync::Arc::new(|| view! { "Product" }.into_any())>
+                    <NavItem label="Features" href="/features" active=true.into() />
+                    <NavItem label="Pricing" href="/pricing" />
+                    <NavItem label="Changelog" href="/changelog" />
+                    <NavItem label="Roadmap" href="/roadmap" />
+                </LinkGroup>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Grouped navigation structured with direction and labeling contract."

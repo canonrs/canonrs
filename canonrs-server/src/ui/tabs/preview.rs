@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::tabs_island::{TabsRootIsland, TabsTriggerIsland, TabsContentIsland};
+use super::boundary::{TabsRoot, TabsTrigger, TabsContent};
 use super::tabs_ui::TabsList;
 
 #[component]
@@ -7,16 +7,16 @@ pub fn TabsShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <TabsRootIsland>
+                <TabsRoot>
                     <TabsList>
-                        <TabsTriggerIsland value="overview">"Overview"</TabsTriggerIsland>
-                        <TabsTriggerIsland value="api">"API"</TabsTriggerIsland>
-                        <TabsTriggerIsland value="examples">"Examples"</TabsTriggerIsland>
+                        <TabsTrigger value="overview">"Overview"</TabsTrigger>
+                        <TabsTrigger value="api">"API"</TabsTrigger>
+                        <TabsTrigger value="examples">"Examples"</TabsTrigger>
                     </TabsList>
-                    <TabsContentIsland value="overview">"Overview content — structure drives state."</TabsContentIsland>
-                    <TabsContentIsland value="api">"API reference content."</TabsContentIsland>
-                    <TabsContentIsland value="examples">"Examples content."</TabsContentIsland>
-                </TabsRootIsland>
+                    <TabsContent value="overview">"Overview content — structure drives state."</TabsContent>
+                    <TabsContent value="api">"API reference content."</TabsContent>
+                    <TabsContent value="examples">"Examples content."</TabsContent>
+                </TabsRoot>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Tab selection governed by DOM — SSR-safe, hydration-safe."
@@ -24,16 +24,16 @@ pub fn TabsShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"With disabled tab"</span>
                 <div data-rs-showcase-preview-row="">
-                    <TabsRootIsland>
+                    <TabsRoot>
                         <TabsList>
-                            <TabsTriggerIsland value="x">"Active"</TabsTriggerIsland>
-                            <TabsTriggerIsland value="y" disabled=true>"Disabled"</TabsTriggerIsland>
-                            <TabsTriggerIsland value="z">"Normal"</TabsTriggerIsland>
+                            <TabsTrigger value="x">"Active"</TabsTrigger>
+                            <TabsTrigger value="y" disabled=true>"Disabled"</TabsTrigger>
+                            <TabsTrigger value="z">"Normal"</TabsTrigger>
                         </TabsList>
-                        <TabsContentIsland value="x">"Active content."</TabsContentIsland>
-                        <TabsContentIsland value="y">"Disabled content."</TabsContentIsland>
-                        <TabsContentIsland value="z">"Normal content."</TabsContentIsland>
-                    </TabsRootIsland>
+                        <TabsContent value="x">"Active content."</TabsContent>
+                        <TabsContent value="y">"Disabled content."</TabsContent>
+                        <TabsContent value="z">"Normal content."</TabsContent>
+                    </TabsRoot>
                 </div>
             </div>
         </div>

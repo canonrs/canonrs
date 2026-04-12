@@ -1,8 +1,6 @@
+use crate::ui::input::boundary::Input;
 use leptos::prelude::*;
 use super::label_ui::Label;
-use super::label_island::LabelIsland;
-use crate::ui::input::Input;
-use crate::ui::input::input_island::InputIsland;
 
 #[component]
 pub fn LabelShowcasePreview() -> impl IntoView {
@@ -10,8 +8,8 @@ pub fn LabelShowcasePreview() -> impl IntoView {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
                 <div style="display:flex;flex-direction:column;gap:var(--space-xs);">
-                    <LabelIsland for_id="label-input">"Username"</LabelIsland>
-                    <InputIsland placeholder="johndoe" />
+                    <Label for_id="label-input">"Username"</Label>
+                    <Input placeholder="johndoe" />
                 </div>
             </div>
             <p data-rs-showcase-preview-anchor="">

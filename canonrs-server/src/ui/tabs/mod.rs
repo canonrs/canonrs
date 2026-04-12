@@ -1,9 +1,9 @@
 pub mod tabs_ui;
-pub mod tabs_island;
+pub mod boundary;
 pub mod preview;
 
 pub use tabs_ui::*;
-pub use tabs_island::{TabsRootIsland, TabsTriggerIsland, TabsContentIsland};
+pub use boundary::{TabsRoot, TabsTrigger, TabsContent};
 pub const EXAMPLES: &str = include_str!("examples.rs");
 #[cfg(feature = "examples")]
 pub mod examples;

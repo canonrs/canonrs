@@ -1,17 +1,17 @@
 use leptos::prelude::*;
-use super::menu_island::{MenuIsland, MenuItemIsland};
+use super::boundary::{Menu, MenuItem};
 
 #[component]
 pub fn MenuShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <MenuIsland aria_label="Main menu">
-                    <MenuItemIsland value="new">"New file"</MenuItemIsland>
-                    <MenuItemIsland value="open">"Open file"</MenuItemIsland>
-                    <MenuItemIsland value="save" selected=true>"Save"</MenuItemIsland>
-                    <MenuItemIsland value="export" disabled=true>"Export (disabled)"</MenuItemIsland>
-                </MenuIsland>
+                <Menu aria_label="Main menu">
+                    <MenuItem value="new">"New file"</MenuItem>
+                    <MenuItem value="open">"Open file"</MenuItem>
+                    <MenuItem value="save" selected=true>"Save"</MenuItem>
+                    <MenuItem value="export" disabled=true>"Export (disabled)"</MenuItem>
+                </Menu>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Menu interaction fully governed via DOM — SSR-safe, hydration-safe."
@@ -19,13 +19,13 @@ pub fn MenuShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Edit menu"</span>
                 <div data-rs-showcase-preview-row="">
-                    <MenuIsland aria_label="Edit menu">
-                        <MenuItemIsland value="cut">"Cut"</MenuItemIsland>
-                        <MenuItemIsland value="copy">"Copy"</MenuItemIsland>
-                        <MenuItemIsland value="paste">"Paste"</MenuItemIsland>
-                        <MenuItemIsland value="undo">"Undo"</MenuItemIsland>
-                        <MenuItemIsland value="redo">"Redo"</MenuItemIsland>
-                    </MenuIsland>
+                    <Menu aria_label="Edit menu">
+                        <MenuItem value="cut">"Cut"</MenuItem>
+                        <MenuItem value="copy">"Copy"</MenuItem>
+                        <MenuItem value="paste">"Paste"</MenuItem>
+                        <MenuItem value="undo">"Undo"</MenuItem>
+                        <MenuItem value="redo">"Redo"</MenuItem>
+                    </Menu>
                 </div>
             </div>
         </div>

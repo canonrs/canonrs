@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::radio_island::{RadioGroupIsland, RadioGroupItemIsland};
+use super::boundary::{RadioGroup, RadioGroupItem};
 use canonrs_core::meta::{SelectionState, DisabledState};
 
 #[component]
@@ -7,11 +7,11 @@ pub fn RadioShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <RadioGroupIsland>
-                    <RadioGroupItemIsland value="leptos" name="framework">"Leptos"</RadioGroupItemIsland>
-                    <RadioGroupItemIsland value="dioxus" name="framework" selected=SelectionState::Selected>"Dioxus"</RadioGroupItemIsland>
-                    <RadioGroupItemIsland value="yew" name="framework">"Yew"</RadioGroupItemIsland>
-                </RadioGroupIsland>
+                <RadioGroup>
+                    <RadioGroupItem value="leptos" name="framework">"Leptos"</RadioGroupItem>
+                    <RadioGroupItem value="dioxus" name="framework" selected=SelectionState::Selected>"Dioxus"</RadioGroupItem>
+                    <RadioGroupItem value="yew" name="framework">"Yew"</RadioGroupItem>
+                </RadioGroup>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Selection state mapped directly to DOM and ARIA."
@@ -19,10 +19,10 @@ pub fn RadioShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-row="">
-                    <RadioGroupIsland disabled=DisabledState::Disabled>
-                        <RadioGroupItemIsland value="a" name="disabled">"Option A"</RadioGroupItemIsland>
-                        <RadioGroupItemIsland value="b" name="disabled">"Option B"</RadioGroupItemIsland>
-                    </RadioGroupIsland>
+                    <RadioGroup disabled=DisabledState::Disabled>
+                        <RadioGroupItem value="a" name="disabled">"Option A"</RadioGroupItem>
+                        <RadioGroupItem value="b" name="disabled">"Option B"</RadioGroupItem>
+                    </RadioGroup>
                 </div>
             </div>
         </div>

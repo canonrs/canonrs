@@ -1,8 +1,8 @@
 use leptos::prelude::*;
-use super::sidebar_island::{
-    SidebarIsland, SidebarHeaderIsland, SidebarContentIsland,
-    SidebarMenuIsland, SidebarMenuItemIsland, SidebarMenuGroupIsland,
-    SidebarGroupLabelIsland,
+use super::boundary::{
+    Sidebar, SidebarHeader, SidebarContent,
+    SidebarMenu, SidebarMenuItem, SidebarMenuGroup,
+    SidebarGroupLabel,
 };
 use canonrs_core::meta::ActivityState;
 
@@ -11,26 +11,26 @@ pub fn SidebarShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <SidebarIsland>
-                    <SidebarHeaderIsland>"CanonRS"</SidebarHeaderIsland>
-                    <SidebarContentIsland>
-                        <SidebarMenuGroupIsland label="Main">
-                            <SidebarGroupLabelIsland>"Main"</SidebarGroupLabelIsland>
-                            <SidebarMenuIsland>
-                                <SidebarMenuItemIsland href="#" active=ActivityState::Active>"Dashboard"</SidebarMenuItemIsland>
-                                <SidebarMenuItemIsland href="#">"Components"</SidebarMenuItemIsland>
-                                <SidebarMenuItemIsland href="#">"Tokens"</SidebarMenuItemIsland>
-                            </SidebarMenuIsland>
-                        </SidebarMenuGroupIsland>
-                        <SidebarMenuGroupIsland label="Settings">
-                            <SidebarGroupLabelIsland>"Settings"</SidebarGroupLabelIsland>
-                            <SidebarMenuIsland>
-                                <SidebarMenuItemIsland href="#">"Preferences"</SidebarMenuItemIsland>
-                                <SidebarMenuItemIsland href="#">"Team"</SidebarMenuItemIsland>
-                            </SidebarMenuIsland>
-                        </SidebarMenuGroupIsland>
-                    </SidebarContentIsland>
-                </SidebarIsland>
+                <Sidebar>
+                    <SidebarHeader>"CanonRS"</SidebarHeader>
+                    <SidebarContent>
+                        <SidebarMenuGroup label="Main">
+                            <SidebarGroupLabel>"Main"</SidebarGroupLabel>
+                            <SidebarMenu>
+                                <SidebarMenuItem href="#" active=ActivityState::Active>"Dashboard"</SidebarMenuItem>
+                                <SidebarMenuItem href="#">"Components"</SidebarMenuItem>
+                                <SidebarMenuItem href="#">"Tokens"</SidebarMenuItem>
+                            </SidebarMenu>
+                        </SidebarMenuGroup>
+                        <SidebarMenuGroup label="Settings">
+                            <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
+                            <SidebarMenu>
+                                <SidebarMenuItem href="#">"Preferences"</SidebarMenuItem>
+                                <SidebarMenuItem href="#">"Team"</SidebarMenuItem>
+                            </SidebarMenu>
+                        </SidebarMenuGroup>
+                    </SidebarContent>
+                </Sidebar>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Navigation state and structure governed by DOM — SSR-safe, hydration-safe."

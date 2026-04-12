@@ -1,14 +1,14 @@
 use leptos::prelude::*;
-use super::checkbox_island::CheckboxIsland;
+use super::boundary::Checkbox;
 
 #[component]
 pub fn CheckboxShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <CheckboxIsland checked=true>
+                <Checkbox checked=true>
                     <span>{"Remember me"}</span>
-                </CheckboxIsland>
+                </Checkbox>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Checked state mapped explicitly to activity state."
@@ -16,18 +16,18 @@ pub fn CheckboxShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States"</span>
                 <div data-rs-showcase-preview-row="">
-                    <CheckboxIsland>
+                    <Checkbox>
                         <span>{"Unchecked"}</span>
-                    </CheckboxIsland>
-                    <CheckboxIsland checked=true>
+                    </Checkbox>
+                    <Checkbox checked=true>
                         <span>{"Checked"}</span>
-                    </CheckboxIsland>
-                    <CheckboxIsland disabled=true>
+                    </Checkbox>
+                    <Checkbox disabled=true>
                         <span>{"Disabled"}</span>
-                    </CheckboxIsland>
-                    <CheckboxIsland checked=true disabled=true>
+                    </Checkbox>
+                    <Checkbox checked=true disabled=true>
                         <span>{"Checked + Disabled"}</span>
-                    </CheckboxIsland>
+                    </Checkbox>
                 </div>
             </div>
         </div>

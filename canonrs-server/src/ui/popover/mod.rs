@@ -6,5 +6,5 @@ pub mod examples;
 pub use popover_ui::*;
 pub use popover_ui::PopoverPreview;
 pub use preview::PopoverShowcasePreview;
-pub mod popover_island;
-pub use popover_island::{PopoverIsland, PopoverContentIsland};
+pub mod boundary;
+pub use boundary::{Popover, PopoverContent};

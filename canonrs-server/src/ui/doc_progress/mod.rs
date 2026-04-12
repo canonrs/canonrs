@@ -1,8 +1,7 @@
 pub mod doc_progress_ui;
 pub use doc_progress_ui::{DocProgress, DocProgressSlot};
 
-pub mod doc_progress_island;
-pub use doc_progress_island::*;
+pub mod boundary;
 
 #[cfg(feature = "examples")]
 pub mod examples;

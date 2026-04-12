@@ -1,34 +1,34 @@
 use leptos::prelude::*;
-use super::navigation_menu_island::{NavigationMenuIsland, NavigationMenuItemIsland, NavigationMenuTriggerIsland, NavigationMenuContentIsland, NavigationMenuLinkIsland};
+use super::boundary::{NavigationMenu, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink};
 
 #[component]
 pub fn NavigationMenuShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <NavigationMenuIsland>
-                    <NavigationMenuItemIsland>
-                        <NavigationMenuTriggerIsland>"Products"</NavigationMenuTriggerIsland>
-                        <NavigationMenuContentIsland>
-                            <NavigationMenuLinkIsland href="#">"CanonRS Core"</NavigationMenuLinkIsland>
-                            <NavigationMenuLinkIsland href="#">"CanonRS UI"</NavigationMenuLinkIsland>
-                            <NavigationMenuLinkIsland href="#">"CanonRS Tokens"</NavigationMenuLinkIsland>
-                        </NavigationMenuContentIsland>
-                    </NavigationMenuItemIsland>
-                    <NavigationMenuItemIsland>
-                        <NavigationMenuTriggerIsland>"Docs"</NavigationMenuTriggerIsland>
-                        <NavigationMenuContentIsland>
-                            <NavigationMenuLinkIsland href="#">"Getting Started"</NavigationMenuLinkIsland>
-                            <NavigationMenuLinkIsland href="#">"API Reference"</NavigationMenuLinkIsland>
-                        </NavigationMenuContentIsland>
-                    </NavigationMenuItemIsland>
-                    <NavigationMenuItemIsland>
+                <NavigationMenu>
+                    <NavigationMenuItem>
+                        <NavigationMenuTrigger>"Products"</NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                            <NavigationMenuLink href="#">"CanonRS Core"</NavigationMenuLink>
+                            <NavigationMenuLink href="#">"CanonRS UI"</NavigationMenuLink>
+                            <NavigationMenuLink href="#">"CanonRS Tokens"</NavigationMenuLink>
+                        </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuTrigger>"Docs"</NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                            <NavigationMenuLink href="#">"Getting Started"</NavigationMenuLink>
+                            <NavigationMenuLink href="#">"API Reference"</NavigationMenuLink>
+                        </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
                         <a data-rs-navigation-menu-link="" href="#">"Pricing"</a>
-                    </NavigationMenuItemIsland>
-                    <NavigationMenuItemIsland>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
                         <a data-rs-navigation-menu-link="" href="#">"Blog"</a>
-                    </NavigationMenuItemIsland>
-                </NavigationMenuIsland>
+                    </NavigationMenuItem>
+                </NavigationMenu>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Trigger-content relationship governed by DOM — no id wiring needed."

@@ -1,6 +1,6 @@
 use leptos::prelude::*;
-use super::combobox_island::ComboboxIsland;
-use super::combobox_ui::{Combobox, ComboboxInput, ComboboxList, ComboboxItem};
+use super::boundary::Combobox;
+use super::combobox_ui::{ComboboxInput, ComboboxList, ComboboxItem};
 use canonrs_core::meta::{DisabledState, SelectionState};
 
 #[component]
@@ -8,12 +8,12 @@ pub fn ComboboxShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <ComboboxIsland placeholder="Search framework...">
+                <Combobox placeholder="Search framework...">
                     <ComboboxItem value="leptos">"Leptos"</ComboboxItem>
                     <ComboboxItem value="dioxus">"Dioxus"</ComboboxItem>
                     <ComboboxItem value="yew">"Yew"</ComboboxItem>
                     <ComboboxItem value="react" disabled=DisabledState::Disabled>"React (disabled)"</ComboboxItem>
-                </ComboboxIsland>
+                </Combobox>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Combobox roles and interaction fully enforced by structure."

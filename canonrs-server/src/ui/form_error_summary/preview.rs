@@ -1,13 +1,13 @@
 use leptos::prelude::*;
 use super::form_error_summary_ui::{FormErrorSummary, FormError};
-use super::form_error_summary_island::FormErrorSummaryIsland;
+
 
 #[component]
 pub fn FormErrorSummaryShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <FormErrorSummaryIsland
+                <FormErrorSummary
                     errors=vec![
                         FormError { field_label: "Email".to_string(),    message: "Required field.".to_string() },
                         FormError { field_label: "Password".to_string(), message: "Must be at least 8 characters.".to_string() },

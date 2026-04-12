@@ -4,7 +4,7 @@ use canonrs_core::primitives::{
     CodeBlockPrimitive, CodeBlockHeaderPrimitive, CodeBlockLanguagePrimitive,
     CodeBlockFilenamePrimitive,
 };
-use crate::ui::copy_button::copy_button_island::CopyButtonIsland; // island kept intentionally
+use crate::ui::copy_button::CopyButton; // island kept intentionally
 #[cfg(feature = "ssr")]
 use super::highlighter::highlight;
 
@@ -45,7 +45,7 @@ pub fn CodeBlock(
                     })}
                 </div>
                 {show_copy.then(|| view! {
-                    <CopyButtonIsland text=code.clone() />
+                    <CopyButton text=code.clone() />
                 })}
             </CodeBlockHeaderPrimitive>
             <pre data-rs-code-pre="" inner_html=pre_html />

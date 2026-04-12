@@ -1,8 +1,8 @@
 pub mod callout_ui;
-pub mod callout_island;
+pub mod boundary;
 pub mod preview;
 pub use callout_ui::*;
-pub use callout_island::CalloutIsland;
+pub use boundary::Callout;
 pub use canonrs_core::primitives::CalloutVariant;
 
 #[cfg(feature = "examples")]

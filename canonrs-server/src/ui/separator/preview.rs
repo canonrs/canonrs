@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::separator_island::SeparatorIsland;
+use super::boundary::Separator;
 use canonrs_core::Orientation;
 
 #[component]
@@ -9,7 +9,7 @@ pub fn SeparatorShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-stage="" style="width:100%;">
                 <div style="display:flex;flex-direction:column;gap:var(--space-md);">
                     <span>"Above"</span>
-                    <SeparatorIsland />
+                    <Separator />
                     <span>"Below"</span>
                 </div>
             </div>
@@ -20,9 +20,9 @@ pub fn SeparatorShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"Vertical"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);height:40px;">
                     <span>"Left"</span>
-                    <SeparatorIsland orientation=Orientation::Vertical />
+                    <Separator orientation=Orientation::Vertical />
                     <span>"Center"</span>
-                    <SeparatorIsland orientation=Orientation::Vertical />
+                    <Separator orientation=Orientation::Vertical />
                     <span>"Right"</span>
                 </div>
             </div>
@@ -30,7 +30,7 @@ pub fn SeparatorShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"Semantic"</span>
                 <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-md);">
                     <span>"Section A"</span>
-                    <SeparatorIsland decorative=false aria_label="Between sections" />
+                    <Separator decorative=false aria_label="Between sections" />
                     <span>"Section B"</span>
                 </div>
             </div>

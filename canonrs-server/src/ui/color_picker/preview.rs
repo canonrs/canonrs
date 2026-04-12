@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::color_picker_island::{ColorPickerIsland, ColorPickerSwatchIsland, ColorPickerSwatchesIsland};
+use super::boundary::{ColorPicker, ColorPickerSwatch, ColorPickerSwatches};
 use canonrs_core::meta::DisabledState;
 
 #[component]
@@ -10,7 +10,7 @@ pub fn ColorPickerShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Color Picker"</span>
                 <div data-rs-showcase-preview-stage="">
-                    <ColorPickerIsland value="#3b82f6" />
+                    <ColorPicker value="#3b82f6" />
                 </div>
             </div>
 
@@ -21,21 +21,21 @@ pub fn ColorPickerShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Swatches"</span>
                 <div data-rs-showcase-preview-stage="">
-                    <ColorPickerSwatchesIsland value="#3b82f6">
-                        <ColorPickerSwatchIsland color="#3b82f6" />
-                        <ColorPickerSwatchIsland color="#ef4444" />
-                        <ColorPickerSwatchIsland color="#22c55e" />
-                        <ColorPickerSwatchIsland color="#f59e0b" />
-                        <ColorPickerSwatchIsland color="#8b5cf6" />
-                        <ColorPickerSwatchIsland color="#ec4899" />
-                    </ColorPickerSwatchesIsland>
+                    <ColorPickerSwatches value="#3b82f6">
+                        <ColorPickerSwatch color="#3b82f6" />
+                        <ColorPickerSwatch color="#ef4444" />
+                        <ColorPickerSwatch color="#22c55e" />
+                        <ColorPickerSwatch color="#f59e0b" />
+                        <ColorPickerSwatch color="#8b5cf6" />
+                        <ColorPickerSwatch color="#ec4899" />
+                    </ColorPickerSwatches>
                 </div>
             </div>
 
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
                 <div data-rs-showcase-preview-stage="">
-                    <ColorPickerIsland value="#6b7280" disabled=DisabledState::Disabled />
+                    <ColorPicker value="#6b7280" disabled=DisabledState::Disabled />
                 </div>
             </div>
 

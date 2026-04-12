@@ -1,8 +1,7 @@
 pub mod pulse_ui;
 pub use pulse_ui::*;
 
-pub mod pulse_island;
-pub use pulse_island::*;
+pub mod boundary;
 
 #[cfg(feature = "examples")]
 pub mod examples;

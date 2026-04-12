@@ -10,5 +10,4 @@ pub use avatar_ui::AvatarPreview;
 
 pub mod preview;
 pub use preview::AvatarShowcasePreview;
-pub mod avatar_island;
-pub use avatar_island::*;
+pub mod boundary;

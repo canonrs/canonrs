@@ -1,11 +1,11 @@
 pub mod collapsible_ui;
-pub mod collapsible_island;
+pub mod boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
 pub use collapsible_ui::*;
-pub use collapsible_island::{CollapsibleIsland, CollapsibleTriggerIsland, CollapsibleContentIsland};
+pub use boundary::{Collapsible, CollapsibleTrigger, CollapsibleContent};
 #[cfg(feature = "examples")]
 pub use examples::*;
 

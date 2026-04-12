@@ -1,7 +1,7 @@
 use leptos::prelude::*;
-use super::hero_island::{
-    HeroTitleIsland, HeroSubtitleIsland, HeroDescriptionIsland,
-    HeroMediaIsland, HeroActionsIsland,
+use super::boundary::{
+    HeroTitle, HeroSubtitle, HeroDescription,
+    HeroMedia, HeroActions,
 };
 
 #[component]
@@ -9,25 +9,25 @@ pub fn HeroShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <HeroTitleIsland>"Build faster with CanonRS"</HeroTitleIsland>
-                <HeroSubtitleIsland>"A design system built for production."</HeroSubtitleIsland>
-                <HeroDescriptionIsland>
+                <HeroTitle>"Build faster with CanonRS"</HeroTitle>
+                <HeroSubtitle>"A design system built for production."</HeroSubtitle>
+                <HeroDescription>
                     "Composable, accessible, and fully typed components for Leptos."
-                </HeroDescriptionIsland>
-                <HeroActionsIsland>
+                </HeroDescription>
+                <HeroActions>
                     <button>"Get Started"</button>
                     <button>"View Docs"</button>
-                </HeroActionsIsland>
+                </HeroActions>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Composable subcomponents — use only what you need."
             </p>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"With Media"</span>
-                <HeroTitleIsland>"Visual storytelling"</HeroTitleIsland>
-                <HeroMediaIsland>
+                <HeroTitle>"Visual storytelling"</HeroTitle>
+                <HeroMedia>
                     <img src="/placeholder.png" alt="Hero media example" />
-                </HeroMediaIsland>
+                </HeroMedia>
             </div>
         </div>
     }

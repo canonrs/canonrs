@@ -1,8 +1,7 @@
 pub mod loading_overlay_ui;
 pub use loading_overlay_ui::*;
 
-pub mod loading_overlay_island;
-pub use loading_overlay_island::*;
+pub mod boundary;
 
 #[cfg(feature = "examples")]
 pub mod examples;

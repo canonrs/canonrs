@@ -11,5 +11,5 @@ pub use select_ui::SelectPreview;
 
 pub mod preview;
 pub use preview::SelectShowcasePreview;
-pub mod select_island;
-pub use select_island::SelectIsland;
+pub mod boundary;
+pub use boundary::Select;

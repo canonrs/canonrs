@@ -1,7 +1,7 @@
 use leptos::prelude::*;
-use super::context_menu_island::{
-    ContextMenuIsland, ContextMenuTriggerIsland, ContextMenuContentIsland,
-    ContextMenuItemIsland,
+use super::boundary::{
+    ContextMenu, ContextMenuTrigger, ContextMenuContent,
+    ContextMenuItem,
 };
 
 #[component]
@@ -9,18 +9,18 @@ pub fn ContextMenuShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="">
-                <ContextMenuIsland>
-                    <ContextMenuTriggerIsland>
+                <ContextMenu>
+                    <ContextMenuTrigger>
                         <div style="padding: 2rem; border: 2px dashed currentColor; border-radius: 0.5rem; cursor: context-menu;">
                             "Right-click here"
                         </div>
-                    </ContextMenuTriggerIsland>
-                    <ContextMenuContentIsland>
-                        <ContextMenuItemIsland>"Edit"</ContextMenuItemIsland>
-                        <ContextMenuItemIsland>"Duplicate"</ContextMenuItemIsland>
-                        <ContextMenuItemIsland>"Delete"</ContextMenuItemIsland>
-                    </ContextMenuContentIsland>
-                </ContextMenuIsland>
+                    </ContextMenuTrigger>
+                    <ContextMenuContent>
+                        <ContextMenuItem>"Edit"</ContextMenuItem>
+                        <ContextMenuItem>"Duplicate"</ContextMenuItem>
+                        <ContextMenuItem>"Delete"</ContextMenuItem>
+                    </ContextMenuContent>
+                </ContextMenu>
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Context menu appears at cursor position on right-click."

@@ -10,8 +10,8 @@ use canonrs_core::primitives::{
     DataTableCellPrimitive, DataTablePaginationPrimitive, DataTableEmptyPrimitive,
     DataTableDensity, SortDirection,
 };
-use crate::ui::dropdown_menu::dropdown_menu_island::{
-    DropdownMenuIsland, DropdownMenuItemIsland,
+use crate::ui::dropdown_menu::{
+    DropdownMenu, DropdownMenuItem,
 };
 use crate::ui::context_menu::context_menu_ui::{
     ContextMenuContent, ContextMenuItem,
@@ -149,7 +149,7 @@ where
                         </button>
                     </div>
                 })}
-                <DropdownMenuIsland trigger_label="Columns">
+                <DropdownMenu trigger_label="Columns">
                     {columns.iter().enumerate().map(|(idx, col)| {
                         let label = col.label.clone();
                         view! {
@@ -162,7 +162,7 @@ where
                             </div>
                         }
                     }).collect::<Vec<_>>()}
-                </DropdownMenuIsland>
+                </DropdownMenu>
             </DataTableToolbarPrimitive>
 
             <DataTableScrollPrimitive>
@@ -259,21 +259,21 @@ where
                                                     // kebab menu
                                                     {(!menu_actions.is_empty()).then(|| {
                                                         view! {
-                                                            <DropdownMenuIsland>
+                                                            <DropdownMenu>
                                                                 {menu_actions.into_iter().map(|action| {
                                                                     let rid = row_id.clone();
                                                                     view! {
-                                                                        <DropdownMenuItemIsland
+                                                                        <DropdownMenuItem
                                                                             class={if action.danger { "danger".to_string() } else { String::new() }}
                                                                         >
                                                                             <span
                                                                                 data-rs-datatable-action=action.id
                                                                                 data-rs-row-id=rid
                                                                             >{action.label}</span>
-                                                                        </DropdownMenuItemIsland>
+                                                                        </DropdownMenuItem>
                                                                     }
                                                                 }).collect::<Vec<_>>()}
-                                                            </DropdownMenuIsland>
+                                                            </DropdownMenu>
                                                         }
                                                     })}
                                                 </div>

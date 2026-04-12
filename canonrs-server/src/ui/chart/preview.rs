@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::chart_island::ChartIsland;
+use super::boundary::Chart;
 use canonrs_core::{ChartData, ChartSeries};
 use canonrs_core::primitives::ChartType;
 
@@ -39,7 +39,7 @@ pub fn ChartShowcasePreview() -> impl IntoView {
     view! {
         <div data-rs-showcase-preview-hero="">
             <div data-rs-showcase-preview-stage="" style="width:100%;">
-                <ChartIsland data=monthly_data() chart_type=ChartType::Line height=280u32 value="revenue-monthly" aria_label="Monthly revenue and expenses line chart" />
+                <Chart data=monthly_data() chart_type=ChartType::Line height=280u32 value="revenue-monthly" aria_label="Monthly revenue and expenses line chart" />
             </div>
             <p data-rs-showcase-preview-anchor="">
                 "Chart structure and data binding enforced via contract."
@@ -47,13 +47,13 @@ pub fn ChartShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Bar"</span>
                 <div data-rs-showcase-preview-row="" style="width:100%;">
-                    <ChartIsland data=bar_data() chart_type=ChartType::Bar height=200u32 value="growth-quarterly" aria_label="Quarterly growth bar chart" />
+                    <Chart data=bar_data() chart_type=ChartType::Bar height=200u32 value="growth-quarterly" aria_label="Quarterly growth bar chart" />
                 </div>
             </div>
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"Area"</span>
                 <div data-rs-showcase-preview-row="" style="width:100%;">
-                    <ChartIsland data=area_data() chart_type=ChartType::Area height=200u32 value="users-weekly" aria_label="Weekly active users area chart" />
+                    <Chart data=area_data() chart_type=ChartType::Area height=200u32 value="users-weekly" aria_label="Weekly active users area chart" />
                 </div>
             </div>
         </div>

@@ -5,5 +5,5 @@ pub mod examples;
 
 pub use hover_card_ui::*;
 pub use preview::HoverCardShowcasePreview;
-pub mod hover_card_island;
-pub use hover_card_island::{HoverCardIsland, HoverCardTriggerIsland, HoverCardContentIsland};
+pub mod boundary;
+pub use boundary::{HoverCard, HoverCardTrigger, HoverCardContent};
