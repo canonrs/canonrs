@@ -36,4 +36,4 @@ after: |
       "Content"
     </Animate>
   }
-island_type: init
+boundary_type: init

@@ -34,4 +34,4 @@ after: |
   view! {
     <Pulse variant=PulseVariant::Emphasized speed=PulseSpeed::Fast />
   }
-island_type: passthrough
+boundary_type: passthrough

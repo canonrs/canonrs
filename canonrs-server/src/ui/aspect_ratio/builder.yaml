@@ -38,4 +38,4 @@ after: |
       <img src="img.png" />
     </AspectRatio>
   }
-island_type: passthrough
+boundary_type: passthrough

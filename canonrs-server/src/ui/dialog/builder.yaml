@@ -42,5 +42,5 @@ after: |
       </DialogPortal>
     </Dialog>
   }
-island_type: interaction
+boundary_type: interaction
 ix_group: ix_overlay

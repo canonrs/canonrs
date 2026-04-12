@@ -38,4 +38,4 @@ after: |
       <CollapsibleContent>"Content"</CollapsibleContent>
     </Collapsible>
   }
-island_type: init
+boundary_type: init

@@ -37,5 +37,5 @@ after: |
       <DrawerContent aria_labelledby="title" />
     </Drawer>
   }
-island_type: interaction
+boundary_type: interaction
 ix_group: ix_overlay

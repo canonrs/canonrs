@@ -40,4 +40,4 @@ after: |
       <Button>"Right"</Button>
     </ButtonGroup>
   }
-island_type: passthrough
+boundary_type: passthrough

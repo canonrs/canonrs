@@ -34,4 +34,4 @@ after: |
   view! {
     <Skeleton variant=SkeletonVariant::Text />
   }
-island_type: passthrough
+boundary_type: passthrough

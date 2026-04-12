@@ -39,4 +39,4 @@ after: |
       <LogoWordmarkPrimitive>"Brand"</LogoWordmarkPrimitive>
     </Logo>
   }
-island_type: passthrough
+boundary_type: passthrough

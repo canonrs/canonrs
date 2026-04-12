@@ -61,6 +61,7 @@ pub fn AlertPreview() -> impl IntoView {
         <Alert variant=AlertVariant::Default>
             <AlertTitle>"Info"</AlertTitle>
             <AlertDescription>"This is a default alert message."</AlertDescription>
+            <AlertCloseButton>"×"</AlertCloseButton>
         </Alert>
     }
 }

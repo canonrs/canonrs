@@ -42,4 +42,4 @@ after: |
       </CommandList>
     </Command>
   }
-island_type: init
+boundary_type: init

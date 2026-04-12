@@ -35,5 +35,5 @@ after: |
   view! {
     <Chart data=data chart_type=ChartType::Line />
   }
-island_type: interaction
+boundary_type: interaction
 ix_group: ix_data

@@ -36,4 +36,4 @@ after: |
       "Content"
     </LoadingOverlay>
   }
-island_type: init
+boundary_type: init

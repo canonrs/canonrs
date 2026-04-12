@@ -32,4 +32,4 @@ after: |
   view! {
     <InputOtp length=6 />
   }
-island_type: init
+boundary_type: init

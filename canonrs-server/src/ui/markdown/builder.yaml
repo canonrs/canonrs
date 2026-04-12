@@ -34,5 +34,5 @@ after: |
   view! {
     <MarkdownSurface rendered=rendered />
   }
-island_type: interaction
+boundary_type: interaction
 ix_group: ix_content

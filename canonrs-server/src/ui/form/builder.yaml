@@ -40,4 +40,4 @@ after: |
       </FormField>
     </Form>
   }
-island_type: init
+boundary_type: init

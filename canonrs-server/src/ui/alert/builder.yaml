@@ -7,7 +7,7 @@ description: Alert message box
 composable: true
 capabilities: 
 required_parts: []
-optional_parts: ["AlertTitle", "AlertDescription"]
+optional_parts: ["AlertTitle", "AlertDescription", "AlertCloseButton"]
 tags: ["alert", "warning", "info", "message", "error"]
 keywords: 
 pain: Alerts use wrong ARIA roles causing accessibility issues silently
@@ -37,4 +37,4 @@ after: |
       <AlertDescription>"Error occurred"</AlertDescription>
     </Alert>
   }
-island_type: init
+boundary_type: init

@@ -40,4 +40,4 @@ after: |
       </PageHeaderContent>
     </PageHeader>
   }
-island_type: passthrough
+boundary_type: passthrough

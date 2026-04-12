@@ -39,4 +39,4 @@ after: |
       <RadioGroupItem name="a" value="1">"One"</RadioGroupItem>
     </RadioGroup>
   }
-island_type: init
+boundary_type: init

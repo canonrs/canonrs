@@ -35,4 +35,4 @@ after: |
   view! {
     <Label for_id="email">"Email"</Label>
   }
-island_type: passthrough
+boundary_type: passthrough

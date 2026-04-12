@@ -42,4 +42,4 @@ after: |
       </TableBody>
     </Table>
   }
-island_type: init
+boundary_type: init

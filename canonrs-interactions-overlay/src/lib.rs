@@ -12,7 +12,6 @@ pub mod hover_card;
 pub mod context_menu;
 pub mod dropdown_menu;
 
-#[wasm_bindgen::prelude::wasm_bindgen]
 pub fn init_overlay(el: web_sys::Element) {
     if el.has_attribute("data-rs-modal") { modal::init(el.clone()); }
     if el.has_attribute("data-rs-drawer") { drawer::init(el.clone()); }

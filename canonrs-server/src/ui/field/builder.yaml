@@ -37,4 +37,4 @@ after: |
       <FieldLabel>"Email"</FieldLabel>
     </Field>
   }
-island_type: init
+boundary_type: init

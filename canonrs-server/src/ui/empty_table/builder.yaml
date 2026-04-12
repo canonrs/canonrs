@@ -38,4 +38,4 @@ after: |
       <EmptyTable colspan=3u32 />
     </tbody>
   }
-island_type: passthrough
+boundary_type: passthrough

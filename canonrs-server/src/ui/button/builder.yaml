@@ -36,4 +36,4 @@ after: |
       "Submit"
     </Button>
   }
-island_type: init
+boundary_type: init

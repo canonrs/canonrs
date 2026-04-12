@@ -32,4 +32,4 @@ after: |
   view! {
     <DocProgress />
   }
-island_type: init
+boundary_type: init

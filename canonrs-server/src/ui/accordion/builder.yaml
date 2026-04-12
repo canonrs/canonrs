@@ -42,5 +42,5 @@ after: |
       </AccordionItem>
     </Accordion>
   }
-island_type: interaction
+boundary_type: interaction
 ix_group: ix_nav

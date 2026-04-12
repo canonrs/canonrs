@@ -25,4 +25,4 @@ pillar:
 badges: []
 before: ""
 after: ""
-island_type: passthrough
+boundary_type: passthrough

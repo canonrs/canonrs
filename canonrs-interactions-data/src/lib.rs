@@ -10,7 +10,6 @@ pub mod list_item;
 pub mod chart;
 pub mod table_row_sheet_preview;
 
-#[wasm_bindgen::prelude::wasm_bindgen]
 pub fn init_data(el: web_sys::Element) {
     if el.has_attribute("data-rs-datatable") { data_table::init(el.clone()); }
     if el.has_attribute("data-rs-table") { table::init(el.clone()); }

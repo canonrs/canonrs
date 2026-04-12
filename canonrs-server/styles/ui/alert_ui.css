@@ -6,12 +6,13 @@
 [data-rs-alert] {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--alert-gap);
   padding-inline: var(--alert-padding-x);
   padding-block: var(--alert-padding-y);
   border-radius: var(--alert-radius);
   border: var(--alert-border-width) solid var(--alert-border-color);
   background: var(--alert-bg);
+  color: var(--alert-fg);
 }
 
 [data-rs-alert][data-rs-variant="default"] {

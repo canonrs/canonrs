@@ -10,7 +10,6 @@ pub mod pagination;
 pub mod tabs;
 pub mod accordion;
 
-#[wasm_bindgen::prelude::wasm_bindgen]
 pub fn init_nav(el: web_sys::Element) {
     if el.has_attribute("data-rs-sidebar")   { sidebar::init(el.clone()); }
     if el.has_attribute("data-rs-tabs")      { tabs::init(el.clone()); }

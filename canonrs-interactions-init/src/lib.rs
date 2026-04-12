@@ -22,12 +22,10 @@ pub mod navigation_menu;
 pub mod toast;
 pub mod table_of_contents;
 
-#[wasm_bindgen]
-pub fn init_all() {
+pub fn scan_all() {
     runtime::registry::scan_all();
 }
 
-#[wasm_bindgen]
 pub fn init_init(el: web_sys::Element) {
     runtime::registry::dispatch(&el);
 }

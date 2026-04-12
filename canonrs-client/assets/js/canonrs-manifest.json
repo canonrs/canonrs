@@ -1,0 +1,33 @@
+{
+  "version": "0.1.0",
+  "groups": {
+    "gesture": {
+      "js": "/wasm/gesture/canonrs_interactions_gesture.js",
+      "wasm": "/wasm/gesture/canonrs_interactions_gesture_bg.wasm"
+    },
+    "overlay": {
+      "js": "/wasm/overlay/canonrs_interactions_overlay.js",
+      "wasm": "/wasm/overlay/canonrs_interactions_overlay_bg.wasm"
+    },
+    "selection": {
+      "js": "/wasm/selection/canonrs_interactions_selection.js",
+      "wasm": "/wasm/selection/canonrs_interactions_selection_bg.wasm"
+    },
+    "nav": {
+      "js": "/wasm/nav/canonrs_interactions_nav.js",
+      "wasm": "/wasm/nav/canonrs_interactions_nav_bg.wasm"
+    },
+    "data": {
+      "js": "/wasm/data/canonrs_interactions_data.js",
+      "wasm": "/wasm/data/canonrs_interactions_data_bg.wasm"
+    },
+    "content": {
+      "js": "/wasm/content/canonrs_interactions_content.js",
+      "wasm": "/wasm/content/canonrs_interactions_content_bg.wasm"
+    },
+    "init": {
+      "js": "/wasm/init/canonrs_interactions_init.js",
+      "wasm": "/wasm/init/canonrs_interactions_init_bg.wasm"
+    }
+  }
+}

@@ -36,4 +36,4 @@ after: |
       <BannerContent>"Maintenance scheduled"</BannerContent>
     </Banner>
   }
-island_type: init
+boundary_type: init

@@ -37,4 +37,4 @@ after: |
       <CalloutDescription>"Be careful"</CalloutDescription>
     </Callout>
   }
-island_type: passthrough
+boundary_type: passthrough

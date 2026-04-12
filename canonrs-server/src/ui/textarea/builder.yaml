@@ -34,4 +34,4 @@ after: |
   view! {
     <Textarea placeholder="Type..." required=true />
   }
-island_type: passthrough
+boundary_type: passthrough

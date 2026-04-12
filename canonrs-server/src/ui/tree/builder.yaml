@@ -38,5 +38,5 @@ after: |
       <TreeItem has_children=true>"Item"</TreeItem>
     </Tree>
   }
-island_type: interaction
+boundary_type: interaction
 ix_group: ix_selection

@@ -40,4 +40,4 @@ after: |
       <StatLabel>"Users"</StatLabel>
     </Stat>
   }
-island_type: passthrough
+boundary_type: passthrough

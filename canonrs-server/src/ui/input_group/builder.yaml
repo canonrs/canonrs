@@ -39,4 +39,4 @@ after: |
       <span data-rs-input-group-addon="">"@"</span>
     </InputGroup>
   }
-island_type: init
+boundary_type: init

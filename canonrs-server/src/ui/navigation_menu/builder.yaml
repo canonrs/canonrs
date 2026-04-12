@@ -40,4 +40,4 @@ after: |
       </NavigationMenuItem>
     </NavigationMenu>
   }
-island_type: init
+boundary_type: init

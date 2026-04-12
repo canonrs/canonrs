@@ -34,4 +34,4 @@ after: |
   view! {
     <Separator />
   }
-island_type: passthrough
+boundary_type: passthrough

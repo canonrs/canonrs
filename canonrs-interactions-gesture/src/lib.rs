@@ -8,7 +8,6 @@ pub mod slider;
 pub mod carousel;
 pub mod scroll_area;
 
-#[wasm_bindgen::prelude::wasm_bindgen]
 pub fn init_gesture(el: web_sys::Element) {
     if el.has_attribute("data-rs-resizable") { resizable::init(el.clone()); }
     if el.has_attribute("data-rs-slider") { slider::init(el.clone()); }

@@ -36,4 +36,4 @@ after: |
       "New"
     </Badge>
   }
-island_type: passthrough
+boundary_type: passthrough
