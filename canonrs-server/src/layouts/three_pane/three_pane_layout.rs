@@ -14,9 +14,9 @@ use leptos::prelude::*;
 
 #[component]
 pub fn ThreePaneLayout(
-    #[prop(optional)] left: Option<AnyView>,
-    #[prop(optional)] center: Option<AnyView>,
-    #[prop(optional)] right: Option<AnyView>,
+    #[prop(optional)] left: Option<ChildrenFn>,
+    #[prop(optional)] center: Option<ChildrenFn>,
+    #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
@@ -25,9 +25,9 @@ pub fn ThreePaneLayout(
             data-rs-component="ThreePane"
             class=class
         >
-            {left.map(|l| view! { <div data-rs-region="left">{l}</div> })}
-            {center.map(|c| view! { <div data-rs-region="center">{c}</div> })}
-            {right.map(|r| view! { <div data-rs-region="right">{r}</div> })}
+            {left.map(|l| view! { <div data-rs-region="left">{l()}</div> })}
+            {center.map(|c| view! { <div data-rs-region="center">{c()}</div> })}
+            {right.map(|r| view! { <div data-rs-region="right">{r()}</div> })}
         </div>
     }
 }

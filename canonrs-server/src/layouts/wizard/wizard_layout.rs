@@ -14,18 +14,18 @@ use leptos::prelude::*;
 
 #[component]
 pub fn WizardLayout(
-    #[prop(optional)] header: Option<AnyView>,
-    #[prop(optional)] stepper: Option<AnyView>,
-    #[prop(optional)] content: Option<AnyView>,
-    #[prop(optional)] footer: Option<AnyView>,
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] stepper: Option<ChildrenFn>,
+    #[prop(optional)] content: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-layout="" data-rs-component="Wizard" class=class>
-            {header.map(|h| view! { <div data-rs-region="header">{h}</div> })}
-            {stepper.map(|s| view! { <div data-rs-region="stepper">{s}</div> })}
-            {content.map(|c| view! { <div data-rs-region="content">{c}</div> })}
-            {footer.map(|f| view! { <div data-rs-region="footer">{f}</div> })}
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {stepper.map(|s| view! { <div data-rs-region="stepper">{s()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

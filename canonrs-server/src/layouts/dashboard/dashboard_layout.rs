@@ -14,16 +14,16 @@ use leptos::prelude::*;
 
 #[component]
 pub fn DashboardLayout(
-    #[prop(optional)] header: Option<AnyView>,
-    #[prop(optional)] sidebar: Option<AnyView>,
-    #[prop(optional)] content: Option<AnyView>,
+    #[prop(optional)] header: Option<ChildrenFn>,
+    #[prop(optional)] sidebar: Option<ChildrenFn>,
+    #[prop(optional)] content: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
         <div data-rs-layout="" data-rs-component="Dashboard" class=class>
-            {header.map(|h| view! { <div data-rs-region="header">{h}</div> })}
-            {sidebar.map(|s| view! { <div data-rs-region="sidebar">{s}</div> })}
-            {content.map(|c| view! { <div data-rs-region="content">{c}</div> })}
+            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {sidebar.map(|s| view! { <div data-rs-region="sidebar">{s()}</div> })}
+            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
         </div>
     }
 }

@@ -27,8 +27,8 @@ impl SplitRatio {
 #[component]
 pub fn SplitViewLayout(
     #[prop(default = SplitRatio::Equal)] ratio: SplitRatio,
-    #[prop(optional)] left: Option<AnyView>,
-    #[prop(optional)] right: Option<AnyView>,
+    #[prop(optional)] left: Option<ChildrenFn>,
+    #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(default = String::new(), into)] class: String,
 ) -> impl IntoView {
     view! {
@@ -38,8 +38,8 @@ pub fn SplitViewLayout(
             data-rs-variant=ratio.as_str()
             class=class
         >
-            {left.map(|l| view! { <div data-rs-region="left">{l}</div> })}
-            {right.map(|r| view! { <div data-rs-region="right">{r}</div> })}
+            {left.map(|l| view! { <div data-rs-region="left">{l()}</div> })}
+            {right.map(|r| view! { <div data-rs-region="right">{r()}</div> })}
         </div>
     }
 }
