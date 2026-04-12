@@ -1,7 +1,6 @@
-use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug)]
 pub struct DataTableRequest {
     pub page: usize,
     pub page_size: usize,
@@ -10,7 +9,7 @@ pub struct DataTableRequest {
     pub filter_query: String,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct DataTableResponse<T: Clone + PartialEq> {
     pub data: Vec<T>,
     pub total: usize,

@@ -2,7 +2,7 @@ use leptos::prelude::*;
 use canonrs_core::primitives::{ButtonPrimitive, ButtonVariant as CoreVariant, ButtonSize as CoreSize};
 use canonrs_core::DisabledState;
 
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Default)]
 pub enum ButtonVariant {
     #[default] Default,
     Primary,
@@ -27,7 +27,7 @@ impl ButtonVariant {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Default)]
 pub enum ButtonSize { Xs, Sm, #[default] Md, Lg, Xl }
 
 impl ButtonSize {
@@ -42,7 +42,7 @@ impl ButtonSize {
     }
 }
 
-#[island]
+#[component]
 pub fn Button(
     children: Children,
     #[prop(optional)] variant: Option<ButtonVariant>,

@@ -145,7 +145,7 @@ fn generate_manifest(root: &PathBuf) {
 
 fn copy_loaders(root: &PathBuf) {
     let src_dir = root.join("packages-rust/rs-canonrs/canonrs-client/src/loader");
-    let dest_dir = root.join("products/canonrs-site/public/js");
+    let dest_dir = root.join("packages-rust/rs-canonrs/canonrs-client/assets/js");
     std::fs::create_dir_all(&dest_dir).ok();
     let loaders = ["canon-loader.js", "canonrs.bundle.js"];
     let version = env!("CARGO_PKG_VERSION");

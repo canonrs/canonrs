@@ -26,7 +26,7 @@ fn main() {
     let rs_canonrs_early   = manifest_dir_early.parent().unwrap();
     let loader_src_early   = rs_canonrs_early.join("canonrs-client/src/loader/canon-loader.js");
     let site_js_early      = rs_canonrs_early.parent().unwrap().parent().unwrap()
-        .join("products/canonrs-site/public/js");
+        .join("packages-rust/rs-canonrs/canonrs-client/assets/js");
     fs::create_dir_all(&site_js_early).ok();
     fs::copy(&loader_src_early, site_js_early.join("canon-loader.js")).ok();
     // copia canonrs.bundle.js
@@ -118,7 +118,7 @@ fn main() {
     // copiar canon-loader.js para public/js do site
     let loader_src = rs_canonrs.join("canonrs-client/src/loader/canon-loader.js");
     let site_js    = rs_canonrs.parent().unwrap().parent().unwrap()
-        .join("products/canonrs-site/public/js");
+        .join("packages-rust/rs-canonrs/canonrs-client/assets/js");
     fs::create_dir_all(&site_js).expect("failed to create public/js");
     fs::copy(&loader_src, site_js.join("canon-loader.js"))
         .expect("failed to copy canon-loader.js");
