@@ -12,7 +12,7 @@ pub mod primitives;
 pub use ui::button::Button;
 pub use ui::badge::Badge;
 pub use ui::input::Input;
-pub use ui::tabs::{Tabs, TabsList, TabsTrigger, TabsContent};
+pub use ui::tabs::{TabsRoot, TabsTrigger, TabsContent};
 pub use ui::icon_button::icon_button_ui::{IconButton, IconButtonVariant};
 pub use ui::card::Card;
 pub use ui::separator::Separator;

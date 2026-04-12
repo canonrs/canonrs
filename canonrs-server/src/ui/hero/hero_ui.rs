@@ -1,3 +1,4 @@
+#![allow(unreachable_pub, dead_code)]
 
 use leptos::prelude::*;
 

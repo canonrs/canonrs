@@ -7,10 +7,9 @@ mod toc_extractor;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use markdown_ui::*;
+pub use markdown_ui::{RenderedMarkdown, TocPosition};
 pub use markdown_toolbar::*;
 pub use markdown_ui::MarkdownPreview;
-pub use markdown_ui::RenderedMarkdown;
 #[cfg(feature = "examples")]
 pub use examples::markdown_basic_example;
 
@@ -39,4 +38,5 @@ pub fn render_with_prefix(md: &str, prefix: &str) -> RenderedMarkdown {
 pub mod preview;
 pub use preview::MarkdownShowcasePreview;
 pub mod markdown_boundary;
+pub use markdown_boundary::*;
 pub use markdown_boundary::{MarkdownSurface, MarkdownLayout, MarkdownContent, MarkdownTOC};

@@ -3,6 +3,7 @@
 pub mod detect;
 pub mod init;
 
+#[allow(dead_code)]
 const EXTERNAL_GROUPS: &[&str] = &["gesture", "overlay", "selection", "nav", "data", "content"];
 
 /// Ponto de entrada único. Chamado após hydrate_islands().

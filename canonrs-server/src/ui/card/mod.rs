@@ -1,7 +1,8 @@
 pub mod card_ui;
-pub use card_ui::*;
+// no types to re-export from card_ui
 
 pub mod card_boundary;
+pub use card_boundary::*;
 
 #[cfg(feature = "examples")]
 pub mod examples;

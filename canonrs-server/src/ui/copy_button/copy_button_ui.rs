@@ -1,3 +1,4 @@
+#![allow(unreachable_pub, dead_code)]
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! CopyButton UI - SSR wrapper

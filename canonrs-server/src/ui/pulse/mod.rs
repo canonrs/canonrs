@@ -1,7 +1,8 @@
 pub mod pulse_ui;
-pub use pulse_ui::*;
+// no types to re-export from pulse_ui
 
 pub mod pulse_boundary;
+pub use pulse_boundary::*;
 
 #[cfg(feature = "examples")]
 pub mod examples;

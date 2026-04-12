@@ -1,7 +1,8 @@
 pub mod textarea_ui;
 pub mod textarea_boundary;
+pub use textarea_boundary::*;
 pub mod preview;
-pub use textarea_ui::*;
+// no types to re-export from textarea_ui
 #[cfg(feature = "examples")]
 pub mod examples;
 

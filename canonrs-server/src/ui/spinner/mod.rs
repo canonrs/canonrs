@@ -1,7 +1,8 @@
 pub mod spinner_ui;
-pub use spinner_ui::*;
+// no types to re-export from spinner_ui
 
 pub mod spinner_boundary;
+pub use spinner_boundary::*;
 
 #[cfg(feature = "examples")]
 pub mod examples;

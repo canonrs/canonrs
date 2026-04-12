@@ -1,10 +1,11 @@
 pub mod field_ui;
 pub mod field_boundary;
+pub use field_boundary::*;
 pub mod preview;
 pub mod variants;
 pub mod types;
 
-pub use field_ui::*;
+// no types to re-export from field_ui
 pub use variants::{FieldOrientation, FieldValidation};
 pub use types::FieldLegendVariant;
 #[cfg(feature = "examples")]

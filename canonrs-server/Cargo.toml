@@ -20,25 +20,29 @@ canonrs-client = { path = "../canonrs-client", optional = true }
 pulldown-cmark = { version = "0.12.2", optional = true }
 syntect = { version = "5.2", default-features = false, features = ["default-syntaxes", "default-themes", "html", "regex-fancy"], optional = true }
 html-escape = { version = "0.2", optional = true }
-web-sys = { version = "0.3", optional = true, features = ["Window","Document","Element","HtmlElement","DomRect","CssStyleDeclaration","Request","Response","RequestInit","RequestMode","MutationObserver","MutationObserverInit","MutationRecord","NodeList","EventTarget","DocumentFragment","Window","IntersectionObserver","IntersectionObserverInit","IntersectionObserverEntry","MediaQueryList"] }
-wasm-bindgen = { version = "0.2", optional = true }
-js-sys = { version = "0.3", optional = true }
-wasm-bindgen-futures = { version = "0.4", optional = true }
 
 [features]
 default = []
 examples = []
-ssr = ["axum", "tokio", "tower", "tower-http", "leptos_axum", "leptos/ssr", "leptos_meta/ssr", "leptos_router/ssr", "canonrs-core/ssr", "syntect", "pulldown-cmark", "html-escape"]
-hydrate = ["leptos/hydrate", "canonrs-core/hydrate", "dep:web-sys", "dep:wasm-bindgen", "dep:js-sys", "dep:wasm-bindgen-futures", "dep:canonrs-client"]
-
-# ── Interaction groups — repassados para canonrs-client ──────────────────────
-ix_gesture   = ["dep:canonrs-client", "canonrs-client/ix_gesture"]
-ix_overlay   = ["dep:canonrs-client", "canonrs-client/ix_overlay"]
-ix_selection = ["dep:canonrs-client", "canonrs-client/ix_selection"]
-ix_nav       = ["dep:canonrs-client", "canonrs-client/ix_nav"]
-ix_data      = ["dep:canonrs-client", "canonrs-client/ix_data"]
-ix_content   = ["dep:canonrs-client", "canonrs-client/ix_content"]
-full         = ["ix_overlay", "ix_selection", "ix_nav", "ix_data", "ix_content"]
+ssr = [
+    "axum",
+    "tokio",
+    "tower",
+    "tower-http",
+    "leptos_axum",
+    "leptos/ssr",
+    "leptos_meta/ssr",
+    "leptos_router/ssr",
+    "canonrs-core/ssr",
+    "syntect",
+    "pulldown-cmark",
+    "html-escape",
+    "dep:canonrs-client",
+]
+hydrate = [
+    "leptos/hydrate",
+    "canonrs-core/hydrate",
+]
 
 [lints]
 workspace = true

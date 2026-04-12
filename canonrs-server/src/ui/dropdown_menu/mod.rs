@@ -3,9 +3,10 @@ pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use dropdown_menu_ui::*;
+// no types to re-export from dropdown_menu_ui
 
 pub use dropdown_menu_ui::DropdownMenuPreview;
 pub use preview::DropdownMenuShowcasePreview;
 pub mod dropdown_menu_boundary;
+pub use dropdown_menu_boundary::*;
 pub use dropdown_menu_boundary::{DropdownMenu, DropdownMenuItem};

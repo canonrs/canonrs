@@ -1,6 +1,7 @@
 pub mod hero_ui;
 pub mod hero_boundary;
+pub use hero_boundary::*;
 pub mod preview;
 
-pub use hero_ui::*;
+// no types to re-export from hero_ui
 pub use preview::HeroShowcasePreview;

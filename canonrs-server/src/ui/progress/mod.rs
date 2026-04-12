@@ -1,7 +1,8 @@
 pub mod progress_ui;
-pub use progress_ui::*;
+// no types to re-export from progress_ui
 
 pub mod progress_boundary;
+pub use progress_boundary::*;
 
 #[cfg(feature = "examples")]
 pub mod examples;

@@ -3,8 +3,9 @@ pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use sheet_ui::*;
+// no types to re-export from sheet_ui
 pub use sheet_ui::SheetPreview;
 pub use preview::SheetShowcasePreview;
 pub mod sheet_boundary;
+pub use sheet_boundary::*;
 pub use sheet_boundary::Sheet;

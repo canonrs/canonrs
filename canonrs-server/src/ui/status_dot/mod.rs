@@ -1,7 +1,8 @@
 pub mod status_dot_ui;
 pub mod status_dot_boundary;
+pub use status_dot_boundary::*;
 pub mod preview;
-pub use status_dot_ui::*;
+// no types to re-export from status_dot_ui
 pub use status_dot_boundary::StatusDot;
 pub use canonrs_core::primitives::StatusDotVariant;
 

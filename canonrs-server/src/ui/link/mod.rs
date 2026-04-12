@@ -1,7 +1,8 @@
 pub mod link_ui;
-pub use link_ui::*;
+// no types to re-export from link_ui
 
 pub mod link_boundary;
+pub use link_boundary::*;
 pub use link_boundary::Link;
 pub use canonrs_core::primitives::LinkVariant;
 

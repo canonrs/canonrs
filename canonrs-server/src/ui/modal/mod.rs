@@ -3,7 +3,8 @@ pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use modal_ui::*;
+// no types to re-export from modal_ui
 pub use preview::ModalShowcasePreview;
 pub mod modal_boundary;
+pub use modal_boundary::*;
 pub use modal_boundary::Modal;

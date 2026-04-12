@@ -1,3 +1,4 @@
+#![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
 use canonrs_core::ToggleState;
 use canonrs_core::primitives::{ButtonGroupPrimitive, ButtonPrimitive, ButtonVariant as CoreVariant};

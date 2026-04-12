@@ -1,7 +1,8 @@
 pub mod checkbox_ui;
 pub mod checkbox_boundary;
+pub use checkbox_boundary::*;
 pub mod preview;
-pub use checkbox_ui::*;
+// no types to re-export from checkbox_ui
 #[cfg(feature = "examples")]
 pub mod examples;
 

@@ -1,7 +1,8 @@
 pub mod badge_ui;
 pub mod badge_boundary;
+pub use badge_boundary::*;
 pub use badge_boundary::Badge;
-pub use badge_ui::*;
+// no types to re-export from badge_ui
 
 #[cfg(feature = "examples")]
 pub mod examples;

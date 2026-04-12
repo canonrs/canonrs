@@ -5,7 +5,7 @@ pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use radio_group_ui::*;
+// no types to re-export from radio_group_ui
 pub use radio_group_boundary::{RadioGroup, Radio, RadioGroupItem};
 
 #[cfg(feature = "examples")]

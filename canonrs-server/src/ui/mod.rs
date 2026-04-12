@@ -116,7 +116,7 @@ pub use empty_state::EmptyStateShowcasePreview;
 pub use error_state::ErrorStateShowcasePreview;
 pub use animate::AnimateShowcasePreview;
 pub use badge::Badge;
-pub use tabs::{Tabs, TabsList, TabsTrigger, TabsContent};
+pub use tabs::{TabsRoot, TabsTrigger, TabsContent};
 pub mod menu;
 pub mod menubar;
 pub mod tree;

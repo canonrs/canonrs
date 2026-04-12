@@ -1,10 +1,11 @@
 pub mod collapsible_ui;
 pub mod collapsible_boundary;
+pub use collapsible_boundary::*;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use collapsible_ui::*;
+// no types to re-export from collapsible_ui
 pub use collapsible_boundary::{Collapsible, CollapsibleTrigger, CollapsibleContent};
 #[cfg(feature = "examples")]
 pub use examples::*;

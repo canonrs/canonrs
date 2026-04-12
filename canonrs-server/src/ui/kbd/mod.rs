@@ -1,6 +1,7 @@
 pub mod kbd_ui;
 pub mod kbd_boundary;
+pub use kbd_boundary::*;
 pub mod preview;
 
-pub use kbd_ui::*;
+// no types to re-export from kbd_ui
 pub use preview::KbdShowcasePreview;

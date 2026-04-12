@@ -1,3 +1,4 @@
+#![allow(unreachable_pub, dead_code)]
 //! DataTable Full - HTML estático, comportamento delegado ao behavior JS
 
 use leptos::prelude::*;
@@ -348,6 +349,7 @@ where
 use std::collections::HashSet;
 
 #[allow(unused_variables)]
+#[allow(dead_code)]
 #[component]
 pub fn DataTableCore(
     columns: Vec<DataTableColumn<String>>,
