@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{List, ListItem, ListItemTitle, ListItemDescription};
+use super::list_item_boundary::{List, ListItem, ListItemTitle, ListItemDescription};
 
 #[component]
 pub fn ListItemShowcasePreview() -> impl IntoView {

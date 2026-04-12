@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::error_state_boundary::{
     ErrorState, ErrorStateIcon, ErrorStateTitle,
     ErrorStateDescription, ErrorStateActions,
 };

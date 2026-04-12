@@ -1,7 +1,7 @@
 pub mod skeleton_ui;
 pub use skeleton_ui::*;
 
-pub mod boundary;
+pub mod skeleton_boundary;
 
 #[cfg(feature = "examples")]
 pub mod examples;

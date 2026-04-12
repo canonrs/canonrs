@@ -1,5 +1,5 @@
 pub mod input_ui;
-pub mod boundary;
+pub mod input_boundary;
 pub mod preview;
 mod masked_input_ui;
 pub mod types;

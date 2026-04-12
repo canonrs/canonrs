@@ -1,6 +1,6 @@
 pub mod animate_ui;
-pub mod boundary;
-pub use boundary::Animate;
+pub mod animate_boundary;
+pub use animate_boundary::Animate;
 
 pub use animate_ui::*;
 #[cfg(feature = "examples")]

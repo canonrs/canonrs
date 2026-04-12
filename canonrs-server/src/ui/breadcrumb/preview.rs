@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::breadcrumb_boundary::{
     Breadcrumb, BreadcrumbItem, BreadcrumbLink,
     BreadcrumbPage, BreadcrumbSeparator,
 };

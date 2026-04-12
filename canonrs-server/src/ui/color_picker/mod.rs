@@ -8,5 +8,5 @@ pub use color_picker_ui::*;
 
 pub use color_picker_ui::ColorPickerPreview;
 pub use preview::ColorPickerShowcasePreview;
-pub mod boundary;
-pub use boundary::{ColorPicker, ColorPickerSwatch, ColorPickerDisplay, ColorPickerSwatches};
+pub mod color_picker_boundary;
+pub use color_picker_boundary::{ColorPicker, ColorPickerSwatch, ColorPickerDisplay, ColorPickerSwatches};

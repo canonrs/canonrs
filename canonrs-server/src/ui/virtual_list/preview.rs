@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::VirtualList;
+use super::virtual_list_boundary::VirtualList;
 
 #[component]
 pub fn VirtualListShowcasePreview() -> impl IntoView {

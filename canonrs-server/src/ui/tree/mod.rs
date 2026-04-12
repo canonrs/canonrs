@@ -10,5 +10,5 @@ pub use tree_node::*;
 pub use tree_node_item::*;
 pub use tree_ui::TreePreview;
 pub use preview::TreeShowcasePreview;
-pub mod boundary;
-pub use boundary::Tree;
+pub mod tree_boundary;
+pub use tree_boundary::Tree;

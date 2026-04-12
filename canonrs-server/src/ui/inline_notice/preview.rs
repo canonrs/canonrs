@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::InlineNotice;
+use super::inline_notice_boundary::InlineNotice;
 use canonrs_core::primitives::InlineNoticeVariant;
 
 #[component]

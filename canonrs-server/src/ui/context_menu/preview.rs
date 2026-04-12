@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::context_menu_boundary::{
     ContextMenu, ContextMenuTrigger, ContextMenuContent,
     ContextMenuItem,
 };

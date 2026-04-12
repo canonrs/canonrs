@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Button;
+use super::button_boundary::Button;
 use canonrs_core::primitives::{ButtonVariant, ButtonSize};
 use canonrs_core::primitives::ButtonPrimitive;
 use canonrs_core::primitives::ButtonVariant as CoreVariant;

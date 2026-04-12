@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::AlertDialog;
+use super::alert_dialog_boundary::AlertDialog;
 
 #[component]
 pub fn AlertDialogShowcasePreview() -> impl IntoView {

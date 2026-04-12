@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Alert;
+use super::alert_boundary::Alert;
 use canonrs_core::primitives::AlertVariant;
 
 #[component]

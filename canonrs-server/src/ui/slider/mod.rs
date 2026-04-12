@@ -6,5 +6,5 @@ pub mod examples;
 
 pub use slider_ui::SliderPreview;
 pub use preview::SliderShowcasePreview;
-pub mod boundary;
-pub use boundary::{Slider, SliderWithMarks};
+pub mod slider_boundary;
+pub use slider_boundary::{Slider, SliderWithMarks};

@@ -1,5 +1,5 @@
 pub mod toggle_ui;
-pub mod boundary;
+pub mod toggle_boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;

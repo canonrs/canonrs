@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Pulse;
+use super::pulse_boundary::Pulse;
 use super::pulse_ui::{PulseVariant, PulseSize, PulseSpeed};
 
 #[component]

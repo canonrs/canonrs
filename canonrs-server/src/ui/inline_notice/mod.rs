@@ -1,8 +1,8 @@
 pub mod inline_notice_ui;
-pub mod boundary;
+pub mod inline_notice_boundary;
 pub mod preview;
 pub use inline_notice_ui::*;
-pub use boundary::InlineNotice;
+pub use inline_notice_boundary::InlineNotice;
 pub use canonrs_core::primitives::InlineNoticeVariant;
 
 #[cfg(feature = "examples")]

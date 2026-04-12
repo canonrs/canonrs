@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::tooltip_boundary::{
     TooltipProvider, Tooltip, TooltipTrigger, TooltipContent,
 };
 use canonrs_core::primitives::TooltipSide;

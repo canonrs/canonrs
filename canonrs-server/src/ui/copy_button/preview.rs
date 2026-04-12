@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::CopyButton;
+use super::copy_button_boundary::CopyButton;
 
 #[component]
 pub fn CopyButtonShowcasePreview() -> impl IntoView {

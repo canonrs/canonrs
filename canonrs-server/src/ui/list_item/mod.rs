@@ -1,5 +1,5 @@
 pub mod list_item_ui;
-pub mod boundary;
+pub mod list_item_boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;

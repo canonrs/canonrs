@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Kbd, KbdGroup, KbdSeparator};
+use super::kbd_boundary::{Kbd, KbdGroup, KbdSeparator};
 use super::kbd_ui::{KbdSize, KbdVariant};
 
 #[component]

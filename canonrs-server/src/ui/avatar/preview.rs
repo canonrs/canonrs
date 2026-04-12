@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Avatar, AvatarImage, AvatarFallback};
+use super::avatar_boundary::{Avatar, AvatarImage, AvatarFallback};
 use super::avatar_ui::{AvatarSize, AvatarShape, AvatarStatus};
 
 #[component]

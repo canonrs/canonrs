@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Icon;
+use super::icon_boundary::Icon;
 use super::icon_ui::{IconSize, IconVariant};
 
 #[component]

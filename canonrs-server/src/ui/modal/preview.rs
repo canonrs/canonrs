@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::modal_boundary::{
     Modal, ModalTrigger, ModalOverlay,
     ModalContent, ModalTitle, ModalDescription,
     ModalClose, ModalFooter,

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::sidebar_boundary::{
     Sidebar, SidebarHeader, SidebarContent,
     SidebarMenu, SidebarMenuItem, SidebarMenuGroup,
     SidebarGroupLabel,

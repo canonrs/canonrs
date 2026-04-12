@@ -1,5 +1,5 @@
 pub mod form_ui;
-pub mod boundary;
+pub mod form_boundary;
 #[cfg(feature = "examples")]
 pub mod examples;
 pub mod preview;

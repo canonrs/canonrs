@@ -6,5 +6,5 @@ pub mod examples;
 pub use popover_ui::*;
 pub use popover_ui::PopoverPreview;
 pub use preview::PopoverShowcasePreview;
-pub mod boundary;
-pub use boundary::{Popover, PopoverContent};
+pub mod popover_boundary;
+pub use popover_boundary::{Popover, PopoverContent};

@@ -1,6 +1,6 @@
 pub mod error_state_ui;
-pub mod boundary;
-pub use boundary::{ErrorState, ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateActions};
+pub mod error_state_boundary;
+pub use error_state_boundary::{ErrorState, ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateActions};
 
 pub use error_state_ui::*;
 

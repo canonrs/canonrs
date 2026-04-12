@@ -1,6 +1,6 @@
 pub mod carousel_ui;
 pub mod carousel_primitive;
-pub mod boundary;
+pub mod carousel_boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;

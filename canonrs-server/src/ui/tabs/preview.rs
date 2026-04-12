@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{TabsRoot, TabsTrigger, TabsContent};
+use super::tabs_boundary::{TabsRoot, TabsTrigger, TabsContent};
 use super::tabs_ui::TabsList;
 
 #[component]

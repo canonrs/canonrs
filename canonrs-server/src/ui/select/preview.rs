@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Select;
+use super::select_boundary::Select;
 use super::select_ui::{SelectTrigger, SelectValue, SelectContent, SelectItem};
 use canonrs_core::meta::{DisabledState, SelectionState};
 

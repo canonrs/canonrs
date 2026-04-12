@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::stat_boundary::{
     Stat, StatHeader, StatBody,
     StatValue, StatLabel, StatDelta, StatIcon,
 };

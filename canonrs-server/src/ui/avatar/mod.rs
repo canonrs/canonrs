@@ -10,4 +10,4 @@ pub use avatar_ui::AvatarPreview;
 
 pub mod preview;
 pub use preview::AvatarShowcasePreview;
-pub mod boundary;
+pub mod avatar_boundary;

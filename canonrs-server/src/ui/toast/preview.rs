@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Toast;
+use super::toast_boundary::Toast;
 use canonrs_core::primitives::ToastVariant;
 
 #[component]

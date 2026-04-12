@@ -1,6 +1,6 @@
 use canonrs_core::primitives::ScrollOrientation;
 use leptos::prelude::*;
-use super::boundary::ScrollArea;
+use super::scroll_area_boundary::ScrollArea;
 
 #[component]
 pub fn ScrollAreaShowcasePreview() -> impl IntoView {

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::AspectRatio;
+use super::aspect_ratio_boundary::AspectRatio;
 
 #[component]
 pub fn AspectRatioShowcasePreview() -> impl IntoView {

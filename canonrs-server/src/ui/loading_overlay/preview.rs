@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::LoadingOverlay;
+use super::loading_overlay_boundary::LoadingOverlay;
 
 #[component]
 pub fn LoadingOverlayShowcasePreview() -> impl IntoView {

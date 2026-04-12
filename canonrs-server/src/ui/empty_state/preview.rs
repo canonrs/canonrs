@@ -1,6 +1,6 @@
 use canonrs_core::primitives::EmptyStateVariant;
 use leptos::prelude::*;
-use super::boundary::{
+use super::empty_state_boundary::{
     EmptyState, EmptyStateIcon, EmptyStateTitle,
     EmptyStateDescription, EmptyStateAction,
 };

@@ -1,5 +1,5 @@
 pub mod input_group_ui;
-pub mod boundary;
+pub mod input_group_boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;

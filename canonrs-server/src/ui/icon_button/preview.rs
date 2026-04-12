@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::IconButton;
+use super::icon_button_boundary::IconButton;
 use canonrs_core::primitives::{IconButtonVariant, IconButtonSize};
 
 #[component]

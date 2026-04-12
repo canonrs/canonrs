@@ -1,6 +1,6 @@
 pub mod empty_state_ui;
-pub mod boundary;
-pub use boundary::{EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateAction};
+pub mod empty_state_boundary;
+pub use empty_state_boundary::{EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateAction};
 pub use empty_state_ui::*;
 
 #[cfg(feature = "examples")]

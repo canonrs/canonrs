@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Switch;
+use super::switch_boundary::Switch;
 
 #[component]
 pub fn SwitchShowcasePreview() -> impl IntoView {

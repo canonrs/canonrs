@@ -1,6 +1,6 @@
 use canonrs_core::primitives::table_of_contents::TocMode;
 use leptos::prelude::*;
-use super::boundary::TableOfContents;
+use super::table_of_contents_boundary::TableOfContents;
 use crate::ui::scroll_area::ScrollArea;
 
 #[component]

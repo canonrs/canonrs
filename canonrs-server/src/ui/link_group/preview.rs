@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::LinkGroup;
+use super::link_group_boundary::LinkGroup;
 use crate::ui::nav_item::NavItem;
 
 #[component]

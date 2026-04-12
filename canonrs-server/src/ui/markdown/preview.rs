@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::markdown_ui::TocPosition;
-use super::boundary::MarkdownSurface;
+use super::markdown_boundary::MarkdownSurface;
 use super::render_markdown;
 use crate::ui::scroll_area::ScrollArea;
 

@@ -6,5 +6,5 @@ pub mod examples;
 pub use confirm_dialog_ui::*;
 pub use confirm_dialog_ui::ConfirmDialogPreview;
 pub use preview::ConfirmDialogShowcasePreview;
-pub mod boundary;
-pub use boundary::ConfirmDialog;
+pub mod confirm_dialog_boundary;
+pub use confirm_dialog_boundary::ConfirmDialog;

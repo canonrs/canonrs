@@ -1,8 +1,8 @@
 pub mod status_dot_ui;
-pub mod boundary;
+pub mod status_dot_boundary;
 pub mod preview;
 pub use status_dot_ui::*;
-pub use boundary::StatusDot;
+pub use status_dot_boundary::StatusDot;
 pub use canonrs_core::primitives::StatusDotVariant;
 
 #[cfg(feature = "examples")]

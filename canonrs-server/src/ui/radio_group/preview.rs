@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{RadioGroup, RadioGroupItem};
+use super::radio_group_boundary::{RadioGroup, RadioGroupItem};
 use canonrs_core::meta::{SelectionState, DisabledState};
 
 #[component]

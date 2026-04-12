@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::CodeBlock;
+use super::code_block_boundary::CodeBlock;
 
 #[component]
 pub fn CodeBlockShowcasePreview() -> impl IntoView {

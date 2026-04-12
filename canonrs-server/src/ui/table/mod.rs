@@ -6,5 +6,5 @@ pub mod examples;
 pub use table_ui::*;
 
 pub use preview::TableShowcasePreview;
-pub mod boundary;
-pub use boundary::{Table, TableHeader, TableBody, TableRow, TableHead, TableCell};
+pub mod table_boundary;
+pub use table_boundary::{Table, TableHeader, TableBody, TableRow, TableHead, TableCell};

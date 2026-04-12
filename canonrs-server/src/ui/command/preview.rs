@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Command, CommandItem};
+use super::command_boundary::{Command, CommandItem};
 
 #[component]
 pub fn CommandShowcasePreview() -> impl IntoView {

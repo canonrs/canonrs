@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Toolbar, ToolbarItem, ToolbarSeparator};
+use super::toolbar_boundary::{Toolbar, ToolbarItem, ToolbarSeparator};
 use canonrs_core::primitives::ToolbarOrientation;
 
 #[component]

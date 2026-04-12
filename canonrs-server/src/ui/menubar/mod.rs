@@ -9,5 +9,5 @@ pub use examples::*;
 
 pub use menubar_ui::MenubarPreview;
 pub use preview::MenubarShowcasePreview;
-pub mod boundary;
-pub use boundary::{Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator};
+pub mod menubar_boundary;
+pub use menubar_boundary::{Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator};

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Menu, MenuItem};
+use super::menu_boundary::{Menu, MenuItem};
 
 #[component]
 pub fn MenuShowcasePreview() -> impl IntoView {

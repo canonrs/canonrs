@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Logo;
+use super::logo_boundary::Logo;
 use super::logo_ui::{LogoSize, LogoVariant};
 
 #[component]

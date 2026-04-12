@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Animate;
+use super::animate_boundary::Animate;
 
 #[component]
 pub fn AnimateShowcasePreview() -> impl IntoView {

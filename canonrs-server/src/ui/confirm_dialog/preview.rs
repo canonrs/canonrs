@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::confirm_dialog_boundary::{
     ConfirmDialog, ConfirmDialogTrigger, ConfirmDialogOverlay,
     ConfirmDialogContent, ConfirmDialogTitle, ConfirmDialogDescription,
     ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm,

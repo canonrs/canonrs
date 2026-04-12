@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::table_boundary::{
     Table, TableHeader, TableBody,
     TableRow, TableHead, TableCell,
 };

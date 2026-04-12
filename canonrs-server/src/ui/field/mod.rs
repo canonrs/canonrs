@@ -1,5 +1,5 @@
 pub mod field_ui;
-pub mod boundary;
+pub mod field_boundary;
 pub mod preview;
 pub mod variants;
 pub mod types;

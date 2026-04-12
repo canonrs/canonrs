@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::ButtonGroup;
+use super::button_group_boundary::ButtonGroup;
 use canonrs_core::ToggleState;
 use crate::ui::button::Button;
 use canonrs_core::primitives::{ButtonVariant, ButtonSize, ButtonStateHint};

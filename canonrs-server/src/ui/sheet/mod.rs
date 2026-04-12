@@ -6,5 +6,5 @@ pub mod examples;
 pub use sheet_ui::*;
 pub use sheet_ui::SheetPreview;
 pub use preview::SheetShowcasePreview;
-pub mod boundary;
-pub use boundary::Sheet;
+pub mod sheet_boundary;
+pub use sheet_boundary::Sheet;

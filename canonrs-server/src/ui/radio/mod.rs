@@ -11,5 +11,5 @@ pub use examples::*;
 
 pub use radio_ui::RadioPreview;
 pub use preview::RadioShowcasePreview;
-pub mod boundary;
-pub use boundary::{RadioGroup, Radio, RadioGroupItem};
+pub mod radio_boundary;
+pub use radio_boundary::{RadioGroup, Radio, RadioGroupItem};

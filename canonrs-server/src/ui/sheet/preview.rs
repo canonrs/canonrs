@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Sheet;
+use super::sheet_boundary::Sheet;
 
 #[component]
 pub fn SheetShowcasePreview() -> impl IntoView {

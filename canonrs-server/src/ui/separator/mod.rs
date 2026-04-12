@@ -8,4 +8,4 @@ pub use examples::*;
 
 pub mod preview;
 pub use preview::SeparatorShowcasePreview;
-pub mod boundary;
+pub mod separator_boundary;

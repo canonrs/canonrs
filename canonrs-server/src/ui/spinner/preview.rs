@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Spinner;
+use super::spinner_boundary::Spinner;
 use canonrs_core::primitives::SpinnerSize;
 
 #[component]

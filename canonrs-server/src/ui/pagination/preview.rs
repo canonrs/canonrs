@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::pagination_boundary::{
     Pagination, PaginationContent, PaginationItem,
     PaginationLink, PaginationPrevious, PaginationNext,
 };

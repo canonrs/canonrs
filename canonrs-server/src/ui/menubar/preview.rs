@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::menubar_boundary::{
     Menubar, MenubarMenu, MenubarTrigger,
     MenubarContent, MenubarItem, MenubarSeparator,
 };

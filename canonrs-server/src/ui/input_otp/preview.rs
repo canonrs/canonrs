@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::InputOtp;
+use super::input_otp_boundary::InputOtp;
 
 #[component]
 pub fn InputOtpShowcasePreview() -> impl IntoView {

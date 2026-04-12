@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::EmptyTable;
+use super::empty_table_boundary::EmptyTable;
 use crate::ui::table::{Table, TableHeader, TableBody, TableRow, TableHead};
 
 #[component]

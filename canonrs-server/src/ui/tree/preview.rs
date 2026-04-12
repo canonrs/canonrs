@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Tree, TreeItem, TreeGroup};
+use super::tree_boundary::{Tree, TreeItem, TreeGroup};
 
 #[component]
 pub fn TreeShowcasePreview() -> impl IntoView {

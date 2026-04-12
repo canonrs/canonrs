@@ -1,7 +1,7 @@
 pub mod spinner_ui;
 pub use spinner_ui::*;
 
-pub mod boundary;
+pub mod spinner_boundary;
 
 #[cfg(feature = "examples")]
 pub mod examples;

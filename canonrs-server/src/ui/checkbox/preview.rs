@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Checkbox;
+use super::checkbox_boundary::Checkbox;
 
 #[component]
 pub fn CheckboxShowcasePreview() -> impl IntoView {

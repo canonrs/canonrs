@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::dialog_boundary::{
     Dialog, DialogTrigger, DialogOverlay,
     DialogContent, DialogTitle, DialogDescription,
     DialogClose, DialogFooter,

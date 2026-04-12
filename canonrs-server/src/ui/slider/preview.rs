@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Slider, SliderWithMarks};
+use super::slider_boundary::{Slider, SliderWithMarks};
 use canonrs_core::meta::DisabledState;
 
 #[component]

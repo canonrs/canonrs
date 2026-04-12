@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Progress;
+use super::progress_boundary::Progress;
 
 #[component]
 pub fn ProgressShowcasePreview() -> impl IntoView {

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::DocProgressSlot;
+use super::doc_progress_boundary::DocProgressSlot;
 use crate::ui::scroll_area::scroll_area_ui::ScrollArea;
 
 #[component]

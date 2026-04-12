@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Toggle;
+use super::toggle_boundary::Toggle;
 
 #[component]
 pub fn ToggleShowcasePreview() -> impl IntoView {

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Skeleton;
+use super::skeleton_boundary::Skeleton;
 use super::skeleton_ui::SkeletonVariant;
 
 #[component]

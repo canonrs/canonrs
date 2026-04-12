@@ -6,5 +6,5 @@ pub mod examples;
 pub use dialog_ui::*;
 pub use dialog_ui::DialogPreview;
 pub use preview::DialogShowcasePreview;
-pub mod boundary;
-pub use boundary::{Dialog, DialogTrigger, DialogPortal, DialogOverlay, DialogContent, DialogTitle, DialogDescription, DialogClose};
+pub mod dialog_boundary;
+pub use dialog_boundary::{Dialog, DialogTrigger, DialogPortal, DialogOverlay, DialogContent, DialogTitle, DialogDescription, DialogClose};

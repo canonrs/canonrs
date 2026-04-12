@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::InputGroup;
+use super::input_group_boundary::InputGroup;
 use crate::ui::input::Input;
 
 #[component]

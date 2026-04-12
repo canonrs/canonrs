@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{ToggleGroup, ToggleGroupItem};
+use super::toggle_group_boundary::{ToggleGroup, ToggleGroupItem};
 
 #[component]
 pub fn ToggleGroupShowcasePreview() -> impl IntoView {

@@ -1,6 +1,6 @@
 mod scroll_area_primitive;
 pub mod scroll_area_ui;
-pub mod boundary;
+pub mod scroll_area_boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;

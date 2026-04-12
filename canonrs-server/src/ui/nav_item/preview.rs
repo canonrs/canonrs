@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::NavItem;
+use super::nav_item_boundary::NavItem;
 
 #[component]
 pub fn NavItemShowcasePreview() -> impl IntoView {

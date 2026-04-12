@@ -1,5 +1,5 @@
 pub mod kbd_ui;
-pub mod boundary;
+pub mod kbd_boundary;
 pub mod preview;
 
 pub use kbd_ui::*;

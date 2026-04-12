@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{ColorPicker, ColorPickerSwatch, ColorPickerSwatches};
+use super::color_picker_boundary::{ColorPicker, ColorPickerSwatch, ColorPickerSwatches};
 use canonrs_core::meta::DisabledState;
 
 #[component]

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::page_header_boundary::{
     PageHeader, PageHeaderBreadcrumbs, PageHeaderContent,
     PageHeaderTitle, PageHeaderDescription, PageHeaderActions,
     PageHeaderTabs,

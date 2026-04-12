@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{InlineMeta, InlineMetaLabel, InlineMetaValue};
+use super::inline_meta_boundary::{InlineMeta, InlineMetaLabel, InlineMetaValue};
 
 #[component]
 pub fn InlineMetaShowcasePreview() -> impl IntoView {

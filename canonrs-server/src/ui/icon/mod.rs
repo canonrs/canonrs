@@ -1,5 +1,5 @@
 pub mod icon_ui;
-pub mod boundary;
+pub mod icon_boundary;
 #[cfg(feature = "examples")]
 pub mod examples;
 

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Badge;
+use super::badge_boundary::Badge;
 use canonrs_core::primitives::{BadgeVariant, BadgeInteractivity};
 
 #[component]

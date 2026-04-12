@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{HoverCard, HoverCardTrigger, HoverCardContent};
+use super::hover_card_boundary::{HoverCard, HoverCardTrigger, HoverCardContent};
 use canonrs_core::primitives::HoverCardSide;
 
 #[component]

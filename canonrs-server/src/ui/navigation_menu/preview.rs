@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{NavigationMenu, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink};
+use super::navigation_menu_boundary::{NavigationMenu, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink};
 
 #[component]
 pub fn NavigationMenuShowcasePreview() -> impl IntoView {

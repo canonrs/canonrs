@@ -1,5 +1,5 @@
 pub mod textarea_ui;
-pub mod boundary;
+pub mod textarea_boundary;
 pub mod preview;
 pub use textarea_ui::*;
 #[cfg(feature = "examples")]

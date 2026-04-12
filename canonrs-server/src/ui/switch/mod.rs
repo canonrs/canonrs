@@ -1,5 +1,5 @@
 pub mod switch_ui;
-pub mod boundary;
+pub mod switch_boundary;
 pub mod preview;
 pub use switch_ui::*;
 #[cfg(feature = "examples")]

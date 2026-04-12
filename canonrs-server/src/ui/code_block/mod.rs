@@ -11,4 +11,4 @@ pub use code_block_ui::CodeBlockPreview;
 
 pub mod preview;
 pub use preview::CodeBlockShowcasePreview;
-pub mod boundary;
+pub mod code_block_boundary;

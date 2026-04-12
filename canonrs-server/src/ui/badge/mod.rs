@@ -1,6 +1,6 @@
 pub mod badge_ui;
-pub mod boundary;
-pub use boundary::Badge;
+pub mod badge_boundary;
+pub use badge_boundary::Badge;
 pub use badge_ui::*;
 
 #[cfg(feature = "examples")]

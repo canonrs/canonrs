@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Collapsible, CollapsibleTrigger, CollapsibleContent};
+use super::collapsible_boundary::{Collapsible, CollapsibleTrigger, CollapsibleContent};
 
 #[component]
 pub fn CollapsibleShowcasePreview() -> impl IntoView {

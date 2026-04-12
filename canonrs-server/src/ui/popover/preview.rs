@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Popover, PopoverTrigger, PopoverContent};
+use super::popover_boundary::{Popover, PopoverTrigger, PopoverContent};
 use canonrs_core::primitives::PopoverSide;
 
 #[component]

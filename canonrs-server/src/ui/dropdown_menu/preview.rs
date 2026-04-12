@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::dropdown_menu_boundary::{
     DropdownMenu, DropdownMenuItem, DropdownMenuSeparator,
     DropdownMenuCheckboxItem,
 };

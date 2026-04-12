@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::StatusDot;
+use super::status_dot_boundary::StatusDot;
 use canonrs_core::primitives::StatusDotVariant;
 
 #[component]

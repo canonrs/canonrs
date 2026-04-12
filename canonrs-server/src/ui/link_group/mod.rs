@@ -1,5 +1,5 @@
 pub mod link_group_ui;
-pub mod boundary;
+pub mod link_group_boundary;
 pub mod preview;
 
 pub use link_group_ui::*;

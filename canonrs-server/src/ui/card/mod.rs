@@ -1,7 +1,7 @@
 pub mod card_ui;
 pub use card_ui::*;
 
-pub mod boundary;
+pub mod card_boundary;
 
 #[cfg(feature = "examples")]
 pub mod examples;

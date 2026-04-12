@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Drawer;
+use super::drawer_boundary::Drawer;
 use canonrs_core::primitives::DrawerSide;
 
 #[component]

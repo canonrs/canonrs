@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{
+use super::section_boundary::{
     SectionHeader, SectionTitle, SectionSubtitle,
     SectionBadge, SectionActions,
 };

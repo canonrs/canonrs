@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Accordion, AccordionItem, AccordionTrigger, AccordionContent};
+use super::accordion_boundary::{Accordion, AccordionItem, AccordionTrigger, AccordionContent};
 use canonrs_core::primitives::AccordionSelection;
 
 #[component]

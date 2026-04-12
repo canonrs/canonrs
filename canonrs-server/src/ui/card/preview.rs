@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
+use super::card_boundary::{Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
 
 #[component]
 pub fn CardShowcasePreview() -> impl IntoView {

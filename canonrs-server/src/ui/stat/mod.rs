@@ -1,5 +1,5 @@
 pub mod stat_ui;
-pub mod boundary;
+pub mod stat_boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;

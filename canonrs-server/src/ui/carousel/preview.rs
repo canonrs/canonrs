@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::{Carousel, CarouselTrack, CarouselItem, CarouselPrev, CarouselNext};
+use super::carousel_boundary::{Carousel, CarouselTrack, CarouselItem, CarouselPrev, CarouselNext};
 use canonrs_core::ToggleState;
 
 #[component]

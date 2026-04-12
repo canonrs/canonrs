@@ -5,5 +5,5 @@ pub mod examples;
 
 pub use modal_ui::*;
 pub use preview::ModalShowcasePreview;
-pub mod boundary;
-pub use boundary::Modal;
+pub mod modal_boundary;
+pub use modal_boundary::Modal;

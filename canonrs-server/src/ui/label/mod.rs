@@ -1,5 +1,5 @@
 pub mod label_ui;
-pub mod boundary;
+pub mod label_boundary;
 pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;

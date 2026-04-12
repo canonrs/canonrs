@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Chart;
+use super::chart_boundary::Chart;
 use canonrs_core::{ChartData, ChartSeries};
 use canonrs_core::primitives::ChartType;
 

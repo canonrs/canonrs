@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Link;
+use super::link_boundary::Link;
 use canonrs_core::primitives::LinkVariant;
 
 #[component]

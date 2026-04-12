@@ -1,4 +1,4 @@
-use crate::ui::input::boundary::Input;
+use crate::ui::input::input_boundary::Input;
 use leptos::prelude::*;
 use super::field_ui::{Field, FieldLabel, FieldDescription, FieldError, FieldSet, FieldGroup, FieldContent};
 use super::variants::{FieldOrientation, FieldValidation};

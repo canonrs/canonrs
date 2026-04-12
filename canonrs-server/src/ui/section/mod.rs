@@ -1,5 +1,5 @@
 pub mod section_ui;
-pub mod boundary;
+pub mod section_boundary;
 pub mod preview;
 
 pub use section_ui::*;

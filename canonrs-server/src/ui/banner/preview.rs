@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Banner;
+use super::banner_boundary::Banner;
 use canonrs_core::primitives::BannerVariant;
 
 #[component]

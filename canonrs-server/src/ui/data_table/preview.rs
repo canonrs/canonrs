@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::DataTable;
+use super::data_table_boundary::DataTable;
 use super::data_table_ui::{DataTableColumn, RowAction, BulkAction};
 
 #[component]

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Separator;
+use super::separator_boundary::Separator;
 use canonrs_core::Orientation;
 
 #[component]

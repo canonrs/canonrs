@@ -1,6 +1,6 @@
 use canonrs_core::primitives::ResizableOrientation;
 use leptos::prelude::*;
-use super::boundary::{Resizable, ResizablePanel, ResizableHandle};
+use super::resizable_boundary::{Resizable, ResizablePanel, ResizableHandle};
 
 #[component]
 pub fn ResizableShowcasePreview() -> impl IntoView {

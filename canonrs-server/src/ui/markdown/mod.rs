@@ -38,5 +38,5 @@ pub fn render_with_prefix(md: &str, prefix: &str) -> RenderedMarkdown {
 
 pub mod preview;
 pub use preview::MarkdownShowcasePreview;
-pub mod boundary;
-pub use boundary::{MarkdownSurface, MarkdownLayout, MarkdownContent, MarkdownTOC};
+pub mod markdown_boundary;
+pub use markdown_boundary::{MarkdownSurface, MarkdownLayout, MarkdownContent, MarkdownTOC};

@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Combobox;
+use super::combobox_boundary::Combobox;
 use super::combobox_ui::{ComboboxInput, ComboboxList, ComboboxItem};
 use canonrs_core::meta::{DisabledState, SelectionState};
 

@@ -9,5 +9,5 @@ pub use chart_ui::ChartPreview;
 
 pub mod preview;
 pub use preview::ChartShowcasePreview;
-pub mod boundary;
-pub use boundary::{Chart};
+pub mod chart_boundary;
+pub use chart_boundary::{Chart};

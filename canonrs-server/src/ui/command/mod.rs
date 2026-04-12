@@ -1,8 +1,8 @@
 pub mod command_ui;
-pub mod boundary;
+pub mod command_boundary;
 pub mod preview;
 pub use command_ui::*;
-pub use boundary::{Command, CommandItem};
+pub use command_boundary::{Command, CommandItem};
 
 #[cfg(feature = "examples")]
 pub mod examples;

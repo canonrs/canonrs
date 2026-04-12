@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::boundary::Callout;
+use super::callout_boundary::Callout;
 use canonrs_core::primitives::CalloutVariant;
 
 #[component]
