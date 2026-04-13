@@ -1,25 +1,17 @@
 /* ============================================================================
-   Primitive: Container
+   Primitive: Container — layout puro, sem responsive
    ============================================================================ */
 
 [data-rs-container] {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: var(--space-lg);
-    padding-right: var(--space-lg);
+    padding-left: var(--container-padding-x);
+    padding-right: var(--container-padding-x);
 }
 
-[data-rs-container][data-rs-size="sm"]   { max-width: var(--layout-width-sm); }
-[data-rs-container][data-rs-size="md"]   { max-width: var(--layout-width-md); }
-[data-rs-container][data-rs-size="lg"]   { max-width: var(--layout-content-max-width); }
-[data-rs-container][data-rs-size="xl"]   { max-width: var(--layout-width-xl); }
+[data-rs-container][data-rs-size="sm"]   { max-width: var(--container-size-sm); }
+[data-rs-container][data-rs-size="md"]   { max-width: var(--container-size-md); }
+[data-rs-container][data-rs-size="lg"]   { max-width: var(--container-size-lg); }
+[data-rs-container][data-rs-size="xl"]   { max-width: var(--container-size-xl); }
 [data-rs-container][data-rs-size="full"] { max-width: 100%; }
-
-/* Responsive — container padding on mobile */
-@media (max-width: 768px) {
-    [data-rs-container] {
-        padding-left: var(--space-md);
-        padding-right: var(--space-md);
-    }
-}

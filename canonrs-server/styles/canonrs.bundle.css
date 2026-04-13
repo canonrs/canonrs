@@ -121,8 +121,6 @@
   --primitive-space-16: 4rem;
   --primitive-space-24: 6rem;
   --primitive-space-10: 2.5rem;
-  --primitive-space-12: 3rem;
-  --primitive-space-16: 4rem;
   --primitive-radius-0: 0;
   --primitive-radius-1: 0.25rem;
   --primitive-radius-2: 0.375rem;
@@ -264,45 +262,45 @@
 
 /* amber-minimal - Normalized vocabulary */
 [data-theme="amber-minimal"] {
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-fg: hsl(0 0% 14.902%);
-  --theme-sidebar-bg: hsl(210 20% 98.0392%);
-  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
-  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
-  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-action-accent-bg: hsl(48 100% 96.0784%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
-  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-overlay-fg: hsl(0 0% 14.902%);
-  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-surface-border: hsl(220 13.0435% 90.9804%);
-  --theme-sidebar-fg: hsl(0 0% 14.902%);
-  --theme-surface-muted: hsl(210 20% 98.0392%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
   --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-action-accent-fg: hsl(22.7273 82.5% 31.3725%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-sidebar-accent-fg: hsl(22.7273 82.5% 31.3725%);
   --theme-surface-elevated-fg: hsl(0 0% 14.902%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-surface-muted: hsl(210 20% 98.0392%);
+  --theme-chart-5: hsl(21.7143 77.7778% 26.4706%);
+  --theme-sidebar-bg: hsl(210 20% 98.0392%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-chart-3: hsl(25.9649 90.4762% 37.0588%);
+  --theme-action-accent-bg: hsl(48 100% 96.0784%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
   --theme-surface-bg: hsl(0 0% 100%);
+  --theme-chart-4: hsl(22.7273 82.5% 31.3725%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-fg: hsl(0 0% 14.902%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-action-secondary-fg: hsl(215 13.7931% 34.1176%);
+  --theme-sidebar-accent-bg: hsl(48 100% 96.0784%);
+  --theme-sidebar-border: hsl(220 13.0435% 90.9804%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-action-secondary-bg: hsl(220 14.2857% 95.8824%);
+  --theme-sidebar-fg: hsl(0 0% 14.902%);
+  --theme-overlay-fg: hsl(0 0% 14.902%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-border: hsl(220 13.0435% 90.9804%);
+  --theme-chart-1: hsl(37.6923 92.126% 50.1961%);
   --primitive-font-sans: Inter, sans-serif;
   --primitive-font-serif: Source Serif 4, serif;
   --primitive-font-mono: JetBrains Mono, monospace;
@@ -310,88 +308,88 @@
 }
 
 [data-theme="amber-minimal"].dark {
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-surface-elevated: hsl(0 0% 14.902%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-fg: hsl(0 0% 89.8039%);
-  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
-  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
-  --theme-overlay-bg: hsl(0 0% 14.902%);
-  --theme-surface-bg: hsl(0 0% 9.0196%);
-  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
-  --theme-overlay-fg: hsl(0 0% 89.8039%);
-  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-surface-muted: hsl(0 0% 12.1569%);
-  --theme-action-secondary-bg: hsl(0 0% 14.902%);
   --theme-sidebar-border: hsl(0 0% 25.098%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-action-secondary-fg: hsl(0 0% 89.8039%);
+  --theme-sidebar-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-action-focus-ring: hsl(37.6923 92.126% 50.1961%);
   --theme-chart-1: hsl(43.2558 96.4126% 56.2745%);
+  --theme-action-secondary-bg: hsl(0 0% 14.902%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-sidebar-fg: hsl(0 0% 89.8039%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-action-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-chart-2: hsl(32.1327 94.6188% 43.7255%);
+  --theme-chart-3: hsl(22.7273 82.5% 31.3725%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-overlay-fg: hsl(0 0% 89.8039%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
+  --theme-surface-border: hsl(0 0% 25.098%);
+  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
+  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
+  --theme-surface-muted: hsl(0 0% 12.1569%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-surface-fg: hsl(0 0% 89.8039%);
+  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
+  --theme-state-info-bg: hsl(221 83% 53%);
   --theme-sidebar-bg: hsl(0 0% 5.8824%);
   --theme-chart-5: hsl(22.7273 82.5% 31.3725%);
-  --theme-surface-fg: hsl(0 0% 89.8039%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
-  --theme-action-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-action-accent-bg: hsl(22.7273 82.5% 31.3725%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-surface-fg-muted: hsl(0 0% 63.9216%);
-  --theme-surface-border: hsl(0 0% 25.098%);
-  --theme-sidebar-accent-fg: hsl(48 96.6387% 76.6667%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-sidebar-ring: hsl(37.6923 92.126% 50.1961%);
-  --theme-sidebar-primary-bg: hsl(37.6923 92.126% 50.1961%);
+  --theme-overlay-bg: hsl(0 0% 14.902%);
+  --theme-surface-elevated-fg: hsl(0 0% 89.8039%);
+  --theme-surface-elevated: hsl(0 0% 14.902%);
   --theme-chart-4: hsl(25.9649 90.4762% 37.0588%);
+  --theme-surface-bg: hsl(0 0% 9.0196%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
 }
 
 /* canonrs-theme - Normalized vocabulary */
 [data-theme="canonrs-theme"] {
-  --theme-action-primary-bg: hsl(38 91% 50%);
-  --theme-sidebar-accent-bg: hsl(38 100% 94%);
-  --theme-action-secondary-bg: hsl(222 20% 92%);
-  --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-sidebar-primary-bg: hsl(38 91% 50%);
-  --theme-surface-bg: hsl(220 18% 98%);
-  --theme-action-accent-bg: hsl(38 100% 94%);
-  --theme-chart-3: hsl(222 45% 40%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-surface-border: hsl(220 14% 88%);
-  --theme-action-focus-ring: hsl(38 91% 50%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-surface-fg-muted: hsl(220 12% 46%);
-  --theme-shadow-color: hsl(222 25% 8%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-sidebar-bg: hsl(220 18% 97%);
-  --theme-overlay-fg: hsl(222 25% 12%);
-  --theme-chart-4: hsl(222 35% 55%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-state-error-bg: hsl(0 84% 60%);
-  --theme-chart-5: hsl(26 90% 37%);
-  --theme-sidebar-accent-fg: hsl(38 91% 28%);
-  --theme-action-accent-fg: hsl(38 91% 28%);
-  --theme-chart-2: hsl(32 95% 44%);
-  --theme-sidebar-border: hsl(220 14% 88%);
-  --theme-surface-border: hsl(220 14% 88%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-sidebar-fg: hsl(222 25% 12%);
-  --theme-surface-fg: hsl(222 25% 12%);
   --theme-surface-elevated-fg: hsl(222 25% 12%);
-  --theme-action-secondary-fg: hsl(222 25% 22%);
-  --theme-surface-muted: hsl(220 18% 95%);
+  --theme-action-secondary-bg: hsl(222 20% 92%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-chart-4: hsl(222 35% 55%);
+  --theme-shadow-color: hsl(222 25% 8%);
+  --theme-action-accent-bg: hsl(38 100% 94%);
+  --theme-sidebar-accent-bg: hsl(38 100% 94%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-overlay-fg: hsl(222 25% 12%);
+  --theme-sidebar-primary-bg: hsl(38 91% 50%);
+  --theme-chart-5: hsl(26 90% 37%);
+  --theme-surface-bg: hsl(220 18% 98%);
+  --theme-chart-3: hsl(222 45% 40%);
   --theme-sidebar-primary-fg: hsl(0 0% 0%);
-  --theme-sidebar-ring: hsl(38 91% 50%);
+  --theme-action-focus-ring: hsl(38 91% 50%);
+  --theme-surface-border: hsl(220 14% 88%);
   --theme-chart-1: hsl(38 91% 50%);
+  --theme-action-accent-fg: hsl(38 91% 28%);
+  --theme-sidebar-accent-fg: hsl(38 91% 28%);
+  --theme-surface-fg-muted: hsl(220 12% 46%);
+  --theme-sidebar-border: hsl(220 14% 88%);
+  --theme-sidebar-bg: hsl(220 18% 97%);
+  --theme-surface-muted: hsl(220 18% 95%);
+  --theme-sidebar-fg: hsl(222 25% 12%);
+  --theme-sidebar-ring: hsl(38 91% 50%);
+  --theme-action-primary-bg: hsl(38 91% 50%);
+  --theme-action-secondary-fg: hsl(222 25% 22%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-chart-2: hsl(32 95% 44%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-surface-fg: hsl(222 25% 12%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-overlay-bg: hsl(0 0% 100%);
+  --theme-surface-border: hsl(220 14% 88%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-state-error-bg: hsl(0 84% 60%);
   --primitive-font-sans: Inter, sans-serif;
   --primitive-font-serif: Source Serif 4, serif;
   --primitive-font-mono: JetBrains Mono, monospace;
@@ -399,88 +397,88 @@
 }
 
 [data-theme="canonrs-theme"].dark {
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-sidebar-fg: hsl(220 18% 88%);
-  --theme-sidebar-accent-fg: hsl(38 100% 85%);
-  --theme-chart-2: hsl(32 90% 50%);
-  --theme-overlay-fg: hsl(220 18% 92%);
-  --theme-action-accent-fg: hsl(38 100% 85%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-chart-1: hsl(38 95% 58%);
-  --theme-sidebar-bg: hsl(222 22% 6%);
-  --theme-surface-fg: hsl(220 18% 92%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-action-secondary-fg: hsl(220 18% 88%);
-  --theme-sidebar-border: hsl(222 20% 16%);
-  --theme-sidebar-ring: hsl(38 91% 50%);
-  --theme-surface-border: hsl(222 20% 20%);
-  --theme-action-primary-fg: hsl(0 0% 0%);
-  --theme-action-primary-bg: hsl(38 91% 50%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-chart-5: hsl(26 85% 45%);
   --theme-surface-elevated-fg: hsl(220 18% 92%);
-  --theme-sidebar-accent-bg: hsl(38 88% 28%);
-  --theme-surface-fg-muted: hsl(220 14% 58%);
-  --theme-chart-3: hsl(222 60% 60%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-surface-elevated: hsl(222 20% 10%);
-  --theme-overlay-bg: hsl(222 20% 10%);
-  --theme-action-accent-bg: hsl(38 88% 28%);
-  --theme-state-error-bg: hsl(0 72% 52%);
   --theme-surface-border: hsl(222 20% 20%);
-  --theme-action-focus-ring: hsl(38 91% 50%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-fg-muted: hsl(220 14% 58%);
+  --theme-action-primary-bg: hsl(38 91% 50%);
+  --theme-sidebar-accent-fg: hsl(38 100% 85%);
   --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-surface-border: hsl(222 20% 20%);
+  --theme-sidebar-ring: hsl(38 91% 50%);
+  --theme-sidebar-fg: hsl(220 18% 88%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-chart-3: hsl(222 60% 60%);
+  --theme-chart-5: hsl(26 85% 45%);
+  --theme-action-accent-fg: hsl(38 100% 85%);
+  --theme-action-primary-fg: hsl(0 0% 0%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-sidebar-border: hsl(222 20% 16%);
+  --theme-sidebar-bg: hsl(222 22% 6%);
   --theme-sidebar-primary-fg: hsl(0 0% 0%);
+  --theme-chart-1: hsl(38 95% 58%);
+  --theme-chart-2: hsl(32 90% 50%);
   --theme-action-secondary-bg: hsl(222 22% 23%);
-  --theme-chart-4: hsl(222 45% 72%);
-  --theme-sidebar-primary-bg: hsl(38 91% 50%);
-  --theme-surface-muted: hsl(222 20% 13%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-surface-fg: hsl(220 18% 92%);
+  --theme-state-error-bg: hsl(0 72% 52%);
+  --theme-state-success-bg: hsl(142 76% 36%);
   --theme-surface-bg: hsl(222 18% 7%);
+  --theme-action-accent-bg: hsl(38 88% 28%);
+  --theme-chart-4: hsl(222 45% 72%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-overlay-bg: hsl(222 20% 10%);
+  --theme-action-secondary-fg: hsl(220 18% 88%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-overlay-fg: hsl(220 18% 92%);
+  --theme-action-focus-ring: hsl(38 91% 50%);
+  --theme-sidebar-primary-bg: hsl(38 91% 50%);
+  --theme-surface-elevated: hsl(222 20% 10%);
+  --theme-surface-muted: hsl(222 20% 13%);
+  --theme-sidebar-accent-bg: hsl(38 88% 28%);
 }
 
 /* clean-slate - Normalized vocabulary */
 [data-theme="clean-slate"] {
-  --theme-sidebar-border: hsl(216 12.1951% 83.9216%);
-  --theme-sidebar-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
-  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
-  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
-  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
-  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
-  --theme-surface-elevated: hsl(0 0% 100%);
-  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-state-error-fg: hsl(0 0% 100%);
-  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
-  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-overlay-fg: hsl(217.2414 32.5843% 17.451%);
-  --theme-action-primary-fg: hsl(0 0% 100%);
-  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
   --theme-sidebar-ring: hsl(238.7324 83.5294% 66.6667%);
-  --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-overlay-fg: hsl(217.2414 32.5843% 17.451%);
   --theme-sidebar-accent-bg: hsl(226.4516 100% 93.9216%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
-  --theme-surface-bg: hsl(210 40% 98.0392%);
-  --theme-sidebar-bg: hsl(220 14.2857% 95.8824%);
-  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-chart-1: hsl(238.7324 83.5294% 66.6667%);
-  --theme-chart-5: hsl(242.1687 47.4286% 34.3137%);
   --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-surface-bg: hsl(210 40% 98.0392%);
+  --theme-surface-muted: hsl(220 14.2857% 95.8824%);
   --theme-sidebar-accent-fg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
-  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
   --theme-overlay-bg: hsl(0 0% 100%);
-  --theme-surface-border: hsl(216 12.1951% 83.9216%);
+  --theme-chart-3: hsl(244.5205 57.9365% 50.5882%);
+  --theme-sidebar-bg: hsl(220 14.2857% 95.8824%);
+  --theme-surface-elevated: hsl(0 0% 100%);
+  --theme-action-accent-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-action-primary-fg: hsl(0 0% 100%);
+  --theme-sidebar-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-surface-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-action-secondary-bg: hsl(220 13.0435% 90.9804%);
   --theme-action-focus-ring: hsl(238.7324 83.5294% 66.6667%);
+  --theme-chart-2: hsl(243.3962 75.3555% 58.6275%);
+  --theme-chart-5: hsl(242.1687 47.4286% 34.3137%);
+  --theme-state-success-bg: hsl(142 76% 36%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-action-secondary-fg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
+  --theme-state-info-fg: hsl(0 0% 100%);
+  --theme-sidebar-border: hsl(216 12.1951% 83.9216%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-action-accent-bg: hsl(226.4516 100% 93.9216%);
+  --theme-surface-border: hsl(216 12.1951% 83.9216%);
+  --theme-sidebar-primary-fg: hsl(0 0% 100%);
+  --theme-action-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-surface-fg-muted: hsl(220 8.9362% 46.0784%);
+  --theme-surface-elevated-fg: hsl(217.2414 32.5843% 17.451%);
+  --theme-sidebar-primary-bg: hsl(238.7324 83.5294% 66.6667%);
+  --theme-state-error-fg: hsl(0 0% 100%);
+  --theme-chart-1: hsl(238.7324 83.5294% 66.6667%);
+  --theme-chart-4: hsl(243.6522 54.5024% 41.3725%);
   --primitive-font-sans: Inter, sans-serif;
   --primitive-font-serif: Merriweather, serif;
   --primitive-font-mono: JetBrains Mono, monospace;
@@ -488,45 +486,45 @@
 }
 
 [data-theme="clean-slate"].dark {
-  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-sidebar-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-surface-fg-muted: hsl(217.8947 10.6145% 64.902%);
-  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
-  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
-  --theme-surface-elevated: hsl(217.2414 32.5843% 17.451%);
-  --theme-chart-3: hsl(243.3962 75.3555% 58.6275%);
-  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
-  --theme-action-accent-fg: hsl(216 12.1951% 83.9216%);
-  --theme-shadow-color: hsl(0 0% 0%);
-  --theme-state-info-bg: hsl(221 83% 53%);
-  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
   --theme-state-success-bg: hsl(142 76% 36%);
-  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
-  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
-  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
   --theme-chart-5: hsl(243.6522 54.5024% 41.3725%);
-  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
-  --theme-state-success-fg: hsl(0 0% 100%);
-  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-state-warning-fg: hsl(0 0% 0%);
-  --theme-action-secondary-bg: hsl(217.7778 23.0769% 22.9412%);
+  --theme-state-info-fg: hsl(0 0% 100%);
   --theme-overlay-bg: hsl(217.2414 32.5843% 17.451%);
-  --theme-sidebar-fg: hsl(214.2857 31.8182% 91.3725%);
   --theme-overlay-fg: hsl(214.2857 31.8182% 91.3725%);
-  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
+  --theme-surface-elevated-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-surface-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-action-secondary-bg: hsl(217.7778 23.0769% 22.9412%);
+  --theme-action-secondary-fg: hsl(216 12.1951% 83.9216%);
+  --theme-surface-border: hsl(215 13.7931% 34.1176%);
+  --theme-action-primary-fg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
+  --theme-shadow-color: hsl(0 0% 0%);
+  --theme-state-success-fg: hsl(0 0% 100%);
+  --theme-state-info-bg: hsl(221 83% 53%);
+  --theme-surface-elevated: hsl(217.2414 32.5843% 17.451%);
+  --theme-state-warning-bg: hsl(38 92% 50%);
+  --theme-sidebar-fg: hsl(214.2857 31.8182% 91.3725%);
+  --theme-surface-muted: hsl(217.2414 40.8451% 13.9216%);
+  --theme-sidebar-bg: hsl(217.2414 32.5843% 17.451%);
   --theme-sidebar-primary-bg: hsl(234.4538 89.4737% 73.9216%);
-  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
   --theme-sidebar-border: hsl(215 13.7931% 34.1176%);
   --theme-surface-border: hsl(215 13.7931% 34.1176%);
-  --theme-state-info-fg: hsl(0 0% 100%);
-  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
-  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
+  --theme-state-warning-fg: hsl(0 0% 0%);
   --theme-action-focus-ring: hsl(234.4538 89.4737% 73.9216%);
-  --theme-state-warning-bg: hsl(38 92% 50%);
-  --theme-surface-border: hsl(215 13.7931% 34.1176%);
-  --theme-sidebar-accent-fg: hsl(216 12.1951% 83.9216%);
+  --theme-surface-bg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-sidebar-primary-fg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-chart-3: hsl(243.3962 75.3555% 58.6275%);
+  --theme-surface-fg-muted: hsl(217.8947 10.6145% 64.902%);
+  --theme-sidebar-ring: hsl(234.4538 89.4737% 73.9216%);
+  --theme-action-accent-fg: hsl(216 12.1951% 83.9216%);
+  --theme-action-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-action-primary-bg: hsl(234.4538 89.4737% 73.9216%);
+  --theme-state-error-bg: hsl(0 84.2365% 60.1961%);
+  --theme-chart-1: hsl(234.4538 89.4737% 73.9216%);
+  --theme-sidebar-accent-bg: hsl(216.9231 19.1176% 26.6667%);
+  --theme-chart-4: hsl(244.5205 57.9365% 50.5882%);
   --theme-state-error-fg: hsl(222.2222 47.3684% 11.1765%);
+  --theme-chart-2: hsl(238.7324 83.5294% 66.6667%);
 }
 
 
@@ -10701,12 +10699,6 @@ html { scroll-behavior: smooth; }
     margin-top: auto;
 }
 
-@media (max-width: 768px) {
-    [data-rs-card] {
-        height: auto;
-    }
-}
-
 /* ── Layout ──────────────────────────────────────────────────────── */
 /* Bundled: ./hero_block.css */
 /* ============================================================================
@@ -10910,16 +10902,6 @@ html { scroll-behavior: smooth; }
     gap: var(--page-header-content-gap);
     margin-left: auto;
 }
-
-@media (max-width: 768px) {
-    [data-rs-page-header] {
-        flex-direction: column;
-        gap: var(--space-sm);
-    }
-    [data-rs-page-header] [data-rs-region="actions"] {
-        margin-left: 0;
-    }
-}
 /* Bundled: ./sidebar_layout_block.css */
 /* ============================================================================
    Block: Sidebar Layout — tokens: sidebar-layout-*
@@ -10953,26 +10935,9 @@ html { scroll-behavior: smooth; }
     padding: var(--sidebar-layout-main-padding);
     overflow-y: auto;
 }
-
-@media (max-width: 768px) {
-    [data-rs-sidebar-layout] {
-        flex-direction: column;
-    }
-    [data-rs-sidebar-layout] [data-rs-region="nav"] {
-        width: 100%;
-        border-right: none;
-        border-bottom: var(--sidebar-layout-nav-border);
-    }
-    [data-rs-sidebar-layout][data-rs-side="right"] [data-rs-region="nav"] {
-        border-left: none;
-        border-top: var(--sidebar-layout-nav-border);
-        order: 0;
-    }
-}
 /* Bundled: ./section_block.css */
 /* ============================================================================
-   Block: Section
-   Tokens: section-block-*
+   Block: Section — tokens: section-block-*
    ============================================================================ */
 
 [data-rs-section] {
@@ -10989,12 +10954,6 @@ html { scroll-behavior: smooth; }
 [data-rs-section] [data-rs-region="footer"] {
     padding: var(--section-block-footer-padding);
     border-top: var(--section-block-footer-border);
-}
-
-@media (max-width: 768px) {
-    [data-rs-section] {
-        padding: var(--space-lg) 0;
-    }
 }
 
 /* ── Data ────────────────────────────────────────────────────────── */
@@ -11043,19 +11002,9 @@ html { scroll-behavior: smooth; }
     align-items: center;
     justify-content: flex-end;
 }
-
-@media (max-width: 768px) {
-    [data-rs-data-table] [data-rs-region="toolbar"] {
-        flex-wrap: wrap;
-    }
-    [data-rs-data-table] [data-rs-region="pagination"] {
-        justify-content: center;
-    }
-}
 /* Bundled: ./stat_group_block.css */
 /* ============================================================================
-   Block: Stat Group
-   Tokens: stat-group-*
+   Block: Stat Group — tokens: stat-group-*
    ============================================================================ */
 
 [data-rs-stat-group] {
@@ -11064,12 +11013,6 @@ html { scroll-behavior: smooth; }
 
 [data-rs-stat-group] [data-rs-region="stats"] {
     gap: var(--stat-group-gap);
-}
-
-@media (max-width: 768px) {
-    [data-rs-stat-group] [data-rs-region="stats"] {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* ── Forms ───────────────────────────────────────────────────────── */
@@ -11108,7 +11051,7 @@ html { scroll-behavior: smooth; }
 
 /* Bundled: ./flex_primitive.css */
 /* ============================================================================
-   Primitive: Flex
+   Primitive: Flex — layout puro, sem responsive
    ============================================================================ */
 
 [data-rs-flex] {
@@ -11140,17 +11083,11 @@ html { scroll-behavior: smooth; }
 [data-rs-flex][data-rs-gap="lg"]   { gap: var(--space-lg); }
 [data-rs-flex][data-rs-gap="xl"]   { gap: var(--space-xl); }
 
-[data-rs-flex][data-rs-wrap="true"] { flex-wrap: wrap; }
-
-/* Responsive — flex wraps on mobile */
-@media (max-width: 768px) {
-    [data-rs-flex][data-rs-direction="row"] {
-        flex-wrap: wrap;
-    }
-}
+[data-rs-flex][data-rs-wrap="true"]  { flex-wrap: wrap; }
+[data-rs-flex][data-rs-wrap="false"] { flex-wrap: nowrap; }
 /* Bundled: ./stack_primitive.css */
 /* ============================================================================
-   Primitive: Stack
+   Primitive: Stack — layout puro, sem responsive
    ============================================================================ */
 
 [data-rs-stack] {
@@ -11171,16 +11108,9 @@ html { scroll-behavior: smooth; }
 [data-rs-stack][data-rs-gap="md"]   { gap: var(--space-md); }
 [data-rs-stack][data-rs-gap="lg"]   { gap: var(--space-lg); }
 [data-rs-stack][data-rs-gap="xl"]   { gap: var(--space-xl); }
-
-/* Responsive — stack collapses to vertical on mobile */
-@media (max-width: 768px) {
-    [data-rs-stack][data-rs-direction="horizontal"] {
-        flex-direction: column;
-    }
-}
 /* Bundled: ./grid_primitive.css */
 /* ============================================================================
-   Primitive: Grid
+   Primitive: Grid — layout puro, sem responsive
    ============================================================================ */
 
 [data-rs-grid] {
@@ -11193,7 +11123,7 @@ html { scroll-behavior: smooth; }
 [data-rs-grid][data-rs-cols="4"]    { grid-template-columns: repeat(4, 1fr); }
 [data-rs-grid][data-rs-cols="6"]    { grid-template-columns: repeat(6, 1fr); }
 [data-rs-grid][data-rs-cols="12"]   { grid-template-columns: repeat(12, 1fr); }
-[data-rs-grid][data-rs-cols="auto"] { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+[data-rs-grid][data-rs-cols="auto"] { grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-col-width), 1fr)); }
 
 [data-rs-grid][data-rs-gap="none"] { gap: 0; }
 [data-rs-grid][data-rs-gap="xs"]   { gap: var(--space-xs); }
@@ -11201,28 +11131,6 @@ html { scroll-behavior: smooth; }
 [data-rs-grid][data-rs-gap="md"]   { gap: var(--space-md); }
 [data-rs-grid][data-rs-gap="lg"]   { gap: var(--space-lg); }
 [data-rs-grid][data-rs-gap="xl"]   { gap: var(--space-xl); }
-
-/* Responsive — grid cols */
-@media (max-width: 768px) {
-    [data-rs-grid][data-rs-cols="2"],
-    [data-rs-grid][data-rs-cols="3"],
-    [data-rs-grid][data-rs-cols="4"],
-    [data-rs-grid][data-rs-cols="6"],
-    [data-rs-grid][data-rs-cols="12"] {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    [data-rs-grid][data-rs-cols="4"],
-    [data-rs-grid][data-rs-cols="6"],
-    [data-rs-grid][data-rs-cols="12"] {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    [data-rs-grid][data-rs-cols="3"] {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 /* Bundled: ./center_primitive.css */
 /* ============================================================================
    Primitive: Center
@@ -11248,30 +11156,22 @@ html { scroll-behavior: smooth; }
 }
 /* Bundled: ./container_primitive.css */
 /* ============================================================================
-   Primitive: Container
+   Primitive: Container — layout puro, sem responsive
    ============================================================================ */
 
 [data-rs-container] {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: var(--space-lg);
-    padding-right: var(--space-lg);
+    padding-left: var(--container-padding-x);
+    padding-right: var(--container-padding-x);
 }
 
-[data-rs-container][data-rs-size="sm"]   { max-width: var(--layout-width-sm); }
-[data-rs-container][data-rs-size="md"]   { max-width: var(--layout-width-md); }
-[data-rs-container][data-rs-size="lg"]   { max-width: var(--layout-content-max-width); }
-[data-rs-container][data-rs-size="xl"]   { max-width: var(--layout-width-xl); }
+[data-rs-container][data-rs-size="sm"]   { max-width: var(--container-size-sm); }
+[data-rs-container][data-rs-size="md"]   { max-width: var(--container-size-md); }
+[data-rs-container][data-rs-size="lg"]   { max-width: var(--container-size-lg); }
+[data-rs-container][data-rs-size="xl"]   { max-width: var(--container-size-xl); }
 [data-rs-container][data-rs-size="full"] { max-width: 100%; }
-
-/* Responsive — container padding on mobile */
-@media (max-width: 768px) {
-    [data-rs-container] {
-        padding-left: var(--space-md);
-        padding-right: var(--space-md);
-    }
-}
 /* Bundled: ./spacer_primitive.css */
 /* ============================================================================
    Primitive: Spacer

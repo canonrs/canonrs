@@ -27,9 +27,3 @@
     display: flex;
     margin-top: auto;
 }
-
-@media (max-width: 768px) {
-    [data-rs-card] {
-        height: auto;
-    }
-}

@@ -53,8 +53,6 @@ pub const PRIMITIVE_VALUES: &[PrimitiveToken] = &[
     PrimitiveToken { name: "primitive-space-16", value: "4rem" },
     PrimitiveToken { name: "primitive-space-24", value: "6rem" },
     PrimitiveToken { name: "primitive-space-10", value: "2.5rem" },
-    PrimitiveToken { name: "primitive-space-12", value: "3rem" },
-    PrimitiveToken { name: "primitive-space-16", value: "4rem" },
 
     // ======================================================================
     // Radius — numeric scale

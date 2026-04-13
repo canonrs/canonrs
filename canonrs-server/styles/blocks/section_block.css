@@ -1,6 +1,5 @@
 /* ============================================================================
-   Block: Section
-   Tokens: section-block-*
+   Block: Section — tokens: section-block-*
    ============================================================================ */
 
 [data-rs-section] {
@@ -17,10 +16,4 @@
 [data-rs-section] [data-rs-region="footer"] {
     padding: var(--section-block-footer-padding);
     border-top: var(--section-block-footer-border);
-}
-
-@media (max-width: 768px) {
-    [data-rs-section] {
-        padding: var(--space-lg) 0;
-    }
 }

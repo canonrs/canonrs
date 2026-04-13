@@ -42,12 +42,3 @@
     align-items: center;
     justify-content: flex-end;
 }
-
-@media (max-width: 768px) {
-    [data-rs-data-table] [data-rs-region="toolbar"] {
-        flex-wrap: wrap;
-    }
-    [data-rs-data-table] [data-rs-region="pagination"] {
-        justify-content: center;
-    }
-}

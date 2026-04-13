@@ -1,5 +1,5 @@
 /* ============================================================================
-   Primitive: Flex
+   Primitive: Flex — layout puro, sem responsive
    ============================================================================ */
 
 [data-rs-flex] {
@@ -31,11 +31,5 @@
 [data-rs-flex][data-rs-gap="lg"]   { gap: var(--space-lg); }
 [data-rs-flex][data-rs-gap="xl"]   { gap: var(--space-xl); }
 
-[data-rs-flex][data-rs-wrap="true"] { flex-wrap: wrap; }
-
-/* Responsive — flex wraps on mobile */
-@media (max-width: 768px) {
-    [data-rs-flex][data-rs-direction="row"] {
-        flex-wrap: wrap;
-    }
-}
+[data-rs-flex][data-rs-wrap="true"]  { flex-wrap: wrap; }
+[data-rs-flex][data-rs-wrap="false"] { flex-wrap: nowrap; }
