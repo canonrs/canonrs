@@ -1,0 +1,16 @@
+id: page-layout
+label: Page
+category: layout
+type: layout
+variant: page
+container: true
+regions: ["sidebar", "content", "aside"]
+description: Page layout with optional sidebar and aside
+tags: ["page", "single", "column", "article", "content"]
+slot_accepts:
+  sidebar: Nav
+  content: Any
+  aside: Any
+contract:
+  regions_required: []
+  regions_optional: ["sidebar", "content", "aside"]

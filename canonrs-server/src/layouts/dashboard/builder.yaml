@@ -1,0 +1,16 @@
+id: dashboard
+label: Dashboard
+category: layout
+type: layout
+variant: page
+container: true
+regions: ["header", "sidebar", "content"]
+description: App shell with header, sidebar and main content area
+tags: ["dashboard", "app", "admin", "header", "sidebar", "main"]
+slot_accepts:
+  header: Nav
+  sidebar: Nav
+  content: Any
+contract:
+  regions_required: []
+  regions_optional: ["header", "sidebar", "content"]

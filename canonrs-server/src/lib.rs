@@ -20,7 +20,6 @@ pub use ui::separator::Separator;
 pub use ui::doc_progress::DocProgress;
 
 // Layouts — re-exports explícitos
-pub use layouts::section::Section;
 pub use layouts::MarketingLayout;
 pub use layouts::DashboardLayout;
 pub use layouts::{SplitViewLayout, SplitRatio};

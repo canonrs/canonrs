@@ -1,16 +1,5 @@
-//! @canon-id: split-view
-//! @canon-type: layout
-//! @canon-category: layout
-//! @canon-variant: page
-//! @canon-container: true
-//! @canon-regions: left, right
-//! @canon-label: Split View
-//! @canon-icon: ◧
-//! @canon-description: Left context panel and right action/detail panel
-//! @canon-tags: split-view, split, columns, side-by-side, compare, dual
-//! @canon-slot-accepts: left=Nav,right=Action
-//! @canon-slot-descriptions: left:Context or list panel,right:Detail or action panel
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
 
 #[derive(Clone, Copy, PartialEq, Default)]
 pub enum SplitRatio { #[default] Equal, FormFocused, ContextFocused }
@@ -29,17 +18,15 @@ pub fn SplitViewLayout(
     #[prop(default = SplitRatio::Equal)] ratio: SplitRatio,
     #[prop(optional)] left: Option<ChildrenFn>,
     #[prop(optional)] right: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid   = generate("ly");
+    let left  = StoredValue::new(left);
+    let right = StoredValue::new(right);
     view! {
-        <div
-            data-rs-layout=""
-            data-rs-component="SplitView"
-            data-rs-variant=ratio.as_str()
-            class=class
-        >
-            {left.map(|l| view! { <div data-rs-region="left">{l()}</div> })}
-            {right.map(|r| view! { <div data-rs-region="right">{r()}</div> })}
+        <div data-rs-layout-split-view="" data-rs-uid=uid data-rs-ratio=ratio.as_str() class=class>
+            {move || left.get_value().map(|l| view! { <div data-rs-region="left">{l()}</div> })}
+            {move || right.get_value().map(|r| view! { <div data-rs-region="right">{r()}</div> })}
         </div>
     }
 }

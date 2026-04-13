@@ -1,0 +1,15 @@
+id: fullscreen
+label: Fullscreen
+category: layout
+type: layout
+variant: page
+container: true
+regions: ["header", "content"]
+description: Optional header with full canvas content area
+tags: ["fullscreen", "full", "viewport", "immersive", "canvas"]
+slot_accepts:
+  header: Nav
+  content: Any
+contract:
+  regions_required: []
+  regions_optional: ["header", "content"]

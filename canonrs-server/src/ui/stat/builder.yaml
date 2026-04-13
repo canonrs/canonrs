@@ -43,5 +43,3 @@ after: |
 boundary_type: passthrough
 block: []
 blocks_primitives: [grid]
-block: []
-blocks_primitives: [grid]

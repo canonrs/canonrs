@@ -3083,6 +3083,49 @@
     ]
   },
   {
+    "id": "sidebar",
+    "label": "Sidebar",
+    "category": "Navigation",
+    "description": "Sidebar navigation component",
+    "keywords": "",
+    "pain": "Sidebars lose active state, disabled links and structural consistency",
+    "promise": "Navigation state and structure enforced at component level",
+    "why": "SidebarPrimitive encodes visibility, variant and navigation semantics. Menu items derive active and disabled states automatically. This guarantees consistent navigation behavior.\n",
+    "before": "// ❌ Typical\nview! {\n  <aside>\n    <a class=\"active\">\"Home\"</a>\n  </aside>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Sidebar>\n    <SidebarMenu>\n      <SidebarMenuItem active=ActivityState::Active href=\"/\">\"Home\"</SidebarMenuItem>\n    </SidebarMenu>\n  </Sidebar>\n}\n",
+    "rules": [
+      "CR-001",
+      "CR-004"
+    ],
+    "use_cases": [
+      "app navigation",
+      "admin panels"
+    ],
+    "related": [
+      "navigation_menu",
+      "nav_item",
+      "breadcrumb",
+      "pagination",
+      "link_group"
+    ],
+    "badges": [
+      "SSR Safe",
+      "Hydration Safe",
+      "Token Driven",
+      "Deterministic API",
+      "Zero Drift",
+      "Island Architecture"
+    ],
+    "pillar": "navigation",
+    "primitive_src": "//! @canon-level: strict\n//! @canon-owner: primitives-team\n//! Sidebar Primitive - HTML puro + ARIA\n\nuse leptos::prelude::*;\nuse crate::meta::{VisibilityState, ActivityState, DisabledState};\nuse crate::infra::state_engine::{visibility_attrs, trigger_attrs, activity_attrs, disabled_attrs};\n\n#[derive(Clone, Copy, PartialEq, Default, Debug)]\npub enum SidebarVariant {\n    #[default]\n    Default,\n    Rail,\n}\nimpl SidebarVariant {\n    pub fn as_str(&self) -> &'static str {\n        match self { Self::Default => \"default\", Self::Rail => \"rail\" }\n    }\n}\n\n#[component]\npub fn SidebarPrimitive(\n    children: Children,\n    #[prop(default = VisibilityState::Open)] state: VisibilityState,\n    #[prop(default = SidebarVariant::Default)] variant: SidebarVariant,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    let s = visibility_attrs(state);\n    view! {\n        <aside\n            data-rs-sidebar=\"\"\n            data-rs-uid=crate::infra::uid::generate(\"sb\")\n            data-rs-interaction=\"nav\"\n            data-rs-component=\"Sidebar\"\n            data-rs-behavior=\"navigation\"\n            data-rs-state=s.data_rs_state\n            data-rs-variant=variant.as_str()\n            aria-hidden=s.aria_hidden\n            role=\"complementary\"\n            class=class\n        >\n            {children()}\n        </aside>\n    }\n}\n\n#[component]\npub fn SidebarHeaderPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div data-rs-sidebar-header=\"\" class=class>\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn SidebarContentPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div data-rs-sidebar-content=\"\" class=class>\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn SidebarFooterPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div data-rs-sidebar-footer=\"\" class=class>\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn SidebarMenuPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <nav data-rs-sidebar-menu=\"\" role=\"navigation\" class=class>\n            {children()}\n        </nav>\n    }\n}\n\n#[component]\npub fn SidebarMenuItemPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] href: String,\n    #[prop(default = ActivityState::Inactive)] active: ActivityState,\n    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    let a = activity_attrs(active);\n    let d = disabled_attrs(disabled);\n    let is_active = active == ActivityState::Active;\n    view! {\n        <a\n            data-rs-sidebar-menu-item=\"\"\n            data-rs-state=a.data_rs_state\n            data-rs-disabled=d.data_rs_disabled\n            href=if d.disabled { \"#\".to_string() } else { href }\n            aria-current=if is_active { Some(\"page\") } else { None }\n            aria-disabled=d.aria_disabled\n            tabindex=if d.disabled { \"-1\" } else { \"0\" }\n            class=class\n        >\n            {children()}\n        </a>\n    }\n}\n\n#[component]\npub fn SidebarMenuGroupPrimitive(\n    children: Children,\n    #[prop(into, optional)] label: Option<String>,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div\n            data-rs-sidebar-menu-group=\"\"\n            role=\"group\"\n            aria-label=label\n            class=class\n        >\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn SidebarSeparatorPrimitive(\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div\n            data-rs-sidebar-separator=\"\"\n            role=\"separator\"\n            aria-orientation=\"horizontal\"\n            class=class\n        />\n    }\n}\n\n#[component]\npub fn SidebarGroupLabelPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div\n            data-rs-sidebar-group-label=\"\"\n            role=\"presentation\"\n            class=class\n        >\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn SidebarTriggerPrimitive(\n    children: Children,\n    #[prop(default = VisibilityState::Open)] state: VisibilityState,\n    #[prop(into, default = String::new())] class: String,\n    #[prop(into, default = String::new())] style: String,\n) -> impl IntoView {\n    let t = trigger_attrs(state);\n    view! {\n        <button\n            type=\"button\"\n            data-rs-sidebar-toggle=\"\"\n            data-rs-state=t.data_rs_state\n            aria-expanded=t.aria_expanded\n            class=class\n            style=style\n        >\n            {children()}\n        </button>\n    }\n}\n",
+    "ui_src": "#![allow(unreachable_pub, dead_code)]\n\nuse leptos::prelude::*;\nuse canonrs_core::primitives::{\n    SidebarPrimitive, SidebarVariant, SidebarHeaderPrimitive, SidebarContentPrimitive,\n    SidebarFooterPrimitive, SidebarMenuPrimitive, SidebarMenuItemPrimitive,\n    SidebarMenuGroupPrimitive, SidebarSeparatorPrimitive, SidebarGroupLabelPrimitive,\n};\nuse canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};\n\n#[component]\npub fn Sidebar(\n    children: Children,\n    #[prop(default = VisibilityState::Open)] state: VisibilityState,\n    #[prop(default = SidebarVariant::Default)] variant: SidebarVariant,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <SidebarPrimitive state=state variant=variant class=class>\n            {children()}\n        </SidebarPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarHeader(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <SidebarHeaderPrimitive class=class>\n            {children()}\n        </SidebarHeaderPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarContent(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <SidebarContentPrimitive class=class>\n            {children()}\n        </SidebarContentPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarFooter(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <SidebarFooterPrimitive class=class>\n            {children()}\n        </SidebarFooterPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarMenu(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <SidebarMenuPrimitive class=class>\n            {children()}\n        </SidebarMenuPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarMenuItem(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n    #[prop(default = String::new())] href: String,\n    #[prop(default = ActivityState::Inactive)] active: ActivityState,\n    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,\n) -> impl IntoView {\n    view! {\n        <SidebarMenuItemPrimitive class=class href=href active=active disabled=disabled>\n            {children()}\n        </SidebarMenuItemPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarMenuGroup(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n    #[prop(into, optional)] label: Option<String>,\n) -> impl IntoView {\n    view! {\n        <SidebarMenuGroupPrimitive class=class label=label.unwrap_or_default()>\n            {children()}\n        </SidebarMenuGroupPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarSeparator(\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! { <SidebarSeparatorPrimitive class=class /> }\n}\n\n#[component]\npub fn SidebarGroupLabel(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <SidebarGroupLabelPrimitive class=class>\n            {children()}\n        </SidebarGroupLabelPrimitive>\n    }\n}\n\n#[component]\npub fn SidebarPreview() -> leptos::prelude::AnyView {\n    view! { <Sidebar>\"Sidebar\"</Sidebar> }.into_any()\n}\n",
+    "island_src": "",
+    "block": [],
+    "blocks_primitives": [
+      "flex"
+    ]
+  },
+  {
     "id": "skeleton",
     "label": "Skeleton",
     "category": "Feedback",
@@ -3208,6 +3251,53 @@
     "block": [],
     "blocks_primitives": [
       "center"
+    ]
+  },
+  {
+    "id": "stat",
+    "label": "Stat",
+    "category": "Display",
+    "description": "Metric stat display",
+    "keywords": "",
+    "pain": "Metrics displayed without consistent structure or alignment",
+    "promise": "Metric layout and semantics enforced via structured primitives",
+    "why": "StatPrimitive enforces composition of value, label and optional delta. Size, alignment and trend are encoded via attributes. This guarantees consistent KPI display.\n",
+    "before": "// ❌ Typical\nview! {\n  <div>\n    <h1>\"100\"</h1>\n    <p>\"Users\"</p>\n  </div>\n}\n",
+    "after": "// ✅ CanonRS\nview! {\n  <Stat>\n    <StatValue>\"100\"</StatValue>\n    <StatLabel>\"Users\"</StatLabel>\n  </Stat>\n}\n",
+    "rules": [
+      "CR-001",
+      "CR-004"
+    ],
+    "use_cases": [
+      "dashboards",
+      "analytics"
+    ],
+    "related": [
+      "avatar",
+      "icon",
+      "logo",
+      "code_block",
+      "markdown",
+      "chart",
+      "inline_meta",
+      "kbd",
+      "badge",
+      "carousel"
+    ],
+    "badges": [
+      "SSR Safe",
+      "Hydration Safe",
+      "Token Driven",
+      "Deterministic API",
+      "Zero Drift"
+    ],
+    "pillar": "content_display",
+    "primitive_src": "//! @canon-level: strict\n//! @canon-owner: primitives-team\n//! Stat Primitive - Number + label display\n\nuse leptos::prelude::*;\n\n#[component]\npub fn StatPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div\n            data-rs-stat=\"\"\n            data-rs-component=\"Stat\"\n            data-rs-behavior=\"display\"\n            class=class\n        >\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn StatValuePrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <span data-rs-stat-value=\"\" class=class>\n            {children()}\n        </span>\n    }\n}\n\n#[component]\npub fn StatLabelPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <span data-rs-stat-label=\"\" class=class>\n            {children()}\n        </span>\n    }\n}\n\n#[component]\npub fn StatDeltaPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <span data-rs-stat-delta=\"\" class=class>\n            {children()}\n        </span>\n    }\n}\n\n#[component]\npub fn StatIconPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <span data-rs-stat-icon=\"\" aria-hidden=\"true\" class=class>\n            {children()}\n        </span>\n    }\n}\n\n#[component]\npub fn StatHeaderPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div data-rs-stat-header=\"\" class=class>\n            {children()}\n        </div>\n    }\n}\n\n#[component]\npub fn StatBodyPrimitive(\n    children: Children,\n    #[prop(into, default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <div data-rs-stat-body=\"\" class=class>\n            {children()}\n        </div>\n    }\n}\n",
+    "ui_src": "#![allow(unreachable_pub, dead_code)]\n\nuse leptos::prelude::*;\nuse canonrs_core::LoadingState;\nuse canonrs_core::primitives::{\n    StatPrimitive, StatValuePrimitive, StatLabelPrimitive,\n    StatDeltaPrimitive, StatIconPrimitive, StatHeaderPrimitive, StatBodyPrimitive\n};\n\n#[derive(Clone, Copy, PartialEq, Debug)]\npub enum StatSize { Sm, Md, Lg }\nimpl StatSize {\n    pub fn as_str(&self) -> &'static str {\n        match self { Self::Sm => \"sm\", Self::Md => \"md\", Self::Lg => \"lg\" }\n    }\n}\n\n#[derive(Clone, Copy, PartialEq, Debug)]\npub enum StatTrend { Increase, Decrease, Neutral }\nimpl StatTrend {\n    pub fn as_str(&self) -> &'static str {\n        match self { Self::Increase => \"increase\", Self::Decrease => \"decrease\", Self::Neutral => \"neutral\" }\n    }\n}\n\n#[derive(Clone, Copy, PartialEq, Debug)]\npub enum StatAlign { Start, Center, End }\nimpl StatAlign {\n    pub fn as_str(&self) -> &'static str {\n        match self { Self::Start => \"start\", Self::Center => \"center\", Self::End => \"end\" }\n    }\n}\n\n#[component]\npub fn Stat(\n    children: Children,\n    #[prop(default = StatSize::Md)] size: StatSize,\n    #[prop(default = StatAlign::Start)] align: StatAlign,\n    #[prop(optional)] trend: Option<StatTrend>,\n    #[prop(default = LoadingState::Idle)] loading: LoadingState,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <StatPrimitive class={class}>\n            <div\n                data-rs-stat-wrapper=\"\"\n                data-rs-size={size.as_str()}\n                data-rs-align={align.as_str()}\n                data-rs-trend={trend.map(|t| t.as_str())}\n                data-rs-loading={if loading == LoadingState::Loading { Some(\"\") } else { None }}\n                aria-busy={if loading == LoadingState::Loading { Some(\"true\") } else { None }}\n                role=\"group\"\n            >\n                {children()}\n            </div>\n        </StatPrimitive>\n    }\n}\n\n#[component]\npub fn StatHeader(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <StatHeaderPrimitive class={class}>\n            {children()}\n        </StatHeaderPrimitive>\n    }\n}\n\n#[component]\npub fn StatBody(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <StatBodyPrimitive class={class}>\n            {children()}\n        </StatBodyPrimitive>\n    }\n}\n\n#[component]\npub fn StatValue(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <StatValuePrimitive class={class}>\n            {children()}\n        </StatValuePrimitive>\n    }\n}\n\n#[component]\npub fn StatLabel(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <StatLabelPrimitive class={class}>\n            {children()}\n        </StatLabelPrimitive>\n    }\n}\n\n#[component]\npub fn StatDelta(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <StatDeltaPrimitive class={class}>\n            {children()}\n        </StatDeltaPrimitive>\n    }\n}\n\n#[component]\npub fn StatIcon(\n    children: Children,\n    #[prop(default = String::new())] class: String,\n) -> impl IntoView {\n    view! {\n        <StatIconPrimitive class={class}>\n            {children()}\n        </StatIconPrimitive>\n    }\n}\n\n#[component]\npub fn StatPreview() -> impl IntoView {\n    view! { <Stat size=StatSize::Md>\"1,234\"</Stat> }\n}\n",
+    "island_src": "",
+    "block": [],
+    "blocks_primitives": [
+      "grid"
     ]
   },
   {

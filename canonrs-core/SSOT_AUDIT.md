@@ -103,14 +103,6 @@
 - Total: 0
 
 ## Layouts
-- Total: 8
+- Total: 0
 
 ### Block list
-- `dashboard` (layout) regions: [header, sidebar, content]
-- `fullscreen` (layout) regions: [header, content]
-- `marketing` (layout) regions: [header, hero, content, footer]
-- `page-layout` (layout) regions: [sidebar, content, aside]
-- `section` (layout) regions: [header, content, footer]
-- `split-view` (layout) regions: [left, right]
-- `three-pane` (layout) regions: [left, center, right]
-- `wizard-layout` (layout) regions: [header, stepper, content, footer]

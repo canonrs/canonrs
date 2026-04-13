@@ -1,16 +1,5 @@
-//! @canon-id: marketing
-//! @canon-type: layout
-//! @canon-category: layout
-//! @canon-variant: page
-//! @canon-container: true
-//! @canon-regions: header, hero, content, footer
-//! @canon-label: Marketing
-//! @canon-icon: 🌐
-//! @canon-description: Public page with header, hero, main content and footer
-//! @canon-tags: marketing, landing, hero, page, site
-//! @canon-slot-accepts: header=Nav,hero=Any,content=Any,footer=Action
-//! @canon-slot-descriptions: header:Site header with navigation,hero:Hero/banner section,content:Main content sections,footer:Site footer
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
 
 #[component]
 pub fn MarketingLayout(
@@ -18,14 +7,19 @@ pub fn MarketingLayout(
     #[prop(optional)] hero: Option<ChildrenFn>,
     #[prop(optional)] content: Option<ChildrenFn>,
     #[prop(optional)] footer: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("ly");
+    let header  = StoredValue::new(header);
+    let hero    = StoredValue::new(hero);
+    let content = StoredValue::new(content);
+    let footer  = StoredValue::new(footer);
     view! {
-        <div data-rs-layout="" data-rs-component="Marketing" class=class>
-            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {hero.map(|h| view! { <div data-rs-region="hero">{h()}</div> })}
-            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
-            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+        <div data-rs-layout-marketing="" data-rs-uid=uid class=class>
+            {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {move || hero.get_value().map(|h| view! { <div data-rs-region="hero">{h()}</div> })}
+            {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {move || footer.get_value().map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

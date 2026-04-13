@@ -1,0 +1,17 @@
+id: marketing
+label: Marketing
+category: layout
+type: layout
+variant: page
+container: true
+regions: ["header", "hero", "content", "footer"]
+description: Public page with header, hero, main content and footer
+tags: ["marketing", "landing", "hero", "page", "site"]
+slot_accepts:
+  header: Nav
+  hero: Any
+  content: Any
+  footer: Action
+contract:
+  regions_required: []
+  regions_optional: ["header", "hero", "content", "footer"]

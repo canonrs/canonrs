@@ -1,29 +1,22 @@
-//! @canon-id: dashboard
-//! @canon-type: layout
-//! @canon-category: layout
-//! @canon-variant: page
-//! @canon-container: true
-//! @canon-regions: header, sidebar, content
-//! @canon-label: Dashboard
-//! @canon-icon: ⬛
-//! @canon-description: App shell with header, sidebar and main content area
-//! @canon-tags: dashboard, app, admin, header, sidebar, main
-//! @canon-slot-accepts: header=Nav,sidebar=Nav,content=Any
-//! @canon-slot-descriptions: header:Top navigation bar,sidebar:Left navigation panel,content:Primary content area
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
 
 #[component]
 pub fn DashboardLayout(
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] sidebar: Option<ChildrenFn>,
     #[prop(optional)] content: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid     = generate("ly");
+    let header  = StoredValue::new(header);
+    let sidebar = StoredValue::new(sidebar);
+    let content = StoredValue::new(content);
     view! {
-        <div data-rs-layout="" data-rs-component="Dashboard" class=class>
-            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {sidebar.map(|s| view! { <div data-rs-region="sidebar">{s()}</div> })}
-            {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+        <div data-rs-layout-dashboard="" data-rs-uid=uid class=class>
+            {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {move || sidebar.get_value().map(|s| view! { <div data-rs-region="sidebar">{s()}</div> })}
+            {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}
         </div>
     }
 }

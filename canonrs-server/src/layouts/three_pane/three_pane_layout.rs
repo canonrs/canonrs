@@ -1,33 +1,22 @@
-//! @canon-id: three-pane
-//! @canon-type: layout
-//! @canon-category: layout
-//! @canon-variant: page
-//! @canon-container: true
-//! @canon-regions: left, center, right
-//! @canon-label: Three Pane
-//! @canon-icon: ⊞
-//! @canon-description: Global nav left, content center, local nav right
-//! @canon-tags: three-pane, three-columns, docs, toc, enterprise
-//! @canon-slot-accepts: left=Nav,center=Content,right=Toc
-//! @canon-slot-descriptions: left:Global navigation,center:Main content,right:Local TOC
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
 
 #[component]
 pub fn ThreePaneLayout(
     #[prop(optional)] left: Option<ChildrenFn>,
     #[prop(optional)] center: Option<ChildrenFn>,
     #[prop(optional)] right: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid    = generate("ly");
+    let left   = StoredValue::new(left);
+    let center = StoredValue::new(center);
+    let right  = StoredValue::new(right);
     view! {
-        <div
-            data-rs-layout=""
-            data-rs-component="ThreePane"
-            class=class
-        >
-            {left.map(|l| view! { <div data-rs-region="left">{l()}</div> })}
-            {center.map(|c| view! { <div data-rs-region="center">{c()}</div> })}
-            {right.map(|r| view! { <div data-rs-region="right">{r()}</div> })}
+        <div data-rs-layout-three-pane="" data-rs-uid=uid class=class>
+            {move || left.get_value().map(|l| view! { <div data-rs-region="left">{l()}</div> })}
+            {move || center.get_value().map(|c| view! { <div data-rs-region="center">{c()}</div> })}
+            {move || right.get_value().map(|r| view! { <div data-rs-region="right">{r()}</div> })}
         </div>
     }
 }

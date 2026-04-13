@@ -22,8 +22,6 @@ pub mod component_definitions {
     #![allow(dead_code, unused_imports)]
     include!(concat!(env!("OUT_DIR"), "/generated/component_definitions.rs"));
 }
-pub use component_meta::*;
-pub use block_meta::*;
 
 pub mod showcase {
     pub const SHOWCASE_JSON: &str = include_str!("showcase.json");
