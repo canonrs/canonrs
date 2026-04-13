@@ -21,7 +21,7 @@ file: link_ui.css
 tokens: link-*, font-*, motion-*
 foundation: typography, motion
 states: ["active", "hover", "disabled"]
-island: link_island.rs
+island: link_boundary.rs
 pillar: action
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

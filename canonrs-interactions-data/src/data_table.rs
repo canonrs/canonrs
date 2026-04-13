@@ -39,7 +39,7 @@ fn sync_col_toggle_state(table: &HtmlElement) {
     let root: web_sys::Element = table.clone().into();
     if let Ok(items) = root.query_selector_all("[data-rs-dropdown-menu-checkbox-item]") {
         for i in 0..items.length() {
-            if let Some(el) = items.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+            if let Some(el) = items.item(i).and_then(|n: web_sys::Node| n.dyn_into::<web_sys::Element>().ok()) {
                 if !state::has(&el, "checked") && !state::has(&el, "unchecked") {
                     state::add(&el, "checked");
                     let _ = el.set_attribute("aria-checked", "true");
@@ -54,7 +54,7 @@ fn sync_density_state(table: &HtmlElement) {
     let root: web_sys::Element = table.clone().into();
     if let Ok(btns) = root.query_selector_all("[data-rs-density-btn]") {
         for i in 0..btns.length() {
-            if let Some(b) = btns.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+            if let Some(b) = btns.item(i).and_then(|n: web_sys::Node| n.dyn_into::<web_sys::Element>().ok()) {
                 let is_active = b.get_attribute("data-rs-density-btn").as_deref() == Some(current.as_str());
                 let _ = b.set_attribute("data-active", if is_active { "true" } else { "false" });
             }
@@ -72,7 +72,7 @@ fn get_filter_input(root: &web_sys::Element) -> Option<HtmlInputElement> {
 fn bind_filter(table: &HtmlElement) {
     let root: web_sys::Element = table.clone().into();
     let Some(input) = get_filter_input(&root) else { return };
-    let table_clone = table.clone();
+    let _table_clone = table.clone();
 
     let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
@@ -200,11 +200,9 @@ fn apply_sort(table: &HtmlElement, col: Option<usize>, asc: bool) {
 // ─── Pagination ───────────────────────────────────────────────────────────────
 
 fn bind_pagination(table: &HtmlElement) {
-    let root: web_sys::Element = table.clone().into();
-    let prev = table.query_selector("[data-rs-action='prev']").ok().flatten()
-        .and_then(|el| el.dyn_into::<web_sys::Element>().ok());
-    let next = table.query_selector("[data-rs-action='next']").ok().flatten()
-        .and_then(|el| el.dyn_into::<web_sys::Element>().ok());
+    let _root: web_sys::Element = table.clone().into(); // não usado diretamente
+    let prev: Option<web_sys::Element> = table.query_selector("[data-rs-action='prev']").ok().flatten();
+    let next: Option<web_sys::Element> = table.query_selector("[data-rs-action='next']").ok().flatten();
 
     if let Some(btn) = prev {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
@@ -522,7 +520,7 @@ fn emit_sel_change(root: &web_sys::Element, action: &str, source: &str) {
     if !last.is_empty() {
         let _ = js_sys::Reflect::set(&detail, &"last".into(), &wasm_bindgen::JsValue::from_str(&last));
     }
-    let mut event_init = web_sys::CustomEventInit::new();
+    let event_init: web_sys::CustomEventInit = web_sys::CustomEventInit::new();
     event_init.set_detail(&detail);
     event_init.set_bubbles(true);
     if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-selection-change", &event_init) {
@@ -536,7 +534,7 @@ fn bind_selection(table: &HtmlElement) {
 
     // select-all
     if let Some(select_all) = root.query_selector("[data-rs-datatable-select-all]").ok().flatten()
-        .and_then(|el| el.dyn_into::<web_sys::Element>().ok())
+        .and_then(|el: web_sys::Element| Some(el))
     {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) else { return };
@@ -557,7 +555,7 @@ fn bind_selection(table: &HtmlElement) {
         cb.forget();
     }
 
-    let tbody = match root.query_selector("[data-rs-datatable-body]").ok().flatten() {
+    let tbody: web_sys::Element = match root.query_selector("[data-rs-datatable-body]").ok().flatten() {
         Some(el) => el,
         None => return,
     };
@@ -685,6 +683,7 @@ fn bind_selection(table: &HtmlElement) {
 
 
 
+#[allow(dead_code)]
 fn root_el(table: &HtmlElement) -> web_sys::Element {
     table.clone().into()
 }
@@ -702,7 +701,7 @@ fn root_el(table: &HtmlElement) -> web_sys::Element {
 
 // ─── Context Menu ────────────────────────────────────────────────────────────
 
-fn bind_context_menu(table: &HtmlElement) {
+fn bind_context_menu(_table: &HtmlElement) {
     let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
 
     {
@@ -800,14 +799,14 @@ fn bind_bulk_bar(table: &HtmlElement) {
 
     // bulk clear button
     if let Some(clear_btn) = root.query_selector("[data-rs-datatable-bulk-clear]").ok().flatten()
-        .and_then(|el| el.dyn_into::<web_sys::Element>().ok())
+        .and_then(|el: web_sys::Element| Some(el))
     {
         let root_c = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
             let _ = root_c.set_attribute("data-rs-selected-ids", "");
             let Ok(rows) = root_c.query_selector_all("[data-rs-datatable-row]") else { return };
             for i in 0..rows.length() {
-                if let Some(row) = rows.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                if let Some(row) = rows.item(i).and_then(|n: web_sys::Node| n.dyn_into::<web_sys::Element>().ok()) {
                     set_row_selected(&row, false);
                 }
             }

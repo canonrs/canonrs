@@ -78,6 +78,9 @@ pub mod infra {
         pub use canonrs_core::infra::constraint_engine::*;
     }
 }
+#[cfg(all(feature = "ssr", debug_assertions))]
+pub use canonrs_server::dev::reload::with_dev_reload;
+
 #[cfg(feature = "ssr")]
 pub fn canonrs_css() -> &'static str {
     include_str!(concat!(env!("OUT_DIR"), "/canonrs.css"))

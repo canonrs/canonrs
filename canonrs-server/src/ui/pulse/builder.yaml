@@ -21,7 +21,7 @@ file: pulse_ui.css
 tokens: pulse-*, size-*, motion-*
 foundation: size, motion
 states: ["active"]
-island: pulse_island.rs
+island: pulse_boundary.rs
 pillar: progress
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

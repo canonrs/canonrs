@@ -21,7 +21,7 @@ file: sheet_ui.css
 tokens: sheet-*, size-*, space-*, radius-*, motion-*, font-*
 foundation: spacing, size, radius, motion, typography
 states: ["open", "closed"]
-island: sheet_island.rs
+island: sheet_boundary.rs
 pillar: overlay
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

@@ -21,7 +21,7 @@ file: callout_ui.css
 tokens: callout-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: []
-island: callout_island.rs
+island: callout_boundary.rs
 pillar: feedback
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

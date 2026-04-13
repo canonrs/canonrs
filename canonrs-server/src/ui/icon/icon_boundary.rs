@@ -2,11 +2,8 @@
 //! Passthrough only. Zero logic, zero transformation.
 
 use leptos::prelude::*;
-use super::icon_ui::{
-    Icon as IconUi,
-    IconSize,
-    IconVariant
-};
+pub use super::icon_ui::{IconSize, IconVariant};
+use super::icon_ui::Icon as IconUi;
 
 #[component]
 pub fn Icon(

@@ -21,7 +21,7 @@ file: textarea_ui.css
 tokens: textarea-*, input-*, forms-*, size-*, space-*, radius-*, border-*, font-*, motion-*
 foundation: spacing, size, radius, border, motion, typography
 states: ["focus", "disabled"]
-island: textarea_island.rs
+island: textarea_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

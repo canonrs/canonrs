@@ -21,7 +21,7 @@ file: status_dot_ui.css
 tokens: status-dot-*, size-*, radius-*
 foundation: size, radius, motion
 states: ["active", "inactive"]
-island: status_dot_island.rs
+island: status_dot_boundary.rs
 pillar: feedback
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

@@ -21,7 +21,7 @@ file: dropdown_menu_ui.css
 tokens: dropdown-menu-*, space-*, radius-*, shadow-*, font-*
 foundation: spacing, radius, shadow, typography
 states: ["open", "closed"]
-island: dropdown_menu_island.rs
+island: dropdown_menu_boundary.rs
 pillar: menu
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

@@ -21,7 +21,7 @@ file: sidebar_ui.css
 tokens: sidebar-*, badge-*, size-*, space-*, radius-*, font-*
 foundation: spacing, size, radius, typography
 states: ["open", "closed", "active", "disabled"]
-island: sidebar_island.rs
+island: sidebar_boundary.rs
 pillar: navigation
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

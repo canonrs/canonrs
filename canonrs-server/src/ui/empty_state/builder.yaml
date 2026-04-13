@@ -21,7 +21,7 @@ file: empty_state_ui.css
 tokens: empty-state-*, space-*, size-*, font-*
 foundation: spacing, size, typography
 states: []
-island: empty_state_island.rs
+island: empty_state_boundary.rs
 pillar: feedback_state
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

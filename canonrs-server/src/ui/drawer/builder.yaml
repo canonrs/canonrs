@@ -21,7 +21,7 @@ file: drawer_ui.css
 tokens: drawer-*, size-*, space-*, radius-*, motion-*, font-*
 foundation: spacing, size, radius, motion, typography
 states: ["open", "closed"]
-island: drawer_island.rs
+island: drawer_boundary.rs
 pillar: overlay
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

@@ -2,15 +2,14 @@
 // Source: *_ui.rs
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
-pub const CARD_API: ComponentApi = ComponentApi {
-    id: "card",
+pub const CARDBLOCK_API: ComponentApi = ComponentApi {
+    id: "card-block",
     props: &[
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "" },
         PropDef { name: "header", kind: PropType::String, required: false, default: None, description: "" },
-        PropDef { name: "footer", kind: PropType::String, required: false, default: None, description: "" },
-        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "style", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "content", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "footer", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "variant", kind: PropType::Enum(&["interactive", "outlined", "elevated"]), required: false, default: Some("default"), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

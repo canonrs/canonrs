@@ -21,7 +21,7 @@ file: combobox_ui.css
 tokens: combobox-*, space-*, size-*, radius-*, shadow-*, motion-*, font-*
 foundation: spacing, size, radius, shadow, motion, typography
 states: ["open", "closed", "selected", "disabled"]
-island: combobox_island.rs
+island: combobox_boundary.rs
 pillar: select
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

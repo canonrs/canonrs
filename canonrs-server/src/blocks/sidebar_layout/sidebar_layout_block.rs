@@ -1,14 +1,5 @@
-//! @canon-id: sidebar-layout
-//! @canon-type: block
-//! @canon-category: layout
-//! @canon-variant: structure
-//! @canon-container: true
-//! @canon-regions: nav, main
-//! @canon-label: Sidebar Layout
-//! @canon-description: Block-level sidebar and main content
-//! @canon-tags: sidebar-layout, sidebar, nav, menu, lateral
-//! @canon-slot-accepts: nav=Nav,main=Any
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
 
 #[derive(Clone, Copy, PartialEq, Default)]
 pub enum SidebarSide { #[default] Left, Right }
@@ -23,19 +14,15 @@ pub fn SidebarLayout(
     #[prop(default = SidebarSide::Left)] side: SidebarSide,
     #[prop(optional)] nav: Option<ChildrenFn>,
     #[prop(optional)] main: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
-    #[prop(default = String::new(), into)] style: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("bl");
+    let nav = StoredValue::new(nav);
+    let main = StoredValue::new(main);
     view! {
-        <div
-            data-rs-block=""
-            data-rs-component="SidebarLayout"
-            data-rs-side=side.as_str()
-            style=style
-            class=class
-        >
-            {nav.map(|n| view! { <div data-rs-region="nav">{n()}</div> })}
-            {main.map(|m| view! { <div data-rs-region="main">{m()}</div> })}
+        <div data-rs-sidebar-layout="" data-rs-uid=uid data-rs-side=side.as_str() class=class>
+            {move || nav.get_value().map(|n| view! { <div data-rs-region="nav">{n()}</div> })}
+            {move || main.get_value().map(|m| view! { <div data-rs-region="main">{m()}</div> })}
         </div>
     }
 }

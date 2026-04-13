@@ -21,7 +21,7 @@ file: radio_ui.css
 tokens: radio-*, size-*, radius-*, motion-*, state-*
 foundation: size, radius, motion, interaction, shadow
 states: ["selected", "focus", "disabled"]
-island: radio_island.rs
+island: radio_boundary.rs
 pillar: select
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

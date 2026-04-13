@@ -21,7 +21,7 @@ file: toggle_ui.css
 tokens: toggle-*, size-*, radius-*, motion-*, font-*
 foundation: size, radius, motion, typography
 states: ["on", "off", "disabled"]
-island: toggle_island.rs
+island: toggle_boundary.rs
 pillar: toggle
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

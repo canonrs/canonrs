@@ -21,7 +21,7 @@ file: chart_ui.css
 tokens: chart-*, size-*, space-*, radius-*, motion-*, font-*
 foundation: spacing, size, radius, motion, typography
 states: ["loading", "error"]
-island: chart_island.rs
+island: chart_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

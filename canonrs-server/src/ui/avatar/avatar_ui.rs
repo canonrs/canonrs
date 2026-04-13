@@ -1,7 +1,7 @@
 #![allow(unreachable_pub, dead_code)]
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{AvatarPrimitive, AvatarImagePrimitive, AvatarFallbackPrimitive};
+use canonrs_core::primitives::{AvatarPrimitive, AvatarImagePrimitive, AvatarFallbackPrimitive, StatusDotPrimitive, StatusDotVariant};
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AvatarSize { Xs, Sm, Md, Lg, Xl }
@@ -22,8 +22,21 @@ impl AvatarShape {
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AvatarStatus { Online, Offline, Busy, Away }
 impl AvatarStatus {
+    pub fn to_variant(&self) -> StatusDotVariant {
+        match self {
+            Self::Online  => StatusDotVariant::Online,
+            Self::Offline => StatusDotVariant::Offline,
+            Self::Busy    => StatusDotVariant::Busy,
+            Self::Away    => StatusDotVariant::Away,
+        }
+    }
     pub fn as_str(&self) -> &'static str {
-        match self { Self::Online=>"online", Self::Offline=>"offline", Self::Busy=>"busy", Self::Away=>"away" }
+        match self {
+            Self::Online  => "online",
+            Self::Offline => "offline",
+            Self::Busy    => "busy",
+            Self::Away    => "away",
+        }
     }
 }
 
@@ -33,29 +46,27 @@ pub fn Avatar(
     #[prop(default = AvatarSize::Md)] size: AvatarSize,
     #[prop(default = AvatarShape::Circle)] shape: AvatarShape,
     #[prop(optional)] status: Option<AvatarStatus>,
-    #[prop(default = false)] animated: bool,
-    #[prop(optional)] badge: Option<i32>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let status_str = status.map(|s| s.as_str().to_string()).unwrap_or_default();
     view! {
-        <AvatarPrimitive
-            class={format!("{} avatar-size-{} avatar-shape-{}", class, size.as_str(), shape.as_str())}
-        >
-            {children()}
-            {status.map(|s| {
-                let pulse = animated && s == AvatarStatus::Online;
-                view! {
-                    <span
-                        data-rs-avatar-status=""
-                        data-rs-status={s.as_str()}
-                        data-rs-pulse={pulse.then_some("")}
-                    />
-                }
+        // wrapper externo — sem overflow:hidden, permite StatusDot pulsar
+        <span style="position:relative;display:inline-block;width:fit-content;">
+            <AvatarPrimitive
+                status=status_str
+                class={format!("{} avatar-size-{} avatar-shape-{}", class, size.as_str(), shape.as_str())}
+            >
+                {children()}
+            </AvatarPrimitive>
+            {status.map(|s| view! {
+                <StatusDotPrimitive
+                    variant=s.to_variant()
+                    class="avatar-status-dot"
+                >
+                    ""
+                </StatusDotPrimitive>
             })}
-            {badge.map(|b| view! {
-                <span data-rs-avatar-badge="">{b}</span>
-            })}
-        </AvatarPrimitive>
+        </span>
     }
 }
 
@@ -66,11 +77,7 @@ pub fn AvatarImage(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <AvatarImagePrimitive
-            src={src}
-            alt={alt}
-            class={class}
-        />
+        <AvatarImagePrimitive src={src} alt={alt} class={class} />
     }
 }
 

@@ -8,10 +8,9 @@ pub const DATATABLEBLOCK_API: ComponentApi = ComponentApi {
         PropDef { name: "toolbar", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "header", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "body", kind: PropType::String, required: false, default: None, description: "" },
-        PropDef { name: "pagination", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "empty", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "pagination", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "_style", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

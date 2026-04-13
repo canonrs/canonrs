@@ -21,7 +21,7 @@ file: markdown_ui.css
 tokens: markdown-*, md-*, space-*, font-*, radius-*, border-*, motion-*
 foundation: spacing, radius, border, motion, typography
 states: []
-island: markdown_island.rs
+island: markdown_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

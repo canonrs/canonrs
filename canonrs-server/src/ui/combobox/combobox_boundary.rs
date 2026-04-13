@@ -1,9 +1,6 @@
 //! Combobox Island — Canon Rule passthrough
 use leptos::prelude::*;
-use super::combobox_ui::{
-    ComboboxInput,
-    ComboboxList
-};
+pub use super::combobox_ui::{ComboboxInput, ComboboxList, ComboboxItem};
 
 #[component]
 pub fn Combobox(

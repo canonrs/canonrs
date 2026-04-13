@@ -21,7 +21,7 @@ file: input_otp_ui.css
 tokens: input-otp-*, input-*, forms-*, size-*, space-*, radius-*, font-*
 foundation: spacing, size, radius, typography, motion
 states: ["active"]
-island: input_otp_island.rs
+island: input_otp_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

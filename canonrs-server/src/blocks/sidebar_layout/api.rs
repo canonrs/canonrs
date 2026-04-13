@@ -9,7 +9,6 @@ pub const SIDEBARLAYOUT_API: ComponentApi = ComponentApi {
         PropDef { name: "nav", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "main", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "style", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

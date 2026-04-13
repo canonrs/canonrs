@@ -3,7 +3,7 @@
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state as rs, query};
+use crate::runtime::{lifecycle, state as rs};
 
 fn add_tok(el: &Element, token: &str) {
     let cur = el.get_attribute("data-rs-state").unwrap_or_default();
@@ -16,7 +16,6 @@ fn rem_tok(el: &Element, token: &str) {
     let _ = el.set_attribute("data-rs-state", &cur.split_whitespace().filter(|t| *t != token).collect::<Vec<_>>().join(" "));
 }
 
-fn is_open(el: &Element) -> bool { el.get_attribute("data-rs-state").map(|s| s.contains("open")).unwrap_or(false) }
 fn set_open(root: &Element, open: bool) {
     if open { rem_tok(root, "closed"); add_tok(root, "open"); } else { rem_tok(root, "open"); add_tok(root, "closed"); }
 }

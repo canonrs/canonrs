@@ -21,7 +21,7 @@ file: pagination_ui.css
 tokens: pagination-*, space-*, size-*, radius-*, font-*, motion-*
 foundation: spacing, size, radius, motion, typography
 states: ["active", "disabled"]
-island: pagination_island.rs
+island: pagination_boundary.rs
 pillar: navigation
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

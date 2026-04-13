@@ -21,7 +21,7 @@ file: avatar_ui.css
 tokens: avatar-*, size-*, radius-*, font-*
 foundation: spacing, size, radius, typography
 states: ["loading", "error"]
-island: avatar_island.rs
+island: avatar_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

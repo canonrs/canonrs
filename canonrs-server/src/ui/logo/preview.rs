@@ -1,44 +1,40 @@
 use leptos::prelude::*;
-use super::logo_boundary::Logo;
-use super::logo_ui::{LogoSize, LogoVariant};
+use super::logo_boundary::{Logo, LogoSize, LogoVariant};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn LogoShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <Logo />
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+            <Logo />
             <p data-rs-showcase-preview-anchor="">
                 "Brand identity structure and navigation behavior enforced in a single contract."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Sizes"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-lg);">
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Lg>
                     <Logo size=LogoSize::Sm />
                     <Logo size=LogoSize::Md />
                     <Logo size=LogoSize::Lg />
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
+                </Stack>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Variants"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-lg);">
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Lg>
                     <Logo variant=LogoVariant::Brand />
                     <Logo variant=LogoVariant::Neutral />
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
+                </Stack>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"With wordmark"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-lg);">
-                    <Logo
-                        wordmark=leptos::children::ToChildren::to_children(|| view! { "CanonRS" })
-                    />
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Lg>
+                    <Logo wordmark=leptos::children::ToChildren::to_children(|| view! { "CanonRS" }) />
                     <Logo
                         wordmark=leptos::children::ToChildren::to_children(|| view! { "CanonRS" })
                         tagline=leptos::children::ToChildren::to_children(|| view! { "Design System" })
                     />
-                </div>
-            </div>
-        </div>
+                </Stack>
+            </Stack>
+        </Stack>
     }
 }

@@ -6,6 +6,7 @@ pub const CARD_API: ComponentApi = ComponentApi {
     id: "card",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

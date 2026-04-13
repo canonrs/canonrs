@@ -21,7 +21,7 @@ file: loading_overlay_ui.css
 tokens: loading-overlay-*, motion-*, font-*
 foundation: motion, z, blur
 states: ["loading"]
-island: loading_overlay_island.rs
+island: loading_overlay_boundary.rs
 pillar: progress
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

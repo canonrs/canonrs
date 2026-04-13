@@ -21,7 +21,7 @@ file: alert_dialog_ui.css
 tokens: alert-dialog-*, space-*, radius-*, shadow-*, motion-*
 foundation: spacing, radius, shadow, motion
 states: ["open", "closed"]
-island: alert_dialog_island.rs
+island: alert_dialog_boundary.rs
 pillar: overlay
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

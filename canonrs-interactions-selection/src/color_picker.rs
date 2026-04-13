@@ -33,8 +33,8 @@ pub fn init(root: Element) {
     register();
     context::propagate_owner(&root);
 
-    let uid = root.get_attribute("data-rs-uid").unwrap_or_else(|| "NO-UID".to_string());
-    let is_swatches = root.has_attribute("data-rs-color-picker-swatches");
+    let _uid = root.get_attribute("data-rs-uid").unwrap_or_else(|| "NO-UID".to_string());
+    let _is_swatches = root.has_attribute("data-rs-color-picker-swatches");
 
     // click handler — toggle popup (normal) ou swatch select (swatches mode)
     {

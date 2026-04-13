@@ -21,7 +21,7 @@ file: menubar_ui.css
 tokens: menubar-*, space-*, radius-*, shadow-*, font-*
 foundation: spacing, radius, shadow, typography
 states: ["active"]
-island: menubar_island.rs
+island: menubar_boundary.rs
 pillar: menu
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

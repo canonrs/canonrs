@@ -148,7 +148,7 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("banner-radius", "0"),
     FamilyToken::new("banner-shadow", "var(--shadow-sm)"),
     FamilyToken::new("banner-border-color", "var(--theme-surface-border)"),
-    FamilyToken::new("banner-border-width", "0 0 1px 0"),
+    FamilyToken::new("banner-border-width", "1px"),
     FamilyToken::new("banner-bg-info", "var(--theme-state-info-bg)"),
     FamilyToken::new("banner-bg-success", "var(--theme-state-success-bg)"),
     FamilyToken::new("banner-bg-warning", "var(--theme-state-warning-bg)"),

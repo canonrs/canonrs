@@ -21,7 +21,7 @@ file: tabs_ui.css
 tokens: tabs-*, tab-*, space-*, radius-*, font-*, motion-*
 foundation: spacing, radius, motion, typography
 states: ["active", "inactive", "disabled"]
-island: tabs_island.rs
+island: tabs_boundary.rs
 pillar: tabs
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

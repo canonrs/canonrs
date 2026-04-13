@@ -21,7 +21,7 @@ file: separator_ui.css
 tokens: separator-*, size-*
 foundation: size
 states: []
-island: separator_island.rs
+island: separator_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

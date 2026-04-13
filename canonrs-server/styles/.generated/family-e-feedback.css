@@ -126,7 +126,7 @@
   --banner-radius: 0;
   --banner-shadow: var(--shadow-sm);
   --banner-border-color: var(--theme-surface-border);
-  --banner-border-width: 0 0 1px 0;
+  --banner-border-width: 1px;
   --banner-bg-info: var(--theme-state-info-bg);
   --banner-bg-success: var(--theme-state-success-bg);
   --banner-bg-warning: var(--theme-state-warning-bg);

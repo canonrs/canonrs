@@ -21,7 +21,7 @@ file: toast_ui.css
 tokens: toast-*, space-*, radius-*, shadow-*, motion-*, font-*
 foundation: spacing, radius, shadow, motion, typography
 states: ["open", "closed"]
-island: toast_island.rs
+island: toast_boundary.rs
 pillar: feedback
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

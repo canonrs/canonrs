@@ -21,7 +21,7 @@ file: skeleton_ui.css
 tokens: skeleton-*, size-*, radius-*, motion-*
 foundation: size, radius, motion
 states: ["loading"]
-island: skeleton_island.rs
+island: skeleton_boundary.rs
 pillar: progress
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

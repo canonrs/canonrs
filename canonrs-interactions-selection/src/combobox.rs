@@ -48,7 +48,7 @@ fn set_selected(root: &Element, value: &str) {
         else { state::add(&item, "unselected"); let _ = item.set_attribute("aria-selected", "false"); }
     }
     let items = get_items(root);
-    for it in &items {
+    for _it in &items {
     }
     let label = items.into_iter()
         .find(|el| el.get_attribute("data-rs-value").map(|v| v == value).unwrap_or(false))
@@ -62,7 +62,7 @@ fn set_selected(root: &Element, value: &str) {
 
 fn restore_input(root: &Element) {
     let items = get_items(root);
-    for it in &items {
+    for _it in &items {
     }
     let label = items.into_iter()
         .find(|el| el.get_attribute("data-rs-state").map(|s| s.contains("selected")).unwrap_or(false))

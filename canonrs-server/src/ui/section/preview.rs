@@ -3,47 +3,40 @@ use super::section_boundary::{
     SectionHeader, SectionTitle, SectionSubtitle,
     SectionBadge, SectionActions,
 };
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn SectionShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <SectionHeader>
-                    <SectionTitle>"Section Title"</SectionTitle>
-                    <SectionSubtitle>"Section subtitle description."</SectionSubtitle>
-                </SectionHeader>
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <p data-rs-showcase-preview-anchor="">
                 "Semantic layout components for composing section headers."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <SectionHeader>
+                <SectionTitle>"Section Title"</SectionTitle>
+                <SectionSubtitle>"Section subtitle description."</SectionSubtitle>
+            </SectionHeader>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Header with badge"</span>
-                <div data-rs-showcase-preview-row="">
-                    <SectionHeader>
-                        <SectionTitle>"Users"</SectionTitle>
-                        <SectionBadge>"New"</SectionBadge>
-                    </SectionHeader>
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
+                <SectionHeader>
+                    <SectionTitle>"Users"</SectionTitle>
+                    <SectionBadge>"New"</SectionBadge>
+                </SectionHeader>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Header with actions"</span>
-                <div data-rs-showcase-preview-row="">
-                    <SectionHeader>
-                        <SectionTitle>"Reports"</SectionTitle>
-                        <SectionSubtitle>"Monthly overview."</SectionSubtitle>
-                        <SectionActions>
-                            <span>"Export"</span>
-                        </SectionActions>
-                    </SectionHeader>
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
+                <SectionHeader>
+                    <SectionTitle>"Reports"</SectionTitle>
+                    <SectionSubtitle>"Monthly overview."</SectionSubtitle>
+                    <SectionActions>
+                        <span>"Export"</span>
+                    </SectionActions>
+                </SectionHeader>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Title only"</span>
-                <div data-rs-showcase-preview-row="">
-                    <SectionTitle>"Standalone Title"</SectionTitle>
-                </div>
-            </div>
-        </div>
+                <SectionTitle>"Standalone Title"</SectionTitle>
+            </Stack>
+        </Stack>
     }
 }

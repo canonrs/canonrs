@@ -9,8 +9,10 @@ use crate::infra::state_engine::visibility_attrs;
 #[component]
 pub fn AvatarPrimitive(
     children: Children,
+    #[prop(into, default = String::new())] status: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let state = if status.is_empty() { String::new() } else { status.clone() };
     view! {
         <span
             data-rs-avatar=""
@@ -18,9 +20,11 @@ pub fn AvatarPrimitive(
             data-rs-interaction="init"
             data-rs-component="Avatar"
             data-rs-behavior="display"
+            data-rs-state=state
             class=class
         >
             {children()}
+
         </span>
     }
 }
@@ -36,6 +40,7 @@ pub fn AvatarImagePrimitive(
     view! {
         <img
             data-rs-avatar-image=""
+            data-rs-uid=crate::infra::uid::generate("av-img")
             data-rs-state=s.data_rs_state
             src=src
             alt=alt
@@ -54,6 +59,7 @@ pub fn AvatarFallbackPrimitive(
     view! {
         <span
             data-rs-avatar-fallback=""
+            data-rs-uid=crate::infra::uid::generate("av-fb")
             data-rs-state=s.data_rs_state
             aria-hidden=s.aria_hidden
             class=class

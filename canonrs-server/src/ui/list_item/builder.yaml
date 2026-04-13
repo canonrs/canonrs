@@ -21,7 +21,7 @@ file: list_item_ui.css
 tokens: list-item-*, list-*, space-*, radius-*, font-*
 foundation: spacing, radius, motion, typography
 states: ["selected"]
-island: list_item_island.rs
+island: list_item_boundary.rs
 pillar: data
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

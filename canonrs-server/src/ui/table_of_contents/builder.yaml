@@ -21,7 +21,7 @@ file: table_of_contents_ui.css
 tokens: toc-*, space-*, font-*, radius-*, motion-*
 foundation: spacing, radius, motion, typography
 states: ["active", "open", "closed"]
-island: table_of_contents_island.rs
+island: table_of_contents_boundary.rs
 pillar: tabs
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

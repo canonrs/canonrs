@@ -1,6 +1,6 @@
 //! FormErrorSummary Island — Canon Rule passthrough
 use leptos::prelude::*;
-use super::form_error_summary_ui::FormError;
+pub use super::form_error_summary_ui::FormError;
 
 #[component]
 pub fn FormErrorSummary(

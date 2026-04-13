@@ -21,7 +21,7 @@ file: spinner_ui.css
 tokens: spinner-*, size-*, motion-*
 foundation: size, motion
 states: ["loading"]
-island: spinner_island.rs
+island: spinner_boundary.rs
 pillar: progress
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

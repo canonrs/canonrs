@@ -2,9 +2,13 @@
 use leptos::prelude::*;
 use super::select_ui::{
     Select as SelectUi,
-    SelectTrigger,
-    SelectValue,
-    SelectContent
+    SelectTrigger as SelectTriggerUi,
+    SelectValue as SelectValueUi,
+    SelectContent as SelectContentUi,
+};
+
+pub use super::select_ui::{
+    SelectTrigger, SelectValue, SelectContent, SelectItem, SelectSeparator,
 };
 
 #[component]
@@ -17,12 +21,12 @@ pub fn Select(
 ) -> impl IntoView {
     view! {
         <SelectUi class=class disabled=disabled node_ref=node_ref.unwrap_or_default()>
-            <SelectTrigger>
-                <SelectValue placeholder=placeholder>{""}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
+            <SelectTriggerUi>
+                <SelectValueUi placeholder=placeholder>{""}</SelectValueUi>
+            </SelectTriggerUi>
+            <SelectContentUi>
                 {children()}
-            </SelectContent>
+            </SelectContentUi>
         </SelectUi>
     }
 }

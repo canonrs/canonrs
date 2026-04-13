@@ -1,3 +1,4 @@
+#![deny(warnings)]
 pub mod runtime;
 
 use wasm_bindgen::prelude::*;

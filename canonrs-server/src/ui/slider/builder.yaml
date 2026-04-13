@@ -21,7 +21,7 @@ file: slider_ui.css
 tokens: slider-*, size-*, radius-*, motion-*
 foundation: size, radius, motion, interaction
 states: ["active", "disabled"]
-island: slider_island.rs
+island: slider_boundary.rs
 pillar: select
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

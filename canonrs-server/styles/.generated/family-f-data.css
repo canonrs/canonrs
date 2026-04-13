@@ -189,9 +189,10 @@
   --avatar-fallback-font-weight: var(--font-weight-medium);
   --avatar-image-fit: cover;
   --avatar-fg: var(--theme-surface-fg-muted);
-  --avatar-status-size: 25%;
+  --avatar-status-pulse-color: var(--color-success);
+  --avatar-status-translate-x: 32%;
+  --avatar-status-translate-y: 20%;
   --avatar-status-border-width: 2px;
-  --avatar-status-border-color: var(--theme-surface-bg);
   --avatar-status-online-bg: var(--color-success);
   --avatar-status-offline-bg: var(--theme-surface-fg-muted);
   --avatar-status-busy-bg: var(--color-destructive);

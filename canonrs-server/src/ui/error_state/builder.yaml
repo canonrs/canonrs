@@ -21,7 +21,7 @@ file: error_state_ui.css
 tokens: error-state-*, space-*, size-*, font-*
 foundation: spacing, size, typography
 states: ["error"]
-island: error_state_island.rs
+island: error_state_boundary.rs
 pillar: feedback_state
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

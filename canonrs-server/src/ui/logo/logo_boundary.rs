@@ -3,11 +3,8 @@
 //! Note: match on wordmark/tagline is structural (Option<ChildrenFn> Leptos constraint), not logic.
 
 use leptos::prelude::*;
-use super::logo_ui::{
-    Logo as LogoUi,
-    LogoSize,
-    LogoVariant
-};
+pub use super::logo_ui::{LogoSize, LogoVariant};
+use super::logo_ui::Logo as LogoUi;
 
 #[component]
 pub fn Logo(

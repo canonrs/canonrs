@@ -1,32 +1,38 @@
-//! @canon-id: data-table
-//! @canon-type: block
-//! @canon-category: data
-//! @canon-variant: feature
-//! @canon-container: false
-//! @canon-regions: toolbar, header, body, empty, pagination
-//! @canon-label: Data Table
-//! @canon-description: Sortable paginated data table block
-//! @canon-tags: data-table, table, data, grid, sortable, pagination
-//! @canon-slot-accepts: toolbar=Action,header=Any,body=Any,empty=Any,pagination=Nav
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn DataTableBlock(
     #[prop(optional)] toolbar: Option<ChildrenFn>,
     #[prop(optional)] header: Option<ChildrenFn>,
     #[prop(optional)] body: Option<ChildrenFn>,
-    #[prop(optional)] pagination: Option<ChildrenFn>,
     #[prop(optional)] empty: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
-    #[prop(default = String::new(), into)] _style: String,
+    #[prop(optional)] pagination: Option<ChildrenFn>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("bl");
+    let toolbar = StoredValue::new(toolbar);
+    let header = StoredValue::new(header);
+    let body = StoredValue::new(body);
+    let empty = StoredValue::new(empty);
+    let pagination = StoredValue::new(pagination);
     view! {
-        <div data-rs-block="" data-rs-component="DataTable" class=class>
-            {toolbar.map(|t| view! { <div data-rs-region="toolbar">{t()}</div> })}
-            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {body.map(|b| view! { <div data-rs-region="body">{b()}</div> })}
-            {empty.map(|e| view! { <div data-rs-region="empty">{e()}</div> })}
-            {pagination.map(|p| view! { <div data-rs-region="pagination">{p()}</div> })}
+        <div data-rs-data-table="" data-rs-uid=uid class=class>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Md>
+                {move || toolbar.get_value().map(|t| view! { <div data-rs-region="toolbar">{t()}</div> })}
+                <div data-rs-region="table-wrap">
+                    {move || {
+                        if body.get_value().is_some() {
+                            body.get_value().map(|b| view! { <div data-rs-region="body">{b()}</div> })
+                        } else {
+                            empty.get_value().map(|e| view! { <div data-rs-region="empty">{e()}</div> })
+                        }
+                    }}
+                </div>
+                {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+                {move || pagination.get_value().map(|p| view! { <div data-rs-region="pagination">{p()}</div> })}
+            </Stack>
         </div>
     }
 }

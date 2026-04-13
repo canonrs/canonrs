@@ -21,7 +21,7 @@ file: input_group_ui.css
 tokens: input-group-*, input-*, space-*, radius-*, border-*, state-*, validation-*, focus-ring-*
 foundation: spacing, radius, motion
 states: ["focus-within"]
-island: input_group_island.rs
+island: input_group_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

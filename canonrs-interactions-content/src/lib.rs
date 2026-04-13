@@ -1,3 +1,4 @@
+#![deny(warnings)]
 //! canonrs-interactions-content
 
 pub mod shared;

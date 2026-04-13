@@ -1,8 +1,8 @@
 use leptos::prelude::*;
-use super::markdown_ui::TocPosition;
-use super::markdown_boundary::MarkdownSurface;
+use super::markdown_boundary::{MarkdownSurface, TocPosition};
 use super::render_markdown;
-use crate::ui::scroll_area::ScrollArea;
+use crate::ui::scroll_area::scroll_area_boundary::ScrollArea;
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn MarkdownShowcasePreview() -> impl IntoView {
@@ -36,41 +36,35 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
     let rendered_plain = render_markdown(sample);
 
     view! {
-        <div data-rs-showcase-preview-hero="">
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <p data-rs-showcase-preview-anchor="">
                 "SSR-safe markdown rendering with deterministic DOM output."
             </p>
-            <div data-rs-showcase-preview-stage="" style="width:100%;padding:0;">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);height:400px;">
-                    <div style="height:400px;display:flex;flex-direction:column;">
-                        <span data-rs-showcase-preview-label="">"With Table of Contents"</span>
-                        <div style="flex:1;min-height:0;">
-                            <ScrollArea>
-                                <MarkdownSurface
-                                    rendered=rendered_toc
-                                    show_toc=true
-                                    show_toolbar=false
-                                    toc_position=TocPosition::Sidebar
-                                    id="md-preview-toc"
-                                />
-                            </ScrollArea>
-                        </div>
-                    </div>
-                    <div style="height:400px;display:flex;flex-direction:column;">
-                        <span data-rs-showcase-preview-label="">"Only Markdown"</span>
-                        <div style="flex:1;min-height:0;">
-                            <ScrollArea>
-                                <MarkdownSurface
-                                    rendered=rendered_plain
-                                    show_toc=false
-                                    show_toolbar=false
-                                    id="md-preview-plain"
-                                />
-                            </ScrollArea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
+                <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                    <span data-rs-showcase-preview-label="">"With Table of Contents"</span>
+                    <ScrollArea>
+                        <MarkdownSurface
+                            rendered=rendered_toc
+                            show_toc=true
+                            show_toolbar=false
+                            toc_position=TocPosition::Sidebar
+                            id="md-preview-toc"
+                        />
+                    </ScrollArea>
+                </Stack>
+                <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                    <span data-rs-showcase-preview-label="">"Only Markdown"</span>
+                    <ScrollArea>
+                        <MarkdownSurface
+                            rendered=rendered_plain
+                            show_toc=false
+                            show_toolbar=false
+                            id="md-preview-plain"
+                        />
+                    </ScrollArea>
+                </Stack>
+            </Stack>
+        </Stack>
     }
 }

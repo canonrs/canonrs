@@ -20,7 +20,7 @@ file: section_ui.css
 tokens: section-*, space-*, font-*, radius-*, shadow-*
 foundation: spacing, radius, shadow, typography
 states: []
-island: section_island.rs
+island: section_boundary.rs
 pillar: 
 badges: []
 before: ""

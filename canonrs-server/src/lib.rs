@@ -2,11 +2,12 @@
 //! CanonRS Server — SSR UI components + Axum integration
 
 pub mod ui;
+pub mod dev;
 pub mod blocks;
 pub mod layouts;
 pub mod pages;
 pub mod providers;
-pub mod primitives;
+pub use canonrs_core::primitives;
 
 // UI — re-exports explícitos
 pub use ui::button::Button;

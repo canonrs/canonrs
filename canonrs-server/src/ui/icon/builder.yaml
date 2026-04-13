@@ -21,7 +21,7 @@ file: icon_ui.css
 tokens: icon-*, size-*
 foundation: size, motion
 states: []
-island: icon_island.rs
+island: icon_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

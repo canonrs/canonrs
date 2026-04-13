@@ -21,7 +21,7 @@ file: doc_progress_ui.css
 tokens: doc-progress-*, size-*
 foundation: size
 states: ["active", "inactive"]
-island: doc_progress_island.rs
+island: doc_progress_boundary.rs
 pillar: progress
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

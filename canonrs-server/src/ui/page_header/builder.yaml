@@ -21,7 +21,7 @@ file: page_header_ui.css
 tokens: page-header-*, space-*, font-*, border-*
 foundation: spacing, border, typography
 states: []
-island: page_header_island.rs
+island: page_header_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

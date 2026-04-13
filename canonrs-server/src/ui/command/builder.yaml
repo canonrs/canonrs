@@ -21,7 +21,7 @@ file: command_ui.css
 tokens: command-*, space-*, size-*, radius-*, shadow-*, font-*
 foundation: spacing, size, radius, shadow, typography
 states: ["active"]
-island: command_island.rs
+island: command_boundary.rs
 pillar: menu
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

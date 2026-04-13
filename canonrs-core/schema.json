@@ -3,62 +3,6 @@
     {
       "category": "layout",
       "container": true,
-      "id": "card",
-      "regions": [
-        "header",
-        "content",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "content",
-      "container": false,
-      "id": "code-block",
-      "regions": [
-        "header",
-        "content",
-        "actions"
-      ],
-      "type": "block",
-      "variant": "feature"
-    },
-    {
-      "category": "layout",
-      "container": true,
-      "id": "columns",
-      "regions": [
-        "columns"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "overlay",
-      "container": false,
-      "id": "command-panel",
-      "regions": [
-        "search",
-        "results",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "overlay"
-    },
-    {
-      "category": "layout",
-      "container": true,
-      "id": "container",
-      "regions": [
-        "content"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "layout",
-      "container": true,
       "id": "dashboard",
       "regions": [
         "header",
@@ -67,104 +11,6 @@
       ],
       "type": "layout",
       "variant": "page"
-    },
-    {
-      "category": "data",
-      "container": false,
-      "id": "data-table",
-      "regions": [
-        "toolbar",
-        "header",
-        "body",
-        "empty",
-        "pagination"
-      ],
-      "type": "block",
-      "variant": "feature"
-    },
-    {
-      "category": "layout",
-      "container": true,
-      "id": "detail-panel",
-      "regions": [
-        "aside",
-        "content"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "overlay",
-      "container": true,
-      "id": "dialog",
-      "regions": [
-        "header",
-        "content",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "overlay"
-    },
-    {
-      "category": "overlay",
-      "container": true,
-      "id": "drawer",
-      "regions": [
-        "header",
-        "content",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "overlay"
-    },
-    {
-      "category": "content",
-      "container": false,
-      "id": "empty-state",
-      "regions": [
-        "icon",
-        "title",
-        "description",
-        "action"
-      ],
-      "type": "block",
-      "variant": "feature"
-    },
-    {
-      "category": "data",
-      "container": true,
-      "id": "filter-bar",
-      "regions": [
-        "filters",
-        "actions"
-      ],
-      "type": "block",
-      "variant": "feature"
-    },
-    {
-      "category": "page",
-      "container": true,
-      "id": "footer",
-      "regions": [
-        "top",
-        "bottom",
-        "left",
-        "center",
-        "right"
-      ],
-      "type": "block",
-      "variant": "page"
-    },
-    {
-      "category": "form",
-      "container": true,
-      "id": "form",
-      "regions": [
-        "fields",
-        "actions"
-      ],
-      "type": "block",
-      "variant": "feature"
     },
     {
       "category": "layout",
@@ -180,67 +26,6 @@
     {
       "category": "layout",
       "container": true,
-      "id": "grid",
-      "regions": [
-        "items"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "page",
-      "container": true,
-      "id": "header",
-      "regions": [
-        "logo",
-        "nav",
-        "center",
-        "actions"
-      ],
-      "type": "block",
-      "variant": "page"
-    },
-    {
-      "category": "page",
-      "container": true,
-      "id": "hero",
-      "regions": [
-        "header",
-        "media",
-        "content",
-        "actions",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "data",
-      "container": true,
-      "id": "list",
-      "regions": [
-        "header",
-        "items",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "feature"
-    },
-    {
-      "category": "content",
-      "container": false,
-      "id": "markdown",
-      "regions": [
-        "header",
-        "content",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "feature"
-    },
-    {
-      "category": "layout",
-      "container": true,
       "id": "marketing",
       "regions": [
         "header",
@@ -249,19 +34,6 @@
         "footer"
       ],
       "type": "layout",
-      "variant": "page"
-    },
-    {
-      "category": "page",
-      "container": false,
-      "id": "page-header",
-      "regions": [
-        "breadcrumb",
-        "title",
-        "subtitle",
-        "actions"
-      ],
-      "type": "block",
       "variant": "page"
     },
     {
@@ -275,19 +47,6 @@
       ],
       "type": "layout",
       "variant": "page"
-    },
-    {
-      "category": "overlay",
-      "container": true,
-      "id": "popover",
-      "regions": [
-        "trigger",
-        "header",
-        "content",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "overlay"
     },
     {
       "category": "layout",
@@ -304,28 +63,6 @@
     {
       "category": "layout",
       "container": true,
-      "id": "sidebar-layout",
-      "regions": [
-        "nav",
-        "main"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "layout",
-      "container": true,
-      "id": "split",
-      "regions": [
-        "aside",
-        "main"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "layout",
-      "container": true,
       "id": "split-view",
       "regions": [
         "left",
@@ -333,29 +70,6 @@
       ],
       "type": "layout",
       "variant": "page"
-    },
-    {
-      "category": "layout",
-      "container": true,
-      "id": "stack",
-      "regions": [
-        "items"
-      ],
-      "type": "block",
-      "variant": "structure"
-    },
-    {
-      "category": "data",
-      "container": false,
-      "id": "stat-card",
-      "regions": [
-        "icon",
-        "label",
-        "value",
-        "change"
-      ],
-      "type": "block",
-      "variant": "feature"
     },
     {
       "category": "layout",
@@ -368,42 +82,6 @@
       ],
       "type": "layout",
       "variant": "page"
-    },
-    {
-      "category": "data",
-      "container": true,
-      "id": "timeline",
-      "regions": [
-        "header",
-        "items",
-        "footer"
-      ],
-      "type": "block",
-      "variant": "feature"
-    },
-    {
-      "category": "page",
-      "container": true,
-      "id": "toolbar",
-      "regions": [
-        "left",
-        "center",
-        "right"
-      ],
-      "type": "block",
-      "variant": "page"
-    },
-    {
-      "category": "form",
-      "container": true,
-      "id": "wizard",
-      "regions": [
-        "steps",
-        "body",
-        "actions"
-      ],
-      "type": "block",
-      "variant": "feature"
     },
     {
       "category": "layout",

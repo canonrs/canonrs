@@ -1,9 +1,10 @@
+#![deny(warnings)]
 //! canonrs-interactions-init
 //! Tier S: registry-driven, per-element dispatch
 
-use wasm_bindgen::prelude::*;
-
 pub mod runtime;
+pub mod animate;
+pub mod avatar;
 pub mod table;
 pub mod tooltip;
 pub mod collapsible;

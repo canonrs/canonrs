@@ -1,3 +1,4 @@
+#![deny(warnings)]
 //! canonrs-interactions-gesture
 //! Grupo gesture: resizable, slider, carousel, scroll_area.
 

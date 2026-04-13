@@ -21,7 +21,7 @@ file: banner_ui.css
 tokens: banner-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: ["open", "closed"]
-island: banner_island.rs
+island: banner_boundary.rs
 pillar: feedback
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

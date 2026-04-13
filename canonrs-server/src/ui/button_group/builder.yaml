@@ -21,7 +21,7 @@ file: button_group_ui.css
 tokens: button-group-*, button-*, space-*, radius-*, border-*, state-*, focus-ring-*
 foundation: spacing, radius, border, interaction
 states: ["first", "last"]
-island: button_group_island.rs
+island: button_group_boundary.rs
 pillar: action
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

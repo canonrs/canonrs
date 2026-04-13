@@ -229,6 +229,13 @@ pub use tooltip::{TooltipProviderPrimitive as TooltipProvider, TooltipPrimitive 
 pub mod scroll_area;
 pub use scroll_area::{ScrollAreaPrimitive, ScrollOrientation};
 
+pub mod layout;
+pub use layout::stack::{StackPrimitive, StackDirection, StackAlign, StackGap};
+pub use layout::grid::{GridPrimitive, GridCols, GridGap};
+pub use layout::container::ContainerPrimitive;
+pub use layout::center::CenterPrimitive;
+pub use layout::flex::{FlexPrimitive, FlexDirection, FlexJustify, FlexAlign, FlexGap};
+pub use layout::spacer::SpacerPrimitive;
 pub mod orientation;
 pub use orientation::Orientation;
 pub mod toc_item;

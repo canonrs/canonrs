@@ -3,7 +3,6 @@
    Family F: Data
    ============================================ */
 
-/* Base */
 [data-rs-avatar] {
   position: relative;
   display: inline-flex;
@@ -16,43 +15,16 @@
 }
 
 /* Sizes */
-[data-rs-avatar].avatar-size-xs {
-  width: var(--avatar-size-xs);
-  height: var(--avatar-size-xs);
-}
-
-[data-rs-avatar].avatar-size-sm {
-  width: var(--avatar-size-sm);
-  height: var(--avatar-size-sm);
-}
-
-[data-rs-avatar].avatar-size-md {
-  width: var(--avatar-size-md);
-  height: var(--avatar-size-md);
-}
-
-[data-rs-avatar].avatar-size-lg {
-  width: var(--avatar-size-lg);
-  height: var(--avatar-size-lg);
-}
-
-[data-rs-avatar].avatar-size-xl {
-  width: var(--avatar-size-xl);
-  height: var(--avatar-size-xl);
-}
+[data-rs-avatar].avatar-size-xs { width: var(--avatar-size-xs); height: var(--avatar-size-xs); }
+[data-rs-avatar].avatar-size-sm { width: var(--avatar-size-sm); height: var(--avatar-size-sm); }
+[data-rs-avatar].avatar-size-md { width: var(--avatar-size-md); height: var(--avatar-size-md); }
+[data-rs-avatar].avatar-size-lg { width: var(--avatar-size-lg); height: var(--avatar-size-lg); }
+[data-rs-avatar].avatar-size-xl { width: var(--avatar-size-xl); height: var(--avatar-size-xl); }
 
 /* Shapes */
-[data-rs-avatar].avatar-shape-circle {
-  border-radius: var(--avatar-radius);
-}
-
-[data-rs-avatar].avatar-shape-square {
-  border-radius: var(--avatar-radius-square);
-}
-
-[data-rs-avatar].avatar-shape-rounded {
-  border-radius: var(--avatar-radius-rounded);
-}
+[data-rs-avatar].avatar-shape-circle  { border-radius: var(--avatar-radius); }
+[data-rs-avatar].avatar-shape-square  { border-radius: var(--avatar-radius-square); }
+[data-rs-avatar].avatar-shape-rounded { border-radius: var(--avatar-radius-rounded); }
 
 /* Image */
 [data-rs-avatar-image] {
@@ -75,31 +47,14 @@
   text-transform: uppercase;
 }
 
-/* Status Indicator */
-[data-rs-avatar-status] {
+/* Status dot — fora do avatar (via StatusDotPrimitive no wrapper) */
+[data-rs-status-dot].avatar-status-dot {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: var(--avatar-status-size);
-  height: var(--avatar-status-size);
-  border-radius: var(--avatar-radius);
-  border: var(--avatar-status-border-width) solid var(--avatar-status-border-color);
-}
-
-[data-rs-avatar-status][data-rs-status="online"] {
-  background: var(--avatar-status-online-bg);
-}
-
-[data-rs-avatar-status][data-rs-status="offline"] {
-  background: var(--avatar-status-offline-bg);
-}
-
-[data-rs-avatar-status][data-rs-status="busy"] {
-  background: var(--avatar-status-busy-bg);
-}
-
-[data-rs-avatar-status][data-rs-status="away"] {
-  background: var(--avatar-status-away-bg);
+  box-sizing: border-box;
+  transform: translate(var(--avatar-status-translate-x), var(--avatar-status-translate-y));
+  z-index: 1;
 }
 
 /* Badge */
@@ -121,29 +76,17 @@
   line-height: 1;
 }
 
-/* Fallback — oculto quando imagem carrega */
+/* States */
+[data-rs-avatar][data-rs-state~="loading"] { opacity: 0.6; }
+[data-rs-avatar][data-rs-state~="error"] [data-rs-avatar-image] { display: none; }
+[data-rs-avatar-image][data-rs-state~="closed"] { display: none; }
+[data-rs-avatar-fallback][data-rs-state~="closed"] { display: none; }
 
 /* Pulse animation */
 @keyframes avatar-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--avatar-status-online-bg) 60%, transparent); }
-  50%       { box-shadow: 0 0 0 4px color-mix(in srgb, var(--avatar-status-online-bg) 0%, transparent); }
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--avatar-status-pulse-color) 70%, transparent); }
+  50%       { box-shadow: 0 0 0 6px color-mix(in srgb, var(--avatar-status-pulse-color) 0%, transparent); }
 }
-[data-rs-avatar-status][data-rs-pulse] {
+[data-rs-status-dot].avatar-status-dot[data-rs-pulse] {
   animation: avatar-pulse 2s ease-in-out infinite;
-}
-
-[data-rs-avatar][data-rs-state~="loading"] {
-  opacity: 0.6;
-}
-
-[data-rs-avatar][data-rs-state~="error"] [data-rs-avatar-image] {
-  display: none;
-}
-
-[data-rs-avatar-image][data-rs-state~="hidden"] {
-  display: none;
-}
-
-[data-rs-avatar-fallback][data-rs-state~="hidden"] {
-  display: none;
 }

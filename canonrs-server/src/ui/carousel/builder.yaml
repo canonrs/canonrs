@@ -21,7 +21,7 @@ file: carousel_ui.css
 tokens: carousel-*, size-*, space-*, radius-*, motion-*, font-*
 foundation: spacing, size, radius, motion, typography
 states: ["active", "inactive"]
-island: carousel_island.rs
+island: carousel_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

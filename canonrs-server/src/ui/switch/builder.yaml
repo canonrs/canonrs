@@ -21,7 +21,7 @@ file: switch_ui.css
 tokens: switch-*, size-*, radius-*, motion-*
 foundation: size, radius, motion
 states: ["selected", "disabled", "focus"]
-island: switch_island.rs
+island: switch_boundary.rs
 pillar: toggle
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

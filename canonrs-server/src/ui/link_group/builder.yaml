@@ -21,7 +21,7 @@ file: link_group_ui.css
 tokens: link-group-*, space-*, font-*
 foundation: spacing, typography
 states: ["active"]
-island: link_group_island.rs
+island: link_group_boundary.rs
 pillar: navigation
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

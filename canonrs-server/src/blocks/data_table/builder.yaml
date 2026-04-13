@@ -1,0 +1,18 @@
+id: data-table
+label: Data Table
+category: dashboard
+type: block
+variant: structure
+container: true
+regions: ["toolbar", "header", "body", "empty", "pagination"]
+description: Data table block with toolbar, column header, rows, empty state and pagination
+tags: ["table", "data", "list", "grid", "pagination", "filter"]
+slot_accepts:
+  toolbar: Any
+  header: Any
+  body: Any
+  empty: Any
+  pagination: Any
+composable: true
+required_parts: []
+optional_parts: ["toolbar", "header", "body", "empty", "pagination"]

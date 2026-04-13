@@ -21,7 +21,7 @@ file: inline_notice_ui.css
 tokens: inline-notice-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: ["error"]
-island: inline_notice_island.rs
+island: inline_notice_boundary.rs
 pillar: feedback
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

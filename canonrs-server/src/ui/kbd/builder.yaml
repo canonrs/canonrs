@@ -21,7 +21,7 @@ file: kbd_ui.css
 tokens: kbd-*, space-*, radius-*, font-*, shadow-*
 foundation: spacing, radius, shadow, typography
 states: []
-island: kbd_island.rs
+island: kbd_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

@@ -21,7 +21,7 @@ file: virtual_list_ui.css
 tokens: virtual-list-*, size-*, space-*, table-*
 foundation: spacing, size
 states: []
-island: virtual_list_island.rs
+island: virtual_list_boundary.rs
 pillar: data
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

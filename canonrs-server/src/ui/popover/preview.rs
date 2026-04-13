@@ -1,25 +1,24 @@
 use leptos::prelude::*;
 use super::popover_boundary::{Popover, PopoverTrigger, PopoverContent};
 use canonrs_core::primitives::PopoverSide;
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn PopoverShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <Popover>
-                    <PopoverTrigger>"Open Popover"</PopoverTrigger>
-                    <PopoverContent>
-                        <p>"This is a popover. Click outside to close."</p>
-                    </PopoverContent>
-                </Popover>
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <p data-rs-showcase-preview-anchor="">
                 "Popover with keyboard and click-outside dismiss."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <Popover>
+                <PopoverTrigger>"Open Popover"</PopoverTrigger>
+                <PopoverContent>
+                    <p>"This is a popover. Click outside to close."</p>
+                </PopoverContent>
+            </Popover>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Sides"</span>
-                <div data-rs-showcase-preview-row="">
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Sm>
                     <Popover>
                         <PopoverTrigger>"Bottom"</PopoverTrigger>
                         <PopoverContent side=PopoverSide::Bottom>"Opens below"</PopoverContent>
@@ -32,8 +31,8 @@ pub fn PopoverShowcasePreview() -> impl IntoView {
                         <PopoverTrigger>"Right"</PopoverTrigger>
                         <PopoverContent side=PopoverSide::Right>"Opens right"</PopoverContent>
                     </Popover>
-                </div>
-            </div>
-        </div>
+                </Stack>
+            </Stack>
+        </Stack>
     }
 }

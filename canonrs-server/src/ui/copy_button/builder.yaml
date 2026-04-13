@@ -21,7 +21,7 @@ file: copy_button_ui.css
 tokens: copy-button-*, space-*, radius-*, motion-*, font-*, state-*
 foundation: spacing, radius, motion, typography, interaction
 states: ["hover", "copied", "error"]
-island: copy_button_island.rs
+island: copy_button_boundary.rs
 pillar: action
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

@@ -1,5 +1,3 @@
-
-
 use leptos::prelude::*;
 use super::markdown_ui::{
     MarkdownSurface as MarkdownSurfaceUi,
@@ -7,8 +5,9 @@ use super::markdown_ui::{
     MarkdownContent as MarkdownContentUi,
     MarkdownLayout as MarkdownLayoutUi,
     RenderedMarkdown,
-    TocPosition
 };
+
+pub use super::markdown_ui::TocPosition;
 
 #[component]
 pub fn MarkdownSurface(

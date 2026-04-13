@@ -21,7 +21,7 @@ file: tooltip_ui.css
 tokens: tooltip-*, space-*, radius-*, shadow-*, font-*, motion-*
 foundation: spacing, radius, shadow, motion, typography
 states: ["open", "closed"]
-island: tooltip_island.rs
+island: tooltip_boundary.rs
 pillar: overlay
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

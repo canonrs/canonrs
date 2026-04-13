@@ -21,7 +21,7 @@ file: popover_ui.css
 tokens: popover-*, space-*, radius-*, shadow-*, motion-*
 foundation: spacing, radius, shadow, motion
 states: ["open", "closed"]
-island: popover_island.rs
+island: popover_boundary.rs
 pillar: overlay
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

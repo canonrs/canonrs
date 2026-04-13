@@ -21,7 +21,7 @@ file: toggle_group_ui.css
 tokens: toggle-group-*, toggle-*, space-*, radius-*
 foundation: spacing, radius
 states: ["on", "off", "disabled"]
-island: toggle_group_island.rs
+island: toggle_group_boundary.rs
 pillar: toggle
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

@@ -1,22 +1,21 @@
 use leptos::prelude::*;
 use super::inline_meta_boundary::{InlineMeta, InlineMetaLabel, InlineMetaValue};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn InlineMetaShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <InlineMeta>
-                    <InlineMetaLabel>"Author"</InlineMetaLabel>
-                    <InlineMetaValue>"Cristiano Bertulucci"</InlineMetaValue>
-                </InlineMeta>
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+            <InlineMeta>
+                <InlineMetaLabel>"Author"</InlineMetaLabel>
+                <InlineMetaValue>"Cristiano Bertulucci"</InlineMetaValue>
+            </InlineMeta>
             <p data-rs-showcase-preview-anchor="">
                 "Metadata pairs structured and consistently rendered."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Pairs"</span>
-                <div data-rs-showcase-preview-row="">
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
                     <InlineMeta>
                         <InlineMetaLabel>"Status"</InlineMetaLabel>
                         <InlineMetaValue>"Active"</InlineMetaValue>
@@ -29,11 +28,11 @@ pub fn InlineMetaShowcasePreview() -> impl IntoView {
                         <InlineMetaLabel>"License"</InlineMetaLabel>
                         <InlineMetaValue>"MIT"</InlineMetaValue>
                     </InlineMeta>
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
+                </Stack>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Context examples"</span>
-                <div data-rs-showcase-preview-row="">
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
                     <InlineMeta>
                         <InlineMetaLabel>"Rules"</InlineMetaLabel>
                         <InlineMetaValue>"284"</InlineMetaValue>
@@ -46,8 +45,8 @@ pub fn InlineMetaShowcasePreview() -> impl IntoView {
                         <InlineMetaLabel>"Last updated"</InlineMetaLabel>
                         <InlineMetaValue>"2025-06-01"</InlineMetaValue>
                     </InlineMeta>
-                </div>
-            </div>
-        </div>
+                </Stack>
+            </Stack>
+        </Stack>
     }
 }

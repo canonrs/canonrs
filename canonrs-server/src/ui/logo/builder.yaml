@@ -21,7 +21,7 @@ file: logo_ui.css
 tokens: logo-*, size-*, font-*
 foundation: size, typography
 states: []
-island: logo_island.rs
+island: logo_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

@@ -21,7 +21,7 @@ file: field_ui.css
 tokens: field-*, space-*, font-*
 foundation: spacing, typography
 states: ["focus", "disabled", "error"]
-island: field_island.rs
+island: field_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

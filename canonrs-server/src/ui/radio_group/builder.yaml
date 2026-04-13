@@ -21,7 +21,7 @@ file: radio_group_ui.css
 tokens: radio-group-*, radio-*, forms-*, space-*, font-*, motion-*
 foundation: spacing, typography, motion
 states: ["selected", "focus", "disabled"]
-island: radio_group_island.rs
+island: radio_group_boundary.rs
 pillar: select
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

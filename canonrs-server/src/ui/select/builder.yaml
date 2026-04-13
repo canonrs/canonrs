@@ -21,7 +21,7 @@ file: select_ui.css
 tokens: select-*, size-*, space-*, radius-*, border-*, shadow-*, font-*, motion-*
 foundation: spacing, size, radius, border, shadow, motion, typography
 states: ["open", "closed", "selected", "disabled"]
-island: select_island.rs
+island: select_boundary.rs
 pillar: select
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

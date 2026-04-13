@@ -1,3 +1,4 @@
+#![deny(warnings)]
 //! canonrs-interactions-data
 
 pub mod runtime;

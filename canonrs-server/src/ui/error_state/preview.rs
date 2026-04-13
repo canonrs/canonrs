@@ -3,25 +3,25 @@ use super::error_state_boundary::{
     ErrorState, ErrorStateIcon, ErrorStateTitle,
     ErrorStateDescription, ErrorStateActions,
 };
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
+use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols};
 
 #[component]
 pub fn ErrorStateShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <ErrorState>
-                    <ErrorStateIcon>"⚠️"</ErrorStateIcon>
-                    <ErrorStateTitle>"Something went wrong"</ErrorStateTitle>
-                    <ErrorStateDescription>"We encountered an unexpected error. Please try again."</ErrorStateDescription>
-                    <ErrorStateActions>"Retry"</ErrorStateActions>
-                </ErrorState>
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+            <ErrorState>
+                <ErrorStateIcon>"⚠️"</ErrorStateIcon>
+                <ErrorStateTitle>"Something went wrong"</ErrorStateTitle>
+                <ErrorStateDescription>"We encountered an unexpected error. Please try again."</ErrorStateDescription>
+                <ErrorStateActions>"Retry"</ErrorStateActions>
+            </ErrorState>
             <p data-rs-showcase-preview-anchor="">
                 "Error feedback always announced and structurally consistent."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Examples"</span>
-                <div data-rs-showcase-preview-row="">
+                <Grid cols=GridCols::Three>
                     <ErrorState>
                         <ErrorStateIcon>"🔌"</ErrorStateIcon>
                         <ErrorStateTitle>"Connection failed"</ErrorStateTitle>
@@ -40,8 +40,8 @@ pub fn ErrorStateShowcasePreview() -> impl IntoView {
                         <ErrorStateDescription>"The requested data could not be fetched."</ErrorStateDescription>
                         <ErrorStateActions>"Try again"</ErrorStateActions>
                     </ErrorState>
-                </div>
-            </div>
-        </div>
+                </Grid>
+            </Stack>
+        </Stack>
     }
 }

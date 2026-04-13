@@ -21,7 +21,7 @@ file: toolbar_ui.css
 tokens: toolbar-*, space-*, radius-*, border-*
 foundation: spacing, radius
 states: ["active"]
-island: toolbar_island.rs
+island: toolbar_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

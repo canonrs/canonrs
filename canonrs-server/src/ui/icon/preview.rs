@@ -1,46 +1,42 @@
 use leptos::prelude::*;
-use super::icon_boundary::Icon;
-use super::icon_ui::{IconSize, IconVariant};
+use super::icon_boundary::{Icon, IconSize, IconVariant};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn IconShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <div style="display:flex;align-items:center;gap:var(--space-md);">
-                    <Icon size=IconSize::Lg variant=IconVariant::Primary>"★"</Icon>
-                    <Icon size=IconSize::Lg>"★"</Icon>
-                    <Icon size=IconSize::Lg variant=IconVariant::Muted>"★"</Icon>
-                </div>
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+            <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
+                <Icon size=IconSize::Lg variant=IconVariant::Primary>"★"</Icon>
+                <Icon size=IconSize::Lg>"★"</Icon>
+                <Icon size=IconSize::Lg variant=IconVariant::Muted>"★"</Icon>
+            </Stack>
             <p data-rs-showcase-preview-anchor="">
                 "Icon size and variant enforced via typed enums."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Sizes"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
                     <Icon size=IconSize::Sm>"★"</Icon>
                     <Icon size=IconSize::Md>"★"</Icon>
                     <Icon size=IconSize::Lg>"★"</Icon>
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
+                </Stack>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Variants"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
+                <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
                     <Icon>"★"</Icon>
                     <Icon variant=IconVariant::Muted>"★"</Icon>
                     <Icon variant=IconVariant::Primary>"★"</Icon>
                     <Icon variant=IconVariant::Destructive>"★"</Icon>
                     <Icon variant=IconVariant::Success>"★"</Icon>
                     <Icon variant=IconVariant::Warning>"★"</Icon>
-                </div>
-            </div>
-            <div data-rs-showcase-preview-section="">
+                </Stack>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Spin"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;align-items:center;gap:var(--space-md);">
-                    <Icon spin=true>"⟳"</Icon>
-                </div>
-            </div>
-        </div>
+                <Icon spin=true>"⟳"</Icon>
+            </Stack>
+        </Stack>
     }
 }

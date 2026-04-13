@@ -1,0 +1,133 @@
+components:
+
+  accordion:        { blocks: [], primitives: [stack] }
+  alert:            { blocks: [], primitives: [stack] }
+  alert_dialog:     { blocks: [], primitives: [center, stack] }
+  animate:          { blocks: [], primitives: [stack, grid] }
+  aspect_ratio:     { blocks: [], primitives: [grid] }
+  avatar:           { blocks: [], primitives: [stack] }
+  badge:            { blocks: [], primitives: [stack] }
+  banner:           { blocks: [section_block], primitives: [container, stack] }
+  breadcrumb:       { blocks: [page_header_block], primitives: [flex, stack] }
+
+  button:           { blocks: [], primitives: [stack] }
+  button_group:     { blocks: [], primitives: [flex, stack] }
+
+  callout:          { blocks: [section_block], primitives: [stack] }
+  card:             { blocks: [card_block], primitives: [stack] }
+  carousel:         { blocks: [], primitives: [center, stack] }
+  chart:            { blocks: [section_block], primitives: [stack] }
+  checkbox:         { blocks: [], primitives: [stack] }
+  code_block:       { blocks: [card_block], primitives: [stack] }
+  collapsible:      { blocks: [], primitives: [stack] }
+  color_picker:     { blocks: [], primitives: [stack] }
+  combobox:         { blocks: [], primitives: [stack] }
+  command:          { blocks: [card_block], primitives: [stack] }
+  confirm_dialog:   { blocks: [], primitives: [center, stack] }
+  context_menu:     { blocks: [], primitives: [stack] }
+  copy_button:      { blocks: [], primitives: [stack] }
+
+  data_table:       { blocks: [data_table_block], primitives: [container] }
+  dialog:           { blocks: [], primitives: [center, stack] }
+  doc_progress:     { blocks: [section_block], primitives: [container, stack] }
+  drawer:           { blocks: [], primitives: [flex] }
+  dropdown_menu:    { blocks: [], primitives: [stack] }
+
+  empty_state:      { blocks: [section_block], primitives: [center, stack, grid] }
+  empty_table:      { blocks: [data_table_block], primitives: [stack] }
+  error_state:      { blocks: [section_block], primitives: [center, stack, grid] }
+
+  field:            { blocks: [form_field_block], primitives: [stack] }
+  form:             { blocks: [section_block], primitives: [container, stack] }
+  form_error_summary:{ blocks: [section_block], primitives: [stack] }
+
+  hero:             { blocks: [hero_block], primitives: [container, stack, flex] }
+  hover_card:       { blocks: [], primitives: [stack] }
+
+  icon:             { blocks: [], primitives: [stack] }
+  icon_button:      { blocks: [], primitives: [stack, grid] }
+
+  inline_meta:      { blocks: [], primitives: [flex, stack] }
+  inline_notice:    { blocks: [section_block], primitives: [stack] }
+
+  input:            { blocks: [], primitives: [stack, grid] }
+  input_group:      { blocks: [], primitives: [flex, stack] }
+  input_otp:        { blocks: [], primitives: [flex, stack] }
+
+  kbd:              { blocks: [], primitives: [flex, stack] }
+  label:            { blocks: [], primitives: [stack] }
+
+  link:             { blocks: [], primitives: [stack] }
+  link_group:       { blocks: [section_block], primitives: [stack] }
+
+  list_item:        { blocks: [], primitives: [stack] }
+
+  loading_overlay:  { blocks: [card_block], primitives: [center, stack] }
+
+  logo:             { blocks: [], primitives: [flex, stack] }
+
+  markdown:         { blocks: [section_block], primitives: [flex, stack] }
+
+  menu:             { blocks: [], primitives: [stack] }
+  menubar:          { blocks: [], primitives: [flex] }
+
+  modal:            { blocks: [], primitives: [center, stack] }
+
+  nav_item:         { blocks: [], primitives: [flex] }
+
+  navigation_menu:  { blocks: [], primitives: [flex] }
+  pagination:       { blocks: [section_block], primitives: [flex, stack] }
+
+  popover:          { blocks: [], primitives: [stack] }
+  progress:         { blocks: [], primitives: [stack] }
+  pulse:            { blocks: [], primitives: [stack] }
+
+  radio:            { blocks: [], primitives: [stack] }
+  radio_group:      { blocks: [], primitives: [stack] }
+
+  resizable:        { blocks: [], primitives: [flex] }
+
+  scroll_area:      { blocks: [section_block], primitives: [container, stack] }
+
+  section:          { blocks: [section_block], primitives: [container] }
+
+  select:           { blocks: [], primitives: [stack] }
+  separator:        { blocks: [], primitives: [stack] }
+
+  sheet:            { blocks: [], primitives: [flex] }
+
+  sidebar:          { blocks: [sidebar_layout_block], primitives: [flex] }
+  sidebar_layout:   { blocks: [sidebar_layout_block], primitives: [flex] }
+
+  skeleton:         { blocks: [], primitives: [stack, grid] }
+
+  slider:           { blocks: [], primitives: [stack] }
+
+  spinner:          { blocks: [], primitives: [center] }
+
+  stat:             { blocks: [stat_group_block], primitives: [grid] }
+  stat_group:       { blocks: [stat_group_block], primitives: [grid] }
+
+  status_dot:       { blocks: [], primitives: [stack] }
+
+  switch:           { blocks: [], primitives: [stack] }
+
+  table:            { blocks: [data_table_block], primitives: [container] }
+  table_of_contents:{ blocks: [section_block], primitives: [stack] }
+
+  tabs:             { blocks: [], primitives: [stack] }
+
+  textarea:         { blocks: [], primitives: [stack] }
+
+  toast:            { blocks: [], primitives: [stack] }
+
+  toggle:           { blocks: [], primitives: [stack] }
+  toggle_group:     { blocks: [], primitives: [flex, stack] }
+
+  toolbar:          { blocks: [section_block], primitives: [flex] }
+
+  tooltip:          { blocks: [], primitives: [stack] }
+
+  tree:             { blocks: [], primitives: [stack] }
+
+  virtual_list:     { blocks: [section_block], primitives: [container] }

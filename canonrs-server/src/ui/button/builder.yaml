@@ -21,7 +21,7 @@ file: button_ui.css
 tokens: button-*, space-*, radius-*, motion-*, size-*, font-*, line-height-*, state-*, focus-ring-*, validation-*, filter-*
 foundation: spacing, radius, motion, interaction, typography
 states: ["hover", "active", "focus", "disabled"]
-island: button_island.rs
+island: button_boundary.rs
 pillar: action
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

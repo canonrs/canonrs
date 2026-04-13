@@ -9,8 +9,6 @@ pub const AVATAR_API: ComponentApi = ComponentApi {
         PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl"]), required: false, default: Some("md"), description: "" },
         PropDef { name: "shape", kind: PropType::Enum(&["circle", "square", "rounded"]), required: false, default: Some("circle"), description: "" },
         PropDef { name: "status", kind: PropType::Enum(&["online", "offline", "busy", "away"]), required: false, default: None, description: "" },
-        PropDef { name: "animated", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
-        PropDef { name: "badge", kind: PropType::Number, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

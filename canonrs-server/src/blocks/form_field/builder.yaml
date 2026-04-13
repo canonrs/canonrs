@@ -1,0 +1,17 @@
+id: form-field
+label: Form Field
+category: form
+type: block
+variant: structure
+container: true
+regions: ["label", "input", "hint", "error"]
+description: Form field block with label, input, hint and error regions
+tags: ["form", "field", "input", "label", "validation"]
+slot_accepts:
+  label: Any
+  input: Any
+  hint: Any
+  error: Any
+composable: true
+required_parts: []
+optional_parts: ["label", "input", "hint", "error"]

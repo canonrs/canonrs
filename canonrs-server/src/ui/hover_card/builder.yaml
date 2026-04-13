@@ -21,7 +21,7 @@ file: hover_card_ui.css
 tokens: hover-card-*, space-*, radius-*, shadow-*, motion-*
 foundation: spacing, radius, shadow, motion
 states: ["open", "closed"]
-island: hover_card_island.rs
+island: hover_card_boundary.rs
 pillar: overlay
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

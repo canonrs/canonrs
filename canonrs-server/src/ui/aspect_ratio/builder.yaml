@@ -21,7 +21,7 @@ file: aspect_ratio_ui.css
 tokens: aspect-ratio-*, size-*
 foundation: size
 states: []
-island: aspect_ratio_island.rs
+island: aspect_ratio_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

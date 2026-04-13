@@ -21,7 +21,7 @@ file: checkbox_ui.css
 tokens: checkbox-*, size-*, radius-*, motion-*, state-*
 foundation: size, radius, motion, interaction
 states: ["active", "focus", "disabled"]
-island: checkbox_island.rs
+island: checkbox_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

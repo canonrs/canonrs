@@ -21,7 +21,7 @@ file: card_ui.css
 tokens: card-*, space-*, radius-*, shadow-*, font-*
 foundation: spacing, radius, shadow, typography
 states: []
-island: card_island.rs
+island: card_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

@@ -21,7 +21,7 @@ file: code_block_ui.css
 tokens: code-block-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: ["copied"]
-island: code_block_island.rs
+island: code_block_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

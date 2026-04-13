@@ -21,7 +21,7 @@ file: modal_ui.css
 tokens: modal-*, dialog-*, space-*, radius-*, shadow-*, motion-*
 foundation: spacing, radius, shadow, motion
 states: ["open", "closed"]
-island: modal_island.rs
+island: modal_boundary.rs
 pillar: overlay
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

@@ -21,7 +21,7 @@ file: progress_ui.css
 tokens: progress-*, size-*, radius-*, motion-*
 foundation: size, radius, motion
 states: ["loading"]
-island: progress_island.rs
+island: progress_boundary.rs
 pillar: progress
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

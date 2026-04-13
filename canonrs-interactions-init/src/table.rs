@@ -6,14 +6,6 @@ use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
 use crate::runtime::lifecycle;
 
-fn query_all(selector: &str) -> Vec<Element> {
-    let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return vec![] };
-    let Ok(list) = doc.query_selector_all(selector) else { return vec![] };
-    (0..list.length())
-        .filter_map(|i| list.item(i))
-        .filter_map(|n| n.dyn_into::<Element>().ok())
-        .collect()
-}
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }

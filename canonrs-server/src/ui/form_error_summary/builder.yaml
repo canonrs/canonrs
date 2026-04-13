@@ -21,7 +21,7 @@ file: form_error_summary_ui.css
 tokens: form-error-summary-*, space-*, font-*, radius-*
 foundation: spacing, radius, typography
 states: ["error"]
-island: form_error_summary_island.rs
+island: form_error_summary_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

@@ -21,7 +21,7 @@ file: resizable_ui.css
 tokens: resizable-*, size-*, space-*, radius-*
 foundation: size, spacing, radius, motion
 states: ["active", "inactive"]
-island: resizable_island.rs
+island: resizable_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

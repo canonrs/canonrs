@@ -21,7 +21,7 @@ file: collapsible_ui.css
 tokens: collapsible-*, space-*, motion-*
 foundation: spacing, motion
 states: ["open", "closed"]
-island: collapsible_island.rs
+island: collapsible_boundary.rs
 pillar: accordion
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

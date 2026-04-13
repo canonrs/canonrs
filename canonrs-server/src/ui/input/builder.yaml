@@ -21,7 +21,7 @@ file: input_ui.css
 tokens: input-*, size-*, space-*, radius-*, border-*, font-*, motion-*
 foundation: spacing, size, radius, border, motion, typography
 states: ["focus", "disabled"]
-island: input_island.rs
+island: input_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

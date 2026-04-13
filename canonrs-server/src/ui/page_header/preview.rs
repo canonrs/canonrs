@@ -4,35 +4,34 @@ use super::page_header_boundary::{
     PageHeaderTitle, PageHeaderDescription, PageHeaderActions,
     PageHeaderTabs,
 };
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn PageHeaderShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="" style="width:100%;">
-                <PageHeader>
-                    <PageHeaderBreadcrumbs>
-                        <span>"Home"</span>
-                        <span>" / "</span>
-                        <span>"Components"</span>
-                        <span>" / "</span>
-                        <span>"PageHeader"</span>
-                    </PageHeaderBreadcrumbs>
-                    <PageHeaderContent>
-                        <PageHeaderTitle>"Page Title"</PageHeaderTitle>
-                        <PageHeaderDescription>"Header structure enforced with explicit semantic regions."</PageHeaderDescription>
-                    </PageHeaderContent>
-                    <PageHeaderActions>
-                        <span data-rs-button="">"Action"</span>
-                    </PageHeaderActions>
-                </PageHeader>
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <p data-rs-showcase-preview-anchor="">
                 "Header structure enforced with explicit semantic regions."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <PageHeader>
+                <PageHeaderBreadcrumbs>
+                    <span>"Home"</span>
+                    <span>" / "</span>
+                    <span>"Components"</span>
+                    <span>" / "</span>
+                    <span>"PageHeader"</span>
+                </PageHeaderBreadcrumbs>
+                <PageHeaderContent>
+                    <PageHeaderTitle>"Page Title"</PageHeaderTitle>
+                    <PageHeaderDescription>"Header structure enforced with explicit semantic regions."</PageHeaderDescription>
+                </PageHeaderContent>
+                <PageHeaderActions>
+                    <span data-rs-button="">"Action"</span>
+                </PageHeaderActions>
+            </PageHeader>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Variants"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-md);width:100%;">
+                <Stack direction=StackDirection::Vertical gap=StackGap::Md>
                     <PageHeader>
                         <PageHeaderContent>
                             <PageHeaderTitle>"Title only"</PageHeaderTitle>
@@ -54,8 +53,8 @@ pub fn PageHeaderShowcasePreview() -> impl IntoView {
                             <span>"Members"</span>
                         </PageHeaderTabs>
                     </PageHeader>
-                </div>
-            </div>
-        </div>
+                </Stack>
+            </Stack>
+        </Stack>
     }
 }

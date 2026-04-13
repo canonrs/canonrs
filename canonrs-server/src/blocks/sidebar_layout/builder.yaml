@@ -1,0 +1,15 @@
+id: sidebar-layout
+label: Sidebar Layout
+category: layout
+type: block
+variant: structure
+container: true
+regions: ["nav", "main"]
+description: Block-level sidebar and main content
+tags: ["sidebar-layout", "sidebar", "nav", "menu", "lateral"]
+slot_accepts:
+  nav: Nav
+  main: Any
+composable: true
+required_parts: []
+optional_parts: ["nav", "main"]

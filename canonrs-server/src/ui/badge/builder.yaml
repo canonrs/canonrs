@@ -21,7 +21,7 @@ file: badge_ui.css
 tokens: badge-*, space-*, radius-*, font-*, motion-*
 foundation: spacing, radius, typography, motion
 states: []
-island: badge_island.rs
+island: badge_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

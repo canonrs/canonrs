@@ -1,3 +1,4 @@
+#![deny(warnings)]
 //! canonrs-interactions-overlay
 pub mod runtime;
 

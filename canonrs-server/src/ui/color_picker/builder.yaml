@@ -21,7 +21,7 @@ file: color_picker_ui.css
 tokens: color-picker-*, size-*, space-*, radius-*, motion-*, font-*, state-*
 foundation: spacing, size, radius, motion, typography, interaction
 states: ["selected", "disabled"]
-island: color_picker_island.rs
+island: color_picker_boundary.rs
 pillar: select
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

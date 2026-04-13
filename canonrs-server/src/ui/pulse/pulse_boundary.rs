@@ -2,12 +2,8 @@
 //! Passthrough only. Zero logic, zero transformation.
 
 use leptos::prelude::*;
-use super::pulse_ui::{
-    Pulse as PulseUi,
-    PulseVariant,
-    PulseSize,
-    PulseSpeed
-};
+pub use super::pulse_ui::{PulseVariant, PulseSize, PulseSpeed};
+use super::pulse_ui::Pulse as PulseUi;
 
 #[component]
 pub fn Pulse(

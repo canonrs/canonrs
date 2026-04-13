@@ -1,14 +1,5 @@
-//! @canon-id: hero
-//! @canon-type: block
-//! @canon-category: page
-//! @canon-container: true
-//! @canon-regions: header, media, content, actions, footer
-//! @canon-label: Hero
-//! @canon-description: Page hero block with media, content and actions regions
-//! @canon-tags: hero, landing, intro, cta, media, page
-//! @canon-slot-accepts: header=Any,media=Any,content=Any,actions=Action,footer=Any
-//! @canon-prop: variant | Select(centered:Centered,split:Split,media-top:MediaTop) | centered | visual | variant
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
 
 #[derive(Clone, Copy, PartialEq, Default)]
 pub enum HeroVariant {
@@ -17,7 +8,6 @@ pub enum HeroVariant {
     Split,
     MediaTop,
 }
-
 impl HeroVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -38,19 +28,19 @@ pub fn Hero(
     #[prop(default = HeroVariant::Centered)] variant: HeroVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("bl");
+    let header = StoredValue::new(header);
+    let media = StoredValue::new(media);
+    let content = StoredValue::new(content);
+    let actions = StoredValue::new(actions);
+    let footer = StoredValue::new(footer);
     view! {
-        <div
-            data-rs-block=""
-            data-rs-component="Hero"
-            data-rs-behavior="structural"
-            data-rs-variant=variant.as_str()
-            class=class
-        >
-            {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {media.map(|m| view! { <div data-rs-region="media">{m()}</div> })}
-            <div data-rs-region="content">{content()}</div>
-            {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
-            {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+        <div data-rs-hero="" data-rs-uid=uid data-rs-variant=variant.as_str() class=class>
+            {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
+            {move || media.get_value().map(|m| view! { <div data-rs-region="media">{m()}</div> })}
+            <div data-rs-region="content">{move || content.get_value()()}</div>
+            {move || actions.get_value().map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
+            {move || footer.get_value().map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
         </div>
     }
 }

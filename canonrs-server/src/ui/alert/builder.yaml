@@ -21,7 +21,7 @@ file: alert_ui.css
 tokens: alert-*, space-*, radius-*, font-*, motion-*
 foundation: spacing, radius, typography, motion
 states: ["open", "closed"]
-island: alert_island.rs
+island: alert_boundary.rs
 pillar: feedback
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

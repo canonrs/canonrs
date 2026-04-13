@@ -21,7 +21,7 @@ file: scroll_area_ui.css
 tokens: scroll-area-*, scrollbar-*, scroll-*, size-*, radius-*, motion-*
 foundation: size, radius, motion
 states: ["active"]
-island: scroll_area_island.rs
+island: scroll_area_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

@@ -21,7 +21,7 @@ file: form_ui.css
 tokens: form-*, space-*, font-*, radius-*, border-*
 foundation: spacing, radius, border, typography
 states: ["loading", "error"]
-island: form_island.rs
+island: form_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

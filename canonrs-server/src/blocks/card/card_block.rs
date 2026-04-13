@@ -1,51 +1,44 @@
-//! @canon-id: card
-//! @canon-type: block
-//! @canon-category: layout
-//! @canon-variant: structure
-//! @canon-container: true
-//! @canon-regions: header, content, footer
-//! @canon-label: Card
-//! @canon-description: Container with header/content/footer regions
-//! @canon-tags: card, container, box, content
-//! @canon-prop: padding | Number | 1rem | visual | padding
-//! @canon-prop: gap | Number | 0.5rem | visual | gap
-//! @canon-prop: border-radius | Number | 0.5rem | visual | border-radius
-//! @canon-slot-accepts: header=Any,content=Any,footer=Action
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
+use crate::ui::card::{Card, CardHeader, CardContent, CardFooter};
 
-#[derive(Clone, PartialEq, Default)]
-pub enum CardVariant { #[default] Default, Interactive, Outlined, Elevated }
+#[derive(Clone, Copy, PartialEq, Default)]
+pub enum CardVariant {
+    #[default] Default,
+    Interactive,
+    Outlined,
+    Elevated,
+}
 impl CardVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Default => "default", Self::Interactive => "interactive",
-            Self::Outlined => "outlined", Self::Elevated => "elevated",
+            Self::Default     => "default",
+            Self::Interactive => "interactive",
+            Self::Outlined    => "outlined",
+            Self::Elevated    => "elevated",
         }
     }
 }
 
 #[component]
-pub fn Card(
-    #[prop(default = CardVariant::Default)] variant: CardVariant,
+pub fn CardBlock(
     #[prop(optional)] header: Option<ChildrenFn>,
-    #[prop(optional)] footer: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
-    #[prop(default = String::new(), into)] style: String,
     #[prop(optional)] content: Option<ChildrenFn>,
+    #[prop(optional)] footer: Option<ChildrenFn>,
+    #[prop(default = CardVariant::Default)] variant: CardVariant,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("bl");
+    let header = StoredValue::new(header);
+    let content = StoredValue::new(content);
+    let footer = StoredValue::new(footer);
     view! {
-        <div
-            data-rs-block=""
-            data-rs-component="Card"
-            data-rs-variant=variant.as_str()
-            style=style
-            class=class
-        >
-            <div data-rs-card="">
-                {header.map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-                {content.map(|c| view! { <div data-rs-region="content">{c()}</div> })}
-                {footer.map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
-            </div>
+        <div attr:data-rs-card="" attr:data-rs-uid=uid>
+        <Card variant=variant.as_str().to_string() class=class>
+            {move || header.get_value().map(|h| view! { <CardHeader>{h()}</CardHeader> })}
+            {move || content.get_value().map(|c| view! { <CardContent>{c()}</CardContent> })}
+            {move || footer.get_value().map(|f| view! { <CardFooter>{f()}</CardFooter> })}
+        </Card>
         </div>
     }
 }

@@ -21,7 +21,7 @@ file: icon_button_ui.css
 tokens: icon-button-*, size-*, radius-*, motion-*, font-*, state-*, button-*, focus-ring-*
 foundation: size, radius, motion, interaction, typography
 states: ["hover", "active", "focus", "disabled", "loading"]
-island: icon_button_island.rs
+island: icon_button_boundary.rs
 pillar: action
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

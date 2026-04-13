@@ -21,7 +21,7 @@ file: stat_ui.css
 tokens: stat-*, space-*, font-*, size-*
 foundation: spacing, size, radius, typography
 states: []
-island: stat_island.rs
+island: stat_boundary.rs
 pillar: content_display
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

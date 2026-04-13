@@ -1,54 +1,60 @@
 use leptos::prelude::*;
-use super::card_boundary::{Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
+use canonrs_core::slot;
+use crate::blocks::card::{CardBlock, CardVariant};
+use crate::ui::card::{CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn CardShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <Card>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+            <CardBlock
+                header=slot!(|| view! {
                     <CardHeader>
                         <CardTitle>"Getting Started"</CardTitle>
                         <CardDescription>"Everything you need to build with CanonRS."</CardDescription>
                     </CardHeader>
-                    <CardContent>
-                        <p>"Card structure enforced with defined regions and roles."</p>
-                    </CardContent>
-                    <CardFooter>
-                        <span>"Last updated: today"</span>
-                    </CardFooter>
-                </Card>
-            </div>
+                }.into_any())
+                content=slot!(|| view! {
+                    <CardContent><p>"Card structure enforced with defined regions and roles."</p></CardContent>
+                }.into_any())
+                footer=slot!(|| view! {
+                    <CardFooter><span>"Last updated: today"</span></CardFooter>
+                }.into_any())
+            />
             <p data-rs-showcase-preview-anchor="">
                 "Card structure enforced with defined regions and roles."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Variants"</span>
-                <div data-rs-showcase-preview-row="" style="display:flex;flex-direction:column;gap:var(--space-md);width:100%;">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>"Header only"</CardTitle>
-                        </CardHeader>
-                    </Card>
-                    <Card>
-                        <CardContent>
-                            <p>"Content only — no header or footer."</p>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>"Full card"</CardTitle>
-                            <CardDescription>"With all three regions."</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <p>"Body content goes here."</p>
-                        </CardContent>
-                        <CardFooter>
-                            <span>"Footer action"</span>
-                        </CardFooter>
-                    </Card>
-                </div>
-            </div>
-        </div>
+                <Stack direction=StackDirection::Vertical gap=StackGap::Md>
+                    <CardBlock
+                        header=slot!(|| view! {
+                            <CardHeader><CardTitle>"Header only"</CardTitle></CardHeader>
+                        }.into_any())
+                    />
+                    <CardBlock
+                        content=slot!(|| view! {
+                            <CardContent><p>"Content only — no header or footer."</p></CardContent>
+                        }.into_any())
+                    />
+                    <CardBlock
+                        variant=CardVariant::Outlined
+                        header=slot!(|| view! {
+                            <CardHeader>
+                                <CardTitle>"Full card"</CardTitle>
+                                <CardDescription>"With all three regions."</CardDescription>
+                            </CardHeader>
+                        }.into_any())
+                        content=slot!(|| view! {
+                            <CardContent><p>"Body content goes here."</p></CardContent>
+                        }.into_any())
+                        footer=slot!(|| view! {
+                            <CardFooter><span>"Footer action"</span></CardFooter>
+                        }.into_any())
+                    />
+                </Stack>
+            </Stack>
+        </Stack>
     }
 }

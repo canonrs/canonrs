@@ -24,8 +24,8 @@ pub fn init(root: Element) {
         }
     });
 
-    let mut opts = web_sys::IntersectionObserverInit::new();
-    opts.threshold(&JsValue::from_f64(0.1));
+    let opts = web_sys::IntersectionObserverInit::new();
+    opts.set_threshold(&JsValue::from_f64(0.1));
 
     if let Ok(observer) = web_sys::IntersectionObserver::new_with_options(
         cb.as_ref().unchecked_ref(),

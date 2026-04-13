@@ -21,7 +21,7 @@ file: table_ui.css
 tokens: table-*, space-*, border-*, font-*, motion-*
 foundation: spacing, border, motion, typography, radius, shadow
 states: ["loading", "error", "selected"]
-island: table_island.rs
+island: table_boundary.rs
 pillar: data
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

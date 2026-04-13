@@ -13,12 +13,14 @@ use canonrs_core::primitives::{
 #[component]
 pub fn Card(
     children: Children,
+    #[prop(into, default = String::new())] variant: String,
     #[prop(default = String::new())] class: String,
 ) -> impl IntoView {
     let base_class = format!("card {}", class);
 
     view! {
         <CardPrimitive
+            variant=variant
             class={base_class}
         >
             {children()}

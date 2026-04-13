@@ -28,7 +28,9 @@ struct BuilderYaml {
     tokens:        Option<String>,
     foundation:    Option<String>,
     states:        Option<Vec<String>>,
-    island:        Option<String>,
+    island:            Option<String>,
+    block:             Option<Vec<String>>,
+    blocks_primitives: Option<Vec<String>>,
 }
 
 pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
@@ -103,6 +105,8 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
             primitive_src,
             ui_src,
             island_src,
+            block:             builder.block.unwrap_or_default(),
+            blocks_primitives: builder.blocks_primitives.unwrap_or_default(),
         });
     }
 

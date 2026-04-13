@@ -21,7 +21,7 @@ file: label_ui.css
 tokens: label-*, font-*
 foundation: typography
 states: []
-island: label_island.rs
+island: label_boundary.rs
 pillar: form
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

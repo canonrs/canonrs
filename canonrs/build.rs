@@ -10,6 +10,23 @@ use std::fs;
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
 
+    // Watch interaction crates
+    let manifest_dir_watch = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let rs_canonrs_watch   = manifest_dir_watch.parent().unwrap();
+    for crate_name in &[
+        "canonrs-interactions",
+        "canonrs-interactions-init",
+        "canonrs-interactions-nav",
+        "canonrs-interactions-data",
+        "canonrs-interactions-gesture",
+        "canonrs-interactions-overlay",
+        "canonrs-interactions-selection",
+        "canonrs-interactions-content",
+    ] {
+        let src = rs_canonrs_watch.join(crate_name).join("src");
+        println!("cargo:rerun-if-changed={}", src.display());
+    }
+
     let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     let rs_canonrs   = manifest_dir.parent().unwrap();
     let out_dir      = PathBuf::from(std::env::var("OUT_DIR").unwrap());

@@ -8,6 +8,7 @@ use leptos::prelude::*;
 pub fn CardPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] variant: String,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     view! {
@@ -15,6 +16,7 @@ pub fn CardPrimitive(
             data-rs-card=""
             data-rs-component="Card"
             data-rs-behavior="content"
+            data-rs-variant=variant
             role="region"
             aria-label=aria_label
             class=class

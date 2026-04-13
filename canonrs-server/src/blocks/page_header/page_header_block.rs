@@ -1,14 +1,5 @@
-//! @canon-id: page-header
-//! @canon-type: block
-//! @canon-category: page
-//! @canon-variant: page
-//! @canon-container: false
-//! @canon-regions: breadcrumb, title, subtitle, actions
-//! @canon-label: Page Header
-//! @canon-description: Page title and actions header block
-//! @canon-tags: page-header, title, heading, actions, breadcrumb
-//! @canon-slot-accepts: breadcrumb=Nav,title=Any,subtitle=Any,actions=Action
 use leptos::prelude::*;
+use canonrs_core::infra::uid::generate;
 
 #[component]
 pub fn PageHeader(
@@ -16,19 +7,19 @@ pub fn PageHeader(
     #[prop(optional)] title: Option<ChildrenFn>,
     #[prop(optional)] subtitle: Option<ChildrenFn>,
     #[prop(optional)] actions: Option<ChildrenFn>,
-    #[prop(default = String::new(), into)] class: String,
-    #[prop(default = String::new(), into)] _style: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("bl");
+    let breadcrumb = StoredValue::new(breadcrumb);
+    let title = StoredValue::new(title);
+    let subtitle = StoredValue::new(subtitle);
+    let actions = StoredValue::new(actions);
     view! {
-        <div
-            data-rs-block=""
-            data-rs-component="PageHeader"
-            class=class
-        >
-            {breadcrumb.map(|b| view! { <div data-rs-region="breadcrumb">{b()}</div> })}
-            {title.map(|t| view! { <div data-rs-region="title">{t()}</div> })}
-            {subtitle.map(|s| view! { <div data-rs-region="subtitle">{s()}</div> })}
-            {actions.map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
+        <div data-rs-page-header="" data-rs-uid=uid class=class>
+            {move || breadcrumb.get_value().map(|b| view! { <div data-rs-region="breadcrumb">{b()}</div> })}
+            {move || title.get_value().map(|t| view! { <div data-rs-region="title">{t()}</div> })}
+            {move || subtitle.get_value().map(|s| view! { <div data-rs-region="subtitle">{s()}</div> })}
+            {move || actions.get_value().map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
         </div>
     }
 }

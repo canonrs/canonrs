@@ -21,7 +21,7 @@ file: empty_table_ui.css
 tokens: empty-table-*, space-*, font-*
 foundation: spacing, typography
 states: []
-island: empty_table_island.rs
+island: empty_table_boundary.rs
 pillar: data
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift"]
 before: |

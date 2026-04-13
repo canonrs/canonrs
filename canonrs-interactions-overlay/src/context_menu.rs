@@ -8,7 +8,7 @@ use crate::runtime::{lifecycle, state, query};
 
 fn position_and_open(root: &Element, x: i32, y: i32) {
     let Ok(Some(content)) = root.query_selector("[data-rs-context-menu-content]") else { return };
-    let Ok(el) = content.clone().dyn_into::<HtmlElement>() else { return };
+    let Ok(_el) = content.clone().dyn_into::<HtmlElement>() else { return };
     if let Ok(root_html) = root.clone().dyn_into::<HtmlElement>() {
         let _ = root_html.style().set_property("--context-menu-x", &format!("{}px", x));
         let _ = root_html.style().set_property("--context-menu-y", &format!("{}px", y));

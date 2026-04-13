@@ -21,7 +21,7 @@ file: menu_ui.css
 tokens: menu-*, space-*, radius-*, font-*
 foundation: spacing, radius, typography
 states: ["open", "closed"]
-island: menu_island.rs
+island: menu_boundary.rs
 pillar: menu
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Deterministic API", "Zero Drift", "Island Architecture"]
 before: |

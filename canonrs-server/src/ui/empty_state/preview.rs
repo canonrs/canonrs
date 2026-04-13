@@ -1,28 +1,28 @@
-use canonrs_core::primitives::EmptyStateVariant;
 use leptos::prelude::*;
 use super::empty_state_boundary::{
     EmptyState, EmptyStateIcon, EmptyStateTitle,
     EmptyStateDescription, EmptyStateAction,
 };
+use canonrs_core::primitives::EmptyStateVariant;
+use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn EmptyStateShowcasePreview() -> impl IntoView {
     view! {
-        <div data-rs-showcase-preview-hero="">
-            <div data-rs-showcase-preview-stage="">
-                <EmptyState>
-                    <EmptyStateIcon>"📭"</EmptyStateIcon>
-                    <EmptyStateTitle>"No items found"</EmptyStateTitle>
-                    <EmptyStateDescription>"Try adjusting your search or filters."</EmptyStateDescription>
-                    <EmptyStateAction>"Clear filters"</EmptyStateAction>
-                </EmptyState>
-            </div>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+            <EmptyState>
+                <EmptyStateIcon>"📭"</EmptyStateIcon>
+                <EmptyStateTitle>"No items found"</EmptyStateTitle>
+                <EmptyStateDescription>"Try adjusting your search or filters."</EmptyStateDescription>
+                <EmptyStateAction>"Clear filters"</EmptyStateAction>
+            </EmptyState>
             <p data-rs-showcase-preview-anchor="">
                 "Empty state intent and variant enforced via contract."
             </p>
-            <div data-rs-showcase-preview-section="">
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Variants"</span>
-                <div data-rs-showcase-preview-row="">
+                <Grid cols=GridCols::Two>
                     <EmptyState>
                         <EmptyStateIcon>"🗂️"</EmptyStateIcon>
                         <EmptyStateTitle>"Default"</EmptyStateTitle>
@@ -44,8 +44,8 @@ pub fn EmptyStateShowcasePreview() -> impl IntoView {
                         <EmptyStateDescription>"Please try again later."</EmptyStateDescription>
                         <EmptyStateAction>"Retry"</EmptyStateAction>
                     </EmptyState>
-                </div>
-            </div>
-        </div>
+                </Grid>
+            </Stack>
+        </Stack>
     }
 }

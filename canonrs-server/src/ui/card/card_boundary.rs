@@ -5,83 +5,54 @@ use super::card_ui::{
     CardTitle as CardTitleUi,
     CardDescription as CardDescriptionUi,
     CardContent as CardContentUi,
-    CardFooter as CardFooterUi
+    CardFooter as CardFooterUi,
 };
 
 #[component]
 pub fn Card(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] variant: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let cls = class.unwrap_or_default();
-    view! {
-        <CardUi class=cls>
-            {children()}
-        </CardUi>
-    }
+    view! { <CardUi variant=variant class=class>{children()}</CardUi> }
 }
 
 #[component]
 pub fn CardHeader(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let cls = class.unwrap_or_default();
-    view! {
-        <CardHeaderUi class=cls>
-            {children()}
-        </CardHeaderUi>
-    }
+    view! { <CardHeaderUi class=class>{children()}</CardHeaderUi> }
 }
 
 #[component]
 pub fn CardTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let cls = class.unwrap_or_default();
-    view! {
-        <CardTitleUi class=cls>
-            {children()}
-        </CardTitleUi>
-    }
+    view! { <CardTitleUi class=class>{children()}</CardTitleUi> }
 }
 
 #[component]
 pub fn CardDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let cls = class.unwrap_or_default();
-    view! {
-        <CardDescriptionUi class=cls>
-            {children()}
-        </CardDescriptionUi>
-    }
+    view! { <CardDescriptionUi class=class>{children()}</CardDescriptionUi> }
 }
 
 #[component]
 pub fn CardContent(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let cls = class.unwrap_or_default();
-    view! {
-        <CardContentUi class=cls>
-            {children()}
-        </CardContentUi>
-    }
+    view! { <CardContentUi class=class>{children()}</CardContentUi> }
 }
 
 #[component]
 pub fn CardFooter(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let cls = class.unwrap_or_default();
-    view! {
-        <CardFooterUi class=cls>
-            {children()}
-        </CardFooterUi>
-    }
+    view! { <CardFooterUi class=class>{children()}</CardFooterUi> }
 }

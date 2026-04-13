@@ -1,3 +1,4 @@
+#![deny(warnings)]
 //! canonrs-interactions-nav
 
 pub mod runtime;

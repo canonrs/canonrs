@@ -21,7 +21,7 @@ file: hero_ui.css
 tokens: hero-*, space-*, font-*
 foundation: spacing, typography
 states: []
-island: hero_island.rs
+island: hero_boundary.rs
 pillar: layout
 badges: ["SSR Safe", "Hydration Safe", "Token Driven", "Zero Drift", "Deterministic API"]
 before: |
