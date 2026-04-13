@@ -147,3 +147,20 @@
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+@media (max-width: 768px) {
+    [data-rs-hero] {
+        padding: var(--space-xl) var(--space-md);
+        min-height: auto;
+    }
+    [data-rs-hero][data-rs-variant="split"] {
+        flex-direction: column;
+        text-align: center;
+    }
+    [data-rs-hero][data-rs-variant="split"] [data-rs-region="content"] {
+        align-items: center;
+    }
+    [data-rs-hero-title] {
+        font-size: var(--primitive-font-size-6);
+    }
+}

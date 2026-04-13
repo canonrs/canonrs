@@ -16,3 +16,6 @@ slot_accepts:
 composable: true
 required_parts: []
 optional_parts: ["toolbar", "header", "body", "empty", "pagination"]
+contract:
+  regions_required: []
+  regions_optional: ["toolbar", "header", "body", "empty", "pagination"]

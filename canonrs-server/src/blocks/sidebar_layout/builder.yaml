@@ -13,3 +13,6 @@ slot_accepts:
 composable: true
 required_parts: []
 optional_parts: ["nav", "main"]
+contract:
+  regions_required: []
+  regions_optional: ["nav", "main"]

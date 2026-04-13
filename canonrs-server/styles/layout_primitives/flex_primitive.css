@@ -32,3 +32,10 @@
 [data-rs-flex][data-rs-gap="xl"]   { gap: var(--space-xl); }
 
 [data-rs-flex][data-rs-wrap="true"] { flex-wrap: wrap; }
+
+/* Responsive — flex wraps on mobile */
+@media (max-width: 768px) {
+    [data-rs-flex][data-rs-direction="row"] {
+        flex-wrap: wrap;
+    }
+}

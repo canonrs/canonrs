@@ -15,3 +15,6 @@ slot_accepts:
 composable: true
 required_parts: []
 optional_parts: ["label", "input", "hint", "error"]
+contract:
+  regions_required: []
+  regions_optional: ["label", "input", "hint", "error"]

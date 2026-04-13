@@ -15,3 +15,5 @@ pub use color::FOUNDATION_COLOR;
 pub use shadow::FOUNDATION_SHADOW;
 pub use border::FOUNDATION_BORDER;
 pub use interaction::FOUNDATION_INTERACTION;
+pub mod breakpoints;
+pub use breakpoints::FOUNDATION_BREAKPOINTS;

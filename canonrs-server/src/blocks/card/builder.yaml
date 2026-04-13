@@ -14,3 +14,6 @@ slot_accepts:
 composable: true
 required_parts: []
 optional_parts: ["header", "content", "footer"]
+contract:
+  regions_required: []
+  regions_optional: ["header", "content", "footer"]

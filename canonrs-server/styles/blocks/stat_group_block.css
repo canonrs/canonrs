@@ -10,3 +10,9 @@
 [data-rs-stat-group] [data-rs-region="stats"] {
     gap: var(--stat-group-gap);
 }
+
+@media (max-width: 768px) {
+    [data-rs-stat-group] [data-rs-region="stats"] {
+        grid-template-columns: 1fr;
+    }
+}

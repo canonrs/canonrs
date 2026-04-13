@@ -12,3 +12,6 @@ slot_accepts:
 composable: true
 required_parts: []
 optional_parts: ["stats"]
+contract:
+  regions_required: []
+  regions_optional: ["stats"]

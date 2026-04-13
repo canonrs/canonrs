@@ -9,6 +9,7 @@ use canonrs_tokens::design::tokens::components::*;
 use canonrs_tokens::design::tokens::state::STATE_TOKENS;
 use canonrs_tokens::design::tokens::layers::LAYERS_TOKENS;
 use canonrs_tokens::design::tokens::foundation::*;
+use canonrs_tokens::design::tokens::foundation::breakpoints::FOUNDATION_BREAKPOINTS;
 use canonrs_tokens::design::tokens::semantics::*;
 use canonrs_tokens::design::tokens::primitives::PRIMITIVE_VALUES;
 use std::fs;
@@ -86,6 +87,7 @@ fn generate_core(output_dir: &Path) {
     for token in FOUNDATION_SHADOW    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     for token in FOUNDATION_BORDER    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     for token in FOUNDATION_INTERACTION{ css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
+    for token in FOUNDATION_BREAKPOINTS  { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     css.push_str("}\n");
 
     fs::write(output_dir.join("core.css"), css).ok();

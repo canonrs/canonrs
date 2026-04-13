@@ -15,3 +15,11 @@
 [data-rs-container][data-rs-size="lg"]   { max-width: var(--layout-content-max-width); }
 [data-rs-container][data-rs-size="xl"]   { max-width: var(--layout-width-xl); }
 [data-rs-container][data-rs-size="full"] { max-width: 100%; }
+
+/* Responsive — container padding on mobile */
+@media (max-width: 768px) {
+    [data-rs-container] {
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+    }
+}

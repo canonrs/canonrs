@@ -18,3 +18,9 @@
     padding: var(--section-block-footer-padding);
     border-top: var(--section-block-footer-border);
 }
+
+@media (max-width: 768px) {
+    [data-rs-section] {
+        padding: var(--space-lg) 0;
+    }
+}

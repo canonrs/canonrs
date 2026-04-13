@@ -30,3 +30,19 @@
     padding: var(--sidebar-layout-main-padding);
     overflow-y: auto;
 }
+
+@media (max-width: 768px) {
+    [data-rs-sidebar-layout] {
+        flex-direction: column;
+    }
+    [data-rs-sidebar-layout] [data-rs-region="nav"] {
+        width: 100%;
+        border-right: none;
+        border-bottom: var(--sidebar-layout-nav-border);
+    }
+    [data-rs-sidebar-layout][data-rs-side="right"] [data-rs-region="nav"] {
+        border-left: none;
+        border-top: var(--sidebar-layout-nav-border);
+        order: 0;
+    }
+}

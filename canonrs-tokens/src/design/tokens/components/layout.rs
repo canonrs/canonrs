@@ -150,4 +150,28 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("builder-transition-duration",   "var(--motion-duration-fast)"),
     FamilyToken::new("builder-transition-ease",       "var(--motion-ease-standard)"),
     FamilyToken::new("builder-pulse-duration",        "var(--motion-duration-slow)"),
+
+    // ── Primitive: Flex ───────────────────────────────────────────────────────
+    FamilyToken::new("flex-wrap",                     "nowrap"),
+
+    // ── Primitive: Stack ──────────────────────────────────────────────────────
+    FamilyToken::new("stack-default-direction",       "column"),
+    FamilyToken::new("stack-default-gap",             "var(--space-sm)"),
+
+    // ── Primitive: Grid ───────────────────────────────────────────────────────
+    FamilyToken::new("grid-min-col-width",            "200px"),
+    FamilyToken::new("grid-default-gap",              "var(--space-sm)"),
+
+    // ── Primitive: Container ─────────────────────────────────────────────────
+    FamilyToken::new("container-padding-x",           "var(--space-lg)"),
+    FamilyToken::new("container-size-sm",             "var(--layout-width-sm)"),
+    FamilyToken::new("container-size-md",             "var(--layout-width-md)"),
+    FamilyToken::new("container-size-lg",             "var(--layout-content-max-width)"),
+    FamilyToken::new("container-size-xl",             "var(--layout-width-xl)"),
+
+    // ── Primitive: Center ─────────────────────────────────────────────────────
+    FamilyToken::new("center-min-height",             "100%"),
+
+    // ── Primitive: Spacer ─────────────────────────────────────────────────────
+    FamilyToken::new("spacer-flex",                   "1"),
 ];

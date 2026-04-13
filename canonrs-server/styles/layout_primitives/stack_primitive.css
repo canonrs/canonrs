@@ -20,3 +20,10 @@
 [data-rs-stack][data-rs-gap="md"]   { gap: var(--space-md); }
 [data-rs-stack][data-rs-gap="lg"]   { gap: var(--space-lg); }
 [data-rs-stack][data-rs-gap="xl"]   { gap: var(--space-xl); }
+
+/* Responsive — stack collapses to vertical on mobile */
+@media (max-width: 768px) {
+    [data-rs-stack][data-rs-direction="horizontal"] {
+        flex-direction: column;
+    }
+}

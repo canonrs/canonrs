@@ -116,4 +116,16 @@
   --builder-transition-duration: var(--motion-duration-fast);
   --builder-transition-ease: var(--motion-ease-standard);
   --builder-pulse-duration: var(--motion-duration-slow);
+  --flex-wrap: nowrap;
+  --stack-default-direction: column;
+  --stack-default-gap: var(--space-sm);
+  --grid-min-col-width: 200px;
+  --grid-default-gap: var(--space-sm);
+  --container-padding-x: var(--space-lg);
+  --container-size-sm: var(--layout-width-sm);
+  --container-size-md: var(--layout-width-md);
+  --container-size-lg: var(--layout-content-max-width);
+  --container-size-xl: var(--layout-width-xl);
+  --center-min-height: 100%;
+  --spacer-flex: 1;
 }

@@ -20,3 +20,6 @@ props:
     type: "Select(centered:Centered,split:Split,media-top:MediaTop)"
     default: centered
     group: visual
+contract:
+  regions_required: ["content"]
+  regions_optional: ["header", "media", "actions", "footer"]
