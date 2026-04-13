@@ -11,8 +11,8 @@ slot_accepts:
   header: Nav
   sidebar: Nav
   content: Any
+block: [sidebar_layout_block, stat_group_block, data_table_block]
+blocks_primitives: [flex]
 contract:
   regions_required: []
   regions_optional: ["header", "sidebar", "content"]
-block: [sidebar_layout_block, stat_group_block, data_table_block]
-blocks_primitives: [flex]

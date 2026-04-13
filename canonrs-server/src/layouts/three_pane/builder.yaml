@@ -11,8 +11,8 @@ slot_accepts:
   left: Nav
   center: Content
   right: Toc
+block: []
+blocks_primitives: [flex]
 contract:
   regions_required: []
   regions_optional: ["left", "center", "right"]
-block: []
-blocks_primitives: [flex]

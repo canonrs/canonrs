@@ -11,8 +11,8 @@ slot_accepts:
   sidebar: Nav
   content: Any
   aside: Any
+block: [page_header_block]
+blocks_primitives: [stack, container]
 contract:
   regions_required: []
   regions_optional: ["sidebar", "content", "aside"]
-block: [page_header_block]
-blocks_primitives: [stack, container]

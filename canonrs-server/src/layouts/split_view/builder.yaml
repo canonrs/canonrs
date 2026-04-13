@@ -10,8 +10,8 @@ tags: ["split-view", "split", "columns", "side-by-side", "compare"]
 slot_accepts:
   left: Nav
   right: Action
+block: []
+blocks_primitives: [flex]
 contract:
   regions_required: []
   regions_optional: ["left", "right"]
-block: []
-blocks_primitives: [flex]
