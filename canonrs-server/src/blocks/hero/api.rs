@@ -7,7 +7,7 @@ pub const HERO_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "header", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "media", kind: PropType::String, required: false, default: None, description: "" },
-        PropDef { name: "content", kind: PropType::String, required: true, default: None, description: "" },
+        PropDef { name: "content", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "actions", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "footer", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "variant", kind: PropType::Enum(&["centered", "split", "media-top"]), required: false, default: Some("centered"), description: "" },
