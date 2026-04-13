@@ -36,12 +36,12 @@ fn main() {
     generate_component_meta(&semantic, &out_dir);
 
     let component_ids: std::collections::HashSet<String> = semantic.keys().cloned().collect();
-    let blocks_only: Vec<_> = blocks_layouts.iter()
+    let _blocks_only: Vec<_> = blocks_layouts.iter()
         .filter(|b| !component_ids.contains(&b.id))
         .cloned()
         .collect();
 
-    generate_block_meta(&blocks_only, &out_dir);
+    generate_block_meta(&blocks_layouts, &out_dir);
     generate_catalog(&semantic, &blocks_layouts, &out_dir, Path::new("../canonrs-server/src/blocks"), Path::new("../canonrs-server/src/layouts"));
     generate_layout_definitions(&blocks_layouts, Path::new("../canonrs-server/src/layouts"), &out_dir);
     generate_block_definitions(&blocks_layouts, Path::new("../canonrs-server/src/blocks"), Path::new("../canonrs-server/src/layouts"), &out_dir);
@@ -49,7 +49,7 @@ fn main() {
     generate_component_definitions(&semantic, Path::new("../canonrs-server/src/ui"), &out_dir);
     generate_api_files_blocks(Path::new("../canonrs-server/src/blocks"));
     generate_api_files_layouts(Path::new("../canonrs-server/src/layouts"));
-    generate_llm_context(&semantic, &blocks_only, Path::new("../canonrs-server/src/blocks"), Path::new("../canonrs-server/src/layouts"), &out_dir);
+    generate_llm_context(&semantic, &blocks_layouts, Path::new("../canonrs-server/src/blocks"), Path::new("../canonrs-server/src/layouts"), &out_dir);
 
     // Canon Rules — parse + generate
     let rules_dir = Path::new("../canonrs-rules");

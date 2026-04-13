@@ -2,107 +2,42 @@
 
 ## Components
 - Primitives: 90
-- Semantic (components.toml): 0
-- Complete: 0
-- Missing semantic: 90
-- Orphan semantic: 0
+- Semantic (components.toml): 88
+- Complete: 85
+- Missing semantic: 5
+- Orphan semantic: 3
 
 ### Missing semantic
-- `accordion`
-- `alert`
 - `alert-dialog-content`
-- `animate`
-- `aspect-ratio`
-- `avatar`
-- `badge`
-- `banner`
-- `breadcrumb`
-- `button`
-- `button-group`
 - `calendar`
-- `callout`
-- `card`
-- `carousel`
-- `chart`
-- `checkbox`
-- `code-block`
-- `collapsible`
-- `color-picker`
-- `combobox`
-- `command`
-- `confirm-dialog`
-- `context-menu`
-- `copy-button`
-- `data-table`
-- `dialog`
-- `doc-progress`
-- `drawer`
-- `dropdown-menu`
-- `empty-state`
-- `empty-table`
-- `error-state`
-- `field`
-- `form`
-- `form-error-summary`
 - `hero`
-- `hover-card`
-- `icon`
-- `icon-button`
-- `inline-meta`
-- `inline-notice`
-- `input`
-- `input-group`
-- `input-otp`
-- `kbd`
-- `label`
-- `link`
-- `link-group`
-- `list-item`
-- `loading-overlay`
-- `logo`
-- `markdown`
-- `menu`
-- `menubar`
-- `modal`
-- `nav-item`
 - `navigation-group`
-- `navigation-menu`
-- `page-header`
-- `pagination`
-- `popover`
-- `progress`
-- `pulse`
-- `radio`
-- `radio-group`
-- `resizable`
-- `scroll-area`
 - `section-header`
-- `select`
-- `separator`
-- `sheet`
-- `sidebar`
-- `skeleton`
-- `slider`
-- `spinner`
-- `stat`
-- `status-dot`
-- `switch`
-- `table`
-- `table-of-contents`
-- `tabs`
-- `textarea`
-- `toast`
-- `toggle`
-- `toggle-group`
-- `toolbar`
-- `tooltip`
-- `tree`
-- `virtual-list`
+
+### Orphan semantic
+- `alert-dialog`
+- `hero-ui`
+- `section-ui`
 
 ## Blocks
-- Total: 0
+- Total: 8
 
 ## Layouts
-- Total: 0
+- Total: 7
 
 ### Block list
+- `card` (block) regions: [header, content, footer]
+- `dashboard` (layout) regions: [header, sidebar, content]
+- `data-table` (block) regions: [toolbar, header, body, empty, pagination]
+- `form-field` (block) regions: [label, input, hint, error]
+- `fullscreen` (layout) regions: [header, content]
+- `hero` (block) regions: [header, media, content, actions, footer]
+- `marketing` (layout) regions: [header, hero, content, footer]
+- `page-header` (block) regions: [breadcrumb, title, subtitle, actions]
+- `page-layout` (layout) regions: [sidebar, content, aside]
+- `section` (block) regions: [header, body, footer]
+- `sidebar-layout` (block) regions: [nav, main]
+- `split-view` (layout) regions: [left, right]
+- `stat-group` (block) regions: [stats]
+- `three-pane` (layout) regions: [left, center, right]
+- `wizard-layout` (layout) regions: [header, stepper, content, footer]

@@ -81,6 +81,19 @@ pub(crate) fn parse_blocks_and_layouts(blocks_dir: &Path, layouts_dir: &Path) ->
         for entry in entries.flatten() {
             let path = entry.path();
             if !path.is_dir() { continue; }
+            // Try builder.yaml first
+            let builder_yaml = path.join("builder.yaml");
+            if builder_yaml.exists() {
+                let content = match fs::read_to_string(&builder_yaml) {
+                    Ok(c) => c,
+                    Err(_) => continue,
+                };
+                if let Some(info) = parse_builder_yaml(&content, kind) {
+                    result.push(info);
+                }
+                continue;
+            }
+            // Fallback: scan .rs files for //! @canon-id:
             let files = match fs::read_dir(&path) {
                 Ok(f) => f,
                 Err(_) => continue,
@@ -102,6 +115,28 @@ pub(crate) fn parse_blocks_and_layouts(blocks_dir: &Path, layouts_dir: &Path) ->
         }
     }
     result
+}
+
+fn parse_builder_yaml(content: &str, kind: &str) -> Option<BlockInfo> {
+    let id          = extract_builder_field(content, "id")?;
+    let category    = extract_builder_field(content, "category").unwrap_or_else(|| "layout".to_string());
+    let variant     = extract_builder_field(content, "variant").unwrap_or_else(|| "structure".to_string());
+    let container   = extract_builder_field(content, "container").map(|v| v == "true").unwrap_or(false);
+    let label       = extract_builder_field(content, "label");
+    let description = extract_builder_field(content, "description");
+    let regions     = extract_builder_field(content, "regions")
+        .map(|r| r.split(',')
+            .map(|s| s.trim().trim_matches(|c: char| c == '"' || c == '\'' || c == '[' || c == ']').to_string())
+            .filter(|s| !s.is_empty())
+            .collect())
+        .unwrap_or_default();
+    let tags        = extract_builder_field(content, "tags")
+        .map(|t| t.split(',')
+            .map(|s| s.trim().trim_matches(|c: char| c == '"' || c == '\'' || c == '[' || c == ']').to_string())
+            .filter(|s| !s.is_empty())
+            .collect())
+        .unwrap_or_default();
+    Some(BlockInfo { id, kind: kind.to_string(), category, variant, container, regions, label, description, tags })
 }
 
 fn parse_canon_header(content: &str, kind: &str) -> Option<BlockInfo> {
@@ -216,8 +251,8 @@ pub(crate) fn parse_ui_components_semantic(ui_dir: &Path) -> HashMap<String, Sem
             .and_then(|n| n.to_str())
             .unwrap_or("")
             .to_string();
-        // Lê builder.md como fonte da verdade
-        let builder_file = path.join("builder.md");
+        // Lê builder.yaml como fonte da verdade
+        let builder_file = path.join("builder.yaml");
         let content = match fs::read_to_string(&builder_file) {
             Ok(c) => c,
             Err(_) => continue,
@@ -236,16 +271,28 @@ pub(crate) fn parse_ui_components_semantic(ui_dir: &Path) -> HashMap<String, Sem
             .map(|v| v == "true")
             .unwrap_or(false);
         let capabilities = extract_builder_field(&content, "capabilities")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
+            .map(|v| v.split(',')
+                .map(|s| s.trim().trim_matches(|c: char| c == '"' || c == '\'' || c == '[' || c == ']').to_string())
+                .filter(|s| !s.is_empty())
+                .collect())
             .unwrap_or_default();
         let catalog_tags = extract_builder_field(&content, "tags")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
+            .map(|v| v.split(',')
+                .map(|s| s.trim().trim_matches(|c: char| c == '"' || c == '\'' || c == '[' || c == ']').to_string())
+                .filter(|s| !s.is_empty())
+                .collect())
             .unwrap_or_default();
         let required_parts = extract_builder_field(&content, "required_parts")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
+            .map(|v| v.split(',')
+                .map(|s| s.trim().trim_matches(|c: char| c == '"' || c == '\'' || c == '[' || c == ']').to_string())
+                .filter(|s| !s.is_empty())
+                .collect())
             .unwrap_or_default();
         let optional_parts = extract_builder_field(&content, "optional_parts")
-            .map(|v| v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect())
+            .map(|v| v.split(',')
+                .map(|s| s.trim().trim_matches(|c: char| c == '"' || c == '\'' || c == '[' || c == ']').to_string())
+                .filter(|s| !s.is_empty())
+                .collect())
             .unwrap_or_default();
         map.insert(id.clone(), SemanticEntry {
             id,

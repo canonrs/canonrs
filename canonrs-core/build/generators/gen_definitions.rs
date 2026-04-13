@@ -85,7 +85,7 @@ pub(crate) fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path
         let block_path = blocks_dir.join(&dir_name).join(format!("{}_block.rs", dir_name));
         let props    = if std::fs::read_to_string(&block_path).map(|c| parse_block_props(&c).len() > 0).unwrap_or(false) { format!("{}_PROPS", var_name) } else { "&[]".to_string() };
         let presets  = if std::fs::read_to_string(&block_path).map(|c| parse_block_presets(&c).len() > 0).unwrap_or(false) { format!("{}_PRESETS", var_name) } else { "&[]".to_string() };
-        let meta_var = format!("crate::meta::{}_META", var_name);
+        let meta_var = format!("crate::generated::block_meta::{}_META", var_name);
         code.push_str(&format!(
             "\tBlockDefinition {{ id: \"{id}\", variant: {variant}, category: {category}, is_container: {container}, regions: &{regions}, version: 1, props_schema: {props}, requires_config: false, presets: {presets}, meta: &{meta} }},\n",
             id = b.id, variant = variant, category = category, container = b.container, regions = regions, props = props, presets = presets, meta = meta_var,
@@ -97,7 +97,7 @@ pub(crate) fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path
     for b in blocks.iter().filter(|b| b.kind == "layout") {
         let var_name = to_const_name(&b.id);
         let regions  = generate_inline_regions(&b.regions);
-        let meta_var = format!("crate::meta::{}_META", var_name);
+        let meta_var = format!("crate::generated::block_meta::{}_META", var_name);
         code.push_str(&format!(
             "\tBlockDefinition {{ id: \"{id}\", variant: BlockVariant::Page, category: BlockCategory::Layout, is_container: true, regions: &{regions}, version: 1, props_schema: &[], requires_config: false, presets: &[], meta: &{meta} }},\n",
             id = b.id, regions = regions, meta = meta_var,
