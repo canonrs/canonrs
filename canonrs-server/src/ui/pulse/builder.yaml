@@ -35,3 +35,5 @@ after: |
     <Pulse variant=PulseVariant::Emphasized speed=PulseSpeed::Fast />
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [stack]

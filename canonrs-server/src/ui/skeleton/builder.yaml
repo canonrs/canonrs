@@ -35,3 +35,5 @@ after: |
     <Skeleton variant=SkeletonVariant::Text />
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [stack, grid]

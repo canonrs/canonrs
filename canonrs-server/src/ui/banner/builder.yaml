@@ -37,3 +37,5 @@ after: |
     </Banner>
   }
 boundary_type: init
+block: []
+blocks_primitives: [container, stack]

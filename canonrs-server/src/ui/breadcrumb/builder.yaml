@@ -48,3 +48,5 @@ after: |
   }
 boundary_type: interaction
 ix_group: ix_nav
+block: []
+blocks_primitives: [flex, stack]

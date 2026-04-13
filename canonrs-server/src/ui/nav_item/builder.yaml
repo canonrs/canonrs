@@ -35,3 +35,5 @@ after: |
     <NavItem label="Home" active=true />
   }
 boundary_type: init
+block: []
+blocks_primitives: [flex]

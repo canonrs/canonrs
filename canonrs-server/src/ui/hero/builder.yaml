@@ -37,3 +37,5 @@ after: |
     <HeroTitle>"Title"</HeroTitle>
   }
 boundary_type: passthrough
+block: [hero_block]
+blocks_primitives: [container, stack, flex]

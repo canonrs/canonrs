@@ -41,3 +41,5 @@ after: |
     </NavigationMenu>
   }
 boundary_type: init
+block: []
+blocks_primitives: [flex]

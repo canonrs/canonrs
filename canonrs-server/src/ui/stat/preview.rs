@@ -3,7 +3,7 @@ use super::stat_boundary::{
     Stat, StatHeader, StatBody,
     StatValue, StatLabel, StatDelta, StatIcon,
 };
-use super::stat_ui::{StatSize, StatAlign, StatTrend};
+use super::{StatSize, StatAlign, StatTrend};
 
 #[component]
 pub fn StatShowcasePreview() -> impl IntoView {

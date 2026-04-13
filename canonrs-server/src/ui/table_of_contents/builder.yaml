@@ -37,3 +37,5 @@ after: |
     <TableOfContents items=items />
   }
 boundary_type: init
+block: []
+blocks_primitives: [stack]

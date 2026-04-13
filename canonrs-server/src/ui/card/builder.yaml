@@ -43,3 +43,5 @@ after: |
     </Card>
   }
 boundary_type: passthrough
+block: [card_block]
+blocks_primitives: [stack]

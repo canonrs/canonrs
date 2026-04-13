@@ -35,3 +35,5 @@ after: |
     <IconButton aria_label="Close">"×"</IconButton>
   }
 boundary_type: init
+block: []
+blocks_primitives: [stack, grid]

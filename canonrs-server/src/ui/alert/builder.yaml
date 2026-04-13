@@ -38,3 +38,5 @@ after: |
     </Alert>
   }
 boundary_type: init
+block: []
+blocks_primitives: [stack]

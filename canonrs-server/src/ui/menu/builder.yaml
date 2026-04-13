@@ -39,3 +39,5 @@ after: |
     </Menu>
   }
 boundary_type: init
+block: []
+blocks_primitives: [stack]

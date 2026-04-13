@@ -35,3 +35,5 @@ after: |
     <Icon size=IconSize::Md>"★"</Icon>
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [stack]

@@ -35,3 +35,5 @@ after: |
     <CodeBlock code="fn main() {}" language="rust" />
   }
 boundary_type: passthrough
+block: [card_block]
+blocks_primitives: [stack]

@@ -39,3 +39,5 @@ after: |
     </tbody>
   }
 boundary_type: passthrough
+block: [data_table_block]
+blocks_primitives: [stack]

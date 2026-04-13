@@ -35,3 +35,5 @@ after: |
     <Input variant=InputVariant::Error size=InputSize::Lg />
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [stack, grid]

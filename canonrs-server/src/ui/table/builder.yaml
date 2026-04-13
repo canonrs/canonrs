@@ -43,3 +43,5 @@ after: |
     </Table>
   }
 boundary_type: init
+block: [data_table_block]
+blocks_primitives: [container]

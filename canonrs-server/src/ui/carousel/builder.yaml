@@ -42,3 +42,5 @@ after: |
   }
 boundary_type: interaction
 ix_group: ix_gesture
+block: []
+blocks_primitives: [center, stack]

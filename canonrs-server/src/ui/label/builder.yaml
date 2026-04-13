@@ -36,3 +36,5 @@ after: |
     <Label for_id="email">"Email"</Label>
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [stack]

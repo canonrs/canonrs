@@ -41,3 +41,5 @@ after: |
     </PageHeader>
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [flex, stack]

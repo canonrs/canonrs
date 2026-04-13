@@ -26,3 +26,5 @@ badges: []
 before: ""
 after: ""
 boundary_type: passthrough
+block: []
+blocks_primitives: [container]

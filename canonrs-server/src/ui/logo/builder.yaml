@@ -40,3 +40,5 @@ after: |
     </Logo>
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [flex, stack]

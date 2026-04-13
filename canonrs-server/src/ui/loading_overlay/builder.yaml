@@ -37,3 +37,5 @@ after: |
     </LoadingOverlay>
   }
 boundary_type: init
+block: [card_block]
+blocks_primitives: [center, stack]

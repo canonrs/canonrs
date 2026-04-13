@@ -35,3 +35,5 @@ after: |
     <Checkbox checked=true>"Remember me"</Checkbox>
   }
 boundary_type: init
+block: []
+blocks_primitives: [stack]

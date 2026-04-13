@@ -39,3 +39,5 @@ after: |
   }
 boundary_type: interaction
 ix_group: ix_overlay
+block: []
+blocks_primitives: [flex]

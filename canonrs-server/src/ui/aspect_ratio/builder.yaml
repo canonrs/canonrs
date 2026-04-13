@@ -39,3 +39,5 @@ after: |
     </AspectRatio>
   }
 boundary_type: passthrough
+block: []
+blocks_primitives: [grid]

@@ -35,3 +35,5 @@ after: |
     <Switch checked=true>"On"</Switch>
   }
 boundary_type: init
+block: []
+blocks_primitives: [stack]

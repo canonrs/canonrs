@@ -40,3 +40,5 @@ after: |
     </InputGroup>
   }
 boundary_type: init
+block: []
+blocks_primitives: [flex, stack]

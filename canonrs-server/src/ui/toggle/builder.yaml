@@ -35,3 +35,5 @@ after: |
     <Toggle pressed=true>"On"</Toggle>
   }
 boundary_type: init
+block: []
+blocks_primitives: [stack]

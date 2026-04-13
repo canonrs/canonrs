@@ -38,3 +38,5 @@ after: |
   }
 boundary_type: interaction
 ix_group: ix_data
+block: []
+blocks_primitives: [stack]
