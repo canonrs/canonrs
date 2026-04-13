@@ -1,24 +1,44 @@
-[data-rs-block][data-rs-component="DataTable"] {
-  width: 100%;
-  overflow-x: auto;
+/* ============================================================================
+   Block: Data Table — tokens: data-table-*
+   ============================================================================ */
+
+[data-rs-data-table] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--data-table-gap);
+    width: 100%;
 }
-[data-rs-block][data-rs-component="DataTable"] table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--font-size-sm);
+
+[data-rs-data-table] [data-rs-region="toolbar"] {
+    display: flex;
+    align-items: center;
+    gap: var(--data-table-toolbar-gap);
+    padding: var(--data-table-toolbar-padding);
 }
-[data-rs-block][data-rs-component="DataTable"] th {
-  text-align: left;
-  padding: var(--space-sm) var(--space-md);
-  border-bottom: 2px solid var(--theme-surface-border);
-  font-weight: var(--font-weight-semibold);
-  color: var(--theme-surface-fg-muted);
+
+[data-rs-data-table] [data-rs-region="header"] {
+    width: 100%;
 }
-[data-rs-block][data-rs-component="DataTable"] td {
-  padding: var(--space-sm) var(--space-md);
-  border-bottom: 1px solid var(--theme-surface-border);
-  color: var(--theme-surface-fg);
+
+[data-rs-data-table] [data-rs-region="table-wrap"] {
+    width: 100%;
+    overflow-x: auto;
 }
-[data-rs-block][data-rs-component="DataTable"] tr:last-child td {
-  border-bottom: none;
+
+[data-rs-data-table] [data-rs-region="body"] {
+    width: 100%;
+}
+
+[data-rs-data-table] [data-rs-region="empty"] {
+    padding: var(--data-table-empty-padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-rs-data-table] [data-rs-region="pagination"] {
+    padding: var(--data-table-pagination-padding);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }

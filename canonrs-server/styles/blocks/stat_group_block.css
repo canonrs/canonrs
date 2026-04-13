@@ -1,0 +1,12 @@
+/* ============================================================================
+   Block: Stat Group
+   Tokens: stat-group-*
+   ============================================================================ */
+
+[data-rs-stat-group] {
+    padding: var(--stat-group-padding);
+}
+
+[data-rs-stat-group] [data-rs-region="stats"] {
+    gap: var(--stat-group-gap);
+}

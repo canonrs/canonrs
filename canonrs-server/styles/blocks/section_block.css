@@ -1,0 +1,20 @@
+/* ============================================================================
+   Block: Section
+   Tokens: section-block-*
+   ============================================================================ */
+
+[data-rs-section] {
+    padding: var(--section-block-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-block-gap);
+}
+
+[data-rs-section] [data-rs-region="header"] {
+    margin: var(--section-block-header-margin);
+}
+
+[data-rs-section] [data-rs-region="footer"] {
+    padding: var(--section-block-footer-padding);
+    border-top: var(--section-block-footer-border);
+}

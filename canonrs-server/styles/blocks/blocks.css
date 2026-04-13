@@ -3,44 +3,18 @@
    Entry point for all block-level component styles
    ============================================================================ */
 
-/* ── Overlay ─────────────────────────────────────────────────────── */
-@import './popover_block.css';
-@import './dialog_block.css';
-@import './drawer_block.css';
-@import './command_panel_block.css';
-
-/* ── Forms ───────────────────────────────────────────────────────── */
-@import './form_block.css';
-
-/* ── Navigation ──────────────────────────────────────────────────── */
-@import './toolbar_block.css';
-
-/* ── Feedback ────────────────────────────────────────────────────── */
-@import './empty_state_block.css';
-
-/* ── Data ────────────────────────────────────────────────────────── */
-@import './code_block_block.css';
-@import './list_block.css';
-@import './stat_card_block.css';
-
 /* ── Composite ───────────────────────────────────────────────────── */
 @import './card_block.css';
 
 /* ── Layout ──────────────────────────────────────────────────────── */
-@import './header_block.css';
 @import './hero_block.css';
-@import './footer_block.css';
 @import './page_header_block.css';
-@import './grid_block.css';
-@import './columns_block.css';
-@import './container_block.css';
-@import './stack_block.css';
-@import './markdown_block.css';
-
-/* ── New Blocks ──────────────────────────────────────────────────── */
 @import './sidebar_layout_block.css';
-@import './split_block.css';
-@import './detail_panel_block.css';
-@import './timeline_block.css';
-@import './wizard_block.css';
-@import './filter_bar_block.css';
+@import './section_block.css';
+
+/* ── Data ────────────────────────────────────────────────────────── */
+@import './data_table_block.css';
+@import './stat_group_block.css';
+
+/* ── Forms ───────────────────────────────────────────────────────── */
+@import './form_field_block.css';

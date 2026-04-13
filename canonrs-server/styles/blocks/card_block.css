@@ -1,30 +1,29 @@
 /* ============================================================================
-   CANONRS — CARD BLOCK
-   Responsabilidade: ESTRUTURA apenas. Visual → [data-rs-card] em card_ui.css
+   Block: Card — tokens: card-*
    ============================================================================ */
 
-[data-rs-block][data-rs-component="Card"] {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+[data-rs-card] {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-[data-rs-block][data-rs-component="Card"][data-rs-variant="interactive"] {
-  cursor: pointer;
+[data-rs-card][data-rs-variant="interactive"] {
+    cursor: pointer;
 }
 
-[data-rs-block][data-rs-component="Card"] [data-rs-region="header"] {
-  display: flex;
-  flex-direction: column;
+[data-rs-card] [data-rs-region="header"] {
+    display: flex;
+    flex-direction: column;
 }
 
-[data-rs-block][data-rs-component="Card"] [data-rs-region="content"] {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+[data-rs-card] [data-rs-region="content"] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-[data-rs-block][data-rs-component="Card"] [data-rs-region="footer"] {
-  display: flex;
-  margin-top: auto;
+[data-rs-card] [data-rs-region="footer"] {
+    display: flex;
+    margin-top: auto;
 }
