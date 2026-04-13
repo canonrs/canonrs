@@ -15,3 +15,5 @@ slot_accepts:
 contract:
   regions_required: []
   regions_optional: ["header", "hero", "content", "footer"]
+block: [hero_block, section_block]
+blocks_primitives: [stack, container]

@@ -13,3 +13,5 @@ slot_accepts:
 contract:
   regions_required: []
   regions_optional: ["left", "right"]
+block: []
+blocks_primitives: [flex]

@@ -13,3 +13,5 @@ slot_accepts:
 contract:
   regions_required: []
   regions_optional: ["header", "content"]
+block: []
+blocks_primitives: [stack]
