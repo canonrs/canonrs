@@ -47,6 +47,9 @@
 /* 9. BLOCKS */
 @import "./blocks/blocks.css";
 
+/* 9.1 LAYOUT PRIMITIVES CSS */
+@import "./layout_primitives/layout_primitives.css";
+
 /* 10. LAYOUTS */
 @import "./layouts/layouts.css";
 

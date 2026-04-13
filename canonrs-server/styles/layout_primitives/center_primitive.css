@@ -1,0 +1,22 @@
+/* ============================================================================
+   Primitive: Center
+   ============================================================================ */
+
+[data-rs-center] {
+    display: flex;
+}
+
+[data-rs-center][data-rs-mode="horizontal"] {
+    justify-content: center;
+}
+
+[data-rs-center][data-rs-mode="vertical"] {
+    align-items: center;
+    min-height: 100%;
+}
+
+[data-rs-center][data-rs-mode="both"] {
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}

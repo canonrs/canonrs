@@ -1,0 +1,17 @@
+/* ============================================================================
+   Primitive: Container
+   ============================================================================ */
+
+[data-rs-container] {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+}
+
+[data-rs-container][data-rs-size="sm"]   { max-width: var(--layout-width-sm); }
+[data-rs-container][data-rs-size="md"]   { max-width: var(--layout-width-md); }
+[data-rs-container][data-rs-size="lg"]   { max-width: var(--layout-content-max-width); }
+[data-rs-container][data-rs-size="xl"]   { max-width: var(--layout-width-xl); }
+[data-rs-container][data-rs-size="full"] { max-width: 100%; }

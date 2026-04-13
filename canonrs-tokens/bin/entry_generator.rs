@@ -54,6 +54,7 @@ pub fn generate(_generated_dir: &Path, styles_dir: &Path) -> std::io::Result<()>
 
     content.push_str("\n/* 8. UI COMPONENTS */\n@import \"./ui/ui.css\";\n");
     content.push_str("\n/* 9. BLOCKS */\n@import \"./blocks/blocks.css\";\n");
+    content.push_str("\n/* 9.1 LAYOUT PRIMITIVES CSS */\n@import \"./layout_primitives/layout_primitives.css\";\n");
     content.push_str("\n/* 10. LAYOUTS */\n@import \"./layouts/layouts.css\";\n");
     content.push_str("\n/* 11. GLOBALS (FINAL) */\n@import \"./tokens/base/globals.css\";\n");
 

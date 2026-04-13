@@ -1,0 +1,11 @@
+/* ============================================================================
+   CANONRS — LAYOUT PRIMITIVES
+   Entry point for all layout primitive styles
+   ============================================================================ */
+
+@import './flex_primitive.css';
+@import './stack_primitive.css';
+@import './grid_primitive.css';
+@import './center_primitive.css';
+@import './container_primitive.css';
+@import './spacer_primitive.css';
