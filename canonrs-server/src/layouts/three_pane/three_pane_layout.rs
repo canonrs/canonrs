@@ -13,7 +13,7 @@ pub fn ThreePaneLayout(
     let center = StoredValue::new(center);
     let right  = StoredValue::new(right);
     view! {
-        <div data-rs-layout-three-pane="" data-rs-uid=uid class=class>
+        <div data-rs-layout="three-pane" data-rs-uid=uid class=class>
             {move || left.get_value().map(|l| view! { <div data-rs-region="left">{l()}</div> })}
             {move || center.get_value().map(|c| view! { <div data-rs-region="center">{c()}</div> })}
             {move || right.get_value().map(|r| view! { <div data-rs-region="right">{r()}</div> })}

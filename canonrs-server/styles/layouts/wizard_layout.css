@@ -2,33 +2,33 @@
    Layout: Wizard — tokens: layout-*, header-*
    ============================================================================ */
 
-[data-rs-layout-wizard] {
+[data-rs-layout="wizard"] {
     display: flex;
     flex-direction: column;
     min-height: var(--layout-min-height);
     background: var(--layout-bg);
 }
 
-[data-rs-layout-wizard] [data-rs-region="header"] {
+[data-rs-layout="wizard"] [data-rs-region="header"] {
     padding: var(--header-padding);
     background: var(--header-bg);
     border-bottom: var(--header-border);
     flex-shrink: 0;
 }
 
-[data-rs-layout-wizard] [data-rs-region="stepper"] {
+[data-rs-layout="wizard"] [data-rs-region="stepper"] {
     padding: var(--layout-padding);
     border-bottom: var(--layout-border-width) solid var(--layout-border-color);
     flex-shrink: 0;
 }
 
-[data-rs-layout-wizard] [data-rs-region="content"] {
+[data-rs-layout="wizard"] [data-rs-region="content"] {
     flex: 1;
     padding: var(--layout-region-padding);
     overflow-y: auto;
 }
 
-[data-rs-layout-wizard] [data-rs-region="footer"] {
+[data-rs-layout="wizard"] [data-rs-region="footer"] {
     padding: var(--layout-padding);
     border-top: var(--layout-border-width) solid var(--layout-border-color);
     display: flex;

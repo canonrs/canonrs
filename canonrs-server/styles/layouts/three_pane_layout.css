@@ -2,26 +2,26 @@
    Layout: Three Pane — tokens: layout-*
    ============================================================================ */
 
-[data-rs-layout-three-pane] {
+[data-rs-layout="three-pane"] {
     display: grid;
     grid-template-columns: var(--layout-sidebar-width) 1fr var(--layout-width-toc);
     min-height: var(--layout-min-height);
     background: var(--layout-bg);
 }
 
-[data-rs-layout-three-pane] [data-rs-region="left"] {
+[data-rs-layout="three-pane"] [data-rs-region="left"] {
     border-right: var(--layout-border-width) solid var(--layout-border-color);
     padding: var(--layout-region-padding);
     overflow-y: auto;
 }
 
-[data-rs-layout-three-pane] [data-rs-region="center"] {
+[data-rs-layout="three-pane"] [data-rs-region="center"] {
     padding: var(--layout-region-padding);
     overflow-y: auto;
     min-width: 0;
 }
 
-[data-rs-layout-three-pane] [data-rs-region="right"] {
+[data-rs-layout="three-pane"] [data-rs-region="right"] {
     border-left: var(--layout-border-width) solid var(--layout-border-color);
     padding: var(--layout-region-padding);
     overflow-y: auto;

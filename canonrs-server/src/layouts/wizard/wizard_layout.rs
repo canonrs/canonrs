@@ -15,7 +15,7 @@ pub fn WizardLayout(
     let content = StoredValue::new(content);
     let footer  = StoredValue::new(footer);
     view! {
-        <div data-rs-layout-wizard="" data-rs-uid=uid class=class>
+        <div data-rs-layout="wizard" data-rs-uid=uid class=class>
             {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
             {move || stepper.get_value().map(|s| view! { <div data-rs-region="stepper">{s()}</div> })}
             {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}

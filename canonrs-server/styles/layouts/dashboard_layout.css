@@ -2,14 +2,14 @@
    Layout: Dashboard — tokens: layout-*, header-*, sidebar-*
    ============================================================================ */
 
-[data-rs-layout-dashboard] {
+[data-rs-layout="dashboard"] {
     display: flex;
     flex-direction: column;
     min-height: var(--layout-min-height);
     background: var(--layout-bg);
 }
 
-[data-rs-layout-dashboard] [data-rs-region="header"] {
+[data-rs-layout="dashboard"] [data-rs-region="header"] {
     height: var(--layout-header-height);
     flex-shrink: 0;
     display: flex;
@@ -22,7 +22,7 @@
     z-index: var(--layer-sticky);
 }
 
-[data-rs-layout-dashboard] [data-rs-region="sidebar"] {
+[data-rs-layout="dashboard"] [data-rs-region="sidebar"] {
     width: var(--layout-sidebar-width);
     flex-shrink: 0;
     background: var(--layout-bg);
@@ -34,7 +34,7 @@
     left: 0;
 }
 
-[data-rs-layout-dashboard] [data-rs-region="content"] {
+[data-rs-layout="dashboard"] [data-rs-region="content"] {
     flex: 1;
     margin-left: var(--layout-sidebar-width);
     padding: var(--layout-region-padding);

@@ -15,7 +15,7 @@ pub fn MarketingLayout(
     let content = StoredValue::new(content);
     let footer  = StoredValue::new(footer);
     view! {
-        <div data-rs-layout-marketing="" data-rs-uid=uid class=class>
+        <div data-rs-layout="marketing" data-rs-uid=uid class=class>
             {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
             {move || hero.get_value().map(|h| view! { <div data-rs-region="hero">{h()}</div> })}
             {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}

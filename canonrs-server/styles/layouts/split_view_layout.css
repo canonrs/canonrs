@@ -2,30 +2,30 @@
    Layout: Split View — tokens: layout-*
    ============================================================================ */
 
-[data-rs-layout-split-view] {
+[data-rs-layout="split-view"] {
     display: flex;
     min-height: var(--layout-min-height);
     background: var(--layout-bg);
 }
 
-[data-rs-layout-split-view][data-rs-ratio="50-50"] [data-rs-region="left"],
-[data-rs-layout-split-view][data-rs-ratio="50-50"] [data-rs-region="right"] {
+[data-rs-layout="split-view"][data-rs-ratio="50-50"] [data-rs-region="left"],
+[data-rs-layout="split-view"][data-rs-ratio="50-50"] [data-rs-region="right"] {
     flex: 1;
 }
 
-[data-rs-layout-split-view][data-rs-ratio="40-60"] [data-rs-region="left"] { flex: 4; }
-[data-rs-layout-split-view][data-rs-ratio="40-60"] [data-rs-region="right"] { flex: 6; }
+[data-rs-layout="split-view"][data-rs-ratio="40-60"] [data-rs-region="left"] { flex: 4; }
+[data-rs-layout="split-view"][data-rs-ratio="40-60"] [data-rs-region="right"] { flex: 6; }
 
-[data-rs-layout-split-view][data-rs-ratio="60-40"] [data-rs-region="left"] { flex: 6; }
-[data-rs-layout-split-view][data-rs-ratio="60-40"] [data-rs-region="right"] { flex: 4; }
+[data-rs-layout="split-view"][data-rs-ratio="60-40"] [data-rs-region="left"] { flex: 6; }
+[data-rs-layout="split-view"][data-rs-ratio="60-40"] [data-rs-region="right"] { flex: 4; }
 
-[data-rs-layout-split-view] [data-rs-region="left"] {
+[data-rs-layout="split-view"] [data-rs-region="left"] {
     border-right: var(--layout-border-width) solid var(--layout-border-color);
     overflow-y: auto;
     padding: var(--layout-region-padding);
 }
 
-[data-rs-layout-split-view] [data-rs-region="right"] {
+[data-rs-layout="split-view"] [data-rs-region="right"] {
     overflow-y: auto;
     padding: var(--layout-region-padding);
 }

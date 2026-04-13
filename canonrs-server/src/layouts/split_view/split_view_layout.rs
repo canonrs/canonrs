@@ -24,7 +24,7 @@ pub fn SplitViewLayout(
     let left  = StoredValue::new(left);
     let right = StoredValue::new(right);
     view! {
-        <div data-rs-layout-split-view="" data-rs-uid=uid data-rs-ratio=ratio.as_str() class=class>
+        <div data-rs-layout="split-view" data-rs-uid=uid data-rs-ratio=ratio.as_str() class=class>
             {move || left.get_value().map(|l| view! { <div data-rs-region="left">{l()}</div> })}
             {move || right.get_value().map(|r| view! { <div data-rs-region="right">{r()}</div> })}
         </div>

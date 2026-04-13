@@ -27,7 +27,7 @@ pub fn PageLayout(
     let content = StoredValue::new(content);
     let aside   = StoredValue::new(aside);
     view! {
-        <div data-rs-layout-page="" data-rs-uid=uid data-rs-variant=variant.as_str() class=class>
+        <div data-rs-layout="page" data-rs-uid=uid data-rs-variant=variant.as_str() class=class>
             {move || sidebar.get_value().map(|s| view! { <div data-rs-region="sidebar">{s()}</div> })}
             {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}
             {move || aside.get_value().map(|a| view! { <div data-rs-region="aside">{a()}</div> })}
