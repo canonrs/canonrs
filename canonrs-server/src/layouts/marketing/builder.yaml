@@ -1,10 +1,6 @@
 id: marketing
 label: Marketing
 category: layout
-type: layout
-variant: page
-container: true
-regions: ["header", "hero", "content", "footer"]
 description: Public page with header, hero, main content and footer
 tags: ["marketing", "landing", "hero", "page", "site"]
 slot_accepts:

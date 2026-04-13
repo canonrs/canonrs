@@ -1,10 +1,6 @@
 id: fullscreen
 label: Fullscreen
 category: layout
-type: layout
-variant: page
-container: true
-regions: ["header", "content"]
 description: Optional header with full canvas content area
 tags: ["fullscreen", "full", "viewport", "immersive", "canvas"]
 slot_accepts:

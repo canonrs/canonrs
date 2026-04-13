@@ -1,17 +1,12 @@
 id: stat-group
 label: Stat Group
 category: dashboard
-type: block
-variant: structure
-container: true
-regions: ["stats"]
 description: Dashboard stat group block for displaying metric collections
 tags: ["stat", "metric", "dashboard", "kpi", "group"]
 slot_accepts:
   stats: Any
-composable: true
-required_parts: []
-optional_parts: ["stats"]
 contract:
   regions_required: []
   regions_optional: ["stats"]
+props:
+  - cols: Select(1:One,2:Two,3:Three,4:Four) | 3 | structural

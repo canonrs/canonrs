@@ -2,186 +2,123 @@
   "blocks": [
     {
       "category": "content",
-      "container": true,
+      "container": false,
       "id": "card",
-      "regions": [
-        "header",
-        "content",
-        "footer"
-      ],
+      "regions": [],
       "type": "block",
       "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "dashboard",
-      "regions": [
-        "header",
-        "sidebar",
-        "content"
-      ],
+      "regions": [],
       "type": "layout",
-      "variant": "page"
+      "variant": "structure"
     },
     {
       "category": "dashboard",
-      "container": true,
+      "container": false,
       "id": "data-table",
-      "regions": [
-        "toolbar",
-        "header",
-        "body",
-        "empty",
-        "pagination"
-      ],
+      "regions": [],
       "type": "block",
       "variant": "structure"
     },
     {
       "category": "form",
-      "container": true,
+      "container": false,
       "id": "form-field",
-      "regions": [
-        "label",
-        "input",
-        "hint",
-        "error"
-      ],
+      "regions": [],
       "type": "block",
       "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "fullscreen",
-      "regions": [
-        "header",
-        "content"
-      ],
+      "regions": [],
       "type": "layout",
-      "variant": "page"
+      "variant": "structure"
     },
     {
       "category": "page",
-      "container": true,
+      "container": false,
       "id": "hero",
-      "regions": [
-        "header",
-        "media",
-        "content",
-        "actions",
-        "footer"
-      ],
+      "regions": [],
       "type": "block",
       "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "marketing",
-      "regions": [
-        "header",
-        "hero",
-        "content",
-        "footer"
-      ],
+      "regions": [],
       "type": "layout",
-      "variant": "page"
+      "variant": "structure"
     },
     {
       "category": "page",
       "container": false,
       "id": "page-header",
-      "regions": [
-        "breadcrumb",
-        "title",
-        "subtitle",
-        "actions"
-      ],
+      "regions": [],
       "type": "block",
-      "variant": "page"
+      "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "page-layout",
-      "regions": [
-        "sidebar",
-        "content",
-        "aside"
-      ],
+      "regions": [],
       "type": "layout",
-      "variant": "page"
+      "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "section",
-      "regions": [
-        "header",
-        "body",
-        "footer"
-      ],
+      "regions": [],
       "type": "block",
       "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "sidebar-layout",
-      "regions": [
-        "nav",
-        "main"
-      ],
+      "regions": [],
       "type": "block",
       "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "split-view",
-      "regions": [
-        "left",
-        "right"
-      ],
+      "regions": [],
       "type": "layout",
-      "variant": "page"
+      "variant": "structure"
     },
     {
       "category": "dashboard",
-      "container": true,
+      "container": false,
       "id": "stat-group",
-      "regions": [
-        "stats"
-      ],
+      "regions": [],
       "type": "block",
       "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "three-pane",
-      "regions": [
-        "left",
-        "center",
-        "right"
-      ],
+      "regions": [],
       "type": "layout",
-      "variant": "page"
+      "variant": "structure"
     },
     {
       "category": "layout",
-      "container": true,
+      "container": false,
       "id": "wizard-layout",
-      "regions": [
-        "header",
-        "stepper",
-        "content",
-        "footer"
-      ],
+      "regions": [],
       "type": "layout",
-      "variant": "page"
+      "variant": "structure"
     }
   ],
   "components": [

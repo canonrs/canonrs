@@ -1,19 +1,12 @@
 id: section
 label: Section
 category: layout
-type: block
-variant: structure
-container: true
-regions: ["header", "body", "footer"]
 description: Generic content section block with header, body and footer regions
 tags: ["section", "content", "layout", "region"]
 slot_accepts:
   header: Any
   body: Any
   footer: Any
-composable: true
-required_parts: []
-optional_parts: ["header", "body", "footer"]
 contract:
   regions_required: []
   regions_optional: ["header", "body", "footer"]

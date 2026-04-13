@@ -1,18 +1,13 @@
 id: sidebar-layout
 label: Sidebar Layout
 category: layout
-type: block
-variant: structure
-container: true
-regions: ["nav", "main"]
 description: Block-level sidebar and main content
 tags: ["sidebar-layout", "sidebar", "nav", "menu", "lateral"]
 slot_accepts:
   nav: Nav
   main: Any
-composable: true
-required_parts: []
-optional_parts: ["nav", "main"]
 contract:
   regions_required: []
   regions_optional: ["nav", "main"]
+props:
+  - side: Select(left:Left,right:Right) | left | structural

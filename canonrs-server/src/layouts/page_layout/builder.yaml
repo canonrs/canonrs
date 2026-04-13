@@ -1,10 +1,6 @@
 id: page-layout
 label: Page
 category: layout
-type: layout
-variant: page
-container: true
-regions: ["sidebar", "content", "aside"]
 description: Page layout with optional sidebar and aside
 tags: ["page", "single", "column", "article", "content"]
 slot_accepts:

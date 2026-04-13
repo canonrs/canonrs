@@ -1,10 +1,6 @@
 id: split-view
 label: Split View
 category: layout
-type: layout
-variant: page
-container: true
-regions: ["left", "right"]
 description: Left context panel and right action/detail panel
 tags: ["split-view", "split", "columns", "side-by-side", "compare"]
 slot_accepts:

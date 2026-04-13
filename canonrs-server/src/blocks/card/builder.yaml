@@ -1,19 +1,12 @@
 id: card
 label: Card
 category: content
-type: block
-variant: structure
-container: true
-regions: ["header", "content", "footer"]
 description: Card block with header, content and footer regions
 tags: ["card", "panel", "container", "region", "content"]
 slot_accepts:
   header: Any
   content: Any
   footer: Action
-composable: true
-required_parts: []
-optional_parts: ["header", "content", "footer"]
 contract:
   regions_required: []
   regions_optional: ["header", "content", "footer"]

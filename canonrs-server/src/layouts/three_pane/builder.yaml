@@ -1,10 +1,6 @@
 id: three-pane
 label: Three Pane
 category: layout
-type: layout
-variant: page
-container: true
-regions: ["left", "center", "right"]
 description: Global nav left, content center, local nav right
 tags: ["three-pane", "three-columns", "docs", "toc", "enterprise"]
 slot_accepts:

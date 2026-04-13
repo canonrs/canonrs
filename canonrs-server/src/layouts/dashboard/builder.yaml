@@ -1,10 +1,6 @@
 id: dashboard
 label: Dashboard
 category: layout
-type: layout
-variant: page
-container: true
-regions: ["header", "sidebar", "content"]
 description: App shell with header, sidebar and main content area
 tags: ["dashboard", "app", "admin", "header", "sidebar", "main"]
 slot_accepts:

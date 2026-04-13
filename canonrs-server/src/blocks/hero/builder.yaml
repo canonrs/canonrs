@@ -1,9 +1,6 @@
 id: hero
 label: Hero
 category: page
-type: block
-container: true
-regions: ["header", "media", "content", "actions", "footer"]
 description: Page hero block with media, content and actions regions
 tags: ["hero", "landing", "intro", "cta", "media", "page"]
 slot_accepts:
@@ -12,14 +9,8 @@ slot_accepts:
   content: Any
   actions: Action
   footer: Any
-composable: true
-required_parts: []
-optional_parts: ["header", "media", "content", "actions", "footer"]
-props:
-  - name: variant
-    type: "Select(centered:Centered,split:Split,media-top:MediaTop)"
-    default: centered
-    group: visual
 contract:
-  regions_required: ["content"]
-  regions_optional: ["header", "media", "actions", "footer"]
+  regions_required: []
+  regions_optional: ["header", "media", "content", "actions", "footer"]
+props:
+  - variant: Select(centered:Centered,split:Split,media-top:MediaTop) | centered | visual

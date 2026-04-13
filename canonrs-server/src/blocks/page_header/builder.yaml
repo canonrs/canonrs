@@ -1,10 +1,6 @@
 id: page-header
 label: Page Header
 category: page
-type: block
-variant: page
-container: false
-regions: ["breadcrumb", "title", "subtitle", "actions"]
 description: Page title and actions header block
 tags: ["page-header", "title", "heading", "actions", "breadcrumb"]
 slot_accepts:
@@ -12,9 +8,6 @@ slot_accepts:
   title: Any
   subtitle: Any
   actions: Action
-composable: true
-required_parts: []
-optional_parts: ["breadcrumb", "title", "subtitle", "actions"]
 contract:
   regions_required: []
   regions_optional: ["breadcrumb", "title", "subtitle", "actions"]

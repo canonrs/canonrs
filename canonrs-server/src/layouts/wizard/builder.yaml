@@ -1,10 +1,6 @@
 id: wizard-layout
 label: Wizard
 category: layout
-type: layout
-variant: page
-container: true
-regions: ["header", "stepper", "content", "footer"]
 description: Multi-step form with header, stepper, content and footer
 tags: ["wizard", "steps", "onboarding", "multi-step", "form"]
 slot_accepts:
