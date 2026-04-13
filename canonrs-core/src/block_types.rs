@@ -89,16 +89,30 @@ pub type AnyReconcileFn = fn();
 
 #[derive(Clone, Debug)]
 pub struct BlockDefinition {
-    pub id:              &'static str,
-    pub variant:         BlockVariant,
-    pub category:        BlockCategory,
-    pub is_container:    bool,
-    pub regions:         &'static [BlockRegion],
-    pub version:         u32,
-    pub props_schema:    &'static [BlockPropDef],
-    pub requires_config: bool,
-    pub presets:         &'static [BlockPreset],
-    pub meta:            &'static ComponentMeta,
+    pub id:               &'static str,
+    pub variant:          BlockVariant,
+    pub category:         BlockCategory,
+    pub is_container:     bool,
+    pub regions:          &'static [BlockRegion],
+    pub version:          u32,
+    pub props_schema:     &'static [BlockPropDef],
+    pub requires_config:  bool,
+    pub presets:          &'static [BlockPreset],
+    pub meta:             &'static ComponentMeta,
+    pub regions_required: &'static [&'static str],
+    pub regions_optional: &'static [&'static str],
+}
+
+impl BlockDefinition {
+    pub fn validate_regions(&self, provided: &[&str]) -> Result<(), Vec<String>> {
+        let mut errors = vec![];
+        for req in self.regions_required {
+            if !provided.contains(req) {
+                errors.push(format!("Block '{}': required region '{}' is missing", self.id, req));
+            }
+        }
+        if errors.is_empty() { Ok(()) } else { Err(errors) }
+    }
 }
 
 impl PartialEq for BlockDefinition {

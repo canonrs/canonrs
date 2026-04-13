@@ -86,9 +86,11 @@ pub(crate) fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path
         let props    = if std::fs::read_to_string(&block_path).map(|c| parse_block_props(&c).len() > 0).unwrap_or(false) { format!("{}_PROPS", var_name) } else { "&[]".to_string() };
         let presets  = if std::fs::read_to_string(&block_path).map(|c| parse_block_presets(&c).len() > 0).unwrap_or(false) { format!("{}_PRESETS", var_name) } else { "&[]".to_string() };
         let meta_var = format!("crate::generated::block_meta::{}_META", var_name);
+        let builder_yaml = blocks_dir.join(&dir_name).join("builder.yaml");
+        let (req_regions, opt_regions) = read_contract_regions(&builder_yaml);
         code.push_str(&format!(
-            "\tBlockDefinition {{ id: \"{id}\", variant: {variant}, category: {category}, is_container: {container}, regions: &{regions}, version: 1, props_schema: {props}, requires_config: false, presets: {presets}, meta: &{meta} }},\n",
-            id = b.id, variant = variant, category = category, container = b.container, regions = regions, props = props, presets = presets, meta = meta_var,
+            "\tBlockDefinition {{ id: \"{id}\", variant: {variant}, category: {category}, is_container: {container}, regions: &{regions}, version: 1, props_schema: {props}, requires_config: false, presets: {presets}, meta: &{meta}, regions_required: &[{req}], regions_optional: &[{opt}] }},\n",
+            id = b.id, variant = variant, category = category, container = b.container, regions = regions, props = props, presets = presets, meta = meta_var, req = req_regions, opt = opt_regions,
         ));
     }
     code.push_str("];\n\n");
@@ -98,9 +100,12 @@ pub(crate) fn generate_block_definitions(blocks: &[BlockInfo], blocks_dir: &Path
         let var_name = to_const_name(&b.id);
         let regions  = generate_inline_regions(&b.regions);
         let meta_var = format!("crate::generated::block_meta::{}_META", var_name);
+        let layout_dir_name = b.id.replace('-', "_").replace("_layout", "");
+        let layout_yaml = layouts_dir.join(&layout_dir_name).join("builder.yaml");
+        let (req_regions, opt_regions) = read_contract_regions(&layout_yaml);
         code.push_str(&format!(
-            "\tBlockDefinition {{ id: \"{id}\", variant: BlockVariant::Page, category: BlockCategory::Layout, is_container: true, regions: &{regions}, version: 1, props_schema: &[], requires_config: false, presets: &[], meta: &{meta} }},\n",
-            id = b.id, regions = regions, meta = meta_var,
+            "\tBlockDefinition {{ id: \"{id}\", variant: BlockVariant::Page, category: BlockCategory::Layout, is_container: true, regions: &{regions}, version: 1, props_schema: &[], requires_config: false, presets: &[], meta: &{meta}, regions_required: &[{req}], regions_optional: &[{opt}] }},\n",
+            id = b.id, regions = regions, meta = meta_var, req = req_regions, opt = opt_regions,
         ));
     }
     code.push_str("];\n");
@@ -198,4 +203,30 @@ fn generate_inline_regions(regions: &[String]) -> String {
             r = r, accepts = accepts, layout = layout)
     }).collect();
     format!("[{}]", inner.join(", "))
+}
+
+fn read_contract_regions(yaml_path: &std::path::Path) -> (String, String) {
+    let content = match std::fs::read_to_string(yaml_path) {
+        Ok(c) => c,
+        Err(_) => return ("".to_string(), "".to_string()),
+    };
+    let req = extract_contract_field(&content, "regions_required");
+    let opt = extract_contract_field(&content, "regions_optional");
+    (req, opt)
+}
+
+fn extract_contract_field(content: &str, field: &str) -> String {
+    for line in content.lines() {
+        let trimmed = line.trim();
+        if trimmed.starts_with(&format!("{}:", field)) {
+            let val = trimmed[field.len()+1..].trim();
+            let items: Vec<String> = val.split(',')
+                .map(|s| s.trim().trim_matches(|c: char| c == '"' || c == '\'' || c == '[' || c == ']').to_string())
+                .filter(|s| !s.is_empty())
+                .map(|s| format!("\"{}\"", s))
+                .collect();
+            return items.join(", ");
+        }
+    }
+    "".to_string()
 }

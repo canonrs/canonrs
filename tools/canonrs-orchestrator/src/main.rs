@@ -138,6 +138,54 @@ fn spawn_tokens(root: &PathBuf, state: &Arc<Mutex<SystemState>>) {
     state.lock().unwrap().tokens = format!("OK ({}ms)", elapsed);
 }
 
+fn spawn_core_watcher(root: &PathBuf, running: Arc<AtomicBool>) -> std::thread::JoinHandle<()> {
+    let root = root.clone();
+    let watch_dirs: Vec<PathBuf> = [
+        "packages-rust/rs-canonrs/canonrs-server/src/blocks",
+        "packages-rust/rs-canonrs/canonrs-server/src/layouts",
+        "packages-rust/rs-canonrs/canonrs-server/src/ui",
+        "packages-rust/rs-canonrs/canonrs-core/build",
+    ].iter().map(|d| root.join(d)).collect();
+
+    std::thread::spawn(move || {
+        let (tx, rx) = std::sync::mpsc::channel::<notify::Result<Event>>();
+        let mut watcher = recommended_watcher(tx).expect("watcher failed");
+        for dir in &watch_dirs {
+            if dir.exists() { watcher.watch(dir, RecursiveMode::Recursive).ok(); }
+        }
+        println!("[canon][core-watcher] watching blocks/layouts/ui/build ({} dirs)", watch_dirs.len());
+
+        let mut last_build = Instant::now();
+        while running.load(Ordering::Relaxed) {
+            match rx.recv_timeout(std::time::Duration::from_millis(200)) {
+                Ok(Ok(event)) => {
+                    let is_yaml_or_rs = event.paths.iter().any(|p| {
+                        p.extension().map(|e| e == "yaml" || e == "rs").unwrap_or(false)
+                    });
+                    if is_yaml_or_rs && last_build.elapsed().as_millis() > 1000 {
+                        for p in &event.paths {
+                            println!("[canon][core-watcher] changed: {}", p.file_name().unwrap_or_default().to_str().unwrap_or("?"));
+                        }
+                        last_build = Instant::now();
+                        println!("[canon][core-watcher] touching build.rs to force recompile...");
+                        let build_rs = root.join("packages-rust/rs-canonrs/canonrs-core/build.rs");
+                        let meta = std::fs::metadata(&build_rs).ok();
+                        if let Some(m) = meta {
+                            let t = std::time::SystemTime::now();
+                            // read + rewrite to update mtime
+                            if let Ok(c) = std::fs::read_to_string(&build_rs) {
+                                std::fs::write(&build_rs, c).ok();
+                            }
+                        }
+                        println!("[canon][core-watcher] build.rs touched — leptos will recompile");
+                    }
+                }
+                _ => {}
+            }
+        }
+    })
+}
+
 fn build_css(root: &PathBuf) {
     let site_dir = root.join("products/canonrs-site");
     if !site_dir.exists() { return; }
@@ -276,6 +324,7 @@ async fn main() {
 
     let running = Arc::new(AtomicBool::new(true));
     let _watcher = spawn_wasm_watcher(&root, running.clone(), state.clone(), reload_tx.clone());
+    let _core_watcher = spawn_core_watcher(&root, running.clone());
 
     // WS reload server em background
     println!("[canon][ws] starting...");

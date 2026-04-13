@@ -19,6 +19,7 @@ fn main() {
     println!("cargo:rerun-if-changed=build.rs");
     println!("cargo:rerun-if-changed=../canonrs-server/src/blocks");
     println!("cargo:rerun-if-changed=../canonrs-server/src/layouts");
+    println!("cargo:rerun-if-changed=build");
 
     let primitives     = parse_primitives(Path::new("src/primitives"));
     let semantic       = parse_ui_components_semantic(Path::new("../canonrs-server/src/ui"));
