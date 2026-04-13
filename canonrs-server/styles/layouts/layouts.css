@@ -1,7 +1,12 @@
-@import "./dashboard_layout.css";
+/* ============================================================================
+   CANONRS — LAYOUTS
+   Entry point for all layout styles
+   ============================================================================ */
+
 @import "./marketing_layout.css";
+@import "./dashboard_layout.css";
 @import "./fullscreen_layout.css";
 @import "./page_layout_layout.css";
-@import "./section_layout_layout.css";
 @import "./split_view_layout.css";
 @import "./three_pane_layout.css";
+@import "./wizard_layout.css";

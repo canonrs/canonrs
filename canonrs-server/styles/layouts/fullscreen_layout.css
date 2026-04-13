@@ -1,25 +1,27 @@
-[data-rs-layout][data-rs-component="Fullscreen"] {
-  container-type: inline-size;
-  container-name: fullscreen;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--layout-bg);
+/* ============================================================================
+   Layout: Fullscreen — tokens: layout-*, header-*
+   ============================================================================ */
+
+[data-rs-layout-fullscreen] {
+    display: flex;
+    flex-direction: column;
+    min-height: var(--layout-min-height);
+    background: var(--layout-bg);
 }
 
-[data-rs-layout][data-rs-component="Fullscreen"] [data-rs-region="header"] {
-  height: var(--layout-header-height);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding: var(--header-padding);
-  background: var(--header-bg);
+[data-rs-layout-fullscreen] [data-rs-region="header"] {
+    height: var(--layout-header-height);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: var(--header-padding);
+    background: var(--header-bg);
+    border-bottom: var(--header-border);
 }
 
-[data-rs-layout][data-rs-component="Fullscreen"] [data-rs-region="content"] {
-  flex: 1;
-  overflow: auto;
-  background: var(--layout-bg);
+[data-rs-layout-fullscreen] [data-rs-region="content"] {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }

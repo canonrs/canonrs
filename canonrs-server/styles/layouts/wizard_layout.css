@@ -1,40 +1,38 @@
-[data-rs-layout][data-rs-component="Wizard"] {
-  container-type: inline-size;
-  container-name: wizard;
-  display: flex;
-  flex-direction: column;
-  min-height: var(--layout-min-height);
-  background: var(--layout-bg);
+/* ============================================================================
+   Layout: Wizard — tokens: layout-*, header-*
+   ============================================================================ */
+
+[data-rs-layout-wizard] {
+    display: flex;
+    flex-direction: column;
+    min-height: var(--layout-min-height);
+    background: var(--layout-bg);
 }
 
-[data-rs-layout][data-rs-component="Wizard"] [data-rs-region="header"] {
-  height: var(--layout-header-height);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding: var(--header-padding);
-  background: var(--header-bg);
+[data-rs-layout-wizard] [data-rs-region="header"] {
+    padding: var(--header-padding);
+    background: var(--header-bg);
+    border-bottom: var(--header-border);
+    flex-shrink: 0;
 }
 
-[data-rs-layout][data-rs-component="Wizard"] [data-rs-region="stepper"] {
-  flex-shrink: 0;
-  padding: var(--layout-padding);
-  border-bottom: var(--layout-border-width) solid var(--layout-border-color);
-  background: var(--sidebar-bg);
+[data-rs-layout-wizard] [data-rs-region="stepper"] {
+    padding: var(--layout-padding);
+    border-bottom: var(--layout-border-width) solid var(--layout-border-color);
+    flex-shrink: 0;
 }
 
-[data-rs-layout][data-rs-component="Wizard"] [data-rs-region="content"] {
-  flex: 1;
-  padding: var(--layout-padding);
-  overflow-y: auto;
+[data-rs-layout-wizard] [data-rs-region="content"] {
+    flex: 1;
+    padding: var(--layout-region-padding);
+    overflow-y: auto;
 }
 
-[data-rs-layout][data-rs-component="Wizard"] [data-rs-region="footer"] {
-  flex-shrink: 0;
-  padding: var(--footer-padding);
-  border-top: var(--footer-border);
-  background: var(--footer-bg);
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--layout-gap);
+[data-rs-layout-wizard] [data-rs-region="footer"] {
+    padding: var(--layout-padding);
+    border-top: var(--layout-border-width) solid var(--layout-border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--layout-gap);
+    flex-shrink: 0;
 }

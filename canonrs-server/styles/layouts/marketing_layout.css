@@ -1,42 +1,43 @@
-[data-rs-layout][data-rs-component="Marketing"] {
-  container-type: inline-size;
-  container-name: marketing;
-  display: flex;
-  flex-direction: column;
-  min-height: var(--layout-min-height);
-  background: var(--layout-bg);
+/* ============================================================================
+   Layout: Marketing — tokens: layout-*, hero-*, header-*, footer-*
+   ============================================================================ */
+
+[data-rs-layout-marketing] {
+    display: flex;
+    flex-direction: column;
+    min-height: var(--layout-min-height);
+    background: var(--layout-bg);
 }
 
-[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="header"] {
-  height: var(--layout-header-height);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding: var(--header-padding);
-  background: var(--header-bg);
+[data-rs-layout-marketing] [data-rs-region="header"] {
+    height: var(--layout-header-height);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: var(--header-padding);
+    background: var(--header-bg);
+    border-bottom: var(--header-border);
 }
 
-[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="hero"] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--layout-padding);
-  min-height: 320px;
+[data-rs-layout-marketing] [data-rs-region="hero"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="content"] {
-  flex: 1;
-  max-width: var(--layout-max-width);
-  margin: 0 auto;
-  width: 100%;
-  padding: var(--layout-padding);
-  display: flex;
-  flex-direction: column;
-  gap: var(--layout-gap);
+[data-rs-layout-marketing] [data-rs-region="content"] {
+    flex: 1;
+    max-width: var(--layout-max-width);
+    margin: 0 auto;
+    width: 100%;
+    padding: var(--layout-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-gap);
 }
 
-[data-rs-layout][data-rs-component="Marketing"] [data-rs-region="footer"] {
-  padding: var(--footer-padding);
-  border-top: var(--footer-border);
-  background: var(--footer-bg);
+[data-rs-layout-marketing] [data-rs-region="footer"] {
+    padding: var(--footer-padding);
+    border-top: var(--footer-border);
+    background: var(--footer-bg);
 }

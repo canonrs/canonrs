@@ -83,6 +83,18 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("separator-margin-x",            "0"),
     FamilyToken::new("separator-margin-y",            "var(--space-md)"),
 
+    // ── Layout: Page ─────────────────────────────────────────────────────────────
+    FamilyToken::new("page-layout-gap",              "var(--space-lg)"),
+    FamilyToken::new("page-layout-sidebar-width",     "var(--layout-sidebar-width)"),
+    FamilyToken::new("page-layout-sidebar-bg",        "var(--theme-surface-bg)"),
+    FamilyToken::new("page-layout-sidebar-border",    "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("page-layout-sidebar-padding",   "var(--space-md)"),
+    FamilyToken::new("page-layout-aside-width",       "var(--layout-aside-width)"),
+    FamilyToken::new("page-layout-aside-bg",          "var(--theme-surface-bg)"),
+    FamilyToken::new("page-layout-aside-border",      "1px solid var(--theme-surface-border)"),
+    FamilyToken::new("page-layout-aside-padding",     "var(--space-md)"),
+    FamilyToken::new("page-layout-content-padding",   "var(--space-lg)"),
+
     // ── Block: Hero ───────────────────────────────────────────────────────────
     FamilyToken::new("hero-padding-x",                "var(--space-2xl)"),
     FamilyToken::new("hero-padding-y",                "var(--space-3xl)"),
