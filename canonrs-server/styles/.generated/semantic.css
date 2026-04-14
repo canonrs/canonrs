@@ -5,12 +5,19 @@
   --color-muted: var(--theme-surface-muted);
   --color-muted-foreground: var(--theme-surface-fg-muted);
   --color-border: var(--theme-surface-border);
+  --color-popover: var(--theme-overlay-bg);
+  --color-popover-foreground: var(--theme-overlay-fg);
+  --color-ring: var(--theme-action-focus-ring);
   --color-primary: var(--theme-action-primary-bg);
   --color-primary-foreground: var(--theme-action-primary-fg);
+  --color-primary-hover: var(--theme-action-primary-hover);
+  --color-primary-active: var(--theme-action-primary-active);
   --color-secondary: var(--theme-action-secondary-bg);
   --color-secondary-foreground: var(--theme-action-secondary-fg);
   --color-accent: var(--theme-action-accent-bg);
   --color-accent-foreground: var(--theme-action-accent-fg);
+  --color-destructive: var(--theme-state-error-bg);
+  --color-destructive-foreground: var(--theme-state-error-fg);
   --color-success: var(--theme-state-success-bg);
   --color-success-foreground: var(--theme-state-success-fg);
   --color-warning: var(--theme-state-warning-bg);
@@ -19,9 +26,6 @@
   --color-error-foreground: var(--theme-state-error-fg);
   --color-info: var(--theme-state-info-bg);
   --color-info-foreground: var(--theme-state-info-fg);
-  --color-popover: var(--theme-overlay-bg);
-  --color-popover-foreground: var(--theme-overlay-fg);
-  --color-destructive: var(--theme-state-error-bg);
-  --color-destructive-foreground: var(--theme-state-error-fg);
-  --color-ring: var(--theme-action-focus-ring);
+  --color-neutral-900: hsl(var(--primitive-neutral-900));
+  --color-neutral-50: hsl(var(--primitive-neutral-50));
 }

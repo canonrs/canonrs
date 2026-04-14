@@ -6,11 +6,9 @@ mod root_generator;
 mod font_generator;
 
 use canonrs_tokens::design::tokens::components::*;
-use canonrs_tokens::design::tokens::state::STATE_TOKENS;
 use canonrs_tokens::design::tokens::layers::LAYERS_TOKENS;
 use canonrs_tokens::design::tokens::foundation::*;
 use canonrs_tokens::design::tokens::foundation::breakpoints::FOUNDATION_BREAKPOINTS;
-use canonrs_tokens::design::tokens::semantics::*;
 use canonrs_tokens::design::tokens::primitives::PRIMITIVE_VALUES;
 use std::fs;
 use std::path::Path;
@@ -31,19 +29,19 @@ fn main() {
     println!("\n🔧 Step 2: Generating foundation...");
     generate_core(generated_path);
 
-    println!("\n🔧 Step 3: Generating families...");
-    generate_family("family-a-overlay", OVERLAY_TOKENS, generated_path);
-    generate_family("family-b-selection", SELECTION_TOKENS, generated_path);
-    generate_family("family-c-forms", FORMS_TOKENS, generated_path);
-    generate_family("family-d-navigation", NAVIGATION_TOKENS, generated_path);
-    generate_family("family-e-feedback", FEEDBACK_TOKENS, generated_path);
-    generate_family("family-f-data", DATA_TOKENS, generated_path);
-    generate_family("family-g-composite", COMPOSITE_TOKENS, generated_path);
-    generate_family("family-h-layout", LAYOUT_TOKENS, generated_path);
-    generate_family("family-i-animation", ANIMATION_TOKENS, generated_path);
-    generate_family("family-j-blocks", BLOCKS_TOKENS, generated_path);
-    generate_family("family-s-state", STATE_TOKENS, generated_path);
-    generate_family("family-z-layers", LAYERS_TOKENS, generated_path);
+    println!("\n🔧 Step 3: Generating components...");
+    generate_family("components-overlay",   OVERLAY_TOKENS, generated_path);
+    generate_family("components-selection", SELECTION_TOKENS, generated_path);
+    generate_family("components-forms", FORMS_TOKENS, generated_path);
+    generate_family("components-navigation", NAVIGATION_TOKENS, generated_path);
+    generate_family("components-feedback", FEEDBACK_TOKENS, generated_path);
+    generate_family("components-data", DATA_TOKENS, generated_path);
+    generate_family("components-composite", COMPOSITE_TOKENS, generated_path);
+    generate_family("components-layout", LAYOUT_TOKENS, generated_path);
+    generate_family("components-animation", ANIMATION_TOKENS, generated_path);
+    generate_family("components-blocks", BLOCKS_TOKENS, generated_path);
+    generate_family("foundation-interaction", &canonrs_tokens::design::tokens::foundation::interaction::FOUNDATION_INTERACTION, generated_path);
+    generate_family("foundation-layers", LAYERS_TOKENS, generated_path);
 
     println!("\n🔧 Step 4: Generating semantic...");
     semantic_generator::generate(generated_path);
