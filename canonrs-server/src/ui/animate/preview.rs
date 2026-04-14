@@ -6,7 +6,7 @@ use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols};
 #[component]
 pub fn AnimateShowcasePreview() -> impl IntoView {
     view! {
-        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg attr:data-rs-showcase-preview-hero="">
             <Animate animation="fade-in" duration="1.2s">
                 <div data-rs-animate-demo="">"Fade In"</div>
             </Animate>

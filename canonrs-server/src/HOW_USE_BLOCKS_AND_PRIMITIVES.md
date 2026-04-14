@@ -184,7 +184,7 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 alert
 animate
-avatar
+
 banner
 button
 checkbox
@@ -209,4 +209,3 @@ table_of_contents
 toast
 toggle
 tooltip
-cristiano:monorepo/ (main)

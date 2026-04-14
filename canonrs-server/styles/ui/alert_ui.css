@@ -15,8 +15,6 @@
   color: var(--alert-fg);
 }
 
-[data-rs-alert][data-rs-variant="default"]     { background: var(--alert-bg-default); }
-[data-rs-alert][data-rs-variant="info"]        { background: var(--alert-bg-info); }
 [data-rs-alert][data-rs-variant="success"]     { background: var(--alert-bg-success); }
 [data-rs-alert][data-rs-variant="warning"]     { background: var(--alert-bg-warning); }
 [data-rs-alert][data-rs-variant="destructive"] { background: var(--alert-bg-error); }
@@ -58,5 +56,10 @@
   cursor: not-allowed;
   pointer-events: none;
 }
+
+/* State semântico — aria + visual */
+[data-rs-alert][data-rs-state~="error"]   { background: var(--alert-bg-error);   border-color: var(--alert-border-color-error); }
+[data-rs-alert][data-rs-state~="warning"] { background: var(--alert-bg-warning); border-color: var(--alert-border-color-warning); }
+[data-rs-alert][data-rs-state~="success"] { background: var(--alert-bg-success); border-color: var(--alert-border-color-success); }
 
 [data-rs-alert][data-rs-state~="closed"] { display: none; }

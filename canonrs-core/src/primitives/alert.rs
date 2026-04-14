@@ -44,13 +44,20 @@ pub fn AlertPrimitive(
     #[prop(default = AlertVariant::Default)] variant: AlertVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    // state semântico derivado do variant
+    let semantic_state = match variant {
+        AlertVariant::Destructive => "open error",
+        AlertVariant::Warning     => "open warning",
+        AlertVariant::Success     => "open success",
+        AlertVariant::Default     => "open",
+    };
     view! {
         <div
             data-rs-alert=""
             data-rs-uid=crate::infra::uid::generate("al")
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
-            data-rs-state="open"
+            data-rs-state=semantic_state
             role=variant.role()
             aria-live=variant.aria_live()
             aria-atomic="true"

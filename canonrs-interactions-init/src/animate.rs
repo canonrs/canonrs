@@ -16,6 +16,14 @@ pub fn init(root: Element) {
         for entry in entries.iter() {
             let entry = entry.unchecked_into::<web_sys::IntersectionObserverEntry>();
             if entry.is_intersecting() {
+                // reset animation antes de ativar
+                let el = root_cb.clone().unchecked_into::<web_sys::HtmlElement>();
+                let style = el.style();
+                let _ = style.set_property("animation", "none");
+                let _ = root_cb.clone().unchecked_into::<web_sys::HtmlElement>()
+                    .offset_width(); // force reflow
+                let _ = style.remove_property("animation");
+                state::remove_state(&root_cb, "inactive");
                 state::add_state(&root_cb, "active");
             } else {
                 state::remove_state(&root_cb, "active");

@@ -36,7 +36,7 @@
 [data-rs-avatar-group][data-rs-size="xl"] [data-rs-avatar] { width: var(--avatar-size-xl); height: var(--avatar-size-xl); }
 
 /* Shapes */
-[data-rs-avatar][data-rs-shape="circle"]  { border-radius: var(--avatar-radius); }
+[data-rs-avatar][data-rs-shape="circle"]  { border-radius: var(--avatar-radius); clip-path: circle(50%); }
 [data-rs-avatar][data-rs-shape="square"]  { border-radius: var(--avatar-radius-square); }
 [data-rs-avatar][data-rs-shape="rounded"] { border-radius: var(--avatar-radius-rounded); }
 
