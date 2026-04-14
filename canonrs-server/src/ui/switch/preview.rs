@@ -15,10 +15,22 @@ pub fn SwitchShowcasePreview() -> impl IntoView {
             <div data-rs-showcase-preview-section="">
                 <span data-rs-showcase-preview-label="">"States"</span>
                 <div data-rs-showcase-preview-row="">
-                    <Switch />
-                    <Switch checked=true />
-                    <Switch disabled=true />
-                    <Switch checked=true disabled=true />
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-xs)">
+                        <Switch />
+                        <span data-rs-showcase-preview-label="">"Off"</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-xs)">
+                        <Switch checked=true />
+                        <span data-rs-showcase-preview-label="">"On"</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-xs)">
+                        <Switch disabled=true />
+                        <span data-rs-showcase-preview-label="">"Disabled Off"</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-xs)">
+                        <Switch checked=true disabled=true />
+                        <span data-rs-showcase-preview-label="">"Disabled On"</span>
+                    </div>
                 </div>
             </div>
         </div>

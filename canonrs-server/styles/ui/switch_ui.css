@@ -17,8 +17,11 @@
 [data-rs-switch-input] {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   cursor: pointer;
+  margin: 0;
 }
 
 [data-rs-switch-thumb] {
@@ -48,5 +51,10 @@
 
 [data-rs-switch][data-rs-state~="focus"] {
   outline: none;
-  box-shadow: 0 0 0 var(--switch-focus-ring-width) var(--switch-track-bg-checked);
+  box-shadow: var(--focus-ring-shadow);
+}
+
+[data-rs-switch-input]:focus-visible ~ [data-rs-switch-thumb] {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }

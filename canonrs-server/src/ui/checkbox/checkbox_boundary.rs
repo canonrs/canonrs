@@ -3,10 +3,8 @@
 
 use leptos::prelude::*;
 use super::checkbox_ui::Checkbox as CheckboxUi;
-use canonrs_core::meta::{
-    ActivityState,
-    DisabledState
-};
+use canonrs_core::primitives::CheckboxState;
+use canonrs_core::meta::DisabledState;
 
 #[component]
 pub fn Checkbox(
@@ -16,7 +14,7 @@ pub fn Checkbox(
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let checked_state = if checked { ActivityState::Active } else { ActivityState::Inactive };
+    let checked_state = if checked { CheckboxState::Checked } else { CheckboxState::Unchecked };
     let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     view! {
         <CheckboxUi checked=checked_state disabled=disabled_state name=name class=class>

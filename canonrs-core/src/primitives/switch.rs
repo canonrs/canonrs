@@ -19,6 +19,8 @@ pub fn SwitchPrimitive(
     let sel = selection_attrs(checked);
     let d   = disabled_attrs(disabled);
     let state = format!("{} {}", sel.data_rs_state.unwrap_or(""), if disabled == DisabledState::Disabled { "disabled" } else { "" }).trim().to_string();
+    let is_checked = checked == SelectionState::Selected;
+    let aria_checked = if is_checked { "true" } else { "false" };
     view! {
         <label
             data-rs-switch=""
@@ -30,11 +32,13 @@ pub fn SwitchPrimitive(
         >
             <input
                 type="checkbox"
+                role="switch"
                 data-rs-switch-input=""
                 name=if name.is_empty() { None } else { Some(name) }
                 value=value
-                checked=checked == SelectionState::Selected
-                tabindex="-1"
+                checked=is_checked
+                aria-checked=aria_checked
+                tabindex="0"
             />
             {children()}
         </label>

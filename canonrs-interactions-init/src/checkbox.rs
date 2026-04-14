@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, query};
+use crate::runtime::{lifecycle, state, query, focus};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
@@ -19,34 +19,16 @@ pub fn init(root: Element) {
                 .map(|i| i.checked())
                 .unwrap_or(false);
             if is_checked {
-                state::remove_state(&root_cb, "inactive");
-                state::add_state(&root_cb, "active");
+                state::remove_state(&root_cb, "unchecked");
+                state::add_state(&root_cb, "checked");
             } else {
-                state::remove_state(&root_cb, "active");
-                state::add_state(&root_cb, "inactive");
+                state::remove_state(&root_cb, "checked");
+                state::add_state(&root_cb, "unchecked");
             }
         });
         let _ = input.add_event_listener_with_callback("change", cb.as_ref().unchecked_ref());
         cb.forget();
     }
 
-    // focus
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            state::add_state(&root_cb, "focus");
-        });
-        let _ = root.add_event_listener_with_callback("focusin", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-
-    // blur
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            state::remove_state(&root_cb, "focus");
-        });
-        let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+    focus::init_within(&root);
 }

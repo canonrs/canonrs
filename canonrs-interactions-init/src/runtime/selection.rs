@@ -6,16 +6,16 @@ use web_sys::Element;
 use crate::runtime::{state, query, aria};
 
 /// Single selection — click item → deselect all → select clicked
+/// root: elemento container (source of truth)
 /// item_selector: seletor dos items (ex: "[data-rs-menu-item]")
 pub fn init_single(root: &Element, item_selector: &'static str) {
     let root_cb = root.clone();
+    let root_ref = root.clone();
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
         let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
         let Some(item) = target.closest(item_selector).ok().flatten() else { return };
         if item.get_attribute("data-rs-state").map(|s| s.contains("disabled")).unwrap_or(false) { return; }
-        let Some(root) = target.closest("[data-rs-menu]").ok().flatten()
-            .or_else(|| target.closest("[data-rs-tabs]").ok().flatten()) else { return };
-        for el in query::all(&root, item_selector) {
+        for el in query::all(&root_ref, item_selector) {
             state::remove_state(&el, "selected");
             state::add_state(&el, "unselected");
             aria::set_selected(&el, false);

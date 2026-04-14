@@ -184,7 +184,7 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 
 
-checkbox
+
 collapsible
 command
 doc_progress
@@ -199,7 +199,6 @@ nav_item
 navigation_menu
 progress
 radio_group
-switch
 table
 table_of_contents
 toggle

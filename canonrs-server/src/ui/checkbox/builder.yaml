@@ -11,7 +11,7 @@ optional_parts: []
 tags: ["checkbox", "check", "tick", "selection", "multiple"]
 keywords: 
 pain: Checkbox state desyncs between UI and internal state
-promise: Checked state mapped explicitly to activity state
+promise: Selection state (checked/unchecked/indeterminate) drives visual and aria-checked contract
 why: |
   CheckboxPrimitive maps ActivityState to checked and ARIA attributes. This ensures UI and accessibility stay in sync. The contract prevents mismatched boolean and DOM state.
 rules: ["CR-001", "CR-004"]

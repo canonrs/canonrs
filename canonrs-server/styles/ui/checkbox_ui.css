@@ -14,7 +14,15 @@
   height: 0;
 }
 
+[data-rs-checkbox-input]:focus-visible ~ [data-rs-checkbox-indicator],
+[data-rs-checkbox][data-rs-state~="focus"] [data-rs-checkbox-indicator] {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
 [data-rs-checkbox-indicator] {
+  min-width: var(--checkbox-size);
+  min-height: var(--checkbox-size);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +36,14 @@
   flex-shrink: 0;
 }
 
-[data-rs-checkbox][data-rs-state~="active"] [data-rs-checkbox-indicator] {
+[data-rs-checkbox][data-rs-state~="indeterminate"] [data-rs-checkbox-indicator] {
+  background: var(--checkbox-checked-bg);
+  border-color: var(--checkbox-checked-border-color);
+  color: var(--checkbox-checked-fg);
+  opacity: 0.6;
+}
+
+[data-rs-checkbox][data-rs-state~="checked"] [data-rs-checkbox-indicator] {
   background: var(--checkbox-checked-bg);
   border-color: var(--checkbox-checked-border-color);
   color: var(--checkbox-checked-fg);

@@ -3,26 +3,51 @@
 //! Checkbox Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::meta::{ActivityState, DisabledState};
-use crate::infra::state_engine::{activity_attrs, disabled_attrs};
+use crate::meta::DisabledState;
+use crate::infra::state_engine::disabled_attrs;
+
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
+pub enum CheckboxState {
+    #[default]
+    Unchecked,
+    Checked,
+    Indeterminate,
+}
+
+impl CheckboxState {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Unchecked     => "unchecked",
+            Self::Checked       => "checked",
+            Self::Indeterminate => "indeterminate",
+        }
+    }
+    pub fn aria_checked(&self) -> &'static str {
+        match self {
+            Self::Unchecked     => "false",
+            Self::Checked       => "true",
+            Self::Indeterminate => "mixed",
+        }
+    }
+    pub fn is_checked(&self) -> bool {
+        matches!(self, Self::Checked)
+    }
+}
 
 #[component]
 pub fn CheckboxPrimitive(
     children: Children,
-    #[prop(default = ActivityState::Inactive)] checked: ActivityState,
+    #[prop(default = CheckboxState::Unchecked)] checked: CheckboxState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let a = activity_attrs(checked);
     let d = disabled_attrs(disabled);
-    let is_checked = checked == ActivityState::Active;
     let state = if disabled == DisabledState::Disabled {
-        format!("{} disabled", a.data_rs_state)
+        format!("{} disabled", checked.as_str())
     } else {
-        a.data_rs_state.to_string()
+        checked.as_str().to_string()
     };
-
     view! {
         <label
             data-rs-checkbox=""
@@ -35,8 +60,9 @@ pub fn CheckboxPrimitive(
             <input
                 type="checkbox"
                 data-rs-checkbox-input=""
-                checked=is_checked
+                checked=checked.is_checked()
                 disabled=d.disabled
+                aria-checked=checked.aria_checked()
                 name={if name.is_empty() { None } else { Some(name) }}
             />
             {children()}

@@ -14,7 +14,7 @@ pub fn Switch(
 ) -> impl IntoView {
     view! {
         <SwitchUi checked=checked disabled=disabled name=name value=value class=class>
-            <span></span>
+            ""
         </SwitchUi>
-};
+    }
 }
