@@ -34,7 +34,7 @@ pub fn SpinnerPrimitive(
     view! {
         <svg
             data-rs-spinner=""
-            data-rs-component="Spinner"
+            data-rs-uid=crate::infra::uid::generate("spn")
             data-rs-size=size.as_str()
             data-rs-state=la.data_rs_state
             role="status"

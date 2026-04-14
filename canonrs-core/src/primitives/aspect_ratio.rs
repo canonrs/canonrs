@@ -16,7 +16,7 @@ pub fn AspectRatioPrimitive(
     view! {
         <div
             data-rs-aspect-ratio=""
-            data-rs-component="AspectRatio"
+            data-rs-uid=crate::infra::uid::generate("ar")
             data-rs-ratio=ratio
             style=ratio_style
             class=class

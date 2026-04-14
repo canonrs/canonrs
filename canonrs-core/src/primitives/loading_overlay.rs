@@ -36,7 +36,6 @@ pub fn LoadingOverlayPrimitive(
     view! {
         <div
             data-rs-overlay-container=""
-            data-rs-component="LoadingOverlay"
             data-rs-state=data_state
             data-rs-overlay-mode=mode.as_str()
             aria-busy=if is_loading { "true" } else { "false" }

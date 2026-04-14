@@ -28,7 +28,6 @@ pub fn CheckboxPrimitive(
             data-rs-checkbox=""
             data-rs-uid=crate::infra::uid::generate("cb")
             data-rs-interaction="init"
-            data-rs-component="Checkbox"
             data-rs-state=state
             aria-disabled=d.aria_disabled
             class=class

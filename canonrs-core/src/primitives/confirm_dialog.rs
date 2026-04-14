@@ -38,7 +38,6 @@ pub fn ConfirmDialogPrimitive(
             data-rs-confirm-dialog=""
             data-rs-interaction="overlay"
             data-rs-uid=crate::infra::uid::generate("cd")
-            data-rs-component="ConfirmDialog"
             data-rs-variant=variant.as_str()
             data-rs-state=s.data_rs_state
             role="alertdialog"

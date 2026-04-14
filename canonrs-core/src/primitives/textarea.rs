@@ -25,7 +25,6 @@ pub fn TextareaPrimitive(
             data-rs-textarea=""
             data-rs-uid=crate::infra::uid::generate("ta2")
             data-rs-interaction="init"
-            data-rs-component="Textarea"
             data-rs-disabled=d.data_rs_disabled
             data-rs-readonly={if readonly { Some("") } else { None }}
             data-rs-required={if required { Some("") } else { None }}

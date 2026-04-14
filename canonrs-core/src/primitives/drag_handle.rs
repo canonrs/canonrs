@@ -15,6 +15,7 @@ pub fn DragHandlePrimitive(
         <button
             type="button"
             data-rs-drag-handle=""
+            data-rs-uid=crate::infra::uid::generate("dh")
             data-rs-state={if active { "open" } else { "closed" }}
             aria-label="Drag to reorder"
             class=class

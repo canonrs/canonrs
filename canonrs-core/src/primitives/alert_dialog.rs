@@ -24,8 +24,8 @@ pub fn AlertDialogContentPrimitive(
     view! {
         <div
             data-rs-dialog-content=""
+            data-rs-uid=crate::infra::uid::generate("ad")
             data-rs-interaction="overlay"
-            data-rs-component="AlertDialogContent"
             role="alertdialog"
             aria-modal="true"
             aria-live="assertive"

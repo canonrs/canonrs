@@ -28,12 +28,33 @@ pub(crate) fn parse_primitives(dir: &Path) -> HashMap<String, PrimitiveInfo> {
 }
 
 fn parse_primitive_file(content: &str) -> Option<PrimitiveInfo> {
-    let component_name = extract_quoted_attr(content, "data-rs-component")?;
+    // Try data-rs-component first, fallback to fn *Primitive pattern
+    let component_name = extract_quoted_attr(content, "data-rs-component")
+        .or_else(|| extract_primitive_name(content))?;
     let id             = pascal_to_kebab(&component_name);
     let behavior       = extract_quoted_attr(content, "data-rs-behavior")
         .unwrap_or_else(|| "unknown".to_string());
     let variants       = extract_variants(content);
     Some(PrimitiveInfo { id, component_name, behavior, variants })
+}
+
+fn extract_primitive_name(content: &str) -> Option<String> {
+    // Extract FIRST pub fn *Primitive( from file — that's the root primitive
+    for line in content.lines() {
+        let t = line.trim();
+        if t.starts_with("pub fn ") && t.contains("Primitive(") {
+            let name = t
+                .trim_start_matches("pub fn ")
+                .split("Primitive(")
+                .next()?
+                .trim()
+                .to_string();
+            if !name.is_empty() {
+                return Some(name);
+            }
+        }
+    }
+    None
 }
 
 fn extract_quoted_attr(content: &str, attr: &str) -> Option<String> {

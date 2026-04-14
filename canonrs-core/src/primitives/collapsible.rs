@@ -22,7 +22,6 @@ pub fn CollapsiblePrimitive(
             data-rs-collapsible=""
             data-rs-uid=crate::infra::uid::generate("col")
             data-rs-interaction="init"
-            data-rs-component="Collapsible"
             data-rs-state=s.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled

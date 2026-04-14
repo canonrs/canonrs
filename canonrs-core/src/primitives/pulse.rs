@@ -66,7 +66,7 @@ pub fn PulsePrimitive(
     view! {
         <span
             data-rs-pulse=""
-            data-rs-component="Pulse"
+            data-rs-uid=crate::infra::uid::generate("pls")
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-speed=speed.as_str()

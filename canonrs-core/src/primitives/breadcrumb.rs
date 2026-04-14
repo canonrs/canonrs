@@ -16,7 +16,6 @@ pub fn BreadcrumbPrimitive(
             data-rs-breadcrumb=""
             data-rs-uid=crate::infra::uid::generate("bc")
             data-rs-interaction="nav"
-            data-rs-component="Breadcrumb"
             aria-label="Breadcrumb"
             class=class
         >

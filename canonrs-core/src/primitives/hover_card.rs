@@ -39,7 +39,6 @@ pub fn HoverCardPrimitive(
             data-rs-hover-card=""
             data-rs-uid=crate::infra::uid::generate("hc")
             data-rs-interaction="overlay"
-            data-rs-component="HoverCard"
             data-rs-state=s.data_rs_state
             class=class
         >

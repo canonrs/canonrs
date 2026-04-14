@@ -13,6 +13,7 @@ pub fn ResizeHandlePrimitive(
     view! {
         <span
             data-rs-resize-handle=""
+            data-rs-uid=crate::infra::uid::generate("rh")
             data-rs-state="inactive"
             data-rs-resize-col-id=col_id
             role="separator"

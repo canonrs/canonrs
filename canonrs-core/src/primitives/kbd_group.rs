@@ -12,6 +12,7 @@ pub fn KbdGroupPrimitive(
     view! {
         <span
             data-rs-kbd-group=""
+            data-rs-uid=crate::infra::uid::generate("kbg")
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >

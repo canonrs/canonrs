@@ -32,7 +32,7 @@ pub fn SeparatorPrimitive(
     view! {
         <div
             data-rs-separator=""
-            data-rs-component="Separator"
+            data-rs-uid=crate::infra::uid::generate("sep")
             data-rs-orientation=orientation.as_str()
             role=role
             aria-orientation=aria_orientation

@@ -14,7 +14,7 @@ pub fn CalendarPrimitive(
     view! {
         <div
             data-rs-calendar=""
-            data-rs-component="Calendar"
+            data-rs-uid=crate::infra::uid::generate("cal")
             class=class
         >
             {children()}
@@ -117,7 +117,7 @@ pub fn CalendarCellPrimitive(
             role="gridcell"
             aria-selected=sel.aria_selected
             aria-disabled=d.aria_disabled
-            data-rs-selected=sel.data_rs_state
+            data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             data-rs-activity=act.data_rs_state
             tabindex=if activity == ActivityState::Active { "0" } else { "-1" }

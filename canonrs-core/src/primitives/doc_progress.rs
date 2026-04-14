@@ -31,7 +31,6 @@ pub fn DocProgressPrimitive(
             data-rs-doc-progress=""
             data-rs-uid=crate::infra::uid::generate("dp")
             data-rs-interaction="init"
-            data-rs-component="DocProgress"
             data-rs-progress=progress_str.clone()
             role="progressbar"
             aria-valuemin="0"
@@ -54,7 +53,6 @@ pub fn DocProgressPortal(
     view! {
         <div
             data-rs-doc-progress-portal=""
-            data-rs-component="DocProgressPortal"
             data-rs-scroll-target=scroll_target
             data-rs-position=position.as_str()
             aria-hidden="true"

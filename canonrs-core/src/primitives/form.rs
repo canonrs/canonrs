@@ -72,7 +72,6 @@ pub fn FormPrimitive(
             data-rs-form=""
             data-rs-uid=crate::infra::uid::generate("fo")
             data-rs-interaction="init"
-            data-rs-component="Form"
             data-rs-state=v.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             action={if action.is_empty() { None } else { Some(action) }}

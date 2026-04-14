@@ -39,7 +39,6 @@ pub fn SheetPrimitive(
             data-rs-sheet=""
             data-rs-interaction="overlay"
             data-rs-uid=crate::infra::uid::generate("sh")
-            data-rs-component="Sheet"
             data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
             class=class

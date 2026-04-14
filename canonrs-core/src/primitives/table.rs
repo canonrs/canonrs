@@ -81,7 +81,6 @@ pub fn TablePrimitive(
             data-rs-table=""
             data-rs-uid=crate::infra::uid::generate("tbl")
             data-rs-interaction="data"
-            data-rs-component="Table"
             data-rs-state=state.as_str()
             data-rs-striped={striped.then_some("")}
             data-rs-hoverable={hoverable.then_some("")}

@@ -29,7 +29,6 @@ pub fn ToggleGroupPrimitive(
             data-rs-toggle-group=""
             data-rs-uid=crate::infra::uid::generate("tg")
             data-rs-interaction="selection"
-            data-rs-component="ToggleGroup"
             data-rs-multiple=if multiple { "true" } else { "false" }
             data-rs-state=state_str
             role="group"

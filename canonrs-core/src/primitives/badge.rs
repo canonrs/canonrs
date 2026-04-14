@@ -55,7 +55,7 @@ pub fn BadgePrimitive(
     view! {
         <span
             data-rs-badge=""
-            data-rs-component="Badge"
+            data-rs-uid=crate::infra::uid::generate("bdg")
             data-rs-variant=variant.as_str()
             data-rs-interactivity=interactivity.as_str()
             aria-label=aria_label

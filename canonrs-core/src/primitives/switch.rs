@@ -24,7 +24,6 @@ pub fn SwitchPrimitive(
             data-rs-switch=""
             data-rs-uid=crate::infra::uid::generate("sw")
             data-rs-interaction="init"
-            data-rs-component="Switch"
             data-rs-state=state
             aria-disabled=d.aria_disabled
             class=class

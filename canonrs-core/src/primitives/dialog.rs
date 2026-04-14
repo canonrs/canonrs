@@ -19,7 +19,6 @@ pub fn DialogPrimitive(
             data-rs-dialog=""
             data-rs-interaction="overlay"
             data-rs-uid=crate::infra::uid::generate("dlg")
-            data-rs-component="Dialog"
             data-rs-state=s.data_rs_state
             class=class
         >
@@ -62,7 +61,6 @@ pub fn DialogPortalPrimitive(
     view! {
         <div
             data-rs-dialog-portal=""
-            data-rs-component="DialogPortal"
             data-rs-state=s.data_rs_state
         >
             {children()}

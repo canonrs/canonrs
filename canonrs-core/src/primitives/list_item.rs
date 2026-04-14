@@ -12,7 +12,6 @@ pub fn ListPrimitive(
     view! {
         <ul
             data-rs-list=""
-            data-rs-component="ListItem"
             class=class
         >
             {children()}

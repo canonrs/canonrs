@@ -21,7 +21,6 @@ pub fn DropdownMenuPrimitive(
             data-rs-dropdown-menu=""
             data-rs-uid=crate::infra::uid::generate("dm")
             data-rs-interaction="overlay"
-            data-rs-component="DropdownMenu"
             data-rs-state=s.data_rs_state
             class=class
             node_ref=node_ref.unwrap_or_default()

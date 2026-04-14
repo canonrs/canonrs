@@ -30,7 +30,6 @@ pub fn TabsPrimitive(
             data-rs-tabs=""
             data-rs-uid=crate::infra::uid::generate("tab")
             data-rs-interaction="nav"
-            data-rs-component="Tabs"
             class=class
             node_ref=node_ref.unwrap_or_default()
         >

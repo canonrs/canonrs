@@ -14,7 +14,6 @@ pub fn VirtualListPrimitive(
             data-rs-virtual-list=""
             data-rs-uid=crate::infra::uid::generate("vl")
             data-rs-interaction="data"
-            data-rs-component="VirtualList"
             role="list"
             class=class
         >

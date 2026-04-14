@@ -42,7 +42,6 @@ pub fn TreePrimitive(
             data-rs-tree=""
             data-rs-uid=crate::infra::uid::generate("tr")
             data-rs-interaction="selection"
-            data-rs-component="Tree"
             data-rs-selection=selection.as_str()
             role="tree"
             aria-label=aria_label

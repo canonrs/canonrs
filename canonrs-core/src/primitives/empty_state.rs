@@ -32,7 +32,7 @@ pub fn EmptyStatePrimitive(
     view! {
         <div
             data-rs-empty=""
-            data-rs-component="EmptyState"
+            data-rs-uid=crate::infra::uid::generate("es")
             data-rs-variant=variant.as_str()
             role="status"
             aria-live="polite"

@@ -49,7 +49,7 @@ pub fn InlineNoticePrimitive(
     view! {
         <div
             data-rs-inline-notice=""
-            data-rs-component="InlineNotice"
+            data-rs-uid=crate::infra::uid::generate("in")
             data-rs-variant=variant.as_str()
             role=variant.role()
             aria-live=variant.aria_live()

@@ -12,7 +12,7 @@ pub fn StatPrimitive(
     view! {
         <div
             data-rs-stat=""
-            data-rs-component="Stat"
+            data-rs-uid=crate::infra::uid::generate("sta")
             class=class
         >
             {children()}

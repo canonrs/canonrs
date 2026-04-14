@@ -49,7 +49,6 @@ pub fn AlertPrimitive(
             data-rs-alert=""
             data-rs-uid=crate::infra::uid::generate("al")
             data-rs-interaction="init"
-            data-rs-component="Alert"
             data-rs-variant=variant.as_str()
             data-rs-state="open"
             role=variant.role()

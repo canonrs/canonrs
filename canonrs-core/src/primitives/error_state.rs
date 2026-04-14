@@ -12,7 +12,7 @@ pub fn ErrorStatePrimitive(
     view! {
         <div
             data-rs-error-state=""
-            data-rs-component="ErrorState"
+            data-rs-uid=crate::infra::uid::generate("ers")
             role="status"
             aria-live="assertive"
             class=class

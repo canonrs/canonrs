@@ -15,7 +15,7 @@ pub fn ButtonGroupPrimitive(
     view! {
         <div
             data-rs-button-group=""
-            data-rs-component="ButtonGroup"
+            data-rs-uid=crate::infra::uid::generate("bg")
             data-rs-state={if attached == ToggleState::On { Some("attached") } else { None }}
             role="group"
             aria-label=aria_label

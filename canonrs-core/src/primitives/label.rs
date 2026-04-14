@@ -14,7 +14,7 @@ pub fn LabelPrimitive(
     view! {
         <label
             data-rs-label=""
-            data-rs-component="Label"
+            data-rs-uid=crate::infra::uid::generate("lbl")
             for={if html_for.is_empty() { None } else { Some(html_for) }}
             data-rs-required={if required { Some("") } else { None }}
             aria-required={if required { Some("true") } else { None }}

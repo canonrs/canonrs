@@ -16,7 +16,6 @@ pub fn MenubarPrimitive(
             data-rs-menubar=""
             data-rs-uid=crate::infra::uid::generate("mb")
             data-rs-interaction="nav"
-            data-rs-component="Menubar"
             role="menubar"
             class=class
         >

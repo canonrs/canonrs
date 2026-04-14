@@ -15,6 +15,7 @@ pub fn ListPrimitive(
     view! {
         <div
             data-rs-list=""
+            data-rs-uid=crate::infra::uid::generate("lst")
             role="listbox"
             aria-label=aria_label
             class=class

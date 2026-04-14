@@ -50,7 +50,7 @@ pub fn KbdPrimitive(
     view! {
         <kbd
             data-rs-kbd=""
-            data-rs-component="Kbd"
+            data-rs-uid=crate::infra::uid::generate("kbd")
             data-rs-size=size.as_str()
             data-rs-variant=variant.as_str()
             class=class

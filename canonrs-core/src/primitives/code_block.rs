@@ -17,7 +17,6 @@ pub fn CodeBlockPrimitive(
             data-rs-code-block=""
             data-rs-uid=crate::infra::uid::generate("cob")
             data-rs-interaction="content"
-            data-rs-component="CodeBlock"
             data-rs-language=language
             class=class
         >

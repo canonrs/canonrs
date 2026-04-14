@@ -32,7 +32,6 @@ pub fn ToolbarPrimitive(
             data-rs-toolbar=""
             data-rs-uid=crate::infra::uid::generate("tb2")
             data-rs-interaction="nav"
-            data-rs-component="Toolbar"
             data-rs-variant=orientation.as_str()
             role="toolbar"
             aria-label=aria_label

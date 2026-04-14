@@ -28,7 +28,6 @@ pub fn SliderPrimitive(
             data-rs-slider=""
             data-rs-uid=crate::infra::uid::generate("sl")
             data-rs-interaction="gesture"
-            data-rs-component="Slider"
             data-rs-orientation=orientation.clone()
             data-rs-disabled=d.data_rs_disabled
             data-rs-value=clamped_value.to_string()
@@ -54,7 +53,7 @@ pub fn SliderTrackPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-slider-track="" data-rs-component="SliderTrack" class=class>
+        <div data-rs-slider-track="" class=class>
             {children()}
         </div>
     }
@@ -65,7 +64,7 @@ pub fn SliderRangePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-slider-range="" data-rs-component="SliderRange" class=class />
+        <div data-rs-slider-range="" class=class />
     }
 }
 
@@ -74,7 +73,7 @@ pub fn SliderThumbPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-slider-thumb="" data-rs-component="SliderThumb" tabindex="0" aria-label="Slider thumb" class=class />
+        <div data-rs-slider-thumb="" tabindex="0" aria-label="Slider thumb" class=class />
     }
 }
 

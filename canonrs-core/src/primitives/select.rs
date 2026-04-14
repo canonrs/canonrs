@@ -32,7 +32,6 @@ pub fn SelectPrimitive(
             data-rs-select=""
             data-rs-uid=crate::infra::uid::generate("sel")
             data-rs-interaction="selection"
-            data-rs-component="Select"
             data-rs-role="root"
             data-rs-state=state_str
             aria-disabled=aria_disabled
@@ -55,7 +54,6 @@ pub fn SelectTriggerPrimitive(
         <button
             type="button"
             data-rs-select-trigger=""
-            data-rs-component="SelectTrigger"
             aria-haspopup="listbox"
             aria-expanded="false"
             aria-disabled=aria_disabled
@@ -75,7 +73,6 @@ pub fn SelectValuePrimitive(
     view! {
         <span
             data-rs-select-value=""
-            data-rs-component="SelectValue"
             data-rs-placeholder=placeholder
             class=class
         >
@@ -92,7 +89,6 @@ pub fn SelectContentPrimitive(
     view! {
         <div
             data-rs-select-content=""
-            data-rs-component="SelectContent"
             role="listbox"
             class=class
         >
@@ -121,7 +117,6 @@ pub fn SelectItemPrimitive(
     view! {
         <div
             data-rs-select-item=""
-            data-rs-component="SelectItem"
             data-rs-state=state_str
             data-rs-value=value
             role="option"
@@ -142,7 +137,6 @@ pub fn SelectSeparatorPrimitive(
     view! {
         <div
             data-rs-select-separator=""
-            data-rs-component="SelectSeparator"
             role="separator"
             class=class
         />

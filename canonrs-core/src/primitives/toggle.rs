@@ -22,7 +22,6 @@ pub fn TogglePrimitive(
             data-rs-toggle=""
             data-rs-uid=crate::infra::uid::generate("tog")
             data-rs-interaction="init"
-            data-rs-component="Toggle"
             data-rs-state=t.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-label=if aria_label.is_empty() { None } else { Some(aria_label) }

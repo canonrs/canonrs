@@ -45,7 +45,6 @@ pub fn DataTablePrimitive(
             data-rs-datatable=""
             data-rs-uid=crate::infra::uid::generate("dt")
             data-rs-interaction="data"
-            data-rs-component="DataTable"
             data-rs-density=density.as_str()
             class=class
         >

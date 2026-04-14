@@ -19,7 +19,6 @@ pub fn ModalPrimitive(
             data-rs-modal=""
             data-rs-interaction="overlay"
             data-rs-uid=crate::infra::uid::generate("mo")
-            data-rs-component="Modal"
             data-rs-state=s.data_rs_state
             class=class
         >

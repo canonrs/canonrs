@@ -43,7 +43,6 @@ pub fn FieldPrimitive(
             data-rs-field=""
             data-rs-uid=crate::infra::uid::generate("fi")
             data-rs-interaction="init"
-            data-rs-component="Field"
             data-rs-state=validation.as_str()
             data-rs-disabled=d.data_rs_disabled
             aria-invalid=validation.aria_invalid()

@@ -36,8 +36,8 @@ pub fn ScrollAreaPrimitive(
     view! {
         <div
             data-rs-scroll-area=""
+            data-rs-uid=crate::infra::uid::generate("sa")
             data-rs-interaction="gesture"
-            data-rs-component="ScrollArea"
             data-rs-orientation=orientation.as_str()
             data-rs-auto-hide={auto_hide.then_some("")}
             role="region"

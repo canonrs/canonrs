@@ -19,7 +19,6 @@ pub fn ContextMenuPrimitive(
             data-rs-context-menu=""
             data-rs-uid=crate::infra::uid::generate("cm")
             data-rs-interaction="overlay"
-            data-rs-component="ContextMenu"
             data-rs-state=s.data_rs_state
             class=class
         >

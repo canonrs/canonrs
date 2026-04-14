@@ -16,6 +16,7 @@ pub fn InputOtpSlotPrimitive(
     view! {
         <div
             data-rs-input-otp-slot=""
+            data-rs-uid=crate::infra::uid::generate("ios")
             data-rs-state=a.data_rs_state
             class=class
         >

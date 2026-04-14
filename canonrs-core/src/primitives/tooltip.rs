@@ -39,7 +39,6 @@ pub fn TooltipPrimitive(
             data-rs-tooltip=""
             data-rs-uid=crate::infra::uid::generate("tip")
             data-rs-interaction="init"
-            data-rs-component="Tooltip"
             data-rs-state=s.data_rs_state
             class=class
         >

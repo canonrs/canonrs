@@ -18,7 +18,6 @@ pub fn CommandPrimitive(
             data-rs-command=""
             data-rs-uid=crate::infra::uid::generate("cmd")
             data-rs-interaction="init"
-            data-rs-component="Command"
             data-rs-state=s.data_rs_state
             role="listbox"
             aria-label="Command palette"
@@ -130,7 +129,6 @@ pub fn CommandItemPrimitive(
             data-rs-command-item=""
             data-rs-value=value
             data-rs-state=a.data_rs_state
-            data-rs-selected=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             role="option"
             aria-selected=sel.aria_selected

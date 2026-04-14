@@ -30,7 +30,7 @@ pub fn SkeletonPrimitive(
     view! {
         <div
             data-rs-skeleton=""
-            data-rs-component="Skeleton"
+            data-rs-uid=crate::infra::uid::generate("skl")
             data-rs-variant=variant.as_str()
             aria-busy="true"
             aria-live="polite"

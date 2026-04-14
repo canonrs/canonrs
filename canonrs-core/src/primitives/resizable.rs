@@ -39,7 +39,6 @@ pub fn ResizablePrimitive(
             data-rs-resizable=""
             data-rs-uid=RESIZABLE_ID.fetch_add(1, Ordering::SeqCst).to_string()
             data-rs-interaction="gesture"
-            data-rs-component="Resizable"
             data-rs-orientation=orientation.as_str()
             data-rs-min-size=min_size.to_string()
             data-rs-max-size=max_size.to_string()

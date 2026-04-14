@@ -14,6 +14,7 @@ pub fn DragContainerPrimitive(
     view! {
         <div
             data-rs-drag-container=""
+            data-rs-uid=crate::infra::uid::generate("dc")
             data-rs-state={if active { "open" } else { "closed" }}
             role="list"
             class=class

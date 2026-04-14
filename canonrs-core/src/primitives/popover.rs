@@ -39,7 +39,6 @@ pub fn PopoverPrimitive(
             data-rs-popover=""
             data-rs-uid=crate::infra::uid::generate("pop")
             data-rs-interaction="overlay"
-            data-rs-component="Popover"
             data-rs-state=s.data_rs_state
             class=class
         >

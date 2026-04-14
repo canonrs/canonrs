@@ -62,7 +62,6 @@ pub fn AnimatePrimitive(
             data-rs-animate=""
             data-rs-uid=crate::infra::uid::generate("an")
             data-rs-interaction="init"
-            data-rs-component="Animate"
             data-rs-animation=animation.as_str()
             data-rs-easing=easing.as_str()
             data-rs-duration=duration

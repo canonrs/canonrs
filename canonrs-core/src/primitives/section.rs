@@ -10,7 +10,8 @@ pub fn SectionHeaderPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-section-header="" data-rs-component="SectionHeader" class=class>
+        <div data-rs-section-header="" class=class>
+        data-rs-uid=crate::infra::uid::generate("sec")
             {children()}
         </div>
     }
@@ -22,7 +23,7 @@ pub fn SectionTitlePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <h2 data-rs-section-title="" data-rs-component="SectionTitle" class=class>
+        <h2 data-rs-section-title="" class=class>
             {children()}
         </h2>
     }
@@ -34,7 +35,7 @@ pub fn SectionSubtitlePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <p data-rs-section-subtitle="" data-rs-component="SectionSubtitle" class=class>
+        <p data-rs-section-subtitle="" class=class>
             {children()}
         </p>
     }
@@ -46,7 +47,7 @@ pub fn SectionBadgePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <span data-rs-section-badge="" data-rs-component="SectionBadge" class=class>
+        <span data-rs-section-badge="" class=class>
             {children()}
         </span>
     }

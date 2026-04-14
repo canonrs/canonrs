@@ -13,7 +13,7 @@ pub fn EmptyTablePrimitive(
     view! {
         <tr
             data-rs-empty-table-row=""
-            data-rs-component="EmptyTable"
+            data-rs-uid=crate::infra::uid::generate("et")
             role="row"
             class=class
         >

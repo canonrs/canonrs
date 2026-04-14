@@ -31,7 +31,6 @@ pub fn RadioPrimitive(
             data-rs-radio=""
             data-rs-uid=crate::infra::uid::generate("ra")
             data-rs-interaction="selection"
-            data-rs-component="Radio"
             data-rs-state=state_str
             data-rs-disabled=d.data_rs_disabled
             class=class

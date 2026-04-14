@@ -16,7 +16,7 @@ pub fn LogoPrimitive(
     view! {
         <a
             data-rs-logo=""
-            data-rs-component="Logo"
+            data-rs-uid=crate::infra::uid::generate("lgo")
             data-rs-size=size
             data-rs-variant=variant
             href=href

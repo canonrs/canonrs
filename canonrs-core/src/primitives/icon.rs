@@ -10,7 +10,8 @@ pub fn IconPrimitive(
     #[prop(optional, into)] id: Option<String>,
 ) -> impl IntoView {
     view! {
-        <span data-rs-icon="" data-rs-component="Icon" class={class} id=id>
+        <span data-rs-icon="" class={class} id=id>
+        data-rs-uid=crate::infra::uid::generate("ico")
             {children()}
         </span>
     }

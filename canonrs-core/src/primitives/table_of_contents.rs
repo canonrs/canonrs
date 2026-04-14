@@ -53,7 +53,6 @@ pub fn TocPrimitive(
             data-rs-toc=""
             data-rs-uid=crate::infra::uid::generate("toc")
             data-rs-interaction="init"
-            data-rs-component="TableOfContents"
             data-rs-mode=mode.as_str()
             aria-label="Table of contents"
             class=class

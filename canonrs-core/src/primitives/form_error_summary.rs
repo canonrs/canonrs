@@ -12,7 +12,7 @@ pub fn FormErrorSummaryPrimitive(
     view! {
         <div
             data-rs-form-error-summary=""
-            data-rs-component="FormErrorSummary"
+            data-rs-uid=crate::infra::uid::generate("fes")
             role="alert"
             aria-live="assertive"
             aria-atomic="true"

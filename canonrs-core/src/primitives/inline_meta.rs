@@ -12,7 +12,7 @@ pub fn InlineMetaPrimitive(
     view! {
         <span
             data-rs-inline-meta=""
-            data-rs-component="InlineMeta"
+            data-rs-uid=crate::infra::uid::generate("im")
             class=class
         >
             {children()}

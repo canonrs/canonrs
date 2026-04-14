@@ -32,7 +32,6 @@ pub fn AccordionPrimitive(
             data-rs-accordion=""
             data-rs-uid=generate("ac")
             data-rs-interaction="nav"
-            data-rs-component="Accordion"
             data-rs-selection=selection.as_str()
             data-rs-collapsible=if collapsible { "true" } else { "false" }
             class=class

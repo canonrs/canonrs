@@ -27,7 +27,6 @@ pub fn RadioGroupPrimitive(
             data-rs-radio-group=""
             data-rs-uid=crate::infra::uid::generate("rg")
             data-rs-interaction="selection"
-            data-rs-component="RadioGroup"
             data-rs-disabled=d.data_rs_disabled
             role="radiogroup"
             aria-disabled=d.aria_disabled
@@ -60,7 +59,6 @@ pub fn RadioGroupItemPrimitive(
     view! {
         <label
             data-rs-radio=""
-            data-rs-component="RadioGroupItem"
             data-rs-state=state_str
             data-rs-disabled=d.data_rs_disabled
             class=class

@@ -12,7 +12,7 @@ pub fn HeroPrimitive(
     view! {
         <div
             data-rs-block=""
-            data-rs-component="Hero"
+            data-rs-uid=crate::infra::uid::generate("hr")
             class=class
         >
             {children()}

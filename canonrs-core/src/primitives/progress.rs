@@ -17,7 +17,6 @@ pub fn ProgressPrimitive(
             data-rs-progress=""
             data-rs-uid=crate::infra::uid::generate("pr")
             data-rs-interaction="init"
-            data-rs-component="Progress"
             role="progressbar"
             aria-valuemin="0"
             aria-valuemax="100"

@@ -14,7 +14,7 @@ pub fn CardPrimitive(
     view! {
         <div
             data-rs-card=""
-            data-rs-component="Card"
+            data-rs-uid=crate::infra::uid::generate("crd")
             data-rs-variant=variant
             role="region"
             aria-label=aria_label

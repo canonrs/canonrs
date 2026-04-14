@@ -26,7 +26,6 @@ pub fn ComboboxPrimitive(
             data-rs-combobox=""
             data-rs-uid=crate::infra::uid::generate("cbx")
             data-rs-interaction="selection"
-            data-rs-component="Combobox"
             data-rs-role="root"
             data-rs-state=state_str
             role="combobox"
@@ -51,7 +50,6 @@ pub fn ComboboxInputPrimitive(
     view! {
         <input
             data-rs-combobox-input=""
-            data-rs-component="ComboboxInput"
             type="text"
             placeholder=placeholder
             aria-autocomplete="list"
@@ -71,7 +69,6 @@ pub fn ComboboxListPrimitive(
         <div
             data-rs-combobox-list=""
             data-rs-role="list"
-            data-rs-component="ComboboxList"
             role="listbox"
             class=class
         >
@@ -100,7 +97,6 @@ pub fn ComboboxItemPrimitive(
     view! {
         <div
             data-rs-combobox-item=""
-            data-rs-component="ComboboxItem"
             data-rs-state=state_str
             data-rs-value=value
             role="option"

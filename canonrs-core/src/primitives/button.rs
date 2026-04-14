@@ -110,7 +110,6 @@ pub fn ButtonPrimitive(
             data-rs-button=""
             data-rs-uid=crate::infra::uid::generate("bt")
             data-rs-interaction="init"
-            data-rs-component="Button"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-disabled=d.data_rs_disabled

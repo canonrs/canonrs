@@ -12,7 +12,7 @@ pub fn PageHeaderPrimitive(
     view! {
         <header
             data-rs-page-header=""
-            data-rs-component="PageHeader"
+            data-rs-uid=crate::infra::uid::generate("ph")
             role="banner"
             class={(!class.is_empty()).then(|| class)}
         >

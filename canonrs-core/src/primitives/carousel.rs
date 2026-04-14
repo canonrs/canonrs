@@ -20,7 +20,6 @@ pub fn CarouselPrimitive(
             data-rs-carousel=""
             data-rs-uid=CAROUSEL_UID.fetch_add(1, Ordering::SeqCst).to_string()
             data-rs-interaction="gesture"
-            data-rs-component="Carousel"
             role="region"
             aria-roledescription="carousel"
             aria-label=aria_label

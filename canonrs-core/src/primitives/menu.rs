@@ -17,7 +17,6 @@ pub fn MenuPrimitive(
             data-rs-menu=""
             data-rs-uid=crate::infra::uid::generate("mn")
             data-rs-interaction="init"
-            data-rs-component="Menu"
             aria-label=aria_label
             class=class
         >
@@ -43,7 +42,6 @@ pub fn MenuItemPrimitive(
             data-rs-menu-item=""
             role="menuitem"
             data-rs-state=a.data_rs_state
-            data-rs-selected=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-selected=sel.aria_selected
             aria-disabled=d.aria_disabled

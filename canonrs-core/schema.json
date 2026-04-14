@@ -740,6 +740,36 @@
     },
     {
       "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "DragContainer",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "drag-container",
+      "intent": null,
+      "label": null,
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "DragHandle",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "drag-handle",
+      "intent": null,
+      "label": null,
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "unknown",
       "capabilities": [
         "OpenClose",
         "FocusTrap",
@@ -1109,6 +1139,21 @@
     },
     {
       "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "InputOtpSlot",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "input-otp-slot",
+      "intent": null,
+      "label": null,
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "unknown",
       "capabilities": [],
       "catalog_category": "Display",
       "catalog_tags": [
@@ -1125,6 +1170,21 @@
       "id": "kbd",
       "intent": "Display keyboard shortcut",
       "label": "Kbd",
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "KbdGroup",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "kbd-group",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },
@@ -1200,25 +1260,16 @@
     },
     {
       "behavior": "unknown",
-      "capabilities": [
-        "Selected",
-        "Disabled"
-      ],
-      "catalog_category": "Display",
-      "catalog_tags": [
-        "list-item",
-        "item",
-        "row",
-        "entry",
-        "element"
-      ],
-      "component_name": "ListItem",
-      "description": "Single list item with title and description",
-      "family": "family-f-data",
-      "has_semantic": true,
-      "id": "list-item",
-      "intent": "Display a single item in a list",
-      "label": "List Item",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "List",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "list",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },
@@ -1471,6 +1522,21 @@
     },
     {
       "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "PinButton",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "pin-button",
+      "intent": null,
+      "label": null,
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "unknown",
       "capabilities": [
         "OpenClose",
         "FocusTrap"
@@ -1605,6 +1671,21 @@
       "id": "resizable",
       "intent": "Split panels with draggable divider",
       "label": "Resizable",
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "ResizeHandle",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "resize-handle",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },
@@ -1877,46 +1958,16 @@
     },
     {
       "behavior": "unknown",
-      "capabilities": [
-        "Selected"
-      ],
-      "catalog_category": "Data",
-      "catalog_tags": [
-        "table",
-        "tabular",
-        "rows",
-        "columns",
-        "data"
-      ],
-      "component_name": "Table",
-      "description": "HTML table component",
-      "family": "family-f-data",
-      "has_semantic": true,
-      "id": "table",
-      "intent": "Display tabular data",
-      "label": "Table",
-      "type": "component",
-      "variants": []
-    },
-    {
-      "behavior": "unknown",
-      "capabilities": [],
-      "catalog_category": "Navigation",
-      "catalog_tags": [
-        "table-of-contents",
-        "index",
-        "summary",
-        "anchors",
-        "navigation",
-        "document"
-      ],
-      "component_name": "TableOfContents",
-      "description": "Document table of contents",
-      "family": "family-d-navigation",
-      "has_semantic": true,
-      "id": "table-of-contents",
-      "intent": "Navigate document sections via anchors",
-      "label": "Table of Contents",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "TableWrapper",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "table-wrapper",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },
@@ -1988,6 +2039,21 @@
       "id": "toast",
       "intent": "Show brief non-blocking notifications",
       "label": "Toast",
+      "type": "component",
+      "variants": []
+    },
+    {
+      "behavior": "unknown",
+      "capabilities": null,
+      "catalog_category": null,
+      "catalog_tags": null,
+      "component_name": "Toc",
+      "description": null,
+      "family": null,
+      "has_semantic": false,
+      "id": "toc",
+      "intent": null,
+      "label": null,
       "type": "component",
       "variants": []
     },

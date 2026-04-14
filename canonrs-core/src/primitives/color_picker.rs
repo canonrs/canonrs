@@ -29,7 +29,6 @@ pub fn ColorPickerPrimitive(
             data-rs-color-picker=""
             data-rs-uid=crate::infra::uid::generate("cp")
             data-rs-interaction="selection"
-            data-rs-component="ColorPicker"
             data-rs-state=s.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled
