@@ -6,11 +6,6 @@ use leptos::prelude::*;
 use crate::meta::SelectionState;
 use crate::infra::state_engine::selection_attrs;
 
-fn table_uid() -> String {
-    use std::sync::atomic::{AtomicU32, Ordering};
-    static CTR: AtomicU32 = AtomicU32::new(0);
-    format!("tb-{}", CTR.fetch_add(1, Ordering::Relaxed))
-}
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TableState {
@@ -84,10 +79,9 @@ pub fn TablePrimitive(
     view! {
         <table
             data-rs-table=""
-            data-rs-uid=table_uid()
+            data-rs-uid=crate::infra::uid::generate("tbl")
             data-rs-interaction="data"
             data-rs-component="Table"
-            data-rs-behavior="data"
             data-rs-state=state.as_str()
             data-rs-striped={striped.then_some("")}
             data-rs-hoverable={hoverable.then_some("")}

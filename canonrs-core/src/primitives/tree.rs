@@ -30,7 +30,6 @@ impl TreeSelectionMode {
 
 
 
-fn tree_uid() -> String { crate::infra::uid::generate("tr") }
 #[component]
 pub fn TreePrimitive(
     children: Children,
@@ -41,10 +40,9 @@ pub fn TreePrimitive(
     view! {
         <div
             data-rs-tree=""
-            data-rs-uid=tree_uid()
+            data-rs-uid=crate::infra::uid::generate("tr")
             data-rs-interaction="selection"
             data-rs-component="Tree"
-            data-rs-behavior="navigation"
             data-rs-selection=selection.as_str()
             role="tree"
             aria-label=aria_label

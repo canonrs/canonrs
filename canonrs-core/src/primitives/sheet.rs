@@ -25,17 +25,6 @@ impl SheetSide {
     }
 }
 
-fn sheet_uid() -> String {
-    use std::sync::atomic::{AtomicU64, Ordering};
-    static CTR: AtomicU64 = AtomicU64::new(0);
-    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
-    format!("sh-{:016x}-{:08x}",
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(ctr),
-        ctr)
-}
 
 #[component]
 pub fn SheetPrimitive(
@@ -49,9 +38,8 @@ pub fn SheetPrimitive(
         <div
             data-rs-sheet=""
             data-rs-interaction="overlay"
-            data-rs-uid=sheet_uid()
+            data-rs-uid=crate::infra::uid::generate("sh")
             data-rs-component="Sheet"
-            data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
             class=class

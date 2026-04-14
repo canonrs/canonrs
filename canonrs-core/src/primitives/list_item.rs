@@ -13,7 +13,6 @@ pub fn ListPrimitive(
         <ul
             data-rs-list=""
             data-rs-component="ListItem"
-            data-rs-behavior="list"
             class=class
         >
             {children()}

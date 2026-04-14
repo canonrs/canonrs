@@ -6,17 +6,6 @@ use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState, ActivityState};
 use crate::infra::state_engine::{visibility_attrs, disabled_attrs, activity_attrs};
 
-fn context_menu_uid() -> String {
-    use std::sync::atomic::{AtomicU64, Ordering};
-    static CTR: AtomicU64 = AtomicU64::new(0);
-    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
-    format!("cm-{:016x}-{:08x}",
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(ctr),
-        ctr)
-}
 
 #[component]
 pub fn ContextMenuPrimitive(
@@ -28,10 +17,9 @@ pub fn ContextMenuPrimitive(
     view! {
         <div
             data-rs-context-menu=""
-            data-rs-uid=context_menu_uid()
+            data-rs-uid=crate::infra::uid::generate("cm")
             data-rs-interaction="overlay"
             data-rs-component="ContextMenu"
-            data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
             class=class
         >

@@ -6,17 +6,6 @@ use leptos::prelude::*;
 use crate::meta::VisibilityState;
 use crate::infra::state_engine::visibility_attrs;
 
-fn modal_uid() -> String {
-    use std::sync::atomic::{AtomicU64, Ordering};
-    static CTR: AtomicU64 = AtomicU64::new(0);
-    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
-    format!("mo-{:016x}-{:08x}",
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(ctr),
-        ctr)
-}
 
 #[component]
 pub fn ModalPrimitive(
@@ -29,9 +18,8 @@ pub fn ModalPrimitive(
         <div
             data-rs-modal=""
             data-rs-interaction="overlay"
-            data-rs-uid=modal_uid()
+            data-rs-uid=crate::infra::uid::generate("mo")
             data-rs-component="Modal"
-            data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
             class=class
         >

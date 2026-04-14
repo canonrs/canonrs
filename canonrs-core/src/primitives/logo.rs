@@ -17,7 +17,6 @@ pub fn LogoPrimitive(
         <a
             data-rs-logo=""
             data-rs-component="Logo"
-            data-rs-behavior="structural"
             data-rs-size=size
             data-rs-variant=variant
             href=href

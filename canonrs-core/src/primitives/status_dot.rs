@@ -60,7 +60,6 @@ pub fn StatusDotPrimitive(
             data-rs-uid=crate::infra::uid::generate("sd")
             data-rs-interaction="init"
             data-rs-component="StatusDot"
-            data-rs-behavior="indicator"
             data-rs-variant=variant.as_str()
             role="img"
             aria-label=variant.aria_label()

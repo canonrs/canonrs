@@ -13,7 +13,6 @@ pub fn FormErrorSummaryPrimitive(
         <div
             data-rs-form-error-summary=""
             data-rs-component="FormErrorSummary"
-            data-rs-behavior="form"
             role="alert"
             aria-live="assertive"
             aria-atomic="true"

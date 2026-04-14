@@ -14,7 +14,6 @@ use crate::meta::DisabledState;
 
 
 
-fn toggle_group_uid() -> String { crate::infra::uid::generate("tg") }
 #[component]
 pub fn ToggleGroupPrimitive(
     children: Children,
@@ -28,7 +27,7 @@ pub fn ToggleGroupPrimitive(
     view! {
         <div
             data-rs-toggle-group=""
-            data-rs-uid=toggle_group_uid()
+            data-rs-uid=crate::infra::uid::generate("tg")
             data-rs-interaction="selection"
             data-rs-component="ToggleGroup"
             data-rs-multiple=if multiple { "true" } else { "false" }

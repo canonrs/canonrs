@@ -17,7 +17,6 @@ pub fn AspectRatioPrimitive(
         <div
             data-rs-aspect-ratio=""
             data-rs-component="AspectRatio"
-            data-rs-behavior="structural"
             data-rs-ratio=ratio
             style=ratio_style
             class=class

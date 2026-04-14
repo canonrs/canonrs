@@ -21,7 +21,6 @@ pub fn CopyButtonPrimitive(
             data-rs-uid=crate::infra::uid::generate("cpb")
             data-rs-interaction="content"
             data-rs-component="CopyButton"
-            data-rs-behavior="copy-button"
             data-rs-copy-text=text
             data-rs-copy-target=target
             data-rs-reset-delay=reset_delay.to_string()

@@ -13,7 +13,6 @@ pub fn LinkGroupPrimitive(
             data-rs-uid=crate::infra::uid::generate("lg")
             data-rs-interaction="nav"
             data-rs-component="LinkGroup"
-            data-rs-behavior="navigation"
             class=class
         >
             {children()}

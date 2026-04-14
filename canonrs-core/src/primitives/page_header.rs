@@ -13,7 +13,6 @@ pub fn PageHeaderPrimitive(
         <header
             data-rs-page-header=""
             data-rs-component="PageHeader"
-            data-rs-behavior="structural"
             role="banner"
             class={(!class.is_empty()).then(|| class)}
         >

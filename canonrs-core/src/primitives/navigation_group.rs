@@ -16,7 +16,6 @@ pub fn NavigationGroupPrimitive(
             data-rs-uid=crate::infra::uid::generate("ng")
             data-rs-interaction="nav"
             data-rs-component="NavigationGroup"
-            data-rs-behavior="navigation"
             role="group"
             aria-labelledby=aria_labelledby
             class=class

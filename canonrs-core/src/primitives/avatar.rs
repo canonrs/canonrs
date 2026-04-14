@@ -19,7 +19,6 @@ pub fn AvatarPrimitive(
             data-rs-uid=crate::infra::uid::generate("av")
             data-rs-interaction="init"
             data-rs-component="Avatar"
-            data-rs-behavior="display"
             data-rs-state=state
             class=class
         >

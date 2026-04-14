@@ -31,7 +31,6 @@ pub fn SkeletonPrimitive(
         <div
             data-rs-skeleton=""
             data-rs-component="Skeleton"
-            data-rs-behavior="feedback"
             data-rs-variant=variant.as_str()
             aria-busy="true"
             aria-live="polite"

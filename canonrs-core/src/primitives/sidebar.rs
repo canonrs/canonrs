@@ -32,7 +32,6 @@ pub fn SidebarPrimitive(
             data-rs-uid=crate::infra::uid::generate("sb")
             data-rs-interaction="nav"
             data-rs-component="Sidebar"
-            data-rs-behavior="navigation"
             data-rs-state=s.data_rs_state
             data-rs-variant=variant.as_str()
             aria-hidden=s.aria_hidden

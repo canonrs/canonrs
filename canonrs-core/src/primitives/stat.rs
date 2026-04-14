@@ -13,7 +13,6 @@ pub fn StatPrimitive(
         <div
             data-rs-stat=""
             data-rs-component="Stat"
-            data-rs-behavior="display"
             class=class
         >
             {children()}

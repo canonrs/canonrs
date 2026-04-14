@@ -54,7 +54,6 @@ pub fn BannerPrimitive(
             data-rs-uid=crate::infra::uid::generate("bn")
             data-rs-interaction="init"
             data-rs-component="Banner"
-            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
             data-rs-state=s.data_rs_state
             role=variant.role()

@@ -24,7 +24,6 @@ pub fn NavItemPrimitive(
             data-rs-uid=crate::infra::uid::generate("ni")
             data-rs-interaction="init"
             data-rs-component="NavItem"
-            data-rs-behavior="navigation"
             data-rs-state=a.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-current=if is_active { Some("page") } else { None }

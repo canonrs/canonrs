@@ -19,7 +19,6 @@ pub fn CommandPrimitive(
             data-rs-uid=crate::infra::uid::generate("cmd")
             data-rs-interaction="init"
             data-rs-component="Command"
-            data-rs-behavior="overlay"
             data-rs-state=s.data_rs_state
             role="listbox"
             aria-label="Command palette"

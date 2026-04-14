@@ -41,7 +41,6 @@ pub fn LinkPrimitive(
         <a
             data-rs-link=""
             data-rs-component="Link"
-            data-rs-behavior="link"
             data-rs-variant=variant.as_str()
             data-rs-disabled=d.data_rs_disabled
             data-rs-state=state_str

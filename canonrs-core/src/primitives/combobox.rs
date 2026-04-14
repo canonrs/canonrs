@@ -12,7 +12,6 @@ use crate::infra::state_engine::selection_attrs;
 
 
 
-fn combobox_uid() -> String { crate::infra::uid::generate("cbx") }
 #[component]
 pub fn ComboboxPrimitive(
     children: Children,
@@ -25,7 +24,7 @@ pub fn ComboboxPrimitive(
     view! {
         <div
             data-rs-combobox=""
-            data-rs-uid=combobox_uid()
+            data-rs-uid=crate::infra::uid::generate("cbx")
             data-rs-interaction="selection"
             data-rs-component="Combobox"
             data-rs-role="root"

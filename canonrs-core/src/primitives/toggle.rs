@@ -6,11 +6,6 @@ use leptos::prelude::*;
 use crate::meta::{ToggleState, DisabledState};
 use crate::infra::state_engine::{disabled_attrs, toggle_attrs};
 
-fn toggle_uid() -> String {
-    use std::sync::atomic::{AtomicU32, Ordering};
-    static CTR: AtomicU32 = AtomicU32::new(0);
-    format!("to-{}", CTR.fetch_add(1, Ordering::Relaxed))
-}
 
 #[component]
 pub fn TogglePrimitive(
@@ -25,10 +20,9 @@ pub fn TogglePrimitive(
     view! {
         <label
             data-rs-toggle=""
-            data-rs-uid=toggle_uid()
+            data-rs-uid=crate::infra::uid::generate("tog")
             data-rs-interaction="init"
             data-rs-component="Toggle"
-            data-rs-behavior="toggle"
             data-rs-state=t.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-label=if aria_label.is_empty() { None } else { Some(aria_label) }

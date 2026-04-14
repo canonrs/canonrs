@@ -89,7 +89,6 @@ pub fn ToastPrimitive(
             data-rs-uid=crate::infra::uid::generate("ts")
             data-rs-interaction="init"
             data-rs-component="Toast"
-            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
             data-rs-state=s.data_rs_state
             data-rs-lifecycle=lifecycle.as_str()

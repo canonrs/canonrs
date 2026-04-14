@@ -1,9 +1,11 @@
+//! @canon-level: strict
 //! @canon-owner: primitives-team
 //! Accordion Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState};
 use crate::infra::state_engine::visibility_attrs;
+use crate::infra::uid::generate;
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
 pub enum AccordionSelection {
@@ -17,18 +19,6 @@ impl AccordionSelection {
     }
 }
 
-fn accordion_uid() -> String {
-    use std::sync::atomic::{AtomicU64, Ordering};
-    static CTR: AtomicU64 = AtomicU64::new(0);
-    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
-    format!("ac-{:016x}-{:08x}",
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(ctr),
-        ctr)
-}
-
 #[component]
 pub fn AccordionPrimitive(
     children: Children,
@@ -40,7 +30,7 @@ pub fn AccordionPrimitive(
     view! {
         <div
             data-rs-accordion=""
-            data-rs-uid=accordion_uid()
+            data-rs-uid=generate("ac")
             data-rs-interaction="nav"
             data-rs-component="Accordion"
             data-rs-selection=selection.as_str()
@@ -60,6 +50,7 @@ pub fn AccordionItemPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("ac-item");
     let s = visibility_attrs(state);
     let state_str = if disabled == DisabledState::Disabled {
         format!("{} disabled", s.data_rs_state)
@@ -70,6 +61,7 @@ pub fn AccordionItemPrimitive(
     view! {
         <div
             data-rs-accordion-item=""
+            data-rs-uid=uid
             data-rs-state=state_str
             aria-disabled=aria_disabled
             role="group"
@@ -92,6 +84,7 @@ pub fn AccordionTriggerPrimitive(
             <button
                 type="button"
                 data-rs-accordion-trigger=""
+                data-rs-uid=generate("ac-trigger")
                 aria-expanded="false"
                 aria-disabled=aria_disabled
                 class=class
@@ -110,6 +103,7 @@ pub fn AccordionContentPrimitive(
     view! {
         <div
             data-rs-accordion-content=""
+            data-rs-uid=generate("ac-content")
             class=class
         >
             {children()}

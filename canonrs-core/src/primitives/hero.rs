@@ -13,7 +13,6 @@ pub fn HeroPrimitive(
         <div
             data-rs-block=""
             data-rs-component="Hero"
-            data-rs-behavior="structural"
             class=class
         >
             {children()}

@@ -13,7 +13,6 @@ pub fn InlineMetaPrimitive(
         <span
             data-rs-inline-meta=""
             data-rs-component="InlineMeta"
-            data-rs-behavior="structural"
             class=class
         >
             {children()}

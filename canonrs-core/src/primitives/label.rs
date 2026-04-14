@@ -15,7 +15,6 @@ pub fn LabelPrimitive(
         <label
             data-rs-label=""
             data-rs-component="Label"
-            data-rs-behavior="form"
             for={if html_for.is_empty() { None } else { Some(html_for) }}
             data-rs-required={if required { Some("") } else { None }}
             aria-required={if required { Some("true") } else { None }}

@@ -7,7 +7,6 @@ use crate::meta::{DisabledState, ToggleState, VisibilityState};
 use crate::infra::state_engine::{disabled_attrs, toggle_attrs, visibility_attrs};
 
 
-fn dropdown_menu_uid() -> String { crate::infra::uid::generate("dm") }
 
 #[component]
 pub fn DropdownMenuPrimitive(
@@ -20,7 +19,7 @@ pub fn DropdownMenuPrimitive(
     view! {
         <div
             data-rs-dropdown-menu=""
-            data-rs-uid=dropdown_menu_uid()
+            data-rs-uid=crate::infra::uid::generate("dm")
             data-rs-interaction="overlay"
             data-rs-component="DropdownMenu"
             data-rs-state=s.data_rs_state

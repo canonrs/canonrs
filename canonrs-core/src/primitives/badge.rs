@@ -56,7 +56,6 @@ pub fn BadgePrimitive(
         <span
             data-rs-badge=""
             data-rs-component="Badge"
-            data-rs-behavior="indicator"
             data-rs-variant=variant.as_str()
             data-rs-interactivity=interactivity.as_str()
             aria-label=aria_label

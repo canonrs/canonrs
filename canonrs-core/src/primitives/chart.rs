@@ -50,7 +50,6 @@ pub fn ChartPrimitive(
             data-rs-uid=crate::infra::uid::generate("ch")
             data-rs-interaction="data"
             data-rs-component="Chart"
-            data-rs-behavior="chart"
             data-rs-chart-type=chart_type.as_str()
             data-rs-chart-height={height.to_string()}
             data-rs-animation={if chart_animate { "auto" } else { "none" }}

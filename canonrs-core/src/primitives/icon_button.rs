@@ -71,7 +71,6 @@ pub fn IconButtonPrimitive(
             data-rs-uid=crate::infra::uid::generate("ib")
             data-rs-interaction="init"
             data-rs-component="IconButton"
-            data-rs-behavior="icon-button"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-disabled=d.data_rs_disabled

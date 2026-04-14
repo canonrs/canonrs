@@ -12,7 +12,6 @@ use crate::infra::state_engine::{visibility_attrs, selection_attrs};
 
 
 
-fn select_uid() -> String { crate::infra::uid::generate("sel") }
 #[component]
 pub fn SelectPrimitive(
     children: Children,
@@ -31,7 +30,7 @@ pub fn SelectPrimitive(
     view! {
         <div
             data-rs-select=""
-            data-rs-uid=select_uid()
+            data-rs-uid=crate::infra::uid::generate("sel")
             data-rs-interaction="selection"
             data-rs-component="Select"
             data-rs-role="root"

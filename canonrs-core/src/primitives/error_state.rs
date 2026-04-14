@@ -13,7 +13,6 @@ pub fn ErrorStatePrimitive(
         <div
             data-rs-error-state=""
             data-rs-component="ErrorState"
-            data-rs-behavior="feedback"
             role="status"
             aria-live="assertive"
             class=class

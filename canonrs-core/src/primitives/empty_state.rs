@@ -33,7 +33,6 @@ pub fn EmptyStatePrimitive(
         <div
             data-rs-empty=""
             data-rs-component="EmptyState"
-            data-rs-behavior="feedback"
             data-rs-variant=variant.as_str()
             role="status"
             aria-live="polite"

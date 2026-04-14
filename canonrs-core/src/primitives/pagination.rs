@@ -17,7 +17,6 @@ pub fn PaginationPrimitive(
             data-rs-uid=crate::infra::uid::generate("pg")
             data-rs-interaction="nav"
             data-rs-component="Pagination"
-            data-rs-behavior="navigation"
             aria-label="Page navigation"
             class=class
         >

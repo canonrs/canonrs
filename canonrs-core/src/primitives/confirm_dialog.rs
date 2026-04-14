@@ -23,18 +23,6 @@ impl ConfirmDialogVariant {
     }
 }
 
-fn confirm_dialog_uid() -> String {
-    use std::sync::atomic::{AtomicU64, Ordering};
-    static CTR: AtomicU64 = AtomicU64::new(0);
-    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
-    format!("cd-{:016x}-{:08x}",
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(ctr),
-        ctr)
-}
-
 #[component]
 pub fn ConfirmDialogPrimitive(
     children: Children,
@@ -49,9 +37,8 @@ pub fn ConfirmDialogPrimitive(
         <div
             data-rs-confirm-dialog=""
             data-rs-interaction="overlay"
-            data-rs-uid=confirm_dialog_uid()
+            data-rs-uid=crate::infra::uid::generate("cd")
             data-rs-component="ConfirmDialog"
-            data-rs-behavior="overlay"
             data-rs-variant=variant.as_str()
             data-rs-state=s.data_rs_state
             role="alertdialog"
@@ -187,7 +174,11 @@ pub fn ConfirmDialogPortalPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <div data-rs-confirm-dialog-portal="" class=class>{children()}</div> }
+    view! {
+        <div data-rs-confirm-dialog-portal="" class=class>
+            {children()}
+        </div>
+    }
 }
 
 #[component]
@@ -195,7 +186,11 @@ pub fn ConfirmDialogContentPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <div data-rs-confirm-dialog-content="" class=class>{children()}</div> }
+    view! {
+        <div data-rs-confirm-dialog-content="" class=class>
+            {children()}
+        </div>
+    }
 }
 
 #[component]
@@ -203,5 +198,9 @@ pub fn ConfirmDialogFooterPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <div data-rs-confirm-dialog-footer="" class=class>{children()}</div> }
+    view! {
+        <div data-rs-confirm-dialog-footer="" class=class>
+            {children()}
+        </div>
+    }
 }

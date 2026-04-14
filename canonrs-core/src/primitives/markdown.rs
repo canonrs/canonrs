@@ -21,7 +21,6 @@ pub fn MarkdownPrimitive(
             data-rs-uid=crate::infra::uid::generate("md")
             data-rs-interaction="content"
                 data-rs-component="Markdown"
-                data-rs-behavior="content"
                 class=class
                 inner_html=inner
             ></div>
@@ -34,7 +33,6 @@ pub fn MarkdownPrimitive(
             <div
                 data-rs-markdown=""
                 data-rs-component="Markdown"
-                data-rs-behavior="content"
                 class=class
             ></div>
         }.into_any()

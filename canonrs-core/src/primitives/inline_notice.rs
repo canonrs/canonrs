@@ -50,7 +50,6 @@ pub fn InlineNoticePrimitive(
         <div
             data-rs-inline-notice=""
             data-rs-component="InlineNotice"
-            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
             role=variant.role()
             aria-live=variant.aria_live()

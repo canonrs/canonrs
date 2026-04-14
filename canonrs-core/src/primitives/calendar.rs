@@ -15,7 +15,6 @@ pub fn CalendarPrimitive(
         <div
             data-rs-calendar=""
             data-rs-component="Calendar"
-            data-rs-behavior="selection"
             class=class
         >
             {children()}

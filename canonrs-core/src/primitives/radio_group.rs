@@ -15,7 +15,6 @@ use crate::infra::state_engine::{selection_attrs, disabled_attrs};
 
 
 
-fn radio_group_uid() -> String { crate::infra::uid::generate("rg") }
 #[component]
 pub fn RadioGroupPrimitive(
     children: Children,
@@ -26,7 +25,7 @@ pub fn RadioGroupPrimitive(
     view! {
         <div
             data-rs-radio-group=""
-            data-rs-uid=radio_group_uid()
+            data-rs-uid=crate::infra::uid::generate("rg")
             data-rs-interaction="selection"
             data-rs-component="RadioGroup"
             data-rs-disabled=d.data_rs_disabled

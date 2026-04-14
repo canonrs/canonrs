@@ -50,7 +50,6 @@ pub fn CalloutPrimitive(
         <aside
             data-rs-callout=""
             data-rs-component="Callout"
-            data-rs-behavior="notification"
             data-rs-variant=variant.as_str()
             role=variant.role()
             aria-live=variant.aria_live()

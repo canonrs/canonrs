@@ -34,7 +34,6 @@ impl DataTableDensity {
 
 
 
-fn datatable_uid() -> String { crate::infra::uid::generate("dt") }
 #[component]
 pub fn DataTablePrimitive(
     children: Children,
@@ -44,10 +43,9 @@ pub fn DataTablePrimitive(
     view! {
         <div
             data-rs-datatable=""
-            data-rs-uid=datatable_uid()
+            data-rs-uid=crate::infra::uid::generate("dt")
             data-rs-interaction="data"
             data-rs-component="DataTable"
-            data-rs-behavior="data"
             data-rs-density=density.as_str()
             class=class
         >

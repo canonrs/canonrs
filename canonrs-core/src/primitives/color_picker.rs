@@ -15,7 +15,6 @@ use crate::infra::state_engine::{disabled_attrs, selection_attrs, visibility_att
 
 
 
-fn color_picker_uid() -> String { crate::infra::uid::generate("cp") }
 #[component]
 pub fn ColorPickerPrimitive(
     children: Children,
@@ -28,10 +27,9 @@ pub fn ColorPickerPrimitive(
     view! {
         <div
             data-rs-color-picker=""
-            data-rs-uid=color_picker_uid()
+            data-rs-uid=crate::infra::uid::generate("cp")
             data-rs-interaction="selection"
             data-rs-component="ColorPicker"
-            data-rs-behavior="color-picker"
             data-rs-state=s.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-disabled=d.aria_disabled
