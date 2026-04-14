@@ -24,4 +24,25 @@ pub const FOUNDATION_SPACING: &[FamilyToken] = &[
     FamilyToken::new("space-2xl", "2rem"),
     FamilyToken::new("space-3xl", "3rem"),
     FamilyToken::new("space-4xl", "4rem"),
+
+    // Component size scale — interactive element heights
+    FamilyToken::new("size-input-sm",     "1.75rem"),   // 28px — small input/select
+    FamilyToken::new("size-icon-sm",      "1rem"),      // 16px — small icon
+    FamilyToken::new("size-icon-md",      "1.25rem"),   // 20px — medium icon
+    FamilyToken::new("size-icon-lg",      "1.75rem"),   // 28px — large icon (state/empty)
+    FamilyToken::new("size-nav-item",     "2rem"),      // 32px — nav/pagination item
+    FamilyToken::new("size-cell",         "2rem"),      // 32px — calendar cell
+    FamilyToken::new("size-color-picker", "16rem"),     // 256px — color picker panel
+    FamilyToken::new("size-textarea-min", "6rem"),      // 96px — textarea min height
+
+    // Button height scale — enterprise (fills gap in size scale)
+    FamilyToken::new("size-button-xs",    "1.5rem"),    // 24px = size-xs
+    FamilyToken::new("size-button-sm",    "2rem"),      // 32px = size-md
+    FamilyToken::new("size-button-md",    "2.25rem"),   // 36px — between size-md and size-lg
+    FamilyToken::new("size-button-lg",    "2.75rem"),   // 44px — between size-lg and size-xl
+    FamilyToken::new("size-button-xl",    "3rem"),      // 48px = size-xl
+
+    // Layout heights
+    FamilyToken::new("size-header",       "3.5rem"),    // 56px = size-2xl
+    FamilyToken::new("size-nav-sm",       "2.25rem"),   // 36px — calendar nav
 ];

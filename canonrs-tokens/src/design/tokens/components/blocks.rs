@@ -1,100 +1,68 @@
+//! Component tokens — Blocks
+//! Card, Hero, Section, StatGroup, PageHeader, FormField, DataTable, SidebarLayout
+
 use crate::design::tokens::FamilyToken;
 
-// Components: Blocks — Grid, Columns, Container, Stack, Text, Markdown, Sidebar Layout
-/// Components: Grid, Columns, Container, Stack, Text (h1-h3, p, caption, label), Markdown
-/// Scope: Compositional content blocks used inside layout regions
-
 pub const BLOCKS_TOKENS: &[FamilyToken] = &[
-    // Grid Block
-    FamilyToken::new("grid-gap",             "var(--space-md)"),
-    FamilyToken::new("grid-min-col-width",   "200px"),
-    FamilyToken::new("grid-padding",         "var(--space-md)"),
-    FamilyToken::new("grid-bg",              "transparent"),
-    FamilyToken::new("grid-border-color",    "var(--theme-surface-border)"),
-    FamilyToken::new("grid-radius",          "var(--radius-md)"),
 
-    // Columns Block
-    FamilyToken::new("columns-gap",          "var(--space-md)"),
-    FamilyToken::new("columns-padding",      "var(--space-md)"),
-    FamilyToken::new("columns-bg",           "transparent"),
-    FamilyToken::new("columns-radius",       "var(--radius-md)"),
+    // ── Card Block ────────────────────────────────────────────────────────────
+    FamilyToken::new("card-block-gap",             "var(--space-md)"),
+    FamilyToken::new("card-block-padding",         "var(--space-lg)"),
+    FamilyToken::new("card-block-bg",              "var(--theme-surface-bg)"),
+    FamilyToken::new("card-block-radius",          "var(--radius-md)"),
+    FamilyToken::new("card-block-shadow",          "var(--shadow-sm)"),
+    FamilyToken::new("card-block-border-color",    "var(--theme-surface-border)"),
+    FamilyToken::new("card-block-border-width",    "1px"),
 
-    // Container Block
-    FamilyToken::new("container-padding",    "var(--space-lg)"),
-    FamilyToken::new("container-max-width",  "var(--layout-content-max-width)"),
-    FamilyToken::new("container-bg",         "transparent"),
-    FamilyToken::new("container-radius",     "var(--radius-md)"),
+    // ── Hero Block ────────────────────────────────────────────────────────────
+    FamilyToken::new("hero-block-padding-x",       "var(--space-2xl)"),
+    FamilyToken::new("hero-block-padding-y",       "var(--space-3xl)"),
+    FamilyToken::new("hero-block-gap",             "var(--space-xl)"),
+    FamilyToken::new("hero-block-media-gap",       "var(--space-2xl)"),
+    FamilyToken::new("hero-block-actions-gap",     "var(--space-md)"),
+    FamilyToken::new("hero-block-max-width",       "800px"),
+    FamilyToken::new("hero-block-align",           "center"),
+    FamilyToken::new("hero-block-min-height",      "80vh"),
 
-    // Stack Block
-    FamilyToken::new("stack-gap",            "var(--space-md)"),
-    FamilyToken::new("stack-padding",        "0"),
-    FamilyToken::new("stack-bg",             "transparent"),
+    // ── Section Block ─────────────────────────────────────────────────────────
+    FamilyToken::new("section-block-gap",              "var(--space-lg)"),
+    FamilyToken::new("section-block-padding",          "var(--space-xl) 0"),
+    FamilyToken::new("section-block-header-margin",    "0 0 var(--space-lg) 0"),
+    FamilyToken::new("section-block-footer-padding",   "var(--space-md) 0 0 0"),
+    FamilyToken::new("section-block-footer-border",    "1px solid var(--theme-surface-border)"),
 
-    // Text — Headings
-    FamilyToken::new("text-h1-size",         "var(--font-size-4xl)"),
-    FamilyToken::new("text-h1-weight",       "var(--font-weight-bold)"),
-    FamilyToken::new("text-h1-color",        "var(--theme-surface-fg)"),
-    FamilyToken::new("text-h1-line-height",  "var(--line-height-tight)"),
-    FamilyToken::new("text-h2-size",         "var(--font-size-3xl)"),
-    FamilyToken::new("text-h2-weight",       "var(--font-weight-semibold)"),
-    FamilyToken::new("text-h2-color",        "var(--theme-surface-fg)"),
-    FamilyToken::new("text-h2-line-height",  "var(--line-height-tight)"),
-    FamilyToken::new("text-h3-size",         "var(--font-size-2xl)"),
-    FamilyToken::new("text-h3-weight",       "var(--font-weight-semibold)"),
-    FamilyToken::new("text-h3-color",        "var(--theme-surface-fg)"),
-    FamilyToken::new("text-h3-line-height",  "var(--line-height-tight)"),
+    // ── StatGroup Block ───────────────────────────────────────────────────────
+    FamilyToken::new("stat-group-block-gap",           "var(--space-md)"),
+    FamilyToken::new("stat-group-block-padding",       "var(--space-lg) 0"),
 
-    // Text — Body
-    FamilyToken::new("text-p-size",          "var(--font-size-base)"),
-    FamilyToken::new("text-p-color",         "var(--theme-surface-fg)"),
-    FamilyToken::new("text-p-line-height",   "var(--line-height-normal)"),
-    FamilyToken::new("text-caption-size",    "var(--font-size-xs)"),
-    FamilyToken::new("text-caption-color",   "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("text-caption-line-height", "var(--line-height-normal)"),
-    FamilyToken::new("text-label-size",      "var(--font-size-sm)"),
-    FamilyToken::new("text-label-weight",    "var(--font-weight-medium)"),
-    FamilyToken::new("text-label-color",     "var(--theme-surface-fg)"),
+    // ── PageHeader Block ──────────────────────────────────────────────────────
+    FamilyToken::new("page-header-block-gap",              "var(--space-sm)"),
+    FamilyToken::new("page-header-block-padding",          "var(--space-md) var(--space-lg)"),
+    FamilyToken::new("page-header-block-breadcrumb-gap",   "var(--space-xs)"),
+    FamilyToken::new("page-header-block-actions-gap",      "var(--space-sm)"),
+    FamilyToken::new("page-header-block-border-color",     "var(--theme-surface-border)"),
+    FamilyToken::new("page-header-block-border-width",     "1px"),
 
-    // Markdown Block
-    FamilyToken::new("markdown-line-height", "var(--line-height-relaxed)"),
-    FamilyToken::new("markdown-color",       "var(--theme-surface-fg)"),
-    FamilyToken::new("markdown-gap",         "var(--space-md)"),
-    FamilyToken::new("markdown-code-bg",     "var(--theme-surface-muted)"),
-    FamilyToken::new("markdown-code-radius", "var(--radius-sm)"),
+    // ── FormField Block ───────────────────────────────────────────────────────
+    FamilyToken::new("form-field-block-gap",               "var(--space-xs)"),
+    FamilyToken::new("form-field-block-label-gap",         "var(--space-xs)"),
+    FamilyToken::new("form-field-block-hint-fg",           "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("form-field-block-hint-font-size",    "var(--font-size-sm)"),
+    FamilyToken::new("form-field-block-error-fg",          "var(--color-destructive)"),
+    FamilyToken::new("form-field-block-error-font-size",   "var(--font-size-sm)"),
 
-    // Sidebar Layout Block
-    FamilyToken::new("sidebar-layout-nav-width",    "240px"),
-    FamilyToken::new("sidebar-layout-nav-bg",       "var(--theme-surface-muted)"),
-    FamilyToken::new("sidebar-layout-nav-border",   "1px solid var(--theme-surface-border)"),
-    FamilyToken::new("sidebar-layout-main-padding", "var(--space-lg)"),
+    // ── DataTable Block ───────────────────────────────────────────────────────
+    FamilyToken::new("data-table-block-gap",               "var(--space-md)"),
+    FamilyToken::new("data-table-block-toolbar-padding",   "var(--space-sm) 0"),
+    FamilyToken::new("data-table-block-toolbar-gap",       "var(--space-sm)"),
+    FamilyToken::new("data-table-block-pagination-padding","var(--space-sm) 0"),
+    FamilyToken::new("data-table-block-empty-padding",     "var(--space-2xl) 0"),
 
-    // Split Block
-    FamilyToken::new("split-gap",        "var(--space-md)"),
-    FamilyToken::new("split-padding",    "0"),
-    FamilyToken::new("split-bg",         "transparent"),
-
-    // Detail Panel Block
-    FamilyToken::new("detail-panel-aside-width",  "320px"),
-    FamilyToken::new("detail-panel-aside-border", "1px solid var(--theme-surface-border)"),
-    FamilyToken::new("detail-panel-padding",      "var(--space-md)"),
-
-    // Timeline Block
-    FamilyToken::new("timeline-gap",          "var(--space-lg)"),
-    FamilyToken::new("timeline-line-color",   "var(--theme-surface-border)"),
-    FamilyToken::new("timeline-line-width",   "2px"),
-    FamilyToken::new("timeline-dot-size",     "12px"),
-    FamilyToken::new("timeline-dot-color",    "var(--theme-primary-bg)"),
-
-    // Wizard Block
-    FamilyToken::new("wizard-steps-bg",      "var(--theme-surface-muted)"),
-    FamilyToken::new("wizard-steps-padding", "var(--space-md)"),
-    FamilyToken::new("wizard-body-padding",  "var(--space-lg)"),
-    FamilyToken::new("wizard-actions-gap",   "var(--space-sm)"),
-
-    // Filter Bar Block
-    FamilyToken::new("filter-bar-gap",        "var(--space-sm)"),
-    FamilyToken::new("filter-bar-padding",    "var(--space-sm) var(--space-md)"),
-    FamilyToken::new("filter-bar-bg",         "var(--theme-surface-muted)"),
-    FamilyToken::new("filter-bar-border",     "1px solid var(--theme-surface-border)"),
-    FamilyToken::new("filter-bar-radius",     "var(--radius-md)"),
+    // ── SidebarLayout Block ───────────────────────────────────────────────────
+    FamilyToken::new("sidebar-layout-gap",             "var(--space-lg)"),
+    FamilyToken::new("sidebar-layout-nav-width",       "var(--layout-sidebar-width)"),
+    FamilyToken::new("sidebar-layout-nav-bg",          "var(--theme-surface-bg)"),
+    FamilyToken::new("sidebar-layout-nav-border",      "var(--border-thin) solid var(--theme-surface-border)"),
+    FamilyToken::new("sidebar-layout-nav-padding",     "var(--space-md)"),
+    FamilyToken::new("sidebar-layout-main-padding",    "var(--space-lg)"),
 ];

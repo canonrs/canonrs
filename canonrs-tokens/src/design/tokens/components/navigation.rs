@@ -81,8 +81,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("navigation-menu-content-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("navigation-menu-z-index", "var(--layer-overlay)"),
     FamilyToken::new("navigation-menu-content-min-width", "var(--layout-width-sm)"),
-    FamilyToken::new("navigation-menu-content-border-color", "var(--theme-surface-border)"),
-    FamilyToken::new("navigation-menu-content-border-width", "1px"),
 
     // Pagination
     FamilyToken::new("pagination-gap", "var(--space-sm)"),
@@ -219,7 +217,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("link-fg-hover",            "color-mix(in srgb, var(--theme-action-primary-bg) 80%, white)"),
     FamilyToken::new("link-fg-active",           "var(--theme-action-primary-active)"),
     FamilyToken::new("link-transition-ease",     "var(--motion-ease-standard)"),
-    FamilyToken::new("link-transition-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("link-muted-fg", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("link-underline-decoration", "underline"),
     FamilyToken::new("link-default-decoration", "none"),
@@ -238,8 +235,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
 
     // Menu (tokens simplificados faltantes)
     FamilyToken::new("menu-item-bg", "transparent"),
-    FamilyToken::new("menu-item-padding-x", "var(--space-sm)"),
-    FamilyToken::new("menu-item-padding-y", "var(--space-sm)"),
+    FamilyToken::new("menu-item-padding", "var(--space-sm)"),
 
     // NavItem
     FamilyToken::new("nav-item-height", "var(--space-2xl)"),
@@ -250,7 +246,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("nav-item-font-size", "var(--font-size-sm)"),
     FamilyToken::new("nav-item-font-weight", "var(--font-weight-medium)"),
     FamilyToken::new("nav-item-active-font-weight", "var(--font-weight-semibold)"),
-    FamilyToken::new("nav-item-color", "var(--theme-surface-fg)"),
+    FamilyToken::new("nav-item-fg", "var(--theme-surface-fg)"),
     FamilyToken::new("nav-item-icon-size", "1.25em"),
     FamilyToken::new("nav-item-line-height", "var(--line-height-normal)"),
     FamilyToken::new("nav-item-hover-bg", "transparent"),
@@ -259,7 +255,6 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("nav-item-active-fg", "var(--theme-action-primary-bg)"),
     FamilyToken::new("nav-item-focus-ring-width", "var(--state-focus-ring-width)"),
     FamilyToken::new("nav-item-focus-ring-color", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("nav-item-active-fg", "var(--theme-action-primary-bg)"),
 
     // Link Group
     FamilyToken::new("link-group-gap", "var(--space-xs)"),

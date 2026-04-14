@@ -21,26 +21,26 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
 
     // Button
     // Button sizes — enterprise scale (xs=24px, sm=32px, md=36px, lg=40px, xl=48px)
-    FamilyToken::new("button-height",           "2.25rem"),   // md = 36px
+    FamilyToken::new("button-height",           "var(--size-button-md)"),   // md = 36px
     FamilyToken::new("button-padding-x",        "var(--space-md)"),
     FamilyToken::new("button-padding-y",        "0.375rem"),
 
-    FamilyToken::new("button-xs-height",        "1.5rem"),    // 24px
+    FamilyToken::new("button-xs-height",        "var(--size-button-xs)"),    // 24px
     FamilyToken::new("button-xs-padding-x",     "var(--space-sm)"),
     FamilyToken::new("button-xs-padding-y",     "0.125rem"),
     FamilyToken::new("button-xs-font-size",     "var(--font-size-xs)"),
 
-    FamilyToken::new("button-sm-height",        "2rem"),      // 32px
+    FamilyToken::new("button-sm-height",        "var(--size-button-sm)"),      // 32px
     FamilyToken::new("button-sm-padding-x",     "0.75rem"),
     FamilyToken::new("button-sm-padding-y",     "0.25rem"),
     FamilyToken::new("button-sm-font-size",     "var(--font-size-sm)"),
 
-    FamilyToken::new("button-lg-height",        "2.75rem"),    // 40px
+    FamilyToken::new("button-lg-height",        "var(--size-button-lg)"),    // 40px
     FamilyToken::new("button-lg-padding-x",     "var(--space-lg)"),
     FamilyToken::new("button-lg-padding-y",     "0.5rem"),
     FamilyToken::new("button-lg-font-size",     "var(--font-size-md)"),
 
-    FamilyToken::new("button-xl-height",        "3rem"),      // 48px
+    FamilyToken::new("button-xl-height",        "var(--size-button-xl)"),      // 48px
     FamilyToken::new("button-xl-padding-x",     "var(--space-xl)"),
     FamilyToken::new("button-xl-padding-y",     "0.625rem"),
     FamilyToken::new("button-xl-font-size",     "var(--font-size-lg)"),
@@ -186,7 +186,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("select-content-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("select-content-border-width", "1px"),
     FamilyToken::new("select-item-height", "var(--size-input-sm)"),
-    FamilyToken::new("select-item-padding", "var(--space-sm) var(--space-sm)"),
+    FamilyToken::new("select-item-padding", "var(--space-sm)"),
     FamilyToken::new("select-item-hover-bg", "var(--theme-action-accent-bg)"),
     FamilyToken::new("select-item-selected-bg", "var(--theme-action-primary-bg)"),
     FamilyToken::new("select-item-selected-fg", "var(--theme-action-primary-fg)"),
@@ -210,7 +210,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("switch-focus-ring-width",      "2px"),
 
     // Toggle
-    FamilyToken::new("toggle-padding", "var(--space-sm) var(--space-sm)"),
+    FamilyToken::new("toggle-padding", "var(--space-sm)"),
     FamilyToken::new("toggle-radius", "var(--radius-sm)"),
     FamilyToken::new("toggle-border-width", "1px"),
     FamilyToken::new("toggle-fg", "var(--theme-surface-fg)"),
@@ -309,7 +309,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("radio-group-label-fg-disabled", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("radio-group-label-font-size", "var(--font-size-sm)"),
     FamilyToken::new("radio-group-label-font-weight", "var(--font-weight-medium)"),
-    FamilyToken::new("radio-group-item-indicator-size", "var(--space-xxs)"),
+    FamilyToken::new("radio-group-item-indicator-size", "var(--space-2xs)"),
     
     // ColorPicker Example Layout tokens
     FamilyToken::new("color-picker-example-gap", "var(--space-md)"),
@@ -345,7 +345,6 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("form-error-summary-item-icon-size", "var(--space-md)"),
     // Form (tokens simplificados faltantes)
     FamilyToken::new("form-help-text-fg", "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("form-label-font-size", "var(--font-size-sm)"),
     
     // RadioGroup item (input) tokens
     FamilyToken::new("radio-group-item-size", "1rem"),

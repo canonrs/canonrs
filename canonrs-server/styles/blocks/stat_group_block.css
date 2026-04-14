@@ -1,11 +1,11 @@
 /* ============================================================================
-   Block: Stat Group — tokens: stat-group-*
+   Block: Stat Group — tokens: stat-group-block-*
    ============================================================================ */
 
 [data-rs-stat-group] {
-    padding: var(--stat-group-padding);
+    padding: var(--stat-group-block-padding);
 }
 
 [data-rs-stat-group] [data-rs-region="stats"] {
-    gap: var(--stat-group-gap);
+    gap: var(--stat-group-block-gap);
 }

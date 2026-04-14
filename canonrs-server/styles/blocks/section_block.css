@@ -3,9 +3,9 @@
    ============================================================================ */
 
 [data-rs-section] {
-    padding: var(--section-block-padding);
     display: flex;
     flex-direction: column;
+    padding: var(--section-block-padding);
     gap: var(--section-block-gap);
 }
 

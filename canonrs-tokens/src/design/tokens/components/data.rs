@@ -82,8 +82,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("virtual-list-item-font-size",   "var(--font-size-sm)"),
     FamilyToken::new("virtual-list-item-padding-x",   "var(--space-md)"),
     FamilyToken::new("virtual-list-item-gap",         "var(--space-sm)"),
-    FamilyToken::new("virtual-list-item-bg-hover",    "color-mix(in srgb, var(--theme-surface-fg) 6%, transparent)"),
-    FamilyToken::new("virtual-list-item-bg-selected", "color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent)"),
+    FamilyToken::new("virtual-list-item-hover-bg",    "color-mix(in srgb, var(--theme-surface-fg) 6%, transparent)"),
+    FamilyToken::new("virtual-list-item-selected-bg", "color-mix(in srgb, var(--theme-action-accent-bg) 12%, transparent)"),
 
     // ── Icon ──────────────────────────────────────────────────────────────────
     FamilyToken::new("icon-size-sm",       "var(--space-md)"),
@@ -299,7 +299,6 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     // ── ListItem ──────────────────────────────────────────────────────────────
     FamilyToken::new("list-gap",            "var(--space-sm)"),
     FamilyToken::new("list-item-padding",   "var(--space-sm) var(--space-md)"),
-    FamilyToken::new("list-item-padding-y", "var(--space-sm)"),
     FamilyToken::new("list-item-border",    "1px solid var(--theme-surface-border)"),
     FamilyToken::new("list-item-bg-disabled",     "transparent"),
     FamilyToken::new("list-item-fg-disabled",     "var(--theme-surface-fg-muted)"),
@@ -342,8 +341,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("markdown-toc-link-bg-hover",      "var(--theme-surface-muted)"),
     FamilyToken::new("markdown-toc-link-fg-active",     "var(--theme-action-primary-bg)"),
     FamilyToken::new("markdown-toc-link-bg-active",     "var(--theme-surface-muted)"),
-    FamilyToken::new("md-toc-width",                    "220px"),
-    FamilyToken::new("md-layout-gap",                   "var(--space-xl)"),
+    FamilyToken::new("markdown-toc-width",                    "220px"),
+    FamilyToken::new("markdown-layout-gap",                   "var(--space-xl)"),
     FamilyToken::new("markdown-toc-border-color",        "var(--theme-surface-border-muted)"),
     FamilyToken::new("markdown-toc-border-radius",       "var(--radius-md)"),
     FamilyToken::new("markdown-toc-padding",             "var(--space-md)"),

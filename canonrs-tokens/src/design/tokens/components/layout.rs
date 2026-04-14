@@ -12,7 +12,6 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("layout-min-height",             "100vh"),
     FamilyToken::new("layout-header-height",          "var(--layout-height-header)"),
     FamilyToken::new("layout-footer-height",          "var(--layout-height-header)"),
-    FamilyToken::new("layout-sidebar-width",          "var(--layout-sidebar-width)"),
     FamilyToken::new("layout-panel-width",            "var(--layout-width-md)"),
     FamilyToken::new("layout-bg",                     "var(--theme-surface-bg)"),
     FamilyToken::new("layout-border-color",           "var(--theme-surface-border)"),
@@ -27,8 +26,8 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("layout-header-border-color",    "var(--layout-divider-color)"),
 
     // ── Layout Dimension Primitives ──────────────────────────────────────────
-    FamilyToken::new("layout-height-header",          "56px"),
-    FamilyToken::new("layout-height-footer",          "56px"),
+    FamilyToken::new("layout-height-header",          "var(--size-header)"),
+    FamilyToken::new("layout-height-footer",          "var(--size-header)"),
     FamilyToken::new("layout-sidebar-width",          "240px"),
     FamilyToken::new("layout-sidebar-width-collapsed","60px"),
     FamilyToken::new("layout-content-max-width",      "1280px"),
@@ -136,10 +135,10 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     // ── Block: Form Field ─────────────────────────────────────────────────────
     FamilyToken::new("form-field-gap",                "var(--space-xs)"),
     FamilyToken::new("form-field-label-gap",          "var(--space-xs)"),
-    FamilyToken::new("form-field-hint-color",         "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("form-field-hint-size",          "var(--font-size-sm)"),
-    FamilyToken::new("form-field-error-color",        "var(--theme-feedback-error)"),
-    FamilyToken::new("form-field-error-size",         "var(--font-size-sm)"),
+    FamilyToken::new("form-field-hint-fg",         "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("form-field-hint-font-size",          "var(--font-size-sm)"),
+    FamilyToken::new("form-field-error-fg",        "var(--theme-feedback-error)"),
+    FamilyToken::new("form-field-error-font-size",         "var(--font-size-sm)"),
 
     // ── Block: Data Table ─────────────────────────────────────────────────────
     FamilyToken::new("data-table-gap",                "var(--space-md)"),

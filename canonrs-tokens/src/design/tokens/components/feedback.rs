@@ -229,7 +229,6 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     // Alert (tokens simplificados faltantes)
     FamilyToken::new("alert-fg", "var(--theme-surface-fg)"),
     FamilyToken::new("alert-gap", "var(--space-sm)"),
-    FamilyToken::new("alert-padding", "var(--space-md)"),
 
     // Badge (tokens simplificados faltantes)
     FamilyToken::new("badge-bg", "var(--theme-action-secondary-bg)"),
@@ -245,7 +244,7 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
 
     // Skeleton
     FamilyToken::new("skeleton-shimmer-duration", "var(--motion-duration-slow)"),
-    FamilyToken::new("skeleton-shimmer-easing", "var(--motion-ease-standard)"),
+    FamilyToken::new("skeleton-shimmer-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("skeleton-shimmer-color-start", "transparent"),
     FamilyToken::new("skeleton-shimmer-color-end", "var(--theme-surface-overlay)"),
     FamilyToken::new("skeleton-text-height", "var(--space-sm)"),
@@ -256,11 +255,11 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("skeleton-rectangle-radius", "var(--radius-md)"),
 
     // Spinner
-    FamilyToken::new("spinner-size-small", "var(--space-md)"),
-    FamilyToken::new("spinner-size-medium", "var(--space-lg)"),
-    FamilyToken::new("spinner-size-large", "var(--space-xl)"),
+    FamilyToken::new("spinner-size-sm", "var(--space-md)"),
+    FamilyToken::new("spinner-size-md", "var(--space-lg)"),
+    FamilyToken::new("spinner-size-lg", "var(--space-xl)"),
     FamilyToken::new("spinner-rotation-duration", "var(--motion-duration-normal)"),
-    FamilyToken::new("spinner-rotation-easing", "var(--motion-ease-linear)"),
+    FamilyToken::new("spinner-rotation-ease", "var(--motion-ease-linear)"),
     FamilyToken::new("spinner-opacity-paused", "0.5"),
 
 
