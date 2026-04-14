@@ -27,10 +27,10 @@ impl ToastVariant {
         }
     }
     pub fn aria_live(&self) -> &'static str {
-        match self { Self::Error => "assertive", _ => "polite" }
+        match self { Self::Error | Self::Warning => "assertive", _ => "polite" }
     }
     pub fn role(&self) -> &'static str {
-        match self { Self::Error => "alert", _ => "status" }
+        match self { Self::Error | Self::Warning => "alert", _ => "status" }
     }
 }
 

@@ -62,22 +62,30 @@ impl BannerVariant {
 pub fn BannerPrimitive(
     children: Children,
     #[prop(default = BannerVariant::Info)] variant: BannerVariant,
-    #[prop(default = VisibilityState::Open)] state: VisibilityState,
+    #[prop(default = VisibilityState::Open)] visibility: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
+    let v = visibility_attrs(visibility);
+    let role = match variant {
+        BannerVariant::Error | BannerVariant::Warning => "alert",
+        _ => "region",
+    };
+    let aria_live = match variant {
+        BannerVariant::Error | BannerVariant::Warning => "assertive",
+        _ => "polite",
+    };
     view! {
         <div
             data-rs-banner=""
             data-rs-uid=crate::infra::uid::generate("bn")
-            data-rs-interaction="init"
-            data-rs-variant=variant.as_str()
-            data-rs-state=variant.semantic_state()
-            role=variant.role()
-            aria-live=variant.aria_live()
+            data-rs-interaction="dismiss"
+            data-rs-state=variant.as_str()
+            data-rs-visibility=v.data_rs_state
+            role=role
+            aria-live=aria_live
             aria-label=variant.aria_label()
             aria-atomic="true"
-            hidden=s.hidden
+            hidden=v.hidden
             class=class
         >
             {children()}

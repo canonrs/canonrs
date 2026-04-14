@@ -23,6 +23,9 @@ pub fn init_with_timer(root: &Element, close_selector: &str, duration_ms: i32) {
     init(root, close_selector);
     let root_cb = root.clone();
     let cb = Closure::once(move || {
+        // nao fechar se pausado (hover/focus)
+        let current = root_cb.get_attribute("data-rs-state").unwrap_or_default();
+        if current.contains("paused") { return; }
         state::remove_state(&root_cb, "open");
         state::add_state(&root_cb, "closed");
     });

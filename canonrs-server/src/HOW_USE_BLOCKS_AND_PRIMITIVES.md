@@ -182,10 +182,7 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 
 
-alert
-animate
 
-banner
 button
 checkbox
 collapsible
@@ -206,6 +203,5 @@ status_dot
 switch
 table
 table_of_contents
-toast
 toggle
 tooltip
