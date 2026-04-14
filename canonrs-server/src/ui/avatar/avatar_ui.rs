@@ -54,7 +54,9 @@ pub fn Avatar(
         <span style="position:relative;display:inline-block;width:fit-content;">
             <AvatarPrimitive
                 status=status_str
-                class={format!("{} avatar-size-{} avatar-shape-{}", class, size.as_str(), shape.as_str())}
+                size=size.as_str().to_string()
+                shape=shape.as_str().to_string()
+                class=class
             >
                 {children()}
             </AvatarPrimitive>

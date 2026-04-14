@@ -178,3 +178,35 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 - [ ] virtual_list
 
 
+
+
+
+
+alert
+animate
+avatar
+banner
+button
+checkbox
+collapsible
+command
+doc_progress
+field
+form
+icon_button
+input_group
+input_otp
+loading_overlay
+menu
+nav_item
+navigation_menu
+progress
+radio_group
+status_dot
+switch
+table
+table_of_contents
+toast
+toggle
+tooltip
+cristiano:monorepo/ (main)

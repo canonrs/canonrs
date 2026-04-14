@@ -11,6 +11,8 @@ pub fn AvatarPrimitive(
     children: Children,
     #[prop(into, default = String::new())] status: String,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] size: String,
+    #[prop(into, default = String::new())] shape: String,
 ) -> impl IntoView {
     let state = if status.is_empty() { String::new() } else { status.clone() };
     view! {
@@ -19,6 +21,8 @@ pub fn AvatarPrimitive(
             data-rs-uid=crate::infra::uid::generate("av")
             data-rs-interaction="init"
             data-rs-state=state
+            data-rs-size=size
+            data-rs-shape=shape
             class=class
         >
             {children()}

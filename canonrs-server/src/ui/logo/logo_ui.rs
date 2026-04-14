@@ -55,7 +55,7 @@ pub fn Logo(
             variant=variant.as_str().to_string()
             class=class
         >
-            <LogoIconPrimitive src="/logo_canonrs.svg".to_string() />
+            <LogoIconPrimitive src="/assets/logo_canonrs.svg".to_string() />
             {wordmark.map(|w| view! {
                 <LogoWordmarkPrimitive>{w()}</LogoWordmarkPrimitive>
             })}

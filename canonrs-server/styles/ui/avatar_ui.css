@@ -30,6 +30,13 @@
   width: 100%;
   height: 100%;
   object-fit: var(--avatar-image-fit);
+  display: block;
+}
+
+[data-rs-avatar-image][src$=".svg"] {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 /* Fallback */

@@ -11,8 +11,8 @@ pub fn AvatarShowcasePreview() -> impl IntoView {
                 <Avatar status=AvatarStatus::Online>
                     <AvatarFallback>"AB"</AvatarFallback>
                 </Avatar>
-                <Avatar>
-                    <AvatarImage src="https://i.pravatar.cc/150?img=3".to_string() alt="User".to_string() />
+                <Avatar shape=AvatarShape::Circle size=AvatarSize::Lg>
+                    <AvatarImage src="/assets/avatar_canonrs.svg".to_string() alt="User".to_string() />
                     <AvatarFallback>"CD"</AvatarFallback>
                 </Avatar>
             </Stack>

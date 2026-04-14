@@ -10,8 +10,7 @@ pub fn SectionHeaderPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-section-header="" class=class>
-        data-rs-uid=crate::infra::uid::generate("sec")
+        <div data-rs-section-header="" data-rs-uid=crate::infra::uid::generate("sec") class=class>
             {children()}
         </div>
     }
