@@ -36,11 +36,11 @@ pub const FOUNDATION_SPACING: &[FamilyToken] = &[
     FamilyToken::new("size-textarea-min", "6rem"),      // 96px — textarea min height
 
     // Button height scale — enterprise (fills gap in size scale)
-    FamilyToken::new("size-button-xs",    "1.5rem"),    // 24px = size-xs
+    FamilyToken::new("size-button-xs",    "1.75rem"),   // 28px
     FamilyToken::new("size-button-sm",    "2rem"),      // 32px = size-md
     FamilyToken::new("size-button-md",    "2.25rem"),   // 36px — between size-md and size-lg
     FamilyToken::new("size-button-lg",    "2.75rem"),   // 44px — between size-lg and size-xl
-    FamilyToken::new("size-button-xl",    "3rem"),      // 48px = size-xl
+    FamilyToken::new("size-button-xl",    "3.25rem"),   // 52px
 
     // Layout heights
     FamilyToken::new("size-header",       "3.5rem"),    // 56px = size-2xl
