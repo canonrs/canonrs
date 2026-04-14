@@ -19,6 +19,7 @@ TOKENS_DIR   = "../src/design/tokens"
 BEHAVIORS_DIR= "../../canonrs-client/src/behaviors"
 ISLAND_DIR       = "../../canonrs-server/src/ui"
 INTERACTIONS_DIR = "../../canonrs-server/src/interactions"
+PRIMITIVES_DIR   = "../../canonrs-core/src/primitives"
 BUILDER_DIR      = "../../canonrs-server/src/ui"
 
 RUNTIME_ALLOWED = [
@@ -1174,6 +1175,54 @@ def load_components_from_builders(builder_dir, script_dir):
             print(f"[WARN] erro ao parsear {b}: {e}")
     return components
 
+def check_primitive(component_id):
+    """CR-350 a CR-357: validacao de primitives"""
+    import glob, re
+    errors = []
+    prim_file = os.path.join(PRIMITIVES_DIR, f"{component_id}.rs")
+    if not os.path.exists(prim_file):
+        return errors  # primitivo opcional
+    with open(prim_file) as f:
+        content = f.read()
+
+    # CR-350: data-rs-uid obrigatorio no root via generate()
+    has_uid = 'data-rs-uid=crate::infra::uid::generate(' in content or 'data-rs-uid=generate(' in content or 'data-rs-uid=' in content
+    has_component = '#[component]' in content
+    if has_component and not has_uid:
+        errors.append(f"[CR-350] {component_id}.rs -- data-rs-uid ausente\n            usar data-rs-uid=crate::infra::uid::generate(\"prefix\")")
+
+    # CR-351: fn *_uid() propria proibida
+    if re.search(r'fn \w+_uid\(', content):
+        errors.append(f"[CR-351] {component_id}.rs -- fn *_uid() propria proibida\n            usar crate::infra::uid::generate()")
+
+    # CR-352: data-rs-open proibido
+    if 'data-rs-open' in content:
+        errors.append(f"[CR-352] {component_id}.rs -- data-rs-open proibido\n            usar data-rs-state~=\"open\"")
+
+    # CR-353: data-rs-visible proibido
+    if 'data-rs-visible' in content:
+        errors.append(f"[CR-353] {component_id}.rs -- data-rs-visible proibido\n            usar data-rs-state~=\"visible\"")
+
+    # CR-354: data-rs-selected fora de state proibido
+    if re.search(r'data-rs-selected\s*=(?!.*state)', content):
+        errors.append(f"[CR-354] {component_id}.rs -- data-rs-selected fora de state\n            usar data-rs-state~=\"selected\"")
+
+    # CR-355: data-rs-component proibido
+    if 'data-rs-component' in content:
+        errors.append(f"[CR-355] {component_id}.rs -- data-rs-component redundante\n            remover")
+
+    # CR-356: data-rs-behavior proibido
+    if 'data-rs-behavior' in content:
+        errors.append(f"[CR-356] {component_id}.rs -- data-rs-behavior redundante\n            usar data-rs-interaction")
+
+    # CR-357: dois data-rs-state no mesmo elemento
+    for line in content.splitlines():
+        if line.count('data-rs-state') > 1:
+            errors.append(f"[CR-357] {component_id}.rs -- dois data-rs-state no mesmo elemento\n            {line.strip()[:80]}")
+            break
+
+    return errors
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_path  = os.path.join(script_dir, JSON_PATH)
@@ -1183,6 +1232,8 @@ def main():
     BEHAVIORS_DIR= os.path.join(script_dir, BEHAVIORS_DIR)
     ISLAND_DIR       = os.path.join(script_dir, ISLAND_DIR)
     INTERACTIONS_DIR = os.path.join(script_dir, INTERACTIONS_DIR)
+    global PRIMITIVES_DIR
+    PRIMITIVES_DIR   = os.path.join(script_dir, PRIMITIVES_DIR)
 
     BUILDER_DIR  = os.path.join(script_dir, BUILDER_DIR)
 
@@ -1265,6 +1316,7 @@ def main():
             errors += check_island_css_child_combinator(css_file)
             errors += check_hover_override_active(css_file)
             errors += check_css_quality(css_file, comp["component"])
+        errors += check_primitive(comp["component"])
         if errors:
             print(f"\n[ERRO] {comp['component'].upper()}")
             for e in errors:
