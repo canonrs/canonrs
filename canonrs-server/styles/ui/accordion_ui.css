@@ -1,4 +1,6 @@
-/* ACCORDION - Family B Selection */
+/* ═══════════════════════════════════════════════════════════════
+   ACCORDION — Family B Selection tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-accordion] {
   display: flex;
@@ -26,8 +28,8 @@
   transition: background var(--accordion-trigger-transition-duration) var(--accordion-trigger-transition-ease);
 }
 
-[data-rs-accordion-trigger]:hover:not([data-rs-state~="open"]):not([disabled]) {
-  background: var(--accordion-trigger-bg-hover);
+[data-rs-accordion-trigger][data-rs-state~="hover"]:not([data-rs-state~="open"]):not([data-rs-state~="disabled"]) {
+  background: var(--accordion-trigger-hover-bg);
 }
 
 [data-rs-accordion-icon] {
@@ -37,8 +39,8 @@
 }
 
 [data-rs-accordion-item][data-rs-state~="open"] [data-rs-accordion-trigger] {
-  color: var(--accordion-trigger-fg-open);
-  background: var(--accordion-trigger-bg-open);
+  color: var(--accordion-trigger-open-fg);
+  background: var(--accordion-trigger-open-bg);
 }
 
 [data-rs-accordion-item][data-rs-state~="open"] [data-rs-accordion-icon] {
@@ -51,8 +53,6 @@
   padding-top: var(--accordion-content-padding-top);
 }
 
-/* ── States ──────────────────────────────────────────────────────────────────── */
-
 [data-rs-accordion-item][data-rs-state~="open"] [data-rs-accordion-content] {
   display: block;
 }
@@ -61,8 +61,7 @@
   display: none;
 }
 
-[data-rs-accordion-trigger][data-rs-state~="disabled"],
-[data-rs-accordion-trigger][disabled] {
+[data-rs-accordion-trigger][data-rs-state~="disabled"] {
   opacity: var(--accordion-trigger-opacity-disabled);
   color: var(--accordion-trigger-fg-disabled);
   cursor: not-allowed;

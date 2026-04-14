@@ -100,6 +100,17 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("hero-gap",                      "var(--space-xl)"),
     FamilyToken::new("hero-media-gap",                "var(--space-2xl)"),
     FamilyToken::new("hero-actions-gap",              "var(--space-md)"),
+    FamilyToken::new("hero-title-font-size",           "var(--font-size-4xl)"),
+    FamilyToken::new("hero-title-font-weight",         "var(--font-weight-bold)"),
+    FamilyToken::new("hero-title-line-height",         "var(--line-height-tight)"),
+    FamilyToken::new("hero-title-fg",                  "var(--theme-surface-fg)"),
+    FamilyToken::new("hero-subtitle-font-size",        "var(--font-size-xl)"),
+    FamilyToken::new("hero-subtitle-font-weight",      "var(--font-weight-medium)"),
+    FamilyToken::new("hero-subtitle-line-height",      "var(--line-height-normal)"),
+    FamilyToken::new("hero-subtitle-fg",               "var(--theme-surface-fg)"),
+    FamilyToken::new("hero-description-font-size",     "var(--font-size-md)"),
+    FamilyToken::new("hero-description-line-height",   "var(--line-height-relaxed)"),
+    FamilyToken::new("hero-description-fg",            "var(--theme-surface-fg-muted)"),
     FamilyToken::new("hero-max-width",                "800px"),
     FamilyToken::new("hero-align",                    "center"),
     FamilyToken::new("hero-min-height",               "80vh"),
@@ -185,4 +196,21 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
 
     // ── Primitive: Spacer ─────────────────────────────────────────────────────
     FamilyToken::new("spacer-flex",                   "1"),
+
+
+    // ── Section UI ───────────────────────────────────────────────────────────
+    FamilyToken::new("section-title-fg",              "var(--theme-surface-fg)"),
+    FamilyToken::new("section-title-font-size",       "var(--font-size-2xl)"),
+    FamilyToken::new("section-title-font-weight",     "var(--font-weight-bold)"),
+    FamilyToken::new("section-description-fg",        "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("section-description-font-size", "var(--font-size-md)"),
+    FamilyToken::new("section-description-margin",    "0"),
+    FamilyToken::new("section-header-max-width",      "var(--layout-width-lg)"),
+    FamilyToken::new("section-badge-fg",              "var(--theme-action-accent-fg)"),
+    // ── Aspect Ratio ─────────────────────────────────────────────────────────
+    FamilyToken::new("aspect-ratio-default",  "16 / 9"),
+    FamilyToken::new("aspect-ratio-square",   "1 / 1"),
+    FamilyToken::new("aspect-ratio-portrait", "3 / 4"),
+    FamilyToken::new("aspect-ratio-video",    "16 / 9"),
+    FamilyToken::new("aspect-ratio-wide",     "21 / 9"),
 ];

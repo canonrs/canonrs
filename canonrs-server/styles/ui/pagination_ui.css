@@ -1,7 +1,6 @@
-/* ============================================
-   PAGINATION
-   Family A: Actions
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   PAGINATION — Family D Navigation tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-pagination] {
   display: flex;
@@ -43,9 +42,9 @@
   transition: background var(--pagination-item-transition-duration) var(--pagination-item-transition-ease);
 }
 
-[data-rs-pagination-link]:hover:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]),
-[data-rs-pagination-previous]:hover:not([data-rs-state~="disabled"]),
-[data-rs-pagination-next]:hover:not([data-rs-state~="disabled"]) {
+[data-rs-pagination-link][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]),
+[data-rs-pagination-previous][data-rs-state~="hover"]:not([data-rs-state~="disabled"]),
+[data-rs-pagination-next][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   background: var(--pagination-item-bg-hover);
 }
 
@@ -69,19 +68,4 @@
   width: var(--pagination-item-size);
   height: var(--pagination-item-size);
   color: var(--pagination-ellipsis-fg);
-}
-
-/* ── States ──────────────────────────────────────────────────────────────────── */
-
-[data-rs-pagination-link][data-rs-state~="active"] {
-  background: var(--pagination-item-bg-active);
-  color: var(--pagination-item-fg-active);
-  font-weight: var(--pagination-item-font-weight-active);
-}
-
-[data-rs-pagination-previous][data-rs-state~="disabled"],
-[data-rs-pagination-next][data-rs-state~="disabled"] {
-  opacity: var(--pagination-item-disabled-opacity);
-  cursor: not-allowed;
-  pointer-events: none;
 }

@@ -1,7 +1,6 @@
-/* ============================================
-   AVATAR
-   Family F: Data
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   AVATAR — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-avatar] {
   position: relative;
@@ -15,16 +14,16 @@
 }
 
 /* Sizes */
-[data-rs-avatar].avatar-size-xs { width: var(--avatar-size-xs); height: var(--avatar-size-xs); }
-[data-rs-avatar].avatar-size-sm { width: var(--avatar-size-sm); height: var(--avatar-size-sm); }
-[data-rs-avatar].avatar-size-md { width: var(--avatar-size-md); height: var(--avatar-size-md); }
-[data-rs-avatar].avatar-size-lg { width: var(--avatar-size-lg); height: var(--avatar-size-lg); }
-[data-rs-avatar].avatar-size-xl { width: var(--avatar-size-xl); height: var(--avatar-size-xl); }
+[data-rs-avatar][data-rs-size="xs"] { width: var(--avatar-size-xs); height: var(--avatar-size-xs); }
+[data-rs-avatar][data-rs-size="sm"] { width: var(--avatar-size-sm); height: var(--avatar-size-sm); }
+[data-rs-avatar][data-rs-size="md"] { width: var(--avatar-size-md); height: var(--avatar-size-md); }
+[data-rs-avatar][data-rs-size="lg"] { width: var(--avatar-size-lg); height: var(--avatar-size-lg); }
+[data-rs-avatar][data-rs-size="xl"] { width: var(--avatar-size-xl); height: var(--avatar-size-xl); }
 
 /* Shapes */
-[data-rs-avatar].avatar-shape-circle  { border-radius: var(--avatar-radius); }
-[data-rs-avatar].avatar-shape-square  { border-radius: var(--avatar-radius-square); }
-[data-rs-avatar].avatar-shape-rounded { border-radius: var(--avatar-radius-rounded); }
+[data-rs-avatar][data-rs-shape="circle"]  { border-radius: var(--avatar-radius); }
+[data-rs-avatar][data-rs-shape="square"]  { border-radius: var(--avatar-radius-square); }
+[data-rs-avatar][data-rs-shape="rounded"] { border-radius: var(--avatar-radius-rounded); }
 
 /* Image */
 [data-rs-avatar-image] {
@@ -47,8 +46,8 @@
   text-transform: uppercase;
 }
 
-/* Status dot — fora do avatar (via StatusDotPrimitive no wrapper) */
-[data-rs-status-dot].avatar-status-dot {
+/* Status dot */
+[data-rs-avatar] [data-rs-status-dot] {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -77,7 +76,7 @@
 }
 
 /* States */
-[data-rs-avatar][data-rs-state~="loading"] { opacity: 0.6; }
+[data-rs-avatar][data-rs-state~="loading"] { opacity: var(--opacity-disabled); }
 [data-rs-avatar][data-rs-state~="error"] [data-rs-avatar-image] { display: none; }
 [data-rs-avatar-image][data-rs-state~="closed"] { display: none; }
 [data-rs-avatar-fallback][data-rs-state~="closed"] { display: none; }
@@ -85,8 +84,9 @@
 /* Pulse animation */
 @keyframes avatar-pulse {
   0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--avatar-status-pulse-color) 70%, transparent); }
-  50%       { box-shadow: 0 0 0 6px color-mix(in srgb, var(--avatar-status-pulse-color) 0%, transparent); }
+  50%       { box-shadow: 0 0 0 var(--avatar-pulse-ring-size) color-mix(in srgb, var(--avatar-status-pulse-color) 0%, transparent); }
 }
-[data-rs-status-dot].avatar-status-dot[data-rs-pulse] {
-  animation: avatar-pulse 2s ease-in-out infinite;
+
+[data-rs-avatar] [data-rs-status-dot][data-rs-pulse] {
+  animation: avatar-pulse 2s var(--motion-ease-standard) infinite;
 }

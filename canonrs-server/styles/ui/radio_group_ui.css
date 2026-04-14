@@ -14,12 +14,12 @@
   opacity: var(--radio-disabled-opacity);
   cursor: not-allowed;
   pointer-events: none;
-  color: var(--radio-fg-disabled);
+  color: var(--radio-disabled-fg);
 }
 
 [data-rs-radio-group][data-rs-disabled] [data-rs-radio] [data-rs-radio-indicator] {
-  background: var(--radio-bg-disabled);
-  border-color: var(--radio-border-color-disabled);
+  background: var(--radio-disabled-bg);
+  border-color: var(--radio-disabled-border-color);
 }
 
 [data-rs-radio-group][data-rs-disabled] [data-rs-radio][data-rs-state~="selected"] [data-rs-radio-indicator]::after {
@@ -38,5 +38,5 @@
   opacity: var(--radio-disabled-opacity);
   cursor: not-allowed;
   pointer-events: none;
-  color: var(--radio-fg-disabled);
+  color: var(--radio-disabled-fg);
 }

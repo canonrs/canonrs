@@ -1,7 +1,6 @@
-/* ============================================
-   ICON — Enterprise Level
-   Family F: Data
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   ICON — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-icon] {
   display: inline-flex;
@@ -11,7 +10,6 @@
   vertical-align: var(--icon-vertical-align);
 }
 
-/* Sizes */
 [data-rs-icon][data-rs-size="sm"] {
   width: var(--icon-size-sm);
   height: var(--icon-size-sm);
@@ -27,15 +25,13 @@
   height: var(--icon-size-lg);
 }
 
-/* Variants */
-[data-rs-icon][data-rs-variant="default"] { color: var(--icon-color); }
-[data-rs-icon][data-rs-variant="muted"] { color: var(--icon-color-muted); }
-[data-rs-icon][data-rs-variant="primary"] { color: var(--icon-color-primary); }
+[data-rs-icon][data-rs-variant="default"]     { color: var(--icon-color); }
+[data-rs-icon][data-rs-variant="muted"]       { color: var(--icon-color-muted); }
+[data-rs-icon][data-rs-variant="primary"]     { color: var(--icon-color-primary); }
 [data-rs-icon][data-rs-variant="destructive"] { color: var(--icon-color-destructive); }
-[data-rs-icon][data-rs-variant="success"] { color: var(--icon-color-success); }
-[data-rs-icon][data-rs-variant="warning"] { color: var(--icon-color-warning); }
+[data-rs-icon][data-rs-variant="success"]     { color: var(--icon-color-success); }
+[data-rs-icon][data-rs-variant="warning"]     { color: var(--icon-color-warning); }
 
-/* Inner wrapper — SVG container */
 [data-rs-icon-inner] {
   display: flex;
   width: 100%;
@@ -48,7 +44,6 @@
   stroke-width: var(--icon-stroke-width);
 }
 
-/* Spin animation — enterprise tokenized */
 @keyframes icon-spin {
   to { transform: rotate(360deg); }
 }
@@ -57,8 +52,7 @@
   animation: icon-spin var(--motion-duration-slow) linear infinite;
 }
 
-/* Disabled state */
-[data-rs-icon][disabled] {
+[data-rs-icon][data-rs-state~="disabled"] {
   color: var(--icon-color-disabled);
   pointer-events: none;
 }

@@ -1,7 +1,6 @@
-/* ============================================
-   SCROLL AREA — Infrastructure Level
-   Family F: Data Display
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL AREA — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-scroll-area] {
   position: relative;
@@ -16,7 +15,6 @@
   flex-direction: column;
 }
 
-/* ── Viewport ────────────────────────────────── */
 [data-rs-scroll-viewport] {
   width: 100%;
   height: 100%;
@@ -26,35 +24,37 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
 [data-rs-scroll-viewport]::-webkit-scrollbar { display: none; }
 
-[data-rs-scroll-area][data-rs-orientation="vertical"]    [data-rs-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
-[data-rs-scroll-area][data-rs-orientation="horizontal"]  [data-rs-scroll-viewport] { overflow-x: auto;   overflow-y: hidden; height: auto; }
-[data-rs-scroll-area][data-rs-orientation="both"]        [data-rs-scroll-viewport] { overflow: auto; }
+[data-rs-scroll-area][data-rs-orientation="vertical"]   [data-rs-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
+[data-rs-scroll-area][data-rs-orientation="horizontal"] [data-rs-scroll-viewport] { overflow-x: auto; overflow-y: hidden; height: auto; }
+[data-rs-scroll-area][data-rs-orientation="both"]       [data-rs-scroll-viewport] { overflow: auto; }
 
-/* ── Scrollbar ───────────────────────────────── */
 [data-rs-scrollbar] {
   position: absolute;
-  z-index: 10;
-  transition: opacity 0.2s ease;
+  z-index: var(--layer-sticky);
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-rs-scrollbar][data-rs-orientation="vertical"] {
-  top: 2px; right: 2px; bottom: 2px;
+  top: var(--space-2xs);
+  right: var(--space-2xs);
+  bottom: var(--space-2xs);
   width: var(--scrollbar-size);
 }
 
 [data-rs-scrollbar][data-rs-orientation="horizontal"] {
-  left: 2px; right: 2px; bottom: 2px;
+  left: var(--space-2xs);
+  right: var(--space-2xs);
+  bottom: var(--space-2xs);
   height: var(--scrollbar-size);
 }
 
-/* auto-hide */
-[data-rs-scroll-area][data-rs-auto-hide="true"] [data-rs-scrollbar] { opacity: 0; }
-[data-rs-scroll-area][data-rs-auto-hide="true"]:hover [data-rs-scrollbar] { opacity: 1; }
-[data-rs-scroll-area][data-rs-auto-hide="true"] [data-rs-scrollbar][data-rs-state~="active"] { opacity: 1; }
+[data-rs-scroll-area][data-rs-state~="auto-hide"] [data-rs-scrollbar] { opacity: 0; }
+[data-rs-scroll-area][data-rs-state~="auto-hide"][data-rs-state~="hover"] [data-rs-scrollbar] { opacity: 1; }
+[data-rs-scroll-area][data-rs-state~="auto-hide"] [data-rs-scrollbar][data-rs-state~="active"] { opacity: 1; }
 
-/* ── Track ───────────────────────────────────── */
 [data-rs-scroll-track] {
   position: relative;
   width: 100%;
@@ -64,33 +64,32 @@
   overflow: hidden;
 }
 
-/* ── Thumb ───────────────────────────────────── */
 [data-rs-scroll-thumb] {
   position: absolute;
   background: var(--scrollbar-thumb-bg);
   border-radius: var(--scrollbar-radius);
   will-change: transform;
-  transition: var(--scrollbar-transition), opacity 0.15s ease;
+  transition: var(--scrollbar-transition);
   cursor: grab;
 }
 
 [data-rs-scroll-thumb][data-rs-orientation="vertical"] {
   left: 0; right: 0;
   min-height: var(--scrollbar-thumb-min-size);
-  height: var(--scroll-thumb-size, 40px);
-  transform: translateY(var(--scroll-thumb-offset, 0px));
+  height: var(--scroll-thumb-size);
+  transform: translateY(var(--scroll-thumb-offset));
 }
 
 [data-rs-scroll-thumb][data-rs-orientation="horizontal"] {
   top: 0; bottom: 0;
   min-width: var(--scrollbar-thumb-min-size);
-  width: var(--scroll-thumb-size, 40px);
-  transform: translateX(var(--scroll-thumb-offset, 0px));
+  width: var(--scroll-thumb-size);
+  transform: translateX(var(--scroll-thumb-offset));
 }
 
-[data-rs-scroll-thumb][data-rs-state~="hidden"] { opacity: 0; pointer-events: none; }
-[data-rs-scroll-thumb]:hover                { background: var(--scrollbar-thumb-hover-bg); }
-[data-rs-scroll-thumb][data-rs-state~="active"] {
+[data-rs-scroll-thumb][data-rs-state~="hidden"]  { opacity: 0; pointer-events: none; }
+[data-rs-scroll-thumb][data-rs-state~="hover"]   { background: var(--scrollbar-thumb-hover-bg); }
+[data-rs-scroll-thumb][data-rs-state~="active"]  {
   background: var(--scrollbar-thumb-active-bg);
   cursor: grabbing;
 }

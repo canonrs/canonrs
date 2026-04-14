@@ -1,4 +1,6 @@
-/* CONTEXT MENU - Family A Overlay */
+/* ═══════════════════════════════════════════════════════════════
+   CONTEXT MENU — Family A Overlay tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-context-menu] {
   position: relative;
@@ -6,8 +8,8 @@
 
 [data-rs-context-menu-content] {
   position: fixed;
-  left: var(--context-menu-x, 0px);
-  top: var(--context-menu-y, 0px);
+  left: var(--context-menu-x, 0);
+  top: var(--context-menu-y, 0);
   z-index: var(--context-menu-z-index);
   background: var(--context-menu-bg);
   color: var(--context-menu-fg);
@@ -19,7 +21,8 @@
   opacity: 0;
   visibility: hidden;
   transform: scale(0.95);
-  transition: opacity var(--context-menu-transition-duration) var(--context-menu-transition-ease),
+  transition:
+    opacity var(--context-menu-transition-duration) var(--context-menu-transition-ease),
     visibility var(--context-menu-transition-duration) var(--context-menu-transition-ease),
     transform var(--context-menu-transition-duration) var(--context-menu-transition-ease);
 }
@@ -31,20 +34,24 @@
   padding: var(--context-menu-item-padding);
   color: var(--context-menu-item-fg);
   cursor: pointer;
-  border-radius: calc(var(--context-menu-radius) / 2);
+  border-radius: var(--context-menu-radius);
 }
 
-[data-rs-context-menu-item]:hover:not([data-rs-state~="active"]):not([aria-disabled="true"]) {
+[data-rs-context-menu-item][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
   background: var(--context-menu-item-hover-bg);
 }
 
+[data-rs-context-menu-item][data-rs-state~="disabled"] {
+  opacity: var(--opacity-disabled);
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 [data-rs-context-menu-separator] {
-  height: 1px;
+  height: var(--border-thin);
   background: var(--context-menu-border-color);
   margin: var(--space-xs) 0;
 }
-
-/* ── States ──────────────────────────────────────────────────────────────────── */
 
 [data-rs-context-menu][data-rs-state~="open"] [data-rs-context-menu-content] {
   opacity: 1;

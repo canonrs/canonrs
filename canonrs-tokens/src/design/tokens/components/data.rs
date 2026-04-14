@@ -17,6 +17,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("card-border",                  "var(--theme-surface-border)"),
     FamilyToken::new("card-radius",                  "var(--radius-md)"),
     FamilyToken::new("card-shadow",                  "var(--shadow-sm)"),
+    FamilyToken::new("card-hover-transform",          "translateY(calc(-1 * var(--space-2xs)))"),
+    FamilyToken::new("card-hover-transform",          "translateY(calc(-1 * var(--space-2xs)))"),
     FamilyToken::new("card-border-width",            "1px"),
     FamilyToken::new("card-border-color",            "var(--theme-surface-border)"),
     FamilyToken::new("card-padding",                 "var(--space-lg)"),
@@ -209,6 +211,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("avatar-radius-rounded",        "var(--radius-lg)"),
     FamilyToken::new("avatar-bg",                    "var(--theme-surface-muted)"),
     FamilyToken::new("avatar-border-color",          "var(--theme-surface-border)"),
+    FamilyToken::new("avatar-pulse-ring-size",         "var(--space-xs)"),
+    FamilyToken::new("avatar-pulse-ring-size",         "var(--space-xs)"),
     FamilyToken::new("avatar-border-width",          "1px"),
     FamilyToken::new("avatar-fallback-bg",           "var(--theme-surface-muted)"),
     FamilyToken::new("avatar-fallback-fg",           "var(--theme-surface-fg-muted)"),
@@ -355,6 +359,8 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("markdown-toc-indent-l3",           "var(--space-md)"),
     FamilyToken::new("markdown-toc-indent-l4",           "var(--space-lg)"),
     FamilyToken::new("markdown-toc-indent-l5",           "var(--space-xl)"),
+    FamilyToken::new("markdown-toc-max-height",          "var(--size-5xl)"),
+    FamilyToken::new("markdown-toc-max-height",          "var(--size-5xl)"),
 
     // ── Content typography ────────────────────────────────────────────────────
     // Headings

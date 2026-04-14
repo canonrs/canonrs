@@ -1,16 +1,14 @@
-/* ============================================
-   TREE — Enterprise Level
-   Family B: Selection
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   TREE — Family B Selection tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-tree] {
   display: flex;
   flex-direction: column;
   gap: var(--tree-gap);
-  min-width: 160px;
+  min-width: var(--layout-width-xs);
 }
 
-/* ── BASE ITEM ──────────────────────────────────────────────────────────── */
 [data-rs-tree-item] {
   position: relative;
   display: flex;
@@ -24,11 +22,11 @@
   font-weight: var(--tree-item-font-weight-leaf);
   cursor: pointer;
   user-select: none;
-  transition: background var(--tree-transition-duration) var(--tree-transition-ease),
-              color var(--tree-transition-duration) var(--tree-transition-ease);
+  transition:
+    background var(--tree-transition-duration) var(--tree-transition-ease),
+    color var(--tree-transition-duration) var(--tree-transition-ease);
 }
 
-/* ── DEPTH ───────────────────────────────────────────────────────────────── */
 [data-rs-tree-item][data-rs-depth="0"] {
   padding-left: var(--tree-item-padding-x);
   font-weight: var(--tree-item-font-weight-parent);
@@ -51,31 +49,24 @@
   color: var(--tree-item-fg-muted);
 }
 
-/* ── HOVER ───────────────────────────────────────────────────────────────── */
-[data-rs-tree-item]:hover {
-  background: var(--tree-item-bg-hover);
+[data-rs-tree-item][data-rs-state~="hover"] {
+  background: var(--tree-item-hover-bg);
   color: var(--tree-item-fg);
 }
 
-/* ── FOCUS ───────────────────────────────────────────────────────────────── */
 [data-rs-tree-item][data-rs-state~="focus"] {
-  background: var(--tree-item-bg-focus);
-}
-
-[data-rs-tree-item]:focus-visible {
+  background: var(--tree-item-focus-bg);
   outline: none;
-  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--theme-action-focus-ring);
 }
 
-/* ── SELECTED ────────────────────────────────────────────────────────────── */
 [data-rs-tree-item][data-rs-state~="selected"] {
-  background: var(--tree-item-bg-selected);
+  background: var(--tree-item-selected-bg);
   color: var(--tree-item-fg);
 }
 
-/* ── ACTIVE ──────────────────────────────────────────────────────────────── */
 [data-rs-tree-item][data-rs-state~="active"] {
-  background: var(--tree-item-bg-active);
+  background: var(--tree-item-active-bg);
   color: var(--tree-item-fg);
   font-weight: var(--tree-item-font-weight-parent);
 }
@@ -84,74 +75,70 @@
   content: "";
   position: absolute;
   left: 0;
-  top: 15%;
-  height: 70%;
-  width: 2px;
+  top: var(--space-xs);
+  bottom: var(--space-xs);
+  width: var(--border-medium);
   background: var(--tree-item-active-indicator);
-  border-radius: 2px;
+  border-radius: var(--radius-full);
 }
 
-/* ── DISABLED ────────────────────────────────────────────────────────────── */
 [data-rs-tree-item][data-rs-state~="disabled"] {
-  opacity: 0.4;
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* ── TOGGLE CARET ────────────────────────────────────────────────────────── */
 [data-rs-tree-toggle] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: var(--space-xl);
+  height: var(--space-xl);
   flex-shrink: 0;
   background: transparent;
   border: none;
   color: var(--tree-item-fg-muted);
   cursor: pointer;
-  opacity: 0.5;
-  transition: transform var(--tree-transition-duration) var(--tree-transition-ease),
-              opacity var(--tree-transition-duration) var(--tree-transition-ease);
+  opacity: var(--opacity-disabled);
+  transition:
+    transform var(--tree-transition-duration) var(--tree-transition-ease),
+    opacity var(--tree-transition-duration) var(--tree-transition-ease);
   padding: 0;
 }
 
-[data-rs-tree-item]:hover [data-rs-tree-toggle] {
+[data-rs-tree-item][data-rs-state~="hover"] [data-rs-tree-toggle] {
   opacity: 1;
 }
 
-[data-rs-tree-item][data-rs-expanded="true"] [data-rs-tree-toggle] {
+[data-rs-tree-item][data-rs-state~="expanded"] [data-rs-tree-toggle] {
   transform: rotate(var(--tree-icon-rotation));
-  opacity: 0.9;
+  opacity: var(--opacity-hover);
 }
 
-[data-rs-tree-item][data-rs-expanded="false"] [data-rs-tree-toggle] {
+[data-rs-tree-item][data-rs-state~="collapsed"] [data-rs-tree-toggle] {
   transform: rotate(0deg);
 }
 
-/* ── INDENT SPACER ───────────────────────────────────────────────────────── */
 [data-rs-tree-indent] {
   display: inline-flex;
-  width: 20px;
-  height: 20px;
+  width: var(--space-xl);
+  height: var(--space-xl);
   flex-shrink: 0;
 }
 
-/* ── ICON ────────────────────────────────────────────────────────────────── */
 [data-rs-tree-icon] {
   width: var(--tree-icon-size);
   height: var(--tree-icon-size);
   flex-shrink: 0;
-  opacity: 0.65;
+  opacity: var(--opacity-disabled);
   transition: opacity var(--tree-transition-duration) var(--tree-transition-ease);
 }
 
-[data-rs-tree-item]:hover [data-rs-tree-icon],
+[data-rs-tree-item][data-rs-state~="hover"] [data-rs-tree-icon],
 [data-rs-tree-item][data-rs-state~="active"] [data-rs-tree-icon] {
   opacity: 1;
 }
 
-/* ── LABEL ───────────────────────────────────────────────────────────────── */
 [data-rs-tree-label] {
   flex: 1;
   overflow: hidden;
@@ -159,7 +146,6 @@
   white-space: nowrap;
 }
 
-/* ── GROUP ───────────────────────────────────────────────────────────────── */
 [data-rs-tree-group] {
   display: flex;
   flex-direction: column;
@@ -170,20 +156,19 @@
 [data-rs-tree-group]::before {
   content: "";
   position: absolute;
-  left: calc(var(--tree-indent-depth-1) - 6px);
+  left: var(--tree-indent-depth-1);
   top: 0;
   bottom: 0;
-  width: 1px;
+  width: var(--border-thin);
   background: var(--tree-guide-color);
   pointer-events: none;
 }
 
-/* Hide collapsed children */
-[data-rs-tree-item][data-rs-expanded="false"] + [data-rs-tree-group],
-[data-rs-tree-item]:not([data-rs-expanded]) + [data-rs-tree-group] {
+[data-rs-tree-item][data-rs-state~="collapsed"] + [data-rs-tree-group],
+[data-rs-tree-item]:not([data-rs-state~="expanded"]):not([data-rs-state~="collapsed"]) + [data-rs-tree-group] {
   display: none;
 }
 
-[data-rs-tree-item][data-rs-expanded="true"] + [data-rs-tree-group] {
+[data-rs-tree-item][data-rs-state~="expanded"] + [data-rs-tree-group] {
   display: flex;
 }

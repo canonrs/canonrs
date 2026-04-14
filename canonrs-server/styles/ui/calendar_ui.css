@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   CALENDAR - Family C Forms tokens compliant
+   CALENDAR — Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-calendar] {
@@ -39,7 +39,7 @@
   transition: all var(--calendar-transition-duration) var(--calendar-transition-ease);
 }
 
-[data-rs-calendar-nav-button]:hover {
+[data-rs-calendar-nav-button][data-rs-state~="hover"] {
   background: var(--calendar-cell-bg-selected);
   color: var(--calendar-cell-fg-selected);
   transform: scale(var(--calendar-hover-scale));
@@ -72,29 +72,28 @@
   color: var(--calendar-cell-fg);
   font-size: var(--calendar-cell-font-size);
   cursor: pointer;
-  border: 1px solid transparent;
+  border: var(--border-thin) solid transparent;
   transition: all var(--calendar-transition-duration) var(--calendar-transition-ease);
 }
 
-[data-rs-calendar-day]:hover:not(:disabled) {
+[data-rs-calendar-day][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   background: var(--calendar-cell-bg-hover);
   transform: scale(var(--calendar-hover-scale));
 }
 
-[data-rs-calendar-day]:disabled {
+[data-rs-calendar-day][data-rs-state~="disabled"] {
   color: var(--calendar-cell-fg-disabled);
   background: var(--calendar-cell-bg-disabled);
   cursor: not-allowed;
   opacity: var(--forms-disabled-opacity);
 }
 
-[data-rs-calendar-day][data-selected="true"],
-[data-rs-calendar-day].is-selected {
+[data-rs-calendar-day][data-rs-state~="selected"] {
   background: var(--calendar-cell-bg-selected);
   color: var(--calendar-cell-fg-selected);
 }
 
-[data-rs-calendar-day].is-today {
+[data-rs-calendar-day][data-rs-state~="today"] {
   border-color: var(--calendar-cell-bg-selected);
   font-weight: var(--font-weight-semibold);
 }

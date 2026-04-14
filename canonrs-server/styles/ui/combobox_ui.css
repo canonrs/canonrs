@@ -1,6 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   COMBOBOX - Family B Selection tokens compliant
-   State via data-rs-state — zero pseudo-class state selectors
+   COMBOBOX — Family B Selection tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-combobox] {
@@ -13,10 +12,9 @@
   padding-inline: var(--combobox-padding-x);
 }
 
-/* ── FOCUS ──────────────────────────────────────────────────── */
 [data-rs-combobox][data-rs-state~="focus"] {
   outline: var(--combobox-focus-ring-width) solid var(--combobox-focus-ring-color);
-  outline-offset: 2px;
+  outline-offset: var(--focus-ring-offset);
 }
 
 [data-rs-combobox-trigger] {
@@ -37,15 +35,14 @@
   top: 100%;
   left: 0;
   width: 100%;
-  margin-top: 4px;
+  margin-top: var(--space-xs);
   background: var(--combobox-popover-bg);
   border-radius: var(--combobox-popover-radius);
   box-shadow: var(--combobox-popover-shadow);
   padding-block: var(--combobox-popover-padding-y);
-  z-index: 50;
+  z-index: var(--layer-dropdown);
 }
 
-/* ── OPEN / CLOSED ──────────────────────────────────────────── */
 [data-rs-combobox][data-rs-state~="open"] [data-rs-combobox-list] {
   display: block;
 }
@@ -62,24 +59,20 @@
   cursor: pointer;
 }
 
-/* ── ITEM HOVER ─────────────────────────────────────────────── */
 [data-rs-combobox-item][data-rs-state~="hover"],
 [data-rs-combobox-item][data-rs-state~="focus"] {
   background: var(--combobox-item-hover-bg);
   outline: none;
 }
 
-/* ── ITEM SELECTED ──────────────────────────────────────────── */
 [data-rs-combobox-item][data-rs-state~="selected"] {
   background: var(--combobox-item-selected-bg);
 }
 
-/* ── ITEM HIDDEN ────────────────────────────────────────────── */
 [data-rs-combobox-item][data-rs-state~="hidden"] {
   display: none;
 }
 
-/* ── DISABLED ───────────────────────────────────────────────── */
 [data-rs-combobox][data-rs-state~="disabled"] {
   opacity: var(--combobox-disabled-opacity);
   pointer-events: none;

@@ -1,7 +1,6 @@
-/* ============================================
-   STAT — Enterprise Dashboard Level
-   Family F: Data
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   STAT — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-stat] {
   display: block;
@@ -13,74 +12,50 @@
   gap: var(--stat-gap);
 }
 
-/* Alignment */
-[data-rs-stat-wrapper][data-rs-align="start"] { align-items: flex-start; }
+[data-rs-stat-wrapper][data-rs-align="start"]  { align-items: flex-start; }
 [data-rs-stat-wrapper][data-rs-align="center"] { align-items: center; }
-[data-rs-stat-wrapper][data-rs-align="end"] { align-items: flex-end; }
+[data-rs-stat-wrapper][data-rs-align="end"]    { align-items: flex-end; }
 
-/* Header */
 [data-rs-stat-header] {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
 }
 
-/* Body */
 [data-rs-stat-body] {
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
 }
 
-/* Label */
 [data-rs-stat-label] {
   font-size: var(--stat-label-font-size);
   font-weight: var(--stat-label-font-weight);
   color: var(--stat-label-fg);
 }
 
-/* Value - tabular nums for financial dashboards */
 [data-rs-stat-value] {
   font-size: var(--stat-value-font-size);
   font-weight: var(--stat-value-font-weight);
   color: var(--stat-value-fg);
-  line-height: 1.2;
+  line-height: var(--line-height-tight);
   font-variant-numeric: tabular-nums;
 }
 
-/* Size variants */
-[data-rs-stat-wrapper][data-rs-size="sm"] [data-rs-stat-value] {
-  font-size: var(--stat-size-sm-value);
-}
+[data-rs-stat-wrapper][data-rs-size="sm"] [data-rs-stat-value] { font-size: var(--stat-size-sm-value); }
+[data-rs-stat-wrapper][data-rs-size="md"] [data-rs-stat-value] { font-size: var(--stat-size-md-value); }
+[data-rs-stat-wrapper][data-rs-size="lg"] [data-rs-stat-value] { font-size: var(--stat-size-lg-value); }
 
-[data-rs-stat-wrapper][data-rs-size="md"] [data-rs-stat-value] {
-  font-size: var(--stat-size-md-value);
-}
-
-[data-rs-stat-wrapper][data-rs-size="lg"] [data-rs-stat-value] {
-  font-size: var(--stat-size-lg-value);
-}
-
-/* Delta (trend indicator) */
 [data-rs-stat-delta] {
   font-size: var(--stat-delta-font-size);
   font-weight: var(--stat-delta-font-weight);
   font-variant-numeric: tabular-nums;
 }
 
-[data-rs-stat-wrapper][data-rs-trend="increase"] [data-rs-stat-delta] {
-  color: var(--stat-trend-increase-color);
-}
+[data-rs-stat-wrapper][data-rs-trend="increase"] [data-rs-stat-delta] { color: var(--stat-trend-increase-color); }
+[data-rs-stat-wrapper][data-rs-trend="decrease"] [data-rs-stat-delta] { color: var(--stat-trend-decrease-color); }
+[data-rs-stat-wrapper][data-rs-trend="neutral"]  [data-rs-stat-delta] { color: var(--stat-trend-neutral-color); }
 
-[data-rs-stat-wrapper][data-rs-trend="decrease"] [data-rs-stat-delta] {
-  color: var(--stat-trend-decrease-color);
-}
-
-[data-rs-stat-wrapper][data-rs-trend="neutral"] [data-rs-stat-delta] {
-  color: var(--stat-trend-neutral-color);
-}
-
-/* Icon */
 [data-rs-stat-icon] {
   display: inline-flex;
   align-items: center;
@@ -90,21 +65,20 @@
   flex-shrink: 0;
 }
 
-/* Loading state - skeleton with aria-busy */
-[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-value],
-[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-label] {
+[data-rs-stat-wrapper][data-rs-state~="loading"] [data-rs-stat-value],
+[data-rs-stat-wrapper][data-rs-state~="loading"] [data-rs-stat-label] {
   background: var(--stat-skeleton-bg);
   color: transparent;
   border-radius: var(--radius-sm);
-  animation: stat-pulse 1.5s ease-in-out infinite;
+  animation: stat-pulse var(--motion-duration-deliberate) var(--motion-ease-standard) infinite;
+}
+
+[data-rs-stat-wrapper][data-rs-state~="loading"] [data-rs-stat-delta],
+[data-rs-stat-wrapper][data-rs-state~="loading"] [data-rs-stat-icon] {
+  opacity: var(--opacity-disabled);
 }
 
 @keyframes stat-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-delta],
-[data-rs-stat-wrapper][data-rs-loading][aria-busy="true"] [data-rs-stat-icon] {
-  opacity: 0.3;
+  50%       { opacity: var(--opacity-disabled); }
 }

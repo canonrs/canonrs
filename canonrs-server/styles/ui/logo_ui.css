@@ -1,7 +1,6 @@
-/* ============================================================================
-   CANONRS — SITE LOGO
-   Family H: Layout — Brand Identity
-   ============================================================================ */
+/* ═══════════════════════════════════════════════════════════════
+   LOGO — Family H Layout tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-logo] {
   display: inline-flex;
@@ -9,7 +8,7 @@
   gap: var(--logo-gap);
   text-decoration: none;
   flex-shrink: 0;
-  margin-right: 24px;
+  margin-right: var(--space-xl);
 }
 
 [data-rs-logo-icon] {
@@ -25,10 +24,9 @@
   font-family: var(--font-family-sans);
   color: var(--logo-wordmark-color);
   letter-spacing: var(--logo-letter-spacing);
-  line-height: 1;
+  line-height: var(--line-height-tight);
 }
 
-/* Variants */
 [data-rs-logo][data-rs-variant="brand"] [data-rs-logo-wordmark] {
   color: var(--logo-wordmark-color);
 }
@@ -37,7 +35,6 @@
   color: var(--theme-surface-fg);
 }
 
-/* Sizes */
 [data-rs-logo][data-rs-size="sm"] [data-rs-logo-icon] {
   width: var(--logo-icon-size-sm);
   height: var(--logo-icon-size-sm);

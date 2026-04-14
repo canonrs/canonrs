@@ -1,7 +1,6 @@
-/* ============================================
-   LOADING OVERLAY
-   Family E: Feedback & Status
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   LOADING OVERLAY — Family E Feedback tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-overlay-container] {
   position: relative;
@@ -12,7 +11,6 @@
   width: 100%;
 }
 
-/* Overlay: hidden by default — explicit state binding */
 [data-rs-loading-overlay] {
   position: absolute;
   inset: 0;
@@ -24,47 +22,40 @@
   transition: opacity var(--loading-overlay-transition-duration) var(--loading-overlay-transition-ease);
 }
 
-/* State binding: loading → visible + blocking */
 [data-rs-overlay-container][data-rs-state~="loading"] [data-rs-loading-overlay] {
   display: flex;
   pointer-events: all;
 }
 
-/* Idle → content interactive */
 [data-rs-overlay-container][data-rs-state~="idle"] [data-rs-overlay-content] {
   pointer-events: auto;
   user-select: auto;
 }
 
-/* Loading → content blocked */
 [data-rs-overlay-container][data-rs-state~="loading"] [data-rs-overlay-content] {
   pointer-events: none;
   user-select: none;
 }
 
-/* Mode: blocking (default) */
 [data-rs-overlay-container][data-rs-overlay-mode="blocking"] [data-rs-loading-overlay] {
   background: var(--loading-overlay-bg);
   opacity: var(--loading-overlay-opacity);
 }
 
-/* Mode: subtle */
 [data-rs-overlay-container][data-rs-overlay-mode="subtle"] [data-rs-loading-overlay] {
   background: var(--loading-overlay-bg);
-  opacity: 0.4;
+  opacity: var(--opacity-disabled);
 }
 
-/* Mode: skeleton */
 [data-rs-overlay-container][data-rs-overlay-mode="skeleton"] [data-rs-loading-overlay] {
   background: transparent;
   opacity: 1;
 }
 
-/* Spinner default */
 [data-rs-loading-overlay-spinner] {
   font-size: var(--font-size-xl);
   color: var(--theme-surface-fg);
-  animation: overlay-spin 1s linear infinite;
+  animation: overlay-spin var(--motion-duration-slow) linear infinite;
   display: inline-block;
 }
 

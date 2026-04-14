@@ -1,7 +1,6 @@
-/* ============================================
-   BADGE
-   Family E: Feedback & Status
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   BADGE — Family E Feedback tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-badge] {
   display: inline-flex;
@@ -43,13 +42,13 @@
 [data-rs-badge][data-rs-variant="outline"] {
   background: var(--badge-bg-outline);
   color: var(--badge-fg-outline);
-  border: 1px solid var(--badge-border-outline);
+  border: var(--border-thin) solid var(--badge-border-outline);
 }
 
-[data-rs-badge][data-interactive="true"] {
+[data-rs-badge][data-rs-interactive] {
   cursor: pointer;
 }
 
-[data-rs-badge][data-interactive="true"]:hover {
+[data-rs-badge][data-rs-interactive][data-rs-state~="hover"] {
   opacity: var(--badge-hover-opacity);
 }

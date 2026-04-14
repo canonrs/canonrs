@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   SWITCH - Family C Forms tokens compliant
+   SWITCH — Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-switch] {
@@ -40,12 +40,13 @@
   transform: translateX(var(--switch-thumb-translate-checked));
 }
 
-[data-rs-switch][data-rs-disabled] {
+[data-rs-switch][data-rs-state~="disabled"] {
   opacity: var(--switch-disabled-opacity);
   cursor: not-allowed;
+  pointer-events: none;
 }
 
-[data-rs-switch]:focus-within {
+[data-rs-switch][data-rs-state~="focus"] {
   outline: none;
   box-shadow: 0 0 0 var(--switch-focus-ring-width) var(--switch-track-bg-checked);
 }

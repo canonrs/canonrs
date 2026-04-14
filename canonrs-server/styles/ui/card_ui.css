@@ -1,28 +1,31 @@
-/* ============================================================================
-   CANONRS — CARD UI
-   [data-rs-card] é o wrapper visual real dentro do CardBlock
-   ============================================================================ */
+/* ═══════════════════════════════════════════════════════════════
+   CARD UI — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-card] {
-  min-height: 140px;
+  min-height: var(--size-2xl);
   display: flex;
   flex-direction: column;
   height: 100%;
   background: var(--card-bg);
-  border: var(--card-border-width) solid rgba(255,255,255,0.04);
+  border: var(--card-border-width) solid var(--card-border-color);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.08), var(--card-shadow);
+  box-shadow: var(--card-shadow);
   color: var(--card-fg);
-  transition: border-color 0.2s, box-shadow 0.2s, transform 120ms ease;
+  transition:
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-block][data-rs-component="Card"][data-rs-variant="interactive"]:hover [data-rs-card] {
+[data-rs-card][data-rs-variant="interactive"][data-rs-state~="hover"] {
   border-color: var(--theme-action-primary-bg);
   box-shadow: var(--shadow-md);
+  transform: var(--card-hover-transform);
 }
 
-[data-rs-block][data-rs-component="Card"][data-rs-variant="elevated"] [data-rs-card] {
+[data-rs-card][data-rs-variant="elevated"] {
   box-shadow: var(--shadow-md);
 }
 
@@ -30,7 +33,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--card-header-gap);
-  padding-bottom: 0;
 }
 
 [data-rs-card] [data-rs-region="content"] {
@@ -47,22 +49,16 @@
   display: flex;
   margin-top: auto;
   padding-top: var(--card-footer-padding);
-  border-top: var(--card-border-width) solid rgba(255,255,255,0.04);
+  border-top: var(--card-border-width) solid var(--card-border-color);
   color: var(--theme-action-primary-bg);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
 }
 
-[data-rs-card-header] {
-  display: flex;
-  flex-direction: column;
-  gap: var(--card-header-gap);
-}
-
 [data-rs-card-title] {
   text-align: left;
   font-size: var(--card-title-font-size);
-  font-weight: 600;
+  font-weight: var(--card-title-font-weight);
   color: var(--card-title-fg);
   margin: 0;
 }
@@ -86,9 +82,4 @@
   display: flex;
   gap: var(--card-footer-gap);
   margin-top: auto;
-}
-
-[data-rs-card]:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(255,170,0,0.08), 0 6px 24px rgba(0,0,0,0.25);
 }

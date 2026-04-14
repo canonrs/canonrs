@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   TOOLBAR - Family E Navigation tokens compliant
+   TOOLBAR — Family D Navigation tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-toolbar] {
@@ -8,40 +8,29 @@
   gap: var(--toolbar-gap);
   padding: var(--toolbar-padding);
   background: var(--toolbar-bg);
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--theme-surface-border);
+  border: var(--border-thin) solid var(--theme-surface-border);
   border-radius: var(--radius-md);
 }
 
-[data-rs-toolbar][aria-orientation="vertical"] {
+[data-rs-toolbar][data-rs-orientation="vertical"] {
   flex-direction: column;
   align-items: stretch;
 }
 
-/* Separator */
 [data-rs-toolbar-separator] {
   flex-shrink: 0;
   background: var(--theme-surface-border);
 }
 
-[data-rs-toolbar][aria-orientation="horizontal"] [data-rs-toolbar-separator] {
-  width: 1px;
+[data-rs-toolbar][data-rs-orientation="horizontal"] [data-rs-toolbar-separator] {
+  width: var(--border-thin);
   height: var(--space-lg);
   align-self: stretch;
 }
 
-[data-rs-toolbar][aria-orientation="vertical"] [data-rs-toolbar-separator] {
+[data-rs-toolbar][data-rs-orientation="vertical"] [data-rs-toolbar-separator] {
   width: 100%;
-  height: 1px;
-}
-
-/* Focus management for keyboard nav */
-[data-rs-toolbar] > *:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
-  position: relative;
-  z-index: 1;
+  height: var(--border-thin);
 }
 
 [data-rs-toolbar][data-rs-state~="active"] {
@@ -58,16 +47,18 @@
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-toolbar-item]:hover {
+[data-rs-toolbar-item][data-rs-state~="hover"] {
   background: var(--theme-surface-muted);
 }
 
-[data-rs-toolbar-item]:focus-visible {
+[data-rs-toolbar-item][data-rs-state~="focus"] {
   outline: none;
-  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+  box-shadow: 0 0 0 var(--focus-ring-width) var(--theme-action-focus-ring);
+  position: relative;
+  z-index: 1;
 }
 
-[data-rs-toolbar-item][aria-pressed="true"] {
+[data-rs-toolbar-item][data-rs-state~="pressed"] {
   background: var(--theme-action-primary-bg);
   color: var(--theme-action-primary-fg);
 }

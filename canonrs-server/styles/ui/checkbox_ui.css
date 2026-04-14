@@ -29,9 +29,9 @@
 }
 
 [data-rs-checkbox][data-rs-state~="active"] [data-rs-checkbox-indicator] {
-  background: var(--checkbox-bg-checked);
-  border-color: var(--checkbox-border-color-checked);
-  color: var(--checkbox-fg-checked);
+  background: var(--checkbox-checked-bg);
+  border-color: var(--checkbox-checked-border-color);
+  color: var(--checkbox-checked-fg);
 }
 
 [data-rs-checkbox][data-rs-state~="disabled"] [data-rs-checkbox-indicator] {

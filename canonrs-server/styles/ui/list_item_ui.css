@@ -1,7 +1,6 @@
-/* ============================================
-   LIST ITEM — Enterprise Level
-   Family F: Data
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   LIST ITEM — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-list] {
   display: flex;
@@ -21,44 +20,37 @@
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/* Selectable */
 [data-rs-list-item-content][data-rs-selectable] {
   cursor: pointer;
   border-radius: var(--list-item-radius);
 }
 
-[data-rs-list-item-content][data-rs-selectable][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-disabled]) {
+[data-rs-list-item-content][data-rs-selectable][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
   background: var(--list-item-bg-hover);
 }
 
-/* Selected */
-[data-rs-list-item-content][data-rs-state~="selected"],
-[data-rs-list-item-content][data-rs-selected] {
+[data-rs-list-item-content][data-rs-state~="selected"] {
   background: var(--list-item-bg-selected);
 }
 
-/* Disabled */
-[data-rs-list-item-content][data-rs-disabled] {
+[data-rs-list-item-content][data-rs-state~="disabled"] {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: var(--opacity-disabled);
   background: var(--list-item-bg-disabled);
   color: var(--list-item-fg-disabled);
 }
 
-/* Focus-visible */
-[data-rs-list-item-content][data-rs-selectable]:focus-visible {
+[data-rs-list-item-content][data-rs-state~="focus"] {
   outline: none;
   box-shadow: var(--list-item-focus-ring);
 }
 
-/* Title */
 [data-rs-list-item-title] {
   font-size: var(--list-title-font-size);
   font-weight: var(--list-title-font-weight);
   margin-bottom: var(--space-xs);
 }
 
-/* Description */
 [data-rs-list-item-description] {
   font-size: var(--list-description-font-size);
   color: var(--list-description-color);

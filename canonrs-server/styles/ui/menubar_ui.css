@@ -1,4 +1,6 @@
-/* MENUBAR - Family B Selection */
+/* ═══════════════════════════════════════════════════════════════
+   MENUBAR — Family B Selection tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-menubar] {
   display: flex;
@@ -19,12 +21,17 @@
   border: none;
 }
 
-[data-rs-menubar-trigger]:hover:not([data-rs-state~="open"]) {
-  background: var(--menubar-trigger-bg-hover);
+[data-rs-menubar-trigger][data-rs-state~="hover"]:not([data-rs-state~="open"]) {
+  background: var(--menubar-trigger-hover-bg);
 }
 
 [data-rs-menubar-menu][data-rs-state~="open"] [data-rs-menubar-trigger] {
-  background: var(--menubar-trigger-bg-expanded);
+  background: var(--menubar-trigger-expanded-bg);
+}
+
+[data-rs-menubar-trigger][data-rs-state~="active"] {
+  background: var(--menubar-trigger-expanded-bg);
+  color: var(--menubar-trigger-expanded-fg);
 }
 
 [data-rs-menubar-content] {
@@ -57,8 +64,8 @@
   transition: background var(--menubar-transition-duration) var(--menubar-transition-ease);
 }
 
-[data-rs-menubar-subitem]:hover:not([data-rs-state~="active"]),
-[data-rs-menubar-item]:hover:not([data-rs-state~="active"]) {
+[data-rs-menubar-subitem][data-rs-state~="hover"]:not([data-rs-state~="active"]),
+[data-rs-menubar-item][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
   background: var(--menubar-subitem-bg-hover);
 }
 
@@ -67,8 +74,6 @@
   background: var(--menubar-separator-bg);
   margin: var(--menubar-separator-margin);
 }
-
-/* ── States ──────────────────────────────────────────────────────────────────── */
 
 [data-rs-menubar-menu][data-rs-state~="open"] [data-rs-menubar-content] {
   display: flex;
@@ -79,7 +84,7 @@
 }
 
 [data-rs-menubar-menu][data-rs-state~="closed"] [data-rs-menubar-content],
-[data-rs-menubar-content][hidden] {
+[data-rs-menubar-content][data-rs-state~="hidden"] {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -87,9 +92,4 @@
   width: 0;
   height: 0;
   overflow: hidden;
-}
-
-[data-rs-menubar-trigger][data-rs-state~="active"] {
-  background: var(--menubar-trigger-bg-expanded);
-  color: var(--menubar-trigger-fg-expanded);
 }

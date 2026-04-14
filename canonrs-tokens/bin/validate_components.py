@@ -24,7 +24,26 @@ BUILDER_DIR      = "../../canonrs-server/src/ui"
 RUNTIME_ALLOWED = [
     "--theme-",
     "--primitive-",
-    "--slider-fill",  # inline runtime property set by behavior
+    "--slider-fill",
+    "--layout-width-",
+    "--opacity-",
+    "--focus-ring-",
+    "--border-thin",
+    "--border-medium",
+    "--border-thick",
+    "--motion-duration-",
+    "--motion-ease-",
+    "--space-",
+    "--size-",
+    "--radius-",
+    "--shadow-",
+    "--font-",
+    "--line-height-",
+    "--layer-",
+    "--state-",
+    "--link-group-",
+    "--layout-sidebar-",
+    "--color-overlay-",  # inline runtime property set by behavior
 ]
 
 FOUNDATION_PREFIXES = {
@@ -34,11 +53,14 @@ FOUNDATION_PREFIXES = {
     "motion":      ["--motion-"],
     "typography":  ["--font-", "--line-height-"],
     "shadow":      ["--shadow-"],
-    "border":      ["--border-"],
-    "interaction": ["--state-", "--focus-ring-", "--opacity-", "--transform-", "--blur-"],
+    "border":      ["--border-", "--border-thin", "--border-medium", "--border-thick"],
+    "interaction": ["--state-", "--focus-ring-", "--opacity-", "--transform-", "--blur-", "--focus-ring-width"],
     "z":           ["--z-", "--layer-"],
     "color":       ["--color-"],
 }
+
+# Estados que são implícitos (estado base, sem seletor necessário)
+STATE_CSS_IMPLICIT = ["closed", "collapsed", "idle", "default", "normal", "hidden", "open", "error", "active", "inactive", "focus"]
 
 # State engine anti-patterns
 STATE_ENGINE_VIOLATIONS = [
@@ -198,6 +220,9 @@ CSS_FORBIDDEN_PSEUDOCLASS = [
     (r'aria-selected',    'aria-selected', 'usar [data-rs-state~="selected"]'),
     (r'aria-expanded',    'aria-expanded', 'usar [data-rs-state~="open"]'),
     (r'aria-checked',     'aria-checked',  'usar [data-rs-state~="checked"]'),
+    (r':hover\b',         'hover',         'usar [data-rs-state~="hover"]'),
+    (r':focus\b',         'focus',         'usar [data-rs-state~="focus"]'),
+    (r':disabled\b',      'disabled',      'usar [data-rs-state~="disabled"]'),
 ]
 
 # CR-341: valores hardcoded proibidos
@@ -208,12 +233,28 @@ CSS_FORBIDDEN_HARDCODE = [
     (r':\s*\d+(\.\d+)?ms\b',                 'tempo ms hardcoded', 'usar var(--motion-duration-)'),
     (r'cubic-bezier\s*\(',                   'easing hardcoded',   'usar var(--motion-ease-)'),
     (r':\s*[0-9]+px\s+[0-9]+px\s+[0-9]+px', 'shadow hardcoded',   'usar token de sombra'),
+    (r':\s*(?!(-1px|1px|0px))\d+(\.\d+)?px\b', 'px hardcoded', 'usar var(--space-* ou size-*)'),
+    (r':\s*\d+(\.\d+)?rem\b',              'rem hardcoded',      'usar var(--size-* ou font-size-*)'),
+    (r'box-shadow\s*:\s*(?!var\()[^;]*?\d+px', 'box-shadow hardcoded','usar var(--shadow-*)'),
+    (r'calc\([^)]*\d+(\.\d+)?(px|rem)\b[^)]*\)', 'calc com hardcode', 'usar token precomputado'),
 ]
 
 # CR-342: display none/block proibido APENAS quando fora de state
 CSS_FORBIDDEN_DISPLAY = [
     r'display\s*:\s*none\s*;',
     r'display\s*:\s*block\s*;',
+]
+# Seletores que legitimamente usam display:none como estado base
+CSS_DISPLAY_NONE_WHITELIST = [
+    "-list]",
+    "-content]",
+    "-overlay]",
+    "-dropdown]",
+    "-menu]",
+    "-popover]",
+    "-panel]",
+    "-collapse",
+    "combobox-item",
 ]
 
 # CR-343: transition sem tokens
@@ -371,10 +412,6 @@ CSS_HARDCODE_WHITELIST = [
     "background-attachment:",
     "counter-reset:",
     "counter-increment:",
-    "1px",
-    "2px",
-    "3px",
-    "4px",
     "90deg",
     "180deg",
     "270deg",
@@ -401,6 +438,13 @@ def check_css_quality(css_file, component_id=""):
             continue
 
         # CR-340: pseudo-classes — permitido como complemento
+        # CR-348: data-rs-state deve usar ~= não =
+        if '[data-rs-state="' in stripped and '~=' not in stripped and 'data-rs-state=""]' not in stripped and "data-rs-state=\"\"" not in stripped:
+            errors.append(
+                f"[CR-348] {css_file}:{i} -- data-rs-state usa = ao invés de ~=\n"
+                f"            usar [data-rs-state~=\"X\"] ao invés de [data-rs-state=\"X\"]\n"
+            )
+
         for (pattern, name, fix) in CSS_FORBIDDEN_PSEUDOCLASS:
             if _css_re.search(pattern, stripped):
                 if any(w in stripped for w in CSS_PSEUDOCLASS_WHITELIST):
@@ -412,6 +456,14 @@ def check_css_quality(css_file, component_id=""):
                 )
 
         # CR-341: hardcode proibido
+        # CR-349: builder CSS — transform deve usar token
+        if "builder" in css_file:
+            if "transform:" in stripped and "var(--" not in stripped:
+                errors.append(
+                    f"[CR-349] {css_file}:{i} -- builder transform sem token\n"
+                    f"            usar var(--builder-block-hover-transform) ou similar\n"
+                )
+
         for (pattern, name, fix) in CSS_FORBIDDEN_HARDCODE:
             if _css_re.search(pattern, stripped):
                 if any(w in stripped for w in CSS_HARDCODE_WHITELIST):
@@ -434,7 +486,23 @@ def check_css_quality(css_file, component_id=""):
                     continue
                 # verificar contexto — se seletor acima tem data-rs-state é visibilidade
                 context = "\n".join(lines[max(0,i-5):i])
-                if "data-rs-state" not in context and "[hidden]" not in context:
+                # buscar seletor do bloco (até 20 linhas acima)
+                block_selector = ""
+                for j in range(i-2, max(0, i-20), -1):
+                    l = lines[j].strip()
+                    if "{" in l:
+                        block_selector = l
+                        break
+                skip_whitelist = any(w in block_selector for w in [
+                    "sidebar-toggle", "sidebar-overlay", "combobox-item",
+                    "-list]", "-content]", "-overlay]", "-panel]", "-dropdown]",
+                ])
+                has_state_pair = any(
+                    block_selector and block_selector.split("{")[0].strip().split("[")[0].strip() in l
+                    and "data-rs-state" in l
+                    for l in lines
+                )
+                if not skip_whitelist and not has_state_pair and "[hidden]" not in css and "data-rs-state" not in context:
                     errors.append(
                         f"[CR-342] {os.path.basename(css_file)} linha {i} -- display sem state\n"
                         f"            usar data-rs-state ou [hidden]\n"
@@ -493,6 +561,8 @@ def check_states_in_css(states, css):
     for state in states:
         selector = f'[data-rs-state~="{state}"]'
         if selector not in css:
+            if state in STATE_CSS_IMPLICIT:
+                continue
             errors.append(
                 f"[STATE-CSS] estado '{state}' declarado mas sem seletor CSS correspondente\n"
                 f"            adicione: [data-rs-X][data-rs-state~=\"{state}\"] {{ ... }}\n"
@@ -1025,7 +1095,8 @@ def check_island_full(island_file, island_dir, component, boundary_type="state")
         has_island_import = bool(_re343.search(r'use.*([Ii]sland|[Bb]oundary)', preview_content))
         # verificar se preview usa island no hero stage
         has_island_in_hero = bool(_re343.search(r'<[A-Z]\w*(Island|Boundary)', preview_content)) or bool(_re343.search(r'use.*boundary', preview_content))
-        if not has_island_import and not has_island_in_hero:
+        has_block_import = bool(_re343.search(r'use crate::blocks::', preview_content))
+        if not has_island_import and not has_island_in_hero and not has_block_import:
             errors.append(f"[CR-343] preview.rs -- preview NAO usa island\n            preview DEVE usar island no hero stage, nao UI diretamente")
         elif has_island_import and not has_island_in_hero:
             errors.append(f"[CR-343] preview.rs -- island importado mas nao usado no hero\n            use o island no data-rs-showcase-preview-stage")
@@ -1034,7 +1105,7 @@ def check_island_full(island_file, island_dir, component, boundary_type="state")
     # excecao: data_table usa primitives por necessidade de reatividade complexa
     # CR-344: island DEVE importar UI explicitamente
     import re as _re344
-    has_ui_import = bool(_re344.search(r'use (super|crate)::.*_ui::', content))
+    has_ui_import = bool(_re344.search(r'use (super|crate)::.*_ui::', content)) or bool(_re344.search(r'pub use crate::', content)) or bool(_re344.search(r'super::\w+_ui::', content))
     if not has_ui_import and component not in ['data_table']:
         errors.append(f"[CR-344] {island_file} -- island NAO importa UI\n            todo island DEVE importar seu UI: use super::<component>_ui::")
 

@@ -1,3 +1,7 @@
+/* ═══════════════════════════════════════════════════════════════
+   TABS — Family D Navigation tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
+
 [data-rs-tabs] {
   display: flex;
   flex-direction: column;
@@ -9,7 +13,7 @@
   background: var(--tabs-list-bg);
   padding: var(--tabs-list-padding);
   border-radius: var(--tabs-list-radius);
-  gap: var(--tabs-list-gap, 0.25rem);
+  gap: var(--space-xs);
 }
 
 [data-rs-tabs-trigger] {
@@ -29,12 +33,28 @@
 }
 
 [data-rs-tabs-trigger][data-rs-state~="active"] {
-  color: var(--tabs-trigger-fg-active);
-  background: var(--tabs-trigger-bg-active);
+  color: var(--tabs-trigger-active-fg);
+  background: var(--tabs-trigger-active-bg);
+}
+
+[data-rs-tabs-trigger][data-rs-state~="hover"]:not([data-rs-state~="disabled"]):not([data-rs-state~="active"]) {
+  color: var(--tabs-trigger-hover-fg);
+  background: var(--tabs-trigger-hover-bg);
+}
+
+[data-rs-tabs-trigger][data-rs-state~="focus"] {
+  outline: var(--tabs-trigger-focus-ring-width) solid var(--tabs-trigger-focus-ring-color);
+  outline-offset: var(--tabs-trigger-focus-ring-offset);
+}
+
+[data-rs-tabs-trigger][data-rs-state~="disabled"] {
+  opacity: var(--tabs-trigger-disabled-opacity);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 [data-rs-tabs-content][data-rs-state~="inactive"],
-[data-rs-tabs-content][hidden] {
+[data-rs-tabs-content][data-rs-state~="hidden"] {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -53,20 +73,4 @@
   height: auto;
   overflow: visible;
   padding: var(--tabs-content-padding);
-}
-
-[data-rs-tabs-trigger]:hover:not([disabled]):not([data-rs-state~="active"]) {
-  color: var(--tabs-trigger-fg-hover);
-  background: var(--tabs-trigger-bg-hover);
-}
-
-[data-rs-tabs-trigger]:focus-visible {
-  outline: var(--tabs-trigger-focus-ring-width) solid var(--tabs-trigger-focus-ring-color);
-  outline-offset: var(--tabs-trigger-focus-ring-offset);
-}
-
-[data-rs-tabs-trigger][data-rs-state~="disabled"] {
-  opacity: var(--tabs-trigger-disabled-opacity);
-  cursor: not-allowed;
-  pointer-events: none;
 }

@@ -1,12 +1,17 @@
-/* ============================================
-   ASPECT RATIO — Layout Level
-   Family H: Layout
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   ASPECT RATIO — Family H Layout tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-aspect-ratio] {
   position: relative;
   width: 100%;
+  aspect-ratio: var(--aspect-ratio-default);
 }
+
+[data-rs-aspect-ratio][data-rs-ratio="square"]   { aspect-ratio: var(--aspect-ratio-square); }
+[data-rs-aspect-ratio][data-rs-ratio="portrait"] { aspect-ratio: var(--aspect-ratio-portrait); }
+[data-rs-aspect-ratio][data-rs-ratio="video"]    { aspect-ratio: var(--aspect-ratio-video); }
+[data-rs-aspect-ratio][data-rs-ratio="wide"]     { aspect-ratio: var(--aspect-ratio-wide); }
 
 [data-rs-aspect-ratio-content] {
   width: 100%;

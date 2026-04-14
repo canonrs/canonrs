@@ -1,4 +1,6 @@
-/* DROPDOWN MENU - Family A Overlay */
+/* ═══════════════════════════════════════════════════════════════
+   DROPDOWN MENU — Family A Overlay tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-dropdown-menu] {
   position: relative;
@@ -20,7 +22,8 @@
   opacity: 0;
   visibility: hidden;
   transform: scale(0.95);
-  transition: opacity var(--dropdown-menu-transition-duration) var(--dropdown-menu-transition-ease),
+  transition:
+    opacity var(--dropdown-menu-transition-duration) var(--dropdown-menu-transition-ease),
     visibility var(--dropdown-menu-transition-duration) var(--dropdown-menu-transition-ease),
     transform var(--dropdown-menu-transition-duration) var(--dropdown-menu-transition-ease);
 }
@@ -33,7 +36,7 @@
   cursor: pointer;
 }
 
-[data-rs-dropdown-menu-item]:hover:not([data-rs-state~="active"]) {
+[data-rs-dropdown-menu-item][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
   background: var(--dropdown-menu-item-hover-bg);
 }
 
@@ -42,7 +45,7 @@
 }
 
 [data-rs-dropdown-menu-separator] {
-  height: 1px;
+  height: var(--border-thin);
   background: var(--dropdown-menu-separator-color);
   margin: var(--dropdown-menu-separator-margin-y) 0;
 }
@@ -61,15 +64,13 @@
   font: inherit;
 }
 
-[data-rs-dropdown-menu-checkbox-item]:hover:not([data-rs-state~="checked"]) {
+[data-rs-dropdown-menu-checkbox-item][data-rs-state~="hover"]:not([data-rs-state~="checked"]) {
   background: var(--dropdown-menu-item-hover-bg);
 }
 
 [data-rs-dropdown-menu-checkbox-item][data-rs-state~="checked"] {
   background: var(--dropdown-menu-item-selected-bg);
 }
-
-/* ── States ──────────────────────────────────────────────────────────────────── */
 
 [data-rs-dropdown-menu][data-rs-state~="open"] [data-rs-dropdown-menu-content] {
   opacity: 1;
@@ -81,9 +82,4 @@
   opacity: 0;
   visibility: hidden;
   transform: scale(0.95);
-}
-
-[data-rs-showcase-preview-stage] > [data-rs-dropdown-menu],
-[data-rs-showcase-preview-row] > [data-rs-dropdown-menu] {
-  height: auto;
 }

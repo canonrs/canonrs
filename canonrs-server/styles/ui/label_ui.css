@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   LABEL - Family C Forms tokens compliant
+   LABEL — Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-label] {
@@ -10,11 +10,11 @@
   margin-bottom: var(--label-margin-bottom);
 }
 
-[data-rs-label][data-rs-muted="true"] {
+[data-rs-label][data-rs-state~="muted"] {
   color: var(--label-fg-muted);
 }
 
-[data-rs-label][data-rs-disabled="true"] {
+[data-rs-label][data-rs-state~="disabled"] {
   color: var(--label-fg-disabled);
 }
 

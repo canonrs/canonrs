@@ -1,25 +1,24 @@
-/* ============================================
-   SEPARATOR
-   Family H: Utilities
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   SEPARATOR — Family H Layout tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-separator] {
   background: var(--separator-color);
   flex-shrink: 0;
 }
 
-[data-rs-separator][data-orientation="horizontal"] {
+[data-rs-separator][data-rs-orientation="horizontal"] {
   height: var(--separator-thickness);
   width: var(--separator-length-horizontal);
   margin-block: var(--separator-margin-y);
 }
 
-[data-rs-separator][data-orientation="vertical"] {
+[data-rs-separator][data-rs-orientation="vertical"] {
   width: var(--separator-thickness);
   height: var(--separator-length-vertical);
   margin-inline: var(--separator-margin-x);
 }
 
-[data-rs-separator][data-muted="true"] {
+[data-rs-separator][data-rs-state~="muted"] {
   background: var(--separator-color-muted);
 }

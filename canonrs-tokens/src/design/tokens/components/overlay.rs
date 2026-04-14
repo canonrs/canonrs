@@ -70,6 +70,8 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("tooltip-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("tooltip-transition-ease",     "var(--motion-ease-standard)"),
     FamilyToken::new("tooltip-max-width",           "var(--size-3xl)"),
+    FamilyToken::new("tooltip-offset",              "var(--space-xs)"),
+    FamilyToken::new("tooltip-offset",              "var(--space-xs)"),
 
     // ConfirmDialog
     FamilyToken::new("confirm-dialog-overlay-bg",            "var(--color-overlay-50)"),
@@ -131,6 +133,11 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("drawer-close-hover-fg",        "var(--theme-surface-fg)"),
     FamilyToken::new("drawer-transition-duration",   "var(--motion-duration-normal)"),
     FamilyToken::new("drawer-transition-ease",       "var(--motion-ease-standard)"),
+    FamilyToken::new("drawer-transform-open",          "translateX(0)"),
+    FamilyToken::new("drawer-transform-closed-right",  "translateX(100%)"),
+    FamilyToken::new("drawer-transform-closed-left",   "translateX(-100%)"),
+    FamilyToken::new("drawer-transform-closed-top",    "translateY(-100%)"),
+    FamilyToken::new("drawer-transform-closed-bottom", "translateY(100%)"),
 
     // Sheet
     FamilyToken::new("sheet-overlay-bg",              "var(--color-overlay-50)"),

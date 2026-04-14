@@ -1,0 +1,41 @@
+/* ═══════════════════════════════════════════════════════════════
+   HERO UI — Family H Layout tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-hero-title] {
+  font-size: var(--hero-title-font-size);
+  font-weight: var(--hero-title-font-weight);
+  line-height: var(--hero-title-line-height);
+  color: var(--hero-title-fg);
+  margin: 0;
+}
+
+[data-rs-hero-subtitle] {
+  font-size: var(--hero-subtitle-font-size);
+  font-weight: var(--hero-subtitle-font-weight);
+  line-height: var(--hero-subtitle-line-height);
+  color: var(--hero-subtitle-fg);
+  margin: 0;
+}
+
+[data-rs-hero-description] {
+  font-size: var(--hero-description-font-size);
+  line-height: var(--hero-description-line-height);
+  color: var(--hero-description-fg);
+  margin: 0;
+}
+
+[data-rs-hero-media] {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-rs-hero-actions] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hero-actions-gap);
+  align-items: center;
+}

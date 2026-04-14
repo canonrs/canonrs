@@ -1,7 +1,6 @@
-/* ============================================
-   CHART
-   Family F: Data Display
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   CHART — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-chart] {
   position: relative;
@@ -13,14 +12,12 @@
   border-radius: var(--chart-radius);
 }
 
-/* Canvas */
 [data-rs-chart-canvas] {
   display: block;
   width: 100%;
   max-width: 100%;
 }
 
-/* Overlay (tooltip + crosshair layer) */
 [data-rs-chart-overlay] {
   position: absolute;
   inset: 0;
@@ -28,7 +25,6 @@
   z-index: var(--chart-overlay-z);
 }
 
-/* Tooltip */
 [data-rs-chart-tooltip] {
   position: absolute;
   background: var(--chart-tooltip-bg);
@@ -39,20 +35,19 @@
   box-shadow: var(--chart-tooltip-shadow);
   pointer-events: none;
   white-space: nowrap;
-  transition: opacity 0.1s ease;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-chart-tooltip][data-rs-state="closed"] {
+[data-rs-chart-tooltip][data-rs-state~="closed"] {
   opacity: 0;
   visibility: hidden;
 }
 
-[data-rs-chart-tooltip][data-rs-state="open"] {
+[data-rs-chart-tooltip][data-rs-state~="open"] {
   opacity: 1;
   visibility: visible;
 }
 
-/* Crosshair */
 [data-rs-chart-crosshair] {
   position: absolute;
   top: 0;
@@ -61,14 +56,13 @@
   background: var(--chart-crosshair-color);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.1s ease;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-chart-crosshair][data-rs-state="open"] {
+[data-rs-chart-crosshair][data-rs-state~="open"] {
   opacity: 1;
 }
 
-/* Grid / Axis */
 [data-rs-chart-grid] {
   stroke: var(--chart-grid-color);
   stroke-width: var(--chart-grid-stroke-width);
@@ -83,7 +77,6 @@
   height: var(--chart-axis-tick-size);
 }
 
-/* Legend */
 [data-rs-chart-legend] {
   display: flex;
   flex-wrap: wrap;
@@ -98,32 +91,30 @@
   font-size: var(--chart-legend-item-font-size);
   color: var(--chart-legend-item-fg);
   cursor: pointer;
-  transition: opacity 0.15s ease;
+  transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-chart-legend-item][data-rs-state="inactive"] {
-  opacity: 0.35;
+[data-rs-chart-legend-item][data-rs-state~="inactive"] {
+  opacity: var(--opacity-disabled);
 }
 
 [data-rs-chart-legend-dot] {
   width: var(--chart-legend-dot-size);
   height: var(--chart-legend-dot-size);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 
-/* Sync highlight — row no datatable */
 [data-rs-datatable-row][data-rs-chart-highlight] {
   background: var(--chart-sync-highlight-bg);
-  box-shadow: inset 3px 0 0 #6366f1;
-  transition: background 0.15s ease, box-shadow 0.15s ease;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-rs-chart][data-rs-state~="loading"] {
-  opacity: 0.5;
+  opacity: var(--opacity-disabled);
   pointer-events: none;
 }
 
 [data-rs-chart][data-rs-state~="error"] [data-rs-chart-canvas] {
-  opacity: 0.2;
+  opacity: var(--opacity-disabled);
 }

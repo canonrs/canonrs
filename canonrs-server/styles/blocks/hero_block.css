@@ -11,6 +11,9 @@
     gap: var(--hero-block-gap);
     text-align: center;
     min-height: var(--hero-block-min-height);
+    background: radial-gradient(circle at 50% 0%,
+        var(--color-primary-alpha-08),
+        transparent 55%);
 }
 
 [data-rs-hero] [data-rs-region="media"] {
@@ -67,20 +70,4 @@
 
 [data-rs-hero][data-rs-variant="media-top"] [data-rs-region="media"] {
     order: -1;
-}
-
-@media (max-width: 768px) {
-    [data-rs-hero] {
-        padding: var(--space-xl) var(--space-md);
-        min-height: auto;
-    }
-
-    [data-rs-hero][data-rs-variant="split"] {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    [data-rs-hero][data-rs-variant="split"] [data-rs-region="content"] {
-        align-items: center;
-    }
 }

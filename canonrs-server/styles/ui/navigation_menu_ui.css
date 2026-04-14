@@ -1,7 +1,6 @@
-/* ============================================
-   NAVIGATION MENU
-   Family D: Navigation
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   NAVIGATION MENU — Family D Navigation tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-navigation-menu] {
   position: relative;
@@ -44,24 +43,14 @@
   transition: background var(--navigation-menu-trigger-transition-duration) var(--motion-ease-standard);
 }
 
-[data-rs-navigation-menu-trigger]:hover:not([data-rs-state~="open"]),
+[data-rs-navigation-menu-trigger][data-rs-state~="hover"]:not([data-rs-state~="open"]),
 [data-rs-navigation-menu-trigger][data-rs-state~="open"] {
   background: var(--navigation-menu-trigger-bg-hover);
 }
 
-/* Invisible bridge to prevent gap between trigger and content */
-[data-rs-navigation-menu-item]::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: var(--space-sm);
-  display: none;
-}
-
-[data-rs-navigation-menu-item][data-rs-state~="open"]::after {
-  visibility: visible;
+[data-rs-navigation-menu-trigger][data-rs-state~="active"] {
+  background: var(--navigation-menu-trigger-bg-active);
+  color: var(--navigation-menu-trigger-fg-active);
 }
 
 [data-rs-navigation-menu-content] {
@@ -69,7 +58,7 @@
   top: calc(100% + var(--space-sm));
   left: 0;
   z-index: var(--navigation-menu-z-index);
-  min-width: var(--navigation-menu-content-min-width, 12rem);
+  min-width: var(--navigation-menu-content-min-width);
   background: var(--navigation-menu-content-bg);
   border: var(--navigation-menu-content-border-width) solid var(--navigation-menu-content-border-color);
   border-radius: var(--navigation-menu-content-radius);
@@ -81,6 +70,17 @@
 
 [data-rs-navigation-menu-item][data-rs-state~="open"] [data-rs-navigation-menu-content] {
   display: flex;
+}
+
+[data-rs-navigation-menu-item][data-rs-state~="closed"] [data-rs-navigation-menu-content],
+[data-rs-navigation-menu-content][data-rs-state~="hidden"] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 [data-rs-navigation-menu-subitem] {
@@ -97,29 +97,7 @@
   white-space: nowrap;
 }
 
-[data-rs-navigation-menu-link]:hover:not([data-rs-state~="active"]) {
+[data-rs-navigation-menu-link][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
   background: var(--navigation-menu-trigger-bg-hover);
   color: var(--navigation-menu-link-fg-hover);
-}
-
-/* ── States ──────────────────────────────────────────────────────────────────── */
-
-[data-rs-navigation-menu-item][data-rs-state~="open"] [data-rs-navigation-menu-content] {
-  display: flex;
-}
-
-[data-rs-navigation-menu-item][data-rs-state~="closed"] [data-rs-navigation-menu-content],
-[data-rs-navigation-menu-content][hidden] {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
-[data-rs-navigation-menu-trigger][data-rs-state~="active"] {
-  background: var(--navigation-menu-trigger-bg-active);
-  color: var(--navigation-menu-trigger-fg-active);
 }

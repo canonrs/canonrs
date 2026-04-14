@@ -45,6 +45,7 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("alert-close-opacity-disabled", "0.5"),
 
     // Alert Dialog
+    FamilyToken::new("alert-dialog-z-index",     "var(--layer-modal)"),
     FamilyToken::new("alert-dialog-overlay-bg", "var(--color-overlay-50)"),
     FamilyToken::new("alert-dialog-overlay-opacity", "0.5"),
     FamilyToken::new("alert-dialog-overlay-blur", "4px"),
@@ -68,6 +69,7 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("alert-dialog-transition-ease", "var(--motion-ease-standard)"),
 
     // Callout
+    FamilyToken::new("callout-border-accent-width",    "var(--border-medium)"),
     FamilyToken::new("callout-gap", "var(--space-sm)"),
     FamilyToken::new("callout-padding-x", "var(--space-md)"),
     FamilyToken::new("callout-padding-y", "var(--space-sm)"),

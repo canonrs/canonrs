@@ -1,7 +1,6 @@
-/* ============================================
-   TABLE
-   Family F: Data Display - Enterprise Foundation
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   TABLE — Family F Data tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-table-wrapper] {
   width: 100%;
@@ -29,6 +28,10 @@
   background: var(--table-row-bg-selected);
 }
 
+[data-rs-table-row][data-rs-state~="hover"] {
+  background: var(--table-row-bg-hover);
+}
+
 [data-rs-table-head] {
   height: var(--table-header-height);
   padding-inline: var(--table-cell-padding-x);
@@ -37,8 +40,6 @@
   font-size: var(--table-header-font-size);
   font-weight: var(--table-header-font-weight);
   color: var(--table-header-fg);
-  text-transform: none;
-  letter-spacing: normal;
 }
 
 [data-rs-table-cell] {
@@ -47,8 +48,6 @@
   font-size: var(--table-cell-font-size);
   font-weight: var(--font-weight-normal);
   color: var(--table-cell-fg);
-  text-transform: none;
-  letter-spacing: normal;
 }
 
 [data-rs-table-caption] {
@@ -58,42 +57,26 @@
   text-align: left;
 }
 
-/* ── HOVERABLE ───────────────────────────────────────────────────────────────── */
-[data-rs-table][data-rs-hoverable] [data-rs-table-row]:hover {
-  background: var(--table-row-bg-hover);
-}
-
-/* ── STRIPED ─────────────────────────────────────────────────────────────────── */
-[data-rs-table][data-rs-striped] [data-rs-table-body] [data-rs-table-row]:nth-of-type(odd) {
+[data-rs-table][data-rs-state~="striped"] [data-rs-table-row][data-rs-state~="odd"] {
   background: var(--table-row-bg-striped);
 }
 
-[data-rs-table][data-rs-striped] [data-rs-table-body] [data-rs-table-row]:nth-of-type(odd):hover {
-  background: var(--table-row-bg-hover);
-}
-
-/* ── CLICKABLE ROW ───────────────────────────────────────────────────────────── */
-[data-rs-table-row][data-rs-action="navigate"] {
+[data-rs-table-row][data-rs-state~="navigate"] {
   cursor: pointer;
 }
 
-[data-rs-table-row][data-rs-action="navigate"]:hover {
-  background: var(--table-row-bg-hover);
-}
-
-/* ── COPY CELL ───────────────────────────────────────────────────────────────── */
-[data-rs-table-cell][data-rs-copyable] {
+[data-rs-table-cell][data-rs-state~="copyable"] {
   cursor: copy;
   position: relative;
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
-[data-rs-table-cell][data-rs-copyable]:hover {
-  background: color-mix(in srgb, var(--theme-action-accent-bg) 8%, transparent);
+[data-rs-table-cell][data-rs-state~="copyable"][data-rs-state~="hover"] {
+  background: var(--table-row-bg-hover);
 }
 
-[data-rs-table-cell][data-rs-copied="true"]::after {
-  content: "Copied!";
+[data-rs-table-cell][data-rs-state~="copied"]::after {
+  content: attr(data-rs-copy-label);
   position: absolute;
   top: 50%;
   right: var(--space-sm);
@@ -101,39 +84,27 @@
   background: var(--theme-action-accent-bg);
   color: var(--theme-action-accent-fg);
   font-size: var(--font-size-xs);
-  padding: 2px var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
   border-radius: var(--radius-xs);
   pointer-events: none;
 }
 
-/* ── TRUNCATE CELL ───────────────────────────────────────────────────────────── */
-[data-rs-table-cell][data-rs-truncate] {
-  max-width: 200px;
+[data-rs-table-cell][data-rs-state~="truncate"] {
+  max-width: var(--layout-width-xs);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-[data-rs-table-cell][data-rs-truncate]:hover {
-  overflow: visible;
-  white-space: normal;
-  word-break: break-word;
-  position: relative;
-  z-index: 1;
-  background: var(--theme-surface-bg);
-  box-shadow: var(--shadow-sm);
-}
-
-/* ── TABLE STATE ─────────────────────────────────────────────────────────────── */
 [data-rs-table][data-rs-state~="loading"] {
-  opacity: 0.5;
+  opacity: var(--opacity-disabled);
   pointer-events: none;
 }
 
 [data-rs-table][data-rs-state~="error"] {
-  outline: var(--table-border-width) solid var(--theme-state-error-fg);
+  outline: var(--table-border-width) solid var(--theme-state-error-bg);
 }
 
 [data-rs-table][data-rs-state~="empty"] [data-rs-table-body] {
-  opacity: 0.4;
+  opacity: var(--opacity-disabled);
 }

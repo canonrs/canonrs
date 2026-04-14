@@ -1,7 +1,6 @@
-/* ============================================
-   SKELETON
-   Family E: Feedback & Status
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   SKELETON — Family E Feedback tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-skeleton] {
   position: relative;
@@ -23,7 +22,7 @@
     var(--skeleton-shimmer-color-end) 50%,
     var(--skeleton-shimmer-color-start) 100%
   );
-  animation: skeleton-shimmer var(--skeleton-shimmer-duration) var(--skeleton-shimmer-easing) infinite;
+  animation: skeleton-shimmer var(--skeleton-shimmer-duration) var(--skeleton-shimmer-ease) infinite;
 }
 
 [data-rs-skeleton][data-rs-variant="text"] {
@@ -43,14 +42,10 @@
 }
 
 [data-rs-skeleton][data-rs-state~="loading"]::after {
-  animation: skeleton-shimmer var(--skeleton-shimmer-duration) var(--skeleton-shimmer-easing) infinite;
+  animation: skeleton-shimmer var(--skeleton-shimmer-duration) var(--skeleton-shimmer-ease) infinite;
 }
 
 @keyframes skeleton-shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }

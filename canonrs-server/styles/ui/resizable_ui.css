@@ -1,7 +1,6 @@
-/* ============================================
-   RESIZABLE — Enterprise Level
-   Family G: Composite
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   RESIZABLE — Family G Composite tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-resizable] {
   display: flex;
@@ -13,13 +12,8 @@
   overflow: hidden;
 }
 
-[data-rs-resizable][data-rs-orientation="horizontal"] {
-  flex-direction: row;
-}
-
-[data-rs-resizable][data-rs-orientation="vertical"] {
-  flex-direction: column;
-}
+[data-rs-resizable][data-rs-orientation="horizontal"] { flex-direction: row; }
+[data-rs-resizable][data-rs-orientation="vertical"]   { flex-direction: column; }
 
 [data-rs-resizable-panel] {
   overflow: auto;
@@ -27,7 +21,7 @@
   min-height: 0;
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: var(--resizable-panel-basis, 50%);
+  flex-basis: var(--resizable-panel-basis);
   align-self: stretch;
 }
 
@@ -37,9 +31,8 @@
   justify-content: center;
   flex-shrink: 0;
   background: var(--resizable-handle-bg);
-  cursor: col-resize;
   position: relative;
-  z-index: 10;
+  z-index: var(--layer-sticky);
   user-select: none;
   transition: background var(--motion-duration-fast) var(--motion-ease-standard);
 }
@@ -54,7 +47,7 @@
   cursor: row-resize;
 }
 
-[data-rs-resizable-handle]:hover,
+[data-rs-resizable-handle][data-rs-state~="hover"],
 [data-rs-resizable-handle][data-rs-state~="active"] {
   background: var(--resizable-handle-hover-bg);
 }
@@ -63,10 +56,16 @@
   background: var(--resizable-handle-bg);
 }
 
-[data-rs-resizable-handle]:focus-visible {
+[data-rs-resizable-handle][data-rs-state~="focus"] {
   outline: none;
   background: var(--resizable-handle-hover-bg);
-  box-shadow: 0 0 0 2px var(--theme-action-focus-ring);
+  box-shadow: 0 0 0 var(--border-medium) var(--theme-action-focus-ring);
+}
+
+[data-rs-resizable-handle][data-rs-state~="disabled"] {
+  background: var(--resizable-handle-disabled-bg);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 [data-rs-resizable-handle-bar] {
@@ -76,34 +75,11 @@
 }
 
 [data-rs-resizable][data-rs-orientation="horizontal"] [data-rs-resizable-handle-bar] {
-  width: 2px;
+  width: var(--border-medium);
   height: var(--space-lg);
 }
 
 [data-rs-resizable][data-rs-orientation="vertical"] [data-rs-resizable-handle-bar] {
   width: var(--space-lg);
-  height: 2px;
+  height: var(--border-medium);
 }
-
-/* REMOVER — quebra encapsulamento estrutural e debugging */
-
-leptos-island {
-  flex: 1;
-  display: flex;
-  min-height: 0;
-}
-
-/* layout contract — stage define contexto, island não interfere */
-[data-rs-showcase-preview-stage] > div,
-[data-rs-showcase-preview-row] {
-  display: flex;
-  flex-direction: column;
-  height: 280px;
-}
-
-[data-rs-showcase-preview-stage] [data-rs-resizable],
-[data-rs-showcase-preview-row] [data-rs-resizable] {
-  flex: 1 1 0;
-  min-height: 0;
-}
-

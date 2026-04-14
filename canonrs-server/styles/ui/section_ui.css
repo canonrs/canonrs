@@ -1,3 +1,7 @@
+/* ═══════════════════════════════════════════════════════════════
+   SECTION UI — Family H Layout tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
+
 [data-rs-section-header] {
   display: flex;
   flex-direction: column;
@@ -5,28 +9,22 @@
   text-align: center;
   gap: var(--space-sm);
   width: 100%;
-  max-width: 700px;
+  max-width: var(--section-header-max-width);
   margin-bottom: var(--space-lg);
 }
 
 [data-rs-section-title] {
-  color: var(--section-title-color);
-  font-size: var(--section-title-size);
-  font-weight: var(--section-title-weight);
+  color: var(--section-title-fg);
+  font-size: var(--section-title-font-size);
+  font-weight: var(--section-title-font-weight);
   margin: 0;
 }
 
-[data-rs-layout][data-rs-component="Section"]:last-child [data-rs-section-title] {
-  font-size: var(--primitive-font-size-7);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
 [data-rs-section-subtitle] {
-  color: var(--section-description-color);
-  font-size: var(--section-description-size);
+  color: var(--section-description-fg);
+  font-size: var(--section-description-font-size);
   margin: var(--section-description-margin);
-  max-width: 600px;
+  max-width: var(--section-header-max-width);
 }
 
 [data-rs-section-badge] {
@@ -34,9 +32,9 @@
   align-items: center;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--theme-accent-fg);
+  color: var(--section-badge-fg);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--link-group-label-letter-spacing);
 }
 
 [data-rs-section-actions] {

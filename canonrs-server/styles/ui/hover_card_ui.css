@@ -1,4 +1,6 @@
-/* HOVER CARD - Family A Overlay */
+/* ═══════════════════════════════════════════════════════════════
+   HOVER CARD — Family A Overlay tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-hover-card] {
   position: relative;
@@ -11,9 +13,6 @@
 
 [data-rs-hover-card-content] {
   position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
   z-index: var(--hover-card-z-index);
   width: var(--hover-card-width);
   background: var(--hover-card-bg);
@@ -25,8 +24,9 @@
   pointer-events: auto;
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--hover-card-transition-duration, var(--motion-duration-fast)) var(--hover-card-transition-ease, var(--motion-ease-standard)),
-    visibility var(--hover-card-transition-duration, var(--motion-duration-fast)) var(--hover-card-transition-ease, var(--motion-ease-standard));
+  transition:
+    opacity var(--hover-card-transition-duration) var(--hover-card-transition-ease),
+    visibility var(--hover-card-transition-duration) var(--hover-card-transition-ease);
 }
 
 [data-rs-hover-card-content][data-rs-state~="open"] {
@@ -36,27 +36,27 @@
 
 [data-rs-hover-card-content][data-rs-side="bottom"],
 [data-rs-hover-card-content]:not([data-rs-side]) {
-  top: calc(100% + 8px);
+  top: calc(100% + var(--space-xs));
   bottom: auto;
   left: 50%;
   transform: translateX(-50%);
 }
 
 [data-rs-hover-card-content][data-rs-side="top"] {
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + var(--space-xs));
   top: auto;
   left: 50%;
   transform: translateX(-50%);
 }
 
 [data-rs-hover-card-content][data-rs-side="right"] {
-  left: calc(100% + 8px);
+  left: calc(100% + var(--space-xs));
   top: 0;
   transform: none;
 }
 
 [data-rs-hover-card-content][data-rs-side="left"] {
-  right: calc(100% + 8px);
+  right: calc(100% + var(--space-xs));
   left: auto;
   top: 0;
   transform: none;

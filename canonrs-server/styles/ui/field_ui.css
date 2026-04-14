@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   FIELD - Family C Forms tokens compliant
+   FIELD — Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-field] {
@@ -25,7 +25,7 @@
   color: var(--field-label-fg);
 }
 
-[data-rs-field][data-rs-disabled="true"] [data-rs-field-label] {
+[data-rs-field][data-rs-state~="disabled"] [data-rs-field-label] {
   color: var(--field-label-fg-disabled);
 }
 
@@ -46,7 +46,7 @@
   gap: var(--field-error-list-gap);
 }
 
-[data-rs-field][data-rs-disabled="true"] {
+[data-rs-field][data-rs-state~="disabled"] {
   opacity: var(--field-disabled-opacity);
   pointer-events: none;
 }
@@ -64,7 +64,7 @@
 }
 
 [data-rs-field-separator] {
-  height: 1px;
+  height: var(--border-thin);
   background: var(--field-separator-color);
   margin-block: var(--field-separator-margin-y);
 }
@@ -72,15 +72,6 @@
 [data-rs-field-separator-content] {
   padding-inline: var(--field-separator-label-padding-x);
   color: var(--field-separator-label-fg);
-}
-
-[data-rs-field][data-rs-state~="focus"] [data-rs-field-label] {
-  color: var(--field-label-fg);
-}
-
-[data-rs-field][data-rs-state~="disabled"] {
-  opacity: var(--field-disabled-opacity);
-  pointer-events: none;
 }
 
 [data-rs-field][data-rs-state~="error"] [data-rs-field-label] {

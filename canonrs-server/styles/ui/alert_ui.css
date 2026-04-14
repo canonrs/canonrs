@@ -1,7 +1,6 @@
-/* ============================================
-   ALERT
-   Family E: Feedback & Status
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   ALERT — Family E Feedback tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-alert] {
   position: relative;
@@ -16,21 +15,11 @@
   color: var(--alert-fg);
 }
 
-[data-rs-alert][data-rs-variant="default"] {
-  background: var(--alert-bg-default);
-}
-
-[data-rs-alert][data-rs-variant="success"] {
-  background: var(--alert-bg-success);
-}
-
-[data-rs-alert][data-rs-variant="warning"] {
-  background: var(--alert-bg-warning);
-}
-
-[data-rs-alert][data-rs-variant="destructive"] {
-  background: var(--alert-bg-error);
-}
+[data-rs-alert][data-rs-variant="default"]     { background: var(--alert-bg-default); }
+[data-rs-alert][data-rs-variant="info"]        { background: var(--alert-bg-info); }
+[data-rs-alert][data-rs-variant="success"]     { background: var(--alert-bg-success); }
+[data-rs-alert][data-rs-variant="warning"]     { background: var(--alert-bg-warning); }
+[data-rs-alert][data-rs-variant="destructive"] { background: var(--alert-bg-error); }
 
 [data-rs-alert-title] {
   font-size: var(--alert-title-font-size);
@@ -60,15 +49,14 @@
   padding: 0;
 }
 
-[data-rs-alert-close]:hover {
+[data-rs-alert-close][data-rs-state~="hover"] {
   color: var(--alert-close-fg-hover);
 }
 
-[data-rs-alert][data-rs-state="closed"] {
-  display: none;
-}
-
-[data-rs-alert-close][disabled] {
+[data-rs-alert-close][data-rs-state~="disabled"] {
   opacity: var(--alert-close-opacity-disabled);
   cursor: not-allowed;
+  pointer-events: none;
 }
+
+[data-rs-alert][data-rs-state~="closed"] { display: none; }

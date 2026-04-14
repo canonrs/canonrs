@@ -1,4 +1,6 @@
-/* COMMAND - Family B Selection */
+/* ═══════════════════════════════════════════════════════════════
+   COMMAND — Family B Selection tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-command] {
   background: var(--command-bg);
@@ -25,6 +27,7 @@
 [data-rs-command-list] {
   padding: var(--command-list-padding);
   max-height: var(--command-list-max-height);
+  overflow-y: auto;
 }
 
 [data-rs-command-item] {
@@ -36,20 +39,17 @@
   cursor: pointer;
 }
 
-[data-rs-command-item]:hover:not([data-rs-state~="active"]) {
+[data-rs-command-item][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
   background: var(--command-item-hover-bg);
 }
 
 [data-rs-command-item][data-rs-state~="active"] {
-  background: var(--command-item-selected-bg);
+  background: var(--command-item-active-bg);
+  color: var(--command-item-active-fg);
 }
 
-[data-rs-command-item][hidden] {
-  visibility: hidden;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  padding: 0;
+[data-rs-command-item][data-rs-state~="hidden"] {
+  display: none;
 }
 
 [data-rs-command-group-heading] {
@@ -60,7 +60,7 @@
 }
 
 [data-rs-command-separator] {
-  height: 1px;
+  height: var(--border-thin);
   background: var(--command-separator-color);
   margin: var(--command-separator-margin-y) 0;
 }
@@ -69,11 +69,4 @@
   color: var(--command-empty-fg);
   padding: var(--command-empty-padding);
   text-align: center;
-}
-
-/* ── States ──────────────────────────────────────────────────────────────────── */
-
-[data-rs-command-item][data-rs-state~="active"] {
-  background: var(--command-item-active-bg);
-  color: var(--command-item-active-fg);
 }

@@ -1,4 +1,6 @@
-/* COLLAPSIBLE - Family B Selection */
+/* ═══════════════════════════════════════════════════════════════
+   COLLAPSIBLE — Family B Selection tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-collapsible] {
   display: flex;
@@ -19,8 +21,8 @@
   transition: background var(--collapsible-transition-duration) var(--collapsible-transition-ease);
 }
 
-[data-rs-collapsible-trigger]:hover:not([disabled]):not([data-rs-state~="open"]) {
-  background: var(--collapsible-trigger-bg-hover);
+[data-rs-collapsible-trigger][data-rs-state~="hover"]:not([data-rs-state~="disabled"]):not([data-rs-state~="open"]) {
+  background: var(--collapsible-trigger-hover-bg);
 }
 
 [data-rs-collapsible-content] {
@@ -29,7 +31,7 @@
 }
 
 [data-rs-collapsible][data-rs-state~="open"] [data-rs-collapsible-trigger] {
-  color: var(--collapsible-trigger-fg-open);
+  color: var(--collapsible-trigger-open-fg);
 }
 
 [data-rs-collapsible][data-rs-state~="open"] [data-rs-collapsible-content] {

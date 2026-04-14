@@ -1,7 +1,6 @@
-/* ============================================
-   BANNER
-   Family E: Feedback & Status
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   BANNER — Family E Feedback tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-banner] {
   display: flex;
@@ -49,7 +48,7 @@
   padding: 0;
 }
 
-[data-rs-banner-close]:hover {
+[data-rs-banner-close][data-rs-state~="hover"] {
   color: var(--banner-close-fg-hover);
 }
 

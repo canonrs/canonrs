@@ -32,9 +32,9 @@
 }
 
 [data-rs-virtual-list-item][data-rs-state~="hover"] {
-  background: var(--virtual-list-item-bg-hover);
+  background: var(--virtual-list-item-hover-bg);
 }
 
 [data-rs-virtual-list-item][data-rs-state~="selected"] {
-  background: var(--virtual-list-item-bg-selected);
+  background: var(--virtual-list-item-selected-bg);
 }

@@ -19,7 +19,7 @@
   line-height: var(--line-height-normal);
 
   border-radius: var(--button-radius);
-  border: 1px solid transparent;
+  border: var(--border-thin) solid transparent;
 
   cursor: pointer;
   user-select: none;
@@ -95,8 +95,8 @@
   color: var(--button-link-fg);
   border-color: transparent;
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  text-decoration-thickness: var(--button-link-underline-thickness);
+  text-underline-offset: var(--button-link-underline-offset);
   font-weight: var(--font-weight-semibold);
   height: auto;
   padding: 0;
@@ -158,7 +158,7 @@
 
 [data-rs-button][data-rs-variant="link"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   opacity: 1;
-  text-decoration-thickness: 3px;
+  text-decoration-thickness: var(--button-link-underline-thickness-hover);
   filter: var(--state-filter-hover);
 }
 

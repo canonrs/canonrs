@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   COLOR PICKER - Family C Forms tokens compliant
+   COLOR PICKER — Family C Forms tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
 [data-rs-color-picker-wrapper] {
@@ -42,7 +42,6 @@
   cursor: pointer;
 }
 
-/* swatch dentro do trigger preenche 100% */
 [data-rs-color-picker-trigger] [data-rs-color-swatch] {
   width: 100%;
   height: 100%;
@@ -50,30 +49,24 @@
   border-radius: inherit;
 }
 
-/* ── SELECTED ───────────────────────────────────────────────── */
 [data-rs-color-swatch][data-rs-state~="selected"] {
   border-color: var(--color-picker-swatch-border-color-selected);
   border-width: calc(var(--color-picker-swatch-border-width) * 2);
 }
 
-/* ── DISABLED ───────────────────────────────────────────────── */
-[data-rs-color-picker][data-rs-disabled],
 [data-rs-color-picker][data-rs-state~="disabled"],
-[data-rs-color-picker-trigger][data-rs-disabled],
 [data-rs-color-picker-trigger][data-rs-state~="disabled"] {
   opacity: var(--color-picker-disabled-opacity);
   pointer-events: none;
   cursor: not-allowed;
 }
 
-[data-rs-color-swatch][data-rs-disabled],
 [data-rs-color-swatch][data-rs-state~="disabled"] {
   opacity: var(--color-picker-disabled-opacity);
   pointer-events: none;
   cursor: not-allowed;
 }
 
-/* Example layout */
 [data-rs-color-picker-example] {
   display: flex;
   gap: var(--color-picker-example-gap);
@@ -101,7 +94,6 @@
   color: var(--color-picker-label-value-fg);
 }
 
-/* ── COLOR FORMAT DISPLAY ───────────────────────────────────── */
 [data-rs-color-picker-display] {
   display: inline-flex;
   align-items: center;
@@ -112,15 +104,14 @@
 
 [data-rs-color-display-format] {
   color: var(--color-picker-label-key-fg);
-  font-weight: 600;
-  min-width: 2.5rem;
+  font-weight: var(--font-weight-semibold);
+  min-width: var(--size-sm);
 }
 
 [data-rs-color-display-value] {
   color: var(--color-picker-label-value-fg);
 }
 
-/* ── SWATCHES MODE ──────────────────────────────────────────────────────── */
 [data-rs-color-picker-swatches] {
   display: inline-flex;
   flex-direction: column;

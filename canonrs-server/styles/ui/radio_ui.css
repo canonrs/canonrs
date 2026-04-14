@@ -62,13 +62,13 @@
 
 /* ── SELECTED ───────────────────────────────────────────────── */
 [data-rs-radio][data-rs-state~="selected"] [data-rs-radio-indicator] {
-  background: var(--radio-bg-checked);
-  border-color: var(--radio-border-color-checked);
+  background: var(--radio-checked-bg);
+  border-color: var(--radio-checked-border-color);
 }
 
 [data-rs-radio][data-rs-state~="selected"] [data-rs-radio-indicator]::after {
   opacity: 1;
-  background: var(--radio-dot-color-checked);
+  background: var(--radio-checked-dot-color);
 }
 
 /* ── DISABLED ───────────────────────────────────────────────── */
@@ -93,7 +93,7 @@
 
 /* ── DISABLED FG ───────────────────────────────────────────── */
 [data-rs-radio][data-rs-state~="disabled"] {
-  color: var(--radio-fg-disabled);
+  color: var(--radio-disabled-fg);
 }
 
 /* ── FOCUS ──────────────────────────────────────────────────── */
