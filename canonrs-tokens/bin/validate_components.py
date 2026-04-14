@@ -1175,6 +1175,81 @@ def load_components_from_builders(builder_dir, script_dir):
             print(f"[WARN] erro ao parsear {b}: {e}")
     return components
 
+def check_ui(component_id, ui_dir):
+    """CR-360 a CR-365: validacao de UI layer"""
+    import glob, re
+    errors = []
+    # buscar *_ui.rs
+    matches = glob.glob(f"{ui_dir}/**/{component_id}_ui.rs", recursive=True)
+    if not matches:
+        return errors
+    with open(matches[0]) as f:
+        content = f.read()
+
+    # exceção: markdown e componentes de rendering dinamico
+    DYNAMIC_RENDER_EXCEPTIONS = ["markdown", "code_block", "chart", "virtual_list", "icon", "stat", "color_picker", "data_table"]
+    is_exception = any(e in component_id for e in DYNAMIC_RENDER_EXCEPTIONS)
+
+    # CR-360: UI nao deve usar HTML direto (div, span, button, input, etc)
+    if not is_exception:
+        html_tags = re.findall(r'<(div|span|button|input|textarea|select|form|ul|ol|li|table|tr|td|th|nav|header|footer|main|section|article|aside|h[1-6]|p|a)', content)
+        # filtrar strings e comentarios
+        for tag in set(html_tags):
+            # verificar se é dentro de view! macro
+            if f"<{tag}" in content:
+                errors.append(
+                    f"[CR-360] {component_id}_ui.rs -- HTML direto proibido: <{tag}>\n"
+                    f"            usar Primitive correspondente"
+                )
+                break
+
+    # CR-361: UI nao deve criar signals
+    forbidden_signals = ["create_signal", "signal(", "RwSignal::new", "create_rw_signal"]
+    for sig in forbidden_signals:
+        if sig in content:
+            errors.append(
+                f"[CR-361] {component_id}_ui.rs -- signal proibido: {sig}\n"
+                f"            UI nao cria estado — usar boundary para isso"
+            )
+            break
+
+    # CR-362: UI nao deve usar provide_context
+    if "provide_context" in content:
+        errors.append(
+            f"[CR-362] {component_id}_ui.rs -- provide_context proibido\n"
+            f"            UI nao gerencia contexto — usar boundary"
+        )
+
+    # CR-363: UI nao deve usar use_navigate
+    if "use_navigate" in content:
+        errors.append(
+            f"[CR-363] {component_id}_ui.rs -- use_navigate proibido\n"
+            f"            UI nao navega — usar boundary"
+        )
+
+    # CR-364: UI deve importar Primitive
+    has_primitive_import = "canonrs_core::primitives" in content or "canonrs_core" in content
+    if not has_primitive_import and not is_exception:
+        errors.append(
+            f"[CR-364] {component_id}_ui.rs -- nao importa Primitive\n"
+            f"            UI DEVE ser proxy de canonrs_core::primitives"
+        )
+
+    # CR-365: data-rs-* direto no UI proibido (deve vir do Primitive)
+    if not is_exception:
+        # ignorar attr:data-rs-* que é passthrough legítimo via leptos
+        content_no_attr = re.sub(r'attr:data-rs-\w+', '', content)
+        direct_data_rs = re.findall(r'data-rs-\w+=(?!class)', content_no_attr)
+        # filtrar passthrough legitimo (class=class, etc)
+        suspicious = [d for d in direct_data_rs if "primitive" not in content.lower()[:100]]
+        if len(direct_data_rs) > 3:
+            errors.append(
+                f"[CR-365] {component_id}_ui.rs -- data-rs-* direto no UI\n"
+                f"            atributos data-rs-* pertencem ao Primitive"
+            )
+
+    return errors
+
 def check_primitive(component_id):
     """CR-350 a CR-357: validacao de primitives"""
     import glob, re
@@ -1317,6 +1392,7 @@ def main():
             errors += check_hover_override_active(css_file)
             errors += check_css_quality(css_file, comp["component"])
         errors += check_primitive(comp["component"])
+        errors += check_ui(comp["component"], ISLAND_DIR)
         if errors:
             print(f"\n[ERRO] {comp['component'].upper()}")
             for e in errors:
