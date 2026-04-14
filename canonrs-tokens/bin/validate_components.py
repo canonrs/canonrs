@@ -1250,6 +1250,138 @@ def check_ui(component_id, ui_dir):
 
     return errors
 
+def check_preview(component_id, ui_dir):
+    """CR-380 a CR-385: validacao de preview layer"""
+    import glob, re
+    errors = []
+    matches = glob.glob(f"{ui_dir}/**/{component_id}/preview.rs", recursive=True)
+    if not matches:
+        return errors
+    with open(matches[0]) as f:
+        src = f.read()
+
+    # CR-380: nao deve importar _ui.rs diretamente (exceto structs de configuracao)
+    ui_imports = re.findall(rf'use.*{component_id}_ui::{{([^}}]+)}}', src)
+    bad_ui = []
+    for imp in ui_imports:
+        items = [i.strip() for i in imp.split(",")]
+        # structs de config são permitidas (Column, Action, Config, Options, etc)
+        config_suffixes = ("Column", "Action", "Config", "Options", "Props", "Data", "Row", "Cell")
+        bad_ui += [i for i in items if not i.endswith(config_suffixes)]
+    if bad_ui or (re.search(rf'use.*{component_id}_ui', src) and not ui_imports):
+        errors.append(
+            f"[CR-380] {component_id}/preview.rs -- importa _ui.rs diretamente: {bad_ui}\n"
+            f"            preview DEVE usar boundary, nao UI"
+        )
+
+    # CR-381: nao deve importar primitives diretamente (exceto layout)
+    prim_imports = re.findall(r'use canonrs_core::primitives::([A-Z]\w+)', src)
+    layout_ok = {"Stack", "StackPrimitive", "Grid", "GridPrimitive", "Flex", "FlexPrimitive"}
+    # enums de tipo são permitidos (Variant, Side, Size, Orientation, Selection, Type, Direction, Gap)
+    enum_suffixes = ("Variant", "Side", "Size", "Orientation", "Selection", "Type", "Direction", "Gap", "State", "Align", "Shape", "Density")
+    bad_prims = [p for p in prim_imports if p not in layout_ok and not p.endswith(enum_suffixes)]
+    if bad_prims:
+        errors.append(
+            f"[CR-381] {component_id}/preview.rs -- importa primitives diretamente: {bad_prims[:3]}\n"
+            f"            usar boundary ou layout primitives apenas"
+        )
+
+    # CR-382: signals proibidos
+    forbidden_signals = ["create_signal", "signal(", "RwSignal::new", "create_rw_signal"]
+    for sig in forbidden_signals:
+        if sig in src:
+            errors.append(
+                f"[CR-382] {component_id}/preview.rs -- signal proibido: {sig}\n"
+                f"            preview nao tem estado reativo"
+            )
+            break
+
+    # CR-383: fetch proibido
+    if "fetch(" in src or "reqwest::" in src or "async fn" in src:
+        errors.append(
+            f"[CR-383] {component_id}/preview.rs -- fetch/async proibido\n"
+            f"            preview usa dados estaticos apenas"
+        )
+
+    # CR-384: provide_context proibido
+    if "provide_context" in src:
+        errors.append(
+            f"[CR-384] {component_id}/preview.rs -- provide_context proibido"
+        )
+
+    return errors
+
+def check_boundary(component_id, boundary_type, ui_dir):
+    """CR-370 a CR-375: validacao de boundary layer"""
+    import glob, re
+    errors = []
+    matches = glob.glob(f"{ui_dir}/**/{component_id}_boundary.rs", recursive=True)
+    if not matches:
+        return errors
+    with open(matches[0]) as f:
+        src = f.read()
+
+    # CR-370: signals proibidos em todos os tipos
+    forbidden = ["create_signal", "signal(", "RwSignal::new", "create_rw_signal", "create_memo"]
+    for sig in forbidden:
+        if sig in src:
+            errors.append(
+                f"[CR-370] {component_id}_boundary.rs -- signal proibido: {sig}\n"
+                f"            boundary nao cria estado reativo"
+            )
+            break
+
+    # CR-371: closures reativas proibidas
+    if re.search(r'move\s*\|\s*\|', src):
+        errors.append(
+            f"[CR-371] {component_id}_boundary.rs -- closure reativa proibida\n"
+            f"            boundary nao tem reatividade"
+        )
+
+    # CR-372: lógica de negócio proibida
+    business_logic = ["use_navigate", "fetch(", "reqwest::", "http::", "async fn", "spawn_local"]
+    for bl in business_logic:
+        if bl in src:
+            errors.append(
+                f"[CR-372] {component_id}_boundary.rs -- logica de negocio proibida: {bl}\n"
+                f"            boundary apenas normaliza props e delega"
+            )
+            break
+
+    # CR-373: passthrough nao deve ter lógica de branching
+    if boundary_type == "passthrough":
+        # match com mais de 2 arms é suspeito
+        match_arms = re.findall(r'=>', src)
+        if len(match_arms) > 4:
+            errors.append(
+                f"[CR-373] {component_id}_boundary.rs -- passthrough com branching excessivo ({len(match_arms)} arms)\n"
+                f"            passthrough apenas repassa props sem transformacao"
+            )
+
+    # CR-374: provide_context proibido
+    if "provide_context" in src:
+        errors.append(
+            f"[CR-374] {component_id}_boundary.rs -- provide_context proibido\n"
+            f"            boundary nao gerencia contexto"
+        )
+
+    # Exceções: boundaries que são composite sem primitive no core
+    BOUNDARY_HTML_EXCEPTIONS = ["alert_dialog", "drawer", "sheet", "status_dot", "switch", "toggle_group", "toolbar"]
+    if any(e in component_id for e in BOUNDARY_HTML_EXCEPTIONS):
+        return errors
+
+    # CR-375: HTML direto proibido no boundary
+    view_blocks = re.findall(r'view!\s*\{(.+?)^\s*\}', src, re.DOTALL | re.MULTILINE)
+    view_content = "\n".join(view_blocks) if view_blocks else ""
+    html_tags = re.findall(r'<(div|span|button|input|textarea|select|form|ul|ol|li|table)\b', view_content)
+    if html_tags:
+        errors.append(
+            f"[CR-375] {component_id}_boundary.rs -- HTML direto proibido: <{html_tags[0]}>\n"
+            f"            boundary delega para UI, nao reconstroi DOM"
+        )
+
+    return errors
+
 def check_primitive(component_id):
     """CR-350 a CR-357: validacao de primitives"""
     import glob, re
@@ -1393,6 +1525,8 @@ def main():
             errors += check_css_quality(css_file, comp["component"])
         errors += check_primitive(comp["component"])
         errors += check_ui(comp["component"], ISLAND_DIR)
+        errors += check_boundary(comp["component"], comp.get("boundary_type",""), ISLAND_DIR)
+        errors += check_preview(comp["component"], ISLAND_DIR)
         if errors:
             print(f"\n[ERRO] {comp['component'].upper()}")
             for e in errors:
