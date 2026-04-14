@@ -10,10 +10,9 @@
   border-radius: var(--status-dot-radius);
 }
 
-/* Presence States → Token Mapping */
+/* Stable states — no animation */
 [data-rs-status-dot][data-rs-variant="online"] {
   background: var(--status-dot-bg-online);
-  animation: status-dot-pulse var(--motion-duration-slow) var(--motion-ease-standard) infinite;
 }
 
 [data-rs-status-dot][data-rs-variant="offline"] {
@@ -24,20 +23,32 @@
   background: var(--status-dot-bg-away);
 }
 
+/* busy — solid red */
 [data-rs-status-dot][data-rs-variant="busy"] {
   background: var(--status-dot-bg-busy);
 }
 
+/* do-not-disturb — red with opacity to differentiate from busy */
 [data-rs-status-dot][data-rs-variant="do-not-disturb"] {
   background: var(--status-dot-bg-do-not-disturb);
+  opacity: 0.6;
 }
 
-/* Pulse Animation (only for online) */
+/* Transitional states — animation allowed */
+[data-rs-status-dot][data-rs-variant="connecting"],
+[data-rs-status-dot][data-rs-state~="connecting"] {
+  background: var(--status-dot-bg-online);
+  animation: status-dot-pulse var(--motion-duration-slow) var(--motion-ease-standard) infinite;
+}
+
+[data-rs-status-dot][data-rs-variant="syncing"],
+[data-rs-status-dot][data-rs-state~="syncing"] {
+  background: var(--status-dot-bg-away);
+  animation: status-dot-pulse var(--motion-duration-slow) var(--motion-ease-standard) infinite;
+}
+
+/* Pulse Animation — transitional only */
 @keyframes status-dot-pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
 }

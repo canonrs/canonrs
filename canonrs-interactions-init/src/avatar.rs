@@ -1,4 +1,4 @@
-//! Avatar Init — image load/error fallback + pulse
+//! Avatar Init — image load/error fallback
 
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
@@ -14,7 +14,6 @@ pub fn init(root: Element) {
     if img.is_none() {
         state::add_state(&root, "fallback-open");
         state::remove_state(&root, "fallback-closed");
-        pulse_if_online(&root);
         return;
     }
 
@@ -41,14 +40,5 @@ pub fn init(root: Element) {
     let _ = img.add_event_listener_with_callback("load", on_load.as_ref().unchecked_ref());
     on_load.forget();
 
-    pulse_if_online(&root);
 }
 
-fn pulse_if_online(root: &Element) {
-    let state = root.get_attribute("data-rs-state").unwrap_or_default();
-    if state.contains("online") {
-        if let Some(dot) = query::first(root, "[data-rs-status-dot]") {
-            crate::runtime::state::add_state(&dot, "pulse");
-        }
-    }
-}

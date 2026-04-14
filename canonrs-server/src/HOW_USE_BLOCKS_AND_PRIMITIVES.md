@@ -199,7 +199,6 @@ nav_item
 navigation_menu
 progress
 radio_group
-status_dot
 switch
 table
 table_of_contents

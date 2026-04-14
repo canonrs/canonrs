@@ -19,7 +19,7 @@ pub fn init(root: Element) {
     // timer por tipo
     let default_duration = match variant.as_str() {
         "success" => 3000,
-        "info"    => 4000,
+        "info"    => 3000,
         "warning" => 6000,
         _         => 5000,
     };
