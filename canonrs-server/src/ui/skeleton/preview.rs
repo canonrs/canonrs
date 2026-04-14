@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::skeleton_boundary::Skeleton;
-use super::skeleton_ui::SkeletonVariant;
+use super::skeleton_boundary::{Skeleton, SkeletonVariant};
 
 #[component]
 pub fn SkeletonShowcasePreview() -> impl IntoView {

@@ -1,14 +1,9 @@
 //! @canon-level: strict
-//! Button Island — Canon Rule #340 (zero-logic boundary)
+//! Button Boundary — Canon Rule #340 (zero-logic boundary)
 
 use leptos::prelude::*;
 use super::button_ui::Button as ButtonUi;
-use canonrs_core::primitives::{
-    ButtonVariant,
-    ButtonSize,
-    ButtonType,
-    ButtonStateHint
-};
+pub use canonrs_core::primitives::{ButtonVariant, ButtonSize, ButtonType, ButtonStateHint};
 use canonrs_core::meta::DisabledState;
 
 #[component]
@@ -23,7 +18,7 @@ pub fn Button(
     #[prop(optional)] state_hint: Option<ButtonStateHint>,
 ) -> impl IntoView {
     let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
-    let _ = (validation, state_hint); // passed via data-rs-state by init module
+    let _ = (validation, state_hint);
     view! {
         <ButtonUi
             variant=variant

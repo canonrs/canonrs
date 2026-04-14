@@ -1,8 +1,5 @@
 use leptos::prelude::*;
-use super::button_boundary::Button;
-use canonrs_core::primitives::{ButtonVariant, ButtonSize};
-use canonrs_core::primitives::ButtonPrimitive;
-use canonrs_core::primitives::ButtonVariant as CoreVariant;
+use super::button_boundary::{Button, ButtonVariant, ButtonSize};
 use crate::ui::button_group::button_group_boundary::ButtonGroup;
 use canonrs_core::ToggleState;
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
@@ -40,7 +37,7 @@ pub fn ButtonPreview() -> impl IntoView {
                 <Stack direction=StackDirection::Horizontal gap=StackGap::Sm>
                     <Button variant=ButtonVariant::Primary>"Default"</Button>
                     <Button variant=ButtonVariant::Primary disabled=true>"Disabled"</Button>
-                    <ButtonPrimitive variant=CoreVariant::Ghost attr:data-rs-state="hover">"Ghost Hover"</ButtonPrimitive>
+                    <Button variant=ButtonVariant::Ghost attr:data-rs-state="hover">"Ghost Hover"</Button>
                 </Stack>
             </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>

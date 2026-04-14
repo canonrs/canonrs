@@ -2,10 +2,8 @@
 //! Passthrough only. Zero logic, zero transformation.
 
 use leptos::prelude::*;
-use super::skeleton_ui::{
-    Skeleton as SkeletonUi,
-    SkeletonVariant
-};
+use super::skeleton_ui::Skeleton as SkeletonUi;
+pub use canonrs_core::primitives::SkeletonVariant;
 
 #[component]
 pub fn Skeleton(

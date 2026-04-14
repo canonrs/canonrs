@@ -1,6 +1,5 @@
+use super::textarea_boundary::Textarea;
 use leptos::prelude::*;
-use super::textarea_ui::Textarea;
-use canonrs_core::primitives::TextareaPrimitive;
 use canonrs_core::meta::DisabledState;
 
 #[component]
@@ -19,19 +18,19 @@ pub fn TextareaShowcasePreview() -> impl IntoView {
                 <div data-rs-preview-dev-grid="">
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Default"</span>
-                        <TextareaPrimitive placeholder="Default" rows=2 />
+                        <Textarea placeholder="Default" rows=2 />
                     </div>
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Success"</span>
-                        <TextareaPrimitive placeholder="Success" rows=2 attr:data-rs-variant="success" />
+                        <Textarea placeholder="Success" rows=2 />
                     </div>
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Warning"</span>
-                        <TextareaPrimitive placeholder="Warning" rows=2 attr:data-rs-variant="warning" />
+                        <Textarea placeholder="Warning" rows=2 />
                     </div>
                     <div data-rs-showcase-preview-section="">
                         <span data-rs-showcase-preview-label="">"Error"</span>
-                        <TextareaPrimitive placeholder="Error" rows=2 attr:data-rs-variant="error" />
+                        <Textarea placeholder="Error" rows=2 />
                     </div>
                 </div>
             </div>
