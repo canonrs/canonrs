@@ -135,7 +135,29 @@ fn spawn_tokens(root: &PathBuf, state: &Arc<Mutex<SystemState>>) {
         .status().ok();
     let elapsed = t.elapsed().as_millis();
     println!("[canon][tokens] done ({}ms)", elapsed);
-    state.lock().unwrap().tokens = format!("OK ({}ms)", elapsed);
+
+    // validate_components.py — roda após tokens-engine
+    println!("[canon][validator] running...");
+    let vt = Instant::now();
+    let validator = tokens.join("bin/validate_components.py");
+    let vstatus = Command::new("python3")
+        .arg(&validator)
+        .current_dir(&tokens)
+        .status();
+    match vstatus {
+        Ok(s) if s.success() => {
+            println!("[canon][validator] OK ({}ms)", vt.elapsed().as_millis());
+            state.lock().unwrap().tokens = format!("OK ({}ms) ✓ validated", elapsed);
+        }
+        Ok(s) => {
+            eprintln!("[canon][validator] VIOLATIONS FOUND — build continues ({}ms)", vt.elapsed().as_millis());
+            state.lock().unwrap().tokens = format!("OK ({}ms) ⚠ violations", elapsed);
+        }
+        Err(e) => {
+            eprintln!("[canon][validator] failed to run: {}", e);
+            state.lock().unwrap().tokens = format!("OK ({}ms) ? validator error", elapsed);
+        }
+    }
 }
 
 fn spawn_core_watcher(root: &PathBuf, running: Arc<AtomicBool>) -> std::thread::JoinHandle<()> {
