@@ -2,7 +2,7 @@ pub mod primitives;
 pub mod foundation;
 pub mod semantics;
 pub mod components;
-pub mod layers;
+pub mod system;
 
 
 /// Estrutura canônica para tokens de família

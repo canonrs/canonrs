@@ -30,7 +30,8 @@ pub fn generate(_generated_dir: &Path, styles_dir: &Path) -> std::io::Result<()>
         "components-overlay", "components-selection", "components-forms",
         "components-navigation", "components-feedback", "components-data",
         "components-composite", "components-layout", "components-animation", "components-blocks",
-        "foundation-interaction", "foundation-layers",
+        "foundation-layers",
+        "system-opacity", "system-focus", "system-transform", "system-blur",
     ];
 
     for component in &components {

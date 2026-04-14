@@ -70,7 +70,18 @@ pub const PRIMITIVE_VALUES: &[PrimitiveToken] = &[
 
     PrimitiveToken { name: "primitive-shadow-sm", value: "0 1px 2px rgb(0 0 0 / 0.05)" },
     PrimitiveToken { name: "primitive-shadow-md", value: "0 4px 6px rgb(0 0 0 / 0.1)" },
-    PrimitiveToken { name: "primitive-shadow-lg", value: "0 10px 15px rgb(0 0 0 / 0.15)" },
+    PrimitiveToken { name: "primitive-shadow-lg",  value: "0 10px 15px rgb(0 0 0 / 0.15)" },
+    PrimitiveToken { name: "primitive-shadow-xs",  value: "0 1px 2px rgb(0 0 0 / 0.05)" },
+    PrimitiveToken { name: "primitive-shadow-xl",  value: "0 12px 24px rgb(0 0 0 / 0.12)" },
+    PrimitiveToken { name: "primitive-shadow-2xl", value: "0 20px 40px rgb(0 0 0 / 0.14)" },
+
+    // ======================================================================
+    // Overlay alpha
+    // ======================================================================
+    PrimitiveToken { name: "primitive-overlay-30", value: "rgba(0, 0, 0, 0.3)" },
+    PrimitiveToken { name: "primitive-overlay-50", value: "rgba(0, 0, 0, 0.5)" },
+    PrimitiveToken { name: "primitive-overlay-80", value: "rgba(0, 0, 0, 0.8)" },
+    PrimitiveToken { name: "primitive-divider",    value: "rgba(0, 0, 0, 0.08)" },
 
     // ======================================================================
     // Typography — raw values

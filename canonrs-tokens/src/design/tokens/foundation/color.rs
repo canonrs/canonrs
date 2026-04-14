@@ -4,9 +4,9 @@
 use crate::design::tokens::FamilyToken;
 
 pub const FOUNDATION_COLOR: &[FamilyToken] = &[
-    FamilyToken::new("color-overlay-50",          "rgba(0, 0, 0, 0.5)"),
-    FamilyToken::new("color-overlay-30",          "rgba(0, 0, 0, 0.3)"),
-    FamilyToken::new("color-overlay-80",          "rgba(0, 0, 0, 0.8)"),
+    FamilyToken::new("color-overlay-50",          "var(--primitive-overlay-50)"),
+    FamilyToken::new("color-overlay-30",          "var(--primitive-overlay-30)"),
+    FamilyToken::new("color-overlay-80",          "var(--primitive-overlay-80)"),
     FamilyToken::new("color-primary-alpha-05",    "hsl(var(--primitive-primary-h) var(--primitive-primary-s) var(--primitive-primary-l) / 0.05)"),
     FamilyToken::new("color-primary-alpha-06",    "hsl(var(--primitive-primary-h) var(--primitive-primary-s) var(--primitive-primary-l) / 0.06)"),
     FamilyToken::new("color-primary-alpha-08",    "hsl(var(--primitive-primary-h) var(--primitive-primary-s) var(--primitive-primary-l) / 0.08)"),
@@ -16,5 +16,5 @@ pub const FOUNDATION_COLOR: &[FamilyToken] = &[
     FamilyToken::new("color-primary-alpha-20",    "hsl(var(--primitive-primary-h) var(--primitive-primary-s) var(--primitive-primary-l) / 0.20)"),
     FamilyToken::new("color-primary-border-soft", "hsl(var(--primitive-primary-h) var(--primitive-primary-s) 80%)"),
     FamilyToken::new("color-success-glow",        "hsl(142 71% 45% / 0.4)"),
-    FamilyToken::new("color-divider-subtle",      "rgba(0, 0, 0, 0.08)"),
+    FamilyToken::new("color-divider-subtle",      "var(--primitive-divider)"),
 ];

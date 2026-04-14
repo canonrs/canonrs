@@ -6,7 +6,7 @@ mod root_generator;
 mod font_generator;
 
 use canonrs_tokens::design::tokens::components::*;
-use canonrs_tokens::design::tokens::layers::LAYERS_TOKENS;
+use canonrs_tokens::design::tokens::system::{LAYERS_TOKENS, SYSTEM_OPACITY, SYSTEM_FOCUS, SYSTEM_TRANSFORM, SYSTEM_BLUR};
 use canonrs_tokens::design::tokens::foundation::*;
 use canonrs_tokens::design::tokens::foundation::breakpoints::FOUNDATION_BREAKPOINTS;
 use canonrs_tokens::design::tokens::primitives::PRIMITIVE_VALUES;
@@ -40,7 +40,10 @@ fn main() {
     generate_family("components-layout", LAYOUT_TOKENS, generated_path);
     generate_family("components-animation", ANIMATION_TOKENS, generated_path);
     generate_family("components-blocks", BLOCKS_TOKENS, generated_path);
-    generate_family("foundation-interaction", &canonrs_tokens::design::tokens::foundation::interaction::FOUNDATION_INTERACTION, generated_path);
+    generate_family("system-opacity",    SYSTEM_OPACITY,    generated_path);
+    generate_family("system-focus",      SYSTEM_FOCUS,      generated_path);
+    generate_family("system-transform",  SYSTEM_TRANSFORM,  generated_path);
+    generate_family("system-blur",       SYSTEM_BLUR,       generated_path);
     generate_family("foundation-layers", LAYERS_TOKENS, generated_path);
 
     println!("\n🔧 Step 4: Generating semantic...");
@@ -84,7 +87,6 @@ fn generate_core(output_dir: &Path) {
     for token in FOUNDATION_COLOR     { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     for token in FOUNDATION_SHADOW    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     for token in FOUNDATION_BORDER    { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
-    for token in FOUNDATION_INTERACTION{ css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     for token in FOUNDATION_BREAKPOINTS  { css.push_str(&format!("  --{}: {};\n", token.name, token.value)); }
     css.push_str("}\n");
 

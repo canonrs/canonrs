@@ -27,8 +27,11 @@
 @import "./.generated/components-layout.css";
 @import "./.generated/components-animation.css";
 @import "./.generated/components-blocks.css";
-@import "./.generated/foundation-interaction.css";
 @import "./.generated/foundation-layers.css";
+@import "./.generated/system-opacity.css";
+@import "./.generated/system-focus.css";
+@import "./.generated/system-transform.css";
+@import "./.generated/system-blur.css";
 
 /* 6. ROOT */
 @import "./.generated/root.css";

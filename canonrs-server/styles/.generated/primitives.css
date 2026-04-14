@@ -39,6 +39,13 @@
   --primitive-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --primitive-shadow-md: 0 4px 6px rgb(0 0 0 / 0.1);
   --primitive-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.15);
+  --primitive-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.05);
+  --primitive-shadow-xl: 0 12px 24px rgb(0 0 0 / 0.12);
+  --primitive-shadow-2xl: 0 20px 40px rgb(0 0 0 / 0.14);
+  --primitive-overlay-30: rgba(0, 0, 0, 0.3);
+  --primitive-overlay-50: rgba(0, 0, 0, 0.5);
+  --primitive-overlay-80: rgba(0, 0, 0, 0.8);
+  --primitive-divider: rgba(0, 0, 0, 0.08);
   --primitive-font-sans: ui-sans-serif, system-ui, sans-serif;
   --primitive-font-mono: ui-monospace, monospace;
   --primitive-font-serif: ui-serif, Georgia, serif;
