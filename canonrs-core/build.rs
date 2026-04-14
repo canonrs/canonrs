@@ -69,4 +69,42 @@ fn main() {
 
     println!("cargo:warning=CanonRS SSOT: {} primitives, {} blocks/layouts",
         primitives.len(), blocks_layouts.len());
+
+    // CR-VALIDATOR: roda validate_components.py e emite warnings/erros no cargo build
+    println!("cargo:rerun-if-changed=../canonrs-tokens/bin/validate_components.py");
+    println!("cargo:rerun-if-changed=../canonrs-server/styles/ui");
+    let validator_path = Path::new("../canonrs-tokens/bin/validate_components.py");
+    if validator_path.exists() {
+        let output = std::process::Command::new("python3")
+            .arg(validator_path)
+            .current_dir("../canonrs-tokens")
+            .output();
+        match output {
+            Ok(out) => {
+                let stdout = String::from_utf8_lossy(&out.stdout);
+                let _stderr = String::from_utf8_lossy(&out.stderr);
+                // emitir cada violation como cargo warning
+                for line in stdout.lines() {
+                    if line.contains("[ERRO]") || line.contains("[CR-") || line.contains("[INEXISTENTE]") || line.contains("[CONTRATO]") {
+                        println!("cargo:warning=CANON: {}", line.trim());
+                    }
+                }
+                if !out.status.success() {
+                    // contar violations
+                    let violations: Vec<&str> = stdout.lines()
+                        .filter(|l| l.contains("violations found"))
+                        .collect();
+                    if let Some(v) = violations.first() {
+                        panic!("CanonRS validator FAILED: {}", v.trim());
+                    }
+                    panic!("CanonRS validator FAILED — fix violations before building");
+                } else {
+                    println!("cargo:warning=CANON: ✓ 88 components clean");
+                }
+            }
+            Err(e) => {
+                println!("cargo:warning=CANON: validator not found ({})", e);
+            }
+        }
+    }
 }
