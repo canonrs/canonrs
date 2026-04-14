@@ -1,6 +1,7 @@
 #![allow(unreachable_pub, dead_code)]
 
 use leptos::prelude::*;
+use canonrs_core::primitives::hero::{HeroMediaPrimitive, HeroActionsPrimitive};
 
 #[component]
 pub fn HeroTitle(
@@ -38,7 +39,7 @@ pub fn HeroMedia(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-hero-media="" class=class>{children()}</div>
+        <HeroMediaPrimitive class=class>{children()}</HeroMediaPrimitive>
     }
 }
 
@@ -48,6 +49,6 @@ pub fn HeroActions(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-hero-actions="" class=class>{children()}</div>
+        <HeroActionsPrimitive class=class>{children()}</HeroActionsPrimitive>
     }
 }

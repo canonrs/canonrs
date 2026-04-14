@@ -19,3 +19,27 @@ pub fn HeroPrimitive(
         </div>
     }
 }
+
+#[component]
+pub fn HeroMediaPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-hero-media="" class=class>
+            {children()}
+        </div>
+    }
+}
+
+#[component]
+pub fn HeroActionsPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-hero-actions="" class=class>
+            {children()}
+        </div>
+    }
+}

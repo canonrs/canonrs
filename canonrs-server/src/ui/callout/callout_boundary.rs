@@ -1,5 +1,6 @@
-//! Callout Island — Canon Rule passthrough
+//! Callout Boundary — Canon Rule passthrough
 use leptos::prelude::*;
+use super::callout_ui::{Callout as CalloutUi, CalloutIcon, CalloutTitle, CalloutDescription};
 use canonrs_core::primitives::CalloutVariant;
 
 #[component]
@@ -11,18 +12,10 @@ pub fn Callout(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div
-            data-rs-callout=""
-            data-rs-component="Callout"
-            data-rs-variant=variant.as_str()
-            role="note"
-            class=class
-        >
-            {icon.map(|i| view! { <span data-rs-callout-icon="">{i}</span> })}
-            <div data-rs-callout-body="">
-                {title.map(|t| view! { <p data-rs-callout-title="">{t}</p> })}
-                {description.map(|d| view! { <p data-rs-callout-description="">{d}</p> })}
-            </div>
-        </div>
+        <CalloutUi variant=variant class=class>
+            {icon.map(|i| view! { <CalloutIcon>{i}</CalloutIcon> })}
+            {title.map(|t| view! { <CalloutTitle>{t}</CalloutTitle> })}
+            {description.map(|d| view! { <CalloutDescription>{d}</CalloutDescription> })}
+        </CalloutUi>
     }
 }
