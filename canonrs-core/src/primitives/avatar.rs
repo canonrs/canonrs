@@ -5,6 +5,7 @@
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
 use crate::infra::state_engine::visibility_attrs;
+use crate::primitives::status_dot::{StatusDotPrimitive, StatusDotVariant};
 
 #[component]
 pub fn AvatarPrimitive(
@@ -14,19 +15,32 @@ pub fn AvatarPrimitive(
     #[prop(into, default = String::new())] size: String,
     #[prop(into, default = String::new())] shape: String,
 ) -> impl IntoView {
-    let state = if status.is_empty() { String::new() } else { status.clone() };
+    let dot_variant = match status.as_str() {
+        "online"  => Some(StatusDotVariant::Online),
+        "offline" => Some(StatusDotVariant::Offline),
+        "busy"    => Some(StatusDotVariant::Busy),
+        "away"    => Some(StatusDotVariant::Away),
+        _         => None,
+    };
+    let status_state = status.clone();
     view! {
         <span
-            data-rs-avatar=""
+            data-rs-avatar-group=""
             data-rs-uid=crate::infra::uid::generate("av")
             data-rs-interaction="init"
-            data-rs-state=state
+            data-rs-state=status_state
             data-rs-size=size
-            data-rs-shape=shape
             class=class
         >
-            {children()}
-
+            <span
+                data-rs-avatar=""
+                data-rs-shape=shape
+            >
+                {children()}
+            </span>
+            {dot_variant.map(|v| view! {
+                <StatusDotPrimitive variant=v class="">" "</StatusDotPrimitive>
+            })}
         </span>
     }
 }

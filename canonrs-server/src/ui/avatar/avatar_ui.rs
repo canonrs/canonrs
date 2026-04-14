@@ -1,7 +1,8 @@
 #![allow(unreachable_pub, dead_code)]
 
 use leptos::prelude::*;
-use canonrs_core::primitives::{AvatarPrimitive, AvatarImagePrimitive, AvatarFallbackPrimitive, StatusDotPrimitive, StatusDotVariant};
+use canonrs_core::primitives::{AvatarPrimitive, AvatarImagePrimitive, AvatarFallbackPrimitive};
+use canonrs_core::StatusDotVariant;
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AvatarSize { Xs, Sm, Md, Lg, Xl }
@@ -48,27 +49,16 @@ pub fn Avatar(
     #[prop(optional)] status: Option<AvatarStatus>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let status_str = status.map(|s| s.as_str().to_string()).unwrap_or_default();
+    let status_str = status.as_ref().map(|s| s.as_str().to_string()).unwrap_or_default();
     view! {
-        // wrapper externo — sem overflow:hidden, permite StatusDot pulsar
-        <span style="position:relative;display:inline-block;width:fit-content;">
-            <AvatarPrimitive
-                status=status_str
-                size=size.as_str().to_string()
-                shape=shape.as_str().to_string()
-                class=class
-            >
-                {children()}
-            </AvatarPrimitive>
-            {status.map(|s| view! {
-                <StatusDotPrimitive
-                    variant=s.to_variant()
-                    class="avatar-status-dot"
-                >
-                    ""
-                </StatusDotPrimitive>
-            })}
-        </span>
+        <AvatarPrimitive
+            status=status_str
+            size=size.as_str().to_string()
+            shape=shape.as_str().to_string()
+            class=class
+        >
+            {children()}
+        </AvatarPrimitive>
     }
 }
 

@@ -2,23 +2,38 @@
    AVATAR — Family F Data tokens compliant
    ═══════════════════════════════════════════════════════════════ */
 
+/* Group = contexto de posicionamento apenas */
+[data-rs-avatar-group] {
+  position: relative;
+  display: inline-block;
+}
+
+/* Avatar = dimensão + clipping */
 [data-rs-avatar] {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  isolation: isolate;
   background: var(--avatar-bg);
   border: var(--avatar-border-width) solid var(--avatar-border-color);
   color: var(--avatar-fg);
+  border-radius: var(--avatar-radius);
 }
 
-/* Sizes */
-[data-rs-avatar][data-rs-size="xs"] { width: var(--avatar-size-xs); height: var(--avatar-size-xs); }
-[data-rs-avatar][data-rs-size="sm"] { width: var(--avatar-size-sm); height: var(--avatar-size-sm); }
-[data-rs-avatar][data-rs-size="md"] { width: var(--avatar-size-md); height: var(--avatar-size-md); }
-[data-rs-avatar][data-rs-size="lg"] { width: var(--avatar-size-lg); height: var(--avatar-size-lg); }
-[data-rs-avatar][data-rs-size="xl"] { width: var(--avatar-size-xl); height: var(--avatar-size-xl); }
+/* Size default */
+[data-rs-avatar-group] [data-rs-avatar] {
+  width: var(--avatar-size-md);
+  height: var(--avatar-size-md);
+}
+
+/* Sizes no avatar via group */
+[data-rs-avatar-group][data-rs-size="xs"] [data-rs-avatar] { width: var(--avatar-size-xs); height: var(--avatar-size-xs); }
+[data-rs-avatar-group][data-rs-size="sm"] [data-rs-avatar] { width: var(--avatar-size-sm); height: var(--avatar-size-sm); }
+[data-rs-avatar-group][data-rs-size="md"] [data-rs-avatar] { width: var(--avatar-size-md); height: var(--avatar-size-md); }
+[data-rs-avatar-group][data-rs-size="lg"] [data-rs-avatar] { width: var(--avatar-size-lg); height: var(--avatar-size-lg); }
+[data-rs-avatar-group][data-rs-size="xl"] [data-rs-avatar] { width: var(--avatar-size-xl); height: var(--avatar-size-xl); }
 
 /* Shapes */
 [data-rs-avatar][data-rs-shape="circle"]  { border-radius: var(--avatar-radius); }
@@ -27,16 +42,22 @@
 
 /* Image */
 [data-rs-avatar-image] {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: var(--avatar-image-fit);
   display: block;
+  border-radius: inherit;
 }
 
 [data-rs-avatar-image][src$=".svg"] {
   object-fit: cover;
   width: 100%;
   height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
 }
 
 /* Fallback */
@@ -53,14 +74,14 @@
   text-transform: uppercase;
 }
 
-/* Status dot */
-[data-rs-avatar] [data-rs-status-dot] {
+/* Status dot — fora do overflow:hidden */
+[data-rs-avatar-group] [data-rs-status-dot] {
   position: absolute;
   bottom: 0;
   right: 0;
   box-sizing: border-box;
   transform: translate(var(--avatar-status-translate-x), var(--avatar-status-translate-y));
-  z-index: 1;
+  z-index: var(--layer-overlay);
 }
 
 /* Badge */
@@ -83,10 +104,10 @@
 }
 
 /* States */
-[data-rs-avatar][data-rs-state~="loading"] { opacity: var(--opacity-disabled); }
-[data-rs-avatar][data-rs-state~="error"] [data-rs-avatar-image] { display: none; }
-[data-rs-avatar-image][data-rs-state~="closed"] { display: none; }
-[data-rs-avatar-fallback][data-rs-state~="closed"] { display: none; }
+[data-rs-avatar-group][data-rs-state~="loading"] { opacity: var(--opacity-disabled); }
+[data-rs-avatar-group][data-rs-state~="error"] [data-rs-avatar-image] { display: none; }
+[data-rs-avatar][data-rs-state~="image-closed"] [data-rs-avatar-image] { display: none; }
+[data-rs-avatar][data-rs-state~="fallback-closed"] [data-rs-avatar-fallback] { display: none; }
 
 /* Pulse animation */
 @keyframes avatar-pulse {
@@ -94,6 +115,6 @@
   50%       { box-shadow: 0 0 0 var(--avatar-pulse-ring-size) color-mix(in srgb, var(--avatar-status-pulse-color) 0%, transparent); }
 }
 
-[data-rs-avatar] [data-rs-status-dot][data-rs-pulse] {
+[data-rs-avatar-group] [data-rs-status-dot][data-rs-state~="pulse"] {
   animation: avatar-pulse 2s var(--motion-ease-standard) infinite;
 }

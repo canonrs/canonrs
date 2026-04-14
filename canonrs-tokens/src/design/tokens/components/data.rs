@@ -221,7 +221,7 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("avatar-image-fit",             "cover"),
     FamilyToken::new("avatar-fg",                    "var(--theme-surface-fg-muted)"),
     FamilyToken::new("avatar-status-pulse-color",    "var(--color-success)"),
-    FamilyToken::new("avatar-status-translate-x",  "32%"),
+    FamilyToken::new("avatar-status-translate-x",  "20%"),
     FamilyToken::new("avatar-status-translate-y",  "20%"),
     FamilyToken::new("avatar-status-border-width",   "2px"),
     FamilyToken::new("avatar-status-online-bg",      "var(--color-success)"),
