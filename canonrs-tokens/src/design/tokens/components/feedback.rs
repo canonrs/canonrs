@@ -165,7 +165,11 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("banner-content-font-size", "var(--font-size-sm)"),
     FamilyToken::new("banner-close-fg", "var(--theme-surface-fg)"),
     FamilyToken::new("banner-close-fg-hover", "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("banner-close-size", "var(--space-md)"),
+    FamilyToken::new("banner-close-size",             "var(--space-md)"),
+    FamilyToken::new("banner-border-color-error",   "var(--color-destructive)"),
+    FamilyToken::new("banner-border-color-warning", "var(--color-warning)"),
+    FamilyToken::new("banner-border-color-success", "var(--color-success)"),
+    FamilyToken::new("banner-border-color-info",    "var(--color-info)"),
     FamilyToken::new("banner-actions-gap", "var(--space-sm)"),
 
     // Inline Notice

@@ -9,7 +9,7 @@ pub fn AlertShowcasePreview() -> impl IntoView {
         <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <Alert title="Info" description="This is a default informational alert." />
             <p data-rs-showcase-preview-anchor="">
-                "Correct ARIA role and live region enforced by variant."
+                "Semantic state (error/warning/success) drives ARIA role and live region. Visual variant is separate from semantic contract."
             </p>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Variants"</span>

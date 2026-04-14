@@ -25,15 +25,15 @@ impl AlertVariant {
 
     pub fn role(&self) -> &'static str {
         match self {
-            Self::Destructive => "alert",
-            _                 => "status",
+            Self::Destructive | Self::Warning => "alert",
+            _                                 => "status",
         }
     }
 
     pub fn aria_live(&self) -> &'static str {
         match self {
-            Self::Destructive => "assertive",
-            _                 => "polite",
+            Self::Destructive | Self::Warning => "assertive",
+            _                                 => "polite",
         }
     }
 }

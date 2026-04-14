@@ -11,9 +11,9 @@ optional_parts: ["AlertTitle", "AlertDescription", "AlertCloseButton"]
 tags: ["alert", "warning", "info", "message", "error"]
 keywords: 
 pain: Alerts use wrong ARIA roles causing accessibility issues silently
-promise: Correct ARIA role and live region enforced by variant
+promise: Semantic state drives ARIA role and live region — variant is visual only
 why: |
-  AlertVariant controls both semantic role and aria-live behavior. The primitive guarantees correct accessibility mapping at compile-time. This prevents incorrect alert semantics without relying on developer discipline.
+  Semantic state (error/warning/success) is derived from variant at the primitive level and drives role and aria-live. Visual styling via data-rs-variant is separate from semantic contract. Accessibility is guaranteed at compile-time.
 rules: ["CR-001", "CR-004"]
 use_cases: ["error messages", "status notifications"]
 related: ["toast", "banner", "callout", "inline_notice", "status_dot"]

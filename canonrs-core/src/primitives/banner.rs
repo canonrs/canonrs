@@ -27,15 +27,33 @@ impl BannerVariant {
 
     pub fn role(&self) -> &'static str {
         match self {
-            Self::Error => "alert",
-            _           => "status",
+            Self::Error | Self::Warning => "alert",
+            _                           => "region",
         }
     }
 
     pub fn aria_live(&self) -> &'static str {
         match self {
-            Self::Error => "assertive",
-            _           => "polite",
+            Self::Error | Self::Warning => "assertive",
+            _                           => "polite",
+        }
+    }
+
+    pub fn aria_label(&self) -> &'static str {
+        match self {
+            Self::Error   => "Error notification",
+            Self::Warning => "Warning notification",
+            Self::Success => "Success notification",
+            Self::Info    => "System notification",
+        }
+    }
+
+    pub fn semantic_state(&self) -> &'static str {
+        match self {
+            Self::Error   => "open error",
+            Self::Warning => "open warning",
+            Self::Success => "open success",
+            Self::Info    => "open info",
         }
     }
 }
@@ -54,9 +72,10 @@ pub fn BannerPrimitive(
             data-rs-uid=crate::infra::uid::generate("bn")
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
-            data-rs-state=s.data_rs_state
+            data-rs-state=variant.semantic_state()
             role=variant.role()
             aria-live=variant.aria_live()
+            aria-label=variant.aria_label()
             aria-atomic="true"
             hidden=s.hidden
             class=class
