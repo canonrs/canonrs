@@ -26,6 +26,6 @@
   --color-error-foreground: var(--theme-state-error-fg);
   --color-info: var(--theme-state-info-bg);
   --color-info-foreground: var(--theme-state-info-fg);
-  --color-neutral-900: hsl(var(--primitive-neutral-900));
-  --color-neutral-50: hsl(var(--primitive-neutral-50));
+  --color-neutral-900: var(--theme-surface-fg);
+  --color-neutral-50: var(--theme-surface-bg);
 }

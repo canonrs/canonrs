@@ -16,19 +16,19 @@
 /* 4. SEMANTIC */
 @import "./.generated/semantic.css";
 
-/* 5. FAMILIES */
-@import "./.generated/family-a-overlay.css";
-@import "./.generated/family-b-selection.css";
-@import "./.generated/family-c-forms.css";
-@import "./.generated/family-d-navigation.css";
-@import "./.generated/family-e-feedback.css";
-@import "./.generated/family-f-data.css";
-@import "./.generated/family-g-composite.css";
-@import "./.generated/family-h-layout.css";
-@import "./.generated/family-i-animation.css";
-@import "./.generated/family-j-blocks.css";
-@import "./.generated/family-s-state.css";
-@import "./.generated/family-z-layers.css";
+/* 5. COMPONENTS */
+@import "./.generated/components-overlay.css";
+@import "./.generated/components-selection.css";
+@import "./.generated/components-forms.css";
+@import "./.generated/components-navigation.css";
+@import "./.generated/components-feedback.css";
+@import "./.generated/components-data.css";
+@import "./.generated/components-composite.css";
+@import "./.generated/components-layout.css";
+@import "./.generated/components-animation.css";
+@import "./.generated/components-blocks.css";
+@import "./.generated/foundation-interaction.css";
+@import "./.generated/foundation-layers.css";
 
 /* 6. ROOT */
 @import "./.generated/root.css";

@@ -77,7 +77,15 @@ pub const PRIMITIVE_VALUES: &[PrimitiveToken] = &[
     // ======================================================================
 
     PrimitiveToken { name: "primitive-font-sans", value: "ui-sans-serif, system-ui, sans-serif" },
-    PrimitiveToken { name: "primitive-font-mono", value: "ui-monospace, monospace" },
+    PrimitiveToken { name: "primitive-font-mono",  value: "ui-monospace, monospace" },
+    PrimitiveToken { name: "primitive-font-serif", value: "ui-serif, Georgia, serif" },
+
+    // ======================================================================
+    // Primary color (Indigo 500 — 99 102 241)
+    // ======================================================================
+    PrimitiveToken { name: "primitive-primary-h", value: "239" },
+    PrimitiveToken { name: "primitive-primary-s", value: "84%" },
+    PrimitiveToken { name: "primitive-primary-l", value: "67%" },
 
     PrimitiveToken { name: "primitive-font-size-1", value: "0.75rem" },
     PrimitiveToken { name: "primitive-font-size-2", value: "0.875rem" },

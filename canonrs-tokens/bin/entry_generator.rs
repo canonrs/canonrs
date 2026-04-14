@@ -23,18 +23,18 @@ pub fn generate(_generated_dir: &Path, styles_dir: &Path) -> std::io::Result<()>
 /* 4. SEMANTIC */
 @import \"./.generated/semantic.css\";
 
-/* 5. FAMILIES */
+/* 5. COMPONENTS */
 ");
 
-    let families = [
-        "family-a-overlay", "family-b-selection", "family-c-forms",
-        "family-d-navigation", "family-e-feedback", "family-f-data",
-        "family-g-composite", "family-h-layout", "family-i-animation", "family-j-blocks",
-        "family-s-state", "family-z-layers",
+    let components = [
+        "components-overlay", "components-selection", "components-forms",
+        "components-navigation", "components-feedback", "components-data",
+        "components-composite", "components-layout", "components-animation", "components-blocks",
+        "foundation-interaction", "foundation-layers",
     ];
 
-    for family in &families {
-        content.push_str(&format!("@import \"./.generated/{}.css\";\n", family));
+    for component in &components {
+        content.push_str(&format!("@import \"./.generated/{}.css\";\n", component));
     }
 
     content.push_str("\n/* 6. ROOT */\n@import \"./.generated/root.css\";\n");

@@ -12,6 +12,6 @@ pub const SEMANTICS_STATES: &[FamilyToken] = &[
     FamilyToken::new("color-error-foreground",    "var(--theme-state-error-fg)"),
     FamilyToken::new("color-info",                "var(--theme-state-info-bg)"),
     FamilyToken::new("color-info-foreground",     "var(--theme-state-info-fg)"),
-    FamilyToken::new("color-neutral-900",         "hsl(var(--primitive-neutral-900))"),
-    FamilyToken::new("color-neutral-50",          "hsl(var(--primitive-neutral-50))"),
+    FamilyToken::new("color-neutral-900",         "var(--theme-surface-fg)"),
+    FamilyToken::new("color-neutral-50",          "var(--theme-surface-bg)"),
 ];

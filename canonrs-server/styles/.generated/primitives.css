@@ -41,6 +41,10 @@
   --primitive-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.15);
   --primitive-font-sans: ui-sans-serif, system-ui, sans-serif;
   --primitive-font-mono: ui-monospace, monospace;
+  --primitive-font-serif: ui-serif, Georgia, serif;
+  --primitive-primary-h: 239;
+  --primitive-primary-s: 84%;
+  --primitive-primary-l: 67%;
   --primitive-font-size-1: 0.75rem;
   --primitive-font-size-2: 0.875rem;
   --primitive-font-size-3: 1rem;
