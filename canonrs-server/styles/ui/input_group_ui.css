@@ -20,6 +20,24 @@
   border-radius: var(--input-group-radius-merge);
 }
 
+[data-rs-input-group][data-rs-state~="merge-radius"] > *:not(:last-child) {
+  border-inline-end: var(--input-border-width) solid var(--input-group-addon-border);
+}
+
+[data-rs-input-group][data-rs-state~="merge-radius"] > *:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+[data-rs-input-group][data-rs-state~="merge-radius"] > *:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[data-rs-input-group][data-rs-state~="merge-radius"] > *:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
 [data-rs-input-group-addon] {
   display: inline-flex;
   align-items: center;
@@ -58,19 +76,19 @@
 /* ── FOCUS WITHIN ───────────────────────────────────────────── */
 [data-rs-input-group][data-rs-state~="focus-within"] {
   border-color: var(--input-focus-ring-color);
-  box-shadow: 0 0 0 var(--input-focus-ring-width) var(--input-focus-ring-color);
+  box-shadow: var(--input-focus-ring-shadow);
 }
 
-/* ── VALIDATION ─────────────────────────────────────────────── */
-[data-rs-input-group][data-rs-validation="error"] {
+/* ── VALIDATION via state ──────────────────────────────────────── */
+[data-rs-input-group][data-rs-state~="error"] {
   border-color: var(--input-error-border);
 }
 
-[data-rs-input-group][data-rs-validation="success"] {
+[data-rs-input-group][data-rs-state~="success"] {
   border-color: var(--input-success-border);
 }
 
-[data-rs-input-group][data-rs-validation="warning"] {
+[data-rs-input-group][data-rs-state~="warning"] {
   border-color: var(--input-warning-border);
 }
 
@@ -79,4 +97,18 @@
   opacity: var(--input-disabled-opacity);
   cursor: not-allowed;
   pointer-events: none;
+}
+
+/* ── Input dentro do group ─────────────────────────────────── */
+[data-rs-input-group] [data-rs-input] {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  flex: 1;
+  min-width: 0;
+}
+
+[data-rs-input-group] [data-rs-input][data-rs-state~="focus"] {
+  box-shadow: none;
+  outline: none;
 }

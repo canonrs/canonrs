@@ -22,11 +22,10 @@ pub fn InputOtpPrimitive(
         <input
             data-rs-input-otp=""
             data-rs-uid=crate::infra::uid::generate("otp")
-            data-rs-interaction="init"
             data-rs-disabled=d.data_rs_disabled
             type="text"
             name={if name.is_empty() { None } else { Some(name) }}
-            prop:value=value
+            value=value
             disabled=d.disabled
             maxlength=maxlength.to_string()
             pattern={if pattern.is_empty() { None } else { Some(pattern) }}

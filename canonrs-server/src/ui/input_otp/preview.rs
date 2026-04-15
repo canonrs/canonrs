@@ -7,7 +7,7 @@ pub fn InputOtpShowcasePreview() -> impl IntoView {
     view! {
         <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <InputOtp length=6 />
-            <p data-rs-showcase-preview-anchor()>
+            <p data-rs-showcase-preview-anchor="">
                 "OTP slots and active state managed automatically."
             </p>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>

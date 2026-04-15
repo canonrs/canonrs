@@ -53,4 +53,5 @@
 [data-rs-input-otp-slot][data-rs-state~="active"] {
   background: var(--input-otp-slot-active-bg);
   border-color: var(--input-otp-slot-active-border);
+  box-shadow: var(--input-focus-ring-shadow);
 }

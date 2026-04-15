@@ -29,7 +29,7 @@ pub fn InputOtp(
     let disabled_state: Option<&str> = if is_disabled { Some("disabled") } else { None };
 
     view! {
-        <div data-rs-input-otp-container="" data-rs-state=disabled_state class=class>
+        <div data-rs-input-otp-container="" data-rs-interaction="init" data-rs-state=disabled_state class=class>
             <InputOtpPrimitive
                 name=name
                 value=value.clone()

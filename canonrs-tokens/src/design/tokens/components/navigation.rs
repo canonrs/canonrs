@@ -92,7 +92,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("pagination-item-font-size", "var(--font-size-sm)"),
     FamilyToken::new("pagination-item-font-weight", "var(--font-weight-normal)"),
     FamilyToken::new("pagination-item-font-weight-active", "var(--font-weight-medium)"),
-    FamilyToken::new("pagination-item-disabled-opacity", "var(--state-disabled-opacity)"),
+    FamilyToken::new("pagination-item-disabled-opacity", "var(--opacity-disabled)"),
     FamilyToken::new("pagination-item-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("pagination-item-transition-ease", "var(--motion-ease-standard)"),
     FamilyToken::new("pagination-ellipsis-fg", "var(--theme-surface-fg-muted)"),
@@ -212,7 +212,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("link-font-weight", "var(--font-weight-normal)"),
     FamilyToken::new("link-text-decoration", "none"),
     FamilyToken::new("link-text-decoration-hover", "underline"),
-    FamilyToken::new("link-disabled-opacity", "var(--state-disabled-opacity)"),
+    FamilyToken::new("link-disabled-opacity", "var(--opacity-disabled)"),
     FamilyToken::new("link-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("link-fg-hover",            "color-mix(in srgb, var(--theme-action-primary-bg) 80%, white)"),
     FamilyToken::new("link-fg-active",           "var(--theme-action-primary-active)"),
@@ -253,7 +253,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("nav-item-hover-fg", "var(--theme-action-primary-bg)"),
     FamilyToken::new("nav-item-active-bg", "transparent"),
     FamilyToken::new("nav-item-active-fg", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("nav-item-focus-ring-width", "var(--state-focus-ring-width)"),
+    FamilyToken::new("nav-item-focus-ring-width", "var(--focus-ring-width)"),
     FamilyToken::new("nav-item-focus-ring-color", "var(--theme-action-primary-bg)"),
 
     // Link Group
