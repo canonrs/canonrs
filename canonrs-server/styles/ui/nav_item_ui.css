@@ -69,5 +69,4 @@
   line-height: var(--nav-item-line-height);
 }
 
-[data-rs-nav-item]:focus { outline: none; }
 [data-rs-nav-item]:focus-visible { outline: none; }
