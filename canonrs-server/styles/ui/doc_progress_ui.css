@@ -10,14 +10,19 @@
 /* ── Standalone ────────────────────────────────────────────────────────────── */
 
 [data-rs-doc-progress] {
+  height: var(--doc-progress-height);
+  background: var(--doc-progress-bg);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Layout aplicado pelo UI/Block */
+[data-rs-doc-progress][data-rs-position="fixed"] {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: var(--doc-progress-height);
-  background: var(--doc-progress-bg);
   z-index: var(--doc-progress-z-index);
-  overflow: hidden;
 }
 
 /* ── Portal ─────────────────────────────────────────────────────────────────── */
@@ -50,8 +55,14 @@
   left: 0;
   height: 100%;
   background: var(--doc-progress-bar-bg);
-  width: 0%;
+  width: calc(var(--progress, 0) * 1%);
   transition: var(--doc-progress-transition);
   transform-origin: left;
   will-change: width;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rs-doc-progress-bar] {
+    transition: none;
+  }
 }

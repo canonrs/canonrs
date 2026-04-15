@@ -53,6 +53,8 @@ pub fn DocProgressPortal(
     view! {
         <div
             data-rs-doc-progress-portal=""
+            data-rs-uid=crate::infra::uid::generate("dp")
+            data-rs-interaction="init"
             data-rs-scroll-target=scroll_target
             data-rs-position=position.as_str()
             aria-hidden="true"

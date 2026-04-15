@@ -51,17 +51,8 @@
   pointer-events: none;
 }
 
-[data-rs-field][data-rs-validation="error"] [data-rs-field-label] {
-  color: var(--field-validation-error-fg);
-}
 
-[data-rs-field][data-rs-validation="warning"] [data-rs-field-label] {
-  color: var(--field-validation-warning-fg);
-}
 
-[data-rs-field][data-rs-validation="success"] [data-rs-field-label] {
-  color: var(--field-validation-success-fg);
-}
 
 [data-rs-field-separator] {
   height: var(--border-thin);

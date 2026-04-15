@@ -12,9 +12,10 @@ use canonrs_core::meta::SelectionState;
 pub fn Command(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = canonrs_core::meta::VisibilityState::Closed)] state: canonrs_core::meta::VisibilityState,
 ) -> impl IntoView {
     view! {
-        <CommandPrimitive class=class>
+        <CommandPrimitive class=class state=state>
             {children()}
         </CommandPrimitive>
     }

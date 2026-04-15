@@ -7,6 +7,7 @@ pub const COMMAND_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("closed"), description: "" },
     ],
 };
 

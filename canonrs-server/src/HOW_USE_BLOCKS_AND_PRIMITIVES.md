@@ -185,8 +185,7 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 
 
-doc_progress
-field
+
 form
 icon_button
 input_group
@@ -201,3 +200,12 @@ table
 table_of_contents
 toggle
 tooltip
+
+
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/center.rs
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/container.rs
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/flex.rs
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/grid.rs
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/mod.rs
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/spacer.rs
+/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/stack.rs

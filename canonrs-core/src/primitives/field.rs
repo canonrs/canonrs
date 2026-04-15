@@ -95,7 +95,7 @@ pub fn FieldErrorPrimitive(
         <div
             data-rs-field-error=""
             role="alert"
-            aria-live="polite"
+            aria-live="assertive"
             class=class
         >
             {children()}

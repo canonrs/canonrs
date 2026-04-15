@@ -70,3 +70,6 @@
   padding: var(--command-empty-padding);
   text-align: center;
 }
+
+[data-rs-command][data-rs-state~="closed"] { display: none; }
+[data-rs-command][data-rs-state~="open"] { display: flex; }

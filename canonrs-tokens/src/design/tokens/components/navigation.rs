@@ -284,7 +284,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
 
         // ── DocProgress (Reading progress indicator) ─────────────────────────────
     FamilyToken::new("doc-progress-height",     "3px"),
-    FamilyToken::new("doc-progress-bg",         "var(--theme-surface-border-muted)"),
+    FamilyToken::new("doc-progress-bg",         "color-mix(in srgb, var(--theme-surface-fg) 15%, transparent)"),
     FamilyToken::new("doc-progress-bar-bg",     "var(--theme-action-primary-bg)"),
     FamilyToken::new("doc-progress-z-index",    "1000"),
     FamilyToken::new("doc-progress-transition", "width var(--motion-duration-normal) var(--motion-ease-standard)"),

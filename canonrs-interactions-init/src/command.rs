@@ -56,6 +56,22 @@ pub fn init(root: Element) {
                 if visible == 0 { state::remove_state(&empty, "hidden"); }
                 else { state::add_state(&empty, "hidden"); }
             }
+            // atualizar item ativo para primeiro visível
+            let all_items = query::all(&root_input, "[data-rs-command-item]");
+            for el in &all_items {
+                state::remove_state(el, "active");
+                let _ = el.set_attribute("aria-selected", "false");
+            }
+            if let Some(first) = all_items.iter().find(|el| {
+                !el.get_attribute("data-rs-state").map(|s| s.contains("hidden")).unwrap_or(false) &&
+                el.get_attribute("data-rs-disabled").as_deref() != Some("true")
+            }) {
+                state::add_state(first, "active");
+                let _ = first.set_attribute("aria-selected", "true");
+                if let Some(input) = query::first(&root_input, "[data-rs-command-input]") {
+                    let _ = input.set_attribute("aria-activedescendant", &first.get_attribute("id").unwrap_or_default());
+                }
+            }
         });
         let _ = input.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref());
         cb.forget();

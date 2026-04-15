@@ -26,6 +26,7 @@ RUNTIME_ALLOWED = [
     "--theme-",
     "--primitive-",
     "--slider-fill",
+    "--progress",
     "--layout-width-",
     "--opacity-",
     "--focus-ring-",

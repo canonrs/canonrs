@@ -7,6 +7,7 @@ use super::command_ui::{
     CommandList,
     CommandItem as CommandItemUi
 };
+use canonrs_core::meta::VisibilityState;
 
 #[component]
 pub fn Command(
@@ -15,7 +16,7 @@ pub fn Command(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <super::command_ui::Command class=class>
+        <super::command_ui::Command class=class state=VisibilityState::Open>
             <CommandInput placeholder=placeholder />
             <CommandList>{children()}</CommandList>
         </super::command_ui::Command>
