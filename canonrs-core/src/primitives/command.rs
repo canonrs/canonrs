@@ -13,13 +13,16 @@ pub fn CommandPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
+    let listbox_id = crate::infra::uid::generate("cmd-list");
+
     view! {
         <div
             data-rs-command=""
             data-rs-uid=crate::infra::uid::generate("cmd")
             data-rs-interaction="init"
             data-rs-state=s.data_rs_state
-            role="listbox"
+            data-rs-listbox-id=listbox_id.clone()
+            role="dialog"
             aria-label="Command palette"
             class=class
         >
@@ -40,6 +43,8 @@ pub fn CommandInputPrimitive(
                 type="text"
                 role="combobox"
                 aria-autocomplete="list"
+                aria-expanded="false"
+                aria-haspopup="listbox"
                 placeholder=if placeholder.is_empty() { None } else { Some(placeholder) }
             />
         </div>
@@ -51,10 +56,12 @@ pub fn CommandListPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let list_id = crate::infra::uid::generate("cmd-list");
     view! {
         <div
             data-rs-command-list=""
-            role="group"
+            id=list_id
+            role="listbox"
             class=class
         >
             {children()}
@@ -130,6 +137,7 @@ pub fn CommandItemPrimitive(
             data-rs-value=value
             data-rs-state=a.data_rs_state
             data-rs-disabled=d.data_rs_disabled
+            id=crate::infra::uid::generate("cmd-item")
             role="option"
             aria-selected=sel.aria_selected
             aria-disabled=d.aria_disabled

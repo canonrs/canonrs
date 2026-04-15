@@ -22,6 +22,7 @@ pub mod menu;
 pub mod navigation_menu;
 pub mod toast;
 pub mod table_of_contents;
+pub mod command;
 
 pub fn scan_all() {
     runtime::registry::scan_all();

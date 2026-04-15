@@ -42,3 +42,79 @@ pub fn focus_last(items: &[Element], trigger_selector: &str) {
 pub fn find_pos(items: &[Element], target: &Element) -> Option<usize> {
     items.iter().position(|el| el.contains(Some(target.as_ref())))
 }
+
+
+/// Handler completo de navegação por teclado
+/// item_selector: seletor dos itens navegáveis
+/// on_escape: callback opcional chamado no Esc
+pub fn init_navigation(
+    root: &web_sys::Element,
+    item_selector: &'static str,
+    on_escape: Option<Box<dyn Fn() + 'static>>,
+) {
+    use wasm_bindgen::prelude::*;
+    use wasm_bindgen::JsCast;
+    use crate::runtime::{state, query};
+
+    let root_kb = root.clone();
+    let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
+        let items: Vec<web_sys::Element> = query::all(&root_kb, item_selector)
+            .into_iter()
+            .filter(|el| !el.get_attribute("data-rs-state").map(|s| s.contains("hidden")).unwrap_or(false))
+            .filter(|el| el.get_attribute("data-rs-disabled").as_deref() != Some("true"))
+            .collect();
+
+        if items.is_empty() { return; }
+
+        let current = items.iter().position(|el| {
+            el.get_attribute("data-rs-state").map(|s| s.contains("active")).unwrap_or(false)
+        });
+
+        match e.key().as_str() {
+            "ArrowDown" => {
+                e.prevent_default();
+                let next = current.map(|i| (i + 1).min(items.len() - 1)).unwrap_or(0);
+                if let Some(prev) = current {
+                    state::remove_state(&items[prev], "active");
+                    let _ = items[prev].set_attribute("aria-selected", "false");
+                }
+                state::add_state(&items[next], "active");
+                let _ = items[next].set_attribute("aria-selected", "true");
+            }
+            "ArrowUp" => {
+                e.prevent_default();
+                let prev_idx = current.map(|i| if i == 0 { 0 } else { i - 1 }).unwrap_or(0);
+                if let Some(prev) = current {
+                    state::remove_state(&items[prev], "active");
+                    let _ = items[prev].set_attribute("aria-selected", "false");
+                }
+                state::add_state(&items[prev_idx], "active");
+                let _ = items[prev_idx].set_attribute("aria-selected", "true");
+            }
+            "Home" => {
+                e.prevent_default();
+                if let Some(prev) = current { state::remove_state(&items[prev], "active"); }
+                state::add_state(&items[0], "active");
+            }
+            "End" => {
+                e.prevent_default();
+                if let Some(prev) = current { state::remove_state(&items[prev], "active"); }
+                state::add_state(&items[items.len() - 1], "active");
+            }
+            "Enter" => {
+                e.prevent_default();
+                if let Some(idx) = current {
+                    let _ = items[idx].clone().dyn_into::<web_sys::HtmlElement>().map(|el| el.click());
+                }
+            }
+            "Escape" => {
+                e.prevent_default();
+                if let Some(prev) = current { state::remove_state(&items[prev], "active"); }
+                if let Some(ref cb) = on_escape { cb(); }
+            }
+            _ => {}
+        }
+    });
+    let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
+    cb.forget();
+}

@@ -185,8 +185,6 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 
 
-collapsible
-command
 doc_progress
 field
 form

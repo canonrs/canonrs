@@ -25,6 +25,7 @@ pub fn dispatch(el: &Element) {
     if el.has_attribute("data-rs-navigation-menu")  { crate::navigation_menu::init(el.clone()); return; }
     if el.has_attribute("data-rs-toast")            { crate::toast::init(el.clone()); return; }
     if el.has_attribute("data-rs-toc")              { crate::table_of_contents::init(el.clone()); return; }
+    if el.has_attribute("data-rs-command")          { crate::command::init(el.clone()); return; }
 }
 
 pub fn scan_all() {
