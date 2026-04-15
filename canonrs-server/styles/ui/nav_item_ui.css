@@ -24,7 +24,6 @@
   font-weight: var(--nav-item-font-weight);
   color: var(--nav-item-fg);
   text-decoration: none;
-  opacity: var(--opacity-disabled);
   position: relative;
   transition: all var(--motion-duration-fast) var(--motion-ease-standard);
   cursor: pointer;

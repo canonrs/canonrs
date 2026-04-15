@@ -29,6 +29,7 @@ pub fn dispatch(el: &Element) {
     if el.has_attribute("data-rs-command")          { crate::command::init(el.clone()); return; }
     if el.has_attribute("data-rs-field")            { crate::field::init(el.clone()); return; }
     if el.has_attribute("data-rs-form")             { crate::form::init(el.clone()); return; }
+    if el.has_attribute("data-rs-nav-item")         { crate::nav_item::init(el.clone()); return; }
     if el.has_attribute("data-rs-overlay-container") { crate::loading_overlay::init(el.clone()); return; }
 }
 

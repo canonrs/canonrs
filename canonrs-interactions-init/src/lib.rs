@@ -25,6 +25,7 @@ pub mod table_of_contents;
 pub mod command;
 pub mod field;
 pub mod form;
+pub mod nav_item;
 pub mod loading_overlay;
 
 pub fn scan_all() {
