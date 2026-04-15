@@ -40,7 +40,7 @@
 /* ── STATE: copying ─────────────────────────────────────────── */
 [data-rs-copy-button][data-rs-state~="copying"] {
   cursor: wait;
-  opacity: var(--state-opacity-disabled);
+  opacity: var(--opacity-disabled);
   pointer-events: none;
 }
 

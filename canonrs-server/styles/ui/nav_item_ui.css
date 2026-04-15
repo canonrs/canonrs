@@ -61,7 +61,7 @@
 }
 
 [data-rs-nav-item][data-rs-state~="disabled"] {
-  opacity: var(--state-disabled-opacity);
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
   pointer-events: none;
 }

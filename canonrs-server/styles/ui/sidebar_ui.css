@@ -60,7 +60,7 @@
 }
 
 [data-rs-sidebar-menu-item][data-rs-state~="disabled"] {
-  opacity: var(--state-disabled-opacity);
+  opacity: var(--opacity-disabled);
   pointer-events: none;
   cursor: not-allowed;
 }

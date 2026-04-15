@@ -3,8 +3,8 @@
 //! Menu Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
-use crate::meta::{SelectionState, DisabledState, ActivityState};
-use crate::infra::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
+use crate::meta::{SelectionState, DisabledState};
+use crate::infra::state_engine::{selection_attrs, disabled_attrs};
 
 #[component]
 pub fn MenuPrimitive(
@@ -30,18 +30,16 @@ pub fn MenuItemPrimitive(
     children: Children,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
-    #[prop(default = ActivityState::Inactive)] highlighted: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let sel = selection_attrs(selected);
     let d = disabled_attrs(disabled);
-    let a = activity_attrs(highlighted);
     view! {
         <button
             type="button"
             data-rs-menu-item=""
             role="menuitem"
-            data-rs-state=a.data_rs_state
+            data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled
             aria-selected=sel.aria_selected
             aria-disabled=d.aria_disabled

@@ -60,5 +60,5 @@
 
 [data-rs-checkbox][data-rs-state~="focus"] [data-rs-checkbox-indicator] {
   outline: var(--checkbox-focus-ring-width) solid var(--checkbox-focus-ring-color);
-  outline-offset: var(--state-focus-ring-offset);
+  outline-offset: var(--focus-ring-offset);
 }

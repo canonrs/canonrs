@@ -94,7 +94,7 @@
 }
 
 [data-rs-icon-button][data-rs-variant="solid"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
-  opacity: var(--state-opacity-hover);
+  opacity: var(--opacity-hover);
 }
 
 [data-rs-icon-button][data-rs-variant="subtle"] {
@@ -113,7 +113,7 @@
 }
 
 [data-rs-icon-button][data-rs-variant="destructive"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
-  opacity: var(--state-opacity-hover);
+  opacity: var(--opacity-hover);
 }
 
 /* ── PRESSED (toggle) ───────────────────────────────────────── */
@@ -124,7 +124,7 @@
 
 /* ── STATES ─────────────────────────────────────────────────── */
 [data-rs-icon-button][data-rs-state~="active"]:not([data-rs-state~="disabled"]) {
-  opacity: var(--state-opacity-active);
+  opacity: var(--opacity-active);
   transform: var(--button-active-transform);
 }
 
@@ -136,7 +136,7 @@
 [data-rs-icon-button][data-rs-state~="disabled"] {
   cursor: not-allowed;
   color: var(--icon-button-fg-disabled);
-  opacity: var(--state-opacity-disabled);
+  opacity: var(--opacity-disabled);
   pointer-events: none;
 }
 

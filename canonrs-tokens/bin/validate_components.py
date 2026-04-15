@@ -42,7 +42,6 @@ RUNTIME_ALLOWED = [
     "--font-",
     "--line-height-",
     "--layer-",
-    "--state-",
     "--link-group-",
     "--layout-sidebar-",
     "--color-overlay-",  # inline runtime property set by behavior

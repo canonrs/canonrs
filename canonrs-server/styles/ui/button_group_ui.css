@@ -46,7 +46,7 @@
 
 /* ── hover opacity ──────────────────────────────────────────── */
 [data-rs-button-group][data-rs-state~="attached"] [data-rs-button][data-rs-state~="hover"]:not([data-rs-state~="disabled"]):not([data-rs-variant="ghost"]):not([data-rs-variant="link"]) {
-  opacity: var(--state-opacity-hover);
+  opacity: var(--opacity-hover);
 }
 
 /* ── focus ring ─────────────────────────────────────────────── */

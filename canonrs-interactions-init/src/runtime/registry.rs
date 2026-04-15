@@ -29,11 +29,12 @@ pub fn dispatch(el: &Element) {
     if el.has_attribute("data-rs-command")          { crate::command::init(el.clone()); return; }
     if el.has_attribute("data-rs-field")            { crate::field::init(el.clone()); return; }
     if el.has_attribute("data-rs-form")             { crate::form::init(el.clone()); return; }
+    if el.has_attribute("data-rs-overlay-container") { crate::loading_overlay::init(el.clone()); return; }
 }
 
 pub fn scan_all() {
     let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
-    let selector = "[data-rs-table],[data-rs-tooltip],[data-rs-collapsible],[data-rs-switch],[data-rs-toggle],[data-rs-checkbox],[data-rs-animate],[data-rs-avatar-group],[data-rs-alert],[data-rs-banner],[data-rs-button],[data-rs-doc-progress],[data-rs-doc-progress-portal],[data-rs-icon-button],[data-rs-input-group],[data-rs-input-otp-container],[data-rs-menu],[data-rs-navigation-menu],[data-rs-toast],[data-rs-toc],[data-rs-command],[data-rs-field],[data-rs-form]";
+    let selector = "[data-rs-table],[data-rs-tooltip],[data-rs-collapsible],[data-rs-switch],[data-rs-toggle],[data-rs-checkbox],[data-rs-animate],[data-rs-avatar-group],[data-rs-alert],[data-rs-banner],[data-rs-button],[data-rs-doc-progress],[data-rs-doc-progress-portal],[data-rs-icon-button],[data-rs-input-group],[data-rs-input-otp-container],[data-rs-menu],[data-rs-navigation-menu],[data-rs-toast],[data-rs-toc],[data-rs-command],[data-rs-field],[data-rs-form],[data-rs-overlay-container]";
     let Ok(list) = doc.query_selector_all(selector) else { return };
     for i in 0..list.length() {
         if let Some(el) = list.item(i).and_then(|n| {

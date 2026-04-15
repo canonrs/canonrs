@@ -288,6 +288,8 @@ pub const FEEDBACK_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("loading-overlay-opacity", "0.8"),
     FamilyToken::new("loading-overlay-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("loading-overlay-transition-ease", "var(--motion-ease-standard)"),
+    FamilyToken::new("loading-overlay-spinner-size", "1.25rem"),
+    FamilyToken::new("loading-overlay-spin-duration", "var(--motion-duration-slower, 0.9s)"),
 
     // Pulse - Motion Indicator with Visual Hierarchy
 

@@ -148,7 +148,7 @@
 
 /* ── STATES via data-rs-state ───────────────────────────────── */
 [data-rs-button][data-rs-state~="hover"]:not([data-rs-state~="disabled"]):not([data-rs-variant="ghost"]):not([data-rs-variant="link"]) {
-  opacity: var(--state-opacity-hover);
+  opacity: var(--opacity-hover);
 }
 
 [data-rs-button][data-rs-variant="ghost"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
@@ -159,11 +159,11 @@
 [data-rs-button][data-rs-variant="link"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   opacity: 1;
   text-decoration-thickness: var(--button-link-underline-thickness-hover);
-  filter: var(--state-filter-hover);
+  filter: brightness(0.92);
 }
 
 [data-rs-button][data-rs-state~="active"]:not([data-rs-state~="disabled"]) {
-  opacity: var(--state-opacity-active);
+  opacity: var(--opacity-active);
   transform: var(--button-active-transform);
   transition:
     transform var(--motion-duration-fast) var(--motion-ease-standard),
@@ -171,7 +171,7 @@
 }
 
 [data-rs-button][data-rs-state~="disabled"] {
-  opacity: var(--state-opacity-disabled);
+  opacity: var(--opacity-disabled);
   cursor: not-allowed;
   pointer-events: none;
 }

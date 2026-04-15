@@ -17,8 +17,8 @@ pub fn LoadingOverlayShowcasePreview() -> impl IntoView {
                     <CardContent>
                         <LoadingOverlay state="loading">
                             <div data-rs-loading-demo="">
-                                <span>"Título do card"</span>
-                                <span>"Descrição do conteúdo"</span>
+                                <span>"Card title"</span>
+                                <span>"Card description content"</span>
                             </div>
                         </LoadingOverlay>
                     </CardContent>
@@ -32,12 +32,12 @@ pub fn LoadingOverlayShowcasePreview() -> impl IntoView {
                 <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                     <CardBlock content=slot!(|| view! {
                         <CardContent>
-                            <LoadingOverlay>"Idle — conteúdo visível"</LoadingOverlay>
+                            <LoadingOverlay>"Idle — content visible"</LoadingOverlay>
                         </CardContent>
                     }.into_any()) />
                     <CardBlock content=slot!(|| view! {
                         <CardContent>
-                            <LoadingOverlay state="loading">"Loading — conteúdo bloqueado"</LoadingOverlay>
+                            <LoadingOverlay state="loading">"Loading — content blocked"</LoadingOverlay>
                         </CardContent>
                     }.into_any()) />
                 </Stack>
@@ -52,7 +52,7 @@ pub fn LoadingOverlayShowcasePreview() -> impl IntoView {
                     }.into_any()) />
                     <CardBlock content=slot!(|| view! {
                         <CardContent>
-                            <LoadingOverlay state="loading" mode="subtle">"Transparent"</LoadingOverlay>
+                            <LoadingOverlay state="loading" mode="subtle">"Subtle"</LoadingOverlay>
                         </CardContent>
                     }.into_any()) />
                 </Stack>
