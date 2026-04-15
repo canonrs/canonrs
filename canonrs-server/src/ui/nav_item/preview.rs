@@ -1,5 +1,6 @@
 use leptos::prelude::*;
-use super::nav_item_boundary::NavItem;
+use super::nav_item_boundary::{NavItem, NavGroup};
+use canonrs_core::meta::{ActivityState, DisabledState};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
@@ -9,19 +10,36 @@ pub fn NavItemShowcasePreview() -> impl IntoView {
             <p data-rs-showcase-preview-anchor="">
                 "Active and disabled navigation states enforced structurally."
             </p>
-            <Stack direction=StackDirection::Vertical gap=StackGap::Xs>
-                <NavItem label="Dashboard" href="#" active=true.into() />
-                <NavItem label="Components" href="#" />
-                <NavItem label="Tokens" href="#" />
-                <NavItem label="Settings" href="#" disabled=true.into() />
-            </Stack>
+
+            // Vertical (sidebar)
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                <span data-rs-showcase-preview-label="">"Inactive"</span>
-                <Stack direction=StackDirection::Horizontal gap=StackGap::Sm>
-                    <NavItem label="Home" href="#" />
+                <span data-rs-showcase-preview-label="">"Vertical (sidebar)"</span>
+                <NavGroup>
+                    <NavItem label="Dashboard" href="#" active=ActivityState::Active />
+                    <NavItem label="Components" href="#" />
+                    <NavItem label="Tokens" href="#" />
+                    <NavItem label="Settings" href="#" />
+                </NavGroup>
+            </Stack>
+
+            // Horizontal (inline nav)
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                <span data-rs-showcase-preview-label="">"Horizontal (inline)"</span>
+                <NavGroup direction="horizontal">
+                    <NavItem label="Home" href="#" active=ActivityState::Active />
                     <NavItem label="About" href="#" />
                     <NavItem label="Contact" href="#" />
-                </Stack>
+                </NavGroup>
+            </Stack>
+
+            // States
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                <span data-rs-showcase-preview-label="">"States"</span>
+                <NavGroup>
+                    <NavItem label="Active" href="#" active=ActivityState::Active />
+                    <NavItem label="Inactive" href="#" />
+                    <NavItem label="Disabled" href="#" disabled=DisabledState::Disabled />
+                </NavGroup>
             </Stack>
         </Stack>
     }

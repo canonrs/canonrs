@@ -48,7 +48,8 @@
   color: var(--menu-item-active-fg);
 }
 
-[data-rs-menu-item]:focus-visible {
+[data-rs-menu-item]:focus-visible { outline: none; }
+[data-rs-menu-item][data-rs-state~="active"] {
   outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
   outline-offset: var(--focus-ring-offset);
 }

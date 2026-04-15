@@ -74,9 +74,11 @@ pub fn init_navigation(
             "ArrowDown" => {
                 e.prevent_default();
                 let next = current.map(|i| (i + 1).min(items.len() - 1)).unwrap_or(0);
-                if let Some(prev) = current {
-                    state::remove_state(&items[prev], "active");
-                    let _ = items[prev].set_attribute("aria-selected", "false");
+                for item in &items {
+                    state::remove_state(item, "active");
+                    state::remove_state(item, "focus");
+                    state::remove_state(item, "hover");
+                    let _ = item.set_attribute("aria-selected", "false");
                 }
                 state::add_state(&items[next], "active");
                 let _ = items[next].set_attribute("aria-selected", "true");
@@ -84,9 +86,11 @@ pub fn init_navigation(
             "ArrowUp" => {
                 e.prevent_default();
                 let prev_idx = current.map(|i| if i == 0 { 0 } else { i - 1 }).unwrap_or(0);
-                if let Some(prev) = current {
-                    state::remove_state(&items[prev], "active");
-                    let _ = items[prev].set_attribute("aria-selected", "false");
+                for item in &items {
+                    state::remove_state(item, "active");
+                    state::remove_state(item, "focus");
+                    state::remove_state(item, "hover");
+                    let _ = item.set_attribute("aria-selected", "false");
                 }
                 state::add_state(&items[prev_idx], "active");
                 let _ = items[prev_idx].set_attribute("aria-selected", "true");
@@ -104,6 +108,10 @@ pub fn init_navigation(
             "Enter" => {
                 e.prevent_default();
                 if let Some(idx) = current {
+                    // remover active de todos antes de click
+                    for item in &items {
+                        state::remove_state(item, "active");
+                    }
                     let _ = items[idx].clone().dyn_into::<web_sys::HtmlElement>().map(|el| el.click());
                 }
             }

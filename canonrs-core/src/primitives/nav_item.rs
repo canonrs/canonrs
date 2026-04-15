@@ -23,7 +23,11 @@ pub fn NavItemPrimitive(
             data-rs-nav-item=""
             data-rs-uid=crate::infra::uid::generate("ni")
             data-rs-interaction="init"
-            data-rs-state=a.data_rs_state
+            data-rs-state={
+                let mut s = a.data_rs_state.to_string();
+                if disabled == DisabledState::Disabled { s.push_str(" disabled"); }
+                s
+            }
             data-rs-disabled=d.data_rs_disabled
             aria-current=if is_active { Some("page") } else { None }
             aria-label=aria_label
@@ -34,5 +38,26 @@ pub fn NavItemPrimitive(
         >
             {children()}
         </a>
+    }
+}
+
+#[component]
+pub fn NavGroupPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] aria_label: Option<String>,
+    #[prop(into, default = String::from("vertical"))] direction: String,
+) -> impl IntoView {
+    view! {
+        <nav
+            data-rs-nav-group=""
+            data-rs-uid=crate::infra::uid::generate("ng")
+            data-rs-interaction="init"
+            data-rs-direction=direction
+            aria-label=aria_label
+            class=class
+        >
+            {children()}
+        </nav>
     }
 }

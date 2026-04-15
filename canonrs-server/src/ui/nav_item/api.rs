@@ -14,3 +14,13 @@ pub const NAVITEM_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const NAVGROUP_API: ComponentApi = ComponentApi {
+    id: "nav-group",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "" },
+        PropDef { name: "direction", kind: PropType::String, required: false, default: Some("from("vertical")"), description: "" },
+    ],
+};
+

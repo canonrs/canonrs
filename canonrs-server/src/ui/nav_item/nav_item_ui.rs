@@ -1,7 +1,7 @@
 #![allow(unreachable_pub, dead_code)]
 
 use leptos::prelude::*;
-use canonrs_core::primitives::NavItemPrimitive;
+use canonrs_core::primitives::{NavItemPrimitive, NavGroupPrimitive};
 use canonrs_core::meta::{ActivityState, DisabledState};
 
 #[component]
@@ -29,4 +29,22 @@ pub fn NavItem(
 #[component]
 pub fn NavItemPreview() -> impl IntoView {
     view! { <NavItem label="Nav Item".to_string() /> }
+}
+
+#[component]
+pub fn NavGroup(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] aria_label: Option<String>,
+    #[prop(into, default = String::from("vertical"))] direction: String,
+) -> impl IntoView {
+    view! {
+        <NavGroupPrimitive
+            class=class
+            aria_label=aria_label.unwrap_or_default()
+            direction=direction
+        >
+            {children()}
+        </NavGroupPrimitive>
+    }
 }
