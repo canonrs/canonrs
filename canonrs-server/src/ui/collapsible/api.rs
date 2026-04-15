@@ -7,6 +7,7 @@ pub const COLLAPSIBLE_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "state", kind: PropType::String, required: false, default: Some("closed"), description: "" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
     ],
@@ -17,6 +18,7 @@ pub const COLLAPSIBLETRIGGER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "controls", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
@@ -25,6 +27,7 @@ pub const COLLAPSIBLECONTENT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "id", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

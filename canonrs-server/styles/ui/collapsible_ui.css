@@ -21,6 +21,11 @@
   transition: background var(--collapsible-transition-duration) var(--collapsible-transition-ease);
 }
 
+[data-rs-collapsible-trigger]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
 [data-rs-collapsible-trigger][data-rs-state~="hover"]:not([data-rs-state~="disabled"]):not([data-rs-state~="open"]) {
   background: var(--collapsible-trigger-hover-bg);
 }
@@ -28,6 +33,19 @@
 [data-rs-collapsible-content] {
   padding: var(--collapsible-content-padding);
   display: none;
+}
+
+/* Indicador visual — chevron */
+[data-rs-collapsible-trigger]::after {
+  content: "▸";
+  font-size: var(--font-size-xs);
+  color: var(--collapsible-trigger-fg);
+  transition: transform var(--collapsible-transition-duration) var(--collapsible-transition-ease);
+  flex-shrink: 0;
+}
+
+[data-rs-collapsible][data-rs-state~="open"] [data-rs-collapsible-trigger]::after {
+  content: "▾";
 }
 
 [data-rs-collapsible][data-rs-state~="open"] [data-rs-collapsible-trigger] {
