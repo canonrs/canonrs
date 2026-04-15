@@ -28,6 +28,7 @@ pub fn dispatch(el: &Element) {
     if el.has_attribute("data-rs-toc")              { crate::table_of_contents::init(el.clone()); return; }
     if el.has_attribute("data-rs-command")          { crate::command::init(el.clone()); return; }
     if el.has_attribute("data-rs-field")            { crate::field::init(el.clone()); return; }
+    if el.has_attribute("data-rs-form")             { crate::form::init(el.clone()); return; }
 }
 
 pub fn scan_all() {

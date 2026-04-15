@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use super::form_boundary::{Form, FormActions, FormSection, FormField, FormLabel, FormHint, FormError};
 use crate::ui::button::button_boundary::Button;
+use canonrs_core::primitives::ButtonVariant;
 use crate::ui::input::input_boundary::Input;
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
@@ -21,7 +22,7 @@ pub fn FormShowcasePreview() -> impl IntoView {
                     </FormField>
                 </FormSection>
                 <FormActions>
-                    <Button><span>"Submit"</span></Button>
+                    <Button variant=ButtonVariant::Primary><span>"Submit"</span></Button>
                 </FormActions>
             </Form>
             <p data-rs-showcase-preview-anchor="">
@@ -33,8 +34,8 @@ pub fn FormShowcasePreview() -> impl IntoView {
                     <FormSection>
                         <FormField >
                             <FormLabel html_for="email2"><span>"Email"</span></FormLabel>
-                            <FormError><span>"Please enter a valid email address."</span></FormError>
                             <Input placeholder="invalid@" />
+                            <FormError><span>"Please enter a valid email address."</span></FormError>
                         </FormField>
                         <FormField >
                             <FormLabel html_for="name2"><span>"Name"</span></FormLabel>
@@ -42,7 +43,7 @@ pub fn FormShowcasePreview() -> impl IntoView {
                         </FormField>
                     </FormSection>
                     <FormActions>
-                        <Button><span>"Submit"</span></Button>
+                        <Button variant=ButtonVariant::Primary><span>"Submit"</span></Button>
                     </FormActions>
                 </Form>
             </Stack>

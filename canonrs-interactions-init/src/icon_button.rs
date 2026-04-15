@@ -13,7 +13,10 @@ pub fn init(root: Element) {
     let r = root.clone();
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
         if r.get_attribute("data-rs-state").map(|s| s.contains("disabled")).unwrap_or(false) { return; }
-        if state::is_open(&r) {
+        let is_pressed = r.get_attribute("data-rs-state")
+            .map(|s| s.contains("pressed"))
+            .unwrap_or(false);
+        if is_pressed {
             state::remove_state(&r, "pressed");
             aria::set_pressed(&r, false);
         } else {

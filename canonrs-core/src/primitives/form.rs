@@ -197,7 +197,7 @@ pub fn FormErrorPrimitive(
         <div
             data-rs-form-error=""
             role="alert"
-            aria-live="polite"
+            aria-live="assertive"
             class=class
         >
             <span data-rs-error-text="">{children()}</span>

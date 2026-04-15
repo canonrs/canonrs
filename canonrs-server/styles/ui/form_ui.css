@@ -36,7 +36,7 @@
   color: var(--form-label-fg);
 }
 
-[data-rs-form-label][data-rs-required] ::after {
+[data-rs-form-label][data-rs-required="true"]::after {
   content: " *";
   color: var(--form-label-required-color);
 }

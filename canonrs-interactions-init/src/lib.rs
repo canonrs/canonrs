@@ -24,6 +24,7 @@ pub mod toast;
 pub mod table_of_contents;
 pub mod command;
 pub mod field;
+pub mod form;
 
 pub fn scan_all() {
     runtime::registry::scan_all();

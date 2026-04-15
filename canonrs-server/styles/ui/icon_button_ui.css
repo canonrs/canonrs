@@ -52,7 +52,7 @@
 [data-rs-icon-button][data-rs-variant="default"] {
   background: var(--icon-button-bg);
   color: var(--icon-button-fg);
-  border: 1px solid var(--icon-button-outline-border);
+  border: var(--border-thin) solid var(--icon-button-outline-border);
 }
 
 [data-rs-icon-button][data-rs-variant="default"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
@@ -76,7 +76,7 @@
 [data-rs-icon-button][data-rs-variant="outline"] {
   background: var(--icon-button-bg);
   color: var(--icon-button-fg);
-  border: 1px solid var(--icon-button-outline-border);
+  border: var(--border-thin) solid var(--icon-button-outline-border);
 }
 
 [data-rs-icon-button][data-rs-variant="outline"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
@@ -95,7 +95,7 @@
 [data-rs-icon-button][data-rs-variant="subtle"] {
   background: var(--icon-button-subtle-bg);
   color: var(--icon-button-subtle-fg);
-  border: 1px solid var(--icon-button-bg);
+  border: var(--border-thin) solid var(--icon-button-bg);
 }
 
 [data-rs-icon-button][data-rs-variant="subtle"][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
