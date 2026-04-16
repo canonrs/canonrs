@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum TooltipSide {
@@ -33,13 +32,12 @@ pub fn TooltipPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-tooltip=""
             data-rs-uid=crate::infra::uid::generate("tip")
             data-rs-interaction="init"
-            data-rs-state=s.data_rs_state
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}
@@ -71,20 +69,21 @@ pub fn TooltipContentPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(default = TooltipSide::Top)] side: TooltipSide,
+    #[prop(default = true)] arrow: bool,
     #[prop(into, optional)] tooltip_id: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-tooltip-content=""
-            data-rs-state=s.data_rs_state
+            data-rs-state=state.as_str()
             data-rs-side=side.as_str()
             id=tooltip_id
             role="tooltip"
             class=class
         >
             {children()}
+            {arrow.then(|| view! { <span data-rs-tooltip-arrow="" /> })}
         </div>
     }
 }

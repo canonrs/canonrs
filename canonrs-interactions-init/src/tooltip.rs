@@ -38,12 +38,6 @@ fn close_content(root: &Element) {
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
-    #[cfg(target_arch = "wasm32")]
-    {
-        let uid = root.get_attribute("data-rs-uid").unwrap_or_else(|| "NO-UID".to_string());
-        web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[tooltip:init] uid={}", uid)));
-    }
-
     let delay_open  = get_delay(&root, "data-rs-delay-open", 400);
     let delay_close = get_delay(&root, "data-rs-delay-close", 100);
 

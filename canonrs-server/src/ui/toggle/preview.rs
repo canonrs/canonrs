@@ -18,6 +18,8 @@ pub fn ToggleShowcasePreview() -> impl IntoView {
                 <div data-rs-showcase-preview-row="">
                     <Toggle><span>{"Unpressed"}</span></Toggle>
                     <Toggle pressed=true><span>{"Pressed"}</span></Toggle>
+                    <Toggle disabled=true><span>{"Disabled"}</span></Toggle>
+                    <Toggle pressed=true disabled=true><span>{"Disabled On"}</span></Toggle>
                 </div>
             </div>
         </div>

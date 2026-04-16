@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TocMode {
@@ -92,11 +91,10 @@ pub fn TocSubtreePrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <ul
             data-rs-toc-subtree=""
-            data-rs-state=s.data_rs_state
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}
@@ -148,13 +146,13 @@ pub fn TocExpandButtonPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
+    let open = state == VisibilityState::Open;
     view! {
         <button
             type="button"
             data-rs-toc-expand-btn=""
-            data-rs-state=s.data_rs_state
-            aria-expanded=s.aria_expanded
+            data-rs-state=state.as_str()
+            aria-expanded=if open { "true" } else { "false" }
             class=class
         >
             {children()}

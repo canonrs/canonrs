@@ -3,12 +3,16 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, aria};
+use crate::runtime::{lifecycle, state, aria, interactive};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
-    if root.get_attribute("data-rs-disabled").as_deref() == Some("true") { return; }
+    if root.has_attribute("data-rs-disabled") { return; }
 
+    // hover / focus / active via runtime
+    interactive::init(&root);
+
+    // change no input — toggle on/off
     let root_cb = root.clone();
     let cb = Closure::<dyn Fn(web_sys::Event)>::new(move |e: web_sys::Event| {
         let is_checked = e.target()

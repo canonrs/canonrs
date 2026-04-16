@@ -66,7 +66,7 @@ fn render_expand(items: Vec<TocItem>) -> impl IntoView {
     view! {
         <TocListPrimitive>
             {items.into_iter().map(|item| {
-                let is_child = item.level > 2;
+                let is_child = item.level > 1;
                 view! {
                     <TocItemPrimitive
                         data_level=item.level.to_string()
@@ -104,38 +104,43 @@ struct TocNode {
 
 #[cfg(feature = "ssr")]
 fn build_tree(items: Vec<TocItem>) -> Vec<TocNode> {
-    let mut roots: Vec<TocNode> = Vec::new();
-    let mut stack: Vec<(u8, usize)> = Vec::new();
-    for item in items {
-        let node = TocNode { item: item.clone(), children: Vec::new() };
-        let level = item.level;
+    // Constrói a árvore achatando tudo em um Vec e usando índices
+    // stack guarda (level, index_no_flat)
+    let flat: Vec<TocNode> = items.into_iter()
+        .map(|item| TocNode { item, children: Vec::new() })
+        .collect();
+
+    // índices dos pais para cada nó
+    let n = flat.len();
+    let mut parent: Vec<Option<usize>> = vec![None; n];
+    let mut stack: Vec<(u8, usize)> = Vec::new(); // (level, flat_idx)
+
+    for i in 0..n {
+        let level = flat[i].item.level;
         while stack.last().map(|(l, _)| *l >= level).unwrap_or(false) {
             stack.pop();
         }
-        if stack.is_empty() {
-            roots.push(node);
-            stack.push((level, roots.len() - 1));
-        } else {
-            let path: Vec<usize> = stack.iter().map(|(_, i)| *i).collect();
-            let parent = get_node_mut(&mut roots, &path);
-            if let Some(p) = parent {
-                p.children.push(node);
-                let child_idx = p.children.len() - 1;
-                stack.push((level, child_idx));
-            }
+        if let Some(&(_, p)) = stack.last() {
+            parent[i] = Some(p);
+        }
+        stack.push((level, i));
+    }
+
+    // monta a árvore de trás para frente para evitar borrow conflict
+    // extrai todos os nós em ordem reversa e insere nos pais
+    let mut nodes: Vec<Option<TocNode>> = flat.into_iter().map(Some).collect();
+
+    for i in (0..n).rev() {
+        if let Some(p) = parent[i] {
+            let child = nodes[i].take().unwrap();
+            nodes[p].as_mut().unwrap().children.insert(0, child);
         }
     }
-    roots
-}
 
-#[cfg(feature = "ssr")]
-fn get_node_mut<'a>(nodes: &'a mut Vec<TocNode>, path: &[usize]) -> Option<&'a mut TocNode> {
-    if path.is_empty() { return None; }
-    let mut current = nodes.get_mut(path[0])?;
-    for &idx in &path[1..] {
-        current = current.children.get_mut(idx)?;
-    }
-    Some(current)
+    nodes.into_iter().enumerate()
+        .filter(|(i, _)| parent[*i].is_none())
+        .filter_map(|(_, n)| n)
+        .collect()
 }
 
 #[cfg(feature = "ssr")]
@@ -152,14 +157,16 @@ fn render_tree_nodes(nodes: Vec<TocNode>) -> Vec<AnyView> {
                 is_child=false
                 has_children=has_children
             >
-                {has_children.then(|| view! {
-                    <TocExpandButtonPrimitive>
-                        <span data-rs-toc-expand-icon="" />
-                    </TocExpandButtonPrimitive>
-                })}
-                <TocLinkPrimitive href=format!("#{}", item.id)>
-                    {item.text}
-                </TocLinkPrimitive>
+                <div class="toc-item-row">
+                    {has_children.then(|| view! {
+                        <TocExpandButtonPrimitive>
+                            <span data-rs-toc-expand-icon="" />
+                        </TocExpandButtonPrimitive>
+                    })}
+                    <TocLinkPrimitive href=format!("#{}", item.id)>
+                        {item.text}
+                    </TocLinkPrimitive>
+                </div>
                 {has_children.then(|| view! {
                     <TocSubtreePrimitive state=VisibilityState::Closed>
                         {render_tree_nodes(children)}

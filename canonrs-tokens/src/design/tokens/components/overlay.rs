@@ -71,7 +71,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("tooltip-transition-ease",     "var(--motion-ease-standard)"),
     FamilyToken::new("tooltip-max-width",           "var(--size-3xl)"),
     FamilyToken::new("tooltip-offset",              "var(--space-xs)"),
-    FamilyToken::new("tooltip-offset",              "var(--space-xs)"),
+    FamilyToken::new("tooltip-arrow-size",           "var(--space-sm)"),
 
     // ConfirmDialog
     FamilyToken::new("confirm-dialog-overlay-bg",            "var(--color-overlay-50)"),
