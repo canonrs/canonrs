@@ -12,6 +12,6 @@ pub mod chart;
 pub fn init_data(el: web_sys::Element) {
     if el.has_attribute("data-rs-datatable") { data_table::init(el.clone()); }
     if el.has_attribute("data-rs-virtual-list") { virtual_list::init(el.clone()); }
-    if el.has_attribute("data-rs-list-item") { list_item::init(el.clone()); }
+    if el.has_attribute("data-rs-list") { list_item::init(el.clone()); }
     if el.has_attribute("data-rs-chart") { chart::init(el.clone()); }
 }
