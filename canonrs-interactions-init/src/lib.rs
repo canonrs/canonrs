@@ -11,6 +11,7 @@ pub mod collapsible;
 pub mod switch;
 pub mod toggle;
 pub mod checkbox;
+pub mod radio;
 pub mod alert;
 pub mod banner;
 pub mod button;

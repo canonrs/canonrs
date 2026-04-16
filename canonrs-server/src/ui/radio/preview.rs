@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::radio_boundary::{RadioGroup, RadioGroupItem};
+use super::radio_boundary::Radio;
 use canonrs_core::meta::{SelectionState, DisabledState};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
@@ -10,17 +10,15 @@ pub fn RadioShowcasePreview() -> impl IntoView {
             <p data-rs-showcase-preview-anchor="">
                 "Selection state mapped directly to DOM and ARIA."
             </p>
-            <RadioGroup>
-                <RadioGroupItem value="leptos" name="framework">"Leptos"</RadioGroupItem>
-                <RadioGroupItem value="dioxus" name="framework" selected=SelectionState::Selected>"Dioxus"</RadioGroupItem>
-                <RadioGroupItem value="yew" name="framework">"Yew"</RadioGroupItem>
-            </RadioGroup>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                <Radio value="leptos" name="framework">"Leptos"</Radio>
+                <Radio value="dioxus" name="framework" selected=SelectionState::Selected>"Dioxus"</Radio>
+                <Radio value="yew" name="framework">"Yew"</Radio>
+            </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Disabled"</span>
-                <RadioGroup disabled=DisabledState::Disabled>
-                    <RadioGroupItem value="a" name="disabled">"Option A"</RadioGroupItem>
-                    <RadioGroupItem value="b" name="disabled">"Option B"</RadioGroupItem>
-                </RadioGroup>
+                <Radio value="a" name="disabled-radio" disabled=DisabledState::Disabled>"Option A"</Radio>
+                <Radio value="b" name="disabled-radio" disabled=DisabledState::Disabled>"Option B"</Radio>
             </Stack>
         </Stack>
     }

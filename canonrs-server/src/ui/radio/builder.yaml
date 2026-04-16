@@ -34,7 +34,7 @@ after: |
   view! {
     <Radio value="a" name="group" checked=true>"Option"</Radio>
   }
-boundary_type: interaction
-ix_group: ix_selection
+boundary_type: init
+ix_group: ~
 block: []
 blocks_primitives: [stack]

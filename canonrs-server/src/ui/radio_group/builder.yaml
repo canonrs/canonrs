@@ -39,6 +39,7 @@ after: |
       <RadioGroupItem name="a" value="1">"One"</RadioGroupItem>
     </RadioGroup>
   }
-boundary_type: init
+boundary_type: interaction
+ix_group: ix_selection
 block: []
 blocks_primitives: [stack]

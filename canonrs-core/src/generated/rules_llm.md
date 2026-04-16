@@ -7363,23 +7363,23 @@ Register `pointerdown` on the handle. Register `pointermove` and `pointerup` on 
 
 ---
 
-## CR-340 — Passthrough Island Must Be Zero Logic
+## CR-340 — Passthrough Boundary Must Be Zero Logic
 
-- **Category:** island-architecture
+- **Category:** boundary-architecture
 - **Severity:** CRITICAL
 - **Status:** ENFORCED
 
 ### Problem
 
-When passthrough islands perform parsing, enum mapping, fallback resolution, or conditional rendering, they introduce logic into a layer that must remain purely mechanical.
+When passthrough boundaries perform parsing, enum mapping, fallback resolution, or conditional rendering, they introduce logic into a layer that must remain purely mechanical.
 
 ### Solution
 
-Passthrough islands must accept fully typed props and forward them directly to UI components. All transformations must occur before the island or inside the UI layer.
+Passthrough boundaries must accept fully typed props and forward them directly to UI components. All transformations must occur before the boundary or inside the UI layer.
 
 ---
 
-## CR-341 — Init Island Must Be DOM-Driven and Zero State
+## CR-341 — Init Boundary Must Be DOM-Driven and Zero State
 
 - **Category:** runtime-architecture
 - **Severity:** CRITICAL
@@ -7387,15 +7387,15 @@ Passthrough islands must accept fully typed props and forward them directly to U
 
 ### Problem
 
-Placing logic, state, or event handling inside init islands creates duplication, breaks determinism, and conflicts with the CanonRS separation between UI and runtime layers.
+Placing logic, state, or event handling inside init boundaries creates duplication, breaks determinism, and conflicts with the CanonRS separation between UI and runtime layers.
 
 ### Solution
 
-Init islands must render SSR HTML and declare behavior via `data-rs-*`. The actual behavior is executed by the `canon-init-loader` and WASM init modules.
+Init boundaries must render SSR HTML and declare behavior via `data-rs-*`. The actual behavior is executed by the `canon-init-loader` and WASM init modules.
 
 ---
 
-## CR-342 — Interaction Island Must Delegate to Client Module
+## CR-342 — Interaction Boundary Must Delegate to Client Module
 
 - **Category:** interaction-architecture
 - **Severity:** CRITICAL
@@ -7403,7 +7403,7 @@ Init islands must render SSR HTML and declare behavior via `data-rs-*`. The actu
 
 ### Problem
 
-Placing interaction logic inside islands creates:
+Placing interaction logic inside boundaries creates:
 - duplicated state
 - SSR/hydration inconsistencies
 - tight coupling between UI and behavior
@@ -7411,8 +7411,8 @@ Placing interaction logic inside islands creates:
 
 ### Solution
 
-All interaction logic must live in the client interaction layer.  
-The island exists as a boundary and may trigger initialization, but does not contain behavior.
+All interaction logic must live in the client interaction layer.
+The boundary exists as a scope delimiter and may trigger initialization, but does not contain behavior.
 
 ---
 
