@@ -22,7 +22,28 @@
 
 [data-rs-data-table] [data-rs-region="table-wrap"] {
     width: 100%;
-    overflow-x: auto;
+    min-height: 0;
+    flex: 1;
+}
+
+/* density buttons — estado ativo */
+[data-rs-density-btn] {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-density-btn][data-active="true"] {
+    opacity: 1;
+    font-weight: var(--font-weight-semibold);
+}
+
+/* checkbox column — alinhamento vertical */
+[data-rs-table-cell]:first-child,
+[data-rs-table-head]:first-child {
+    width: var(--space-2xl);
+    padding-inline: var(--space-sm);
+    vertical-align: middle;
 }
 
 [data-rs-data-table] [data-rs-region="body"] {

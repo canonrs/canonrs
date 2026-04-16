@@ -7,11 +7,18 @@ use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDire
 #[component]
 pub fn DataTableStaticShowcasePreview() -> impl IntoView {
     let data = vec![
-        vec!["Alice".to_string(),  "Engineer".to_string(), "Active".to_string(),   "98".to_string()],
-        vec!["Bob".to_string(),    "Designer".to_string(), "Active".to_string(),   "87".to_string()],
-        vec!["Carol".to_string(),  "Manager".to_string(),  "Away".to_string(),     "76".to_string()],
-        vec!["Dave".to_string(),   "Engineer".to_string(), "Inactive".to_string(), "65".to_string()],
-        vec!["Eve".to_string(),    "Designer".to_string(), "Active".to_string(),   "91".to_string()],
+        vec!["Alice".to_string(),   "Engineer".to_string(), "Active".to_string(),   "98".to_string()],
+        vec!["Bob".to_string(),     "Designer".to_string(), "Active".to_string(),   "87".to_string()],
+        vec!["Carol".to_string(),   "Manager".to_string(),  "Away".to_string(),     "76".to_string()],
+        vec!["Dave".to_string(),    "Engineer".to_string(), "Inactive".to_string(), "65".to_string()],
+        vec!["Eve".to_string(),     "Designer".to_string(), "Active".to_string(),   "91".to_string()],
+        vec!["Frank".to_string(),   "DevOps".to_string(),   "Active".to_string(),   "82".to_string()],
+        vec!["Grace".to_string(),   "QA".to_string(),       "Active".to_string(),   "79".to_string()],
+        vec!["Henry".to_string(),   "Manager".to_string(),  "Away".to_string(),     "88".to_string()],
+        vec!["Iris".to_string(),    "Engineer".to_string(), "Active".to_string(),   "95".to_string()],
+        vec!["Jack".to_string(),    "Designer".to_string(), "Inactive".to_string(), "71".to_string()],
+        vec!["Karen".to_string(),   "DevOps".to_string(),   "Active".to_string(),   "84".to_string()],
+        vec!["Leo".to_string(),     "QA".to_string(),       "Active".to_string(),   "77".to_string()],
     ];
     use crate::ui::data_table::data_table_ui::{DataTableColumn, RowAction, BulkAction};
     let columns = vec![

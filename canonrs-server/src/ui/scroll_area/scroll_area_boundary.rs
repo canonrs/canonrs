@@ -13,8 +13,7 @@ pub fn ScrollArea(
 ) -> impl IntoView {
     view! {
         <ScrollAreaUi orientation=orientation auto_hide=auto_hide class=class viewport_id=viewport_id>
-            {children()
-};
+            {children()}
         </ScrollAreaUi>
     }
 }

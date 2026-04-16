@@ -35,7 +35,6 @@
 
 [data-rs-datatable-scroll] {
   width: 100%;
-  overflow-x: auto;
 }
 
 [data-rs-datatable-table] {
@@ -46,6 +45,9 @@
 
 [data-rs-datatable-head] {
   background: var(--datatable-header-bg);
+  position: sticky;
+  top: 0;
+  z-index: var(--layer-sticky);
 }
 
 [data-rs-datatable-head-row] {
@@ -95,6 +97,7 @@
 
 [data-rs-datatable-row][data-rs-state~="selected"] {
   background: var(--table-row-bg-selected);
+  box-shadow: inset var(--border-medium) 0 0 0 var(--theme-action-primary-bg);
 }
 
 [data-rs-datatable-cell] {
@@ -241,7 +244,7 @@
   font-size: var(--font-size-sm);
 }
 
-[data-rs-density-btn][data-rs-state~="active"] {
+[data-rs-density-btn][data-active="true"] {
   background: var(--theme-action-accent-bg);
   color: var(--theme-action-accent-fg);
   border-color: var(--theme-action-accent-bg);

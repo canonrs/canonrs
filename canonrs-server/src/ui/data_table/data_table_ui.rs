@@ -5,10 +5,10 @@ use leptos::prelude::*;
 use std::sync::Arc;
 use canonrs_core::primitives::{
     DataTableBulkBarPrimitive,
-    DataTablePrimitive, DataTableToolbarPrimitive, DataTableScrollPrimitive,
+    DataTablePrimitive, DataTableToolbarPrimitive,
     DataTableTablePrimitive, DataTableHeadPrimitive, DataTableHeadRowPrimitive,
     DataTableHeadCellPrimitive, DataTableBodyPrimitive, DataTableRowPrimitive,
-    DataTableCellPrimitive, DataTablePaginationPrimitive, DataTableEmptyPrimitive,
+    DataTableCellPrimitive, DataTableEmptyPrimitive,
     DataTableDensity, SortDirection,
 };
 use crate::ui::dropdown_menu::{
@@ -166,8 +166,7 @@ where
                 </DropdownMenu>
             </DataTableToolbarPrimitive>
 
-            <DataTableScrollPrimitive>
-                <DataTableTablePrimitive>
+            <DataTableTablePrimitive>
                     <DataTableHeadPrimitive>
                         <DataTableHeadRowPrimitive>
                             {expand_render.get_value().is_some().then(|| view! {
@@ -321,27 +320,27 @@ where
                                 </tr>
                             });
 
-                            vec![main_row.into_any(), expand_row.map(|v| v.into_any()).unwrap_or_else(|| view! { <></> }.into_any()), context_menu.map(|v| v.into_any()).unwrap_or_else(|| view! { <></> }.into_any())]
+                            let mut row_views: Vec<AnyView> = vec![main_row.into_any()];
+                            if let Some(v) = expand_row { row_views.push(v.into_any()); }
+                            if let Some(v) = context_menu { row_views.push(v.into_any()); }
+                            row_views
                         }).collect::<Vec<_>>()}
                     </DataTableBodyPrimitive>
-                </DataTableTablePrimitive>
-            </DataTableScrollPrimitive>
-
+            </DataTableTablePrimitive>
             <DataTableEmptyPrimitive class="hidden".to_string()>
                 "No results found."
             </DataTableEmptyPrimitive>
-
-            <DataTablePaginationPrimitive>
-                <button data-rs-action="prev" type="button" disabled=true>
+            <div data-rs-datatable-pagination="">
+                <button type="button" data-rs-action="prev" data-rs-datatable-pagination-btn="" disabled=true>
                     "Previous"
                 </button>
                 <span data-rs-pagination-info="">
                     {format!("1 of {}", total_pages)}
                 </span>
-                <button type="button" data-rs-action="next" disabled={total_pages <= 1}>
+                <button type="button" data-rs-action="next" data-rs-datatable-pagination-btn="" disabled={total_pages <= 1}>
                     "Next"
                 </button>
-            </DataTablePaginationPrimitive>
+            </div>
         </DataTablePrimitive>
     }
 }
@@ -462,8 +461,7 @@ pub fn DataTableCore(
                 </div>
             </DataTableToolbarPrimitive>
 
-            <DataTableScrollPrimitive>
-                <DataTableTablePrimitive>
+            <DataTableTablePrimitive>
                     <DataTableHeadPrimitive>
                         <DataTableHeadRowPrimitive>
                             {header_cells}
@@ -472,32 +470,16 @@ pub fn DataTableCore(
                     <DataTableBodyPrimitive>
                         {body_rows}
                     </DataTableBodyPrimitive>
-                </DataTableTablePrimitive>
-            </DataTableScrollPrimitive>
+            </DataTableTablePrimitive>
 
-            {visible_set.is_empty().then(|| view! {
-                <DataTableEmptyPrimitive>
-                    "No results found."
-                </DataTableEmptyPrimitive>
-            })}
-
-            <DataTablePaginationPrimitive>
-                <button
-                    type="button"
-                    data-rs-action="prev"
-                    disabled=page <= 1
-                    on:click=move |_| on_prev.run(())
-                >"Previous"</button>
-                <span data-rs-pagination-info="">
-                    {format!("{} of {}", page, total_pages)}
-                </span>
-                <button
-                    type="button"
-                    data-rs-action="next"
-                    disabled=page >= total_pages
-                    on:click=move |_| on_next.run(())
-                >"Next"</button>
-            </DataTablePaginationPrimitive>
+            <div data-rs-datatable-footer="">
+                {if visible_set.is_empty() { view! { <DataTableEmptyPrimitive>"No results found."</DataTableEmptyPrimitive> }.into_any() } else { view! { <span hidden=true></span> }.into_any() }}
+                <div data-rs-datatable-pagination="">
+                    <button type="button" data-rs-action="prev" disabled={page <= 1} on:click=move |_| on_prev.run(())>"Previous"</button>
+                    <span data-rs-pagination-info="">{format!("{} of {}", page, total_pages)}</span>
+                    <button type="button" data-rs-action="next" disabled={page >= total_pages} on:click=move |_| on_next.run(())>"Next"</button>
+                </div>
+            </div>
         </DataTablePrimitive>
     }
 }

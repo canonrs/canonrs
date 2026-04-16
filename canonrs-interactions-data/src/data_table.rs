@@ -33,6 +33,13 @@ fn init_table(table: HtmlElement) {
     bind_selection(&table);
     bind_bulk_bar(&table);
     bind_context_menu(&table);
+    // inicializa paginação — esconde rows além da página 1
+    let total = count_visible(&table);
+    let page_size = crate::runtime::attrs::get_usize_html(&table, "data-rs-page-size", 10);
+    let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
+    let _ = table.set_attribute("data-rs-total-pages", &total_pages.to_string());
+    set_page(&table, 1);
+    update_pagination_ui(&table);
 }
 
 fn sync_col_toggle_state(table: &HtmlElement) {

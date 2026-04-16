@@ -27,11 +27,11 @@ pub fn LinkGroup(
 ) -> impl IntoView {
     view! {
         <LinkGroupPrimitive class=class>
-            {label.map(|l| view! {
-                <LinkGroupLabelPrimitive>
-                    {l()}
-                </LinkGroupLabelPrimitive>
-            })}
+            {if let Some(l) = label {
+                view! { <LinkGroupLabelPrimitive>{l()}</LinkGroupLabelPrimitive> }.into_any()
+            } else {
+                view! { <span hidden=true></span> }.into_any()
+            }}
             <div data-rs-link-group-items="" data-rs-direction=direction.as_str()>
                 {children()}
             </div>
