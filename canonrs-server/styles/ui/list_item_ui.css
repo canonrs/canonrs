@@ -5,11 +5,36 @@
 [data-rs-list] {
   display: flex;
   flex-direction: column;
-  gap: var(--list-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 [data-rs-list-item] {
   display: block;
+  list-style: none;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
+  border-radius: var(--list-item-radius);
+}
+
+[data-rs-list-item]:not([data-rs-disabled]):not([data-rs-state~="selected"]):hover {
+  background: var(--list-item-bg-hover);
+  cursor: pointer;
+}
+
+[data-rs-list-item][data-rs-state~="selected"] {
+  background: var(--list-item-bg-selected);
+}
+
+[data-rs-list-item][data-rs-disabled] {
+  cursor: not-allowed;
+  opacity: var(--opacity-disabled);
+  pointer-events: none;
+}
+
+[data-rs-list-item][data-rs-state~="focus"] {
+  outline: none;
+  box-shadow: var(--list-item-focus-ring);
 }
 
 [data-rs-list-item-content] {
@@ -17,41 +42,16 @@
   flex-direction: column;
   padding: var(--list-item-padding);
   border-bottom: var(--list-item-border);
-  transition: background var(--motion-duration-fast) var(--motion-ease-standard);
-}
-
-[data-rs-list-item-content][data-rs-selectable] {
-  cursor: pointer;
-  border-radius: var(--list-item-radius);
-}
-
-[data-rs-list-item-content][data-rs-selectable][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
-  background: var(--list-item-bg-hover);
-}
-
-[data-rs-list-item-content][data-rs-state~="selected"] {
-  background: var(--list-item-bg-selected);
-}
-
-[data-rs-list-item-content][data-rs-state~="disabled"] {
-  cursor: not-allowed;
-  opacity: var(--opacity-disabled);
-  background: var(--list-item-bg-disabled);
-  color: var(--list-item-fg-disabled);
-}
-
-[data-rs-list-item-content][data-rs-state~="focus"] {
-  outline: none;
-  box-shadow: var(--list-item-focus-ring);
 }
 
 [data-rs-list-item-title] {
-  font-size: var(--list-title-font-size);
-  font-weight: var(--list-title-font-weight);
-  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--theme-surface-fg);
+  margin-bottom: var(--space-2xs);
 }
 
 [data-rs-list-item-description] {
-  font-size: var(--list-description-font-size);
-  color: var(--list-description-color);
+  font-size: var(--font-size-xs);
+  color: var(--theme-surface-fg-muted);
 }

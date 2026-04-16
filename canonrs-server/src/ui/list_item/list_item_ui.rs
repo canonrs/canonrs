@@ -6,17 +6,30 @@ use canonrs_core::primitives::{
     ListItemTitlePrimitive, ListItemDescriptionPrimitive
 };
 
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum ListSelectionMode { None, Single, Multiple }
+#[derive(Clone, Copy, PartialEq, Debug, Default)]
+pub enum ListSelectionMode { #[default] None, Single, Multiple }
+
+impl ListSelectionMode {
+    pub fn as_str(&self) -> Option<&'static str> {
+        match self {
+            Self::None     => None,
+            Self::Single   => Some("single"),
+            Self::Multiple => Some("multiple"),
+        }
+    }
+}
 
 #[component]
 pub fn List(
     children: Children,
-    #[prop(default = ListSelectionMode::None)] _selection_mode: ListSelectionMode,
-    #[prop(default = String::new())] class: String,
+    #[prop(default = ListSelectionMode::None)] selection_mode: ListSelectionMode,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ListPrimitive class={class}>
+        <ListPrimitive
+            class=class
+            attr:data-rs-selection=selection_mode.as_str()
+        >
             {children()}
         </ListPrimitive>
     }
@@ -25,22 +38,20 @@ pub fn List(
 #[component]
 pub fn ListItem(
     children: Children,
-    #[prop(default = String::new())] class: String,
-    #[prop(default = false)] selectable: bool,
+    #[prop(into, default = String::new())] class: String,
     #[prop(default = false)] selected: bool,
     #[prop(default = false)] disabled: bool,
 ) -> impl IntoView {
     view! {
-        <ListItemPrimitive class={class}>
-            <div
-                data-rs-list-item-content=""
-                data-rs-selectable={selectable.then_some("")}
-                data-rs-selected={selected.then_some("")}
-                data-rs-disabled={disabled.then_some("")}
-                tabindex={if selectable && !disabled { Some("0") } else { None }}
-                aria-selected={if selectable { Some(selected.to_string()) } else { None }}
-                aria-disabled={if disabled { Some("true") } else { None }}
-            >
+        <ListItemPrimitive
+            class=class
+            attr:data-rs-state=if selected { "selected" } else { "idle" }
+            attr:data-rs-disabled=disabled.then_some("")
+            attr:aria-selected=selected.then_some("true")
+            attr:aria-disabled=disabled.then_some("true")
+            attr:tabindex=if !disabled { Some("0") } else { None }
+        >
+            <div data-rs-list-item-content="">
                 {children()}
             </div>
         </ListItemPrimitive>
@@ -50,10 +61,10 @@ pub fn ListItem(
 #[component]
 pub fn ListItemTitle(
     children: Children,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ListItemTitlePrimitive class={class}>
+        <ListItemTitlePrimitive class=class>
             {children()}
         </ListItemTitlePrimitive>
     }
@@ -62,10 +73,10 @@ pub fn ListItemTitle(
 #[component]
 pub fn ListItemDescription(
     children: Children,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ListItemDescriptionPrimitive class={class}>
+        <ListItemDescriptionPrimitive class=class>
             {children()}
         </ListItemDescriptionPrimitive>
     }
@@ -73,5 +84,5 @@ pub fn ListItemDescription(
 
 #[component]
 pub fn ListItemPreview() -> impl IntoView {
-    view! { <List>"Item"</List> }
+    view! { <List selection_mode=ListSelectionMode::Single>"Item"</List> }
 }

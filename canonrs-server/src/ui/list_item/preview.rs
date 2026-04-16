@@ -1,5 +1,5 @@
 use leptos::prelude::*;
-use super::list_item_boundary::{List, ListItem, ListItemTitle, ListItemDescription};
+use super::list_item_boundary::{List, ListItem, ListItemTitle, ListItemDescription, ListSelectionMode};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
@@ -25,16 +25,16 @@ pub fn ListItemShowcasePreview() -> impl IntoView {
             </p>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Selectable"</span>
-                <List>
-                    <ListItem selectable=true>
+                <List selection_mode=ListSelectionMode::Single>
+                    <ListItem selected=true>
                         <ListItemTitle>"Alice Johnson"</ListItemTitle>
                         <ListItemDescription>"Engineer"</ListItemDescription>
                     </ListItem>
-                    <ListItem selectable=true>
+                    <ListItem>
                         <ListItemTitle>"Bob Smith"</ListItemTitle>
                         <ListItemDescription>"Designer"</ListItemDescription>
                     </ListItem>
-                    <ListItem selectable=true disabled=true>
+                    <ListItem disabled=true>
                         <ListItemTitle>"Carol White"</ListItemTitle>
                         <ListItemDescription>"Disabled"</ListItemDescription>
                     </ListItem>

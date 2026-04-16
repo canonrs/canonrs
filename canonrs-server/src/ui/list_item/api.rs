@@ -6,7 +6,7 @@ pub const LIST_API: ComponentApi = ComponentApi {
     id: "list",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "_selection_mode", kind: PropType::Enum(&["none", "single", "multiple"]), required: false, default: Some("none"), description: "" },
+        PropDef { name: "selection_mode", kind: PropType::String, required: false, default: Some("none"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -16,7 +16,6 @@ pub const LISTITEM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "selectable", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "selected", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
     ],

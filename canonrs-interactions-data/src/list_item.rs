@@ -49,25 +49,10 @@ pub fn init(root: Element) {
     if is_initialized(&root) { return; }
     mark_initialized(&root);
 
-    // aria roles no container
-    if root.get_attribute("role").is_none() {
-        root.set_attribute("role", "listbox").ok();
-    }
     if is_multiple(&root) {
         root.set_attribute("aria-multiselectable", "true").ok();
     }
 
-    // aria roles nos items
-    for item in get_items(&root) {
-        if item.get_attribute("role").is_none() {
-            item.set_attribute("role", "option").ok();
-        }
-        if item.get_attribute("tabindex").is_none() {
-            item.set_attribute("tabindex", "-1").ok();
-        }
-    }
-
-    // click — selection engine delegado ao container
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
@@ -87,7 +72,6 @@ pub fn init(root: Element) {
                 select(&item);
             }
 
-            // emite evento customizado
             let event_init = web_sys::CustomEventInit::new();
             event_init.set_bubbles(true);
             if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-list-select", &event_init) {
@@ -98,7 +82,6 @@ pub fn init(root: Element) {
         cb.forget();
     }
 
-    // keyboard — ArrowUp/Down, Enter/Space, Home/End
     {
         let root_kb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
@@ -163,7 +146,6 @@ pub fn init(root: Element) {
 pub fn init_all() {
     let win = match web_sys::window() { Some(w) => w, None => return };
     let doc = match win.document() { Some(d) => d, None => return };
-    // init no container, não no item
     let nodes = match doc.query_selector_all("[data-rs-list]") { Ok(n) => n, Err(_) => return };
     for i in 0..nodes.length() {
         if let Some(node) = nodes.item(i) {

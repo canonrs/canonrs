@@ -6,36 +6,32 @@ use super::list_item_ui::{
     List as ListUi,
     ListItem as ListItemUi,
     ListItemTitle as ListItemTitleUi,
-    ListItemDescription as ListItemDescriptionUi
+    ListItemDescription as ListItemDescriptionUi,
 };
-
-
+pub use super::list_item_ui::ListSelectionMode;
 
 #[component]
 pub fn List(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = ListSelectionMode::None)] selection_mode: ListSelectionMode,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ListUi class=class.unwrap_or_default()>{children()}</ListUi>
+        <ListUi selection_mode=selection_mode class=class>
+            {children()}
+        </ListUi>
     }
 }
 
 #[component]
 pub fn ListItem(
     children: Children,
-    #[prop(optional)] selectable: Option<bool>,
-    #[prop(optional)] selected: Option<bool>,
-    #[prop(optional)] disabled: Option<bool>,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(default = false)] selected: bool,
+    #[prop(default = false)] disabled: bool,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ListItemUi
-            selectable=selectable.unwrap_or(false)
-            selected=selected.unwrap_or(false)
-            disabled=disabled.unwrap_or(false)
-            class=class.unwrap_or_default()
-        >
+        <ListItemUi selected=selected disabled=disabled class=class>
             {children()}
         </ListItemUi>
     }
@@ -44,15 +40,23 @@ pub fn ListItem(
 #[component]
 pub fn ListItemTitle(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <ListItemTitleUi class=class.unwrap_or_default()>{children()}</ListItemTitleUi> }
+    view! {
+        <ListItemTitleUi class=class>
+            {children()}
+        </ListItemTitleUi>
+    }
 }
 
 #[component]
 pub fn ListItemDescription(
     children: Children,
-    #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <ListItemDescriptionUi class=class.unwrap_or_default()>{children()}</ListItemDescriptionUi> }
+    view! {
+        <ListItemDescriptionUi class=class>
+            {children()}
+        </ListItemDescriptionUi>
+    }
 }
