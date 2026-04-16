@@ -1,7 +1,7 @@
 #![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    TableWrapperPrimitive, TablePrimitive, TableHeaderPrimitive,
+    TablePrimitive, TableHeaderPrimitive,
     TableBodyPrimitive, TableFooterPrimitive, TableRowPrimitive,
     TableHeadPrimitive, TableCellPrimitive, TableCaptionPrimitive,
     SortDirection,
@@ -18,13 +18,10 @@ pub fn Table(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let aria_label = aria_label.unwrap_or_default();
     view! {
-        <TableWrapperPrimitive aria_label=aria_label class=class>
-            <TablePrimitive state=state striped=striped hoverable=hoverable>
-                {children.map(|c| c())}
-            </TablePrimitive>
-        </TableWrapperPrimitive>
+        <TablePrimitive state=state striped=striped hoverable=hoverable aria_label=aria_label.unwrap_or_default() class=class>
+            {children.map(|c| c())}
+        </TablePrimitive>
     }
 }
 

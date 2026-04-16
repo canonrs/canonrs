@@ -6,6 +6,7 @@ use web_sys::Element;
 pub type InitFn = fn(Element);
 
 pub fn dispatch(el: &Element) {
+    if el.has_attribute("data-rs-table-context") { crate::table_row_sheet_preview::init(el.clone()); return; }
     if el.has_attribute("data-rs-table")      { crate::table::init(el.clone()); return; }
     if el.has_attribute("data-rs-tooltip")    { crate::tooltip::init(el.clone()); return; }
     if el.has_attribute("data-rs-collapsible"){ crate::collapsible::init(el.clone()); return; }
@@ -18,6 +19,7 @@ pub fn dispatch(el: &Element) {
     if el.has_attribute("data-rs-alert")      { crate::alert::init(el.clone()); return; }
     if el.has_attribute("data-rs-banner")     { crate::banner::init(el.clone()); return; }
     if el.has_attribute("data-rs-button")       { crate::button::init(el.clone()); return; }
+    if el.has_attribute("data-rs-progress")        { crate::progress::init(el.clone()); return; }
     if el.has_attribute("data-rs-doc-progress")        { crate::doc_progress::init(el.clone()); return; }
     if el.has_attribute("data-rs-doc-progress-portal") { crate::doc_progress::init(el.clone()); return; }
     if el.has_attribute("data-rs-icon-button")    { crate::icon_button::init(el.clone()); return; }
@@ -42,7 +44,7 @@ pub fn dispatch(el: &Element) {
 
 pub fn scan_all() {
     let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
-    let selector = "[data-rs-radio],[data-rs-table],[data-rs-tooltip],[data-rs-collapsible],[data-rs-switch],[data-rs-toggle],[data-rs-checkbox],[data-rs-animate],[data-rs-avatar-group],[data-rs-alert],[data-rs-banner],[data-rs-button],[data-rs-doc-progress],[data-rs-doc-progress-portal],[data-rs-icon-button],[data-rs-input-group],[data-rs-input-otp-container],[data-rs-menu],[data-rs-navigation-menu],[data-rs-toast],[data-rs-toc],[data-rs-command],[data-rs-field],[data-rs-form],[data-rs-overlay-container]";
+    let selector = "[data-rs-table-context],[data-rs-progress],[data-rs-radio],[data-rs-table],[data-rs-tooltip],[data-rs-collapsible],[data-rs-switch],[data-rs-toggle],[data-rs-checkbox],[data-rs-animate],[data-rs-avatar-group],[data-rs-alert],[data-rs-banner],[data-rs-button],[data-rs-doc-progress],[data-rs-doc-progress-portal],[data-rs-icon-button],[data-rs-input-group],[data-rs-input-otp-container],[data-rs-menu],[data-rs-navigation-menu],[data-rs-toast],[data-rs-toc],[data-rs-command],[data-rs-field],[data-rs-form],[data-rs-overlay-container]";
     let Ok(list) = doc.query_selector_all(selector) else { return };
     for i in 0..list.length() {
         if let Some(el) = list.item(i).and_then(|n| {

@@ -18,12 +18,24 @@
   background: var(--progress-fill-bg);
 }
 
-[data-rs-progress][data-rs-state~="loading"] [data-rs-progress-indicator],
 [data-rs-progress][data-rs-state~="indeterminate"] [data-rs-progress-indicator] {
-  animation: progress-indeterminate var(--motion-duration-deliberate) var(--motion-ease-standard) infinite;
+  animation: progress-indeterminate 1.8s ease-in-out infinite;
+  width: 40%;
 }
 
 @keyframes progress-indeterminate {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0%   { transform: translateX(-150%); }
+  50%  { transform: translateX(200%); }
+  100% { transform: translateX(-150%); }
+}
+
+[data-rs-progress][data-rs-state~="loading"] [data-rs-progress-indicator] {
+  animation: progress-loading 1s var(--motion-ease-standard) infinite;
+  width: 30%;
+}
+
+@keyframes progress-loading {
+  0%   { transform: translateX(-100%); opacity: 0.6; }
+  50%  { opacity: 1; }
+  100% { transform: translateX(400%); opacity: 0.6; }
 }

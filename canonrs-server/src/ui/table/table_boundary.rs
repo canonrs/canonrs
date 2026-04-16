@@ -1,6 +1,5 @@
 //! @canon-level: strict
-//! Table Island — Canon Rule #340 (zero-logic passthrough)
-//! CR-338 v3.0.0: init type — WASM-driven via canon-init-loader
+//! Table Boundary — Canon Rule #340 (zero-logic passthrough)
 
 use leptos::prelude::*;
 use super::table_ui::{
@@ -11,7 +10,7 @@ use super::table_ui::{
     TableHead as TableHeadUi,
     TableCell as TableCellUi,
     TableFooter as TableFooterUi,
-    TableCaption as TableCaptionUi
+    TableCaption as TableCaptionUi,
 };
 use canonrs_core::primitives::SortDirection;
 use canonrs_core::meta::SelectionState;
@@ -26,9 +25,7 @@ pub fn Table(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let aria_label = aria_label.unwrap_or_default();
-    view! { <TableUi state=state striped=striped hoverable=hoverable aria_label=aria_label class=class>{children()
-};</TableUi> }
+    view! { <TableUi state=state striped=striped hoverable=hoverable aria_label=aria_label.unwrap_or_default() class=class>{children()}</TableUi> }
 }
 
 #[component]

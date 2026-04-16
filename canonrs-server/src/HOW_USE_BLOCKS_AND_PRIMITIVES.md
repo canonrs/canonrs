@@ -187,9 +187,8 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 
 
-progress
-radio_group
-table
+
+
 table_of_contents
 toggle
 tooltip

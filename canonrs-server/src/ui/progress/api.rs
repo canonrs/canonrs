@@ -6,6 +6,7 @@ pub const PROGRESS_API: ComponentApi = ComponentApi {
     id: "progress",
     props: &[
         PropDef { name: "value", kind: PropType::Number, required: false, default: Some("0.0"), description: "" },
+        PropDef { name: "state", kind: PropType::Enum(&["default", "indeterminate", "loading"]), required: false, default: Some("default"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };

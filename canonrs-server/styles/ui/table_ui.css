@@ -1,6 +1,7 @@
-/* ═══════════════════════════════════════════════════════════════
-   TABLE — Family F Data tokens compliant
-   ═══════════════════════════════════════════════════════════════ */
+/* =============================================================================
+   TABLE - Family F Data tokens compliant
+   State via data-rs-state — zero pseudo-class state selectors
+   ============================================================================= */
 
 [data-rs-table-wrapper] {
   width: 100%;
@@ -21,15 +22,17 @@
 [data-rs-table-row] {
   height: var(--table-row-height);
   border-bottom: var(--table-border-width) solid var(--table-border-color);
-  transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
-}
-
-[data-rs-table-row][data-rs-state~="selected"] {
-  background: var(--table-row-bg-selected);
+  transition:
+    background var(--table-row-transition-duration) var(--table-row-transition-ease),
+    color var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
 [data-rs-table-row][data-rs-state~="hover"] {
   background: var(--table-row-bg-hover);
+}
+
+[data-rs-table-row][data-rs-state~="selected"] {
+  background: var(--table-row-bg-selected);
 }
 
 [data-rs-table-head] {
@@ -40,6 +43,16 @@
   font-size: var(--table-header-font-size);
   font-weight: var(--table-header-font-weight);
   color: var(--table-header-fg);
+  cursor: pointer;
+  user-select: none;
+}
+
+[data-rs-table-head][data-rs-sort="ascending"]::after {
+  content: " ↑";
+}
+
+[data-rs-table-head][data-rs-sort="descending"]::after {
+  content: " ↓";
 }
 
 [data-rs-table-cell] {
@@ -57,21 +70,21 @@
   text-align: left;
 }
 
-[data-rs-table][data-rs-state~="striped"] [data-rs-table-row][data-rs-state~="odd"] {
+[data-rs-table][data-rs-striped] [data-rs-table-row][data-rs-state~="odd"] {
   background: var(--table-row-bg-striped);
 }
 
-[data-rs-table-row][data-rs-state~="navigate"] {
+[data-rs-table-row][data-rs-action="navigate"] {
   cursor: pointer;
 }
 
-[data-rs-table-cell][data-rs-state~="copyable"] {
+[data-rs-table-cell][data-rs-copyable] {
   cursor: copy;
   position: relative;
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
-[data-rs-table-cell][data-rs-state~="copyable"][data-rs-state~="hover"] {
+[data-rs-table-cell][data-rs-copyable][data-rs-state~="hover"] {
   background: var(--table-row-bg-hover);
 }
 
@@ -89,11 +102,22 @@
   pointer-events: none;
 }
 
-[data-rs-table-cell][data-rs-state~="truncate"] {
+[data-rs-table-cell][data-rs-truncate] {
   max-width: var(--layout-width-xs);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition:
+    max-width var(--table-row-transition-duration) var(--motion-ease-standard),
+    white-space var(--table-row-transition-duration) var(--motion-ease-standard);
+}
+
+[data-rs-table-cell][data-rs-truncate][data-rs-state~="hover"] {
+  max-width: none;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  word-break: break-all;
 }
 
 [data-rs-table][data-rs-state~="loading"] {

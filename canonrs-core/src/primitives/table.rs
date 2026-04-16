@@ -74,18 +74,23 @@ pub fn TablePrimitive(
     #[prop(default = TableState::Idle)] state: TableState,
     #[prop(default = false)] striped: bool,
     #[prop(default = false)] hoverable: bool,
+    #[prop(default = false)] sheet_context: bool,
+    #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <table
             data-rs-table=""
             data-rs-uid=crate::infra::uid::generate("tbl")
-            data-rs-interaction="data"
+            data-rs-interaction="init"
             data-rs-state=state.as_str()
             data-rs-striped={striped.then_some("")}
             data-rs-hoverable={hoverable.then_some("")}
+            data-rs-table-context={sheet_context.then_some("")}
             aria-busy={if state == TableState::Loading { Some("true") } else { None }}
+            aria-label=aria_label
             class=class
+            tabindex="-1"
         >
             {children()}
         </table>
@@ -147,6 +152,7 @@ pub fn TableRowPrimitive(
         <tr
             data-rs-table-row=""
             data-rs-state=s.data_rs_state
+            tabindex="0"
             data-rs-action=action_attr
             data-rs-href=href_attr
             data-rs-label=row_label

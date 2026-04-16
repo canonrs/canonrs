@@ -2,17 +2,19 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{ProgressPrimitive, ProgressIndicatorPrimitive};
+use canonrs_core::primitives::progress::ProgressState;
 
 #[component]
 pub fn Progress(
     #[prop(default = 0.0)] value: f64,
+    #[prop(default = ProgressState::Default)] state: ProgressState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let clamped = value.clamp(0.0, 100.0);
-    let style = format!("transform: translateX(-{}%)", 100.0 - value);
+    let transform = format!("transform: translateX(-{:.0}%)", 100.0 - clamped);
     view! {
-        <ProgressPrimitive value=clamped class=class>
-            <ProgressIndicatorPrimitive style=style />
+        <ProgressPrimitive value=clamped state=state class=class>
+            <ProgressIndicatorPrimitive style=transform />
         </ProgressPrimitive>
     }
 }
