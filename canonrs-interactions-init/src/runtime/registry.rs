@@ -29,7 +29,12 @@ pub fn dispatch(el: &Element) {
     if el.has_attribute("data-rs-command")          { crate::command::init(el.clone()); return; }
     if el.has_attribute("data-rs-field")            { crate::field::init(el.clone()); return; }
     if el.has_attribute("data-rs-form")             { crate::form::init(el.clone()); return; }
-    if el.has_attribute("data-rs-nav-item")         { crate::nav_item::init(el.clone()); return; }
+    if el.has_attribute("data-rs-nav-item") {
+        // so inicializar se nao estiver dentro de um grupo
+        let in_group = el.closest("[data-rs-nav-group]").ok().flatten().is_some();
+        if !in_group { crate::nav_item::init(el.clone()); }
+        return;
+    }
     if el.has_attribute("data-rs-nav-group")        { crate::nav_item::init(el.clone()); return; }
     if el.has_attribute("data-rs-overlay-container") { crate::loading_overlay::init(el.clone()); return; }
 }

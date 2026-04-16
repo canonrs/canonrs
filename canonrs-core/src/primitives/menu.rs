@@ -38,6 +38,7 @@ pub fn MenuItemPrimitive(
         <button
             type="button"
             data-rs-menu-item=""
+            data-rs-uid=crate::infra::uid::generate("mi")
             role="menuitem"
             data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled

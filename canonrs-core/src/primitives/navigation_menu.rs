@@ -45,8 +45,9 @@ pub fn NavigationMenuItemPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let item_uid = crate::infra::uid::generate("ni");
     view! {
-        <li data-rs-navigation-menu-item="" class=class>
+        <li data-rs-navigation-menu-item="" data-rs-uid=item_uid class=class>
             {children()}
         </li>
     }
@@ -64,6 +65,7 @@ pub fn NavigationMenuTriggerPrimitive(
         <button
             type="button"
             data-rs-navigation-menu-trigger=""
+            data-rs-uid=crate::infra::uid::generate("nt")
             data-rs-state=t.data_rs_state
             aria-haspopup="menu"
             aria-expanded=t.aria_expanded

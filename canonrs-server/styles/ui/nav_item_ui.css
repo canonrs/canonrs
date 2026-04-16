@@ -19,32 +19,35 @@
   gap: var(--nav-item-gap);
   height: var(--nav-item-height);
   padding: var(--nav-item-padding-y) var(--nav-item-padding-x);
-  border-radius: var(--nav-item-radius);
   font-size: var(--nav-item-font-size);
   font-weight: var(--nav-item-font-weight);
   color: var(--nav-item-fg);
   text-decoration: none;
-  position: relative;
-  transition: background var(--motion-duration-fast) var(--motion-ease-standard),
-              color var(--motion-duration-fast) var(--motion-ease-standard);
   cursor: pointer;
   user-select: none;
+  transition: color var(--motion-duration-fast) var(--motion-ease-standard),
+              background var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-[data-rs-nav-item][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
-  background: var(--nav-item-hover-bg);
+[data-rs-nav-item][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) {
   color: var(--nav-item-hover-fg);
+  background: var(--nav-item-hover-bg);
 }
 
-[data-rs-nav-item][data-rs-state~="focus"]:not([data-rs-state~="disabled"]) {
-  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
-  outline-offset: var(--focus-ring-offset);
-}
-
-[data-rs-nav-item][data-rs-state~="active"] {
+/* sidebar active — border-left */
+[data-rs-nav-group]:not([data-rs-direction="horizontal"]) [data-rs-nav-item][data-rs-selected="true"] {
   color: var(--nav-item-active-fg);
   font-weight: var(--font-weight-semibold);
-  border-bottom: var(--border-medium) solid var(--nav-item-active-fg);
+  border-left: var(--border-medium) solid var(--theme-action-primary-bg);
+  padding-left: calc(var(--nav-item-padding-x) - var(--border-medium));
+}
+
+/* inline active — color + weight + border-bottom */
+[data-rs-nav-group][data-rs-direction="horizontal"] [data-rs-nav-item][data-rs-selected="true"] {
+  color: var(--nav-item-active-fg);
+  font-weight: var(--font-weight-semibold);
+  border-bottom: var(--border-medium) solid var(--theme-action-primary-bg);
+  padding-bottom: calc(var(--nav-item-padding-y) - var(--border-medium));
 }
 
 [data-rs-nav-item][data-rs-state~="focused"] {
@@ -58,6 +61,8 @@
   pointer-events: none;
 }
 
+[data-rs-nav-group] [data-rs-nav-item]:focus-visible:not([data-rs-state~='focused']) { outline: none; }
+
 [data-rs-nav-item-icon] {
   display: flex;
   align-items: center;
@@ -68,5 +73,3 @@
 [data-rs-nav-item-label] {
   line-height: var(--nav-item-line-height);
 }
-
-[data-rs-nav-item]:focus-visible { outline: none; }

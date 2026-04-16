@@ -24,7 +24,6 @@
   background: transparent;
   border: none;
   text-align: left;
-  outline: none;
   will-change: background;
   transition:
     background var(--menu-item-transition-duration) var(--menu-item-transition-ease),
@@ -39,17 +38,14 @@
   background: var(--menu-item-hover-bg);
 }
 
-[data-rs-menu-item][data-rs-state~="active"]:focus-visible {
-  outline: none;
-}
-
 [data-rs-menu-item][data-rs-state~="selected"] {
   background: var(--menu-item-active-bg);
   color: var(--menu-item-active-fg);
 }
 
 [data-rs-menu-item]:focus-visible { outline: none; }
-[data-rs-menu-item][data-rs-state~="active"] {
+[data-rs-menu-item][data-rs-state~='focused']:focus-visible { outline: var(--focus-ring-width) solid var(--theme-action-focus-ring); outline-offset: var(--focus-ring-offset); }
+[data-rs-menu-item][data-rs-state~="focused"] {
   outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
   outline-offset: var(--focus-ring-offset);
 }

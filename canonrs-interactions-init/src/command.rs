@@ -95,9 +95,16 @@ pub fn init(root: Element) {
 
     // keyboard via runtime module
     let root_close = root.clone();
-    keyboard::init_navigation(
+    keyboard::init_nav(
         &root,
         "[data-rs-command-item]",
+        keyboard::NavConfig {
+            orientation: keyboard::Orientation::Vertical,
+            element_type: keyboard::ElementType::Button,
+            focus_state: "active",
+            wrap: false,
+        },
+        None,
         Some(Box::new(move || { state::close(&root_close); })),
     );
 }

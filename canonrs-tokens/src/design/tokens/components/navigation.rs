@@ -81,6 +81,9 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("navigation-menu-content-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("navigation-menu-z-index", "var(--layer-overlay)"),
     FamilyToken::new("navigation-menu-content-min-width", "var(--layout-width-sm)"),
+    FamilyToken::new("navigation-menu-list-gap", "var(--space-xs)"),
+    FamilyToken::new("navigation-menu-trigger-hover-fg", "var(--nav-item-hover-fg)"),
+    FamilyToken::new("navigation-menu-trigger-active-fg", "var(--nav-item-active-fg)"),
 
     // Pagination
     FamilyToken::new("pagination-gap", "var(--space-sm)"),
