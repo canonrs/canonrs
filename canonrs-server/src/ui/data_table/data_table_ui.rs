@@ -2,6 +2,7 @@
 //! DataTable Full - HTML estático, comportamento delegado ao behavior JS
 
 use leptos::prelude::*;
+use crate::ui::scroll_area::scroll_area_boundary::ScrollArea;
 use std::sync::Arc;
 use canonrs_core::primitives::{
     DataTableBulkBarPrimitive,
@@ -166,6 +167,7 @@ where
                 </DropdownMenu>
             </DataTableToolbarPrimitive>
 
+            <ScrollArea orientation=canonrs_core::primitives::ScrollOrientation::Horizontal auto_hide=false>
             <DataTableTablePrimitive>
                     <DataTableHeadPrimitive>
                         <DataTableHeadRowPrimitive>
@@ -326,8 +328,7 @@ where
                             row_views
                         }).collect::<Vec<_>>()}
                     </DataTableBodyPrimitive>
-            </DataTableTablePrimitive>
-            <DataTableEmptyPrimitive class="hidden".to_string()>
+            </DataTableTablePrimitive></ScrollArea><DataTableEmptyPrimitive class="hidden".to_string()>
                 "No results found."
             </DataTableEmptyPrimitive>
             <div data-rs-datatable-pagination="">
@@ -461,6 +462,7 @@ pub fn DataTableCore(
                 </div>
             </DataTableToolbarPrimitive>
 
+            <ScrollArea orientation=canonrs_core::primitives::ScrollOrientation::Horizontal auto_hide=false>
             <DataTableTablePrimitive>
                     <DataTableHeadPrimitive>
                         <DataTableHeadRowPrimitive>
@@ -470,8 +472,7 @@ pub fn DataTableCore(
                     <DataTableBodyPrimitive>
                         {body_rows}
                     </DataTableBodyPrimitive>
-            </DataTableTablePrimitive>
-
+            </DataTableTablePrimitive></ScrollArea>
             <div data-rs-datatable-footer="">
                 {if visible_set.is_empty() { view! { <DataTableEmptyPrimitive>"No results found."</DataTableEmptyPrimitive> }.into_any() } else { view! { <span hidden=true></span> }.into_any() }}
                 <div data-rs-datatable-pagination="">

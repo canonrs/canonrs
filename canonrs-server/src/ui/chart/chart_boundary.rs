@@ -3,8 +3,6 @@ use super::chart_ui::Chart as ChartUi;
 use canonrs_core::primitives::ChartType;
 use canonrs_core::ChartData;
 
-
-
 #[component]
 pub fn Chart(
     data: ChartData,
@@ -29,5 +27,5 @@ pub fn Chart(
             value=value
             aria_label=aria_label
         />
-};
+    }
 }

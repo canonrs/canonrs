@@ -189,7 +189,25 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 
 
+chart
+virtual_list
+list_item
+data_table
 
+
+  
+markdown
+copy_button
+
+
+toolbar
+link_group
+breadcrumb
+accordion
+menubar
+tabs
+sidebar
+pagination
 
 
 

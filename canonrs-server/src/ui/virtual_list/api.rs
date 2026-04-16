@@ -7,7 +7,9 @@ pub const VIRTUALLIST_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "items_count", kind: PropType::Number, required: true, default: None, description: "" },
-        PropDef { name: "item_height", kind: PropType::Number, required: true, default: None, description: "" },
+        PropDef { name: "item_height", kind: PropType::Number, required: false, default: Some("40.0f64"), description: "" },
+        PropDef { name: "height", kind: PropType::Number, required: false, default: Some("400u32"), description: "" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 
