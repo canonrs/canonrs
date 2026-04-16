@@ -11,6 +11,7 @@ pub mod tooltip;
 pub mod collapsible;
 pub mod switch;
 pub mod toggle;
+pub mod markdown;
 pub mod checkbox;
 pub mod radio;
 pub mod progress;

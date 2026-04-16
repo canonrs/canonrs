@@ -1,19 +1,29 @@
 use leptos::prelude::*;
 use super::markdown_boundary::{MarkdownSurface, TocPosition};
 use super::render_markdown;
-use crate::ui::scroll_area::scroll_area_boundary::ScrollArea;
-use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn MarkdownShowcasePreview() -> impl IntoView {
     let sample = concat!(
-        "## Introduction\n\n",
-        "CanonRS is a design system built with **Leptos** and **Rust**.\n\n",
+        "# CanonRS Design System\n\n",
+        "CanonRS is a design system built with **Leptos** and **Rust**. \n",
+        "Every component follows a strict contract between primitives, tokens, and interaction modules.\n\n",
+        "## Architecture\n\n",
+        "The system is built on three layers: primitives define the contract, \n",
+        "UI components compose them, and interaction modules handle behavior exclusively on the client.\n\n",
+        "### Primitives\n\n",
+        "Primitives are the foundation. They render SSR-safe HTML with `data-rs-*` attributes \n",
+        "that declare behavior without executing it. No logic lives inside a primitive.\n\n",
+        "### Tokens\n\n",
+        "All visual decisions are encoded as CSS custom properties. \n",
+        "Tokens are organized by family — layout, color, motion, typography — \n",
+        "and are the single source of truth for theming.\n\n",
         "## Features\n\n",
         "- SSR-safe rendering with deterministic DOM output\n",
         "- Token-driven theming via CSS custom properties\n",
         "- Behavior layer that runs exclusively on the client\n",
-        "- Full ARIA compliance via structured contracts\n\n",
+        "- Full ARIA compliance via structured contracts\n",
+        "- Zero hydration mismatch by design\n\n",
         "## Component Table\n\n",
         "| Component | Category | Status |\n",
         "|-----------|----------|--------|\n",
@@ -28,43 +38,27 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
         "    println!(\"Hello, CanonRS!\");\n",
         "}\n",
         "```\n\n",
+        "## Interaction Model\n\n",
+        "All behavior is delegated to WASM modules that operate directly on the DOM. \n",
+        "The boundary layer is zero-logic — it declares, never executes.\n\n",
+        "### Init vs Interaction\n\n",
+        "Simple stateless behaviors use the init layer. \n",
+        "Complex coordinated behaviors — sorting, selection engines, virtualization — \n",
+        "belong to the interaction layer and run as dedicated WASM modules.\n\n",
         "## Summary\n\n",
-        "All components follow the Canon contract.\n"
+        "All components follow the Canon contract. \n",
+        "The DOM is the source of truth. CSS reacts to state. WASM drives behavior.\n"
     );
 
-    let rendered_toc   = render_markdown(sample);
-    let rendered_plain = render_markdown(sample);
+    let rendered = render_markdown(sample);
 
     view! {
-        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
-            <p data-rs-showcase-preview-anchor="">
-                "SSR-safe markdown rendering with deterministic DOM output."
-            </p>
-            <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
-                <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-preview-label="">"With Table of Contents"</span>
-                    <ScrollArea>
-                        <MarkdownSurface
-                            rendered=rendered_toc
-                            show_toc=true
-                            show_toolbar=false
-                            toc_position=TocPosition::Sidebar
-                            id="md-preview-toc"
-                        />
-                    </ScrollArea>
-                </Stack>
-                <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-preview-label="">"Only Markdown"</span>
-                    <ScrollArea>
-                        <MarkdownSurface
-                            rendered=rendered_plain
-                            show_toc=false
-                            show_toolbar=false
-                            id="md-preview-plain"
-                        />
-                    </ScrollArea>
-                </Stack>
-            </Stack>
-        </Stack>
+        <MarkdownSurface
+            rendered=rendered
+            show_toc=true
+            show_toolbar=false
+            toc_position=TocPosition::Sidebar
+            id="md-preview"
+        />
     }
 }

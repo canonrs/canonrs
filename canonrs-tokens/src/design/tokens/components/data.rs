@@ -360,7 +360,6 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("markdown-toc-indent-l4",           "var(--space-lg)"),
     FamilyToken::new("markdown-toc-indent-l5",           "var(--space-xl)"),
     FamilyToken::new("markdown-toc-max-height",          "var(--size-5xl)"),
-    FamilyToken::new("markdown-toc-max-height",          "var(--size-5xl)"),
 
     // ── Content typography ────────────────────────────────────────────────────
     // Headings
