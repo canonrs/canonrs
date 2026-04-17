@@ -5,6 +5,8 @@
 
 [data-rs-copy-button] {
   display: inline-flex;
+  align-self: flex-start;
+  width: auto;
   align-items: center;
   gap: var(--space-xs);
   padding: var(--space-xs) var(--space-sm);
@@ -15,10 +17,10 @@
   font-size: var(--font-size-sm);
   cursor: pointer;
   transition:
-    background var(--motion-duration-fast) var(--motion-ease-standard),
-    color var(--motion-duration-fast) var(--motion-ease-standard),
-    border-color var(--motion-duration-fast) var(--motion-ease-standard),
-    opacity var(--motion-duration-fast) var(--motion-ease-standard);
+    background var(--copy-button-transition-duration) var(--copy-button-transition-ease),
+    color var(--copy-button-transition-duration) var(--copy-button-transition-ease),
+    border-color var(--copy-button-transition-duration) var(--copy-button-transition-ease),
+    opacity var(--copy-button-transition-duration) var(--copy-button-transition-ease);
 }
 
 [data-rs-copy-button][data-rs-state~="hover"] {
@@ -26,7 +28,9 @@
 }
 
 /* ── CONTENT VISIBILITY ─────────────────────────────────────── */
-[data-rs-copy-content] {
+[data-rs-copy-content],
+[data-rs-copied-content],
+[data-rs-error-content] {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -45,7 +49,8 @@
 }
 
 /* ── STATE: copied ──────────────────────────────────────────── */
-[data-rs-copy-button][data-rs-state~="copied"] [data-rs-copy-content] {
+[data-rs-copy-button][data-rs-state~="copied"] [data-rs-copy-content],
+[data-rs-copy-button][data-rs-state~="copied"] [data-rs-error-content] {
   display: none;
 }
 
@@ -55,10 +60,6 @@
   gap: var(--space-xs);
 }
 
-[data-rs-copy-button][data-rs-state~="copied"] [data-rs-error-content] {
-  display: none;
-}
-
 [data-rs-copy-button][data-rs-state~="copied"] {
   background: var(--copy-button-copied-bg);
   color: var(--copy-button-copied-fg);
@@ -66,7 +67,8 @@
 }
 
 /* ── STATE: error ───────────────────────────────────────────── */
-[data-rs-copy-button][data-rs-state~="error"] [data-rs-copy-content] {
+[data-rs-copy-button][data-rs-state~="error"] [data-rs-copy-content],
+[data-rs-copy-button][data-rs-state~="error"] [data-rs-copied-content] {
   display: none;
 }
 
@@ -76,11 +78,9 @@
   gap: var(--space-xs);
 }
 
-[data-rs-copy-button][data-rs-state~="error"] [data-rs-copied-content] {
-  display: none;
-}
-
 [data-rs-copy-button][data-rs-state~="error"] {
+  width: auto;
+  align-self: flex-start;
   background: var(--copy-button-error-bg);
   color: var(--copy-button-error-fg);
   border-color: var(--copy-button-error-border);
@@ -92,5 +92,10 @@
 [data-rs-error-icon] {
   width: var(--copy-button-icon-size);
   height: var(--copy-button-icon-size);
+  color: var(--copy-button-icon-color);
   flex-shrink: 0;
+}
+
+[data-rs-copy-button][data-rs-state~="copied"] [data-rs-copied-icon] {
+  color: var(--copy-button-icon-color-copied);
 }

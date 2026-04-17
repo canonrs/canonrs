@@ -38,7 +38,7 @@ pub fn CopyButtonPrimitive(
                 <svg data-rs-copied-icon="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M20 6 9 17l-5-5"/>
                 </svg>
-                <span data-rs-copied-label="" aria-live="polite">"Copied!"</span>
+                <span data-rs-copied-label="" role="status" aria-live="polite" aria-atomic="true">"Copied!"</span>
             </span>
 
             <span data-rs-error-content="">
@@ -46,7 +46,7 @@ pub fn CopyButtonPrimitive(
                     <circle cx="12" cy="12" r="10"/>
                     <path d="m15 9-6 6M9 9l6 6"/>
                 </svg>
-                <span data-rs-error-label="" aria-live="assertive">"Failed"</span>
+                <span data-rs-error-label="" role="status" aria-live="assertive" aria-atomic="true">"Failed"</span>
             </span>
         </button>
     }

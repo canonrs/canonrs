@@ -4,8 +4,6 @@
 use leptos::prelude::*;
 use super::copy_button_ui::CopyButton as CopyButtonUi;
 
-
-
 #[component]
 pub fn CopyButton(
     #[prop(optional, into)] text: Option<String>,
@@ -24,5 +22,5 @@ pub fn CopyButton(
             id=id.unwrap_or_default()
             aria_label=aria_label
         />
-};
+    }
 }

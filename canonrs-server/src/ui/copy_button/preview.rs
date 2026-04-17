@@ -8,18 +8,18 @@ pub fn CopyButtonShowcasePreview() -> impl IntoView {
         <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <CopyButton text="cargo add canonrs" aria_label="Copy to clipboard" />
             <p data-rs-showcase-preview-anchor="">
-                "Copy state lifecycle fully encoded in DOM state machine."
+                "Click to copy — state machine: idle → copied → idle"
             </p>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                <span data-rs-showcase-preview-label="">"States (idle → copied → reset)"</span>
+                <span data-rs-showcase-preview-label="">"With target selector"</span>
                 <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
-                    <CopyButton text="npm install react" aria_label="Copy npm" />
-                    <CopyButton text="cargo add leptos"  aria_label="Copy cargo" />
+                    <code id="snippet-1">"npm install canonrs"</code>
+                    <CopyButton target="snippet-1" aria_label="Copy npm command" />
                 </Stack>
             </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                <span data-rs-showcase-preview-label="">"Error state (no text)"</span>
-                <CopyButton aria_label="Copy empty" />
+                <span data-rs-showcase-preview-label="">"Error state (no text — click to trigger)"</span>
+                <CopyButton aria_label="Copy empty — triggers error" />
             </Stack>
         </Stack>
     }
