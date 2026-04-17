@@ -77,6 +77,7 @@ pub const SELECTION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("accordion-gap",                             "var(--space-sm)"),
     FamilyToken::new("accordion-item-border-width",               "var(--border-thin)"),
     FamilyToken::new("accordion-item-border-color",               "var(--theme-surface-border)"),
+    FamilyToken::new("accordion-item-border-color-active",        "var(--theme-action-primary-bg)"),
     FamilyToken::new("accordion-item-border-radius",              "var(--radius-md)"),
     FamilyToken::new("accordion-trigger-bg",                      "transparent"),
     FamilyToken::new("accordion-trigger-fg",                      "var(--theme-surface-fg)"),

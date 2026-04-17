@@ -1,6 +1,7 @@
 use leptos::prelude::*;
 use super::accordion_boundary::{Accordion, AccordionItem, AccordionTrigger, AccordionContent};
 use canonrs_core::primitives::AccordionSelection;
+use canonrs_core::meta::DisabledState;
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
@@ -47,6 +48,19 @@ pub fn AccordionShowcasePreview() -> impl IntoView {
                     <AccordionItem>
                         <AccordionTrigger>"Second item"</AccordionTrigger>
                         <AccordionContent>"Click to switch — cannot close all."</AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                <span data-rs-showcase-preview-label="">"Disabled item"</span>
+                <Accordion>
+                    <AccordionItem>
+                        <AccordionTrigger>"Active item"</AccordionTrigger>
+                        <AccordionContent>"This item is interactive."</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem disabled=DisabledState::Disabled>
+                        <AccordionTrigger disabled=DisabledState::Disabled>"Disabled item"</AccordionTrigger>
+                        <AccordionContent>"This content is not reachable."</AccordionContent>
                     </AccordionItem>
                 </Accordion>
             </Stack>

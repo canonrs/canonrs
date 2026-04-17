@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! Accordion Island — Canon Rule #340 (zero-logic boundary)
-//! CR-342 v3.0.0: interaction delegated to canonrs-interactions-init
+//! CR-342 v4.0.0: interaction delegated to canonrs-interactions-nav
 
 use leptos::prelude::*;
 use super::accordion_ui::{

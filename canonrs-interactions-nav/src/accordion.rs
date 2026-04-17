@@ -1,9 +1,9 @@
-//! Accordion Init — DOM micro-interactions para [data-rs-accordion]
+//! Accordion Interaction — DOM behavior para [data-rs-accordion]
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, query, keyboard, aria};
+use crate::runtime::{lifecycle, state, query, aria};
 
 fn is_disabled(item: &Element) -> bool {
     item.get_attribute("data-rs-state").map(|s| s.contains("disabled")).unwrap_or(false)
@@ -40,9 +40,25 @@ fn toggle_item(root: &Element, item: &Element) {
     }
 }
 
+/// Retorna triggers ativos (não-disabled) na ordem DOM
+fn active_triggers(root: &Element) -> Vec<Element> {
+    query::all(root, "[data-rs-accordion-item]")
+        .into_iter()
+        .filter(|item| !is_disabled(item))
+        .filter_map(|item| query::first(&item, "[data-rs-accordion-trigger]"))
+        .collect()
+}
+
+fn focus_trigger(el: &Element) {
+    if let Ok(h) = el.clone().dyn_into::<web_sys::HtmlElement>() {
+        let _ = h.focus();
+    }
+}
+
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
+    // click
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
@@ -56,25 +72,59 @@ pub fn init(root: Element) {
         cb.forget();
     }
 
+    // hover
+    {
+        let cb_enter = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
+            state::add_state(&trigger, "hover");
+        });
+        let _ = root.add_event_listener_with_callback("mouseover", cb_enter.as_ref().unchecked_ref());
+        cb_enter.forget();
+    }
+    {
+        let cb_leave = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
+            state::remove_state(&trigger, "hover");
+        });
+        let _ = root.add_event_listener_with_callback("mouseout", cb_leave.as_ref().unchecked_ref());
+        cb_leave.forget();
+    }
+
+    // keyboard
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            if target.closest("[data-rs-accordion-trigger]").ok().flatten().is_none() { return; }
+            // só age se foco está num trigger
+            let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
 
-            let items = query::all(&root_cb, "[data-rs-accordion-item]");
-            let pos = keyboard::find_pos(&items, &target);
+            let triggers = active_triggers(&root_cb);
+            if triggers.is_empty() { return; }
+
+            // posição do trigger atual na lista de ativos
+            let pos = triggers.iter().position(|t| t == &trigger);
+            let len = triggers.len();
 
             match e.key().as_str() {
                 "Enter" | " " => {
                     e.prevent_default();
-                    let Some(item) = target.closest("[data-rs-accordion-item]").ok().flatten() else { return };
+                    let Some(item) = trigger.closest("[data-rs-accordion-item]").ok().flatten() else { return };
                     if !is_disabled(&item) { toggle_item(&root_cb, &item); }
                 }
-                "ArrowDown" => { e.prevent_default(); if let Some(p) = pos { keyboard::focus_next(&items, p, "[data-rs-accordion-trigger]"); } }
-                "ArrowUp"   => { e.prevent_default(); if let Some(p) = pos { keyboard::focus_prev(&items, p, "[data-rs-accordion-trigger]"); } }
-                "Home"      => { e.prevent_default(); keyboard::focus_first(&items, "[data-rs-accordion-trigger]"); }
-                "End"       => { e.prevent_default(); keyboard::focus_last(&items, "[data-rs-accordion-trigger]"); }
+                "ArrowDown" => {
+                    e.prevent_default();
+                    let next = pos.map(|p| (p + 1).min(len - 1)).unwrap_or(0);
+                    focus_trigger(&triggers[next]);
+                }
+                "ArrowUp" => {
+                    e.prevent_default();
+                    let prev = pos.map(|p| if p == 0 { 0 } else { p - 1 }).unwrap_or(0);
+                    focus_trigger(&triggers[prev]);
+                }
+                "Home" => { e.prevent_default(); focus_trigger(&triggers[0]); }
+                "End"  => { e.prevent_default(); focus_trigger(&triggers[len - 1]); }
                 _ => {}
             }
         });

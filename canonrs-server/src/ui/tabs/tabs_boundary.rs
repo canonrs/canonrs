@@ -1,13 +1,9 @@
 //! @canon-level: strict
-//! Tabs Island — Canon Rule #340 (zero-logic boundary)
-//! CR-342 v3.0.0: interaction delegated to canonrs-interactions-init
+//! Tabs Boundary — Canon Rule #341 (zero-logic boundary)
+//! CR-342 v4.0.0: interaction delegated to canonrs-interactions-nav
 
 use leptos::prelude::*;
-use super::tabs_ui::{
-    Tabs,
-    TabsTrigger as TabsTriggerUi,
-    TabsContent as TabsContentUi
-};
+use super::tabs_ui::{Tabs, TabsList, TabsTrigger as TabsTriggerUi, TabsContent as TabsContentUi};
 use canonrs_core::meta::{ActivityState, DisabledState};
 
 #[component]
@@ -16,6 +12,14 @@ pub fn TabsRoot(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! { <Tabs class=class>{children()}</Tabs> }
+}
+
+#[component]
+pub fn TabsListBoundary(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <TabsList class=class>{children()}</TabsList> }
 }
 
 #[component]

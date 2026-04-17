@@ -200,12 +200,12 @@ markdown
 copy_button
 
 
+accordion
+tabs
 toolbar
 link_group
 breadcrumb
-accordion
 menubar
-tabs
 sidebar
 pagination
 
