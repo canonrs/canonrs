@@ -3,42 +3,51 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::lifecycle;
+use crate::runtime::{lifecycle, query};
 
 fn get_items(root: &Element) -> Vec<Element> {
-    let mut result = Vec::new();
-    let mut i = 0u32;
-    loop {
-        let selector = format!("[data-rs-toolbar-item]:nth-of-type({})", i + 1);
-        match root.query_selector(&selector) {
-            Ok(Some(el)) => { result.push(el); i += 1; }
-            _ => break,
-        }
+    query::all(root, "[data-rs-toolbar-item]:not([disabled])")
+}
+
+fn dispatch_action(root: &Element, value: &str, pressed: bool) {
+    use web_sys::CustomEventInit;
+    let detail = js_sys::Object::new();
+    js_sys::Reflect::set(&detail, &"value".into(), &value.into()).ok();
+    js_sys::Reflect::set(&detail, &"pressed".into(), &pressed.into()).ok();
+    let init = CustomEventInit::new();
+    init.set_bubbles(true);
+    init.set_detail(&detail);
+    if let Ok(evt) = web_sys::CustomEvent::new_with_event_init_dict("canon:toolbar:action", &init) {
+        let _ = root.dispatch_event(&evt);
     }
-    result
 }
 
 pub fn init(root: Element) {
-    if lifecycle::is_initialized(&root) { return; }
-    lifecycle::mark_initialized(&root);
-    let is_vertical = root.get_attribute("data-rs-orientation").as_deref() == Some("vertical");
+    if !lifecycle::init_guard(&root) { return; }
 
-    // roving tabindex init
+    // data-rs-variant é o atributo correto no primitive
+    let is_vertical = root.get_attribute("data-rs-variant").as_deref() == Some("vertical");
+
+    // roving tabindex init — primeiro item recebe 0
     let items = get_items(&root);
     for (i, item) in items.iter().enumerate() {
-        item.set_attribute("tabindex", if i == 0 { "0" } else { "-1" }).ok();
+        let _ = item.set_attribute("tabindex", if i == 0 { "0" } else { "-1" });
     }
 
-    // keydown — roving tabindex only
+    // keydown — roving tabindex
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if target.closest("[data-rs-toolbar-item]").ok().flatten().is_none() { return; }
+
             let items = get_items(&root_cb);
             let len = items.len();
             if len == 0 { return; }
-            let Some(pos) = items.iter().position(|el| el.contains(Some(&target))) else { return };
+
+            let pos = items.iter().position(|el| el.contains(Some(target.as_ref())));
+            let Some(pos) = pos else { return };
+
             let next = match e.key().as_str() {
                 "ArrowRight" if !is_vertical => { e.prevent_default(); Some((pos + 1) % len) }
                 "ArrowLeft"  if !is_vertical => { e.prevent_default(); Some((pos + len - 1) % len) }
@@ -48,48 +57,36 @@ pub fn init(root: Element) {
                 "End"  => { e.prevent_default(); Some(len - 1) }
                 _ => None,
             };
+
             if let Some(next_idx) = next {
                 for (i, item) in items.iter().enumerate() {
-                    item.set_attribute("tabindex", if i == next_idx { "0" } else { "-1" }).ok();
+                    let _ = item.set_attribute("tabindex", if i == next_idx { "0" } else { "-1" });
                 }
                 if let Ok(el) = items[next_idx].clone().dyn_into::<web_sys::HtmlElement>() {
-                    el.focus().ok();
+                    let _ = el.focus();
                 }
             }
         }));
-        root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref()).ok();
+        let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
         cb.forget();
     }
 
-    // click — toggle aria-pressed + dispatch CustomEvent
+    // click — toggle aria-pressed + dispatch CustomEvent via web_sys
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(item) = target.closest("[data-rs-toolbar-item]").ok().flatten() else { return };
-            let pressed = item.get_attribute("aria-pressed").as_deref() == Some("true");
-            let next = if pressed { "false" } else { "true" };
-            item.set_attribute("aria-pressed", next).ok();
-            let value = item.get_attribute("data-rs-value").unwrap_or_default();
-            let script = format!(
-                "arguments[0].dispatchEvent(new CustomEvent('canon:toolbar:action',{{bubbles:true,detail:{{value:'{}',pressed:{}}}}}));",
-                value, next == "true"
-            );
-            let f = js_sys::Function::new_with_args("arguments", &script);
-            f.call1(&JsValue::NULL, &root_cb).ok();
-        }));
-        root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
-        cb.forget();
-    }
-}
+            if item.has_attribute("disabled") { return; }
 
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-toolbar]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
-        }
+            let pressed = item.get_attribute("aria-pressed").as_deref() == Some("true");
+            let next_pressed = !pressed;
+            let _ = item.set_attribute("aria-pressed", if next_pressed { "true" } else { "false" });
+
+            let value = item.get_attribute("data-rs-value").unwrap_or_default();
+            dispatch_action(&root_cb, &value, next_pressed);
+        }));
+        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
     }
 }

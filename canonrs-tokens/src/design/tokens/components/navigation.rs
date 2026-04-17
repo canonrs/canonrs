@@ -233,6 +233,17 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("toolbar-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("toolbar-gap", "var(--space-sm)"),
     FamilyToken::new("toolbar-padding", "var(--space-sm)"),
+    FamilyToken::new("toolbar-item-padding-x",       "var(--space-sm)"),
+    FamilyToken::new("toolbar-item-padding-y",       "var(--space-xs)"),
+    FamilyToken::new("toolbar-item-radius",          "var(--radius-sm)"),
+    FamilyToken::new("toolbar-item-fg",              "var(--theme-surface-fg)"),
+    FamilyToken::new("toolbar-item-bg-hover",        "var(--theme-surface-muted)"),
+    FamilyToken::new("toolbar-item-fg-hover",        "var(--theme-surface-fg)"),
+    FamilyToken::new("toolbar-item-bg-pressed",      "var(--theme-action-primary-bg)"),
+    FamilyToken::new("toolbar-item-fg-pressed",      "var(--theme-action-primary-fg)"),
+    FamilyToken::new("toolbar-item-size",            "var(--size-nav-item)"),
+    FamilyToken::new("toolbar-item-transition",      "var(--motion-duration-fast)"),
+    FamilyToken::new("toolbar-item-disabled-opacity","var(--opacity-disabled)"),
     // Breadcrumb (tokens simplificados faltantes)
     FamilyToken::new("breadcrumb-item-fg", "var(--theme-surface-fg-muted)"),
 
