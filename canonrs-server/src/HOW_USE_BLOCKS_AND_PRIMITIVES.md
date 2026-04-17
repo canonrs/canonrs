@@ -202,12 +202,13 @@ copy_button
 
 accordion
 tabs
+pagination
 toolbar
 link_group
 breadcrumb
 menubar
 sidebar
-pagination
+
 
 
 

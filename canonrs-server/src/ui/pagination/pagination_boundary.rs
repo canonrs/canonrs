@@ -18,10 +18,12 @@ use canonrs_core::meta::{ActivityState, DisabledState};
 #[component]
 pub fn Pagination(
     children: Children,
+    #[prop(default = 1usize)] current_page: usize,
+    #[prop(default = 1usize)] total_pages: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationUi class=class>{children()}</PaginationUi>
+        <PaginationUi current_page=current_page total_pages=total_pages class=class>{children()}</PaginationUi>
     }
 }
 
@@ -46,9 +48,10 @@ pub fn PaginationLink(
     children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(default = ActivityState::Inactive)] state: ActivityState,
+    #[prop(default = 0usize)] page: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <PaginationLinkUi href=href state=state class=class>{children()}</PaginationLinkUi> }
+    view! { <PaginationLinkUi href=href state=state page=page class=class>{children()}</PaginationLinkUi> }
 }
 
 #[component]

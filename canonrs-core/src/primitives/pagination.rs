@@ -9,11 +9,15 @@ use crate::infra::state_engine::{activity_attrs, disabled_attrs};
 #[component]
 pub fn PaginationPrimitive(
     children: Children,
+    #[prop(default = 1usize)] current_page: usize,
+    #[prop(default = 1usize)] total_pages: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
         <nav
             data-rs-pagination=""
+            data-rs-current-page=current_page.to_string()
+            data-rs-total-pages=total_pages.to_string()
             data-rs-uid=crate::infra::uid::generate("pg")
             data-rs-interaction="nav"
             aria-label="Page navigation"
@@ -53,6 +57,7 @@ pub fn PaginationLinkPrimitive(
     children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(default = ActivityState::Inactive)] state: ActivityState,
+    #[prop(default = 0usize)] page: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let a = activity_attrs(state);
@@ -60,6 +65,7 @@ pub fn PaginationLinkPrimitive(
     view! {
         <a
             data-rs-pagination-link=""
+            data-rs-page=page.to_string()
             data-rs-state=a.data_rs_state
             aria-current=if is_active { Some("page") } else { None }
             href=href

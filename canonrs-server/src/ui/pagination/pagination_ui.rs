@@ -11,10 +11,12 @@ use canonrs_core::primitives::{
 #[component]
 pub fn Pagination(
     children: Children,
+    #[prop(default = 1usize)] current_page: usize,
+    #[prop(default = 1usize)] total_pages: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationPrimitive class=class>
+        <PaginationPrimitive current_page=current_page total_pages=total_pages class=class>
             {children()}
         </PaginationPrimitive>
     }
@@ -49,10 +51,11 @@ pub fn PaginationLink(
     children: Children,
     #[prop(into, default = String::new())] href: String,
     #[prop(default = ActivityState::Inactive)] state: ActivityState,
+    #[prop(default = 0usize)] page: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <PaginationLinkPrimitive href=href state=state class=class>
+        <PaginationLinkPrimitive href=href state=state page=page class=class>
             {children()}
         </PaginationLinkPrimitive>
     }

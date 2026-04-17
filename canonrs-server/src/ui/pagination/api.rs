@@ -6,6 +6,8 @@ pub const PAGINATION_API: ComponentApi = ComponentApi {
     id: "pagination",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "current_page", kind: PropType::Number, required: false, default: Some("1usize"), description: "" },
+        PropDef { name: "total_pages", kind: PropType::Number, required: false, default: Some("1usize"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
@@ -32,6 +34,7 @@ pub const PAGINATIONLINK_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "" },
         PropDef { name: "state", kind: PropType::String, required: false, default: Some("inactive"), description: "" },
+        PropDef { name: "page", kind: PropType::Number, required: false, default: Some("0usize"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
