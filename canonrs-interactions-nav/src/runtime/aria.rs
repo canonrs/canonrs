@@ -16,3 +16,11 @@ pub fn set_hidden(el: &Element, hidden: bool) {
 pub fn set_disabled(el: &Element, disabled: bool) {
     let _ = el.set_attribute("aria-disabled", if disabled { "true" } else { "false" });
 }
+
+pub fn set_pressed(el: &Element, pressed: bool) {
+    let _ = el.set_attribute("aria-pressed", if pressed { "true" } else { "false" });
+}
+
+pub fn set_checked(el: &Element, checked: bool) {
+    let _ = el.set_attribute("aria-checked", if checked { "true" } else { "false" });
+}
