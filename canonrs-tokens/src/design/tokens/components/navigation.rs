@@ -207,7 +207,7 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("breadcrumb-collapse-min-width", "12rem"),
     FamilyToken::new("breadcrumb-collapse-max-width", "20rem"),
     FamilyToken::new("breadcrumb-fg-hover", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("breadcrumb-fg-active", "var(--theme-surface-fg)"),
+    FamilyToken::new("breadcrumb-page-fg", "var(--theme-action-primary-fg)"),
     FamilyToken::new("breadcrumb-collapse-border-width", "1px"),
     FamilyToken::new("link-group-label-letter-spacing", "var(--letter-spacing-wide)"),
 

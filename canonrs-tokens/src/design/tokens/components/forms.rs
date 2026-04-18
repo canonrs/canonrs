@@ -173,7 +173,10 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("textarea-resize", "vertical"),
 
     // Select
-    FamilyToken::new("select-bg", "var(--theme-surface-bg)"),
+    FamilyToken::new("select-bg",               "var(--theme-surface-bg)"),
+    FamilyToken::new("select-hover-bg",          "var(--theme-surface-muted)"),
+    FamilyToken::new("select-border-color-hover","var(--theme-surface-fg-muted)"),
+    FamilyToken::new("select-min-width",         "12rem"),
     FamilyToken::new("select-fg", "var(--theme-surface-fg)"),
     FamilyToken::new("select-border-color", "var(--theme-surface-border)"),
     FamilyToken::new("select-border-width", "1px"),

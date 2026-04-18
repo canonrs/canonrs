@@ -120,16 +120,6 @@ pub fn init(root: Element) {
         }
     })); let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()); cb.forget(); }
 
-    // mouseover
-    { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-        let Some(rc) = context::find_root(&t, "[data-rs-combobox]") else { return };
-        if let Ok(Some(item)) = t.closest("[data-rs-combobox-item]") {
-            if !item.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") {
-                clear_focused(&rc); state::add(&item, "focus");
-            }
-        }
-    })); let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref()); cb.forget(); }
 
     // keydown no input
     { let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {

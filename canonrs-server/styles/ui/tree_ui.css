@@ -49,7 +49,7 @@
   color: var(--tree-item-fg-muted);
 }
 
-[data-rs-tree-item][data-rs-state~="hover"] {
+[data-rs-tree-item]:hover:not([data-rs-state~="disabled"]) {
   background: var(--tree-item-hover-bg);
   color: var(--tree-item-fg);
 }
@@ -106,7 +106,7 @@
   padding: 0;
 }
 
-[data-rs-tree-item][data-rs-state~="hover"] [data-rs-tree-toggle] {
+[data-rs-tree-item]:hover:not([data-rs-state~="disabled"]) [data-rs-tree-toggle] {
   opacity: 1;
 }
 
@@ -134,7 +134,7 @@
   transition: opacity var(--tree-transition-duration) var(--tree-transition-ease);
 }
 
-[data-rs-tree-item][data-rs-state~="hover"] [data-rs-tree-icon],
+[data-rs-tree-item]:hover:not([data-rs-state~="disabled"]) [data-rs-tree-icon],
 [data-rs-tree-item][data-rs-state~="active"] [data-rs-tree-icon] {
   opacity: 1;
 }

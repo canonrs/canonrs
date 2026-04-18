@@ -15,6 +15,11 @@
   flex-direction: column;
 }
 
+[data-rs-scroll-area][data-rs-orientation="horizontal"] {
+  height: auto;
+  flex-direction: row;
+}
+
 [data-rs-scroll-viewport] {
   width: 100%;
   height: 100%;
@@ -25,10 +30,17 @@
   -ms-overflow-style: none;
 }
 
+[data-rs-scroll-area][data-rs-orientation="horizontal"] [data-rs-scroll-viewport] {
+  height: auto;
+  flex: 1 1 auto;
+  min-height: unset;
+  min-width: 0;
+}
+
 [data-rs-scroll-viewport]::-webkit-scrollbar { display: none; }
 
 [data-rs-scroll-area][data-rs-orientation="vertical"]   [data-rs-scroll-viewport] { overflow-x: hidden; overflow-y: auto; }
-[data-rs-scroll-area][data-rs-orientation="horizontal"] [data-rs-scroll-viewport] { overflow-x: auto; overflow-y: hidden; height: auto; }
+[data-rs-scroll-area][data-rs-orientation="horizontal"] [data-rs-scroll-viewport] { overflow-x: auto; overflow-y: hidden; }
 [data-rs-scroll-area][data-rs-orientation="both"]       [data-rs-scroll-viewport] { overflow: auto; }
 
 [data-rs-scrollbar] {
@@ -51,9 +63,9 @@
   height: var(--scrollbar-size);
 }
 
-[data-rs-scroll-area][data-rs-state~="auto-hide"] [data-rs-scrollbar] { opacity: 0; }
-[data-rs-scroll-area][data-rs-state~="auto-hide"][data-rs-state~="hover"] [data-rs-scrollbar] { opacity: 1; }
-[data-rs-scroll-area][data-rs-state~="auto-hide"] [data-rs-scrollbar][data-rs-state~="active"] { opacity: 1; }
+[data-rs-scroll-area][data-rs-auto-hide] [data-rs-scrollbar] { opacity: 0; }
+[data-rs-scroll-area][data-rs-auto-hide]:hover [data-rs-scrollbar] { opacity: 1; }
+[data-rs-scroll-area][data-rs-auto-hide] [data-rs-scrollbar][data-rs-state~="active"] { opacity: 1; }
 
 [data-rs-scroll-track] {
   position: relative;
@@ -88,7 +100,7 @@
 }
 
 [data-rs-scroll-thumb][data-rs-state~="hidden"]  { opacity: 0; pointer-events: none; }
-[data-rs-scroll-thumb][data-rs-state~="hover"]   { background: var(--scrollbar-thumb-hover-bg); }
+[data-rs-scroll-thumb]:hover:not([data-rs-state~="active"]):not([data-rs-state~="hidden"]) { background: var(--scrollbar-thumb-hover-bg); }
 [data-rs-scroll-thumb][data-rs-state~="active"]  {
   background: var(--scrollbar-thumb-active-bg);
   cursor: grabbing;

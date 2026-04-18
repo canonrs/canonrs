@@ -10,11 +10,13 @@
 }
 
 [data-rs-radio] {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--radio-group-item-gap);
   cursor: pointer;
   position: relative;
+  width: 100%;
+  user-select: none;
 }
 
 [data-rs-radio-input] {
@@ -97,13 +99,13 @@
 }
 
 /* ── HOVER ──────────────────────────────────────────────────── */
-[data-rs-radio][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) [data-rs-radio-indicator] {
+[data-rs-radio]:hover:not([data-rs-state~="disabled"]) [data-rs-radio-indicator] {
   border-color: var(--radio-hover-border-color);
 }
 
-/* ── HOVER ──────────────────────────────────────────────────── */
-[data-rs-radio][data-rs-state~="hover"]:not([data-rs-state~="disabled"]) [data-rs-radio-indicator] {
-  border-color: var(--radio-hover-border-color);
+[data-rs-radio]:hover:not([data-rs-state~="disabled"]) {
+  cursor: pointer;
+  color: var(--radio-hover-border-color);
 }
 
 /* ── ACTIVE (press) ─────────────────────────────────────────── */

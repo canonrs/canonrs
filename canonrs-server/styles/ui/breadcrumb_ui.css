@@ -34,12 +34,12 @@
 }
 
 [data-rs-breadcrumb-link][data-rs-state~="active"] {
-  color: var(--breadcrumb-fg-active);
+  color: var(--breadcrumb-page-fg);
   font-weight: var(--breadcrumb-font-weight-active);
 }
 
 [data-rs-breadcrumb-page] {
-  color: var(--breadcrumb-fg-active);
+  color: var(--breadcrumb-page-fg);
   font-weight: var(--breadcrumb-font-weight-active);
   padding-inline: var(--space-2xs);
 }

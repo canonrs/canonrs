@@ -55,3 +55,12 @@ pub const CAROUSELINDICATORS_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const CAROUSELDOT_API: ComponentApi = ComponentApi {
+    id: "carousel-dot",
+    props: &[
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "active", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+    ],
+};
+

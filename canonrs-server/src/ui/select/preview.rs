@@ -2,10 +2,12 @@ use leptos::prelude::*;
 use super::select_boundary::{Select, SelectTrigger, SelectValue, SelectContent, SelectItem};
 use canonrs_core::meta::{DisabledState, SelectionState};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
+use canonrs_core::primitives::layout::container::{ContainerPrimitive as Container, ContainerSize};
 
 #[component]
 pub fn SelectShowcasePreview() -> impl IntoView {
     view! {
+        <Container size=ContainerSize::Sm>
         <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <p data-rs-showcase-preview-anchor="">
                 "Selection, visibility and interaction fully governed by structure."
@@ -60,5 +62,6 @@ pub fn SelectShowcasePreview() -> impl IntoView {
                 </Select>
             </Stack>
         </Stack>
+        </Container>
     }
 }

@@ -6,7 +6,8 @@ use super::carousel_ui::{
     CarouselItem as CarouselItemUi,
     CarouselPrev as CarouselPrevUi,
     CarouselNext as CarouselNextUi,
-    CarouselIndicators as CarouselIndicatorsUi
+    CarouselIndicators as CarouselIndicatorsUi,
+    CarouselDot as CarouselDotUi
 };
 use canonrs_core::ToggleState;
 
@@ -65,4 +66,13 @@ pub fn CarouselIndicators(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! { <CarouselIndicatorsUi class=class>{children()}</CarouselIndicatorsUi> }
+}
+
+#[component]
+pub fn CarouselDot(
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] aria_label: String,
+    #[prop(default = false)] active: bool,
+) -> impl IntoView {
+    view! { <CarouselDotUi class=class aria_label=aria_label active=active /> }
 }

@@ -59,7 +59,7 @@
   cursor: pointer;
 }
 
-[data-rs-combobox-item][data-rs-state~="hover"],
+[data-rs-combobox-item]:hover:not([data-rs-state~="disabled"]):not([data-rs-state~="selected"]),
 [data-rs-combobox-item][data-rs-state~="focus"] {
   background: var(--combobox-item-hover-bg);
   outline: none;

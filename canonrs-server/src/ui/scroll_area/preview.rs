@@ -10,7 +10,7 @@ pub fn ScrollAreaShowcasePreview() -> impl IntoView {
             <p data-rs-showcase-preview-anchor="">
                 "Custom scrollbar with auto-hide and orientation control."
             </p>
-            <ScrollArea>
+            <ScrollArea style="height:200px;">
                 <div style="padding:var(--space-md);display:flex;flex-direction:column;gap:var(--space-xs);">
                     {(1..=20).map(|i| view! {
                         <div style="padding:var(--space-xs) 0;border-bottom:1px solid rgba(255,255,255,0.05);">
@@ -21,15 +21,17 @@ pub fn ScrollAreaShowcasePreview() -> impl IntoView {
             </ScrollArea>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Horizontal"</span>
-                <ScrollArea orientation=ScrollOrientation::Horizontal>
-                    <div style="display:flex;gap:var(--space-md);padding:var(--space-sm);">
-                        {(1..=12).map(|i| view! {
-                            <div style="width:80px;flex-shrink:0;padding:var(--space-xs);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);text-align:center;white-space:nowrap;">
-                                {format!("Card {:02}", i)}
-                            </div>
-                        }).collect::<Vec<_>>()}
-                    </div>
-                </ScrollArea>
+                <div style="width:100%;overflow:hidden;">
+                    <ScrollArea orientation=ScrollOrientation::Horizontal>
+                        <div style="display:flex;gap:var(--space-md);padding:var(--space-sm);width:200px;">
+                            {(1..=12).map(|i| view! {
+                                <div style="width:120px;flex-shrink:0;padding:var(--space-sm);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);text-align:center;">
+                                    {format!("Card {:02}", i)}
+                                </div>
+                            }).collect::<Vec<_>>()}
+                        </div>
+                    </ScrollArea>
+                </div>
             </Stack>
         </Stack>
     }

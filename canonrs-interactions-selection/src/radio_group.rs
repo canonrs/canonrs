@@ -87,29 +87,7 @@ pub fn init(root: Element) {
         }
     }
 
-    // hover
-    {
-        let root_hover = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(item) = t.closest("[data-rs-radio]").ok().flatten() else { return };
-            if state::has(&item, "disabled") { return; }
-            for el in get_items(&root_hover) { state::remove(&el, "hover"); }
-            state::add(&item, "hover");
-        }));
-        let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
 
-    // mouseleave
-    {
-        let root_leave = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            for el in get_items(&root_leave) { state::remove(&el, "hover"); }
-        }));
-        let _ = root.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
 
     // focus/blur — state "focus" no item
     {
