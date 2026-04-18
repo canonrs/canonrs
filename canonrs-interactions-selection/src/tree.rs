@@ -19,7 +19,7 @@ fn is_expandable(item: &Element) -> bool {
 }
 
 fn is_expanded(item: &Element) -> bool {
-    item.get_attribute("data-rs-expanded").as_deref() == Some("true")
+    state::has(item, "expanded")
 }
 
 fn is_disabled(item: &Element) -> bool {
@@ -29,10 +29,12 @@ fn is_disabled(item: &Element) -> bool {
 fn toggle_expand(item: &Element) {
     if !is_expandable(item) { return; }
     if is_expanded(item) {
-        let _ = item.set_attribute("data-rs-expanded", "false");
+        state::remove(item, "expanded");
+        state::add(item, "collapsed");
         let _ = item.set_attribute("aria-expanded", "false");
     } else {
-        let _ = item.set_attribute("data-rs-expanded", "true");
+        state::remove(item, "collapsed");
+        state::add(item, "expanded");
         let _ = item.set_attribute("aria-expanded", "true");
     }
 }

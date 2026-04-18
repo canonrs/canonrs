@@ -80,6 +80,7 @@ pub fn ColorPickerInputPrimitive(
             type="color"
             data-rs-color-picker-input=""
             data-rs-disabled=d.data_rs_disabled
+            disabled=d.disabled
             value=value
             name=name
             aria-label="Color picker"

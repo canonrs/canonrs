@@ -1,26 +1,59 @@
 /* ============================================================================
-   TOGGLE_GROUP - Group Layout Coordinator
+   TOGGLE_GROUP — Forms tokens compliant
    ============================================================================ */
 
 [data-rs-toggle-group] {
-  display: flex;
-  gap: var(--toggle-group-gap);
+  display: inline-flex;
   flex-direction: var(--toggle-group-direction);
   flex-wrap: var(--toggle-group-wrap);
+  background: var(--toggle-group-bg);
+  border-radius: var(--toggle-group-radius);
+  border: 1px solid var(--toggle-group-border);
+  overflow: hidden;
 }
 
-/* state: on — via toggle tokens (herdados) */
+[data-rs-toggle-group] [data-rs-toggle] {
+  padding-inline: var(--toggle-group-item-padding-x);
+  padding-block: var(--toggle-group-item-padding-y);
+  border: none;
+  border-right: 1px solid var(--toggle-group-item-divider);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-toggle-group] [data-rs-toggle]:last-child {
+  border-right: none;
+}
+
+[data-rs-toggle-group] [data-rs-toggle]:hover:not([data-rs-state~="disabled"]):not([data-rs-state~="on"]) {
+  background: var(--toggle-group-item-hover-bg);
+  outline: 1px solid var(--toggle-group-border);
+  outline-offset: -1px;
+}
+
+[data-rs-toggle-group] [data-rs-toggle]:active:not([data-rs-state~="disabled"]) {
+  transform: scale(0.97);
+}
+
+[data-rs-toggle-group] [data-rs-toggle]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
 [data-rs-toggle-group] [data-rs-state~="on"] {
   background: var(--toggle-on-bg);
   color: var(--toggle-on-fg);
 }
 
-/* state: off */
 [data-rs-toggle-group] [data-rs-state~="off"] {
-  background: var(--toggle-off-bg);
+  background: transparent;
 }
 
-/* state: disabled */
 [data-rs-toggle-group][data-rs-state~="disabled"],
 [data-rs-toggle-group] [data-rs-state~="disabled"] {
   opacity: var(--toggle-disabled-opacity);

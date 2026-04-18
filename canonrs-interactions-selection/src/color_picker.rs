@@ -45,6 +45,7 @@ pub fn init(root: Element) {
             let Some(rc) = context::find_root(&t, "[data-rs-color-picker]") else {
                 return;
             };
+            if rc.get_attribute("data-rs-disabled").as_deref() == Some("true") { return; }
 
             // swatch clicado dentro do swatches row
             if let Ok(Some(swatch_el)) = t.closest("[data-rs-color-swatch]") {

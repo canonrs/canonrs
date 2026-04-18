@@ -54,17 +54,12 @@
   color: var(--tree-item-fg);
 }
 
-[data-rs-tree-item][data-rs-state~="focus"] {
-  background: var(--tree-item-focus-bg);
-  outline: none;
-  box-shadow: 0 0 0 var(--focus-ring-width) var(--theme-action-focus-ring);
+[data-rs-tree-item]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: -2px;
 }
 
-[data-rs-tree-item][data-rs-state~="selected"] {
-  background: var(--tree-item-selected-bg);
-  color: var(--tree-item-fg);
-}
-
+[data-rs-tree-item][data-rs-state~="selected"],
 [data-rs-tree-item][data-rs-state~="active"] {
   background: var(--tree-item-active-bg);
   color: var(--tree-item-fg);

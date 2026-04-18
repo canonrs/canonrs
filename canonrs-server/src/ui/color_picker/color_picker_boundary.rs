@@ -49,8 +49,7 @@ pub fn ColorPickerSwatches(
     use super::color_picker_ui::ColorPickerSwatches as ColorPickerSwatchesUi;
     view! {
     <ColorPickerSwatchesUi value=value class=class>
-            {children()
-};
+            {children()}
         </ColorPickerSwatchesUi>
     }
 }

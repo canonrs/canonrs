@@ -22,6 +22,16 @@
   overflow: hidden;
   padding: 0;
   background: none;
+  transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-color-picker-trigger]:hover:not([data-rs-disabled="true"]):not([data-rs-state~="disabled"]) {
+  border-color: var(--theme-action-focus-ring);
+}
+
+[data-rs-color-picker-trigger]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 [data-rs-color-picker-input] {
@@ -34,12 +44,16 @@
   cursor: pointer;
 }
 
+/* ── SWATCHES ────────────────────────────────────────────────── */
 [data-rs-color-swatch] {
   width: var(--color-picker-swatch-size);
   height: var(--color-picker-swatch-size);
   border-radius: var(--color-picker-swatch-radius);
   border: var(--color-picker-swatch-border-width) solid var(--color-picker-swatch-border-color);
   cursor: pointer;
+  transition:
+    transform var(--motion-duration-fast) var(--motion-ease-standard),
+    outline var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
 [data-rs-color-picker-trigger] [data-rs-color-swatch] {
@@ -54,19 +68,26 @@
   border-width: calc(var(--color-picker-swatch-border-width) * 2);
 }
 
-[data-rs-color-picker][data-rs-state~="disabled"],
-[data-rs-color-picker-trigger][data-rs-state~="disabled"] {
+[data-rs-color-swatch]:hover:not([data-rs-state~="disabled"]):not([data-rs-state~="selected"]):not([data-rs-disabled="true"]) {
+  transform: scale(1.1);
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+}
+
+/* ── DISABLED ────────────────────────────────────────────────── */
+[data-rs-color-picker][data-rs-disabled="true"],
+[data-rs-color-picker-trigger][data-rs-disabled="true"] {
   opacity: var(--color-picker-disabled-opacity);
   pointer-events: none;
   cursor: not-allowed;
 }
 
-[data-rs-color-swatch][data-rs-state~="disabled"] {
+[data-rs-color-swatch][data-rs-disabled="true"] {
   opacity: var(--color-picker-disabled-opacity);
   pointer-events: none;
   cursor: not-allowed;
 }
 
+/* ── DISPLAY ─────────────────────────────────────────────────── */
 [data-rs-color-picker-example] {
   display: flex;
   gap: var(--color-picker-example-gap);
