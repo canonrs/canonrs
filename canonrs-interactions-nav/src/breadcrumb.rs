@@ -1,38 +1,39 @@
-//! Breadcrumb Interaction Engine — active state sync via data-rs-current (DOM-driven)
+//! Breadcrumb Interaction — hover + active state sync
 
+use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state};
+use crate::runtime::{lifecycle, state, query};
 use web_sys::Element;
 
-
-
 pub fn init(root: Element) {
-    if lifecycle::is_initialized(&root) { return; }
-    lifecycle::mark_initialized(&root);
-    let Ok(links) = root.query_selector_all("[data-rs-breadcrumb-link]") else { return };
-    for i in 0..links.length() {
-        if let Some(node) = links.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() {
-                let is_active = el.get_attribute("data-rs-current").as_deref() == Some("true");
-                state::remove_state(&el, "active");
-                state::remove_state(&el, "inactive");
-                if is_active {
-                    state::add_state(&el, "active");
-                } else {
-                    state::add_state(&el, "inactive");
-                }
-            }
+    if !lifecycle::init_guard(&root) { return; }
+
+    // sync active — primitive já seta data-rs-state via activity_attrs
+    for el in query::all(&root, "[data-rs-breadcrumb-link]") {
+        if state::has(&el, "active") {
+            let _ = el.set_attribute("aria-current", "page");
+        } else {
+            let _ = el.remove_attribute("aria-current");
         }
     }
-}
 
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-breadcrumb-link]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
-        }
+    // hover
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            let Some(link) = target.closest("[data-rs-breadcrumb-link]").ok().flatten() else { return };
+            if !state::has(&link, "active") { state::add_state(&link, "hover"); }
+        }));
+        let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            let Some(link) = target.closest("[data-rs-breadcrumb-link]").ok().flatten() else { return };
+            state::remove_state(&link, "hover");
+        }));
+        let _ = root.add_event_listener_with_callback("mouseout", cb.as_ref().unchecked_ref());
+        cb.forget();
     }
 }

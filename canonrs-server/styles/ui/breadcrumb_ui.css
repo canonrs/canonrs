@@ -19,7 +19,14 @@
   color: var(--breadcrumb-fg);
   font-weight: var(--breadcrumb-font-weight);
   text-decoration: none;
+  padding-inline: var(--space-2xs);
+  border-radius: var(--radius-xs);
   transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
+}
+
+[data-rs-breadcrumb-link]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 [data-rs-breadcrumb-link][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
@@ -34,6 +41,7 @@
 [data-rs-breadcrumb-page] {
   color: var(--breadcrumb-fg-active);
   font-weight: var(--breadcrumb-font-weight-active);
+  padding-inline: var(--space-2xs);
 }
 
 [data-rs-breadcrumb-separator] {

@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use super::breadcrumb_boundary::{
     Breadcrumb, BreadcrumbItem, BreadcrumbLink,
-    BreadcrumbPage, BreadcrumbSeparator,
+    BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis,
 };
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
@@ -11,11 +11,11 @@ pub fn BreadcrumbShowcasePreview() -> impl IntoView {
         <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <Breadcrumb>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/">"Home"</BreadcrumbLink>
+                    <BreadcrumbLink href="#">"Home"</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/components">"Components"</BreadcrumbLink>
+                    <BreadcrumbLink href="#">"Components"</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
                 <BreadcrumbItem>
@@ -29,11 +29,35 @@ pub fn BreadcrumbShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"Custom separator"</span>
                 <Breadcrumb>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/">"Home"</BreadcrumbLink>
+                        <BreadcrumbLink href="#">"Home"</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator>"›"</BreadcrumbSeparator>
                     <BreadcrumbItem>
-                        <BreadcrumbPage>"Current"</BreadcrumbPage>
+                        <BreadcrumbLink href="#">"Settings"</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator>"›"</BreadcrumbSeparator>
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>"Profile"</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </Breadcrumb>
+            </Stack>
+            <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                <span data-rs-showcase-preview-label="">"With ellipsis"</span>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="#">"Home"</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
+                    <BreadcrumbItem>
+                        <BreadcrumbEllipsis />
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="#">"Components"</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator>"/"</BreadcrumbSeparator>
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>"Breadcrumb"</BreadcrumbPage>
                     </BreadcrumbItem>
                 </Breadcrumb>
             </Stack>

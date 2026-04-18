@@ -3,30 +3,59 @@
    Family D: Navigation
    ============================================================================ */
 
-[data-rs-navigation-group] {
+[data-rs-link-group] {
   display: flex;
   flex-direction: column;
   gap: var(--link-group-gap);
 }
 
-[data-rs-navigation-group][data-rs-direction="horizontal"] {
+[data-rs-link-group-items] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--link-group-gap);
+}
+
+[data-rs-link-group-items][data-rs-direction="horizontal"] {
   flex-direction: row;
   gap: var(--link-group-horizontal-gap);
   align-items: center;
 }
 
-[data-rs-navigation-group-label] {
+[data-rs-link-group-label] {
   font-size: var(--link-group-label-font-size);
   font-weight: var(--link-group-label-font-weight);
   color: var(--link-group-label-color);
   margin-bottom: var(--link-group-label-margin-bottom);
   text-transform: uppercase;
   letter-spacing: var(--link-group-label-letter-spacing);
+  pointer-events: none;
 }
 
-/* ── States ──────────────────────────────────────────────────────────────────── */
+[data-rs-link-group] [data-rs-nav-item] {
+  padding-inline: var(--link-group-item-padding-x);
+  padding-block: var(--link-group-item-padding-y);
+  border-radius: var(--link-group-item-radius);
+}
 
-[data-rs-navigation-group] [data-rs-nav-item][data-rs-state~="active"] {
-  color: var(--theme-action-primary-bg);
-  font-weight: var(--font-weight-semibold);
+[data-rs-link-group] [data-rs-nav-item]:hover:not([data-rs-state~="disabled"]):not([data-rs-state~="active"]) {
+  background: var(--link-group-item-hover-bg);
+  color: var(--link-group-item-hover-fg);
+}
+
+[data-rs-link-group] [data-rs-nav-item][data-rs-state~="active"] {
+  color: var(--link-group-item-active-fg);
+  font-weight: var(--link-group-item-active-weight);
+  border-left: var(--link-group-item-border-width) solid var(--link-group-item-active-border);
+  padding-left: calc(var(--link-group-item-padding-x) - var(--link-group-item-border-width));
+}
+
+[data-rs-link-group] [data-rs-nav-item]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+[data-rs-link-group] [data-rs-nav-item][data-rs-state~="disabled"] {
+  opacity: var(--opacity-disabled);
+  pointer-events: none;
+  cursor: not-allowed;
 }

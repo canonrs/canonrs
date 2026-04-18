@@ -206,9 +206,9 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("breadcrumb-collapse-min-width", "12rem"),
     FamilyToken::new("breadcrumb-collapse-max-width", "20rem"),
     FamilyToken::new("breadcrumb-fg-hover", "var(--theme-action-primary-bg)"),
-    FamilyToken::new("breadcrumb-fg-active", "var(--theme-action-primary-fg)"),
+    FamilyToken::new("breadcrumb-fg-active", "var(--theme-surface-fg)"),
     FamilyToken::new("breadcrumb-collapse-border-width", "1px"),
-    FamilyToken::new("link-group-label-letter-spacing", "0.05em"),
+    FamilyToken::new("link-group-label-letter-spacing", "var(--letter-spacing-wide)"),
 
     // Link
     FamilyToken::new("link-fg", "var(--theme-action-primary-bg)"),
@@ -276,7 +276,16 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("link-group-label-font-weight", "var(--font-weight-semibold)"),
     FamilyToken::new("link-group-label-color", "var(--theme-surface-fg-muted)"),
     FamilyToken::new("link-group-label-margin-bottom", "var(--space-xs)"),
-    FamilyToken::new("link-group-horizontal-gap", "var(--space-md)"),
+    FamilyToken::new("link-group-horizontal-gap",      "var(--space-md)"),
+    FamilyToken::new("link-group-item-hover-bg",        "var(--theme-surface-muted)"),
+    FamilyToken::new("link-group-item-hover-fg",        "var(--theme-surface-fg)"),
+    FamilyToken::new("link-group-item-active-fg",       "var(--theme-action-primary-bg)"),
+    FamilyToken::new("link-group-item-active-border",   "var(--theme-action-primary-bg)"),
+    FamilyToken::new("link-group-item-active-weight",   "var(--font-weight-semibold)"),
+    FamilyToken::new("link-group-item-padding-x",       "var(--space-sm)"),
+    FamilyToken::new("link-group-item-padding-y",       "var(--space-xs)"),
+    FamilyToken::new("link-group-item-radius",          "var(--radius-sm)"),
+    FamilyToken::new("link-group-item-border-width",    "var(--border-medium)"),
 
 
         // PageHeader
