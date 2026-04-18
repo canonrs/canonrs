@@ -47,10 +47,11 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("sidebar-group-label-font-size", "var(--font-size-xs)"),
     FamilyToken::new("sidebar-group-label-font-weight", "var(--font-weight-semibold)"),
     FamilyToken::new("sidebar-group-label-fg", "var(--theme-surface-fg-muted)"),
-    FamilyToken::new("sidebar-separator-height", "1px"),
+    FamilyToken::new("sidebar-separator-height", "var(--border-thin)"),
     FamilyToken::new("sidebar-separator-color", "var(--theme-surface-border)"),
     FamilyToken::new("sidebar-separator-margin-y", "var(--space-sm)"),
-    FamilyToken::new("sidebar-inset-padding-left", "var(--space-lg)"),
+    FamilyToken::new("sidebar-inset-padding-left",    "var(--space-lg)"),
+    FamilyToken::new("sidebar-width-collapsed",        "var(--layout-sidebar-width-collapsed)"),
 
     // Navigation Menu
     FamilyToken::new("navigation-menu-bg", "var(--theme-surface-bg)"),

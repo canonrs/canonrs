@@ -8,6 +8,11 @@
   padding: var(--menubar-padding);
   background: var(--menubar-bg);
   border: var(--menubar-border-width) solid var(--menubar-border-color);
+  position: relative;
+}
+
+[data-rs-menubar-menu] {
+  position: relative;
 }
 
 [data-rs-menubar-trigger] {
@@ -21,7 +26,7 @@
   border: none;
 }
 
-[data-rs-menubar-trigger][data-rs-state~="hover"]:not([data-rs-state~="open"]) {
+[data-rs-menubar-trigger][data-rs-state~="hover"]:not([data-rs-state~="disabled"]):not([aria-expanded="true"]) {
   background: var(--menubar-trigger-hover-bg);
 }
 
@@ -64,9 +69,21 @@
   transition: background var(--menubar-transition-duration) var(--menubar-transition-ease);
 }
 
-[data-rs-menubar-subitem][data-rs-state~="hover"]:not([data-rs-state~="active"]),
-[data-rs-menubar-item][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
+[data-rs-menubar-subitem][data-rs-state~="hover"]:not([data-rs-state~="active"]):not(:focus-visible),
+[data-rs-menubar-item][data-rs-state~="hover"]:not([data-rs-state~="active"]):not(:focus-visible) {
   background: var(--menubar-subitem-bg-hover);
+}
+
+[data-rs-menubar-subitem]:focus-visible,
+[data-rs-menubar-item]:focus-visible {
+  outline: 1px solid var(--theme-action-focus-ring);
+  outline-offset: -2px;
+  background: var(--menubar-subitem-bg-hover);
+}
+
+[data-rs-menubar-trigger]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 [data-rs-menubar-separator] {
@@ -81,6 +98,12 @@
   position: absolute;
   top: 100%;
   left: 0;
+  animation: menubar-open var(--menubar-transition-duration) var(--menubar-transition-ease);
+}
+
+@keyframes menubar-open {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 [data-rs-menubar-menu][data-rs-state~="closed"] [data-rs-menubar-content],
@@ -92,4 +115,16 @@
   width: 0;
   height: 0;
   overflow: hidden;
+}
+
+[data-rs-menubar-chevron] {
+  width: var(--space-sm);
+  height: var(--space-sm);
+  margin-left: var(--space-2xs);
+  flex-shrink: 0;
+  transition: transform var(--menubar-transition-duration) var(--menubar-transition-ease);
+}
+
+[data-rs-menubar-menu][data-rs-state~="open"] [data-rs-menubar-chevron] {
+  transform: rotate(180deg);
 }
