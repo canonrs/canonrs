@@ -29,7 +29,7 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-[data-rs-breadcrumb-link][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
+[data-rs-breadcrumb-link]:hover:not([data-rs-state~="active"]) {
   color: var(--breadcrumb-fg-hover);
 }
 
@@ -56,7 +56,7 @@
   transition: color var(--breadcrumb-transition-duration) var(--breadcrumb-transition-ease);
 }
 
-[data-rs-breadcrumb-ellipsis-trigger][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
+[data-rs-breadcrumb-ellipsis-trigger]:hover:not([data-rs-state~="active"]) {
   color: var(--breadcrumb-fg-hover);
 }
 

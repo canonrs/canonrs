@@ -47,7 +47,7 @@
   cursor: row-resize;
 }
 
-[data-rs-resizable-handle][data-rs-state~="hover"],
+[data-rs-resizable-handle]:hover:not([data-rs-state~="disabled"]),
 [data-rs-resizable-handle][data-rs-state~="active"] {
   background: var(--resizable-handle-hover-bg);
 }
@@ -56,7 +56,7 @@
   background: var(--resizable-handle-bg);
 }
 
-[data-rs-resizable-handle][data-rs-state~="focus"] {
+[data-rs-resizable-handle]:focus-visible {
   outline: none;
   background: var(--resizable-handle-hover-bg);
   box-shadow: 0 0 0 var(--border-medium) var(--theme-action-focus-ring);

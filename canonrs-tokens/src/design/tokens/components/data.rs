@@ -276,6 +276,7 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("copy-button-error-border",   "var(--color-destructive)"),
     FamilyToken::new("copy-button-bg",             "transparent"),
     FamilyToken::new("copy-button-bg-hover",       "var(--theme-surface-muted)"),
+    FamilyToken::new("copy-button-border-hover",    "var(--theme-surface-fg-muted)"),
     FamilyToken::new("copy-button-fg",             "var(--theme-surface-fg)"),
     FamilyToken::new("copy-button-border",         "var(--theme-surface-border)"),
     FamilyToken::new("copy-button-copied-bg",          "var(--color-success)"),

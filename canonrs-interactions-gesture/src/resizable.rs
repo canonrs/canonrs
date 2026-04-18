@@ -75,4 +75,27 @@ pub fn init(root: Element) {
     }) as Box<dyn FnMut(_)>);
     handle.add_event_listener_with_callback("pointerup", cb_up.as_ref().unchecked_ref()).ok();
     cb_up.forget();
+    // hover on handle
+    if let Ok(nodes) = root.query_selector_all("[data-rs-resizable-handle]") {
+        for i in 0..nodes.length() {
+            if let Some(node) = nodes.item(i) {
+                if let Ok(handle) = wasm_bindgen::JsCast::dyn_into::<web_sys::Element>(node) {
+                    let h_enter = handle.clone();
+                    let cb_enter = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+                        crate::runtime::state::add(&h_enter, "hover");
+                    }));
+                    let _ = handle.add_event_listener_with_callback("mouseenter", cb_enter.as_ref().unchecked_ref());
+                    cb_enter.forget();
+
+                    let h_leave = handle.clone();
+                    let cb_leave = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+                        crate::runtime::state::remove(&h_leave, "hover");
+                    }));
+                    let _ = handle.add_event_listener_with_callback("mouseleave", cb_leave.as_ref().unchecked_ref());
+                    cb_leave.forget();
+                }
+            }
+        }
+    }
+
 }

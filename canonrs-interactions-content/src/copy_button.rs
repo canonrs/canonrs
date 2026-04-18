@@ -79,6 +79,20 @@ pub fn init(el: Element) {
     }));
     let _ = el.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
     cb.forget();
+
+    let el_over = el.clone();
+    let cb_over = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+        crate::shared::add_state(&el_over, "hover");
+    }));
+    let _ = el.add_event_listener_with_callback("mouseover", cb_over.as_ref().unchecked_ref());
+    cb_over.forget();
+
+    let el_out = el.clone();
+    let cb_out = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
+        crate::shared::remove_state(&el_out, "hover");
+    }));
+    let _ = el.add_event_listener_with_callback("mouseout", cb_out.as_ref().unchecked_ref());
+    cb_out.forget();
 }
 
 pub fn init_all() {

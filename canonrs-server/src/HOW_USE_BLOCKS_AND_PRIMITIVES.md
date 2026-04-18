@@ -181,13 +181,19 @@ Revisar todos os arquivos `preview.rs` da camada UI para garantir conformidade c
 
 
 
+gesture
+
+resizable
+slider
+carousel
+scroll_area
 
 
 
 
 
 
-
+data
 
 chart
 virtual_list
@@ -195,10 +201,13 @@ list_item
 data_table
 
 
+content
   
 markdown
 copy_button
 
+
+nav
 
 accordion
 tabs

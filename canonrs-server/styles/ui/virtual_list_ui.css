@@ -31,7 +31,7 @@
   box-sizing: border-box;
 }
 
-[data-rs-virtual-list-item][data-rs-state~="hover"] {
+[data-rs-virtual-list-item]:hover:not([data-rs-state~="disabled"]):not([data-rs-state~="selected"]) {
   background: var(--virtual-list-item-hover-bg);
 }
 

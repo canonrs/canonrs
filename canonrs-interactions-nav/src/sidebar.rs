@@ -54,25 +54,6 @@ pub fn init(root: Element) {
         cb.forget();
     }
 
-    // hover on menu items
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(item) = target.closest("[data-rs-sidebar-menu-item]").ok().flatten() else { return };
-            if !state::has(&item, "disabled") { state::add_state(&item, "hover"); }
-        }));
-        let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(item) = target.closest("[data-rs-sidebar-menu-item]").ok().flatten() else { return };
-            state::remove_state(&item, "hover");
-        }));
-        let _ = root.add_event_listener_with_callback("mouseout", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
 
     // click menu item → activate
     {

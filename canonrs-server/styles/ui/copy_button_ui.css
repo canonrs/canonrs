@@ -23,8 +23,9 @@
     opacity var(--copy-button-transition-duration) var(--copy-button-transition-ease);
 }
 
-[data-rs-copy-button][data-rs-state~="hover"] {
+[data-rs-copy-button][data-rs-state~="hover"]:not([data-rs-state~="copied"]):not([data-rs-state~="error"]):not([data-rs-state~="copying"]) {
   background: var(--copy-button-bg-hover);
+  border-color: var(--copy-button-border-hover);
 }
 
 /* ── CONTENT VISIBILITY ─────────────────────────────────────── */

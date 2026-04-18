@@ -70,25 +70,7 @@ pub fn init(root: Element) {
                 let _ = el_h.style().set_property("height", &format!("{}px", item_height));
                 let _ = el_h.style().set_property("width", "100%");
 
-                let el_enter = el.clone();
-                let enter = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-                    let st = el_enter.get_attribute("data-rs-state").unwrap_or_default();
-                    let mut parts: Vec<&str> = st.split_whitespace().collect();
-                    if !parts.contains(&"hover") {
-                        parts.push("hover");
-                        el_enter.set_attribute("data-rs-state", &parts.join(" ")).ok();
-                    }
-                });
-                let el_leave = el.clone();
-                let leave = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-                    let st = el_leave.get_attribute("data-rs-state").unwrap_or_default();
-                    let next: Vec<&str> = st.split_whitespace().filter(|s| *s != "hover").collect();
-                    el_leave.set_attribute("data-rs-state", &next.join(" ")).ok();
-                });
-                let _ = el_h.add_event_listener_with_callback("mouseenter", enter.as_ref().unchecked_ref());
-                let _ = el_h.add_event_listener_with_callback("mouseleave", leave.as_ref().unchecked_ref());
-                enter.forget();
-                leave.forget();
+
 
                 el.set_text_content(Some(&format!("Item {}", i + 1)));
                 ct.append_child(&el).ok();
