@@ -24,29 +24,31 @@
   pointer-events: auto;
   opacity: 0;
   visibility: hidden;
+  transform: translateY(4px);
   transition:
     opacity var(--hover-card-transition-duration) var(--hover-card-transition-ease),
-    visibility var(--hover-card-transition-duration) var(--hover-card-transition-ease);
+    visibility var(--hover-card-transition-duration) var(--hover-card-transition-ease),
+    transform var(--hover-card-transition-duration) var(--hover-card-transition-ease);
 }
 
 [data-rs-hover-card-content][data-rs-state~="open"] {
   opacity: 1;
   visibility: visible;
+  transform: translateY(0);
 }
 
 [data-rs-hover-card-content][data-rs-side="bottom"],
 [data-rs-hover-card-content]:not([data-rs-side]) {
-  top: calc(100% + var(--space-xs));
+  top: calc(100% + var(--space-sm));
   bottom: auto;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
 }
 
 [data-rs-hover-card-content][data-rs-side="top"] {
-  bottom: calc(100% + var(--space-xs));
+  bottom: calc(100% + var(--space-sm));
   top: auto;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: none;
 }
 
 [data-rs-hover-card-content][data-rs-side="right"] {
@@ -61,3 +63,4 @@
   top: 0;
   transform: none;
 }
+

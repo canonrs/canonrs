@@ -53,7 +53,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("hover-card-radius",              "var(--radius-md)"),
     FamilyToken::new("hover-card-shadow",              "var(--shadow-lg)"),
     FamilyToken::new("hover-card-padding",             "var(--space-md)"),
-    FamilyToken::new("hover-card-width",               "var(--size-3xl)"),
+    FamilyToken::new("hover-card-width",               "16rem"),
     FamilyToken::new("hover-card-z-index",             "var(--layer-overlay)"),
     FamilyToken::new("hover-card-transition-duration", "var(--motion-duration-fast)"),
     FamilyToken::new("hover-card-transition-ease",     "var(--motion-ease-standard)"),

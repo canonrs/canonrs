@@ -9,7 +9,7 @@ pub fn HoverCardShowcasePreview() -> impl IntoView {
         <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
             <HoverCard>
                 <HoverCardTrigger>"Hover me"</HoverCardTrigger>
-                <HoverCardContent side=HoverCardSide::Top>
+                <HoverCardContent side=HoverCardSide::Bottom>
                     <p>"This card appears on hover."</p>
                 </HoverCardContent>
             </HoverCard>
