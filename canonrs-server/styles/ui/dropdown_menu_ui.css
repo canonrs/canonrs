@@ -36,7 +36,7 @@
   cursor: pointer;
 }
 
-[data-rs-dropdown-menu-item][data-rs-state~="hover"]:not([data-rs-state~="active"]) {
+[data-rs-dropdown-menu-item]:hover:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
   background: var(--dropdown-menu-item-hover-bg);
 }
 
@@ -64,7 +64,7 @@
   font: inherit;
 }
 
-[data-rs-dropdown-menu-checkbox-item][data-rs-state~="hover"]:not([data-rs-state~="checked"]) {
+[data-rs-dropdown-menu-checkbox-item]:hover:not([data-rs-state~="checked"]):not([data-rs-state~="disabled"]) {
   background: var(--dropdown-menu-item-hover-bg);
 }
 

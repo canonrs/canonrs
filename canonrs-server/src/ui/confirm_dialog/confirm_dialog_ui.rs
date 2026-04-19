@@ -1,7 +1,8 @@
 #![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    ConfirmDialogPrimitive, ConfirmDialogTriggerPrimitive, ConfirmDialogPortalPrimitive,
+    DialogPortalPrimitive,
+    ConfirmDialogPrimitive, ConfirmDialogTriggerPrimitive,
     ConfirmDialogOverlayPrimitive, ConfirmDialogContentPrimitive,
     ConfirmDialogTitlePrimitive, ConfirmDialogDescriptionPrimitive,
     ConfirmDialogFooterPrimitive, ConfirmDialogCancelPrimitive,
@@ -31,8 +32,8 @@ pub fn ConfirmDialogTrigger(
 }
 
 #[component]
-pub fn ConfirmDialogPortal(children: Children) -> impl IntoView {
-    view! { <ConfirmDialogPortalPrimitive>{children()}</ConfirmDialogPortalPrimitive> }
+pub fn ConfirmDialogPortal(children: ChildrenFn) -> impl IntoView {
+    view! { <DialogPortalPrimitive>{children()}</DialogPortalPrimitive> }
 }
 
 #[component]

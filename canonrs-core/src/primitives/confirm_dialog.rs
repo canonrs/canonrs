@@ -28,8 +28,6 @@ pub fn ConfirmDialogPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
-    #[prop(optional, into)] aria_labelledby: Option<String>,
-    #[prop(optional, into)] aria_describedby: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
@@ -40,11 +38,6 @@ pub fn ConfirmDialogPrimitive(
             data-rs-uid=crate::infra::uid::generate("cd")
             data-rs-variant=variant.as_str()
             data-rs-state=s.data_rs_state
-            role="alertdialog"
-            aria-modal="true"
-            aria-labelledby=aria_labelledby
-            aria-describedby=aria_describedby
-            tabindex="-1"
             class=class
         >
             {children()}
@@ -170,13 +163,16 @@ pub fn ConfirmDialogTriggerPrimitive(
 
 #[component]
 pub fn ConfirmDialogPortalPrimitive(
-    children: Children,
+    children: ChildrenFn,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let class = StoredValue::new_local(class);
     view! {
-        <div data-rs-confirm-dialog-portal="" class=class>
-            {children()}
-        </div>
+        <leptos::portal::Portal>
+            <div data-rs-confirm-dialog-portal="" class=class.get_value()>
+                {children()}
+            </div>
+        </leptos::portal::Portal>
     }
 }
 
@@ -186,7 +182,13 @@ pub fn ConfirmDialogContentPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <div data-rs-confirm-dialog-content="" class=class>
+        <div
+            data-rs-confirm-dialog-content=""
+            role="alertdialog"
+            aria-modal="true"
+            tabindex="-1"
+            class=class
+        >
             {children()}
         </div>
     }

@@ -14,8 +14,6 @@ use super::dialog_ui::{
     DialogFooter as DialogFooterUi
 };
 
-
-
 #[component]
 pub fn Dialog(
     children: Children,
@@ -35,7 +33,7 @@ pub fn DialogTrigger(
 }
 
 #[component]
-pub fn DialogPortal(children: Children) -> impl IntoView {
+pub fn DialogPortal(children: ChildrenFn) -> impl IntoView {
     view! { <DialogPortalUi>{children()}</DialogPortalUi> }
 }
 

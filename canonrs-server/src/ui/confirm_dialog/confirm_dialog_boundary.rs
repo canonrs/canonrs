@@ -33,7 +33,7 @@ pub fn ConfirmDialogTrigger(
 }
 
 #[component]
-pub fn ConfirmDialogPortal(children: Children) -> impl IntoView {
+pub fn ConfirmDialogPortal(children: ChildrenFn) -> impl IntoView {
     view! { <ConfirmDialogPortalUi>{children()}</ConfirmDialogPortalUi> }
 }
 

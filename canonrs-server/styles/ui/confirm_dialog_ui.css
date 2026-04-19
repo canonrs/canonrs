@@ -4,6 +4,10 @@
   display: contents;
 }
 
+[data-rs-confirm-dialog-portal] {
+  display: contents;
+}
+
 [data-rs-confirm-dialog-overlay] {
   position: fixed;
   inset: 0;
@@ -16,6 +20,7 @@
     visibility var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease);
 }
 
+[data-rs-confirm-dialog-overlay][data-rs-state~="open"],
 [data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-overlay] {
   opacity: 1;
   visibility: visible;
@@ -42,6 +47,7 @@
     visibility var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease);
 }
 
+[data-rs-confirm-dialog-content][data-rs-state~="open"],
 [data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-content] {
   opacity: 1;
   visibility: visible;

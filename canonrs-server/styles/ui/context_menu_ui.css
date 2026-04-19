@@ -37,7 +37,7 @@
   border-radius: var(--context-menu-radius);
 }
 
-[data-rs-context-menu-item][data-rs-state~="hover"]:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
+[data-rs-context-menu-item]:hover:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
   background: var(--context-menu-item-hover-bg);
 }
 

@@ -78,7 +78,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("confirm-dialog-overlay-z-index",       "var(--layer-overlay)"),
     FamilyToken::new("confirm-dialog-content-bg",            "var(--theme-surface-bg)"),
     FamilyToken::new("confirm-dialog-content-fg",            "var(--theme-surface-fg)"),
-    FamilyToken::new("confirm-dialog-content-width",         "var(--size-3xl)"),
+    FamilyToken::new("confirm-dialog-content-width",         "28rem"),
     FamilyToken::new("confirm-dialog-content-max-width",     "90vw"),
     FamilyToken::new("confirm-dialog-content-padding",       "var(--space-lg)"),
     FamilyToken::new("confirm-dialog-content-radius",        "var(--radius-md)"),
