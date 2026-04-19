@@ -20,7 +20,7 @@ fn set_open(root: &Element, open: bool) {
     if open { rem_tok(root, "closed"); add_tok(root, "open"); } else { rem_tok(root, "open"); add_tok(root, "closed"); }
 }
 fn get_items(root: &Element) -> Vec<Element> {
-    root.query_selector_all("[data-rs-dropdown-menu-item]").ok()
+    root.query_selector_all("[data-rs-dropdown-menu-item], [data-rs-dropdown-menu-checkbox-item]").ok()
         .map(|l| (0..l.length()).filter_map(|i| l.item(i)).filter_map(|n| n.dyn_into::<Element>().ok()).collect())
         .unwrap_or_default()
 }
@@ -79,7 +79,7 @@ pub fn init(root: Element) {
             if !rs::is_open(&cur) { return; }
             match e.key().as_str() {
                 "Escape" | "Tab" => { rs::close(&cur); clear_focus(&cur); }
-                "Enter" | " " => { e.prevent_default(); if focused_idx(&navigable(&cur)).is_some() { rs::close(&cur); clear_focus(&cur); } }
+                "Enter" | " " => { e.prevent_default(); let items = navigable(&cur); if let Some(idx) = focused_idx(&items) { if let Some(el) = items.get(idx) { if let Ok(el_h) = el.clone().dyn_into::<web_sys::HtmlElement>() { el_h.click(); } } } rs::close(&cur); clear_focus(&cur); }
                 "ArrowDown" => { e.prevent_default(); let items = navigable(&cur); let len = items.len(); if len == 0 { return; } let next = match focused_idx(&items) { None => 0, Some(i) => (i+1).min(len-1) }; clear_focus(&cur); if let Some(el) = items.get(next) { focus_el(el); } }
                 "ArrowUp"   => { e.prevent_default(); let items = navigable(&cur); let len = items.len(); if len == 0 { return; } let next = match focused_idx(&items) { None => len-1, Some(i) => if i==0 {0} else {i-1} }; clear_focus(&cur); if let Some(el) = items.get(next) { focus_el(el); } }
                 _ => {}

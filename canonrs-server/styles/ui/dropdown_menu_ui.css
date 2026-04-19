@@ -34,10 +34,28 @@
   height: var(--dropdown-menu-item-height);
   padding: 0 var(--dropdown-menu-item-padding);
   cursor: pointer;
+  transition: background var(--motion-duration-fast) var(--motion-ease-standard),
+              color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-dropdown-menu-item][data-rs-variant="destructive"] {
+  color: var(--dropdown-menu-item-destructive-fg);
+}
+
+[data-rs-dropdown-menu-item][data-rs-variant="destructive"]:hover:not([data-rs-state~="disabled"]) {
+  background: var(--theme-status-error-bg);
+  color: var(--dropdown-menu-item-destructive-fg);
 }
 
 [data-rs-dropdown-menu-item]:hover:not([data-rs-state~="active"]):not([data-rs-state~="disabled"]) {
   background: var(--dropdown-menu-item-hover-bg);
+}
+
+[data-rs-dropdown-menu-item][data-rs-state~="focus"],
+[data-rs-dropdown-menu-checkbox-item][data-rs-state~="focus"] {
+  background: var(--dropdown-menu-item-hover-bg);
+  color: var(--dropdown-menu-item-hover-fg);
+  outline: none;
 }
 
 [data-rs-dropdown-menu-item][data-rs-state~="selected"] {
