@@ -18,7 +18,6 @@ pub fn CodeBlockShowcasePreview() -> impl IntoView {
                         <CodeBlock
                             code="fn main() {\n    println!(\"Hello, world!\");\n}".to_string()
                             language="rust".to_string()
-                            show_copy=true
                         />
                     </CardContent>
                 }.into_any())
@@ -35,7 +34,6 @@ pub fn CodeBlockShowcasePreview() -> impl IntoView {
                                 code="const greet = (name: string) => `Hello, ${name}!`;".to_string()
                                 language="typescript".to_string()
                                 filename="greet.ts".to_string()
-                                show_copy=true
                             />
                         </CardContent>
                     }.into_any())

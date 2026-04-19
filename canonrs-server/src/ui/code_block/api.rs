@@ -8,10 +8,9 @@ pub const CODEBLOCK_API: ComponentApi = ComponentApi {
         PropDef { name: "code", kind: PropType::String, required: true, default: None, description: "" },
         PropDef { name: "language", kind: PropType::String, required: false, default: Some("text"), description: "" },
         PropDef { name: "filename", kind: PropType::String, required: false, default: None, description: "" },
-        PropDef { name: "show_copy", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
         PropDef { name: "show_line_numbers", kind: PropType::Bool, required: false, default: Some("false"), description: "" },
+        PropDef { name: "show_copy", kind: PropType::Bool, required: false, default: Some("true"), description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
-        PropDef { name: "id", kind: PropType::String, required: false, default: None, description: "" },
     ],
 };
 

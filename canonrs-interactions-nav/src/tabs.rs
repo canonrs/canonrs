@@ -43,6 +43,41 @@ fn activate_tab(root: &Element, value: &str) {
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
+    // Ativar tab inicial
+    {
+        let list = query::all(&root, "[data-rs-tabs-list]");
+        let default_val = list.first()
+            .and_then(|el| el.get_attribute("data-rs-default-tab"))
+            .unwrap_or_default();
+        if !default_val.is_empty() {
+            activate_tab(&root, &default_val);
+        } else {
+            let triggers = query::all(&root, "[data-rs-tabs-trigger]");
+            if let Some(first) = triggers.first() {
+                let value = first.get_attribute("data-rs-value").unwrap_or_default();
+                if !value.is_empty() {
+                    activate_tab(&root, &value);
+                }
+            }
+        }
+    }
+
+    // Ativar tab inicial via data-rs-default-tab ou primeiro trigger
+    {
+        let default = root.get_attribute("data-rs-default-tab").unwrap_or_default();
+        if !default.is_empty() {
+            activate_tab(&root, &default);
+        } else {
+            let triggers = query::all(&root, "[data-rs-tabs-trigger]");
+            if let Some(first) = triggers.first() {
+                let value = first.get_attribute("data-rs-value").unwrap_or_default();
+                if !value.is_empty() {
+                    activate_tab(&root, &value);
+                }
+            }
+        }
+    }
+
     // click
     {
         let root_cb = root.clone();

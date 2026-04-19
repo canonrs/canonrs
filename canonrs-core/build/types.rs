@@ -79,7 +79,7 @@ pub(crate) struct ShowcaseEntry {
     pub pillar:      String,
     pub primitive_src: String,
     pub ui_src:        String,
-    pub island_src:       String,
+    pub boundary_src:     String,
     pub block:             Vec<String>,
     pub blocks_primitives: Vec<String>,
 }

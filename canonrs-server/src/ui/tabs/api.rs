@@ -8,6 +8,7 @@ pub const TABS_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+        PropDef { name: "default_value", kind: PropType::String, required: false, default: Some(""), description: "" },
     ],
 };
 

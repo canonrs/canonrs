@@ -11,9 +11,10 @@ pub fn Tabs(
     children: Children,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] default_value: String,
 ) -> impl IntoView {
     view! {
-        <TabsPrimitive class=class node_ref=node_ref.unwrap_or_default()>
+        <TabsPrimitive class=class attr:data-rs-default-tab=default_value node_ref=node_ref.unwrap_or_default()>
             {children()}
         </TabsPrimitive>
     }
@@ -63,7 +64,7 @@ pub fn TabsContent(
 #[component]
 pub fn TabsPreview() -> impl IntoView {
     view! {
-        <Tabs>
+        <Tabs default_value="tab1">
             <TabsList>
                 <TabsTrigger value="tab1" active=ActivityState::Active>"Tab 1"</TabsTrigger>
                 <TabsTrigger value="tab2">"Tab 2"</TabsTrigger>

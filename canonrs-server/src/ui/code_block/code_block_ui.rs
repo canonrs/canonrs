@@ -1,11 +1,11 @@
-#![allow(unreachable_pub, dead_code)]
+#![allow(unreachable_pub, dead_code, unused_variables)]
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     CodeBlockPrimitive, CodeBlockHeaderPrimitive, CodeBlockLanguagePrimitive,
-    CodeBlockFilenamePrimitive,
+    CodeBlockFilenamePrimitive, CodeBlockPrePrimitive,
 };
-use crate::ui::copy_button::CopyButton; // island kept intentionally
+use crate::ui::copy_button::copy_button_ui::CopyButton;
 #[cfg(feature = "ssr")]
 use super::highlighter::highlight;
 
@@ -14,10 +14,9 @@ pub fn CodeBlock(
     #[prop(into)] code: String,
     #[prop(into, default = "text".to_string())] language: String,
     #[prop(into, optional)] filename: Option<String>,
-    #[prop(default = true)] show_copy: bool,
     #[prop(default = false)] show_line_numbers: bool,
+    #[prop(default = true)] show_copy: bool,
     #[prop(into, default = String::new())] class: String,
-    #[prop(optional, into)] id: Option<String>,
 ) -> impl IntoView {
     #[cfg(feature = "ssr")]
     let pre_html = {
@@ -30,7 +29,7 @@ pub fn CodeBlock(
     let pre_html = String::new();
 
     let lang_display = language.clone();
-    let _copy_id = id.as_deref().map(|i| format!("{}-copy", i));
+    let code_for_copy = code.clone();
 
     view! {
         <CodeBlockPrimitive
@@ -46,10 +45,10 @@ pub fn CodeBlock(
                     })}
                 </div>
                 {show_copy.then(|| view! {
-                    <CopyButton text=code.clone() />
+                    <CopyButton text=code_for_copy />
                 })}
             </CodeBlockHeaderPrimitive>
-            <pre data-rs-code-pre="" inner_html=pre_html />
+            <CodeBlockPrePrimitive inner_html=pre_html />
         </CodeBlockPrimitive>
     }
 }

@@ -9,26 +9,26 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
 struct BuilderYaml {
-    id:            Option<String>,
-    label:         Option<String>,
-    category:      Option<String>,
-    description:   Option<String>,
-    keywords:      Option<String>,
-    pain:          Option<String>,
-    promise:       Option<String>,
-    why:           Option<String>,
-    before:        Option<String>,
-    after:         Option<String>,
-    rules:         Option<Vec<String>>,
-    use_cases:     Option<Vec<String>>,
-    related:       Option<Vec<String>>,
-    badges:        Option<Vec<String>>,
-    pillar:        Option<String>,
-    file:          Option<String>,
-    tokens:        Option<String>,
-    foundation:    Option<String>,
-    states:        Option<Vec<String>>,
-    island:            Option<String>,
+    id:                Option<String>,
+    label:             Option<String>,
+    category:          Option<String>,
+    description:       Option<String>,
+    keywords:          Option<String>,
+    pain:              Option<String>,
+    promise:           Option<String>,
+    why:               Option<String>,
+    before:            Option<String>,
+    after:             Option<String>,
+    rules:             Option<Vec<String>>,
+    use_cases:         Option<Vec<String>>,
+    related:           Option<Vec<String>>,
+    badges:            Option<Vec<String>>,
+    pillar:            Option<String>,
+    file:              Option<String>,
+    tokens:            Option<String>,
+    foundation:        Option<String>,
+    states:            Option<Vec<String>>,
+    boundary:          Option<String>,
     block:             Option<Vec<String>>,
     blocks_primitives: Option<Vec<String>>,
 }
@@ -67,7 +67,6 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
             }
         };
 
-        // source files
         let primitive_src = {
             let p = ui_dir.parent()
                 .and_then(|p| p.parent())
@@ -82,8 +81,8 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
             path.join(format!("{}_ui.rs", id.replace('-', "_")))
         ).unwrap_or_default();
 
-        let island_src = fs::read_to_string(
-            path.join(format!("{}_island.rs", id.replace('-', "_")))
+        let boundary_src = fs::read_to_string(
+            path.join(format!("{}_boundary.rs", id.replace('-', "_")))
         ).unwrap_or_default();
 
         entries.push(ShowcaseEntry {
@@ -104,7 +103,7 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
             pillar:        builder.pillar.unwrap_or_default(),
             primitive_src,
             ui_src,
-            island_src,
+            boundary_src,
             block:             builder.block.unwrap_or_default(),
             blocks_primitives: builder.blocks_primitives.unwrap_or_default(),
         });
