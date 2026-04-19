@@ -2,6 +2,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{SheetPrimitive, SheetTriggerPrimitive, SheetOverlayPrimitive, SheetContentPrimitive, SheetSide};
+use canonrs_core::primitives::SheetPortalPrimitive;
 use canonrs_core::meta::VisibilityState;
 
 #[component]
@@ -64,4 +65,12 @@ pub fn SheetTrigger(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! { <SheetTriggerPrimitive class=class>{children()}</SheetTriggerPrimitive> }
+}
+
+#[component]
+pub fn SheetPortal(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SheetPortalPrimitive class=class>{children()}</SheetPortalPrimitive> }
 }

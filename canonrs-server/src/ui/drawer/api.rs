@@ -36,3 +36,11 @@ pub const DRAWERCONTENT_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const DRAWERPORTAL_API: ComponentApi = ComponentApi {
+    id: "drawer-portal",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::modal_boundary::{
-    Modal, ModalTrigger, ModalOverlay,
+    Modal, ModalTrigger, ModalPortal, ModalOverlay,
     ModalContent, ModalTitle, ModalDescription,
     ModalClose, ModalFooter,
 };
@@ -17,6 +17,7 @@ pub fn ModalShowcasePreview() -> impl IntoView {
             </p>
             <Modal>
                 <ModalTrigger>"Open Modal"</ModalTrigger>
+                <ModalPortal>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalTitle>"Confirm action"</ModalTitle>
@@ -26,11 +27,13 @@ pub fn ModalShowcasePreview() -> impl IntoView {
                         <Button variant=ButtonVariant::Primary>"Confirm"</Button>
                     </ModalFooter>
                 </ModalContent>
+                </ModalPortal>
             </Modal>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Form dialog"</span>
                 <Modal>
                     <ModalTrigger>"Edit profile"</ModalTrigger>
+                    <ModalPortal>
                     <ModalOverlay />
                     <ModalContent>
                         <ModalTitle>"Edit profile"</ModalTitle>
@@ -40,6 +43,7 @@ pub fn ModalShowcasePreview() -> impl IntoView {
                             <Button variant=ButtonVariant::Primary>"Save changes"</Button>
                         </ModalFooter>
                     </ModalContent>
+                    </ModalPortal>
                 </Modal>
             </Stack>
         </Stack>

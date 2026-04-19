@@ -98,7 +98,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("modal-overlay-z-index",        "var(--layer-overlay)"),
     FamilyToken::new("modal-content-bg",             "var(--theme-surface-bg)"),
     FamilyToken::new("modal-content-fg",             "var(--theme-surface-fg)"),
-    FamilyToken::new("modal-content-width",          "var(--size-3xl)"),
+    FamilyToken::new("modal-content-width",          "var(--layout-width-lg)"),
     FamilyToken::new("modal-content-max-width",      "90vw"),
     FamilyToken::new("modal-content-padding",        "var(--space-lg)"),
     FamilyToken::new("modal-content-radius",         "var(--radius-lg)"),

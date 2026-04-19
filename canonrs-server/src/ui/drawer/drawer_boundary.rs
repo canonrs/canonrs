@@ -7,7 +7,8 @@ use super::drawer_ui::{
     Drawer as DrawerUi,
     DrawerTrigger,
     DrawerOverlay,
-    DrawerContent
+    DrawerContent,
+    DrawerPortal
 };
 use canonrs_core::primitives::DrawerSide;
 use canonrs_core::meta::VisibilityState;
@@ -25,6 +26,7 @@ pub fn Drawer(
     view! {
         <DrawerUi side=side state=VisibilityState::Closed class=class>
             <DrawerTrigger>{trigger_label}</DrawerTrigger>
+            <DrawerPortal>
             <DrawerOverlay />
             <DrawerContent aria_labelledby="drawer-title">
                 {title.map(|t| view! { <h2 id="drawer-title" data-rs-drawer-title="">{t}</h2> })}
@@ -32,6 +34,7 @@ pub fn Drawer(
                 {children.map(|c| c())}
                 <button type="button" data-rs-drawer-close="">{close_label}</button>
             </DrawerContent>
+            </DrawerPortal>
         </DrawerUi>
     }
 }

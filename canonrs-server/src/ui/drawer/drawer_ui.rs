@@ -2,7 +2,7 @@
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     DrawerPrimitive, DrawerTriggerPrimitive, DrawerOverlayPrimitive,
-    DrawerContentPrimitive, DrawerSide,
+    DrawerContentPrimitive, DrawerPortalPrimitive, DrawerSide,
 };
 use canonrs_core::meta::VisibilityState;
 
@@ -42,4 +42,12 @@ pub fn DrawerContent(
             {children()}
         </DrawerContentPrimitive>
     }
+}
+
+#[component]
+pub fn DrawerPortal(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <DrawerPortalPrimitive class=class>{children()}</DrawerPortalPrimitive> }
 }

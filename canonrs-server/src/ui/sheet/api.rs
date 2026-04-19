@@ -37,3 +37,11 @@ pub const SHEETTRIGGER_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const SHEETPORTAL_API: ComponentApi = ComponentApi {
+    id: "sheet-portal",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "" },
+    ],
+};
+

@@ -7,7 +7,8 @@ use super::sheet_ui::{
     Sheet as SheetUi,
     SheetTrigger,
     SheetOverlay as SheetOverlayUi,
-    SheetContent as SheetContentUi
+    SheetContent as SheetContentUi,
+    SheetPortal
 };
 use canonrs_core::primitives::SheetSide;
 use canonrs_core::meta::VisibilityState;
@@ -25,6 +26,7 @@ pub fn Sheet(
     view! {
         <SheetUi side=side state=VisibilityState::Closed class=class>
             {if !trigger_label.is_empty() { Some(view! { <SheetTrigger>{trigger_label}</SheetTrigger> }) } else { None }}
+            <SheetPortal>
             <SheetOverlayUi />
             <SheetContentUi aria_labelledby="sheet-title">
                 <h2 data-rs-sheet-title="">{title.unwrap_or_default()}</h2>
@@ -34,6 +36,7 @@ pub fn Sheet(
                     {close_label}
                 </button>
             </SheetContentUi>
+            </SheetPortal>
         </SheetUi>
     }
 }

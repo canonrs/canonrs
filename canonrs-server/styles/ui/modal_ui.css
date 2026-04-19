@@ -4,6 +4,10 @@
   display: contents;
 }
 
+[data-rs-modal-portal] {
+  display: contents;
+}
+
 /* ── OVERLAY ─────────────────────────────────────────────────────────────────── */
 [data-rs-modal-overlay] {
   position: fixed;
@@ -17,6 +21,7 @@
     visibility var(--modal-transition-duration) var(--modal-transition-ease);
 }
 
+[data-rs-modal-overlay][data-rs-state~="open"],
 [data-rs-modal][data-rs-state~="open"] [data-rs-modal-overlay] {
   opacity: 1;
   visibility: visible;
@@ -44,6 +49,7 @@
     visibility var(--modal-transition-duration) var(--modal-transition-ease);
 }
 
+[data-rs-modal-content][data-rs-state~="open"],
 [data-rs-modal][data-rs-state~="open"] [data-rs-modal-content] {
   opacity: 1;
   visibility: visible;
