@@ -40,7 +40,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("popover-radius",               "var(--radius-md)"),
     FamilyToken::new("popover-shadow",               "var(--shadow-lg)"),
     FamilyToken::new("popover-padding",              "var(--space-md)"),
-    FamilyToken::new("popover-width",                "var(--size-3xl)"),
+    FamilyToken::new("popover-width",                "16rem"),
     FamilyToken::new("popover-z-index",              "var(--layer-overlay)"),
     FamilyToken::new("popover-transition-duration",  "var(--motion-duration-fast)"),
     FamilyToken::new("popover-transition-ease",      "var(--motion-ease-standard)"),
