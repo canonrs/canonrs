@@ -14,6 +14,8 @@ pub const BUTTON_API: ComponentApi = ComponentApi {
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "Accessible label for screen readers" },
         PropDef { name: "validation", kind: PropType::String, required: false, default: None, description: "Prop value" },
         PropDef { name: "state_hint", kind: PropType::Enum(&["first", "last", "hover", "focus"]), required: false, default: None, description: "Prop value" },
+        PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "Navigation target URL" },
+        PropDef { name: "target", kind: PropType::String, required: false, default: Some(""), description: "Target element selector for copy" },
     ],
 };
 

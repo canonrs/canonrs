@@ -13,6 +13,8 @@ pub fn Button(
     #[prop(optional, into)] aria_label: Option<String>,
     #[prop(optional, into)] _validation: Option<String>,
     #[prop(default = canonrs_core::primitives::ButtonType::Button)] button_type: canonrs_core::primitives::ButtonType,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(into, default = String::new())] target: String,
 ) -> impl IntoView {
     view! {
         <ButtonPrimitive
@@ -22,6 +24,8 @@ pub fn Button(
             variant=variant
             size=size
             button_type=button_type
+            href=href
+            target=target
         >
             {children()}
         </ButtonPrimitive>

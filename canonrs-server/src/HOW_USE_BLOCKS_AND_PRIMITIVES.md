@@ -208,21 +208,36 @@ cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/la
 cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/container.rs
 cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/flex.rs
 cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/grid.rs
-
 cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/spacer.rs
 cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/stack.rs
 
 
 
+ $ ls /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/ui/ && echo "---BLOCKS---" && ls /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/ && echo "---LAYOUTS---" && ls /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/layouts/
+ 
+README.md     checkbox        error_state         link_group       pulse        table
+accordion     code_block      field               list_item        radio        table_of_contents
+alert         collapsible     form                loading_overlay  radio_group  tabs
+alert_dialog  color_picker    form_error_summary  logo             resizable    textarea
+animate       combobox        hero                markdown         scroll_area  toast
+aspect_ratio  command         hover_card          menu             section      toggle
+avatar        confirm_dialog  icon                menubar          select       toggle_group
+badge         context_menu    icon_button         mod.rs           separator    toolbar
+banner        copy_button     inline_meta         mod.rs.backup    sheet        tooltip
+breadcrumb    data_table      inline_notice       modal            sidebar      tree
+button        dialog          input               nav_item         skeleton     virtual_list
+button_group  doc_progress    input_group         navigation_menu  slider
+callout       drawer          input_otp           page_header      spinner
+card          dropdown_menu   kbd                 pagination       stat
+carousel      empty_state     label               popover          status_dot
+chart         empty_table     link                progress         switch
 
+---BLOCKS---
+BLOCK_TOKENS.md           blocks_uis_primitives.yaml  form_field  page_header     stat_group
+HOW_TO_CREATE_A_BLOCK.md  card                        hero        section
+README.md                 data_table                  mod.rs      sidebar_layout
 
-
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/page_header/page_header_block.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/section/section_block.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/sidebar_layout/sidebar_layout_block.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/hero/hero_block.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/form_field/form_field_block.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/card/api.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/card/card_block.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/stat_group/stat_group_block.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-server/src/blocks/data_table/data_table_block.rs                     
+---LAYOUTS---
+HOW_TO_CREATE_A_LAYOUT.md  README.md  fullscreen  mod.rs       split_view  wizard
+LAYOUT_TOKENS.md           dashboard  marketing   page_layout  three_pane
+cristiano:monorepo/ (main✗) $                            

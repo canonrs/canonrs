@@ -1,7 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! Button Primitive - HTML puro
-
 use leptos::prelude::*;
 use crate::meta::{DisabledState, LoadingState, ToggleState};
 use crate::infra::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
@@ -59,7 +58,6 @@ pub enum ButtonStateHint {
     #[default] None,
     First, Last, Hover, Focus,
 }
-
 impl ButtonStateHint {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -100,29 +98,51 @@ pub fn ButtonPrimitive(
     #[prop(default = ButtonType::Button)] button_type: ButtonType,
     #[prop(default = LoadingState::Idle)] loading: LoadingState,
     #[prop(optional)] pressed: Option<ToggleState>,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(into, default = String::new())] target: String,
 ) -> impl IntoView {
     let d  = disabled_attrs(disabled);
     let la = loading_attrs(loading);
     let ta = pressed.map(toggle_attrs);
-    view! {
-        <button
-            type=button_type.as_str()
-            data-rs-button=""
-            data-rs-uid=crate::infra::uid::generate("bt")
-            data-rs-interaction="init"
-            data-rs-variant=variant.as_str()
-            data-rs-size=size.as_str()
-            data-rs-disabled=d.data_rs_disabled
-            data-rs-loading=la.data_rs_state
-            data-rs-state=if d.disabled { Some("disabled") } else { ta.as_ref().map(|t| t.data_rs_state) }
-            disabled=d.disabled
-            aria-disabled=d.aria_disabled
-            aria-busy=la.aria_busy
-            aria-pressed=ta.as_ref().map(|t| t.aria_pressed)
-            aria-label=aria_label
-            class=class
-        >
-            {children()}
-        </button>
+    if !href.is_empty() {
+        view! {
+            <a
+                href=href
+                target=if target.is_empty() { None } else { Some(target) }
+                data-rs-button=""
+                data-rs-uid=crate::infra::uid::generate("bt")
+                data-rs-interaction="init"
+                data-rs-variant=variant.as_str()
+                data-rs-size=size.as_str()
+                data-rs-disabled=d.data_rs_disabled
+                aria-disabled=d.aria_disabled
+                aria-label=aria_label
+                class=class
+            >
+                {children()}
+            </a>
+        }.into_any()
+    } else {
+        view! {
+            <button
+                type=button_type.as_str()
+                data-rs-button=""
+                data-rs-uid=crate::infra::uid::generate("bt")
+                data-rs-interaction="init"
+                data-rs-variant=variant.as_str()
+                data-rs-size=size.as_str()
+                data-rs-disabled=d.data_rs_disabled
+                data-rs-loading=la.data_rs_state
+                data-rs-state=if d.disabled { Some("disabled") } else { ta.as_ref().map(|t| t.data_rs_state) }
+                disabled=d.disabled
+                aria-disabled=d.aria_disabled
+                aria-busy=la.aria_busy
+                aria-pressed=ta.as_ref().map(|t| t.aria_pressed)
+                aria-label=aria_label
+                class=class
+            >
+                {children()}
+            </button>
+        }.into_any()
     }
 }

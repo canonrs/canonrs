@@ -16,6 +16,8 @@ pub fn Button(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, optional)] validation: Option<String>,
     #[prop(optional)] state_hint: Option<ButtonStateHint>,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(into, default = String::new())] target: String,
 ) -> impl IntoView {
     let disabled_state = if disabled { DisabledState::Disabled } else { DisabledState::Enabled };
     let _ = (validation, state_hint);
@@ -27,6 +29,8 @@ pub fn Button(
             button_type=ButtonType::Button
             aria_label=aria_label.unwrap_or_default()
             class=class
+            href=href
+            target=target
         >
             {children()}
         </ButtonUi>
