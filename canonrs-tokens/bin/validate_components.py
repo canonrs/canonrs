@@ -1430,6 +1430,43 @@ def check_primitive(component_id):
 
     return errors
 
+
+# ═══════════════════════════════════════════════════════════════
+# LAYOUT CONTRACT VALIDATOR (CR-390)
+# Todo layout DEVE ter content region como flex container
+# ═══════════════════════════════════════════════════════════════
+
+LAYOUTS_CSS_DIR = "../../canonrs-server/styles/layouts"
+
+def check_layout_contract(layouts_dir):
+    """CR-390: layout contract — flex layouts with content region MUST be flex container"""
+    import glob, re
+    errors = []
+    EXCLUDED = {"page_layout_layout.css", "three_pane_layout.css", "split_view_layout.css", "layouts.css"}
+    css_files = glob.glob(f"{layouts_dir}/*.css")
+    for css_file in sorted(css_files):
+        filename = os.path.basename(css_file)
+        if filename in EXCLUDED:
+            continue
+        with open(css_file) as f:
+            css = f.read()
+        layout_root = re.search(r'\[data-rs-layout="[^"]+"\]\s*\{([^}]+)\}', css, re.DOTALL)
+        if layout_root and "display: grid" in layout_root.group(1):
+            continue
+        content_blocks = re.findall(
+            r'\[data-rs-layout="[^"]+"\]\s*\[data-rs-region="content"\]\s*\{([^}]+)\}',
+            css, re.DOTALL
+        )
+        if not content_blocks:
+            errors.append(f"[CR-390] {filename} -- sem [data-rs-region=\"content\"] definido")
+            continue
+        for block in content_blocks:
+            if "display: flex" not in block and "display:flex" not in block:
+                errors.append(f"[CR-390] {filename} -- content region sem display:flex")
+            if "flex-direction: column" not in block and "flex-direction:column" not in block:
+                errors.append(f"[CR-390] {filename} -- content region sem flex-direction:column")
+    return errors
+
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     json_path  = os.path.join(script_dir, JSON_PATH)
@@ -1504,6 +1541,19 @@ def main():
             print("\n[STATE-ENGINE VIOLATIONS]")
             for e in se_errors:
                 print(f"   {e}")
+
+    # CR-390: layout contract
+    global LAYOUTS_CSS_DIR
+    LAYOUTS_CSS_DIR = os.path.join(script_dir, LAYOUTS_CSS_DIR)
+    if not target:
+        layout_errors = check_layout_contract(LAYOUTS_CSS_DIR)
+        if layout_errors:
+            print("\n[CR-390 LAYOUT CONTRACT VIOLATIONS]")
+            for e in layout_errors:
+                print(f"   {e}")
+            total_errors = len(layout_errors)
+        else:
+            print("\n[CR-390] Layout contract: OK")
 
     total_errors = 0
     total_ok     = 0

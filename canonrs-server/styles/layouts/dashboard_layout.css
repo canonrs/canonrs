@@ -36,6 +36,8 @@
 
 [data-rs-layout="dashboard"] [data-rs-region="content"] {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     margin-left: var(--layout-sidebar-width);
     padding: var(--layout-region-padding);
     overflow-y: auto;
