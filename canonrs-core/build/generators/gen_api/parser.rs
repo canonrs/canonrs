@@ -175,17 +175,28 @@ fn split_params(s: &str) -> Vec<String> {
 ///     "true" → "true"
 fn normalize_default(d: &str) -> String {
     let d = d.trim();
-    // String::new() → vazio
     if d == "String::new()" { return String::new(); }
-    // "value".to_string() → value
+    if d == "Default::default()" { return String::new(); }
+    if d.starts_with("String::from(") && d.ends_with(')') {
+        let inner = &d["String::from(".len()..d.len()-1];
+        return inner.trim().trim_matches('"').to_string();
+    }
     if d.ends_with(".to_string()") {
         let inner = d.trim_end_matches(".to_string()").trim();
-        let inner = inner.trim_matches('"');
-        return inner.to_string();
+        return inner.trim_matches('"').to_string();
     }
-    // EnumType::Variant → variant em kebab-case
-    if d.contains("::") {
+    if d.contains("::") && !d.contains('(') {
         let variant = d.split("::").last().unwrap_or(d);
+        let mut result = String::new();
+        for (i, c) in variant.chars().enumerate() {
+            if c.is_uppercase() && i > 0 { result.push('-'); }
+            result.push(c.to_lowercase().next().unwrap());
+        }
+        return result;
+    }
+    if d.contains("::") && d.contains('(') {
+        let before_paren = d.split('(').next().unwrap_or(d);
+        let variant = before_paren.split("::").last().unwrap_or(before_paren);
         let mut result = String::new();
         for (i, c) in variant.chars().enumerate() {
             if c.is_uppercase() && i > 0 { result.push('-'); }

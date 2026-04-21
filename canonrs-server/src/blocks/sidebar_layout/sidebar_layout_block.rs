@@ -16,12 +16,12 @@ pub fn SidebarLayout(
     #[prop(optional)] main: Option<ChildrenFn>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid = generate("bl");
-    let nav = StoredValue::new(nav);
+    let uid  = generate("bl");
+    let nav  = StoredValue::new(nav);
     let main = StoredValue::new(main);
     view! {
         <div data-rs-sidebar-layout="" data-rs-uid=uid data-rs-side=side.as_str() class=class>
-            {move || nav.get_value().map(|n| view! { <div data-rs-region="nav">{n()}</div> })}
+            {move || nav.get_value().map(|n| view! { <nav data-rs-region="nav" aria-label="Sidebar">{n()}</nav> })}
             {move || main.get_value().map(|m| view! { <div data-rs-region="main">{m()}</div> })}
         </div>
     }

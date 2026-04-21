@@ -180,6 +180,15 @@ pub fn init(root: Element) {
 
             if let Some(row) = t.closest("[data-rs-table-row]").ok().flatten() {
                 if row.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") { return; }
+                // navigate action
+                if row.get_attribute("data-rs-action").as_deref() == Some("navigate") {
+                    if let Some(href) = row.get_attribute("data-rs-href") {
+                        if let Some(win) = web_sys::window() {
+                            let _ = win.location().set_href(&href);
+                        }
+                    }
+                    return;
+                }
                 if e.shift_key() {
                     let rows = get_rows(&rc);
                     let focused = focused_row_index(&rows);
@@ -230,7 +239,13 @@ pub fn init(root: Element) {
             Box::new(move |idx: usize, items: &[Element]| {
                 if let Some(row) = items.get(idx) {
                     // simula click — sheet handler cuida do select
-                    if row.get_attribute("data-rs-action").as_deref() == Some("open-sheet") {
+                    if row.get_attribute("data-rs-action").as_deref() == Some("navigate") {
+                        if let Some(href) = row.get_attribute("data-rs-href") {
+                            if let Some(win) = web_sys::window() {
+                                let _ = win.location().set_href(&href);
+                            }
+                        }
+                    } else if row.get_attribute("data-rs-action").as_deref() == Some("open-sheet") {
                         if let Some(win) = web_sys::window() {
                             if win.document().is_some() {
                                 if let Some(doc) = win.document() {

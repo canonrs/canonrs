@@ -1,35 +1,12 @@
 #![allow(unreachable_pub, dead_code)]
 
 use leptos::prelude::*;
-use canonrs_core::LoadingState;
 use canonrs_core::primitives::{
+    StatSize, StatTrend, StatAlign,
     StatPrimitive, StatValuePrimitive, StatLabelPrimitive,
     StatDeltaPrimitive, StatIconPrimitive, StatHeaderPrimitive, StatBodyPrimitive
 };
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum StatSize { Sm, Md, Lg }
-impl StatSize {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Sm => "sm", Self::Md => "md", Self::Lg => "lg" }
-    }
-}
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum StatTrend { Increase, Decrease, Neutral }
-impl StatTrend {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Increase => "increase", Self::Decrease => "decrease", Self::Neutral => "neutral" }
-    }
-}
-
-#[derive(Clone, Copy, PartialEq, Debug)]
-pub enum StatAlign { Start, Center, End }
-impl StatAlign {
-    pub fn as_str(&self) -> &'static str {
-        match self { Self::Start => "start", Self::Center => "center", Self::End => "end" }
-    }
-}
+use canonrs_core::LoadingState;
 
 #[component]
 pub fn Stat(

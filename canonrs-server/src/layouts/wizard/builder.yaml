@@ -1,15 +1,13 @@
 id: wizard-layout
-label: Wizard
-category: layout
-description: Multi-step form with header, stepper, content and footer
-tags: ["wizard", "steps", "onboarding", "multi-step", "form"]
+label: Wizard Layout
+category: flow
+description: Step-by-step wizard layout with header, stepper, content and footer
+tags: ["wizard", "stepper", "flow", "steps", "multi-step", "form"]
 slot_accepts:
   header: Any
   stepper: Any
-  content: Form
-  footer: Action
-block: [form_field_block]
-blocks_primitives: [stack]
+  content: Any
+  footer: Any
 contract:
   regions_required: []
   regions_optional: ["header", "stepper", "content", "footer"]

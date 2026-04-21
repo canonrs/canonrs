@@ -1,0 +1,5 @@
+id: container
+label: Container
+category: layout
+description: Max-width centered layout container with size variants
+tags: ["container", "max-width", "centered", "layout", "wrapper"]

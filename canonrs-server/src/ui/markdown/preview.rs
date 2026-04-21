@@ -58,6 +58,7 @@ pub fn MarkdownShowcasePreview() -> impl IntoView {
             show_toc=true
             show_toolbar=false
             toc_position=TocPosition::Sidebar
+            contained=true
             id="md-preview"
         />
     }

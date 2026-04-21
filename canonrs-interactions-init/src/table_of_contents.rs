@@ -313,17 +313,21 @@ pub fn init(root: Element) {
         });
 
         // IntersectionObserver options
-        // usa o scroll viewport mais próximo como root, não o window
+        // busca explicitamente o center com scroll-viewport
         let scroll_root = doc
-            .query_selector("[data-rs-scroll-viewport]")
+            .query_selector("[data-rs-main-viewport] [data-rs-scroll-viewport]")
             .ok()
-            .flatten();
+            .flatten()
+            .or_else(|| doc.query_selector("[data-rs-region='center'] [data-rs-scroll-viewport]").ok().flatten())
+            .or_else(|| doc.query_selector("[data-rs-scroll-viewport]").ok().flatten());
 
         let options = web_sys::IntersectionObserverInit::new();
         options.set_threshold(&JsValue::from_f64(0.0));
-        options.set_root_margin("0px 0px -40% 0px");
         if let Some(ref sr) = scroll_root {
             options.set_root(Some(sr));
+            options.set_root_margin("0px 0px -40% 0px");
+        } else {
+            options.set_root_margin("0px 0px -40% 0px");
         }
 
         let observer = match web_sys::IntersectionObserver::new_with_options(

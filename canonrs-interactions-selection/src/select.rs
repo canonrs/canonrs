@@ -43,7 +43,11 @@ fn set_selected(root: &Element, value: &str) {
     // disparar rs-change para bridges DOM → signal
     let _ = root.set_attribute("data-rs-value", value);
     if let Some(_doc) = web_sys::window().and_then(|w| w.document()) {
-        if let Ok(event) = web_sys::CustomEvent::new("rs-change") {
+        if let Ok(event) = {
+            let init = web_sys::CustomEventInit::new();
+            init.set_bubbles(true);
+            web_sys::CustomEvent::new_with_event_init_dict("rs-change", &init)
+        } {
             let _ = root.dispatch_event(&event);
         }
     }

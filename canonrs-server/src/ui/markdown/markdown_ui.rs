@@ -25,6 +25,7 @@ pub fn MarkdownSurface(
     #[prop(default = true)] show_toc: bool,
     #[prop(default = true)] show_toolbar: bool,
     #[prop(default = TocPosition::Top)] toc_position: TocPosition,
+    #[prop(default = false)] contained: bool,
     #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
     let has_toc = !rendered.toc.is_empty() && show_toc;
@@ -34,6 +35,14 @@ pub fn MarkdownSurface(
     let html = rendered.html.clone();
     let _ = show_toolbar;
 
+    let container_style = if contained {
+        "display:flex;flex-direction:row;gap:var(--space-xl);height:500px"
+    } else if has_toc && is_sidebar {
+        "display:flex;flex-direction:row;gap:var(--space-xl)"
+    } else {
+        ""
+    };
+
     view! {
         <div
             data-rs-markdown=""
@@ -41,7 +50,7 @@ pub fn MarkdownSurface(
             data-rs-interaction="content"
             data-toc-position=if is_sidebar { "sidebar" } else { "top" }
             data-rs-value=id
-            style="display:flex;flex-direction:row;gap:var(--space-xl);height:500px"
+            style=container_style
         >
             {(has_toc && is_sidebar).then(|| view! {
                 <aside
@@ -55,13 +64,21 @@ pub fn MarkdownSurface(
                     />
                 </aside>
             })}
-            <ScrollArea attr:style="flex:1;min-width:0;max-width:66%;height:100%">
+            {if contained { view! {
+                <ScrollArea attr:style="flex:1;min-width:0;max-width:66%;height:100%">
+                    <div
+                        data-rs-markdown-content=""
+                        id=content_id
+                        inner_html=html
+                    />
+                </ScrollArea>
+            }.into_any() } else { view! {
                 <div
                     data-rs-markdown-content=""
                     id=content_id
                     inner_html=html
                 />
-            </ScrollArea>
+            }.into_any() }}
         </div>
     }
 }

@@ -4,6 +4,7 @@
 
 pub mod runtime;
 pub mod animate;
+pub mod filter;
 pub mod avatar;
 pub mod table;
 pub mod table_row_sheet_preview;

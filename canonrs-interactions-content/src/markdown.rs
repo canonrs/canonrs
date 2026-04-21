@@ -141,10 +141,24 @@ fn setup_toc_scroll_spy(toc: &Element) {
     }
     if heading_ids.is_empty() { return; }
 
-    // encontra o viewport do markdown-content no mesmo data-rs-markdown pai do TOC
+    // 1) tenta achar via ancestral data-rs-md-layout
+    // 2) fallback: procura o data-rs-scroll-viewport que contém o conteúdo markdown no documento
     let scroll_viewport = toc.closest("[data-rs-md-layout]").ok().flatten()
         .and_then(|layout| layout.query_selector("[data-rs-markdown-content]").ok().flatten())
         .and_then(|content_el| {
+            let mut el: Option<web_sys::Element> = Some(content_el);
+            while let Some(parent) = el {
+                if parent.has_attribute("data-rs-scroll-viewport") {
+                    return Some(parent);
+                }
+                el = parent.parent_element();
+            }
+            None
+        })
+        .or_else(|| {
+            // fallback: pega o data-rs-scroll-viewport que contém [data-rs-markdown-content]
+            let doc = web_sys::window()?.document()?;
+            let content_el = doc.query_selector("[data-rs-markdown-content]").ok()??;
             let mut el: Option<web_sys::Element> = Some(content_el);
             while let Some(parent) = el {
                 if parent.has_attribute("data-rs-scroll-viewport") {

@@ -7,6 +7,7 @@ use super::select_ui::{
     SelectContent as SelectContentUi,
 };
 
+pub use canonrs_core::meta::DisabledState;
 pub use super::select_ui::{
     SelectTrigger, SelectValue, SelectContent, SelectItem, SelectSeparator,
 };

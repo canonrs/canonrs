@@ -1,13 +1,13 @@
-id: split-view
-label: Split View
-category: layout
-description: Left context panel and right action/detail panel
-tags: ["split-view", "split", "columns", "side-by-side", "compare"]
+id: split-view-layout
+label: Split View Layout
+category: editor
+description: Two-panel split layout with configurable ratio for side-by-side content
+tags: ["split", "two-panel", "side-by-side", "editor", "form", "preview"]
 slot_accepts:
-  left: Nav
-  right: Action
-block: []
-blocks_primitives: [flex]
+  left: Any
+  right: Any
 contract:
   regions_required: []
   regions_optional: ["left", "right"]
+props:
+  - ratio: Select(50-50:Equal,40-60:FormFocused,60-40:ContextFocused) | 50-50 | visual

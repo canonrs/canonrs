@@ -15,6 +15,7 @@ pub fn MarkdownSurface(
     #[prop(optional)] show_toc: Option<bool>,
     #[prop(optional)] show_toolbar: Option<bool>,
     #[prop(optional)] toc_position: Option<TocPosition>,
+    #[prop(default = false)] contained: bool,
     #[prop(optional, into)] id: Option<String>,
 ) -> impl IntoView {
     let toc_pos = toc_position.unwrap_or(TocPosition::Top);
@@ -24,6 +25,7 @@ pub fn MarkdownSurface(
             show_toc=show_toc.unwrap_or(true)
             show_toolbar=show_toolbar.unwrap_or(true)
             toc_position=toc_pos
+            contained=contained
             id=id.unwrap_or_default()
         />
     }

@@ -1,0 +1,5 @@
+id: flex
+label: Flex
+category: layout
+description: Free-form flex layout with full control over direction, justify, align, gap and wrap
+tags: ["flex", "layout", "justify", "align", "gap", "wrap", "direction"]

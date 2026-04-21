@@ -85,6 +85,14 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
             path.join(format!("{}_boundary.rs", id.replace('-', "_")))
         ).unwrap_or_default();
 
+        let api_src = fs::read_to_string(
+            path.join("api.rs")
+        ).unwrap_or_default();
+
+        let preview_src = fs::read_to_string(
+            path.join("preview.rs")
+        ).unwrap_or_default();
+
         entries.push(ShowcaseEntry {
             id,
             label:         builder.label.unwrap_or_default(),
@@ -104,6 +112,8 @@ pub(crate) fn generate_showcase(ui_dir: &Path, out_path: &Path) {
             primitive_src,
             ui_src,
             boundary_src,
+            api_src,
+            preview_src,
             block:             builder.block.unwrap_or_default(),
             blocks_primitives: builder.blocks_primitives.unwrap_or_default(),
         });

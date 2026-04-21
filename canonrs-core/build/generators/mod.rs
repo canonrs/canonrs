@@ -12,7 +12,7 @@ pub(crate) mod gen_definitions;
 pub(crate) mod gen_api;
 pub(crate) mod gen_component_definitions;
 pub(crate) use gen_component_definitions::generate_component_definitions;
-pub(crate) use gen_api::{generate_api_files, generate_api_files_blocks, generate_api_files_layouts};
+pub(crate) use gen_api::{generate_api_files, generate_api_files_blocks, generate_api_files_layouts, generate_api_files_layout_primitives};
 pub(crate) mod gen_llm;
 
 pub(crate) use gen_schema::generate_schema_json;

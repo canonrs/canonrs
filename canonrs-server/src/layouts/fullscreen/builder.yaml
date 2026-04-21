@@ -1,13 +1,11 @@
-id: fullscreen
-label: Fullscreen
-category: layout
-description: Optional header with full canvas content area
-tags: ["fullscreen", "full", "viewport", "immersive", "canvas"]
+id: fullscreen-layout
+label: Fullscreen Layout
+category: overlay
+description: Fullscreen layout with optional header and main content area
+tags: ["fullscreen", "immersive", "overlay", "focus", "header", "main"]
 slot_accepts:
-  header: Nav
+  header: Any
   content: Any
-block: []
-blocks_primitives: [stack]
 contract:
   regions_required: []
   regions_optional: ["header", "content"]

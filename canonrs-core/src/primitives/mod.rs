@@ -90,6 +90,7 @@ pub mod slider;
 pub mod spinner;
 pub use spinner::*;
 pub mod stat;
+pub use stat::{StatSize, StatTrend, StatAlign};
 pub mod status_dot;
 pub mod switch;
 pub mod table;

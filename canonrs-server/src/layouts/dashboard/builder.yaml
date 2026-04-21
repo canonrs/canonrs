@@ -1,14 +1,12 @@
-id: dashboard
-label: Dashboard
-category: layout
+id: dashboard-layout
+label: Dashboard Layout
+category: dashboard
 description: App shell with header, sidebar and main content area
-tags: ["dashboard", "app", "admin", "header", "sidebar", "main"]
+tags: ["dashboard", "app", "shell", "sidebar", "header", "main"]
 slot_accepts:
-  header: Nav
-  sidebar: Nav
+  header: Any
+  sidebar: Any
   content: Any
-block: [sidebar_layout_block, stat_group_block, data_table_block]
-blocks_primitives: [flex]
 contract:
   regions_required: []
   regions_optional: ["header", "sidebar", "content"]

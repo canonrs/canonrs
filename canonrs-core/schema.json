@@ -9,9 +9,9 @@
       "variant": "structure"
     },
     {
-      "category": "layout",
+      "category": "dashboard",
       "container": false,
-      "id": "dashboard",
+      "id": "dashboard-layout",
       "regions": [],
       "type": "layout",
       "variant": "structure"
@@ -33,9 +33,9 @@
       "variant": "structure"
     },
     {
-      "category": "layout",
+      "category": "overlay",
       "container": false,
-      "id": "fullscreen",
+      "id": "fullscreen-layout",
       "regions": [],
       "type": "layout",
       "variant": "structure"
@@ -49,9 +49,9 @@
       "variant": "structure"
     },
     {
-      "category": "layout",
+      "category": "marketing",
       "container": false,
-      "id": "marketing",
+      "id": "marketing-layout",
       "regions": [],
       "type": "layout",
       "variant": "structure"
@@ -65,7 +65,7 @@
       "variant": "structure"
     },
     {
-      "category": "layout",
+      "category": "page",
       "container": false,
       "id": "page-layout",
       "regions": [],
@@ -89,9 +89,9 @@
       "variant": "structure"
     },
     {
-      "category": "layout",
+      "category": "editor",
       "container": false,
-      "id": "split-view",
+      "id": "split-view-layout",
       "regions": [],
       "type": "layout",
       "variant": "structure"
@@ -105,15 +105,15 @@
       "variant": "structure"
     },
     {
-      "category": "layout",
+      "category": "editor",
       "container": false,
-      "id": "three-pane",
+      "id": "three-pane-layout",
       "regions": [],
       "type": "layout",
       "variant": "structure"
     },
     {
-      "category": "layout",
+      "category": "flow",
       "container": false,
       "id": "wizard-layout",
       "regions": [],

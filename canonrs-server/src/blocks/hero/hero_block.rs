@@ -40,18 +40,18 @@ pub fn Hero(
         ];
         canonrs_core::validate_block_regions!("hero", provided);
     }
-    let header = StoredValue::new(header);
-    let media = StoredValue::new(media);
+    let header  = StoredValue::new(header);
+    let media   = StoredValue::new(media);
     let content = StoredValue::new(content);
     let actions = StoredValue::new(actions);
-    let footer = StoredValue::new(footer);
+    let footer  = StoredValue::new(footer);
     view! {
         <div data-rs-hero="" data-rs-uid=uid data-rs-variant=variant.as_str() class=class>
-            {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {move || media.get_value().map(|m| view! { <div data-rs-region="media">{m()}</div> })}
+            {move || header.get_value().map(|h| view! { <header data-rs-region="header">{h()}</header> })}
+            {move || media.get_value().map(|m| view! { <div data-rs-region="media" role="img">{m()}</div> })}
             {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}
             {move || actions.get_value().map(|a| view! { <div data-rs-region="actions">{a()}</div> })}
-            {move || footer.get_value().map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+            {move || footer.get_value().map(|f| view! { <footer data-rs-region="footer">{f()}</footer> })}
         </div>
     }
 }

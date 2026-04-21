@@ -80,6 +80,8 @@ pub(crate) struct ShowcaseEntry {
     pub primitive_src: String,
     pub ui_src:        String,
     pub boundary_src:     String,
+    pub api_src:          String,
+    pub preview_src:      String,
     pub block:             Vec<String>,
     pub blocks_primitives: Vec<String>,
 }

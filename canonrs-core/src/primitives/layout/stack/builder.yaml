@@ -1,0 +1,5 @@
+id: stack
+label: Stack
+category: layout
+description: Opiniated flex container for vertical or horizontal linear layouts
+tags: ["stack", "flex", "vertical", "horizontal", "layout", "gap"]

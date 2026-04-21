@@ -16,10 +16,10 @@ pub fn MarketingLayout(
     let footer  = StoredValue::new(footer);
     view! {
         <div data-rs-layout="marketing" data-rs-uid=uid class=class>
-            {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {move || hero.get_value().map(|h| view! { <div data-rs-region="hero">{h()}</div> })}
-            {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}
-            {move || footer.get_value().map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+            {move || header.get_value().map(|h| view! { <header data-rs-region="header">{h()}</header> })}
+            {move || hero.get_value().map(|h| view! { <div data-rs-region="hero" role="banner">{h()}</div> })}
+            {move || content.get_value().map(|c| view! { <main data-rs-region="content">{c()}</main> })}
+            {move || footer.get_value().map(|f| view! { <footer data-rs-region="footer">{f()}</footer> })}
         </div>
     }
 }

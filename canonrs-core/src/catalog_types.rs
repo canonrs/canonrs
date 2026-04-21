@@ -44,8 +44,9 @@ pub struct PropDef {
 
 #[derive(Clone, Debug)]
 pub struct ComponentApi {
-    pub id:    &'static str,
-    pub props: &'static [PropDef],
+    pub id:          &'static str,
+    pub description: &'static str,
+    pub props:       &'static [PropDef],
 }
 
 #[derive(Clone, Debug)]

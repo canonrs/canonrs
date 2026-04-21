@@ -1,14 +1,12 @@
-id: three-pane
-label: Three Pane
-category: layout
-description: Global nav left, content center, local nav right
-tags: ["three-pane", "three-columns", "docs", "toc", "enterprise"]
+id: three-pane-layout
+label: Three Pane Layout
+category: editor
+description: Three-column layout with left nav, center content and right aside
+tags: ["three-pane", "tricolumn", "nav", "aside", "editor", "dashboard"]
 slot_accepts:
-  left: Nav
-  center: Content
-  right: Toc
-block: []
-blocks_primitives: [flex]
+  left: Any
+  center: Any
+  right: Any
 contract:
   regions_required: []
   regions_optional: ["left", "center", "right"]

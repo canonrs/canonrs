@@ -2,6 +2,46 @@
 //! @canon-owner: primitives-team
 //! Stat Primitive - Number + label display
 
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum StatSize {
+    Sm,
+    #[default]
+    Md,
+    Lg,
+}
+impl StatSize {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Sm => "sm", Self::Md => "md", Self::Lg => "lg" }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum StatTrend {
+    #[default]
+    Neutral,
+    Increase,
+    Decrease,
+}
+impl StatTrend {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Neutral => "neutral", Self::Increase => "increase", Self::Decrease => "decrease" }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum StatAlign {
+    #[default]
+    Start,
+    Center,
+    End,
+}
+impl StatAlign {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Start => "start", Self::Center => "center", Self::End => "end" }
+    }
+}
+
 use leptos::prelude::*;
 
 #[component]

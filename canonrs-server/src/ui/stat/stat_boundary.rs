@@ -10,10 +10,8 @@ use super::stat_ui::{
     StatLabel as StatLabelUi,
     StatDelta as StatDeltaUi,
     StatIcon as StatIconUi,
-    StatSize,
-    StatAlign,
-    StatTrend
 };
+pub use canonrs_core::primitives::{StatSize, StatAlign, StatTrend};
 use canonrs_core::meta::LoadingState;
 
 #[component]

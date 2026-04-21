@@ -16,10 +16,10 @@ pub fn WizardLayout(
     let footer  = StoredValue::new(footer);
     view! {
         <div data-rs-layout="wizard" data-rs-uid=uid class=class>
-            {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {move || stepper.get_value().map(|s| view! { <div data-rs-region="stepper">{s()}</div> })}
+            {move || header.get_value().map(|h| view! { <header data-rs-region="header">{h()}</header> })}
+            {move || stepper.get_value().map(|s| view! { <div data-rs-region="stepper" role="group" aria-label="Wizard steps">{s()}</div> })}
             {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}
-            {move || footer.get_value().map(|f| view! { <div data-rs-region="footer">{f()}</div> })}
+            {move || footer.get_value().map(|f| view! { <footer data-rs-region="footer">{f()}</footer> })}
         </div>
     }
 }

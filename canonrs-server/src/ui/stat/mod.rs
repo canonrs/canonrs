@@ -5,7 +5,7 @@ pub mod preview;
 #[cfg(feature = "examples")]
 pub mod examples;
 
-pub use stat_ui::{StatAlign, StatSize, StatTrend};
+pub use canonrs_core::primitives::{StatAlign, StatSize, StatTrend};
 #[cfg(feature = "examples")]
 pub use examples::*;
 pub use preview::StatShowcasePreview;

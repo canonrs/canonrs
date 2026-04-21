@@ -12,8 +12,8 @@ pub fn FullscreenLayout(
     let content = StoredValue::new(content);
     view! {
         <div data-rs-layout="fullscreen" data-rs-uid=uid class=class>
-            {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
-            {move || content.get_value().map(|c| view! { <div data-rs-region="content">{c()}</div> })}
+            {move || header.get_value().map(|h| view! { <header data-rs-region="header">{h()}</header> })}
+            {move || content.get_value().map(|c| view! { <main data-rs-region="content">{c()}</main> })}
         </div>
     }
 }

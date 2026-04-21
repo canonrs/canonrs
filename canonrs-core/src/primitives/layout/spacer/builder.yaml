@@ -1,0 +1,5 @@
+id: spacer
+label: Spacer
+category: layout
+description: Auto-expanding spacer for pushing content apart in flex layouts
+tags: ["spacer", "flex", "expand", "push", "layout"]

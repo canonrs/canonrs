@@ -1,0 +1,5 @@
+id: grid
+label: Grid
+category: layout
+description: CSS grid container with configurable columns and gap for content grids
+tags: ["grid", "layout", "columns", "gap", "css-grid"]

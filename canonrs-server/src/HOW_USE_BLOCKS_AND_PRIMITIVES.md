@@ -202,15 +202,15 @@ sidebar
 
 
 
+Primitives de Layouts
 
+cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/center.rs
+cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/container.rs
+cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/flex.rs
+cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/grid.rs
 
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/center.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/container.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/flex.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/grid.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/mod.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/spacer.rs
-/opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/stack.rs
+cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/spacer.rs
+cat /opt/docker/monorepo/packages-rust/rs-canonrs/canonrs-core/src/primitives/layout/stack.rs
 
 
 

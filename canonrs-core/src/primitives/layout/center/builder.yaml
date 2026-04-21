@@ -1,0 +1,5 @@
+id: center
+label: Center
+category: layout
+description: Centers content horizontally, vertically or both within its container
+tags: ["center", "align", "horizontal", "vertical", "layout"]
