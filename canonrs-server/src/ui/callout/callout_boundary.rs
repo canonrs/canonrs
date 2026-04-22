@@ -1,7 +1,7 @@
 //! Callout Boundary — Canon Rule passthrough
 use leptos::prelude::*;
 use super::callout_ui::{Callout as CalloutUi, CalloutIcon, CalloutTitle, CalloutDescription};
-use canonrs_core::primitives::CalloutVariant;
+pub use canonrs_core::primitives::CalloutVariant;
 
 #[component]
 pub fn Callout(
