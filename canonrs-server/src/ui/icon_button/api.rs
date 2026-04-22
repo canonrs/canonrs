@@ -8,8 +8,8 @@ pub const ICONBUTTON_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some(""), description: "Accessible label for screen readers" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "ghost", "outline", "solid", "subtle", "destructive"]), required: false, default: Some("default"), description: "Visual variant of the component" },
-        PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl"]), required: false, default: Some("md"), description: "Size variant of the component" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "size", kind: PropType::String, required: false, default: Some("md"), description: "Size variant of the component" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "Whether the component is disabled" },
         PropDef { name: "pressed", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "loading", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },

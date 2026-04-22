@@ -10,7 +10,7 @@ use super::sheet_ui::{
     SheetContent as SheetContentUi,
     SheetPortal
 };
-use canonrs_core::primitives::SheetSide;
+pub use canonrs_core::primitives::SheetSide;
 use canonrs_core::meta::VisibilityState;
 
 #[component]

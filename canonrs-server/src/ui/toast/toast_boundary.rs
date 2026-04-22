@@ -6,7 +6,7 @@ use super::toast_ui::{
     Toast as ToastUi,
     ToastViewport as ToastViewportUi
 };
-use canonrs_core::primitives::ToastVariant;
+pub use canonrs_core::primitives::ToastVariant;
 
 #[allow(unused_variables)]
 #[component]

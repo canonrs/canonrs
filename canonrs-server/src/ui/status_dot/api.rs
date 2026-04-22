@@ -6,7 +6,7 @@ pub const STATUSDOT_API: ComponentApi = ComponentApi {
     id: "status-dot",
     description: "Status indicator dot",
     props: &[
-        PropDef { name: "variant", kind: PropType::Enum(&["online", "offline", "away", "busy", "do-not-disturb"]), required: false, default: Some("offline"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("offline"), description: "Visual variant of the component" },
         PropDef { name: "label", kind: PropType::String, required: false, default: None, description: "Accessible label text" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],

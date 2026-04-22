@@ -8,7 +8,7 @@ pub const TABLEOFCONTENTS_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "items", kind: PropType::String, required: true, default: None, description: "Prop value" },
         PropDef { name: "title", kind: PropType::String, required: false, default: Some("On this page"), description: "Title slot or text" },
-        PropDef { name: "mode", kind: PropType::Enum(&["simple", "expand", "nested"]), required: false, default: None, description: "Operational mode of the component" },
+        PropDef { name: "mode", kind: PropType::String, required: false, default: None, description: "Operational mode of the component" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

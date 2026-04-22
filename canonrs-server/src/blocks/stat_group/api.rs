@@ -7,7 +7,7 @@ pub const STATGROUPBLOCK_API: ComponentApi = ComponentApi {
     description: "Dashboard stat group block for displaying metric collections",
     props: &[
         PropDef { name: "stats", kind: PropType::Children, required: false, default: None, description: "Stats slot" },
-        PropDef { name: "cols", kind: PropType::Enum(&["1", "2", "3", "4", "6", "12", "auto"]), required: false, default: Some("three"), description: "Number of grid columns" },
+        PropDef { name: "cols", kind: PropType::String, required: false, default: Some("three"), description: "Number of grid columns" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

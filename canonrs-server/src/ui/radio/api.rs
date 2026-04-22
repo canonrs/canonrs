@@ -7,7 +7,7 @@ pub const RADIOGROUP_API: ComponentApi = ComponentApi {
     description: "Radio button input",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };
@@ -17,8 +17,8 @@ pub const RADIO_API: ComponentApi = ComponentApi {
     description: "Radio button input",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "selected", kind: PropType::Enum(&["unselected", "selected"]), required: false, default: Some("unselected"), description: "Prop value" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "Prop value" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "Current value" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "Form field name" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
@@ -30,8 +30,8 @@ pub const RADIOGROUPITEM_API: ComponentApi = ComponentApi {
     description: "Radio button input",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "selected", kind: PropType::Enum(&["unselected", "selected"]), required: false, default: Some("unselected"), description: "Prop value" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "Prop value" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "Current value" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "Form field name" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },

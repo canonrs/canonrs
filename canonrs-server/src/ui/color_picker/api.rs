@@ -8,7 +8,7 @@ pub const COLORPICKER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "value", kind: PropType::String, required: false, default: Some("#000000"), description: "Current value" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "Form field name" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };
@@ -18,7 +18,7 @@ pub const COLORPICKERSWATCH_API: ComponentApi = ComponentApi {
     description: "Color picker input",
     props: &[
         PropDef { name: "color", kind: PropType::String, required: true, default: None, description: "Prop value" },
-        PropDef { name: "selected", kind: PropType::Enum(&["unselected", "selected"]), required: false, default: Some("unselected"), description: "Prop value" },
+        PropDef { name: "selected", kind: PropType::String, required: false, default: Some("unselected"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

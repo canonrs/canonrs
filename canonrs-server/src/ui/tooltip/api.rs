@@ -37,7 +37,7 @@ pub const TOOLTIPCONTENT_API: ComponentApi = ComponentApi {
     description: "Hover tooltip",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "side", kind: PropType::Enum(&["top", "bottom", "left", "right"]), required: false, default: Some("top"), description: "Tooltip or popover side" },
+        PropDef { name: "side", kind: PropType::String, required: false, default: Some("top"), description: "Tooltip or popover side" },
         PropDef { name: "tooltip_id", kind: PropType::String, required: false, default: None, description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],

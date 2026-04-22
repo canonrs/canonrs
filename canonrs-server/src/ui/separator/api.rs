@@ -6,7 +6,7 @@ pub const SEPARATOR_API: ComponentApi = ComponentApi {
     id: "separator",
     description: "Visual divider line",
     props: &[
-        PropDef { name: "orientation", kind: PropType::Enum(&["horizontal", "vertical"]), required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
+        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
         PropDef { name: "decorative", kind: PropType::Bool, required: false, default: Some("true"), description: "Prop value" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some(""), description: "Accessible label for screen readers" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },

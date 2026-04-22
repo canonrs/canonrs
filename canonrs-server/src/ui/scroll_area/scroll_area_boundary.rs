@@ -1,7 +1,7 @@
 //! ScrollArea Island — Canon Rule passthrough
 use leptos::prelude::*;
 use super::scroll_area_ui::ScrollArea as ScrollAreaUi;
-use canonrs_core::primitives::ScrollOrientation;
+pub use canonrs_core::primitives::ScrollOrientation;
 
 #[component]
 pub fn ScrollArea(

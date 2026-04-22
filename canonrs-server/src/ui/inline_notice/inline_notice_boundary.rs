@@ -1,7 +1,7 @@
 //! InlineNotice Boundary — Canon Rule passthrough
 use leptos::prelude::*;
 use super::inline_notice_ui::{InlineNotice as InlineNoticeUi, InlineNoticeIcon, InlineNoticeContent};
-use canonrs_core::primitives::InlineNoticeVariant;
+pub use canonrs_core::primitives::InlineNoticeVariant;
 
 #[component]
 pub fn InlineNotice(

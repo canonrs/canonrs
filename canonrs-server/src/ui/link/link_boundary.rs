@@ -3,7 +3,7 @@
 
 use leptos::prelude::*;
 use super::link_ui::Link as LinkUi;
-use canonrs_core::primitives::LinkVariant;
+pub use canonrs_core::primitives::LinkVariant;
 
 #[component]
 pub fn Link(

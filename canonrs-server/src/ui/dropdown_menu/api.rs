@@ -44,7 +44,7 @@ pub const DROPDOWNMENUITEM_API: ComponentApi = ComponentApi {
     description: "Dropdown menu",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };
@@ -54,8 +54,8 @@ pub const DROPDOWNMENUCHECKBOXITEM_API: ComponentApi = ComponentApi {
     description: "Dropdown menu",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "checked", kind: PropType::Enum(&["off", "on"]), required: false, default: Some("off"), description: "Whether the component is checked" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "checked", kind: PropType::String, required: false, default: Some("off"), description: "Whether the component is checked" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

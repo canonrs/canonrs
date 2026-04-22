@@ -7,10 +7,10 @@ pub const STAT_API: ComponentApi = ComponentApi {
     description: "Metric stat display",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "size", kind: PropType::Enum(&["sm", "md", "lg"]), required: false, default: Some("md"), description: "Size variant of the component" },
-        PropDef { name: "align", kind: PropType::Enum(&["start", "center", "end"]), required: false, default: Some("start"), description: "Flex or stack align-items" },
-        PropDef { name: "trend", kind: PropType::Enum(&["neutral", "increase", "decrease"]), required: false, default: Some("neutral"), description: "Trend direction: increase, decrease or neutral" },
-        PropDef { name: "loading", kind: PropType::Enum(&["idle", "loading"]), required: false, default: Some("idle"), description: "Prop value" },
+        PropDef { name: "size", kind: PropType::String, required: false, default: Some("md"), description: "Size variant of the component" },
+        PropDef { name: "align", kind: PropType::String, required: false, default: Some("start"), description: "Flex or stack align-items" },
+        PropDef { name: "trend", kind: PropType::String, required: false, default: Some("neutral"), description: "Trend direction: increase, decrease or neutral" },
+        PropDef { name: "loading", kind: PropType::String, required: false, default: Some("idle"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

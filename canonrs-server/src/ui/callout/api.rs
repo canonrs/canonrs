@@ -9,7 +9,7 @@ pub const CALLOUT_API: ComponentApi = ComponentApi {
         PropDef { name: "title", kind: PropType::String, required: false, default: None, description: "Title slot or text" },
         PropDef { name: "description", kind: PropType::String, required: false, default: None, description: "Description slot or text" },
         PropDef { name: "icon", kind: PropType::String, required: false, default: None, description: "Prop value" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "info", "success", "warning", "error"]), required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

@@ -6,7 +6,7 @@ pub const SPLITVIEWLAYOUT_API: ComponentApi = ComponentApi {
     id: "split-view-layout",
     description: "Two-panel split layout with configurable ratio for side-by-side content",
     props: &[
-        PropDef { name: "ratio", kind: PropType::Enum(&["equal", "form-focused", "context-focused"]), required: false, default: Some("equal"), description: "Split view ratio between panels" },
+        PropDef { name: "ratio", kind: PropType::String, required: false, default: Some("equal"), description: "Split view ratio between panels" },
         PropDef { name: "left", kind: PropType::Children, required: false, default: None, description: "Left panel slot" },
         PropDef { name: "right", kind: PropType::Children, required: false, default: None, description: "Right panel slot" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },

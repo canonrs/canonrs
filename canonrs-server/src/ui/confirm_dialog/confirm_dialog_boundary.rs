@@ -12,7 +12,7 @@ use super::confirm_dialog_ui::{
     ConfirmDialogCancel as ConfirmDialogCancelUi,
     ConfirmDialogConfirm as ConfirmDialogConfirmUi
 };
-use canonrs_core::primitives::ConfirmDialogVariant;
+pub use canonrs_core::primitives::ConfirmDialogVariant;
 
 #[component]
 pub fn ConfirmDialog(

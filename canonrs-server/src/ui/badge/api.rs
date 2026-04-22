@@ -7,8 +7,8 @@ pub const BADGE_API: ComponentApi = ComponentApi {
     description: "Status badge label",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "primary", "success", "warning", "destructive", "outline"]), required: false, default: Some("default"), description: "Visual variant of the component" },
-        PropDef { name: "interactivity", kind: PropType::Enum(&["static", "interactive"]), required: false, default: Some("static"), description: "Prop value" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "interactivity", kind: PropType::String, required: false, default: Some("static"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

@@ -5,7 +5,7 @@ use super::resizable_ui::{
     ResizablePanel as ResizablePanelUi,
     ResizableHandle as ResizableHandleUi
 };
-use canonrs_core::primitives::ResizableOrientation;
+pub use canonrs_core::primitives::ResizableOrientation;
 
 #[component]
 pub fn Resizable(

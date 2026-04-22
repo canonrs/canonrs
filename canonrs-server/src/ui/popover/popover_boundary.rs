@@ -8,7 +8,7 @@ use super::popover_ui::{
     PopoverContent as PopoverContentUi
 };
 use canonrs_core::meta::VisibilityState;
-use canonrs_core::primitives::PopoverSide;
+pub use canonrs_core::primitives::PopoverSide;
 
 
 

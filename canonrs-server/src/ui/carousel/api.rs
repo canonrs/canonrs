@@ -8,9 +8,9 @@ pub const CAROUSEL_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "initial_index", kind: PropType::Number, required: false, default: Some("0"), description: "Prop value" },
-        PropDef { name: "autoplay", kind: PropType::Enum(&["off", "on"]), required: false, default: Some("off"), description: "Prop value" },
+        PropDef { name: "autoplay", kind: PropType::String, required: false, default: Some("off"), description: "Prop value" },
         PropDef { name: "interval", kind: PropType::Number, required: false, default: Some("5000"), description: "Prop value" },
-        PropDef { name: "loop_state", kind: PropType::Enum(&["off", "on"]), required: false, default: Some("on"), description: "Prop value" },
+        PropDef { name: "loop_state", kind: PropType::String, required: false, default: Some("on"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

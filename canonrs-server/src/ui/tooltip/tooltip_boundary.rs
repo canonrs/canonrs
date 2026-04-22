@@ -9,7 +9,7 @@ use super::tooltip_ui::{
     TooltipTrigger as TooltipTriggerUi,
     TooltipContent as TooltipContentUi
 };
-use canonrs_core::primitives::TooltipSide;
+pub use canonrs_core::primitives::TooltipSide;
 
 #[component]
 pub fn TooltipProvider(

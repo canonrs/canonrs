@@ -7,7 +7,7 @@ pub const BUTTONGROUP_API: ComponentApi = ComponentApi {
     description: "Group of action buttons",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "attached", kind: PropType::Enum(&["off", "on"]), required: false, default: Some("off"), description: "Whether buttons are visually attached" },
+        PropDef { name: "attached", kind: PropType::String, required: false, default: Some("off"), description: "Whether buttons are visually attached" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "Accessible label for screen readers" },
     ],

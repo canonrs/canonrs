@@ -7,8 +7,8 @@ pub const SIDEBAR_API: ComponentApi = ComponentApi {
     description: "Sidebar navigation component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "state", kind: PropType::Enum(&["closed", "open"]), required: false, default: Some("open"), description: "Loading or visibility state" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "rail"]), required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("open"), description: "Loading or visibility state" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };
@@ -56,8 +56,8 @@ pub const SIDEBARMENUITEM_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "Navigation target URL" },
-        PropDef { name: "active", kind: PropType::Enum(&["inactive", "active"]), required: false, default: Some("inactive"), description: "Active/selected state" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "active", kind: PropType::String, required: false, default: Some("inactive"), description: "Active/selected state" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
     ],
 };
 

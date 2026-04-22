@@ -9,7 +9,7 @@ pub const MARKDOWNSURFACE_API: ComponentApi = ComponentApi {
         PropDef { name: "rendered", kind: PropType::String, required: true, default: None, description: "Prop value" },
         PropDef { name: "show_toc", kind: PropType::Bool, required: false, default: None, description: "Whether to show table of contents" },
         PropDef { name: "show_toolbar", kind: PropType::Bool, required: false, default: None, description: "Whether to show markdown toolbar" },
-        PropDef { name: "toc_position", kind: PropType::Enum(&["top", "sidebar"]), required: false, default: None, description: "Position of table of contents" },
+        PropDef { name: "toc_position", kind: PropType::String, required: false, default: None, description: "Position of table of contents" },
         PropDef { name: "contained", kind: PropType::Bool, required: false, default: Some("false"), description: "Whether to constrain width" },
         PropDef { name: "id", kind: PropType::String, required: false, default: None, description: "Element id attribute" },
     ],
@@ -21,7 +21,7 @@ pub const MARKDOWNLAYOUT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "value", kind: PropType::String, required: false, default: None, description: "Current value" },
-        PropDef { name: "toc_position", kind: PropType::Enum(&["top", "sidebar"]), required: false, default: None, description: "Position of table of contents" },
+        PropDef { name: "toc_position", kind: PropType::String, required: false, default: None, description: "Position of table of contents" },
     ],
 };
 

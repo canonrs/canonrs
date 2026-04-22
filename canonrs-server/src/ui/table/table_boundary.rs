@@ -12,7 +12,7 @@ use super::table_ui::{
     TableFooter as TableFooterUi,
     TableCaption as TableCaptionUi,
 };
-use canonrs_core::primitives::SortDirection;
+pub use canonrs_core::primitives::SortDirection;
 use canonrs_core::meta::SelectionState;
 pub use super::table_ui::TableState;
 

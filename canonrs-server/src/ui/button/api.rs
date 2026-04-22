@@ -7,16 +7,16 @@ pub const BUTTON_API: ComponentApi = ComponentApi {
     description: "Action button with variant and size",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "destructive", "outline", "secondary", "ghost", "link", "primary"]), required: false, default: Some("default"), description: "Visual variant of the component" },
-        PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl", "icon"]), required: false, default: Some("md"), description: "Size variant of the component" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "size", kind: PropType::String, required: false, default: Some("md"), description: "Size variant of the component" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "Accessible label for screen readers" },
         PropDef { name: "validation", kind: PropType::String, required: false, default: None, description: "Prop value" },
-        PropDef { name: "state_hint", kind: PropType::Enum(&["first", "last", "hover", "focus"]), required: false, default: None, description: "Prop value" },
+        PropDef { name: "state_hint", kind: PropType::String, required: false, default: None, description: "Prop value" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "Navigation target URL" },
         PropDef { name: "target", kind: PropType::String, required: false, default: Some(""), description: "Target element selector for copy" },
-        PropDef { name: "button_type", kind: PropType::Enum(&["button", "submit", "reset"]), required: false, default: Some("button"), description: "Prop value" },
+        PropDef { name: "button_type", kind: PropType::String, required: false, default: Some("button"), description: "Prop value" },
     ],
 };
 

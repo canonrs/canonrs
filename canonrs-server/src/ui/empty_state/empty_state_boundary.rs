@@ -9,7 +9,7 @@ use super::empty_state_ui::{
     EmptyStateDescription as EmptyStateDescriptionUi,
     EmptyStateAction as EmptyStateActionUi
 };
-use canonrs_core::primitives::EmptyStateVariant;
+pub use canonrs_core::primitives::EmptyStateVariant;
 
 #[component]
 pub fn EmptyState(

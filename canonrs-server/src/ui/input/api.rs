@@ -12,9 +12,9 @@ pub const INPUT_API: ComponentApi = ComponentApi {
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "Current value" },
         PropDef { name: "placeholder", kind: PropType::String, required: false, default: Some(""), description: "Placeholder text" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some(""), description: "Accessible label for screen readers" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "error", "success", "warning"]), required: false, default: Some("default"), description: "Visual variant of the component" },
-        PropDef { name: "size", kind: PropType::Enum(&["md", "sm", "lg"]), required: false, default: Some("md"), description: "Size variant of the component" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "size", kind: PropType::String, required: false, default: Some("md"), description: "Size variant of the component" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
     ],
 };
 

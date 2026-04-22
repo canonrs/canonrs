@@ -8,7 +8,7 @@ pub const LINKGROUP_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "label", kind: PropType::String, required: false, default: None, description: "Accessible label text" },
-        PropDef { name: "direction", kind: PropType::Enum(&["vertical", "horizontal"]), required: false, default: Some("vertical"), description: "Stack or flex direction" },
+        PropDef { name: "direction", kind: PropType::String, required: false, default: Some("vertical"), description: "Stack or flex direction" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

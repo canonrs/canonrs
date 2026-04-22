@@ -10,8 +10,8 @@ pub const SLIDER_API: ComponentApi = ComponentApi {
         PropDef { name: "max", kind: PropType::Number, required: false, default: Some("100.0"), description: "Prop value" },
         PropDef { name: "step", kind: PropType::Number, required: false, default: Some("1.0"), description: "Prop value" },
         PropDef { name: "value", kind: PropType::Number, required: false, default: Some("50.0"), description: "Current value" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
-        PropDef { name: "orientation", kind: PropType::Enum(&["horizontal", "vertical"]), required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };
@@ -24,8 +24,8 @@ pub const SLIDERWITHMARKS_API: ComponentApi = ComponentApi {
         PropDef { name: "max", kind: PropType::Number, required: false, default: Some("100.0"), description: "Prop value" },
         PropDef { name: "step", kind: PropType::Number, required: false, default: Some("10.0"), description: "Prop value" },
         PropDef { name: "value", kind: PropType::Number, required: false, default: Some("50.0"), description: "Current value" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
-        PropDef { name: "orientation", kind: PropType::Enum(&["horizontal", "vertical"]), required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

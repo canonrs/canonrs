@@ -3,7 +3,7 @@
 
 use leptos::prelude::*;
 use super::checkbox_ui::Checkbox as CheckboxUi;
-use canonrs_core::primitives::CheckboxState;
+pub use canonrs_core::primitives::CheckboxState;
 use canonrs_core::meta::DisabledState;
 
 #[component]

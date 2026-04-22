@@ -4,7 +4,7 @@ use super::toolbar_ui::{
     Toolbar as ToolbarUi,
     ToolbarSeparator as ToolbarSeparatorUi
 };
-use canonrs_core::primitives::ToolbarOrientation;
+pub use canonrs_core::primitives::ToolbarOrientation;
 
 #[component]
 pub fn Toolbar(

@@ -1,7 +1,5 @@
 //! Resolve tipos Rust para PropKind
 
-use std::fs;
-use std::path::Path;
 
 #[derive(Debug)]
 pub(crate) enum PropKind {
@@ -33,18 +31,8 @@ pub(crate) fn resolve_type(ty: &str, name: &str, full_content: &str) -> PropKind
     if clean == "Children" { return PropKind::Children; }
     if clean == "ChildrenFn" || clean == "Option<ChildrenFn>" { return PropKind::Children; }
 
-    // 1. Tenta resolver localmente no conteudo do boundary
+    // Regra: API é gerada lendo APENAS o boundary — zero busca externa
     let variants = extract_enum_variants(full_content, clean);
-    if !variants.is_empty() { return PropKind::Enum(variants); }
-
-    // 2. Tenta resolver nos arquivos do core/server
-    if is_imported_from_known_crate(full_content, clean) {
-        let variants = search_enum_in_all_sources(clean);
-        if !variants.is_empty() { return PropKind::Enum(variants); }
-    }
-
-    // 3. Tenta busca incondicional (para casos como pub use)
-    let variants = search_enum_in_all_sources(clean);
     if !variants.is_empty() { return PropKind::Enum(variants); }
 
     // Fallback semantico por nome
@@ -112,67 +100,5 @@ fn unwrap_option(ty: &str) -> &str {
     if t.starts_with("Option<") && t.ends_with('>') { &t[7..t.len()-1] } else { t }
 }
 
-fn is_imported_from_known_crate(content: &str, enum_name: &str) -> bool {
-    for line in content.lines() {
-        let t = line.trim();
-        if (t.starts_with("use canonrs_core")
-            || t.starts_with("use canonrs::")
-            || t.starts_with("pub use canonrs")
-            || t.starts_with("use super::"))
-            && t.contains(enum_name)
-        {
-            return true;
-        }
-    }
-    false
-}
 
-fn search_enum_in_all_sources(enum_name: &str) -> Vec<String> {
-    let manifest = std::env::var("CARGO_MANIFEST_DIR").unwrap_or_default();
-    let base = Path::new(&manifest);
 
-    let search_dirs = vec![
-        base.join("src/primitives"),
-        base.join("src/meta"),
-        base.join("src"),
-        base.join("../canonrs-server/src/ui"),
-        base.join("../canonrs-server/src/blocks"),
-        base.join("../canonrs-server/src/layouts"),
-    ];
-
-    for dir in &search_dirs {
-        if let Ok(variants) = search_dir_for_enum(dir, enum_name) {
-            if !variants.is_empty() { return variants; }
-        }
-    }
-    vec![]
-}
-
-fn search_dir_for_enum(dir: &Path, enum_name: &str) -> std::io::Result<Vec<String>> {
-    if !dir.exists() { return Ok(vec![]); }
-    let entries: Vec<_> = fs::read_dir(dir)?.flatten().collect();
-
-    // Primeiro: checar arquivos .rs no diretorio atual
-    for entry in &entries {
-        let path = entry.path();
-        if path.is_dir() { continue; }
-        if path.extension().and_then(|e| e.to_str()) != Some("rs") { continue; }
-        let content = match fs::read_to_string(&path) {
-            Ok(c) => c,
-            Err(_) => continue,
-        };
-        let variants = extract_enum_variants(&content, enum_name);
-        if !variants.is_empty() { return Ok(variants); }
-    }
-
-    // Depois: buscar em subdiretórios
-    for entry in &entries {
-        let path = entry.path();
-        if !path.is_dir() { continue; }
-        if let Ok(v) = search_dir_for_enum(&path, enum_name) {
-            if !v.is_empty() { return Ok(v); }
-        }
-    }
-
-    Ok(vec![])
-}

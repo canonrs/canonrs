@@ -10,7 +10,7 @@ use super::drawer_ui::{
     DrawerContent,
     DrawerPortal
 };
-use canonrs_core::primitives::DrawerSide;
+pub use canonrs_core::primitives::DrawerSide;
 use canonrs_core::meta::VisibilityState;
 
 #[component]

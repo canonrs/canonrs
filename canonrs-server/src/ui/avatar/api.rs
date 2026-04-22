@@ -7,9 +7,9 @@ pub const AVATAR_API: ComponentApi = ComponentApi {
     description: "User avatar image",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "size", kind: PropType::Enum(&["xs", "sm", "md", "lg", "xl"]), required: false, default: Some("md"), description: "Size variant of the component" },
-        PropDef { name: "shape", kind: PropType::Enum(&["circle", "square", "rounded"]), required: false, default: Some("circle"), description: "Prop value" },
-        PropDef { name: "status", kind: PropType::Enum(&["online", "offline", "busy", "away"]), required: false, default: None, description: "Prop value" },
+        PropDef { name: "size", kind: PropType::String, required: false, default: Some("md"), description: "Size variant of the component" },
+        PropDef { name: "shape", kind: PropType::String, required: false, default: Some("circle"), description: "Prop value" },
+        PropDef { name: "status", kind: PropType::String, required: false, default: None, description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

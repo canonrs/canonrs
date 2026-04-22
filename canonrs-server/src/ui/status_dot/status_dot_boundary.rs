@@ -3,7 +3,7 @@
 
 use leptos::prelude::*;
 use super::status_dot_ui::StatusDot as StatusDotUi;
-use canonrs_core::primitives::StatusDotVariant;
+pub use canonrs_core::primitives::StatusDotVariant;
 
 #[component]
 pub fn StatusDot(

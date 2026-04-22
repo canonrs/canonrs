@@ -8,7 +8,7 @@ use super::alert_ui::{
     AlertDescription,
     AlertCloseButton
 };
-use canonrs_core::primitives::AlertVariant;
+pub use canonrs_core::primitives::AlertVariant;
 
 #[component]
 pub fn Alert(

@@ -7,7 +7,7 @@ use super::hover_card_ui::{
     HoverCardTrigger as HoverCardTriggerUi,
     HoverCardContent as HoverCardContentUi
 };
-use canonrs_core::primitives::HoverCardSide;
+pub use canonrs_core::primitives::HoverCardSide;
 use canonrs_core::meta::VisibilityState;
 
 #[component]

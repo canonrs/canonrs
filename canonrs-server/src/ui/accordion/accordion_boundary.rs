@@ -10,7 +10,7 @@ use super::accordion_ui::{
     AccordionContent as AccordionContentUi
 };
 use canonrs_core::meta::{VisibilityState, DisabledState};
-use canonrs_core::primitives::AccordionSelection;
+pub use canonrs_core::primitives::AccordionSelection;
 
 #[component]
 pub fn Accordion(

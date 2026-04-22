@@ -8,8 +8,8 @@ pub const NAVITEM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "label", kind: PropType::String, required: true, default: None, description: "Accessible label text" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "Navigation target URL" },
-        PropDef { name: "active", kind: PropType::Enum(&["inactive", "active"]), required: false, default: Some("inactive"), description: "Active/selected state" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "active", kind: PropType::String, required: false, default: Some("inactive"), description: "Active/selected state" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

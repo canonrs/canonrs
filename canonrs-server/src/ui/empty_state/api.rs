@@ -7,7 +7,7 @@ pub const EMPTYSTATE_API: ComponentApi = ComponentApi {
     description: "Empty state placeholder",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "variant", kind: PropType::Enum(&["default", "no-data", "no-results", "error"]), required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

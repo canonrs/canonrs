@@ -9,7 +9,7 @@ pub const TEXTAREA_API: ComponentApi = ComponentApi {
         PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "Current value" },
         PropDef { name: "placeholder", kind: PropType::String, required: false, default: Some(""), description: "Placeholder text" },
         PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "Form field name" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "readonly", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "required", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "aria_labelledby", kind: PropType::String, required: false, default: Some(""), description: "Prop value" },

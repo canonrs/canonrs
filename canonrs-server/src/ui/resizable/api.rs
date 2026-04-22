@@ -7,7 +7,7 @@ pub const RESIZABLE_API: ComponentApi = ComponentApi {
     description: "Resizable panel component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "orientation", kind: PropType::Enum(&["horizontal", "vertical"]), required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
+        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
         PropDef { name: "min_size", kind: PropType::Number, required: false, default: Some("20u32"), description: "Prop value" },
         PropDef { name: "max_size", kind: PropType::Number, required: false, default: Some("80u32"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },

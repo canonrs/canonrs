@@ -7,7 +7,7 @@ pub const BANNER_API: ComponentApi = ComponentApi {
     description: "Banner message",
     props: &[
         PropDef { name: "content", kind: PropType::String, required: false, default: None, description: "Content region slot" },
-        PropDef { name: "variant", kind: PropType::Enum(&["info", "success", "warning", "error"]), required: false, default: Some("info"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("info"), description: "Visual variant of the component" },
         PropDef { name: "dismissible", kind: PropType::Bool, required: false, default: Some("true"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],

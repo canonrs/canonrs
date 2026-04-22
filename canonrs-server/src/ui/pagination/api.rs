@@ -37,7 +37,7 @@ pub const PAGINATIONLINK_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "Navigation target URL" },
-        PropDef { name: "state", kind: PropType::Enum(&["inactive", "active"]), required: false, default: Some("inactive"), description: "Loading or visibility state" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("inactive"), description: "Loading or visibility state" },
         PropDef { name: "page", kind: PropType::Number, required: false, default: Some("0usize"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
@@ -49,7 +49,7 @@ pub const PAGINATIONPREVIOUS_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "Navigation target URL" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };
@@ -60,7 +60,7 @@ pub const PAGINATIONNEXT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some(""), description: "Navigation target URL" },
-        PropDef { name: "disabled", kind: PropType::Enum(&["enabled", "disabled"]), required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

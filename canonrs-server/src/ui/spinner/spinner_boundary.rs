@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::spinner_ui::Spinner as SpinnerUi;
-use canonrs_core::primitives::SpinnerSize;
+pub use canonrs_core::primitives::SpinnerSize;
 
 #[component]
 pub fn Spinner(

@@ -26,7 +26,7 @@ pub const BREADCRUMBLINK_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "href", kind: PropType::String, required: false, default: None, description: "Navigation target URL" },
-        PropDef { name: "state", kind: PropType::Enum(&["inactive", "active"]), required: false, default: Some("inactive"), description: "Loading or visibility state" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("inactive"), description: "Loading or visibility state" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
     ],
 };

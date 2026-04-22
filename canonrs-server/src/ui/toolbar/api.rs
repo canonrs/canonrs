@@ -8,7 +8,7 @@ pub const TOOLBAR_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some("Toolbar"), description: "Accessible label for screen readers" },
-        PropDef { name: "orientation", kind: PropType::Enum(&["horizontal", "vertical"]), required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
+        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("horizontal"), description: "Horizontal or vertical orientation" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

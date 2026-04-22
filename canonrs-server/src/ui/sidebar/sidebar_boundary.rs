@@ -13,7 +13,7 @@ use super::sidebar_ui::{
     SidebarSeparator as SidebarSeparatorUi,
     SidebarGroupLabel as SidebarGroupLabelUi
 };
-use canonrs_core::primitives::SidebarVariant;
+pub use canonrs_core::primitives::SidebarVariant;
 use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
 
 

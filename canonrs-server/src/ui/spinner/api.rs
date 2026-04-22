@@ -6,7 +6,7 @@ pub const SPINNER_API: ComponentApi = ComponentApi {
     id: "spinner",
     description: "Loading spinner",
     props: &[
-        PropDef { name: "size", kind: PropType::Enum(&["small", "medium", "large"]), required: false, default: Some("medium"), description: "Size variant of the component" },
+        PropDef { name: "size", kind: PropType::String, required: false, default: Some("medium"), description: "Size variant of the component" },
         PropDef { name: "paused", kind: PropType::Bool, required: false, default: Some("false"), description: "Whether spinner animation is paused" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: Some("Loading"), description: "Accessible label for screen readers" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },

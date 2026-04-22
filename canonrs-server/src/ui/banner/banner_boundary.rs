@@ -7,7 +7,7 @@ use super::banner_ui::{
     BannerClose,
     BannerContent
 };
-use canonrs_core::primitives::BannerVariant;
+pub use canonrs_core::primitives::BannerVariant;
 
 #[component]
 pub fn Banner(

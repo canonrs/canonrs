@@ -7,8 +7,8 @@ pub const FIELD_API: ComponentApi = ComponentApi {
     description: "Form field wrapper with label and error",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "orientation", kind: PropType::Enum(&["vertical", "horizontal", "responsive"]), required: false, default: Some("vertical"), description: "Horizontal or vertical orientation" },
-        PropDef { name: "_validation", kind: PropType::Enum(&["none", "error", "success", "warning"]), required: false, default: Some("none"), description: "Prop value" },
+        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("vertical"), description: "Horizontal or vertical orientation" },
+        PropDef { name: "_validation", kind: PropType::String, required: false, default: Some("none"), description: "Prop value" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],

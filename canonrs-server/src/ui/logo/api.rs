@@ -6,8 +6,8 @@ pub const LOGO_API: ComponentApi = ComponentApi {
     id: "logo",
     description: "CanonRS logo combining SVG icon, wordmark and optional tagline",
     props: &[
-        PropDef { name: "size", kind: PropType::Enum(&["sm", "md", "lg"]), required: false, default: Some("md"), description: "Size variant of the component" },
-        PropDef { name: "variant", kind: PropType::Enum(&["brand", "neutral"]), required: false, default: Some("brand"), description: "Visual variant of the component" },
+        PropDef { name: "size", kind: PropType::String, required: false, default: Some("md"), description: "Size variant of the component" },
+        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("brand"), description: "Visual variant of the component" },
         PropDef { name: "wordmark", kind: PropType::Children, required: false, default: None, description: "Prop value" },
         PropDef { name: "tagline", kind: PropType::Children, required: false, default: None, description: "Prop value" },
         PropDef { name: "href", kind: PropType::String, required: false, default: Some("/"), description: "Navigation target URL" },

@@ -2,7 +2,7 @@
 //! DataTable Island — Canon Rule #340 (zero-logic passthrough)
 
 use leptos::prelude::*;
-use canonrs_core::primitives::DataTableDensity;
+pub use canonrs_core::primitives::DataTableDensity;
 use super::data_table_ui::{
     DataTableStatic,
     DataTableColumn,

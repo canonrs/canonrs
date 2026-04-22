@@ -27,7 +27,7 @@ pub const TABSTRIGGER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "value", kind: PropType::String, required: true, default: None, description: "Current value" },
-        PropDef { name: "active", kind: PropType::Enum(&["inactive", "active"]), required: false, default: Some("inactive"), description: "Active/selected state" },
+        PropDef { name: "active", kind: PropType::String, required: false, default: Some("inactive"), description: "Active/selected state" },
         PropDef { name: "disabled", kind: PropType::Bool, required: false, default: Some("false"), description: "Whether the component is disabled" },
     ],
 };
@@ -38,7 +38,7 @@ pub const TABSCONTENT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "value", kind: PropType::String, required: true, default: None, description: "Current value" },
-        PropDef { name: "active", kind: PropType::Enum(&["inactive", "active"]), required: false, default: Some("inactive"), description: "Active/selected state" },
+        PropDef { name: "active", kind: PropType::String, required: false, default: Some("inactive"), description: "Active/selected state" },
     ],
 };
 
