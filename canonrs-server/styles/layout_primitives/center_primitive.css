@@ -11,11 +11,13 @@
 }
 
 [data-rs-center][data-rs-mode="vertical"] {
+    flex: 1;
     align-items: center;
     min-height: 100%;
 }
 
 [data-rs-center][data-rs-mode="both"] {
+    flex: 1;
     align-items: center;
     justify-content: center;
     min-height: 100%;
