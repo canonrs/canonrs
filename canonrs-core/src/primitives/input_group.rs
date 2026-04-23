@@ -25,3 +25,35 @@ pub fn InputGroupPrimitive(
         </div>
     }
 }
+
+#[component]
+pub fn InputGroupPrefix(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-input-group-prefix=""
+            data-rs-uid=crate::infra::uid::generate("igp")
+            class=class
+        >
+            {children()}
+        </div>
+    }
+}
+
+#[component]
+pub fn InputGroupSuffix(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-input-group-suffix=""
+            data-rs-uid=crate::infra::uid::generate("igs")
+            class=class
+        >
+            {children()}
+        </div>
+    }
+}

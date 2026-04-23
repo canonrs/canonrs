@@ -112,3 +112,23 @@
   box-shadow: none;
   outline: none;
 }
+
+[data-rs-input-group-prefix],
+[data-rs-input-group-suffix] {
+    display: flex;
+    align-items: center;
+    padding: var(--input-padding-x);
+    background: var(--input-group-addon-bg, var(--theme-surface-muted));
+    color: var(--input-group-addon-fg, var(--theme-surface-fg-muted));
+    font-size: var(--input-font-size);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+[data-rs-input-group-prefix] {
+    border-right: var(--input-border-width, 1px) solid var(--input-border-color);
+}
+
+[data-rs-input-group-suffix] {
+    border-left: var(--input-border-width, 1px) solid var(--input-border-color);
+}

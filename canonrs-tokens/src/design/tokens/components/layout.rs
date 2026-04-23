@@ -190,6 +190,8 @@ pub const LAYOUT_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("container-size-md",             "var(--layout-width-md)"),
     FamilyToken::new("container-size-lg",             "var(--layout-content-max-width)"),
     FamilyToken::new("container-size-xl",             "var(--layout-width-xl)"),
+    FamilyToken::new("container-size-content",        "640px"),
+    FamilyToken::new("container-size-xl",             "var(--layout-width-xl)"),
 
     // ── Primitive: Center ─────────────────────────────────────────────────────
     FamilyToken::new("center-min-height",             "100%"),

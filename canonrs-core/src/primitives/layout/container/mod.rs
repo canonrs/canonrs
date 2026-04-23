@@ -11,16 +11,18 @@ pub enum ContainerSize {
     #[default]
     Lg,
     Xl,
+    Content,
     Full,
 }
 impl ContainerSize {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Sm   => "sm",
-            Self::Md   => "md",
-            Self::Lg   => "lg",
-            Self::Xl   => "xl",
-            Self::Full => "full",
+            Self::Sm      => "sm",
+            Self::Md      => "md",
+            Self::Lg      => "lg",
+            Self::Xl      => "xl",
+            Self::Content => "content",
+            Self::Full    => "full",
         }
     }
 }

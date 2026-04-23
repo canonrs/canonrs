@@ -1,6 +1,6 @@
 #![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
-use canonrs_core::primitives::InputGroupPrimitive;
+use canonrs_core::primitives::{InputGroupPrimitive, InputGroupPrefix as InputGroupPrefixPrimitive, InputGroupSuffix as InputGroupSuffixPrimitive};
 use canonrs_core::meta::ToggleState;
 
 #[component]
@@ -23,5 +23,29 @@ pub fn InputGroupPreview() -> impl IntoView {
         <InputGroup merge_radius=ToggleState::On>
             <span data-rs-input-group-addon="">"@"</span>
         </InputGroup>
+    }
+}
+
+#[component]
+pub fn InputGroupPrefix(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <InputGroupPrefixPrimitive class=class>
+            {children()}
+        </InputGroupPrefixPrimitive>
+    }
+}
+
+#[component]
+pub fn InputGroupSuffix(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <InputGroupSuffixPrimitive class=class>
+            {children()}
+        </InputGroupSuffixPrimitive>
     }
 }

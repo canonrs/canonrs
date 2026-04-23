@@ -15,3 +15,7 @@
 [data-rs-container][data-rs-size="lg"]   { max-width: var(--container-size-lg); }
 [data-rs-container][data-rs-size="xl"]   { max-width: var(--container-size-xl); }
 [data-rs-container][data-rs-size="full"] { max-width: 100%; }
+
+[data-rs-container][data-rs-size="content"] {
+    max-width: var(--container-size-content);
+}

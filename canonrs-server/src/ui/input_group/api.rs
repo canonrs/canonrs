@@ -12,3 +12,21 @@ pub const INPUTGROUP_API: ComponentApi = ComponentApi {
     ],
 };
 
+pub const INPUTGROUPPREFIX_API: ComponentApi = ComponentApi {
+    id: "input-group-prefix",
+    description: "Input group with addons",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const INPUTGROUPSUFFIX_API: ComponentApi = ComponentApi {
+    id: "input-group-suffix",
+    description: "Input group with addons",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
