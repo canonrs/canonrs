@@ -18,18 +18,22 @@ pub use canonrs_core::primitives::ConfirmDialogVariant;
 pub fn ConfirmDialog(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(default = canonrs_core::meta::VisibilityState::Closed)] state: canonrs_core::meta::VisibilityState,
+    #[prop(default = leptos::prelude::Signal::derive(|| false))] open: leptos::prelude::Signal<bool>,
+    #[prop(into, default = String::new())] uid: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <ConfirmDialogUi variant=variant class=class>{children()}</ConfirmDialogUi> }
+    view! { <ConfirmDialogUi variant=variant state=state open=open uid=uid class=class>{children()}</ConfirmDialogUi> }
 }
 
 #[component]
 pub fn ConfirmDialogTrigger(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(into, default = String::new())] target: String,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    view! { <ConfirmDialogTriggerUi variant=variant class=class.unwrap_or_default()>{children()}</ConfirmDialogTriggerUi> }
+    view! { <ConfirmDialogTriggerUi variant=variant target=target class=class.unwrap_or_default()>{children()}</ConfirmDialogTriggerUi> }
 }
 
 #[component]

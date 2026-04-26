@@ -1,4 +1,4 @@
-/* CONFIRM DIALOG - Family A Overlay */
+/* CONFIRM DIALOG — Tier S */
 
 [data-rs-confirm-dialog] {
   display: contents;
@@ -7,6 +7,8 @@
 [data-rs-confirm-dialog-portal] {
   display: contents;
 }
+
+/* ── Overlay ─────────────────────────────────────────────────────────────── */
 
 [data-rs-confirm-dialog-overlay] {
   position: fixed;
@@ -18,19 +20,27 @@
   transition:
     opacity var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease),
     visibility var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease);
+  will-change: opacity;
 }
 
-[data-rs-confirm-dialog-overlay][data-rs-state~="open"],
-[data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-overlay] {
+[data-rs-confirm-dialog-overlay][data-rs-state~="entering"],
+[data-rs-confirm-dialog-overlay][data-rs-state~="open"] {
   opacity: 1;
   visibility: visible;
 }
+
+[data-rs-confirm-dialog-overlay][data-rs-state~="exiting"] {
+  opacity: 0;
+  visibility: visible;
+}
+
+/* ── Content ─────────────────────────────────────────────────────────────── */
 
 [data-rs-confirm-dialog-content] {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
+  transform: translate(-50%, -48%) scale(0.96);
   z-index: calc(var(--confirm-dialog-overlay-z-index) + 1);
   width: var(--confirm-dialog-content-width);
   max-width: var(--confirm-dialog-content-max-width);
@@ -45,27 +55,41 @@
     opacity var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease),
     transform var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease),
     visibility var(--confirm-dialog-transition-duration) var(--confirm-dialog-transition-ease);
+  will-change: transform, opacity;
+  outline: none;
 }
 
-[data-rs-confirm-dialog-content][data-rs-state~="open"],
-[data-rs-confirm-dialog][data-rs-state~="open"] [data-rs-confirm-dialog-content] {
+[data-rs-confirm-dialog-content][data-rs-state~="entering"],
+[data-rs-confirm-dialog-content][data-rs-state~="open"] {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, -50%) scale(1);
 }
+
+[data-rs-confirm-dialog-content][data-rs-state~="exiting"] {
+  opacity: 0;
+  visibility: visible;
+  transform: translate(-50%, -48%) scale(0.96);
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────── */
 
 [data-rs-confirm-dialog-title] {
   color: var(--confirm-dialog-title-fg);
   font-size: var(--confirm-dialog-title-font-size);
   font-weight: var(--confirm-dialog-title-font-weight);
   margin-bottom: var(--confirm-dialog-header-gap);
+  line-height: 1.3;
 }
 
 [data-rs-confirm-dialog-description] {
   color: var(--confirm-dialog-description-fg);
   font-size: var(--confirm-dialog-description-font-size);
   margin-bottom: var(--confirm-dialog-footer-gap);
+  line-height: 1.5;
 }
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
 
 [data-rs-confirm-dialog-footer] {
   display: flex;

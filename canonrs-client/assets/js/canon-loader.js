@@ -85,16 +85,41 @@ if (document.readyState === 'loading') {
 
 // MutationObserver — apenas novos elementos
 const startObserver = () => {
+  let rafPending = false;
   const observer = new MutationObserver((mutations) => {
+    if (rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => { rafPending = false; });
     for (const m of mutations) {
       for (const node of m.addedNodes) {
         if (!(node instanceof Element)) continue;
         if (node.hasAttribute('data-rs-interaction')) {
-          window.__canonLoader.initElement(node);
+          queueMicrotask(() => {
+            requestAnimationFrame(() => {
+              node.setAttribute('data-rs-reinit', 'true');
+              window.__canonLoader.initElement(node);
+            });
+          });
         }
         node.querySelectorAll('[data-rs-interaction]').forEach(el => {
-          window.__canonLoader.initElement(el);
+          queueMicrotask(() => {
+            requestAnimationFrame(() => {
+              el.setAttribute('data-rs-reinit', 'true');
+              window.__canonLoader.initElement(el);
+            });
+          });
         });
+        // portal montou — re-init o root pai
+        if (node.hasAttribute('data-rs-dialog-portal') || node.querySelector('[data-rs-dialog-portal]')) {
+          queueMicrotask(() => {
+            requestAnimationFrame(() => {
+              document.querySelectorAll('[data-rs-interaction="overlay"]').forEach(root => {
+                root.setAttribute('data-rs-reinit', 'true');
+                window.__canonLoader.initElement(root);
+              });
+            });
+          });
+        }
       }
       // Handle hidden attribute removal (tab activation)
       if (m.type === 'attributes' && m.attributeName === 'hidden') {

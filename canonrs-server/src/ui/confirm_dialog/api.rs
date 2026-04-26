@@ -8,6 +8,9 @@ pub const CONFIRMDIALOG_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("closed"), description: "Loading or visibility state" },
+        PropDef { name: "open", kind: PropType::String, required: false, default: Some("derive"), description: "Prop value" },
+        PropDef { name: "uid", kind: PropType::String, required: false, default: Some(""), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };
@@ -18,6 +21,7 @@ pub const CONFIRMDIALOGTRIGGER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "target", kind: PropType::String, required: false, default: Some(""), description: "Target element selector for copy" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
     ],
 };

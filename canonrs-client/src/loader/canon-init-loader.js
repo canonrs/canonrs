@@ -26,11 +26,18 @@ if (document.readyState === 'loading') {
 }
 
 // MutationObserver — re-init em novos elementos
+let rafPending = false;
 const observer = new MutationObserver((mutations) => {
   const hasNew = mutations.some(m =>
     Array.from(m.addedNodes).some(n => n.nodeType === 1)
   );
-  if (hasNew) initAll();
+  if (hasNew && !rafPending) {
+    rafPending = true;
+    requestAnimationFrame(() => {
+      initAll();
+      rafPending = false;
+    });
+  }
 });
 
 observer.observe(document.body, { childList: true, subtree: true });

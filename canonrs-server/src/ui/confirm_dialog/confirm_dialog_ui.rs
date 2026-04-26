@@ -1,7 +1,7 @@
 #![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    DialogPortalPrimitive,
+    ConfirmDialogPortalPrimitive,
     ConfirmDialogPrimitive, ConfirmDialogTriggerPrimitive,
     ConfirmDialogOverlayPrimitive, ConfirmDialogContentPrimitive,
     ConfirmDialogTitlePrimitive, ConfirmDialogDescriptionPrimitive,
@@ -13,10 +13,13 @@ use canonrs_core::primitives::{
 pub fn ConfirmDialog(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(default = canonrs_core::meta::VisibilityState::Closed)] state: canonrs_core::meta::VisibilityState,
+    #[prop(default = leptos::prelude::Signal::derive(|| false))] open: leptos::prelude::Signal<bool>,
+    #[prop(into, default = String::new())] uid: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ConfirmDialogPrimitive variant=variant class=class>
+        <ConfirmDialogPrimitive variant=variant state=state open=open uid=uid class=class>
             {children()}
         </ConfirmDialogPrimitive>
     }
@@ -26,14 +29,15 @@ pub fn ConfirmDialog(
 pub fn ConfirmDialogTrigger(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
+    #[prop(into, default = String::new())] target: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <ConfirmDialogTriggerPrimitive variant=variant class=class>{children()}</ConfirmDialogTriggerPrimitive> }
+    view! { <ConfirmDialogTriggerPrimitive variant=variant target=target class=class>{children()}</ConfirmDialogTriggerPrimitive> }
 }
 
 #[component]
 pub fn ConfirmDialogPortal(children: ChildrenFn) -> impl IntoView {
-    view! { <DialogPortalPrimitive>{children()}</DialogPortalPrimitive> }
+    view! { <ConfirmDialogPortalPrimitive>{children()}</ConfirmDialogPortalPrimitive> }
 }
 
 #[component]

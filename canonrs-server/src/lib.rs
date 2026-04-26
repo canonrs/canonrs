@@ -8,6 +8,7 @@ pub mod layouts;
 pub mod pages;
 pub mod providers;
 pub use canonrs_core::primitives;
+pub use canonrs_core::meta::VisibilityState;
 
 // UI — re-exports explícitos
 pub use ui::button::Button;
