@@ -7,6 +7,7 @@ pub const DIALOG_API: ComponentApi = ComponentApi {
     description: "Modal dialog component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "uid", kind: PropType::String, required: false, default: Some(""), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
     ],
 };
@@ -16,6 +17,7 @@ pub const DIALOGTRIGGER_API: ComponentApi = ComponentApi {
     description: "Modal dialog component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "target", kind: PropType::String, required: false, default: Some(""), description: "Target element selector for copy" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
     ],
 };

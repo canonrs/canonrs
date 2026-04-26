@@ -44,7 +44,7 @@ pub fn AlertDialogTrigger(
 
 #[component]
 pub fn AlertDialogPortal(
-    children: Children,
+    children: ChildrenFn,
 ) -> impl IntoView {
     view! {
         <AlertDialogPortalPrimitive>

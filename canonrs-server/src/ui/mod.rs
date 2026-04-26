@@ -80,7 +80,7 @@ pub use copy_button::copy_button_boundary::CopyButton;
 // Data Table
 pub use data_table::data_table_boundary::DataTable;
 // Dialog
-pub use dialog::dialog_boundary::{Dialog, DialogTrigger, DialogPortal, DialogOverlay, DialogContent};
+pub use dialog::dialog_boundary::{Dialog, DialogTrigger, DialogPortal, DialogOverlay, DialogContent, DialogTitle, DialogDescription, DialogClose, DialogFooter};
 // Doc Progress
 pub use doc_progress::doc_progress_boundary::{DocProgress, DocProgressSlot};
 // Drawer

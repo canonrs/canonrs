@@ -49,6 +49,10 @@ pub fn push(uid: &str, kind: &'static str) -> u32 {
 
 pub fn pop(uid: &str) {
     STACK.with(|s| s.borrow_mut().retain(|e| e.uid != uid));
+    // libera scroll_lock apenas se stack vazio
+    if stack_empty() {
+        crate::runtime::state::set_scroll_lock(false);
+    }
 }
 
 pub fn top() -> Option<OverlayEntry> {

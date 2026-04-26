@@ -1,6 +1,4 @@
-//! @canon-level: strict
-//! Dialog Island — bootstrap only, delegates to interaction engine
-
+//! Dialog Island — Canon Rule #340 passthrough
 use leptos::prelude::*;
 use super::dialog_ui::{
     Dialog as DialogUi,
@@ -11,25 +9,25 @@ use super::dialog_ui::{
     DialogTitle as DialogTitleUi,
     DialogDescription as DialogDescriptionUi,
     DialogClose as DialogCloseUi,
-    DialogFooter as DialogFooterUi
+    DialogFooter as DialogFooterUi,
 };
 
 #[component]
 pub fn Dialog(
     children: Children,
+    #[prop(into, default = String::new())] uid: String,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    view! {
-        <DialogUi class=class.unwrap_or_default()>{children()}</DialogUi>
-    }
+    view! { <DialogUi uid=uid class=class.unwrap_or_default()>{children()}</DialogUi> }
 }
 
 #[component]
 pub fn DialogTrigger(
     children: Children,
+    #[prop(into, default = String::new())] target: String,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    view! { <DialogTriggerUi class=class.unwrap_or_default()>{children()}</DialogTriggerUi> }
+    view! { <DialogTriggerUi target=target class=class.unwrap_or_default()>{children()}</DialogTriggerUi> }
 }
 
 #[component]

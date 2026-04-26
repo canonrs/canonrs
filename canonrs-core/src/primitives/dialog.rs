@@ -6,19 +6,21 @@ use leptos::prelude::*;
 use crate::meta::VisibilityState;
 use crate::infra::state_engine::visibility_attrs;
 
-
 #[component]
 pub fn DialogPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
+    #[prop(into, default = String::new())] uid: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
+    let uid_str = if uid.is_empty() { crate::infra::uid::generate("dlg") } else { uid };
+    provide_context(uid_str.clone());
     view! {
         <div
             data-rs-dialog=""
             data-rs-interaction="overlay"
-            data-rs-uid=crate::infra::uid::generate("dlg")
+            data-rs-uid=uid_str
             data-rs-state=s.data_rs_state
             class=class
         >
@@ -30,21 +32,19 @@ pub fn DialogPrimitive(
 #[component]
 pub fn DialogTriggerPrimitive(
     children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
-    #[prop(optional, into)] aria_controls: Option<String>,
+    #[prop(into, default = String::new())] target: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
+    let ctx_uid = use_context::<String>().unwrap_or_default();
+    let resolved = if target.is_empty() { ctx_uid } else { target };
     view! {
         <button
             type="button"
             data-rs-dialog-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-state=s.data_rs_state
+            data-rs-target=resolved
             aria-haspopup="dialog"
-            aria-expanded=s.aria_expanded
-            aria-controls=aria_controls
             class=class
         >
             {children()}
@@ -53,31 +53,27 @@ pub fn DialogTriggerPrimitive(
 }
 
 #[component]
-pub fn DialogPortalPrimitive(
-    children: Children,
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
-) -> impl IntoView {
-    let s = visibility_attrs(state);
+pub fn DialogPortalPrimitive(children: ChildrenFn) -> impl IntoView {
+    let uid = StoredValue::new(use_context::<String>().unwrap_or_default());
     view! {
-        <div
-            data-rs-dialog-portal=""
-            data-rs-state=s.data_rs_state
-        >
-            {children()}
-        </div>
+        <leptos::portal::Portal>
+            <div data-rs-dialog-portal="" data-rs-owner=uid.get_value()>
+                {children()}
+            </div>
+        </leptos::portal::Portal>
     }
 }
 
 #[component]
 pub fn DialogOverlayPrimitive(
-    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
+    let uid = use_context::<String>().unwrap_or_default();
     view! {
         <div
             data-rs-dialog-overlay=""
-            data-rs-state=s.data_rs_state
+            data-rs-owner=uid
+            data-rs-state="closed"
             class=class
         />
     }
@@ -86,17 +82,16 @@ pub fn DialogOverlayPrimitive(
 #[component]
 pub fn DialogContentPrimitive(
     children: Children,
-    #[prop(optional, into)] aria_labelledby: Option<String>,
-    #[prop(optional, into)] aria_describedby: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = use_context::<String>().unwrap_or_default();
     view! {
         <div
             data-rs-dialog-content=""
+            data-rs-owner=uid
+            data-rs-state="closed"
             role="dialog"
             aria-modal="true"
-            aria-labelledby=aria_labelledby
-            aria-describedby=aria_describedby
             tabindex="-1"
             class=class
         >
@@ -139,6 +134,8 @@ pub fn DialogClosePrimitive(
         <button
             type="button"
             data-rs-dialog-close=""
+            data-rs-button=""
+            data-rs-variant="ghost"
             aria-label=aria_label
             class=class
         >
@@ -148,7 +145,7 @@ pub fn DialogClosePrimitive(
 }
 
 #[component]
-pub fn DialogFooter(
+pub fn DialogFooterPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {

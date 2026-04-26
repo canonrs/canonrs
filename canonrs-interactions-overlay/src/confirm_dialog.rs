@@ -84,6 +84,7 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
     transition::set_state_nodes(&overlay, &content, "exiting");
     state::close(root);
     stack::pop(&uid);
+    stack::unregister(&uid);
 
     {
         let o2 = overlay.clone();
@@ -91,7 +92,7 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
         let pf = prev_focus.clone();
         let cb = Closure::once(move || {
             transition::set_state_nodes(&o2, &c2, "closed");
-            state::set_scroll_lock(false);
+            // scroll_lock liberado pelo stack::pop se vazio
             if let Some(el) = pf.take() {
                 if let Ok(html) = el.dyn_into::<web_sys::HtmlElement>() {
                     let _ = html.focus();
@@ -209,7 +210,7 @@ pub fn init(root: Element) {
         stack::register_keydown(&uid, move |e| {
             if !state::is_open(&root_cb) { return; }
 
-            if e.key() == "Escape" {
+            if e.key() == "Escape" && stack::is_top(&uid2) {
                 e.prevent_default();
                 close(&root_cb, &pf);
                 return;
