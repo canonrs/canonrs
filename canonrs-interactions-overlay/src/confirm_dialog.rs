@@ -16,11 +16,12 @@ fn doc() -> Option<web_sys::Document> {
 
 fn portal_of(root: &Element) -> Option<Element> {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+    // 1. dentro do root
     root.query_selector("[data-rs-confirm-dialog-portal]").ok().flatten()
-        .or_else(|| doc()?.query_selector(&format!(
-            "[data-rs-confirm-dialog-portal][data-rs-owner='{}']", uid
-        )).ok().flatten())
-        .or_else(|| doc()?.query_selector("[data-rs-confirm-dialog-portal]").ok().flatten())
+    // 2. no body com owner
+    .or_else(|| doc()?.query_selector(&format!(
+        "[data-rs-confirm-dialog-portal][data-rs-owner='{}']", uid
+    )).ok().flatten())
 }
 
 fn propagate_owner(portal: &Element, uid: &str) {
@@ -52,22 +53,18 @@ fn portal_nodes(root: &Element) -> (Option<Element>, Option<Element>) {
 // ---------------------------------------------------------------------------
 
 fn transition_duration_ms(root: &Element) -> i32 {
-    // lê a CSS var --confirm-dialog-transition-duration e converte para ms
-    // fallback: 200ms
     if let Some(win) = web_sys::window() {
-        if let Ok(style) = win.get_computed_style(root) {
-            if let Some(style) = style {
-                let val = style.get_property_value("--confirm-dialog-transition-duration")
-                    .unwrap_or_default();
-                let val = val.trim();
-                if val.ends_with("ms") {
-                    if let Ok(n) = val.trim_end_matches("ms").trim().parse::<u32>() {
-                        return n as i32;
-                    }
-                } else if val.ends_with('s') {
-                    if let Ok(n) = val.trim_end_matches('s').trim().parse::<f32>() {
-                        return (n * 1000.0) as i32;
-                    }
+        if let Ok(Some(style)) = win.get_computed_style(root) {
+            let val = style.get_property_value("--confirm-dialog-transition-duration")
+                .unwrap_or_default();
+            let val = val.trim();
+            if val.ends_with("ms") {
+                if let Ok(n) = val.trim_end_matches("ms").trim().parse::<u32>() {
+                    return n as i32;
+                }
+            } else if val.ends_with('s') {
+                if let Ok(n) = val.trim_end_matches('s').trim().parse::<f32>() {
+                    return (n * 1000.0) as i32;
                 }
             }
         }
@@ -77,50 +74,68 @@ fn transition_duration_ms(root: &Element) -> i32 {
 
 fn set_state_nodes(overlay: &Option<Element>, content: &Option<Element>, s: &str) {
     for el in [overlay, content].iter().filter_map(|e| e.as_ref()) {
-        if s == "open" || s == "entering" {
-            state::remove_state(el, "closed");
-            state::remove_state(el, "exiting");
-            state::add_state(el, s);
-        } else if s == "exiting" {
-            state::remove_state(el, "open");
-            state::remove_state(el, "entering");
-            state::add_state(el, "exiting");
-        } else {
-            // closed
-            state::remove_state(el, "open");
-            state::remove_state(el, "entering");
-            state::remove_state(el, "exiting");
-            state::add_state(el, "closed");
+        match s {
+            "entering" | "open" => {
+                state::remove_state(el, "closed");
+                state::remove_state(el, "exiting");
+                state::add_state(el, s);
+            }
+            "exiting" => {
+                state::remove_state(el, "open");
+                state::remove_state(el, "entering");
+                state::add_state(el, "exiting");
+            }
+            _ => {
+                state::remove_state(el, "open");
+                state::remove_state(el, "entering");
+                state::remove_state(el, "exiting");
+                state::add_state(el, "closed");
+            }
         }
     }
 }
 
 // ---------------------------------------------------------------------------
-// inert / aria-hidden background
+// inert background
+// Regra: nunca aplica inert no portal nem em nó que contenha o portal
+// Usa data-rs-confirm-dialog-inert para marcar o que foi inertizado
 // ---------------------------------------------------------------------------
 
-fn set_inert_background(active: bool, portal: &Option<Element>) {
+fn set_inert_background(active: bool, uid: &str) {
     let Some(doc) = doc() else { return };
     let Some(body) = doc.body() else { return };
     let nodes = body.child_nodes();
+
+    // encontra o portal pelo uid para exclusão precisa
+    let portal = doc.query_selector(&format!(
+        "[data-rs-confirm-dialog-portal][data-rs-owner='{}']", uid
+    )).ok().flatten();
+
     for i in 0..nodes.length() {
         let Some(node) = nodes.item(i) else { continue };
         let Some(child) = node.dyn_into::<Element>().ok() else { continue };
-        // nunca aplica no portal — checa por atributo (comparacao de elemento pode falhar)
-        if child.has_attribute("data-rs-confirm-dialog-portal") { continue; }
-        if let Some(portal_el) = portal.as_ref() {
-            if child == *portal_el { continue; }
+
+        // exclusão precisa do portal e qualquer nó que o contenha
+        if let Some(ref p) = portal {
+            if &child == p { continue; }
+            if child.contains(Some(p)) { continue; }
         }
-        // nunca aplica se o elemento tem foco ou contém o foco
+        // exclusão por atributo (fallback)
+        if child.has_attribute("data-rs-confirm-dialog-portal") { continue; }
+        if child.query_selector("[data-rs-confirm-dialog-portal]").ok().flatten().is_some() { continue; }
+
         if active {
-            if let Some(focused) = doc.active_element() {
-                if child.contains(Some(&focused)) { continue; }
-            }
-            // usa apenas inert — mais correto que aria-hidden
+            // só marca o que ainda não foi inertizado por este dialog
+            let marker = format!("data-rs-inert-{}", uid);
+            if child.has_attribute(&marker) { continue; }
+            let _ = child.set_attribute(&marker, "");
             let _ = child.set_attribute("inert", "");
         } else {
-            let _ = child.remove_attribute("inert");
-            let _ = child.remove_attribute("aria-hidden");
+            let marker = format!("data-rs-inert-{}", uid);
+            if child.has_attribute(&marker) {
+                let _ = child.remove_attribute(&marker);
+                let _ = child.remove_attribute("inert");
+            }
         }
     }
 }
@@ -189,25 +204,22 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
     web_sys::console::log_1(&format!("confirm_dialog::open uid={}", uid).into());
 
+    // salva foco atual
     prev_focus.set(active_element());
 
-    // re-propaga owner (Leptos Show pode ter montado o portal depois do init)
+    // re-propaga owner (portal pode ter sido montado após init)
     if let Some(portal) = portal_of(root) {
         propagate_owner(&portal, &uid);
     }
 
-    // root state
     state::open(root);
 
     let (overlay, content) = portal_nodes(root);
-    let portal = portal_of(root);
-    
-    web_sys::console::log_1(&format!("confirm_dialog::open overlay={} content={}", 
+    web_sys::console::log_1(&format!("confirm_dialog::open overlay={} content={}",
         overlay.is_some(), content.is_some()).into());
 
     // entering → open após 1 frame
     set_state_nodes(&overlay, &content, "entering");
-
     {
         let overlay2 = overlay.clone();
         let content2 = content.clone();
@@ -221,18 +233,19 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
 
     state::set_scroll_lock(true);
 
-    // 1. foca imediatamente (tira foco do trigger antes do inert)
+    // foca imediatamente — move foco para dentro do dialog ANTES do inert
     if let Some(ref content_el) = content {
         focus_first(content_el);
     }
-    // 2. aplica inert após 1 frame (garante que foco já saiu do background)
+
+    // aplica inert após foco estar dentro do dialog
     {
-        let portal3 = portal.clone();
+        let uid2 = uid.clone();
         let cb = Closure::once(move || {
-            set_inert_background(true, &portal3);
+            set_inert_background(true, &uid2);
         });
         let _ = web_sys::window().unwrap()
-            .set_timeout_with_callback_and_timeout_and_arguments_0(cb.as_ref().unchecked_ref(), 16);
+            .set_timeout_with_callback_and_timeout_and_arguments_0(cb.as_ref().unchecked_ref(), 32);
         cb.forget();
     }
 }
@@ -242,23 +255,21 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
     web_sys::console::log_1(&format!("confirm_dialog::close uid={}", uid).into());
 
     let (overlay, content) = portal_nodes(root);
-    let portal = portal_of(root);
     let duration: i32 = transition_duration_ms(root);
 
-    // exiting
+    // remove inert imediatamente ao fechar
+    set_inert_background(false, &uid);
+
     set_state_nodes(&overlay, &content, "exiting");
     state::close(root);
 
-    // após transition: closed + cleanup
     {
-        let overlay2   = overlay.clone();
-        let content2   = content.clone();
-        let portal2    = portal.clone();
-        let pf         = prev_focus.clone();
+        let overlay2 = overlay.clone();
+        let content2 = content.clone();
+        let pf       = prev_focus.clone();
         let cb = Closure::once(move || {
             set_state_nodes(&overlay2, &content2, "closed");
             state::set_scroll_lock(false);
-            set_inert_background(false, &portal2);
             if let Some(el) = pf.take() {
                 if let Ok(html) = el.dyn_into::<web_sys::HtmlElement>() {
                     let _ = html.focus();
@@ -280,7 +291,9 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
 #[wasm_bindgen(js_name = confirm_dialog_open)]
 pub fn confirm_dialog_open(uid: &str) {
     let Some(doc) = doc() else { return };
-    if let Ok(Some(root)) = doc.query_selector(&format!("[data-rs-confirm-dialog][data-rs-uid='{}']", uid)) {
+    if let Ok(Some(root)) = doc.query_selector(&format!(
+        "[data-rs-confirm-dialog][data-rs-uid='{}']", uid
+    )) {
         let pf = std::rc::Rc::new(std::cell::Cell::new(active_element()));
         open(&root, &pf);
     }
@@ -289,7 +302,9 @@ pub fn confirm_dialog_open(uid: &str) {
 #[wasm_bindgen(js_name = confirm_dialog_close)]
 pub fn confirm_dialog_close(uid: &str) {
     let Some(doc) = doc() else { return };
-    if let Ok(Some(root)) = doc.query_selector(&format!("[data-rs-confirm-dialog][data-rs-uid='{}']", uid)) {
+    if let Ok(Some(root)) = doc.query_selector(&format!(
+        "[data-rs-confirm-dialog][data-rs-uid='{}']", uid
+    )) {
         let pf = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
         close(&root, &pf);
     }
@@ -309,7 +324,7 @@ pub fn init(root: Element) {
     }
     web_sys::console::log_1(&"confirm_dialog::init RUNNING".into());
 
-    // portal → body + owner
+    // move portal para body + propaga owner
     if let Some(portal) = portal_of(&root) {
         propagate_owner(&portal, &uid);
         if let Some(body) = doc().and_then(|d| d.body()) {
@@ -318,10 +333,11 @@ pub fn init(root: Element) {
                 .unwrap_or(false);
             if !in_body {
                 let _ = body.append_child(&portal);
-                web_sys::console::log_1(&format!("confirm_dialog::init portal moved uid={}", uid).into());
+                web_sys::console::log_1(&format!(
+                    "confirm_dialog::init portal moved uid={}", uid
+                ).into());
             }
         }
-        // garante estado inicial closed nos nós do portal
         let (overlay, content) = portal_nodes(&root);
         set_state_nodes(&overlay, &content, "closed");
     }
@@ -330,19 +346,15 @@ pub fn init(root: Element) {
 
     let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
 
-    // trigger global — escuta no document, identifica por data-rs-target ou pertencimento ao root
+    // trigger global: dentro do root OU data-rs-target apontando para este uid
     {
         let root_cb = root.clone();
         let uid2    = uid.clone();
         let pf      = prev_focus.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            // verifica se o elemento clicado (ou ancestral) é um trigger
-            let trigger = target.closest("[data-rs-confirm-dialog-trigger]").ok().flatten();
-            let Some(trigger) = trigger else { return };
-            // trigger dentro do root (modelo clássico)
-            let in_root = root_cb.contains(Some(&trigger));
-            // trigger externo com data-rs-target apontando para este uid
+            let Some(trigger) = target.closest("[data-rs-confirm-dialog-trigger]").ok().flatten() else { return };
+            let in_root    = root_cb.contains(Some(&trigger));
             let targets_uid = trigger.get_attribute("data-rs-target").as_deref() == Some(&uid2);
             if in_root || targets_uid {
                 open(&root_cb, &pf);
@@ -357,20 +369,31 @@ pub fn init(root: Element) {
     // document click: overlay / cancel / confirm
     {
         let root_cb = root.clone();
-        let uid2 = uid.clone();
-        let pf = prev_focus.clone();
+        let uid2    = uid.clone();
+        let pf      = prev_focus.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             if !state::is_open(&root_cb) { return; }
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            // overlay: sem owner, detecta por atributo direto
-            if query::closest(&target, "[data-rs-confirm-dialog-overlay]") { close(&root_cb, &pf); return; }
-            // cancel/confirm: verifica owner via closest
+
+            // overlay: fecha sem verificar owner
+            if query::closest(&target, "[data-rs-confirm-dialog-overlay]") {
+                close(&root_cb, &pf);
+                return;
+            }
+
+            // cancel / confirm: verifica owner via closest
             let owner = target.closest("[data-rs-owner]").ok().flatten()
                 .and_then(|el| el.get_attribute("data-rs-owner"))
                 .or_else(|| target.get_attribute("data-rs-owner"));
             if owner.as_deref() != Some(&uid2) { return; }
-            if query::closest(&target, "[data-rs-confirm-dialog-cancel]")  { close(&root_cb, &pf); return; }
-            if query::closest(&target, "[data-rs-confirm-dialog-confirm]") { close(&root_cb, &pf); }
+
+            if query::closest(&target, "[data-rs-confirm-dialog-cancel]") {
+                close(&root_cb, &pf);
+                return;
+            }
+            if query::closest(&target, "[data-rs-confirm-dialog-confirm]") {
+                close(&root_cb, &pf);
+            }
         });
         if let Some(doc) = doc() {
             let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -381,8 +404,8 @@ pub fn init(root: Element) {
     // keydown: Escape + Tab trap
     {
         let root_cb = root.clone();
-        let uid2 = uid.clone();
-        let pf = prev_focus.clone();
+        let uid2    = uid.clone();
+        let pf      = prev_focus.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
             if !state::is_open(&root_cb) { return; }
 
@@ -395,28 +418,21 @@ pub fn init(root: Element) {
             if e.key() != "Tab" { return; }
 
             let Some(doc) = doc() else { return };
-            let sel = format!(
-                "[data-rs-confirm-dialog-content][data-rs-owner='{}']", uid2
-            );
+            let sel = format!("[data-rs-confirm-dialog-content][data-rs-owner='{}']", uid2);
             let Some(content) = doc.query_selector(&sel).ok().flatten() else { return };
             let els = focusable_elements(&content);
             if els.is_empty() { e.prevent_default(); return; }
 
-            let first = els.first().unwrap();
-            let last  = els.last().unwrap();
-            let active = doc.active_element();
-
+            let first    = els.first().unwrap();
+            let last     = els.last().unwrap();
+            let active   = doc.active_element();
             let first_el = first.clone().dyn_into::<Element>().ok();
             let last_el  = last.clone().dyn_into::<Element>().ok();
 
             if e.shift_key() {
-                if active == first_el {
-                    e.prevent_default();
-                    let _ = last.focus();
-                }
+                if active == first_el { e.prevent_default(); let _ = last.focus(); }
             } else if active == last_el {
-                e.prevent_default();
-                let _ = first.focus();
+                e.prevent_default(); let _ = first.focus();
             }
         });
         if let Some(win) = web_sys::window() {
