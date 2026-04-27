@@ -85,6 +85,27 @@ pub fn init(root: Element) {
     web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] items count={}", get_items(&root).len())));
     web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] content exists={}", root.query_selector("[data-rs-select-content]").ok().flatten().is_some())));
     web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] trigger exists={}", root.query_selector("[data-rs-select-trigger]").ok().flatten().is_some())));
+
+    // Inicializar span com item pre-selecionado ou placeholder no mount
+    {
+        let pre_selected = get_items(&root).into_iter()
+            .find(|el| el.get_attribute("data-rs-state").map(|s| s.split_whitespace().any(|t| t == "selected")).unwrap_or(false));
+        if let Some(item) = pre_selected {
+            let v = item.get_attribute("data-rs-value").unwrap_or_default();
+            set_selected(&root, &v);
+        } else {
+            // nenhum item selecionado — mostrar placeholder
+            if let Ok(Some(span)) = root.query_selector("[data-rs-select-value]") {
+                if let Ok(span_el) = span.dyn_into::<web_sys::HtmlElement>() {
+                    let placeholder = span_el.get_attribute("data-rs-placeholder").unwrap_or_default();
+                    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] setting placeholder='{}' on span", placeholder)));
+                    span_el.set_text_content(Some(&placeholder));
+                    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] span text_content after set='{}'", span_el.text_content().unwrap_or_default())));
+                }
+            }
+        }
+    }
+
     // click
     { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
