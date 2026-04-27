@@ -45,28 +45,33 @@ pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     move_to_body(&root);
 
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+
     {
-        let root_cb = root.clone();
+        let uid2 = uid.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            if query::closest(&target, "[data-rs-sheet-trigger]") { open(&root_cb); }
+            if query::closest(&target, "[data-rs-sheet-trigger]") {
+                let Some(root_live) = query::root_of("data-rs-sheet", &uid2) else { return };
+                open(&root_live);
+            }
         });
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         cb.forget();
     }
 
     {
-        let root_cb = root.clone();
-        let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+        let uid2 = uid.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
-            if !state::is_open(&root_cb) { return; }
+            let Some(root_live) = query::root_of("data-rs-sheet", &uid2) else { return };
+            if !state::is_open(&root_live) { return; }
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let owner = target.get_attribute("data-rs-owner")
                 .or_else(|| target.closest("[data-rs-owner]").ok().flatten()
                     .and_then(|el| el.get_attribute("data-rs-owner")));
-            if owner.as_deref() != Some(&uid) { return; }
-            if query::closest(&target, "[data-rs-sheet-overlay]") { close(&root_cb); return; }
-            if query::closest(&target, "[data-rs-sheet-close]")   { close(&root_cb); }
+            if owner.as_deref() != Some(&uid2) { return; }
+            if query::closest(&target, "[data-rs-sheet-overlay]") { close(&root_live); return; }
+            if query::closest(&target, "[data-rs-sheet-close]")   { close(&root_live); }
         });
         if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
             let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -75,10 +80,11 @@ pub fn init(root: Element) {
     }
 
     {
-        let root_cb = root.clone();
+        let uid2 = uid.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
             if e.key() != "Escape" { return; }
-            if state::is_open(&root_cb) { close(&root_cb); }
+            let Some(root_live) = query::root_of("data-rs-sheet", &uid2) else { return };
+            if state::is_open(&root_live) { close(&root_live); }
         });
         if let Some(win) = web_sys::window() {
             let _ = win.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());

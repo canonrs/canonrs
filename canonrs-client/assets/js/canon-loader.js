@@ -1,4 +1,6 @@
-// CanonRS — Enterprise WASM Loader
+// CanonRS — Bootstrap Engine (CR-401)
+// Pipeline determinístico: DOMContentLoaded → stabilize → init
+
 window.__canonLoader = {
   loaded: new Set(),
   mods: {},
@@ -14,10 +16,10 @@ window.__canonLoader = {
       await mod.default();
       this.loaded.add(group);
       this.mods[group] = mod;
-      console.log('[canon] loaded:', group);
       this.initGroup(group);
     } catch (e) {
       console.warn('[canon] failed:', group, e);
+      setTimeout(() => this.loadGroup(group), 100);
     }
   },
 
@@ -49,79 +51,90 @@ window.__canonLoader = {
   _isInitialized(el) {
     const uid = el.getAttribute('data-rs-uid');
     if (uid) return this.initializedUids.has(uid);
-    return false; // WASM owns initialization state
+    return el.hasAttribute('data-rs-initialized');
   },
 
   _markInitialized(el) {
     const uid = el.getAttribute('data-rs-uid');
-    if (uid) { this.initializedUids.add(uid); return; }
-    // WASM owns data-rs-initialized — loader does not set it
+    if (uid) {
+      this.initializedUids.add(uid);
+    } else {
+      el.setAttribute('data-rs-initialized', 'true');
+    }
   }
 };
 
-// Init groups — carregados via init_all() sem data-rs-interaction
-const INIT_GROUPS = ['init'];
+// ─── Bootstrap Engine ────────────────────────────────────────────────────────
 
-async function loadInitGroups() {
-  for (const group of INIT_GROUPS) {
+const bootstrap = {
+  ran: false,
+
+  stabilize() {
+    return new Promise(resolve => {
+      let frames = 0;
+      const tick = () => {
+        if (++frames > 3) { resolve(); return; }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  },
+
+  async run() {
+    if (this.ran) return;
+    this.ran = true;
+    await this.stabilize();
+    await this.loadAll();
+  },
+
+  async loadAll() {
+    // overlay — scan direto após estabilização
+    await window.__canonLoader.loadGroup('overlay');
+
+    // init — usa init_all para scan completo
     try {
-      const mod = await import(`/wasm/${group}/canonrs_interactions_${group}.js`);
+      const mod = await import('/wasm/init/canonrs_interactions_init.js');
       await mod.default();
+      window.__canonLoader.loaded.add('init');
+      window.__canonLoader.mods['init'] = mod;
       if (typeof mod.init_all === 'function') {
         mod.init_all();
-        console.log('[canon] loaded:', group);
       }
     } catch (e) {
-      console.warn('[canon] failed:', group, e);
+      console.warn('[canon] failed: init', e);
+      setTimeout(() => bootstrap.loadAll(), 100);
+    }
+
+    // selection — usa init_all para scan completo
+    try {
+      const mod = await import('/wasm/selection/canonrs_interactions_selection.js');
+      await mod.default();
+      window.__canonLoader.loaded.add('selection');
+      window.__canonLoader.mods['selection'] = mod;
+      if (typeof mod.init_all === 'function') {
+        mod.init_all();
+      }
+    } catch (e) {
+      console.warn('[canon] failed: selection', e);
     }
   }
-}
+};
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadInitGroups);
-} else {
-  loadInitGroups();
-}
+// ─── MutationObserver — elementos dinâmicos pós-bootstrap ────────────────────
 
-// MutationObserver — apenas novos elementos
 const startObserver = () => {
-  let rafPending = false;
   const observer = new MutationObserver((mutations) => {
-    if (rafPending) return;
-    rafPending = true;
-    requestAnimationFrame(() => { rafPending = false; });
     for (const m of mutations) {
       for (const node of m.addedNodes) {
         if (!(node instanceof Element)) continue;
         if (node.hasAttribute('data-rs-interaction')) {
-          queueMicrotask(() => {
-            requestAnimationFrame(() => {
-              node.setAttribute('data-rs-reinit', 'true');
-              window.__canonLoader.initElement(node);
-            });
-          });
+          window.__canonLoader.initElement(node);
         }
         node.querySelectorAll('[data-rs-interaction]').forEach(el => {
-          queueMicrotask(() => {
-            requestAnimationFrame(() => {
-              el.setAttribute('data-rs-reinit', 'true');
-              window.__canonLoader.initElement(el);
-            });
-          });
+          window.__canonLoader.initElement(el);
         });
-        // portal montou — re-init o root pai
-        if (node.hasAttribute('data-rs-dialog-portal') || node.querySelector('[data-rs-dialog-portal]')) {
-          queueMicrotask(() => {
-            requestAnimationFrame(() => {
-              document.querySelectorAll('[data-rs-interaction="overlay"]').forEach(root => {
-                root.setAttribute('data-rs-reinit', 'true');
-                window.__canonLoader.initElement(root);
-              });
-            });
-          });
-        }
       }
-      // Handle hidden attribute removal (tab activation)
+      // tab activation
       if (m.type === 'attributes' && m.attributeName === 'hidden') {
         const el = m.target;
         if (el instanceof Element && !el.hasAttribute('hidden')) {
@@ -138,6 +151,14 @@ const startObserver = () => {
     attributeFilter: ['hidden']
   });
 };
+
+// ─── Entry point ─────────────────────────────────────────────────────────────
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => bootstrap.run());
+} else {
+  bootstrap.run();
+}
 
 if (document.body) {
   startObserver();

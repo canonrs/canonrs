@@ -9,6 +9,7 @@ pub fn Input(
     #[prop(into, default = "text".to_string())] input_type: String,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] rs_value: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = InputVariant::Default)] variant: InputVariant,
     #[prop(default = InputSize::Md)] size: InputSize,
@@ -20,6 +21,7 @@ pub fn Input(
             class=class
             name=name
             value=value
+            rs_value=rs_value
             disabled=disabled
             placeholder=placeholder
             aria_label=aria_label

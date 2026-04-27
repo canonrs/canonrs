@@ -49,7 +49,16 @@
   pointer-events: none;
 }
 
+[data-rs-select] {
+  position: relative;
+}
+
 [data-rs-select-content] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  z-index: 200;
   background: var(--select-content-bg);
   border: var(--select-content-border-width) solid var(--select-content-border-color);
   border-radius: var(--select-content-radius);

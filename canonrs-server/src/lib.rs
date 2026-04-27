@@ -7,6 +7,7 @@ pub mod blocks;
 pub mod layouts;
 pub mod pages;
 pub mod providers;
+pub mod interactions;
 pub use canonrs_core::primitives;
 pub use canonrs_core::meta::VisibilityState;
 

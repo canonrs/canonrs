@@ -115,3 +115,30 @@ pub fn FlexPrimitive(
         </div>
     }
 }
+
+/// Construtor funcional — retorna AnyView sem passar pelo macro view!
+/// Use dentro de closures genéricas (ChildrenFn, Arc<dyn Fn>) onde
+/// o compilador não consegue inferir tipos do FlexPrimitive component.
+pub fn flex_view(
+    justify:   FlexJustify,
+    align:     FlexAlign,
+    direction: FlexDirection,
+    gap:       FlexGap,
+    wrap:      bool,
+    children:  AnyView,
+) -> AnyView {
+    let uid = crate::infra::uid::generate("fx");
+    view! {
+        <div
+            data-rs-flex=""
+            data-rs-uid=uid
+            data-rs-direction=direction.as_str()
+            data-rs-justify=justify.as_str()
+            data-rs-align=align.as_str()
+            data-rs-gap=gap.as_str()
+            data-rs-wrap=wrap.to_string()
+        >
+            {children}
+        </div>
+    }.into_any()
+}

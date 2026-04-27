@@ -47,6 +47,7 @@ pub fn InputPrimitive(
     #[prop(into, default = "text".to_string())] input_type: String,
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] rs_value: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] placeholder: String,
     #[prop(into, default = String::new())] aria_label: String,
@@ -64,7 +65,8 @@ pub fn InputPrimitive(
             type=input_type
             class=class
             name=name
-            value=value
+            prop:value=value
+            data-rs-value=rs_value
             placeholder=placeholder
             disabled=disabled.as_bool()
             aria-disabled=aria_disabled

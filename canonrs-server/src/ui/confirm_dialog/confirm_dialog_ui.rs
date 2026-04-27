@@ -14,12 +14,11 @@ pub fn ConfirmDialog(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
     #[prop(default = canonrs_core::meta::VisibilityState::Closed)] state: canonrs_core::meta::VisibilityState,
-    #[prop(default = leptos::prelude::Signal::derive(|| false))] open: leptos::prelude::Signal<bool>,
     #[prop(into, default = String::new())] uid: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ConfirmDialogPrimitive variant=variant state=state open=open uid=uid class=class>
+        <ConfirmDialogPrimitive variant=variant state=state uid=uid class=class>
             {children()}
         </ConfirmDialogPrimitive>
     }
@@ -98,5 +97,19 @@ pub fn ConfirmDialogConfirm(
 
 #[component]
 pub fn ConfirmDialogPreview() -> impl IntoView {
-    view! { <ConfirmDialog><ConfirmDialogTrigger>"Open"</ConfirmDialogTrigger></ConfirmDialog> }
+    view! {
+        <ConfirmDialog uid="confirm-preview">
+            <ConfirmDialogTrigger target="confirm-preview">"Open"</ConfirmDialogTrigger>
+            <ConfirmDialogPortal>
+                <ConfirmDialogOverlay />
+                <ConfirmDialogContent>
+                    <ConfirmDialogTitle>"Confirm?"</ConfirmDialogTitle>
+                    <ConfirmDialogFooter>
+                        <ConfirmDialogCancel>"Cancel"</ConfirmDialogCancel>
+                        <ConfirmDialogConfirm>"Confirm"</ConfirmDialogConfirm>
+                    </ConfirmDialogFooter>
+                </ConfirmDialogContent>
+            </ConfirmDialogPortal>
+        </ConfirmDialog>
+    }
 }

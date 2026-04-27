@@ -38,3 +38,20 @@ pub fn CenterPrimitive(
         </div>
     }
 }
+
+/// Construtor funcional — retorna AnyView sem passar pelo macro view!
+pub fn center_view(
+    mode:     CenterMode,
+    children: AnyView,
+) -> AnyView {
+    let uid = crate::infra::uid::generate("cn");
+    view! {
+        <div
+            data-rs-center=""
+            data-rs-uid=uid
+            data-rs-mode=mode.as_str()
+        >
+            {children}
+        </div>
+    }.into_any()
+}

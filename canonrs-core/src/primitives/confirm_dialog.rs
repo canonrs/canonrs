@@ -27,25 +27,19 @@ impl ConfirmDialogVariant {
 pub fn ConfirmDialogPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
-    #[prop(default = leptos::prelude::Signal::derive(|| false))] open: leptos::prelude::Signal<bool>,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
     #[prop(into, default = String::new())] uid: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
-    let computed_state = move || {
-        if open.get() { "open" } else { s.data_rs_state }
-    };
     let uid_str = if uid.is_empty() { crate::infra::uid::generate("cd") } else { uid };
-    provide_context(open);
-    provide_context(uid_str.clone());
     view! {
         <div
             data-rs-confirm-dialog=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_str
             data-rs-variant=variant.as_str()
-            data-rs-state=computed_state
+            data-rs-state=s.data_rs_state
             class=class
         >
             {children()}
@@ -59,14 +53,10 @@ pub fn ConfirmDialogOverlayPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
-    let open = use_context::<Signal<bool>>().unwrap_or(Signal::derive(|| false));
-    let computed_state = move || {
-        if open.get() { "open" } else { s.data_rs_state }
-    };
     view! {
         <div
             data-rs-confirm-dialog-overlay=""
-            data-rs-state=computed_state
+            data-rs-state=s.data_rs_state
             class=class
         />
     }
@@ -91,22 +81,6 @@ pub fn ConfirmDialogDescriptionPrimitive(
 ) -> impl IntoView {
     view! {
         <div data-rs-confirm-dialog-description="" class=class>
-            {children()}
-        </div>
-    }
-}
-
-#[component]
-pub fn ConfirmDialogActionsPrimitive(
-    children: Children,
-    #[prop(into, default = String::new())] class: String,
-) -> impl IntoView {
-    view! {
-        <div
-            data-rs-confirm-dialog-actions=""
-            role="group"
-            class=class
-        >
             {children()}
         </div>
     }
@@ -160,16 +134,13 @@ pub fn ConfirmDialogTriggerPrimitive(
     #[prop(into, default = String::new())] target: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    // lê uid do context se target não foi passado explicitamente
-    let ctx_uid = use_context::<String>().unwrap_or_default();
-    let resolved_target = if target.is_empty() { ctx_uid } else { target };
     view! {
         <button
             type="button"
             data-rs-confirm-dialog-trigger=""
             data-rs-button=""
             data-rs-variant=variant.as_str()
-            data-rs-target=resolved_target
+            data-rs-target=target
             aria-haspopup="alertdialog"
             class=class
         >
@@ -179,14 +150,10 @@ pub fn ConfirmDialogTriggerPrimitive(
 }
 
 #[component]
-pub fn ConfirmDialogPortalPrimitive(
-    children: ChildrenFn,
-    #[prop(into, default = String::new())] class: String,
-) -> impl IntoView {
-    let class = StoredValue::new_local(class);
+pub fn ConfirmDialogPortalPrimitive(children: ChildrenFn) -> impl IntoView {
     view! {
         <leptos::portal::Portal>
-            <div data-rs-confirm-dialog-portal="" class=class.get_value()>
+            <div data-rs-confirm-dialog-portal="">
                 {children()}
             </div>
         </leptos::portal::Portal>
@@ -198,14 +165,10 @@ pub fn ConfirmDialogContentPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let open = use_context::<Signal<bool>>().unwrap_or(Signal::derive(|| false));
-    let computed_state = move || {
-        if open.get() { "open" } else { "closed" }
-    };
     view! {
         <div
             data-rs-confirm-dialog-content=""
-            data-rs-state=computed_state
+            data-rs-state="closed"
             role="alertdialog"
             aria-modal="true"
             tabindex="-1"

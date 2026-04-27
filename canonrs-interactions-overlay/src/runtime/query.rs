@@ -18,6 +18,13 @@ pub fn closest(el: &Element, selector: &str) -> bool {
     el.closest(selector).ok().flatten().is_some()
 }
 
+/// Busca o root de um overlay pelo atributo e uid — resiste a re-render.
+/// Uso: query::root_of("data-rs-dialog", &uid)
+pub fn root_of(attr: &str, uid: &str) -> Option<Element> {
+    let doc = web_sys::window().and_then(|w| w.document())?;
+    doc.query_selector(&format!("[{}][data-rs-uid='{}']", attr, uid)).ok().flatten()
+}
+
 pub fn each<F: Fn(Element)>(selector: &str, f: F) {
     let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
     let Ok(nodes) = doc.query_selector_all(selector) else { return };

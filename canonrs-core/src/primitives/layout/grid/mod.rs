@@ -71,3 +71,22 @@ pub fn GridPrimitive(
         </div>
     }
 }
+
+/// Construtor funcional — retorna AnyView sem passar pelo macro view!
+pub fn grid_view(
+    cols:     GridCols,
+    gap:      GridGap,
+    children: AnyView,
+) -> AnyView {
+    let uid = crate::infra::uid::generate("gr");
+    view! {
+        <div
+            data-rs-grid=""
+            data-rs-uid=uid
+            data-rs-cols=cols.as_str()
+            data-rs-gap=gap.as_str()
+        >
+            {children}
+        </div>
+    }.into_any()
+}

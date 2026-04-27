@@ -26,6 +26,12 @@ pub mod ui {
 }
 
 #[cfg(any(feature = "ssr", feature = "hydrate"))]
+pub use canonrs_server::interactions::dialog::{dialog_close, confirm_dialog_close, input_reset};
+
+#[cfg(any(feature = "ssr", feature = "hydrate"))]
+pub use canonrs_server::interactions::action::use_action_result;
+
+#[cfg(any(feature = "ssr", feature = "hydrate"))]
 pub mod layouts {
     pub use canonrs_server::layouts::*;
 }

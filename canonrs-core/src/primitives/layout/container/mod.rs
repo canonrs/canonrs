@@ -44,3 +44,20 @@ pub fn ContainerPrimitive(
         </div>
     }
 }
+
+/// Construtor funcional — retorna AnyView sem passar pelo macro view!
+pub fn container_view(
+    size:     ContainerSize,
+    children: AnyView,
+) -> AnyView {
+    let uid = crate::infra::uid::generate("ct");
+    view! {
+        <div
+            data-rs-container=""
+            data-rs-uid=uid
+            data-rs-size=size.as_str()
+        >
+            {children}
+        </div>
+    }.into_any()
+}

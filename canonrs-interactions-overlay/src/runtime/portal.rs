@@ -13,7 +13,7 @@ pub fn portal_of(root: &Element, portal_attr: &str, uid: &str) -> Option<Element
     root.query_selector(&format!("[{}]", portal_attr)).ok().flatten()
     // 2. no body com owner
     .or_else(|| doc()?.query_selector(&format!(
-        "[{}][data-rs-owner='{}']", portal_attr, uid
+        "[{}][data-rs-owner=\'{}\']", portal_attr, uid
     )).ok().flatten())
     // 3. qualquer portal no body (fallback quando owner ainda nao foi propagado)
     .or_else(|| doc()?.query_selector(&format!("[{}]", portal_attr)).ok().flatten())
@@ -32,14 +32,14 @@ pub fn propagate_owner(portal: &Element, uid: &str, children_sel: &str) {
 }
 
 /// Move portal para body se ainda não estiver lá
-pub fn move_to_body(portal: &Element, uid: &str) {
+pub fn move_to_body(portal: &Element, _uid: &str) {
     let Some(body) = doc().and_then(|d| d.body()) else { return };
     let in_body = portal.parent_element()
         .map(|p| p.tag_name() == "BODY")
         .unwrap_or(false);
     if !in_body {
         let _ = body.append_child(portal);
-        web_sys::console::log_1(&format!("portal moved to body uid={}", uid).into());
+
     }
 }
 

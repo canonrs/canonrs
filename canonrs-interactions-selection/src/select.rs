@@ -74,10 +74,17 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] init CALLED uid={} state={}", root.get_attribute("data-rs-uid").unwrap_or_default(), root.get_attribute("data-rs-state").unwrap_or("none".to_string()))));
+    if !lifecycle::init_guard(&root) {
+        web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[select] SKIPPED"));
+        return;
+    }
     register();
     context::propagate_owner(&root);
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] init uid={}", root.get_attribute("data-rs-uid").unwrap_or_default())));
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] init RUNNING uid={} state={}", root.get_attribute("data-rs-uid").unwrap_or_default(), root.get_attribute("data-rs-state").unwrap_or("none".to_string()))));
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] items count={}", get_items(&root).len())));
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] content exists={}", root.query_selector("[data-rs-select-content]").ok().flatten().is_some())));
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] trigger exists={}", root.query_selector("[data-rs-select-trigger]").ok().flatten().is_some())));
     // click
     { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };

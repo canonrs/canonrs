@@ -12,10 +12,15 @@ pub fn SelectShowcasePreview() -> impl IntoView {
             <p data-rs-showcase-preview-anchor="">
                 "Selection, visibility and interaction fully governed by structure."
             </p>
-            <Select placeholder="Choose a framework...">
-                <SelectItem value="leptos">"Leptos"</SelectItem>
-                <SelectItem value="dioxus">"Dioxus"</SelectItem>
-                <SelectItem value="yew" disabled=DisabledState::Disabled>"Yew (disabled)"</SelectItem>
+            <Select>
+                <SelectTrigger>
+                    <SelectValue placeholder="Choose a framework...">{""}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="leptos">"Leptos"</SelectItem>
+                    <SelectItem value="dioxus">"Dioxus"</SelectItem>
+                    <SelectItem value="yew" disabled=DisabledState::Disabled>"Yew (disabled)"</SelectItem>
+                </SelectContent>
             </Select>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Pre-selected"</span>
@@ -32,22 +37,32 @@ pub fn SelectShowcasePreview() -> impl IntoView {
             </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"With disabled options"</span>
-                <Select placeholder="Select plan...">
-                    <SelectItem value="free">"Free"</SelectItem>
-                    <SelectItem value="pro">"Pro"</SelectItem>
-                    <SelectItem value="enterprise" disabled=DisabledState::Disabled>"Enterprise (disabled)"</SelectItem>
-                    <SelectItem value="custom" disabled=DisabledState::Disabled>"Custom (disabled)"</SelectItem>
+                <Select>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select plan...">{""}</SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="free">"Free"</SelectItem>
+                        <SelectItem value="pro">"Pro"</SelectItem>
+                        <SelectItem value="enterprise" disabled=DisabledState::Disabled>"Enterprise (disabled)"</SelectItem>
+                        <SelectItem value="custom" disabled=DisabledState::Disabled>"Custom (disabled)"</SelectItem>
+                    </SelectContent>
                 </Select>
             </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Many options — keyboard nav"</span>
-                <Select placeholder="Select country...">
-                    <SelectItem value="br">"Brazil"</SelectItem>
-                    <SelectItem value="us">"United States"</SelectItem>
-                    <SelectItem value="de">"Germany"</SelectItem>
-                    <SelectItem value="jp">"Japan"</SelectItem>
-                    <SelectItem value="fr">"France"</SelectItem>
-                    <SelectItem value="uk">"United Kingdom"</SelectItem>
+                <Select>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select country...">{""}</SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="br">"Brazil"</SelectItem>
+                        <SelectItem value="us">"United States"</SelectItem>
+                        <SelectItem value="de">"Germany"</SelectItem>
+                        <SelectItem value="jp">"Japan"</SelectItem>
+                        <SelectItem value="fr">"France"</SelectItem>
+                        <SelectItem value="uk">"United Kingdom"</SelectItem>
+                    </SelectContent>
                 </Select>
             </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>

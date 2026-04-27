@@ -82,3 +82,26 @@ pub fn StackPrimitive(
         </div>
     }
 }
+
+/// Construtor funcional — retorna AnyView sem passar pelo macro view!
+/// Use dentro de closures genéricas (ChildrenFn, Arc<dyn Fn>) onde
+/// o compilador não consegue inferir tipos do StackPrimitive component.
+pub fn stack_view(
+    direction: StackDirection,
+    align:     StackAlign,
+    gap:       StackGap,
+    children:  AnyView,
+) -> AnyView {
+    let uid = crate::infra::uid::generate("sk");
+    view! {
+        <div
+            data-rs-stack=""
+            data-rs-uid=uid
+            data-rs-direction=direction.as_str()
+            data-rs-align=align.as_str()
+            data-rs-gap=gap.as_str()
+        >
+            {children}
+        </div>
+    }.into_any()
+}

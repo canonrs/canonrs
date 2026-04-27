@@ -32,6 +32,7 @@ pub mod field;
 pub mod form;
 pub mod nav_item;
 pub mod loading_overlay;
+pub mod input;
 
 pub fn scan_all() {
     runtime::registry::scan_all();

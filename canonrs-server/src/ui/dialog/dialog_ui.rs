@@ -84,7 +84,7 @@ pub fn DialogFooter(
 pub fn DialogPreview() -> impl IntoView {
     view! {
         <Dialog uid="dialog-preview">
-            <DialogTrigger>"Open"</DialogTrigger>
+            <DialogTrigger target="dialog-preview">"Open"</DialogTrigger>
             <DialogPortal>
                 <DialogOverlay />
                 <DialogContent>

@@ -16,3 +16,14 @@ pub fn SpacerPrimitive(
         />
     }
 }
+
+/// Construtor funcional — retorna AnyView sem passar pelo macro view!
+pub fn spacer_view() -> AnyView {
+    let uid = crate::infra::uid::generate("sp");
+    view! {
+        <div
+            data-rs-spacer=""
+            data-rs-uid=uid
+        />
+    }.into_any()
+}

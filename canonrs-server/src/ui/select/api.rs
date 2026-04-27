@@ -8,7 +8,6 @@ pub const SELECT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "DOM node reference" },
-        PropDef { name: "placeholder", kind: PropType::String, required: false, default: Some("Select..."), description: "Placeholder text" },
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],

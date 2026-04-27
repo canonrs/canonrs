@@ -1,6 +1,6 @@
 //! @canon-level: strict
 //! @canon-owner: primitives-team
-//! Dialog Primitive - HTML puro + ARIA completo
+//! Dialog Primitive - HTML puro + ARIA
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
@@ -15,7 +15,6 @@ pub fn DialogPrimitive(
 ) -> impl IntoView {
     let s = visibility_attrs(state);
     let uid_str = if uid.is_empty() { crate::infra::uid::generate("dlg") } else { uid };
-    provide_context(uid_str.clone());
     view! {
         <div
             data-rs-dialog=""
@@ -35,15 +34,13 @@ pub fn DialogTriggerPrimitive(
     #[prop(into, default = String::new())] target: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let ctx_uid = use_context::<String>().unwrap_or_default();
-    let resolved = if target.is_empty() { ctx_uid } else { target };
     view! {
         <button
             type="button"
             data-rs-dialog-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-target=resolved
+            data-rs-target=target
             aria-haspopup="dialog"
             class=class
         >
@@ -54,10 +51,9 @@ pub fn DialogTriggerPrimitive(
 
 #[component]
 pub fn DialogPortalPrimitive(children: ChildrenFn) -> impl IntoView {
-    let uid = StoredValue::new(use_context::<String>().unwrap_or_default());
     view! {
         <leptos::portal::Portal>
-            <div data-rs-dialog-portal="" data-rs-owner=uid.get_value()>
+            <div data-rs-dialog-portal="">
                 {children()}
             </div>
         </leptos::portal::Portal>
@@ -68,11 +64,9 @@ pub fn DialogPortalPrimitive(children: ChildrenFn) -> impl IntoView {
 pub fn DialogOverlayPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid = use_context::<String>().unwrap_or_default();
     view! {
         <div
             data-rs-dialog-overlay=""
-            data-rs-owner=uid
             data-rs-state="closed"
             class=class
         />
@@ -84,11 +78,9 @@ pub fn DialogContentPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid = use_context::<String>().unwrap_or_default();
     view! {
         <div
             data-rs-dialog-content=""
-            data-rs-owner=uid
             data-rs-state="closed"
             role="dialog"
             aria-modal="true"

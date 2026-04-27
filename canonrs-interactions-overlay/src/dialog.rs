@@ -3,7 +3,7 @@
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, stack, focus, inert, portal, transition, aria};
+use crate::runtime::{lifecycle, state, stack, focus, inert, portal, transition, aria, query};
 
 const KIND:         &str = "dialog";
 const PORTAL_ATTR:  &str = "data-rs-dialog-portal";
@@ -17,8 +17,8 @@ const CSS_VAR:      &str = "--dialog-transition-duration";
 const CHILDREN_SEL: &str = "[data-rs-dialog-overlay], [data-rs-dialog-content]";
 
 fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
+    if root.has_attribute("data-rs-just-closed") { return; }
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
-    web_sys::console::log_1(&format!("dialog::open uid={}", uid).into());
 
     prev_focus.set(focus::active_element());
 
@@ -64,7 +64,28 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
 
 fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
-    web_sys::console::log_1(&format!("dialog::close uid={}", uid).into());
+    let _ = root.set_attribute("data-rs-just-closed", "true");
+    // limpa inputs dentro do dialog ao fechar
+    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+        let sel = format!("[data-rs-dialog-content][data-rs-owner='{}'] [data-rs-input]", uid);
+        if let Ok(list) = doc.query_selector_all(&sel) {
+            use wasm_bindgen::JsCast;
+            for i in 0..list.length() {
+                if let Some(el) = list.item(i).and_then(|n| n.dyn_into::<web_sys::HtmlInputElement>().ok()) {
+                    el.set_value("");
+                }
+            }
+        }
+    }
+    {
+        let root_jc = root.clone();
+        let cb = Closure::once(move || {
+            let _ = root_jc.remove_attribute("data-rs-just-closed");
+        });
+        let _ = web_sys::window().unwrap()
+            .request_animation_frame(cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
 
     let (overlay, content) = portal::portal_nodes(&uid, OVERLAY_ATTR, CONTENT_ATTR);
     let duration = transition::duration_ms(root, CSS_VAR);
@@ -77,7 +98,6 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
 
     // pop do stack — libera scroll_lock se vazio
     stack::pop(&uid);
-    stack::unregister(&uid);
 
     {
         let o2 = overlay.clone();
@@ -123,13 +143,10 @@ pub fn dialog_close(uid: &str) {
 
 pub fn init(root: Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
-    web_sys::console::log_1(&format!("dialog::init uid={}", uid).into());
 
     if !lifecycle::init_guard(&root) {
-        web_sys::console::log_1(&"dialog::init SKIPPED".into());
         return;
     }
-    web_sys::console::log_1(&"dialog::init RUNNING".into());
 
     // garante 1 listener global para todos os overlays
     stack::ensure_global_listeners();
@@ -144,26 +161,43 @@ pub fn init(root: Element) {
 
     let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
 
-    // click — via stack global (não listener local)
+    // escuta evento rs:dialog:close para fechar programaticamente
     {
         let root_cb = root.clone();
+        let pf_close = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
+        let cb = Closure::<dyn Fn(web_sys::Event)>::new(move |e: web_sys::Event| {
+            let root_live = e.current_target()
+                .and_then(|t| { use wasm_bindgen::JsCast; t.dyn_into::<web_sys::Element>().ok() })
+                .unwrap_or_else(|| root_cb.clone());
+            close(&root_live, &pf_close);
+        });
+        let _ = root.add_event_listener_with_callback("rs:dialog:close", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
+    // click — via stack global (não listener local)
+    {
+        let _root_cb = root.clone();
         let uid2    = uid.clone();
         let pf      = prev_focus.clone();
         stack::register_click(&uid, move |target| {
-            // trigger: dentro do root OU data-rs-target aponta para este uid
+            if !target.is_connected() { return; }
+            // busca root atual pelo uid — resiste a re-render
+            let Some(root_live) = query::root_of("data-rs-dialog", &uid2) else { return };
             if let Some(trigger) = target.closest(&format!("[{}]", TRIGGER_ATTR)).ok().flatten() {
-                let in_root     = root_cb.contains(Some(&trigger));
+                let in_root     = root_live.contains(Some(&trigger as &web_sys::Element));
                 let targets_uid = trigger.get_attribute("data-rs-target").as_deref() == Some(&uid2);
                 if in_root || targets_uid {
-                    open(&root_cb, &pf);
+                    if root_live.has_attribute("data-rs-just-closed") { return; }
+                    open(&root_live, &pf);
                     return;
                 }
-            }
-            if !state::is_open(&root_cb) { return; }
+}
+            if !state::is_open(&root_live) { return; }
 
             // overlay fecha
             if target.closest(&format!("[{}]", OVERLAY_ATTR)).ok().flatten().is_some() {
-                close(&root_cb, &pf);
+                close(&root_live, &pf);
                 return;
             }
 
@@ -174,26 +208,27 @@ pub fn init(root: Element) {
             if owner.as_deref() != Some(&uid2) { return; }
 
             if target.closest(&format!("[{}]", CLOSE_ATTR)).ok().flatten().is_some() {
-                close(&root_cb, &pf);
+                close(&root_live, &pf);
             }
         });
     }
 
     // keydown — via stack global, ESC fecha apenas top-of-stack
     {
-        let root_cb = root.clone();
+        let _root_cb = root.clone();
         let uid2    = uid.clone();
         let pf      = prev_focus.clone();
         stack::register_keydown(&uid, move |e| {
-            if !state::is_open(&root_cb) { return; }
-            // ESC: apenas se este dialog for o top do stack
-            if e.key() == "Escape" && stack::is_top(&uid2) {
+            let Some(root_live) = query::root_of("data-rs-dialog", &uid2) else { return };
+            if !state::is_open(&root_live) { return; }
+            let key = e.key();
+            if key.is_empty() { return; }
+            if key == "Escape" && stack::is_top(&uid2) {
                 e.prevent_default();
-                close(&root_cb, &pf);
+                close(&root_live, &pf);
                 return;
             }
-            // Tab trap
-            if e.key() == "Tab" {
+            if key == "Tab" {
                 let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
                 let sel = format!("[{}][data-rs-owner='{}']", CONTENT_ATTR, uid2);
                 let Some(content) = doc.query_selector(&sel).ok().flatten() else { return };

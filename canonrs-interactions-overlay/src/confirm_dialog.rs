@@ -3,7 +3,7 @@
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, stack, focus, inert, portal, transition, aria};
+use crate::runtime::{lifecycle, state, stack, focus, inert, portal, transition, aria, query};
 
 const KIND:         &str = "confirm-dialog";
 const PORTAL_ATTR:  &str = "data-rs-confirm-dialog-portal";
@@ -12,7 +12,6 @@ const CONTENT_ATTR: &str = "data-rs-confirm-dialog-content";
 const TITLE_ATTR:   &str = "data-rs-confirm-dialog-title";
 const DESC_ATTR:    &str = "data-rs-confirm-dialog-description";
 const CANCEL_ATTR:  &str = "data-rs-confirm-dialog-cancel";
-const CONFIRM_ATTR: &str = "data-rs-confirm-dialog-confirm";
 const TRIGGER_ATTR: &str = "data-rs-confirm-dialog-trigger";
 const CSS_VAR:      &str = "--confirm-dialog-transition-duration";
 const CHILDREN_SEL: &str = "[data-rs-confirm-dialog-overlay], [data-rs-confirm-dialog-content]";
@@ -23,7 +22,6 @@ const CHILDREN_SEL: &str = "[data-rs-confirm-dialog-overlay], [data-rs-confirm-d
 
 fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
-    web_sys::console::log_1(&format!("confirm_dialog::open uid={}", uid).into());
 
     prev_focus.set(focus::active_element());
 
@@ -73,7 +71,6 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
 
 fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
-    web_sys::console::log_1(&format!("confirm_dialog::close uid={}", uid).into());
 
     let (overlay, content) = portal::portal_nodes(&uid, OVERLAY_ATTR, CONTENT_ATTR);
     let duration = transition::duration_ms(root, CSS_VAR);
@@ -84,7 +81,6 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
     transition::set_state_nodes(&overlay, &content, "exiting");
     state::close(root);
     stack::pop(&uid);
-    stack::unregister(&uid);
 
     {
         let o2 = overlay.clone();
@@ -139,13 +135,10 @@ pub fn confirm_dialog_close(uid: &str) {
 
 pub fn init(root: Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
-    web_sys::console::log_1(&format!("confirm_dialog::init uid={}", uid).into());
 
     if !lifecycle::init_guard(&root) {
-        web_sys::console::log_1(&"confirm_dialog::init SKIPPED".into());
         return;
     }
-    web_sys::console::log_1(&"confirm_dialog::init RUNNING".into());
 
     // garante listeners globais (1 vez para todos os overlays)
     stack::ensure_global_listeners();
@@ -163,59 +156,58 @@ pub fn init(root: Element) {
 
     let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
 
+    // escuta evento rs:confirm-dialog:close para fechar programaticamente
+    {
+        let root_live = root.clone();
+        let pf_close = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
+        let cb = Closure::<dyn Fn(web_sys::Event)>::new(move |_: web_sys::Event| {
+            close(&root_live, &pf_close);
+        });
+        let _ = root.add_event_listener_with_callback("rs:confirm-dialog:close", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
     // registra click handler no stack global
     {
-        let root_cb = root.clone();
-        let uid2    = uid.clone();
-        let pf      = prev_focus.clone();
+        let uid2 = uid.clone();
+        let pf   = prev_focus.clone();
         stack::register_click(&uid, move |target| {
-            // trigger: dentro do root OU data-rs-target aponta para este uid
+            let Some(root_live) = query::root_of("data-rs-confirm-dialog", &uid2) else { return };
             if let Some(trigger) = target.closest(&format!("[{}]", TRIGGER_ATTR)).ok().flatten() {
-                let in_root     = root_cb.contains(Some(&trigger));
+                let in_root     = root_live.contains(Some(&trigger as &web_sys::Element));
                 let targets_uid = trigger.get_attribute("data-rs-target").as_deref() == Some(&uid2);
                 if in_root || targets_uid {
-                    open(&root_cb, &pf);
+                    open(&root_live, &pf);
                     return;
                 }
             }
-            if !state::is_open(&root_cb) { return; }
-
-            // overlay fecha sem owner check
+            if !state::is_open(&root_live) { return; }
             if target.closest(&format!("[{}]", OVERLAY_ATTR)).ok().flatten().is_some() {
-                close(&root_cb, &pf);
+                close(&root_live, &pf);
                 return;
             }
-
-            // cancel / confirm: verifica owner
             let owner = target.closest("[data-rs-owner]").ok().flatten()
                 .and_then(|el| el.get_attribute("data-rs-owner"))
                 .or_else(|| target.get_attribute("data-rs-owner"));
             if owner.as_deref() != Some(&uid2) { return; }
-
             if target.closest(&format!("[{}]", CANCEL_ATTR)).ok().flatten().is_some() {
-                close(&root_cb, &pf);
-                return;
-            }
-            if target.closest(&format!("[{}]", CONFIRM_ATTR)).ok().flatten().is_some() {
-                close(&root_cb, &pf);
+                close(&root_live, &pf);
             }
         });
     }
 
     // registra keydown handler no stack global
     {
-        let root_cb = root.clone();
-        let uid2    = uid.clone();
-        let pf      = prev_focus.clone();
+        let uid2 = uid.clone();
+        let pf   = prev_focus.clone();
         stack::register_keydown(&uid, move |e| {
-            if !state::is_open(&root_cb) { return; }
-
+            let Some(root_live) = query::root_of("data-rs-confirm-dialog", &uid2) else { return };
+            if !state::is_open(&root_live) { return; }
             if e.key() == "Escape" && stack::is_top(&uid2) {
                 e.prevent_default();
-                close(&root_cb, &pf);
+                close(&root_live, &pf);
                 return;
             }
-
             if e.key() == "Tab" {
                 let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
                 let sel = format!("[{}][data-rs-owner='{}']", CONTENT_ATTR, uid2);

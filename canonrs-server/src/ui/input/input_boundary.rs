@@ -14,7 +14,7 @@ pub fn Input(
     #[prop(into, default = String::new())] class:       String,
     #[prop(into, default = "text".to_string())] input_type: String,
     #[prop(into, default = String::new())] name:        String,
-    #[prop(into, default = String::new())] value:       String,
+    #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] placeholder: String,
     #[prop(into, default = String::new())] aria_label:  String,
     #[prop(default = InputVariant::Default)] variant:   InputVariant,
@@ -26,7 +26,8 @@ pub fn Input(
             class=class
             input_type=input_type
             name=name
-            value=value
+            value=value.clone()
+            rs_value=value
             placeholder=placeholder
             aria_label=aria_label
             variant=variant
