@@ -15,3 +15,14 @@ pub fn query(selector: &str) -> Vec<Element> {
         .filter_map(|n| n.dyn_into::<Element>().ok())
         .collect()
 }
+
+pub fn query_within(root: &Element, selector: &str) -> Vec<Element> {
+    let list = match root.query_selector_all(selector) {
+        Ok(l) => l,
+        Err(_) => return vec![],
+    };
+    (0..list.length())
+        .filter_map(|i| list.item(i))
+        .filter_map(|n| n.dyn_into::<Element>().ok())
+        .collect()
+}

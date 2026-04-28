@@ -42,6 +42,7 @@ fn set_selected(root: &Element, value: &str) {
     }
     // disparar rs-change para bridges DOM → signal
     let _ = root.set_attribute("data-rs-value", value);
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] dispatching rs-change value={}", value)));
     if let Some(_doc) = web_sys::window().and_then(|w| w.document()) {
         if let Ok(event) = {
             let init = web_sys::CustomEventInit::new();
@@ -88,10 +89,17 @@ pub fn init(root: Element) {
 
     // Inicializar span com item pre-selecionado ou placeholder no mount
     {
-        let pre_selected = get_items(&root).into_iter()
+        let items = get_items(&root);
+        for item in &items {
+            let state = item.get_attribute("data-rs-state").unwrap_or_default();
+            let val = item.get_attribute("data-rs-value").unwrap_or_default();
+            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] item state='{}' value='{}'", state, val)));
+        }
+        let pre_selected = items.into_iter()
             .find(|el| el.get_attribute("data-rs-state").map(|s| s.split_whitespace().any(|t| t == "selected")).unwrap_or(false));
         if let Some(item) = pre_selected {
             let v = item.get_attribute("data-rs-value").unwrap_or_default();
+            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] pre_selected found value={}", v)));
             set_selected(&root, &v);
         } else {
             // nenhum item selecionado — mostrar placeholder
@@ -114,6 +122,7 @@ pub fn init(root: Element) {
             if item.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") { return; }
             e.stop_propagation();
             let v = item.get_attribute("data-rs-value").unwrap_or_default();
+            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] item clicked value={}", v)));
             set_selected(&rc, &v); set_open(&rc, false); clear_focused(&rc); return;
         }
         if t.closest("[data-rs-select-trigger]").ok().flatten().is_some() {

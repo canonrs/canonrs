@@ -12,9 +12,37 @@
     const mod  = await import(js);
     await mod.default({ module_or_path: wasm });
     mod.init_all();
+    window.__canonrs_init_all__ = () => mod.init_all();
     console.log(`[canonrs] runtime ready — v0.1.0 hash=${hash}`);
   } catch (e) {
     console.error('[canonrs] failed to load runtime', e);
+  }
+})();
+
+// MutationObserver — re-init componentes montados via Suspense/async
+(function() {
+  let rafPending = false;
+  const observer = new MutationObserver((mutations) => {
+    const hasNew = mutations.some(m =>
+      Array.from(m.addedNodes).some(n => n.nodeType === 1)
+    );
+    if (hasNew && !rafPending) {
+      rafPending = true;
+      requestAnimationFrame(() => {
+        if (window.__canonrs_init_all__) {
+          window.__canonrs_init_all__();
+          console.log('[canonrs] MutationObserver re-init');
+        }
+        rafPending = false;
+      });
+    }
+  });
+  if (document.body) {
+    observer.observe(document.body, { childList: true, subtree: true });
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
   }
 })();
 
