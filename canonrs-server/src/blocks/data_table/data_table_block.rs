@@ -26,9 +26,9 @@ pub fn DataTableBlock(
                     <ScrollArea>
                         {move || {
                             if body.get_value().is_some() {
-                                body.get_value().map(|b| view! { <div data-rs-region="body">{b()}</div> })
+                                body.get_value().map(|b| view! { <div data-rs-region="body">{b()}</div> }.into_any())
                             } else {
-                                empty.get_value().map(|e| view! { <div data-rs-region="empty" role="status">{e()}</div> })
+                                empty.get_value().map(|e| view! { <div data-rs-region="empty" role="status">{e()}</div> }.into_any())
                             }
                         }}
                     </ScrollArea>

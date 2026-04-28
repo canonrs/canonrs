@@ -192,3 +192,15 @@ let projects_res = LocalResource::new(move || async move {
 | Latência no dashboard | Visível (Suspense) | Zero (cache) |
 | Segundo fetch | Sim | Não |
 | Complexidade | Baixa | Média |
+
+
+**PLACEHOLDER NO SELECT**
+
+O bug estava na detecção do item pré-selecionado no init do select runtime.
+O código original fazia:
+rustel.get_attribute("data-rs-state").map(|s| s.contains("selected"))
+"unselected".contains("selected") retorna true em Rust — então todo item com estado unselected era detectado como pre_selected. O runtime entrava no bloco if let Some(item), chamava set_selected com o primeiro item da lista, e nunca chegava no bloco do placeholder.
+O fix foi trocar contains por uma comparação exata por token:
+rustel.get_attribute("data-rs-state").map(|s| s.split_whitespace().any(|t| t == "selected"))
+split_whitespace quebra o estado em tokens — "unselected" vira ["unselected"] — e any(|t| t == "selected") só retorna true se um dos tokens for exatamente "selected". "unselected" não passa.
+Com isso, quando nenhum item está selecionado, pre_selected é None, o runtime cai no bloco else, lê o data-rs-placeholder do span, e chama set_text_content com o placeholder.
