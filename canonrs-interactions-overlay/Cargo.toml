@@ -18,6 +18,7 @@ web-sys = { version = "0.3", features = [
     "console", "ResizeObserver", "ResizeObserverEntry",
     "ResizeObserverSize", "ScrollToOptions", "ScrollBehavior",
     "MutationObserver", "MutationObserverInit", "MutationRecord",
+    "HtmlInputElement", "Node",
 ] }
 
 [features]
