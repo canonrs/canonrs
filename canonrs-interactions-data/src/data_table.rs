@@ -452,12 +452,18 @@ fn get_ordered_ids(rows: &[web_sys::Element]) -> Vec<String> {
 
 // ── estado no DOM do root ────────────────────────────────────────────────────
 fn sel_ids(root: &web_sys::Element) -> Vec<String> {
-    root.get_attribute("data-rs-selected-ids")
-        .unwrap_or_default()
-        .split(',')
-        .filter(|s| !s.is_empty())
-        .map(|s| s.to_string())
-        .collect()
+    let raw = root.get_attribute("data-rs-selected-ids").unwrap_or_default();
+    if raw.starts_with('[') {
+        // JSON array format
+        raw.trim_matches(|c| c == '[' || c == ']')
+            .split(',')
+            .map(|s| s.trim().trim_matches('"').to_string())
+            .filter(|s| !s.is_empty())
+            .collect()
+    } else {
+        // fallback csv
+        raw.split(',').filter(|s| !s.is_empty()).map(|s| s.to_string()).collect()
+    }
 }
 
 fn sel_is(root: &web_sys::Element, id: &str) -> bool {
@@ -468,8 +474,7 @@ fn sel_is(root: &web_sys::Element, id: &str) -> bool {
 }
 
 fn sel_count(root: &web_sys::Element) -> usize {
-    let v = root.get_attribute("data-rs-selected-ids").unwrap_or_default();
-    if v.is_empty() { 0 } else { v.split(',').filter(|s| !s.is_empty()).count() }
+    sel_ids(root).len()
 }
 
 fn sel_last(root: &web_sys::Element) -> String {
@@ -477,7 +482,9 @@ fn sel_last(root: &web_sys::Element) -> String {
 }
 
 fn sel_set(root: &web_sys::Element, ids: Vec<String>, last: &str) {
-    let _ = root.set_attribute("data-rs-selected-ids", &ids.join(","));
+    let quoted: Vec<String> = ids.iter().map(|id| { let mut s = String::from("\""); s.push_str(id); s.push('\"'); s }).collect();
+    let json = format!("[{}]", quoted.join(","));
+    let _ = root.set_attribute("data-rs-selected-ids", &json);
     let _ = root.set_attribute("data-rs-selection-last", last);
 }
 
@@ -732,14 +739,16 @@ fn bind_bulk_actions(table: &HtmlElement) {
         let Some(action_el) = action_el else { return };
         let Some(action) = action_el.get_attribute("data-rs-datatable-bulk-action") else { return };
         let Some(rc) = context::find_root(&action_el, "[data-rs-datatable]") else { return };
-        let ids = rc.get_attribute("data-rs-selected-ids").unwrap_or_default();
+        let ids = sel_ids(&rc);
+        let uid = rc.get_attribute("data-rs-uid").unwrap_or_default();
         // propaga contexto no root
         let _ = rc.set_attribute("data-rs-current-bulk-action", &action);
         // dispara evento
         let detail = js_sys::Object::new();
         let _ = js_sys::Reflect::set(&detail, &"action".into(), &wasm_bindgen::JsValue::from_str(&action));
+        let _ = js_sys::Reflect::set(&detail, &"uid".into(), &wasm_bindgen::JsValue::from_str(&uid));
         let arr = js_sys::Array::new();
-        for id in ids.split(',').filter(|s| !s.is_empty()) {
+        for id in &ids {
             arr.push(&wasm_bindgen::JsValue::from_str(id));
         }
         let _ = js_sys::Reflect::set(&detail, &"ids".into(), &arr);
@@ -791,9 +800,12 @@ fn bind_row_actions(table: &HtmlElement) {
         let _ = rc.set_attribute("data-rs-current-row", &row_id);
         let _ = rc.set_attribute("data-rs-current-label", &row_label);
         // dispara evento para a página ouvir
+        let uid = rc.get_attribute("data-rs-uid").unwrap_or_default();
         let detail = js_sys::Object::new();
         let _ = js_sys::Reflect::set(&detail, &"action".into(), &wasm_bindgen::JsValue::from_str(&action));
         let _ = js_sys::Reflect::set(&detail, &"rowId".into(), &wasm_bindgen::JsValue::from_str(&row_id));
+        let _ = js_sys::Reflect::set(&detail, &"label".into(), &wasm_bindgen::JsValue::from_str(&row_label));
+        let _ = js_sys::Reflect::set(&detail, &"uid".into(), &wasm_bindgen::JsValue::from_str(&uid));
         let event_init = web_sys::CustomEventInit::new();
         event_init.set_detail(&detail);
         event_init.set_bubbles(true);
@@ -910,8 +922,7 @@ fn sync_hidden_input(root: &web_sys::Element) {
 }
 
 fn update_bulk_bar(root: &web_sys::Element) {
-    let ids = root.get_attribute("data-rs-selected-ids").unwrap_or_default();
-    let count = ids.split(',').filter(|s| !s.is_empty()).count();
+    let count = sel_ids(root).len();
     let bar = root.query_selector("[data-rs-datatable-bulk-bar]").ok().flatten();
     if let Some(bar) = bar {
         if count > 0 {

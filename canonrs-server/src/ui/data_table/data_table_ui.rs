@@ -85,6 +85,7 @@ pub fn DataTableStatic<T>(
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
     #[prop(optional)] row_id_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
+    #[prop(optional)] row_label_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
@@ -101,6 +102,7 @@ where
     let row_actions = StoredValue::new(row_actions);
     let bulk_actions = StoredValue::new(bulk_actions);
     let row_id_fn = StoredValue::new(row_id_fn);
+    let row_label_fn = StoredValue::new(row_label_fn);
     let initial_density = density.as_str();
 
     view! {
@@ -209,9 +211,11 @@ where
                             let has_actions = !row_actions.get_value().is_empty();
                             let ctx_actions = row_actions.get_value();
                             // label = valor da primeira coluna para uso em dialogs
-                            let row_label = cols.get_value().first()
-                                .map(|col| (col.render)(&row))
-                                .unwrap_or_default();
+                            let row_label = row_label_fn.get_value().as_ref()
+                                .map(|f| f(&row))
+                                .unwrap_or_else(|| cols.get_value().first()
+                                    .map(|col| (col.render)(&row))
+                                    .unwrap_or_default());
                             let real_id = row_id_fn.get_value().as_ref()
                                 .map(|f| f(&row))
                                 .unwrap_or_else(|| idx.to_string());
