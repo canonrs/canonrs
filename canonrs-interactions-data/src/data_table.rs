@@ -34,6 +34,7 @@ fn init_table(table: HtmlElement) {
     bind_bulk_bar(&table);
     bind_context_menu(&table);
     bind_row_actions(&table);
+    bind_bulk_actions(&table);
     // inicializa paginação — esconde rows além da página 1
     let total = count_visible(&table);
     let page_size = crate::runtime::attrs::get_usize_html(&table, "data-rs-page-size", 10);
@@ -43,6 +44,9 @@ fn init_table(table: HtmlElement) {
     update_pagination_ui(&table);
     // garante bulk bar oculta no init (zero seleção)
     let root: web_sys::Element = table.clone().into();
+    if root.get_attribute("data-rs-selected-ids").is_none() {
+        let _ = root.set_attribute("data-rs-selected-ids", "");
+    }
     update_bulk_bar(&root);
 }
 
@@ -537,6 +541,8 @@ fn emit_sel_change(root: &web_sys::Element, action: &str, source: &str) {
     if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-selection-change", &event_init) {
         let _ = root.dispatch_event(&event);
     }
+    // sync hidden input para form submission nativa (CR-XXX)
+    sync_hidden_input(root);
 }
 
 fn bind_selection(table: &HtmlElement) {
@@ -642,6 +648,8 @@ fn bind_selection(table: &HtmlElement) {
             if t.closest("[data-rs-action]").ok().flatten().is_some() { return; }
             if t.closest("[data-rs-density-btn]").ok().flatten().is_some() { return; }
             if t.closest("[data-rs-dropdown-menu]").ok().flatten().is_some() { return; }
+            if t.closest("[data-rs-datatable-action]").ok().flatten().is_some() { return; }
+            if t.closest("[data-rs-datatable-actions-cell]").ok().flatten().is_some() { return; }
 
             if t.has_attribute("data-rs-datatable-select-row") {
                 e.stop_propagation();
@@ -710,6 +718,42 @@ fn root_el(table: &HtmlElement) -> web_sys::Element {
 
 
 
+// ─── Bulk Actions ────────────────────────────────────────────────────────────
+
+fn bind_bulk_actions(table: &HtmlElement) {
+    let root: web_sys::Element = table.clone().into();
+    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+        let action_el = if t.has_attribute("data-rs-datatable-bulk-action") {
+            Some(t.clone())
+        } else {
+            t.closest("[data-rs-datatable-bulk-action]").ok().flatten()
+        };
+        let Some(action_el) = action_el else { return };
+        let Some(action) = action_el.get_attribute("data-rs-datatable-bulk-action") else { return };
+        let Some(rc) = context::find_root(&action_el, "[data-rs-datatable]") else { return };
+        let ids = rc.get_attribute("data-rs-selected-ids").unwrap_or_default();
+        // propaga contexto no root
+        let _ = rc.set_attribute("data-rs-current-bulk-action", &action);
+        // dispara evento
+        let detail = js_sys::Object::new();
+        let _ = js_sys::Reflect::set(&detail, &"action".into(), &wasm_bindgen::JsValue::from_str(&action));
+        let arr = js_sys::Array::new();
+        for id in ids.split(',').filter(|s| !s.is_empty()) {
+            arr.push(&wasm_bindgen::JsValue::from_str(id));
+        }
+        let _ = js_sys::Reflect::set(&detail, &"ids".into(), &arr);
+        let event_init = web_sys::CustomEventInit::new();
+        event_init.set_detail(&detail);
+        event_init.set_bubbles(true);
+        if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-bulk-action", &event_init) {
+            let _ = rc.dispatch_event(&event);
+        }
+    }));
+    let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+    cb.forget();
+}
+
 // ─── Row Actions ─────────────────────────────────────────────────────────────
 
 fn bind_row_actions(table: &HtmlElement) {
@@ -717,6 +761,10 @@ fn bind_row_actions(table: &HtmlElement) {
     let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+        // early return se nao é uma action — evita interferir com seleção de linha
+        let has_action = t.has_attribute("data-rs-datatable-action") ||
+            t.closest("[data-rs-datatable-action]").ok().flatten().is_some();
+        if !has_action { return; }
         // encontra o elemento com data-rs-datatable-action (pode ser o span interno)
         let action_el = if t.has_attribute("data-rs-datatable-action") {
             Some(t.clone())
@@ -834,14 +882,43 @@ fn bind_context_menu(_table: &HtmlElement) {
 
 // ─── Bulk Action Bar ─────────────────────────────────────────────────────────
 
+fn sync_hidden_input(root: &web_sys::Element) {
+    let name = match root.get_attribute("data-rs-name") {
+        Some(n) if !n.is_empty() => n,
+        _ => return,
+    };
+    let doc = match web_sys::window().and_then(|w| w.document()) {
+        Some(d) => d,
+        None => return,
+    };
+    let value = root.get_attribute("data-rs-selected-ids").unwrap_or_default();
+    if let Ok(Some(el)) = root.query_selector("input[data-rs-hidden]") {
+        if let Ok(input) = el.dyn_into::<web_sys::HtmlInputElement>() {
+            input.set_value(&value);
+            return;
+        }
+    }
+    if let Ok(el) = doc.create_element("input") {
+        if let Ok(input) = el.dyn_into::<web_sys::HtmlInputElement>() {
+            let _ = input.set_attribute("type", "hidden");
+            let _ = input.set_attribute("data-rs-hidden", "");
+            let _ = input.set_attribute("name", &name);
+            input.set_value(&value);
+            let _ = root.append_child(input.unchecked_ref());
+        }
+    }
+}
+
 fn update_bulk_bar(root: &web_sys::Element) {
     let ids = root.get_attribute("data-rs-selected-ids").unwrap_or_default();
     let count = ids.split(',').filter(|s| !s.is_empty()).count();
     let bar = root.query_selector("[data-rs-datatable-bulk-bar]").ok().flatten();
     if let Some(bar) = bar {
         if count > 0 {
+            state::remove(&bar, "hidden");
             let _ = bar.remove_attribute("hidden");
         } else {
+            state::add(&bar, "hidden");
             let _ = bar.set_attribute("hidden", "");
         }
         if let Some(counter) = bar.query_selector("[data-rs-datatable-bulk-count]").ok().flatten() {

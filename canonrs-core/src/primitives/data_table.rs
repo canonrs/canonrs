@@ -39,6 +39,7 @@ pub fn DataTablePrimitive(
     children: Children,
     #[prop(default = DataTableDensity::Comfortable)] density: DataTableDensity,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     view! {
         <div
@@ -46,6 +47,7 @@ pub fn DataTablePrimitive(
             data-rs-uid=crate::infra::uid::generate("dt")
             data-rs-interaction="data"
             data-rs-density=density.as_str()
+            data-rs-name=name
             class=class
         >
             {children()}
