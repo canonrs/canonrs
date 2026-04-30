@@ -51,6 +51,30 @@ fn set_selected(root: &Element, value: &str) {
             let _ = root.dispatch_event(&event);
         }
     }
+    // sync hidden input para form submission nativa
+    if let Some(name) = root.get_attribute("data-rs-name") {
+        if !name.is_empty() {
+            let doc = web_sys::window().and_then(|w| w.document());
+            if let Some(doc) = doc {
+                let input = if let Ok(Some(el)) = root.query_selector("input[data-rs-hidden]") {
+                    el.dyn_into::<web_sys::HtmlInputElement>().ok()
+                } else {
+                    let el = doc.create_element("input").ok()
+                        .and_then(|e| e.dyn_into::<web_sys::HtmlInputElement>().ok());
+                    if let Some(ref el) = el {
+                        let _ = el.set_attribute("type", "hidden");
+                        let _ = el.set_attribute("data-rs-hidden", "");
+                        let _ = el.set_attribute("name", &name);
+                        let _ = root.append_child(el.as_ref());
+                    }
+                    el
+                };
+                if let Some(input) = input {
+                    input.set_value(value);
+                }
+            }
+        }
+    }
 
     if let Ok(Some(span)) = root.query_selector("[data-rs-select-value]") {
         if let Ok(span_el) = span.dyn_into::<web_sys::HtmlElement>() {

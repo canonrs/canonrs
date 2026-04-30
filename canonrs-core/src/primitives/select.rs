@@ -19,6 +19,7 @@ pub fn SelectPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
     let state_str = if disabled == DisabledState::Disabled {
@@ -34,6 +35,7 @@ pub fn SelectPrimitive(
             data-rs-interaction="selection"
             data-rs-role="root"
             data-rs-state=state_str
+            data-rs-name=name
             aria-disabled=aria_disabled
             class=class
             node_ref=node_ref.unwrap_or_default()
