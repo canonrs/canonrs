@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{BannerVariant}; 
+
 pub const BANNER_API: ComponentApi = ComponentApi {
     id: "banner",
     description: "Banner message",

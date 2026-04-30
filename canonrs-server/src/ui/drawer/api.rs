@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{DrawerSide}; 
+
 pub const DRAWER_API: ComponentApi = ComponentApi {
     id: "drawer",
     description: "Slide-out drawer component",

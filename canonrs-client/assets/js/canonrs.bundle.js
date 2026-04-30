@@ -13,6 +13,8 @@
     await mod.default({ module_or_path: wasm });
     mod.init_all();
     window.__canonrs_init_all__ = () => mod.init_all();
+    // GC periodico — limpa uids de elementos desconectados
+    setInterval(() => { if (mod.gc) mod.gc(); }, 30000);
     console.log(`[canonrs] runtime ready — v0.1.0 hash=${hash}`);
   } catch (e) {
     console.error('[canonrs] failed to load runtime', e);

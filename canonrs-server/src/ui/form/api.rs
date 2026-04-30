@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{FormValidationState, FormMethod, FormEnctype}; 
+
 pub const FORM_API: ComponentApi = ComponentApi {
     id: "form",
     description: "Form component",

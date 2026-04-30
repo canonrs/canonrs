@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{CalloutVariant}; 
+
 pub const CALLOUT_API: ComponentApi = ComponentApi {
     id: "callout",
     description: "Callout info box",

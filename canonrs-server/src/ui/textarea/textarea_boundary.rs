@@ -31,5 +31,5 @@ pub fn Textarea(
             rows=rows
             class=class
         />
-};
+    }
 }

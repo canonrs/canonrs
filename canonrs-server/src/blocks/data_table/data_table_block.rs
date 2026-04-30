@@ -5,10 +5,10 @@ use crate::ui::scroll_area::scroll_area_boundary::ScrollArea;
 
 #[component]
 pub fn DataTableBlock(
-    #[prop(optional)] toolbar: Option<ChildrenFn>,
-    #[prop(optional)] header: Option<ChildrenFn>,
-    #[prop(optional)] body: Option<ChildrenFn>,
-    #[prop(optional)] empty: Option<ChildrenFn>,
+    #[prop(optional)] toolbar:    Option<ChildrenFn>,
+    #[prop(optional)] header:     Option<ChildrenFn>,
+    #[prop(optional)] body:       Option<ChildrenFn>,
+    #[prop(optional)] empty:      Option<ChildrenFn>,
     #[prop(optional)] pagination: Option<ChildrenFn>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
@@ -24,6 +24,7 @@ pub fn DataTableBlock(
                 {move || toolbar.get_value().map(|t| view! { <div data-rs-region="toolbar">{t()}</div> })}
                 <div data-rs-region="table-wrap">
                     <ScrollArea>
+                        {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
                         {move || {
                             if body.get_value().is_some() {
                                 body.get_value().map(|b| view! { <div data-rs-region="body">{b()}</div> }.into_any())
@@ -33,7 +34,6 @@ pub fn DataTableBlock(
                         }}
                     </ScrollArea>
                 </div>
-                {move || header.get_value().map(|h| view! { <div data-rs-region="header">{h()}</div> })}
                 {move || pagination.get_value().map(|p| view! { <nav data-rs-region="pagination" aria-label="Pagination">{p()}</nav> })}
             </Stack>
         </div>

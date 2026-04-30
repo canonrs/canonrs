@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{StatSize, StatAlign, StatTrend}; 
+
 pub const STAT_API: ComponentApi = ComponentApi {
     id: "stat",
     description: "Metric stat display",

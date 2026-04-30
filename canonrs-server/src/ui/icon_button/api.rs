@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{IconButtonVariant, IconButtonSize}; 
+
 pub const ICONBUTTON_API: ComponentApi = ComponentApi {
     id: "icon-button",
     description: "Button with icon only",

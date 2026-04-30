@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{SidebarVariant}; 
+
 pub const SIDEBAR_API: ComponentApi = ComponentApi {
     id: "sidebar",
     description: "Sidebar navigation component",

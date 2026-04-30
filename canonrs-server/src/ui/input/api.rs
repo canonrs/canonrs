@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{InputVariant, InputSize}; 
+
 pub const INPUT_API: ComponentApi = ComponentApi {
     id: "input",
     description: "Text input field",

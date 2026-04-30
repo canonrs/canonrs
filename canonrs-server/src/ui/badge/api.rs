@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{BadgeVariant, BadgeInteractivity}; 
+
 pub const BADGE_API: ComponentApi = ComponentApi {
     id: "badge",
     description: "Status badge label",

@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{ProgressState}; 
+
 pub const PROGRESS_API: ComponentApi = ComponentApi {
     id: "progress",
     description: "Progress bar indicator",

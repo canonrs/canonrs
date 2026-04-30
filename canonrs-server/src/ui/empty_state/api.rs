@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{EmptyStateVariant}; 
+
 pub const EMPTYSTATE_API: ComponentApi = ComponentApi {
     id: "empty-state",
     description: "Empty state placeholder",

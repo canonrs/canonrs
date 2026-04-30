@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{HoverCardSide}; 
+
 pub const HOVERCARD_API: ComponentApi = ComponentApi {
     id: "hover-card",
     description: "Hover card popup",

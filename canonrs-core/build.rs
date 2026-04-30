@@ -47,6 +47,7 @@ fn main() {
     generate_layout_definitions(&blocks_layouts, Path::new("../canonrs-server/src/layouts"), &out_dir);
     generate_block_definitions(&blocks_layouts, Path::new("../canonrs-server/src/blocks"), Path::new("../canonrs-server/src/layouts"), &out_dir);
     generate_api_files(Path::new("../canonrs-server/src/ui"));
+    generate_ui_exports_doc(Path::new("../canonrs-server/src/ui"));
     generate_component_definitions(&semantic, Path::new("../canonrs-server/src/ui"), &out_dir);
     generate_api_files_blocks(Path::new("../canonrs-server/src/blocks"));
     generate_api_files_layouts(Path::new("../canonrs-server/src/layouts"));

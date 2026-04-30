@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{ConfirmDialogVariant}; 
+
 pub const CONFIRMDIALOG_API: ComponentApi = ComponentApi {
     id: "confirm-dialog",
     description: "Confirmation dialog",

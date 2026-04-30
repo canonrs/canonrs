@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{StackPrimitive as Stack, StackDirection, StackGap}; 
+
 pub const SECTIONBLOCK_API: ComponentApi = ComponentApi {
     id: "section-block",
     description: "Generic content section block with header, body and footer regions",

@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{SplitRatio}; 
+
 pub const SPLITVIEWLAYOUT_API: ComponentApi = ComponentApi {
     id: "split-view-layout",
     description: "Two-panel split layout with configurable ratio for side-by-side content",

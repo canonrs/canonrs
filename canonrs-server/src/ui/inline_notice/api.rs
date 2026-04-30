@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{InlineNoticeVariant}; 
+
 pub const INLINENOTICE_API: ComponentApi = ComponentApi {
     id: "inline-notice",
     description: "Inline notice message",

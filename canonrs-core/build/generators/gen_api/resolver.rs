@@ -100,5 +100,60 @@ fn unwrap_option(ty: &str) -> &str {
     if t.starts_with("Option<") && t.ends_with('>') { &t[7..t.len()-1] } else { t }
 }
 
+/// Coleta todos os tipos importados de canonrs_core::primitives no boundary
+/// Suporta: `pub use canonrs_core::primitives::X` e `use canonrs_core::primitives::{X, Y}`
+pub(crate) fn extract_pub_use_types(content: &str) -> Vec<String> {
+    let mut types = Vec::new();
+    let mut multiline = String::new();
+    let mut collecting = false;
 
+    for line in content.lines() {
+        let t = line.trim();
 
+        // inicia coleta de import multiline de primitives
+        if (t.starts_with("pub use canonrs_core::primitives") ||
+            t.starts_with("use canonrs_core::primitives")) && !collecting {
+            if t.ends_with(';') {
+                // single line
+                extract_from_import_line(t, &mut types);
+            } else {
+                // multiline: `use canonrs_core::primitives::{`
+                collecting = true;
+                multiline = t.to_string();
+            }
+            continue;
+        }
+
+        if collecting {
+            multiline.push(' ');
+            multiline.push_str(t);
+            if t.contains(';') {
+                collecting = false;
+                extract_from_import_line(&multiline, &mut types);
+                multiline.clear();
+            }
+        }
+    }
+
+    // filtra só nomes que parecem enums (PascalCase)
+    types.retain(|t| t.chars().next().map(|c| c.is_uppercase()).unwrap_or(false));
+    types.dedup();
+    types
+}
+
+fn extract_from_import_line(line: &str, out: &mut Vec<String>) {
+    if line.contains('{') {
+        if let (Some(s), Some(e)) = (line.find('{'), line.find('}')) {
+            for item in line[s+1..e].split(',') {
+                let name = item.trim().trim_end_matches(';').to_string();
+                if !name.is_empty() { out.push(name); }
+            }
+        }
+    } else {
+        // single: use path::X;
+        let clean = line.trim_end_matches(';');
+        if let Some(last) = clean.split("::").last() {
+            out.push(last.trim().to_string());
+        }
+    }
+}

@@ -42,7 +42,6 @@ fn set_selected(root: &Element, value: &str) {
     }
     // disparar rs-change para bridges DOM → signal
     let _ = root.set_attribute("data-rs-value", value);
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] dispatching rs-change value={}", value)));
     if let Some(_doc) = web_sys::window().and_then(|w| w.document()) {
         if let Ok(event) = {
             let init = web_sys::CustomEventInit::new();
@@ -75,40 +74,29 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 }
 
 pub fn init(root: Element) {
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] init CALLED uid={} state={}", root.get_attribute("data-rs-uid").unwrap_or_default(), root.get_attribute("data-rs-state").unwrap_or("none".to_string()))));
     if !lifecycle::init_guard(&root) {
         web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[select] SKIPPED"));
         return;
     }
     register();
     context::propagate_owner(&root);
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] init RUNNING uid={} state={}", root.get_attribute("data-rs-uid").unwrap_or_default(), root.get_attribute("data-rs-state").unwrap_or("none".to_string()))));
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] items count={}", get_items(&root).len())));
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] content exists={}", root.query_selector("[data-rs-select-content]").ok().flatten().is_some())));
-    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] trigger exists={}", root.query_selector("[data-rs-select-trigger]").ok().flatten().is_some())));
+
+
+
 
     // Inicializar span com item pre-selecionado ou placeholder no mount
     {
-        let items = get_items(&root);
-        for item in &items {
-            let state = item.get_attribute("data-rs-state").unwrap_or_default();
-            let val = item.get_attribute("data-rs-value").unwrap_or_default();
-            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] item state='{}' value='{}'", state, val)));
-        }
-        let pre_selected = items.into_iter()
+        let pre_selected = get_items(&root).into_iter()
             .find(|el| el.get_attribute("data-rs-state").map(|s| s.split_whitespace().any(|t| t == "selected")).unwrap_or(false));
         if let Some(item) = pre_selected {
             let v = item.get_attribute("data-rs-value").unwrap_or_default();
-            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] pre_selected found value={}", v)));
             set_selected(&root, &v);
         } else {
             // nenhum item selecionado — mostrar placeholder
             if let Ok(Some(span)) = root.query_selector("[data-rs-select-value]") {
                 if let Ok(span_el) = span.dyn_into::<web_sys::HtmlElement>() {
                     let placeholder = span_el.get_attribute("data-rs-placeholder").unwrap_or_default();
-                    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] setting placeholder='{}' on span", placeholder)));
                     span_el.set_text_content(Some(&placeholder));
-                    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] span text_content after set='{}'", span_el.text_content().unwrap_or_default())));
                 }
             }
         }
@@ -122,7 +110,6 @@ pub fn init(root: Element) {
             if item.get_attribute("data-rs-state").unwrap_or_default().contains("disabled") { return; }
             e.stop_propagation();
             let v = item.get_attribute("data-rs-value").unwrap_or_default();
-            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[select] item clicked value={}", v)));
             set_selected(&rc, &v); set_open(&rc, false); clear_focused(&rc); return;
         }
         if t.closest("[data-rs-select-trigger]").ok().flatten().is_some() {

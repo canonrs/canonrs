@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{LinkVariant}; 
+
 pub const LINK_API: ComponentApi = ComponentApi {
     id: "link",
     description: "Hyperlink",

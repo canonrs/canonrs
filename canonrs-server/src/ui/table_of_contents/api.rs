@@ -2,6 +2,8 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
+// imports: use canonrs::primitives::{TocMode}; 
+
 pub const TABLEOFCONTENTS_API: ComponentApi = ComponentApi {
     id: "table-of-contents",
     description: "Document table of contents",
