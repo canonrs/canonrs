@@ -14,26 +14,17 @@ const TRIGGER_ATTR: &str = "data-rs-popover-trigger";
 const CLOSE_ATTR:   &str = "data-rs-popover-close";
 const CSS_VAR:      &str = "--popover-transition-duration";
 
-// ---------------------------------------------------------------------------
-// Open / Close
-// ---------------------------------------------------------------------------
-
 fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
     prev_focus.set(focus::active_element());
 
     state::open(root);
     stack::push(&uid, KIND);
-    stack::apply_z(
-        &uid,
-        &format!("[{}][data-rs-uid='{}']", CONTENT_ATTR, uid),
-        &format!("[{}][data-rs-uid='{}']", CONTENT_ATTR, uid),
-    );
 
     let content = root.query_selector(&format!("[{}]", CONTENT_ATTR)).ok().flatten();
     let content_opt = content.clone().map(|c| Some(c));
-
     transition::set_state_nodes(&None, &content_opt.flatten(), "entering");
+
     {
         let c2 = root.query_selector(&format!("[{}]", CONTENT_ATTR)).ok().flatten();
         let cb = Closure::once(move || {
@@ -46,7 +37,7 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
         cb.forget();
     }
 
-    // posicionamento após abertura
+    // posicionamento
     {
         let root2 = root.clone();
         let cb = Closure::once(move || {
@@ -57,9 +48,9 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
         cb.forget();
     }
 
-    // foco no content
-    if let Some(ref c) = root.query_selector(&format!("[{}]", CONTENT_ATTR)).ok().flatten() {
-        focus::focus_first(c);
+    // inicializa elementos interativos dentro do content via runtime
+    if let Ok(Some(content_el)) = root.query_selector(&format!("[{}]", CONTENT_ATTR)) {
+        canonrs_runtime::scan_children(&content_el);
     }
 }
 
@@ -93,10 +84,6 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
     }
 }
 
-// ---------------------------------------------------------------------------
-// Init
-// ---------------------------------------------------------------------------
-
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     stack::ensure_global_listeners();
@@ -104,7 +91,7 @@ pub fn init(root: Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
     let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
 
-    // escuta rs:popover:close para fechar programaticamente
+    // rs:popover:close — fecha programaticamente
     {
         let root_live = root.clone();
         let pf = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
@@ -115,7 +102,7 @@ pub fn init(root: Element) {
         cb.forget();
     }
 
-    // click — toggle trigger, close button
+    // click — toggle trigger, close button, click fora
     {
         let uid2 = uid.clone();
         let pf = prev_focus.clone();
@@ -130,14 +117,13 @@ pub fn init(root: Element) {
                 close(&root_live, &pf);
                 return;
             }
-            // click fora — fecha
             if !root_live.contains(Some(target.as_ref())) && state::is_open(&root_live) {
                 close(&root_live, &pf);
             }
         });
     }
 
-    // keydown — Escape fecha, Tab trapa foco
+    // keydown — Escape fecha
     {
         let uid2 = uid.clone();
         let pf = prev_focus.clone();
@@ -147,14 +133,27 @@ pub fn init(root: Element) {
             if e.key() == "Escape" && stack::is_top(&uid2) {
                 e.prevent_default();
                 close(&root_live, &pf);
-                return;
-            }
-            if e.key() == "Tab" {
-                let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
-                let sel = format!("[{}]", CONTENT_ATTR);
-                let Some(content) = doc.query_selector(&sel).ok().flatten() else { return };
-                focus::trap_tab(e, &content);
             }
         });
+    }
+
+    // focusout — fecha quando foco sai do popover (non-modal: nao prende foco)
+    {
+        let root2 = root.clone();
+        let pf = prev_focus.clone();
+        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |e: web_sys::FocusEvent| {
+            if !state::is_open(&root2) { return; }
+            let related = e.related_target()
+                .and_then(|t| t.dyn_into::<web_sys::Element>().ok());
+            let focus_left = match related {
+                Some(ref el) => !root2.contains(Some(el as &web_sys::Element)),
+                None => true,
+            };
+            if focus_left {
+                close(&root2, &pf);
+            }
+        });
+        let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
+        cb.forget();
     }
 }

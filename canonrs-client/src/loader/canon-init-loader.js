@@ -41,3 +41,8 @@ const observer = new MutationObserver((mutations) => {
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
+
+// rs:content:init — inicializa elementos dentro de overlays que abrem após scan_all
+document.addEventListener('rs:content:init', (e) => {
+  initAll();
+});

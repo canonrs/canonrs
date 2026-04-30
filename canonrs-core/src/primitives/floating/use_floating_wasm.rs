@@ -1,7 +1,9 @@
-#[cfg(target_arch = "wasm32")]
-use leptos::web_sys::{Element, HtmlElement, DomRect, window};
+#[cfg(feature = "hydrate")]
+use leptos::web_sys::{Element, HtmlElement, window, DomRect};
+#[cfg(feature = "hydrate")]
 use leptos::wasm_bindgen::JsCast;
-use leptos::prelude::*;
+#[cfg(feature = "hydrate")]
+use leptos::prelude::ReadSignal;
 use super::types::*;
 
 #[cfg(feature = "hydrate")]
@@ -11,7 +13,7 @@ pub fn use_floating_position(
     config: FloatingConfig,
     active: ReadSignal<bool>,
 ) {
-    use leptos::prelude::Effect;
+    use leptos::prelude::{Effect, Get};
 
     let anchor_id = anchor_id.to_string();
     let floating_id = floating_id.to_string();
@@ -59,6 +61,7 @@ pub fn use_floating_position(
     });
 }
 
+#[cfg(feature = "hydrate")]
 fn calculate_position(
     anchor_rect: &DomRect,
     floating_rect: &DomRect,
@@ -76,7 +79,6 @@ fn calculate_position(
         Placement::Bottom | Placement::BottomStart | Placement::BottomEnd => {
             x = anchor_rect.left() + (anchor_rect.width() / 2.0) - (floating_rect.width() / 2.0);
             y = anchor_rect.bottom() + config.offset;
-
             if config.flip && y + floating_rect.height() > viewport_height {
                 y = anchor_rect.top() - floating_rect.height() - config.offset;
                 placement = Placement::Top;
@@ -85,7 +87,6 @@ fn calculate_position(
         Placement::Top | Placement::TopStart | Placement::TopEnd => {
             x = anchor_rect.left() + (anchor_rect.width() / 2.0) - (floating_rect.width() / 2.0);
             y = anchor_rect.top() - floating_rect.height() - config.offset;
-
             if config.flip && y < 0.0 {
                 y = anchor_rect.bottom() + config.offset;
                 placement = Placement::Bottom;
@@ -94,7 +95,6 @@ fn calculate_position(
         Placement::Left | Placement::LeftStart | Placement::LeftEnd => {
             x = anchor_rect.left() - floating_rect.width() - config.offset;
             y = anchor_rect.top() + (anchor_rect.height() / 2.0) - (floating_rect.height() / 2.0);
-
             if config.flip && x < 0.0 {
                 x = anchor_rect.right() + config.offset;
                 placement = Placement::Right;
@@ -103,7 +103,6 @@ fn calculate_position(
         Placement::Right | Placement::RightStart | Placement::RightEnd => {
             x = anchor_rect.right() + config.offset;
             y = anchor_rect.top() + (anchor_rect.height() / 2.0) - (floating_rect.height() / 2.0);
-
             if config.flip && x + floating_rect.width() > viewport_width {
                 x = anchor_rect.left() - floating_rect.width() - config.offset;
                 placement = Placement::Left;

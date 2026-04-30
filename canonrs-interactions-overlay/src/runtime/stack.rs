@@ -170,7 +170,7 @@ pub fn ensure_global_listeners() {
                 });
             });
             if let Some(win) = web_sys::window() {
-                let _ = win.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
+                let _ = win.add_event_listener_with_callback_and_bool("keydown", cb.as_ref().unchecked_ref(), true);
             }
             cb.forget();
         }

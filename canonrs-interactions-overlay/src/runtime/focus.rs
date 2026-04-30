@@ -45,22 +45,37 @@ pub fn trap_tab(e: &web_sys::KeyboardEvent, content: &Element) -> bool {
     let els = focusable_elements(content);
     if els.is_empty() { e.prevent_default(); return true; }
 
-    let first   = els.first().unwrap();
-    let last    = els.last().unwrap();
-    let active  = doc.active_element();
+    let first  = els.first().unwrap();
+    let last   = els.last().unwrap();
+    let active = doc.active_element();
     let first_el = first.clone().dyn_into::<Element>().ok();
     let last_el  = last.clone().dyn_into::<Element>().ok();
 
+    // sempre previne default e move foco manualmente — garante que foco nao sai do overlay
+    e.prevent_default();
+
     if e.shift_key() {
-        if active == first_el {
-            e.prevent_default();
+        // Shift+Tab: vai para o anterior, ou do primeiro para o ultimo
+        if active == first_el || !content.contains(active.as_ref().map(|a| a as &web_sys::Node).as_deref()) {
             let _ = last.focus();
-            return true;
+        } else {
+            let cur_idx = els.iter().position(|el| {
+                el.clone().dyn_into::<Element>().ok() == active
+            }).unwrap_or(0);
+            let prev = if cur_idx == 0 { els.len() - 1 } else { cur_idx - 1 };
+            let _ = els[prev].focus();
         }
-    } else if active == last_el {
-        e.prevent_default();
-        let _ = first.focus();
-        return true;
+    } else {
+        // Tab: vai para o proximo, ou do ultimo para o primeiro
+        if active == last_el || !content.contains(active.as_ref().map(|a| a as &web_sys::Node).as_deref()) {
+            let _ = first.focus();
+        } else {
+            let cur_idx = els.iter().position(|el| {
+                el.clone().dyn_into::<Element>().ok() == active
+            }).unwrap_or(0);
+            let next = (cur_idx + 1) % els.len();
+            let _ = els[next].focus();
+        }
     }
-    false
+    true
 }

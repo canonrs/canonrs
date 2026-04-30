@@ -165,3 +165,4 @@ if (document.body) {
 } else {
   document.addEventListener('DOMContentLoaded', startObserver);
 }
+
