@@ -168,6 +168,7 @@ pub fn DataTableRowPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] row_id: String,
+    #[prop(into, default = String::new())] row_label: String,
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(optional)] row_index: Option<usize>,
 ) -> impl IntoView {
@@ -177,6 +178,7 @@ pub fn DataTableRowPrimitive(
             data-rs-datatable-row=""
             data-rs-state=s.data_rs_state
             data-rs-row-id={(!row_id.is_empty()).then_some(row_id)}
+            data-rs-row-label={(!row_label.is_empty()).then_some(row_label)}
             aria-selected=s.aria_selected
             aria-rowindex={row_index.map(|i| (i + 1).to_string())}
             data-rs-row-index={row_index.map(|i| i.to_string())}

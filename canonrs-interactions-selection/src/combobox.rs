@@ -58,6 +58,8 @@ fn set_selected(root: &Element, value: &str) {
     if let Some(input) = input {
         input.set_value(&label);
     }
+    // sync hidden input para form submission nativa (CR-XXX)
+    crate::runtime::form::sync_hidden_input(root, value);
 }
 
 fn restore_input(root: &Element) {

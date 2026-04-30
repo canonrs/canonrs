@@ -33,6 +33,7 @@ fn init_table(table: HtmlElement) {
     bind_selection(&table);
     bind_bulk_bar(&table);
     bind_context_menu(&table);
+    bind_row_actions(&table);
     // inicializa paginação — esconde rows além da página 1
     let total = count_visible(&table);
     let page_size = crate::runtime::attrs::get_usize_html(&table, "data-rs-page-size", 10);
@@ -40,6 +41,9 @@ fn init_table(table: HtmlElement) {
     let _ = table.set_attribute("data-rs-total-pages", &total_pages.to_string());
     set_page(&table, 1);
     update_pagination_ui(&table);
+    // garante bulk bar oculta no init (zero seleção)
+    let root: web_sys::Element = table.clone().into();
+    update_bulk_bar(&root);
 }
 
 fn sync_col_toggle_state(table: &HtmlElement) {
@@ -705,6 +709,61 @@ fn root_el(table: &HtmlElement) -> web_sys::Element {
 
 
 
+
+// ─── Row Actions ─────────────────────────────────────────────────────────────
+
+fn bind_row_actions(table: &HtmlElement) {
+    let _root: web_sys::Element = table.clone().into();
+    let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+        // encontra o elemento com data-rs-datatable-action (pode ser o span interno)
+        let action_el = if t.has_attribute("data-rs-datatable-action") {
+            Some(t.clone())
+        } else {
+            t.closest("[data-rs-datatable-action]").ok().flatten()
+        };
+        let Some(action_el) = action_el else { return };
+        let Some(action) = action_el.get_attribute("data-rs-datatable-action") else { return };
+        let row_id = action_el.get_attribute("data-rs-row-id").unwrap_or_default();
+        // encontra o datatable root a partir do action_el ou via document
+        let rc = context::find_root(&action_el, "[data-rs-datatable]")
+            .or_else(|| {
+                web_sys::window().and_then(|w| w.document())
+                    .and_then(|d| d.query_selector("[data-rs-datatable]").ok().flatten())
+            });
+        let Some(rc) = rc else { return };
+        // busca label na row pelo row_id
+        let row_label = rc.query_selector(&format!("[data-rs-datatable-row][data-rs-row-id='{}']", row_id))
+            .ok().flatten()
+            .and_then(|row| row.get_attribute("data-rs-row-label"))
+            .unwrap_or_default();
+        // propaga contexto no root — DOM como fonte de verdade
+        let _ = rc.set_attribute("data-rs-current-action", &action);
+        let _ = rc.set_attribute("data-rs-current-row", &row_id);
+        let _ = rc.set_attribute("data-rs-current-label", &row_label);
+        // dispara evento para a página ouvir
+        let detail = js_sys::Object::new();
+        let _ = js_sys::Reflect::set(&detail, &"action".into(), &wasm_bindgen::JsValue::from_str(&action));
+        let _ = js_sys::Reflect::set(&detail, &"rowId".into(), &wasm_bindgen::JsValue::from_str(&row_id));
+        let event_init = web_sys::CustomEventInit::new();
+        event_init.set_detail(&detail);
+        event_init.set_bubbles(true);
+        if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-action", &event_init) {
+            let _ = rc.dispatch_event(&event);
+        }
+    }));
+    // usa capture=true para interceptar antes do stop_propagation do DropdownMenu
+    use wasm_bindgen::JsValue;
+    let opts = js_sys::Object::new();
+    let _ = js_sys::Reflect::set(&opts, &JsValue::from_str("capture"), &JsValue::from_bool(true));
+    let _ = doc.add_event_listener_with_callback_and_bool(
+        "click",
+        cb.as_ref().unchecked_ref(),
+        true,
+    );
+    cb.forget();
+}
 
 // ─── Context Menu ────────────────────────────────────────────────────────────
 

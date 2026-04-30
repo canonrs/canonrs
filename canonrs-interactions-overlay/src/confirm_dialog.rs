@@ -44,6 +44,11 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
     web_sys::console::log_1(&format!("confirm_dialog::open overlay={} content={}",
         overlay.is_some(), content.is_some()).into());
 
+    // injeta data-rs-root no content para lookup direto sem query global
+    if let Some(ref c) = content {
+        let _ = c.set_attribute("data-rs-root", &uid);
+    }
+
     transition::set_state_nodes(&overlay, &content, "entering");
     {
         let o2 = overlay.clone();
@@ -177,6 +182,13 @@ pub fn init(root: Element) {
                 let in_root     = root_live.contains(Some(&trigger as &web_sys::Element));
                 let targets_uid = trigger.get_attribute("data-rs-target").as_deref() == Some(&uid2);
                 if in_root || targets_uid {
+                    // propaga contexto do trigger para o root — DOM como fonte de verdade
+                    if let Some(v) = trigger.get_attribute("data-rs-value") {
+                        let _ = root_live.set_attribute("data-rs-current-value", &v);
+                    }
+                    if let Some(l) = trigger.get_attribute("data-rs-label") {
+                        let _ = root_live.set_attribute("data-rs-current-label", &l);
+                    }
                     open(&root_live, &pf);
                     return;
                 }

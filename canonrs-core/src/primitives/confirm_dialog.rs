@@ -132,6 +132,8 @@ pub fn ConfirmDialogTriggerPrimitive(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
     #[prop(into, default = String::new())] target: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] label: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -141,6 +143,8 @@ pub fn ConfirmDialogTriggerPrimitive(
             data-rs-button=""
             data-rs-variant=variant.as_str()
             data-rs-target=target
+            data-rs-value=value
+            data-rs-label=label
             aria-haspopup="alertdialog"
             class=class
         >

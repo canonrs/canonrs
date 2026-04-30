@@ -9,9 +9,10 @@ pub fn Combobox(
     #[prop(default = canonrs_core::meta::DisabledState::Enabled)] disabled: canonrs_core::meta::DisabledState,
     #[prop(optional)] node_ref: Option<leptos::prelude::NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     view! {
-        <super::combobox_ui::Combobox disabled=disabled class=class node_ref=node_ref.unwrap_or_default()>
+        <super::combobox_ui::Combobox disabled=disabled class=class name=name node_ref=node_ref.unwrap_or_default()>
             <ComboboxInput placeholder=placeholder />
             <ComboboxList>
                 {children()}

@@ -22,6 +22,8 @@ pub const CONFIRMDIALOGTRIGGER_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "target", kind: PropType::String, required: false, default: Some(""), description: "Target element selector for copy" },
+        PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "Current value" },
+        PropDef { name: "label", kind: PropType::String, required: false, default: Some(""), description: "Accessible label text" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
     ],
 };

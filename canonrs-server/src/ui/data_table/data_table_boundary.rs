@@ -21,6 +21,7 @@ pub fn DataTable<T>(
     #[prop(default = false)] show_density: bool,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
+    #[prop(optional)] row_id_fn: Option<std::sync::Arc<dyn Fn(&T) -> String + Send + Sync>>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
@@ -36,6 +37,7 @@ where
             show_density=show_density
             row_actions=row_actions
             bulk_actions=bulk_actions
+            row_id_fn=row_id_fn.unwrap_or_else(|| std::sync::Arc::new(|_: &T| String::new()))
         />
     }
 }

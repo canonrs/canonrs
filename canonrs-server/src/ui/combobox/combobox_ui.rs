@@ -12,9 +12,10 @@ pub fn Combobox(
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     view! {
-        <ComboboxPrimitive disabled=disabled class=class node_ref=node_ref.unwrap_or_default()>
+        <ComboboxPrimitive disabled=disabled class=class name=name node_ref=node_ref.unwrap_or_default()>
             {children()}
         </ComboboxPrimitive>
     }

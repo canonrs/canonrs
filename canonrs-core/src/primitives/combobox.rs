@@ -18,6 +18,7 @@ pub fn ComboboxPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     let state_str = if disabled == DisabledState::Disabled { "closed disabled" } else { "closed" };
@@ -28,6 +29,7 @@ pub fn ComboboxPrimitive(
             data-rs-interaction="selection"
             data-rs-role="root"
             data-rs-state=state_str
+            data-rs-name=name
             role="combobox"
             aria-expanded="false"
             aria-haspopup="listbox"

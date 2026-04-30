@@ -29,9 +29,11 @@ pub fn ConfirmDialogTrigger(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
     #[prop(into, default = String::new())] target: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] label: String,
     #[prop(optional, into)] class: Option<String>,
 ) -> impl IntoView {
-    view! { <ConfirmDialogTriggerUi variant=variant target=target class=class.unwrap_or_default()>{children()}</ConfirmDialogTriggerUi> }
+    view! { <ConfirmDialogTriggerUi variant=variant target=target value=value label=label class=class.unwrap_or_default()>{children()}</ConfirmDialogTriggerUi> }
 }
 
 #[component]

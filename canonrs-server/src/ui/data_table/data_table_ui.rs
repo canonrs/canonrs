@@ -84,6 +84,7 @@ pub fn DataTableStatic<T>(
     #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
+    #[prop(optional)] row_id_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
@@ -99,6 +100,7 @@ where
     let expand_render = StoredValue::new(expand_render);
     let row_actions = StoredValue::new(row_actions);
     let bulk_actions = StoredValue::new(bulk_actions);
+    let row_id_fn = StoredValue::new(row_id_fn);
     let initial_density = density.as_str();
 
     view! {
@@ -206,10 +208,17 @@ where
 
                             let has_actions = !row_actions.get_value().is_empty();
                             let ctx_actions = row_actions.get_value();
-                            let ctx_row_id = idx.to_string();
+                            // label = valor da primeira coluna para uso em dialogs
+                            let row_label = cols.get_value().first()
+                                .map(|col| (col.render)(&row))
+                                .unwrap_or_default();
+                            let real_id = row_id_fn.get_value().as_ref()
+                                .map(|f| f(&row))
+                                .unwrap_or_else(|| idx.to_string());
+                            let ctx_row_id = StoredValue::new(real_id.clone());
 
                             let main_row = view! {
-                                <DataTableRowPrimitive row_id=idx.to_string() row_index=idx>
+                                <DataTableRowPrimitive row_id=real_id row_label=row_label row_index=idx>
                                     {has_expand.then(|| view! {
                                         <td data-rs-datatable-cell="" data-rs-col-expand="">
                                             <button
@@ -237,7 +246,7 @@ where
                                     }).collect::<Vec<_>>()}
                                     {(!row_actions.get_value().is_empty()).then(|| {
                                         let actions = row_actions.get_value();
-                                        let row_id = idx.to_string();
+                                        let row_id = ctx_row_id.get_value();
                                         let inline_actions: Vec<RowAction> = actions.iter().filter(|a| a.inline).cloned().collect();
                                         let menu_actions: Vec<RowAction> = actions.iter().filter(|a| !a.inline).cloned().collect();
                                         view! {
@@ -286,12 +295,12 @@ where
                             };
 
                             let context_menu = has_actions.then(|| {
-                                let rid = ctx_row_id.clone();
+                                let rid = ctx_row_id.get_value();
                                 view! {
                                     <div data-rs-datatable-row-context="" data-rs-context-menu="" data-rs-row-id=rid>
                                         <ContextMenuContent>
                                             {ctx_actions.into_iter().map(|action| {
-                                                let rid2 = ctx_row_id.clone();
+                                                let rid2 = ctx_row_id.get_value();
                                                 view! {
                                                     <ContextMenuItem class={if action.danger { "danger".to_string() } else { String::new() }}>
                                                         <span data-rs-datatable-action=action.id data-rs-row-id=rid2>

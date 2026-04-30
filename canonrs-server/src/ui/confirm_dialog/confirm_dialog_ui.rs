@@ -29,9 +29,11 @@ pub fn ConfirmDialogTrigger(
     children: Children,
     #[prop(default = ConfirmDialogVariant::Default)] variant: ConfirmDialogVariant,
     #[prop(into, default = String::new())] target: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] label: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    view! { <ConfirmDialogTriggerPrimitive variant=variant target=target class=class>{children()}</ConfirmDialogTriggerPrimitive> }
+    view! { <ConfirmDialogTriggerPrimitive variant=variant target=target value=value label=label class=class>{children()}</ConfirmDialogTriggerPrimitive> }
 }
 
 #[component]

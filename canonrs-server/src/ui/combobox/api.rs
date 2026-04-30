@@ -11,6 +11,7 @@ pub const COMBOBOX_API: ComponentApi = ComponentApi {
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "DOM node reference" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+        PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "Form field name" },
     ],
 };
 
