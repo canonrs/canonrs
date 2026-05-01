@@ -135,6 +135,20 @@ pub fn init(root: Element) {
             if !root_live.contains(Some(target.as_ref())) && state::is_open(&root_live) {
                 close(&root_live, &pf);
             }
+            // fecha outros popovers abertos que nao contem o target
+            if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+                if let Ok(others) = doc.query_selector_all("[data-rs-popover]") {
+                    for i in 0..others.length() {
+                        if let Some(node) = others.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                            let other_uid = node.get_attribute("data-rs-uid").unwrap_or_default();
+                            if other_uid != uid2 && state::is_open(&node) && !node.contains(Some(target.as_ref())) {
+                                let pf_other = std::rc::Rc::new(std::cell::Cell::new(None::<web_sys::Element>));
+                                close(&node, &pf_other);
+                            }
+                        }
+                    }
+                }
+            }
         });
     }
 
