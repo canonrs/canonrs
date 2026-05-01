@@ -15,6 +15,8 @@ const CLOSE_ATTR:   &str = "data-rs-popover-close";
 const CSS_VAR:      &str = "--popover-transition-duration";
 
 fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
+    // nao abre se modal esta aberto — CR-433
+    if stack::has_modal_open() { return; }
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
     prev_focus.set(focus::active_element());
 

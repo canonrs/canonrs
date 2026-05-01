@@ -22,6 +22,13 @@ fn set_timeout(f: Box<dyn FnOnce()>, ms: i32) {
     cb.forget();
 }
 
+fn open_card(root: &Element) {
+    // nao abre se modal esta aberto — CR-433
+    if crate::runtime::stack::has_modal_open() { return; }
+    let Some(c) = root.query_selector("[data-rs-hover-card-content]").ok().flatten() else { return };
+    state::open(&c);
+}
+
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     let Ok(Some(_)) = root.query_selector("[data-rs-hover-card-trigger]") else { return };
@@ -32,8 +39,7 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::wrap(Box::new(move |_: web_sys::PointerEvent| {
             let root2 = root_cb.clone();
             set_timeout(Box::new(move || {
-                let Some(c) = root2.query_selector("[data-rs-hover-card-content]").ok().flatten() else { return };
-                state::open(&c);
+                open_card(&root2);
             }), 120);
         }));
         let _ = root.add_event_listener_with_callback("pointerenter", cb.as_ref().unchecked_ref());
@@ -60,8 +66,7 @@ pub fn init(root: Element) {
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_: web_sys::FocusEvent| {
-            let Some(c) = root_cb.query_selector("[data-rs-hover-card-content]").ok().flatten() else { return };
-            state::open(&c);
+            open_card(&root_cb);
         }));
         let _ = root.add_event_listener_with_callback("focusin", cb.as_ref().unchecked_ref());
         cb.forget();

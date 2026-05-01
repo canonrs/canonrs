@@ -17,6 +17,9 @@ fn rem_tok(el: &Element, token: &str) {
 }
 
 fn set_open(root: &Element, open: bool) {
+
+    // nao abre se modal esta aberto — CR-433
+    if crate::runtime::stack::has_modal_open() { return; }
     if open { rem_tok(root, "closed"); add_tok(root, "open"); } else { rem_tok(root, "open"); add_tok(root, "closed"); }
 }
 fn get_items(root: &Element) -> Vec<Element> {

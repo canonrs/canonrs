@@ -77,6 +77,16 @@ pub fn stack_empty() -> bool {
     STACK.with(|s| s.borrow().is_empty())
 }
 
+const MODAL_KINDS: &[&str] = &["dialog", "confirm-dialog", "modal", "sheet", "drawer", "alert-dialog"];
+
+/// Retorna true se algum overlay modal está aberto
+/// Non-modal overlays (popover, dropdown, tooltip, etc) devem chamar isso antes de abrir
+pub fn has_modal_open() -> bool {
+    STACK.with(|s| {
+        s.borrow().iter().any(|e| MODAL_KINDS.contains(&e.kind))
+    })
+}
+
 // ---------------------------------------------------------------------------
 // Registry API
 // ---------------------------------------------------------------------------

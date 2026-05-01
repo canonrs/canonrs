@@ -7,6 +7,8 @@ use web_sys::{Element, HtmlElement};
 use crate::runtime::{lifecycle, state, query};
 
 fn position_and_open(root: &Element, x: i32, y: i32) {
+    // nao abre se modal esta aberto — CR-433
+    if crate::runtime::stack::has_modal_open() { return; }
     let Ok(Some(content)) = root.query_selector("[data-rs-context-menu-content]") else { return };
     let Ok(_el) = content.clone().dyn_into::<HtmlElement>() else { return };
     if let Ok(root_html) = root.clone().dyn_into::<HtmlElement>() {
@@ -29,7 +31,6 @@ pub fn init(root: Element) {
                 if state::is_open(&node) { state::close(&node); }
             });
             position_and_open(&current, e.client_x(), e.client_y());
-            state::open(&current);
         });
         let _ = root.add_event_listener_with_callback("contextmenu", cb.as_ref().unchecked_ref());
         cb.forget();
