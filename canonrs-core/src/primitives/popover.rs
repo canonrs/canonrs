@@ -32,6 +32,7 @@ pub fn PopoverPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     let s = visibility_attrs(state);
     view! {
@@ -40,6 +41,7 @@ pub fn PopoverPrimitive(
             data-rs-uid=crate::infra::uid::generate("pop")
             data-rs-interaction="overlay"
             data-rs-state=s.data_rs_state
+            data-rs-name=name
             class=class
         >
             {children()}
@@ -52,6 +54,8 @@ pub fn PopoverTriggerPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] label: String,
 ) -> impl IntoView {
     let t = trigger_attrs(state);
     view! {
@@ -61,6 +65,8 @@ pub fn PopoverTriggerPrimitive(
             data-rs-button=""
             data-rs-variant="outline"
             data-rs-state=t.data_rs_state
+            data-rs-value=value
+            data-rs-label=label
             aria-haspopup="dialog"
             aria-expanded=t.aria_expanded
             class=class

@@ -10,9 +10,10 @@ pub fn Popover(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     view! {
-        <PopoverPrimitive state=state class=class>
+        <PopoverPrimitive state=state class=class name=name>
             {children()}
         </PopoverPrimitive>
     }
@@ -22,8 +23,10 @@ pub fn Popover(
 pub fn PopoverTrigger(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] label: String,
 ) -> impl IntoView {
-    view! { <PopoverTriggerPrimitive class=class>{children()}</PopoverTriggerPrimitive> }
+    view! { <PopoverTriggerPrimitive class=class value=value label=label>{children()}</PopoverTriggerPrimitive> }
 }
 
 #[component]

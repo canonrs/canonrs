@@ -176,14 +176,10 @@
   pointer-events: none;
 }
 
-[data-rs-button][data-rs-state~="focus"]:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring-shadow);
-}
-
+[data-rs-button][data-rs-state~="focus"]:focus-visible,
 [data-rs-button]:focus-visible {
   outline: none;
-  box-shadow: var(--focus-ring-shadow);
+  box-shadow: var(--button-focus-ring-shadow);
 }
 
 [data-rs-button][data-rs-state~="focus"]:not(:focus-visible):not([data-rs-validation]) {

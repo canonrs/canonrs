@@ -86,6 +86,7 @@ pub const FORMS_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("button-default-border", "var(--theme-surface-border)"),
 
     // Button Group
+    FamilyToken::new("button-focus-ring-shadow",   "0 0 0 var(--focus-ring-width) var(--theme-action-focus-ring)"),
     FamilyToken::new("button-active-transform",    "translateY(1px)"),
     FamilyToken::new("button-group-border-overlap", "-1px"),
     FamilyToken::new("button-group-gap", "var(--space-xs)"),

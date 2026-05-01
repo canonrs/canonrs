@@ -10,6 +10,7 @@ pub const POPOVER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
+        PropDef { name: "name", kind: PropType::String, required: false, default: Some(""), description: "Form field name" },
     ],
 };
 
@@ -29,6 +30,8 @@ pub const POPOVERTRIGGER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
+        PropDef { name: "value", kind: PropType::String, required: false, default: Some(""), description: "Current value" },
+        PropDef { name: "label", kind: PropType::String, required: false, default: Some(""), description: "Accessible label text" },
     ],
 };
 

@@ -15,7 +15,6 @@ members = [
     "canonrs-interactions-data",
     "canonrs-interactions-init",
     "canonrs-interactions",
-    "canonrs-runtime",
     "canonrs-interactions-content",
     "canonrs-server",
 ]

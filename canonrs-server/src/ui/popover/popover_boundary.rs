@@ -16,9 +16,10 @@ pub use canonrs_core::primitives::PopoverSide;
 pub fn Popover(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     view! {
-        <PopoverUi state=VisibilityState::Closed class=class.unwrap_or_default()>
+        <PopoverUi state=VisibilityState::Closed class=class.unwrap_or_default() name=name>
             {children()}
         </PopoverUi>
     }
@@ -37,6 +38,8 @@ pub fn PopoverContent(
 pub fn PopoverTrigger(
     children: Children,
     #[prop(optional, into)] class: Option<String>,
+    #[prop(into, default = String::new())] value: String,
+    #[prop(into, default = String::new())] label: String,
 ) -> impl IntoView {
-    view! { <PopoverTriggerUi class=class.unwrap_or_default()>{children()}</PopoverTriggerUi> }
+    view! { <PopoverTriggerUi class=class.unwrap_or_default() value=value label=label>{children()}</PopoverTriggerUi> }
 }

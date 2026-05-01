@@ -20,6 +20,25 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
 
     state::open(root);
     stack::push(&uid, KIND);
+    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[popover] OPENED"));
+
+    // propaga value e label do trigger para o root — DOM como fonte de verdade
+    if let Ok(Some(trigger)) = root.query_selector(&format!("[{}]", TRIGGER_ATTR)) {
+        if let Some(v) = trigger.get_attribute("data-rs-value") {
+            let _ = root.set_attribute("data-rs-current-value", &v);
+        }
+        if let Some(l) = trigger.get_attribute("data-rs-label") {
+            let _ = root.set_attribute("data-rs-current-label", &l);
+        }
+    }
+
+    // sync hidden input para form submission nativa
+    if let Some(name) = root.get_attribute("data-rs-name") {
+        if !name.is_empty() {
+            let val = root.get_attribute("data-rs-current-value").unwrap_or_default();
+            crate::runtime::form::sync_hidden_input(root, &val);
+        }
+    }
 
     let content = root.query_selector(&format!("[{}]", CONTENT_ATTR)).ok().flatten();
     let content_opt = content.clone().map(|c| Some(c));
@@ -48,10 +67,6 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
         cb.forget();
     }
 
-    // inicializa elementos interativos dentro do content via runtime
-    if let Ok(Some(content_el)) = root.query_selector(&format!("[{}]", CONTENT_ATTR)) {
-        canonrs_runtime::scan_children(&content_el);
-    }
 }
 
 fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
@@ -138,20 +153,41 @@ pub fn init(root: Element) {
     }
 
     // focusout — fecha quando foco sai do popover (non-modal: nao prende foco)
+    // usa setTimeout(0) para aguardar o focus do proximo elemento antes de fechar
     {
         let root2 = root.clone();
         let pf = prev_focus.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |e: web_sys::FocusEvent| {
+        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
             if !state::is_open(&root2) { return; }
-            let related = e.related_target()
-                .and_then(|t| t.dyn_into::<web_sys::Element>().ok());
-            let focus_left = match related {
-                Some(ref el) => !root2.contains(Some(el as &web_sys::Element)),
-                None => true,
-            };
-            if focus_left {
-                close(&root2, &pf);
-            }
+            web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[popover] focusout disparado"));
+            let root3 = root2.clone();
+            let pf2 = pf.clone();
+            let timeout = Closure::once(move || {
+                let doc = match web_sys::window().and_then(|w| w.document()) {
+                    Some(d) => d,
+                    None => return,
+                };
+                if let Some(active) = doc.active_element() {
+                    let tag = active.tag_name();
+                    let state = active.get_attribute("data-rs-state").unwrap_or_default();
+                    let inside = root3.contains(Some(&active));
+                    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(
+                        &format!("[popover] active_element after focusout: tag={} state={} inside={}", tag, state, inside)
+                    ));
+                    if root3.contains(Some(&active)) {
+                        web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[popover] foco ainda dentro — NAO fecha"));
+                        return;
+                    }
+                } else {
+                    web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[popover] active_element = None — fechando"));
+                }
+                close(&root3, &pf2);
+            });
+            let _ = web_sys::window().unwrap()
+                .set_timeout_with_callback_and_timeout_and_arguments_0(
+                    timeout.as_ref().unchecked_ref(), 0
+                );
+            timeout.forget();
         });
         let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
         cb.forget();
