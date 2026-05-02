@@ -36,7 +36,6 @@ pub fn ContainerPrimitive(
     view! {
         <div
             data-rs-container=""
-            data-rs-uid=crate::infra::uid::generate("ct")
             data-rs-size=size.as_str()
             class=class
         >
@@ -50,11 +49,9 @@ pub fn container_view(
     size:     ContainerSize,
     children: AnyView,
 ) -> AnyView {
-    let uid = crate::infra::uid::generate("ct");
     view! {
         <div
             data-rs-container=""
-            data-rs-uid=uid
             data-rs-size=size.as_str()
         >
             {children}

@@ -5,7 +5,7 @@ use canonrs_core::primitives::{
     CodeBlockPrimitive, CodeBlockHeaderPrimitive, CodeBlockLanguagePrimitive,
     CodeBlockFilenamePrimitive, CodeBlockPrePrimitive,
 };
-use crate::ui::copy_button::copy_button_ui::CopyButton;
+use crate::ui::copy_button::copy_button_boundary::CopyButton;
 #[cfg(feature = "ssr")]
 use super::highlighter::highlight;
 

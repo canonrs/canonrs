@@ -15,7 +15,7 @@ use canonrs_core::primitives::{
 use crate::ui::dropdown_menu::{
     DropdownMenu, DropdownMenuItem,
 };
-use crate::ui::context_menu::context_menu_ui::{
+use crate::ui::context_menu::context_menu_boundary::{
     ContextMenuContent, ContextMenuItem,
 };
 #[derive(Clone)]
@@ -306,7 +306,7 @@ where
                                             {ctx_actions.into_iter().map(|action| {
                                                 let rid2 = ctx_row_id.get_value();
                                                 view! {
-                                                    <ContextMenuItem class={if action.danger { "danger".to_string() } else { String::new() }}>
+                                                    <ContextMenuItem>
                                                         <span data-rs-datatable-action=action.id data-rs-row-id=rid2>
                                                             {action.label}
                                                         </span>

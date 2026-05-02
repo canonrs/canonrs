@@ -33,12 +33,13 @@ pub fn DrawerPrimitive(
     #[prop(default = DrawerSide::Right)] side: DrawerSide,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_dr = crate::infra::uid::generate("dr");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-drawer=""
             data-rs-interaction="overlay"
-            data-rs-uid=crate::infra::uid::generate("dr")
+            data-rs-uid=uid_dr
             data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
             class=class

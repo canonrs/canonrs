@@ -62,7 +62,6 @@ pub fn GridPrimitive(
     view! {
         <div
             data-rs-grid=""
-            data-rs-uid=crate::infra::uid::generate("gr")
             data-rs-cols=cols.as_str()
             data-rs-gap=gap.as_str()
             class=class
@@ -78,11 +77,9 @@ pub fn grid_view(
     gap:      GridGap,
     children: AnyView,
 ) -> AnyView {
-    let uid = crate::infra::uid::generate("gr");
     view! {
         <div
             data-rs-grid=""
-            data-rs-uid=uid
             data-rs-cols=cols.as_str()
             data-rs-gap=gap.as_str()
         >

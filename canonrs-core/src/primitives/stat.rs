@@ -49,10 +49,11 @@ pub fn StatPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_sta = crate::infra::uid::generate("sta");
     view! {
         <div
             data-rs-stat=""
-            data-rs-uid=crate::infra::uid::generate("sta")
+            data-rs-uid=uid_sta
             class=class
         >
             {children()}

@@ -15,6 +15,7 @@ pub fn AvatarPrimitive(
     #[prop(into, default = String::new())] size: String,
     #[prop(into, default = String::new())] shape: String,
 ) -> impl IntoView {
+    let uid_av = crate::infra::uid::generate("av");
     let dot_variant = match status.as_str() {
         "online"  => Some(StatusDotVariant::Online),
         "offline" => Some(StatusDotVariant::Offline),
@@ -26,7 +27,7 @@ pub fn AvatarPrimitive(
     view! {
         <span
             data-rs-avatar-group=""
-            data-rs-uid=crate::infra::uid::generate("av")
+            data-rs-uid=uid_av
             data-rs-interaction="init"
             data-rs-state=status_state
             data-rs-size=size
@@ -52,11 +53,13 @@ pub fn AvatarImagePrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = VisibilityState::Open)] state: VisibilityState,
 ) -> impl IntoView {
+    let uid_av_img = crate::infra::uid::generate("av-img");
     let s = visibility_attrs(state);
     view! {
         <img
             data-rs-avatar-image=""
-            data-rs-uid=crate::infra::uid::generate("av-img")
+
+                        data-rs-uid=uid_av_img
             data-rs-state=s.data_rs_state
             src=src
             alt=alt
@@ -71,11 +74,13 @@ pub fn AvatarFallbackPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
+    let uid_av_fb = crate::infra::uid::generate("av-fb");
     let s = visibility_attrs(state);
     view! {
         <span
             data-rs-avatar-fallback=""
-            data-rs-uid=crate::infra::uid::generate("av-fb")
+
+                        data-rs-uid=uid_av_fb
             data-rs-state=s.data_rs_state
             aria-hidden=s.aria_hidden
             class=class

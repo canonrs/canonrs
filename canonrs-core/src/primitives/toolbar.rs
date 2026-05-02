@@ -23,14 +23,16 @@ impl ToolbarOrientation {
 #[component]
 pub fn ToolbarPrimitive(
     children: Children,
+    #[prop(into, default = String::new())] uid: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(default = ToolbarOrientation::Horizontal)] orientation: ToolbarOrientation,
 ) -> impl IntoView {
+    let uid = if uid.is_empty() { crate::infra::uid::generate("tb2") } else { uid };
     view! {
         <div
             data-rs-toolbar=""
-            data-rs-uid=crate::infra::uid::generate("tb2")
+            data-rs-uid=uid
             data-rs-interaction="nav"
             data-rs-variant=orientation.as_str()
             role="toolbar"

@@ -9,10 +9,11 @@ pub fn FormErrorSummaryPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_fes = crate::infra::uid::generate("fes");
     view! {
         <div
             data-rs-form-error-summary=""
-            data-rs-uid=crate::infra::uid::generate("fes")
+            data-rs-uid=uid_fes
             role="alert"
             aria-live="assertive"
             aria-atomic="true"

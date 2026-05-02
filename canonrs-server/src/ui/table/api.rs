@@ -9,7 +9,7 @@ pub const TABLE_API: ComponentApi = ComponentApi {
     description: "HTML table component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "state", kind: PropType::String, required: false, default: Some("idle"), description: "Loading or visibility state" },
+        PropDef { name: "state", kind: PropType::Enum(&["idle", "loading", "empty", "error"]), required: false, default: Some("idle"), description: "Loading or visibility state" },
         PropDef { name: "striped", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "hoverable", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "aria_label", kind: PropType::String, required: false, default: None, description: "Accessible label for screen readers" },
@@ -60,7 +60,7 @@ pub const TABLEHEAD_API: ComponentApi = ComponentApi {
     description: "HTML table component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "sort", kind: PropType::String, required: false, default: Some("none"), description: "Prop value" },
+        PropDef { name: "sort", kind: PropType::Enum(&["none", "ascending", "descending"]), required: false, default: Some("none"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

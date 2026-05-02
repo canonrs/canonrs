@@ -9,10 +9,11 @@ pub fn VirtualListPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_vl = crate::infra::uid::generate("vl");
     view! {
         <div
             data-rs-virtual-list=""
-            data-rs-uid=crate::infra::uid::generate("vl")
+            data-rs-uid=uid_vl
             data-rs-interaction="data"
             role="list"
             class=class

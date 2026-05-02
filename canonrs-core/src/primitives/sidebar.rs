@@ -25,11 +25,12 @@ pub fn SidebarPrimitive(
     #[prop(default = SidebarVariant::Default)] variant: SidebarVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_sb = crate::infra::uid::generate("sb");
     let s = visibility_attrs(state);
     view! {
         <aside
             data-rs-sidebar=""
-            data-rs-uid=crate::infra::uid::generate("sb")
+            data-rs-uid=uid_sb
             data-rs-interaction="nav"
             data-rs-state=s.data_rs_state
             data-rs-variant=variant.as_str()

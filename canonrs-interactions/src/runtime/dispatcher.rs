@@ -32,3 +32,11 @@ pub fn register(group: &str, handler: Handler) {
         h.borrow_mut().insert(group.to_string(), handler);
     });
 }
+
+/// Exposto via wasm_bindgen para plugins externos registrarem handlers
+/// Ex: rs-canvas-runtime chama canonrs_interactions::register_interaction("canvas", fn)
+pub fn register_external(group: String, handler: Handler) {
+    HANDLERS.with(|h| {
+        h.borrow_mut().insert(group, handler);
+    });
+}

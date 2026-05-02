@@ -63,10 +63,11 @@ pub fn PulsePrimitive(
     #[prop(default = PulseSpeed::Normal)] speed: PulseSpeed,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_pls = crate::infra::uid::generate("pls");
     view! {
         <span
             data-rs-pulse=""
-            data-rs-uid=crate::infra::uid::generate("pls")
+            data-rs-uid=uid_pls
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
             data-rs-speed=speed.as_str()

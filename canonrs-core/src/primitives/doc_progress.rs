@@ -25,11 +25,12 @@ pub fn DocProgressPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = 0u8)] progress: u8,
 ) -> impl IntoView {
+    let uid_dp_1 = crate::infra::uid::generate("dp");
     let progress_str = progress.to_string();
     view! {
         <div
             data-rs-doc-progress=""
-            data-rs-uid=crate::infra::uid::generate("dp")
+            data-rs-uid=uid_dp_1
             data-rs-interaction="init"
             data-rs-progress=progress_str.clone()
             role="progressbar"
@@ -50,10 +51,11 @@ pub fn DocProgressPortal(
     #[prop(into, default = String::new())] scroll_target: String,
     #[prop(default = DocProgressPosition::Top)] position: DocProgressPosition,
 ) -> impl IntoView {
+    let uid_dp_1 = crate::infra::uid::generate("dp");
     view! {
         <div
             data-rs-doc-progress-portal=""
-            data-rs-uid=crate::infra::uid::generate("dp")
+            data-rs-uid=uid_dp_1
             data-rs-interaction="init"
             data-rs-scroll-target=scroll_target
             data-rs-position=position.as_str()

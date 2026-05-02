@@ -22,12 +22,13 @@ pub fn ColorPickerPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_cp = crate::infra::uid::generate("cp");
     let s = visibility_attrs(state);
     let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-color-picker=""
-            data-rs-uid=crate::infra::uid::generate("cp")
+            data-rs-uid=uid_cp
             data-rs-interaction="selection"
             data-rs-state=s.data_rs_state
             data-rs-disabled=d.data_rs_disabled

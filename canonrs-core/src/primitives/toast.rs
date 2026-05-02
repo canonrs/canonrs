@@ -82,11 +82,12 @@ pub fn ToastPrimitive(
     #[prop(into, optional)] description_id: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ts = crate::infra::uid::generate("ts");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-toast=""
-            data-rs-uid=crate::infra::uid::generate("ts")
+            data-rs-uid=uid_ts
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
             data-rs-state=s.data_rs_state

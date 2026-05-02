@@ -6,9 +6,9 @@ pub const PULSE_API: ComponentApi = ComponentApi {
     id: "pulse",
     description: "Pulse animation wrapper",
     props: &[
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
-        PropDef { name: "size", kind: PropType::String, required: false, default: Some("medium"), description: "Size variant of the component" },
-        PropDef { name: "speed", kind: PropType::String, required: false, default: Some("normal"), description: "Prop value" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "subtle", "emphasized"]), required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "size", kind: PropType::Enum(&["small", "medium", "large"]), required: false, default: Some("medium"), description: "Size variant of the component" },
+        PropDef { name: "speed", kind: PropType::Enum(&["slow", "normal", "fast"]), required: false, default: Some("normal"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

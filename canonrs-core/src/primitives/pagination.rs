@@ -13,12 +13,13 @@ pub fn PaginationPrimitive(
     #[prop(default = 1usize)] total_pages: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_pg = crate::infra::uid::generate("pg");
     view! {
         <nav
             data-rs-pagination=""
             data-rs-current-page=current_page.to_string()
             data-rs-total-pages=total_pages.to_string()
-            data-rs-uid=crate::infra::uid::generate("pg")
+            data-rs-uid=uid_pg
             data-rs-interaction="nav"
             aria-label="Page navigation"
             class=class

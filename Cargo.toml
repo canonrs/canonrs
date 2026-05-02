@@ -49,8 +49,13 @@ canonrs-interactions-gesture = { path = "canonrs-interactions-gesture" }
 canonrs-server = { path = "canonrs-server", default-features = false }
 
 [workspace.lints.rust]
+warnings = "deny"
 unused_imports = "deny"
 unused_variables = "deny"
 dead_code = "deny"
 unused_mut = "deny"
 unused_parens = "deny"
+
+[workspace.lints.clippy]
+unused_imports = "deny"
+

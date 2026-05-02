@@ -3,18 +3,12 @@
 //! Button Primitive - HTML puro
 use leptos::prelude::*;
 use crate::meta::{DisabledState, LoadingState, ToggleState};
-use crate::infra::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
+use crate::infra::state_engine::{UiStateAttrs};
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum ButtonVariant {
     #[default]
-    Default,
-    Destructive,
-    Outline,
-    Secondary,
-    Ghost,
-    Link,
-    Primary,
+    Default, Destructive, Outline, Secondary, Ghost, Link, Primary,
 }
 impl ButtonVariant {
     pub fn as_str(&self) -> &'static str {
@@ -32,13 +26,10 @@ impl ButtonVariant {
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum ButtonSize {
-    Xs,
-    Sm,
+    Xs, Sm,
     #[default]
     Md,
-    Lg,
-    Xl,
-    Icon,
+    Lg, Xl, Icon,
 }
 impl ButtonSize {
     pub fn as_str(&self) -> &'static str {
@@ -73,9 +64,7 @@ impl ButtonStateHint {
 #[derive(Clone, Copy, PartialEq, Default, Debug, serde::Serialize, serde::Deserialize)]
 pub enum ButtonType {
     #[default]
-    Button,
-    Submit,
-    Reset,
+    Button, Submit, Reset,
 }
 impl ButtonType {
     pub fn as_str(&self) -> &'static str {
@@ -91,58 +80,67 @@ impl ButtonType {
 pub fn ButtonPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(optional, into)] aria_label: Option<String>,
     #[prop(default = ButtonVariant::Default)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
     #[prop(default = ButtonType::Button)] button_type: ButtonType,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = LoadingState::Idle)] loading: LoadingState,
     #[prop(optional)] pressed: Option<ToggleState>,
+) -> impl IntoView {
+    let uid   = crate::infra::uid::generate("bt");
+    let attrs = UiStateAttrs::from_button(disabled, loading, pressed);
+    view! {
+        <button
+            type=button_type.as_str()
+            data-rs-button=""
+            data-rs-uid=uid
+            data-rs-interaction="init"
+            data-rs-variant=variant.as_str()
+            data-rs-size=size.as_str()
+            data-rs-disabled=attrs.data_rs_disabled
+            data-rs-loading=attrs.data_rs_loading
+            data-rs-state=attrs.data_rs_state
+            disabled=attrs.disabled
+            aria-disabled=attrs.aria_disabled
+            aria-busy=attrs.aria_busy
+            aria-pressed=attrs.aria_pressed
+            aria-label=aria_label
+            class=class
+        >
+            {children()}
+        </button>
+    }
+}
+
+#[component]
+pub fn LinkButtonPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(optional, into)] aria_label: Option<String>,
+    #[prop(default = ButtonVariant::Default)] variant: ButtonVariant,
+    #[prop(default = ButtonSize::Md)] size: ButtonSize,
     #[prop(into, default = String::new())] href: String,
     #[prop(into, default = String::new())] target: String,
 ) -> impl IntoView {
-    let d  = disabled_attrs(disabled);
-    let la = loading_attrs(loading);
-    let ta = pressed.map(toggle_attrs);
-    if !href.is_empty() {
-        view! {
-            <a
-                href=href
-                target=if target.is_empty() { None } else { Some(target) }
-                data-rs-button=""
-                data-rs-uid=crate::infra::uid::generate("bt")
-                data-rs-interaction="init"
-                data-rs-variant=variant.as_str()
-                data-rs-size=size.as_str()
-                data-rs-disabled=d.data_rs_disabled
-                aria-disabled=d.aria_disabled
-                aria-label=aria_label
-                class=class
-            >
-                {children()}
-            </a>
-        }.into_any()
-    } else {
-        view! {
-            <button
-                type=button_type.as_str()
-                data-rs-button=""
-                data-rs-uid=crate::infra::uid::generate("bt")
-                data-rs-interaction="init"
-                data-rs-variant=variant.as_str()
-                data-rs-size=size.as_str()
-                data-rs-disabled=d.data_rs_disabled
-                data-rs-loading=la.data_rs_state
-                data-rs-state=if d.disabled { Some("disabled") } else { ta.as_ref().map(|t| t.data_rs_state) }
-                disabled=d.disabled
-                aria-disabled=d.aria_disabled
-                aria-busy=la.aria_busy
-                aria-pressed=ta.as_ref().map(|t| t.aria_pressed)
-                aria-label=aria_label
-                class=class
-            >
-                {children()}
-            </button>
-        }.into_any()
+    let uid   = crate::infra::uid::generate("bt");
+    let attrs = UiStateAttrs::from_button(disabled, LoadingState::Idle, None);
+    view! {
+        <a
+            href=href
+            target=if target.is_empty() { None } else { Some(target) }
+            data-rs-button=""
+            data-rs-uid=uid
+            data-rs-interaction="init"
+            data-rs-variant=variant.as_str()
+            data-rs-size=size.as_str()
+            data-rs-disabled=attrs.data_rs_disabled
+            aria-disabled=attrs.aria_disabled
+            aria-label=aria_label
+            class=class
+        >
+            {children()}
+        </a>
     }
 }

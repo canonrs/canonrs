@@ -143,3 +143,44 @@ pub struct LoadingAttrs {
     pub aria_busy:     Option<&'static str>,
     pub hidden:        bool,
 }
+
+/// Value Object — estado projetado para DOM
+/// Calculado fora do primitive, passado como prop única
+#[derive(Clone, Default)]
+pub struct UiStateAttrs {
+    pub data_rs_state:    Option<&'static str>,
+    pub data_rs_disabled: Option<&'static str>,
+    pub data_rs_loading:  Option<&'static str>,
+    pub disabled:         bool,
+    pub aria_disabled:    Option<&'static str>,
+    pub aria_busy:        Option<&'static str>,
+    pub aria_pressed:     Option<&'static str>,
+}
+
+impl UiStateAttrs {
+    pub fn from_button(
+        disabled: crate::meta::DisabledState,
+        loading:  crate::meta::LoadingState,
+        pressed:  Option<crate::meta::ToggleState>,
+    ) -> Self {
+        let d  = disabled_attrs(disabled);
+        let la = loading_attrs(loading);
+        let ta = pressed.map(toggle_attrs);
+        let state = if d.disabled {
+            Some("disabled")
+        } else if la.aria_busy.is_some() {
+            Some("loading")
+        } else {
+            ta.as_ref().map(|t| t.data_rs_state)
+        };
+        Self {
+            data_rs_state:    state,
+            data_rs_disabled: d.data_rs_disabled,
+            data_rs_loading:  Some(la.data_rs_state),
+            disabled:         d.disabled,
+            aria_disabled:    d.aria_disabled,
+            aria_busy:        la.aria_busy,
+            aria_pressed:     ta.as_ref().map(|t| t.aria_pressed),
+        }
+    }
+}

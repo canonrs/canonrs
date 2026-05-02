@@ -1,31 +1,27 @@
-#![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
-use canonrs_core::primitives::{ButtonPrimitive, ButtonVariant, ButtonSize};
-use canonrs_core::meta::DisabledState;
+use canonrs_core::primitives::{ButtonPrimitive, LinkButtonPrimitive, ButtonVariant, ButtonSize, ButtonType};
+use canonrs_core::meta::{DisabledState, LoadingState};
 
 #[component]
 pub fn Button(
     children: Children,
-    #[prop(default = ButtonVariant::Primary)] variant: ButtonVariant,
+    #[prop(default = ButtonVariant::Default)] variant: ButtonVariant,
     #[prop(default = ButtonSize::Md)] size: ButtonSize,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(default = LoadingState::Idle)] loading: LoadingState,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional, into)] aria_label: Option<String>,
-    #[prop(optional, into)] _validation: Option<String>,
-    #[prop(default = canonrs_core::primitives::ButtonType::Button)] button_type: canonrs_core::primitives::ButtonType,
-    #[prop(into, default = String::new())] href: String,
-    #[prop(into, default = String::new())] target: String,
+    #[prop(default = ButtonType::Button)] button_type: ButtonType,
 ) -> impl IntoView {
     view! {
         <ButtonPrimitive
-            class=class
-            disabled=disabled
-            aria_label=aria_label.unwrap_or_default()
             variant=variant
             size=size
+            disabled=disabled
+            loading=loading
             button_type=button_type
-            href=href
-            target=target
+            aria_label=aria_label.unwrap_or_default()
+            class=class
         >
             {children()}
         </ButtonPrimitive>
@@ -33,12 +29,27 @@ pub fn Button(
 }
 
 #[component]
-pub fn ButtonPreview() -> impl IntoView {
+pub fn LinkButton(
+    children: Children,
+    #[prop(default = ButtonVariant::Default)] variant: ButtonVariant,
+    #[prop(default = ButtonSize::Md)] size: ButtonSize,
+    #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional, into)] aria_label: Option<String>,
+    #[prop(into, default = String::new())] href: String,
+    #[prop(into, default = String::new())] target: String,
+) -> impl IntoView {
     view! {
-        <Button>"Primary"</Button>
-        <Button variant=ButtonVariant::Secondary>"Secondary"</Button>
-        <Button variant=ButtonVariant::Outline>"Outline"</Button>
-        <Button variant=ButtonVariant::Ghost>"Ghost"</Button>
-        <Button disabled=DisabledState::Disabled>"Disabled"</Button>
+        <LinkButtonPrimitive
+            href=href
+            target=target
+            variant=variant
+            size=size
+            disabled=disabled
+            aria_label=aria_label.unwrap_or_default()
+            class=class
+        >
+            {children()}
+        </LinkButtonPrimitive>
     }
 }

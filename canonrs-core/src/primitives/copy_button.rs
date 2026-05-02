@@ -13,12 +13,13 @@ pub fn CopyButtonPrimitive(
     #[prop(default = 2000)] reset_delay: u32,
     #[prop(into, default = "Copy to clipboard".to_string())] aria_label: String,
 ) -> impl IntoView {
+    let uid_cpb = crate::infra::uid::generate("cpb");
     view! {
         <button
             class=class
             id=id
             data-rs-copy-button=""
-            data-rs-uid=crate::infra::uid::generate("cpb")
+            data-rs-uid=uid_cpb
             data-rs-interaction="content"
             data-rs-copy-text=text
             data-rs-copy-target=target

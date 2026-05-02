@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use canonrs_core::infra::uid::generate;
 pub use canonrs_core::primitives::layout::SplitRatio;
 
 #[component]
@@ -9,11 +8,10 @@ pub fn SplitViewLayout(
     #[prop(optional)] right: Option<ChildrenFn>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid   = generate("ly");
     let left  = StoredValue::new(left);
     let right = StoredValue::new(right);
     view! {
-        <div data-rs-layout="split-view" data-rs-uid=uid data-rs-ratio=ratio.as_str() class=class>
+        <div data-rs-layout="split-view" data-rs-ratio=ratio.as_str() class=class>
             {move || left.get_value().map(|l| view! { <div data-rs-region="left" role="region" aria-label="Left panel">{l()}</div> })}
             {move || right.get_value().map(|r| view! { <div data-rs-region="right" role="region" aria-label="Right panel">{r()}</div> })}
         </div>

@@ -12,10 +12,11 @@ pub fn CodeBlockPrimitive(
     #[prop(into, default = String::new())] language: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_cob = crate::infra::uid::generate("cob");
     view! {
         <div
             data-rs-code-block=""
-            data-rs-uid=crate::infra::uid::generate("cob")
+            data-rs-uid=uid_cob
             data-rs-interaction="content"
             data-rs-language=language
             class=class

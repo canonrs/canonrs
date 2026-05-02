@@ -57,10 +57,11 @@ pub fn AnimatePrimitive(
     #[prop(into, default = String::new())] delay: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_an = crate::infra::uid::generate("an");
     view! {
         <div
             data-rs-animate=""
-            data-rs-uid=crate::infra::uid::generate("an")
+            data-rs-uid=uid_an
             data-rs-interaction="init"
             data-rs-animation=animation.as_str()
             data-rs-easing=easing.as_str()

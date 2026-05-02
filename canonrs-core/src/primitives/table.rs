@@ -78,10 +78,11 @@ pub fn TablePrimitive(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_tbl = crate::infra::uid::generate("tbl");
     view! {
         <table
             data-rs-table=""
-            data-rs-uid=crate::infra::uid::generate("tbl")
+            data-rs-uid=uid_tbl
             data-rs-interaction="init"
             data-rs-state=state.as_str()
             data-rs-striped={striped.then_some("")}

@@ -103,7 +103,6 @@ pub fn FlexPrimitive(
     view! {
         <div
             data-rs-flex=""
-            data-rs-uid=crate::infra::uid::generate("fx")
             data-rs-direction=direction.as_str()
             data-rs-justify=justify.as_str()
             data-rs-align=align.as_str()
@@ -127,11 +126,9 @@ pub fn flex_view(
     wrap:      bool,
     children:  AnyView,
 ) -> AnyView {
-    let uid = crate::infra::uid::generate("fx");
     view! {
         <div
             data-rs-flex=""
-            data-rs-uid=uid
             data-rs-direction=direction.as_str()
             data-rs-justify=justify.as_str()
             data-rs-align=align.as_str()

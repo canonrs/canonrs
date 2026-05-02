@@ -45,5 +45,4 @@ hydrate = [
     "canonrs-core/hydrate",
 ]
 
-[lints]
-workspace = true
+

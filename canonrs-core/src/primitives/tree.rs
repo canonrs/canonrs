@@ -37,10 +37,11 @@ pub fn TreePrimitive(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_tr = crate::infra::uid::generate("tr");
     view! {
         <div
             data-rs-tree=""
-            data-rs-uid=crate::infra::uid::generate("tr")
+            data-rs-uid=uid_tr
             data-rs-interaction="selection"
             data-rs-selection=selection.as_str()
             role="tree"

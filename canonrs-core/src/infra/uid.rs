@@ -1,16 +1,32 @@
-//! UID — geração de identificadores únicos tier 1
-//! Padrão: prefix-timestamp_hex-counter_hex
-use std::sync::atomic::{AtomicU64, Ordering};
+//! UID — geração de identificadores únicos
+//! CR-414: determinístico entre SSR e hydrate via Leptos context
+//! O UidRoot provê um contador por árvore de renderização
+//! Mesmo ordem SSR e WASM → mesmo UID
 
+use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
+use leptos::prelude::*;
+
+/// Contexto de UID — um contador por árvore Leptos
+#[derive(Clone)]
+pub struct UidContext(Arc<AtomicU64>);
+
+/// Componente raiz que provê o contexto de UID
+/// Deve ser usado uma vez no topo da árvore (ex: CanonRSRoot)
+#[component]
+pub fn UidRoot(children: Children) -> impl IntoView {
+    provide_context(UidContext(Arc::new(AtomicU64::new(0))));
+    children()
+}
+
+/// Gera UID determinístico via contexto da árvore
+/// Se não houver contexto (ex: testes), usa fallback global
 pub fn generate(prefix: &str) -> String {
-    static CTR: AtomicU64 = AtomicU64::new(0);
-    let ctr = CTR.fetch_add(1, Ordering::SeqCst);
-    #[cfg(target_arch = "wasm32")]
-    let ts: u64 = ctr;
-    #[cfg(not(target_arch = "wasm32"))]
-    let ts: u64 = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .map(|d| d.as_nanos() as u64)
-        .unwrap_or(ctr);
-    format!("{}-{:016x}-{:08x}", prefix, ts, ctr)
+    let ctr = if let Some(ctx) = use_context::<UidContext>() {
+        ctx.0.fetch_add(1, Ordering::SeqCst)
+    } else {
+        static FALLBACK: AtomicU64 = AtomicU64::new(0);
+        FALLBACK.fetch_add(1, Ordering::SeqCst)
+    };
+    format!("{}-{:08x}", prefix, ctr)
 }

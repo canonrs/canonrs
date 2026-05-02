@@ -2,6 +2,7 @@
 
 
 pub mod infra;
+pub mod canvas_state;
 
 
 pub mod primitives;

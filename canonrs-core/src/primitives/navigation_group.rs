@@ -10,10 +10,11 @@ pub fn NavigationGroupPrimitive(
     #[prop(optional, into)] aria_labelledby: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ng = crate::infra::uid::generate("ng");
     view! {
         <div
             data-rs-navigation-group=""
-            data-rs-uid=crate::infra::uid::generate("ng")
+            data-rs-uid=uid_ng
             data-rs-interaction="nav"
             role="group"
             aria-labelledby=aria_labelledby

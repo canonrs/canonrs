@@ -17,6 +17,7 @@ pub fn SliderPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_sl = crate::infra::uid::generate("sl");
     let d = disabled_attrs(disabled);
     let safe_value = if value.is_nan() { min } else { value };
     let safe_min = if min.is_nan() { 0.0 } else { min };
@@ -26,7 +27,7 @@ pub fn SliderPrimitive(
     view! {
         <div
             data-rs-slider=""
-            data-rs-uid=crate::infra::uid::generate("sl")
+            data-rs-uid=uid_sl
             data-rs-interaction="gesture"
             data-rs-orientation=orientation.clone()
             data-rs-disabled=d.data_rs_disabled

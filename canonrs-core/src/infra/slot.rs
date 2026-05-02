@@ -3,8 +3,8 @@
 //! Eliminates Arc::new boilerplate for block/layout slots.
 //!
 //! Usage:
-//!   slot!(|| view! { <Foo /> })
-//!   slot!(move || view! { <Foo value=val /> })
+//!   slot!(|| view! { <Foo /> }.into_any())
+//!   slot!(move || view! { <Foo value=val /> }.into_any())
 
 #[macro_export]
 macro_rules! slot {

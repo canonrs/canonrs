@@ -1,14 +1,7 @@
-pub mod page_header_ui;
-// no types to re-export from page_header_ui
-
-#[cfg(feature = "examples")]
-pub mod examples;
-#[cfg(feature = "examples")]
-pub use examples::*;
-
-pub use page_header_ui::PageHeaderPreview;
-
-pub mod preview;
-pub use preview::PageHeaderShowcasePreview;
+mod page_header_ui;
 pub mod page_header_boundary;
+pub mod preview;
+
 pub use page_header_boundary::*;
+pub use page_header_boundary::{PageHeader, PageHeaderBreadcrumbs, PageHeaderContent, PageHeaderTitle, PageHeaderDescription, PageHeaderActions, PageHeaderTabs};
+pub use preview::PageHeaderShowcasePreview;

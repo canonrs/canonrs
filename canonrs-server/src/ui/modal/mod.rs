@@ -1,10 +1,7 @@
-pub mod modal_ui;
-pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
-
-// no types to re-export from modal_ui
-pub use preview::ModalShowcasePreview;
+mod modal_ui;
 pub mod modal_boundary;
+pub mod preview;
+
 pub use modal_boundary::*;
-pub use modal_boundary::Modal;
+pub use modal_boundary::{Modal, ModalTrigger, ModalPortal, ModalOverlay, ModalContent, ModalTitle, ModalDescription, ModalClose, ModalFooter};
+pub use preview::ModalShowcasePreview;

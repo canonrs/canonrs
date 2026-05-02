@@ -31,13 +31,14 @@ pub fn ScrollAreaPrimitive(
     #[prop(into, default = String::new())] style: String,
     #[prop(into, optional)] viewport_id: Option<String>,
 ) -> impl IntoView {
+    let uid_sa = crate::infra::uid::generate("sa");
     let show_v = matches!(orientation, ScrollOrientation::Vertical | ScrollOrientation::Both);
     let show_h = matches!(orientation, ScrollOrientation::Horizontal | ScrollOrientation::Both);
 
     view! {
         <div
             data-rs-scroll-area=""
-            data-rs-uid=crate::infra::uid::generate("sa")
+            data-rs-uid=uid_sa
             data-rs-interaction="gesture"
             data-rs-orientation=orientation.as_str()
             data-rs-auto-hide={auto_hide.then_some("")}

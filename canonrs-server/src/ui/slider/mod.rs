@@ -1,11 +1,7 @@
-pub mod slider_ui;
-pub mod preview;
-// no types to re-export from slider_ui
-#[cfg(feature = "examples")]
-pub mod examples;
-
-pub use slider_ui::SliderPreview;
-pub use preview::SliderShowcasePreview;
+mod slider_ui;
 pub mod slider_boundary;
+pub mod preview;
+
 pub use slider_boundary::*;
 pub use slider_boundary::{Slider, SliderWithMarks};
+pub use preview::SliderShowcasePreview;

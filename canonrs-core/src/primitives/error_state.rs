@@ -9,10 +9,11 @@ pub fn ErrorStatePrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ers = crate::infra::uid::generate("ers");
     view! {
         <div
             data-rs-error-state=""
-            data-rs-uid=crate::infra::uid::generate("ers")
+            data-rs-uid=uid_ers
             role="status"
             aria-live="assertive"
             class=class

@@ -20,7 +20,7 @@ pub const POPOVERCONTENT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: None, description: "Additional CSS class names" },
-        PropDef { name: "side", kind: PropType::String, required: false, default: Some("bottom"), description: "Tooltip or popover side" },
+        PropDef { name: "side", kind: PropType::Enum(&["bottom", "top", "left", "right"]), required: false, default: Some("bottom"), description: "Tooltip or popover side" },
     ],
 };
 

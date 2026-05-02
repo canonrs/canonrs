@@ -30,12 +30,13 @@ pub fn ProgressPrimitive(
     #[prop(optional, into)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_pr = crate::infra::uid::generate("pr");
     let clamped = value.clamp(0.0, 100.0);
     let aria_now = if state == ProgressState::Indeterminate { None } else { Some(clamped.to_string()) };
     view! {
         <div
             data-rs-progress=""
-            data-rs-uid=crate::infra::uid::generate("pr")
+            data-rs-uid=uid_pr
             data-rs-interaction="init"
             data-rs-value=clamped.to_string()
             data-rs-state=state.as_str()

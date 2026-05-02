@@ -19,11 +19,12 @@ pub fn TextareaPrimitive(
     #[prop(into, optional)] aria_describedby: Option<String>,
     #[prop(optional)] rows: Option<u32>,
 ) -> impl IntoView {
+    let uid_ta2 = crate::infra::uid::generate("ta2");
     let d = disabled_attrs(disabled);
     view! {
         <textarea
             data-rs-textarea=""
-            data-rs-uid=crate::infra::uid::generate("ta2")
+            data-rs-uid=uid_ta2
             data-rs-interaction="init"
             data-rs-disabled=d.data_rs_disabled
             data-rs-readonly={if readonly { Some("") } else { None }}

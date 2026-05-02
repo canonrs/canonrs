@@ -30,11 +30,12 @@ pub fn SpinnerPrimitive(
     #[prop(into, default = "Loading".to_string())] aria_label: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_spn = crate::infra::uid::generate("spn");
     let la = loading_attrs(state);
     view! {
         <svg
             data-rs-spinner=""
-            data-rs-uid=crate::infra::uid::generate("spn")
+            data-rs-uid=uid_spn
             data-rs-size=size.as_str()
             data-rs-state=la.data_rs_state
             role="status"

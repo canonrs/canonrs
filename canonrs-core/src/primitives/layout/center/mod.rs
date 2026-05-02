@@ -30,7 +30,6 @@ pub fn CenterPrimitive(
     view! {
         <div
             data-rs-center=""
-            data-rs-uid=crate::infra::uid::generate("cn")
             data-rs-mode=mode.as_str()
             class=class
         >
@@ -44,11 +43,9 @@ pub fn center_view(
     mode:     CenterMode,
     children: AnyView,
 ) -> AnyView {
-    let uid = crate::infra::uid::generate("cn");
     view! {
         <div
             data-rs-center=""
-            data-rs-uid=uid
             data-rs-mode=mode.as_str()
         >
             {children}

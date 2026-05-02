@@ -10,9 +10,9 @@ pub const FORM_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "action", kind: PropType::String, required: false, default: Some(""), description: "Prop value" },
-        PropDef { name: "method", kind: PropType::String, required: false, default: Some("post"), description: "Prop value" },
-        PropDef { name: "enctype", kind: PropType::String, required: false, default: Some("url-encoded"), description: "Prop value" },
-        PropDef { name: "validation", kind: PropType::String, required: false, default: Some("idle"), description: "Prop value" },
+        PropDef { name: "method", kind: PropType::Enum(&["post", "get"]), required: false, default: Some("post"), description: "Prop value" },
+        PropDef { name: "enctype", kind: PropType::Enum(&["url-encoded", "multipart", "text"]), required: false, default: Some("url-encoded"), description: "Prop value" },
+        PropDef { name: "validation", kind: PropType::Enum(&["idle", "submitting", "success", "error"]), required: false, default: Some("idle"), description: "Prop value" },
     ],
 };
 
@@ -40,7 +40,7 @@ pub const FORMFIELD_API: ComponentApi = ComponentApi {
     description: "Form component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "validation", kind: PropType::String, required: false, default: Some("idle"), description: "Prop value" },
+        PropDef { name: "validation", kind: PropType::Enum(&["idle", "valid", "invalid", "warning"]), required: false, default: Some("idle"), description: "Prop value" },
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],

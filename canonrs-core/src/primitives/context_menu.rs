@@ -13,11 +13,12 @@ pub fn ContextMenuPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_cm = crate::infra::uid::generate("cm");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-context-menu=""
-            data-rs-uid=crate::infra::uid::generate("cm")
+            data-rs-uid=uid_cm
             data-rs-interaction="overlay"
             data-rs-state=s.data_rs_state
             class=class

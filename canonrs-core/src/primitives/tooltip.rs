@@ -32,10 +32,11 @@ pub fn TooltipPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_tip = crate::infra::uid::generate("tip");
     view! {
         <div
             data-rs-tooltip=""
-            data-rs-uid=crate::infra::uid::generate("tip")
+            data-rs-uid=uid_tip
             data-rs-interaction="init"
             data-rs-state=state.as_str()
             class=class

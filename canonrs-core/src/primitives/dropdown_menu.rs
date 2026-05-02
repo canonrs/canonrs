@@ -15,11 +15,12 @@ pub fn DropdownMenuPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
+    let uid_dm = crate::infra::uid::generate("dm");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-dropdown-menu=""
-            data-rs-uid=crate::infra::uid::generate("dm")
+            data-rs-uid=uid_dm
             data-rs-interaction="overlay"
             data-rs-state=s.data_rs_state
             class=class

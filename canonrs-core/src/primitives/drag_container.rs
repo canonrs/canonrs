@@ -11,10 +11,11 @@ pub fn DragContainerPrimitive(
     #[prop(optional)] id: Option<String>,
     #[prop(default = false)] active: bool,
 ) -> impl IntoView {
+    let uid_dc = crate::infra::uid::generate("dc");
     view! {
         <div
             data-rs-drag-container=""
-            data-rs-uid=crate::infra::uid::generate("dc")
+            data-rs-uid=uid_dc
             data-rs-state={if active { "open" } else { "closed" }}
             role="list"
             class=class

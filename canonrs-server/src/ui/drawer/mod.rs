@@ -1,10 +1,8 @@
-pub mod drawer_ui;
-pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
-
-// no types to re-export from drawer_ui
-pub use preview::DrawerShowcasePreview;
+mod drawer_ui;
 pub mod drawer_boundary;
+pub mod preview;
+
 pub use drawer_boundary::*;
 pub use drawer_boundary::Drawer;
+pub use canonrs_core::primitives::DrawerSide;
+pub use preview::DrawerShowcasePreview;

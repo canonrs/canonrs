@@ -11,10 +11,11 @@ pub fn CardPrimitive(
     #[prop(into, default = String::new())] variant: String,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
+    let uid_crd = crate::infra::uid::generate("crd");
     view! {
         <div
             data-rs-card=""
-            data-rs-uid=crate::infra::uid::generate("crd")
+            data-rs-uid=uid_crd
             data-rs-variant=variant
             role="region"
             aria-label=aria_label

@@ -1,17 +1,7 @@
-pub mod input_ui;
+mod input_ui;
 pub mod input_boundary;
-pub use input_boundary::*;
 pub mod preview;
-mod masked_input_ui;
-pub mod types;
-pub mod variants;
 
-// no types to re-export from input_ui
-pub use masked_input_ui::*;
-pub use canonrs_core::primitives::{InputVariant, InputSize};
-
-#[cfg(feature = "examples")]
-pub mod examples;
-
-pub use input_ui::InputPreview;
+pub use input_boundary::*;
+pub use input_boundary::Input;
 pub use preview::InputShowcasePreview;

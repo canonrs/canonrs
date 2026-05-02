@@ -10,7 +10,7 @@ pub const DATATABLE<T>_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "data", kind: PropType::String, required: true, default: None, description: "Prop value" },
         PropDef { name: "columns", kind: PropType::String, required: true, default: None, description: "Prop value" },
-        PropDef { name: "density", kind: PropType::String, required: false, default: Some("default"), description: "Prop value" },
+        PropDef { name: "density", kind: PropType::Enum(&["compact", "comfortable", "spacious"]), required: false, default: Some("default"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
         PropDef { name: "page_size", kind: PropType::Number, required: false, default: Some("10"), description: "Prop value" },
         PropDef { name: "selectable", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },

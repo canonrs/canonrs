@@ -11,10 +11,11 @@ pub fn MenubarPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_mb = crate::infra::uid::generate("mb");
     view! {
         <div
             data-rs-menubar=""
-            data-rs-uid=crate::infra::uid::generate("mb")
+            data-rs-uid=uid_mb
             data-rs-interaction="nav"
             role="menubar"
             class=class

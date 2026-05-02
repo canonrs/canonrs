@@ -1,7 +1,8 @@
-pub mod toolbar_ui;
+mod toolbar_ui;
 pub mod toolbar_boundary;
-pub use toolbar_boundary::*;
 pub mod preview;
 
-// no types to re-export from toolbar_ui
+pub use toolbar_boundary::*;
+pub use toolbar_boundary::{Toolbar, ToolbarItem, ToolbarSeparator};
+pub use canonrs_core::primitives::ToolbarOrientation;
 pub use preview::ToolbarShowcasePreview;

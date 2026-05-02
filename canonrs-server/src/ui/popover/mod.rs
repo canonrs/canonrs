@@ -1,11 +1,8 @@
-pub mod popover_ui;
-pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
-
-// no types to re-export from popover_ui
-pub use popover_ui::PopoverPreview;
-pub use preview::PopoverShowcasePreview;
+mod popover_ui;
 pub mod popover_boundary;
+pub mod preview;
+
 pub use popover_boundary::*;
-pub use popover_boundary::{Popover, PopoverContent};
+pub use popover_boundary::{Popover, PopoverContent, PopoverTrigger};
+pub use canonrs_core::primitives::PopoverSide;
+pub use preview::PopoverShowcasePreview;

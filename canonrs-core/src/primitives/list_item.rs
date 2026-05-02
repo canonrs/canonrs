@@ -12,10 +12,11 @@ pub fn ListPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, optional)] aria_label: Option<String>,
 ) -> impl IntoView {
+    let uid_lst = crate::infra::uid::generate("lst");
     view! {
         <div
             data-rs-list=""
-            data-rs-uid=crate::infra::uid::generate("lst")
+            data-rs-uid=uid_lst
             data-rs-interaction="data"
             role="listbox"
             aria-label=aria_label

@@ -9,10 +9,11 @@ pub fn KbdGroupPrimitive(
     #[prop(default = String::new())] class: String,
     #[prop(default = String::new())] id: String,
 ) -> impl IntoView {
+    let uid_kbg = crate::infra::uid::generate("kbg");
     view! {
         <span
             data-rs-kbd-group=""
-            data-rs-uid=crate::infra::uid::generate("kbg")
+            data-rs-uid=uid_kbg
             class={class}
             id={if id.is_empty() { None } else { Some(id) }}
         >

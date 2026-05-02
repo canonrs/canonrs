@@ -22,12 +22,13 @@ pub fn ToggleGroupPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
+    let uid_tg = crate::infra::uid::generate("tg");
     let state_str = if disabled == DisabledState::Disabled { "disabled" } else { "" };
     let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     view! {
         <div
             data-rs-toggle-group=""
-            data-rs-uid=crate::infra::uid::generate("tg")
+            data-rs-uid=uid_tg
             data-rs-interaction="selection"
             data-rs-multiple=if multiple { "true" } else { "false" }
             data-rs-state=state_str

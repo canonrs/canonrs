@@ -1,11 +1,8 @@
-pub mod stat_ui;
+mod stat_ui;
 pub mod stat_boundary;
-pub use stat_boundary::*;
 pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
 
-pub use canonrs_core::primitives::{StatAlign, StatSize, StatTrend};
-#[cfg(feature = "examples")]
-pub use examples::*;
+pub use stat_boundary::*;
+pub use stat_boundary::{Stat, StatHeader, StatBody, StatValue, StatLabel, StatDelta, StatIcon};
+pub use canonrs_core::primitives::{StatSize, StatAlign, StatTrend};
 pub use preview::StatShowcasePreview;

@@ -54,10 +54,11 @@ pub fn StatusDotPrimitive(
     #[prop(default = StatusDotVariant::Offline)] variant: StatusDotVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_sd = crate::infra::uid::generate("sd");
     view! {
         <span
             data-rs-status-dot=""
-            data-rs-uid=crate::infra::uid::generate("sd")
+            data-rs-uid=uid_sd
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
             role="img"

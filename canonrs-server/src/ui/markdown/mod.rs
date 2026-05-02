@@ -1,17 +1,24 @@
-pub mod markdown_ui;
-pub mod markdown_toolbar;
+mod markdown_ui;
+pub mod markdown_boundary;
+pub mod preview;
+
+pub use markdown_boundary::*;
+pub use markdown_boundary::{MarkdownSurface, MarkdownLayout, MarkdownContent, MarkdownTOC};
+pub use preview::MarkdownShowcasePreview;
+
+#[cfg(feature = "ssr")]
+#[cfg(feature = "ssr")]
+#[cfg(not(feature = "ssr"))]
+#[cfg(not(feature = "ssr"))]
+pub use markdown_ui::{RenderedMarkdown, TocPosition};
+
 #[cfg(feature = "ssr")]
 mod renderer;
 #[cfg(feature = "ssr")]
 mod toc_extractor;
-#[cfg(feature = "examples")]
-pub mod examples;
 
-pub use markdown_ui::{RenderedMarkdown, TocPosition};
-pub use markdown_toolbar::*;
-pub use markdown_ui::MarkdownPreview;
-#[cfg(feature = "examples")]
-pub use examples::markdown_basic_example;
+pub use markdown_ui::RenderedMarkdown;
+pub use markdown_ui::TocPosition;
 
 #[cfg(feature = "ssr")]
 pub use toc_extractor::{TocExtractor, slugify};
@@ -20,7 +27,6 @@ pub use toc_extractor::{TocExtractor, slugify};
 pub fn render_markdown(md: &str) -> RenderedMarkdown {
     renderer::render_markdown(md)
 }
-
 #[cfg(not(feature = "ssr"))]
 pub fn render_markdown(_: &str) -> RenderedMarkdown { RenderedMarkdown::default() }
 
@@ -30,13 +36,3 @@ pub fn render_markdown_with_prefix(md: &str, prefix: &str) -> RenderedMarkdown {
 }
 #[cfg(not(feature = "ssr"))]
 pub fn render_markdown_with_prefix(_: &str, _: &str) -> RenderedMarkdown { RenderedMarkdown::default() }
-
-pub fn render_with_prefix(md: &str, prefix: &str) -> RenderedMarkdown {
-    render_markdown_with_prefix(md, prefix)
-}
-
-pub mod preview;
-pub use preview::MarkdownShowcasePreview;
-pub mod markdown_boundary;
-pub use markdown_boundary::*;
-pub use markdown_boundary::{MarkdownSurface, MarkdownLayout, MarkdownContent, MarkdownTOC};

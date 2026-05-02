@@ -9,7 +9,7 @@ pub const PROGRESS_API: ComponentApi = ComponentApi {
     description: "Progress bar indicator",
     props: &[
         PropDef { name: "value", kind: PropType::Number, required: false, default: Some("0.0"), description: "Current value" },
-        PropDef { name: "state", kind: PropType::String, required: false, default: Some("default"), description: "Loading or visibility state" },
+        PropDef { name: "state", kind: PropType::Enum(&["default", "indeterminate", "loading"]), required: false, default: Some("default"), description: "Loading or visibility state" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

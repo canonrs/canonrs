@@ -42,6 +42,7 @@ pub fn CheckboxPrimitive(
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_cb = crate::infra::uid::generate("cb");
     let d = disabled_attrs(disabled);
     let state = if disabled == DisabledState::Disabled {
         format!("{} disabled", checked.as_str())
@@ -51,7 +52,7 @@ pub fn CheckboxPrimitive(
     view! {
         <label
             data-rs-checkbox=""
-            data-rs-uid=crate::infra::uid::generate("cb")
+            data-rs-uid=uid_cb
             data-rs-interaction="init"
             data-rs-state=state
             aria-disabled=d.aria_disabled

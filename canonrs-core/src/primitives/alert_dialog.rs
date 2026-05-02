@@ -21,10 +21,11 @@ pub fn AlertDialogContentPrimitive(
     #[prop(optional, into)] aria_describedby: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ad = crate::infra::uid::generate("ad");
     view! {
         <div
             data-rs-dialog-content=""
-            data-rs-uid=crate::infra::uid::generate("ad")
+            data-rs-uid=uid_ad
             data-rs-interaction="overlay"
             role="alertdialog"
             aria-modal="true"

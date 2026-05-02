@@ -21,11 +21,12 @@ pub fn RadioGroupPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_rg = crate::infra::uid::generate("rg");
     let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-radio-group=""
-            data-rs-uid=crate::infra::uid::generate("rg")
+            data-rs-uid=uid_rg
             data-rs-interaction="selection"
             data-rs-disabled=d.data_rs_disabled
             role="radiogroup"

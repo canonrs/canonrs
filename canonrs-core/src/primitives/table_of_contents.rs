@@ -47,10 +47,11 @@ pub fn TocPrimitive(
     #[prop(default = TocMode::Simple)] mode: TocMode,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_toc = crate::infra::uid::generate("toc");
     view! {
         <nav
             data-rs-toc=""
-            data-rs-uid=crate::infra::uid::generate("toc")
+            data-rs-uid=uid_toc
             data-rs-interaction="init"
             data-rs-mode=mode.as_str()
             aria-label="Table of contents"

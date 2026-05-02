@@ -15,6 +15,7 @@ pub fn RadioPrimitive(
     #[prop(into, default = String::new())] name: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ra = crate::infra::uid::generate("ra");
     let sel = selection_attrs(selected);
     let d = disabled_attrs(disabled);
 
@@ -29,7 +30,7 @@ pub fn RadioPrimitive(
     view! {
         <label
             data-rs-radio=""
-            data-rs-uid=crate::infra::uid::generate("ra")
+            data-rs-uid=uid_ra
             data-rs-interaction="init"
             data-rs-state=state_str
             data-rs-disabled=d.data_rs_disabled

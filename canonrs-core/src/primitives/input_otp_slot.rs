@@ -12,11 +12,12 @@ pub fn InputOtpSlotPrimitive(
     #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ios = crate::infra::uid::generate("ios");
     let a = activity_attrs(state);
     view! {
         <div
             data-rs-input-otp-slot=""
-            data-rs-uid=crate::infra::uid::generate("ios")
+            data-rs-uid=uid_ios
             data-rs-state=a.data_rs_state
             class=class
         >

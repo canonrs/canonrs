@@ -13,10 +13,11 @@ pub fn LogoPrimitive(
     #[prop(into, default = "brand".to_string())] variant: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_lgo = crate::infra::uid::generate("lgo");
     view! {
         <a
             data-rs-logo=""
-            data-rs-uid=crate::infra::uid::generate("lgo")
+            data-rs-uid=uid_lgo
             data-rs-size=size
             data-rs-variant=variant
             href=href

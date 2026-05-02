@@ -1,12 +1,7 @@
-pub mod doc_progress_ui;
-pub use doc_progress_ui::{DocProgress, DocProgressSlot};
-
+mod doc_progress_ui;
 pub mod doc_progress_boundary;
-
-#[cfg(feature = "examples")]
-pub mod examples;
-#[cfg(feature = "examples")]
-pub use examples::*;
-
 pub mod preview;
+
+pub use doc_progress_boundary::*;
+pub use doc_progress_boundary::{DocProgress, DocProgressSlot};
 pub use preview::DocProgressShowcasePreview;

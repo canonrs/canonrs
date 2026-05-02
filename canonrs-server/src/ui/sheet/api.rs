@@ -12,7 +12,7 @@ pub const SHEET_API: ComponentApi = ComponentApi {
         PropDef { name: "close_label", kind: PropType::String, required: false, default: Some("Close"), description: "Prop value" },
         PropDef { name: "title", kind: PropType::String, required: false, default: None, description: "Title slot or text" },
         PropDef { name: "description", kind: PropType::String, required: false, default: None, description: "Description slot or text" },
-        PropDef { name: "side", kind: PropType::String, required: false, default: Some("right"), description: "Tooltip or popover side" },
+        PropDef { name: "side", kind: PropType::Enum(&["right", "left", "top", "bottom"]), required: false, default: Some("right"), description: "Tooltip or popover side" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

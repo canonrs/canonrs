@@ -11,10 +11,11 @@ pub fn CalendarPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_cal = crate::infra::uid::generate("cal");
     view! {
         <div
             data-rs-calendar=""
-            data-rs-uid=crate::infra::uid::generate("cal")
+            data-rs-uid=uid_cal
             class=class
         >
             {children()}

@@ -13,12 +13,13 @@ pub fn ModalPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_mo = crate::infra::uid::generate("mo");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-modal=""
             data-rs-interaction="overlay"
-            data-rs-uid=crate::infra::uid::generate("mo")
+            data-rs-uid=uid_mo
             data-rs-state=s.data_rs_state
             class=class
         >

@@ -50,12 +50,13 @@ pub mod infra {
     }
 }
 
-// ── Server (SSR + Hydrate) ────────────────────────────────────────────────────
+// ── Prelude global (SSR + Hydrate) ───────────────────────────────────────────
 #[cfg(any(feature = "ssr", feature = "hydrate"))]
-pub mod ui {
-    pub use canonrs_server::ui::*;
+pub mod prelude {
+    pub use canonrs_server::prelude::*;
 }
 
+// ── Server (SSR + Hydrate) ────────────────────────────────────────────────────
 #[cfg(any(feature = "ssr", feature = "hydrate"))]
 pub mod layouts {
     pub use canonrs_server::layouts::*;
@@ -64,6 +65,13 @@ pub mod layouts {
 #[cfg(any(feature = "ssr", feature = "hydrate"))]
 pub mod blocks {
     pub use canonrs_server::blocks::*;
+}
+
+#[cfg(any(feature = "ssr", feature = "hydrate"))]
+pub mod ui {
+    pub mod prelude {
+        pub use canonrs_server::ui::prelude::*;
+    }
 }
 
 // ── Interactions ──────────────────────────────────────────────────────────────
@@ -79,6 +87,9 @@ pub mod ui_interactive {
     pub use canonrs_client::ui::*;
 }
 
+
+// ── Canvas hooks (disponivel em SSR e hydrate) ───────────────────────────────
+pub use canonrs_core::canvas_state::CanvasState;
 #[cfg(feature = "hydrate")]
 pub mod hooks {
     pub use canonrs_client::hooks::*;

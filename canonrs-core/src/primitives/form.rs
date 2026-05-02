@@ -65,12 +65,13 @@ pub fn FormPrimitive(
     #[prop(default = true)] novalidate: bool,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_fo = crate::infra::uid::generate("fo");
     let v = validation_attrs(validation);
     let d = disabled_attrs(disabled);
     view! {
         <form
             data-rs-form=""
-            data-rs-uid=crate::infra::uid::generate("fo")
+            data-rs-uid=uid_fo
             data-rs-interaction="init"
             data-rs-state=v.data_rs_state
             data-rs-disabled=d.data_rs_disabled

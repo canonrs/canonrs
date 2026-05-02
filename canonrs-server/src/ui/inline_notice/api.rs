@@ -10,7 +10,7 @@ pub const INLINENOTICE_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "content", kind: PropType::String, required: false, default: None, description: "Content region slot" },
         PropDef { name: "icon", kind: PropType::String, required: false, default: None, description: "Prop value" },
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "info", "success", "warning", "error"]), required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

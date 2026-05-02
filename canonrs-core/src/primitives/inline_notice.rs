@@ -46,10 +46,11 @@ pub fn InlineNoticePrimitive(
     #[prop(default = InlineNoticeVariant::Default)] variant: InlineNoticeVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_in = crate::infra::uid::generate("in");
     view! {
         <div
             data-rs-inline-notice=""
-            data-rs-uid=crate::infra::uid::generate("in")
+            data-rs-uid=uid_in
             data-rs-variant=variant.as_str()
             role=variant.role()
             aria-live=variant.aria_live()

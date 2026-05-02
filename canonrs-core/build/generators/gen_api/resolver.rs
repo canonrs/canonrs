@@ -31,9 +31,21 @@ pub(crate) fn resolve_type(ty: &str, name: &str, full_content: &str) -> PropKind
     if clean == "Children" { return PropKind::Children; }
     if clean == "ChildrenFn" || clean == "Option<ChildrenFn>" { return PropKind::Children; }
 
-    // Regra: API é gerada lendo APENAS o boundary — zero busca externa
+    // 1. tenta encontrar enum no proprio boundary
     let variants = extract_enum_variants(full_content, clean);
     if !variants.is_empty() { return PropKind::Enum(variants); }
+
+    // 2. busca nos primitives do canonrs-core
+    let primitives_dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("src/primitives");
+    if let Ok(entries) = std::fs::read_dir(&primitives_dir) {
+        for entry in entries.flatten() {
+            if entry.path().extension().map_or(true, |e| e != "rs") { continue; }
+            if let Ok(prim_content) = std::fs::read_to_string(entry.path()) {
+                let variants = extract_enum_variants(&prim_content, clean);
+                if !variants.is_empty() { return PropKind::Enum(variants); }
+            }
+        }
+    }
 
     // Fallback semantico por nome
     if name.contains("class") || name.contains("label") || name.contains("placeholder")

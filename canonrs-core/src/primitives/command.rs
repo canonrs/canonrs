@@ -12,13 +12,14 @@ pub fn CommandPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_cmd = crate::infra::uid::generate("cmd");
     let s = visibility_attrs(state);
     let listbox_id = crate::infra::uid::generate("cmd-list");
 
     view! {
         <div
             data-rs-command=""
-            data-rs-uid=crate::infra::uid::generate("cmd")
+            data-rs-uid=uid_cmd
             data-rs-interaction="init"
             data-rs-state=s.data_rs_state
             data-rs-listbox-id=listbox_id.clone()

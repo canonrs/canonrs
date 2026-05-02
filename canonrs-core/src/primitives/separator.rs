@@ -26,13 +26,14 @@ pub fn SeparatorPrimitive(
     #[prop(optional, into)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_sep = crate::infra::uid::generate("sep");
     let role = if decorative { "presentation" } else { "separator" };
     let aria_orientation = if !decorative { Some(orientation.as_str()) } else { None };
     let aria_label_val = if !decorative { aria_label } else { None };
     view! {
         <div
             data-rs-separator=""
-            data-rs-uid=crate::infra::uid::generate("sep")
+            data-rs-uid=uid_sep
             data-rs-orientation=orientation.as_str()
             role=role
             aria-orientation=aria_orientation

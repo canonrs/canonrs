@@ -27,10 +27,11 @@ pub fn SkeletonPrimitive(
     #[prop(default = SkeletonVariant::Rectangle)] variant: SkeletonVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_skl = crate::infra::uid::generate("skl");
     view! {
         <div
             data-rs-skeleton=""
-            data-rs-uid=crate::infra::uid::generate("skl")
+            data-rs-uid=uid_skl
             data-rs-variant=variant.as_str()
             aria-busy="true"
             aria-live="polite"

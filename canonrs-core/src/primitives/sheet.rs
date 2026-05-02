@@ -33,12 +33,13 @@ pub fn SheetPrimitive(
     #[prop(default = SheetSide::Right)] side: SheetSide,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_sh = crate::infra::uid::generate("sh");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-sheet=""
             data-rs-interaction="overlay"
-            data-rs-uid=crate::infra::uid::generate("sh")
+            data-rs-uid=uid_sh
             data-rs-state=s.data_rs_state
             data-rs-side=side.as_str()
             class=class

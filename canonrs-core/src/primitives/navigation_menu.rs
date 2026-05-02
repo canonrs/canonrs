@@ -11,10 +11,11 @@ pub fn NavigationMenuPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_nm = crate::infra::uid::generate("nm");
     view! {
         <nav
             data-rs-navigation-menu=""
-            data-rs-uid=crate::infra::uid::generate("nm")
+            data-rs-uid=uid_nm
             data-rs-interaction="init"
             class=class
         >
@@ -60,12 +61,13 @@ pub fn NavigationMenuTriggerPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_nt = crate::infra::uid::generate("nt");
     let t = trigger_attrs(state);
     view! {
         <button
             type="button"
             data-rs-navigation-menu-trigger=""
-            data-rs-uid=crate::infra::uid::generate("nt")
+            data-rs-uid=uid_nt
             data-rs-state=t.data_rs_state
             aria-haspopup="menu"
             aria-expanded=t.aria_expanded

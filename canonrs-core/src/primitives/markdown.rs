@@ -11,6 +11,7 @@ pub fn MarkdownPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] inner: String,
 ) -> impl IntoView {
+    let uid_md = crate::infra::uid::generate("md");
     // inner contém o HTML do layout completo (TOC + content)
     // É injetado via inner_html apenas em SSR — hydration via MarkdownContentPrimitive
     #[cfg(feature = "ssr")]
@@ -18,7 +19,7 @@ pub fn MarkdownPrimitive(
         view! {
             <div
                 data-rs-markdown=""
-            data-rs-uid=crate::infra::uid::generate("md")
+            data-rs-uid=uid_md
             data-rs-interaction="content"
                 class=class
                 inner_html=inner

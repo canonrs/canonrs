@@ -1,14 +1,8 @@
-pub mod callout_ui;
+mod callout_ui;
 pub mod callout_boundary;
-pub use callout_boundary::*;
 pub mod preview;
-// no types to re-export from callout_ui
+
+pub use callout_boundary::*;
 pub use callout_boundary::Callout;
 pub use canonrs_core::primitives::CalloutVariant;
-
-#[cfg(feature = "examples")]
-pub mod examples;
-#[cfg(feature = "examples")]
-pub use examples::*;
-pub use callout_ui::CalloutPreview;
 pub use preview::CalloutShowcasePreview;

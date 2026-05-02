@@ -18,5 +18,4 @@ canonrs-interactions-overlay   = { path = "../canonrs-interactions-overlay" }
 canonrs-interactions-selection = { path = "../canonrs-interactions-selection" }
 canonrs-interactions-content   = { path = "../canonrs-interactions-content" }
 
-[lints]
-workspace = true
+

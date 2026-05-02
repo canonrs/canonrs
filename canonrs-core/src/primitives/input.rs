@@ -54,11 +54,12 @@ pub fn InputPrimitive(
     #[prop(default = InputVariant::Default)] variant: InputVariant,
     #[prop(default = InputSize::Md)] size: InputSize,
 ) -> impl IntoView {
+    let uid_inp = crate::infra::uid::generate("inp");
     let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     view! {
         <input
             data-rs-input=""
-            data-rs-uid=crate::infra::uid::generate("inp")
+            data-rs-uid=uid_inp
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()

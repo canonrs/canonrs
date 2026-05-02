@@ -10,7 +10,7 @@ pub const ALERT_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "title", kind: PropType::String, required: false, default: None, description: "Title slot or text" },
         PropDef { name: "description", kind: PropType::String, required: false, default: None, description: "Description slot or text" },
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "destructive", "warning", "success"]), required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "dismissible", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],

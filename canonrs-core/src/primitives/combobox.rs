@@ -20,12 +20,13 @@ pub fn ComboboxPrimitive(
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
+    let uid_cbx = crate::infra::uid::generate("cbx");
     let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
     let state_str = if disabled == DisabledState::Disabled { "closed disabled" } else { "closed" };
     view! {
         <div
             data-rs-combobox=""
-            data-rs-uid=crate::infra::uid::generate("cbx")
+            data-rs-uid=uid_cbx
             data-rs-interaction="selection"
             data-rs-role="root"
             data-rs-state=state_str

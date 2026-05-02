@@ -1,6 +1,7 @@
-pub mod logo_ui;
-pub use logo_ui::{Logo, LogoSize, LogoVariant};
-
-pub mod preview;
-pub use preview::LogoShowcasePreview;
+mod logo_ui;
 pub mod logo_boundary;
+pub mod preview;
+
+pub use logo_boundary::*;
+pub use logo_boundary::Logo;
+pub use preview::LogoShowcasePreview;

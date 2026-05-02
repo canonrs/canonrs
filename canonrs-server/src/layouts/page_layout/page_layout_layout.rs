@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use canonrs_core::infra::uid::generate;
 
 #[derive(Clone, Copy, Debug, PartialEq, Default)]
 pub enum PageLayoutVariant { #[default] Single, WithSidebar, WithAside, SidebarAndAside }
@@ -22,12 +21,11 @@ pub fn PageLayout(
     #[prop(optional)] aside: Option<ChildrenFn>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid     = generate("ly");
     let sidebar = StoredValue::new(sidebar);
     let content = StoredValue::new(content);
     let aside   = StoredValue::new(aside);
     view! {
-        <div data-rs-layout="page" data-rs-uid=uid data-rs-variant=variant.as_str() class=class>
+        <div data-rs-layout="page" data-rs-variant=variant.as_str() class=class>
             {move || sidebar.get_value().map(|s| view! { <nav data-rs-region="sidebar" aria-label="Sidebar">{s()}</nav> })}
             {move || content.get_value().map(|c| view! { <main data-rs-region="content">{c()}</main> })}
             {move || aside.get_value().map(|a| view! { <aside data-rs-region="aside" aria-label="Aside">{a()}</aside> })}

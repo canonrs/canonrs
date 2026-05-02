@@ -21,6 +21,7 @@ pub fn SelectPrimitive(
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
+    let uid_sel = crate::infra::uid::generate("sel");
     let s = visibility_attrs(state);
     let state_str = if disabled == DisabledState::Disabled {
         format!("{} disabled", s.data_rs_state)
@@ -31,7 +32,7 @@ pub fn SelectPrimitive(
     view! {
         <div
             data-rs-select=""
-            data-rs-uid=crate::infra::uid::generate("sel")
+            data-rs-uid=uid_sel
             data-rs-interaction="selection"
             data-rs-role="root"
             data-rs-state=state_str

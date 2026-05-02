@@ -1,11 +1,7 @@
-pub mod command_ui;
+mod command_ui;
 pub mod command_boundary;
-pub use command_boundary::*;
 pub mod preview;
-// no types to re-export from command_ui
-pub use command_boundary::{Command, CommandItem};
 
-#[cfg(feature = "examples")]
-pub mod examples;
-pub use command_ui::CommandPreview;
+pub use command_boundary::*;
+pub use command_boundary::{Command, CommandItem};
 pub use preview::CommandShowcasePreview;

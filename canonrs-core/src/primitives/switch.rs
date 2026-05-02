@@ -16,6 +16,7 @@ pub fn SwitchPrimitive(
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_sw = crate::infra::uid::generate("sw");
     let sel = selection_attrs(checked);
     let d   = disabled_attrs(disabled);
     let state = format!("{} {}", sel.data_rs_state.unwrap_or(""), if disabled == DisabledState::Disabled { "disabled" } else { "" }).trim().to_string();
@@ -24,7 +25,7 @@ pub fn SwitchPrimitive(
     view! {
         <label
             data-rs-switch=""
-            data-rs-uid=crate::infra::uid::generate("sw")
+            data-rs-uid=uid_sw
             data-rs-interaction="init"
             data-rs-state=state
             aria-disabled=d.aria_disabled

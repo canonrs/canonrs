@@ -1,10 +1,8 @@
-pub mod hover_card_ui;
-pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
-
-// no types to re-export from hover_card_ui
-pub use preview::HoverCardShowcasePreview;
+mod hover_card_ui;
 pub mod hover_card_boundary;
+pub mod preview;
+
 pub use hover_card_boundary::*;
 pub use hover_card_boundary::{HoverCard, HoverCardTrigger, HoverCardContent};
+pub use canonrs_core::primitives::HoverCardSide;
+pub use preview::HoverCardShowcasePreview;

@@ -12,10 +12,11 @@ pub fn ButtonGroupPrimitive(
     #[prop(default = ToggleState::Off)] attached: ToggleState,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
+    let uid_bg = crate::infra::uid::generate("bg");
     view! {
         <div
             data-rs-button-group=""
-            data-rs-uid=crate::infra::uid::generate("bg")
+            data-rs-uid=uid_bg
             data-rs-state={if attached == ToggleState::On { Some("attached") } else { None }}
             role="group"
             aria-label=aria_label

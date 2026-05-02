@@ -47,10 +47,11 @@ pub fn KbdPrimitive(
     #[prop(default = KbdVariant::Default)] variant: KbdVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_kbd = crate::infra::uid::generate("kbd");
     view! {
         <kbd
             data-rs-kbd=""
-            data-rs-uid=crate::infra::uid::generate("kbd")
+            data-rs-uid=uid_kbd
             data-rs-size=size.as_str()
             data-rs-variant=variant.as_str()
             class=class

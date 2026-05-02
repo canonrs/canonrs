@@ -7,10 +7,11 @@ pub fn LinkGroupPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_lg = crate::infra::uid::generate("lg");
     view! {
         <nav
             data-rs-link-group=""
-            data-rs-uid=crate::infra::uid::generate("lg")
+            data-rs-uid=uid_lg
             data-rs-interaction="nav"
             class=class
         >

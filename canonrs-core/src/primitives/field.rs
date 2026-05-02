@@ -37,11 +37,12 @@ pub fn FieldPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_fi = crate::infra::uid::generate("fi");
     let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-field=""
-            data-rs-uid=crate::infra::uid::generate("fi")
+            data-rs-uid=uid_fi
             data-rs-interaction="init"
             data-rs-state=validation.as_str()
             data-rs-disabled=d.data_rs_disabled

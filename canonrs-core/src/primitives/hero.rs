@@ -9,10 +9,11 @@ pub fn HeroPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_hr = crate::infra::uid::generate("hr");
     view! {
         <div
             data-rs-block=""
-            data-rs-uid=crate::infra::uid::generate("hr")
+            data-rs-uid=uid_hr
             class=class
         >
             {children()}

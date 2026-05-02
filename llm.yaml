@@ -1,0 +1,23 @@
+# AUTO-GENERATED — do not edit llm.yaml directly
+# Edit llm_man.yaml for manual sections
+
+schema_version: 1
+
+service: rs-canonrs
+
+entrypoints:
+  base_url: https://rs-canonrs:unknown
+  auth: hmac
+  protocol: https+mtls
+  headers:
+    x-org-id: number
+    x-user-id: number
+    x-internal-ts: unix_timestamp
+    x-internal-signature: hmac_sha256(user_id:org_id:timestamp, secret)
+
+endpoints:
+  - name: health
+    method: GET
+    path: /health
+
+dependencies:

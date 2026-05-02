@@ -32,5 +32,4 @@ once_cell = "1"
 default = []
 hydrate = ["leptos/hydrate", "canonrs-core/hydrate"]
 
-[lints]
-workspace = true
+

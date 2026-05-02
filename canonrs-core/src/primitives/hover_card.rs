@@ -33,11 +33,12 @@ pub fn HoverCardPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_hc = crate::infra::uid::generate("hc");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-hover-card=""
-            data-rs-uid=crate::infra::uid::generate("hc")
+            data-rs-uid=uid_hc
             data-rs-interaction="overlay"
             data-rs-state=s.data_rs_state
             class=class

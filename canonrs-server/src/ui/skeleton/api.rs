@@ -8,7 +8,7 @@ pub const SKELETON_API: ComponentApi = ComponentApi {
     id: "skeleton",
     description: "Loading skeleton placeholder",
     props: &[
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("rectangle"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::Enum(&["rectangle", "text", "circle"]), required: false, default: Some("rectangle"), description: "Visual variant of the component" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

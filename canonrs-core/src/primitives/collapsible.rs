@@ -15,12 +15,13 @@ pub fn CollapsiblePrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
+    let uid_col = crate::infra::uid::generate("col");
     let s = visibility_attrs(state);
     let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-collapsible=""
-            data-rs-uid=crate::infra::uid::generate("col")
+            data-rs-uid=uid_col
             data-rs-interaction="init"
             data-rs-state=s.data_rs_state
             data-rs-disabled=d.data_rs_disabled

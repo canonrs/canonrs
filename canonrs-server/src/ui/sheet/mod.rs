@@ -1,11 +1,8 @@
-pub mod sheet_ui;
-pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
-
-// no types to re-export from sheet_ui
-pub use sheet_ui::SheetPreview;
-pub use preview::SheetShowcasePreview;
+mod sheet_ui;
 pub mod sheet_boundary;
+pub mod preview;
+
 pub use sheet_boundary::*;
-pub use sheet_boundary::Sheet;
+pub use sheet_boundary::{Sheet, SheetOverlay, SheetContent};
+pub use canonrs_core::primitives::SheetSide;
+pub use preview::SheetShowcasePreview;

@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, query};
+use crate::runtime::{lifecycle, state, focus, query};
 
 fn move_to_body(root: &Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
@@ -38,22 +38,44 @@ fn sync_state(root: &Element, s: &str) {
     }
 }
 
-fn open(root: &Element)  { state::open(root);  sync_state(root, "open");   state::set_scroll_lock(true); }
-fn close(root: &Element) { state::close(root); sync_state(root, "closed"); state::set_scroll_lock(false); }
+fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<web_sys::Element>>>) {
+    prev_focus.set(focus::active_element());
+    state::open(root);
+    sync_state(root, "open");
+    state::set_scroll_lock(true);
+    // foca primeiro elemento focavel no content
+    let content_sel = if root.has_attribute("data-rs-sheet") { "[data-rs-sheet-content]" } else { "[data-rs-drawer-content]" };
+    if let Ok(Some(content)) = root.query_selector(content_sel) {
+        focus::focus_first(&content);
+    }
+}
+fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<web_sys::Element>>>) {
+    state::close(root);
+    sync_state(root, "closed");
+    state::set_scroll_lock(false);
+    // restaura foco para o trigger
+    if let Some(el) = prev_focus.take() {
+        if let Ok(html) = el.dyn_into::<web_sys::HtmlElement>() {
+            let _ = html.focus();
+        }
+    }
+}
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
+    let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<web_sys::Element>));
     move_to_body(&root);
 
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
     {
         let uid2 = uid.clone();
+        let pf = prev_focus.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if query::closest(&target, "[data-rs-sheet-trigger]") {
                 let Some(root_live) = query::root_of("data-rs-sheet", &uid2) else { return };
-                open(&root_live);
+                open(&root_live, &pf);
             }
         });
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -62,6 +84,7 @@ pub fn init(root: Element) {
 
     {
         let uid2 = uid.clone();
+        let pf = prev_focus.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(root_live) = query::root_of("data-rs-sheet", &uid2) else { return };
             if !state::is_open(&root_live) { return; }
@@ -70,8 +93,8 @@ pub fn init(root: Element) {
                 .or_else(|| target.closest("[data-rs-owner]").ok().flatten()
                     .and_then(|el| el.get_attribute("data-rs-owner")));
             if owner.as_deref() != Some(&uid2) { return; }
-            if query::closest(&target, "[data-rs-sheet-overlay]") { close(&root_live); return; }
-            if query::closest(&target, "[data-rs-sheet-close]")   { close(&root_live); }
+            if query::closest(&target, "[data-rs-sheet-overlay]") { close(&root_live, &pf); return; }
+            if query::closest(&target, "[data-rs-sheet-close]")   { close(&root_live, &pf); }
         });
         if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
             let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -81,10 +104,11 @@ pub fn init(root: Element) {
 
     {
         let uid2 = uid.clone();
+        let pf = prev_focus.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
             if e.key() != "Escape" { return; }
             let Some(root_live) = query::root_of("data-rs-sheet", &uid2) else { return };
-            if state::is_open(&root_live) { close(&root_live); }
+            if state::is_open(&root_live) { close(&root_live, &pf); }
         });
         if let Some(win) = web_sys::window() {
             let _ = win.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());

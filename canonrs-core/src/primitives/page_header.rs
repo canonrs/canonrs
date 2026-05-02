@@ -9,10 +9,11 @@ pub fn PageHeaderPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ph = crate::infra::uid::generate("ph");
     view! {
         <header
             data-rs-page-header=""
-            data-rs-uid=crate::infra::uid::generate("ph")
+            data-rs-uid=uid_ph
             role="banner"
             class={(!class.is_empty()).then(|| class)}
         >

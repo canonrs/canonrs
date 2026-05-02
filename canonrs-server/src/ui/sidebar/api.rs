@@ -10,7 +10,7 @@ pub const SIDEBAR_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "state", kind: PropType::String, required: false, default: Some("open"), description: "Loading or visibility state" },
-        PropDef { name: "variant", kind: PropType::String, required: false, default: Some("default"), description: "Visual variant of the component" },
+        PropDef { name: "variant", kind: PropType::Enum(&["default", "rail"]), required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

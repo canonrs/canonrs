@@ -1,6 +1,7 @@
 #![recursion_limit = "512"]
 //! CanonRS Server — SSR UI components + Axum integration
 
+pub mod prelude;
 pub mod ui;
 pub mod dev;
 pub mod blocks;
@@ -16,7 +17,9 @@ pub use ui::button::Button;
 pub use ui::badge::Badge;
 pub use ui::input::Input;
 pub use ui::tabs::{TabsRoot, TabsTrigger, TabsContent};
-pub use ui::icon_button::icon_button_ui::{IconButton, IconButtonVariant};
+pub use ui::icon_button::{IconButton, IconButtonVariant};
+pub use ui::button::button_boundary::{ButtonVariant, ButtonSize, ButtonType, ButtonStateHint};
+pub use ui::toolbar::toolbar_boundary::ToolbarOrientation;
 pub use ui::card::Card;
 pub use ui::separator::Separator;
 pub use ui::doc_progress::DocProgress;

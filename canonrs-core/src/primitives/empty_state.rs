@@ -29,10 +29,11 @@ pub fn EmptyStatePrimitive(
     #[prop(default = EmptyStateVariant::Default)] variant: EmptyStateVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_es = crate::infra::uid::generate("es");
     view! {
         <div
             data-rs-empty=""
-            data-rs-uid=crate::infra::uid::generate("es")
+            data-rs-uid=uid_es
             data-rs-variant=variant.as_str()
             role="status"
             aria-live="polite"

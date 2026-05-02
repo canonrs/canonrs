@@ -61,6 +61,7 @@ pub fn IconButtonPrimitive(
     #[prop(optional)] pressed: Option<ToggleState>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_ib = crate::infra::uid::generate("ib");
     let d  = disabled_attrs(disabled);
     let la = loading_attrs(loading);
     let ta = pressed.map(toggle_attrs);
@@ -68,7 +69,7 @@ pub fn IconButtonPrimitive(
         <button
             type="button"
             data-rs-icon-button=""
-            data-rs-uid=crate::infra::uid::generate("ib")
+            data-rs-uid=uid_ib
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()

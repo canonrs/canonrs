@@ -15,12 +15,13 @@ pub fn TogglePrimitive(
     #[prop(into, default = String::new())] aria_label: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_tog = crate::infra::uid::generate("tog");
     let d = disabled_attrs(disabled);
     let t = toggle_attrs(pressed);
     view! {
         <label
             data-rs-toggle=""
-            data-rs-uid=crate::infra::uid::generate("tog")
+            data-rs-uid=uid_tog
             data-rs-interaction="init"
             data-rs-state=t.data_rs_state
             data-rs-disabled=d.data_rs_disabled

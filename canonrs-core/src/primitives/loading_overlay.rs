@@ -30,6 +30,7 @@ pub fn LoadingOverlayPrimitive(
     #[prop(default = OverlayMode::Blocking)] mode: OverlayMode,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_lo = crate::infra::uid::generate("lo");
     let is_loading = state == LoadingState::Loading;
     let data_state = if is_loading { "loading" } else { "idle" };
     let overlay_aria_hidden = if is_loading { "false" } else { "true" };
@@ -46,7 +47,7 @@ pub fn LoadingOverlayPrimitive(
             </div>
             <div
                 data-rs-loading-overlay=""
-                data-rs-uid=crate::infra::uid::generate("lo")
+                data-rs-uid=uid_lo
                 aria-hidden=overlay_aria_hidden
                 aria-live="polite"
             >

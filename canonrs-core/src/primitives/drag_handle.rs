@@ -11,11 +11,12 @@ pub fn DragHandlePrimitive(
     #[prop(optional)] id: Option<String>,
     #[prop(default = false)] active: bool,
 ) -> impl IntoView {
+    let uid_dh = crate::infra::uid::generate("dh");
     view! {
         <button
             type="button"
             data-rs-drag-handle=""
-            data-rs-uid=crate::infra::uid::generate("dh")
+            data-rs-uid=uid_dh
             data-rs-state={if active { "open" } else { "closed" }}
             aria-label="Drag to reorder"
             class=class

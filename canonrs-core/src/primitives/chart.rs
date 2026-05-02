@@ -43,11 +43,12 @@ pub fn ChartPrimitive(
     #[prop(default = true)] chart_animate: bool,
     children: Children,
 ) -> impl IntoView {
+    let uid_ch = crate::infra::uid::generate("ch");
     let aria = aria_label.unwrap_or_else(|| format!("{} chart", chart_type.as_str()));
     view! {
         <div
             data-rs-chart=""
-            data-rs-uid=crate::infra::uid::generate("ch")
+            data-rs-uid=uid_ch
             data-rs-interaction="data"
             data-rs-chart-type=chart_type.as_str()
             data-rs-chart-height={height.to_string()}

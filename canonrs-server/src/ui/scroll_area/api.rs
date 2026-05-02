@@ -9,7 +9,7 @@ pub const SCROLLAREA_API: ComponentApi = ComponentApi {
     description: "Scrollable area container",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
-        PropDef { name: "orientation", kind: PropType::String, required: false, default: Some("vertical"), description: "Horizontal or vertical orientation" },
+        PropDef { name: "orientation", kind: PropType::Enum(&["vertical", "horizontal", "both"]), required: false, default: Some("vertical"), description: "Horizontal or vertical orientation" },
         PropDef { name: "auto_hide", kind: PropType::Bool, required: false, default: Some("true"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
         PropDef { name: "style", kind: PropType::String, required: false, default: Some(""), description: "Prop value" },

@@ -34,11 +34,12 @@ pub fn PopoverPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
+    let uid_pop = crate::infra::uid::generate("pop");
     let s = visibility_attrs(state);
     view! {
         <div
             data-rs-popover=""
-            data-rs-uid=crate::infra::uid::generate("pop")
+            data-rs-uid=uid_pop
             data-rs-interaction="overlay"
             data-rs-state=s.data_rs_state
             data-rs-name=name

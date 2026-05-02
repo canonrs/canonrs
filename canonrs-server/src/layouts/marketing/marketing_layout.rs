@@ -1,5 +1,4 @@
 use leptos::prelude::*;
-use canonrs_core::infra::uid::generate;
 
 #[component]
 pub fn MarketingLayout(
@@ -9,13 +8,12 @@ pub fn MarketingLayout(
     #[prop(optional)] footer: Option<ChildrenFn>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid = generate("ly");
     let header  = StoredValue::new(header);
     let hero    = StoredValue::new(hero);
     let content = StoredValue::new(content);
     let footer  = StoredValue::new(footer);
     view! {
-        <div data-rs-layout="marketing" data-rs-uid=uid class=class>
+        <div data-rs-layout="marketing" class=class>
             {move || header.get_value().map(|h| view! { <header data-rs-region="header">{h()}</header> })}
             {move || hero.get_value().map(|h| view! { <div data-rs-region="hero" role="banner">{h()}</div> })}
             {move || content.get_value().map(|c| view! { <main data-rs-region="content">{c()}</main> })}

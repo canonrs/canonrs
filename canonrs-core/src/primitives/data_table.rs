@@ -41,10 +41,11 @@ pub fn DataTablePrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
+    let uid_dt = crate::infra::uid::generate("dt");
     view! {
         <div
             data-rs-datatable=""
-            data-rs-uid=crate::infra::uid::generate("dt")
+            data-rs-uid=uid_dt
             data-rs-interaction="data"
             data-rs-density=density.as_str()
             data-rs-name=name

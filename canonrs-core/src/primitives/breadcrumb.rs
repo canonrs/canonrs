@@ -11,10 +11,11 @@ pub fn BreadcrumbPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_bc = crate::infra::uid::generate("bc");
     view! {
         <nav
             data-rs-breadcrumb=""
-            data-rs-uid=crate::infra::uid::generate("bc")
+            data-rs-uid=uid_bc
             data-rs-interaction="nav"
             aria-label="Breadcrumb"
             class=class

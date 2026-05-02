@@ -12,10 +12,11 @@ pub fn MenuPrimitive(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_mn = crate::infra::uid::generate("mn");
     view! {
         <nav
             data-rs-menu=""
-            data-rs-uid=crate::infra::uid::generate("mn")
+            data-rs-uid=uid_mn
             data-rs-interaction="init"
             aria-label=aria_label
             class=class
@@ -32,13 +33,15 @@ pub fn MenuItemPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_mi = crate::infra::uid::generate("mi");
     let sel = selection_attrs(selected);
     let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-menu-item=""
-            data-rs-uid=crate::infra::uid::generate("mi")
+
+                        data-rs-uid=uid_mi
             role="menuitem"
             data-rs-state=sel.data_rs_state
             data-rs-disabled=d.data_rs_disabled

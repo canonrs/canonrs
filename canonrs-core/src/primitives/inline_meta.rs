@@ -9,10 +9,11 @@ pub fn InlineMetaPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_im = crate::infra::uid::generate("im");
     view! {
         <span
             data-rs-inline-meta=""
-            data-rs-uid=crate::infra::uid::generate("im")
+            data-rs-uid=uid_im
             class=class
         >
             {children()}

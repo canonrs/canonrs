@@ -46,10 +46,11 @@ pub fn CalloutPrimitive(
     #[prop(default = CalloutVariant::Default)] variant: CalloutVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_clt = crate::infra::uid::generate("clt");
     view! {
         <aside
             data-rs-callout=""
-            data-rs-uid=crate::infra::uid::generate("clt")
+            data-rs-uid=uid_clt
             data-rs-variant=variant.as_str()
             role=variant.role()
             aria-live=variant.aria_live()

@@ -1,14 +1,7 @@
-pub mod avatar_ui;
-#[cfg(feature = "examples")]
-pub mod examples;
-
-pub use avatar_ui::{AvatarShape, AvatarSize, AvatarStatus};
-#[cfg(feature = "examples")]
-pub use examples::*;
-
-pub use avatar_ui::AvatarPreview;
-
-pub mod preview;
-pub use preview::AvatarShowcasePreview;
+mod avatar_ui;
 pub mod avatar_boundary;
+pub mod preview;
+
 pub use avatar_boundary::*;
+pub use avatar_boundary::{Avatar, AvatarImage, AvatarFallback};
+pub use preview::AvatarShowcasePreview;

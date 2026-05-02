@@ -11,6 +11,7 @@ pub fn PinButtonPrimitive(
     #[prop(default = String::new())] col_id: String,
     #[prop(default = false)] is_pinned: bool,
 ) -> impl IntoView {
+    let uid_pb = crate::infra::uid::generate("pb");
     // data-pin-state cycles: unpinned → pinned-left → pinned-right → unpinned
     let initial_state = if is_pinned { "pinned-left" } else { "unpinned" };
     let initial_icon  = if is_pinned { "⬅📌" } else { "📍" };
@@ -18,7 +19,7 @@ pub fn PinButtonPrimitive(
     view! {
         <button
             data-rs-pin-button=""
-            data-rs-uid=crate::infra::uid::generate("pb")
+            data-rs-uid=uid_pb
             data-pin-col-id={if col_id.is_empty() { None } else { Some(col_id) }}
             data-pin-state=initial_state
             type="button"

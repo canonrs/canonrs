@@ -10,10 +10,11 @@ pub fn EmptyTablePrimitive(
     #[prop(default = 1u32)] colspan: u32,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_et = crate::infra::uid::generate("et");
     view! {
         <tr
             data-rs-empty-table-row=""
-            data-rs-uid=crate::infra::uid::generate("et")
+            data-rs-uid=uid_et
             role="row"
             class=class
         >

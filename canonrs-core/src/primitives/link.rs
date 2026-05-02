@@ -33,6 +33,7 @@ pub fn LinkPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::A>>,
 ) -> impl IntoView {
+    let uid_lnk = crate::infra::uid::generate("lnk");
     let d = disabled_attrs(disabled);
     let target = if external { "_blank" } else { "" };
     let rel    = if external { "noopener noreferrer" } else { "" };
@@ -40,7 +41,7 @@ pub fn LinkPrimitive(
     view! {
         <a
             data-rs-link=""
-            data-rs-uid=crate::infra::uid::generate("lnk")
+            data-rs-uid=uid_lnk
             data-rs-variant=variant.as_str()
             data-rs-disabled=d.data_rs_disabled
             data-rs-state=state_str

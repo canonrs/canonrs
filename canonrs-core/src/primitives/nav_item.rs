@@ -15,13 +15,14 @@ pub fn NavItemPrimitive(
     #[prop(default = ActivityState::Inactive)] active: ActivityState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
+    let uid_ni = crate::infra::uid::generate("ni");
     let a = activity_attrs(active);
     let d = disabled_attrs(disabled);
     let is_active = active == ActivityState::Active;
     view! {
         <a
             data-rs-nav-item=""
-            data-rs-uid=crate::infra::uid::generate("ni")
+            data-rs-uid=uid_ni
             data-rs-interaction="init"
             data-rs-state={
                 let mut s = a.data_rs_state.to_string();
@@ -48,10 +49,12 @@ pub fn NavGroupPrimitive(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::from("vertical"))] direction: String,
 ) -> impl IntoView {
+    let uid_ng = crate::infra::uid::generate("ng");
     view! {
         <nav
             data-rs-nav-group=""
-            data-rs-uid=crate::infra::uid::generate("ng")
+
+                        data-rs-uid=uid_ng
             data-rs-interaction="init"
             data-rs-direction=direction
             aria-label=aria_label

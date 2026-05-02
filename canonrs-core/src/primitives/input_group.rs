@@ -11,10 +11,11 @@ pub fn InputGroupPrimitive(
     #[prop(default = ToggleState::Off)] merge_radius: ToggleState,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
+    let uid_ig = crate::infra::uid::generate("ig");
     view! {
         <div
             data-rs-input-group=""
-            data-rs-uid=crate::infra::uid::generate("ig")
+            data-rs-uid=uid_ig
             data-rs-interaction="init"
             role="group"
             data-rs-state={if merge_radius == ToggleState::On { Some("merge-radius") } else { None }}
@@ -31,10 +32,12 @@ pub fn InputGroupPrefix(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_igp = crate::infra::uid::generate("igp");
     view! {
         <div
             data-rs-input-group-prefix=""
-            data-rs-uid=crate::infra::uid::generate("igp")
+
+                        data-rs-uid=uid_igp
             class=class
         >
             {children()}
@@ -47,10 +50,12 @@ pub fn InputGroupSuffix(
     children: Children,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_igs = crate::infra::uid::generate("igs");
     view! {
         <div
             data-rs-input-group-suffix=""
-            data-rs-uid=crate::infra::uid::generate("igs")
+
+                        data-rs-uid=uid_igs
             class=class
         >
             {children()}

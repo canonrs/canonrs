@@ -52,10 +52,11 @@ pub fn BadgePrimitive(
     #[prop(into, optional)] aria_label: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_bdg = crate::infra::uid::generate("bdg");
     view! {
         <span
             data-rs-badge=""
-            data-rs-uid=crate::infra::uid::generate("bdg")
+            data-rs-uid=uid_bdg
             data-rs-variant=variant.as_str()
             data-rs-interactivity=interactivity.as_str()
             aria-label=aria_label

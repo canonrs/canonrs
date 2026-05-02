@@ -1,5 +1,6 @@
 use leptos::prelude::*;
 use super::theme_types::{ThemeContext, ThemeMode};
+use crate::infra::uid::UidRoot;
 
 #[component]
 pub fn ThemeProvider(children: Children) -> impl IntoView {
@@ -36,7 +37,9 @@ pub fn CanonRSRoot(
 ) -> impl IntoView {
     view! {
         <ThemeProvider>
-            {children()}
+            <UidRoot>
+                {children()}
+            </UidRoot>
         </ThemeProvider>
     }
 }

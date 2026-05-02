@@ -25,10 +25,11 @@ pub fn TabsPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
+    let uid_tab = crate::infra::uid::generate("tab");
     view! {
         <div
             data-rs-tabs=""
-            data-rs-uid=crate::infra::uid::generate("tab")
+            data-rs-uid=uid_tab
             data-rs-interaction="nav"
             class=class
             node_ref=node_ref.unwrap_or_default()

@@ -65,6 +65,7 @@ pub fn BannerPrimitive(
     #[prop(default = VisibilityState::Open)] visibility: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid_bn = crate::infra::uid::generate("bn");
     let v = visibility_attrs(visibility);
     let role = match variant {
         BannerVariant::Error | BannerVariant::Warning => "alert",
@@ -77,7 +78,7 @@ pub fn BannerPrimitive(
     view! {
         <div
             data-rs-banner=""
-            data-rs-uid=crate::infra::uid::generate("bn")
+            data-rs-uid=uid_bn
             data-rs-interaction="dismiss"
             data-rs-state=variant.as_str()
             data-rs-visibility=v.data_rs_state

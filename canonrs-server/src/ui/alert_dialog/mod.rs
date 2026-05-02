@@ -1,15 +1,7 @@
-pub mod alert_dialog_ui;
+mod alert_dialog_ui;
+pub mod alert_dialog_boundary;
 pub mod preview;
 
-// no types to re-export from alert_dialog_ui
-
-#[cfg(feature = "examples")]
-pub mod examples;
-#[cfg(feature = "examples")]
-pub use examples::*;
-
-pub use alert_dialog_ui::AlertDialogPreview;
-pub use preview::AlertDialogShowcasePreview;
-pub mod alert_dialog_boundary;
 pub use alert_dialog_boundary::*;
 pub use alert_dialog_boundary::AlertDialog;
+pub use preview::AlertDialogShowcasePreview;

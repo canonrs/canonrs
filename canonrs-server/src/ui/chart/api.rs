@@ -9,7 +9,7 @@ pub const CHART_API: ComponentApi = ComponentApi {
     description: "Data chart visualization",
     props: &[
         PropDef { name: "data", kind: PropType::String, required: true, default: None, description: "Prop value" },
-        PropDef { name: "chart_type", kind: PropType::String, required: false, default: Some("line"), description: "Prop value" },
+        PropDef { name: "chart_type", kind: PropType::Enum(&["bar", "line", "area", "pie", "donut", "scatter", "radar"]), required: false, default: Some("line"), description: "Prop value" },
         PropDef { name: "height", kind: PropType::Number, required: false, default: Some("320u32"), description: "Prop value" },
         PropDef { name: "show_grid", kind: PropType::Bool, required: false, default: Some("true"), description: "Prop value" },
         PropDef { name: "show_legend", kind: PropType::Bool, required: false, default: Some("true"), description: "Prop value" },

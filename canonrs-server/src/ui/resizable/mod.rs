@@ -1,12 +1,8 @@
-pub mod resizable_ui;
+mod resizable_ui;
 pub mod resizable_boundary;
-pub use resizable_boundary::*;
 pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
 
-// no types to re-export from resizable_ui
-pub use canonrs_core::primitives::Orientation;
-#[cfg(feature = "examples")]
-pub use examples::*;
+pub use resizable_boundary::*;
+pub use resizable_boundary::{Resizable, ResizablePanel, ResizableHandle};
+pub use canonrs_core::primitives::ResizableOrientation;
 pub use preview::ResizableShowcasePreview;

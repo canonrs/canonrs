@@ -17,11 +17,12 @@ pub fn InputOtpPrimitive(
     #[prop(into, default = String::new())] inputmode: String,
     #[prop(into, default = String::new())] autocomplete: String,
 ) -> impl IntoView {
+    let uid_otp = crate::infra::uid::generate("otp");
     let d = disabled_attrs(disabled);
     view! {
         <input
             data-rs-input-otp=""
-            data-rs-uid=crate::infra::uid::generate("otp")
+            data-rs-uid=uid_otp
             data-rs-disabled=d.data_rs_disabled
             type="text"
             name={if name.is_empty() { None } else { Some(name) }}

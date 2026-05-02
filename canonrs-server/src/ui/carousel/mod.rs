@@ -1,12 +1,7 @@
-pub mod carousel_ui;
-pub mod carousel_primitive;
+mod carousel_ui;
 pub mod carousel_boundary;
-pub use carousel_boundary::*;
 pub mod preview;
-#[cfg(feature = "examples")]
-pub mod examples;
 
-// no types to re-export from carousel_ui
-#[cfg(feature = "examples")]
-pub use examples::*;
+pub use carousel_boundary::*;
+pub use carousel_boundary::{Carousel, CarouselTrack, CarouselItem, CarouselPrev, CarouselNext, CarouselIndicators, CarouselDot};
 pub use preview::CarouselShowcasePreview;
