@@ -6,10 +6,8 @@ use crate::runtime::{lifecycle, interactive, state};
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
-    // projeta data-rs-disabled para data-rs-state
-    let disabled = root.get_attribute("data-rs-disabled")
-        .map(|v| v == "true" || v == "disabled")
-        .unwrap_or(false);
+    // data-rs-disabled="" significa disabled (atributo presente = disabled)
+    let disabled = root.has_attribute("data-rs-disabled");
     if disabled {
         state::add_state(&root, "disabled");
     }

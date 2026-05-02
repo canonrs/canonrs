@@ -4,7 +4,7 @@
 
 use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState};
-use crate::infra::state_engine::visibility_attrs;
+use crate::infra::state_engine::{disabled_attrs, visibility_attrs};
 use crate::infra::uid::generate;
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
@@ -23,17 +23,18 @@ impl AccordionSelection {
 pub fn AccordionPrimitive(
     children: Children,
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
-    #[prop(default = true)] collapsible: bool,
+    #[prop(into, default = "true".to_string())] collapsible: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
+    let uid = generate("ac");
     view! {
         <div
             data-rs-accordion=""
-            data-rs-uid=generate("ac")
+            data-rs-uid=uid
             data-rs-interaction="nav"
             data-rs-selection=selection.as_str()
-            data-rs-collapsible=if collapsible { "true" } else { "false" }
+            data-rs-collapsible=collapsible
             class=class
             node_ref=node_ref.unwrap_or_default()
         >
@@ -51,18 +52,14 @@ pub fn AccordionItemPrimitive(
 ) -> impl IntoView {
     let uid = generate("ac-item");
     let s = visibility_attrs(state);
-    let state_str = if disabled == DisabledState::Disabled {
-        format!("{} disabled", s.data_rs_state)
-    } else {
-        s.data_rs_state.to_string()
-    };
-    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-accordion-item=""
             data-rs-uid=uid
-            data-rs-state=state_str
-            aria-disabled=aria_disabled
+            data-rs-state=s.data_rs_state
+            data-rs-disabled=d.data_rs_disabled
+            aria-disabled=d.aria_disabled
             role="group"
             class=class
         >
@@ -75,17 +72,20 @@ pub fn AccordionItemPrimitive(
 pub fn AccordionTriggerPrimitive(
     children: Children,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let d = disabled_attrs(disabled);
+    let s = visibility_attrs(state);
     view! {
         <h3 data-rs-accordion-heading="">
             <button
                 type="button"
                 data-rs-accordion-trigger=""
                 data-rs-uid=generate("ac-trigger")
-                aria-expanded="false"
-                aria-disabled=aria_disabled
+                data-rs-disabled=d.data_rs_disabled
+                aria-expanded=s.aria_expanded
+                aria-disabled=d.aria_disabled
                 class=class
             >
                 {children()}
@@ -100,12 +100,16 @@ pub fn AccordionTriggerPrimitive(
 #[component]
 pub fn AccordionContentPrimitive(
     children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("ac-content");
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-accordion-content=""
-            data-rs-uid=generate("ac-content")
+            data-rs-uid=uid
+            data-rs-state=s.data_rs_state
             class=class
         >
             {children()}

@@ -45,13 +45,13 @@ pub fn BreadcrumbLinkPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let a = activity_attrs(state);
-    let is_current = state == ActivityState::Active;
+    let aria_current = if state == ActivityState::Active { Some("page") } else { None };
     view! {
         <a
             data-rs-breadcrumb-link=""
             data-rs-state=a.data_rs_state
             href=href
-            aria-current=if is_current { Some("page") } else { None }
+            aria-current=aria_current
             class=class
         >
             {children()}

@@ -11,7 +11,7 @@ use canonrs_core::primitives::{
 pub fn Accordion(
     children: Children,
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
-    #[prop(default = true)] collapsible: bool,
+    #[prop(into, default = "true".to_string())] collapsible: String,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {

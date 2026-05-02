@@ -4,7 +4,7 @@ use canonrs_core::primitives::AccordionSelection;
 
 pub fn basic_example() -> impl IntoView {
     view! {
-        <Accordion selection=AccordionSelection::Single collapsible=true>
+        <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
             <AccordionItem>
                 <AccordionTrigger>"Item 1"</AccordionTrigger>
                 <AccordionContent>

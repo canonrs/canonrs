@@ -96,8 +96,6 @@ pub fn ConfirmDialogCancelPrimitive(
         <button
             type="button"
             data-rs-confirm-dialog-cancel=""
-            data-rs-button=""
-            data-rs-variant="ghost"
             aria-label=aria_label
             class=class
         >
@@ -117,7 +115,6 @@ pub fn ConfirmDialogConfirmPrimitive(
         <button
             type="button"
             data-rs-confirm-dialog-confirm=""
-            data-rs-button=""
             data-rs-variant=variant.as_str()
             aria-label=aria_label
             class=class
@@ -140,7 +137,6 @@ pub fn ConfirmDialogTriggerPrimitive(
         <button
             type="button"
             data-rs-confirm-dialog-trigger=""
-            data-rs-button=""
             data-rs-variant=variant.as_str()
             data-rs-target=target
             data-rs-value=value
@@ -167,12 +163,14 @@ pub fn ConfirmDialogPortalPrimitive(children: ChildrenFn) -> impl IntoView {
 #[component]
 pub fn ConfirmDialogContentPrimitive(
     children: Children,
+    #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-confirm-dialog-content=""
-            data-rs-state="closed"
+            data-rs-state=s.data_rs_state
             role="alertdialog"
             aria-modal="true"
             tabindex="-1"

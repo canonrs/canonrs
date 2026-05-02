@@ -5,43 +5,27 @@
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
 use crate::infra::state_engine::visibility_attrs;
-use crate::primitives::status_dot::{StatusDotPrimitive, StatusDotVariant};
 
 #[component]
 pub fn AvatarPrimitive(
     children: Children,
-    #[prop(into, default = String::new())] status: String,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] size: String,
     #[prop(into, default = String::new())] shape: String,
+    #[prop(into, default = String::new())] status: String,
 ) -> impl IntoView {
-    let uid_av = crate::infra::uid::generate("av");
-    let dot_variant = match status.as_str() {
-        "online"  => Some(StatusDotVariant::Online),
-        "offline" => Some(StatusDotVariant::Offline),
-        "busy"    => Some(StatusDotVariant::Busy),
-        "away"    => Some(StatusDotVariant::Away),
-        _         => None,
-    };
-    let status_state = status.clone();
+    let uid = crate::infra::uid::generate("av");
     view! {
         <span
-            data-rs-avatar-group=""
-            data-rs-uid=uid_av
+            data-rs-avatar=""
+            data-rs-uid=uid
             data-rs-interaction="init"
-            data-rs-state=status_state
             data-rs-size=size
+            data-rs-shape=shape
+            data-rs-status=status
             class=class
         >
-            <span
-                data-rs-avatar=""
-                data-rs-shape=shape
-            >
-                {children()}
-            </span>
-            {dot_variant.map(|v| view! {
-                <StatusDotPrimitive variant=v class="">" "</StatusDotPrimitive>
-            })}
+            {children()}
         </span>
     }
 }
@@ -53,13 +37,12 @@ pub fn AvatarImagePrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = VisibilityState::Open)] state: VisibilityState,
 ) -> impl IntoView {
-    let uid_av_img = crate::infra::uid::generate("av-img");
+    let uid = crate::infra::uid::generate("av-img");
     let s = visibility_attrs(state);
     view! {
         <img
             data-rs-avatar-image=""
-
-                        data-rs-uid=uid_av_img
+            data-rs-uid=uid
             data-rs-state=s.data_rs_state
             src=src
             alt=alt
@@ -74,13 +57,12 @@ pub fn AvatarFallbackPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
-    let uid_av_fb = crate::infra::uid::generate("av-fb");
+    let uid = crate::infra::uid::generate("av-fb");
     let s = visibility_attrs(state);
     view! {
         <span
             data-rs-avatar-fallback=""
-
-                        data-rs-uid=uid_av_fb
+            data-rs-uid=uid
             data-rs-state=s.data_rs_state
             aria-hidden=s.aria_hidden
             class=class

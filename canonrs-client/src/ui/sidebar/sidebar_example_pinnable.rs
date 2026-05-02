@@ -54,7 +54,7 @@ pub fn SidebarPinnable(
                             <span data-sidebar-label>"Dashboard"</span>
                         </SidebarMenuItem>
 
-                        <Accordion selection=AccordionSelection::Single collapsible=true>
+                        <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                             <AccordionItem>
                                 <AccordionTrigger>
                                     <span data-sidebar-icon>"📁"</span>

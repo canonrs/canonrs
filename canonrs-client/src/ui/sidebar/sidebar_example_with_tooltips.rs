@@ -53,7 +53,7 @@ pub fn SidebarWithTooltips(
                                 </TooltipContent>
                             </Tooltip>
 
-                            <Accordion selection=AccordionSelection::Single collapsible=true>
+                            <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                                 <AccordionItem>
                                     <Tooltip>
                                         <TooltipTrigger>

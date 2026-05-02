@@ -4,11 +4,30 @@
 
 use leptos::prelude::*;
 
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum CardVariant {
+    #[default]
+    Default,
+    Outlined,
+    Elevated,
+    Ghost,
+}
+impl CardVariant {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Default  => "default",
+            Self::Outlined => "outlined",
+            Self::Elevated => "elevated",
+            Self::Ghost    => "ghost",
+        }
+    }
+}
+
 #[component]
 pub fn CardPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
-    #[prop(into, default = String::new())] variant: String,
+    #[prop(default = CardVariant::Default)] variant: CardVariant,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     let uid_crd = crate::infra::uid::generate("crd");
@@ -16,7 +35,7 @@ pub fn CardPrimitive(
         <div
             data-rs-card=""
             data-rs-uid=uid_crd
-            data-rs-variant=variant
+            data-rs-variant=variant.as_str()
             role="region"
             aria-label=aria_label
             class=class

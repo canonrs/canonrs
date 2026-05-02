@@ -43,7 +43,7 @@ pub fn SidebarMultiLevel(
                             <span data-sidebar-label>"Dashboard"</span>
                         </SidebarMenuItem>
 
-                        <Accordion selection=AccordionSelection::Single collapsible=true>
+                        <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                             <AccordionItem>
                                 <AccordionTrigger>
                                     <span data-sidebar-icon>"📁"</span>
@@ -51,7 +51,7 @@ pub fn SidebarMultiLevel(
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     <div style="padding-left: var(--sidebar-inset-padding-left);">
-                                        <Accordion selection=AccordionSelection::Single collapsible=true>
+                                        <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                                             <AccordionItem>
                                                 <AccordionTrigger>
                                                     <span data-sidebar-label>"Frontend"</span>
@@ -72,7 +72,7 @@ pub fn SidebarMultiLevel(
                                             </AccordionItem>
                                         </Accordion>
 
-                                        <Accordion selection=AccordionSelection::Single collapsible=true>
+                                        <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                                             <AccordionItem>
                                                 <AccordionTrigger>
                                                     <span data-sidebar-label>"Backend"</span>

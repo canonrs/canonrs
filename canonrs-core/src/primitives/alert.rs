@@ -7,12 +7,8 @@ use leptos::prelude::*;
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
 pub enum AlertVariant {
     #[default]
-    Default,
-    Destructive,
-    Warning,
-    Success,
+    Default, Destructive, Warning, Success,
 }
-
 impl AlertVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -22,14 +18,12 @@ impl AlertVariant {
             Self::Success     => "success",
         }
     }
-
     pub fn role(&self) -> &'static str {
         match self {
             Self::Destructive | Self::Warning => "alert",
             _                                 => "status",
         }
     }
-
     pub fn aria_live(&self) -> &'static str {
         match self {
             Self::Destructive | Self::Warning => "assertive",
@@ -44,21 +38,13 @@ pub fn AlertPrimitive(
     #[prop(default = AlertVariant::Default)] variant: AlertVariant,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid_al = crate::infra::uid::generate("al");
-    // state semântico derivado do variant
-    let semantic_state = match variant {
-        AlertVariant::Destructive => "open error",
-        AlertVariant::Warning     => "open warning",
-        AlertVariant::Success     => "open success",
-        AlertVariant::Default     => "open",
-    };
+    let uid = crate::infra::uid::generate("al");
     view! {
         <div
             data-rs-alert=""
-            data-rs-uid=uid_al
+            data-rs-uid=uid
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
-            data-rs-state=semantic_state
             role=variant.role()
             aria-live=variant.aria_live()
             aria-atomic="true"

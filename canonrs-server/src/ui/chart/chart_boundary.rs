@@ -7,7 +7,7 @@ use canonrs_core::ChartData;
 pub fn Chart(
     data: ChartData,
     #[prop(default = ChartType::Line)] chart_type: ChartType,
-    #[prop(default = 320u32)] height: u32,
+    #[prop(into, default = "320".to_string())] height: String,
     #[prop(default = true)] show_grid: bool,
     #[prop(default = true)] show_legend: bool,
     #[prop(default = true)] animate: bool,

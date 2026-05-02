@@ -10,7 +10,7 @@ pub const ACCORDION_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "selection", kind: PropType::Enum(&["single", "multiple"]), required: false, default: Some("single"), description: "Prop value" },
-        PropDef { name: "collapsible", kind: PropType::Bool, required: false, default: Some("true"), description: "Prop value" },
+        PropDef { name: "collapsible", kind: PropType::String, required: false, default: Some("true"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
     ],
 };

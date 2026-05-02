@@ -3,9 +3,6 @@
 //! Carousel Primitive - Interactive slideshow
 
 use leptos::prelude::*;
-use std::sync::atomic::{AtomicU32, Ordering};
-#[allow(dead_code)]
-static CAROUSEL_UID: AtomicU32 = AtomicU32::new(0);
 use crate::meta::{ActivityState, DisabledState, VisibilityState};
 use crate::infra::state_engine::{activity_attrs, disabled_attrs, visibility_attrs};
 
@@ -15,10 +12,11 @@ pub fn CarouselPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
+    let uid = crate::infra::uid::generate("cr");
     view! {
         <div
             data-rs-carousel=""
-            data-rs-uid=CAROUSEL_UID.fetch_add(1, Ordering::SeqCst).to_string()
+            data-rs-uid=uid
             data-rs-interaction="gesture"
             role="region"
             aria-roledescription="carousel"
@@ -52,15 +50,10 @@ pub fn CarouselItemPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = ActivityState::Inactive)] activity: ActivityState,
     #[prop(default = VisibilityState::Closed)] visibility: VisibilityState,
-    #[prop(optional)] index: Option<usize>,
-    #[prop(optional)] total: Option<usize>,
+    #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
     let aa  = activity_attrs(activity);
     let vis = visibility_attrs(visibility);
-    let aria_label = match (index, total) {
-        (Some(i), Some(t)) => Some(format!("Slide {} of {}", i + 1, t)),
-        _ => None,
-    };
     view! {
         <div
             data-rs-carousel-item=""
@@ -151,7 +144,6 @@ pub fn CarouselDotPrimitive(
             data-rs-carousel-dot=""
             data-rs-state=aa.data_rs_state
             aria-label=aria_label
-            aria-current=if state == ActivityState::Active { Some("true") } else { None }
             class=class
         />
     }

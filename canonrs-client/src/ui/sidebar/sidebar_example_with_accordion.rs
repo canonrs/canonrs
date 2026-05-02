@@ -43,7 +43,7 @@ pub fn SidebarWithAccordion(
                             <span data-sidebar-label>"Dashboard"</span>
                         </SidebarMenuItem>
 
-                        <Accordion selection=AccordionSelection::Single collapsible=true>
+                        <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                             <AccordionItem>
                                 <AccordionTrigger>
                                     <span data-sidebar-icon>"📁"</span>
@@ -72,7 +72,7 @@ pub fn SidebarWithAccordion(
 
                         <SidebarGroupLabel>"Settings"</SidebarGroupLabel>
 
-                        <Accordion selection=AccordionSelection::Single collapsible=true>
+                        <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                             <AccordionItem>
                                 <AccordionTrigger>
                                     <span data-sidebar-icon>"⚙"</span>

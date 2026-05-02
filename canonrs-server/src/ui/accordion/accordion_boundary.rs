@@ -16,7 +16,7 @@ pub use canonrs_core::primitives::AccordionSelection;
 pub fn Accordion(
     children: Children,
     #[prop(default = AccordionSelection::Single)] selection: AccordionSelection,
-    #[prop(default = true)] collapsible: bool,
+    #[prop(into, default = "true".to_string())] collapsible: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! { <AccordionUi selection=selection collapsible=collapsible class=class>{children()}</AccordionUi> }

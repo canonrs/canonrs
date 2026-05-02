@@ -40,7 +40,7 @@ pub fn AccordionShowcasePreview() -> impl IntoView {
             </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Non-collapsible"</span>
-                <Accordion collapsible=false>
+                <Accordion collapsible="false".to_string()>
                     <AccordionItem>
                         <AccordionTrigger>"Always one open"</AccordionTrigger>
                         <AccordionContent>"This accordion always keeps one item open."</AccordionContent>

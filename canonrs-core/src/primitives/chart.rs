@@ -8,13 +8,7 @@ use crate::meta::{ChartGridState, ChartLegendState};
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum ChartType {
     #[default]
-    Bar,
-    Line,
-    Area,
-    Pie,
-    Donut,
-    Scatter,
-    Radar,
+    Bar, Line, Area, Pie, Donut, Scatter, Radar,
 }
 impl ChartType {
     pub fn as_str(&self) -> &'static str {
@@ -30,43 +24,69 @@ impl ChartType {
     }
 }
 
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum ChartAnimation {
+    #[default]
+    Auto,
+    None,
+}
+impl ChartAnimation {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Auto => "auto",
+            Self::None => "none",
+        }
+    }
+}
+
 #[component]
 pub fn ChartPrimitive(
+    children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = ChartType::Bar)] chart_type: ChartType,
-    #[prop(default = 320u32)] height: u32,
+    #[prop(into, default = "320".to_string())] height: String,
     #[prop(optional, into)] aria_label: Option<String>,
-    #[prop(into, optional)] value: Option<String>,
-    #[prop(into, default = String::new())] chart_data: String,
+    #[prop(into, default = String::new())] value: String,
     #[prop(default = ChartGridState::Visible)] chart_grid: ChartGridState,
     #[prop(default = ChartLegendState::Visible)] chart_legend: ChartLegendState,
-    #[prop(default = true)] chart_animate: bool,
-    children: Children,
+    #[prop(default = ChartAnimation::Auto)] animation: ChartAnimation,
 ) -> impl IntoView {
-    let uid_ch = crate::infra::uid::generate("ch");
-    let aria = aria_label.unwrap_or_else(|| format!("{} chart", chart_type.as_str()));
+    let uid = crate::infra::uid::generate("ch");
     view! {
         <div
             data-rs-chart=""
-            data-rs-uid=uid_ch
+            data-rs-uid=uid
             data-rs-interaction="data"
             data-rs-chart-type=chart_type.as_str()
-            data-rs-chart-height={height.to_string()}
-            data-rs-animation={if chart_animate { "auto" } else { "none" }}
-            data-rs-value=value.unwrap_or_default()
+            data-rs-chart-height=height
+            data-rs-animation=animation.as_str()
+            data-rs-value=value
             role="img"
-            aria-label=aria
+            aria-label=aria_label
             class=class
         >
             <canvas data-rs-chart-canvas="" aria-hidden="true" />
             <div data-rs-chart-overlay="" aria-hidden="true">
-                <div data-rs-chart-tooltip="" data-rs-state="inactive" />
-                <div data-rs-chart-crosshair="" data-rs-state="inactive" />
+                <div data-rs-chart-tooltip="" />
+                <div data-rs-chart-crosshair="" />
             </div>
             <div data-rs-chart-legend="" data-rs-state=chart_legend.as_str() />
             <div data-rs-chart-grid="" data-rs-state=chart_grid.as_str() />
-            <script data-rs-chart-data="" type="application/json">{chart_data}</script>
             {children()}
         </div>
+    }
+}
+
+/// ChartDataPrimitive — injeta dados via data attribute
+/// O runtime lê data-rs-chart-data para renderizar o gráfico
+#[component]
+pub fn ChartDataPrimitive(
+    #[prop(into, default = String::new())] data: String,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-chart-data=data
+            aria-hidden="true"
+        />
     }
 }

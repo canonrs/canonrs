@@ -44,7 +44,7 @@ pub fn SidebarRailMode() -> impl IntoView {
                                 <TooltipContent>"Dashboard"</TooltipContent>
                             </Tooltip>
 
-                            <Accordion selection=AccordionSelection::Single collapsible=true>
+                            <Accordion selection=AccordionSelection::Single collapsible="true".to_string()>
                                 <AccordionItem>
                                     <AccordionTrigger>
                                         <span data-sidebar-icon>"📁"</span>

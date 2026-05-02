@@ -37,19 +37,19 @@ fn area_data() -> ChartData {
 pub fn ChartShowcasePreview() -> impl IntoView {
     view! {
         <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
-            <Chart data=monthly_data() chart_type=ChartType::Line height=280u32
+            <Chart data=monthly_data() chart_type=ChartType::Line height="280".to_string()
                 value="revenue-monthly" aria_label="Monthly revenue and expenses line chart" />
             <p data-rs-showcase-preview-anchor="">
                 "Chart structure and data binding enforced via contract."
             </p>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Bar"</span>
-                <Chart data=bar_data() chart_type=ChartType::Bar height=200u32
+                <Chart data=bar_data() chart_type=ChartType::Bar height="200".to_string()
                     value="growth-quarterly" aria_label="Quarterly growth bar chart" />
             </Stack>
             <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
                 <span data-rs-showcase-preview-label="">"Area"</span>
-                <Chart data=area_data() chart_type=ChartType::Area height=200u32
+                <Chart data=area_data() chart_type=ChartType::Area height="200".to_string()
                     value="users-weekly" aria_label="Weekly active users area chart" />
             </Stack>
         </Stack>

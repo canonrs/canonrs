@@ -9,51 +9,35 @@ use crate::infra::state_engine::visibility_attrs;
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum BannerVariant {
     #[default]
-    Info,
-    Success,
-    Warning,
-    Error,
+    Info, Success, Warning, Error,
 }
-
 impl BannerVariant {
     pub fn as_str(&self) -> &'static str {
         match self {
-            Self::Info     => "info",
-            Self::Success  => "success",
-            Self::Warning  => "warning",
-            Self::Error    => "error",
+            Self::Info    => "info",
+            Self::Success => "success",
+            Self::Warning => "warning",
+            Self::Error   => "error",
         }
     }
-
     pub fn role(&self) -> &'static str {
         match self {
             Self::Error | Self::Warning => "alert",
             _                           => "region",
         }
     }
-
     pub fn aria_live(&self) -> &'static str {
         match self {
             Self::Error | Self::Warning => "assertive",
             _                           => "polite",
         }
     }
-
     pub fn aria_label(&self) -> &'static str {
         match self {
             Self::Error   => "Error notification",
             Self::Warning => "Warning notification",
             Self::Success => "Success notification",
             Self::Info    => "System notification",
-        }
-    }
-
-    pub fn semantic_state(&self) -> &'static str {
-        match self {
-            Self::Error   => "open error",
-            Self::Warning => "open warning",
-            Self::Success => "open success",
-            Self::Info    => "open info",
         }
     }
 }
@@ -65,25 +49,17 @@ pub fn BannerPrimitive(
     #[prop(default = VisibilityState::Open)] visibility: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let uid_bn = crate::infra::uid::generate("bn");
+    let uid = crate::infra::uid::generate("bn");
     let v = visibility_attrs(visibility);
-    let role = match variant {
-        BannerVariant::Error | BannerVariant::Warning => "alert",
-        _ => "region",
-    };
-    let aria_live = match variant {
-        BannerVariant::Error | BannerVariant::Warning => "assertive",
-        _ => "polite",
-    };
     view! {
         <div
             data-rs-banner=""
-            data-rs-uid=uid_bn
+            data-rs-uid=uid
             data-rs-interaction="dismiss"
-            data-rs-state=variant.as_str()
-            data-rs-visibility=v.data_rs_state
-            role=role
-            aria-live=aria_live
+            data-rs-variant=variant.as_str()
+            data-rs-state=v.data_rs_state
+            role=variant.role()
+            aria-live=variant.aria_live()
             aria-label=variant.aria_label()
             aria-atomic="true"
             hidden=v.hidden
