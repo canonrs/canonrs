@@ -42,3 +42,29 @@ Roteia por atributo: data-rs-popover → popover::init, etc.
 Conclusão: quando o loader chama init_all(), ele escaneia o DOM, encontra [data-rs-interaction="overlay"], chama init_overlay que chama popover::init. O código do overlay está no bundle. O loader não usa paths separados por grupo — usa o bundle único.
 
 
+
+## `CANON_FEATURES` — Features extras do lib
+
+O orchestrator suporta passar flags de features Rust adicionais para o `cargo leptos watch` via variável de ambiente `CANON_FEATURES`.
+
+**Uso:**
+```bash
+CANON_FEATURES=webgl make dev
+# ou
+make dev-webgl
+```
+
+**Como funciona:**
+
+Quando `CANON_FEATURES` está definida, o `spawn_leptos` adiciona `--lib-features <valor>` ao comando `cargo leptos watch`. Isso permite ativar features opcionais de compilação no crate lib do frontend sem modificar o código do orchestrator.
+
+**Valores suportados atualmente:**
+
+| Valor | Efeito |
+|-------|--------|
+| `webgl` | Ativa o renderer WebGL2 via `rs-canvas-renderer-webgl` no lugar do backend Canvas2D padrão |
+
+**Adicionando novas features:**
+
+Qualquer feature declarada no `Cargo.toml` do frontend na seção `[features]` pode ser ativada desta forma. Múltiplas features podem ser passadas como string separada por vírgulas: `CANON_FEATURES=webgl,feature2`.
+

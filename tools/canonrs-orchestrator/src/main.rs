@@ -205,8 +205,16 @@ fn build_css(root: &PathBuf) {
 fn spawn_leptos(root: &PathBuf, project: &str, state: &Arc<Mutex<SystemState>>) -> Child {
     println!("[canon][leptos] starting — project: {}", project);
     state.lock().unwrap().leptos = "RUNNING".into();
+    let mut args = vec!["leptos", "watch", "--project", project];
+    // CANON_FEATURES env var allows passing extra lib features
+    // e.g. CANON_FEATURES=webgl make dev
+    let extra_features = std::env::var("CANON_FEATURES").unwrap_or_default();
+    if !extra_features.is_empty() {
+        args.push("--lib-features");
+        args.push(Box::leak(extra_features.into_boxed_str()));
+    }
     Command::new("cargo")
-        .args(["leptos", "watch", "--project", project])
+        .args(&args)
         .current_dir(root)
         .env("CANON_ROOT", root)
         .spawn()
