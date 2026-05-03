@@ -98,6 +98,10 @@ pub mod hooks {
 #[cfg(all(feature = "hydrate", target_arch = "wasm32"))]
 pub mod runtime {
     pub use canonrs_client::runtime::init;
+    #[cfg(target_arch = "wasm32")]
+    pub fn scan_and_init() {
+        canonrs_interactions::runtime::scan_and_init();
+    }
 }
 
 // ── Dev ───────────────────────────────────────────────────────────────────────

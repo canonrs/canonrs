@@ -2,7 +2,7 @@
 
 use leptos::prelude::*;
 use canonrs_core::primitives::{
-    CardPrimitive,
+    CardPrimitive, CardVariant,
     CardHeaderPrimitive,
     CardTitlePrimitive,
     CardDescriptionPrimitive,
@@ -20,7 +20,12 @@ pub fn Card(
 
     view! {
         <CardPrimitive
-            variant=variant
+            variant=match variant.as_str() {
+                "outlined" => CardVariant::Outlined,
+                "elevated" => CardVariant::Elevated,
+                "ghost"    => CardVariant::Ghost,
+                _          => CardVariant::Default,
+            }
             class={base_class}
         >
             {children()}

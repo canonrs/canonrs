@@ -7,6 +7,7 @@ edition = "2021"
 canonrs-core = { path = "../canonrs-core" }
 canonrs-server = { path = "../canonrs-server", default-features = false, optional = true }
 canonrs-client = { path = "../canonrs-client", optional = true }
+canonrs-interactions = { path = "../canonrs-interactions" }
 
 [features]
 default = []
