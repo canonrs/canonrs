@@ -11,6 +11,8 @@ pub fn ColorPickerPrimitive(
     children: Children,
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
+    #[prop(into, default = String::new())] name: String,
+    #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid = crate::infra::uid::generate("cp");
@@ -23,6 +25,8 @@ pub fn ColorPickerPrimitive(
             data-rs-interaction="selection"
             data-rs-state=s.data_rs_state
             data-rs-disabled=d.data_rs_disabled
+            data-rs-name=name
+            data-rs-value=value
             aria-disabled=d.aria_disabled
             class=class
         >

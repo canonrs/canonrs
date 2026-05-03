@@ -26,6 +26,12 @@ fn update_swatch_color(root: &Element, value: &str) {
         let _ = trigger.set_attribute("data-rs-color", value);
     }
     let _ = root.set_attribute("data-rs-value", value);
+    // dispara rs-change para bridges DOM → signal
+    let init = web_sys::CustomEventInit::new();
+    init.set_bubbles(true);
+    if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-change", &init) {
+        let _ = root.dispatch_event(&event);
+    }
 }
 
 pub fn init(root: Element) {

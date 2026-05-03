@@ -12,9 +12,9 @@ pub fn ColorPicker(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
-        <ColorPickerPrimitive state=VisibilityState::Closed disabled=disabled class=class>
+        <ColorPickerPrimitive state=VisibilityState::Closed disabled=disabled name=name.clone() value=value.clone() class=class>
             <ColorPickerTriggerPrimitive state=VisibilityState::Closed disabled=disabled color=value.clone()>
-                <ColorPickerInputPrimitive value=value name=name disabled=disabled />
+                <ColorPickerInputPrimitive value=value name=name.clone() disabled=disabled />
             </ColorPickerTriggerPrimitive>
         </ColorPickerPrimitive>
     }
