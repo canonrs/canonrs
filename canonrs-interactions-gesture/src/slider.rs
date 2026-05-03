@@ -17,11 +17,25 @@ fn set_value(el: &Element, value: f64) {
     if let Ok(h) = el.clone().dyn_into::<HtmlElement>() {
         let _ = h.style().set_property("--slider-fill", &format!("{:.4}%", pct));
     }
+    // dispara rs-change para bridges DOM → signal
+    {
+        let init = web_sys::CustomEventInit::new();
+        init.set_bubbles(true);
+        if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-change", &init) {
+            let _ = el.dispatch_event(&event);
+        }
+    }
 }
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
     if root.has_attribute("data-rs-disabled") && root.get_attribute("aria-disabled").as_deref() == Some("true") { return; }
+
+    // inicializa thumb/fill com valor atual do DOM
+    {
+        let initial = attrs::get_f64(&root, "data-rs-value", attrs::get_f64(&root, "data-rs-min", 0.0));
+        set_value(&root, initial);
+    }
 
     let doc = web_sys::window().and_then(|w| w.document()).unwrap();
 

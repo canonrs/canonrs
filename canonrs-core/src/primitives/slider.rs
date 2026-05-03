@@ -31,6 +31,8 @@ pub fn SliderPrimitive(
             data-rs-interaction="gesture"
             data-rs-orientation=orientation.clone()
             data-rs-disabled=d.data_rs_disabled
+            data-rs-min=safe_min.to_string()
+            data-rs-max=safe_max.to_string()
             data-rs-value=clamped_value.to_string()
             data-rs-percent=percent.to_string()
             data-rs-step=step.to_string()
