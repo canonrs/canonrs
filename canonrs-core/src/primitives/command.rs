@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, ActivityState, VisibilityState};
-use crate::infra::state_engine::{selection_attrs, disabled_attrs, activity_attrs, visibility_attrs};
 
 #[component]
 pub fn CommandPrimitive(
@@ -13,7 +12,6 @@ pub fn CommandPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_cmd = crate::infra::uid::generate("cmd");
-    let s = visibility_attrs(state);
     let listbox_id = crate::infra::uid::generate("cmd-list");
 
     view! {
@@ -21,7 +19,7 @@ pub fn CommandPrimitive(
             data-rs-command=""
             data-rs-uid=uid_cmd
             data-rs-interaction="init"
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             data-rs-listbox-id=listbox_id.clone()
             role="dialog"
             aria-label="Command palette"
@@ -129,20 +127,17 @@ pub fn CommandItemPrimitive(
     #[prop(default = ActivityState::Inactive)] highlighted: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let sel = selection_attrs(selected);
-    let d = disabled_attrs(disabled);
-    let a = activity_attrs(highlighted);
     view! {
         <div
             data-rs-command-item=""
             data-rs-value=value
-            data-rs-state=a.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-activity=highlighted.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             id=crate::infra::uid::generate("cmd-item")
             role="option"
-            aria-selected=sel.aria_selected
-            aria-disabled=d.aria_disabled
-            tabindex=if d.disabled { "-1" } else { "0" }
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
+            aria-disabled=disabled.aria_disabled()
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}

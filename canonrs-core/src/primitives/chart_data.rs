@@ -19,6 +19,19 @@ pub struct ChartData {
 
 impl ChartData {
     pub fn to_json(&self) -> String {
-        serde_json::to_string(self).unwrap_or_default()
+        let labels: Vec<String> = self.labels.iter()
+            .map(|l| format!(r#""{}""#, l.replace('"', "\\\"")))
+            .collect();
+        let series: Vec<String> = self.series.iter().map(|s| {
+            let data: Vec<String> = s.data.iter().map(|d| d.to_string()).collect();
+            let color = s.color.as_deref()
+                .map(|c| format!(r#","color":"{}""#, c))
+                .unwrap_or_default();
+            format!(r#"{{"name":"{}","data":[{}]{}}}"#,
+                s.name.replace('"', "\\\""),
+                data.join(","),
+                color)
+        }).collect();
+        format!(r#"{{"labels":[{}],"series":[{}]}}"#, labels.join(","), series.join(","))
     }
 }

@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{ToggleState, DisabledState};
-use crate::infra::state_engine::{disabled_attrs, toggle_attrs};
 
 
 #[component]
@@ -16,23 +15,21 @@ pub fn TogglePrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_tog = crate::infra::uid::generate("tog");
-    let d = disabled_attrs(disabled);
-    let t = toggle_attrs(pressed);
     view! {
         <label
             data-rs-toggle=""
             data-rs-uid=uid_tog
             data-rs-interaction="init"
-            data-rs-state=t.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-pressed=pressed.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             aria-label=if aria_label.is_empty() { None } else { Some(aria_label) }
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             <input
                 type="checkbox"
                 data-rs-toggle-input=""
-                checked=t.data_rs_state == "on"
+                checked=pressed.as_str() == "on"
                 tabindex="-1"
             />
             <span data-rs-toggle-content="">

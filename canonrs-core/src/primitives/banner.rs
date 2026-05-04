@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum BannerVariant {
@@ -50,19 +49,18 @@ pub fn BannerPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid = crate::infra::uid::generate("bn");
-    let v = visibility_attrs(visibility);
     view! {
         <div
             data-rs-banner=""
             data-rs-uid=uid
             data-rs-interaction="dismiss"
             data-rs-variant=variant.as_str()
-            data-rs-state=v.data_rs_state
+            data-rs-visibility=visibility.as_str()
             role=variant.role()
             aria-live=variant.aria_live()
             aria-label=variant.aria_label()
             aria-atomic="true"
-            hidden=v.hidden
+            hidden=visibility.hidden()
             class=class
         >
             {children()}

@@ -21,7 +21,7 @@ pub fn EmptyTablePrimitive(
             <td colspan=colspan role="cell">
                 <div
                     data-rs-empty-table-content=""
-                    data-rs-state="empty"
+                    data-rs-activity="empty"
                     role="status"
                     aria-live="polite"
                 >

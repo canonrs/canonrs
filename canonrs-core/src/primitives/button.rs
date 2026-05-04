@@ -2,8 +2,7 @@
 //! @canon-owner: primitives-team
 //! Button Primitive - HTML puro
 use leptos::prelude::*;
-use crate::meta::{DisabledState, LoadingState, ToggleState};
-use crate::infra::state_engine::{UiStateAttrs};
+use crate::meta::{DisabledState, LoadingState, ToggleState, ToDataAttr};
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum ButtonVariant {
@@ -88,8 +87,7 @@ pub fn ButtonPrimitive(
     #[prop(default = LoadingState::Idle)] loading: LoadingState,
     #[prop(optional)] pressed: Option<ToggleState>,
 ) -> impl IntoView {
-    let uid   = crate::infra::uid::generate("bt");
-    let attrs = UiStateAttrs::from_button(disabled, loading, pressed);
+    let uid = crate::infra::uid::generate("bt");
     view! {
         <button
             type=button_type.as_str()
@@ -98,13 +96,12 @@ pub fn ButtonPrimitive(
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
-            data-rs-disabled=attrs.data_rs_disabled
-            data-rs-loading=attrs.data_rs_loading
-            data-rs-state=attrs.data_rs_state
-            disabled=attrs.disabled
-            aria-disabled=attrs.aria_disabled
-            aria-busy=attrs.aria_busy
-            aria-pressed=attrs.aria_pressed
+            data-rs-disabled=disabled.to_data_attr().1.ne("enabled").then(|| disabled.to_data_attr().1)
+            data-rs-loading=loading.to_data_attr().1.ne("idle").then(|| loading.to_data_attr().1)
+            disabled=disabled.disabled()
+            aria-disabled=disabled.aria_disabled()
+            aria-busy=loading.aria_busy()
+            aria-pressed=pressed.map(|p| p.aria_pressed())
             aria-label=aria_label
             class=class
         >
@@ -124,8 +121,7 @@ pub fn LinkButtonPrimitive(
     #[prop(into, default = String::new())] href: String,
     #[prop(into, default = String::new())] target: String,
 ) -> impl IntoView {
-    let uid   = crate::infra::uid::generate("bt");
-    let attrs = UiStateAttrs::from_button(disabled, LoadingState::Idle, None);
+    let uid = crate::infra::uid::generate("bt");
     view! {
         <a
             href=href
@@ -135,8 +131,8 @@ pub fn LinkButtonPrimitive(
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
-            data-rs-disabled=attrs.data_rs_disabled
-            aria-disabled=attrs.aria_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             aria-label=aria_label
             class=class
         >

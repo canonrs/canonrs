@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[component]
 pub fn AvatarPrimitive(
@@ -38,12 +37,11 @@ pub fn AvatarImagePrimitive(
     #[prop(default = VisibilityState::Open)] state: VisibilityState,
 ) -> impl IntoView {
     let uid = crate::infra::uid::generate("av-img");
-    let s = visibility_attrs(state);
     view! {
         <img
             data-rs-avatar-image=""
             data-rs-uid=uid
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             src=src
             alt=alt
             class=class
@@ -58,13 +56,12 @@ pub fn AvatarFallbackPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
 ) -> impl IntoView {
     let uid = crate::infra::uid::generate("av-fb");
-    let s = visibility_attrs(state);
     view! {
         <span
             data-rs-avatar-fallback=""
             data-rs-uid=uid
-            data-rs-state=s.data_rs_state
-            aria-hidden=s.aria_hidden
+            data-rs-visibility=state.as_str()
+            aria-hidden=state.aria_hidden()
             class=class
         >
             {children()}

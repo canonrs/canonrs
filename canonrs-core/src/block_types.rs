@@ -162,6 +162,12 @@ impl BlockDefinition {
                         CapabilityPropKind::Enum(opts) => PropFieldType::Select(
                             opts.iter().map(|v| (*v, *v)).collect::<Vec<_>>().leak()
                         ),
+                        CapabilityPropKind::DisabledState  => PropFieldType::Select(&[("enabled", "enabled"), ("disabled", "disabled")]),
+                        CapabilityPropKind::LoadingState   => PropFieldType::Select(&[("idle", "idle"), ("loading", "loading")]),
+                        CapabilityPropKind::VisibilityState => PropFieldType::Select(&[("closed", "closed"), ("open", "open")]),
+                        CapabilityPropKind::ActivityState  => PropFieldType::Select(&[("inactive", "inactive"), ("active", "active")]),
+                        CapabilityPropKind::SelectionState => PropFieldType::Select(&[("unselected", "unselected"), ("selected", "selected")]),
+                        CapabilityPropKind::ToggleState    => PropFieldType::Select(&[("off", "off"), ("on", "on")]),
                     },
                     default: cap.default,
                     scope: PropScope::Capability,

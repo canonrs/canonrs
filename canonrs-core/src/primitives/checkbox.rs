@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::infra::state_engine::disabled_attrs;
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
 pub enum CheckboxState {
@@ -43,26 +42,21 @@ pub fn CheckboxPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_cb = crate::infra::uid::generate("cb");
-    let d = disabled_attrs(disabled);
-    let state = if disabled == DisabledState::Disabled {
-        format!("{} disabled", checked.as_str())
-    } else {
-        checked.as_str().to_string()
-    };
     view! {
         <label
             data-rs-checkbox=""
             data-rs-uid=uid_cb
             data-rs-interaction="init"
-            data-rs-state=state
-            aria-disabled=d.aria_disabled
+            data-rs-selection=checked.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             <input
                 type="checkbox"
                 data-rs-checkbox-input=""
                 checked=checked.is_checked()
-                disabled=d.disabled
+                disabled=disabled.disabled()
                 aria-checked=checked.aria_checked()
                 name={if name.is_empty() { None } else { Some(name) }}
             />

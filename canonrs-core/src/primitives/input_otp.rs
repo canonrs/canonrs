@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::infra::state_engine::disabled_attrs;
 
 #[component]
 pub fn InputOtpPrimitive(
@@ -18,21 +17,20 @@ pub fn InputOtpPrimitive(
     #[prop(into, default = String::new())] autocomplete: String,
 ) -> impl IntoView {
     let uid_otp = crate::infra::uid::generate("otp");
-    let d = disabled_attrs(disabled);
     view! {
         <input
             data-rs-input-otp=""
             data-rs-uid=uid_otp
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             type="text"
             name={if name.is_empty() { None } else { Some(name) }}
             value=value
-            disabled=d.disabled
+            disabled=disabled.disabled()
             maxlength=maxlength.to_string()
             pattern={if pattern.is_empty() { None } else { Some(pattern) }}
             inputmode={if inputmode.is_empty() { None } else { Some(inputmode) }}
             autocomplete={if autocomplete.is_empty() { None } else { Some(autocomplete) }}
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             class=class
         />
     }

@@ -95,7 +95,7 @@ pub fn TocSubtreePrimitive(
     view! {
         <ul
             data-rs-toc-subtree=""
-            data-rs-state=state.as_str()
+            data-rs-navigation=state.as_str()
             class=class
         >
             {children()}
@@ -118,7 +118,7 @@ pub fn TocItemPrimitive(
             data-rs-toc-item=""
             data-rs-level=data_level
             data-rs-target=data_target
-            data-rs-state=state.as_str()
+            data-rs-navigation=state.as_str()
             data-rs-child=if is_child { "true" } else { "false" }
             data-rs-has-children=if has_children { "true" } else { "false" }
             class=class
@@ -152,7 +152,7 @@ pub fn TocExpandButtonPrimitive(
         <button
             type="button"
             data-rs-toc-expand-btn=""
-            data-rs-state=state.as_str()
+            data-rs-navigation=state.as_str()
             aria-expanded=if open { "true" } else { "false" }
             class=class
         >

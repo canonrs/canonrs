@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::{visibility_attrs, trigger_attrs};
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum HoverCardSide {
@@ -34,13 +33,12 @@ pub fn HoverCardPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_hc = crate::infra::uid::generate("hc");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-hover-card=""
             data-rs-uid=uid_hc
             data-rs-interaction="overlay"
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         >
             {children()}
@@ -54,12 +52,11 @@ pub fn HoverCardTriggerPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let t = trigger_attrs(state);
     view! {
         <span
             data-rs-hover-card-trigger=""
-            data-rs-state=t.data_rs_state
-            aria-expanded=t.aria_expanded
+            data-rs-visibility=state.as_str()
+            aria-expanded=state.aria_expanded()
             tabindex="0"
             class=class
         >
@@ -75,11 +72,10 @@ pub fn HoverCardContentPrimitive(
     #[prop(default = HoverCardSide::Top)] side: HoverCardSide,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-hover-card-content=""
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             data-rs-side=side.as_str()
             role="tooltip"
             class=class

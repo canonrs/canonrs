@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::SelectionState;
-use crate::infra::state_engine::selection_attrs;
 
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
@@ -84,7 +83,7 @@ pub fn TablePrimitive(
             data-rs-table=""
             data-rs-uid=uid_tbl
             data-rs-interaction="init"
-            data-rs-state=state.as_str()
+            data-rs-activity=state.as_str()
             data-rs-striped={striped.then_some("")}
             data-rs-hoverable={hoverable.then_some("")}
             data-rs-table-context={sheet_context.then_some("")}
@@ -144,7 +143,6 @@ pub fn TableRowPrimitive(
     #[prop(into, default = String::new())] row_label: String,
     #[prop(into, default = String::new())] row_meta: String,
 ) -> impl IntoView {
-    let s = selection_attrs(selected);
     let action_attr = if !row_action.is_empty() { Some(row_action.clone()) } else if !href.is_empty() { Some("navigate".to_string()) } else { None };
     let href_attr = if href.is_empty() { None } else { Some(href) };
     let row_label = if row_label.is_empty() { None } else { Some(row_label) };
@@ -152,14 +150,14 @@ pub fn TableRowPrimitive(
     view! {
         <tr
             data-rs-table-row=""
-            data-rs-state=s.data_rs_state
+            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
             tabindex="0"
             data-rs-action=action_attr
             data-rs-href=href_attr
             data-rs-label=row_label
             data-rs-meta=row_meta
             role="row"
-            aria-selected=s.aria_selected
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
             class=move || class.get().to_string()
         >
             {children()}

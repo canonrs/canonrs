@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{ActivityState, DisabledState};
-use crate::infra::state_engine::activity_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TabsOrientation {
@@ -65,22 +64,17 @@ pub fn TabsTriggerPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = activity_attrs(active);
-    let state_str = if disabled == DisabledState::Disabled {
-        format!("{} disabled", s.data_rs_state)
-    } else {
-        s.data_rs_state.to_string()
-    };
-    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let is_disabled = disabled == DisabledState::Disabled;
     view! {
         <button
             type="button"
             role="tab"
             data-rs-tabs-trigger=""
             data-rs-value=value
-            data-rs-state=state_str
-            aria-selected=s.aria_selected
-            aria-disabled=aria_disabled
+            data-rs-activity=active.as_str()
+            data-rs-disabled=if is_disabled { Some("disabled") } else { None }
+            aria-selected=active.aria_selected()
+            aria-disabled=if is_disabled { "true" } else { "false" }
             class=class
         >
             {children()}
@@ -95,14 +89,13 @@ pub fn TabsContentPrimitive(
     #[prop(default = ActivityState::Inactive)] active: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = activity_attrs(active);
     view! {
         <div
             data-rs-tabs-content=""
             data-rs-value=value
-            data-rs-state=s.data_rs_state
+            data-rs-activity=active.as_str()
             role="tabpanel"
-            hidden=s.hidden
+            hidden=active.hidden()
             class=class
         >
             {children()}

@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, Clone, Copy, PartialEq, Default)]
 pub enum ToastVariant {
@@ -83,21 +82,20 @@ pub fn ToastPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_ts = crate::infra::uid::generate("ts");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-toast=""
             data-rs-uid=uid_ts
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             data-rs-lifecycle=lifecycle.as_str()
             role=variant.role()
             aria-live=variant.aria_live()
             aria-atomic="true"
             aria-labelledby=title_id
             aria-describedby=description_id
-            hidden=s.hidden
+            hidden=state.hidden()
             class=class
         >
             {children()}

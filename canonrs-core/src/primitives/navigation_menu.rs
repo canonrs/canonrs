@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::{visibility_attrs, trigger_attrs};
 
 #[component]
 pub fn NavigationMenuPrimitive(
@@ -62,15 +61,14 @@ pub fn NavigationMenuTriggerPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_nt = crate::infra::uid::generate("nt");
-    let t = trigger_attrs(state);
     view! {
         <button
             type="button"
             data-rs-navigation-menu-trigger=""
             data-rs-uid=uid_nt
-            data-rs-state=t.data_rs_state
+            data-rs-visibility=state.as_str()
             aria-haspopup="menu"
-            aria-expanded=t.aria_expanded
+            aria-expanded=state.aria_expanded()
             class=class
         >
             {children()}
@@ -85,12 +83,11 @@ pub fn NavigationMenuContentPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-navigation-menu-content=""
-            data-rs-state=s.data_rs_state
-            aria-hidden=s.aria_hidden
+            data-rs-visibility=state.as_str()
+            aria-hidden=state.aria_hidden()
             role="menu"
             class=class
         >

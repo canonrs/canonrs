@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, ActivityState};
-use crate::infra::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
 
 #[component]
 pub fn CalendarPrimitive(
@@ -109,18 +108,15 @@ pub fn CalendarCellPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(default = ActivityState::Inactive)] activity: ActivityState,
 ) -> impl IntoView {
-    let sel = selection_attrs(selected);
-    let d   = disabled_attrs(disabled);
-    let act = activity_attrs(activity);
     view! {
         <td
             data-rs-calendar-cell=""
             role="gridcell"
-            aria-selected=sel.aria_selected
-            aria-disabled=d.aria_disabled
-            data-rs-state=sel.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            data-rs-activity=act.data_rs_state
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
+            aria-disabled=disabled.aria_disabled()
+            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            data-rs-activity=activity.as_str()
             tabindex=if activity == ActivityState::Active { "0" } else { "-1" }
             class=class
         >

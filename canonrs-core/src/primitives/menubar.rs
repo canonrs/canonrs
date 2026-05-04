@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::infra::state_engine::disabled_attrs;
 
 #[component]
 pub fn MenubarPrimitive(
@@ -43,7 +42,6 @@ pub fn MenubarTriggerPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
@@ -51,8 +49,8 @@ pub fn MenubarTriggerPrimitive(
             role="menuitem"
             aria-haspopup="menu"
             aria-expanded="false"
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             {children()}
@@ -83,15 +81,14 @@ pub fn MenubarItemPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-menubar-item=""
             role="menuitem"
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
-            tabindex=if d.disabled { "-1" } else { "0" }
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}

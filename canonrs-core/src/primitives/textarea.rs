@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::infra::state_engine::disabled_attrs;
 
 #[component]
 pub fn TextareaPrimitive(
@@ -20,20 +19,19 @@ pub fn TextareaPrimitive(
     #[prop(optional)] rows: Option<u32>,
 ) -> impl IntoView {
     let uid_ta2 = crate::infra::uid::generate("ta2");
-    let d = disabled_attrs(disabled);
     view! {
         <textarea
             data-rs-textarea=""
             data-rs-uid=uid_ta2
             data-rs-interaction="init"
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-readonly={if readonly { Some("") } else { None }}
             data-rs-required={if required { Some("") } else { None }}
             prop:value=value
             placeholder={if placeholder.is_empty() { None } else { Some(placeholder) }}
             name={if name.is_empty() { None } else { Some(name) }}
-            disabled=d.disabled
-            aria-disabled=d.aria_disabled
+            disabled=disabled.disabled()
+            aria-disabled=disabled.aria_disabled()
             readonly=readonly
             aria-readonly={if readonly { Some("true") } else { None }}
             aria-required={if required { Some("true") } else { None }}

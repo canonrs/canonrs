@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::LoadingState;
-use crate::infra::state_engine::loading_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum SpinnerSize {
@@ -31,16 +30,15 @@ pub fn SpinnerPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_spn = crate::infra::uid::generate("spn");
-    let la = loading_attrs(state);
     view! {
         <svg
             data-rs-spinner=""
             data-rs-uid=uid_spn
             data-rs-size=size.as_str()
-            data-rs-state=la.data_rs_state
+            data-rs-loading=state.as_str()
             role="status"
             aria-label=aria_label
-            aria-busy=la.aria_busy
+            aria-busy=state.aria_busy()
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"

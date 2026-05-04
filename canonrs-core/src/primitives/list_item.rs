@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, ActivityState};
-use crate::infra::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
 
 #[component]
 pub fn ListPrimitive(
@@ -35,20 +34,17 @@ pub fn ListItemPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = selection_attrs(selected);
-    let f = activity_attrs(focused);
-    let d = disabled_attrs(disabled);
-    let tabindex = if f.data_rs_state == "active" { "0" } else { "-1" };
+    let tabindex = if focused.as_str() == "active" { "0" } else { "-1" };
     view! {
         <div
             data-rs-list-item=""
-            data-rs-state=s.data_rs_state
-            data-rs-focused=f.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
+            data-rs-focused=focused.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             role="option"
             tabindex=tabindex
-            aria-selected=s.aria_selected
-            aria-disabled=d.aria_disabled
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             {children()}

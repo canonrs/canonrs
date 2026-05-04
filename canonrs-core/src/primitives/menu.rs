@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState};
-use crate::infra::state_engine::{selection_attrs, disabled_attrs};
 
 #[component]
 pub fn MenuPrimitive(
@@ -34,8 +33,6 @@ pub fn MenuItemPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_mi = crate::infra::uid::generate("mi");
-    let sel = selection_attrs(selected);
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
@@ -43,11 +40,11 @@ pub fn MenuItemPrimitive(
 
                         data-rs-uid=uid_mi
             role="menuitem"
-            data-rs-state=sel.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            aria-selected=sel.aria_selected
-            aria-disabled=d.aria_disabled
-            tabindex=if d.disabled { "-1" } else { "0" }
+            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
+            aria-disabled=disabled.aria_disabled()
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}

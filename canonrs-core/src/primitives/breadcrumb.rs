@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::ActivityState;
-use crate::infra::state_engine::activity_attrs;
 
 #[component]
 pub fn BreadcrumbPrimitive(
@@ -44,12 +43,11 @@ pub fn BreadcrumbLinkPrimitive(
     #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let a = activity_attrs(state);
     let aria_current = if state == ActivityState::Active { Some("page") } else { None };
     view! {
         <a
             data-rs-breadcrumb-link=""
-            data-rs-state=a.data_rs_state
+            data-rs-activity=state.as_str()
             href=href
             aria-current=aria_current
             class=class

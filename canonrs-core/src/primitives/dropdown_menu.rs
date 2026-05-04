@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{DisabledState, ToggleState, VisibilityState};
-use crate::infra::state_engine::{disabled_attrs, toggle_attrs, visibility_attrs};
 
 
 
@@ -16,13 +15,12 @@ pub fn DropdownMenuPrimitive(
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     let uid_dm = crate::infra::uid::generate("dm");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-dropdown-menu=""
             data-rs-uid=uid_dm
             data-rs-interaction="overlay"
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
             node_ref=node_ref.unwrap_or_default()
         >
@@ -92,20 +90,16 @@ pub fn DropdownMenuItemPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
-    let state_str = if disabled == DisabledState::Disabled {
-        "inactive disabled"
-    } else {
-        "inactive"
-    };
+    let is_disabled = disabled == DisabledState::Disabled;
     view! {
         <button
             type="button"
             data-rs-dropdown-menu-item=""
             role="menuitem"
-            data-rs-state=state_str
-            aria-disabled=d.aria_disabled
-            tabindex=if d.disabled { "-1" } else { "0" }
+            data-rs-activity="inactive"
+            data-rs-disabled=if is_disabled { Some("disabled") } else { None }
+            aria-disabled=if is_disabled { Some("true") } else { None }
+            tabindex=if is_disabled { "-1" } else { "0" }
             class=class
         >
             {children()}
@@ -133,17 +127,15 @@ pub fn DropdownMenuCheckboxItemPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let t = toggle_attrs(checked);
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-dropdown-menu-checkbox-item=""
-            data-rs-state=t.data_rs_state
+            data-rs-toggle=checked.as_str()
             role="menuitemcheckbox"
-            aria-checked=t.aria_pressed
-            aria-disabled=d.aria_disabled
-            tabindex=if d.disabled { "-1" } else { "0" }
+            aria-checked=checked.aria_pressed()
+            aria-disabled=disabled.aria_disabled()
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}

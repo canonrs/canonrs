@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::ToggleState;
-use crate::infra::state_engine::toggle_attrs;
 
 #[component]
 pub fn CodeBlockPrimitive(
@@ -67,13 +66,12 @@ pub fn CodeBlockCopyButtonPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = ToggleState::Off)] copied: ToggleState,
 ) -> impl IntoView {
-    let ta = toggle_attrs(copied);
     view! {
         <button
             type="button"
             data-rs-code-copy-btn=""
-            data-rs-state=ta.data_rs_state
-            aria-pressed=ta.aria_pressed
+            data-rs-toggle=copied.as_str()
+            aria-pressed=copied.aria_pressed()
             aria-label="Copy code"
             class=class
         >

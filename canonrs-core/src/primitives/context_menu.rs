@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState, ActivityState};
-use crate::infra::state_engine::{visibility_attrs, disabled_attrs, activity_attrs};
 
 
 #[component]
@@ -14,13 +13,12 @@ pub fn ContextMenuPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_cm = crate::infra::uid::generate("cm");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-context-menu=""
             data-rs-uid=uid_cm
             data-rs-interaction="overlay"
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         >
             {children()}
@@ -49,11 +47,10 @@ pub fn ContextMenuContentPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-context-menu-content=""
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             role="menu"
             class=class
         >
@@ -69,17 +66,15 @@ pub fn ContextMenuItemPrimitive(
     #[prop(default = ActivityState::Inactive)] highlighted: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
-    let a = activity_attrs(highlighted);
     view! {
         <button
             type="button"
             data-rs-context-menu-item=""
             role="menuitem"
-            data-rs-state=a.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
-            tabindex=if d.disabled { "-1" } else { "0" }
+            data-rs-activity=highlighted.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}

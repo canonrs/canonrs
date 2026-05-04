@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::ActivityState;
-use crate::infra::state_engine::activity_attrs;
 
 #[component]
 pub fn InputOtpSlotPrimitive(
@@ -13,12 +12,11 @@ pub fn InputOtpSlotPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_ios = crate::infra::uid::generate("ios");
-    let a = activity_attrs(state);
     view! {
         <div
             data-rs-input-otp-slot=""
             data-rs-uid=uid_ios
-            data-rs-state=a.data_rs_state
+            data-rs-activity=state.as_str()
             class=class
         >
             <span data-rs-slot-inner="">{children()}</span>

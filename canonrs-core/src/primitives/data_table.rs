@@ -5,7 +5,6 @@
 use leptos::prelude::*;
 use crate::primitives::table::SortDirection;
 use crate::meta::SelectionState;
-use crate::infra::state_engine::selection_attrs;
 
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 pub enum DataTableDensity {
@@ -175,14 +174,13 @@ pub fn DataTableRowPrimitive(
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(optional)] row_index: Option<usize>,
 ) -> impl IntoView {
-    let s = selection_attrs(selected);
     view! {
         <tr
             data-rs-datatable-row=""
-            data-rs-state=s.data_rs_state
+            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
             data-rs-row-id={(!row_id.is_empty()).then_some(row_id)}
             data-rs-row-label={(!row_label.is_empty()).then_some(row_label)}
-            aria-selected=s.aria_selected
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
             aria-rowindex={row_index.map(|i| (i + 1).to_string())}
             data-rs-row-index={row_index.map(|i| i.to_string())}
             class=class
@@ -243,7 +241,7 @@ pub fn DataTableEmptyPrimitive(
     view! {
         <div
             data-rs-datatable-empty=""
-            data-rs-state="empty"
+            data-rs-activity="empty"
             role="status"
             aria-live="polite"
             class=class
@@ -261,7 +259,7 @@ pub fn DataTableLoadingPrimitive(
     view! {
         <div
             data-rs-datatable-loading=""
-            data-rs-state="loading"
+            data-rs-loading="loading"
             role="status"
             aria-live="polite"
             class=class

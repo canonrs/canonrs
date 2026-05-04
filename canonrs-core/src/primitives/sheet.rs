@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum SheetSide {
@@ -34,13 +33,12 @@ pub fn SheetPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_sh = crate::infra::uid::generate("sh");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-sheet=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_sh
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             data-rs-side=side.as_str()
             class=class
         >
@@ -56,16 +54,15 @@ pub fn SheetTriggerPrimitive(
     #[prop(optional, into)] aria_controls: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-sheet-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             aria-haspopup="dialog"
-            aria-expanded=s.aria_expanded
+            aria-expanded=state.aria_expanded()
             aria-controls=aria_controls
             class=class
         >
@@ -101,11 +98,10 @@ pub fn SheetOverlayPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-sheet-overlay=""
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         />
     }

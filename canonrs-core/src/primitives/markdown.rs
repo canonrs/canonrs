@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{NavigationState, VisibilityState};
-use crate::infra::state_engine::visibility_attrs;
 
 #[component]
 pub fn MarkdownPrimitive(
@@ -79,12 +78,11 @@ pub fn MarkdownTocPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let va = visibility_attrs(state);
     view! {
         <nav
             data-rs-markdown-toc=""
-            data-rs-state=va.data_rs_state
-            aria-hidden=va.aria_hidden
+            data-rs-visibility=state.as_str()
+            aria-hidden=state.aria_hidden()
             aria-label="Table of contents"
             class=class
         >
@@ -105,7 +103,7 @@ pub fn MarkdownTocItemPrimitive(
         <li
             data-rs-markdown-toc-item=""
             data-rs-level=level.to_string()
-            data-rs-state=state.as_str()
+            data-rs-navigation=state.as_str()
         >
             <a
                 data-rs-markdown-toc-link=""

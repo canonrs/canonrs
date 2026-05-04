@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{ActivityState, DisabledState};
-use crate::infra::state_engine::{activity_attrs, disabled_attrs};
 
 #[component]
 pub fn NavItemPrimitive(
@@ -16,25 +15,19 @@ pub fn NavItemPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
     let uid_ni = crate::infra::uid::generate("ni");
-    let a = activity_attrs(active);
-    let d = disabled_attrs(disabled);
     let is_active = active == ActivityState::Active;
     view! {
         <a
             data-rs-nav-item=""
             data-rs-uid=uid_ni
             data-rs-interaction="init"
-            data-rs-state={
-                let mut s = a.data_rs_state.to_string();
-                if disabled == DisabledState::Disabled { s.push_str(" disabled"); }
-                s
-            }
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-activity=active.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             aria-current=if is_active { Some("page") } else { None }
             aria-label=aria_label
-            aria-disabled=d.aria_disabled
-            href=if d.disabled { "#".to_string() } else { href }
-            tabindex=if d.disabled { "-1" } else { "0" }
+            aria-disabled=disabled.aria_disabled()
+            href=if disabled.disabled() { "#".to_string() } else { href }
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}

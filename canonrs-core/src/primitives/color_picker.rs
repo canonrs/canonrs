@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, VisibilityState};
-use crate::infra::state_engine::{disabled_attrs, selection_attrs, visibility_attrs};
 
 #[component]
 pub fn ColorPickerPrimitive(
@@ -16,18 +15,16 @@ pub fn ColorPickerPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid = crate::infra::uid::generate("cp");
-    let s = visibility_attrs(state);
-    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-color-picker=""
             data-rs-uid=uid
             data-rs-interaction="selection"
-            data-rs-state=s.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-visibility=state.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-name=name
             data-rs-value=value
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             {children()}
@@ -43,18 +40,16 @@ pub fn ColorPickerTriggerPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-color-picker-trigger=""
-            data-rs-state=s.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-visibility=state.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-color=color
             aria-haspopup="dialog"
-            aria-expanded=s.aria_expanded
-            aria-disabled=d.aria_disabled
+            aria-expanded=state.aria_expanded()
+            aria-disabled=disabled.aria_disabled()
             aria-label="Open color picker"
             class=class
         >
@@ -70,17 +65,16 @@ pub fn ColorPickerInputPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <input
             type="color"
             data-rs-color-picker-input=""
-            data-rs-disabled=d.data_rs_disabled
-            disabled=d.disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            disabled=disabled.disabled()
             value=value
             name=name
             aria-label="Color picker"
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             class=class
         />
     }
@@ -93,14 +87,13 @@ pub fn ColorPickerSwatchPrimitive(
     #[prop(into, default = String::new())] aria_label: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let sel = selection_attrs(selected);
     view! {
         <button
             type="button"
             data-rs-color-swatch=""
-            data-rs-state=sel.data_rs_state
+            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
             data-rs-color=color
-            aria-selected=sel.aria_selected
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
             aria-label=aria_label
             class=class
         />

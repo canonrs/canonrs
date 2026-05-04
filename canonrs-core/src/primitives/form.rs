@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::infra::state_engine::{disabled_attrs, validation_attrs};
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum FormMethod {
@@ -52,6 +51,12 @@ impl FormValidationState {
             Self::Error      => "error",
         }
     }
+    pub fn aria_busy(&self) -> Option<&'static str> {
+        if *self == Self::Submitting { Some("true") } else { None }
+    }
+    pub fn aria_invalid(&self) -> Option<&'static str> {
+        if *self == Self::Error { Some("true") } else { None }
+    }
 }
 
 #[component]
@@ -66,22 +71,20 @@ pub fn FormPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_fo = crate::infra::uid::generate("fo");
-    let v = validation_attrs(validation);
-    let d = disabled_attrs(disabled);
     view! {
         <form
             data-rs-form=""
             data-rs-uid=uid_fo
             data-rs-interaction="init"
-            data-rs-state=v.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-validation=validation.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             action={if action.is_empty() { None } else { Some(action) }}
             method=method.as_str()
             enctype=enctype.as_str()
             novalidate=novalidate
-            aria-busy=v.aria_busy
-            aria-invalid=v.aria_invalid
-            aria-disabled=d.aria_disabled
+            aria-busy=validation.aria_busy()
+            aria-invalid=validation.aria_invalid()
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             {children()}
@@ -154,14 +157,13 @@ pub fn FormFieldPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-form-field=""
-            data-rs-state=validation.as_str()
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-validation=validation.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             aria-invalid=validation.aria_invalid()
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             {children()}

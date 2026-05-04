@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::infra::state_engine::disabled_attrs;
 
 #[component]
 pub fn SliderPrimitive(
@@ -18,7 +17,6 @@ pub fn SliderPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_sl = crate::infra::uid::generate("sl");
-    let d = disabled_attrs(disabled);
     let safe_value = if value.is_nan() { min } else { value };
     let safe_min = if min.is_nan() { 0.0 } else { min };
     let safe_max = if max.is_nan() || max <= safe_min { safe_min + 100.0 } else { max };
@@ -30,7 +28,7 @@ pub fn SliderPrimitive(
             data-rs-uid=uid_sl
             data-rs-interaction="gesture"
             data-rs-orientation=orientation.clone()
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-min=safe_min.to_string()
             data-rs-max=safe_max.to_string()
             data-rs-value=clamped_value.to_string()
@@ -41,7 +39,7 @@ pub fn SliderPrimitive(
             aria-valuemax=max.to_string()
             aria-valuenow=clamped_value.to_string()
             aria-orientation=orientation
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             tabindex=if disabled == DisabledState::Disabled { "-1" } else { "0" }
             class=class
         >

@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{DisabledState, LoadingState, ToggleState};
-use crate::infra::state_engine::{disabled_attrs, loading_attrs, toggle_attrs};
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, Default, Debug)]
 pub enum IconButtonSize {
@@ -62,9 +61,7 @@ pub fn IconButtonPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_ib = crate::infra::uid::generate("ib");
-    let d  = disabled_attrs(disabled);
-    let la = loading_attrs(loading);
-    let ta = pressed.map(toggle_attrs);
+    let ta = pressed;
     view! {
         <button
             type="button"
@@ -73,13 +70,13 @@ pub fn IconButtonPrimitive(
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
             data-rs-size=size.as_str()
-            data-rs-disabled=d.data_rs_disabled
-            data-rs-loading=la.data_rs_state
-            data-rs-state=if d.disabled { Some("disabled") } else if la.aria_busy.is_some() { Some("loading") } else { ta.as_ref().map(|t| t.data_rs_state) }
-            disabled=d.disabled
-            aria-disabled=d.aria_disabled
-            aria-busy=la.aria_busy
-            aria-pressed=ta.as_ref().map(|t| t.aria_pressed)
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            data-rs-loading=loading.as_str()
+            data-rs-toggle=ta.map(|t| t.as_str())
+            disabled=disabled.disabled()
+            aria-disabled=disabled.aria_disabled()
+            aria-busy=loading.aria_busy()
+            aria-pressed=ta.as_ref().map(|t| t.aria_pressed())
             aria-label=aria_label
             class=class
         >

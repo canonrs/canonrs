@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{ActivityState, DisabledState};
-use crate::infra::state_engine::{activity_attrs, disabled_attrs};
 
 #[component]
 pub fn PaginationPrimitive(
@@ -61,13 +60,12 @@ pub fn PaginationLinkPrimitive(
     #[prop(default = 0usize)] page: usize,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let a = activity_attrs(state);
     let is_active = state == ActivityState::Active;
     view! {
         <a
             data-rs-pagination-link=""
             data-rs-page=page.to_string()
-            data-rs-state=a.data_rs_state
+            data-rs-activity=state.as_str()
             aria-current=if is_active { Some("page") } else { None }
             href=href
             class=class
@@ -84,15 +82,14 @@ pub fn PaginationPreviousPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <a
             data-rs-pagination-previous=""
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             aria-label="Go to previous page"
-            href=if d.disabled { "#".to_string() } else { href }
-            tabindex=if d.disabled { "-1" } else { "0" }
+            href=if disabled.disabled() { "#".to_string() } else { href }
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}
@@ -107,15 +104,14 @@ pub fn PaginationNextPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <a
             data-rs-pagination-next=""
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             aria-label="Go to next page"
-            href=if d.disabled { "#".to_string() } else { href }
-            tabindex=if d.disabled { "-1" } else { "0" }
+            href=if disabled.disabled() { "#".to_string() } else { href }
+            tabindex=if disabled.disabled() { "-1" } else { "0" }
             class=class
         >
             {children()}

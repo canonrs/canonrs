@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{ActivityState, DisabledState, VisibilityState};
-use crate::infra::state_engine::{activity_attrs, disabled_attrs, visibility_attrs};
 
 #[component]
 pub fn CarouselPrimitive(
@@ -52,17 +51,15 @@ pub fn CarouselItemPrimitive(
     #[prop(default = VisibilityState::Closed)] visibility: VisibilityState,
     #[prop(optional, into)] aria_label: Option<String>,
 ) -> impl IntoView {
-    let aa  = activity_attrs(activity);
-    let vis = visibility_attrs(visibility);
     view! {
         <div
             data-rs-carousel-item=""
-            data-rs-state=aa.data_rs_state
+            data-rs-activity=activity.as_str()
             role="group"
             aria-roledescription="slide"
             aria-label=aria_label
-            aria-hidden=vis.aria_hidden
-            hidden=vis.hidden
+            aria-hidden=visibility.aria_hidden()
+            hidden=visibility.hidden()
             class=class
         >
             {children()}
@@ -76,14 +73,13 @@ pub fn CarouselPrevPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-carousel-prev=""
-            data-rs-disabled=d.data_rs_disabled
-            disabled=d.disabled
-            aria-disabled=d.aria_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            disabled=disabled.disabled()
+            aria-disabled=disabled.aria_disabled()
             aria-label="Previous slide"
             class=class
         >
@@ -98,14 +94,13 @@ pub fn CarouselNextPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-carousel-next=""
-            data-rs-disabled=d.data_rs_disabled
-            disabled=d.disabled
-            aria-disabled=d.aria_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            disabled=disabled.disabled()
+            aria-disabled=disabled.aria_disabled()
             aria-label="Next slide"
             class=class
         >
@@ -137,12 +132,11 @@ pub fn CarouselDotPrimitive(
     #[prop(into, default = String::new())] aria_label: String,
     #[prop(default = ActivityState::Inactive)] state: ActivityState,
 ) -> impl IntoView {
-    let aa = activity_attrs(state);
     view! {
         <button
             type="button"
             data-rs-carousel-dot=""
-            data-rs-state=aa.data_rs_state
+            data-rs-activity=state.as_str()
             aria-label=aria_label
             class=class
         />

@@ -17,7 +17,7 @@ pub fn DragHandlePrimitive(
             type="button"
             data-rs-drag-handle=""
             data-rs-uid=uid_dh
-            data-rs-state={if active { "open" } else { "closed" }}
+            data-rs-visibility={if active { "open" } else { "closed" }}
             aria-label="Drag to reorder"
             class=class
             id=id.filter(|s| !s.is_empty())

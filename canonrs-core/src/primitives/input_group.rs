@@ -18,7 +18,7 @@ pub fn InputGroupPrimitive(
             data-rs-uid=uid_ig
             data-rs-interaction="init"
             role="group"
-            data-rs-state={if merge_radius == ToggleState::On { Some("merge-radius") } else { None }}
+            data-rs-toggle=if merge_radius == ToggleState::On { Some("on") } else { None }
             class=class
             node_ref=node_ref.unwrap_or_default()
         >

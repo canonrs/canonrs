@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState};
-use crate::infra::state_engine::{disabled_attrs, visibility_attrs};
 use crate::infra::uid::generate;
 
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Default, Debug)]
@@ -51,15 +50,13 @@ pub fn AccordionItemPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid = generate("ac-item");
-    let s = visibility_attrs(state);
-    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-accordion-item=""
             data-rs-uid=uid
-            data-rs-state=s.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
+            data-rs-visibility=state.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             role="group"
             class=class
         >
@@ -75,17 +72,15 @@ pub fn AccordionTriggerPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let d = disabled_attrs(disabled);
-    let s = visibility_attrs(state);
     view! {
         <h3 data-rs-accordion-heading="">
             <button
                 type="button"
                 data-rs-accordion-trigger=""
                 data-rs-uid=generate("ac-trigger")
-                data-rs-disabled=d.data_rs_disabled
-                aria-expanded=s.aria_expanded
-                aria-disabled=d.aria_disabled
+                data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+                aria-expanded=state.aria_expanded()
+                aria-disabled=disabled.aria_disabled()
                 class=class
             >
                 {children()}
@@ -104,12 +99,11 @@ pub fn AccordionContentPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid = generate("ac-content");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-accordion-content=""
             data-rs-uid=uid
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         >
             {children()}

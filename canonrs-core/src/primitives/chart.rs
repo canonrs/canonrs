@@ -3,7 +3,33 @@
 //! Chart Primitive - Canvas + overlay enterprise architecture
 
 use leptos::prelude::*;
-use crate::meta::{ChartGridState, ChartLegendState};
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum ChartGridState {
+    #[default] Visible,
+    Hidden,
+}
+impl ChartGridState {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Visible => "visible", Self::Hidden => "hidden" }
+    }
+}
+impl From<bool> for ChartGridState {
+    fn from(b: bool) -> Self { if b { Self::Visible } else { Self::Hidden } }
+}
+
+#[derive(Clone, Copy, PartialEq, Default, Debug)]
+pub enum ChartLegendState {
+    #[default] Visible,
+    Hidden,
+}
+impl ChartLegendState {
+    pub fn as_str(&self) -> &'static str {
+        match self { Self::Visible => "visible", Self::Hidden => "hidden" }
+    }
+}
+impl From<bool> for ChartLegendState {
+    fn from(b: bool) -> Self { if b { Self::Visible } else { Self::Hidden } }
+}
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum ChartType {
@@ -70,8 +96,8 @@ pub fn ChartPrimitive(
                 <div data-rs-chart-tooltip="" />
                 <div data-rs-chart-crosshair="" />
             </div>
-            <div data-rs-chart-legend="" data-rs-state=chart_legend.as_str() />
-            <div data-rs-chart-grid="" data-rs-state=chart_grid.as_str() />
+            <div data-rs-chart-legend="" data-rs-visibility=chart_legend.as_str() />
+            <div data-rs-chart-grid="" data-rs-visibility=chart_grid.as_str() />
             {children()}
         </div>
     }

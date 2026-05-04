@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 
 #[component]
@@ -14,13 +13,12 @@ pub fn ModalPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_mo = crate::infra::uid::generate("mo");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-modal=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_mo
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         >
             {children()}
@@ -35,16 +33,15 @@ pub fn ModalTriggerPrimitive(
     #[prop(optional, into)] aria_controls: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-modal-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             aria-haspopup="dialog"
-            aria-expanded=s.aria_expanded
+            aria-expanded=state.aria_expanded()
             aria-controls=aria_controls
             class=class
         >
@@ -58,11 +55,10 @@ pub fn ModalOverlayPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-modal-overlay=""
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         />
     }

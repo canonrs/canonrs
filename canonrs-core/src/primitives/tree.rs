@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState, ActivityState};
-use crate::infra::state_engine::{selection_attrs, disabled_attrs, activity_attrs};
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum TreeSelectionMode {
@@ -65,24 +64,21 @@ pub fn TreeItemPrimitive(
     #[prop(default = 0u8)] depth: u8,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = selection_attrs(selected);
-    let f = activity_attrs(focused);
-    let d = disabled_attrs(disabled);
-    let tabindex = if f.data_rs_state == "active" { "0" } else { "-1" };
+    let tabindex = if focused.as_str() == "active" { "0" } else { "-1" };
     let depth_str = depth.to_string();
     view! {
         <div
             data-rs-tree-item=""
-            data-rs-state=s.data_rs_state
-            data-rs-focused=f.data_rs_state
+            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
+            data-rs-focused=focused.as_str()
             data-rs-expanded={if has_children { Some(if expanded { "true" } else { "false" }) } else { None }}
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-depth=depth_str
             role="treeitem"
             tabindex=tabindex
-            aria-selected=s.aria_selected
+            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
             aria-expanded={if has_children { Some(if expanded { "true" } else { "false" }) } else { None }}
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             {children()}

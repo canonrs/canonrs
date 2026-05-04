@@ -15,7 +15,7 @@ pub fn ResizeHandlePrimitive(
         <span
             data-rs-resize-handle=""
             data-rs-uid=uid_rh
-            data-rs-state="inactive"
+            data-rs-activity="inactive"
             data-rs-resize-col-id=col_id
             role="separator"
             aria-orientation="vertical"

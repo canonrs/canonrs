@@ -5,15 +5,6 @@
 use leptos::prelude::*;
 use crate::meta::DisabledState;
 
-
-
-
-
-
-
-
-
-
 #[component]
 pub fn ToggleGroupPrimitive(
     children: Children,
@@ -23,17 +14,17 @@ pub fn ToggleGroupPrimitive(
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     let uid_tg = crate::infra::uid::generate("tg");
-    let state_str = if disabled == DisabledState::Disabled { "disabled" } else { "" };
-    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let is_disabled = disabled == DisabledState::Disabled;
+
     view! {
         <div
             data-rs-toggle-group=""
             data-rs-uid=uid_tg
             data-rs-interaction="selection"
             data-rs-multiple=if multiple { "true" } else { "false" }
-            data-rs-state=state_str
+            data-rs-disabled=if is_disabled { Some("disabled") } else { None }
             role="group"
-            aria-disabled=aria_disabled
+            aria-disabled=if is_disabled { "true" } else { "false" }
             class=class
             node_ref=node_ref.unwrap_or_default()
         >

@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum DrawerSide {
@@ -34,13 +33,12 @@ pub fn DrawerPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_dr = crate::infra::uid::generate("dr");
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-drawer=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_dr
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             data-rs-side=side.as_str()
             class=class
         >
@@ -56,16 +54,15 @@ pub fn DrawerTriggerPrimitive(
     #[prop(optional, into)] aria_controls: Option<String>,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <button
             type="button"
             data-rs-drawer-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             aria-haspopup="dialog"
-            aria-expanded=s.aria_expanded
+            aria-expanded=state.aria_expanded()
             aria-controls=aria_controls
             class=class
         >
@@ -79,11 +76,10 @@ pub fn DrawerOverlayPrimitive(
     #[prop(default = VisibilityState::Closed)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     view! {
         <div
             data-rs-drawer-overlay=""
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         />
     }

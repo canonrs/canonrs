@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::DisabledState;
-use crate::infra::state_engine::disabled_attrs;
 
 #[derive(Clone, Copy, PartialEq, Default, Debug)]
 pub enum FieldValidationState {
@@ -38,16 +37,15 @@ pub fn FieldPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_fi = crate::infra::uid::generate("fi");
-    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-field=""
             data-rs-uid=uid_fi
             data-rs-interaction="init"
-            data-rs-state=validation.as_str()
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-validation=validation.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             aria-invalid=validation.aria_invalid()
-            aria-disabled=d.aria_disabled
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             {children()}

@@ -24,7 +24,7 @@ pub fn CopyButtonPrimitive(
             data-rs-copy-text=text
             data-rs-copy-target=target
             data-rs-reset-delay=reset_delay.to_string()
-            data-rs-state="idle"
+            data-rs-activity="idle"
             aria-label=aria_label
         >
             <span data-rs-copy-content="">

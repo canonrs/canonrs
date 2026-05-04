@@ -16,7 +16,7 @@ pub fn DragContainerPrimitive(
         <div
             data-rs-drag-container=""
             data-rs-uid=uid_dc
-            data-rs-state={if active { "open" } else { "closed" }}
+            data-rs-visibility={if active { "open" } else { "closed" }}
             role="list"
             class=class
             id=id.filter(|s| !s.is_empty())

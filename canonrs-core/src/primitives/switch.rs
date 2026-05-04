@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState};
-use crate::infra::state_engine::{disabled_attrs, selection_attrs};
 
 
 #[component]
@@ -17,18 +16,17 @@ pub fn SwitchPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_sw = crate::infra::uid::generate("sw");
-    let sel = selection_attrs(checked);
-    let d   = disabled_attrs(disabled);
-    let state = format!("{} {}", sel.data_rs_state.unwrap_or(""), if disabled == DisabledState::Disabled { "disabled" } else { "" }).trim().to_string();
     let is_checked = checked == SelectionState::Selected;
+    let is_disabled = disabled == DisabledState::Disabled;
     let aria_checked = if is_checked { "true" } else { "false" };
     view! {
         <label
             data-rs-switch=""
             data-rs-uid=uid_sw
             data-rs-interaction="init"
-            data-rs-state=state
-            aria-disabled=d.aria_disabled
+            data-rs-selection=if checked == SelectionState::Selected { Some("selected") } else { None }
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             class=class
         >
             <input

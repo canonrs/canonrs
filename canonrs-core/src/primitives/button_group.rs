@@ -17,7 +17,7 @@ pub fn ButtonGroupPrimitive(
         <div
             data-rs-button-group=""
             data-rs-uid=uid_bg
-            data-rs-state={if attached == ToggleState::On { Some("attached") } else { None }}
+            data-rs-toggle=attached.as_str()
             role="group"
             aria-label=aria_label
             class=class

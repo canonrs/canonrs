@@ -4,13 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, VisibilityState, DisabledState};
-use crate::infra::state_engine::{visibility_attrs, selection_attrs};
-
-
-
-
-
-
 
 #[component]
 pub fn SelectPrimitive(
@@ -22,22 +15,19 @@ pub fn SelectPrimitive(
     #[prop(into, default = String::new())] name: String,
 ) -> impl IntoView {
     let uid_sel = crate::infra::uid::generate("sel");
-    let s = visibility_attrs(state);
-    let state_str = if disabled == DisabledState::Disabled {
-        format!("{} disabled", s.data_rs_state)
-    } else {
-        s.data_rs_state.to_string()
-    };
-    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let is_disabled = disabled == DisabledState::Disabled;
+    let is_open = state == VisibilityState::Open;
+
     view! {
         <div
             data-rs-select=""
             data-rs-uid=uid_sel
             data-rs-interaction="selection"
             data-rs-role="root"
-            data-rs-state=state_str
+            data-rs-visibility=if is_open { "open" } else { "closed" }
+            data-rs-disabled=if is_disabled { Some("disabled") } else { None }
             data-rs-name=name
-            aria-disabled=aria_disabled
+            aria-disabled=if is_disabled { "true" } else { "false" }
             class=class
             node_ref=node_ref.unwrap_or_default()
         >
@@ -52,14 +42,14 @@ pub fn SelectTriggerPrimitive(
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let is_disabled = disabled == DisabledState::Disabled;
     view! {
         <button
             type="button"
             data-rs-select-trigger=""
             aria-haspopup="listbox"
             aria-expanded="false"
-            aria-disabled=aria_disabled
+            aria-disabled=if is_disabled { "true" } else { "false" }
             class=class
         >
             {children()}
@@ -109,24 +99,19 @@ pub fn SelectItemPrimitive(
     #[prop(into, default = String::new())] value: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let sel = selection_attrs(selected);
-    let base = sel.data_rs_state.unwrap_or("unselected");
-    let state_str = if disabled == DisabledState::Disabled {
-        format!("{} disabled", base)
-    } else {
-        base.to_string()
-    };
-    let aria_selected = sel.aria_selected.unwrap_or("false");
-    let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let is_selected = selected == SelectionState::Selected;
+    let is_disabled = disabled == DisabledState::Disabled;
+
     view! {
         <div
             data-rs-select-item=""
-            data-rs-state=state_str
+            data-rs-selection=if is_selected { Some("selected") } else { None }
+            data-rs-disabled=if is_disabled { Some("disabled") } else { None }
             data-rs-value=value
             role="option"
             tabindex="-1"
-            aria-selected=aria_selected
-            aria-disabled=aria_disabled
+            aria-selected=if is_selected { "true" } else { "false" }
+            aria-disabled=if is_disabled { "true" } else { "false" }
             class=class
         >
             {children()}

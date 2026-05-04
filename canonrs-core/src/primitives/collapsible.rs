@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{VisibilityState, DisabledState};
-use crate::infra::state_engine::{visibility_attrs, trigger_attrs, disabled_attrs};
 
 
 #[component]
@@ -16,16 +15,14 @@ pub fn CollapsiblePrimitive(
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Div>>,
 ) -> impl IntoView {
     let uid_col = crate::infra::uid::generate("col");
-    let s = visibility_attrs(state);
-    let d = disabled_attrs(disabled);
     view! {
         <div
             data-rs-collapsible=""
             data-rs-uid=uid_col
             data-rs-interaction="init"
-            data-rs-state=s.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            aria-disabled=d.aria_disabled
+            data-rs-visibility=state.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-disabled=disabled.aria_disabled()
             class=class
             node_ref=node_ref.unwrap_or_default()
         >
@@ -42,16 +39,14 @@ pub fn CollapsibleTriggerPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] controls: String,
 ) -> impl IntoView {
-    let t = trigger_attrs(state);
-    let d = disabled_attrs(disabled);
     view! {
         <button
             type="button"
             data-rs-collapsible-trigger=""
-            data-rs-state=t.data_rs_state
-            data-rs-disabled=d.data_rs_disabled
-            aria-expanded=t.aria_expanded
-            aria-disabled=d.aria_disabled
+            data-rs-visibility=state.as_str()
+            data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
+            aria-expanded=state.aria_expanded()
+            aria-disabled=disabled.aria_disabled()
             aria-controls=if controls.is_empty() { None } else { Some(controls) }
             class=class
         >
@@ -67,14 +62,13 @@ pub fn CollapsibleContentPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] id: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     let content_id = if id.is_empty() { crate::infra::uid::generate("col-content") } else { id };
     view! {
         <div
             data-rs-collapsible-content=""
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             role="region"
-            aria-hidden=s.aria_hidden
+            aria-hidden=state.aria_hidden()
             id=content_id
             class=class
         >

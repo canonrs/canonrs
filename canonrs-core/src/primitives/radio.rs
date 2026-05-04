@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::{SelectionState, DisabledState};
-use crate::infra::state_engine::{disabled_attrs, selection_attrs};
 
 #[component]
 pub fn RadioPrimitive(
@@ -16,24 +15,16 @@ pub fn RadioPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_ra = crate::infra::uid::generate("ra");
-    let sel = selection_attrs(selected);
-    let d = disabled_attrs(disabled);
-
-    // Combina selected + disabled no data-rs-state para SSR funcionar
-    let state_str: Option<String> = match (sel.data_rs_state, disabled == DisabledState::Disabled) {
-        (Some(s), true)  => Some(format!("{} disabled", s)),
-        (Some(s), false) => Some(s.to_string()),
-        (None,    true)  => Some("disabled".to_string()),
-        (None,    false) => None,
-    };
+    let is_selected = selected == SelectionState::Selected;
+    let is_disabled = disabled == DisabledState::Disabled;
 
     view! {
         <label
             data-rs-radio=""
             data-rs-uid=uid_ra
             data-rs-interaction="init"
-            data-rs-state=state_str
-            data-rs-disabled=d.data_rs_disabled
+            data-rs-selection=if is_selected { Some("selected") } else { None }
+            data-rs-disabled=if is_disabled { Some("disabled") } else { None }
             class=class
         >
             <input
@@ -41,10 +32,10 @@ pub fn RadioPrimitive(
                 data-rs-radio-input=""
                 name=name
                 value=value
-                checked=sel.data_rs_state == Some("selected")
-                disabled=d.data_rs_disabled.is_some()
-                aria-checked=sel.aria_selected
-                aria-disabled=d.aria_disabled
+                checked=is_selected
+                disabled=is_disabled
+                aria-checked=if is_selected { "true" } else { "false" }
+                aria-disabled=if is_disabled { Some("true") } else { None }
             />
             <span data-rs-radio-indicator="" />
             {children()}

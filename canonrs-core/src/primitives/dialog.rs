@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::VisibilityState;
-use crate::infra::state_engine::visibility_attrs;
 
 #[component]
 pub fn DialogPrimitive(
@@ -13,14 +12,13 @@ pub fn DialogPrimitive(
     #[prop(into, default = String::new())] uid: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let s = visibility_attrs(state);
     let uid_str = if uid.is_empty() { crate::infra::uid::generate("dlg") } else { uid };
     view! {
         <div
             data-rs-dialog=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_str
-            data-rs-state=s.data_rs_state
+            data-rs-visibility=state.as_str()
             class=class
         >
             {children()}
@@ -67,7 +65,7 @@ pub fn DialogOverlayPrimitive(
     view! {
         <div
             data-rs-dialog-overlay=""
-            data-rs-state="closed"
+            data-rs-visibility="closed"
             class=class
         />
     }
@@ -81,7 +79,7 @@ pub fn DialogContentPrimitive(
     view! {
         <div
             data-rs-dialog-content=""
-            data-rs-state="closed"
+            data-rs-visibility="closed"
             role="dialog"
             aria-modal="true"
             tabindex="-1"

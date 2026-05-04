@@ -4,7 +4,6 @@
 
 use leptos::prelude::*;
 use crate::meta::ActivityState;
-use crate::infra::state_engine::activity_attrs;
 use std::sync::atomic::{AtomicU32, Ordering};
 #[allow(dead_code)]
 static RESIZABLE_UID: AtomicU32 = AtomicU32::new(0);
@@ -73,11 +72,10 @@ pub fn ResizableHandlePrimitive(
     #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
-    let a = activity_attrs(state);
     view! {
         <div
             data-rs-resizable-handle=""
-            data-rs-state=a.data_rs_state
+            data-rs-activity=state.as_str()
             role="separator"
             tabindex="0"
             class=class

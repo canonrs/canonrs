@@ -39,7 +39,7 @@ pub fn ProgressPrimitive(
             data-rs-uid=uid_pr
             data-rs-interaction="init"
             data-rs-value=clamped.to_string()
-            data-rs-state=state.as_str()
+            data-rs-loading=state.as_str()
             role="progressbar"
             aria-valuemin="0"
             aria-valuemax="100"
