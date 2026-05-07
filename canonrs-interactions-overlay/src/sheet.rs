@@ -3,7 +3,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, focus, query};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
+use crate::runtime::focus;
 
 fn move_to_body(root: &Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
@@ -31,8 +32,8 @@ fn sync_state(root: &Element, s: &str) {
     if let Ok(nodes) = doc.query_selector_all(&sel) {
         for i in 0..nodes.length() {
             if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
-                if s == "open" { state::add_state(&n, "open"); state::remove_state(&n, "closed"); }
-                else           { state::remove_state(&n, "open"); state::add_state(&n, "closed"); }
+                if s == "open" { state::add(&n, "open"); state::remove(&n, "closed"); }
+                else           { state::remove(&n, "open"); state::add(&n, "closed"); }
             }
         }
     }

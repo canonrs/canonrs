@@ -25,7 +25,10 @@ pub fn remove(el: &Element, token: &str) {
 
 pub fn has(el: &Element, token: &str) -> bool {
     if !is_valid(el) { return false; }
-    el.get_attribute("data-rs-state").unwrap_or_default().split_whitespace().any(|t| t == token)
+    el.get_attribute("data-rs-state")
+        .unwrap_or_default()
+        .split_whitespace()
+        .any(|t| t == token)
 }
 
 pub fn open(el: &Element) {
@@ -38,10 +41,37 @@ pub fn close(el: &Element) {
     add(el, "closed");
 }
 
+pub fn toggle(el: &Element) {
+    if is_open(el) { close(el); } else { open(el); }
+}
+
 pub fn is_open(el: &Element) -> bool {
     has(el, "open")
 }
 
-// Aliases para compatibilidade com componentes existentes
+pub fn expand(el: &Element) {
+    remove(el, "collapsed");
+    add(el, "expanded");
+}
+
+pub fn collapse(el: &Element) {
+    remove(el, "expanded");
+    add(el, "collapsed");
+}
+
+pub fn is_expanded(el: &Element) -> bool {
+    has(el, "expanded")
+}
+
+pub fn set_scroll_lock(locked: bool) {
+    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+        if let Some(body) = doc.body() {
+            if locked { let _ = body.set_attribute("data-rs-scroll-lock", "true"); }
+            else      { let _ = body.remove_attribute("data-rs-scroll-lock"); }
+        }
+    }
+}
+
+// Aliases para compatibilidade
 pub fn add_state(el: &Element, token: &str) { add(el, token); }
 pub fn remove_state(el: &Element, token: &str) { remove(el, token); }

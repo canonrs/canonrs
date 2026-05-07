@@ -22,6 +22,7 @@ pub fn get_i32(el: &Element, attr: &str, default: i32) -> i32 {
 }
 
 pub fn query_one(root: &Element, selector: &str) -> Option<web_sys::HtmlElement> {
+    use wasm_bindgen::JsCast;
     root.query_selector(selector).ok().flatten()
-        .and_then(|n| wasm_bindgen::JsCast::dyn_into::<web_sys::HtmlElement>(n).ok())
+        .and_then(|n| n.dyn_into::<web_sys::HtmlElement>().ok())
 }

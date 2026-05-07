@@ -3,7 +3,8 @@
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state as rs};
+use canonrs_interactions_core::dom::lifecycle;
+use canonrs_interactions_core::dom::state as rs;
 
 fn add_tok(el: &Element, token: &str) {
     let cur = el.get_attribute("data-rs-state").unwrap_or_default();

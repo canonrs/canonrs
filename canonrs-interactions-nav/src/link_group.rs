@@ -1,53 +1,34 @@
-//! LinkGroup Interaction — active state + keyboard nav
-
+//! LinkGroup Interaction Engine
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::behavior::selection::{SelectionConfig, activate, init_state};
 use web_sys::Element;
 
-fn active_items(root: &Element) -> Vec<Element> {
-    query::all(root, "[data-rs-nav-item]")
-        .into_iter()
-        .filter(|el| !state::has(el, "disabled"))
-        .collect()
-}
+const ITEM_SEL: &str = "[data-rs-nav-item]";
 
-fn activate(root: &Element, target: &Element) {
-    for el in query::all(root, "[data-rs-nav-item]") {
-        state::remove_state(&el, "active");
-        state::add_state(&el, "inactive");
-        let _ = el.remove_attribute("aria-current");
-    }
-    state::remove_state(target, "inactive");
-    state::add_state(target, "active");
-    let _ = target.set_attribute("aria-current", "page");
-}
-
-fn focus_item(el: &Element) {
-    if let Ok(h) = el.clone().dyn_into::<web_sys::HtmlElement>() {
-        let _ = h.focus();
+fn config() -> SelectionConfig {
+    SelectionConfig {
+        item_selector: ITEM_SEL,
+        value_attr:    "data-rs-value",
+        aria_selected: false,
+        aria_current:  true,
     }
 }
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
-    for el in query::all(&root, "[data-rs-nav-item]") {
-        if state::has(&el, "active") {
-            let _ = el.set_attribute("aria-current", "page");
-        } else {
-            let _ = el.remove_attribute("aria-current");
-        }
-    }
+    init_state(&root, &config());
 
     // click
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(item) = target.closest("[data-rs-nav-item]").ok().flatten() else { return };
+            let Some(item) = target.closest(ITEM_SEL).ok().flatten() else { return };
             if state::has(&item, "disabled") { return; }
-            activate(&root_cb, &item);
+            activate(&root_cb, &item, &config());
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         cb.forget();
@@ -58,26 +39,33 @@ pub fn init(root: Element) {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            if target.closest("[data-rs-nav-item]").ok().flatten().is_none() { return; }
-
-            let items = active_items(&root_cb);
+            if target.closest(ITEM_SEL).ok().flatten().is_none() { return; }
+            let items: Vec<Element> = query::all(&root_cb, ITEM_SEL)
+                .into_iter()
+                .filter(|el| !state::has(el, "disabled"))
+                .collect();
             let len = items.len();
             if len == 0 { return; }
             let pos = items.iter().position(|el| el.contains(Some(target.as_ref())));
-
             match e.key().as_str() {
                 "ArrowDown" | "ArrowRight" => {
                     e.prevent_default();
                     let next = pos.map(|p| (p + 1).min(len - 1)).unwrap_or(0);
-                    focus_item(&items[next]);
+                    if let Ok(h) = items[next].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
                 }
                 "ArrowUp" | "ArrowLeft" => {
                     e.prevent_default();
                     let prev = pos.map(|p| if p == 0 { 0 } else { p - 1 }).unwrap_or(0);
-                    focus_item(&items[prev]);
+                    if let Ok(h) = items[prev].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
                 }
-                "Home" => { e.prevent_default(); focus_item(&items[0]); }
-                "End"  => { e.prevent_default(); focus_item(&items[len - 1]); }
+                "Home" => {
+                    e.prevent_default();
+                    if let Ok(h) = items[0].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
+                }
+                "End" => {
+                    e.prevent_default();
+                    if let Ok(h) = items[len - 1].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
+                }
                 _ => {}
             }
         }));

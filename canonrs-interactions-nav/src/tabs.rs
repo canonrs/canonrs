@@ -1,35 +1,42 @@
-//! Tabs Init — DOM micro-interactions para [data-rs-tabs]
-
+//! Tabs Interaction Engine
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, query, keyboard, aria};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::behavior::selection::{SelectionConfig, activate_by_value};
+
+const TRIGGER_SEL: &str = "[data-rs-tabs-trigger]";
+const CONTENT_SEL: &str = "[data-rs-tabs-content]";
+
+fn trigger_config() -> SelectionConfig {
+    SelectionConfig {
+        item_selector: TRIGGER_SEL,
+        value_attr:    "data-rs-value",
+        aria_selected: true,
+        aria_current:  false,
+    }
+}
 
 fn activate_tab(root: &Element, value: &str) {
-    for trigger in query::all(root, "[data-rs-tabs-trigger]") {
-        let v = trigger.get_attribute("data-rs-value").unwrap_or_default();
-        let is_active = v == value;
-        state::remove_state(&trigger, "active");
-        state::remove_state(&trigger, "inactive");
-        if is_active { state::add_state(&trigger, "active"); } else { state::add_state(&trigger, "inactive"); }
-        aria::set_selected(&trigger, is_active);
-    }
+    // ativa triggers
+    activate_by_value(root, value, &trigger_config());
 
-    for content in query::all(root, "[data-rs-tabs-content]") {
+    // ativa contents
+    for content in query::all(root, CONTENT_SEL) {
         let v = content.get_attribute("data-rs-value").unwrap_or_default();
         let is_active = v == value;
-        state::remove_state(&content, "active");
-        state::remove_state(&content, "inactive");
+        state::remove(&content, "active");
+        state::remove(&content, "inactive");
         if is_active {
-            state::add_state(&content, "active");
+            state::add(&content, "active");
             let _ = content.remove_attribute("hidden");
         } else {
-            state::add_state(&content, "inactive");
+            state::add(&content, "inactive");
             let _ = content.set_attribute("hidden", "");
         }
     }
 
-    // Notifica outros componentes
+    // notifica
     if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
         use web_sys::CustomEventInit;
         let init = CustomEventInit::new();
@@ -40,52 +47,33 @@ fn activate_tab(root: &Element, value: &str) {
     }
 }
 
+fn init_active_tab(root: &Element) {
+    let default_val = query::all(root, "[data-rs-tabs-list]")
+        .first()
+        .and_then(|el| el.get_attribute("data-rs-default-tab"))
+        .or_else(|| root.get_attribute("data-rs-default-tab"))
+        .unwrap_or_default();
+
+    if !default_val.is_empty() {
+        activate_tab(root, &default_val);
+    } else if let Some(first) = query::all(root, TRIGGER_SEL).into_iter().next() {
+        let value = first.get_attribute("data-rs-value").unwrap_or_default();
+        if !value.is_empty() { activate_tab(root, &value); }
+    }
+}
+
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
-    // Ativar tab inicial
-    {
-        let list = query::all(&root, "[data-rs-tabs-list]");
-        let default_val = list.first()
-            .and_then(|el| el.get_attribute("data-rs-default-tab"))
-            .unwrap_or_default();
-        if !default_val.is_empty() {
-            activate_tab(&root, &default_val);
-        } else {
-            let triggers = query::all(&root, "[data-rs-tabs-trigger]");
-            if let Some(first) = triggers.first() {
-                let value = first.get_attribute("data-rs-value").unwrap_or_default();
-                if !value.is_empty() {
-                    activate_tab(&root, &value);
-                }
-            }
-        }
-    }
-
-    // Ativar tab inicial via data-rs-default-tab ou primeiro trigger
-    {
-        let default = root.get_attribute("data-rs-default-tab").unwrap_or_default();
-        if !default.is_empty() {
-            activate_tab(&root, &default);
-        } else {
-            let triggers = query::all(&root, "[data-rs-tabs-trigger]");
-            if let Some(first) = triggers.first() {
-                let value = first.get_attribute("data-rs-value").unwrap_or_default();
-                if !value.is_empty() {
-                    activate_tab(&root, &value);
-                }
-            }
-        }
-    }
+    init_active_tab(&root);
 
     // click
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(trigger) = target.closest("[data-rs-tabs-trigger]").ok().flatten() else { return };
-            let state = trigger.get_attribute("data-rs-state").unwrap_or_default();
-            if state.contains("disabled") { return; }
+            let Some(trigger) = target.closest(TRIGGER_SEL).ok().flatten() else { return };
+            if state::has(&trigger, "disabled") { return; }
             let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
             activate_tab(&root_cb, &value);
         });
@@ -93,27 +81,25 @@ pub fn init(root: Element) {
         cb.forget();
     }
 
-    // keydown
+    // keyboard
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            if target.closest("[data-rs-tabs-trigger]").ok().flatten().is_none() { return; }
+            if target.closest(TRIGGER_SEL).ok().flatten().is_none() { return; }
 
-            let items: Vec<Element> = query::all(&root_cb, "[data-rs-tabs-trigger]")
+            let items: Vec<Element> = query::all(&root_cb, TRIGGER_SEL)
                 .into_iter()
-                .filter(|el| !el.get_attribute("data-rs-state").map(|s| s.contains("disabled")).unwrap_or(false))
+                .filter(|el| !state::has(el, "disabled"))
                 .collect();
-
-            let pos = keyboard::find_pos(&items, &target);
             let len = items.len();
+            let pos = items.iter().position(|el| el.contains(Some(target.as_ref())));
 
             match e.key().as_str() {
                 "Enter" | " " => {
                     e.prevent_default();
-                    let Some(trigger) = target.closest("[data-rs-tabs-trigger]").ok().flatten() else { return };
-                    let state = trigger.get_attribute("data-rs-state").unwrap_or_default();
-                    if !state.contains("disabled") {
+                    let Some(trigger) = target.closest(TRIGGER_SEL).ok().flatten() else { return };
+                    if !state::has(&trigger, "disabled") {
                         let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
                         activate_tab(&root_cb, &value);
                     }
@@ -122,22 +108,24 @@ pub fn init(root: Element) {
                     e.prevent_default();
                     if let Some(p) = pos {
                         let next = (p + 1) % len;
-                        if let Some(el) = items.get(next) {
-                            let _ = el.clone().dyn_into::<web_sys::HtmlElement>().map(|el| el.focus());
-                        }
+                        if let Ok(h) = items[next].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
                     }
                 }
                 "ArrowLeft" | "ArrowUp" => {
                     e.prevent_default();
                     if let Some(p) = pos {
                         let prev = if p == 0 { len - 1 } else { p - 1 };
-                        if let Some(el) = items.get(prev) {
-                            let _ = el.clone().dyn_into::<web_sys::HtmlElement>().map(|el| el.focus());
-                        }
+                        if let Ok(h) = items[prev].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
                     }
                 }
-                "Home" => { e.prevent_default(); keyboard::focus_first(&items, "[data-rs-tabs-trigger]"); }
-                "End"  => { e.prevent_default(); keyboard::focus_last(&items, "[data-rs-tabs-trigger]"); }
+                "Home" => {
+                    e.prevent_default();
+                    if let Ok(h) = items[0].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
+                }
+                "End" => {
+                    e.prevent_default();
+                    if let Ok(h) = items[len - 1].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
+                }
                 _ => {}
             }
         });

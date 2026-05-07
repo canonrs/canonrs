@@ -3,7 +3,9 @@
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, stack, focus, inert, portal, transition, aria, query};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::integration::aria;
+use crate::runtime::{stack, focus, inert, portal, transition};
 
 const KIND:         &str = "confirm-dialog";
 const PORTAL_ATTR:  &str = "data-rs-confirm-dialog-portal";

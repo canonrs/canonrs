@@ -3,7 +3,7 @@
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
 
 fn open(root: &Element)  { state::open(root);  state::set_scroll_lock(true); }
 fn close(root: &Element) { state::close(root); state::set_scroll_lock(false); }

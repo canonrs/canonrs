@@ -4,7 +4,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
-use crate::runtime::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
 
 fn position_and_open(root: &Element, x: i32, y: i32) {
     // nao abre se modal esta aberto — CR-433

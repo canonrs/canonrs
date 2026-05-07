@@ -6,7 +6,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, stack, focus, transition, positioning, query};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
+use crate::runtime::{stack, focus, transition, positioning};
 
 const KIND:         &str = "popover";
 const CONTENT_ATTR: &str = "data-rs-popover-content";
@@ -38,7 +39,7 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
     if let Some(name) = root.get_attribute("data-rs-name") {
         if !name.is_empty() {
             let val = root.get_attribute("data-rs-current-value").unwrap_or_default();
-            crate::runtime::form::sync_hidden_input(root, &val);
+            canonrs_interactions_core::integration::form::sync_hidden_input(root, &val);
         }
     }
 
