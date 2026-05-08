@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::state;
+use canonrs_interactions_core::dom::state;
 
 /// Registra focusin/focusout no root — adiciona/remove "focus-within"
 pub fn init_within(root: &Element) {

@@ -1,5 +1,5 @@
 //! Sidebar Interaction Engine
-//! Tier S — usa canonrs-interactions-core
+//! Core: dom/{lifecycle, state, query} + behavior/keyboard::init_nav
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -17,8 +17,8 @@ pub fn init(root: Element) {
     let is_rail = root.get_attribute("data-rs-variant").as_deref() == Some("rail");
 
     // Estado inicial: expanded se SSR emitiu "expanded", collapsed caso contrário
-    if !state::has(&root, "expanded") && !state::has(&root, "collapsed") {
-        state::add(&root, "collapsed");
+    if !state::has(&root, canonrs_interactions_core::dom::state::State::Expanded.as_str()) && !state::has(&root, canonrs_interactions_core::dom::state::State::Collapsed.as_str()) {
+        state::add(&root, canonrs_interactions_core::dom::state::State::Collapsed.as_str());
     }
 
     // toggle button
@@ -60,14 +60,14 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(item) = target.closest("[data-rs-sidebar-menu-item]").ok().flatten() else { return };
-            if state::has(&item, "disabled") { return; }
+            if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             for el in query::all(&root_cb, "[data-rs-sidebar-menu-item]") {
-                state::remove(&el, "active");
-                state::add(&el, "inactive");
+                state::remove(&el, canonrs_interactions_core::dom::state::State::Active.as_str());
+                state::add(&el, canonrs_interactions_core::dom::state::State::Inactive.as_str());
                 let _ = el.remove_attribute("aria-current");
             }
-            state::remove(&item, "inactive");
-            state::add(&item, "active");
+            state::remove(&item, canonrs_interactions_core::dom::state::State::Inactive.as_str());
+            state::add(&item, canonrs_interactions_core::dom::state::State::Active.as_str());
             let _ = item.set_attribute("aria-current", "page");
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());

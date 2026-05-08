@@ -3,7 +3,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, query, keyboard};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
+use crate::runtime::{keyboard};
 
 fn get_rows(root: &Element) -> Vec<Element> {
     query::all(root, "[data-rs-table-body] [data-rs-table-row]")

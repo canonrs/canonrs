@@ -1,7 +1,7 @@
 //! LoadingOverlay Init — aria-busy + state management
 
 use web_sys::Element;
-use crate::runtime::lifecycle;
+use canonrs_interactions_core::dom::lifecycle;
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }

@@ -1,4 +1,6 @@
 //! LinkGroup Interaction Engine
+//! Core: dom/{lifecycle, state, query} + behavior/selection::{activate, init_state}
+
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use canonrs_interactions_core::dom::{lifecycle, state, query};
@@ -27,7 +29,7 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(item) = target.closest(ITEM_SEL).ok().flatten() else { return };
-            if state::has(&item, "disabled") { return; }
+            if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             activate(&root_cb, &item, &config());
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -42,7 +44,7 @@ pub fn init(root: Element) {
             if target.closest(ITEM_SEL).ok().flatten().is_none() { return; }
             let items: Vec<Element> = query::all(&root_cb, ITEM_SEL)
                 .into_iter()
-                .filter(|el| !state::has(el, "disabled"))
+                .filter(|el| !state::has(el, canonrs_interactions_core::dom::state::State::Disabled.as_str()))
                 .collect();
             let len = items.len();
             if len == 0 { return; }

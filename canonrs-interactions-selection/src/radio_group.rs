@@ -1,7 +1,8 @@
 //! Radio Interaction Engine — keyboard navigation + selection sync
 
 use wasm_bindgen::prelude::*;
-use crate::runtime::{lifecycle, state, context};
+use canonrs_interactions_core::dom::{lifecycle, state};
+use crate::runtime::{context};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
@@ -15,7 +16,7 @@ fn get_items(root: &Element) -> Vec<Element> {
 
 fn navigable_items(root: &Element) -> Vec<Element> {
     get_items(root).into_iter()
-        .filter(|el| !state::has(el, "disabled"))
+        .filter(|el| !state::has(el, canonrs_interactions_core::dom::state::State::Disabled.as_str()))
         .collect()
 }
 
@@ -49,15 +50,15 @@ fn focus_item(item: &Element) {
 fn select_item(root: &Element, value: &str) {
     for item in get_items(root) {
         let matches = item_value(&item) == value;
-        state::remove(&item, "selected");
-        state::remove(&item, "unselected");
+        state::remove(&item, canonrs_interactions_core::dom::state::State::Selected.as_str());
+        state::remove(&item, canonrs_interactions_core::dom::state::State::Unselected.as_str());
         if matches {
-            state::add(&item, "selected");
+            state::add(&item, canonrs_interactions_core::dom::state::State::Selected.as_str());
             let _ = item.set_attribute("aria-checked", "true");
             set_input_checked(&item, true);
             set_tabindex(&item, "0");
         } else {
-            state::add(&item, "unselected");
+            state::add(&item, canonrs_interactions_core::dom::state::State::Unselected.as_str());
             let _ = item.set_attribute("aria-checked", "false");
             set_input_checked(&item, false);
             set_tabindex(&item, "-1");
@@ -73,9 +74,9 @@ pub fn init(root: Element) {
     // SSR bootstrap — roving tabindex + garantir consistência
     {
         let items = get_items(&root);
-        let has_selected = items.iter().any(|el| state::has(el, "selected"));
+        let has_selected = items.iter().any(|el| state::has(el, canonrs_interactions_core::dom::state::State::Selected.as_str()));
         for (i, item) in items.iter().enumerate() {
-            let selected = state::has(item, "selected");
+            let selected = state::has(item, canonrs_interactions_core::dom::state::State::Selected.as_str());
             if selected {
                 set_tabindex(item, "0");
             } else if !has_selected && i == 0 {
@@ -117,7 +118,7 @@ pub fn init(root: Element) {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-radio-group]") else { return };
             let Some(item) = t.closest("[data-rs-radio]").ok().flatten() else { return };
-            if state::has(&item, "disabled") { return; }
+            if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             let value = item_value(&item);
             select_item(&rc, &value);
         }));

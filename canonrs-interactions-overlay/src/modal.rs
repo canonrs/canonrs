@@ -1,4 +1,5 @@
-//! Modal Interaction Engine — portal-safe, owner-based state
+//! Modal Interaction Engine
+//! Core: dom/{lifecycle, state, query}
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -32,8 +33,8 @@ fn sync_state(root: &Element, s: &str) {
     if let Ok(nodes) = doc.query_selector_all(&sel) {
         for i in 0..nodes.length() {
             if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
-                if s == "open" { state::add(&n, "open"); state::remove(&n, "closed"); }
-                else           { state::remove(&n, "open"); state::add(&n, "closed"); }
+                if s == "open" { state::add(&n, canonrs_interactions_core::dom::state::State::Open.as_str()); state::remove(&n, canonrs_interactions_core::dom::state::State::Closed.as_str()); }
+                else           { state::remove(&n, canonrs_interactions_core::dom::state::State::Open.as_str()); state::add(&n, canonrs_interactions_core::dom::state::State::Closed.as_str()); }
             }
         }
     }

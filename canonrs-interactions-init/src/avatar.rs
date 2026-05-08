@@ -3,7 +3,7 @@
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
 
 pub fn init(root: Element) {
     web_sys::console::log_1(&"[avatar] init called".into());

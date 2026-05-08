@@ -56,7 +56,7 @@ pub fn pop(uid: &str) {
     });
     // libera scroll_lock apenas se stack vazio
     if stack_empty() {
-        crate::runtime::state::set_scroll_lock(false);
+        canonrs_interactions_core::dom::state::set_scroll_lock(false);
     }
 }
 

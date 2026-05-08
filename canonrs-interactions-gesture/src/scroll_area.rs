@@ -3,7 +3,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent, MouseEvent};
-use crate::runtime::{lifecycle, state, drag};
+use canonrs_interactions_core::dom::{lifecycle, state};
+use crate::runtime::{drag};
 
 fn sync_thumb(root: &Element, orientation: &str) {
     let is_v = orientation == "vertical";
@@ -24,8 +25,8 @@ fn sync_thumb(root: &Element, orientation: &str) {
         (vp.scroll_width() as f64, vp.client_width() as f64, vp.scroll_left() as f64, sb.client_width() as f64)
     };
 
-    if scroll_size <= client_size { state::add(&th.clone().into(), "hidden"); return; }
-    state::remove(&th.clone().into(), "hidden");
+    if scroll_size <= client_size { state::add(&th.clone().into(), canonrs_interactions_core::dom::state::State::Hidden.as_str()); return; }
+    state::remove(&th.clone().into(), canonrs_interactions_core::dom::state::State::Hidden.as_str());
 
     let ratio = client_size / scroll_size;
     let thumb_size = (bar_size * ratio).max(40.0);
@@ -76,7 +77,7 @@ pub fn init(root: Element) {
             let _ = target.set_attribute("data-rs-drag-start-scroll", &start_scroll.to_string());
             let _ = target.set_attribute("data-rs-drag-client-size",  &client_size.to_string());
             if let Some(h) = target.dyn_ref::<HtmlElement>() { h.set_pointer_capture(e.pointer_id()).ok(); }
-            state::add(&target, "active");
+            state::add(&target, canonrs_interactions_core::dom::state::State::Active.as_str());
         }) as Box<dyn FnMut(_)>);
         doc.add_event_listener_with_callback("pointerdown", cb.as_ref().unchecked_ref()).ok();
         cb.forget();
@@ -113,7 +114,7 @@ pub fn init(root: Element) {
             let Ok(Some(thumb)) = doc.query_selector("[data-rs-scroll-thumb][data-rs-state~='active']") else { return };
             if !drag::drag_active(&thumb, e.pointer_id()) { return; }
             drag::clear_drag(&thumb);
-            state::remove(&thumb, "active");
+            state::remove(&thumb, canonrs_interactions_core::dom::state::State::Active.as_str());
             if let Ok(h) = thumb.dyn_into::<HtmlElement>() { let _ = h.release_pointer_capture(e.pointer_id()); }
         }) as Box<dyn FnMut(_)>);
         doc.add_event_listener_with_callback("pointerup", cb.as_ref().unchecked_ref()).ok();

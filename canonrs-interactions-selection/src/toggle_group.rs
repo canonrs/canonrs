@@ -2,7 +2,8 @@
 //! Single/multiple selection, keyboard navigation, disabled state
 
 use wasm_bindgen::prelude::*;
-use crate::runtime::{lifecycle, state, context};
+use canonrs_interactions_core::dom::{lifecycle, state};
+use crate::runtime::{context};
 
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
@@ -17,32 +18,32 @@ fn get_toggles(root: &Element) -> Vec<Element> {
 
 fn navigable_toggles(root: &Element) -> Vec<Element> {
     get_toggles(root).into_iter()
-        .filter(|el| !state::has(el, "disabled"))
+        .filter(|el| !state::has(el, canonrs_interactions_core::dom::state::State::Disabled.as_str()))
         .collect()
 }
 
 fn toggle_item(root: &Element, item: &Element) {
     let multiple = root.get_attribute("data-rs-multiple").as_deref() == Some("true");
-    let currently_on = state::has(item, "on");
+    let currently_on = state::has(item, canonrs_interactions_core::dom::state::State::On.as_str());
     if !multiple {
         for toggle in get_toggles(root) {
-            state::remove(&toggle, "on");
-            state::add(&toggle, "off");
+            state::remove(&toggle, canonrs_interactions_core::dom::state::State::On.as_str());
+            state::add(&toggle, canonrs_interactions_core::dom::state::State::Off.as_str());
             let _ = toggle.set_attribute("aria-pressed", "false");
         }
         if !currently_on {
-            state::remove(item, "off");
-            state::add(item, "on");
+            state::remove(item, canonrs_interactions_core::dom::state::State::Off.as_str());
+            state::add(item, canonrs_interactions_core::dom::state::State::On.as_str());
             let _ = item.set_attribute("aria-pressed", "true");
         }
     } else {
         if currently_on {
-            state::remove(item, "on");
-            state::add(item, "off");
+            state::remove(item, canonrs_interactions_core::dom::state::State::On.as_str());
+            state::add(item, canonrs_interactions_core::dom::state::State::Off.as_str());
             let _ = item.set_attribute("aria-pressed", "false");
         } else {
-            state::remove(item, "off");
-            state::add(item, "on");
+            state::remove(item, canonrs_interactions_core::dom::state::State::Off.as_str());
+            state::add(item, canonrs_interactions_core::dom::state::State::On.as_str());
             let _ = item.set_attribute("aria-pressed", "true");
         }
     }
@@ -58,8 +59,8 @@ pub fn init(root: Element) {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-toggle-group]") else { return };
             let Some(item) = t.closest("[data-rs-toggle]").ok().flatten() else { return };
-            if state::has(&rc, "disabled") { return; }
-            if state::has(&item, "disabled") { return; }
+            if state::has(&rc, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
+            if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             e.stop_propagation();
             toggle_item(&rc, &item);
         }));
@@ -73,12 +74,12 @@ pub fn init(root: Element) {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-toggle-group]") else { return };
             if t.closest("[data-rs-toggle]").ok().flatten().is_none() { return; }
-            if state::has(&rc, "disabled") { return; }
+            if state::has(&rc, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             match e.key().as_str() {
                 " " | "Enter" => {
                     e.prevent_default();
                     if let Some(item) = t.closest("[data-rs-toggle]").ok().flatten() {
-                        if !state::has(&item, "disabled") { toggle_item(&rc, &item); }
+                        if !state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { toggle_item(&rc, &item); }
                     }
                 }
                 "ArrowRight" | "ArrowDown" => {

@@ -64,3 +64,13 @@ pub fn closest_attr(el: &Element, attr: &str) -> Option<Element> {
     }
     None
 }
+
+/// Sobe a arvore verificando se algum ancestral tem o atributo dado.
+pub fn has_ancestor_attr(el: &Element, attr: &str) -> bool {
+    let mut current = el.parent_element();
+    while let Some(e) = current {
+        if e.has_attribute(attr) { return true; }
+        current = e.parent_element();
+    }
+    false
+}

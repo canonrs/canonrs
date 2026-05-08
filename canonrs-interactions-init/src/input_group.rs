@@ -1,7 +1,8 @@
 //! InputGroup Init — focus-within state
 
 use web_sys::Element;
-use crate::runtime::{lifecycle, focus};
+use canonrs_interactions_core::dom::{lifecycle};
+use crate::runtime::{focus};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
@@ -10,7 +11,7 @@ pub fn init(root: Element) {
     // click em addon → foca o input
     use wasm_bindgen::prelude::*;
     use wasm_bindgen::JsCast;
-    use crate::runtime::query;
+    use canonrs_interactions_core::dom::query;
     let root_cb = root.clone();
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
         let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };

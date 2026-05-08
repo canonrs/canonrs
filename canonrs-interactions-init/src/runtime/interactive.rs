@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::state;
+use canonrs_interactions_core::dom::state;
 
 fn is_disabled(el: &Element) -> bool {
     el.get_attribute("data-rs-state").map(|s| s.contains("disabled")).unwrap_or(false)

@@ -1,7 +1,8 @@
 //! Banner Init — dismiss via [data-rs-banner-close]
 
 use web_sys::Element;
-use crate::runtime::{lifecycle, dismiss};
+use canonrs_interactions_core::dom::{lifecycle};
+use crate::runtime::{dismiss};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }

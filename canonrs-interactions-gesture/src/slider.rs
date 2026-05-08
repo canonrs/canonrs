@@ -3,7 +3,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
-use crate::runtime::{lifecycle, state, drag, attrs};
+use canonrs_interactions_core::dom::{lifecycle, state, attrs};
+use crate::runtime::{drag};
 
 fn set_value(el: &Element, value: f64) {
     let min  = attrs::get_f64(el, "data-rs-min",  0.0);
@@ -49,7 +50,7 @@ pub fn init(root: Element) {
             if let Some(pct) = drag::calc_pct_horizontal(&cur, e.client_x() as f64) {
                 set_value(&cur, drag::calc_value_from_pct(pct, attrs::get_f64(&cur, "data-rs-min", 0.0), attrs::get_f64(&cur, "data-rs-max", 100.0)));
             }
-            state::add(&cur, "active");
+            state::add(&cur, canonrs_interactions_core::dom::state::State::Active.as_str());
         });
         let _ = root.add_event_listener_with_callback("pointerdown", cb.as_ref().unchecked_ref());
         cb.forget();
@@ -76,7 +77,7 @@ pub fn init(root: Element) {
             let Ok(Some(root_el)) = doc.query_selector("[data-rs-slider][data-rs-state~='active']") else { return };
             if !drag::drag_active(&root_el, e.pointer_id()) { return; }
             drag::clear_drag(&root_el);
-            state::remove(&root_el, "active");
+            state::remove(&root_el, canonrs_interactions_core::dom::state::State::Active.as_str());
             if let Ok(h) = root_el.dyn_into::<HtmlElement>() { let _ = h.release_pointer_capture(e.pointer_id()); }
         });
         let _ = doc.add_event_listener_with_callback("pointerup", cb.as_ref().unchecked_ref()).ok();

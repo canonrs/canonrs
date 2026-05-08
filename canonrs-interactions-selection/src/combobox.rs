@@ -1,7 +1,8 @@
 //! Combobox Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::runtime::{lifecycle, state, popup, context};
+use canonrs_interactions_core::dom::{lifecycle, state};
+use crate::runtime::{popup, context};
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlInputElement};
 
@@ -15,8 +16,8 @@ fn is_disabled(root: &Element) -> bool {
 }
 
 fn set_open(root: &Element, open: bool) {
-    if open { state::remove(root, "closed"); state::add(root, "open"); }
-    else { state::remove(root, "open"); state::add(root, "closed"); }
+    if open { state::remove(root, canonrs_interactions_core::dom::state::State::Closed.as_str()); state::add(root, canonrs_interactions_core::dom::state::State::Open.as_str()); }
+    else { state::remove(root, canonrs_interactions_core::dom::state::State::Open.as_str()); state::add(root, canonrs_interactions_core::dom::state::State::Closed.as_str()); }
     let _ = root.set_attribute("aria-expanded", if open { "true" } else { "false" });
 }
 
@@ -36,16 +37,16 @@ fn filter_items(root: &Element, query: &str) {
         let label = item.clone().dyn_into::<web_sys::HtmlElement>().ok()
             .and_then(|el| el.text_content()).unwrap_or_default().to_lowercase();
         let hidden = !q.is_empty() && !label.contains(&q);
-        if hidden { state::add(&item, "hidden"); } else { state::remove(&item, "hidden"); }
+        if hidden { state::add(&item, canonrs_interactions_core::dom::state::State::Hidden.as_str()); } else { state::remove(&item, canonrs_interactions_core::dom::state::State::Hidden.as_str()); }
     }
 }
 
 fn set_selected(root: &Element, value: &str) {
     for item in get_items(root) {
         let matches = item.get_attribute("data-rs-value").map(|v| v == value).unwrap_or(false);
-        state::remove(&item, "selected"); state::remove(&item, "unselected");
-        if matches { state::add(&item, "selected"); let _ = item.set_attribute("aria-selected", "true"); }
-        else { state::add(&item, "unselected"); let _ = item.set_attribute("aria-selected", "false"); }
+        state::remove(&item, canonrs_interactions_core::dom::state::State::Selected.as_str()); state::remove(&item, canonrs_interactions_core::dom::state::State::Unselected.as_str());
+        if matches { state::add(&item, canonrs_interactions_core::dom::state::State::Selected.as_str()); let _ = item.set_attribute("aria-selected", "true"); }
+        else { state::add(&item, canonrs_interactions_core::dom::state::State::Unselected.as_str()); let _ = item.set_attribute("aria-selected", "false"); }
     }
     let items = get_items(root);
     for _it in &items {
@@ -59,7 +60,7 @@ fn set_selected(root: &Element, value: &str) {
         input.set_value(&label);
     }
     // sync hidden input para form submission nativa (CR-XXX)
-    crate::runtime::form::sync_hidden_input(root, value);
+    canonrs_interactions_core::integration::form::sync_hidden_input(root, value);
 }
 
 fn restore_input(root: &Element) {

@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state};
+use canonrs_interactions_core::dom::{lifecycle, state};
 
 fn get_delay(root: &Element, attr: &str, default: i32) -> i32 {
     let mut el = root.parent_element();

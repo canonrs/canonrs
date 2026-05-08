@@ -1,15 +1,16 @@
 //! ColorPicker Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use crate::runtime::{lifecycle, state, context, popup, attrs};
+use canonrs_interactions_core::dom::{lifecycle, state, attrs};
+use crate::runtime::{context, popup};
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 
 
 fn set_open(root: &Element, open: bool) {
-    if open { state::remove(root, "closed"); state::add(root, "open"); }
-    else     { state::remove(root, "open");  state::add(root, "closed"); }
+    if open { state::remove(root, canonrs_interactions_core::dom::state::State::Closed.as_str()); state::add(root, canonrs_interactions_core::dom::state::State::Open.as_str()); }
+    else     { state::remove(root, canonrs_interactions_core::dom::state::State::Open.as_str());  state::add(root, canonrs_interactions_core::dom::state::State::Closed.as_str()); }
 }
 
 fn close_color_picker(root: &Element) {
@@ -62,11 +63,11 @@ pub fn init(root: Element) {
                     if let Ok(nodes) = rc.query_selector_all("[data-rs-color-swatch]") {
                         for i in 0..nodes.length() {
                             if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
-                                state::remove(&n, "selected");
+                                state::remove(&n, canonrs_interactions_core::dom::state::State::Selected.as_str());
                             }
                         }
                     }
-                    state::add(&swatch_el, "selected");
+                    state::add(&swatch_el, canonrs_interactions_core::dom::state::State::Selected.as_str());
                     update_swatch_color(&rc, &color);
                     return;
                 }
@@ -76,7 +77,7 @@ pub fn init(root: Element) {
             if t.closest("[data-rs-color-picker-trigger]").ok().flatten().is_some() {
                 if !rc.has_attribute("data-rs-color-picker-swatches") {
                     e.stop_propagation();
-                    let o = state::has(&rc, "open");
+                    let o = state::has(&rc, canonrs_interactions_core::dom::state::State::Open.as_str());
                     set_open(&rc, !o);
                 }
             }

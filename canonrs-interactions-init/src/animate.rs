@@ -3,7 +3,7 @@
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state};
+use canonrs_interactions_core::dom::{lifecycle, state};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }

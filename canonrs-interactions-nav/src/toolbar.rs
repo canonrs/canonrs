@@ -1,12 +1,11 @@
 //! Toolbar Interaction Engine
+//! Core: dom/{lifecycle, query} + behavior/keyboard::init_nav
+
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use canonrs_interactions_core::dom::{lifecycle, query};
-
-fn get_items(root: &Element) -> Vec<Element> {
-    query::all(root, "[data-rs-toolbar-item]:not([disabled])")
-}
+use canonrs_interactions_core::behavior::keyboard::{init_nav, NavConfig, Orientation, ElementType};
 
 fn dispatch_action(root: &Element, value: &str, pressed: bool) {
     use web_sys::CustomEventInit;
@@ -26,43 +25,21 @@ pub fn init(root: Element) {
 
     let is_vertical = root.get_attribute("data-rs-variant").as_deref() == Some("vertical");
 
-    let items = get_items(&root);
-    for (i, item) in items.iter().enumerate() {
-        let _ = item.set_attribute("tabindex", if i == 0 { "0" } else { "-1" });
-    }
+    // keyboard — roving tabindex via core::behavior::keyboard::init_nav
+    init_nav(
+        &root,
+        "[data-rs-toolbar-item]:not([disabled])",
+        NavConfig {
+            orientation:  if is_vertical { Orientation::Vertical } else { Orientation::Horizontal },
+            element_type: ElementType::Button,
+            focus_state:  "focused",
+            wrap:         true,
+        },
+        None,
+        None,
+    );
 
-    // keydown — roving tabindex
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            if target.closest("[data-rs-toolbar-item]").ok().flatten().is_none() { return; }
-            let items = get_items(&root_cb);
-            let len = items.len();
-            if len == 0 { return; }
-            let pos = items.iter().position(|el| el.contains(Some(target.as_ref())));
-            let Some(pos) = pos else { return };
-            let next = match e.key().as_str() {
-                "ArrowRight" if !is_vertical => { e.prevent_default(); Some((pos + 1) % len) }
-                "ArrowLeft"  if !is_vertical => { e.prevent_default(); Some((pos + len - 1) % len) }
-                "ArrowDown"  if  is_vertical => { e.prevent_default(); Some((pos + 1) % len) }
-                "ArrowUp"    if  is_vertical => { e.prevent_default(); Some((pos + len - 1) % len) }
-                "Home" => { e.prevent_default(); Some(0) }
-                "End"  => { e.prevent_default(); Some(len - 1) }
-                _ => None,
-            };
-            if let Some(next_idx) = next {
-                for (i, item) in items.iter().enumerate() {
-                    let _ = item.set_attribute("tabindex", if i == next_idx { "0" } else { "-1" });
-                }
-                if let Ok(el) = items[next_idx].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
-            }
-        }));
-        let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-
-    // click — toggle aria-pressed
+    // click — toggle aria-pressed + dispatch CustomEvent
     {
         let root_cb = root.clone();
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
@@ -77,5 +54,11 @@ pub fn init(root: Element) {
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
         cb.forget();
+    }
+
+    // init tabindex — primeiro item recebe 0, resto -1
+    let items = query::all(&root, "[data-rs-toolbar-item]:not([disabled])");
+    for (i, item) in items.iter().enumerate() {
+        let _ = item.set_attribute("tabindex", if i == 0 { "0" } else { "-1" });
     }
 }

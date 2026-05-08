@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{state, query};
+use canonrs_interactions_core::dom::{state, query};
 
 /// Registra handler de dismiss no botão de close
 /// close_selector: seletor do botão de fechar (ex: "[data-rs-alert-close]")

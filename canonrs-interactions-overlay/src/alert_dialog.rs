@@ -1,5 +1,5 @@
 //! AlertDialog Interaction Engine
-//! Alert dialogs are intentional — no Escape to close (destructive action)
+//! Core: dom/{lifecycle, state, query}
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;

@@ -1,7 +1,6 @@
 //! Popover Interaction Engine
-//! CR-430 — Overlay Positioning Contract
-//! CR-431 — Trigger → Overlay Lifecycle
-//! CR-432 — Outside Click + Focus Policy
+//! Core: dom/{lifecycle, state, query}
+//! Overlay: stack, focus, transition, positioning
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;

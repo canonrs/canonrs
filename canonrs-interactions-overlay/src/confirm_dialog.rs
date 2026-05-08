@@ -1,5 +1,6 @@
 //! ConfirmDialog Interaction Engine — Tier S
-//! Usa runtime centralizado: stack, focus, inert, portal, transition, aria
+//! Core: dom/{lifecycle, state, query} + integration/aria
+//! Overlay: stack, focus, inert, portal, transition
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;

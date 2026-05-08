@@ -4,7 +4,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{state, context};
+use canonrs_interactions_core::dom::{state};
+use crate::runtime::{context};
 use std::cell::RefCell;
 use std::collections::HashSet;
 

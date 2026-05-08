@@ -1,6 +1,6 @@
 //! Shared — re-exports runtime for backwards compatibility
-pub use crate::runtime::state::{add as add_state, remove as remove_state};
-pub use crate::runtime::lifecycle::{init_guard as is_initialized_check};
+pub use canonrs_interactions_core::dom::state::{add as add_state, remove as remove_state};
+pub use canonrs_interactions_core::dom::lifecycle::init_guard as is_initialized_check;
 
 use web_sys::Element;
 

@@ -184,6 +184,9 @@ pub use sidebar::{
     SidebarMenuGroupPrimitive,
     SidebarSeparatorPrimitive,
     SidebarGroupLabelPrimitive,
+    SidebarGroupPrimitive,
+    SidebarGroupTriggerPrimitive,
+    SidebarGroupContentPrimitive,
 };
 pub use skeleton::*;
 pub use slider::*;

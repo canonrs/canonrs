@@ -5,7 +5,8 @@
 use web_sys::{HtmlInputElement, HtmlElement};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, state, attrs, context};
+use canonrs_interactions_core::dom::{lifecycle, state, attrs};
+use crate::runtime::{context};
 
 // ─── Entry point ─────────────────────────────────────────────────────────────
 
@@ -37,7 +38,7 @@ fn init_table(table: HtmlElement) {
     bind_bulk_actions(&table);
     // inicializa paginação — esconde rows além da página 1
     let total = count_visible(&table);
-    let page_size = crate::runtime::attrs::get_usize_html(&table, "data-rs-page-size", 10);
+    let page_size = canonrs_interactions_core::dom::attrs::get_usize(&table, "data-rs-page-size", 10);
     let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
     let _ = table.set_attribute("data-rs-total-pages", &total_pages.to_string());
     set_page(&table, 1);
@@ -130,7 +131,7 @@ fn apply_filter(table: &HtmlElement, q: &str) {
             else { let _ = el.set_attribute("hidden", ""); }
         }
     }
-    let page_size = attrs::get_usize_html(table, "data-rs-page-size", 10);
+    let page_size = canonrs_interactions_core::dom::attrs::get_usize(table, "data-rs-page-size", 10);
     let total = count_visible(table);
     let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
     let _ = table.set_attribute("data-rs-total-pages", &total_pages.to_string());
@@ -164,7 +165,7 @@ fn bind_sort(table: &HtmlElement) {
 
 fn handle_sort(table: &HtmlElement, col_idx: usize) {
     web_sys::console::log_1(&wasm_bindgen::JsValue::from_str(&format!("[datatable] handle_sort col={} connected={}", col_idx, table.is_connected())));
-    let current_col = attrs::get_usize_html(table, "data-rs-sort-col", usize::MAX);
+    let current_col = canonrs_interactions_core::dom::attrs::get_usize(table, "data-rs-sort-col", usize::MAX);
     let current_asc = table.get_attribute("data-rs-sort-asc").as_deref() == Some("true");
     let (new_col, new_asc) = if current_col == col_idx {
         if current_asc { (col_idx, false) } else { (usize::MAX, true) }
@@ -176,7 +177,7 @@ fn handle_sort(table: &HtmlElement, col_idx: usize) {
         for i in 0..list.length() {
             if let Some(node) = list.item(i) {
                 if let Ok(el) = node.dyn_into::<HtmlElement>() {
-                    let idx = attrs::get_usize_html(&el, "data-rs-col-index", usize::MAX);
+                    let idx = canonrs_interactions_core::dom::attrs::get_usize(&el, "data-rs-col-index", usize::MAX);
                     let icon = el.query_selector("[data-rs-datatable-sort-icon]").ok().flatten();
                     if let Some(icon_el) = icon {
                         icon_el.set_text_content(Some(if new_col == usize::MAX || idx != new_col { "↕" }
@@ -204,7 +205,7 @@ fn apply_sort(table: &HtmlElement, col: Option<usize>, asc: bool) {
                         .ok().flatten()
                         .map(|td| td.text_content().unwrap_or_default())
                         .unwrap_or_default()
-                } else { attrs::get_usize_html(&el, "data-rs-row-index", 0).to_string() };
+                } else { canonrs_interactions_core::dom::attrs::get_usize(&el, "data-rs-row-index", 0).to_string() };
                 Some((val, node))
             }).collect();
         indexed.sort_by(|(a, _), (b, _)| { let ord = a.cmp(b); if asc { ord } else { ord.reverse() } });
@@ -224,7 +225,7 @@ fn bind_pagination(table: &HtmlElement) {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
             if let Ok(tbl) = rc.dyn_into::<HtmlElement>() {
-                let p = attrs::get_usize_html(&tbl, "data-rs-current-page", 1);
+                let p = canonrs_interactions_core::dom::attrs::get_usize(&tbl, "data-rs-current-page", 1);
                 if p > 1 { set_page(&tbl, p - 1); update_pagination_ui(&tbl); }
             }
         }));
@@ -237,8 +238,8 @@ fn bind_pagination(table: &HtmlElement) {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
             if let Ok(tbl) = rc.dyn_into::<HtmlElement>() {
-                let p = attrs::get_usize_html(&tbl, "data-rs-current-page", 1);
-                let tp = attrs::get_usize_html(&tbl, "data-rs-total-pages", 1);
+                let p = canonrs_interactions_core::dom::attrs::get_usize(&tbl, "data-rs-current-page", 1);
+                let tp = canonrs_interactions_core::dom::attrs::get_usize(&tbl, "data-rs-total-pages", 1);
                 if p < tp { set_page(&tbl, p + 1); update_pagination_ui(&tbl); }
             }
         }));
@@ -251,7 +252,7 @@ fn bind_pagination(table: &HtmlElement) {
 // depois mostra apenas as visíveis (sem data-rs-filtered) da página atual.
 fn set_page(table: &HtmlElement, page: usize) {
     let _ = table.set_attribute("data-rs-current-page", &page.to_string());
-    let page_size = attrs::get_usize_html(table, "data-rs-page-size", 10);
+    let page_size = canonrs_interactions_core::dom::attrs::get_usize(table, "data-rs-page-size", 10);
     let rows = table.query_selector_all("[data-rs-datatable-row]").ok();
     if let Some(list) = rows {
         // Passo 1: esconde todas
@@ -277,8 +278,8 @@ fn set_page(table: &HtmlElement, page: usize) {
 }
 
 fn update_pagination_ui(table: &HtmlElement) {
-    let page = attrs::get_usize_html(table, "data-rs-current-page", 1);
-    let total_pages = attrs::get_usize_html(table, "data-rs-total-pages", 1);
+    let page = canonrs_interactions_core::dom::attrs::get_usize(table, "data-rs-current-page", 1);
+    let total_pages = canonrs_interactions_core::dom::attrs::get_usize(table, "data-rs-total-pages", 1);
     if let Some(info) = table.query_selector("[data-rs-pagination-info]").ok().flatten() {
         info.set_text_content(Some(&format!("{} of {}", page, total_pages)));
     }

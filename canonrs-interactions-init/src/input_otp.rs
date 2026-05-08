@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, query, state};
+use canonrs_interactions_core::dom::{lifecycle, query, state};
 
 fn update_slots(root: &Element) {
     let input = match query::first(root, "[data-rs-input-otp]") {

@@ -4,6 +4,7 @@ use web_sys::Element;
 use crate::dom::{state, query};
 use crate::integration::aria;
 
+#[derive(Debug)]
 pub struct SelectionConfig {
     /// Selector dos itens selecionáveis dentro do root
     pub item_selector: &'static str,
@@ -72,5 +73,35 @@ pub fn init_state(root: &Element, config: &SelectionConfig) {
                 state::add(item, "inactive");
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::SelectionConfig;
+
+    #[test]
+    fn selection_config_tabs() {
+        let config = SelectionConfig {
+            item_selector: "[data-rs-tabs-trigger]",
+            value_attr:    "data-rs-value",
+            aria_selected: true,
+            aria_current:  false,
+        };
+        assert_eq!(config.item_selector, "[data-rs-tabs-trigger]");
+        assert!(config.aria_selected);
+        assert!(!config.aria_current);
+    }
+
+    #[test]
+    fn selection_config_nav() {
+        let config = SelectionConfig {
+            item_selector: "[data-rs-nav-item]",
+            value_attr:    "data-rs-value",
+            aria_selected: false,
+            aria_current:  true,
+        };
+        assert!(!config.aria_selected);
+        assert!(config.aria_current);
     }
 }

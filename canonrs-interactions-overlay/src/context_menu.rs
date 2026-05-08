@@ -1,5 +1,6 @@
 //! ContextMenu Interaction Engine
-//! Posicionamento via coordenadas do contextmenu event (x/y absolutos)
+//! Core: dom/{lifecycle, state, query}
+//! Overlay: stack
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;

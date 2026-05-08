@@ -1,7 +1,7 @@
 //! Transition — duration reader e state lifecycle (entering/open/exiting/closed)
 
 use web_sys::Element;
-use super::state;
+use canonrs_interactions_core::dom::state;
 
 /// Lê --{prefix}-transition-duration do computed style e retorna ms
 pub fn duration_ms(el: &Element, css_var: &str) -> i32 {

@@ -1,4 +1,6 @@
 //! Tabs Interaction Engine
+//! Core: dom/{lifecycle, state, query} + behavior/selection::activate_by_value
+
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
@@ -25,13 +27,13 @@ fn activate_tab(root: &Element, value: &str) {
     for content in query::all(root, CONTENT_SEL) {
         let v = content.get_attribute("data-rs-value").unwrap_or_default();
         let is_active = v == value;
-        state::remove(&content, "active");
-        state::remove(&content, "inactive");
+        state::remove(&content, canonrs_interactions_core::dom::state::State::Active.as_str());
+        state::remove(&content, canonrs_interactions_core::dom::state::State::Inactive.as_str());
         if is_active {
-            state::add(&content, "active");
+            state::add(&content, canonrs_interactions_core::dom::state::State::Active.as_str());
             let _ = content.remove_attribute("hidden");
         } else {
-            state::add(&content, "inactive");
+            state::add(&content, canonrs_interactions_core::dom::state::State::Inactive.as_str());
             let _ = content.set_attribute("hidden", "");
         }
     }
@@ -73,7 +75,7 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(trigger) = target.closest(TRIGGER_SEL).ok().flatten() else { return };
-            if state::has(&trigger, "disabled") { return; }
+            if state::has(&trigger, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
             activate_tab(&root_cb, &value);
         });
@@ -90,7 +92,7 @@ pub fn init(root: Element) {
 
             let items: Vec<Element> = query::all(&root_cb, TRIGGER_SEL)
                 .into_iter()
-                .filter(|el| !state::has(el, "disabled"))
+                .filter(|el| !state::has(el, canonrs_interactions_core::dom::state::State::Disabled.as_str()))
                 .collect();
             let len = items.len();
             let pos = items.iter().position(|el| el.contains(Some(target.as_ref())));
@@ -99,7 +101,7 @@ pub fn init(root: Element) {
                 "Enter" | " " => {
                     e.prevent_default();
                     let Some(trigger) = target.closest(TRIGGER_SEL).ok().flatten() else { return };
-                    if !state::has(&trigger, "disabled") {
+                    if !state::has(&trigger, canonrs_interactions_core::dom::state::State::Disabled.as_str()) {
                         let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
                         activate_tab(&root_cb, &value);
                     }

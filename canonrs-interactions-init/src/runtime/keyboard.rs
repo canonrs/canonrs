@@ -9,7 +9,7 @@ use wasm_bindgen::JsCast;
 use web_sys::Element;
 use std::rc::Rc;
 use std::cell::Cell;
-use crate::runtime::{state, query};
+use canonrs_interactions_core::dom::{state, query};
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum Orientation {

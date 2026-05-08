@@ -20,7 +20,7 @@ Não contém lógica de produto. Contém apenas regras e mecanismos universais.
 
 ```
 dom/
-  state       → mutação de estado (data-rs-state)
+  state       → mutação de estado (data-rs-state) + State enum canônico
   query       → seleção segura (is_connected obrigatório)
   attrs       → leitura de atributos
   lifecycle   → init guard + reinit
@@ -39,16 +39,45 @@ integration/
 
 ---
 
+## `State` enum — tokens canônicos
+
+Todos os tokens válidos de `data-rs-state` estão tipados no enum `State`.
+Use sempre o enum. Strings literais são permitidas apenas para tokens dinâmicos ou específicos de componente.
+
+```rust
+use canonrs_interactions_core::dom::state::{State, set, unset, is};
+
+state::set(el, State::Active);      // adiciona "active"
+state::unset(el, State::Inactive);  // remove "inactive"
+state::is(el, State::Disabled);     // verifica "disabled"
+```
+
+Tokens disponíveis:
+
+```
+Visibility:  Open, Closed, Hidden, Visible
+Activity:    Active, Inactive
+Selection:   Selected, Unselected
+Expansion:   Expanded, Collapsed
+Interaction: Focused, Hover, Disabled
+Form/Toggle: Checked, Unchecked, On, Off
+Async:       Loading, Idle, Error, Submitting
+Feedback:    Copied, Paused
+Transition:  Entering, Exiting
+```
+
+---
+
 ## Regras (OBRIGATÓRIO)
 
 ### Estado
 
 ```rust
-state::add(el, "active");
+state::set(el, State::Active);  // CORRETO — tipado
+state::add(el, "active");       // permitido para tokens dinâmicos
 ```
 
-- PERMITIDO
-- PROIBIDO manipular `class`, `style` ou `hidden` diretamente sem sincronizar estado
+- PROIBIDO manipular `class`, `style` ou `hidden` sem sincronizar `data-rs-state`
 
 ### Seleção
 
@@ -71,20 +100,29 @@ disclosure::toggle(root, item, config);
 ### Query
 
 ```rust
-query::safe_target(e);
+query::safe_target(e);       // OBRIGATÓRIO — valida is_connected
+query::has_ancestor_attr(el, attr); // sobe árvore procurando atributo
 ```
 
-- OBRIGATÓRIO
 - PROIBIDO usar `e.target()` direto
+
+### Keyboard
+
+```rust
+init_nav(&root, selector, NavConfig { .. }, None, None);
+```
+
+- OBRIGATÓRIO para Arrow/Home/End em listas
+- PROIBIDO reimplementar keyboard navigation manualmente
 
 ### Lifecycle
 
 ```rust
-lifecycle::init_guard(root);
+if !lifecycle::init_guard(&root) { return; }
 ```
 
 - OBRIGATÓRIO em TODOS os engines
-- PROIBIDO inicializar sem guard
+- Suporta `data-rs-reinit` para rebind após hydration
 
 ---
 
@@ -95,6 +133,7 @@ lifecycle::init_guard(root);
 - Manipular DOM fora do core
 - Criar múltiplos listeners por instância quando existe global
 - Operar em elementos sem validar `is_connected()`
+- Usar strings literais onde existe variante no enum `State`
 
 ---
 
@@ -104,10 +143,12 @@ lifecycle::init_guard(root);
 - Garantir segurança (`is_connected`)
 - Garantir consistência de estado
 - Garantir acessibilidade base
+- Tipar todos os tokens de estado
 
 **Engines** (`nav`, `overlay`, `selection`, `gesture`, `content`)
 - Orquestrar comportamento específico do componente
 - Nunca implementar lógica base já coberta pelo core
+- Declarar no cabeçalho quais módulos do core usa
 
 ---
 
@@ -115,7 +156,12 @@ lifecycle::init_guard(root);
 
 CORRETO:
 ```rust
-selection::activate(&root, &item, &config);
+// cabeçalho do engine
+//! Tabs Interaction Engine
+//! Core: dom/{lifecycle, state, query} + behavior/selection::activate_by_value
+
+selection::activate_by_value(&root, &value, &config);
+state::set(&trigger, State::Active);
 ```
 
 PROIBIDO:
@@ -125,6 +171,19 @@ for el in items {
 }
 state::add(&item, "active");
 ```
+
+---
+
+## Testes
+
+```bash
+cargo test -p canonrs-interactions-core
+```
+
+Testes de lógica pura rodam com `cargo test`.
+Testes de DOM rodam via `wasm-pack test --headless`.
+
+Módulos com testes: `dom/state`, `behavior/selection`, `behavior/disclosure`.
 
 ---
 
@@ -149,9 +208,10 @@ Regra: se apenas um grupo usa → fica no runtime local desse grupo.
 Um módulo entra no core se e somente se:
 
 1. É consumido por 2 ou mais grupos de interação distintos
-2. Não tem dependência de módulos overlay-específicos (`stack`, `portal`, `inert`)
+2. Não tem dependência de módulos overlay-específicos
 3. É stateless ou usa apenas `thread_local` com registry global bem definido
 4. Tem invariantes documentados neste README
+5. Tem testes unitários
 
 ---
 
@@ -160,11 +220,11 @@ Um módulo entra no core se e somente se:
 | Crate | Módulos consumidos |
 |---|---|
 | `canonrs-interactions-nav` | `dom/*`, `behavior/keyboard`, `behavior/selection`, `behavior/disclosure`, `integration/aria` |
-| `canonrs-interactions-overlay` | `dom/*`, `integration/aria`, `integration/form` |
-| `canonrs-interactions-selection` | `dom/*`, `behavior/selection`, `integration/aria`, `integration/form` |
-| `canonrs-interactions-init` | `dom/*` |
+| `canonrs-interactions-overlay` | `dom/*`, `integration/aria`, `integration/form`, `behavior/events` |
+| `canonrs-interactions-selection` | `dom/*`, `integration/aria`, `integration/form` |
+| `canonrs-interactions-init` | `dom/*`, `integration/aria` |
 | `canonrs-interactions-gesture` | `dom/*` |
-| `canonrs-interactions-content` | `dom/*` |
+| `canonrs-interactions-content` | `dom/state`, `dom/lifecycle` (via shared re-export) |
 
 ---
 

@@ -25,12 +25,16 @@ pub fn SidebarPrimitive(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     let uid_sb = crate::infra::uid::generate("sb");
+    let state_str = match state {
+        VisibilityState::Open => "expanded",
+        _ => "collapsed",
+    };
     view! {
         <aside
             data-rs-sidebar=""
             data-rs-uid=uid_sb
             data-rs-interaction="nav"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state_str
             data-rs-variant=variant.as_str()
             aria-hidden=state.aria_hidden()
             role="complementary"
@@ -163,9 +167,52 @@ pub fn SidebarGroupLabelPrimitive(
 }
 
 #[component]
+pub fn SidebarGroupPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-sidebar-group=""
+            data-rs-state="expanded"
+            class=class
+        >
+            {children()}
+        </div>
+    }
+}
+
+#[component]
+pub fn SidebarGroupTriggerPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <button
+            type="button"
+            data-rs-sidebar-group-toggle=""
+            class=class
+        >
+            {children()}
+        </button>
+    }
+}
+
+#[component]
+pub fn SidebarGroupContentPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div data-rs-sidebar-group-content="" class=class>
+            {children()}
+        </div>
+    }
+}
+
+#[component]
 pub fn SidebarTriggerPrimitive(
     children: Children,
-    #[prop(default = VisibilityState::Open)] state: VisibilityState,
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] style: String,
 ) -> impl IntoView {
@@ -173,8 +220,7 @@ pub fn SidebarTriggerPrimitive(
         <button
             type="button"
             data-rs-sidebar-toggle=""
-            data-rs-visibility=state.as_str()
-            aria-expanded=state.aria_expanded()
+            aria-expanded="false"
             class=class
             style=style
         >

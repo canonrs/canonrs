@@ -269,6 +269,6 @@
   display: none;
 }
 
-/* Open/closed states */
-[data-rs-sidebar][data-rs-state~="open"]   { visibility: visible; }
-[data-rs-sidebar][data-rs-state~="closed"] { visibility: hidden; width: 0; overflow: hidden; }
+/* Expanded/collapsed states */
+[data-rs-sidebar][data-rs-state~="expanded"]  { visibility: visible; }
+[data-rs-sidebar][data-rs-state~="collapsed"] { width: var(--sidebar-width-collapsed); }

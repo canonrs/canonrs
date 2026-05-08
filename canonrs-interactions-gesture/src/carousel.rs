@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, state, attrs};
+use canonrs_interactions_core::dom::{lifecycle, state, attrs};
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-carousel-item]") else { return vec![] };
@@ -24,14 +24,14 @@ fn go_to(root: &Element, idx: usize) {
     let len = items.len(); if len == 0 { return; }
     let idx = idx.min(len - 1);
     for (i, item) in items.iter().enumerate() {
-        state::remove(item, "active"); state::remove(item, "inactive");
-        if i == idx { state::add(item, "active"); let _ = item.remove_attribute("hidden"); }
-        else        { state::add(item, "inactive"); let _ = item.set_attribute("hidden", ""); }
+        state::remove(item, canonrs_interactions_core::dom::state::State::Active.as_str()); state::remove(item, canonrs_interactions_core::dom::state::State::Inactive.as_str());
+        if i == idx { state::add(item, canonrs_interactions_core::dom::state::State::Active.as_str()); let _ = item.remove_attribute("hidden"); }
+        else        { state::add(item, canonrs_interactions_core::dom::state::State::Inactive.as_str()); let _ = item.set_attribute("hidden", ""); }
         let _ = item.set_attribute("aria-hidden", if i == idx { "false" } else { "true" });
     }
     for (i, dot) in get_dots(root).iter().enumerate() {
-        state::remove(dot, "active"); state::remove(dot, "inactive");
-        if i == idx { state::add(dot, "active"); } else { state::add(dot, "inactive"); }
+        state::remove(dot, canonrs_interactions_core::dom::state::State::Active.as_str()); state::remove(dot, canonrs_interactions_core::dom::state::State::Inactive.as_str());
+        if i == idx { state::add(dot, canonrs_interactions_core::dom::state::State::Active.as_str()); } else { state::add(dot, canonrs_interactions_core::dom::state::State::Inactive.as_str()); }
     }
     let _ = root.set_attribute("data-rs-current-index", &idx.to_string());
 }

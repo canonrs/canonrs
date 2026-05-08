@@ -1,4 +1,6 @@
 //! DropdownMenu Interaction Engine
+//! Core: dom/lifecycle
+//! Overlay: stack
 
 use web_sys::Element;
 use wasm_bindgen::prelude::*;

@@ -1,4 +1,6 @@
-//! HoverCard Interaction Engine — delay + hover bridge
+//! HoverCard Interaction Engine
+//! Core: dom/{lifecycle, state}
+//! Overlay: stack
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;

@@ -1,7 +1,8 @@
 //! Tree Interaction Engine — expand/collapse + selection + keyboard navigation
 
 use wasm_bindgen::prelude::*;
-use crate::runtime::{lifecycle, state, context};
+use canonrs_interactions_core::dom::{lifecycle, state};
+use crate::runtime::{context};
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
@@ -19,7 +20,7 @@ fn is_expandable(item: &Element) -> bool {
 }
 
 fn is_expanded(item: &Element) -> bool {
-    state::has(item, "expanded")
+    state::has(item, canonrs_interactions_core::dom::state::State::Expanded.as_str())
 }
 
 fn is_disabled(item: &Element) -> bool {
@@ -29,23 +30,23 @@ fn is_disabled(item: &Element) -> bool {
 fn toggle_expand(item: &Element) {
     if !is_expandable(item) { return; }
     if is_expanded(item) {
-        state::remove(item, "expanded");
-        state::add(item, "collapsed");
+        state::remove(item, canonrs_interactions_core::dom::state::State::Expanded.as_str());
+        state::add(item, canonrs_interactions_core::dom::state::State::Collapsed.as_str());
         let _ = item.set_attribute("aria-expanded", "false");
     } else {
-        state::remove(item, "collapsed");
-        state::add(item, "expanded");
+        state::remove(item, canonrs_interactions_core::dom::state::State::Collapsed.as_str());
+        state::add(item, canonrs_interactions_core::dom::state::State::Expanded.as_str());
         let _ = item.set_attribute("aria-expanded", "true");
     }
 }
 
 fn select_item(root: &Element, item: &Element) {
     for i in get_items(root) {
-        state::remove(&i, "active");
-        state::remove(&i, "selected");
+        state::remove(&i, canonrs_interactions_core::dom::state::State::Active.as_str());
+        state::remove(&i, canonrs_interactions_core::dom::state::State::Selected.as_str());
     }
-    state::add(item, "active");
-    state::add(item, "selected");
+    state::add(item, canonrs_interactions_core::dom::state::State::Active.as_str());
+    state::add(item, canonrs_interactions_core::dom::state::State::Selected.as_str());
 }
 
 pub fn init(root: Element) {

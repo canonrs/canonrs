@@ -1,5 +1,6 @@
 //! Dialog Interaction Engine — Tier S
-//! 100% stack-driven: sem listeners locais, ESC via top-of-stack
+//! Core: dom/{lifecycle, state, query} + integration/aria
+//! Overlay: stack, focus, inert, portal, transition
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;

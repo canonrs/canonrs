@@ -4,7 +4,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use crate::shared::{is_initialized, mark_initialized};
-use crate::runtime::state;
+use canonrs_interactions_core::dom::state;
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-list-item]:not([data-rs-disabled])") else { return vec![] };

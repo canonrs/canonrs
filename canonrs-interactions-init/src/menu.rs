@@ -1,7 +1,8 @@
 //! Menu Init — single item selection + keyboard navigation + hover
 
 use web_sys::Element;
-use crate::runtime::{lifecycle, interactive, state, query, keyboard};
+use canonrs_interactions_core::dom::{lifecycle, state, query};
+use crate::runtime::{interactive, keyboard};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }

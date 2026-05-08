@@ -3,6 +3,9 @@
 
 use leptos::prelude::*;
 use super::sidebar_ui::{
+    SidebarGroup as SidebarGroupUi,
+    SidebarGroupTrigger as SidebarGroupTriggerUi,
+    SidebarGroupContent as SidebarGroupContentUi,
     Sidebar as SidebarUi,
     SidebarHeader as SidebarHeaderUi,
     SidebarContent as SidebarContentUi,
@@ -14,6 +17,8 @@ use super::sidebar_ui::{
     SidebarGroupLabel as SidebarGroupLabelUi
 };
 pub use canonrs_core::primitives::SidebarVariant;
+pub use canonrs_core::primitives::SidebarTriggerPrimitive;
+pub use canonrs_core::primitives::SidebarTriggerPrimitive as SidebarTrigger;
 use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
 
 
@@ -95,4 +100,28 @@ pub fn SidebarGroupLabel(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! { <SidebarGroupLabelUi class=class>{children()}</SidebarGroupLabelUi> }
+}
+
+#[component]
+pub fn SidebarGroup(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarGroupUi class=class>{children()}</SidebarGroupUi> }
+}
+
+#[component]
+pub fn SidebarGroupTrigger(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarGroupTriggerUi class=class>{children()}</SidebarGroupTriggerUi> }
+}
+
+#[component]
+pub fn SidebarGroupContent(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarGroupContentUi class=class>{children()}</SidebarGroupContentUi> }
 }

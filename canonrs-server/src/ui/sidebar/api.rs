@@ -2,7 +2,7 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
-// imports: use canonrs::primitives::{SidebarVariant}; 
+// imports: use canonrs::primitives::{SidebarVariant, SidebarTriggerPrimitive, SidebarTriggerPrimitive as SidebarTrigger}; 
 
 pub const SIDEBAR_API: ComponentApi = ComponentApi {
     id: "sidebar",
@@ -83,6 +83,33 @@ pub const SIDEBARSEPARATOR_API: ComponentApi = ComponentApi {
 
 pub const SIDEBARGROUPLABEL_API: ComponentApi = ComponentApi {
     id: "sidebar-group-label",
+    description: "Sidebar navigation component",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const SIDEBARGROUP_API: ComponentApi = ComponentApi {
+    id: "sidebar-group",
+    description: "Sidebar navigation component",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const SIDEBARGROUPTRIGGER_API: ComponentApi = ComponentApi {
+    id: "sidebar-group-trigger",
+    description: "Sidebar navigation component",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const SIDEBARGROUPCONTENT_API: ComponentApi = ComponentApi {
+    id: "sidebar-group-content",
     description: "Sidebar navigation component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },

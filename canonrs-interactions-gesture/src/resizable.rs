@@ -3,7 +3,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
-use crate::runtime::{lifecycle, drag, attrs};
+use canonrs_interactions_core::dom::{lifecycle, attrs};
+use crate::runtime::{drag};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
@@ -82,14 +83,14 @@ pub fn init(root: Element) {
                 if let Ok(handle) = wasm_bindgen::JsCast::dyn_into::<web_sys::Element>(node) {
                     let h_enter = handle.clone();
                     let cb_enter = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-                        crate::runtime::state::add(&h_enter, "hover");
+                        canonrs_interactions_core::dom::state::add(&h_enter, canonrs_interactions_core::dom::state::State::Hover.as_str());
                     }));
                     let _ = handle.add_event_listener_with_callback("mouseenter", cb_enter.as_ref().unchecked_ref());
                     cb_enter.forget();
 
                     let h_leave = handle.clone();
                     let cb_leave = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-                        crate::runtime::state::remove(&h_leave, "hover");
+                        canonrs_interactions_core::dom::state::remove(&h_leave, canonrs_interactions_core::dom::state::State::Hover.as_str());
                     }));
                     let _ = handle.add_event_listener_with_callback("mouseleave", cb_leave.as_ref().unchecked_ref());
                     cb_leave.forget();

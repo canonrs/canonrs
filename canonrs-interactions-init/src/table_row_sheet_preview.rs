@@ -5,7 +5,13 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{state, query};
+use canonrs_interactions_core::dom::{state, query};
+
+fn closest_action(el: &web_sys::Element, action: &str) -> Option<web_sys::Element> {
+    let selector = format!("[data-rs-action='{}']", action);
+    el.closest(&selector).ok().flatten()
+}
+
 
 pub fn init(root: Element) {
     if root.get_attribute("data-rs-table-context-init").as_deref() == Some("true") { return; }
@@ -16,7 +22,7 @@ pub fn init(root: Element) {
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
         let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
         if query::has_ancestor_attr(&target, "data-rs-copyable") { return; }
-        let Some(row) = query::closest_action(&target, "open-sheet") else { return };
+        let Some(row) = closest_action(&target, "open-sheet") else { return };
 
         let label = row.get_attribute("data-rs-label").unwrap_or_default();
         let meta  = row.get_attribute("data-rs-meta").unwrap_or_default();
@@ -67,10 +73,10 @@ pub fn init(root: Element) {
 
         let rows = query::all(&ctx, "[data-rs-action='open-sheet']");
         for r in &rows {
-            state::remove_state(r, "selected");
+            state::remove(r, canonrs_interactions_core::dom::state::State::Selected.as_str());
             let _ = r.remove_attribute("data-rs-row-selected");
         }
-        state::add_state(&row, "selected");
+        state::add(&row, canonrs_interactions_core::dom::state::State::Selected.as_str());
         let _ = row.set_attribute("data-rs-row-selected", "true");
     });
     let _ = root_click.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -85,8 +91,8 @@ pub fn init(root: Element) {
             if let Some(close_btn) = query::first(&sheet, "[data-rs-sheet-close]") {
                 let sheet_cb = sheet.clone();
                 let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-                    state::remove_state(&sheet_cb, "open");
-                    state::add_state(&sheet_cb, "closed");
+                    state::remove(&sheet_cb, canonrs_interactions_core::dom::state::State::Open.as_str());
+                    state::add(&sheet_cb, canonrs_interactions_core::dom::state::State::Closed.as_str());
                     if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
                         if let Some(body) = doc.body() {
                             let _ = body.remove_attribute("data-rs-scroll-lock");
@@ -124,8 +130,8 @@ pub fn init(root: Element) {
             let state = sheet.get_attribute("data-rs-state").unwrap_or_default();
             if !state.contains("open") { return; }
             e.prevent_default();
-            state::remove_state(&sheet, "open");
-            state::add_state(&sheet, "closed");
+            state::remove(&sheet, canonrs_interactions_core::dom::state::State::Open.as_str());
+            state::add(&sheet, canonrs_interactions_core::dom::state::State::Closed.as_str());
             if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
                 if let Some(body) = doc.body() {
                     let _ = body.remove_attribute("data-rs-scroll-lock");

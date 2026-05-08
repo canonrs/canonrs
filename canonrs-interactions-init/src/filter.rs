@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{lifecycle, query};
+use canonrs_interactions_core::dom::{lifecycle, query};
 
 fn get_target_id(root: &Element) -> Option<String> {
     root.get_attribute("data-rs-filter-target")

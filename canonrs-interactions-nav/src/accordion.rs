@@ -1,4 +1,6 @@
 //! Accordion Interaction Engine
+//! Core: dom/{lifecycle, state} + behavior/disclosure::{toggle, active_triggers, init_state}
+
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
@@ -38,7 +40,7 @@ pub fn init(root: Element) {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if target.closest("[data-rs-accordion-trigger]").ok().flatten().is_none() { return; }
             let Some(item) = target.closest("[data-rs-accordion-item]").ok().flatten() else { return };
-            if state::has(&item, "disabled") { return; }
+            if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             toggle(&root_cb, &item, &make_config(&root_cb));
         });
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
@@ -50,7 +52,7 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
-            state::add(&trigger, "hover");
+            state::add(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
         });
         let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref());
         cb.forget();
@@ -59,7 +61,7 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
-            state::remove(&trigger, "hover");
+            state::remove(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
         });
         let _ = root.add_event_listener_with_callback("mouseout", cb.as_ref().unchecked_ref());
         cb.forget();
@@ -80,7 +82,7 @@ pub fn init(root: Element) {
                 "Enter" | " " => {
                     e.prevent_default();
                     let Some(item) = trigger.closest("[data-rs-accordion-item]").ok().flatten() else { return };
-                    if !state::has(&item, "disabled") { toggle(&root_cb, &item, &config); }
+                    if !state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { toggle(&root_cb, &item, &config); }
                 }
                 "ArrowDown" => {
                     e.prevent_default();

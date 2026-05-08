@@ -1,4 +1,6 @@
 //! Pagination Interaction Engine
+//! Core: dom/{lifecycle, state}
+
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use canonrs_interactions_core::dom::{lifecycle, state};
@@ -13,7 +15,7 @@ fn get_total_pages(root: &Element) -> usize {
 }
 
 fn is_disabled(el: &Element) -> bool {
-    state::has(el, "disabled") || el.get_attribute("data-rs-disabled").as_deref() == Some("true")
+    state::has(el, canonrs_interactions_core::dom::state::State::Disabled.as_str()) || el.get_attribute("data-rs-disabled").as_deref() == Some("true")
 }
 
 fn set_page(root: &Element, page: usize) {
@@ -26,13 +28,13 @@ fn set_page(root: &Element, page: usize) {
         if let Some(n) = links.item(i) {
             if let Ok(el) = n.dyn_into::<Element>() {
                 let link_page = el.get_attribute("data-rs-page").and_then(|s| s.parse::<usize>().ok()).unwrap_or(0);
-                state::remove(&el, "active");
-                state::remove(&el, "inactive");
+                state::remove(&el, canonrs_interactions_core::dom::state::State::Active.as_str());
+                state::remove(&el, canonrs_interactions_core::dom::state::State::Inactive.as_str());
                 if link_page == page {
-                    state::add(&el, "active");
+                    state::add(&el, canonrs_interactions_core::dom::state::State::Active.as_str());
                     let _ = el.set_attribute("aria-current", "page");
                 } else {
-                    state::add(&el, "inactive");
+                    state::add(&el, canonrs_interactions_core::dom::state::State::Inactive.as_str());
                     let _ = el.remove_attribute("aria-current");
                 }
             }
@@ -40,25 +42,25 @@ fn set_page(root: &Element, page: usize) {
     }
 
     if let Ok(Some(prev)) = root.query_selector("[data-rs-pagination-previous]") {
-        state::remove(&prev, "disabled"); state::remove(&prev, "inactive");
+        state::remove(&prev, canonrs_interactions_core::dom::state::State::Disabled.as_str()); state::remove(&prev, canonrs_interactions_core::dom::state::State::Inactive.as_str());
         if page <= 1 {
-            state::add(&prev, "disabled");
+            state::add(&prev, canonrs_interactions_core::dom::state::State::Disabled.as_str());
             let _ = prev.set_attribute("aria-disabled", "true");
             let _ = prev.set_attribute("tabindex", "-1");
         } else {
-            state::add(&prev, "inactive");
+            state::add(&prev, canonrs_interactions_core::dom::state::State::Inactive.as_str());
             let _ = prev.set_attribute("aria-disabled", "false");
             let _ = prev.set_attribute("tabindex", "0");
         }
     }
     if let Ok(Some(next)) = root.query_selector("[data-rs-pagination-next]") {
-        state::remove(&next, "disabled"); state::remove(&next, "inactive");
+        state::remove(&next, canonrs_interactions_core::dom::state::State::Disabled.as_str()); state::remove(&next, canonrs_interactions_core::dom::state::State::Inactive.as_str());
         if page >= total {
-            state::add(&next, "disabled");
+            state::add(&next, canonrs_interactions_core::dom::state::State::Disabled.as_str());
             let _ = next.set_attribute("aria-disabled", "true");
             let _ = next.set_attribute("tabindex", "-1");
         } else {
-            state::add(&next, "inactive");
+            state::add(&next, canonrs_interactions_core::dom::state::State::Inactive.as_str());
             let _ = next.set_attribute("aria-disabled", "false");
             let _ = next.set_attribute("tabindex", "0");
         }

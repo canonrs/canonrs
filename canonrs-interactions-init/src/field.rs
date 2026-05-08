@@ -1,7 +1,8 @@
 //! Field Init — focus-within + aria-describedby + label linking
 
 use web_sys::Element;
-use crate::runtime::{lifecycle, focus, query};
+use canonrs_interactions_core::dom::{lifecycle, query};
+use crate::runtime::{focus};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }

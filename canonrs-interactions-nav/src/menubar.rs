@@ -1,4 +1,6 @@
 //! Menubar Interaction Engine
+//! Core: dom/{lifecycle, state, query}
+
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use canonrs_interactions_core::dom::{lifecycle, state, query};
@@ -6,8 +8,8 @@ use web_sys::Element;
 
 fn close_all(root: &Element) {
     for menu in query::all(root, "[data-rs-menubar-menu]") {
-        state::remove(&menu, "open");
-        state::add(&menu, "closed");
+        state::remove(&menu, canonrs_interactions_core::dom::state::State::Open.as_str());
+        state::add(&menu, canonrs_interactions_core::dom::state::State::Closed.as_str());
         if let Some(trigger) = query::first(&menu, "[data-rs-menubar-trigger]") {
             let _ = trigger.set_attribute("aria-expanded", "false");
         }
@@ -18,7 +20,7 @@ pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
 
     for menu in query::all(&root, "[data-rs-menubar-menu]") {
-        state::add(&menu, "closed");
+        state::add(&menu, canonrs_interactions_core::dom::state::State::Closed.as_str());
     }
 
     // click trigger → toggle
@@ -30,11 +32,11 @@ pub fn init(root: Element) {
             if trigger.get_attribute("aria-disabled").as_deref() == Some("true") { return; }
             let Some(menu) = trigger.closest("[data-rs-menubar-menu]").ok().flatten() else { return };
             e.stop_propagation();
-            let is_open = state::has(&menu, "open");
+            let is_open = state::has(&menu, canonrs_interactions_core::dom::state::State::Open.as_str());
             close_all(&root_cb);
             if !is_open {
-                state::remove(&menu, "closed");
-                state::add(&menu, "open");
+                state::remove(&menu, canonrs_interactions_core::dom::state::State::Closed.as_str());
+                state::add(&menu, canonrs_interactions_core::dom::state::State::Open.as_str());
                 let _ = trigger.set_attribute("aria-expanded", "true");
             }
         }));
@@ -60,9 +62,9 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if let Some(trigger) = target.closest("[data-rs-menubar-trigger]").ok().flatten() {
-                state::add(&trigger, "hover");
+                state::add(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
             } else if let Some(item) = target.closest("[data-rs-menubar-item]").ok().flatten() {
-                state::add(&item, "hover");
+                state::add(&item, canonrs_interactions_core::dom::state::State::Hover.as_str());
             }
         }));
         let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref());
@@ -72,9 +74,9 @@ pub fn init(root: Element) {
         let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if let Some(trigger) = target.closest("[data-rs-menubar-trigger]").ok().flatten() {
-                state::remove(&trigger, "hover");
+                state::remove(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
             } else if let Some(item) = target.closest("[data-rs-menubar-item]").ok().flatten() {
-                state::remove(&item, "hover");
+                state::remove(&item, canonrs_interactions_core::dom::state::State::Hover.as_str());
             }
         }));
         let _ = root.add_event_listener_with_callback("mouseout", cb.as_ref().unchecked_ref());
@@ -127,8 +129,8 @@ pub fn init(root: Element) {
                     "Escape" => {
                         e.prevent_default();
                         if let Some(menu) = target.closest("[data-rs-menubar-menu]").ok().flatten() {
-                            state::remove(&menu, "open");
-                            state::add(&menu, "closed");
+                            state::remove(&menu, canonrs_interactions_core::dom::state::State::Open.as_str());
+                            state::add(&menu, canonrs_interactions_core::dom::state::State::Closed.as_str());
                             if let Some(trigger) = query::first(&menu, "[data-rs-menubar-trigger]") {
                                 let _ = trigger.set_attribute("aria-expanded", "false");
                                 if let Ok(h) = trigger.dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
@@ -162,11 +164,11 @@ pub fn init(root: Element) {
                         e.prevent_default();
                         if let Some(trigger) = target.closest("[data-rs-menubar-trigger]").ok().flatten() {
                             if let Some(menu) = trigger.closest("[data-rs-menubar-menu]").ok().flatten() {
-                                let is_open = state::has(&menu, "open");
+                                let is_open = state::has(&menu, canonrs_interactions_core::dom::state::State::Open.as_str());
                                 close_all(&root_cb);
                                 if !is_open {
-                                    state::remove(&menu, "closed");
-                                    state::add(&menu, "open");
+                                    state::remove(&menu, canonrs_interactions_core::dom::state::State::Closed.as_str());
+                                    state::add(&menu, canonrs_interactions_core::dom::state::State::Open.as_str());
                                     let _ = trigger.set_attribute("aria-expanded", "true");
                                     let items = query::all(&menu, "[data-rs-menubar-item]");
                                     if let Some(first) = items.first() {
@@ -179,8 +181,8 @@ pub fn init(root: Element) {
                     "Escape" => {
                         e.prevent_default();
                         if let Some(menu) = target.closest("[data-rs-menubar-menu]").ok().flatten() {
-                            state::remove(&menu, "open");
-                            state::add(&menu, "closed");
+                            state::remove(&menu, canonrs_interactions_core::dom::state::State::Open.as_str());
+                            state::add(&menu, canonrs_interactions_core::dom::state::State::Closed.as_str());
                             if let Some(trigger) = query::first(&menu, "[data-rs-menubar-trigger]") {
                                 let _ = trigger.set_attribute("aria-expanded", "false");
                                 if let Ok(h) = trigger.dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }

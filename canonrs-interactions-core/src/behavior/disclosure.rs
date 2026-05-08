@@ -3,12 +3,13 @@ use web_sys::Element;
 use crate::dom::{state, query};
 use crate::integration::aria;
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug)]
 pub enum SelectionMode {
     Single,
     Multiple,
 }
 
+#[derive(Debug)]
 pub struct DisclosureConfig {
     /// Selector dos itens disclosure dentro do root
     pub item_selector: &'static str,
@@ -69,5 +70,42 @@ pub fn init_state(root: &Element, config: &DisclosureConfig) {
         if let Some(trigger) = query::first(&item, config.trigger_selector) {
             aria::set_expanded(&trigger, is_open);
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{SelectionMode, DisclosureConfig};
+
+    #[test]
+    fn disclosure_config_single() {
+        let config = DisclosureConfig {
+            item_selector:    "[data-rs-accordion-item]",
+            trigger_selector: "[data-rs-accordion-trigger]",
+            mode:             SelectionMode::Single,
+            collapsible:      true,
+        };
+        assert_eq!(config.mode, SelectionMode::Single);
+        assert!(config.collapsible);
+        assert_eq!(config.item_selector, "[data-rs-accordion-item]");
+    }
+
+    #[test]
+    fn disclosure_config_multiple() {
+        let config = DisclosureConfig {
+            item_selector:    "[data-rs-accordion-item]",
+            trigger_selector: "[data-rs-accordion-trigger]",
+            mode:             SelectionMode::Multiple,
+            collapsible:      false,
+        };
+        assert_eq!(config.mode, SelectionMode::Multiple);
+        assert!(!config.collapsible);
+    }
+
+    #[test]
+    fn selection_mode_equality() {
+        assert_eq!(SelectionMode::Single,   SelectionMode::Single);
+        assert_eq!(SelectionMode::Multiple, SelectionMode::Multiple);
+        assert_ne!(SelectionMode::Single,   SelectionMode::Multiple);
     }
 }

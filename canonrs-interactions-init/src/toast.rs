@@ -3,7 +3,8 @@
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::runtime::{lifecycle, dismiss};
+use canonrs_interactions_core::dom::{lifecycle};
+use crate::runtime::{dismiss};
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
@@ -34,10 +35,10 @@ pub fn init(root: Element) {
     let root_hover = root.clone();
     let root_leave = root.clone();
     let pause_cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-        crate::runtime::state::add_state(&root_hover, "paused");
+        canonrs_interactions_core::dom::state::add(&root_hover, canonrs_interactions_core::dom::state::State::Paused.as_str());
     });
     let resume_cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-        crate::runtime::state::remove_state(&root_leave, "paused");
+        canonrs_interactions_core::dom::state::remove(&root_leave, canonrs_interactions_core::dom::state::State::Paused.as_str());
     });
     let _ = root.add_event_listener_with_callback("mouseenter", pause_cb.as_ref().unchecked_ref());
     let _ = root.add_event_listener_with_callback("mouseleave", resume_cb.as_ref().unchecked_ref());

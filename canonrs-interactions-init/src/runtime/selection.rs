@@ -3,7 +3,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::runtime::{state, query, aria};
+use canonrs_interactions_core::dom::{state, query};
+use canonrs_interactions_core::integration::aria;
 
 /// Single selection — click item → deselect all → select clicked
 /// root: elemento container (source of truth)
