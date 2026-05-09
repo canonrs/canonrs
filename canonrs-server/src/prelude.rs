@@ -36,5 +36,17 @@ pub use crate::ui::sidebar::sidebar_boundary::{
 
 // ── Desambiguação completa: server boundaries sobrescrevem primitives ──
 pub use crate::ui::input::input_boundary::Input;
-pub use crate::ui::tabs::tabs_boundary::{TabsRoot, TabsTrigger, TabsContent};
+pub use crate::ui::tabs::tabs_boundary::{TabsRoot, TabsRoot as Tabs, TabsTrigger, TabsContent};
+pub use crate::ui::tabs::tabs_boundary::TabsListBoundary as TabsList;
 pub use canonrs_core::table_of_contents::TocMode;
+pub use crate::ui::table::table_boundary::{TableRow, TableCell, TableHeader, TableHead, TableBody};
+pub use canonrs_core::separator::SeparatorOrientation;
+pub use crate::ui::sidebar::SidebarPreviewInteractive;
+pub use crate::ui::sidebar::SidebarPreviewWithAccordion;
+pub use crate::ui::sidebar::SidebarPreviewWithBadges;
+pub use crate::ui::sidebar::SidebarPreviewWithSearch;
+pub use crate::ui::sidebar::SidebarPreviewGroupsCollapsible;
+pub use crate::ui::sidebar::SidebarPreviewResponsive;
+pub use crate::ui::sidebar::SidebarPreviewMultiLevel;
+pub use crate::ui::sidebar::SidebarPreviewPinnable;
+pub use crate::ui::sidebar::SidebarPreviewRailMode;

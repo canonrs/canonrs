@@ -88,6 +88,23 @@ pub fn init(root: Element) {
         None,
     );
 
+
+    // sidebar group collapsible toggle
+    {
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+            let Some(_toggle) = target.closest("[data-rs-sidebar-group-toggle]").ok().flatten() else { return };
+            let Some(group) = target.closest("[data-rs-sidebar-group]").ok().flatten() else { return };
+            if state::is_expanded(&group) {
+                state::collapse(&group);
+            } else {
+                state::expand(&group);
+            }
+        }));
+        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
     // rail hover
     if is_rail {
         {

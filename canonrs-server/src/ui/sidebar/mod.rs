@@ -1,5 +1,6 @@
 mod sidebar_ui;
 pub mod sidebar_boundary;
+pub mod sidebar_with_accordion_boundary;
 pub mod preview;
 pub mod preview_with_accordion;
 pub mod preview_with_badges;
@@ -12,13 +13,9 @@ pub mod preview_pinnable;
 pub mod preview_rail_mode;
 
 pub use sidebar_boundary::*;
-pub use sidebar_boundary::{
-    Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
-    SidebarMenu, SidebarMenuItem, SidebarMenuGroup,
-    SidebarSeparator, SidebarGroupLabel, SidebarTrigger,
-    SidebarGroup, SidebarGroupTrigger, SidebarGroupContent,
-};
 pub use canonrs_core::primitives::SidebarVariant;
+pub use sidebar_with_accordion_boundary::SidebarWithAccordionBoundary;
+
 pub use preview::SidebarShowcasePreview;
 pub use preview_with_accordion::SidebarPreviewWithAccordion;
 pub use preview_with_badges::SidebarPreviewWithBadges;
