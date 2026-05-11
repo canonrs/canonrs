@@ -14,7 +14,10 @@ use super::sidebar_ui::{
     SidebarMenuItem as SidebarMenuItemUi,
     SidebarMenuGroup as SidebarMenuGroupUi,
     SidebarSeparator as SidebarSeparatorUi,
-    SidebarGroupLabel as SidebarGroupLabelUi
+    SidebarGroupLabel as SidebarGroupLabelUi,
+    SidebarLabel as SidebarLabelUi,
+    SidebarIcon as SidebarIconUi,
+    SidebarUser as SidebarUserUi,
 };
 pub use canonrs_core::primitives::SidebarVariant;
 pub use canonrs_core::primitives::SidebarTriggerPrimitive;
@@ -106,8 +109,10 @@ pub fn SidebarGroupLabel(
 pub fn SidebarGroup(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] root: bool,
+    #[prop(default = VisibilityState::Open)] state: VisibilityState,
 ) -> impl IntoView {
-    view! { <SidebarGroupUi class=class>{children()}</SidebarGroupUi> }
+    view! { <SidebarGroupUi class=class root=root state=state>{children()}</SidebarGroupUi> }
 }
 
 #[component]
@@ -124,4 +129,28 @@ pub fn SidebarGroupContent(
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! { <SidebarGroupContentUi class=class>{children()}</SidebarGroupContentUi> }
+}
+
+#[component]
+pub fn SidebarLabel(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarLabelUi class=class>{children()}</SidebarLabelUi> }
+}
+
+#[component]
+pub fn SidebarIcon(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarIconUi class=class>{children()}</SidebarIconUi> }
+}
+
+#[component]
+pub fn SidebarUser(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarUserUi class=class>{children()}</SidebarUserUi> }
 }

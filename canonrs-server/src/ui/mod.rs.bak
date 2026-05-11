@@ -162,7 +162,7 @@ pub mod previews {
     pub use super::section::SectionShowcasePreview;
     pub use super::select::SelectShowcasePreview;
     pub use super::sheet::SheetShowcasePreview;
-
+    pub use super::sidebar::SidebarShowcasePreview;
     pub use super::skeleton::SkeletonShowcasePreview;
     pub use super::slider::SliderShowcasePreview;
     pub use super::spinner::SpinnerShowcasePreview;

@@ -160,12 +160,9 @@ pub fn SidebarGroupPrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = false)] root: bool,
-    #[prop(default = VisibilityState::Open)] state: VisibilityState,
+    #[prop(default = true)] expanded: bool,
 ) -> impl IntoView {
-    let state_str = match state {
-        VisibilityState::Open => "expanded",
-        _ => "collapsed",
-    };
+    let state_str = if expanded { "expanded" } else { "collapsed" };
     view! {
         <div
             data-rs-sidebar-group=""

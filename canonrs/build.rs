@@ -69,13 +69,32 @@ fn main() {
     let wasm_file  = assets_wasm.join("canonrs_interactions_bg.wasm");
     let src_dir    = crate_path.join("src");
 
-    // skip se up-to-date
+    // skip se up-to-date — verifica todos os crates de interação
     if wasm_file.exists() {
         let wasm_mtime = fs::metadata(&wasm_file).unwrap().modified().unwrap();
-        let src_mtime  = fs::read_dir(&src_dir).unwrap()
+
+        let interaction_crates = [
+            "canonrs-interactions",
+            "canonrs-interactions-core",
+            "canonrs-interactions-nav",
+            "canonrs-interactions-overlay",
+            "canonrs-interactions-init",
+            "canonrs-interactions-selection",
+            "canonrs-interactions-gesture",
+            "canonrs-interactions-content",
+            "canonrs-interactions-data",
+        ];
+
+        let src_mtime = interaction_crates.iter()
+            .filter_map(|c| {
+                let src = rs_canonrs.join(c).join("src");
+                fs::read_dir(&src).ok()
+            })
+            .flatten()
             .filter_map(|e| e.ok())
             .filter_map(|e| e.metadata().ok()?.modified().ok())
             .max();
+
         if let Some(src_mtime) = src_mtime {
             if wasm_mtime >= src_mtime {
                 println!("cargo:warning=[canon] wasm up-to-date");

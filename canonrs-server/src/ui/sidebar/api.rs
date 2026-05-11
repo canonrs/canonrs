@@ -96,6 +96,8 @@ pub const SIDEBARGROUP_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+        PropDef { name: "root", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
+        PropDef { name: "state", kind: PropType::String, required: false, default: Some("open"), description: "Loading or visibility state" },
     ],
 };
 
@@ -110,6 +112,33 @@ pub const SIDEBARGROUPTRIGGER_API: ComponentApi = ComponentApi {
 
 pub const SIDEBARGROUPCONTENT_API: ComponentApi = ComponentApi {
     id: "sidebar-group-content",
+    description: "Sidebar navigation component",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const SIDEBARLABEL_API: ComponentApi = ComponentApi {
+    id: "sidebar-label",
+    description: "Sidebar navigation component",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const SIDEBARICON_API: ComponentApi = ComponentApi {
+    id: "sidebar-icon",
+    description: "Sidebar navigation component",
+    props: &[
+        PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
+        PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const SIDEBARUSER_API: ComponentApi = ComponentApi {
+    id: "sidebar-user",
     description: "Sidebar navigation component",
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },

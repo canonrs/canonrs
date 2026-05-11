@@ -50,7 +50,17 @@ pub const NAVIGATION_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("sidebar-separator-height", "var(--border-thin)"),
     FamilyToken::new("sidebar-separator-color", "var(--theme-surface-border)"),
     FamilyToken::new("sidebar-separator-margin-y", "var(--space-sm)"),
-    FamilyToken::new("sidebar-inset-padding-left",    "var(--space-lg)"),
+    FamilyToken::new("sidebar-inset-padding-left",       "var(--space-lg)"),
+    FamilyToken::new("sidebar-group-toggle-padding-x",   "var(--space-sm)"),
+    FamilyToken::new("sidebar-group-toggle-padding-y",   "var(--space-sm)"),
+    FamilyToken::new("sidebar-group-toggle-radius",      "var(--radius-sm)"),
+    FamilyToken::new("sidebar-group-toggle-fg",          "var(--theme-surface-fg)"),
+    FamilyToken::new("sidebar-group-toggle-font-size",   "var(--font-size-sm)"),
+    FamilyToken::new("sidebar-group-toggle-bg-hover",    "var(--theme-surface-muted)"),
+    FamilyToken::new("sidebar-group-chevron-size",          "var(--font-size-xs)"),
+    FamilyToken::new("sidebar-label-collapsed-display",     "none"),
+    FamilyToken::new("sidebar-item-collapsed-justify",      "center"),
+    FamilyToken::new("sidebar-item-collapsed-padding-x",    "0"),
     FamilyToken::new("sidebar-width-collapsed",        "var(--layout-sidebar-width-collapsed)"),
 
     // Navigation Menu

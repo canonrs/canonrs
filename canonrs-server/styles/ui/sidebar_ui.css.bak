@@ -143,8 +143,12 @@
   transition: transform 160ms ease;
 }
 
-[data-rs-sidebar-group][data-rs-state~="collapsed"] [data-rs-sidebar-group-toggle] [data-rs-sidebar-group-chevron] {
+[data-rs-sidebar-group][data-rs-state~="collapsed"] > [data-rs-sidebar-group-toggle] [data-rs-sidebar-group-chevron] {
   transform: rotate(-90deg);
+}
+
+[data-rs-sidebar-group][data-rs-state~="expanded"] > [data-rs-sidebar-group-toggle] [data-rs-sidebar-group-chevron] {
+  transform: rotate(0deg);
 }
 
 /* =========================================================

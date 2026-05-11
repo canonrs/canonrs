@@ -6,6 +6,7 @@ use canonrs_core::primitives::{
     SidebarFooterPrimitive, SidebarMenuPrimitive, SidebarMenuItemPrimitive,
     SidebarMenuGroupPrimitive, SidebarSeparatorPrimitive, SidebarGroupLabelPrimitive,
     SidebarGroupPrimitive, SidebarGroupTriggerPrimitive, SidebarGroupContentPrimitive,
+    SidebarLabelPrimitive, SidebarIconPrimitive, SidebarUserPrimitive,
 };
 use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
 
@@ -122,9 +123,11 @@ pub fn SidebarGroupLabel(
 pub fn SidebarGroup(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] root: bool,
+    #[prop(default = VisibilityState::Open)] state: VisibilityState,
 ) -> impl IntoView {
     view! {
-        <SidebarGroupPrimitive class=class>
+        <SidebarGroupPrimitive class=class root=root state=state>
             {children()}
         </SidebarGroupPrimitive>
     }
@@ -152,6 +155,30 @@ pub fn SidebarGroupContent(
             {children()}
         </SidebarGroupContentPrimitive>
     }
+}
+
+#[component]
+pub fn SidebarLabel(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarLabelPrimitive class=class>{children()}</SidebarLabelPrimitive> }
+}
+
+#[component]
+pub fn SidebarIcon(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarIconPrimitive class=class>{children()}</SidebarIconPrimitive> }
+}
+
+#[component]
+pub fn SidebarUser(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <SidebarUserPrimitive class=class>{children()}</SidebarUserPrimitive> }
 }
 
 #[component]

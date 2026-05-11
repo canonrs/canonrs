@@ -30,11 +30,6 @@
   overflow-y: auto;
 }
 
-[data-rs-sidebar-search] [data-rs-command-input]:placeholder-shown ~ [data-rs-command-list],
-[data-rs-sidebar-search] [data-rs-command] [data-rs-command-input]:placeholder-shown ~ [data-rs-command-list] {
-  display: none;
-}
-
 [data-rs-command-item] {
   display: flex;
   align-items: center;
