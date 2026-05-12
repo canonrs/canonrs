@@ -122,7 +122,7 @@ pub mod previews {
     pub use super::confirm_dialog::ConfirmDialogShowcasePreview;
     pub use super::context_menu::ContextMenuShowcasePreview;
     pub use super::copy_button::CopyButtonShowcasePreview;
-    pub use super::data_table::DataTableStaticShowcasePreview;
+    pub use super::data_table::DataTablePreviewUnified;
     pub use super::dialog::DialogShowcasePreview;
     pub use super::doc_progress::DocProgressShowcasePreview;
     pub use super::drawer::DrawerShowcasePreview;

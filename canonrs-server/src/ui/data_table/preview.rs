@@ -1,56 +1,52 @@
+//! DataTable Preview — dados mock + config_for + PreviewUnified
+
 use leptos::prelude::*;
 use super::data_table_boundary::DataTable;
-use crate::blocks::data_table::DataTableBlock;
-use canonrs_core::slot;
-use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
+use super::data_table_data::{DataTableConfig, mock_users, user_columns};
+use super::data_table_ui::{BulkAction, RowAction};
 
 #[component]
-pub fn DataTableStaticShowcasePreview() -> impl IntoView {
-    let data = vec![
-        vec!["Alice".to_string(),   "Engineer".to_string(), "Active".to_string(),   "98".to_string()],
-        vec!["Bob".to_string(),     "Designer".to_string(), "Active".to_string(),   "87".to_string()],
-        vec!["Carol".to_string(),   "Manager".to_string(),  "Away".to_string(),     "76".to_string()],
-        vec!["Dave".to_string(),    "Engineer".to_string(), "Inactive".to_string(), "65".to_string()],
-        vec!["Eve".to_string(),     "Designer".to_string(), "Active".to_string(),   "91".to_string()],
-        vec!["Frank".to_string(),   "DevOps".to_string(),   "Active".to_string(),   "82".to_string()],
-        vec!["Grace".to_string(),   "QA".to_string(),       "Active".to_string(),   "79".to_string()],
-        vec!["Henry".to_string(),   "Manager".to_string(),  "Away".to_string(),     "88".to_string()],
-        vec!["Iris".to_string(),    "Engineer".to_string(), "Active".to_string(),   "95".to_string()],
-        vec!["Jack".to_string(),    "Designer".to_string(), "Inactive".to_string(), "71".to_string()],
-        vec!["Karen".to_string(),   "DevOps".to_string(),   "Active".to_string(),   "84".to_string()],
-        vec!["Leo".to_string(),     "QA".to_string(),       "Active".to_string(),   "77".to_string()],
-    ];
-    use crate::ui::data_table::data_table_ui::{DataTableColumn, RowAction, BulkAction};
-    let columns = vec![
-        DataTableColumn::new("name",   "Name",   |r: &Vec<String>| r[0].clone()),
-        DataTableColumn::new("role",   "Role",   |r: &Vec<String>| r[1].clone()),
-        DataTableColumn::new("status", "Status", |r: &Vec<String>| r[2].clone()),
-        DataTableColumn::new("score",  "Score",  |r: &Vec<String>| r[3].clone()),
-    ];
+pub fn DataTableUnifiedBoundary(config: DataTableConfig) -> impl IntoView {
+    let data    = mock_users();
+    let columns = user_columns();
     view! {
-        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
-            <DataTableBlock
-                body=slot!(move || view! {
-                    <DataTable
-                        data=data.clone()
-                        columns=columns.clone()
-                        page_size=5
-                        show_density=true
-                        selectable=true
-                        row_actions=vec![
-                            RowAction::new("edit",   "Edit").inline(),
-                            RowAction::new("delete", "Delete").danger(),
-                        ]
-                        bulk_actions=vec![
-                            BulkAction::new("export", "Export"),
-                            BulkAction::new("delete", "Delete").danger(),
-                        ]
-                    />
-                }.into_any())
-            />
-            <p data-rs-showcase-preview-anchor="">
-                "Full data table with pagination, density toggle, row and bulk actions."
-            </p>
-        </Stack>
+        <DataTable
+            data=data
+            columns=columns
+            page_size=config.page_size
+            selectable=config.selectable
+            show_density=config.show_density
+            resizable=config.resizable
+            density=config.density
+            row_actions=config.row_actions
+            bulk_actions=config.bulk_actions
+        />
     }
+}
+
+pub fn config_for(demo: &str) -> DataTableConfig {
+    match demo {
+        "basic" => DataTableConfig { ..Default::default() },
+        "tier1" => DataTableConfig {
+            show_density: true,
+            resizable:    true,
+            selectable:   true,
+            bulk_actions: vec![
+                BulkAction::new("delete", "Delete").danger(),
+                BulkAction::new("export", "Export"),
+            ],
+            row_actions: vec![
+                RowAction::new("edit",   "Edit"),
+                RowAction::new("delete", "Delete").danger(),
+            ],
+            ..Default::default()
+        },
+        _ => DataTableConfig::default(),
+    }
+}
+
+#[component]
+pub fn DataTablePreviewUnified(#[prop(into)] demo: String) -> impl IntoView {
+    let config = config_for(&demo);
+    view! { <DataTableUnifiedBoundary config=config /> }
 }

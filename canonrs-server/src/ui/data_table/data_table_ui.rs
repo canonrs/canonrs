@@ -31,7 +31,7 @@ impl<T> DataTableColumn<T> {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct BulkAction {
     pub id: &'static str,
     pub label: &'static str,
@@ -48,7 +48,7 @@ impl BulkAction {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct RowAction {
     pub id: &'static str,
     pub label: &'static str,
