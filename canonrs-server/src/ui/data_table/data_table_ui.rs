@@ -13,7 +13,7 @@ use canonrs_core::primitives::{
     DataTableDensity, SortDirection,
 };
 use crate::ui::dropdown_menu::{
-    DropdownMenu, DropdownMenuItem,
+    DropdownMenu, DropdownMenuItem, DropdownMenuCheckboxItem,
 };
 use crate::ui::context_menu::context_menu_boundary::{
     ContextMenuContent, ContextMenuItem,
@@ -159,13 +159,9 @@ where
                     {columns.iter().enumerate().map(|(idx, col)| {
                         let label = col.label.clone();
                         view! {
-                            <div
-                                data-rs-dropdown-menu-checkbox-item=""
-                                aria-checked="true"
-                                data-rs-col-index=idx.to_string()
-                            >
+                            <DropdownMenuCheckboxItem attr:data-rs-col-index=idx.to_string()>
                                 {label}
-                            </div>
+                            </DropdownMenuCheckboxItem>
                         }
                     }).collect::<Vec<_>>()}
                 </DropdownMenu>

@@ -65,8 +65,7 @@
   z-index: 1;
 }
 
-[data-rs-datatable-resize-handle]:hover,
-[data-rs-datatable-head-cell][data-rs-resizable="true"]:hover [data-rs-datatable-resize-handle] {
+[data-rs-datatable-head-cell][data-rs-state~="hover"] [data-rs-datatable-resize-handle] {
   background: var(--theme-action-primary-bg);
   opacity: 0.4;
 }

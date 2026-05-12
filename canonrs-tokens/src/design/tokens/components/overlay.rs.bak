@@ -179,7 +179,7 @@ pub const OVERLAY_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("dropdown-menu-item-padding",        "var(--space-md)"),
     FamilyToken::new("dropdown-menu-item-hover-bg",       "var(--theme-surface-muted)"),
     FamilyToken::new("dropdown-menu-item-hover-fg",       "var(--theme-surface-fg)"),
-    FamilyToken::new("dropdown-menu-item-selected-bg",    "var(--theme-surface-muted)"),
+    FamilyToken::new("dropdown-menu-item-selected-bg",    "var(--theme-action-accent-bg)"),
     FamilyToken::new("dropdown-menu-item-destructive-fg", "var(--theme-status-error-fg)"),
     FamilyToken::new("dropdown-menu-item-checked-bg",     "transparent"),
     FamilyToken::new("dropdown-menu-item-checked-fg",     "var(--theme-surface-fg)"),

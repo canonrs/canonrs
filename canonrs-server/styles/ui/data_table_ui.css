@@ -246,12 +246,11 @@
 }
 
 [data-rs-dropdown-menu-checkbox-item][data-rs-state~="checked"] {
-  background: var(--theme-action-primary-bg);
-  color: var(--theme-action-primary-fg);
+  background: var(--theme-surface-muted);
 }
 
 [data-rs-dropdown-menu-checkbox-item][data-rs-state~="unchecked"] {
-  opacity: var(--opacity-hover);
+  opacity: var(--opacity-disabled);
 }
 
 /* ── Density toggle ─────────────────────────── */

@@ -13,7 +13,7 @@ use canonrs_core::primitives::{
     DataTableDensity, SortDirection,
 };
 use crate::ui::dropdown_menu::{
-    DropdownMenu, DropdownMenuItem,
+    DropdownMenu, DropdownMenuItem, DropdownMenuCheckboxItem,
 };
 use crate::ui::context_menu::context_menu_boundary::{
     ContextMenuContent, ContextMenuItem,
@@ -159,13 +159,11 @@ where
                     {columns.iter().enumerate().map(|(idx, col)| {
                         let label = col.label.clone();
                         view! {
-                            <div
-                                data-rs-dropdown-menu-checkbox-item=""
-                                aria-checked="true"
+                            <DropdownMenuCheckboxItem
                                 data-rs-col-index=idx.to_string()
                             >
                                 {label}
-                            </div>
+                            </DropdownMenuCheckboxItem>
                         }
                     }).collect::<Vec<_>>()}
                 </DropdownMenu>
@@ -345,8 +343,9 @@ where
                     let real_id = row_id_fn.get_value().as_ref()
                         .map(|f| f(&row))
                         .unwrap_or_else(|| idx.to_string());
+                    let ctx_row_id2 = real_id.clone();
                     view! {
-                        <div data-rs-datatable-row-context="" data-rs-context-menu="" data-rs-row-id=real_id.clone() hidden=(!has_actions)>
+                        <div data-rs-datatable-row-context="" data-rs-context-menu="" data-rs-row-id=ctx_row_id2 hidden=(!has_actions)>
                             <ContextMenuContent>
                                 {ctx_actions.into_iter().map(|action| {
                                     let rid2 = real_id.clone();
