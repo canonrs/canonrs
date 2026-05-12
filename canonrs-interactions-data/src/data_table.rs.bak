@@ -36,7 +36,6 @@ fn init_table(table: HtmlElement) {
     bind_context_menu(&table);
     bind_row_actions(&table);
     bind_bulk_actions(&table);
-    bind_column_resize(&table);
     // inicializa paginação — esconde rows além da página 1
     let total = count_visible(&table);
     let page_size = canonrs_interactions_core::dom::attrs::get_usize(&table, "data-rs-page-size", 10);

@@ -81,7 +81,6 @@ pub fn DataTableStatic<T>(
     #[prop(into, default = String::new())] sync_chart: String,
     #[prop(into, default = String::new())] sync_scope: String,
     #[prop(default = false)] show_density: bool,
-    #[prop(default = false)] resizable: bool,
     #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
@@ -192,7 +191,6 @@ where
                                         sort_key=key
                                         sort_direction=SortDirection::None
                                         col_index=idx.to_string()
-                                        resizable=resizable
                                     >
                                         <span data-rs-datatable-head-label="">{label}</span>
                                         <span data-rs-datatable-sort-icon="" aria-hidden="true">"↕"</span>

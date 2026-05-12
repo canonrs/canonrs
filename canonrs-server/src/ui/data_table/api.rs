@@ -15,6 +15,7 @@ pub const DATATABLE<T>_API: ComponentApi = ComponentApi {
         PropDef { name: "page_size", kind: PropType::Number, required: false, default: Some("10"), description: "Prop value" },
         PropDef { name: "selectable", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "show_density", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
+        PropDef { name: "resizable", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: ")] row_actions", kind: PropType::String, required: false, default: Some("vec![]"), description: "Prop value" },
         PropDef { name: ")] bulk_actions", kind: PropType::String, required: false, default: Some("vec![]"), description: "Prop value" },
         PropDef { name: "row_id_fn", kind: PropType::String, required: false, default: None, description: "Prop value" },
