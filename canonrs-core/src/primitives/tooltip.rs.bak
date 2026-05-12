@@ -38,7 +38,7 @@ pub fn TooltipPrimitive(
             data-rs-tooltip=""
             data-rs-uid=uid_tip
             data-rs-interaction="init"
-            data-rs-state=state.as_str()
+            data-rs-visibility=state.as_str()
             class=class
         >
             {children()}
@@ -77,7 +77,7 @@ pub fn TooltipContentPrimitive(
     view! {
         <div
             data-rs-tooltip-content=""
-            data-rs-state=state.as_str()
+            data-rs-visibility=state.as_str()
             data-rs-side=side.as_str()
             id=tooltip_id
             role="tooltip"

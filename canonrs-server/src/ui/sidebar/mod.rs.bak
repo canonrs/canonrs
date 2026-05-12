@@ -4,59 +4,8 @@ pub mod sidebar_unified_boundary;
 pub mod preview_unified;
 pub mod sidebar_boundary;
 
-// Boundaries
-pub mod sidebar_simple_boundary;
-pub mod sidebar_1_with_accordion_boundary;
-pub mod sidebar_2_with_tooltips_boundary;
-pub mod sidebar_3_multi_level_boundary;
-pub mod sidebar_4_with_search_boundary;
-pub mod sidebar_5_rail_mode_boundary;
-pub mod sidebar_6_pinnable_boundary;
-pub mod sidebar_7_with_badges_boundary;
-pub mod sidebar_8_groups_collapsible_boundary;
-pub mod sidebar_9_responsive_boundary;
-
-// Previews
-pub mod preview_0_simple;
-pub mod preview_1_with_accordion;
-pub mod preview_2_with_tooltips;
-pub mod preview_3_multi_level;
-pub mod preview_4_with_search;
-pub mod preview_5_rail_mode;
-pub mod preview_6_pinnable;
-pub mod preview_7_with_badges;
-pub mod preview_8_groups_collapsible;
-pub mod preview_9_responsive;
-
 pub use sidebar_boundary::*;
 pub use canonrs_core::primitives::SidebarVariant;
-
-pub use sidebar_simple_boundary::SidebarSimpleBoundary;
-pub use sidebar_1_with_accordion_boundary::Sidebar1WithAccordionBoundary;
-pub use sidebar_2_with_tooltips_boundary::Sidebar2WithTooltipsBoundary;
-pub use sidebar_3_multi_level_boundary::Sidebar3MultiLevelBoundary;
-pub use sidebar_4_with_search_boundary::Sidebar4WithSearchBoundary;
-pub use sidebar_5_rail_mode_boundary::Sidebar5RailModeBoundary;
-pub use sidebar_6_pinnable_boundary::Sidebar6PinnableBoundary;
-pub use sidebar_7_with_badges_boundary::Sidebar7WithBadgesBoundary;
-pub use sidebar_8_groups_collapsible_boundary::Sidebar8GroupsCollapsibleBoundary;
-pub use sidebar_9_responsive_boundary::Sidebar9ResponsiveBoundary;
-
-pub use preview_0_simple::SidebarPreview0Simple;
-pub use preview_1_with_accordion::SidebarPreview1WithAccordion;
-pub use preview_2_with_tooltips::SidebarPreview2WithTooltips;
-pub use preview_3_multi_level::SidebarPreview3MultiLevel;
-pub use preview_4_with_search::SidebarPreview4WithSearch;
-pub use preview_5_rail_mode::SidebarPreview5RailMode;
-pub use preview_6_pinnable::SidebarPreview6Pinnable;
-pub use preview_7_with_badges::SidebarPreview7WithBadges;
-pub use preview_8_groups_collapsible::SidebarPreview8GroupsCollapsible;
-pub use preview_9_responsive::SidebarPreview9Responsive;
-
 pub use sidebar_data::{SidebarConfig, NavGroup, NavItem};
 pub use sidebar_unified_boundary::SidebarUnifiedBoundary;
 pub use preview_unified::{SidebarPreviewUnified, config_for};
-
-// Showcase preview (legacy)
-pub mod preview;
-pub use preview::SidebarShowcasePreview;

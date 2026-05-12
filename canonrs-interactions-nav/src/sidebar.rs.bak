@@ -89,6 +89,33 @@ pub fn init(root: Element) {
     );
 
 
+    // sidebar search — esconde list até digitar
+    if let Some(search) = query::first(&root, "[data-rs-sidebar-search]") {
+        if let Some(list) = query::first(&search, "[data-rs-command-list]") {
+            let _ = list.set_attribute("data-rs-hidden", "true");
+            let style = list.get_attribute("style").unwrap_or_default();
+            let _ = list.set_attribute("style", &format!("{}display:none;", style));
+        }
+        if let Some(input) = query::first(&search, "[data-rs-command-input]") {
+            let search_cb = search.clone();
+            let cb = Closure::<dyn Fn(web_sys::Event)>::new(move |e: web_sys::Event| {
+                let value = e.target()
+                    .and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok())
+                    .map(|i| i.value())
+                    .unwrap_or_default();
+                if let Some(list) = query::first(&search_cb, "[data-rs-command-list]") {
+                    if value.is_empty() {
+                        let _ = list.set_attribute("style", "display:none;");
+                    } else {
+                        let _ = list.set_attribute("style", "display:block;");
+                    }
+                }
+            });
+            let _ = input.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref());
+            cb.forget();
+        }
+    }
+
     // sidebar group collapsible toggle
     {
         let root_cb2 = root.clone();

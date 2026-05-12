@@ -29,19 +29,23 @@ pub fn SidebarUnifiedBoundary(config: SidebarConfig) -> impl IntoView {
 
     view! {
         <Sidebar state=state variant=variant>
-            {if pinnable {
-                view! {
-                    <button type="button" data-rs-sidebar-pin-toggle="">"📍"</button>
-                }.into_any()
-            } else {
-                view! { <SidebarTrigger>"⇔"</SidebarTrigger> }.into_any()
-            }}
-
             <SidebarHeader>
-                <SidebarUser>
-                    <SidebarLabel>{user_name}</SidebarLabel>
-                    <SidebarLabel>{user_email}</SidebarLabel>
-                </SidebarUser>
+                <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                    <SidebarUser>
+                        <SidebarLabel>{user_name}</SidebarLabel>
+                        <SidebarLabel>{user_email}</SidebarLabel>
+                    </SidebarUser>
+                    <div style="display:flex; align-items:center; gap:var(--space-xs);">
+                        <SidebarTrigger>"⇔"</SidebarTrigger>
+                        {if pinnable {
+                            view! {
+                                <button type="button" data-rs-sidebar-pin-toggle="" style="padding: var(--space-xs); background: transparent; border: none; cursor: pointer; font-size: var(--font-size-md);">"📍"</button>
+                            }.into_any()
+                        } else {
+                            view! { <></> }.into_any()
+                        }}
+                    </div>
+                </div>
             </SidebarHeader>
 
             <SidebarContent>

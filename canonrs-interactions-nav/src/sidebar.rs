@@ -30,8 +30,14 @@ pub fn init(root: Element) {
             if is_pinned(&root_cb) { return; }
             if state::is_expanded(&root_cb) {
                 state::collapse(&root_cb);
+                for el in query::all(&root_cb, "[data-rs-tooltip-content]") {
+                    state::close(&el);
+                }
             } else {
                 state::expand(&root_cb);
+                for el in query::all(&root_cb, "[data-rs-tooltip-content]") {
+                    state::close(&el);
+                }
             }
         }));
         let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());

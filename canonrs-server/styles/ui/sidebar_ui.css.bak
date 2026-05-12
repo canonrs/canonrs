@@ -143,12 +143,8 @@
   transition: transform 160ms ease;
 }
 
-[data-rs-sidebar-group][data-rs-state~="collapsed"] > [data-rs-sidebar-group-toggle] [data-rs-sidebar-group-chevron] {
+[data-rs-sidebar-group][data-rs-state~="collapsed"] [data-rs-sidebar-group-toggle] [data-rs-sidebar-group-chevron] {
   transform: rotate(-90deg);
-}
-
-[data-rs-sidebar-group][data-rs-state~="expanded"] > [data-rs-sidebar-group-toggle] [data-rs-sidebar-group-chevron] {
-  transform: rotate(0deg);
 }
 
 /* =========================================================
@@ -234,6 +230,19 @@
   width: 0;
   height: 0;
   overflow: hidden;
+  pointer-events: none;
+}
+
+[data-rs-sidebar][data-rs-state~="collapsed"] [data-rs-tooltip-content] {
+  visibility: hidden;
+}
+
+[data-rs-sidebar][data-rs-state~="collapsed"] [data-rs-tooltip-content][data-rs-state~="open"] {
+  visibility: visible;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  pointer-events: auto;
 }
 
 /* =========================================================

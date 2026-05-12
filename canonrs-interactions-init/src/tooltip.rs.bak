@@ -21,27 +21,7 @@ fn get_delay(root: &Element, attr: &str, default: i32) -> i32 {
     default
 }
 
-fn close_siblings(root: &Element) {
-    let doc = match web_sys::window().and_then(|w| w.document()) {
-        Some(d) => d,
-        None => return,
-    };
-    if let Ok(nodes) = doc.query_selector_all("[data-rs-tooltip]") {
-        for i in 0..nodes.length() {
-            if let Some(el) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
-                if el != *root {
-                    if let Ok(Some(c)) = el.query_selector("[data-rs-tooltip-content]") {
-                        state::close(&c);
-                    }
-                    state::close(&el);
-                }
-            }
-        }
-    }
-}
-
 fn open_content(root: &Element) {
-    close_siblings(root);
     if let Ok(Some(c)) = root.query_selector("[data-rs-tooltip-content]") {
         state::open(&c);
     }

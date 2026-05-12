@@ -2,7 +2,7 @@
 
 use leptos::prelude::*;
 use super::sidebar_data::{SidebarConfig, NavGroup, NavItem};
-use super::sidebar_unified_boundary::SidebarUnifiedBoundary;
+use super::sidebar_boundary_unified::SidebarUnifiedBoundary;
 use canonrs_core::meta::VisibilityState;
 use canonrs_core::primitives::{SidebarVariant, BadgeVariant};
 
@@ -80,7 +80,7 @@ pub fn config_for(demo: &str) -> SidebarConfig {
             groups: nav_items_basic(),
             state: VisibilityState::Closed,
             variant: SidebarVariant::Rail,
-            tooltips: true,
+            tooltips: false,
             ..Default::default()
         },
         "pinnable" => SidebarConfig { groups: nav_items_basic(), pinnable: true, ..Default::default() },
