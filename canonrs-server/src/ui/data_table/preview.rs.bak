@@ -1,6 +1,8 @@
 use leptos::prelude::*;
 use super::data_table_boundary::DataTable;
-use crate::ui::data_table::data_table_ui::{DataTableColumn, RowAction, BulkAction};
+use crate::blocks::data_table::DataTableBlock;
+use canonrs_core::slot;
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn DataTableStaticShowcasePreview() -> impl IntoView {
@@ -18,6 +20,7 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
         vec!["Karen".to_string(),   "DevOps".to_string(),   "Active".to_string(),   "84".to_string()],
         vec!["Leo".to_string(),     "QA".to_string(),       "Active".to_string(),   "77".to_string()],
     ];
+    use crate::ui::data_table::data_table_ui::{DataTableColumn, RowAction, BulkAction};
     let columns = vec![
         DataTableColumn::new("name",   "Name",   |r: &Vec<String>| r[0].clone()),
         DataTableColumn::new("role",   "Role",   |r: &Vec<String>| r[1].clone()),
@@ -25,20 +28,29 @@ pub fn DataTableStaticShowcasePreview() -> impl IntoView {
         DataTableColumn::new("score",  "Score",  |r: &Vec<String>| r[3].clone()),
     ];
     view! {
-        <DataTable
-            data=data
-            columns=columns
-            page_size=5
-            show_density=true
-            selectable=true
-            row_actions=vec![
-                RowAction::new("edit",   "Edit").inline(),
-                RowAction::new("delete", "Delete").danger(),
-            ]
-            bulk_actions=vec![
-                BulkAction::new("export", "Export"),
-                BulkAction::new("delete", "Delete").danger(),
-            ]
-        />
+        <Stack direction=StackDirection::Vertical gap=StackGap::Lg>
+            <DataTableBlock
+                body=slot!(move || view! {
+                    <DataTable
+                        data=data.clone()
+                        columns=columns.clone()
+                        page_size=5
+                        show_density=true
+                        selectable=true
+                        row_actions=vec![
+                            RowAction::new("edit",   "Edit").inline(),
+                            RowAction::new("delete", "Delete").danger(),
+                        ]
+                        bulk_actions=vec![
+                            BulkAction::new("export", "Export"),
+                            BulkAction::new("delete", "Delete").danger(),
+                        ]
+                    />
+                }.into_any())
+            />
+            <p data-rs-showcase-preview-anchor="">
+                "Full data table with pagination, density toggle, row and bulk actions."
+            </p>
+        </Stack>
     }
 }

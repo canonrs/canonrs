@@ -147,11 +147,10 @@ pub fn DataTableHeadCellPrimitive(
             data-rs-sort-key=sort_key
             data-rs-col-index=col_index
             data-rs-resizable=if resizable { Some("true") } else { None }
-            style={(!style.is_empty()).then(|| style)}
+            style=style
             class=class
         >
             {children()}
-            {resizable.then(|| view! { <span data-rs-datatable-resize-handle="" aria-hidden="true"></span> })}
         </th>
     }
 }
@@ -177,15 +176,18 @@ pub fn DataTableRowPrimitive(
     #[prop(default = SelectionState::Unselected)] selected: SelectionState,
     #[prop(optional)] row_index: Option<usize>,
 ) -> impl IntoView {
+    let is_selected = selected == SelectionState::Selected;
+    let aria_rowindex = row_index.map(|i| (i + 1).to_string()).unwrap_or_default();
+    let row_index_str = row_index.map(|i| i.to_string()).unwrap_or_default();
     view! {
         <tr
             data-rs-datatable-row=""
-            data-rs-selection=if selected == SelectionState::Selected { Some("selected") } else { None }
-            data-rs-row-id={(!row_id.is_empty()).then_some(row_id)}
-            data-rs-row-label={(!row_label.is_empty()).then_some(row_label)}
-            aria-selected=if selected == SelectionState::Selected { Some("true") } else { None }
-            aria-rowindex={row_index.map(|i| (i + 1).to_string())}
-            data-rs-row-index={row_index.map(|i| i.to_string())}
+            data-rs-selection=if is_selected { "selected" } else { "unselected" }
+            data-rs-row-id=row_id
+            data-rs-row-label=row_label
+            aria-selected=if is_selected { "true" } else { "false" }
+            aria-rowindex=aria_rowindex
+            data-rs-row-index=row_index_str
             class=class
         >
             {children()}
@@ -204,7 +206,7 @@ pub fn DataTableCellPrimitive(
         <td
             data-rs-datatable-cell=""
             data-rs-col-index=col_index
-            style={(!style.is_empty()).then(|| style)}
+            style=style
             class=class
         >
             {children()}

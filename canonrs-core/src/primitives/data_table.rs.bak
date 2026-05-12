@@ -135,6 +135,7 @@ pub fn DataTableHeadCellPrimitive(
     #[prop(default = SortDirection::None)] sort_direction: SortDirection,
     #[prop(into, default = String::new())] col_index: String,
     #[prop(into, default = String::new())] style: String,
+    #[prop(default = false)] resizable: bool,
 ) -> impl IntoView {
     view! {
         <th
@@ -145,10 +146,12 @@ pub fn DataTableHeadCellPrimitive(
             data-rs-sort=sort_direction.as_str()
             data-rs-sort-key=sort_key
             data-rs-col-index=col_index
+            data-rs-resizable=if resizable { Some("true") } else { None }
             style={(!style.is_empty()).then(|| style)}
             class=class
         >
             {children()}
+            {resizable.then(|| view! { <span data-rs-datatable-resize-handle="" aria-hidden="true"></span> })}
         </th>
     }
 }
