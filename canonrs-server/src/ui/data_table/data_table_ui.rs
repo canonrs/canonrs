@@ -85,12 +85,14 @@ pub fn DataTableStatic<T>(
     #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
-    #[prop(optional)] row_id_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
-    #[prop(optional)] row_label_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
+    row_id_fn: Arc<dyn Fn(&T) -> String + Send + Sync>,
+    row_label_fn: Arc<dyn Fn(&T) -> String + Send + Sync>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
 {
+    let row_id_fn = row_id_fn;
+    let row_label_fn = row_label_fn;
     let total = data.len();
     let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
     let col_count = columns.len()
@@ -204,14 +206,11 @@ where
                             let has_actions = !row_actions.get_value().is_empty();
                             let ctx_actions = row_actions.get_value();
                             // label = valor da primeira coluna para uso em dialogs
-                            let row_label = row_label_fn.get_value().as_ref()
-                                .map(|f| f(&row))
-                                .unwrap_or_else(|| cols.get_value().first()
-                                    .map(|col| (col.render)(&row))
-                                    .unwrap_or_default());
-                            let real_id = row_id_fn.get_value().as_ref()
-                                .map(|f| f(&row))
-                                .unwrap_or_else(|| idx.to_string());
+                            let row_label = (row_label_fn.get_value())(&row);
+                            let real_id = {
+                                let id = row_id_fn.get_value()(&row);
+                                if id.is_empty() { idx.to_string() } else { id }
+                            };
                             let ctx_row_id = StoredValue::new(real_id.clone());
 
                             let main_row = view! {
@@ -338,9 +337,10 @@ where
                 {visible_data.get_value().into_iter().map(|(idx, row)| {
                     let has_actions = !row_actions.get_value().is_empty();
                     let ctx_actions = row_actions.get_value();
-                    let real_id = row_id_fn.get_value().as_ref()
-                        .map(|f| f(&row))
-                        .unwrap_or_else(|| idx.to_string());
+                    let real_id = {
+                        let id = row_id_fn.get_value()(&row);
+                        if id.is_empty() { idx.to_string() } else { id }
+                    };
                     let ctx_row_id2 = real_id.clone();
                     view! {
                         <div data-rs-datatable-row-context="" data-rs-context-menu="" data-rs-row-id=ctx_row_id2 hidden=(!has_actions)>

@@ -32,6 +32,21 @@ fn init_table(table: HtmlElement) {
     sync_density_state(&table);
     sync_col_toggle_state(&table);
     bind_selection(&table);
+    // previne seleção de texto com shift+click
+    {
+        let root: web_sys::Element = table.clone().into();
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            if e.shift_key() {
+                if let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) {
+                    if t.closest("[data-rs-datatable-row]").ok().flatten().is_some() {
+                        e.prevent_default();
+                    }
+                }
+            }
+        }));
+        let _ = root.add_event_listener_with_callback("mousedown", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
     bind_bulk_bar(&table);
     bind_context_menu(&table);
     bind_row_actions(&table);
@@ -429,7 +444,8 @@ fn sync_select_all(table: &web_sys::Element) {
 // ─── Selection — DOM como SSOT (padrão select/radio) ────────────────────────
 
 fn get_row_id(row: &web_sys::Element) -> String {
-    row.get_attribute("data-rs-row-id").unwrap_or_default()
+    let id = row.get_attribute("data-rs-row-id").unwrap_or_default();
+    id
 }
 
 fn get_visible_rows(rc: &web_sys::Element) -> Vec<web_sys::Element> {
@@ -493,7 +509,8 @@ fn sel_set(root: &web_sys::Element, ids: Vec<String>, last: &str) {
 fn sel_add(root: &web_sys::Element, id: &str) {
     let mut ids = sel_ids(root);
     if !ids.iter().any(|s| s == id) { ids.push(id.to_string()); }
-    let _ = root.set_attribute("data-rs-selected-ids", &ids.join(","));
+    let joined = ids.join(",");
+    let _ = root.set_attribute("data-rs-selected-ids", &joined);
     let _ = root.set_attribute("data-rs-selection-last", id);
 }
 
@@ -660,20 +677,6 @@ fn bind_selection(table: &HtmlElement) {
             if t.closest("[data-rs-datatable-action]").ok().flatten().is_some() { return; }
             if t.closest("[data-rs-datatable-actions-cell]").ok().flatten().is_some() { return; }
 
-            if t.has_attribute("data-rs-datatable-select-row") {
-                e.stop_propagation();
-                let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { web_sys::console::log_1(&"[ctx] no row found".into()); return };
-                let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
-                let rows = get_visible_rows(&rc);
-                let id = get_row_id(&row);
-                let checked = t.clone().dyn_into::<web_sys::HtmlInputElement>().ok()
-                    .map(|cb| cb.checked()).unwrap_or(false);
-                if checked { sel_add(&rc, &id); } else { sel_remove(&rc, &id); }
-                render_selection(&rc, &rows);
-                sync_select_all(&rc);
-                emit_sel_change(&rc, "toggle", "checkbox");
-                return;
-            }
 
             let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { web_sys::console::log_1(&"[ctx] no row found".into()); return };
             let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
