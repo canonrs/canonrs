@@ -11,5 +11,5 @@ pub use sidebar_boundary::{
     SidebarUnifiedBoundary,
 };
 pub use canonrs_core::primitives::SidebarVariant;
-pub use preview::{SidebarPreviewUnified, SidebarShowcasePreview, config_for};
+pub use preview::{SidebarPreviewUnified, config_for};
 pub use sidebar_data::{SidebarConfig, NavGroup, NavItem};

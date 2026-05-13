@@ -41,5 +41,5 @@ pub use crate::ui::tabs::tabs_boundary::TabsListBoundary as TabsList;
 pub use canonrs_core::table_of_contents::TocMode;
 pub use crate::ui::table::table_boundary::{TableRow, TableCell, TableHeader, TableHead, TableBody};
 pub use canonrs_core::separator::SeparatorOrientation;
-pub use crate::ui::sidebar::SidebarPreviewUnified;
+pub use crate::ui::sidebar::{SidebarPreviewUnified, SidebarShowcasePreview};
 pub use crate::ui::sidebar::{SidebarConfig, NavGroup, NavItem};
