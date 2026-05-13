@@ -1,11 +1,15 @@
 mod sidebar_ui;
-pub mod sidebar_data;
-pub mod sidebar_boundary_unified;
-pub mod preview;
+mod sidebar_data;
 pub mod sidebar_boundary;
+pub mod preview;
 
-pub use sidebar_boundary::*;
+pub use sidebar_boundary::{
+    Sidebar, SidebarHeader, SidebarContent, SidebarFooter,
+    SidebarMenu, SidebarMenuItem, SidebarMenuGroup, SidebarSeparator,
+    SidebarGroupLabel, SidebarGroup, SidebarGroupTrigger, SidebarGroupContent,
+    SidebarLabel, SidebarIcon, SidebarUser, SidebarTrigger,
+    SidebarUnifiedBoundary,
+};
 pub use canonrs_core::primitives::SidebarVariant;
-pub use sidebar_data::{SidebarConfig, NavGroup, NavItem};
-pub use sidebar_boundary_unified::SidebarUnifiedBoundary;
 pub use preview::{SidebarPreviewUnified, config_for};
+pub use sidebar_data::{SidebarConfig, NavGroup, NavItem};

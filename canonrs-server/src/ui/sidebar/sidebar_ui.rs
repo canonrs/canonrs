@@ -124,10 +124,11 @@ pub fn SidebarGroup(
     children: Children,
     #[prop(into, default = String::new())] class: String,
     #[prop(default = false)] root: bool,
+    #[prop(default = false)] hidden: bool,
     #[prop(default = VisibilityState::Open)] state: VisibilityState,
 ) -> impl IntoView {
     view! {
-        <SidebarGroupPrimitive class=class root=root state=state>
+        <SidebarGroupPrimitive class=class root=root state=state attr:hidden=hidden.then(|| "")>
             {children()}
         </SidebarGroupPrimitive>
     }

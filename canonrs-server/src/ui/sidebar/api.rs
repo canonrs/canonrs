@@ -2,7 +2,7 @@
 // Source: *_boundary.rs + builder.yaml
 use crate::catalog_types::{ComponentApi, PropDef, PropType};
 
-// imports: use canonrs::primitives::{SidebarVariant, SidebarTriggerPrimitive, SidebarTriggerPrimitive as SidebarTrigger}; 
+// imports: use canonrs::primitives::{SidebarTriggerPrimitive as SidebarTrigger, SidebarVariant, BadgeVariant}; 
 
 pub const SIDEBAR_API: ComponentApi = ComponentApi {
     id: "sidebar",
@@ -78,6 +78,7 @@ pub const SIDEBARSEPARATOR_API: ComponentApi = ComponentApi {
     description: "Sidebar navigation component",
     props: &[
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+        PropDef { name: "hidden", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
     ],
 };
 
@@ -97,6 +98,7 @@ pub const SIDEBARGROUP_API: ComponentApi = ComponentApi {
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
         PropDef { name: "root", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
+        PropDef { name: "hidden", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
         PropDef { name: "state", kind: PropType::String, required: false, default: Some("open"), description: "Loading or visibility state" },
     ],
 };
@@ -143,6 +145,14 @@ pub const SIDEBARUSER_API: ComponentApi = ComponentApi {
     props: &[
         PropDef { name: "children", kind: PropType::Children, required: true, default: None, description: "Child elements" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+    ],
+};
+
+pub const SIDEBARUNIFIEDBOUNDARY_API: ComponentApi = ComponentApi {
+    id: "sidebar-unified-boundary",
+    description: "Sidebar navigation component",
+    props: &[
+        PropDef { name: "config", kind: PropType::String, required: true, default: None, description: "Prop value" },
     ],
 };
 

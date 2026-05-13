@@ -11,10 +11,9 @@ pub fn Badge(
     #[prop(default = BadgeVariant::Default)] variant: BadgeVariant,
     #[prop(default = BadgeInteractivity::Static)] interactivity: BadgeInteractivity,
     #[prop(into, default = String::new())] class: String,
-    #[prop(default = false)] hidden: bool,
 ) -> impl IntoView {
     view! {
-        <BadgeUi variant=variant interactivity=interactivity class=class attr:hidden=hidden.then(|| "")>
+        <BadgeUi variant=variant interactivity=interactivity class=class>
             {children()}
         </BadgeUi>
     }

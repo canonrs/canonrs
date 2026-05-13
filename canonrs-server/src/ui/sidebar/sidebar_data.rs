@@ -1,6 +1,4 @@
-//! Sidebar data types — NavItem, NavGroup, SidebarConfig
-
-use crate::ui::badge::badge_boundary::Badge;
+//! Sidebar data types — interno, nao exportado
 use canonrs_core::primitives::BadgeVariant;
 use canonrs_core::primitives::SidebarVariant;
 use canonrs_core::meta::VisibilityState;

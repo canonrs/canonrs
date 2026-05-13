@@ -1102,22 +1102,22 @@ def check_island_full(island_file, island_dir, component, boundary_type="state")
         elif has_island_import and not has_island_in_hero:
             errors.append(f"[CR-343] preview.rs -- island importado mas nao usado no hero\n            use o island no data-rs-showcase-preview-stage")
 
-    # CR-342: boundary DEVE usar UI, nao primitives diretamente
-    # excecao: data_table usa primitives por necessidade arquitetural
-    # CR-344: boundary DEVE importar UI explicitamente
+    # CR-342: island DEVE usar UI, nao primitives diretamente
+    # excecao: data_table usa primitives por necessidade de reatividade complexa
+    # CR-344: island DEVE importar UI explicitamente
     import re as _re344
-    has_ui_import = bool(_re344.search(r'use (super|crate)::.*_ui::', content)) or bool(_re344.search(r'pub use crate::', content)) or bool(_re344.search(r'super::\w+_ui::', content)) or bool(_re344.search(r'use super::\w+_boundary::', content))
+    has_ui_import = bool(_re344.search(r'use (super|crate)::.*_ui::', content)) or bool(_re344.search(r'pub use crate::', content)) or bool(_re344.search(r'super::\w+_ui::', content))
     if not has_ui_import and component not in ['data_table']:
-        errors.append(f"[CR-344] {island_file} -- boundary NAO importa UI\n            todo boundary DEVE importar seu UI: use super::<component>_ui::")
+        errors.append(f"[CR-344] {island_file} -- island NAO importa UI\n            todo island DEVE importar seu UI: use super::<component>_ui::")
 
     if component not in ['data_table']:
         import re as _re342
         primitive_pattern = _re342.findall(r'use canonrs_core::primitives::{([^}]+)}', content)
         if primitive_pattern:
-            has_ui = bool(_re342.search(r'use (super|crate)::.*_ui::', content)) or bool(_re342.search(r'use super::\w+_boundary::', content))
+            has_ui = bool(_re342.search(r'use (super|crate)::.*_ui::', content))
             if not has_ui:
                 prims = primitive_pattern[0][:60]
-                errors.append(f'[CR-342] {island_file} -- boundary usa primitives diretamente sem UI\n            boundary DEVE usar UI como intermediario: {prims}')
+                errors.append(f'[CR-342] {island_file} -- island usa primitives diretamente sem UI\n            island DEVE usar UI como intermediario: {prims}')
     return errors
 
 
@@ -1370,18 +1370,15 @@ def check_boundary(component_id, boundary_type, ui_dir):
     if any(e in component_id for e in BOUNDARY_HTML_EXCEPTIONS):
         return errors
 
-    # CR-375: HTML direto proibido no boundary simples
-    # excecao: boundary unificado/composite pode usar <div> como wrapper estrutural
-    is_unified = 'unified' in src.lower() or 'composite' in src.lower() or component_id in ['sidebar', 'data_table', 'dropdown_menu']
-    if not is_unified:
-        view_blocks = re.findall(r'view!\s*\{(.+?)^\s*\}', src, re.DOTALL | re.MULTILINE)
-        view_content = "\n".join(view_blocks) if view_blocks else ""
-        html_tags = re.findall(r'<(div|span|button|input|textarea|select|form|ul|ol|li|table)\b', view_content)
-        if html_tags:
-            errors.append(
-                f"[CR-375] {component_id}_boundary.rs -- HTML direto proibido: <{html_tags[0]}>\n"
-                f"            boundary delega para UI, nao reconstroi DOM"
-            )
+    # CR-375: HTML direto proibido no boundary
+    view_blocks = re.findall(r'view!\s*\{(.+?)^\s*\}', src, re.DOTALL | re.MULTILINE)
+    view_content = "\n".join(view_blocks) if view_blocks else ""
+    html_tags = re.findall(r'<(div|span|button|input|textarea|select|form|ul|ol|li|table)\b', view_content)
+    if html_tags:
+        errors.append(
+            f"[CR-375] {component_id}_boundary.rs -- HTML direto proibido: <{html_tags[0]}>\n"
+            f"            boundary delega para UI, nao reconstroi DOM"
+        )
 
     return errors
 

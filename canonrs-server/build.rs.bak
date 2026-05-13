@@ -62,15 +62,8 @@ fn gen_boundary_exports() {
                 let types_str = types_part.trim_matches('{').trim_matches('}');
                 for s in types_str.split(',') {
                     let s = s.trim().to_string();
-                    if s.is_empty() { continue; }
-                    // se tem "as Alias", usar so o alias no export
-                    let export_name = if s.contains(" as ") {
-                        s.split(" as ").last().unwrap_or(&s).trim().to_string()
-                    } else {
-                        s.clone()
-                    };
-                    if !export_name.is_empty() && seen_types.insert(export_name.clone()) {
-                        types.push(export_name);
+                    if !s.is_empty() && seen_types.insert(s.clone()) {
+                        types.push(s);
                     }
                 }
                 continue;

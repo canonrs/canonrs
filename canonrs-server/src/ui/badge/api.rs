@@ -12,6 +12,7 @@ pub const BADGE_API: ComponentApi = ComponentApi {
         PropDef { name: "variant", kind: PropType::Enum(&["default", "primary", "success", "warning", "destructive", "outline"]), required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "interactivity", kind: PropType::Enum(&["static", "interactive"]), required: false, default: Some("static"), description: "Prop value" },
         PropDef { name: "class", kind: PropType::String, required: false, default: Some(""), description: "Additional CSS class names" },
+        PropDef { name: "hidden", kind: PropType::Bool, required: false, default: Some("false"), description: "Prop value" },
     ],
 };
 

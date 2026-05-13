@@ -1,8 +1,8 @@
 //! SidebarPreviewUnified — 10 demos via SidebarConfig
 
 use leptos::prelude::*;
-use super::sidebar_data::{SidebarConfig, NavGroup, NavItem};
-use super::sidebar_boundary_unified::SidebarUnifiedBoundary;
+use super::sidebar_boundary::{SidebarConfig, NavGroup, NavItem};
+use super::sidebar_boundary::SidebarUnifiedBoundary;
 use canonrs_core::meta::VisibilityState;
 use canonrs_core::primitives::{SidebarVariant, BadgeVariant};
 
