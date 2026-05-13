@@ -445,7 +445,6 @@ fn sync_select_all(table: &web_sys::Element) {
 
 fn get_row_id(row: &web_sys::Element) -> String {
     let id = row.get_attribute("data-rs-row-id").unwrap_or_default();
-    web_sys::console::log_1(&format!("[selection] get_row_id={:?}", id).into());
     id
 }
 
@@ -486,10 +485,10 @@ fn sel_ids(root: &web_sys::Element) -> Vec<String> {
 }
 
 fn sel_is(root: &web_sys::Element, id: &str) -> bool {
-    let ids_str = root.get_attribute("data-rs-selected-ids").unwrap_or_default();
-    let result = ids_str.split(',').any(|s| s == id);
-    web_sys::console::log_1(&format!("[sel_is] id={} ids={} result={}", id, ids_str, result).into());
-    result
+    root.get_attribute("data-rs-selected-ids")
+        .unwrap_or_default()
+        .split(',')
+        .any(|s| s == id)
 }
 
 fn sel_count(root: &web_sys::Element) -> usize {
@@ -511,7 +510,6 @@ fn sel_add(root: &web_sys::Element, id: &str) {
     let mut ids = sel_ids(root);
     if !ids.iter().any(|s| s == id) { ids.push(id.to_string()); }
     let joined = ids.join(",");
-    web_sys::console::log_1(&format!("[sel_add] id={} result={}", id, joined).into());
     let _ = root.set_attribute("data-rs-selected-ids", &joined);
     let _ = root.set_attribute("data-rs-selection-last", id);
 }
@@ -541,7 +539,6 @@ fn sel_range(root: &web_sys::Element, ordered_ids: &[String], anchor: &str, to: 
 }
 
 fn sel_clear(root: &web_sys::Element) {
-    web_sys::console::log_1(&"[sel_clear] called".into());
     let _ = root.set_attribute("data-rs-selected-ids", "");
 }
 
@@ -680,7 +677,6 @@ fn bind_selection(table: &HtmlElement) {
             if t.closest("[data-rs-datatable-action]").ok().flatten().is_some() { return; }
             if t.closest("[data-rs-datatable-actions-cell]").ok().flatten().is_some() { return; }
 
-            // checkbox click interceptado — deixar cair no path normal da row
 
             let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { web_sys::console::log_1(&"[ctx] no row found".into()); return };
             let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
@@ -689,7 +685,6 @@ fn bind_selection(table: &HtmlElement) {
             let id = get_row_id(&row);
             if id.is_empty() { return; }
 
-            web_sys::console::log_1(&format!("[click] shift={} ctrl={} meta={}", e.shift_key(), e.ctrl_key(), e.meta_key()).into());
             let is_single = rc.get_attribute("data-rs-select-mode").as_deref() == Some("single");
 
             if is_single {
@@ -698,7 +693,6 @@ fn bind_selection(table: &HtmlElement) {
                 if !was_only { sel_add(&rc, &id); }
             } else if e.shift_key() {
                 let anchor = sel_last(&rc);
-                web_sys::console::log_1(&format!("[shift] anchor={} to={}", anchor, id).into());
                 let anchor = if anchor.is_empty() { id.clone() } else { anchor };
                 sel_range(&rc, &ordered_ids, &anchor, &id);
             } else if e.ctrl_key() || e.meta_key() {
