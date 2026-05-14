@@ -127,6 +127,58 @@
   box-shadow: inset var(--border-medium) 0 0 0 var(--theme-action-primary-bg);
 }
 
+[data-rs-datatable-expand-row] {
+  background: var(--table-expand-row-bg);
+}
+
+[data-rs-datatable-expand-row][hidden] {
+  display: none;
+}
+
+[data-rs-datatable-expand-content] {
+  padding: var(--table-expand-row-padding);
+}
+
+[data-rs-datatable-expand-btn] {
+  width: var(--table-expand-btn-size);
+  height: var(--table-expand-btn-size);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--table-expand-btn-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-datatable-expand-btn][data-rs-state~="expanded"] {
+  transform: rotate(90deg);
+}
+
+[data-rs-inline-edit-input] {
+  caret-color: var(--theme-action-primary-bg);
+  border-bottom: var(--border-thin) solid var(--theme-action-primary-bg) !important;
+  border-radius: 0;
+}
+
+[data-rs-inline-edit-input]:focus-visible {
+  outline: none;
+  border-bottom: var(--border-medium) solid var(--theme-action-primary-bg) !important;
+}
+
+[data-rs-datatable-row][data-rs-state~="editing"] {
+  background: var(--table-row-bg-editing);
+  box-shadow: inset var(--border-medium) 0 0 0 var(--table-row-border-editing);
+}
+
+[data-rs-datatable-row][data-rs-state~="deleting"] {
+  background: var(--table-row-bg-deleting);
+  box-shadow: inset var(--border-medium) 0 0 0 var(--table-row-border-deleting);
+  opacity: 0.4;
+  transition: opacity var(--motion-duration-slow) var(--motion-ease-standard);
+}
+
 [data-rs-datatable-cell] {
   padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
   font-size: var(--table-cell-font-size);

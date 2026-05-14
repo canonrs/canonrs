@@ -26,9 +26,7 @@
   let rafPending = false;
   const observer = new MutationObserver((mutations) => {
     const hasNew = mutations.some(m =>
-      Array.from(m.addedNodes).some(n => n.nodeType === 1 &&
-        !(n.closest && n.closest('[data-rs-inline-editing]'))
-      )
+      Array.from(m.addedNodes).some(n => n.nodeType === 1)
     );
     if (hasNew && !rafPending) {
       rafPending = true;

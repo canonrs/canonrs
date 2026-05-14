@@ -43,3 +43,5 @@ pub use crate::ui::table::table_boundary::{TableRow, TableCell, TableHeader, Tab
 pub use canonrs_core::separator::SeparatorOrientation;
 pub use crate::ui::sidebar::{SidebarPreviewUnified, SidebarShowcasePreview};
 pub use crate::ui::sidebar::{SidebarConfig, NavGroup, NavItem};
+
+pub use crate::ui::data_table::DataTableShowcasePreview;

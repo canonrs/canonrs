@@ -23,7 +23,6 @@ web-sys = { version = "0.3", features = [
     "IntersectionObserver", "IntersectionObserverInit", "IntersectionObserverEntry",
     "CustomEvent", "CustomEventInit", "Blob", "Url",
     "HtmlAnchorElement", "FileList", "File", "FileReader",
-    "DomTokenList",
     "History", "ScrollToOptions", "ScrollBehavior",
     "Storage", "Location", "HtmlElement", "HtmlButtonElement",
 ] }

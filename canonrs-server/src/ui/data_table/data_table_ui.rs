@@ -15,19 +15,21 @@ use canonrs_core::primitives::{
 use crate::ui::dropdown_menu::{
     DropdownMenu, DropdownMenuItem, DropdownMenuCheckboxItem,
 };
+use super::types::{RowIdFn, RowLabelFn, ExpandRenderFn};
 use crate::ui::context_menu::context_menu_boundary::{
     ContextMenuContent, ContextMenuItem,
 };
+
 #[derive(Clone)]
 pub struct DataTableColumn<T> {
     pub key: String,
     pub label: String,
-    pub render: std::sync::Arc<dyn Fn(&T) -> String + Send + Sync>,
+    pub render: Arc<dyn Fn(&T) -> String + Send + Sync>,
 }
 
 impl<T> DataTableColumn<T> {
     pub fn new(key: impl Into<String>, label: impl Into<String>, render: impl Fn(&T) -> String + Send + Sync + 'static) -> Self {
-        Self { key: key.into(), label: label.into(), render: std::sync::Arc::new(render) }
+        Self { key: key.into(), label: label.into(), render: Arc::new(render) }
     }
 }
 
@@ -42,10 +44,7 @@ impl BulkAction {
     pub fn new(id: &'static str, label: &'static str) -> Self {
         Self { id, label, danger: false }
     }
-    pub fn danger(mut self) -> Self {
-        self.danger = true;
-        self
-    }
+    pub fn danger(mut self) -> Self { self.danger = true; self }
 }
 
 #[derive(Clone)]
@@ -60,14 +59,8 @@ impl RowAction {
     pub fn new(id: &'static str, label: &'static str) -> Self {
         Self { id, label, danger: false, inline: false }
     }
-    pub fn danger(mut self) -> Self {
-        self.danger = true;
-        self
-    }
-    pub fn inline(mut self) -> Self {
-        self.inline = true;
-        self
-    }
+    pub fn danger(mut self) -> Self { self.danger = true; self }
+    pub fn inline(mut self) -> Self { self.inline = true; self }
 }
 
 #[component]
@@ -82,25 +75,23 @@ pub fn DataTableStatic<T>(
     #[prop(into, default = String::new())] sync_scope: String,
     #[prop(default = false)] show_density: bool,
     #[prop(default = false)] resizable: bool,
-    #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
+    #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> AnyView + Send + Sync>>,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
-    row_id_fn: Arc<dyn Fn(&T) -> String + Send + Sync>,
-    row_label_fn: Arc<dyn Fn(&T) -> String + Send + Sync>,
+    #[prop(optional)] row_id_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
+    #[prop(optional)] row_label_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
 {
-    let row_id_fn = row_id_fn;
-    let row_label_fn = row_label_fn;
     let total = data.len();
     let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
+    let has_expand = expand_render.is_some();
     let col_count = columns.len()
         + if selectable { 1 } else { 0 }
-        + if expand_render.is_some() { 1 } else { 0 }
+        + if has_expand { 1 } else { 0 }
         + if !row_actions.is_empty() { 1 } else { 0 };
-    let visible_data_raw = data.into_iter().enumerate().collect::<Vec<_>>();
-    let visible_data = StoredValue::new(visible_data_raw);
+    let visible_data = StoredValue::new(data.into_iter().enumerate().collect::<Vec<_>>());
     let cols = StoredValue::new(columns.clone());
     let expand_render = StoredValue::new(expand_render);
     let row_actions = StoredValue::new(row_actions);
@@ -138,11 +129,7 @@ where
                 <button type="button" data-rs-datatable-bulk-clear="">"✕ Clear"</button>
             </DataTableBulkBarPrimitive>
             <DataTableToolbarPrimitive>
-                <input
-                    type="text"
-                    data-rs-datatable-filter=""
-                    placeholder="Search..."
-                />
+                <input type="text" data-rs-datatable-filter="" placeholder="Search..." />
                 <div data-rs-datatable-density-toggle="" hidden=(!show_density)>
                     <button type="button" data-rs-density-btn="compact"
                         data-active={if initial_density == "compact" { "true" } else { "false" }}>
@@ -171,179 +158,136 @@ where
 
             <ScrollArea orientation=canonrs_core::primitives::ScrollOrientation::Horizontal auto_hide=false>
             <DataTableTablePrimitive>
-                    <DataTableHeadPrimitive>
-                        <DataTableHeadRowPrimitive>
-                            <th data-rs-datatable-head-cell="" scope="col" data-rs-col-expand="" hidden=expand_render.get_value().is_none()></th>
-                            <th data-rs-datatable-head-cell="" scope="col" data-rs-col-select="" hidden=(!selectable)>
-                                <input type="checkbox" data-rs-datatable-select-all="" />
-                            </th>
-                            {cols.get_value().into_iter().enumerate().map(|(idx, col)| {
-                                let key = col.key.clone();
-                                let label = col.label.clone();
-                                view! {
-                                    <DataTableHeadCellPrimitive
-                                        sort_key=key
-                                        sort_direction=SortDirection::None
-                                        col_index=idx.to_string()
-                                        resizable=resizable
-                                    >
-                                        <span data-rs-datatable-head-label="">{label}</span>
-                                        <span data-rs-datatable-sort-icon="" aria-hidden="true">"↕"</span>
-                                    </DataTableHeadCellPrimitive>
-                                }
-                            }).collect::<Vec<_>>()}
-                        </DataTableHeadRowPrimitive>
-                    </DataTableHeadPrimitive>
-
-                    <DataTableBodyPrimitive>
-                        {visible_data.get_value().into_iter().map(|(idx, row)| {
-                            let row_cols = cols.get_value();
-                            let expand_content = expand_render.get_value()
-                                .as_ref()
-                                .map(|f| f(&row));
-                            let has_expand = expand_content.is_some();
-
-                            let has_actions = !row_actions.get_value().is_empty();
-                            let ctx_actions = row_actions.get_value();
-                            // label = valor da primeira coluna para uso em dialogs
-                            let row_label = (row_label_fn.get_value())(&row);
-                            let real_id = {
-                                let id = row_id_fn.get_value()(&row);
-                                if id.is_empty() { idx.to_string() } else { id }
-                            };
-                            let ctx_row_id = StoredValue::new(real_id.clone());
-
-                            let main_row = view! {
-                                <DataTableRowPrimitive row_id=real_id row_label=row_label row_index=idx>
-                                    <td data-rs-datatable-cell="" data-rs-col-expand="" hidden=(!has_expand)>
-                                        <button
-                                            type="button"
-                                            data-rs-datatable-expand-btn=""
-                                            data-rs-row-id=idx.to_string()
-                                            aria-expanded="false"
-                                        >
-                                            "▶"
-                                        </button>
-                                    </td>
-                                    <td data-rs-datatable-cell="" data-rs-col-select="" hidden=(!selectable)>
-                                        <input type="checkbox" data-rs-datatable-select-row="" value=idx.to_string() />
-                                    </td>
-                                    {row_cols.into_iter().enumerate().map(|(col_idx, col)| {
-                                        let value = (col.render)(&row);
-                                        view! {
-                                            <DataTableCellPrimitive col_index=col_idx.to_string()>
-                                                {value}
-                                            </DataTableCellPrimitive>
-                                        }
-                                    }).collect::<Vec<_>>()}
-                                    {
-                                        let actions = row_actions.get_value();
-                                        let has_actions_cell = !actions.is_empty();
-                                        let row_id = ctx_row_id.get_value();
-                                        let inline_actions: Vec<RowAction> = actions.iter().filter(|a| a.inline).cloned().collect();
-                                        let menu_actions: Vec<RowAction> = actions.iter().filter(|a| !a.inline).cloned().collect();
-                                        let has_menu = !menu_actions.is_empty();
-                                        let inline_views = inline_actions.into_iter().map(|action| {
-                                            let rid = row_id.clone();
-                                            view! {
-                                                <button
-                                                    type="button"
-                                                    data-rs-datatable-action=action.id
-                                                    data-rs-row-id=rid
-                                                    data-rs-datatable-inline-action=""
-                                                    class={if action.danger { "danger".to_string() } else { String::new() }}
-                                                >
-                                                    {action.label}
-                                                </button>
-                                            }
-                                        }).collect::<Vec<_>>();
-                                        let menu_views = menu_actions.into_iter().map(|action| {
-                                            let rid = row_id.clone();
-                                            view! {
-                                                <DropdownMenuItem
-                                                    class={if action.danger { "danger".to_string() } else { String::new() }}
-                                                >
-                                                    <span
-                                                        data-rs-datatable-action=action.id
-                                                        data-rs-row-id=rid
-                                                    >{action.label}</span>
-                                                </DropdownMenuItem>
-                                            }
-                                        }).collect::<Vec<_>>();
-                                        view! {
-                                            <td data-rs-datatable-cell="" data-rs-col-actions="" hidden=(!has_actions_cell)>
-                                                <div data-rs-datatable-actions-cell="">
-                                                    <div data-rs-datatable-inline-actions="">
-                                                        {inline_views}
-                                                    </div>
-                                                    <div data-rs-datatable-menu-actions="" hidden=(!has_menu)>
-                                                        <DropdownMenu>
-                                                            {menu_views}
-                                                        </DropdownMenu>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        }
-                                    }
-                                </DataTableRowPrimitive>
-                            };
-
-                            let ctx_rid = ctx_row_id.get_value();
-                            let context_menu = view! {
-                                <div data-rs-datatable-row-context="" data-rs-context-menu="" data-rs-row-id=ctx_rid hidden=(!has_actions)>
-                                    <ContextMenuContent>
-                                        {ctx_actions.into_iter().map(|action| {
-                                            let rid2 = ctx_row_id.get_value();
-                                            view! {
-                                                <ContextMenuItem>
-                                                    <span data-rs-datatable-action=action.id data-rs-row-id=rid2>
-                                                        {action.label}
-                                                    </span>
-                                                </ContextMenuItem>
-                                            }
-                                        }).collect::<Vec<_>>()}
-                                    </ContextMenuContent>
-                                </div>
-                            };
-
-                            let expand_content_str = expand_content.unwrap_or_default();
-                            let expand_row = view! {
-                                <tr
-                                    data-rs-datatable-expand-row=""
-                                    data-rs-row-id=idx.to_string()
-                                    hidden=(!has_expand)
-                                >
-                                    <td
-                                        data-rs-datatable-cell=""
-                                        colspan=col_count.to_string()
-                                    >
-                                        <div data-rs-datatable-expand-content="">
-                                            {expand_content_str}
-                                        </div>
-                                    </td>
-                                </tr>
-                            };
-
+                <DataTableHeadPrimitive>
+                    <DataTableHeadRowPrimitive>
+                        <th data-rs-datatable-head-cell="" scope="col" data-rs-col-expand="" hidden=(!has_expand)></th>
+                        <th data-rs-datatable-head-cell="" scope="col" data-rs-col-select="" hidden=(!selectable)>
+                            <input type="checkbox" data-rs-datatable-select-all="" />
+                        </th>
+                        {cols.get_value().into_iter().enumerate().map(|(idx, col)| {
+                            let key = col.key.clone();
+                            let label = col.label.clone();
                             view! {
-                                <>
-                                    {main_row}
-                                    {expand_row}
-                                </>
+                                <DataTableHeadCellPrimitive
+                                    sort_key=key
+                                    sort_direction=SortDirection::None
+                                    col_index=idx.to_string()
+                                    resizable=resizable
+                                >
+                                    <span data-rs-datatable-head-label="">{label}</span>
+                                    <span data-rs-datatable-sort-icon="" aria-hidden="true">"↕"</span>
+                                </DataTableHeadCellPrimitive>
                             }
                         }).collect::<Vec<_>>()}
-                    </DataTableBodyPrimitive>
+                    </DataTableHeadRowPrimitive>
+                </DataTableHeadPrimitive>
+
+                <DataTableBodyPrimitive>
+                    {visible_data.get_value().into_iter().map(|(idx, row)| {
+                        let row_cols = cols.get_value();
+                        let expand_content: Option<AnyView> = expand_render.get_value().as_ref().map(|f| f(&row));
+                        let has_expand_row = expand_content.is_some();
+                        let has_actions = !row_actions.get_value().is_empty();
+                        let ctx_actions = row_actions.get_value();
+                        let row_label = row_label_fn.get_value().as_ref().map(|f| f(&row)).unwrap_or_default();
+                        let real_id = row_id_fn.get_value().as_ref().map(|f| f(&row)).unwrap_or_else(|| idx.to_string());
+                        let ctx_row_id = StoredValue::new(real_id.clone());
+
+                        let main_row = view! {
+                            <DataTableRowPrimitive row_id=real_id row_label=row_label row_index=idx>
+                                <td data-rs-datatable-cell="" data-rs-col-expand="" hidden=(!has_expand)>
+                                    <button type="button" data-rs-datatable-expand-btn=""
+                                        data-rs-row-id=idx.to_string() aria-expanded="false">
+                                        "▶"
+                                    </button>
+                                </td>
+                                <td data-rs-datatable-cell="" data-rs-col-select="" hidden=(!selectable)>
+                                    <input type="checkbox" data-rs-datatable-select-row="" value=idx.to_string() />
+                                </td>
+                                {row_cols.into_iter().enumerate().map(|(col_idx, col)| {
+                                    let value = (col.render)(&row);
+                                    view! {
+                                        <DataTableCellPrimitive col_index=col_idx.to_string()>
+                                            {value}
+                                        </DataTableCellPrimitive>
+                                    }
+                                }).collect::<Vec<_>>()}
+                                {
+                                    let actions = row_actions.get_value();
+                                    let has_actions_cell = !actions.is_empty();
+                                    let row_id = ctx_row_id.get_value();
+                                    let inline_actions: Vec<RowAction> = actions.iter().filter(|a| a.inline).cloned().collect();
+                                    let menu_actions: Vec<RowAction> = actions.iter().filter(|a| !a.inline).cloned().collect();
+                                    let has_menu = !menu_actions.is_empty();
+                                    let inline_views = inline_actions.into_iter().map(|action| {
+                                        let rid = row_id.clone();
+                                        view! {
+                                            <button type="button"
+                                                data-rs-datatable-action=action.id
+                                                data-rs-row-id=rid
+                                                data-rs-datatable-inline-action=""
+                                                class={if action.danger { "danger".to_string() } else { String::new() }}
+                                            >
+                                                {action.label}
+                                            </button>
+                                        }
+                                    }).collect::<Vec<_>>();
+                                    let menu_views = menu_actions.into_iter().map(|action| {
+                                        let rid = row_id.clone();
+                                        view! {
+                                            <DropdownMenuItem
+                                                class={if action.danger { "danger".to_string() } else { String::new() }}
+                                            >
+                                                <span data-rs-datatable-action=action.id data-rs-row-id=rid>
+                                                    {action.label}
+                                                </span>
+                                            </DropdownMenuItem>
+                                        }
+                                    }).collect::<Vec<_>>();
+                                    view! {
+                                        <td data-rs-datatable-cell="" data-rs-col-actions="" hidden=(!has_actions_cell)>
+                                            <div data-rs-datatable-actions-cell="">
+                                                <div data-rs-datatable-inline-actions="">{inline_views}</div>
+                                                <div data-rs-datatable-menu-actions="" hidden=(!has_menu)>
+                                                    <DropdownMenu>{menu_views}</DropdownMenu>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    }
+                                }
+                            </DataTableRowPrimitive>
+                        };
+
+                        let expand_view = expand_content.unwrap_or_else(|| view! { <div hidden></div> }.into_any());
+                        let expand_row = view! {
+                            <tr data-rs-datatable-expand-row="" data-rs-row-id=idx.to_string() hidden=true>
+                                <td data-rs-datatable-cell="" colspan=col_count.to_string()>
+                                    <div data-rs-datatable-expand-content="">
+                                        {expand_view}
+                                    </div>
+                                </td>
+                            </tr>
+                        };
+
+                        view! {
+                            <>
+                                {main_row}
+                                {expand_row}
+                            </>
+                        }
+                    }).collect::<Vec<_>>()}
+                </DataTableBodyPrimitive>
             </DataTableTablePrimitive></ScrollArea>
+
             <div data-rs-datatable-context-menus="">
                 {visible_data.get_value().into_iter().map(|(idx, row)| {
                     let has_actions = !row_actions.get_value().is_empty();
                     let ctx_actions = row_actions.get_value();
-                    let real_id = {
-                        let id = row_id_fn.get_value()(&row);
-                        if id.is_empty() { idx.to_string() } else { id }
-                    };
+                    let real_id = row_id_fn.get_value().as_ref().map(|f| f(&row)).unwrap_or_else(|| idx.to_string());
                     let ctx_row_id2 = real_id.clone();
                     view! {
-                        <div data-rs-datatable-row-context="" data-rs-context-menu="" data-rs-row-id=ctx_row_id2 hidden=(!has_actions)>
+                        <div data-rs-datatable-row-context="" data-rs-context-menu=""
+                            data-rs-row-id=ctx_row_id2 hidden=(!has_actions)>
                             <ContextMenuContent>
                                 {ctx_actions.into_iter().map(|action| {
                                     let rid2 = real_id.clone();
@@ -359,158 +303,19 @@ where
                         </div>
                     }
                 }).collect::<Vec<_>>()}
-            </div><DataTableEmptyPrimitive class="hidden".to_string()>
+            </div>
+
+            <DataTableEmptyPrimitive class="hidden".to_string()>
                 "No results found."
             </DataTableEmptyPrimitive>
             <div data-rs-datatable-pagination="">
                 <button type="button" data-rs-action="prev" data-rs-datatable-pagination-btn="" disabled=true>
                     "Previous"
                 </button>
-                <span data-rs-pagination-info="">
-                    {format!("1 of {}", total_pages)}
-                </span>
+                <span data-rs-pagination-info="">{format!("1 of {}", total_pages)}</span>
                 <button type="button" data-rs-action="next" data-rs-datatable-pagination-btn="" disabled={total_pages <= 1}>
                     "Next"
                 </button>
-            </div>
-        </DataTablePrimitive>
-    }
-}
-
-use std::collections::HashSet;
-
-#[allow(unused_variables)]
-#[allow(dead_code)]
-#[component]
-pub fn DataTableCore(
-    columns: Vec<DataTableColumn<String>>,
-    rows: Vec<Vec<String>>,
-    visible_set: HashSet<usize>,
-    sort_col: Option<usize>,
-    sort_asc: bool,
-    page: usize,
-    total_pages: usize,
-    hidden_cols: HashSet<usize>,
-    density: &'static str,
-    on_sort: Callback<usize>,
-    on_prev: Callback<()>,
-    on_next: Callback<()>,
-    on_input: Callback<leptos::ev::Event>,
-    on_col_toggle: Callback<usize>,
-    on_density: Callback<&'static str>,
-    #[prop(optional, into)] class: Option<String>,
-) -> impl IntoView {
-    let class = class.unwrap_or_default();
-
-    let header_cells = columns.iter().enumerate().map(|(i, col)| {
-        let label = col.label.clone();
-        let direction = if sort_col == Some(i) {
-            if sort_asc { "▲" } else { "▼" }
-        } else { "↕" };
-        let is_hidden = hidden_cols.contains(&i);
-        view! {
-            <th
-                data-rs-datatable-head-cell=""
-                scope="col"
-                data-rs-col-index=i.to_string()
-                hidden=is_hidden
-                style="cursor:pointer"
-                on:click=move |_| on_sort.run(i)
-            >
-                <span data-rs-datatable-head-label="">{label}</span>
-                <span data-rs-datatable-sort-icon="" aria-hidden="true">{direction}</span>
-            </th>
-        }
-    }).collect::<Vec<_>>();
-
-    let body_rows = rows.iter().enumerate().map(|(idx, row)| {
-        let is_visible = visible_set.contains(&idx);
-        let cells = row.iter().enumerate().map(|(ci, val)| {
-            let val = val.clone();
-            let is_col_hidden = hidden_cols.contains(&ci);
-            view! {
-                <td
-                    data-rs-datatable-cell=""
-                    data-rs-col-index=ci.to_string()
-                    hidden=is_col_hidden
-                >{val}</td>
-            }
-        }).collect::<Vec<_>>();
-        view! {
-            <tr
-                data-rs-datatable-row=""
-                data-rs-row-id=idx.to_string()
-                data-rs-row-index=idx.to_string()
-                hidden=!is_visible
-            >
-                {cells}
-            </tr>
-        }
-    }).collect::<Vec<_>>();
-
-    let col_toggles = columns.iter().enumerate().map(|(i, col)| {
-        let label = col.label.clone();
-        let is_hidden = hidden_cols.contains(&i);
-        view! {
-            <button
-                type="button"
-                data-rs-col-toggle=i.to_string()
-                style=if is_hidden { "opacity:0.4" } else { "" }
-                on:click=move |_| on_col_toggle.run(i)
-            >{label}</button>
-        }
-    }).collect::<Vec<_>>();
-
-    view! {
-        <DataTablePrimitive
-            class=class
-            density=DataTableDensity::Comfortable
-            attr:data-rs-density=density
-        >
-            <DataTableToolbarPrimitive>
-                <input
-                    type="text"
-                    data-rs-datatable-filter=""
-                    placeholder="Search..."
-                    on:input=move |e| on_input.run(e)
-                />
-                <div style="display:flex;gap:4px;margin-left:auto">
-                    <button type="button"
-                        style=if density == "compact" { "font-weight:bold" } else { "" }
-                        on:click=move |_| on_density.run("compact")
-                    >"Compact"</button>
-                    <button type="button"
-                        style=if density == "comfortable" { "font-weight:bold" } else { "" }
-                        on:click=move |_| on_density.run("comfortable")
-                    >"Comfortable"</button>
-                    <button type="button"
-                        style=if density == "spacious" { "font-weight:bold" } else { "" }
-                        on:click=move |_| on_density.run("spacious")
-                    >"Spacious"</button>
-                </div>
-                <div style="display:flex;gap:4px">
-                    {col_toggles}
-                </div>
-            </DataTableToolbarPrimitive>
-
-            <ScrollArea orientation=canonrs_core::primitives::ScrollOrientation::Horizontal auto_hide=false>
-            <DataTableTablePrimitive>
-                    <DataTableHeadPrimitive>
-                        <DataTableHeadRowPrimitive>
-                            {header_cells}
-                        </DataTableHeadRowPrimitive>
-                    </DataTableHeadPrimitive>
-                    <DataTableBodyPrimitive>
-                        {body_rows}
-                    </DataTableBodyPrimitive>
-            </DataTableTablePrimitive></ScrollArea>
-            <div data-rs-datatable-footer="">
-                {if visible_set.is_empty() { view! { <DataTableEmptyPrimitive>"No results found."</DataTableEmptyPrimitive> }.into_any() } else { view! { <span hidden=true></span> }.into_any() }}
-                <div data-rs-datatable-pagination="">
-                    <button type="button" data-rs-action="prev" disabled={page <= 1} on:click=move |_| on_prev.run(())>"Previous"</button>
-                    <span data-rs-pagination-info="">{format!("{} of {}", page, total_pages)}</span>
-                    <button type="button" data-rs-action="next" disabled={page >= total_pages} on:click=move |_| on_next.run(())>"Next"</button>
-                </div>
             </div>
         </DataTablePrimitive>
     }

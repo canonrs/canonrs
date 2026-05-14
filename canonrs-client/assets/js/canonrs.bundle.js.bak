@@ -1,4 +1,4 @@
-// CanonRS Interaction Runtime Loader — v__CANONRS_VERSION__
+// CanonRS Interaction Runtime Loader — v0.1.0
 // Cache bust via window.__CANON_WASM_HASH__ (never mutate this file)
 
 (async () => {
@@ -15,7 +15,7 @@
     window.__canonrs_init_all__ = () => mod.init_all();
     // GC periodico — limpa uids de elementos desconectados
     setInterval(() => { if (mod.gc) mod.gc(); }, 30000);
-    console.log(`[canonrs] runtime ready — v__CANONRS_VERSION__ hash=${hash}`);
+    console.log(`[canonrs] runtime ready — v0.1.0 hash=${hash}`);
   } catch (e) {
     console.error('[canonrs] failed to load runtime', e);
   }
@@ -26,9 +26,7 @@
   let rafPending = false;
   const observer = new MutationObserver((mutations) => {
     const hasNew = mutations.some(m =>
-      Array.from(m.addedNodes).some(n => n.nodeType === 1 &&
-        !(n.closest && n.closest('[data-rs-inline-editing]'))
-      )
+      Array.from(m.addedNodes).some(n => n.nodeType === 1)
     );
     if (hasNew && !rafPending) {
       rafPending = true;

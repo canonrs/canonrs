@@ -1,1 +1,1 @@
-window.__CANON_WASM_HASH__ = 'c309711f'; 
+window.__CANON_WASM_HASH__ = '7539cc45'; 

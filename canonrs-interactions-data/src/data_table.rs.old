@@ -52,6 +52,9 @@ fn init_table(table: HtmlElement) {
     bind_row_actions(&table);
     bind_bulk_actions(&table);
     bind_column_resize(&table);
+    bind_column_reorder(&table);
+    bind_column_pin(&table);
+    bind_expand(&table);
     // inicializa paginação — esconde rows além da página 1
     let total = count_visible(&table);
     let page_size = canonrs_interactions_core::dom::attrs::get_usize(&table, "data-rs-page-size", 10);
@@ -787,6 +790,7 @@ fn bind_row_actions(table: &HtmlElement) {
         };
         let Some(action_el) = action_el else { return };
         let Some(action) = action_el.get_attribute("data-rs-datatable-action") else { return };
+        e.stop_immediate_propagation();
         let row_id = action_el.get_attribute("data-rs-row-id").unwrap_or_default();
         // encontra o datatable root a partir do action_el ou via document
         let rc = context::find_root(&action_el, "[data-rs-datatable]")
@@ -804,6 +808,73 @@ fn bind_row_actions(table: &HtmlElement) {
         let _ = rc.set_attribute("data-rs-current-action", &action);
         let _ = rc.set_attribute("data-rs-current-row", &row_id);
         let _ = rc.set_attribute("data-rs-current-label", &row_label);
+
+        // feedback visual na row
+        let row_el = rc.query_selector(&format!("[data-rs-datatable-row][data-rs-row-id='{}']", row_id))
+            .ok().flatten()
+            .and_then(|el| el.dyn_into::<HtmlElement>().ok());
+        if let Some(row) = row_el {
+            match action.as_str() {
+                "edit" => {
+                    // se ja esta editando esta row, cancelar
+                    if canonrs_interactions_core::dom::state::has(&row, "editing") {
+                        canonrs_interactions_core::dom::state::remove(&row, "editing");
+                        restore_row_cells(&row);
+                        return;
+                    }
+                    // limpar editing de outras rows
+                    if let Ok(rows) = rc.query_selector_all("[data-rs-datatable-row][data-rs-state~='editing']") {
+                        for i in 0..rows.length() {
+                            if let Some(r) = rows.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                                canonrs_interactions_core::dom::state::remove(&r, "editing");
+                                restore_row_cells(&r);
+                            }
+                        }
+                    }
+                    canonrs_interactions_core::dom::state::add(&row, "editing");
+                    let _ = rc.set_attribute("data-rs-inline-editing", "true");
+                    web_sys::console::log_1(&format!("[edit] making row editable row_id={}", row_id).into());
+                    make_row_editable(&row);
+                    web_sys::console::log_1(&"[edit] done".into());
+                }
+                "delete" => {
+                    canonrs_interactions_core::dom::state::add(&row, "deleting");
+                    // remover row apos animacao
+                    let row_c = row.clone();
+                    let cb = wasm_bindgen::closure::Closure::<dyn Fn()>::wrap(Box::new(move || {
+                        let _ = row_c.set_attribute("hidden", "");
+                        canonrs_interactions_core::dom::state::remove(&row_c, "deleting");
+                    }));
+                    let _ = web_sys::window().and_then(|w| {
+                        w.set_timeout_with_callback_and_timeout_and_arguments_0(
+                            cb.as_ref().unchecked_ref(), 400
+                        ).ok()
+                    });
+                    cb.forget();
+                }
+                "save" => {
+                    canonrs_interactions_core::dom::state::remove(&row, "editing");
+                    let _ = rc.remove_attribute("data-rs-inline-editing");
+                    restore_row_cells(&row);
+                    let detail = js_sys::Object::new();
+                    let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("rowId"), &wasm_bindgen::JsValue::from_str(&row_id));
+                    let init = web_sys::CustomEventInit::new();
+                    init.set_bubbles(true);
+                    init.set_detail(&wasm_bindgen::JsValue::from(detail));
+                    if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-row-saved", &init) {
+                        let _ = rc.dispatch_event(&event);
+                    }
+                    return;
+                }
+                "cancel-edit" => {
+                    canonrs_interactions_core::dom::state::remove(&row, "editing");
+                    let _ = rc.remove_attribute("data-rs-inline-editing");
+                    restore_row_cells(&row);
+                    return;
+                }
+                _ => {}
+            }
+        }
         // dispara evento para a página ouvir
         let uid = rc.get_attribute("data-rs-uid").unwrap_or_default();
         let detail = js_sys::Object::new();
@@ -1036,6 +1107,16 @@ pub fn bind_column_resize(table: &HtmlElement) {
                             }
                         }
                     }
+                    // disparar evento rs-datatable-col-resize
+                    let detail = js_sys::Object::new();
+                    let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("colIndex"), &wasm_bindgen::JsValue::from_str(&col_index));
+                    let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("width"), &wasm_bindgen::JsValue::from_f64(new_width as f64));
+                    let init = web_sys::CustomEventInit::new();
+                    init.set_bubbles(true);
+                    init.set_detail(&wasm_bindgen::JsValue::from(detail));
+                    if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-col-resize", &init) {
+                        let _ = th_mm.dispatch_event(&event);
+                    }
                 }
             }
         }));
@@ -1057,6 +1138,364 @@ pub fn bind_column_resize(table: &HtmlElement) {
             w.add_event_listener_with_callback("mouseup", mouseup.as_ref().unchecked_ref()).ok()
         });
         mouseup.forget();
+    }
+}
+
+// ─── Expand Row ─────────────────────────────────────────────────────────────
+
+fn bind_expand(table: &HtmlElement) {
+    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+        let btn = if t.has_attribute("data-rs-datatable-expand-btn") {
+            Some(t)
+        } else {
+            t.closest("[data-rs-datatable-expand-btn]").ok().flatten()
+        };
+        let Some(btn) = btn else { return };
+        e.stop_propagation();
+
+        let row_id = btn.get_attribute("data-rs-row-id").unwrap_or_default();
+        web_sys::console::log_1(&format!("[expand] btn clicked row_id={}", row_id).into());
+        let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+
+        // encontrar a expand-row pelo row-id
+        let selector = format!("[data-rs-datatable-expand-row][data-rs-row-id='{}']", row_id);
+        web_sys::console::log_1(&format!("[expand] selector={}", selector).into());
+        let expand_row_result = doc.query_selector(&selector);
+        web_sys::console::log_1(&format!("[expand] found={}", expand_row_result.as_ref().ok().and_then(|r| r.as_ref()).is_some()).into());
+        let Ok(Some(expand_row)) = expand_row_result else { return };
+
+        let is_hidden = expand_row.has_attribute("hidden");
+        web_sys::console::log_1(&format!("[expand] is_hidden={}", is_hidden).into());
+        if is_hidden {
+            let result = expand_row.remove_attribute("hidden");
+            web_sys::console::log_1(&format!("[expand] remove_attribute result={:?}", result.is_ok()).into());
+            let _ = btn.set_attribute("aria-expanded", "true");
+            canonrs_interactions_core::dom::state::add(&btn, "expanded");
+            web_sys::console::log_1(&format!("[expand] after: has_hidden={}", expand_row.has_attribute("hidden")).into());
+        } else {
+            let _ = expand_row.set_attribute("hidden", "");
+            let _ = btn.set_attribute("aria-expanded", "false");
+            canonrs_interactions_core::dom::state::remove(&btn, "expanded");
+        }
+    }));
+    let _ = table.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+    cb.forget();
+}
+
+// ─── Inline Edit ─────────────────────────────────────────────────────────────
+
+fn make_row_editable(row: &HtmlElement) {
+    let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+    let Ok(cells) = row.query_selector_all("[data-rs-datatable-cell][data-rs-col-index]") else { return };
+    web_sys::console::log_1(&format!("[make_row_editable] cells found={}", cells.length()).into());
+    for i in 0..cells.length() {
+        let Some(cell) = cells.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) else { continue };
+        let text = cell.text_content().unwrap_or_default().trim().to_string();
+        // salvar valor original
+        let _ = cell.set_attribute("data-rs-original-value", &text);
+        // criar input
+        if let Ok(input) = doc.create_element("input") {
+            let _ = input.set_attribute("type", "text");
+            let _ = input.set_attribute("value", &text);
+            let _ = input.set_attribute("data-rs-inline-edit-input", "");
+            let _ = input.set_attribute("style", "width:100%;background:transparent;border:none;outline:none;font:inherit;color:inherit;padding:0;");
+            cell.set_inner_html("");
+            let result = cell.append_child(&input);
+            web_sys::console::log_1(&format!("[make_row_editable] append_child result={:?} text={}", result.is_ok(), text).into());
+        }
+    }
+    // focar primeiro input
+    if let Ok(Some(first_input)) = row.query_selector("[data-rs-inline-edit-input]") {
+        if let Ok(html_input) = first_input.dyn_into::<web_sys::HtmlElement>() {
+            let _ = html_input.focus();
+        }
+    }
+
+    // adicionar toolbar save/cancel
+    if let Ok(toolbar) = doc.create_element("div") {
+        let _ = toolbar.set_attribute("data-rs-inline-edit-toolbar", "");
+        let _ = toolbar.set_attribute("style", "display:flex;gap:var(--space-xs);align-items:center;");
+        if let Ok(save_btn) = doc.create_element("button") {
+            let _ = save_btn.set_attribute("type", "button");
+            let _ = save_btn.set_attribute("data-rs-datatable-action", "save");
+            let _ = save_btn.set_attribute("data-rs-row-id", &row.get_attribute("data-rs-row-id").unwrap_or_default());
+            let _ = save_btn.set_attribute("style", "padding:2px 8px;font-size:var(--font-size-xs);background:var(--theme-action-primary-bg);color:var(--theme-action-primary-fg);border:none;border-radius:var(--radius-sm);cursor:pointer;");
+            save_btn.set_text_content(Some("Save"));
+            let _ = toolbar.append_child(&save_btn);
+        }
+        if let Ok(cancel_btn) = doc.create_element("button") {
+            let _ = cancel_btn.set_attribute("type", "button");
+            let _ = cancel_btn.set_attribute("data-rs-datatable-action", "cancel-edit");
+            let _ = cancel_btn.set_attribute("data-rs-row-id", &row.get_attribute("data-rs-row-id").unwrap_or_default());
+            let _ = cancel_btn.set_attribute("style", "padding:2px 8px;font-size:var(--font-size-xs);background:transparent;border:var(--border-thin) solid var(--theme-surface-border);border-radius:var(--radius-sm);cursor:pointer;color:inherit;");
+            cancel_btn.set_text_content(Some("Cancel"));
+            let _ = toolbar.append_child(&cancel_btn);
+        }
+        // inserir toolbar na ultima cell
+        let Ok(last_cell) = row.query_selector("[data-rs-col-actions]") else { return };
+        if let Some(cell) = last_cell {
+            let _ = cell.append_child(&toolbar);
+        }
+    }
+}
+
+fn restore_row_cells(row: &web_sys::Element) {
+    let Ok(cells) = row.query_selector_all("[data-rs-col-index]") else { return };
+    for i in 0..cells.length() {
+        let Some(cell) = cells.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) else { continue };
+        // restaurar valor original ou valor editado
+        let value = cell.query_selector("[data-rs-inline-edit-input]")
+            .ok().flatten()
+            .and_then(|el| el.dyn_into::<web_sys::HtmlInputElement>().ok())
+            .map(|input| input.value())
+            .or_else(|| cell.get_attribute("data-rs-original-value"))
+            .unwrap_or_default();
+        let _ = cell.remove_attribute("data-rs-original-value");
+        cell.set_text_content(Some(&value));
+    }
+    // remover toolbar
+    if let Ok(Some(toolbar)) = row.query_selector("[data-rs-inline-edit-toolbar]") {
+        let _ = toolbar.parent_element().map(|p| p.remove_child(&toolbar));
+    }
+}
+
+// ─── Column Pin ─────────────────────────────────────────────────────────────
+
+fn bind_column_pin(table: &HtmlElement) {
+    let root: web_sys::Element = table.clone().into();
+    let table_c = table.clone();
+
+    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+        let btn = if t.has_attribute("data-rs-datatable-pin-btn") {
+            Some(t)
+        } else {
+            t.closest("[data-rs-datatable-pin-btn]").ok().flatten()
+        };
+        let Some(btn) = btn else { return };
+        e.prevent_default();
+        e.stop_propagation();
+
+        let col_index = btn.get_attribute("data-rs-col-index").unwrap_or_default();
+        let current = btn.get_attribute("data-rs-pin-state").unwrap_or_else(|| "unpinned".to_string());
+
+        let (new_state, new_icon) = match current.as_str() {
+            "unpinned"    => ("pinned-left",  "⬅📌"),
+            "pinned-left" => ("pinned-right", "📌➡"),
+            _             => ("unpinned",     "📍"),
+        };
+
+        let _ = btn.set_attribute("data-rs-pin-state", new_state);
+        btn.set_text_content(Some(new_icon));
+
+        // aplicar sticky nas cells da coluna
+        apply_pin(&table_c, &col_index, new_state);
+
+        // disparar evento rs-datatable-col-pin
+        let detail = js_sys::Object::new();
+        let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("colIndex"), &wasm_bindgen::JsValue::from_str(&col_index));
+        let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("pinState"), &wasm_bindgen::JsValue::from_str(new_state));
+        let init = web_sys::CustomEventInit::new();
+        init.set_bubbles(true);
+        init.set_detail(&wasm_bindgen::JsValue::from(detail));
+        if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-col-pin", &init) {
+            let _ = root.dispatch_event(&event);
+        }
+    }));
+    let _ = table.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+    cb.forget();
+}
+
+fn apply_pin(table: &HtmlElement, col_index: &str, state: &str) {
+    let selector = format!("[data-rs-col-index='{}']", col_index);
+    let Ok(cells) = table.query_selector_all(&selector) else { return };
+    for i in 0..cells.length() {
+        let Some(el) = cells.item(i).and_then(|n| n.dyn_into::<HtmlElement>().ok()) else { continue };
+        let _ = el.set_attribute("data-rs-pin-state", state);
+        match state {
+            "pinned-left" => {
+                let _ = el.style().set_property("position", "sticky");
+                let _ = el.style().set_property("left", "0");
+                let _ = el.style().set_property("z-index", "2");
+            }
+            "pinned-right" => {
+                let _ = el.style().set_property("position", "sticky");
+                let _ = el.style().set_property("right", "0");
+                let _ = el.style().set_property("z-index", "2");
+            }
+            _ => {
+                let _ = el.style().remove_property("position");
+                let _ = el.style().remove_property("left");
+                let _ = el.style().remove_property("right");
+                let _ = el.style().remove_property("z-index");
+            }
+        }
+    }
+}
+
+// ─── Column Reorder ──────────────────────────────────────────────────────────
+
+fn bind_column_reorder(table: &HtmlElement) {
+    let Ok(head) = table.query_selector("[data-rs-datatable-head-row]") else { return };
+    let Some(head_row) = head else { return };
+    let Ok(head_el) = head_row.clone().dyn_into::<HtmlElement>() else { return };
+
+    let drag_from: std::rc::Rc<std::cell::Cell<Option<usize>>> = std::rc::Rc::new(std::cell::Cell::new(None));
+    let drag_over: std::rc::Rc<std::cell::Cell<Option<usize>>> = std::rc::Rc::new(std::cell::Cell::new(None));
+    let dragging   = std::rc::Rc::new(std::cell::Cell::new(false));
+
+    // mousedown no header — inicia drag
+    {
+        let drag_from_md = drag_from.clone();
+        let dragging_md  = dragging.clone();
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            let Some(th) = t.closest("[data-rs-datatable-head-cell]").ok().flatten() else { return };
+            // nao iniciar drag se clicou no resize handle
+            if t.has_attribute("data-rs-datatable-resize-handle") { return; }
+            let col_index = th.get_attribute("data-rs-col-index")
+                .and_then(|s| s.parse::<usize>().ok());
+            if let Some(idx) = col_index {
+                drag_from_md.set(Some(idx));
+                dragging_md.set(true);
+                let _ = th.set_attribute("data-rs-dragging", "true");
+            }
+        }));
+        let _ = head_el.add_event_listener_with_callback("mousedown", cb.as_ref().unchecked_ref());
+        cb.forget();
+    }
+
+    // mousemove — atualiza drag_over
+    {
+        let drag_over_mm = drag_over.clone();
+        let dragging_mm  = dragging.clone();
+        let head_mm      = head_el.clone();
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+            if !dragging_mm.get() { return; }
+            let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
+            let Some(th) = t.closest("[data-rs-datatable-head-cell]").ok().flatten() else { return };
+            let col_index = th.get_attribute("data-rs-col-index")
+                .and_then(|s| s.parse::<usize>().ok());
+            // limpar drag-over anterior
+            if let Ok(cells) = head_mm.query_selector_all("[data-rs-drag-over]") {
+                for i in 0..cells.length() {
+                    if let Some(el) = cells.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                        let _ = el.remove_attribute("data-rs-drag-over");
+                    }
+                }
+            }
+            if let Some(idx) = col_index {
+                drag_over_mm.set(Some(idx));
+                let _ = th.set_attribute("data-rs-drag-over", "true");
+            }
+        }));
+        let _ = web_sys::window().and_then(|w| {
+            w.add_event_listener_with_callback("mousemove", cb.as_ref().unchecked_ref()).ok()
+        });
+        cb.forget();
+    }
+
+    // mouseup — finaliza reorder
+    {
+        let drag_from_mu = drag_from.clone();
+        let drag_over_mu = drag_over.clone();
+        let dragging_mu  = dragging.clone();
+        let head_mu      = head_el.clone();
+        let table_mu     = table.clone();
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+            if !dragging_mu.get() { return; }
+            dragging_mu.set(false);
+
+            // limpar atributos visuais
+            if let Ok(cells) = head_mu.query_selector_all("[data-rs-dragging],[data-rs-drag-over]") {
+                for i in 0..cells.length() {
+                    if let Some(el) = cells.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
+                        let _ = el.remove_attribute("data-rs-dragging");
+                        let _ = el.remove_attribute("data-rs-drag-over");
+                    }
+                }
+            }
+
+            let from = drag_from_mu.get();
+            let to   = drag_over_mu.get();
+            drag_from_mu.set(None);
+            drag_over_mu.set(None);
+
+            let (Some(from_idx), Some(to_idx)) = (from, to) else { return };
+            if from_idx == to_idx { return; }
+
+            // reordenar colunas no DOM — headers e cells
+            reorder_columns(&table_mu, from_idx, to_idx);
+
+            // disparar evento rs-datatable-col-reorder
+            let detail = js_sys::Object::new();
+            let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("from"), &wasm_bindgen::JsValue::from_f64(from_idx as f64));
+            let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("to"), &wasm_bindgen::JsValue::from_f64(to_idx as f64));
+            let init = web_sys::CustomEventInit::new();
+            init.set_bubbles(true);
+            init.set_detail(&wasm_bindgen::JsValue::from(detail));
+            if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-col-reorder", &init) {
+                let root: web_sys::Element = table_mu.clone().into();
+                let _ = root.dispatch_event(&event);
+            }
+        }));
+        let _ = web_sys::window().and_then(|w| {
+            w.add_event_listener_with_callback("mouseup", cb.as_ref().unchecked_ref()).ok()
+        });
+        cb.forget();
+    }
+}
+
+fn reorder_columns(table: &HtmlElement, from: usize, to: usize) {
+    // reordenar <th> no head row
+    if let Ok(Some(head_row)) = table.query_selector("[data-rs-datatable-head-row]") {
+        let ths: Vec<web_sys::Element> = canonrs_interactions_core::dom::query::all(&head_row, "[data-rs-datatable-head-cell]");
+        if from < ths.len() && to < ths.len() {
+            let moving = ths[from].clone();
+            let target = ths[to].clone();
+            if from < to {
+                if let Some(next) = target.next_element_sibling() {
+                    let _ = head_row.insert_before(&moving, Some(&next));
+                } else {
+                    let _ = head_row.append_child(&moving);
+                }
+            } else {
+                let _ = head_row.insert_before(&moving, Some(&target));
+            }
+            // atualizar data-rs-col-index
+            let updated: Vec<web_sys::Element> = canonrs_interactions_core::dom::query::all(&head_row, "[data-rs-datatable-head-cell]");
+            for (i, th) in updated.iter().enumerate() {
+                if th.get_attribute("data-rs-col-expand").is_some() || th.get_attribute("data-rs-col-select").is_some() { continue; }
+                let _ = th.set_attribute("data-rs-col-index", &i.to_string());
+            }
+        }
+    }
+
+    // reordenar <td> em cada row
+    if let Ok(rows) = table.query_selector_all("[data-rs-datatable-row]") {
+        for i in 0..rows.length() {
+            let Some(row) = rows.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) else { continue };
+            let tds: Vec<web_sys::Element> = canonrs_interactions_core::dom::query::all(&row, "[data-rs-col-index]");
+            if from < tds.len() && to < tds.len() {
+                let moving = tds[from].clone();
+                let target = tds[to].clone();
+                if from < to {
+                    if let Some(next) = target.next_element_sibling() {
+                        let _ = row.insert_before(&moving, Some(&next));
+                    } else {
+                        let _ = row.append_child(&moving);
+                    }
+                } else {
+                    let _ = row.insert_before(&moving, Some(&target));
+                }
+                // atualizar data-rs-col-index
+                let updated: Vec<web_sys::Element> = canonrs_interactions_core::dom::query::all(&row, "[data-rs-col-index]");
+                for (j, td) in updated.iter().enumerate() {
+                    let _ = td.set_attribute("data-rs-col-index", &j.to_string());
+                }
+            }
+        }
     }
 }
 

@@ -23,10 +23,6 @@ pub fn observe() {
             for i in 0..added.length() {
                 if let Some(node) = added.item(i) {
                     if let Ok(el) = node.dyn_into::<web_sys::Element>() {
-                        // ignorar mutations dentro de elementos em inline-editing
-                        let inside_editing = el.closest("[data-rs-inline-editing]")
-                            .ok().flatten().is_some();
-                        if inside_editing { continue; }
                         let key = el.get_attribute("data-rs-uid")
                             .unwrap_or_else(|| format!("{}", el.tag_name()));
                         if seen_uids.insert(key) {

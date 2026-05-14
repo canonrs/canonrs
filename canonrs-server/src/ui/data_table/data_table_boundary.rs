@@ -22,26 +22,60 @@ pub fn DataTable<T>(
     #[prop(default = false)] resizable: bool,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
+    #[prop(optional)] expand_render: Option<std::sync::Arc<dyn Fn(&T) -> leptos::prelude::AnyView + Send + Sync>>,
     #[prop(optional)] row_id_fn: Option<std::sync::Arc<dyn Fn(&T) -> String + Send + Sync>>,
     #[prop(optional)] row_label_fn: Option<std::sync::Arc<dyn Fn(&T) -> String + Send + Sync>>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
 {
-    view! {
-        <DataTableStatic
-            data=data
-            columns=columns
-            density=density
-            class=class
-            page_size=page_size
-            selectable=selectable
-            show_density=show_density
-            resizable=resizable
-            row_actions=row_actions
-            bulk_actions=bulk_actions
-            row_id_fn=row_id_fn.unwrap_or_else(|| std::sync::Arc::new(|_: &T| String::new()))
-            row_label_fn=row_label_fn.unwrap_or_else(|| std::sync::Arc::new(|_: &T| String::new()))
-        />
+    match (expand_render, row_id_fn, row_label_fn) {
+        (Some(er), Some(ri), Some(rl)) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                expand_render=er row_id_fn=ri row_label_fn=rl
+            />
+        }.into_any(),
+        (Some(er), None, None) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                expand_render=er
+            />
+        }.into_any(),
+        (Some(er), Some(ri), None) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                expand_render=er row_id_fn=ri
+            />
+        }.into_any(),
+        (None, Some(ri), Some(rl)) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                row_id_fn=ri row_label_fn=rl
+            />
+        }.into_any(),
+        (None, Some(ri), None) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                row_id_fn=ri
+            />
+        }.into_any(),
+        _ => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+            />
+        }.into_any(),
     }
 }
