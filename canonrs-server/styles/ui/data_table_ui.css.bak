@@ -39,8 +39,14 @@
 
 [data-rs-datatable-table] {
   width: 100%;
+  min-width: max-content;
   border-collapse: collapse;
   font-size: var(--table-cell-font-size);
+  table-layout: auto;
+}
+
+[data-rs-datatable-table][data-rs-resizable] [data-rs-datatable-head-cell] {
+  min-width: var(--table-col-min-width);
 }
 
 [data-rs-datatable-head] {
@@ -59,16 +65,18 @@
   right: 0;
   top: 0;
   height: 100%;
-  width: 4px;
+  width: var(--table-resize-handle-width);
   cursor: col-resize;
   background: transparent;
-  z-index: 1;
+  z-index: var(--table-resize-handle-z);
+  touch-action: none;
 }
 
 [data-rs-datatable-head-cell][data-rs-state~="hover"] [data-rs-datatable-resize-handle] {
-  background: var(--theme-action-primary-bg);
-  opacity: 0.4;
+  background: var(--table-resize-handle-color);
+  opacity: var(--table-resize-handle-opacity);
 }
+
 
 .rs-resizing {
   cursor: col-resize;
@@ -76,8 +84,8 @@
 }
 
 .rs-resizing [data-rs-datatable-resize-handle] {
-  background: var(--theme-action-primary-bg);
-  opacity: 0.6;
+  background: var(--table-resize-handle-color);
+  opacity: var(--table-resize-handle-opacity-active);
 }
 
 [data-rs-datatable-head-cell] {
@@ -90,6 +98,7 @@
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
+  overflow: visible;
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 
@@ -125,6 +134,35 @@
 [data-rs-datatable-row][data-rs-state~="selected"] {
   background: var(--table-row-bg-selected);
   box-shadow: inset var(--border-medium) 0 0 0 var(--theme-action-primary-bg);
+}
+
+[data-rs-datatable-expand-row] {
+  background: var(--table-expand-row-bg);
+}
+
+[data-rs-datatable-expand-row][hidden] {
+  display: none;
+}
+
+[data-rs-datatable-expand-content] {
+  padding: var(--table-expand-row-padding);
+}
+
+[data-rs-datatable-expand-btn] {
+  width: var(--table-expand-btn-size);
+  height: var(--table-expand-btn-size);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--table-expand-btn-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+[data-rs-datatable-expand-btn][data-rs-state~="expanded"] {
+  transform: rotate(90deg);
 }
 
 [data-rs-inline-edit-input] {

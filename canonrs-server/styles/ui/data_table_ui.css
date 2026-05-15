@@ -39,8 +39,14 @@
 
 [data-rs-datatable-table] {
   width: 100%;
+  min-width: max-content;
   border-collapse: collapse;
   font-size: var(--table-cell-font-size);
+  table-layout: auto;
+}
+
+[data-rs-datatable-table][data-rs-resizable] [data-rs-datatable-head-cell] {
+  min-width: var(--table-col-min-width);
 }
 
 [data-rs-datatable-head] {
@@ -54,21 +60,33 @@
   border-bottom: var(--table-border-width) solid var(--datatable-border-color);
 }
 
+.rs-col-hidden {
+  display: none;
+  width: 0;
+  min-width: 0;
+  max-width: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
 [data-rs-datatable-resize-handle] {
   position: absolute;
   right: 0;
   top: 0;
   height: 100%;
-  width: 4px;
+  width: var(--table-resize-handle-width);
   cursor: col-resize;
   background: transparent;
-  z-index: 1;
+  z-index: var(--table-resize-handle-z);
+  touch-action: none;
 }
 
 [data-rs-datatable-head-cell][data-rs-state~="hover"] [data-rs-datatable-resize-handle] {
-  background: var(--theme-action-primary-bg);
-  opacity: 0.4;
+  background: var(--table-resize-handle-color);
+  opacity: var(--table-resize-handle-opacity);
 }
+
 
 .rs-resizing {
   cursor: col-resize;
@@ -76,8 +94,8 @@
 }
 
 .rs-resizing [data-rs-datatable-resize-handle] {
-  background: var(--theme-action-primary-bg);
-  opacity: 0.6;
+  background: var(--table-resize-handle-color);
+  opacity: var(--table-resize-handle-opacity-active);
 }
 
 [data-rs-datatable-head-cell] {
@@ -90,6 +108,7 @@
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
+  overflow: visible;
   transition: background var(--table-row-transition-duration) var(--table-row-transition-ease);
 }
 

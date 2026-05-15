@@ -95,11 +95,96 @@ pub fn DataTableScrollPrimitive(
 pub fn DataTableTablePrimitive(
     children: Children,
     #[prop(into, default = String::new())] class: String,
+    #[prop(default = false)] resizable: bool,
 ) -> impl IntoView {
     view! {
-        <table data-rs-datatable-table="" class=class>
+        <table
+            data-rs-datatable-table=""
+            data-rs-resizable=if resizable { Some("true") } else { None }
+            class=class
+        >
             {children()}
         </table>
+    }
+}
+
+#[component]
+pub fn DataTableExpandHeadCellPrimitive(
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <th data-rs-datatable-head-cell="" data-rs-col-expand="" scope="col" class=class></th>
+    }
+}
+
+#[component]
+pub fn DataTableExpandCellPrimitive(
+    children: Children,
+    row_id: String,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <td data-rs-datatable-cell="" data-rs-col-expand="" class=class>
+            {children()}
+        </td>
+    }
+}
+
+#[component]
+pub fn DataTableExpandBtnPrimitive(
+    row_id: String,
+) -> impl IntoView {
+    view! {
+        <button
+            type="button"
+            data-rs-datatable-expand-btn=""
+            data-rs-row-id=row_id
+            aria-expanded="false"
+        >
+            "▶"
+        </button>
+    }
+}
+
+#[component]
+pub fn DataTableExpandRowPrimitive(
+    children: Children,
+    row_id: String,
+    colspan: String,
+) -> impl IntoView {
+    view! {
+        <tr data-rs-datatable-expand-row="" data-rs-row-id=row_id hidden=true>
+            <td data-rs-datatable-cell="" colspan=colspan>
+                <div data-rs-datatable-expand-content="">
+                    {children()}
+                </div>
+            </td>
+        </tr>
+    }
+}
+
+#[component]
+pub fn DataTableColgroupPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! {
+        <colgroup data-rs-datatable-colgroup="">
+            {children()}
+        </colgroup>
+    }
+}
+
+#[component]
+pub fn DataTableColPrimitive(
+    #[prop(into, default = String::new())] col_index: String,
+    #[prop(into, default = String::new())] width: String,
+) -> impl IntoView {
+    view! {
+        <col
+            data-rs-datatable-col=""
+            data-rs-col-index=col_index
+            style=if width.is_empty() { String::new() } else { format!("width:{}", width) }
+        />
     }
 }
 
@@ -151,6 +236,9 @@ pub fn DataTableHeadCellPrimitive(
             class=class
         >
             {children()}
+            {resizable.then(|| view! {
+                <span data-rs-datatable-resize-handle="" aria-hidden="true"></span>
+            })}
         </th>
     }
 }

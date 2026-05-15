@@ -10,6 +10,9 @@ use canonrs_core::primitives::{
     DataTableTablePrimitive, DataTableHeadPrimitive, DataTableHeadRowPrimitive,
     DataTableHeadCellPrimitive, DataTableBodyPrimitive, DataTableRowPrimitive,
     DataTableCellPrimitive, DataTableEmptyPrimitive,
+    DataTableColgroupPrimitive, DataTableColPrimitive,
+    DataTableExpandHeadCellPrimitive, DataTableExpandCellPrimitive,
+    DataTableExpandBtnPrimitive, DataTableExpandRowPrimitive,
     DataTableDensity, SortDirection,
 };
 use crate::ui::dropdown_menu::{
@@ -157,11 +160,19 @@ where
             </DataTableToolbarPrimitive>
 
             <ScrollArea orientation=canonrs_core::primitives::ScrollOrientation::Horizontal auto_hide=false>
-            <DataTableTablePrimitive>
+            <DataTableTablePrimitive resizable=resizable>
+                <DataTableColgroupPrimitive>
+                    <col data-rs-datatable-col="" data-rs-col-expand="" class=if has_expand { "" } else { "rs-col-hidden" } />
+                    <col data-rs-datatable-col="" data-rs-col-select="" class=if selectable { "" } else { "rs-col-hidden" } />
+                    {cols.get_value().into_iter().enumerate().map(|(idx, _)| {
+                        view! { <DataTableColPrimitive col_index=idx.to_string() /> }
+                    }).collect::<Vec<_>>()}
+                    <col data-rs-datatable-col="" data-rs-col-actions="" class=if !row_actions.get_value().is_empty() { "" } else { "rs-col-hidden" } />
+                </DataTableColgroupPrimitive>
                 <DataTableHeadPrimitive>
                     <DataTableHeadRowPrimitive>
-                        <th data-rs-datatable-head-cell="" scope="col" data-rs-col-expand="" hidden=(!has_expand)></th>
-                        <th data-rs-datatable-head-cell="" scope="col" data-rs-col-select="" hidden=(!selectable)>
+                        <DataTableExpandHeadCellPrimitive class=if has_expand { "" } else { "rs-col-hidden" } />
+                        <th data-rs-datatable-head-cell="" scope="col" data-rs-col-select="" class=if selectable { "" } else { "rs-col-hidden" }>
                             <input type="checkbox" data-rs-datatable-select-all="" />
                         </th>
                         {cols.get_value().into_iter().enumerate().map(|(idx, col)| {
@@ -191,17 +202,20 @@ where
                         let ctx_actions = row_actions.get_value();
                         let row_label = row_label_fn.get_value().as_ref().map(|f| f(&row)).unwrap_or_default();
                         let real_id = row_id_fn.get_value().as_ref().map(|f| f(&row)).unwrap_or_else(|| idx.to_string());
-                        let ctx_row_id = StoredValue::new(real_id.clone());
+                        let real_id = StoredValue::new(real_id);
+                        let ctx_row_id = real_id;
 
                         let main_row = view! {
-                            <DataTableRowPrimitive row_id=real_id row_label=row_label row_index=idx>
-                                <td data-rs-datatable-cell="" data-rs-col-expand="" hidden=(!has_expand)>
-                                    <button type="button" data-rs-datatable-expand-btn=""
-                                        data-rs-row-id=idx.to_string() aria-expanded="false">
-                                        "▶"
-                                    </button>
-                                </td>
-                                <td data-rs-datatable-cell="" data-rs-col-select="" hidden=(!selectable)>
+                            <DataTableRowPrimitive row_id=real_id.get_value() row_label=row_label row_index=idx>
+                                {
+                                    let rid = real_id.get_value();
+                                    view! {
+                                        <DataTableExpandCellPrimitive row_id=rid.clone() class=if has_expand { "" } else { "rs-col-hidden" }>
+                                            {if has_expand { Some(view! { <DataTableExpandBtnPrimitive row_id=rid /> }) } else { None }}
+                                        </DataTableExpandCellPrimitive>
+                                    }
+                                }
+                                <td data-rs-datatable-cell="" data-rs-col-select="" class=if selectable { "" } else { "rs-col-hidden" }>
                                     <input type="checkbox" data-rs-datatable-select-row="" value=idx.to_string() />
                                 </td>
                                 {row_cols.into_iter().enumerate().map(|(col_idx, col)| {
@@ -245,7 +259,7 @@ where
                                         }
                                     }).collect::<Vec<_>>();
                                     view! {
-                                        <td data-rs-datatable-cell="" data-rs-col-actions="" hidden=(!has_actions_cell)>
+                                        <td data-rs-datatable-cell="" data-rs-col-actions="" class=if has_actions_cell { "" } else { "rs-col-hidden" }>
                                             <div data-rs-datatable-actions-cell="">
                                                 <div data-rs-datatable-inline-actions="">{inline_views}</div>
                                                 <div data-rs-datatable-menu-actions="" hidden=(!has_menu)>
@@ -258,21 +272,17 @@ where
                             </DataTableRowPrimitive>
                         };
 
-                        let expand_view = expand_content.unwrap_or_else(|| view! { <div hidden></div> }.into_any());
-                        let expand_row = view! {
-                            <tr data-rs-datatable-expand-row="" data-rs-row-id=idx.to_string() hidden=true>
-                                <td data-rs-datatable-cell="" colspan=col_count.to_string()>
-                                    <div data-rs-datatable-expand-content="">
-                                        {expand_view}
-                                    </div>
-                                </td>
-                            </tr>
-                        };
-
                         view! {
                             <>
                                 {main_row}
-                                {expand_row}
+                                {expand_content.map(|content| {
+                                    let rid = real_id.get_value();
+                                    view! {
+                                        <DataTableExpandRowPrimitive row_id=rid colspan=col_count.to_string()>
+                                            {content}
+                                        </DataTableExpandRowPrimitive>
+                                    }
+                                })}
                             </>
                         }
                     }).collect::<Vec<_>>()}
@@ -283,14 +293,14 @@ where
                 {visible_data.get_value().into_iter().map(|(idx, row)| {
                     let has_actions = !row_actions.get_value().is_empty();
                     let ctx_actions = row_actions.get_value();
-                    let real_id = row_id_fn.get_value().as_ref().map(|f| f(&row)).unwrap_or_else(|| idx.to_string());
-                    let ctx_row_id2 = real_id.clone();
+                    let real_id2 = row_id_fn.get_value().as_ref().map(|f| f(&row)).unwrap_or_else(|| idx.to_string());
+                    let ctx_row_id2 = real_id2.clone();
                     view! {
                         <div data-rs-datatable-row-context="" data-rs-context-menu=""
                             data-rs-row-id=ctx_row_id2 hidden=(!has_actions)>
                             <ContextMenuContent>
                                 {ctx_actions.into_iter().map(|action| {
-                                    let rid2 = real_id.clone();
+                                    let rid2 = real_id2.clone();
                                     view! {
                                         <ContextMenuItem>
                                             <span data-rs-datatable-action=action.id data-rs-row-id=rid2>

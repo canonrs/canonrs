@@ -133,7 +133,7 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                         data=expand_data()
                         columns=expand_columns()
                         page_size=5
-                        expand_render=Some(std::sync::Arc::new(|r: &Vec<String>| {
+                        expand_render=std::sync::Arc::new(|r: &Vec<String>| {
                             let emails: Vec<String> = r[3].split('|').map(|s| s.to_string()).collect();
                             view! {
                                 <div style="padding:var(--space-sm);display:flex;flex-direction:column;gap:var(--space-xs);">
@@ -143,7 +143,7 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                                     }).collect::<Vec<_>>()}
                                 </div>
                             }.into_any()
-                        }))
+                        })
                     />
                 </Stack>
 
