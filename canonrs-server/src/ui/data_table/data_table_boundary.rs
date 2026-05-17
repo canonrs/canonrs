@@ -9,6 +9,7 @@ use super::data_table_ui::{
     RowAction,
     BulkAction
 };
+use super::types::{ExpandRenderFn, RowIdFn, RowLabelFn};
 
 #[component]
 pub fn DataTable<T>(
@@ -35,7 +36,7 @@ where
                 data=data columns=columns density=density class=class
                 page_size=page_size selectable=selectable show_density=show_density resizable=resizable
                 row_actions=row_actions bulk_actions=bulk_actions
-                expand_render=er row_id_fn=ri row_label_fn=rl
+                expand_render=ExpandRenderFn(Some(er)) row_id_fn=RowIdFn(Some(ri)) row_label_fn=RowLabelFn(Some(rl))
             />
         }.into_any(),
         (Some(er), None, None) => view! {
@@ -43,7 +44,7 @@ where
                 data=data columns=columns density=density class=class
                 page_size=page_size selectable=selectable show_density=show_density resizable=resizable
                 row_actions=row_actions bulk_actions=bulk_actions
-                expand_render=er
+                expand_render=ExpandRenderFn(Some(er))
             />
         }.into_any(),
         (Some(er), Some(ri), None) => view! {
@@ -51,7 +52,7 @@ where
                 data=data columns=columns density=density class=class
                 page_size=page_size selectable=selectable show_density=show_density resizable=resizable
                 row_actions=row_actions bulk_actions=bulk_actions
-                expand_render=er row_id_fn=ri
+                expand_render=ExpandRenderFn(Some(er)) row_id_fn=RowIdFn(Some(ri))
             />
         }.into_any(),
         (None, Some(ri), Some(rl)) => view! {
@@ -59,7 +60,7 @@ where
                 data=data columns=columns density=density class=class
                 page_size=page_size selectable=selectable show_density=show_density resizable=resizable
                 row_actions=row_actions bulk_actions=bulk_actions
-                row_id_fn=ri row_label_fn=rl
+                row_id_fn=RowIdFn(Some(ri)) row_label_fn=RowLabelFn(Some(rl))
             />
         }.into_any(),
         (None, Some(ri), None) => view! {
@@ -67,7 +68,7 @@ where
                 data=data columns=columns density=density class=class
                 page_size=page_size selectable=selectable show_density=show_density resizable=resizable
                 row_actions=row_actions bulk_actions=bulk_actions
-                row_id_fn=ri
+                row_id_fn=RowIdFn(Some(ri))
             />
         }.into_any(),
         _ => view! {

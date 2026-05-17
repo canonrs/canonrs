@@ -29,23 +29,53 @@ pub fn DataTable<T>(
 where
     T: Clone + Send + Sync + 'static,
 {
-    let view = if let (Some(er), Some(ri), Some(rl)) = (expand_render, row_id_fn, row_label_fn) {
-        view! {
+    match (expand_render, row_id_fn, row_label_fn) {
+        (Some(er), Some(ri), Some(rl)) => view! {
             <DataTableStatic
                 data=data columns=columns density=density class=class
                 page_size=page_size selectable=selectable show_density=show_density resizable=resizable
                 row_actions=row_actions bulk_actions=bulk_actions
                 expand_render=er row_id_fn=ri row_label_fn=rl
             />
-        }.into_any()
-    } else {
-        view! {
+        }.into_any(),
+        (Some(er), None, None) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                expand_render=er
+            />
+        }.into_any(),
+        (Some(er), Some(ri), None) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                expand_render=er row_id_fn=ri
+            />
+        }.into_any(),
+        (None, Some(ri), Some(rl)) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                row_id_fn=ri row_label_fn=rl
+            />
+        }.into_any(),
+        (None, Some(ri), None) => view! {
+            <DataTableStatic
+                data=data columns=columns density=density class=class
+                page_size=page_size selectable=selectable show_density=show_density resizable=resizable
+                row_actions=row_actions bulk_actions=bulk_actions
+                row_id_fn=ri
+            />
+        }.into_any(),
+        _ => view! {
             <DataTableStatic
                 data=data columns=columns density=density class=class
                 page_size=page_size selectable=selectable show_density=show_density resizable=resizable
                 row_actions=row_actions bulk_actions=bulk_actions
             />
-        }.into_any()
-    };
-    view
+        }.into_any(),
+    }
 }

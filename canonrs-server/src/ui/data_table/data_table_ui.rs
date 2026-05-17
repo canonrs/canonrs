@@ -78,29 +78,29 @@ pub fn DataTableStatic<T>(
     #[prop(into, default = String::new())] sync_scope: String,
     #[prop(default = false)] show_density: bool,
     #[prop(default = false)] resizable: bool,
-    #[prop(optional)] expand_render: Option<Arc<dyn Fn(&T) -> AnyView + Send + Sync>>,
+    #[prop(default = ExpandRenderFn::default())] expand_render: ExpandRenderFn<T>,
     #[prop(default = vec![])] row_actions: Vec<RowAction>,
     #[prop(default = vec![])] bulk_actions: Vec<BulkAction>,
-    #[prop(optional)] row_id_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
-    #[prop(optional)] row_label_fn: Option<Arc<dyn Fn(&T) -> String + Send + Sync>>,
+    #[prop(default = RowIdFn::default())] row_id_fn: RowIdFn<T>,
+    #[prop(default = RowLabelFn::default())] row_label_fn: RowLabelFn<T>,
 ) -> impl IntoView
 where
     T: Clone + Send + Sync + 'static,
 {
     let total = data.len();
     let total_pages = ((total as f64) / (page_size as f64)).ceil().max(1.0) as usize;
-    let has_expand = expand_render.is_some();
+    let has_expand = expand_render.0.is_some();
     let col_count = columns.len()
         + if selectable { 1 } else { 0 }
         + if has_expand { 1 } else { 0 }
         + if !row_actions.is_empty() { 1 } else { 0 };
     let visible_data = StoredValue::new(data.into_iter().enumerate().collect::<Vec<_>>());
     let cols = StoredValue::new(columns.clone());
-    let expand_render = StoredValue::new(expand_render);
+    let expand_render = StoredValue::new(expand_render.0);
     let row_actions = StoredValue::new(row_actions);
     let bulk_actions = StoredValue::new(bulk_actions);
-    let row_id_fn = StoredValue::new(row_id_fn);
-    let row_label_fn = StoredValue::new(row_label_fn);
+    let row_id_fn = StoredValue::new(row_id_fn.0);
+    let row_label_fn = StoredValue::new(row_label_fn.0);
     let initial_density = density.as_str();
 
     view! {
