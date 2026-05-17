@@ -2,6 +2,7 @@
 //! Passthrough only. Zero logic, zero transformation.
 
 use leptos::prelude::*;
+use leptos::html;
 use super::input_ui::Input as InputUi;
 use canonrs_core::primitives::{
     InputVariant,
@@ -20,7 +21,7 @@ pub fn Input(
     #[prop(default = InputVariant::Default)] variant:   InputVariant,
     #[prop(default = InputSize::Md)] size:              InputSize,
     #[prop(default = DisabledState::Enabled)] disabled: DisabledState,
-    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Input>>,
+    #[prop(optional)] node_ref: Option<NodeRef<html::Input>>,
 ) -> impl IntoView {
     view! {
         <InputUi
@@ -34,7 +35,7 @@ pub fn Input(
             variant=variant
             size=size
             disabled=disabled
-            node_ref=node_ref.unwrap_or_default()
+            node_ref=node_ref
         />
     }
 }

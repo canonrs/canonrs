@@ -17,6 +17,7 @@ pub const INPUT_API: ComponentApi = ComponentApi {
         PropDef { name: "variant", kind: PropType::Enum(&["default", "error", "success", "warning"]), required: false, default: Some("default"), description: "Visual variant of the component" },
         PropDef { name: "size", kind: PropType::Enum(&["md", "sm", "lg"]), required: false, default: Some("md"), description: "Size variant of the component" },
         PropDef { name: "disabled", kind: PropType::String, required: false, default: Some("enabled"), description: "Whether the component is disabled" },
+        PropDef { name: "node_ref", kind: PropType::String, required: false, default: None, description: "DOM node reference" },
     ],
 };
 

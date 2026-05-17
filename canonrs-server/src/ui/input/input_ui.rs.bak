@@ -15,7 +15,6 @@ pub fn Input(
     #[prop(default = InputSize::Md)] size: InputSize,
     #[prop(into, default = String::new())] placeholder: String,
     #[prop(into, default = String::new())] aria_label: String,
-    #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Input>>,
 ) -> impl IntoView {
     view! {
         <InputPrimitive
@@ -29,7 +28,6 @@ pub fn Input(
             input_type=input_type
             variant=variant
             size=size
-            node_ref=node_ref.unwrap_or_default()
         />
     }
 }
