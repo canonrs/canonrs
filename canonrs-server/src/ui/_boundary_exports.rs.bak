@@ -30,7 +30,3 @@ pub use super::table::SortDirection;
 pub use super::toast::ToastVariant;
 pub use super::toolbar::ToolbarOrientation;
 pub use super::tooltip::TooltipSide;
-
-// Typography system
-pub use super::typography::{Text, Heading, Caption, Metric, CodeInline};
-pub use super::typography::{TextSize, TextWeight, TextVariant, HeadingLevel};

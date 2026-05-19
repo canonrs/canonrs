@@ -1,10 +1,10 @@
 # CanonRS SSOT Audit
 
 ## Components
-- Primitives: 97
+- Primitives: 104
 - Semantic (components.toml): 88
 - Complete: 52
-- Missing semantic: 45
+- Missing semantic: 52
 - Orphan semantic: 36
 
 ### Missing semantic
@@ -26,8 +26,10 @@
 - `empty-state`
 - `empty-table`
 - `error-state`
+- `event-row`
 - `form-error-summary`
 - `hero`
+- `hidden-input`
 - `hover-card`
 - `icon-button`
 - `inline-meta`
@@ -42,17 +44,22 @@
 - `nav-item`
 - `navigation-group`
 - `navigation-menu`
+- `null-view`
 - `page-header`
 - `pin-button`
+- `progress-mini`
 - `radio-group`
 - `resize-handle`
 - `scroll-area`
 - `section-header`
 - `status-dot`
 - `table-wrapper`
+- `text`
 - `toc`
+- `toc-item-row`
 - `toggle-group`
 - `virtual-list`
+- `worker-card`
 
 ### Orphan semantic
 - `alert_dialog`

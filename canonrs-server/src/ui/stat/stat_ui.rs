@@ -3,7 +3,7 @@ use leptos::prelude::*;
 use canonrs_core::primitives::{
     StatSize, StatTrend, StatAlign,
     StatPrimitive, StatValuePrimitive, StatLabelPrimitive,
-    StatDeltaPrimitive, StatIconPrimitive, StatHeaderPrimitive, StatBodyPrimitive,
+    StatDeltaPrimitive, StatIconPrimitive, StatHeaderPrimitive, StatBodyPrimitive, StatWrapperPrimitive,
 };
 use canonrs_core::LoadingState;
 
@@ -11,9 +11,9 @@ use canonrs_core::LoadingState;
 pub fn Stat(children: Children, #[prop(default = StatSize::Md)] size: StatSize, #[prop(default = StatAlign::Start)] align: StatAlign, #[prop(optional)] trend: Option<StatTrend>, #[prop(default = LoadingState::Idle)] loading: LoadingState, #[prop(default = String::new())] class: String) -> impl IntoView {
     view! {
         <StatPrimitive class=class>
-            <div data-rs-stat-wrapper="" data-rs-size=size.as_str() data-rs-trend=trend.map(|t| t.as_str().to_string())>
+            <StatWrapperPrimitive size=size trend=trend.unwrap_or_default()>
                 {children()}
-            </div>
+            </StatWrapperPrimitive>
         </StatPrimitive>
     }
 }

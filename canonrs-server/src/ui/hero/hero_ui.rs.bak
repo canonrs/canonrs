@@ -6,15 +6,15 @@ use canonrs_core::primitives::hero::{
 
 #[component]
 pub fn HeroTitle(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {
-    view! { <class=class>{children()}</> }
+    view! { <div data-rs-hero-title="" class=class>{children()}</div> }
 }
 #[component]
 pub fn HeroSubtitle(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {
-    view! { <class=class>{children()}</> }
+    view! { <div data-rs-hero-subtitle="" class=class>{children()}</div> }
 }
 #[component]
 pub fn HeroDescription(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {
-    view! { <class=class>{children()}</> }
+    view! { <div data-rs-hero-description="" class=class>{children()}</div> }
 }
 #[component]
 pub fn HeroMedia(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {

@@ -2,19 +2,20 @@
 use leptos::prelude::*;
 use canonrs_core::primitives::hero::{
     HeroMediaPrimitive, HeroActionsPrimitive,
+    HeroTitlePrimitive, HeroSubtitlePrimitive, HeroDescriptionPrimitive,
 };
 
 #[component]
 pub fn HeroTitle(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {
-    view! { <div data-rs-hero-title="" class=class>{children()}</div> }
+    view! { <HeroTitlePrimitive class=class>{children()}</HeroTitlePrimitive> }
 }
 #[component]
 pub fn HeroSubtitle(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {
-    view! { <div data-rs-hero-subtitle="" class=class>{children()}</div> }
+    view! { <HeroSubtitlePrimitive class=class>{children()}</HeroSubtitlePrimitive> }
 }
 #[component]
 pub fn HeroDescription(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {
-    view! { <div data-rs-hero-description="" class=class>{children()}</div> }
+    view! { <HeroDescriptionPrimitive class=class>{children()}</HeroDescriptionPrimitive> }
 }
 #[component]
 pub fn HeroMedia(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {

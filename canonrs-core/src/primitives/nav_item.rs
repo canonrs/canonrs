@@ -57,3 +57,17 @@ pub fn NavGroupPrimitive(
         </nav>
     }
 }
+
+#[component]
+pub fn NavItemIconPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! { <span data-rs-nav-item-icon="">{children()}</span> }
+}
+
+#[component]
+pub fn NavItemLabelPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! { <span data-rs-nav-item-label="">{children()}</span> }
+}

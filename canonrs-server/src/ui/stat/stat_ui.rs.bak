@@ -11,7 +11,7 @@ use canonrs_core::LoadingState;
 pub fn Stat(children: Children, #[prop(default = StatSize::Md)] size: StatSize, #[prop(default = StatAlign::Start)] align: StatAlign, #[prop(optional)] trend: Option<StatTrend>, #[prop(default = LoadingState::Idle)] loading: LoadingState, #[prop(default = String::new())] class: String) -> impl IntoView {
     view! {
         <StatPrimitive class=class>
-            <div data-rs-stat-wrapper="" data-rs-size=size.as_str() data-rs-trend=trend.as_str()>
+            <StatWrapperPrimitive size=size trend=trend.unwrap_or_default()>
                 {children()}
             </div>
         </StatPrimitive>

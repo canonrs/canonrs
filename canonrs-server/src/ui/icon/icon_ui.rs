@@ -1,6 +1,6 @@
 #![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
-use canonrs_core::primitives::{IconPrimitive};
+use canonrs_core::primitives::{IconPrimitive, IconInnerPrimitive};
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum IconSize { Sm, Md, Lg }
@@ -14,9 +14,9 @@ impl IconVariant { pub fn as_str(&self) -> &'static str { match self { Self::Def
 pub fn Icon(#[prop(optional)] children: Option<Children>, #[prop(default = IconSize::Md)] size: IconSize, #[prop(default = IconVariant::Default)] variant: IconVariant, #[prop(default = false)] spin: bool, #[prop(default = String::new())] class: String, #[prop(into, optional)] id: Option<String>) -> impl IntoView {
     view! {
         <IconPrimitive class=class>
-            <span data-rs-icon-inner="">
+            <IconInnerPrimitive>
                 {children.map(|c| c())}
-            </span>
+            </IconInnerPrimitive>
         </IconPrimitive>
     }
 }

@@ -52,3 +52,11 @@ pub fn SectionBadgePrimitive(
         </span>
     }
 }
+
+#[component]
+pub fn SectionActionsPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-section-actions="" class=class>{children()}</div> }
+}

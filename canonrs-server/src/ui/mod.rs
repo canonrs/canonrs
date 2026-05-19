@@ -83,6 +83,7 @@ pub mod toast;
 pub mod toggle;
 pub mod toggle_group;
 pub mod toolbar;
+pub mod typography;
 pub mod tooltip;
 pub mod tree;
 pub mod virtual_list;

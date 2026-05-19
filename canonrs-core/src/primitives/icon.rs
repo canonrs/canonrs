@@ -17,3 +17,10 @@ pub fn IconPrimitive(
         </span>
     }
 }
+
+#[component]
+pub fn IconInnerPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! { <span data-rs-icon-inner="">{children()}</span> }
+}

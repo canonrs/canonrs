@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::data_table_boundary::DataTable;
-use super::data_table_boundary::{DataTableColumn, RowAction, BulkAction};
+use super::data_table_ui::{DataTableColumn, RowAction, BulkAction};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols, GridGap};
 

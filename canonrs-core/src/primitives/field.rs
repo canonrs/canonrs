@@ -143,3 +143,41 @@ pub fn FieldLegendPrimitive(
         </legend>
     }
 }
+
+#[component]
+pub fn FieldContentPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-field-content="" class=class>{children()}</div> }
+}
+
+#[component]
+pub fn FieldTitlePrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-field-title="" class=class>{children()}</div> }
+}
+
+#[component]
+pub fn FieldSeparatorWrapperPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! { <div data-rs-field-separator-wrapper="" class=class>{children()}</div> }
+}
+
+#[component]
+pub fn FieldSeparatorContentPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! { <span data-rs-field-separator-content="">{children()}</span> }
+}
+
+#[component]
+pub fn FieldErrorItemPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! { <span data-rs-field-error-item="">{children()}</span> }
+}

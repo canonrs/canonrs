@@ -1,6 +1,6 @@
 #![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
-use canonrs_core::primitives::{InputOtpPrimitive, InputOtpSlotPrimitive};
+use canonrs_core::primitives::{InputOtpPrimitive, InputOtpSlotPrimitive, InputOtpContainerPrimitive, InputOtpSlotsPrimitive};
 use canonrs_core::meta::{ActivityState, DisabledState};
 
 #[component]
@@ -12,9 +12,9 @@ pub fn InputOtp(#[prop(into, default = String::new())] class: String, #[prop(int
         view! { <InputOtpSlotPrimitive state=state>{ch}</InputOtpSlotPrimitive> }.into_any()
     }).collect();
     view! {
-        <div data-rs-input-otp-container="" disabled=disabled class=class>
+        <InputOtpContainerPrimitive disabled=Some(disabled.disabled()) class=class>
             <InputOtpPrimitive name=name value=value.clone() disabled=disabled maxlength=length inputmode="numeric".to_string() autocomplete="one-time-code".to_string() />
-            <div data-rs-input-otp-slots="">{slots}</div>
+            <InputOtpSlotsPrimitive>{slots}</InputOtpSlotsPrimitive>
         </div>
     }
 }

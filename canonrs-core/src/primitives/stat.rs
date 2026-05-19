@@ -132,3 +132,22 @@ pub fn StatBodyPrimitive(
         </div>
     }
 }
+
+#[component]
+pub fn StatWrapperPrimitive(
+    children: Children,
+    #[prop(default = StatSize::Md)]    size:  StatSize,
+    #[prop(default = StatTrend::Neutral)] trend: StatTrend,
+    #[prop(into, default = String::new())] class: String,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-stat-wrapper=""
+            data-rs-size=size.as_str()
+            data-rs-trend=trend.as_str()
+            class=class
+        >
+            {children()}
+        </div>
+    }
+}

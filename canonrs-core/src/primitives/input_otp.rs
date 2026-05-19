@@ -36,3 +36,27 @@ pub fn InputOtpPrimitive(
         />
     }
 }
+
+#[component]
+pub fn InputOtpContainerPrimitive(
+    children: Children,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] disabled: Option<bool>,
+) -> impl IntoView {
+    view! {
+        <div
+            data-rs-input-otp-container=""
+            data-rs-disabled=disabled.filter(|&d| d).map(|_| "disabled")
+            class=class
+        >
+            {children()}
+        </div>
+    }
+}
+
+#[component]
+pub fn InputOtpSlotsPrimitive(
+    children: Children,
+) -> impl IntoView {
+    view! { <div data-rs-input-otp-slots="">{children()}</div> }
+}

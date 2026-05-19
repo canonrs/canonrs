@@ -1,5 +1,6 @@
 #![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
+use canonrs_core::primitives::toc_item::{TocItemRowPrimitive, TocExpandIconPrimitive};
 use canonrs_core::TocItem;
 use canonrs_core::primitives::table_of_contents::*;
 #[cfg(feature = "ssr")]
@@ -93,10 +94,10 @@ fn render_tree_nodes(nodes: Vec<TocNode>) -> Vec<AnyView> {
         let children = node.children;
         view! {
             <TocItemPrimitive data_level=item.level.to_string() data_target=item.id.clone() state=TocItemState::Idle is_child=false has_children=has_children>
-                <div class="toc-item-row">
-                    {has_children.then(|| view! { <TocExpandButtonPrimitive><span data-rs-toc-expand-icon="" /></TocExpandButtonPrimitive> })}
+                <TocItemRowPrimitive>
+                    {has_children.then(|| view! { <TocExpandButtonPrimitive><TocExpandIconPrimitive/></TocExpandButtonPrimitive> })}
                     <TocLinkPrimitive href=format!("#{}", item.id)>{item.text}</TocLinkPrimitive>
-                </div>
+                </TocItemRowPrimitive>
                 {has_children.then(|| view! {
                     <TocSubtreePrimitive state=VisibilityState::Closed>{render_tree_nodes(children)}</TocSubtreePrimitive>
                 })}

@@ -2,7 +2,7 @@
 use leptos::prelude::*;
 use canonrs_core::primitives::{
     SectionHeaderPrimitive, SectionTitlePrimitive, SectionSubtitlePrimitive,
-    SectionBadgePrimitive, SectionActionsPrimitive,
+    SectionBadgePrimitive,
 };
 
 #[component]
@@ -23,5 +23,5 @@ pub fn SectionBadge(children: Children, #[prop(into, default = String::new())] c
 }
 #[component]
 pub fn SectionActions(children: Children, #[prop(into, default = String::new())] class: String) -> impl IntoView {
-    view! { <SectionActionsPrimitive class=class>{children()}</SectionActionsPrimitive> }
+    view! { <div data-rs-section-actions="" class=class>{children()}</div> }
 }
