@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::data_table_boundary::DataTable;
-use crate::ui::data_table::data_table_ui::{DataTableColumn, RowAction, BulkAction};
+use super::data_table_boundary::{DataTableColumn, RowAction, BulkAction};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols, GridGap};
 
@@ -76,9 +76,10 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
     view! {
         <Stack direction=StackDirection::Vertical gap=StackGap::Xl>
             <Grid cols=GridCols::Two gap=GridGap::Lg>
-                // 1. Basic
+
+                // 1. Data Operations — sort, filter, pagination
                 <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-label="">"Sort · Search · Paginate"</span>
+                    <span data-rs-showcase-label="">"Data Operations — Sort · Search · Paginate"</span>
                     <DataTable
                         data=sample_data()
                         columns=sample_columns()
@@ -86,9 +87,9 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                     />
                 </Stack>
 
-                // 2. Density
+                // 2. Visual Density
                 <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-label="">"Density Toggle"</span>
+                    <span data-rs-showcase-label="">"Visual Density — Compact · Comfortable · Spacious"</span>
                     <DataTable
                         data=sample_data()
                         columns=sample_columns()
@@ -97,9 +98,9 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                     />
                 </Stack>
 
-                // 3. Selectable
+                // 3. Selection Domain — row selection, bulk actions, keyboard nav
                 <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-label="">"Selection · Bulk Actions"</span>
+                    <span data-rs-showcase-label="">"Selection — Row · Bulk · Keyboard"</span>
                     <DataTable
                         data=sample_data()
                         columns=sample_columns()
@@ -112,9 +113,9 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                     />
                 </Stack>
 
-                // 4. Row Actions
+                // 4. Action Dispatch — inline actions, menu actions, context menu
                 <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-label="">"Row Actions — Edit · Delete"</span>
+                    <span data-rs-showcase-label="">"Actions — Inline · Menu · Context"</span>
                     <DataTable
                         data=sample_data()
                         columns=sample_columns()
@@ -122,13 +123,14 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                         row_actions=vec![
                             RowAction::new("edit",   "Edit").inline(),
                             RowAction::new("delete", "Delete").danger(),
+                            RowAction::new("archive", "Archive"),
                         ]
                     />
                 </Stack>
 
-                // 5. Expand Row
+                // 5. Expandable Structure
                 <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-label="">"Expand Row"</span>
+                    <span data-rs-showcase-label="">"Expand Row — Structural Composition"</span>
                     <DataTable
                         data=expand_data()
                         columns=expand_columns()
@@ -137,7 +139,7 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                             let emails: Vec<String> = r[3].split('|').map(|s| s.to_string()).collect();
                             view! {
                                 <div style="padding:var(--space-sm);display:flex;flex-direction:column;gap:var(--space-xs);">
-                                    <strong>"All emails:"</strong>
+                                    <strong>"Contact emails:"</strong>
                                     {emails.into_iter().map(|e| view! {
                                         <span style="color:var(--theme-action-primary-bg);">{e}</span>
                                     }).collect::<Vec<_>>()}
@@ -147,29 +149,66 @@ pub fn DataTableShowcasePreview() -> impl IntoView {
                     />
                 </Stack>
 
-                // 6. Full featured
+                // 6. Column Layout — resize, reorder, pin, toggle
                 <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
-                    <span data-rs-showcase-label="">"Full Featured"</span>
+                    <span data-rs-showcase-label="">"Column Layout — Resize · Reorder · Toggle"</span>
                     <DataTable
                         data=sample_data()
                         columns=sample_columns()
                         page_size=5
+                        resizable=true
+                    />
+                </Stack>
+
+                // 7. Editing Domain — inline edit lifecycle: state transition, commit, rollback
+                <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                    <span data-rs-showcase-label="">"Editing — Inline Edit · Commit · Rollback"</span>
+                    <DataTable
+                        data=sample_data()
+                        columns=sample_columns()
+                        page_size=5
+                        row_actions=vec![
+                            RowAction::new("edit",   "✎ Edit").inline(),
+                        ]
+                    />
+                </Stack>
+
+                // 8. Full Orchestration — all capabilities composed
+                <Stack direction=StackDirection::Vertical gap=StackGap::Sm>
+                    <span data-rs-showcase-label="">"Full Orchestration"</span>
+                    <DataTable
+                        data=expand_data()
+                        columns=expand_columns()
+                        page_size=3
                         show_density=true
                         selectable=true
                         resizable=true
                         row_actions=vec![
                             RowAction::new("edit",   "Edit").inline(),
                             RowAction::new("delete", "Delete").danger(),
+                            RowAction::new("archive", "Archive"),
                         ]
                         bulk_actions=vec![
                             BulkAction::new("export", "Export"),
                             BulkAction::new("delete", "Delete").danger(),
                         ]
+                        expand_render=std::sync::Arc::new(|r: &Vec<String>| {
+                            let emails: Vec<String> = r[3].split('|').map(|s| s.to_string()).collect();
+                            view! {
+                                <div style="padding:var(--space-sm);display:flex;flex-direction:column;gap:var(--space-xs);">
+                                    <strong>"Contact emails:"</strong>
+                                    {emails.into_iter().map(|e| view! {
+                                        <span style="color:var(--theme-action-primary-bg);">{e}</span>
+                                    }).collect::<Vec<_>>()}
+                                </div>
+                            }.into_any()
+                        })
                     />
                 </Stack>
+
             </Grid>
             <p data-rs-showcase-preview-anchor="">
-                "DataTable — Sort · Search · Paginate · Density · Selection · Row Actions · Bulk Actions · Expand"
+                "DataTable — Data Ops · Density · Selection · Actions · Expand · Column Layout · Editing · Full Orchestration"
             </p>
         </Stack>
     }

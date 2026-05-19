@@ -26,7 +26,3 @@ pub fn Animate(
     }
 }
 
-#[component]
-pub fn AnimatePreview() -> leptos::prelude::AnyView {
-    view! { <Animate>"Content"</Animate> }.into_any()
-}

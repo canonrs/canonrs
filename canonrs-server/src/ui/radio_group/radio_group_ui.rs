@@ -39,12 +39,3 @@ pub fn RadioGroupItem(
     }
 }
 
-#[component]
-pub fn RadioGroupPreview() -> impl IntoView {
-    view! {
-        <RadioGroup>
-            <RadioGroupItem name="rg-preview" value="a">"Option A"</RadioGroupItem>
-            <RadioGroupItem name="rg-preview" value="b">"Option B"</RadioGroupItem>
-        </RadioGroup>
-    }
-}

@@ -55,13 +55,3 @@ pub fn AlertCloseButton(
     }
 }
 
-#[component]
-pub fn AlertPreview() -> impl IntoView {
-    view! {
-        <Alert variant=AlertVariant::Default>
-            <AlertTitle>"Info"</AlertTitle>
-            <AlertDescription>"This is a default alert message."</AlertDescription>
-            <AlertCloseButton>"×"</AlertCloseButton>
-        </Alert>
-    }
-}

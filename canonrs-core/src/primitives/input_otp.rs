@@ -21,6 +21,7 @@ pub fn InputOtpPrimitive(
         <input
             data-rs-input-otp=""
             data-rs-uid=uid_otp
+            data-rs-interaction="init"
             data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             type="text"
             name={if name.is_empty() { None } else { Some(name) }}

@@ -67,12 +67,3 @@ pub fn ErrorStateActions(
     }
 }
 
-#[component]
-pub fn ErrorStatePreview() -> impl IntoView {
-    view! {
-        <ErrorState>
-            <ErrorStateTitle>"Something went wrong"</ErrorStateTitle>
-            <ErrorStateDescription>"We encountered an error. Please try again."</ErrorStateDescription>
-        </ErrorState>
-    }
-}

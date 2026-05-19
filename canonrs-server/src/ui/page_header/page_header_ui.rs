@@ -95,14 +95,3 @@ pub fn PageHeaderTabs(
     }
 }
 
-#[component]
-pub fn PageHeaderPreview() -> impl IntoView {
-    view! {
-        <PageHeader>
-            <PageHeaderContent>
-                <PageHeaderTitle>"Page Title"</PageHeaderTitle>
-                <PageHeaderDescription>"Page description goes here."</PageHeaderDescription>
-            </PageHeaderContent>
-        </PageHeader>
-    }
-}

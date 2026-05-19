@@ -24,17 +24,3 @@ pub fn EmptyTable(
     }
 }
 
-#[component]
-pub fn EmptyTablePreview() -> impl IntoView {
-    view! {
-        <table>
-            <tbody>
-                <EmptyTable
-                    colspan=3u32
-                    title="No data available".to_string()
-                    description="Add your first item to get started.".to_string()
-                />
-            </tbody>
-        </table>
-    }
-}

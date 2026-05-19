@@ -44,11 +44,3 @@ pub fn InlineNoticeContent(
     }
 }
 
-#[component]
-pub fn InlineNoticePreview() -> impl IntoView {
-    view! {
-        <InlineNotice variant=InlineNoticeVariant::Info>
-            <InlineNoticeContent>"This is an inline notice message."</InlineNoticeContent>
-        </InlineNotice>
-    }
-}

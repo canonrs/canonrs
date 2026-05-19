@@ -16,9 +16,3 @@ pub fn Label(
     }
 }
 
-#[component]
-pub fn LabelPreview() -> impl IntoView {
-    view! {
-        <Label>"Username"</Label>
-    }
-}

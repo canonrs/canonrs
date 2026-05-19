@@ -64,16 +64,3 @@ pub fn ContextMenuSeparator(
     }
 }
 
-#[component]
-pub fn ContextMenuPreview() -> impl IntoView {
-    view! {
-        <ContextMenu>
-            <ContextMenuTrigger>
-                <span>"Right-click"</span>
-            </ContextMenuTrigger>
-            <ContextMenuContent>
-                <ContextMenuItem>"Item"</ContextMenuItem>
-            </ContextMenuContent>
-        </ContextMenu>
-    }
-}

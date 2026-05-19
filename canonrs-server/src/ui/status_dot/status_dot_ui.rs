@@ -17,15 +17,3 @@ pub fn StatusDot(
     }
 }
 
-#[component]
-pub fn StatusDotPreview() -> impl IntoView {
-    view! {
-        <div style="display:flex;align-items:center;gap:0.75rem;">
-            <StatusDot variant=StatusDotVariant::Online>"Online"</StatusDot>
-            <StatusDot variant=StatusDotVariant::Offline>"Offline"</StatusDot>
-            <StatusDot variant=StatusDotVariant::Away>"Away"</StatusDot>
-            <StatusDot variant=StatusDotVariant::Busy>"Busy"</StatusDot>
-            <StatusDot variant=StatusDotVariant::DoNotDisturb>"DND"</StatusDot>
-        </div>
-    }
-}

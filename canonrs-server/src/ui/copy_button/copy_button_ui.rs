@@ -27,7 +27,3 @@ pub fn CopyButton(
     }
 }
 
-#[component]
-pub fn CopyButtonPreview() -> impl IntoView {
-    view! { <CopyButton id="copy-preview" text="Copy me" /> }
-}

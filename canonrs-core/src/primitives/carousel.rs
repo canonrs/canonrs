@@ -142,3 +142,20 @@ pub fn CarouselDotPrimitive(
         />
     }
 }
+
+#[component]
+pub fn CarouselContentPrimitive(
+    #[prop(into, default = String::new())] class: String,
+    #[prop(optional)] children: Option<Children>,
+) -> impl IntoView {
+    let uid = crate::infra::uid::generate("cc");
+    view! {
+        <div
+            data-rs-carousel-content=""
+            data-rs-uid=uid
+            class=class
+        >
+            {children.map(|c| c())}
+        </div>
+    }
+}

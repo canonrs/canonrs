@@ -35,13 +35,3 @@ pub fn KbdSeparator() -> impl IntoView {
     view! { <KbdSeparatorPrimitive /> }
 }
 
-#[component]
-pub fn KbdPreview() -> impl IntoView {
-    view! {
-        <KbdGroup>
-            <Kbd>"Ctrl"</Kbd>
-            <KbdSeparator />
-            <Kbd>"K"</Kbd>
-        </KbdGroup>
-    }
-}

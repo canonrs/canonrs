@@ -108,14 +108,3 @@ pub fn DropdownMenuSeparator(
     }
 }
 
-#[component]
-pub fn DropdownMenuPreview() -> impl IntoView {
-    view! {
-        <DropdownMenu>
-            <DropdownMenuTrigger>"Options ▼"</DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuItem>"Item"</DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
-    }
-}

@@ -17,13 +17,3 @@ pub fn ButtonGroup(
     }
 }
 
-#[component]
-pub fn ButtonGroupPreview() -> impl IntoView {
-    view! {
-        <ButtonGroup aria_label="Preview group">
-            <ButtonPrimitive variant=CoreVariant::Outline>"Left"</ButtonPrimitive>
-            <ButtonPrimitive variant=CoreVariant::Outline>"Center"</ButtonPrimitive>
-            <ButtonPrimitive variant=CoreVariant::Outline>"Right"</ButtonPrimitive>
-        </ButtonGroup>
-    }
-}

@@ -20,7 +20,7 @@ pub fn DropdownMenuPrimitive(
             data-rs-dropdown-menu=""
             data-rs-uid=uid_dm
             data-rs-interaction="overlay"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
             node_ref=node_ref.unwrap_or_default()
         >

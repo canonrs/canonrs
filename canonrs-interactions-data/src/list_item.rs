@@ -27,12 +27,12 @@ fn is_selected(el: &Element) -> bool {
 
 fn select(el: &Element) {
     state::remove(el, "unselected");
-    state::add(el, "selected");
+    state::set(el, canonrs_interactions_core::dom::state::State::Selected);
     el.set_attribute("aria-selected", "true").ok();
 }
 
 fn deselect(el: &Element) {
-    state::remove(el, "selected");
+    state::unset(el, canonrs_interactions_core::dom::state::State::Selected);
     state::add(el, "unselected");
     el.set_attribute("aria-selected", "false").ok();
 }

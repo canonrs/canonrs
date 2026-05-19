@@ -79,27 +79,3 @@ pub fn MenubarSeparator(
     }
 }
 
-#[component]
-pub fn MenubarPreview() -> impl IntoView {
-    view! {
-        <Menubar>
-            <MenubarMenu>
-                <MenubarTrigger>"File"</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>"New"</MenubarItem>
-                    <MenubarItem>"Open"</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>"Exit"</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>"Edit"</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>"Cut"</MenubarItem>
-                    <MenubarItem>"Copy"</MenubarItem>
-                    <MenubarItem>"Paste"</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-        </Menubar>
-    }
-}

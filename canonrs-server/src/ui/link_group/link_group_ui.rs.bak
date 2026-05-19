@@ -1,0 +1,20 @@
+#![allow(unreachable_pub, dead_code)]
+use leptos::prelude::*;
+use canonrs_core::primitives::{LinkGroupPrimitive, LinkGroupLabelPrimitive};
+
+#[derive(Clone, Copy, PartialEq, Default)]
+pub enum LinkGroupDirection { #[default] Vertical, Horizontal }
+impl LinkGroupDirection { pub fn as_str(&self) -> &'static str { match self { Self::Vertical => "vertical", Self::Horizontal => "horizontal" } } }
+
+#[component]
+pub fn LinkGroup(children: Children, #[prop(optional)] label: Option<std::sync::Arc<dyn Fn() -> AnyView + Send + Sync>>, #[prop(default = LinkGroupDirection::Vertical)] direction: LinkGroupDirection, #[prop(into, default = String::new())] class: String) -> impl IntoView {
+    view! {
+        <LinkGroupPrimitive class=class>
+            {if let Some(l) = label { view! { <LinkGroupLabelPrimitive>{l()}</LinkGroupLabelPrimitive> }.into_any() }
+             else { view! { <span data-rs-link-group-empty-label=""/> }.into_any() }}
+            <div data-rs-link-group-items="" direction=direction.as_str().to_string()>
+                {children()}
+            </div>
+        </LinkGroupPrimitive>
+    }
+}

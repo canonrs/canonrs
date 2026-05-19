@@ -18,7 +18,7 @@ pub fn ContextMenuPrimitive(
             data-rs-context-menu=""
             data-rs-uid=uid_cm
             data-rs-interaction="overlay"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}
@@ -50,7 +50,7 @@ pub fn ContextMenuContentPrimitive(
     view! {
         <div
             data-rs-context-menu-content=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             role="menu"
             class=class
         >

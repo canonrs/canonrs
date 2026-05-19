@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
 use canonrs_interactions_core::dom::lifecycle;
+use canonrs_interactions_core::dom::state;
 
 fn find_scroll_viewport(el: &Element) -> Option<Element> {
     let mut current = el.parent_element();
@@ -62,7 +63,7 @@ pub fn init(root: Element) {
                 el.set_attribute("data-rs-virtual-list-item", "").ok();
                 el.set_attribute("data-rs-index", &i.to_string()).ok();
                 el.set_attribute("role", "listitem").ok();
-                el.set_attribute("data-rs-state", "idle").ok();
+                { state::remove(&el, "active"); state::remove(&el, "copied"); state::remove(&el, "error"); };
                 let Ok(el_h) = el.clone().dyn_into::<HtmlElement>() else { continue };
                 let _ = el_h.style().set_property("position", "absolute");
                 let _ = el_h.style().set_property("top", &format!("{}px", i as f64 * item_height));

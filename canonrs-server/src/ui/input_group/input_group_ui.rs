@@ -17,14 +17,6 @@ pub fn InputGroup(
     }
 }
 
-#[component]
-pub fn InputGroupPreview() -> impl IntoView {
-    view! {
-        <InputGroup merge_radius=ToggleState::On>
-            <span data-rs-input-group-addon="">"@"</span>
-        </InputGroup>
-    }
-}
 
 #[component]
 pub fn InputGroupPrefix(

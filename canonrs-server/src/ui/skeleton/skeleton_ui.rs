@@ -17,13 +17,3 @@ pub fn Skeleton(
     }
 }
 
-#[component]
-pub fn SkeletonPreview() -> impl IntoView {
-    view! {
-        <div style="display:flex;flex-direction:column;gap:0.5rem;max-width:300px;">
-            <Skeleton variant=SkeletonVariant::Rectangle />
-            <Skeleton variant=SkeletonVariant::Text />
-            <Skeleton variant=SkeletonVariant::Circle />
-        </div>
-    }
-}

@@ -19,13 +19,3 @@ pub fn LoadingOverlay(
     }
 }
 
-#[component]
-pub fn LoadingOverlayPreview() -> impl IntoView {
-    view! {
-        <LoadingOverlay state=LoadingState::Loading>
-            <div style="min-height:100px;padding:2rem;">
-                "Content behind loading overlay"
-            </div>
-        </LoadingOverlay>
-    }
-}

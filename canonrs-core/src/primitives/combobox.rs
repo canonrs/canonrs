@@ -20,7 +20,7 @@ pub fn ComboboxPrimitive(
             data-rs-combobox=""
             data-rs-uid=uid
             data-rs-interaction="selection"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-name=name
             role="combobox"

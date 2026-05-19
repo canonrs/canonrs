@@ -1,31 +1,12 @@
-//! @canon-id: resizable-handle
-//! @canon-label: Resizable Handle
-//! @canon-family: layout
-//! @canon-category: Layout
-//! @canon-intent: Drag handle between resizable panels
-//! @canon-description: Draggable resize handle
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: resizable-handle, resizable, handle, drag, divider
-
+#![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
-use super::resizable_handle_primitive::ResizableHandlePrimitive;
+use canonrs_core::primitives::ResizableHandlePrimitive;
 
 #[component]
 pub fn ResizableHandle(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
     #[prop(default = false)] disabled: bool,
 ) -> impl IntoView {
-    let base_class = format!("resizable-handle {}", class);
-
-    view! {
-        <ResizableHandlePrimitive
-            id={id}
-            class={base_class}
-            disabled={disabled}
-        />
-    }
+    view! { <ResizableHandlePrimitive class=class id=id disabled=disabled /> }
 }

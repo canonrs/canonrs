@@ -1,32 +1,13 @@
-//! @canon-id: resizable-panel
-//! @canon-label: Resizable Panel
-//! @canon-family: layout
-//! @canon-category: Layout
-//! @canon-intent: Panel region inside a resizable container
-//! @canon-description: Resizable panel region
-//! @canon-composable: false
-//! @canon-capabilities:
-//! @canon-required-parts:
-//! @canon-optional-parts:
-//! @canon-tags: resizable-panel, resizable, panel, region, split
-
+#![allow(unreachable_pub, dead_code)]
 use leptos::prelude::*;
-use super::resizable_panel_primitive::ResizablePanelPrimitive;
+use canonrs_core::primitives::ResizablePanelPrimitive;
 
 #[component]
 pub fn ResizablePanel(
-    #[prop(default = String::new())] id: String,
-    #[prop(default = String::new())] class: String,
-    #[prop(optional)] children: Option<Children>,
+    children: Children,
+    #[prop(default = 50u32)] default_size: u32,
+    #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
-    let base_class = format!("resizable-panel {}", class);
-
-    view! {
-        <ResizablePanelPrimitive
-            id={id}
-            class={base_class}
-        >
-            {children.map(|c| c())}
-        </ResizablePanelPrimitive>
-    }
+    view! { <ResizablePanelPrimitive default_size=default_size class=class id=id>{children()}</ResizablePanelPrimitive> }
 }

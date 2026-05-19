@@ -99,26 +99,3 @@ pub fn NavigationMenuSubItem(
     }
 }
 
-#[component]
-pub fn NavigationMenuPreview() -> impl IntoView {
-    view! {
-        <NavigationMenu>
-            <NavigationMenuList>
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger>"Products"</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <NavigationMenuSubItem>
-                            <NavigationMenuLink href="/product-1">"Product 1"</NavigationMenuLink>
-                        </NavigationMenuSubItem>
-                        <NavigationMenuSubItem>
-                            <NavigationMenuLink href="/product-2">"Product 2"</NavigationMenuLink>
-                        </NavigationMenuSubItem>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink href="/pricing">"Pricing"</NavigationMenuLink>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
-    }
-}

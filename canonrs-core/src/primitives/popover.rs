@@ -39,7 +39,7 @@ pub fn PopoverPrimitive(
             data-rs-popover=""
             data-rs-uid=uid_pop
             data-rs-interaction="overlay"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-name=name
             class=class
         >
@@ -62,7 +62,7 @@ pub fn PopoverTriggerPrimitive(
             data-rs-popover-trigger=""
             data-rs-button=""
             data-rs-variant="outline"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-value=value
             data-rs-label=label
             aria-haspopup="dialog"
@@ -85,7 +85,7 @@ pub fn PopoverContentPrimitive(
     view! {
         <div
             data-rs-popover-content=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-side=side.as_str()
             role="dialog"
             aria-modal="false"

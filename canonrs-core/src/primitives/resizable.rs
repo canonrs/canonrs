@@ -1,27 +1,13 @@
 //! @canon-level: strict
-//! @canon-owner: primitives-team
-//! Resizable Primitives - Split panels with draggable divider
-
+//! Resizable Primitives
 use leptos::prelude::*;
-use crate::meta::ActivityState;
-use std::sync::atomic::{AtomicU32, Ordering};
-#[allow(dead_code)]
-static RESIZABLE_UID: AtomicU32 = AtomicU32::new(0);
-static RESIZABLE_ID: AtomicU32 = AtomicU32::new(0);
+use crate::infra::uid::generate;
 
-#[derive(Clone, Copy, PartialEq, Default, Debug)]
-pub enum ResizableOrientation {
-    #[default]
-    Horizontal,
-    Vertical,
-}
-
+#[derive(Clone, Copy, PartialEq, Default, Debug, serde::Serialize, serde::Deserialize)]
+pub enum ResizableOrientation { #[default] Horizontal, Vertical }
 impl ResizableOrientation {
     pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Horizontal => "horizontal",
-            Self::Vertical   => "vertical",
-        }
+        match self { Self::Horizontal => "horizontal", Self::Vertical => "vertical" }
     }
 }
 
@@ -33,15 +19,15 @@ pub fn ResizablePrimitive(
     #[prop(default = 80u32)] max_size: u32,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
+    let uid = generate("rs");
     view! {
         <div
             data-rs-resizable=""
-            data-rs-uid=RESIZABLE_ID.fetch_add(1, Ordering::SeqCst).to_string()
+            data-rs-uid=uid
             data-rs-interaction="gesture"
             data-rs-orientation=orientation.as_str()
             data-rs-min-size=min_size.to_string()
             data-rs-max-size=max_size.to_string()
-            role="group"
             class=class
         >
             {children()}
@@ -54,11 +40,15 @@ pub fn ResizablePanelPrimitive(
     children: Children,
     #[prop(default = 50u32)] default_size: u32,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
 ) -> impl IntoView {
+    let uid = generate("rsp");
     view! {
         <div
             data-rs-resizable-panel=""
+            data-rs-uid=uid
             data-rs-default-size=default_size.to_string()
+            id=id
             class=class
         >
             {children()}
@@ -68,20 +58,21 @@ pub fn ResizablePanelPrimitive(
 
 #[component]
 pub fn ResizableHandlePrimitive(
-    children: Children,
-    #[prop(default = ActivityState::Inactive)] state: ActivityState,
     #[prop(into, default = String::new())] class: String,
+    #[prop(into, optional)] id: Option<String>,
+    #[prop(default = false)] disabled: bool,
 ) -> impl IntoView {
+    let uid = generate("rsh");
     view! {
         <div
             data-rs-resizable-handle=""
-            data-rs-activity=state.as_str()
-            role="separator"
-            tabindex="0"
+            data-rs-uid=uid
+            data-rs-disabled=disabled.then_some("disabled")
+            aria-disabled=if disabled { Some("true") } else { None }
+            id=id
             class=class
         >
-            <div data-rs-resizable-handle-bar="" />
-            {children()}
+            <span data-rs-resizable-handle-icon="" aria-hidden="true" />
         </div>
     }
 }

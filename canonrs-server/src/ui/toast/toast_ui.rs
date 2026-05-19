@@ -82,13 +82,3 @@ pub fn ToastClose(
     }
 }
 
-#[component]
-pub fn ToastPreview() -> impl IntoView {
-    view! {
-        <Toast variant=ToastVariant::Default>
-            <ToastTitle>"Notification"</ToastTitle>
-            <ToastDescription>"Your settings have been updated."</ToastDescription>
-            <ToastClose>"×"</ToastClose>
-        </Toast>
-    }
-}

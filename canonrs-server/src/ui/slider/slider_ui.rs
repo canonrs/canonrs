@@ -36,10 +36,6 @@ pub fn Slider(
     }
 }
 
-#[component]
-pub fn SliderPreview() -> impl IntoView {
-    view! { <Slider min=0.0 max=100.0 value=50.0 /> }
-}
 
 #[component]
 pub fn SliderWithMarks(

@@ -41,7 +41,7 @@ pub fn AvatarImagePrimitive(
         <img
             data-rs-avatar-image=""
             data-rs-uid=uid
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             src=src
             alt=alt
             class=class
@@ -60,7 +60,7 @@ pub fn AvatarFallbackPrimitive(
         <span
             data-rs-avatar-fallback=""
             data-rs-uid=uid
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-hidden=state.aria_hidden()
             class=class
         >

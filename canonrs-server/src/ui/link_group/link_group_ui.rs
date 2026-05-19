@@ -3,49 +3,18 @@ use leptos::prelude::*;
 use canonrs_core::primitives::{LinkGroupPrimitive, LinkGroupLabelPrimitive};
 
 #[derive(Clone, Copy, PartialEq, Default)]
-pub enum LinkGroupDirection {
-    #[default]
-    Vertical,
-    Horizontal,
-}
-
-impl LinkGroupDirection {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Vertical   => "vertical",
-            Self::Horizontal => "horizontal",
-        }
-    }
-}
+pub enum LinkGroupDirection { #[default] Vertical, Horizontal }
+impl LinkGroupDirection { pub fn as_str(&self) -> &'static str { match self { Self::Vertical => "vertical", Self::Horizontal => "horizontal" } } }
 
 #[component]
-pub fn LinkGroup(
-    children: Children,
-    #[prop(optional)] label: Option<std::sync::Arc<dyn Fn() -> AnyView + Send + Sync>>,
-    #[prop(default = LinkGroupDirection::Vertical)] direction: LinkGroupDirection,
-    #[prop(into, default = String::new())] class: String,
-) -> impl IntoView {
+pub fn LinkGroup(children: Children, #[prop(optional)] label: Option<std::sync::Arc<dyn Fn() -> AnyView + Send + Sync>>, #[prop(default = LinkGroupDirection::Vertical)] direction: LinkGroupDirection, #[prop(into, default = String::new())] class: String) -> impl IntoView {
     view! {
         <LinkGroupPrimitive class=class>
-            {if let Some(l) = label {
-                view! { <LinkGroupLabelPrimitive>{l()}</LinkGroupLabelPrimitive> }.into_any()
-            } else {
-                view! { <span hidden=true></span> }.into_any()
-            }}
-            <div data-rs-link-group-items="" data-rs-direction=direction.as_str()>
+            {if let Some(l) = label { view! { <LinkGroupLabelPrimitive>{l()}</LinkGroupLabelPrimitive> }.into_any() }
+             else { view! { <span data-rs-link-group-empty-label=""/> }.into_any() }}
+            <div data-rs-link-group-items="">
                 {children()}
             </div>
         </LinkGroupPrimitive>
-    }
-}
-
-#[component]
-pub fn LinkGroupPreview() -> impl IntoView {
-    use super::super::nav_item::NavItem;
-    view! {
-        <LinkGroup label=std::sync::Arc::new(|| view! { "Product" }.into_any())>
-            <NavItem label="Features".to_string() href="/features".to_string() />
-            <NavItem label="Pricing".to_string()  href="/pricing".to_string() />
-        </LinkGroup>
     }
 }

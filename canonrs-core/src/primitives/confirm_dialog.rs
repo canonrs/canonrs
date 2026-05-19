@@ -37,7 +37,7 @@ pub fn ConfirmDialogPrimitive(
             data-rs-interaction="overlay"
             data-rs-uid=uid_str
             data-rs-variant=variant.as_str()
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}
@@ -53,7 +53,7 @@ pub fn ConfirmDialogOverlayPrimitive(
     view! {
         <div
             data-rs-confirm-dialog-overlay=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         />
     }
@@ -166,7 +166,7 @@ pub fn ConfirmDialogContentPrimitive(
     view! {
         <div
             data-rs-confirm-dialog-content=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             role="alertdialog"
             aria-modal="true"
             tabindex="-1"

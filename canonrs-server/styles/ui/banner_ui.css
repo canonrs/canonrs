@@ -57,5 +57,5 @@
 }
 
 /* Visibility */
-[data-rs-banner][data-rs-visibility~="closed"] { display: none; }
-[data-rs-banner][data-rs-visibility~="open"]   { display: flex; }
+[data-rs-banner][data-rs-state~="closed"] { display: none; }
+[data-rs-banner][data-rs-state~="open"]   { display: flex; }

@@ -115,24 +115,3 @@ pub fn AlertDialogClose(
     }
 }
 
-#[component]
-pub fn AlertDialogPreview() -> impl IntoView {
-    view! {
-        <AlertDialog>
-            <AlertDialogTrigger>"Delete Account"</AlertDialogTrigger>
-            <AlertDialogPortal>
-                <AlertDialogOverlay />
-                <AlertDialogContent>
-                    <AlertDialogTitle>"Are you absolutely sure?"</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        "This action cannot be undone."
-                    </AlertDialogDescription>
-                    <div style="display:flex;gap:0.5rem;margin-top:1rem;justify-content:flex-end;">
-                        <AlertDialogClose>"Cancel"</AlertDialogClose>
-                        <button type="button">"Confirm"</button>
-                    </div>
-                </AlertDialogContent>
-            </AlertDialogPortal>
-        </AlertDialog>
-    }
-}

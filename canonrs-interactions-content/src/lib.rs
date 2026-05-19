@@ -1,7 +1,6 @@
 #![deny(warnings)]
 //! canonrs-interactions-content
 
-pub mod shared;
 pub mod markdown;
 pub mod copy_button;
 

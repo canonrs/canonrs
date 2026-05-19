@@ -98,27 +98,3 @@ pub fn PaginationEllipsis(
     }
 }
 
-#[component]
-pub fn PaginationPreview() -> impl IntoView {
-    view! {
-        <Pagination>
-            <PaginationContent>
-                <PaginationItem>
-                    <PaginationPrevious href="#">"\u{2190}"</PaginationPrevious>
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationLink href="#" state=ActivityState::Active>"1"</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationLink href="#">"2"</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationNext href="#">"\u{2192}"</PaginationNext>
-                </PaginationItem>
-            </PaginationContent>
-        </Pagination>
-    }
-}

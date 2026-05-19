@@ -39,11 +39,3 @@ pub fn Chart(
     }
 }
 
-#[component]
-pub fn ChartPreview() -> impl IntoView {
-    let data = ChartData {
-        labels: vec!["A".to_string(), "B".to_string(), "C".to_string()],
-        series: vec![ChartSeries { name: "Series".to_string(), data: vec![10.0, 20.0, 15.0], color: None }],
-    };
-    view! { <Chart data=data height="120".to_string() /> }
-}

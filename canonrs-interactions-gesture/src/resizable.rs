@@ -1,6 +1,7 @@
 //! Resizable Interaction Engine
 
 use wasm_bindgen::prelude::*;
+use canonrs_interactions_core::dom::state;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
 use canonrs_interactions_core::dom::{lifecycle, attrs};
@@ -37,7 +38,7 @@ pub fn init(root: Element) {
             if let Ok(hh) = h.clone().dyn_into::<HtmlElement>() {
                 hh.set_pointer_capture(e.pointer_id()).ok();
             }
-            let _ = h.set_attribute("data-rs-state", "active");
+            let _ = { state::add(&h, "active"); };
         }
     }) as Box<dyn FnMut(_)>);
     doc.add_event_listener_with_callback("pointerdown", cb_down.as_ref().unchecked_ref()).ok();

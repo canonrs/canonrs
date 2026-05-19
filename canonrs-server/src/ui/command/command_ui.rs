@@ -94,18 +94,3 @@ pub fn CommandSeparator(
     }
 }
 
-#[component]
-pub fn CommandPreview() -> impl IntoView {
-    view! {
-        <Command>
-            <CommandInput placeholder="Search..." />
-            <CommandList>
-                <CommandGroup heading="Suggestions">
-                    <CommandItem>"Calendar"</CommandItem>
-                    <CommandItem>"Search"</CommandItem>
-                    <CommandItem>"Settings"</CommandItem>
-                </CommandGroup>
-            </CommandList>
-        </Command>
-    }
-}

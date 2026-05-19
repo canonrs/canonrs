@@ -21,11 +21,3 @@ pub fn AspectRatio(
     }
 }
 
-#[component]
-pub fn AspectRatioPreview() -> impl IntoView {
-    view! {
-        <AspectRatio ratio_w=16.0f32 ratio_h=9.0f32>
-            <div style="background:var(--theme-surface-bg-subtle);width:100%;height:100%;"></div>
-        </AspectRatio>
-    }
-}

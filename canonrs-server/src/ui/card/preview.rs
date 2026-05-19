@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use canonrs_core::slot;
 use crate::blocks::card::{CardBlock, CardVariant};
-use crate::ui::card::{CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
+use super::card_boundary::{CardHeader, CardTitle, CardDescription, CardContent, CardFooter};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

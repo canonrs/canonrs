@@ -56,12 +56,3 @@ pub fn CalloutDescription(
     }
 }
 
-#[component]
-pub fn CalloutPreview() -> impl IntoView {
-    view! {
-        <Callout variant=CalloutVariant::Info>
-            <CalloutTitle>"Information"</CalloutTitle>
-            <CalloutDescription>"New features are available in the latest release."</CalloutDescription>
-        </Callout>
-    }
-}

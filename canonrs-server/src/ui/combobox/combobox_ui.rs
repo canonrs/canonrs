@@ -59,15 +59,3 @@ pub fn ComboboxItem(
     }
 }
 
-#[component]
-pub fn ComboboxPreview() -> impl IntoView {
-    view! {
-        <Combobox>
-            <ComboboxInput placeholder="Search..." />
-            <ComboboxList>
-                <ComboboxItem value="1">"Option 1"</ComboboxItem>
-                <ComboboxItem value="2">"Option 2"</ComboboxItem>
-            </ComboboxList>
-        </Combobox>
-    }
-}

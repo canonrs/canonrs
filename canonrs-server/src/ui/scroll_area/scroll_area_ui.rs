@@ -25,17 +25,3 @@ pub fn ScrollArea(
     }
 }
 
-#[component]
-pub fn ScrollAreaPreview() -> impl IntoView {
-    view! {
-        <div style="height:200px;">
-            <ScrollArea>
-                <div style="padding:1rem;">
-                    {(1..=20).map(|i| view! {
-                        <p style="margin:0;padding:4px 0;">{format!("Item {:02}", i)}</p>
-                    }).collect::<Vec<_>>()}
-                </div>
-            </ScrollArea>
-        </div>
-    }
-}

@@ -18,9 +18,3 @@ pub fn Badge(
     }
 }
 
-#[component]
-pub fn BadgePreview() -> impl IntoView {
-    view! {
-        <Badge variant=BadgeVariant::Default>"Default"</Badge>
-    }
-}

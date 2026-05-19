@@ -42,12 +42,3 @@ pub fn PopoverContent(
     }
 }
 
-#[component]
-pub fn PopoverPreview() -> impl IntoView {
-    view! {
-        <Popover>
-            <button type="button" data-rs-popover-trigger="">"Open Popover"</button>
-            <PopoverContent>"Popover content"</PopoverContent>
-        </Popover>
-    }
-}

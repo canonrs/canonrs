@@ -1,10 +1,12 @@
 //! Markdown Interaction Engine
+//! Core: dom/{lifecycle} + clipboard
 //! Code block copy buttons, TOC active state
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use crate::shared::{is_initialized, mark_initialized};
+use canonrs_interactions_core::dom::lifecycle;
+use canonrs_interactions_core::dom::state;
 
 fn setup_copy_buttons(root: &Element) {
     let Ok(btns) = root.query_selector_all("[data-rs-copy-button]") else { return };
@@ -37,13 +39,13 @@ fn setup_copy_buttons(root: &Element) {
 
             let btn_ok = btn_c.clone();
             let then = Closure::wrap(Box::new(move |_: JsValue| {
-                btn_ok.set_attribute("data-rs-state", "copied").ok();
+                { state::add(&btn_ok, "copied"); };
                 if let Ok(Some(label)) = btn_ok.query_selector("[data-rs-copy-label]") {
                     label.set_text_content(Some("Copied!"));
                 }
                 let btn_reset = btn_ok.clone();
                 let reset = Closure::wrap(Box::new(move || {
-                    btn_reset.set_attribute("data-rs-state", "idle").ok();
+                    { state::remove(&btn_reset, "active"); state::remove(&btn_reset, "copied"); state::remove(&btn_reset, "error"); };
                     if let Ok(Some(label)) = btn_reset.query_selector("[data-rs-copy-label]") {
                         label.set_text_content(Some("Copy"));
                     }
@@ -63,8 +65,7 @@ fn setup_copy_buttons(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if !lifecycle::init_guard(&root) { return; }
     setup_copy_buttons(&root);
     setup_toc(&root);
 }
@@ -199,13 +200,13 @@ fn setup_toc_scroll_spy(toc: &Element) {
         if let Ok(all) = toc_c.query_selector_all("[data-rs-toc-item]") {
             for j in 0..all.length() {
                 if let Some(el) = all.item(j).and_then(|n| n.dyn_into::<Element>().ok()) {
-                    el.set_attribute("data-rs-state", "idle").ok();
+                    { state::remove(&el, "active"); state::remove(&el, "copied"); state::remove(&el, "error"); };
                 }
             }
         }
         let selector = format!("[data-rs-toc-item][data-rs-target=\'{}\']", id);
         if let Ok(Some(item)) = toc_c.query_selector(&selector) {
-            item.set_attribute("data-rs-state", "active").ok();
+            { state::add(&item, "active"); };
         }
     }) as Box<dyn Fn()>);
 
@@ -260,13 +261,13 @@ fn _setup_toc_scroll_spy_unused(toc: &Element) {
         if let Ok(all) = toc_c.query_selector_all("[data-rs-toc-item]") {
             for j in 0..all.length() {
                 if let Some(el) = all.item(j).and_then(|n| n.dyn_into::<Element>().ok()) {
-                    el.set_attribute("data-rs-state", "idle").ok();
+                    { state::remove(&el, "active"); state::remove(&el, "copied"); state::remove(&el, "error"); };
                 }
             }
         }
         let selector = format!("[data-rs-toc-item][data-rs-target='{}']", id);
         if let Ok(Some(item)) = toc_c.query_selector(&selector) {
-            item.set_attribute("data-rs-state", "active").ok();
+            { state::add(&item, "active"); };
         }
     }) as Box<dyn FnMut(js_sys::Array, web_sys::IntersectionObserver)>);
 

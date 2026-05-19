@@ -114,7 +114,7 @@ pub fn init(root: Element) {
             if let Ok(toc_items) = doc_obs.query_selector_all("[data-rs-toc-item]") {
                 for i in 0..toc_items.length() {
                     if let Some(item) = toc_items.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
-                        item.set_attribute("data-rs-state", "idle").ok();
+                        { state::remove(&item, "active"); state::remove(&item, "copied"); state::remove(&item, "error"); };
                     }
                 }
             }

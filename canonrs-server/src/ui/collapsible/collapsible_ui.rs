@@ -47,13 +47,3 @@ pub fn CollapsibleContent(
     }
 }
 
-#[component]
-pub fn CollapsiblePreview() -> impl IntoView {
-    let content_id = generate("col-content");
-    view! {
-        <Collapsible>
-            <CollapsibleTrigger controls=content_id.clone()>"Toggle"</CollapsibleTrigger>
-            <CollapsibleContent id=content_id>"Content"</CollapsibleContent>
-        </Collapsible>
-    }
-}

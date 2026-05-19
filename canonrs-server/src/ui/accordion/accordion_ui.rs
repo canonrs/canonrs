@@ -61,18 +61,3 @@ pub fn AccordionContent(
     }
 }
 
-#[component]
-pub fn AccordionPreview() -> impl IntoView {
-    view! {
-        <Accordion>
-            <AccordionItem>
-                <AccordionTrigger>"Item 1"</AccordionTrigger>
-                <AccordionContent>"Content 1"</AccordionContent>
-            </AccordionItem>
-            <AccordionItem>
-                <AccordionTrigger>"Item 2"</AccordionTrigger>
-                <AccordionContent>"Content 2"</AccordionContent>
-            </AccordionItem>
-        </Accordion>
-    }
-}

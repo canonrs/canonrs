@@ -30,7 +30,3 @@ pub fn IconButton(
     }
 }
 
-#[component]
-pub fn IconButtonPreview() -> impl IntoView {
-    view! { <IconButton aria_label="Close".to_string() variant=IconButtonVariant::Solid>"×"</IconButton> }
-}

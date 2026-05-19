@@ -96,8 +96,8 @@ pub fn ChartPrimitive(
                 <div data-rs-chart-tooltip="" />
                 <div data-rs-chart-crosshair="" />
             </div>
-            <div data-rs-chart-legend="" data-rs-visibility=chart_legend.as_str() />
-            <div data-rs-chart-grid="" data-rs-visibility=chart_grid.as_str() />
+            <div data-rs-chart-legend="" data-rs-state=chart_legend.as_str() />
+            <div data-rs-chart-grid="" data-rs-state=chart_grid.as_str() />
             {children()}
         </div>
     }

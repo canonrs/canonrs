@@ -38,7 +38,7 @@ pub fn DrawerPrimitive(
             data-rs-drawer=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_dr
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-side=side.as_str()
             class=class
         >
@@ -60,7 +60,7 @@ pub fn DrawerTriggerPrimitive(
             data-rs-drawer-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-haspopup="dialog"
             aria-expanded=state.aria_expanded()
             aria-controls=aria_controls
@@ -79,7 +79,7 @@ pub fn DrawerOverlayPrimitive(
     view! {
         <div
             data-rs-drawer-overlay=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         />
     }

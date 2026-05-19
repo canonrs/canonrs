@@ -85,7 +85,3 @@ pub fn AvatarFallback(
     }
 }
 
-#[component]
-pub fn AvatarPreview() -> impl IntoView {
-    view! { <Avatar size=AvatarSize::Md>"AB"</Avatar> }
-}

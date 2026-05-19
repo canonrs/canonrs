@@ -28,11 +28,3 @@ pub fn Switch(
     }
 }
 
-#[component]
-pub fn SwitchPreview() -> impl IntoView {
-    view! {
-        <Switch>"Off"</Switch>
-        <Switch checked=true>"On"</Switch>
-        <Switch disabled=true>"Disabled"</Switch>
-    }
-}

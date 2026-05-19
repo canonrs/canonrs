@@ -20,7 +20,7 @@ pub fn CollapsiblePrimitive(
             data-rs-collapsible=""
             data-rs-uid=uid_col
             data-rs-interaction="init"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             aria-disabled=disabled.aria_disabled()
             class=class
@@ -43,7 +43,7 @@ pub fn CollapsibleTriggerPrimitive(
         <button
             type="button"
             data-rs-collapsible-trigger=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             aria-expanded=state.aria_expanded()
             aria-disabled=disabled.aria_disabled()
@@ -66,7 +66,7 @@ pub fn CollapsibleContentPrimitive(
     view! {
         <div
             data-rs-collapsible-content=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             role="region"
             aria-hidden=state.aria_hidden()
             id=content_id

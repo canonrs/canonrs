@@ -66,7 +66,7 @@ pub fn NavigationMenuTriggerPrimitive(
             type="button"
             data-rs-navigation-menu-trigger=""
             data-rs-uid=uid_nt
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-haspopup="menu"
             aria-expanded=state.aria_expanded()
             class=class
@@ -86,7 +86,7 @@ pub fn NavigationMenuContentPrimitive(
     view! {
         <div
             data-rs-navigation-menu-content=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-hidden=state.aria_hidden()
             role="menu"
             class=class

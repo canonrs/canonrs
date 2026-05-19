@@ -69,12 +69,3 @@ pub fn EmptyStateAction(
     }
 }
 
-#[component]
-pub fn EmptyStatePreview() -> impl IntoView {
-    view! {
-        <EmptyState>
-            <EmptyStateTitle>"No items found"</EmptyStateTitle>
-            <EmptyStateDescription>"Try adjusting your search or filters."</EmptyStateDescription>
-        </EmptyState>
-    }
-}

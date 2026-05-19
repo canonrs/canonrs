@@ -67,14 +67,3 @@ pub fn MenuSeparator(
     }
 }
 
-#[component]
-pub fn MenuPreview() -> impl IntoView {
-    view! {
-        <Menu>
-            <MenuItem>"Item 1"</MenuItem>
-            <MenuItem>"Item 2"</MenuItem>
-            <MenuSeparator />
-            <MenuItem disabled=DisabledState::Disabled>"Disabled"</MenuItem>
-        </Menu>
-    }
-}

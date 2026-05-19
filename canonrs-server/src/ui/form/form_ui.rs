@@ -109,17 +109,3 @@ pub fn FormHint(
     }
 }
 
-#[component]
-pub fn FormPreview() -> impl IntoView {
-    view! {
-        <Form>
-            <FormField>
-                <FormLabel html_for="name" required=true>"Name"</FormLabel>
-                <FormHint>"Your full name"</FormHint>
-            </FormField>
-            <FormActions>
-                <button type="submit">"Submit"</button>
-            </FormActions>
-        </Form>
-    }
-}

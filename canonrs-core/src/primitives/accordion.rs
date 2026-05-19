@@ -54,7 +54,7 @@ pub fn AccordionItemPrimitive(
         <div
             data-rs-accordion-item=""
             data-rs-uid=uid
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             aria-disabled=disabled.aria_disabled()
             role="group"
@@ -103,7 +103,7 @@ pub fn AccordionContentPrimitive(
         <div
             data-rs-accordion-content=""
             data-rs-uid=uid
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}

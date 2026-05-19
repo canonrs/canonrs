@@ -97,21 +97,3 @@ pub fn ConfirmDialogConfirm(
     view! { <ConfirmDialogConfirmPrimitive variant=variant class=class>{children()}</ConfirmDialogConfirmPrimitive> }
 }
 
-#[component]
-pub fn ConfirmDialogPreview() -> impl IntoView {
-    view! {
-        <ConfirmDialog uid="confirm-preview">
-            <ConfirmDialogTrigger target="confirm-preview">"Open"</ConfirmDialogTrigger>
-            <ConfirmDialogPortal>
-                <ConfirmDialogOverlay />
-                <ConfirmDialogContent>
-                    <ConfirmDialogTitle>"Confirm?"</ConfirmDialogTitle>
-                    <ConfirmDialogFooter>
-                        <ConfirmDialogCancel>"Cancel"</ConfirmDialogCancel>
-                        <ConfirmDialogConfirm>"Confirm"</ConfirmDialogConfirm>
-                    </ConfirmDialogFooter>
-                </ConfirmDialogContent>
-            </ConfirmDialogPortal>
-        </ConfirmDialog>
-    }
-}

@@ -23,13 +23,3 @@ pub fn Spinner(
     }
 }
 
-#[component]
-pub fn SpinnerPreview() -> impl IntoView {
-    view! {
-        <div style="display:flex;align-items:center;gap:1.5rem;">
-            <Spinner size=SpinnerSize::Small />
-            <Spinner size=SpinnerSize::Medium />
-            <Spinner size=SpinnerSize::Large />
-        </div>
-    }
-}

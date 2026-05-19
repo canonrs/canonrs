@@ -207,7 +207,7 @@ pub fn init(root: Element) {
 
             // reset todos os itens
             for item in query::all(&root_spy, "[data-rs-toc-item]") {
-                item.set_attribute("data-rs-state", "idle").ok();
+                { state::remove(&item, "active"); state::remove(&item, "copied"); state::remove(&item, "error"); };
             }
 
             // marca ativo

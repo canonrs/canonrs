@@ -62,14 +62,3 @@ pub fn TooltipContent(
     }
 }
 
-#[component]
-pub fn TooltipPreview() -> impl IntoView {
-    view! {
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger tooltip_id="preview-tooltip".to_string()>"Hover me"</TooltipTrigger>
-                <TooltipContent tooltip_id="preview-tooltip".to_string()>"Tooltip"</TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-    }
-}

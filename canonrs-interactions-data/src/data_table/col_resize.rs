@@ -1,8 +1,12 @@
+//! ColResize — column resize handle behavior
+//! Core: dom/{state, attrs}
+use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 pub fn init(table: &HtmlElement) {
+    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let handles = match table.query_selector_all("[data-rs-datatable-resize-handle]") {
         Ok(h) => h, Err(_) => return,
     };

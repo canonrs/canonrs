@@ -39,12 +39,3 @@ pub fn InlineMetaValue(
     }
 }
 
-#[component]
-pub fn InlineMetaPreview() -> impl IntoView {
-    view! {
-        <InlineMeta>
-            <InlineMetaLabel>"Rules"</InlineMetaLabel>
-            <InlineMetaValue>"284"</InlineMetaValue>
-        </InlineMeta>
-    }
-}

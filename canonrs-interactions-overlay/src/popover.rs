@@ -50,7 +50,7 @@ fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>
         let c2 = root.query_selector(&format!("[{}]", CONTENT_ATTR)).ok().flatten();
         let cb = Closure::once(move || {
             if let Some(ref c) = c2 {
-                let _ = c.set_attribute("data-rs-state", "open");
+                state::open(&c);
             }
         });
         let _ = web_sys::window().unwrap()
@@ -85,7 +85,7 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
         let pf = prev_focus.clone();
         let cb = Closure::once(move || {
             if let Some(ref c) = c2 {
-                let _ = c.set_attribute("data-rs-state", "closed");
+                state::close(&c);
             }
             if let Some(el) = pf.take() {
                 if let Ok(html) = el.dyn_into::<web_sys::HtmlElement>() {

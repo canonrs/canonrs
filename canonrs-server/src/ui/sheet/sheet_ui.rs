@@ -44,20 +44,6 @@ pub fn SheetContent(
     }
 }
 
-#[component]
-pub fn SheetPreview() -> impl IntoView {
-    view! {
-        <Sheet>
-            <button type="button" data-rs-sheet-trigger="">"Open Sheet"</button>
-            <SheetOverlay />
-            <SheetContent aria_labelledby="sheet-title-preview">
-                <h2 id="sheet-title-preview">"Sheet Title"</h2>
-                <p>"Sheet content"</p>
-                <button type="button" data-rs-sheet-close="">"Close"</button>
-            </SheetContent>
-        </Sheet>
-    }
-}
 
 #[component]
 pub fn SheetTrigger(

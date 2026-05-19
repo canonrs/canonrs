@@ -38,7 +38,7 @@ pub fn HoverCardPrimitive(
             data-rs-hover-card=""
             data-rs-uid=uid_hc
             data-rs-interaction="overlay"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}
@@ -55,7 +55,7 @@ pub fn HoverCardTriggerPrimitive(
     view! {
         <span
             data-rs-hover-card-trigger=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-expanded=state.aria_expanded()
             tabindex="0"
             class=class
@@ -75,7 +75,7 @@ pub fn HoverCardContentPrimitive(
     view! {
         <div
             data-rs-hover-card-content=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-side=side.as_str()
             role="tooltip"
             class=class

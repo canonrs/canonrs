@@ -20,7 +20,7 @@ pub fn ColorPickerPrimitive(
             data-rs-color-picker=""
             data-rs-uid=uid
             data-rs-interaction="selection"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-name=name
             data-rs-value=value
@@ -44,7 +44,7 @@ pub fn ColorPickerTriggerPrimitive(
         <button
             type="button"
             data-rs-color-picker-trigger=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-disabled=if disabled.disabled() { Some("disabled") } else { None }
             data-rs-color=color
             aria-haspopup="dialog"

@@ -3,11 +3,11 @@
 
 use leptos::prelude::*;
 use super::separator_ui::Separator as SeparatorUi;
-use canonrs_core::Orientation;
+use canonrs_core::separator::SeparatorOrientation;
 
 #[component]
 pub fn Separator(
-    #[prop(default = Orientation::Horizontal)] orientation: Orientation,
+    #[prop(default = SeparatorOrientation::Horizontal)] orientation: SeparatorOrientation,
     #[prop(default = true)] decorative:                     bool,
     #[prop(into, default = String::new())] aria_label:      String,
     #[prop(into, default = String::new())] class:           String,

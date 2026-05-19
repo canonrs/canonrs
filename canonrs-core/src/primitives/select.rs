@@ -24,7 +24,7 @@ pub fn SelectPrimitive(
             data-rs-uid=uid_sel
             data-rs-interaction="selection"
             data-rs-role="root"
-            data-rs-visibility=if is_open { "open" } else { "closed" }
+            data-rs-state=if is_open { "open" } else { "closed" }
             data-rs-disabled=if is_disabled { Some("disabled") } else { None }
             data-rs-name=name
             aria-disabled=if is_disabled { "true" } else { "false" }

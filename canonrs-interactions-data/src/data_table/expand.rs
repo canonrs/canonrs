@@ -1,9 +1,13 @@
+//! Expand — row expand/collapse behavior
+//! Core: dom/{state}
+use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use canonrs_interactions_core::dom::state;
 
 pub fn init(table: &HtmlElement) {
+    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let table_c = table.clone();
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
@@ -24,11 +28,11 @@ pub fn init(table: &HtmlElement) {
         if expand_row.has_attribute("hidden") {
             let _ = expand_row.remove_attribute("hidden");
             let _ = btn.set_attribute("aria-expanded", "true");
-            state::add(&btn, "expanded");
+            state::expand(&btn);
         } else {
             let _ = expand_row.set_attribute("hidden", "");
             let _ = btn.set_attribute("aria-expanded", "false");
-            state::remove(&btn, "expanded");
+            state::collapse(&btn);
         }
     }));
     let _ = table.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());

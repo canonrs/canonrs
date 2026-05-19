@@ -1,4 +1,5 @@
-//! Input Init — interactive states + data-rs-value sync
+use canonrs_interactions_core::dom::lifecycle;
+/// Input Init — interactive states + data-rs-value sync
 
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
@@ -6,6 +7,7 @@ use wasm_bindgen::JsCast;
 use crate::runtime::interactive;
 
 pub fn init(root: Element) {
+    if !lifecycle::init_guard(&root) { return; }
     let _ = root.set_attribute("data-rs-initialized", "true");
     interactive::init(&root);
 

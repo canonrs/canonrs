@@ -1,8 +1,12 @@
+//! ColPin — freeze/pin column behavior
+//! Core: dom/{state, attrs}
+use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 pub fn init(table: &HtmlElement) {
+    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let root: web_sys::Element = table.clone().into();
     let table_c = table.clone();
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {

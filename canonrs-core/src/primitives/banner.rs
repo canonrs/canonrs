@@ -55,7 +55,7 @@ pub fn BannerPrimitive(
             data-rs-uid=uid
             data-rs-interaction="dismiss"
             data-rs-variant=variant.as_str()
-            data-rs-visibility=visibility.as_str()
+            data-rs-state=visibility.as_str()
             role=variant.role()
             aria-live=variant.aria_live()
             aria-label=variant.aria_label()

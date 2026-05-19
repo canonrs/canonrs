@@ -30,7 +30,3 @@ pub fn VirtualList(
     }
 }
 
-#[component]
-pub fn VirtualListPreview() -> leptos::prelude::AnyView {
-    view! { <VirtualList items_count=3usize item_height=40.0f64>"Item"</VirtualList> }.into_any()
-}

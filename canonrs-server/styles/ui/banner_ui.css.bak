@@ -1,0 +1,61 @@
+/* ═══════════════════════════════════════════════════════════════
+   BANNER — Family E Feedback tokens compliant
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-banner] {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--banner-gap);
+  padding-inline: var(--banner-padding-x);
+  padding-block: var(--banner-padding-y);
+  border-radius: var(--banner-radius);
+  border-bottom: var(--banner-border-width) solid var(--banner-border-color);
+  box-shadow: var(--banner-shadow);
+  color: var(--banner-fg);
+}
+
+/* State semântico — única fonte de verdade */
+[data-rs-banner][data-rs-state~="info"]    { background: var(--banner-bg-info);    border-color: var(--banner-border-color-info); }
+[data-rs-banner][data-rs-state~="success"] { background: var(--banner-bg-success); border-color: var(--banner-border-color-success); }
+[data-rs-banner][data-rs-state~="warning"] { background: var(--banner-bg-warning); border-color: var(--banner-border-color-warning); }
+[data-rs-banner][data-rs-state~="error"]   { background: var(--banner-bg-error);   border-color: var(--banner-border-color-error); }
+
+[data-rs-banner-content] {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--banner-content-font-size);
+  color: var(--banner-content-fg);
+}
+
+[data-rs-banner-actions] {
+  display: flex;
+  align-items: center;
+  gap: var(--banner-actions-gap);
+  flex-shrink: 0;
+}
+
+[data-rs-banner-close] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--banner-close-size);
+  height: var(--banner-close-size);
+  color: var(--banner-close-fg);
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+[data-rs-banner-close]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--theme-action-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Visibility */
+[data-rs-banner][data-rs-visibility~="closed"] { display: none; }
+[data-rs-banner][data-rs-visibility~="open"]   { display: flex; }

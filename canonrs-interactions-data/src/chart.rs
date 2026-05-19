@@ -4,6 +4,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlCanvasElement, HtmlElement};
 use canonrs_interactions_core::dom::lifecycle;
+use canonrs_interactions_core::dom::state;
 use crate::engines::chart_engine::{
     read_chart_data, parse_chart_data, set_canvas_dpi, draw_chart, Series,
 };
@@ -116,11 +117,11 @@ fn bind_tooltip(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, la
             tooltip.set_inner_html(&html);
             let _ = tooltip.set_attribute("data-rs-tooltip-x", &format!("{}px", pad_l + idx as f64 * step_x + 12.0));
             let _ = tooltip.set_attribute("data-rs-tooltip-y", "20px");
-            let _ = tooltip.set_attribute("data-rs-state", "open");
+            let _ = state::open(&tooltip);
         }
         if let Ok(Some(ch)) = root_c.query_selector("[data-rs-chart-crosshair]") {
             let _ = ch.set_attribute("data-rs-crosshair-x", &format!("{}px", pad_l + idx as f64 * step_x));
-            let _ = ch.set_attribute("data-rs-state", "open");
+            let _ = state::open(&ch);
         }
         let detail = js_sys::Object::new();
         js_sys::Reflect::set(&detail, &JsValue::from_str("index"), &JsValue::from_f64(idx as f64)).ok();
@@ -145,8 +146,8 @@ fn bind_tooltip(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, la
 
     let root_c2 = root.clone();
     let on_leave = Closure::wrap(Box::new(move |_: web_sys::MouseEvent| {
-        if let Ok(Some(t)) = root_c2.query_selector("[data-rs-chart-tooltip]") { t.set_attribute("data-rs-state", "closed").ok(); }
-        if let Ok(Some(c)) = root_c2.query_selector("[data-rs-chart-crosshair]") { c.set_attribute("data-rs-state", "closed").ok(); }
+        if let Ok(Some(t)) = root_c2.query_selector("[data-rs-chart-tooltip]") { state::close(&t); }
+        if let Ok(Some(c)) = root_c2.query_selector("[data-rs-chart-crosshair]") { state::close(&c); }
         dispatch_custom_event(&root_c2, "canon:chart:leave", &js_sys::Object::new());
     }) as Box<dyn FnMut(_)>);
 
@@ -194,19 +195,19 @@ fn bind_datatable_sync(root: &Element, canvas: &HtmlCanvasElement, chart_type: &
         if let Ok(Some(t)) = root_c.query_selector("[data-rs-chart-tooltip]") {
             let _ = t.set_attribute("data-rs-tooltip-x", &format!("{}px", x + 12.0));
             let _ = t.set_attribute("data-rs-tooltip-y", "20px");
-            let _ = t.set_attribute("data-rs-state", "open");
+            let _ = state::open(&t);
         }
         if let Ok(Some(c)) = root_c.query_selector("[data-rs-chart-crosshair]") {
             let _ = c.set_attribute("data-rs-crosshair-x", &format!("{}px", x));
-            let _ = c.set_attribute("data-rs-state", "open");
+            let _ = state::open(&c);
         }
     }) as Box<dyn FnMut(_)>);
     let root_c2 = root.clone(); let canvas_c2 = canvas.clone();
     let labels_c2 = labels.to_vec(); let series_c2 = series.clone(); let ct_c2 = chart_type.to_string();
     let on_leave = Closure::wrap(Box::new(move |_: web_sys::Event| {
         draw_chart(&canvas_c2, &ct_c2, &labels_c2, &series_c2, show_grid, height);
-        if let Ok(Some(t)) = root_c2.query_selector("[data-rs-chart-tooltip]") { t.set_attribute("data-rs-state", "closed").ok(); }
-        if let Ok(Some(c)) = root_c2.query_selector("[data-rs-chart-crosshair]") { c.set_attribute("data-rs-state", "closed").ok(); }
+        if let Ok(Some(t)) = root_c2.query_selector("[data-rs-chart-tooltip]") { state::close(&t); }
+        if let Ok(Some(c)) = root_c2.query_selector("[data-rs-chart-crosshair]") { state::close(&c); }
     }) as Box<dyn FnMut(_)>);
     root.add_event_listener_with_callback("canon:datatable:hover", on_hover.as_ref().unchecked_ref()).ok();
     root.add_event_listener_with_callback("canon:datatable:leave", on_leave.as_ref().unchecked_ref()).ok();

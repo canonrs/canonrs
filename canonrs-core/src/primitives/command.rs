@@ -19,7 +19,7 @@ pub fn CommandPrimitive(
             data-rs-command=""
             data-rs-uid=uid_cmd
             data-rs-interaction="init"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-listbox-id=listbox_id.clone()
             role="dialog"
             aria-label="Command palette"

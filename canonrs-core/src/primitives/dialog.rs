@@ -18,7 +18,7 @@ pub fn DialogPrimitive(
             data-rs-dialog=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_str
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}
@@ -65,7 +65,7 @@ pub fn DialogOverlayPrimitive(
     view! {
         <div
             data-rs-dialog-overlay=""
-            data-rs-visibility="closed"
+            data-rs-state="closed"
             class=class
         />
     }
@@ -79,7 +79,7 @@ pub fn DialogContentPrimitive(
     view! {
         <div
             data-rs-dialog-content=""
-            data-rs-visibility="closed"
+            data-rs-state="closed"
             role="dialog"
             aria-modal="true"
             tabindex="-1"

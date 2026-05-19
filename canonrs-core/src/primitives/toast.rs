@@ -88,7 +88,7 @@ pub fn ToastPrimitive(
             data-rs-uid=uid_ts
             data-rs-interaction="init"
             data-rs-variant=variant.as_str()
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-lifecycle=lifecycle.as_str()
             role=variant.role()
             aria-live=variant.aria_live()

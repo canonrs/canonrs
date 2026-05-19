@@ -1,26 +1,25 @@
 //! CopyButton Interaction Engine
+//! Core: dom/{lifecycle, state} + behavior/clipboard
 
 use wasm_bindgen::prelude::*;
-use crate::shared::{add_state, remove_state, is_initialized, mark_initialized};
 use wasm_bindgen::JsCast;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::Element;
+use canonrs_interactions_core::dom::{lifecycle, state};
 
 fn copy_to_clipboard(text: String, el: Element, reset_delay: i32) {
     let window = match web_sys::window() { Some(w) => w, None => return };
     let clipboard = window.navigator().clipboard();
-
     let promise = clipboard.write_text(&text);
     spawn_local(async move {
         let result = wasm_bindgen_futures::JsFuture::from(promise).await;
+        state::remove(&el, "idle");
         if result.is_ok() {
-            remove_state(&el, "idle");
-            remove_state(&el, "error");
-            add_state(&el, "copied");
+            state::remove(&el, "error");
+            state::add(&el, "copied");
         } else {
-            remove_state(&el, "idle");
-            remove_state(&el, "copied");
-            add_state(&el, "error");
+            state::remove(&el, "copied");
+            state::add(&el, "error");
         }
         schedule_reset(el, reset_delay);
     });
@@ -28,9 +27,9 @@ fn copy_to_clipboard(text: String, el: Element, reset_delay: i32) {
 
 fn schedule_reset(el: Element, delay: i32) {
     let cb = Closure::once(Box::new(move || {
-        remove_state(&el, "copied");
-        remove_state(&el, "error");
-        add_state(&el, "idle");
+        state::remove(&el, "copied");
+        state::remove(&el, "error");
+        state::add(&el, "idle");
     }) as Box<dyn FnOnce()>);
     if let Some(win) = web_sys::window() {
         win.set_timeout_with_callback_and_timeout_and_arguments_0(
@@ -41,8 +40,7 @@ fn schedule_reset(el: Element, delay: i32) {
 }
 
 pub fn init(el: Element) {
-    if is_initialized(&el) { return; }
-    mark_initialized(&el);
+    if !lifecycle::init_guard(&el) { return; }
 
     let reset_delay = el.get_attribute("data-rs-reset-delay")
         .and_then(|s| s.parse::<i32>().ok())
@@ -52,7 +50,6 @@ pub fn init(el: Element) {
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
         let text   = el_cb.get_attribute("data-rs-copy-text").unwrap_or_default();
         let target = el_cb.get_attribute("data-rs-copy-target").unwrap_or_default();
-
         let copy_text = if !text.is_empty() {
             Some(text)
         } else if !target.is_empty() {
@@ -64,15 +61,12 @@ pub fn init(el: Element) {
         } else {
             None
         };
-
         match copy_text {
-            Some(t) if !t.is_empty() => {
-                copy_to_clipboard(t, el_cb.clone(), reset_delay);
-            }
+            Some(t) if !t.is_empty() => copy_to_clipboard(t, el_cb.clone(), reset_delay),
             _ => {
-                remove_state(&el_cb, "idle");
-                remove_state(&el_cb, "copied");
-                add_state(&el_cb, "error");
+                state::remove(&el_cb, "idle");
+                state::remove(&el_cb, "copied");
+                state::add(&el_cb, "error");
                 schedule_reset(el_cb.clone(), reset_delay);
             }
         }
@@ -82,14 +76,14 @@ pub fn init(el: Element) {
 
     let el_over = el.clone();
     let cb_over = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-        crate::shared::add_state(&el_over, "hover");
+        state::add(&el_over, "hover");
     }));
     let _ = el.add_event_listener_with_callback("mouseover", cb_over.as_ref().unchecked_ref());
     cb_over.forget();
 
     let el_out = el.clone();
     let cb_out = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-        crate::shared::remove_state(&el_out, "hover");
+        state::remove(&el_out, "hover");
     }));
     let _ = el.add_event_listener_with_callback("mouseout", cb_out.as_ref().unchecked_ref());
     cb_out.forget();

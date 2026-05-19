@@ -80,17 +80,3 @@ pub fn DialogFooter(
     view! { <DialogFooterPrimitive class=class>{children()}</DialogFooterPrimitive> }
 }
 
-#[component]
-pub fn DialogPreview() -> impl IntoView {
-    view! {
-        <Dialog uid="dialog-preview">
-            <DialogTrigger target="dialog-preview">"Open"</DialogTrigger>
-            <DialogPortal>
-                <DialogOverlay />
-                <DialogContent>
-                    <DialogTitle>"Dialog"</DialogTitle>
-                </DialogContent>
-            </DialogPortal>
-        </Dialog>
-    }
-}

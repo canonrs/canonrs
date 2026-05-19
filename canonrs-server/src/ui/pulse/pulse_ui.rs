@@ -24,13 +24,3 @@ pub fn Pulse(
     }
 }
 
-#[component]
-pub fn PulsePreview() -> impl IntoView {
-    view! {
-        <div style="display:flex;align-items:center;gap:1.5rem;">
-            <Pulse variant=PulseVariant::Subtle>"·"</Pulse>
-            <Pulse variant=PulseVariant::Default>"·"</Pulse>
-            <Pulse variant=PulseVariant::Emphasized>"·"</Pulse>
-        </div>
-    }
-}

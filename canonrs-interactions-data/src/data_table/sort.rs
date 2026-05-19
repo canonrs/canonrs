@@ -1,3 +1,6 @@
+//! Sort — column sort behavior
+//! Core: dom/{state, attrs}
+use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -6,6 +9,7 @@ use canonrs_interactions_core::dom::attrs;
 use super::pagination::{set_page, update_pagination_ui};
 
 pub fn init(table: &HtmlElement) {
+    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let heads = table.query_selector_all("[data-rs-datatable-head-cell]").ok();
     if let Some(list) = heads {
         for i in 0..list.length() {

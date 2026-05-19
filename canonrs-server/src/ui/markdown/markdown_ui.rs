@@ -137,11 +137,3 @@ pub fn MarkdownTOC(
     }
 }
 
-#[component]
-pub fn MarkdownPreview() -> impl IntoView {
-    let rendered = RenderedMarkdown {
-        html: "<p>Markdown preview</p>".to_string(),
-        toc: vec![],
-    };
-    view! { <MarkdownSurface rendered=rendered show_toc=false show_toolbar=false /> }
-}

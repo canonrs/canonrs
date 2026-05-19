@@ -34,7 +34,3 @@ pub fn Input(
     }
 }
 
-#[component]
-pub fn InputPreview() -> impl IntoView {
-    view! { <Input placeholder="Type something..." /> }
-}

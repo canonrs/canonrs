@@ -1,3 +1,6 @@
+//! Selection — row selection behavior
+//! Core: dom/{state}
+use canonrs_interactions_core::dom::lifecycle;
 use web_sys::{HtmlElement};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -5,6 +8,7 @@ use crate::runtime::context;
 use canonrs_interactions_core::dom::state;
 
 pub fn init(table: &HtmlElement) {
+    if !lifecycle::init_guard(&table.clone().into()) { return; }
     if table.get_attribute("data-rs-selectable").as_deref() != Some("true") { return; }
     let root: web_sys::Element = table.clone().into();
 
@@ -162,9 +166,9 @@ pub fn init(table: &HtmlElement) {
 pub fn set_row_selected(row: &web_sys::Element, selected: bool) {
     if selected {
         state::remove(row, "unselected");
-        state::add(row, "selected");
+        state::set(row, canonrs_interactions_core::dom::state::State::Selected);
     } else {
-        state::remove(row, "selected");
+        state::unset(row, canonrs_interactions_core::dom::state::State::Selected);
         state::add(row, "unselected");
     }
     if let Some(cb) = row.query_selector("[data-rs-datatable-select-row]").ok().flatten()

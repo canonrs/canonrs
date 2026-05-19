@@ -56,12 +56,3 @@ pub fn BannerClose(
     }
 }
 
-#[component]
-pub fn BannerPreview() -> impl IntoView {
-    view! {
-        <Banner variant=BannerVariant::Info>
-            <BannerContent>"System maintenance scheduled for Saturday."</BannerContent>
-            <BannerClose>"×"</BannerClose>
-        </Banner>
-    }
-}

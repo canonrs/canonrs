@@ -1,3 +1,6 @@
+//! Filter — table filter behavior
+//! Core: dom/{state, query}
+use canonrs_interactions_core::dom::lifecycle;
 use web_sys::{HtmlElement, HtmlInputElement};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -10,6 +13,7 @@ pub fn get_filter_input(root: &web_sys::Element) -> Option<HtmlInputElement> {
 }
 
 pub fn init(table: &HtmlElement) {
+    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let root: web_sys::Element = table.clone().into();
     let Some(input) = get_filter_input(&root) else { return };
 

@@ -32,7 +32,3 @@ pub fn Textarea(
     }
 }
 
-#[component]
-pub fn TextareaPreview() -> impl IntoView {
-    view! { <Textarea placeholder="Type here..." /> }
-}

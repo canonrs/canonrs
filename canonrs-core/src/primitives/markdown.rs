@@ -81,7 +81,7 @@ pub fn MarkdownTocPrimitive(
     view! {
         <nav
             data-rs-markdown-toc=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-hidden=state.aria_hidden()
             aria-label="Table of contents"
             class=class

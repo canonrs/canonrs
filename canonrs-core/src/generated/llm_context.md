@@ -146,7 +146,7 @@ view! {
 
 ---
 
-## `alert-dialog`
+## `alert_dialog`
 
 - **Label:** Alert Dialog
 - **Category:** Overlay
@@ -163,7 +163,7 @@ view! {
 - **Optional parts:** AlertDialogOverlay, AlertDialogDescription, AlertDialogAction
 - **States:** open, closed
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::alert_dialog::AlertDialog;`
+- **Import:** `use canonrs::ui::alert_dialog::Alert_dialog;`
 
 ### Migration
 
@@ -232,7 +232,7 @@ view! {
 
 ---
 
-## `aspect-ratio`
+## `aspect_ratio`
 
 - **Label:** Aspect Ratio
 - **Category:** Display
@@ -245,7 +245,7 @@ view! {
 - **Use cases:** video containers, image previews
 - **Related:** card, resizable, scroll_area, page_header, toolbar, separator
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::aspect_ratio::AspectRatio;`
+- **Import:** `use canonrs::ui::aspect_ratio::Aspect_ratio;`
 
 ### Migration
 
@@ -471,7 +471,7 @@ view! {
 
 ---
 
-## `button-group`
+## `button_group`
 
 - **Label:** Button Group
 - **Category:** Action
@@ -485,7 +485,7 @@ view! {
 - **Related:** button, icon_button, copy_button, link
 - **States:** first, last
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::button_group::ButtonGroup;`
+- **Import:** `use canonrs::ui::button_group::Button_group;`
 
 ### Migration
 
@@ -709,7 +709,7 @@ view! {
 
 ---
 
-## `code-block`
+## `code_block`
 
 - **Label:** Code Block
 - **Category:** Display
@@ -723,7 +723,7 @@ view! {
 - **Related:** avatar, icon, logo, markdown, chart, stat, inline_meta, kbd, badge, carousel
 - **States:** copied
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::code_block::CodeBlock;`
+- **Import:** `use canonrs::ui::code_block::Code_block;`
 
 ### Migration
 
@@ -785,7 +785,7 @@ view! {
 
 ---
 
-## `color-picker`
+## `color_picker`
 
 - **Label:** Color Picker
 - **Category:** Form
@@ -801,7 +801,7 @@ view! {
 - **Optional parts:** ColorPickerSwatch, ColorPickerInput
 - **States:** selected, disabled
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::color_picker::ColorPicker;`
+- **Import:** `use canonrs::ui::color_picker::Color_picker;`
 
 ### Migration
 
@@ -911,7 +911,7 @@ view! {
 
 ---
 
-## `confirm-dialog`
+## `confirm_dialog`
 
 - **Label:** Confirm Dialog
 - **Category:** Overlay
@@ -926,7 +926,7 @@ view! {
 - **Capabilities:** OpenClose, FocusTrap, AriaModal
 - **States:** open, closed
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::confirm_dialog::ConfirmDialog;`
+- **Import:** `use canonrs::ui::confirm_dialog::Confirm_dialog;`
 
 ### Migration
 
@@ -947,7 +947,7 @@ view! {
 
 ---
 
-## `context-menu`
+## `context_menu`
 
 - **Label:** Context Menu
 - **Category:** Action
@@ -964,7 +964,7 @@ view! {
 - **Optional parts:** ContextMenuItem, ContextMenuSeparator
 - **States:** open, closed
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::context_menu::ContextMenu;`
+- **Import:** `use canonrs::ui::context_menu::Context_menu;`
 
 ### Migration
 
@@ -994,7 +994,7 @@ view! {
 
 ---
 
-## `copy-button`
+## `copy_button`
 
 - **Label:** Copy Button
 - **Category:** Action
@@ -1008,7 +1008,7 @@ view! {
 - **Related:** button, button_group, icon_button, link
 - **States:** hover, copied, error
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::copy_button::CopyButton;`
+- **Import:** `use canonrs::ui::copy_button::Copy_button;`
 
 ### Migration
 
@@ -1029,7 +1029,7 @@ view! {
 
 ---
 
-## `data-table`
+## `data_table`
 
 - **Label:** Data Table
 - **Category:** Data
@@ -1045,7 +1045,7 @@ view! {
 - **Optional parts:** DataTablePagination, DataTableToolbar, DataTableColumn
 - **States:** loading, error, selected
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::data_table::DataTable;`
+- **Import:** `use canonrs::ui::data_table::Data_table;`
 
 ### Migration
 
@@ -1114,7 +1114,7 @@ view! {
 
 ---
 
-## `doc-progress`
+## `doc_progress`
 
 - **Label:** Doc Progress
 - **Category:** Display
@@ -1128,7 +1128,7 @@ view! {
 - **Related:** progress, spinner, skeleton, pulse, loading_overlay
 - **States:** active, inactive
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::doc_progress::DocProgress;`
+- **Import:** `use canonrs::ui::doc_progress::Doc_progress;`
 
 ### Migration
 
@@ -1188,7 +1188,7 @@ view! {
 
 ---
 
-## `dropdown-menu`
+## `dropdown_menu`
 
 - **Label:** Dropdown Menu
 - **Category:** Action
@@ -1205,7 +1205,7 @@ view! {
 - **Optional parts:** DropdownMenuItem, DropdownMenuSeparator, DropdownMenuGroup
 - **States:** open, closed
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::dropdown_menu::DropdownMenu;`
+- **Import:** `use canonrs::ui::dropdown_menu::Dropdown_menu;`
 
 ### Migration
 
@@ -1234,7 +1234,7 @@ view! {
 
 ---
 
-## `empty-state`
+## `empty_state`
 
 - **Label:** Empty State
 - **Category:** Feedback
@@ -1248,7 +1248,7 @@ view! {
 - **Related:** error_state, animate
 - **Optional parts:** EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateAction
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::empty_state::EmptyState;`
+- **Import:** `use canonrs::ui::empty_state::Empty_state;`
 
 ### Migration
 
@@ -1271,7 +1271,7 @@ view! {
 
 ---
 
-## `empty-table`
+## `empty_table`
 
 - **Label:** Empty Table
 - **Category:** Display
@@ -1284,7 +1284,7 @@ view! {
 - **Use cases:** empty data grids, admin tables
 - **Related:** table, data_table, virtual_list, tree, list_item
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::empty_table::EmptyTable;`
+- **Import:** `use canonrs::ui::empty_table::Empty_table;`
 
 ### Migration
 
@@ -1309,7 +1309,7 @@ view! {
 
 ---
 
-## `error-state`
+## `error_state`
 
 - **Label:** Error State
 - **Category:** Feedback
@@ -1324,7 +1324,7 @@ view! {
 - **Optional parts:** ErrorStateIcon, ErrorStateTitle, ErrorStateDescription, ErrorStateAction
 - **States:** error
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::error_state::ErrorState;`
+- **Import:** `use canonrs::ui::error_state::Error_state;`
 
 ### Migration
 
@@ -1426,7 +1426,7 @@ view! {
 
 ---
 
-## `form-error-summary`
+## `form_error_summary`
 
 - **Label:** Form Error Summary
 - **Category:** Form
@@ -1440,7 +1440,7 @@ view! {
 - **Related:** form, input, input_group, input_otp, textarea, field, label, checkbox
 - **States:** error
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::form_error_summary::FormErrorSummary;`
+- **Import:** `use canonrs::ui::form_error_summary::Form_error_summary;`
 
 ### Migration
 
@@ -1461,17 +1461,17 @@ view! {
 
 ---
 
-## `hero-ui`
+## `hero_ui`
 
 - **Label:** Hero UI
 - **Category:** Display
 - **Intent:** Semantic UI elements inside HeroBlock
 - **Description:** Hero typography and label components
-- **Import:** `use canonrs::ui::hero_ui::HeroUi;`
+- **Import:** `use canonrs::ui::hero_ui::Hero_ui;`
 
 ---
 
-## `hover-card`
+## `hover_card`
 
 - **Label:** Hover Card
 - **Category:** Overlay
@@ -1487,7 +1487,7 @@ view! {
 - **Required parts:** HoverCardTrigger, HoverCardContent
 - **States:** open, closed
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::hover_card::HoverCard;`
+- **Import:** `use canonrs::ui::hover_card::Hover_card;`
 
 ### Migration
 
@@ -1545,7 +1545,7 @@ view! {
 
 ---
 
-## `icon-button`
+## `icon_button`
 
 - **Label:** Icon Button
 - **Category:** Action
@@ -1560,7 +1560,7 @@ view! {
 - **Capabilities:** Disabled
 - **States:** hover, active, focus, disabled, loading
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::icon_button::IconButton;`
+- **Import:** `use canonrs::ui::icon_button::Icon_button;`
 
 ### Migration
 
@@ -1581,7 +1581,7 @@ view! {
 
 ---
 
-## `inline-meta`
+## `inline_meta`
 
 - **Label:** Inline Meta
 - **Category:** Display
@@ -1595,7 +1595,7 @@ view! {
 - **Related:** avatar, icon, logo, code_block, markdown, chart, stat, kbd, badge, carousel
 - **Optional parts:** InlineMetaLabel, InlineMetaValue
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::inline_meta::InlineMeta;`
+- **Import:** `use canonrs::ui::inline_meta::Inline_meta;`
 
 ### Migration
 
@@ -1619,7 +1619,7 @@ view! {
 
 ---
 
-## `inline-notice`
+## `inline_notice`
 
 - **Label:** Inline Notice
 - **Category:** Feedback
@@ -1634,7 +1634,7 @@ view! {
 - **Optional parts:** InlineNoticeIcon, InlineNoticeContent
 - **States:** error
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::inline_notice::InlineNotice;`
+- **Import:** `use canonrs::ui::inline_notice::Inline_notice;`
 
 ### Migration
 
@@ -1693,7 +1693,7 @@ view! {
 
 ---
 
-## `input-group`
+## `input_group`
 
 - **Label:** Input Group
 - **Category:** Form
@@ -1707,7 +1707,7 @@ view! {
 - **Related:** form, input, input_otp, textarea, field, label, checkbox, form_error_summary
 - **States:** focus-within
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::input_group::InputGroup;`
+- **Import:** `use canonrs::ui::input_group::Input_group;`
 
 ### Migration
 
@@ -1733,7 +1733,7 @@ view! {
 
 ---
 
-## `input-otp`
+## `input_otp`
 
 - **Label:** OTP Input
 - **Category:** Form
@@ -1747,7 +1747,7 @@ view! {
 - **Related:** form, input, input_group, textarea, field, label, checkbox, form_error_summary
 - **States:** active
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::input_otp::InputOtp;`
+- **Import:** `use canonrs::ui::input_otp::Input_otp;`
 
 ### Migration
 
@@ -1875,7 +1875,7 @@ view! {
 
 ---
 
-## `link-group`
+## `link_group`
 
 - **Label:** Link Group
 - **Category:** Navigation
@@ -1890,7 +1890,7 @@ view! {
 - **Capabilities:** Orientation, Disabled
 - **States:** active
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::link_group::LinkGroup;`
+- **Import:** `use canonrs::ui::link_group::Link_group;`
 
 ### Migration
 
@@ -1916,7 +1916,7 @@ view! {
 
 ---
 
-## `list-item`
+## `list_item`
 
 - **Label:** List Item
 - **Category:** Display
@@ -1932,7 +1932,7 @@ view! {
 - **Optional parts:** ListItemTitle, ListItemDescription
 - **States:** selected
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::list_item::ListItem;`
+- **Import:** `use canonrs::ui::list_item::List_item;`
 
 ### Migration
 
@@ -1955,7 +1955,7 @@ view! {
 
 ---
 
-## `loading-overlay`
+## `loading_overlay`
 
 - **Label:** Loading Overlay
 - **Category:** Display
@@ -1970,7 +1970,7 @@ view! {
 - **Capabilities:** OpenClose
 - **States:** loading
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::loading_overlay::LoadingOverlay;`
+- **Import:** `use canonrs::ui::loading_overlay::Loading_overlay;`
 
 ### Migration
 
@@ -2188,7 +2188,7 @@ view! {
 
 ---
 
-## `nav-item`
+## `nav_item`
 
 - **Label:** Nav Item
 - **Category:** Navigation
@@ -2203,7 +2203,7 @@ view! {
 - **Capabilities:** Active, Disabled
 - **States:** active, disabled
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::nav_item::NavItem;`
+- **Import:** `use canonrs::ui::nav_item::Nav_item;`
 
 ### Migration
 
@@ -2224,7 +2224,7 @@ view! {
 
 ---
 
-## `navigation-menu`
+## `navigation_menu`
 
 - **Label:** Navigation Menu
 - **Category:** Navigation
@@ -2241,7 +2241,7 @@ view! {
 - **Optional parts:** NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink
 - **States:** open, closed, active
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::navigation_menu::NavigationMenu;`
+- **Import:** `use canonrs::ui::navigation_menu::Navigation_menu;`
 
 ### Migration
 
@@ -2268,7 +2268,7 @@ view! {
 
 ---
 
-## `page-header`
+## `page_header`
 
 - **Label:** Page Header
 - **Category:** Display
@@ -2281,7 +2281,7 @@ view! {
 - **Use cases:** dashboards, admin pages
 - **Related:** card, resizable, scroll_area, aspect_ratio, toolbar, separator
 - **Boundary type:** passthrough
-- **Import:** `use canonrs::ui::page_header::PageHeader;`
+- **Import:** `use canonrs::ui::page_header::Page_header;`
 
 ### Migration
 
@@ -2499,7 +2499,7 @@ view! {
 
 ---
 
-## `radio-group`
+## `radio_group`
 
 - **Label:** Radio Group
 - **Category:** Form
@@ -2514,7 +2514,7 @@ view! {
 - **Capabilities:** Disabled
 - **States:** selected, focus, disabled
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::radio_group::RadioGroup;`
+- **Import:** `use canonrs::ui::radio_group::Radio_group;`
 
 ### Migration
 
@@ -2583,7 +2583,7 @@ view! {
 
 ---
 
-## `scroll-area`
+## `scroll_area`
 
 - **Label:** Scroll Area
 - **Category:** Layout
@@ -2598,7 +2598,7 @@ view! {
 - **Capabilities:** Overflow
 - **States:** active
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::scroll_area::ScrollArea;`
+- **Import:** `use canonrs::ui::scroll_area::Scroll_area;`
 
 ### Migration
 
@@ -2621,13 +2621,13 @@ view! {
 
 ---
 
-## `section-ui`
+## `section_ui`
 
 - **Label:** Section UI
 - **Category:** Display
 - **Intent:** Semantic UI elements inside Section layout
 - **Description:** Section header typography components
-- **Import:** `use canonrs::ui::section_ui::SectionUi;`
+- **Import:** `use canonrs::ui::section_ui::Section_ui;`
 
 ---
 
@@ -2947,7 +2947,7 @@ view! {
 
 ---
 
-## `status-dot`
+## `status_dot`
 
 - **Label:** Status Dot
 - **Category:** Display
@@ -2961,7 +2961,7 @@ view! {
 - **Related:** toast, alert, banner, callout, inline_notice
 - **States:** active, inactive
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::status_dot::StatusDot;`
+- **Import:** `use canonrs::ui::status_dot::Status_dot;`
 
 ### Migration
 
@@ -3064,7 +3064,7 @@ view! {
 
 ---
 
-## `table-of-contents`
+## `table_of_contents`
 
 - **Label:** Table of Contents
 - **Category:** Navigation
@@ -3078,7 +3078,7 @@ view! {
 - **Related:** tabs
 - **States:** active, open, closed
 - **Boundary type:** init
-- **Import:** `use canonrs::ui::table_of_contents::TableOfContents;`
+- **Import:** `use canonrs::ui::table_of_contents::Table_of_contents;`
 
 ### Migration
 
@@ -3256,7 +3256,7 @@ view! {
 
 ---
 
-## `toggle-group`
+## `toggle_group`
 
 - **Label:** Toggle Group
 - **Category:** Action
@@ -3271,7 +3271,7 @@ view! {
 - **Capabilities:** Multiple, Disabled
 - **States:** on, off, disabled
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::toggle_group::ToggleGroup;`
+- **Import:** `use canonrs::ui::toggle_group::Toggle_group;`
 
 ### Migration
 
@@ -3419,7 +3419,7 @@ view! {
 
 ---
 
-## `virtual-list`
+## `virtual_list`
 
 - **Label:** Virtual List
 - **Category:** Display
@@ -3433,7 +3433,7 @@ view! {
 - **Related:** table, data_table, empty_table, tree, list_item
 - **Capabilities:** VirtualScroll
 - **Boundary type:** interaction
-- **Import:** `use canonrs::ui::virtual_list::VirtualList;`
+- **Import:** `use canonrs::ui::virtual_list::Virtual_list;`
 
 ### Migration
 

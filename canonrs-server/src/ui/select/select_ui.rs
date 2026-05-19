@@ -80,20 +80,3 @@ pub fn SelectSeparator(
     view! { <SelectSeparatorPrimitive class=class /> }
 }
 
-#[component]
-pub fn SelectPreview() -> impl IntoView {
-    use canonrs_core::meta::DisabledState;
-    view! {
-        <Select>
-            <SelectTrigger>
-                <SelectValue placeholder="Select an option...">{""}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-                <SelectItem value="a">"Option A"</SelectItem>
-                <SelectItem value="b">"Option B"</SelectItem>
-                <SelectSeparator />
-                <SelectItem value="c" disabled=DisabledState::Disabled>"Disabled"</SelectItem>
-            </SelectContent>
-        </Select>
-    }
-}

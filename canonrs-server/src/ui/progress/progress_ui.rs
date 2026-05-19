@@ -19,9 +19,3 @@ pub fn Progress(
     }
 }
 
-#[component]
-pub fn ProgressPreview() -> impl IntoView {
-    view! {
-        <Progress value=50.0 />
-    }
-}

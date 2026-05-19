@@ -1,6 +1,7 @@
 //! Row actions, bulk actions, context menu, bulk bar
 //! @domain: action-dispatch + command-orchestration
 
+use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -9,6 +10,7 @@ use canonrs_interactions_core::dom::state;
 use super::selection::{sel_ids, set_row_selected, sync_select_all};
 
 pub fn init(table: &HtmlElement) {
+    if !lifecycle::init_guard(&table.clone().into()) { return; }
     bind_bulk_bar(table);
     bind_context_menu(table);
     bind_row_actions(table);
@@ -160,7 +162,7 @@ fn bind_context_menu(_table: &HtmlElement) {
             if let Ok(list) = d.query_selector_all("[data-rs-context-menu][data-rs-state~='open']") {
                 for i in 0..list.length() {
                     if let Some(el) = list.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
-                        state::remove(&el, "open"); state::add(&el, "closed");
+                        state::close(&el); state::close(&el);
                     }
                 }
             }
@@ -169,8 +171,8 @@ fn bind_context_menu(_table: &HtmlElement) {
                 let _ = el.style().set_property("--context-menu-x", &format!("{}px", x));
                 let _ = el.style().set_property("--context-menu-y", &format!("{}px", y));
             }
-            state::remove(&ctx_root, "closed");
-            state::add(&ctx_root, "open");
+            state::open(&ctx_root);
+            state::open(&ctx_root);
             let _ = content.remove_attribute("hidden");
         }));
         let _ = doc.add_event_listener_with_callback("contextmenu", cb.as_ref().unchecked_ref());
@@ -183,7 +185,7 @@ fn bind_context_menu(_table: &HtmlElement) {
             let Ok(list) = d.query_selector_all("[data-rs-context-menu][data-rs-state~='open']") else { return };
             for i in 0..list.length() {
                 if let Some(el) = list.item(i).and_then(|n| n.dyn_into::<web_sys::Element>().ok()) {
-                    state::remove(&el, "open"); state::add(&el, "closed");
+                    state::close(&el); state::close(&el);
                 }
             }
         }));

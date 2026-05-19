@@ -55,8 +55,9 @@ pub fn InputPrimitive(
     #[prop(default = InputSize::Md)] size: InputSize,
     #[prop(optional)] node_ref: Option<NodeRef<leptos::html::Input>>,
 ) -> impl IntoView {
-    let uid_inp = crate::infra::uid::generate("inp");
+    let uid_inp       = crate::infra::uid::generate("inp");
     let aria_disabled = if disabled == DisabledState::Disabled { "true" } else { "false" };
+    let nr            = node_ref.unwrap_or_default();
     view! {
         <input
             data-rs-input=""
@@ -73,7 +74,7 @@ pub fn InputPrimitive(
             disabled=disabled.as_bool()
             aria-disabled=aria_disabled
             aria-label=aria_label
-            node_ref=node_ref.unwrap_or_default()
+            node_ref=nr
         />
     }
 }

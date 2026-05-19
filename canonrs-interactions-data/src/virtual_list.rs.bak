@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
-use crate::shared::{is_initialized, mark_initialized};
+use canonrs_interactions_core::dom::lifecycle;
 
 fn find_scroll_viewport(el: &Element) -> Option<Element> {
     let mut current = el.parent_element();
@@ -17,8 +17,7 @@ fn find_scroll_viewport(el: &Element) -> Option<Element> {
 }
 
 pub fn init(root: Element) {
-    if is_initialized(&root) { return; }
-    mark_initialized(&root);
+    if !lifecycle::init_guard(&root) { return; }
 
     let items_count = root.get_attribute("data-items-count")
         .and_then(|s| s.parse::<usize>().ok())
@@ -63,7 +62,7 @@ pub fn init(root: Element) {
                 el.set_attribute("data-rs-virtual-list-item", "").ok();
                 el.set_attribute("data-rs-index", &i.to_string()).ok();
                 el.set_attribute("role", "listitem").ok();
-                el.set_attribute("data-rs-state", "idle").ok();
+                { state::remove(&el, "active"); state::remove(&el, "copied"); state::remove(&el, "error"); }.ok();
                 let Ok(el_h) = el.clone().dyn_into::<HtmlElement>() else { continue };
                 let _ = el_h.style().set_property("position", "absolute");
                 let _ = el_h.style().set_property("top", &format!("{}px", i as f64 * item_height));

@@ -182,7 +182,3 @@ pub fn SidebarUser(
     view! { <SidebarUserPrimitive class=class>{children()}</SidebarUserPrimitive> }
 }
 
-#[component]
-pub fn SidebarPreview() -> leptos::prelude::AnyView {
-    view! { <Sidebar>"Sidebar"</Sidebar> }.into_any()
-}

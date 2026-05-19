@@ -38,7 +38,7 @@ pub fn SheetPrimitive(
             data-rs-sheet=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_sh
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             data-rs-side=side.as_str()
             class=class
         >
@@ -60,7 +60,7 @@ pub fn SheetTriggerPrimitive(
             data-rs-sheet-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-haspopup="dialog"
             aria-expanded=state.aria_expanded()
             aria-controls=aria_controls
@@ -101,7 +101,7 @@ pub fn SheetOverlayPrimitive(
     view! {
         <div
             data-rs-sheet-overlay=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         />
     }

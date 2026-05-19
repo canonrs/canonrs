@@ -1,4 +1,5 @@
 use leptos::prelude::*;
+use canonrs_core::separator::SeparatorOrientation;
 use super::separator_boundary::Separator;
 use canonrs_core::Orientation;
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
@@ -19,9 +20,9 @@ pub fn SeparatorShowcasePreview() -> impl IntoView {
                 <span data-rs-showcase-preview-label="">"Vertical"</span>
                 <Stack direction=StackDirection::Horizontal gap=StackGap::Md>
                     <span>"Left"</span>
-                    <Separator orientation=Orientation::Vertical />
+                    <Separator orientation=SeparatorOrientation::Vertical />
                     <span>"Center"</span>
-                    <Separator orientation=Orientation::Vertical />
+                    <Separator orientation=SeparatorOrientation::Vertical />
                     <span>"Right"</span>
                 </Stack>
             </Stack>
