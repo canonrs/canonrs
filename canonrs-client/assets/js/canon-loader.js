@@ -91,7 +91,31 @@ const bootstrap = {
   },
 
   async loadAll() {
-    // carrega todos os grupos em paralelo
+    // 1. init primeiro — hidrata DOM e registra elementos
+    try {
+      const mod = await import('/wasm/init/canonrs_interactions_init.js');
+      await mod.default();
+      window.__canonLoader.loaded.add('init');
+      window.__canonLoader.mods['init'] = mod;
+      if (typeof mod.init_all === 'function') mod.init_all();
+    } catch (e) {
+      console.warn('[canon] failed: init', e);
+      setTimeout(() => bootstrap.loadAll(), 100);
+      return;
+    }
+
+    // 2. selection — scan completo após init
+    try {
+      const mod = await import('/wasm/selection/canonrs_interactions_selection.js');
+      await mod.default();
+      window.__canonLoader.loaded.add('selection');
+      window.__canonLoader.mods['selection'] = mod;
+      if (typeof mod.init_all === 'function') mod.init_all();
+    } catch (e) {
+      console.warn('[canon] failed: selection', e);
+    }
+
+    // 3. restantes em paralelo após DOM estar pronto
     await Promise.allSettled([
       window.__canonLoader.loadGroup('overlay'),
       window.__canonLoader.loadGroup('data'),
@@ -99,33 +123,6 @@ const bootstrap = {
       window.__canonLoader.loadGroup('nav'),
       window.__canonLoader.loadGroup('content'),
     ]);
-
-    // init — usa init_all para scan completo
-    try {
-      const mod = await import('/wasm/init/canonrs_interactions_init.js');
-      await mod.default();
-      window.__canonLoader.loaded.add('init');
-      window.__canonLoader.mods['init'] = mod;
-      if (typeof mod.init_all === 'function') {
-        mod.init_all();
-      }
-    } catch (e) {
-      console.warn('[canon] failed: init', e);
-      setTimeout(() => bootstrap.loadAll(), 100);
-    }
-
-    // selection — usa init_all para scan completo
-    try {
-      const mod = await import('/wasm/selection/canonrs_interactions_selection.js');
-      await mod.default();
-      window.__canonLoader.loaded.add('selection');
-      window.__canonLoader.mods['selection'] = mod;
-      if (typeof mod.init_all === 'function') {
-        mod.init_all();
-      }
-    } catch (e) {
-      console.warn('[canon] failed: selection', e);
-    }
   }
 };
 
