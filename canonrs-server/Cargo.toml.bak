@@ -1,0 +1,48 @@
+[package]
+name = "canonrs-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+cfg-if = "1.0"
+axum = { version = "0.8", optional = true }
+tokio = { version = "1", features = ["full"], optional = true }
+tower = { version = "0.5", optional = true }
+tower-http = { version = "0.6", optional = true }
+leptos_axum = { version = "0.8", optional = true }
+leptos = { version = "0.8", default-features = false }
+leptos_meta = { version = "0.8", default-features = false }
+leptos_router = { version = "0.8", default-features = false }
+canonrs-core = { path = "../canonrs-core" }
+canonrs-client = { path = "../canonrs-client", optional = true }
+futures-util = "0.3"
+pulldown-cmark = { version = "0.12.2", optional = true }
+syntect = { version = "5.2", default-features = false, features = ["default-syntaxes", "default-themes", "html", "regex-fancy"], optional = true }
+html-escape = { version = "0.2", optional = true }
+
+[features]
+default = []
+examples = []
+ssr = [
+    "axum",
+    "tokio",
+    "tower",
+    "tower-http",
+    "leptos_axum",
+    "leptos/ssr",
+    "leptos_meta/ssr",
+    "leptos_router/ssr",
+    "canonrs-core/ssr",
+    "syntect",
+    "pulldown-cmark",
+    "html-escape",
+    "dep:canonrs-client",
+]
+hydrate = [
+    "leptos/hydrate",
+    "canonrs-core/hydrate",
+]
+
+

@@ -41,7 +41,10 @@ window.__canonLoader = {
     const group = el.getAttribute('data-rs-interaction');
     if (!group) return;
     const mod = this.mods[group];
-    if (!mod) { this.loadGroup(group); return; }
+    if (!mod) {
+      this.loadGroup(group).then(() => this.initElement(el));
+      return;
+    }
     const initFn = mod[`init_${group}`];
     if (typeof initFn !== 'function') return;
     this._markInitialized(el);
@@ -88,8 +91,14 @@ const bootstrap = {
   },
 
   async loadAll() {
-    // overlay — scan direto após estabilização
-    await window.__canonLoader.loadGroup('overlay');
+    // carrega todos os grupos em paralelo
+    await Promise.allSettled([
+      window.__canonLoader.loadGroup('overlay'),
+      window.__canonLoader.loadGroup('data'),
+      window.__canonLoader.loadGroup('gesture'),
+      window.__canonLoader.loadGroup('nav'),
+      window.__canonLoader.loadGroup('content'),
+    ]);
 
     // init — usa init_all para scan completo
     try {
