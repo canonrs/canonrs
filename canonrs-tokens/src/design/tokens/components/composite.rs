@@ -81,4 +81,21 @@ pub const COMPOSITE_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("builder-dropzone-drag-bg",      "var(--color-primary-alpha-06)"),
     FamilyToken::new("builder-dropzone-drag-border",  "var(--color-primary-border-soft)"),
     FamilyToken::new("builder-container-indent",      "var(--space-sm)"),
+
+    // ── Progress Mini ─────────────────────────────────────────────────────────
+    FamilyToken::new("progress-mini-height",        "var(--space-xs)"),
+    FamilyToken::new("progress-mini-radius",        "var(--radius-full)"),
+    FamilyToken::new("progress-mini-bg",            "var(--theme-surface-muted)"),
+    FamilyToken::new("progress-mini-fill-bg",       "var(--theme-action-primary-bg)"),
+    FamilyToken::new("progress-mini-transition",    "width var(--motion-duration-normal) var(--motion-ease-standard)"),
+
+    // ── Pin Button ────────────────────────────────────────────────────────────
+    FamilyToken::new("pin-button-padding",          "var(--space-2xs)"),
+    FamilyToken::new("pin-button-gap",              "var(--space-2xs)"),
+    FamilyToken::new("pin-button-font-size",        "var(--font-size-xs)"),
+    FamilyToken::new("pin-button-radius",           "var(--radius-sm)"),
+    FamilyToken::new("pin-button-bg",               "transparent"),
+    FamilyToken::new("pin-button-bg-hover",         "var(--theme-surface-muted)"),
+    FamilyToken::new("pin-button-fg",               "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("pin-button-fg-pinned",        "var(--theme-action-primary-bg)"),
 ];

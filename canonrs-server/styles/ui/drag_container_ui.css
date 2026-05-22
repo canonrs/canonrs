@@ -1,0 +1,16 @@
+/* ═══════════════════════════════════════════════════════════════
+   DRAG CONTAINER — drag drop zone primitive
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-drag-container] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--composite-gap);
+  transition: background var(--composite-transition-duration) var(--composite-transition-ease);
+}
+
+[data-rs-drag-container][data-rs-state='open'] {
+  background: var(--composite-dropzone-bg);
+  border: var(--composite-dropzone-border-width) var(--composite-dropzone-border-style) var(--composite-dropzone-border-color);
+  border-radius: var(--composite-radius);
+}

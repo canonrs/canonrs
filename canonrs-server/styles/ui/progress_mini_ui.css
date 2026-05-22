@@ -1,0 +1,19 @@
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS MINI — compact inline progress bar primitive
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-progress-mini] {
+  display: block;
+  width: 100%;
+  height: var(--progress-mini-height);
+  border-radius: var(--progress-mini-radius);
+  background: var(--progress-mini-bg);
+  overflow: hidden;
+}
+
+[data-rs-progress-mini-fill] {
+  height: 100%;
+  border-radius: var(--progress-mini-radius);
+  background: var(--progress-mini-fill-bg);
+  transition: var(--progress-mini-transition);
+}

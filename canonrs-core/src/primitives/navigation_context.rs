@@ -1,7 +1,7 @@
 //! Navigation Context - Shared state for doc navigation
 
 use std::collections::HashMap;
-use super::toc_item::TocItem;
+use crate::primitives::structural::toc_item::TocItem;
 
 #[derive(Clone, Debug, Default)]
 pub struct NavigationState {

@@ -432,4 +432,33 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("markdown-table-cell-padding-y",    "var(--space-sm)"),
     FamilyToken::new("markdown-table-border-color",      "var(--theme-surface-border-muted)"),
     FamilyToken::new("markdown-table-header-bg",         "var(--theme-surface-muted)"),
+
+    // ── Event Row ─────────────────────────────────────────────────────────────
+    FamilyToken::new("event-row-gap",                  "var(--space-sm)"),
+    FamilyToken::new("event-row-padding-y",            "var(--space-2xs)"),
+    FamilyToken::new("event-row-border-color",         "var(--theme-surface-border)"),
+    FamilyToken::new("event-row-font-size",            "var(--font-size-xs)"),
+    FamilyToken::new("event-row-primary-weight",       "var(--font-weight-bold)"),
+    FamilyToken::new("event-row-primary-width",        "11rem"),
+    FamilyToken::new("event-row-secondary-fg",         "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("event-row-secondary-font-size",  "var(--font-size-xs)"),
+    FamilyToken::new("event-row-meta-width",           "5rem"),
+    FamilyToken::new("event-row-meta-fg",              "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("event-row-meta-font-family",     "var(--font-family-mono)"),
+    FamilyToken::new("event-row-meta-font-size",       "var(--font-size-xs)"),
+
+    // ── Worker Card ───────────────────────────────────────────────────────────
+    FamilyToken::new("worker-card-padding",        "var(--space-xs) var(--space-sm)"),
+    FamilyToken::new("worker-card-gap",            "var(--space-sm)"),
+    FamilyToken::new("worker-card-bg",             "var(--theme-surface-bg)"),
+    FamilyToken::new("worker-card-border-color",   "var(--theme-surface-border)"),
+    FamilyToken::new("worker-card-border-width",   "var(--border-thin)"),
+    FamilyToken::new("worker-card-radius",         "var(--radius-md)"),
+    FamilyToken::new("worker-card-host-fg",        "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("worker-card-host-font-size", "var(--font-size-xs)"),
+    FamilyToken::new("worker-card-id-font-size",   "var(--font-size-xs)"),
+    FamilyToken::new("worker-card-id-font-family", "var(--font-family-mono)"),
+    FamilyToken::new("worker-card-stats-fg",       "var(--theme-surface-fg-muted)"),
+    FamilyToken::new("worker-card-noc-bg",         "var(--theme-surface-muted)"),
+    FamilyToken::new("worker-card-compact-padding","var(--space-2xs) var(--space-xs)"),
 ];

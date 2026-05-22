@@ -3,7 +3,7 @@
 //! DomContract — valida estrutura de composição de componentes
 //! Usa ComponentMeta.required_parts para validação em dev
 
-use crate::primitives::has_meta::component_meta;
+use crate::core::internal::has_meta::component_meta;
 
 #[derive(Debug, PartialEq)]
 pub enum ContractResult {

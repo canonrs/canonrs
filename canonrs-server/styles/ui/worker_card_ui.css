@@ -1,0 +1,36 @@
+/* ═══════════════════════════════════════════════════════════════
+   WORKER CARD — worker status display primitive
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-worker-card] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--worker-card-gap);
+  padding: var(--worker-card-padding);
+  background: var(--worker-card-bg);
+  border: var(--worker-card-border-width) solid var(--worker-card-border-color);
+  border-radius: var(--worker-card-radius);
+}
+
+[data-rs-worker-card][data-rs-variant='noc'] {
+  background: var(--worker-card-noc-bg);
+}
+
+[data-rs-worker-card][data-rs-variant='compact'] {
+  padding: var(--worker-card-compact-padding);
+}
+
+[data-rs-worker-card-host] {
+  color: var(--worker-card-host-fg);
+  font-size: var(--worker-card-host-font-size);
+}
+
+[data-rs-worker-card-id] {
+  font-size: var(--worker-card-id-font-size);
+  font-family: var(--worker-card-id-font-family);
+}
+
+[data-rs-worker-card-stats] {
+  color: var(--worker-card-stats-fg);
+  font-size: var(--worker-card-host-font-size);
+}

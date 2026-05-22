@@ -37,6 +37,8 @@ pub fn EventRowPrimitive(
             data-rs-event-row=""
             data-rs-uid=uid
             data-rs-kind=kind.as_str()
+            data-rs-layout="row"
+            data-rs-slots="primary secondary meta"
             class=class
         >
             {children()}

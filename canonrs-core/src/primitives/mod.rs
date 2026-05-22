@@ -1,6 +1,7 @@
 // Alphabetically organized primitives
 pub mod accordion;
-pub mod has_meta;
+// moved to core/internal
+// pub mod has_meta;
 pub mod alert;
 pub mod alert_dialog;
 pub mod confirm_dialog;
@@ -19,8 +20,8 @@ pub mod calendar;
 pub mod callout;
 pub mod card;
 pub mod chart;
-pub mod chart_data;
-pub use chart_data::*;
+// moved to core/internal
+// pub mod chart_data;
 pub mod checkbox;
 pub mod code_block;
 pub mod collapsible;
@@ -245,19 +246,20 @@ pub use layout::container::ContainerPrimitive;
 pub use layout::center::CenterPrimitive;
 pub use layout::flex::{FlexPrimitive, FlexDirection, FlexJustify, FlexAlign, FlexGap};
 pub use layout::spacer::SpacerPrimitive;
-pub mod orientation;
-pub mod null_view;
+// moved to structural
+// moved to structural
 pub mod event_row;
 pub mod worker_card;
 pub mod progress_mini;
-pub mod hidden_input;
-pub use orientation::Orientation;
-pub mod toc_item;
-pub use toc_item::TocItem;
+// moved to structural
+pub mod structural;
+pub use structural::orientation::Orientation;
+// moved to core/internal
+// pub mod toc_item;
 pub mod navigation_context;
 pub use navigation_context::{NavigationState, HeadingHierarchy, HeadingNode};
-pub use null_view::NullViewPrimitive;
+pub use structural::null_view::NullViewPrimitive;
 pub use event_row::{EventRowPrimitive, EventRowLabelPrimitive, EventRowTimePrimitive, EventRowMessagePrimitive, EventRowKind};
 pub use worker_card::{WorkerCardPrimitive, WorkerCardHostPrimitive, WorkerCardIdPrimitive, WorkerCardStatsPrimitive, WorkerCardVariant};
 pub use progress_mini::ProgressMiniPrimitive;
-pub use hidden_input::HiddenInputPrimitive;
+pub use structural::hidden_input::HiddenInputPrimitive;

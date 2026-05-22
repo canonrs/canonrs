@@ -25,7 +25,7 @@ pub fn PinButtonPrimitive(
             type="button"
             class={class}
             title="Pin column"
-            style="background: none; border: none; padding: 4px; cursor: pointer; display: flex; align-items: center; font-size: 0.75rem; gap: 2px;"
+
         >
             {initial_icon}
             {children()}

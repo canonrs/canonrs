@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════════════════════
+   EVENT ROW — operational runtime event primitive
+   slots: primary | secondary (flex) | meta
+   layout contract declared by primitive via data-rs-layout=row
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-event-row] {
+  display: flex;
+  align-items: baseline;
+  gap: var(--event-row-gap);
+  padding: var(--event-row-padding-y) 0;
+  border-bottom: var(--border-thin) solid var(--event-row-border-color);
+  font-size: var(--event-row-font-size);
+}
+
+/* primary — identity, fixed width */
+[data-rs-event-row-label] {
+  font-weight: var(--event-row-primary-weight);
+  flex-shrink: 0;
+  width: var(--event-row-primary-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* secondary — operational context, flex fills space */
+[data-rs-event-row-msg] {
+  color: var(--event-row-secondary-fg);
+  font-size: var(--event-row-secondary-font-size);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* meta — time/status, fixed width, mono */
+[data-rs-event-row-time] {
+  color: var(--event-row-meta-fg);
+  font-family: var(--event-row-meta-font-family);
+  font-size: var(--event-row-meta-font-size);
+  flex-shrink: 0;
+  width: var(--event-row-meta-width);
+  text-align: right;
+}
+
+/* severity variants via data-rs-kind */
+[data-rs-event-row][data-rs-kind='info']    [data-rs-event-row-label] { color: var(--color-info); }
+[data-rs-event-row][data-rs-kind='warn']    [data-rs-event-row-label] { color: var(--color-warning); }
+[data-rs-event-row][data-rs-kind='error']   [data-rs-event-row-label] { color: var(--color-destructive); }
+[data-rs-event-row][data-rs-kind='success'] [data-rs-event-row-label] { color: var(--color-success); }

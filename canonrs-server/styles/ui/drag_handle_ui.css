@@ -1,0 +1,23 @@
+/* ═══════════════════════════════════════════════════════════════
+   DRAG HANDLE — drag interaction handle primitive
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-drag-handle] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  color: var(--theme-surface-fg-muted);
+  border-radius: var(--radius-sm);
+  transition: color var(--composite-transition-duration) var(--composite-transition-ease);
+}
+
+[data-rs-drag-handle]:hover {
+  color: var(--theme-surface-fg);
+  background: var(--theme-surface-muted);
+}
+
+[data-rs-drag-handle][data-rs-state='open'] {
+  cursor: grabbing;
+  color: var(--theme-action-primary-bg);
+}

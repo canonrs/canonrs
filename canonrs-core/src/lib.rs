@@ -5,6 +5,7 @@ pub mod infra;
 pub mod canvas_state;
 
 
+pub mod core;
 pub mod primitives;
 pub use primitives::*;
 pub mod meta;
@@ -20,4 +21,6 @@ pub use canonrs_style::*;
 pub mod generated;
 pub mod prelude;
 
-pub use crate::primitives::{TocItem, Orientation, NavigationState, HeadingHierarchy, HeadingNode};
+pub use crate::primitives::{Orientation, NavigationState, HeadingHierarchy, HeadingNode};
+pub use crate::primitives::structural::toc_item::TocItem;
+pub use crate::core::internal::chart_data::{ChartData, ChartSeries};

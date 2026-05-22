@@ -1,0 +1,25 @@
+/* ═══════════════════════════════════════════════════════════════
+   PIN BUTTON — column pin/unpin action primitive
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-rs-pin-button] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pin-button-gap);
+  padding: var(--pin-button-padding);
+  font-size: var(--pin-button-font-size);
+  border-radius: var(--pin-button-radius);
+  background: var(--pin-button-bg);
+  color: var(--pin-button-fg);
+  border: none;
+  cursor: pointer;
+}
+
+[data-rs-pin-button]:hover {
+  background: var(--pin-button-bg-hover);
+}
+
+[data-rs-pin-button][data-pin-state='pinned-left'],
+[data-rs-pin-button][data-pin-state='pinned-right'] {
+  color: var(--pin-button-fg-pinned);
+}
