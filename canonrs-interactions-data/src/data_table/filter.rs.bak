@@ -17,9 +17,7 @@ pub fn init(table: &HtmlElement) {
     let root: web_sys::Element = table.clone().into();
     let Some(input) = get_filter_input(&root) else { return };
 
-    let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
-    listeners::listen(&uid, &input.clone().into(), "input", move |e: web_sys::Event| {
-        use wasm_bindgen::JsCast;
+    let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
         let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
         let q = get_filter_input(&rc).map(|i| i.value().to_lowercase()).unwrap_or_default();
@@ -28,7 +26,9 @@ pub fn init(table: &HtmlElement) {
             set_page(&t, 1);
             update_pagination_ui(&t);
         }
-    });
+    }));
+    let _ = input.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref());
+    cb.forget();
 }
 
 pub fn apply_filter(table: &HtmlElement, q: &str) {

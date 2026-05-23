@@ -2,6 +2,7 @@
 //! Core: dom/{state}
 use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
+use wasm_bindgen::JsCast;
 use crate::runtime::listeners;
 use canonrs_interactions_core::dom::state;
 

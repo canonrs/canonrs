@@ -2,11 +2,13 @@
 //! Core: dom/{state, attrs}
 use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
+use crate::runtime::listeners;
+use crate::runtime::drag;
 
 pub fn init(table: &HtmlElement) {
     if !lifecycle::init_guard(&table.clone().into()) { return; }
+    let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let handles = match table.query_selector_all("[data-rs-datatable-resize-handle]") {
         Ok(h) => h, Err(_) => return,
     };
@@ -17,13 +19,16 @@ pub fn init(table: &HtmlElement) {
 
         let th_start = std::rc::Rc::new(std::cell::Cell::new(0i32));
         let x_start  = std::rc::Rc::new(std::cell::Cell::new(0i32));
-        let dragging  = std::rc::Rc::new(std::cell::Cell::new(false));
 
-        let th_s = th_start.clone(); let x_s = x_start.clone(); let drag = dragging.clone();
+        let th_s  = th_start.clone();
+        let x_s   = x_start.clone();
         let th_md = th.clone();
-        let mousedown = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let uid_md = uid.clone();
+
+        listeners::listen(&uid, &handle, "mousedown", move |e: web_sys::Event| {
+            use wasm_bindgen::JsCast;
+            let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
             e.prevent_default();
-            drag.set(true);
             x_s.set(e.client_x());
             th_s.set(th_md.offset_width());
             if let Some(win) = web_sys::window() {
@@ -31,57 +36,47 @@ pub fn init(table: &HtmlElement) {
                     d.document_element().map(|el| { let _ = el.class_list().add_1("rs-resizing"); el })
                 });
             }
-        }));
-        let _ = handle.add_event_listener_with_callback("mousedown", mousedown.as_ref().unchecked_ref());
-        mousedown.forget();
-
-        let th_mm = th.clone(); let th_s2 = th_start.clone();
-        let x_s2 = x_start.clone(); let drag2 = dragging.clone();
-        let mousemove = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            if !drag2.get() { return; }
-            let delta = e.client_x() - x_s2.get();
-            let new_width = (th_s2.get() + delta).max(40);
-            let col_index = th_mm.get_attribute("data-rs-col-index").unwrap_or_default();
-            let _ = th_mm.style().set_property("width", &format!("{}px", new_width));
-            let _ = th_mm.set_attribute("data-rs-col-width", &new_width.to_string());
-            if let Some(win) = web_sys::window() {
-                if let Some(doc) = win.document() {
-                    if let Ok(cells) = doc.query_selector_all(&format!("[data-rs-col-index='{}']", col_index)) {
-                        for j in 0..cells.length() {
-                            if let Some(cell) = cells.item(j).and_then(|n| n.dyn_into::<HtmlElement>().ok()) {
-                                let _ = cell.style().set_property("width", &format!("{}px", new_width));
+            let th_move = th_md.clone();
+            let th_start_move = th_s.clone();
+            let x_start_move  = x_s.clone();
+            let uid_drag = uid_md.clone();
+            drag::start(
+                &uid_drag,
+                move |_dx, _dy, client_x, _client_y| {
+                    let delta = client_x as i32 - x_start_move.get();
+                    let new_width = (th_start_move.get() + delta).max(40);
+                    let col_index = th_move.get_attribute("data-rs-col-index").unwrap_or_default();
+                    let _ = th_move.style().set_property("width", &format!("{}px", new_width));
+                    let _ = th_move.set_attribute("data-rs-col-width", &new_width.to_string());
+                    if let Some(win) = web_sys::window() {
+                        if let Some(doc) = win.document() {
+                            if let Ok(cells) = doc.query_selector_all(&format!("[data-rs-col-index='{}']", col_index)) {
+                                for j in 0..cells.length() {
+                                    if let Some(cell) = cells.item(j).and_then(|n| n.dyn_into::<HtmlElement>().ok()) {
+                                        let _ = cell.style().set_property("width", &format!("{}px", new_width));
+                                    }
+                                }
+                            }
+                            let detail = js_sys::Object::new();
+                            let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("colIndex"), &wasm_bindgen::JsValue::from_str(&col_index));
+                            let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("width"), &wasm_bindgen::JsValue::from_f64(new_width as f64));
+                            let init = web_sys::CustomEventInit::new();
+                            init.set_bubbles(true);
+                            init.set_detail(&wasm_bindgen::JsValue::from(detail));
+                            if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-col-resize", &init) {
+                                let _ = th_move.dispatch_event(&event);
                             }
                         }
                     }
-                    let detail = js_sys::Object::new();
-                    let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("colIndex"), &wasm_bindgen::JsValue::from_str(&col_index));
-                    let _ = js_sys::Reflect::set(&detail, &wasm_bindgen::JsValue::from_str("width"), &wasm_bindgen::JsValue::from_f64(new_width as f64));
-                    let init = web_sys::CustomEventInit::new();
-                    init.set_bubbles(true);
-                    init.set_detail(&wasm_bindgen::JsValue::from(detail));
-                    if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-col-resize", &init) {
-                        let _ = th_mm.dispatch_event(&event);
+                },
+                move || {
+                    if let Some(win) = web_sys::window() {
+                        let _ = win.document().and_then(|d| {
+                            d.document_element().map(|el| { let _ = el.class_list().remove_1("rs-resizing"); el })
+                        });
                     }
-                }
-            }
-        }));
-        let _ = web_sys::window().and_then(|w| {
-            w.add_event_listener_with_callback("mousemove", mousemove.as_ref().unchecked_ref()).ok()
+                },
+            );
         });
-        mousemove.forget();
-
-        let drag3 = dragging.clone();
-        let mouseup = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
-            drag3.set(false);
-            if let Some(win) = web_sys::window() {
-                let _ = win.document().and_then(|d| {
-                    d.document_element().map(|el| { let _ = el.class_list().remove_1("rs-resizing"); el })
-                });
-            }
-        }));
-        let _ = web_sys::window().and_then(|w| {
-            w.add_event_listener_with_callback("mouseup", mouseup.as_ref().unchecked_ref()).ok()
-        });
-        mouseup.forget();
     }
 }

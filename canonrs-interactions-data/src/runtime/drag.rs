@@ -1,0 +1,43 @@
+//! Data Runtime — drag lifecycle
+//! Centralizes window mousemove/mouseup for col_resize and col_reorder.
+//!
+//! Usa um namespace dedicado por sessão de drag para que o cleanup
+//! remova apenas os listeners dessa sessão, sem afetar outros do componente.
+
+use canonrs_interactions_core::runtime::listeners as core;
+
+/// Inicia uma sessão de drag.
+/// - `ns`: namespace do componente dono (data-rs-uid)
+/// - `on_move`: chamado no window mousemove com (movement_x, movement_y, client_x, client_y)
+/// - `on_up`: chamado no window mouseup — drag termina, listeners removidos
+pub fn start<F, G>(ns: &str, on_move: F, on_up: G)
+where
+    F: Fn(f64, f64, f64, f64) + 'static,
+    G: Fn() + 'static,
+{
+    // Namespace de drag = ns + ":drag" para cleanup isolado
+    let drag_ns = format!("{}:drag", ns);
+    let drag_ns_up = drag_ns.clone();
+
+    core::listen_window(&drag_ns, "mousemove", move |e: web_sys::Event| {
+        use wasm_bindgen::JsCast;
+        if let Ok(me) = e.dyn_into::<web_sys::MouseEvent>() {
+            on_move(
+                me.movement_x() as f64,
+                me.movement_y() as f64,
+                me.client_x()   as f64,
+                me.client_y()   as f64,
+            );
+        }
+    });
+
+    core::listen_window(&drag_ns_up.clone(), "mouseup", move |_e: web_sys::Event| {
+        on_up();
+        core::cleanup(&drag_ns_up);
+    });
+}
+
+/// Cancela drag ativo manualmente (ex: Escape key)
+pub fn cancel(ns: &str) {
+    core::cleanup(&format!("{}:drag", ns));
+}

@@ -80,9 +80,11 @@ pub fn init(root: Element) {
 
     render();
 
-    listeners::listen_uid(&viewport_el.clone().into(), "scroll", move |_: web_sys::Event| {
-        render();
-    });
+    let render_cb = Closure::<dyn Fn()>::new(render);
+    let _ = viewport_el.add_event_listener_with_callback_and_bool(
+        "scroll", render_cb.as_ref().unchecked_ref(), false,
+    );
+    render_cb.forget();
 }
 
 pub fn init_all() {

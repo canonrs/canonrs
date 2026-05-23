@@ -1,0 +1,25 @@
+//! Data Runtime — selection state
+//! Centralizes multiselect / range anchor state per datatable uid.
+use std::collections::HashMap;
+use std::cell::RefCell;
+
+#[derive(Default)]
+pub struct SelectionState {
+    pub anchor: Option<usize>,
+    pub last:   Option<usize>,
+}
+
+thread_local! {
+    static STATES: RefCell<HashMap<String, SelectionState>> = RefCell::new(HashMap::new());
+}
+
+pub fn with<F, R>(uid: &str, f: F) -> R
+where
+    F: FnOnce(&mut SelectionState) -> R,
+{
+    STATES.with(|s| f(s.borrow_mut().entry(uid.to_string()).or_default()))
+}
+
+pub fn clear(uid: &str) {
+    STATES.with(|s| s.borrow_mut().remove(uid));
+}

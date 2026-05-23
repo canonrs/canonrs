@@ -1,7 +1,6 @@
 //! Chart Interaction — bind only, delegates to chart_engine
 
 use wasm_bindgen::JsCast;
-use wasm_bindgen::{JsValue, closure::Closure};
 use web_sys::{Element, HtmlCanvasElement, HtmlElement};
 use canonrs_interactions_core::dom::lifecycle;
 use canonrs_interactions_core::dom::state;

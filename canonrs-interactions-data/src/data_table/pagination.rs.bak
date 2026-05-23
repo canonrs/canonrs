@@ -2,33 +2,30 @@
 //! Core: dom/{state, attrs}
 use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
+use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use crate::runtime::context;
-use crate::runtime::listeners;
 
 pub fn init(table: &HtmlElement) {
     if !lifecycle::init_guard(&table.clone().into()) { return; }
-    let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let prev = table.query_selector("[data-rs-action='prev']").ok().flatten();
     let next = table.query_selector("[data-rs-action='next']").ok().flatten();
 
     if let Some(btn) = prev {
-        let uid2 = uid.clone();
-        listeners::listen(&uid2, &btn, "click", move |e: web_sys::Event| {
-            use wasm_bindgen::JsCast;
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
             if let Ok(tbl) = rc.dyn_into::<HtmlElement>() {
                 let p = canonrs_interactions_core::dom::attrs::get_usize(&tbl, "data-rs-current-page", 1);
                 if p > 1 { set_page(&tbl, p - 1); update_pagination_ui(&tbl); }
             }
-        });
+        }));
+        let _ = btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
     }
 
     if let Some(btn) = next {
-        let uid3 = uid.clone();
-        listeners::listen(&uid3, &btn, "click", move |e: web_sys::Event| {
-            use wasm_bindgen::JsCast;
+        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
             if let Ok(tbl) = rc.dyn_into::<HtmlElement>() {
@@ -36,7 +33,9 @@ pub fn init(table: &HtmlElement) {
                 let tp = canonrs_interactions_core::dom::attrs::get_usize(&tbl, "data-rs-total-pages", 1);
                 if p < tp { set_page(&tbl, p + 1); update_pagination_ui(&tbl); }
             }
-        });
+        }));
+        let _ = btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
+        cb.forget();
     }
 
     // init: esconde rows além da página 1
