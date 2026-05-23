@@ -17,3 +17,5 @@ canonrs-server/styles/canonrs.bundle.css
 canonrs-client/assets/wasm/
 canonrs-interactions/dist/
 canonrs-interactions-*/dist/
+# gerado dinamicamente pelo testkit
+tools/testkit/canonrs/tests/playwright_tests.cjs
