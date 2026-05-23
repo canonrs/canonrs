@@ -3,11 +3,13 @@ route: /showcase/chart
 interaction: data
 min_listeners: 1
 
+# Semantic guarantees — what this component promises
 guarantees:
-  - no_replay
-  - listeners_owned
-  - no_orphans
+  - no_replay          # init never repeats after bootstrap
+  - listeners_owned    # all listeners under uid namespace
+  - no_orphans         # no detached element listeners
 
+# Composable behavior assertions
 behavior:
   canvas_pixels:
     selector: canvas[data-rs-chart-canvas]
@@ -20,3 +22,9 @@ behavior:
   legend_exists:
     selector: "[data-rs-chart-legend]"
     assert: exists
+
+  canvas_sized:
+    selector: canvas[data-rs-chart-canvas]
+    assert: attr_gt
+    attr: width
+    value: 300

@@ -15,3 +15,11 @@ behavior:
     assert: state_includes
     state: open
     target: "[data-rs-dialog]"
+
+  closes_on_escape:
+    action: key
+    key: Escape
+    assert: state_excludes
+    state: open
+    target: "[data-rs-dialog]"
+    depends: opens_on_trigger

@@ -12,3 +12,8 @@ behavior:
   renders_items:
     selector: "[data-rs-virtual-list-item]"
     assert: exists
+
+  items_count_positive:
+    selector: "[data-rs-virtual-list-item]"
+    assert: count_gt
+    value: 0
