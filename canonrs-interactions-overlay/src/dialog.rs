@@ -22,10 +22,13 @@ const CHILDREN_SEL: &str = "[data-rs-dialog-overlay], [data-rs-dialog-content]";
 fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
     if root.has_attribute("data-rs-just-closed") { return; }
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+    web_sys::console::log_1(&format!("[canon][dialog] open() uid={}", uid).into());
 
     prev_focus.set(focus::active_element());
 
-    if let Some(p) = portal::portal_of(root, PORTAL_ATTR, &uid) {
+    let portal = portal::portal_of(root, PORTAL_ATTR, &uid);
+    web_sys::console::log_1(&format!("[canon][dialog] portal={}", portal.is_some()).into());
+    if let Some(p) = portal {
         portal::propagate_owner(&p, &uid, CHILDREN_SEL);
         portal::move_to_body(&p, &uid);
     }
@@ -146,10 +149,13 @@ pub fn dialog_close(uid: &str) {
 
 pub fn init(root: Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+    web_sys::console::log_1(&format!("[canon][dialog] init uid={}", uid).into());
 
     if !lifecycle::init_guard(&root) {
+        web_sys::console::log_1(&format!("[canon][dialog] SKIP already initialized uid={}", uid).into());
         return;
     }
+    web_sys::console::log_1(&format!("[canon][dialog] OK initializing uid={}", uid).into());
 
     // garante 1 listener global para todos os overlays
     stack::ensure_global_listeners();
@@ -184,16 +190,24 @@ pub fn init(root: Element) {
         let uid2    = uid.clone();
         let pf      = prev_focus.clone();
         stack::register_click(&uid, move |target| {
+            web_sys::console::log_1(&format!("[canon][dialog] click uid={} target={}", uid2, target.tag_name()).into());
             if !target.is_connected() { return; }
             // busca root atual pelo uid — resiste a re-render
-            let Some(root_live) = query::root_of("data-rs-dialog", &uid2) else { return };
+            let Some(root_live) = query::root_of("data-rs-dialog", &uid2) else { 
+                web_sys::console::log_1(&format!("[canon][dialog] root_of NONE uid={}", uid2).into());
+                return; 
+            };
             if let Some(trigger) = target.closest(&format!("[{}]", TRIGGER_ATTR)).ok().flatten() {
                 let in_root     = root_live.contains(Some(&trigger as &web_sys::Element));
                 let targets_uid = trigger.get_attribute("data-rs-target").as_deref() == Some(&uid2);
+                web_sys::console::log_1(&format!("[canon][dialog] trigger in_root={} targets_uid={} data-rs-target={:?}", in_root, targets_uid, trigger.get_attribute("data-rs-target")).into());
                 if in_root || targets_uid {
+                    web_sys::console::log_1(&format!("[canon][dialog] OPENING uid={} just_closed={}", uid2, root_live.has_attribute("data-rs-just-closed")).into());
                     if root_live.has_attribute("data-rs-just-closed") { return; }
                     open(&root_live, &pf);
                     return;
+                } else {
+                    web_sys::console::log_1(&format!("[canon][dialog] SKIP in_root={} targets_uid={}", in_root, targets_uid).into());
                 }
 }
             if !state::is_open(&root_live) { return; }

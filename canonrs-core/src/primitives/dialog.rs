@@ -50,11 +50,9 @@ pub fn DialogTriggerPrimitive(
 #[component]
 pub fn DialogPortalPrimitive(children: ChildrenFn) -> impl IntoView {
     view! {
-        <leptos::portal::Portal>
-            <div data-rs-dialog-portal="">
-                {children()}
-            </div>
-        </leptos::portal::Portal>
+        <div data-rs-dialog-portal="">
+            {children()}
+        </div>
     }
 }
 

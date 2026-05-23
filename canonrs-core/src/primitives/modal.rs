@@ -18,7 +18,7 @@ pub fn ModalPrimitive(
             data-rs-modal=""
             data-rs-interaction="overlay"
             data-rs-uid=uid_mo
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         >
             {children()}
@@ -39,7 +39,7 @@ pub fn ModalTriggerPrimitive(
             data-rs-modal-trigger=""
             data-rs-button=""
             data-rs-variant="primary"
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             aria-haspopup="dialog"
             aria-expanded=state.aria_expanded()
             aria-controls=aria_controls
@@ -58,7 +58,7 @@ pub fn ModalOverlayPrimitive(
     view! {
         <div
             data-rs-modal-overlay=""
-            data-rs-visibility=state.as_str()
+            data-rs-state=state.as_str()
             class=class
         />
     }

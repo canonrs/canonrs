@@ -11,6 +11,13 @@ pub fn should_init(el: &Element) -> bool {
         INITED.with(|set| {
             let mut s = set.borrow_mut();
             if s.contains(&uid) {
+                // se o elemento nao tem data-rs-initialized, foi re-renderizado — reinit
+                let needs_reinit = el.get_attribute("data-rs-initialized").as_deref() != Some("true");
+                if needs_reinit {
+                    s.remove(&uid);
+                    s.insert(uid);
+                    return true;
+                }
                 false
             } else {
                 s.insert(uid);

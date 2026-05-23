@@ -2,53 +2,26 @@
 // Pipeline determinístico: DOMContentLoaded → stabilize → init
 
 window.__canonLoader = {
-  loaded: new Set(),
-  mods: {},
   initializedUids: new Set(),
+  mod: null,
 
-  async loadGroup(group) {
-    if (this.loaded.has(group)) {
-      this.initGroup(group);
-      return;
-    }
-    try {
-      const mod = await import(`/wasm/${group}/canonrs_interactions_${group}.js`);
-      await mod.default();
-      this.loaded.add(group);
-      this.mods[group] = mod;
-      this.initGroup(group);
-    } catch (e) {
-      console.warn('[canon] failed:', group, e);
-      setTimeout(() => this.loadGroup(group), 100);
-    }
+  async load() {
+    if (this.mod) return this.mod;
+    const mod = await import('/wasm/canonrs_interactions.js');
+    await mod.default();
+    this.mod = mod;
+    return mod;
   },
 
-  initGroup(group) {
-    const mod = this.mods[group];
-    if (!mod) return;
-    const initFn = mod[`init_${group}`];
-    if (typeof initFn !== 'function') return;
-    document.querySelectorAll(`[data-rs-interaction="${group}"]`).forEach(el => {
-      if (this._isInitialized(el)) return;
-      this._markInitialized(el);
-      try { initFn(el); } catch(e) { console.warn('[canon] init failed:', group, el, e); }
-    });
-  },
-
-  initElement(el) {
+  async initElement(el) {
     if (!(el instanceof Element)) return;
     if (this._isInitialized(el)) return;
     const group = el.getAttribute('data-rs-interaction');
     if (!group) return;
-    const mod = this.mods[group];
-    if (!mod) {
-      this.loadGroup(group).then(() => this.initElement(el));
-      return;
-    }
-    const initFn = mod[`init_${group}`];
-    if (typeof initFn !== 'function') return;
+    const mod = await this.load();
+    if (typeof mod.init_subtree !== 'function') return;
     this._markInitialized(el);
-    try { initFn(el); } catch(e) { console.warn('[canon] init failed:', group, el, e); }
+    try { mod.init_subtree(el); } catch(e) { console.warn('[canon] init failed:', group, el, e); }
   },
 
   _isInitialized(el) {
@@ -59,11 +32,8 @@ window.__canonLoader = {
 
   _markInitialized(el) {
     const uid = el.getAttribute('data-rs-uid');
-    if (uid) {
-      this.initializedUids.add(uid);
-    } else {
-      el.setAttribute('data-rs-initialized', 'true');
-    }
+    if (uid) { this.initializedUids.add(uid); }
+    else { el.setAttribute('data-rs-initialized', 'true'); }
   }
 };
 
@@ -91,38 +61,18 @@ const bootstrap = {
   },
 
   async loadAll() {
-    // 1. init primeiro — hidrata DOM e registra elementos
     try {
-      const mod = await import('/wasm/init/canonrs_interactions_init.js');
-      await mod.default();
-      window.__canonLoader.loaded.add('init');
-      window.__canonLoader.mods['init'] = mod;
+      const mod = await window.__canonLoader.load();
+      // init_all — scan completo do DOM
       if (typeof mod.init_all === 'function') mod.init_all();
-    } catch (e) {
-      console.warn('[canon] failed: init', e);
-      setTimeout(() => bootstrap.loadAll(), 100);
-      return;
+      // inicializa todos os elementos com data-rs-interaction
+      document.querySelectorAll('[data-rs-interaction]').forEach(el => {
+        window.__canonLoader.initElement(el);
+      });
+    } catch(e) {
+      console.warn('[canon] bootstrap failed:', e);
+      setTimeout(() => bootstrap.run(), 200);
     }
-
-    // 2. selection — scan completo após init
-    try {
-      const mod = await import('/wasm/selection/canonrs_interactions_selection.js');
-      await mod.default();
-      window.__canonLoader.loaded.add('selection');
-      window.__canonLoader.mods['selection'] = mod;
-      if (typeof mod.init_all === 'function') mod.init_all();
-    } catch (e) {
-      console.warn('[canon] failed: selection', e);
-    }
-
-    // 3. restantes em paralelo após DOM estar pronto
-    await Promise.allSettled([
-      window.__canonLoader.loadGroup('overlay'),
-      window.__canonLoader.loadGroup('data'),
-      window.__canonLoader.loadGroup('gesture'),
-      window.__canonLoader.loadGroup('nav'),
-      window.__canonLoader.loadGroup('content'),
-    ]);
   }
 };
 
@@ -140,7 +90,6 @@ const startObserver = () => {
           window.__canonLoader.initElement(el);
         });
       }
-      // tab activation
       if (m.type === 'attributes' && m.attributeName === 'hidden') {
         const el = m.target;
         if (el instanceof Element && !el.hasAttribute('hidden')) {
@@ -171,4 +120,3 @@ if (document.body) {
 } else {
   document.addEventListener('DOMContentLoaded', startObserver);
 }
-
