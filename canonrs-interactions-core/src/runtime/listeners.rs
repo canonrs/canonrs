@@ -173,7 +173,11 @@ pub fn gc() {
         for ns_map in reg.values_mut() {
             ns_map.retain(|_, entry| {
                 if let Some(el) = entry.target.dyn_ref::<Element>() {
-                    el.is_connected()
+                    if !el.is_connected() {
+                        entry.remove(); // remove do browser antes de dropar
+                        return false;
+                    }
+                    true
                 } else {
                     true // document/window — nunca remover
                 }
