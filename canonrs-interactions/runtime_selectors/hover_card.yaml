@@ -1,0 +1,6 @@
+# runtime_selectors/hover_card.yaml — auto-generated
+component: hover_card
+selectors:
+  local:
+    - [data-rs-hover-card-content]
+    - [data-rs-hover-card-trigger]

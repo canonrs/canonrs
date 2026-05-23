@@ -1,0 +1,5 @@
+# runtime_selectors/copy_button.yaml — auto-generated
+component: copy_button
+selectors:
+  cross_component:
+    - [data-rs-copy-button]

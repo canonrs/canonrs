@@ -1,0 +1,8 @@
+# runtime_selectors/carousel.yaml — auto-generated
+component: carousel
+selectors:
+  local:
+    - [data-rs-carousel-dot]
+    - [data-rs-carousel-item]
+  optional:
+    - [data-rs-carousel-wrapper]

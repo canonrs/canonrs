@@ -1,0 +1,5 @@
+# runtime_selectors/table_of_contents.yaml — auto-generated
+component: table_of_contents
+selectors:
+  cross_component:
+    - [data-rs-scroll-viewport]

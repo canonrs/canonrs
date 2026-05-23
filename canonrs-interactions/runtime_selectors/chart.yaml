@@ -1,0 +1,13 @@
+# runtime_selectors/chart.yaml — auto-generated
+component: chart
+selectors:
+  local:
+    - [data-rs-chart-canvas]
+    - [data-rs-chart-crosshair]
+    - [data-rs-chart-legend]
+    - [data-rs-chart-tooltip]
+    - [data-rs-chart]
+  cross_component:
+    - [data-rs-datatable-row]
+  runtime_generated:
+    - [data-rs-chart-legend-item]

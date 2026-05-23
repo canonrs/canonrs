@@ -1,0 +1,5 @@
+# runtime_selectors/scroll_area.yaml — auto-generated
+component: scroll_area
+selectors:
+  cross_component:
+    - [data-rs-scroll-viewport]

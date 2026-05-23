@@ -1,0 +1,6 @@
+# runtime_selectors/color_picker.yaml — auto-generated
+component: color_picker
+selectors:
+  local:
+    - [data-rs-color-picker]
+    - [data-rs-color-swatch]

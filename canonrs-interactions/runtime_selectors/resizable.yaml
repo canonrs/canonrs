@@ -1,0 +1,6 @@
+# runtime_selectors/resizable.yaml — auto-generated
+component: resizable
+selectors:
+  local:
+    - [data-rs-resizable-handle]
+    - [data-rs-resizable-panel]

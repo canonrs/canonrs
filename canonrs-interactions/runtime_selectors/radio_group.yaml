@@ -1,0 +1,7 @@
+# runtime_selectors/radio_group.yaml — auto-generated
+component: radio_group
+selectors:
+  local:
+    - [data-rs-radio-group]
+    - [data-rs-radio-input]
+    - [data-rs-radio]

@@ -1,0 +1,5 @@
+# runtime_selectors/virtual_list.yaml — auto-generated
+component: virtual_list
+selectors:
+  local:
+    - [data-rs-virtual-list]

@@ -1,0 +1,12 @@
+# runtime_selectors/pagination.yaml — auto-generated
+component: pagination
+selectors:
+  local:
+    - [data-rs-action='next']  # UNVERIFIED
+    - [data-rs-action='prev']  # UNVERIFIED
+    - [data-rs-pagination-info]  # UNVERIFIED
+    - [data-rs-pagination-link]
+    - [data-rs-pagination-next]
+    - [data-rs-pagination-previous]
+  cross_component:
+    - [data-rs-datatable-row]

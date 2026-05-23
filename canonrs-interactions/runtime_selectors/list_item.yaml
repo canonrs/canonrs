@@ -1,0 +1,5 @@
+# runtime_selectors/list_item.yaml — auto-generated
+component: list_item
+selectors:
+  local:
+    - [data-rs-list]

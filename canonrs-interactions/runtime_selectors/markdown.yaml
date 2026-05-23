@@ -1,0 +1,13 @@
+# runtime_selectors/markdown.yaml — auto-generated
+component: markdown
+selectors:
+  local:
+    - [data-rs-markdown-content]
+  cross_component:
+    - [data-rs-code-pre]
+    - [data-rs-copy-button]
+    - [data-rs-copy-label]
+    - [data-rs-scroll-viewport]
+    - [data-rs-toc-item]
+    - [data-rs-toc-link]
+    - [data-rs-toc]

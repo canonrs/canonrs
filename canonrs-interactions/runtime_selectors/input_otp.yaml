@@ -1,0 +1,5 @@
+# runtime_selectors/input_otp.yaml — auto-generated
+component: input_otp
+selectors:
+  local:
+    - [data-rs-slot-inner]  # UNVERIFIED

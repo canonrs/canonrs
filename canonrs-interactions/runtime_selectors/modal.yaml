@@ -1,0 +1,5 @@
+# runtime_selectors/modal.yaml — auto-generated
+component: modal
+selectors:
+  local:
+    - [data-rs-modal-portal]

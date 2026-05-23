@@ -1,0 +1,6 @@
+# runtime_selectors/sheet.yaml — auto-generated
+component: sheet
+selectors:
+  local:
+    - [data-rs-sheet-content]
+    - [data-rs-sheet-portal]

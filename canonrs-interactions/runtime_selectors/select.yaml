@@ -1,0 +1,8 @@
+# runtime_selectors/select.yaml — auto-generated
+component: select
+selectors:
+  local:
+    - [data-rs-select-item]
+    - [data-rs-select-trigger]
+    - [data-rs-select-value]
+    - [data-rs-select]

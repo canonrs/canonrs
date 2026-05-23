@@ -1,0 +1,6 @@
+# runtime_selectors/tree.yaml — auto-generated
+component: tree
+selectors:
+  local:
+    - [data-rs-tree-item]
+    - [data-rs-tree]

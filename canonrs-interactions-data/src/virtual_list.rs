@@ -78,7 +78,8 @@ pub fn init(root: Element) {
 
     render();
 
-    listeners::listen_uid(&viewport_el.clone().into(), "scroll", move |_: web_sys::Event| {
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+    listeners::listen(&uid, &viewport_el.clone().into(), "scroll", move |_: web_sys::Event| {
         render();
     });
 }

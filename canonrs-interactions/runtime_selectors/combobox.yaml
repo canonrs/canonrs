@@ -1,0 +1,7 @@
+# runtime_selectors/combobox.yaml — auto-generated
+component: combobox
+selectors:
+  local:
+    - [data-rs-combobox-input]
+    - [data-rs-combobox-item]
+    - [data-rs-combobox]

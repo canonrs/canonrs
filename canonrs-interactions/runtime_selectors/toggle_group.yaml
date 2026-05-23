@@ -1,0 +1,6 @@
+# runtime_selectors/toggle_group.yaml — auto-generated
+component: toggle_group
+selectors:
+  local:
+    - [data-rs-toggle-group]
+    - [data-rs-toggle]  # UNVERIFIED

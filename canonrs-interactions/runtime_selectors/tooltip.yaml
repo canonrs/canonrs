@@ -1,0 +1,6 @@
+# runtime_selectors/tooltip.yaml — auto-generated
+component: tooltip
+selectors:
+  local:
+    - [data-rs-tooltip-content]
+    - [data-rs-tooltip]

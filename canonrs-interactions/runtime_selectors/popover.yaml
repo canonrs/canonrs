@@ -1,0 +1,5 @@
+# runtime_selectors/popover.yaml — auto-generated
+component: popover
+selectors:
+  local:
+    - [data-rs-popover]

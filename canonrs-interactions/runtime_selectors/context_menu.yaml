@@ -1,0 +1,5 @@
+# runtime_selectors/context_menu.yaml — auto-generated
+component: context_menu
+selectors:
+  local:
+    - [data-rs-context-menu-content]

@@ -1,0 +1,5 @@
+# runtime_selectors/drawer.yaml — auto-generated
+component: drawer
+selectors:
+  local:
+    - [data-rs-drawer-portal]
