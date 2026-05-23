@@ -30,3 +30,9 @@ pub fn init_guard(el: &Element) -> bool {
     mark_initialized(el);
     true
 }
+
+/// Remove data-rs-initialized — permite reinit no próximo scan
+pub fn reset(el: &Element) {
+    let _ = el.remove_attribute("data-rs-initialized");
+    let _ = el.remove_attribute("data-rs-reinit");
+}
