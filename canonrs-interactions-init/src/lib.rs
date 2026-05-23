@@ -38,6 +38,18 @@ pub fn scan_all() {
     runtime::registry::scan_all();
 }
 
+
+use canonrs_interactions_core::runtime::bootstrap;
+
+/// Registra o grupo init no bootstrap kernel.
+pub fn register() {
+    bootstrap::register("init", init_init);
+}
+
+/// Init subtree — replay-safe, delega para bootstrap kernel.
+pub fn init_subtree(root: &web_sys::Element) {
+    bootstrap::init_subtree(root);
+}
 pub fn init_init(el: web_sys::Element) {
     runtime::registry::dispatch(&el);
 }

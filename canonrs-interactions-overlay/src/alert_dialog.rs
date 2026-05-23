@@ -1,23 +1,23 @@
 //! AlertDialog Interaction Engine
 //! Core: dom/{lifecycle, state, query}
 
-use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
 use web_sys::Element;
 use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::runtime::listeners;
 
 fn open(root: &Element)  { state::open(root);  state::set_scroll_lock(true); }
 fn close(root: &Element) { state::close(root); state::set_scroll_lock(false); }
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
-        let Some(current) = query::safe_current(&e) else { return };
-        let Some(target)  = query::safe_target(&e)  else { return };
+    listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
+        let Some(current) = e.current_target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(target)  = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
         if query::closest(&target, "[data-rs-alert-dialog-trigger]") { open(&current); return; }
         if query::closest(&target, "[data-rs-alert-dialog-cancel]")  { close(&current); return; }
         if query::closest(&target, "[data-rs-alert-dialog-confirm]") { close(&current); }
     });
-    let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-    cb.forget();
 }

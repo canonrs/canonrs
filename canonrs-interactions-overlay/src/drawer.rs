@@ -1,11 +1,10 @@
 //! Drawer Interaction Engine
-//! Core: dom/{lifecycle, state, query}
-//! Overlay: focus
+//! Core: dom/{lifecycle, state, query} + Overlay: focus
 
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::runtime::listeners;
 use crate::runtime::focus;
 
 fn move_to_body(root: &Element) {
@@ -33,95 +32,78 @@ fn sync_state(root: &Element, s: &str) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
     let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
     let sel = format!(
-        "[data-rs-drawer-portal][data-rs-owner='{uid}'] [data-rs-drawer-overlay], [data-rs-drawer-portal][data-rs-owner='{uid}'] [data-rs-drawer-content], [data-rs-drawer-overlay][data-rs-owner='{uid}'], [data-rs-drawer-content][data-rs-owner='{uid}']"
+        "[data-rs-drawer-portal][data-rs-owner='{uid}'] [data-rs-drawer-overlay],         [data-rs-drawer-portal][data-rs-owner='{uid}'] [data-rs-drawer-content],         [data-rs-drawer-overlay][data-rs-owner='{uid}'],         [data-rs-drawer-content][data-rs-owner='{uid}']"
     );
     if let Ok(nodes) = doc.query_selector_all(&sel) {
         for i in 0..nodes.length() {
             if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
-                if s == "open" { state::add(&n, canonrs_interactions_core::dom::state::State::Open.as_str()); state::remove(&n, canonrs_interactions_core::dom::state::State::Closed.as_str()); }
-                else           { state::remove(&n, canonrs_interactions_core::dom::state::State::Open.as_str()); state::add(&n, canonrs_interactions_core::dom::state::State::Closed.as_str()); }
+                if s == "open" { state::open(&n); } else { state::close(&n); }
             }
         }
     }
 }
 
-fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<web_sys::Element>>>) {
+fn open(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
     prev_focus.set(focus::active_element());
     state::open(root);
     sync_state(root, "open");
     state::set_scroll_lock(true);
-    // foca primeiro elemento focavel no content
-    let content_sel = if root.has_attribute("data-rs-sheet") { "[data-rs-sheet-content]" } else { "[data-rs-drawer-content]" };
+    let content_sel = "[data-rs-drawer-content]";
     if let Ok(Some(content)) = root.query_selector(content_sel) {
         focus::focus_first(&content);
     }
 }
-fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<web_sys::Element>>>) {
+
+fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element>>>) {
     state::close(root);
     sync_state(root, "closed");
     state::set_scroll_lock(false);
-    // restaura foco para o trigger
     if let Some(el) = prev_focus.take() {
-        if let Ok(html) = el.dyn_into::<web_sys::HtmlElement>() {
-            let _ = html.focus();
-        }
+        if let Ok(html) = el.dyn_into::<web_sys::HtmlElement>() { let _ = html.focus(); }
     }
 }
 
 pub fn init(root: Element) {
     if !lifecycle::init_guard(&root) { return; }
-    let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<web_sys::Element>));
+    let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
     move_to_body(&root);
-
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
     {
         let uid2 = uid.clone();
         let pf = prev_focus.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+        listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if query::closest(&target, "[data-rs-drawer-trigger]") {
-                let Some(root_live) = web_sys::window().and_then(|w| w.document())
-                    .and_then(|d| d.query_selector(&format!("[data-rs-drawer][data-rs-uid='{}']", uid2)).ok().flatten())
-                else { return };
+                let Some(root_live) = query::root_of("data-rs-drawer", &uid2) else { return };
                 open(&root_live, &pf);
             }
         });
-        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
     }
 
     {
         let uid2 = uid.clone();
         let pf = prev_focus.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+        listeners::listen_document(&uid, "click", move |e: web_sys::Event| {
             let Some(root_live) = query::root_of("data-rs-drawer", &uid2) else { return };
             if !state::is_open(&root_live) { return; }
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let owner = target.get_attribute("data-rs-owner")
-                .or_else(|| target.closest("[data-rs-owner]").ok().flatten()
-                    .and_then(|el| el.get_attribute("data-rs-owner")));
+                .or_else(|| target.closest("[data-rs-owner]").ok().flatten().and_then(|el| el.get_attribute("data-rs-owner")));
             if owner.as_deref() != Some(&uid2) { return; }
             if query::closest(&target, "[data-rs-drawer-overlay]") { close(&root_live, &pf); return; }
             if query::closest(&target, "[data-rs-drawer-close]")   { close(&root_live, &pf); }
         });
-        if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
-            let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        }
-        cb.forget();
     }
 
     {
         let uid2 = uid.clone();
         let pf = prev_focus.clone();
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
-            if e.key() != "Escape" { return; }
+        listeners::listen_window(&uid, "keydown", move |e: web_sys::Event| {
+            let Some(ke) = e.dyn_into::<web_sys::KeyboardEvent>().ok() else { return };
+            if ke.key() != "Escape" { return; }
             let Some(root_live) = query::root_of("data-rs-drawer", &uid2) else { return };
             if state::is_open(&root_live) { close(&root_live, &pf); }
         });
-        if let Some(win) = web_sys::window() {
-            let _ = win.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
-        }
-        cb.forget();
     }
 }
