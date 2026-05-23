@@ -1,3 +1,0 @@
-//! Data Runtime — cleanup
-//! Thin wrapper over canonrs_interactions_core::runtime::cleanup
-pub use canonrs_interactions_core::runtime::cleanup::cleanup_uid as run;
