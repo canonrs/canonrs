@@ -1,0 +1,14 @@
+component: virtual_list
+route: /showcase/virtual-list
+interaction: data
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  renders_items:
+    selector: "[data-rs-virtual-list-item]"
+    assert: exists

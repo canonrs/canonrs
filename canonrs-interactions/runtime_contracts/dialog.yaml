@@ -1,0 +1,17 @@
+component: dialog
+route: /showcase/dialog
+interaction: overlay
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  opens_on_trigger:
+    action: click
+    selector: "[data-rs-dialog-trigger]"
+    assert: state_includes
+    state: open
+    target: "[data-rs-dialog]"

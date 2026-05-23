@@ -1,0 +1,22 @@
+component: chart
+route: /showcase/chart
+interaction: data
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  canvas_pixels:
+    selector: canvas[data-rs-chart-canvas]
+    assert: has_pixels
+
+  tooltip_exists:
+    selector: "[data-rs-chart-tooltip]"
+    assert: exists
+
+  legend_exists:
+    selector: "[data-rs-chart-legend]"
+    assert: exists

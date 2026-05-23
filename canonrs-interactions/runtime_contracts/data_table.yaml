@@ -1,0 +1,31 @@
+component: data_table
+route: /showcase/data-table
+interaction: data
+min_listeners: 10
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  filter_reduces_rows:
+    action: fill
+    selector: "[data-rs-datatable-filter]"
+    value: zzzznotfound
+    assert: rows_hidden
+    rows_selector: "[data-rs-datatable-row]:not([data-rs-filtered])"
+
+  sort_changes_state:
+    action: dispatch_click
+    selector: "[data-rs-datatable-head-cell][data-rs-sort-key]"
+    assert: attr_set
+    attr: data-rs-sort-asc
+    target: "[data-rs-datatable]"
+
+  selection_changes_state:
+    action: dispatch_click
+    selector: "[data-rs-datatable][data-rs-selectable=\"true\"] [data-rs-datatable-body] [data-rs-datatable-row]"
+    assert: attr_nonempty
+    attr: data-rs-selected-ids
+    target: "[data-rs-datatable][data-rs-selectable=\"true\"]"
