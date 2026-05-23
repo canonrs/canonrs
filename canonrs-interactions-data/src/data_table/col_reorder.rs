@@ -1,13 +1,11 @@
 //! ColReorder — drag-to-reorder column behavior
 //! Core: dom/{state, attrs}
-use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::JsCast;
 use crate::runtime::listeners;
 use crate::runtime::drag;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let Ok(head) = table.query_selector("[data-rs-datatable-head-row]") else { return };
     let Some(head_row) = head else { return };

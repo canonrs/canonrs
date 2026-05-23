@@ -1,7 +1,6 @@
 //! Row actions, bulk actions, context menu, bulk bar
 //! @domain: action-dispatch + command-orchestration
 
-use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::JsCast;
 use crate::runtime::context;
@@ -11,7 +10,6 @@ use canonrs_interactions_core::dom::state;
 use super::selection::{sel_ids, set_row_selected, sync_select_all};
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     bind_bulk_bar(table, &uid);
     bind_context_menu(table, &uid);

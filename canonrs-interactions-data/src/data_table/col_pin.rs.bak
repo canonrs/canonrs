@@ -2,14 +2,16 @@
 //! Core: dom/{state, attrs}
 use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
+use crate::runtime::listeners;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
+    let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let root: web_sys::Element = table.clone().into();
     let table_c = table.clone();
-    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+    listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
+        use wasm_bindgen::JsCast;
+        let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
         let btn = if t.has_attribute("data-rs-datatable-pin-btn") { Some(t) }
             else { t.closest("[data-rs-datatable-pin-btn]").ok().flatten() };
@@ -32,11 +34,10 @@ pub fn init(table: &HtmlElement) {
         init.set_bubbles(true);
         init.set_detail(&wasm_bindgen::JsValue::from(detail));
         if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-col-pin", &init) {
-            let _ = root.dispatch_event(&event);
+            let root2: web_sys::Element = table_c.clone().into();
+            let _ = root2.dispatch_event(&event);
         }
-    }));
-    let _ = table.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-    cb.forget();
+    });
 }
 
 fn apply_pin(table: &HtmlElement, col_index: &str, state: &str) {

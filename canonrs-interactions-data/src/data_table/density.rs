@@ -1,13 +1,11 @@
 //! Density — table density toggle behavior
 //! Core: dom/{state}
-use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::JsCast;
 use crate::runtime::context;
 use crate::runtime::listeners;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     sync_density_state(table);
     let btns = table.query_selector_all("[data-rs-density-btn]").ok();

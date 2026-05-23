@@ -1,13 +1,11 @@
 //! Pagination — table pagination behavior
 //! Core: dom/{state, attrs}
-use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::JsCast;
 use crate::runtime::context;
 use crate::runtime::listeners;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let prev = table.query_selector("[data-rs-action='prev']").ok().flatten();
     let next = table.query_selector("[data-rs-action='next']").ok().flatten();

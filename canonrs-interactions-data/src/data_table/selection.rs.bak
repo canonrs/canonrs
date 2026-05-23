@@ -2,20 +2,21 @@
 //! Core: dom/{state}
 use canonrs_interactions_core::dom::lifecycle;
 use web_sys::{HtmlElement};
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use crate::runtime::context;
+use crate::runtime::listeners;
 use canonrs_interactions_core::dom::state;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
     if table.get_attribute("data-rs-selectable").as_deref() != Some("true") { return; }
+    let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let root: web_sys::Element = table.clone().into();
 
     // previne seleção de texto com shift+click
     {
-        let root_c = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        listeners::listen(&uid, &root, "mousedown", move |e: web_sys::Event| {
+            use wasm_bindgen::JsCast;
+            let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
             if e.shift_key() {
                 if let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) {
                     if t.closest("[data-rs-datatable-row]").ok().flatten().is_some() {
@@ -23,14 +24,15 @@ pub fn init(table: &HtmlElement) {
                     }
                 }
             }
-        }));
-        let _ = root_c.add_event_listener_with_callback("mousedown", cb.as_ref().unchecked_ref());
-        cb.forget();
+        });
     }
 
     // select-all
     if let Some(select_all) = root.query_selector("[data-rs-datatable-select-all]").ok().flatten() {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let uid2 = uid.clone();
+        listeners::listen(&uid2, &select_all, "click", move |e: web_sys::Event| {
+            use wasm_bindgen::JsCast;
+            let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) else { return };
             let Some(rc) = context::find_root(&t.clone().into(), "[data-rs-datatable]") else { return };
             let rows = get_visible_rows(&rc);
@@ -44,9 +46,7 @@ pub fn init(table: &HtmlElement) {
             render_selection(&rc, &rows);
             sync_select_all(&rc);
             emit_sel_change(&rc, "select-all", "mouse");
-        }));
-        let _ = select_all.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
+        });
     }
 
     let tbody = match root.query_selector("[data-rs-datatable-body]").ok().flatten() {
@@ -55,7 +55,10 @@ pub fn init(table: &HtmlElement) {
 
     // keyboard
     {
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+        let uid3 = uid.clone();
+        listeners::listen(&uid3, &tbody, "keydown", move |e: web_sys::Event| {
+            use wasm_bindgen::JsCast;
+            let e = match e.dyn_into::<web_sys::KeyboardEvent>() { Ok(e) => e, Err(_) => return };
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             let Some(rc) = context::find_root(&t, "[data-rs-datatable]") else { return };
             let rows = get_visible_rows(&rc);
@@ -110,14 +113,15 @@ pub fn init(table: &HtmlElement) {
                 }
                 _ => {}
             }
-        }));
-        let _ = tbody.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
-        cb.forget();
+        });
     }
 
     // click
     {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        let uid4 = uid.clone();
+        listeners::listen(&uid4, &tbody, "click", move |e: web_sys::Event| {
+            use wasm_bindgen::JsCast;
+            let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             if t.has_attribute("data-rs-datatable-select-all") { return; }
             if t.closest("[data-rs-datatable-head-cell]").ok().flatten().is_some() { return; }
@@ -151,9 +155,7 @@ pub fn init(table: &HtmlElement) {
             render_selection(&rc, &rows);
             sync_select_all(&rc);
             emit_sel_change(&rc, "click", "mouse");
-        }));
-        let _ = tbody.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
+        });
     }
 
     // init bulk bar

@@ -2,19 +2,22 @@
 //! Core: dom/{state}
 use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use crate::runtime::context;
+use crate::runtime::listeners;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
+    let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     sync_density_state(table);
     let btns = table.query_selector_all("[data-rs-density-btn]").ok();
     if let Some(list) = btns {
         for i in 0..list.length() {
             if let Some(node) = list.item(i) {
                 if let Ok(el) = node.dyn_into::<web_sys::Element>() {
-                    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+                    let uid2 = uid.clone();
+                    listeners::listen(&uid2, &el, "click", move |e: web_sys::Event| {
+                        use wasm_bindgen::JsCast;
+                        let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
                         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
                         let Some(btn) = t.closest("[data-rs-density-btn]").ok().flatten() else { return };
                         let Some(rc) = context::find_root(&btn, "[data-rs-datatable]") else { return };
@@ -28,9 +31,7 @@ pub fn init(table: &HtmlElement) {
                                 }
                             }
                         }
-                    }));
-                    let _ = el.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-                    cb.forget();
+                    });
                 }
             }
         }

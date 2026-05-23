@@ -3,23 +3,28 @@
 
 use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use crate::runtime::context;
+use crate::runtime::listeners;
+use crate::runtime::timers;
 use canonrs_interactions_core::dom::state;
 use super::selection::{sel_ids, set_row_selected, sync_select_all};
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
-    bind_bulk_bar(table);
-    bind_context_menu(table);
-    bind_row_actions(table);
-    bind_bulk_actions(table);
+    let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
+    bind_bulk_bar(table, &uid);
+    bind_context_menu(table, &uid);
+    bind_row_actions(table, &uid);
+    bind_bulk_actions(table, &uid);
 }
 
-fn bind_bulk_actions(table: &HtmlElement) {
+fn bind_bulk_actions(table: &HtmlElement, uid: &str) {
     let root: web_sys::Element = table.clone().into();
-    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+    let ns = uid.to_string();
+    listeners::listen(&ns, &root, "click", move |e: web_sys::Event| {
+        use wasm_bindgen::JsCast;
+        let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
+        {let e = e;
         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
         let action_el = if t.has_attribute("data-rs-datatable-bulk-action") { Some(t.clone()) }
             else { t.closest("[data-rs-datatable-bulk-action]").ok().flatten() };
@@ -41,14 +46,16 @@ fn bind_bulk_actions(table: &HtmlElement) {
         if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-bulk-action", &event_init) {
             let _ = rc.dispatch_event(&event);
         }
-    }));
-    let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-    cb.forget();
+        }
+    });
 }
 
-fn bind_row_actions(_table: &HtmlElement) {
-    let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
-    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+fn bind_row_actions(_table: &HtmlElement, uid: &str) {
+    let ns = uid.to_string();
+    listeners::listen_document_capture(&ns, "click", move |e: web_sys::Event| {
+        use wasm_bindgen::JsCast;
+        let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
+        {let e = e;
         let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
         let has_action = t.has_attribute("data-rs-datatable-action") ||
             t.closest("[data-rs-datatable-action]").ok().flatten().is_some();
@@ -96,14 +103,10 @@ fn bind_row_actions(_table: &HtmlElement) {
                 "delete" => {
                     state::add(&row, "deleting");
                     let row_c = row.clone();
-                    let cb = wasm_bindgen::closure::Closure::<dyn Fn()>::wrap(Box::new(move || {
+                    timers::timeout(400, move || {
                         let _ = row_c.set_attribute("hidden", "");
                         state::remove(&row_c, "deleting");
-                    }));
-                    let _ = web_sys::window().and_then(|w| {
-                        w.set_timeout_with_callback_and_timeout_and_arguments_0(cb.as_ref().unchecked_ref(), 400).ok()
                     });
-                    cb.forget();
                 }
                 "save" => {
                     state::remove(&row, "editing");
@@ -140,15 +143,18 @@ fn bind_row_actions(_table: &HtmlElement) {
         if let Ok(event) = web_sys::CustomEvent::new_with_event_init_dict("rs-datatable-action", &event_init) {
             let _ = rc.dispatch_event(&event);
         }
-    }));
-    let _ = doc.add_event_listener_with_callback_and_bool("click", cb.as_ref().unchecked_ref(), true);
-    cb.forget();
+        }
+    });
 }
 
-fn bind_context_menu(_table: &HtmlElement) {
-    let Some(doc) = web_sys::window().and_then(|w| w.document()) else { return };
+fn bind_context_menu(_table: &HtmlElement, uid: &str) {
+    let ns = uid.to_string();
+    let ns2 = uid.to_string();
     {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+        listeners::listen_document(&ns, "contextmenu", move |e: web_sys::Event| {
+        use wasm_bindgen::JsCast;
+        let e = match e.dyn_into::<web_sys::MouseEvent>() { Ok(e) => e, Err(_) => return };
+        {let e = e;
             let Some(t) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             let Some(row) = t.closest("[data-rs-datatable-row]").ok().flatten() else { return };
             let Some(rc) = context::find_root(&row, "[data-rs-datatable]") else { return };
@@ -174,12 +180,11 @@ fn bind_context_menu(_table: &HtmlElement) {
             state::open(&ctx_root);
             state::open(&ctx_root);
             let _ = content.remove_attribute("hidden");
-        }));
-        let _ = doc.add_event_listener_with_callback("contextmenu", cb.as_ref().unchecked_ref());
-        cb.forget();
+            }
+        });
     }
     {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+        listeners::listen_document(&ns2, "click", move |_e: web_sys::Event| {
             let Some(win) = web_sys::window() else { return };
             let Some(d) = win.document() else { return };
             let Ok(list) = d.query_selector_all("[data-rs-context-menu][data-rs-state~='open']") else { return };
@@ -188,9 +193,7 @@ fn bind_context_menu(_table: &HtmlElement) {
                     state::close(&el); state::close(&el);
                 }
             }
-        }));
-        let _ = doc.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
+        });
     }
 }
 
@@ -206,19 +209,19 @@ pub fn update_bulk_bar(root: &web_sys::Element) {
     }
 }
 
-fn bind_bulk_bar(table: &HtmlElement) {
+fn bind_bulk_bar(table: &HtmlElement, uid: &str) {
     let root: web_sys::Element = table.clone().into();
+    let ns = uid.to_string();
+    let ns2 = uid.to_string();
     {
-        let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
+        listeners::listen(&ns, &root, "rs-selection-change", move |e: web_sys::Event| {
             let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::Element>().ok()) else { return };
             update_bulk_bar(&target);
-        }));
-        let _ = root.add_event_listener_with_callback("rs-selection-change", cb.as_ref().unchecked_ref());
-        cb.forget();
+        });
     }
     if let Some(clear_btn) = root.query_selector("[data-rs-datatable-bulk-clear]").ok().flatten() {
         let root_c = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_: web_sys::MouseEvent| {
+        listeners::listen(&ns2, &clear_btn, "click", move |_e: web_sys::Event| {
             let _ = root_c.set_attribute("data-rs-selected-ids", "");
             let Ok(rows) = root_c.query_selector_all("[data-rs-datatable-row]") else { return };
             for i in 0..rows.length() {
@@ -231,9 +234,7 @@ fn bind_bulk_bar(table: &HtmlElement) {
             if let Ok(event) = web_sys::CustomEvent::new("rs-selection-change") {
                 let _ = root_c.dispatch_event(&event);
             }
-        }));
-        let _ = clear_btn.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
+        });
     }
 }
 

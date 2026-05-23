@@ -167,30 +167,6 @@ pub fn cleanup(ns: &str) {
 }
 
 /// GC — remove listeners de elementos desconectados
-/// Total de listeners ativos no registry
-pub fn active_count() -> usize {
-    REGISTRY.with(|r| {
-        r.borrow().values().map(|m| m.len()).sum()
-    })
-}
-
-/// Namespaces (uids) ativos no registry
-pub fn namespaces() -> Vec<String> {
-    REGISTRY.with(|r| r.borrow().keys().cloned().collect())
-}
-
-/// Listeners em elementos desconectados do DOM (orphans)
-pub fn orphan_count() -> usize {
-    use wasm_bindgen::JsCast;
-    REGISTRY.with(|r| {
-        r.borrow().values().flat_map(|m| m.values()).filter(|entry| {
-            entry.target.dyn_ref::<Element>()
-                .map(|el| !el.is_connected())
-                .unwrap_or(false)
-        }).count()
-    })
-}
-
 pub fn gc() {
     REGISTRY.with(|r| {
         let mut reg = r.borrow_mut();

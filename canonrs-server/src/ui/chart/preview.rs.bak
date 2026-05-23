@@ -1,6 +1,7 @@
 use leptos::prelude::*;
-use super::chart_boundary::{Chart, ChartType};
+use super::chart_boundary::Chart;
 use canonrs_core::{ChartData, ChartSeries};
+use canonrs_core::primitives::ChartType;
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 fn monthly_data() -> ChartData {

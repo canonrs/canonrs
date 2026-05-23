@@ -1,12 +1,10 @@
 //! Expand — row expand/collapse behavior
 //! Core: dom/{state}
-use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use crate::runtime::listeners;
 use canonrs_interactions_core::dom::state;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let root: web_sys::Element = table.clone().into();
     let table_c = table.clone();

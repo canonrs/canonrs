@@ -1,12 +1,10 @@
 //! ColPin — freeze/pin column behavior
 //! Core: dom/{state, attrs}
-use canonrs_interactions_core::dom::lifecycle;
 use web_sys::HtmlElement;
 use wasm_bindgen::JsCast;
 use crate::runtime::listeners;
 
 pub fn init(table: &HtmlElement) {
-    if !lifecycle::init_guard(&table.clone().into()) { return; }
     let uid = table.get_attribute("data-rs-uid").unwrap_or_default();
     let root: web_sys::Element = table.clone().into();
     let table_c = table.clone();
