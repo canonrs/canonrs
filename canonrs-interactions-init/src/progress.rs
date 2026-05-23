@@ -1,11 +1,10 @@
 //! Progress Init — sync aria-valuenow + indicator transform via data-rs-value
 
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, query};
+use canonrs_interactions_core::dom::{query};
 use crate::runtime::{observer};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     sync(&root);
 

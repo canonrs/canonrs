@@ -1,7 +1,7 @@
 //! ColorPicker Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{lifecycle, state, attrs};
+use canonrs_interactions_core::dom::{state, attrs};
 use crate::runtime::{context, popup};
 
 use wasm_bindgen::JsCast;
@@ -36,7 +36,6 @@ fn update_swatch_color(root: &Element, value: &str) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     register();
     context::propagate_owner(&root);
 

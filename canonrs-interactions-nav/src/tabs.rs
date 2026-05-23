@@ -1,10 +1,10 @@
 //! Tabs Interaction Engine
-//! Core: dom/{lifecycle, state, query} + behavior/selection::activate_by_value
+//! Core: dom/{state, query} + behavior/selection::activate_by_value
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::behavior::selection::{SelectionConfig, activate_by_value};
 
 const TRIGGER_SEL: &str = "[data-rs-tabs-trigger]";
@@ -65,7 +65,6 @@ fn init_active_tab(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     init_active_tab(&root);
 

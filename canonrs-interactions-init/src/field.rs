@@ -1,11 +1,10 @@
 //! Field Init — focus-within + aria-describedby + label linking
 
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, query};
+use canonrs_interactions_core::dom::{query};
 use crate::runtime::{focus};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     focus::init_within(&root);
 
     // conectar label → input via data-rs-uid

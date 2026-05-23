@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, query};
+use canonrs_interactions_core::dom::{query};
 
 fn get_target_id(root: &Element) -> Option<String> {
     root.get_attribute("data-rs-filter-target")
@@ -70,7 +70,6 @@ fn apply_filter(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // input search
     {

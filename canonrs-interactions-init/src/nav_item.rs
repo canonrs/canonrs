@@ -3,11 +3,10 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use crate::runtime::{keyboard};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     if root.has_attribute("data-rs-nav-group") {
         let direction = root.get_attribute("data-rs-direction").unwrap_or_default();

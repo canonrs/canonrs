@@ -3,12 +3,11 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use canonrs_interactions_core::integration::aria;
 use crate::runtime::{focus};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let Some(input) = canonrs_interactions_core::dom::query::first(&root, "[data-rs-switch-input]") else { return };
     let root_cb = root.clone();

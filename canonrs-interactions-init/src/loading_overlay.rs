@@ -1,10 +1,8 @@
 //! LoadingOverlay Init — aria-busy + state management
 
 use web_sys::Element;
-use canonrs_interactions_core::dom::lifecycle;
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // state inicial já vem do SSR via data-rs-state
     // sync aria-busy com state

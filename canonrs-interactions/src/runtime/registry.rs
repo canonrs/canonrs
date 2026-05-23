@@ -11,8 +11,9 @@ pub fn should_init(el: &Element) -> bool {
         INITED.with(|set| {
             let mut s = set.borrow_mut();
             if s.contains(&uid) {
-                // se o elemento nao tem data-rs-initialized, foi re-renderizado — reinit
-                let needs_reinit = el.get_attribute("data-rs-initialized").as_deref() != Some("true");
+                // uid ja no registry — verificar se elemento foi re-renderizado (SSR replay)
+                // data-rs-initialized ausente = novo elemento no DOM = reinit necessario
+                let needs_reinit = !el.has_attribute("data-rs-initialized");
                 if needs_reinit {
                     s.remove(&uid);
                     s.insert(uid);
@@ -20,6 +21,8 @@ pub fn should_init(el: &Element) -> bool {
                 }
                 false
             } else {
+                // uid novo — sempre inicializar, independente de data-rs-initialized
+                // (SSR pode ter setado o atributo, mas o runtime client ainda nao rodou)
                 s.insert(uid);
                 true
             }

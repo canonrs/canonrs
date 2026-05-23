@@ -3,7 +3,7 @@
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state as rs};
+use canonrs_interactions_core::dom::{state as rs};
 use canonrs_interactions_core::runtime::listeners;
 
 fn add_tok(el: &Element, token: &str) {
@@ -43,7 +43,6 @@ fn clear_focus(root: &Element) { for el in get_items(root) { rem_tok(&el, "focus
 fn focus_el(el: &Element) { add_tok(el, "focus"); }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
     {

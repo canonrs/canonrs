@@ -1,11 +1,10 @@
 //! Menu Init — single item selection + keyboard navigation + hover
 
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use crate::runtime::{interactive, keyboard};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // SSR bootstrap — item selected inicializa current_idx
     let all = query::all(&root, "[data-rs-menu-item]");

@@ -3,11 +3,10 @@
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 
 pub fn init(root: Element) {
     web_sys::console::log_1(&"[avatar] init called".into());
-    if !lifecycle::init_guard(&root) { return; }
 
     // se nao tem imagem — mostra fallback imediatamente
     let img = query::first(&root, "[data-rs-avatar-image]");

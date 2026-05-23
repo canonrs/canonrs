@@ -3,11 +3,10 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::integration::aria;
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
         let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };

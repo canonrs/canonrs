@@ -1,9 +1,9 @@
 //! ContextMenu Interaction Engine
-//! Core: dom/{lifecycle, state, query} + Overlay: stack
+//! Core: dom/{state, query} + Overlay: stack
 
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::runtime::listeners;
 
 fn position_and_open(root: &Element, x: i32, y: i32) {
@@ -17,7 +17,6 @@ fn position_and_open(root: &Element, x: i32, y: i32) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
     {

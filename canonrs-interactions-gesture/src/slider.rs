@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
-use canonrs_interactions_core::dom::{lifecycle, state, attrs};
+use canonrs_interactions_core::dom::{state, attrs};
 use crate::runtime::{drag};
 
 fn set_value(el: &Element, value: f64) {
@@ -29,7 +29,6 @@ fn set_value(el: &Element, value: f64) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     if root.has_attribute("data-rs-disabled") && root.get_attribute("aria-disabled").as_deref() == Some("true") { return; }
 
     // inicializa thumb/fill com valor atual do DOM

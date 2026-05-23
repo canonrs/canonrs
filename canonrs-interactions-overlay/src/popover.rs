@@ -1,9 +1,9 @@
 //! Popover Interaction Engine
-//! Core: dom/{lifecycle, state, query} + Overlay: stack, focus, transition, positioning
+//! Core: dom/{state, query} + Overlay: stack, focus, transition, positioning
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::runtime::{listeners, timers};
 use crate::runtime::{stack, focus, transition, positioning};
 
@@ -54,7 +54,6 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     stack::ensure_global_listeners();
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
     let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));

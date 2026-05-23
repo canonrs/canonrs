@@ -1,7 +1,7 @@
 //! Select Interaction Engine
 
 use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use crate::runtime::{popup, context};
 
 use wasm_bindgen::JsCast;
@@ -77,10 +77,6 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) {
-        web_sys::console::log_1(&wasm_bindgen::JsValue::from_str("[select] SKIPPED"));
-        return;
-    }
     register();
     context::propagate_owner(&root);
 

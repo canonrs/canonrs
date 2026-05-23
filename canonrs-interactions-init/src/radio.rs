@@ -3,11 +3,10 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use crate::runtime::{focus};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // sync estado nativo — ao mudar, sincronizar todos do mesmo name
     {

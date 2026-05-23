@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 
 fn get_delay(root: &Element, attr: &str, default: i32) -> i32 {
     let mut el = root.parent_element();
@@ -56,7 +56,6 @@ fn close_content(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let delay_open  = get_delay(&root, "data-rs-delay-open", 400);
     let delay_close = get_delay(&root, "data-rs-delay-close", 100);

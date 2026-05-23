@@ -1,9 +1,9 @@
 //! Pagination Interaction Engine
-//! Core: dom/{lifecycle, state}
+//! Core: dom/{state}
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use web_sys::Element;
 
 fn get_current_page(root: &Element) -> usize {
@@ -83,7 +83,6 @@ fn focus_page_link(root: &Element, page: usize) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // click
     {

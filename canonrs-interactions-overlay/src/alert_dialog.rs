@@ -1,16 +1,15 @@
 //! AlertDialog Interaction Engine
-//! Core: dom/{lifecycle, state, query}
+//! Core: dom/{state, query}
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::runtime::listeners;
 
 fn open(root: &Element)  { state::open(root);  state::set_scroll_lock(true); }
 fn close(root: &Element) { state::close(root); state::set_scroll_lock(false); }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
     listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {

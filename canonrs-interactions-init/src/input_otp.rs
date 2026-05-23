@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, query, state};
+use canonrs_interactions_core::dom::{query, state};
 
 fn update_slots(root: &Element) {
     let input = match query::first(root, "[data-rs-input-otp]") {
@@ -43,7 +43,6 @@ fn focus_input_at_end(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // click → foca e posiciona cursor no final
     {

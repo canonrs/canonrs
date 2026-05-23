@@ -23,6 +23,8 @@ pub fn dispatch(el: &Element) {
     HANDLERS.with(|h| {
         if let Some(handler) = h.borrow().get(&group) {
             handler(el.clone());
+            // Mark as initialized so observer ignores future mutations in this subtree
+            let _ = el.set_attribute("data-rs-initialized", "true");
         }
     });
 }

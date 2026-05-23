@@ -2,7 +2,6 @@
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::lifecycle;
 use canonrs_interactions_core::dom::state;
 use crate::runtime::listeners;
 
@@ -46,7 +45,6 @@ fn focus_item(items: &[Element], idx: usize) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     if is_multiple(&root) {
         root.set_attribute("aria-multiselectable", "true").ok();

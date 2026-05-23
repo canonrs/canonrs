@@ -1,9 +1,9 @@
 //! Dialog Interaction Engine — Tier S
-//! Core: dom/{lifecycle, state, query} + integration/aria
+//! Core: dom/{state, query} + integration/aria
 //! Overlay: stack, focus, inert, portal, transition
 
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::integration::aria;
 use canonrs_interactions_core::runtime::{listeners, timers};
 use wasm_bindgen::prelude::*;
@@ -127,7 +127,6 @@ pub fn dialog_close(uid: &str) {
 pub fn init(root: Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    if !lifecycle::init_guard(&root) { return; }
 
     stack::ensure_global_listeners();
 

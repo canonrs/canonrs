@@ -1,11 +1,9 @@
 //! InputGroup Init — focus-within state
 
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle};
 use crate::runtime::{focus};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     focus::init_within(&root);
 
     // click em addon → foca o input

@@ -3,10 +3,9 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let offset = root.get_attribute("data-rs-scroll-offset")
         .and_then(|v| v.parse::<f64>().ok())

@@ -2,7 +2,6 @@
 //! Intercepta click em rows com data-rs-action="open-sheet"
 //! Injeta dados no Sheet global e abre
 
-use canonrs_interactions_core::dom::lifecycle;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
@@ -15,7 +14,6 @@ fn closest_action(el: &web_sys::Element, action: &str) -> Option<web_sys::Elemen
 
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     if root.get_attribute("data-rs-table-context-init").as_deref() == Some("true") { return; }
     let _ = root.set_attribute("data-rs-table-context-init", "true");
 

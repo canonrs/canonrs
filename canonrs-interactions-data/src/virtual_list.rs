@@ -2,7 +2,6 @@
 
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
-use canonrs_interactions_core::dom::lifecycle;
 use canonrs_interactions_core::dom::state;
 use crate::runtime::listeners;
 
@@ -18,7 +17,6 @@ fn find_scroll_viewport(el: &Element) -> Option<Element> {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let items_count = root.get_attribute("data-items-count")
         .and_then(|s| s.parse::<usize>().ok())

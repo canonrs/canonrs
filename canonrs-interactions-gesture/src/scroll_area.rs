@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent, MouseEvent};
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use crate::runtime::{drag};
 
 fn sync_thumb(root: &Element, orientation: &str) {
@@ -37,7 +37,6 @@ fn sync_thumb(root: &Element, orientation: &str) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     sync_thumb(&root, "vertical");
     sync_thumb(&root, "horizontal");

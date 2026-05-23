@@ -1,10 +1,10 @@
 //! Toolbar Interaction Engine
-//! Core: dom/{lifecycle, query} + behavior/keyboard::init_nav
+//! Core: dom/{query} + behavior/keyboard::init_nav
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, query};
+use canonrs_interactions_core::dom::{query};
 use canonrs_interactions_core::behavior::keyboard::{init_nav, NavConfig, Orientation, ElementType};
 
 fn dispatch_action(root: &Element, value: &str, pressed: bool) {
@@ -21,7 +21,6 @@ fn dispatch_action(root: &Element, value: &str, pressed: bool) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let is_vertical = root.get_attribute("data-rs-variant").as_deref() == Some("vertical");
 

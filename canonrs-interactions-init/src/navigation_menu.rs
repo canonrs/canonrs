@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use crate::runtime::{interactive, keyboard};
 
 fn close_all(root: &Element) {
@@ -23,7 +23,6 @@ fn open_item(item: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // hover/active nos triggers e links
     for el in query::all(&root, "[data-rs-navigation-menu-trigger]") { interactive::init(&el); }

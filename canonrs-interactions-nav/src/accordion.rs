@@ -1,10 +1,10 @@
 //! Accordion Interaction Engine
-//! Core: dom/{lifecycle, state} + behavior/disclosure::{toggle, active_triggers, init_state}
+//! Core: dom/{state} + behavior/disclosure::{toggle, active_triggers, init_state}
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use canonrs_interactions_core::behavior::disclosure::{
     DisclosureConfig, SelectionMode, toggle, active_triggers, init_state,
 };
@@ -29,7 +29,6 @@ fn focus_trigger(el: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     init_state(&root, &make_config(&root));
 

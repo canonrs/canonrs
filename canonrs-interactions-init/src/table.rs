@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use crate::runtime::{keyboard};
 
 fn get_rows(root: &Element) -> Vec<Element> {
@@ -77,7 +77,6 @@ fn sort_rows(root: &Element, col_index: usize, direction: &str) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     // sheet context
     if root.has_attribute("data-rs-table-context") {

@@ -4,11 +4,10 @@ use wasm_bindgen::prelude::*;
 use canonrs_interactions_core::dom::state;
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement, PointerEvent};
-use canonrs_interactions_core::dom::{lifecycle, attrs};
+use canonrs_interactions_core::dom::{attrs};
 use crate::runtime::{drag};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let Ok(Some(hn)) = root.query_selector("[data-rs-resizable-handle]") else { return };
     let Ok(handle) = hn.dyn_into::<HtmlElement>() else { return };

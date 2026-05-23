@@ -1,11 +1,11 @@
 //! CopyButton Interaction Engine
-//! Core: dom/{lifecycle, state} + behavior/clipboard
+//! Core: dom/{state} + behavior/clipboard
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 
 fn copy_to_clipboard(text: String, el: Element, reset_delay: i32) {
     let window = match web_sys::window() { Some(w) => w, None => return };
@@ -40,7 +40,6 @@ fn schedule_reset(el: Element, delay: i32) {
 }
 
 pub fn init(el: Element) {
-    if !lifecycle::init_guard(&el) { return; }
 
     let reset_delay = el.get_attribute("data-rs-reset-delay")
         .and_then(|s| s.parse::<i32>().ok())

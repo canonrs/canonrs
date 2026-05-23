@@ -3,10 +3,8 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::lifecycle;
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let scroll_target = root.get_attribute("data-rs-scroll-target").unwrap_or_default();
 

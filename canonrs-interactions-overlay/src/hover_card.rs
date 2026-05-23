@@ -1,9 +1,9 @@
 //! HoverCard Interaction Engine
-//! Core: dom/{lifecycle, state} + Overlay: stack
+//! Core: dom/{state} + Overlay: stack
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use canonrs_interactions_core::runtime::{listeners, timers};
 
 fn is_leaving_root(e: &web_sys::PointerEvent, root: &Element) -> bool {
@@ -21,7 +21,6 @@ fn open_card(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     let Ok(Some(_)) = root.query_selector("[data-rs-hover-card-trigger]") else { return };
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 

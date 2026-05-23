@@ -1,10 +1,10 @@
 //! Sidebar Interaction Engine
-//! Core: dom/{lifecycle, state, query} + behavior/keyboard::init_nav
+//! Core: dom/{state, query} + behavior/keyboard::init_nav
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::behavior::keyboard::{init_nav, NavConfig, Orientation, ElementType};
 
 fn is_pinned(root: &Element) -> bool {
@@ -12,7 +12,6 @@ fn is_pinned(root: &Element) -> bool {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let is_rail = root.get_attribute("data-rs-variant").as_deref() == Some("rail");
 

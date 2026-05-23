@@ -1,9 +1,9 @@
 //! Menubar Interaction Engine
-//! Core: dom/{lifecycle, state, query}
+//! Core: dom/{state, query}
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use web_sys::Element;
 
 fn close_all(root: &Element) {
@@ -17,7 +17,6 @@ fn close_all(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     for menu in query::all(&root, "[data-rs-menubar-menu]") {
         state::add(&menu, canonrs_interactions_core::dom::state::State::Closed.as_str());

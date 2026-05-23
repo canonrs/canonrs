@@ -1,9 +1,9 @@
 //! Sheet Interaction Engine
-//! Core: dom/{lifecycle, state, query} + Overlay: focus
+//! Core: dom/{state, query} + Overlay: focus
 
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::runtime::listeners;
 use crate::runtime::focus;
 
@@ -59,7 +59,6 @@ fn close(root: &Element, prev_focus: &std::rc::Rc<std::cell::Cell<Option<Element
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     let prev_focus = std::rc::Rc::new(std::cell::Cell::new(None::<Element>));
     move_to_body(&root);
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();

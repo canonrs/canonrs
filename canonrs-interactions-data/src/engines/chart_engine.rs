@@ -5,6 +5,11 @@ use web_sys::{Element, HtmlCanvasElement, HtmlElement};
 pub type Series = Vec<(String, Vec<f64>, String, bool)>;
 
 pub fn read_chart_data(root: &Element) -> String {
+    // data-rs-chart-data is on a child element, not the root
+    if let Ok(Some(el)) = root.query_selector("[data-rs-chart-data]") {
+        return el.get_attribute("data-rs-chart-data").unwrap_or_default();
+    }
+    // fallback: check root itself
     root.get_attribute("data-rs-chart-data").unwrap_or_default()
 }
 

@@ -1,10 +1,10 @@
 //! ConfirmDialog Interaction Engine — Tier S
-//! Core: dom/{lifecycle, state, query} + integration/aria
+//! Core: dom/{state, query} + integration/aria
 //! Overlay: stack, focus, inert, portal, transition
 
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::integration::aria;
 use canonrs_interactions_core::runtime::{listeners, timers};
 use crate::runtime::{stack, focus, inert, portal, transition};
@@ -82,7 +82,6 @@ pub fn confirm_dialog_close(uid: &str) {
 
 pub fn init(root: Element) {
     let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
-    if !lifecycle::init_guard(&root) { return; }
     stack::ensure_global_listeners();
     if let Some(p) = portal::portal_of(&root, PORTAL_ATTR, &uid) {
         portal::propagate_owner(&p, &uid, CHILDREN_SEL);

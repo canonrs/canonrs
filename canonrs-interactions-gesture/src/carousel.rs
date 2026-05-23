@@ -3,7 +3,7 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, attrs};
+use canonrs_interactions_core::dom::{state, attrs};
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-carousel-item]") else { return vec![] };
@@ -37,7 +37,6 @@ fn go_to(root: &Element, idx: usize) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     let items = get_items(&root);
     if items.is_empty() { return; }
 

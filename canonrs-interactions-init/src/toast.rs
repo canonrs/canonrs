@@ -3,11 +3,9 @@
 use web_sys::Element;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use canonrs_interactions_core::dom::{lifecycle};
 use crate::runtime::{dismiss};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let variant = root.get_attribute("data-rs-variant").unwrap_or_default();
 

@@ -23,6 +23,14 @@ pub fn observe() {
             for i in 0..added.length() {
                 if let Some(node) = added.item(i) {
                     if let Ok(el) = node.dyn_into::<web_sys::Element>() {
+                        // ignorar mutations dentro de elementos ja inicializados
+                        let inside_initialized = el.closest("[data-rs-initialized]")
+                            .ok().flatten().is_some();
+                        if inside_initialized { continue; }
+                        // ignorar mutations dentro de elementos ja inicializados
+                        let inside_initialized = el.closest("[data-rs-initialized=\"true\"]")
+                            .ok().flatten().is_some();
+                        if inside_initialized { continue; }
                         // ignorar mutations dentro de elementos em inline-editing
                         let inside_editing = el.closest("[data-rs-inline-editing]")
                             .ok().flatten().is_some();

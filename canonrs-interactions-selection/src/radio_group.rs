@@ -1,7 +1,7 @@
 //! Radio Interaction Engine — keyboard navigation + selection sync
 
 use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use crate::runtime::{context};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
@@ -68,7 +68,6 @@ fn select_item(root: &Element, value: &str) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     context::propagate_owner(&root);
 
     // SSR bootstrap — roving tabindex + garantir consistência

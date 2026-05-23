@@ -3,7 +3,6 @@
 use wasm_bindgen::JsCast;
 use wasm_bindgen::{JsValue, closure::Closure};
 use web_sys::{Element, HtmlCanvasElement, HtmlElement};
-use canonrs_interactions_core::dom::lifecycle;
 use canonrs_interactions_core::dom::state;
 use crate::runtime::listeners;
 use crate::engines::chart_engine::{
@@ -20,7 +19,6 @@ fn dispatch_custom_event(target: &Element, name: &str, detail: &js_sys::Object) 
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     let Ok(Some(canvas_node)) = root.query_selector("[data-rs-chart-canvas]") else { return };
     let Ok(canvas) = canvas_node.dyn_into::<HtmlCanvasElement>() else { return };
 
@@ -32,14 +30,23 @@ pub fn init(root: Element) {
 
     let json = read_chart_data(&root);
     let Some((labels, series)) = parse_chart_data(&json) else { return };
-
-    set_canvas_dpi(&canvas, &root, height);
-    draw_chart(&canvas, &chart_type, &labels, &series, show_grid, height);
-
-    bind_legend(&root, &canvas, &chart_type, &labels, &series, show_grid, show_legend, height);
-    bind_tooltip(&root, &canvas, &chart_type, &labels, &series, show_grid, height, &sync_table);
-    bind_resize(&root, &canvas, &chart_type, &labels, &series, show_grid, height);
-    bind_datatable_sync(&root, &canvas, &chart_type, &labels, &series, show_grid, height, &sync_table);
+    // Defer draw to after first layout frame — offset_width is 0 at init time
+    {
+        let canvas_r  = canvas.clone();
+        let root_r    = root.clone();
+        let ct_r      = chart_type.clone();
+        let labels_r  = labels.clone();
+        let series_r  = series.clone();
+        let sync_r    = sync_table.clone();
+        crate::runtime::timers::raf(move || {
+            set_canvas_dpi(&canvas_r, &root_r, height);
+            draw_chart(&canvas_r, &ct_r, &labels_r, &series_r, show_grid, height);
+            bind_legend(&root_r, &canvas_r, &ct_r, &labels_r, &series_r, show_grid, show_legend, height);
+            bind_tooltip(&root_r, &canvas_r, &ct_r, &labels_r, &series_r, show_grid, height, &sync_r);
+            bind_resize(&root_r, &canvas_r, &ct_r, &labels_r, &series_r, show_grid, height);
+            bind_datatable_sync(&root_r, &canvas_r, &ct_r, &labels_r, &series_r, show_grid, height, &sync_r);
+        });
+    }
 }
 
 fn bind_legend(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, labels: &[String], series: &Series, show_grid: bool, show_legend: bool, height: f64) {

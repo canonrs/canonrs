@@ -8,7 +8,6 @@ pub mod virtual_list;
 pub mod list_item;
 pub mod chart;
 
-
 use canonrs_interactions_core::runtime::bootstrap;
 
 /// Registra o grupo data no bootstrap kernel.

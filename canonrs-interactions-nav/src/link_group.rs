@@ -1,9 +1,9 @@
 //! LinkGroup Interaction Engine
-//! Core: dom/{lifecycle, state, query} + behavior/selection::{activate, init_state}
+//! Core: dom/{state, query} + behavior/selection::{activate, init_state}
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 use canonrs_interactions_core::behavior::selection::{SelectionConfig, activate, init_state};
 use web_sys::Element;
 
@@ -19,7 +19,6 @@ fn config() -> SelectionConfig {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     init_state(&root, &config());
 

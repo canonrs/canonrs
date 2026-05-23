@@ -1,11 +1,10 @@
 //! Markdown Interaction Engine
-//! Core: dom/{lifecycle} + clipboard
+//! Core: dom/ + clipboard
 //! Code block copy buttons, TOC active state
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::lifecycle;
 use canonrs_interactions_core::dom::state;
 
 fn setup_copy_buttons(root: &Element) {
@@ -65,7 +64,6 @@ fn setup_copy_buttons(root: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     setup_copy_buttons(&root);
     setup_toc(&root);
 }

@@ -1,7 +1,7 @@
 //! Tree Interaction Engine — expand/collapse + selection + keyboard navigation
 
 use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{lifecycle, state};
+use canonrs_interactions_core::dom::{state};
 use crate::runtime::{context};
 
 use wasm_bindgen::JsCast;
@@ -50,7 +50,6 @@ fn select_item(root: &Element, item: &Element) {
 }
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
     context::propagate_owner(&root);
 
     // click → select + expand/collapse

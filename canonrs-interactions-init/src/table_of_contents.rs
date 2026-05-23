@@ -3,10 +3,9 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{lifecycle, state, query};
+use canonrs_interactions_core::dom::{state, query};
 
 pub fn init(root: Element) {
-    if !lifecycle::init_guard(&root) { return; }
 
     let mode = root.get_attribute("data-rs-mode").unwrap_or_default();
 
