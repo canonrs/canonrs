@@ -5,13 +5,45 @@
 window.__canonRuntime = {
   _init_count: 0, _replay_count: 0, _observer_events: 0,
   _inited_uids: new Set(), _mod: null,
+  _timeline: [],
+  _max_timeline: 200,
+
+  _event(type, data) {
+    const entry = { t: Date.now(), type, ...data };
+    this._timeline.push(entry);
+    if (this._timeline.length > this._max_timeline)
+      this._timeline.shift();
+  },
+
   _trackInit(uid) {
-    if (uid && this._inited_uids.has(uid)) this._replay_count++;
+    const is_replay = uid && this._inited_uids.has(uid);
+    if (is_replay) this._replay_count++;
     if (uid) this._inited_uids.add(uid);
     this._init_count++;
+    this._event('init', { uid: uid || 'global', replay: is_replay });
   },
-  _trackObserver() { this._observer_events++; },
-  _setMod(mod) { this._mod = mod; },
+
+  _trackObserver(added_count) {
+    this._observer_events++;
+    this._event('observer', { added: added_count || 0 });
+  },
+
+  _trackDispatch(group, uid) {
+    this._event('dispatch', { group, uid });
+  },
+
+  _trackListener(ns, event) {
+    this._event('listener', { ns, event });
+  },
+
+  _trackRaf(label) {
+    this._event('raf', { label: label || 'unknown' });
+  },
+
+  _setMod(mod) {
+    this._mod = mod;
+    this._event('boot', { msg: 'wasm loaded' });
+  },
   get init_count()      { return this._init_count; },
   get replay_count()    { return this._replay_count; },
   get observer_events() { return this._observer_events; },
@@ -26,6 +58,39 @@ window.__canonRuntime = {
       orphan_listeners: this.orphan_listeners, initialized_count: this.initialized_count,
       namespaces: this.namespaces,
     };
+  },
+
+  // Full event timeline — last 200 events
+  timeline() { return [...this._timeline]; },
+
+  // Filtered views
+  events(type) { return type ? this._timeline.filter(e => e.type === type) : [...this._timeline]; },
+  replays()    { return this._timeline.filter(e => e.type === 'init' && e.replay); },
+  observers()  { return this._timeline.filter(e => e.type === 'observer'); },
+  listeners()  { return this._timeline.filter(e => e.type === 'listener'); },
+  inits()      { return this._timeline.filter(e => e.type === 'init'); },
+
+  // Init storm detection — inits in last N ms
+  init_frequency(window_ms) {
+    const now = Date.now();
+    return this._timeline.filter(e => e.type === 'init' && (now - e.t) < window_ms).length;
+  },
+
+  // Causal summary — last N events as readable trace
+  trace(n) {
+    const events = this._timeline.slice(-(n || 20));
+    return events.map(e => {
+      const dt = e.t - (this._timeline[0]?.t || e.t);
+      switch(e.type) {
+        case 'boot':     return `+${dt}ms [BOOT] ${e.msg}`;
+        case 'init':     return `+${dt}ms [INIT] uid=${e.uid}${e.replay ? ' REPLAY!' : ''}`;
+        case 'dispatch': return `+${dt}ms [DISPATCH] group=${e.group} uid=${e.uid}`;
+        case 'observer': return `+${dt}ms [OBSERVER] added=${e.added}`;
+        case 'listener': return `+${dt}ms [LISTENER] ns=${e.ns} event=${e.event}`;
+        case 'raf':      return `+${dt}ms [RAF] ${e.label}`;
+        default:         return `+${dt}ms [${e.type.toUpperCase()}] ${JSON.stringify(e)}`;
+      }
+    }).join('\n');
   }
 };
 
@@ -39,6 +104,17 @@ window.__canonRuntime = {
     const wasm = `${base}/canonrs_interactions_bg.wasm?v=${hash}`;
     const mod  = await import(js);
     await mod.default({ module_or_path: wasm });
+    // Observe data-rs-initialized to track individual component inits
+    const initObserver = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.type === 'attributes' && m.attributeName === 'data-rs-initialized') {
+          const uid = m.target.getAttribute('data-rs-uid') || 'unknown';
+          const group = m.target.getAttribute('data-rs-interaction') || 'unknown';
+          window.__canonRuntime._trackDispatch(group, uid);
+        }
+      }
+    });
+    initObserver.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['data-rs-initialized'] });
     mod.init_all();
     window.__canonRuntime._setMod(mod);
     window.__canonrs_init_all__ = () => { mod.init_all(); window.__canonRuntime._trackInit(null); };
@@ -54,7 +130,8 @@ window.__canonRuntime = {
 (function() {
   let rafPending = false;
   const observer = new MutationObserver((mutations) => {
-    window.__canonRuntime._trackObserver();
+    const added_count = mutations.reduce((n, m) => n + m.addedNodes.length, 0);
+    window.__canonRuntime._trackObserver(added_count);
     const hasNew = mutations.some(m =>
       Array.from(m.addedNodes).some(n => n.nodeType === 1 &&
         !(n.closest && n.closest('[data-rs-inline-editing]'))
