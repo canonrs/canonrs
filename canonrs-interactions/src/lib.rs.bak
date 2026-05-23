@@ -30,8 +30,7 @@ pub fn runtime_active_listeners() -> usize {
 #[wasm_bindgen]
 pub fn runtime_namespaces() -> js_sys::Array {
     let arr = js_sys::Array::new();
-    let nss: Vec<String> = canonrs_interactions_core::runtime::listeners::namespaces();
-    for ns in nss {
+    for ns in canonrs_interactions_core::runtime::listeners::namespaces() {
         arr.push(&wasm_bindgen::JsValue::from_str(&ns));
     }
     arr

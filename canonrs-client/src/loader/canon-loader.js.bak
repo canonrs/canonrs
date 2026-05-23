@@ -1,62 +1,6 @@
 // CanonRS — Bootstrap Engine (CR-401)
 // Pipeline determinístico: DOMContentLoaded → stabilize → init
 
-// ─── Runtime Instrumentation ─────────────────────────────────────────────────
-window.__canonRuntime = {
-  _init_count: 0,
-  _replay_count: 0,
-  _observer_events: 0,
-
-  // Called by loader on each init
-  _trackInit(uid) {
-    this._init_count++;
-    if (this._inited_uids && this._inited_uids.has(uid)) {
-      this._replay_count++;
-    }
-    if (!this._inited_uids) this._inited_uids = new Set();
-    this._inited_uids.add(uid);
-  },
-
-  _trackObserver() {
-    this._observer_events++;
-  },
-
-  // Public API — readable by checkers
-  get init_count()      { return this._init_count; },
-  get replay_count()    { return this._replay_count; },
-  get observer_events() { return this._observer_events; },
-
-  // Wasm bridge — populated after wasm loads
-  get active_listeners() {
-    try { return window.__canonLoader?.mod?.runtime_active_listeners?.() ?? -1; }
-    catch(e) { return -1; }
-  },
-  get orphan_listeners() {
-    try { return window.__canonLoader?.mod?.runtime_orphan_listeners?.() ?? -1; }
-    catch(e) { return -1; }
-  },
-  get initialized_count() {
-    try { return window.__canonLoader?.mod?.runtime_initialized_count?.() ?? -1; }
-    catch(e) { return -1; }
-  },
-  get namespaces() {
-    try { return Array.from(window.__canonLoader?.mod?.runtime_namespaces?.() ?? []); }
-    catch(e) { return []; }
-  },
-
-  snapshot() {
-    return {
-      init_count:        this.init_count,
-      replay_count:      this.replay_count,
-      observer_events:   this.observer_events,
-      active_listeners:  this.active_listeners,
-      orphan_listeners:  this.orphan_listeners,
-      initialized_count: this.initialized_count,
-      namespaces:        this.namespaces,
-    };
-  }
-};
-
 window.__canonLoader = {
   initializedUids: new Set(),
   mod: null,
@@ -77,7 +21,6 @@ window.__canonLoader = {
     const mod = await this.load();
     if (typeof mod.init_subtree !== 'function') return;
     this._markInitialized(el);
-    window.__canonRuntime._trackInit(el.getAttribute('data-rs-uid') || group);
     try { mod.init_subtree(el); } catch(e) { console.warn('[canon] init failed:', group, el, e); }
   },
 
@@ -137,7 +80,6 @@ const bootstrap = {
 
 const startObserver = () => {
   const observer = new MutationObserver((mutations) => {
-    window.__canonRuntime._trackObserver();
     for (const m of mutations) {
       for (const node of m.addedNodes) {
         if (!(node instanceof Element)) continue;

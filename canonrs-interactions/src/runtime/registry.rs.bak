@@ -32,11 +32,6 @@ pub fn should_init(el: &Element) -> bool {
     }
 }
 
-/// Total de componentes inicializados no registry
-pub fn initialized_count() -> usize {
-    INITED.with(|set| set.borrow().len())
-}
-
 /// Remove uid do registry — chamar quando componente desmonta.
 pub fn cleanup(el: &Element) {
     if let Some(uid) = el.get_attribute("data-rs-uid") {
