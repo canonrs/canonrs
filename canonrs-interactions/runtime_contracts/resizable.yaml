@@ -1,0 +1,9 @@
+component: resizable
+route: /showcase/resizable
+interaction: gesture
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

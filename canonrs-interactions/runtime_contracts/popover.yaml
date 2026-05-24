@@ -1,0 +1,24 @@
+component: popover
+route: /showcase/popover
+interaction: overlay
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  opens_on_trigger:
+    action: click
+    selector: "[data-rs-popover-trigger]"
+    assert: state_includes
+    state: open
+    target: "[data-rs-popover]"
+  closes_on_escape:
+    action: key
+    key: Escape
+    assert: state_excludes
+    state: open
+    target: "[data-rs-popover]"
+    depends: opens_on_trigger

@@ -1,0 +1,15 @@
+component: accordion
+route: /showcase/accordion
+interaction: nav
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  activates_on_click:
+    action: dispatch_click
+    selector: "[data-rs-accordion-trigger]"
+    assert: exists

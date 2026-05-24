@@ -1,0 +1,9 @@
+component: scroll_area
+route: /showcase/scroll-area
+interaction: gesture
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

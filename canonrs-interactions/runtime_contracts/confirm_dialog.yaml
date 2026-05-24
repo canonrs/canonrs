@@ -1,0 +1,9 @@
+component: confirm_dialog
+route: /showcase/confirm-dialog
+interaction: overlay
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

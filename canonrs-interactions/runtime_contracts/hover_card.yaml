@@ -1,0 +1,9 @@
+component: hover_card
+route: /showcase/hover-card
+interaction: overlay
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

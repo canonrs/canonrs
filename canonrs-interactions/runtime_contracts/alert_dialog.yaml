@@ -1,0 +1,9 @@
+component: alert_dialog
+route: /showcase/alert-dialog
+interaction: overlay
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

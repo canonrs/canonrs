@@ -1,0 +1,9 @@
+component: dropdown_menu
+route: /showcase/dropdown-menu
+interaction: overlay
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

@@ -1,0 +1,9 @@
+component: toolbar
+route: /showcase/toolbar
+interaction: nav
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

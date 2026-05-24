@@ -1,0 +1,24 @@
+component: select
+route: /showcase/select
+interaction: selection
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  opens_on_trigger:
+    action: click
+    selector: "[data-rs-select-trigger]"
+    assert: state_includes
+    state: open
+    target: "[data-rs-select]"
+  closes_on_escape:
+    action: key
+    key: Escape
+    assert: state_excludes
+    state: open
+    target: "[data-rs-select]"
+    depends: opens_on_trigger

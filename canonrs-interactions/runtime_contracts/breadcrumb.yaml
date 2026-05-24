@@ -1,0 +1,9 @@
+component: breadcrumb
+route: /showcase/breadcrumb
+interaction: nav
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

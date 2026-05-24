@@ -1,0 +1,9 @@
+component: list_item
+route: /showcase/list-item
+interaction: data
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

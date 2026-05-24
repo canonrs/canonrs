@@ -1,0 +1,9 @@
+component: toggle_group
+route: /showcase/toggle-group
+interaction: selection
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

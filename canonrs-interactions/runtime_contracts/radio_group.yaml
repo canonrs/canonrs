@@ -1,0 +1,9 @@
+component: radio_group
+route: /showcase/radio-group
+interaction: selection
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

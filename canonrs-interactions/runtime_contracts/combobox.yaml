@@ -1,0 +1,9 @@
+component: combobox
+route: /showcase/combobox
+interaction: selection
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans

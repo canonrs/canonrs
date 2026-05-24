@@ -1,0 +1,24 @@
+component: modal
+route: /showcase/modal
+interaction: overlay
+min_listeners: 1
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
+
+behavior:
+  opens_on_trigger:
+    action: click
+    selector: "[data-rs-modal-trigger]"
+    assert: state_includes
+    state: open
+    target: "[data-rs-modal]"
+  closes_on_escape:
+    action: key
+    key: Escape
+    assert: state_excludes
+    state: open
+    target: "[data-rs-modal]"
+    depends: opens_on_trigger

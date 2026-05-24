@@ -1,0 +1,9 @@
+component: markdown
+route: /showcase/markdown
+interaction: content
+min_listeners: 0
+
+guarantees:
+  - no_replay
+  - listeners_owned
+  - no_orphans
