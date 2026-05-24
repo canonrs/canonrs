@@ -25,3 +25,5 @@ pub mod bootstrap;
 pub mod cleanup;
 pub mod globals;
 pub mod subtree;
+
+pub mod scrollspy;

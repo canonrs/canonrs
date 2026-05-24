@@ -1,9 +1,14 @@
 component: copy_button
 route: /showcase/copy-button
 interaction: content
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  has_button:
+    selector: "[data-rs-copy-button]"
+    assert: exists

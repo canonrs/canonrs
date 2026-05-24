@@ -1,12 +1,11 @@
 //! Markdown Interaction Engine
 //! Core: dom/ + clipboard + toc scrollspy
 
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::Element;
 use canonrs_interactions_core::dom::state;
-use canonrs_interactions_core::runtime::{listeners, timers};
+use canonrs_interactions_core::runtime::{listeners, timers, scrollspy};
 
 fn copy_code_to_clipboard(code: String, btn: Element) {
     let window = match web_sys::window() { Some(w) => w, None => return };
@@ -87,21 +86,8 @@ fn setup_toc_anchor_click(toc: &Element) {
         e.prevent_default();
         let href = link.get_attribute("href").unwrap_or_default();
         if href.starts_with('#') {
-            let id = &href[1..];
-            let win = web_sys::window().unwrap();
-            let doc = win.document().unwrap();
-            if let Ok(Some(target_el)) = doc.query_selector(&format!("#{}", id)) {
-                let rect = target_el.get_bounding_client_rect();
-                let scroll_y = win.scroll_y().unwrap_or(0.0);
-                let top = rect.top() + scroll_y - 80.0;
-                let opts = web_sys::ScrollToOptions::new();
-                opts.set_top(top);
-                opts.set_behavior(web_sys::ScrollBehavior::Smooth);
-                win.scroll_to_with_scroll_to_options(&opts);
-                if let Ok(history) = win.history() {
-                    history.replace_state_with_url(&JsValue::NULL, "", Some(&format!("#{}", id))).ok();
-                }
-            }
+            // Use scrollspy kernel — history.replace_state delegated to nav runtime
+            scrollspy::scroll_to_anchor(&href[1..], 80.0);
         }
     });
 }
@@ -120,51 +106,21 @@ fn setup_toc_scroll_spy(toc: &Element) {
     }
     if heading_ids.is_empty() { return; }
 
-    let scroll_viewport = toc.closest("[data-rs-md-layout]").ok().flatten()
-        .and_then(|layout| layout.query_selector("[data-rs-markdown-content]").ok().flatten())
-        .and_then(|content_el| {
-            let mut el: Option<web_sys::Element> = Some(content_el);
-            while let Some(parent) = el {
-                if parent.has_attribute("data-rs-scroll-viewport") { return Some(parent); }
-                el = parent.parent_element();
-            }
-            None
-        })
-        .or_else(|| {
-            let doc = web_sys::window()?.document()?;
-            let content_el = doc.query_selector("[data-rs-markdown-content]").ok()??;
-            let mut el: Option<web_sys::Element> = Some(content_el);
-            while let Some(parent) = el {
-                if parent.has_attribute("data-rs-scroll-viewport") { return Some(parent); }
-                el = parent.parent_element();
-            }
-            None
-        });
+    // Use scrollspy kernel for viewport topology resolution
+    let scroll_viewport = scrollspy::resolve_viewport(toc);
 
     let toc_uid = format!("md-scroll:{}", toc.get_attribute("data-rs-uid").unwrap_or_default());
     let toc_c   = toc.clone();
-    let hids    = heading_ids.clone();
     let last_active = std::rc::Rc::new(std::cell::RefCell::new(None::<String>));
     let la_cb   = last_active.clone();
     let vp_c    = scroll_viewport.clone();
 
+    // Use scrollspy kernel for element caching
+    let cached_headings = std::rc::Rc::new(scrollspy::cache_headings(&heading_ids));
+
     let on_scroll_fn = move |_: web_sys::Event| {
-        let doc2 = web_sys::window().unwrap().document().unwrap();
-        let vp_top = vp_c.as_ref().map(|v| v.get_bounding_client_rect().top()).unwrap_or(0.0);
-        let threshold = vp_top + 80.0;
-        let mut closest: Option<(f64, String)> = None;
-        for id in &hids {
-            if let Ok(Some(el)) = doc2.query_selector(&format!("#{}", id)) {
-                let top = el.get_bounding_client_rect().top();
-                if top <= threshold {
-                    match &closest {
-                        None => { closest = Some((top, id.clone())); }
-                        Some((ct, _)) => { if top > *ct { closest = Some((top, id.clone())); } }
-                    }
-                }
-            }
-        }
-        let active_id = closest.map(|(_, id)| id).or_else(|| hids.first().cloned());
+        // Use scrollspy kernel — no DOM queries
+        let active_id = scrollspy::active_heading(cached_headings.as_ref(), vp_c.as_ref(), 80.0);
         let Some(id) = active_id else { return };
         if la_cb.borrow().as_deref() == Some(&id) { return; }
         *la_cb.borrow_mut() = Some(id.clone());

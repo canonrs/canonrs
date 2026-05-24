@@ -1,9 +1,14 @@
 component: markdown
 route: /showcase/markdown
 interaction: content
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  has_content:
+    selector: "[data-rs-markdown]"
+    assert: exists
