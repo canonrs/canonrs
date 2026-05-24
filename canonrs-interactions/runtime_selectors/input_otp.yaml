@@ -2,4 +2,4 @@
 component: input_otp
 selectors:
   local:
-    - [data-rs-slot-inner]  # UNVERIFIED
+    - [data-rs-slot-inner]

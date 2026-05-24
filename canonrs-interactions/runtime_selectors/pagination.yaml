@@ -2,9 +2,9 @@
 component: pagination
 selectors:
   local:
-    - [data-rs-action='next']  # UNVERIFIED
-    - [data-rs-action='prev']  # UNVERIFIED
-    - [data-rs-pagination-info]  # UNVERIFIED
+    - [data-rs-action='next']
+    - [data-rs-action='prev']
+    - [data-rs-pagination-info]
     - [data-rs-pagination-link]
     - [data-rs-pagination-next]
     - [data-rs-pagination-previous]
