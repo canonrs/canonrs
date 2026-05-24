@@ -1,11 +1,10 @@
 //! ColorPicker Interaction Engine
 
-use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{state, attrs};
-use crate::runtime::{context, popup};
-
 use wasm_bindgen::JsCast;
 use web_sys::Element;
+use canonrs_interactions_core::dom::{state, attrs};
+use canonrs_interactions_core::runtime::listeners;
+use crate::runtime::{context, popup};
 
 
 fn set_open(root: &Element, open: bool) {
@@ -42,73 +41,50 @@ pub fn init(root: Element) {
     let _uid = root.get_attribute("data-rs-uid").unwrap_or_else(|| "NO-UID".to_string());
     let _is_swatches = root.has_attribute("data-rs-color-picker-swatches");
 
-    // click handler — toggle popup (normal) ou swatch select (swatches mode)
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else {
-                return;
-            };
-            let Some(rc) = context::find_root(&t, "[data-rs-color-picker]") else {
-                return;
-            };
-            if rc.get_attribute("data-rs-disabled").as_deref() == Some("true") { return; }
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-            // swatch clicado dentro do swatches row
-            if let Ok(Some(swatch_el)) = t.closest("[data-rs-color-swatch]") {
-                if rc.has_attribute("data-rs-color-picker-swatches") {
-                    e.stop_propagation();
-                    let color = swatch_el.get_attribute("data-rs-color").unwrap_or_default();
-                    // deselect all swatches
-                    if let Ok(nodes) = rc.query_selector_all("[data-rs-color-swatch]") {
-                        for i in 0..nodes.length() {
-                            if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
-                                state::remove(&n, canonrs_interactions_core::dom::state::State::Selected.as_str());
-                            }
+    listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-color-picker]") else { return };
+        if rc.get_attribute("data-rs-disabled").as_deref() == Some("true") { return; }
+        if let Ok(Some(swatch_el)) = t.closest("[data-rs-color-swatch]") {
+            if rc.has_attribute("data-rs-color-picker-swatches") {
+                e.stop_propagation();
+                let color = swatch_el.get_attribute("data-rs-color").unwrap_or_default();
+                if let Ok(nodes) = rc.query_selector_all("[data-rs-color-swatch]") {
+                    for i in 0..nodes.length() {
+                        if let Some(n) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
+                            state::remove(&n, canonrs_interactions_core::dom::state::State::Selected.as_str());
                         }
                     }
-                    state::add(&swatch_el, canonrs_interactions_core::dom::state::State::Selected.as_str());
-                    update_swatch_color(&rc, &color);
-                    return;
                 }
+                state::add(&swatch_el, canonrs_interactions_core::dom::state::State::Selected.as_str());
+                update_swatch_color(&rc, &color);
+                return;
             }
+        }
+        if t.closest("[data-rs-color-picker-trigger]").ok().flatten().is_some() {
+            if !rc.has_attribute("data-rs-color-picker-swatches") {
+                e.stop_propagation();
+                let o = state::has(&rc, canonrs_interactions_core::dom::state::State::Open.as_str());
+                set_open(&rc, !o);
+            }
+        }
+    });
 
-            // trigger normal — abre/fecha popup
-            if t.closest("[data-rs-color-picker-trigger]").ok().flatten().is_some() {
-                if !rc.has_attribute("data-rs-color-picker-swatches") {
-                    e.stop_propagation();
-                    let o = state::has(&rc, canonrs_interactions_core::dom::state::State::Open.as_str());
-                    set_open(&rc, !o);
-                }
-            }
-        }));
-        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-
-    // input change → update swatch color (apenas no picker normal)
-    {
-        let cb = Closure::<dyn Fn(web_sys::Event)>::wrap(Box::new(move |e: web_sys::Event| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) else {
-                return;
-            };
-            if target.get_attribute("data-rs-color-picker-input").is_none() {
-                return;
-            }
-            let el = target.clone().dyn_into::<Element>().unwrap();
-            let Some(rc) = context::find_root(&el, "[data-rs-color-picker]") else {
-                return;
-            };
-            let value = target.value();
-            update_swatch_color(&rc, &value);
-            if let Some(display) = attrs::query_one(&rc, "[data-rs-color-display-value]") {
-                display.set_text_content(Some(&value));
-                let _ = display.set_attribute("data-rs-color-value", &value);
-            } else {
-            }
-        }));
-        let _ = root.add_event_listener_with_callback("input", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+    listeners::listen(&uid, &root, "input", move |e: web_sys::Event| {
+        let Some(target) = e.target().and_then(|t| t.dyn_into::<web_sys::HtmlInputElement>().ok()) else { return };
+        if target.get_attribute("data-rs-color-picker-input").is_none() { return; }
+        let el = target.clone().dyn_into::<Element>().unwrap();
+        let Some(rc) = context::find_root(&el, "[data-rs-color-picker]") else { return };
+        let value = target.value();
+        update_swatch_color(&rc, &value);
+        if let Some(display) = attrs::query_one(&rc, "[data-rs-color-display-value]") {
+            display.set_text_content(Some(&value));
+            let _ = display.set_attribute("data-rs-color-value", &value);
+        }
+    });
 }
 
 pub fn register() {

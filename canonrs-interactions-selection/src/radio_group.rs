@@ -1,10 +1,10 @@
 //! Radio Interaction Engine — keyboard navigation + selection sync
 
-use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{state};
-use crate::runtime::{context};
 use wasm_bindgen::JsCast;
 use web_sys::Element;
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
+use crate::runtime::context;
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-radio]") else { return vec![] };
@@ -89,68 +89,55 @@ pub fn init(root: Element) {
 
 
 
-    // focus/blur — state "focus" no item
-    {
-        let root_focus = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |e: web_sys::FocusEvent| {
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+
+    listeners::listen(&uid, &root, "focusin", {
+        let root_c = root.clone();
+        move |e: web_sys::Event| {
             let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(item) = t.closest("[data-rs-radio]").ok().flatten() else { return };
-            for el in get_items(&root_focus) { state::remove(&el, "focus"); }
+            for el in get_items(&root_c) { state::remove(&el, "focus"); }
             state::add(&item, "focus");
-        }));
-        let _ = root.add_event_listener_with_callback("focusin", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        }
+    });
 
-    {
-        let root_blur = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::wrap(Box::new(move |_: web_sys::FocusEvent| {
-            for el in get_items(&root_blur) { state::remove(&el, "focus"); }
-        }));
-        let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+    listeners::listen(&uid, &root, "focusout", {
+        let root_c = root.clone();
+        move |_: web_sys::Event| {
+            for el in get_items(&root_c) { state::remove(&el, "focus"); }
+        }
+    });
 
-    // click → select
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(rc) = context::find_root(&t, "[data-rs-radio-group]") else { return };
-            let Some(item) = t.closest("[data-rs-radio]").ok().flatten() else { return };
-            if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
-            let value = item_value(&item);
-            select_item(&rc, &value);
-        }));
-        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+    listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-radio-group]") else { return };
+        let Some(item) = t.closest("[data-rs-radio]").ok().flatten() else { return };
+        if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
+        select_item(&rc, &item_value(&item));
+    });
 
-    // keydown → roving tabindex navigation
-    {
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(rc) = context::find_root(&t, "[data-rs-radio-group]") else { return };
-            if t.closest("[data-rs-radio]").ok().flatten().is_none() { return; }
-            let items = navigable_items(&rc);
-            let len = items.len();
-            if len == 0 { return; }
-            let pos = items.iter().position(|el| el.contains(Some(&t)));
-            let next_idx = match e.key().as_str() {
-                "ArrowDown" | "ArrowRight" => { e.prevent_default(); pos.map(|p| (p + 1) % len) }
-                "ArrowUp"   | "ArrowLeft"  => { e.prevent_default(); pos.map(|p| if p == 0 { len - 1 } else { p - 1 }) }
-                _ => None,
-            };
-            if let Some(idx) = next_idx {
-                if let Some(item) = items.get(idx) {
-                    let value = item_value(item);
-                    select_item(&rc, &value);
-                    focus_item(item);
-                }
+    listeners::listen(&uid, &root, "keydown", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-radio-group]") else { return };
+        if t.closest("[data-rs-radio]").ok().flatten().is_none() { return; }
+        let items = navigable_items(&rc);
+        let len = items.len();
+        if len == 0 { return; }
+        let pos = items.iter().position(|el| el.contains(Some(&t)));
+        let next_idx = match e.key().as_str() {
+            "ArrowDown" | "ArrowRight" => { e.prevent_default(); pos.map(|p| (p + 1) % len) }
+            "ArrowUp"   | "ArrowLeft"  => { e.prevent_default(); pos.map(|p| if p == 0 { len - 1 } else { p - 1 }) }
+            _ => None,
+        };
+        if let Some(idx) = next_idx {
+            if let Some(item) = items.get(idx) {
+                select_item(&rc, &item_value(item));
+                focus_item(item);
             }
-        }));
-        let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        }
+    });
 }
 
 pub fn init_all() {

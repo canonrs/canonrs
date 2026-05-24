@@ -1,11 +1,10 @@
 //! Select Interaction Engine
 
-use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{state};
-use crate::runtime::{popup, context};
-
 use wasm_bindgen::JsCast;
 use web_sys::Element;
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
+use crate::runtime::{popup, context};
 
 
 
@@ -101,8 +100,11 @@ pub fn init(root: Element) {
         }
     }
 
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+
     // click
-    { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+    listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
         let Some(rc) = context::find_root(&t, "[data-rs-select]") else { return };
         if let Ok(Some(item)) = t.closest("[data-rs-select-item]") {
@@ -115,10 +117,11 @@ pub fn init(root: Element) {
             e.stop_propagation();
             if !is_disabled(&rc) { let o = is_open(&rc); set_open(&rc, !o); }
         }
-    })); let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()); cb.forget(); }
+    });
 
     // mouseover
-    { let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+    listeners::listen(&uid, &root, "mouseover", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
         let Some(rc) = context::find_root(&t, "[data-rs-select]") else { return };
         if let Ok(Some(item)) = t.closest("[data-rs-select-item]") {
@@ -126,10 +129,11 @@ pub fn init(root: Element) {
                 clear_focused(&rc); state::add(&item, "focus");
             }
         }
-    })); let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref()); cb.forget(); }
+    });
 
     // keydown
-    { let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+    listeners::listen(&uid, &root, "keydown", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
         let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
         let Some(rc) = context::find_root(&t, "[data-rs-select]") else { return };
         if is_disabled(&rc) { return; }
@@ -159,7 +163,7 @@ pub fn init(root: Element) {
             }
             _ => {}
         }
-    })); let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref()); cb.forget(); }
+    });
 }
 
 fn close_select(root: &web_sys::Element) {

@@ -1,12 +1,11 @@
 //! ToggleGroup Interaction Engine
 //! Single/multiple selection, keyboard navigation, disabled state
 
-use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{state};
-use crate::runtime::{context};
-
 use wasm_bindgen::JsCast;
 use web_sys::{Element, HtmlElement};
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
+use crate::runtime::context;
 
 fn get_toggles(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-toggle]") else { return vec![] };
@@ -51,60 +50,53 @@ fn toggle_item(root: &Element, item: &Element) {
 
 pub fn init(root: Element) {
     context::propagate_owner(&root);
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    // click
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(rc) = context::find_root(&t, "[data-rs-toggle-group]") else { return };
-            let Some(item) = t.closest("[data-rs-toggle]").ok().flatten() else { return };
-            if state::has(&rc, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
-            if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
-            e.stop_propagation();
-            toggle_item(&rc, &item);
-        }));
-        root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()).ok();
-        cb.forget();
-    }
+    listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-toggle-group]") else { return };
+        let Some(item) = t.closest("[data-rs-toggle]").ok().flatten() else { return };
+        if state::has(&rc, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
+        if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
+        e.stop_propagation();
+        toggle_item(&rc, &item);
+    });
 
-    // keydown
-    {
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(rc) = context::find_root(&t, "[data-rs-toggle-group]") else { return };
-            if t.closest("[data-rs-toggle]").ok().flatten().is_none() { return; }
-            if state::has(&rc, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
-            match e.key().as_str() {
-                " " | "Enter" => {
-                    e.prevent_default();
-                    if let Some(item) = t.closest("[data-rs-toggle]").ok().flatten() {
-                        if !state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { toggle_item(&rc, &item); }
-                    }
+    listeners::listen(&uid, &root, "keydown", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-toggle-group]") else { return };
+        if t.closest("[data-rs-toggle]").ok().flatten().is_none() { return; }
+        if state::has(&rc, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
+        match e.key().as_str() {
+            " " | "Enter" => {
+                e.prevent_default();
+                if let Some(item) = t.closest("[data-rs-toggle]").ok().flatten() {
+                    if !state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { toggle_item(&rc, &item); }
                 }
-                "ArrowRight" | "ArrowDown" => {
-                    e.prevent_default();
-                    let items = navigable_toggles(&rc);
-                    let len = items.len();
-                    if let Some(pos) = items.iter().position(|el| el.contains(Some(&t))) {
-                        let next = (pos + 1) % len;
-                        if let Ok(btn) = items[next].clone().dyn_into::<HtmlElement>() { btn.focus().ok(); }
-                    }
-                }
-                "ArrowLeft" | "ArrowUp" => {
-                    e.prevent_default();
-                    let items = navigable_toggles(&rc);
-                    let len = items.len();
-                    if let Some(pos) = items.iter().position(|el| el.contains(Some(&t))) {
-                        let prev = if pos == 0 { len - 1 } else { pos - 1 };
-                        if let Ok(btn) = items[prev].clone().dyn_into::<HtmlElement>() { btn.focus().ok(); }
-                    }
-                }
-                _ => {}
             }
-        }));
-        root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref()).ok();
-        cb.forget();
-    }
+            "ArrowRight" | "ArrowDown" => {
+                e.prevent_default();
+                let items = navigable_toggles(&rc);
+                let len = items.len();
+                if let Some(pos) = items.iter().position(|el| el.contains(Some(&t))) {
+                    let next = (pos + 1) % len;
+                    if let Ok(btn) = items[next].clone().dyn_into::<HtmlElement>() { btn.focus().ok(); }
+                }
+            }
+            "ArrowLeft" | "ArrowUp" => {
+                e.prevent_default();
+                let items = navigable_toggles(&rc);
+                let len = items.len();
+                if let Some(pos) = items.iter().position(|el| el.contains(Some(&t))) {
+                    let prev = if pos == 0 { len - 1 } else { pos - 1 };
+                    if let Ok(btn) = items[prev].clone().dyn_into::<HtmlElement>() { btn.focus().ok(); }
+                }
+            }
+            _ => {}
+        }
+    });
 }
 
 pub fn init_all() {

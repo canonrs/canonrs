@@ -1,11 +1,10 @@
 //! Tree Interaction Engine — expand/collapse + selection + keyboard navigation
 
-use wasm_bindgen::prelude::*;
-use canonrs_interactions_core::dom::{state};
-use crate::runtime::{context};
-
 use wasm_bindgen::JsCast;
 use web_sys::Element;
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
+use crate::runtime::context;
 
 fn get_items(root: &Element) -> Vec<Element> {
     let Ok(nodes) = root.query_selector_all("[data-rs-tree-item]") else { return vec![] };
@@ -51,73 +50,66 @@ fn select_item(root: &Element, item: &Element) {
 
 pub fn init(root: Element) {
     context::propagate_owner(&root);
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    // click → select + expand/collapse
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(rc) = context::find_root(&t, "[data-rs-tree]") else { return };
-            let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() else { return };
-            if is_disabled(&item) { return; }
-            select_item(&rc, &item);
-            toggle_expand(&item);
-        }));
-        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+    listeners::listen(&uid, &root, "click", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-tree]") else { return };
+        let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() else { return };
+        if is_disabled(&item) { return; }
+        select_item(&rc, &item);
+        toggle_expand(&item);
+    });
 
-    // keydown → navigation + expand/collapse
-    {
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
-            let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(rc) = context::find_root(&t, "[data-rs-tree]") else { return };
-            if t.closest("[data-rs-tree-item]").ok().flatten().is_none() { return; }
-            let items = get_items(&rc);
-            let len = items.len();
-            if len == 0 { return; }
-            let pos = items.iter().position(|el| el.contains(Some(&t)));
-            match e.key().as_str() {
-                "ArrowDown" => {
-                    e.prevent_default();
-                    if let Some(p) = pos {
-                        let next = (p + 1).min(len - 1);
-                        if let Ok(el) = items[next].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
-                    }
+    listeners::listen(&uid, &root, "keydown", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
+        let Some(t) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(rc) = context::find_root(&t, "[data-rs-tree]") else { return };
+        if t.closest("[data-rs-tree-item]").ok().flatten().is_none() { return; }
+        let items = get_items(&rc);
+        let len = items.len();
+        if len == 0 { return; }
+        let pos = items.iter().position(|el| el.contains(Some(&t)));
+        match e.key().as_str() {
+            "ArrowDown" => {
+                e.prevent_default();
+                if let Some(p) = pos {
+                    let next = (p + 1).min(len - 1);
+                    if let Ok(el) = items[next].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
                 }
-                "ArrowUp" => {
-                    e.prevent_default();
-                    if let Some(p) = pos {
-                        let prev = if p == 0 { 0 } else { p - 1 };
-                        if let Ok(el) = items[prev].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
-                    }
-                }
-                "ArrowRight" => {
-                    e.prevent_default();
-                    if let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() {
-                        if is_expandable(&item) && !is_expanded(&item) { toggle_expand(&item); }
-                    }
-                }
-                "ArrowLeft" => {
-                    e.prevent_default();
-                    if let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() {
-                        if is_expandable(&item) && is_expanded(&item) { toggle_expand(&item); }
-                    }
-                }
-                "Enter" | " " => {
-                    e.prevent_default();
-                    if let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() {
-                        if !is_disabled(&item) {
-                            select_item(&rc, &item);
-                            toggle_expand(&item);
-                        }
-                    }
-                }
-                _ => {}
             }
-        }));
-        let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+            "ArrowUp" => {
+                e.prevent_default();
+                if let Some(p) = pos {
+                    let prev = if p == 0 { 0 } else { p - 1 };
+                    if let Ok(el) = items[prev].clone().dyn_into::<web_sys::HtmlElement>() { let _ = el.focus(); }
+                }
+            }
+            "ArrowRight" => {
+                e.prevent_default();
+                if let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() {
+                    if is_expandable(&item) && !is_expanded(&item) { toggle_expand(&item); }
+                }
+            }
+            "ArrowLeft" => {
+                e.prevent_default();
+                if let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() {
+                    if is_expandable(&item) && is_expanded(&item) { toggle_expand(&item); }
+                }
+            }
+            "Enter" | " " => {
+                e.prevent_default();
+                if let Some(item) = t.closest("[data-rs-tree-item]").ok().flatten() {
+                    if !is_disabled(&item) {
+                        select_item(&rc, &item);
+                        toggle_expand(&item);
+                    }
+                }
+            }
+            _ => {}
+        }
+    });
 }
 
 pub fn init_all() {
