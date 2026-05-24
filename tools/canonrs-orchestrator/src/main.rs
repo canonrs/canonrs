@@ -39,6 +39,8 @@ async fn main() {
     // 3. wasm (inicial)
     ensure_wasm_hash(&root);
     build_wasm(&root, &state, &reload_tx);
+    // 3b. capability groups — build each interaction group as standalone wasm
+    wasm::build_all_groups(&root);
 
     // 4. watchers
     let running = Arc::new(AtomicBool::new(true));
