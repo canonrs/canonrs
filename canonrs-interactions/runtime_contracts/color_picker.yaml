@@ -1,9 +1,25 @@
 component: color_picker
 route: /showcase/color-picker
 interaction: selection
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  opens_on_trigger:
+    action: click
+    selector: "[data-rs-color-picker-trigger]"
+    assert: state_includes
+    state: open
+    target: "[data-rs-color-picker]"
+
+  closes_on_escape:
+    action: key
+    key: Escape
+    assert: state_excludes
+    state: open
+    target: "[data-rs-color-picker]"
+    depends: opens_on_trigger

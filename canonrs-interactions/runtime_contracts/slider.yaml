@@ -1,9 +1,20 @@
 component: slider
 route: /showcase/slider
 interaction: gesture
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  has_value:
+    selector: "[data-rs-slider]"
+    assert: exists
+
+  value_attr_set:
+    selector: "[data-rs-slider]"
+    assert: attr_set
+    attr: data-rs-value
+    target: "[data-rs-slider]"

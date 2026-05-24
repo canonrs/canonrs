@@ -1,9 +1,19 @@
 component: carousel
 route: /showcase/carousel
 interaction: gesture
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  renders_items:
+    selector: "[data-rs-carousel-item]"
+    assert: exists
+
+  items_count_positive:
+    selector: "[data-rs-carousel-item]"
+    assert: count_gt
+    value: 0

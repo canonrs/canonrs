@@ -1,9 +1,17 @@
 component: radio_group
 route: /showcase/radio-group
 interaction: selection
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  selects_on_click:
+    action: dispatch_click
+    selector: "[data-rs-radio]"
+    assert: attr_set
+    attr: data-rs-value
+    target: "[data-rs-radio-group]"

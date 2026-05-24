@@ -1,9 +1,15 @@
 component: toggle_group
 route: /showcase/toggle-group
 interaction: selection
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  toggles_on_click:
+    action: dispatch_click
+    selector: "[data-rs-toggle]"
+    assert: exists

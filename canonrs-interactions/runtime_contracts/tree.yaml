@@ -1,9 +1,19 @@
 component: tree
 route: /showcase/tree
 interaction: selection
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  renders_items:
+    selector: "[data-rs-tree-item]"
+    assert: exists
+
+  items_count_positive:
+    selector: "[data-rs-tree-item]"
+    assert: count_gt
+    value: 0

@@ -1,9 +1,19 @@
 component: resizable
 route: /showcase/resizable
 interaction: gesture
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  has_handle:
+    selector: "[data-rs-resizable-handle]"
+    assert: exists
+
+  has_panels:
+    selector: "[data-rs-resizable-panel]"
+    assert: count_gt
+    value: 1

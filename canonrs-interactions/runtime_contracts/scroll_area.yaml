@@ -1,9 +1,18 @@
 component: scroll_area
 route: /showcase/scroll-area
 interaction: gesture
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  has_viewport:
+    selector: "[data-rs-scroll-viewport]"
+    assert: exists
+
+  has_thumb:
+    selector: "[data-rs-scroll-thumb]"
+    assert: exists

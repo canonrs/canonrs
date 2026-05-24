@@ -1,7 +1,7 @@
 component: select
 route: /showcase/select
 interaction: selection
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
@@ -15,6 +15,7 @@ behavior:
     assert: state_includes
     state: open
     target: "[data-rs-select]"
+
   closes_on_escape:
     action: key
     key: Escape

@@ -1,9 +1,17 @@
 component: combobox
 route: /showcase/combobox
 interaction: selection
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  opens_on_focus:
+    action: click
+    selector: "[data-rs-combobox-input]"
+    assert: state_includes
+    state: open
+    target: "[data-rs-combobox]"
