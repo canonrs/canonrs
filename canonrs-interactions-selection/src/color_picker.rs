@@ -36,7 +36,6 @@ fn update_swatch_color(root: &Element, value: &str) {
 
 pub fn init(root: Element) {
     register();
-    context::propagate_owner(&root);
 
     let _uid = root.get_attribute("data-rs-uid").unwrap_or_else(|| "NO-UID".to_string());
     let _is_swatches = root.has_attribute("data-rs-color-picker-swatches");
@@ -97,13 +96,4 @@ pub fn register() {
     });
 }
 
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-color-picker]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
-        }
-    }
-}
+

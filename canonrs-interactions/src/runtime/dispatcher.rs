@@ -18,6 +18,20 @@ thread_local! {
     });
 }
 
+/// Bootstrap kernel — propagate data-rs-owner to children before component init
+/// This is bootstrap responsibility, NOT component responsibility
+fn propagate_owner(root: &Element, uid: &str) {
+    use wasm_bindgen::JsCast;
+    let Ok(nodes) = root.query_selector_all("[data-rs-uid], [data-rs-interaction], [data-rs-state]") else { return };
+    for i in 0..nodes.length() {
+        if let Some(el) = nodes.item(i).and_then(|n| n.dyn_into::<Element>().ok()) {
+            if el.get_attribute("data-rs-uid").is_none() {
+                let _ = el.set_attribute("data-rs-owner", uid);
+            }
+        }
+    }
+}
+
 pub fn dispatch(el: &Element) {
     let group = el.get_attribute("data-rs-interaction").unwrap_or_default();
     // Register in ownership tree + set lifecycle Mount
@@ -25,6 +39,11 @@ pub fn dispatch(el: &Element) {
         canonrs_interactions_core::runtime::ownership::register(&uid, None);
         canonrs_interactions_core::runtime::lifecycle::set_state(&uid, canonrs_interactions_core::runtime::lifecycle::LifecycleState::Mount);
     }
+    // Bootstrap responsibility: propagate ownership BEFORE component init
+    if let Some(uid) = el.get_attribute("data-rs-uid") {
+        propagate_owner(&el, &uid);
+    }
+
     HANDLERS.with(|h| {
         if let Some(handler) = h.borrow().get(&group) {
             handler(el.clone());

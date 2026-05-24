@@ -68,7 +68,6 @@ fn select_item(root: &Element, value: &str) {
 }
 
 pub fn init(root: Element) {
-    context::propagate_owner(&root);
 
     // SSR bootstrap — roving tabindex + garantir consistência
     {
@@ -140,13 +139,4 @@ pub fn init(root: Element) {
     });
 }
 
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-radio-group]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
-        }
-    }
-}
+

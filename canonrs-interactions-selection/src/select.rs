@@ -77,7 +77,6 @@ fn focused_index(items: &[Element]) -> Option<usize> {
 
 pub fn init(root: Element) {
     register();
-    context::propagate_owner(&root);
 
 
 
@@ -181,13 +180,3 @@ pub fn register() {
     });
 }
 
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-select]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<web_sys::Element>() { init(el); }
-        }
-    }
-}
