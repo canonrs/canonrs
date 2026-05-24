@@ -1,11 +1,10 @@
 //! CopyButton Interaction Engine
-//! Core: dom/{state} + behavior/clipboard
+//! Core: dom/{state} + clipboard
 
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
 use wasm_bindgen_futures::spawn_local;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{state};
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::{listeners, timers};
 
 fn copy_to_clipboard(text: String, el: Element, reset_delay: i32) {
     let window = match web_sys::window() { Some(w) => w, None => return };
@@ -26,75 +25,48 @@ fn copy_to_clipboard(text: String, el: Element, reset_delay: i32) {
 }
 
 fn schedule_reset(el: Element, delay: i32) {
-    let cb = Closure::once(Box::new(move || {
+    timers::timeout(delay, move || {
         state::remove(&el, "copied");
         state::remove(&el, "error");
         state::add(&el, "idle");
-    }) as Box<dyn FnOnce()>);
-    if let Some(win) = web_sys::window() {
-        win.set_timeout_with_callback_and_timeout_and_arguments_0(
-            cb.as_ref().unchecked_ref(), delay,
-        ).ok();
-    }
-    cb.forget();
+    });
 }
 
 pub fn init(el: Element) {
-
+    let uid = el.get_attribute("data-rs-uid").unwrap_or_default();
     let reset_delay = el.get_attribute("data-rs-reset-delay")
         .and_then(|s| s.parse::<i32>().ok())
         .unwrap_or(2000);
 
-    let el_cb = el.clone();
-    let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-        let text   = el_cb.get_attribute("data-rs-copy-text").unwrap_or_default();
-        let target = el_cb.get_attribute("data-rs-copy-target").unwrap_or_default();
-        let copy_text = if !text.is_empty() {
-            Some(text)
-        } else if !target.is_empty() {
-            let selector = if target.starts_with('#') { target } else { format!("#{}", target) };
-            web_sys::window()
-                .and_then(|w| w.document())
-                .and_then(|d| d.query_selector(&selector).ok().flatten())
-                .and_then(|e| e.text_content())
-        } else {
-            None
-        };
-        match copy_text {
-            Some(t) if !t.is_empty() => copy_to_clipboard(t, el_cb.clone(), reset_delay),
-            _ => {
-                state::remove(&el_cb, "idle");
-                state::remove(&el_cb, "copied");
-                state::add(&el_cb, "error");
-                schedule_reset(el_cb.clone(), reset_delay);
+    listeners::listen(&uid, &el, "click", {
+        let el_c = el.clone();
+        move |_: web_sys::Event| {
+            let text   = el_c.get_attribute("data-rs-copy-text").unwrap_or_default();
+            let target = el_c.get_attribute("data-rs-copy-target").unwrap_or_default();
+            let copy_text = if !text.is_empty() {
+                Some(text)
+            } else if !target.is_empty() {
+                let selector = if target.starts_with('#') { target } else { format!("#{}", target) };
+                web_sys::window()
+                    .and_then(|w| w.document())
+                    .and_then(|d| d.query_selector(&selector).ok().flatten())
+                    .and_then(|e| e.text_content())
+            } else {
+                None
+            };
+            match copy_text {
+                Some(t) if !t.is_empty() => copy_to_clipboard(t, el_c.clone(), reset_delay),
+                _ => {
+                    state::remove(&el_c, "idle");
+                    state::remove(&el_c, "copied");
+                    state::add(&el_c, "error");
+                    schedule_reset(el_c.clone(), reset_delay);
+                }
             }
         }
-    }));
-    let _ = el.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-    cb.forget();
+    });
 
-    let el_over = el.clone();
-    let cb_over = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-        state::add(&el_over, "hover");
-    }));
-    let _ = el.add_event_listener_with_callback("mouseover", cb_over.as_ref().unchecked_ref());
-    cb_over.forget();
-
-    let el_out = el.clone();
-    let cb_out = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |_| {
-        state::remove(&el_out, "hover");
-    }));
-    let _ = el.add_event_listener_with_callback("mouseout", cb_out.as_ref().unchecked_ref());
-    cb_out.forget();
-}
-
-pub fn init_all() {
-    let win = match web_sys::window() { Some(w) => w, None => return };
-    let doc = match win.document() { Some(d) => d, None => return };
-    let nodes = match doc.query_selector_all("[data-rs-copy-button]") { Ok(n) => n, Err(_) => return };
-    for i in 0..nodes.length() {
-        if let Some(node) = nodes.item(i) {
-            if let Ok(el) = node.dyn_into::<Element>() { init(el); }
-        }
-    }
+    listeners::listen(&uid, &el, "mouseover", move |_: web_sys::Event| {
+        // hover state tracked via CSS :hover — no state needed
+    });
 }
