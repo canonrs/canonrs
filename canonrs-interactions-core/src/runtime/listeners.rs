@@ -48,6 +48,10 @@ fn register(ns: &str, target: EventTarget, event: &str, capture: bool, closure: 
             .or_default()
             .insert(id, ListenerEntry { target, event: event.to_string(), capture, closure });
     });
+    // Track in ownership graph
+    if !ns.is_empty() && ns != "global" {
+        super::ownership::track_listener(ns);
+    }
     id
 }
 

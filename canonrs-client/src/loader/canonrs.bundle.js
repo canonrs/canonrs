@@ -51,6 +51,21 @@ window.__canonRuntime = {
   get orphan_listeners()  { try { return this._mod?.runtime_orphan_listeners?.() ?? -1; } catch(e) { return -1; } },
   get initialized_count() { try { return this._mod?.runtime_initialized_count?.() ?? -1; } catch(e) { return -1; } },
   get namespaces() { try { return Array.from(this._mod?.runtime_namespaces?.() ?? []); } catch(e) { return []; } },
+
+  // Lifecycle state per uid
+  lifecycle(uid) {
+    try { return this._mod?.runtime_lifecycle_state?.(uid) ?? 'unknown'; } catch(e) { return 'unknown'; }
+  },
+
+  // Ownership summary per uid
+  ownership(uid) {
+    try { return this._mod?.runtime_ownership_summary?.(uid) ?? 'not_registered'; } catch(e) { return 'not_registered'; }
+  },
+
+  // Total resources across all components
+  get total_resources() {
+    try { return this._mod?.runtime_total_resources?.() ?? 'unavailable'; } catch(e) { return 'unavailable'; }
+  },
   snapshot() {
     return {
       init_count: this.init_count, replay_count: this.replay_count,

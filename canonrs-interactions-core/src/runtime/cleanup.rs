@@ -11,6 +11,8 @@ use web_sys::Element;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use crate::dom::lifecycle;
+use super::ownership;
+use super::lifecycle as lc;
 
 // Timer handles por uid — para cancelamento no cleanup
 thread_local! {
@@ -31,10 +33,24 @@ pub fn track_timer(uid: &str, handle: i32) {
 /// Cleanup completo de um componente por uid
 /// Remove: listeners, timers, init state
 pub fn cleanup_uid(uid: &str) {
-    // 1. remove listeners do namespace
+    // 1. cleanup all descendants (ownership tree)
+    let descendants = ownership::release(uid);
+    for child_uid in &descendants {
+        if child_uid == uid { continue; }
+        super::listeners::cleanup(child_uid);
+        TIMER_HANDLES.with(|t| {
+            if let Some(handles) = t.borrow_mut().remove(child_uid) {
+                for h in handles { super::timers::cancel_timeout(h); }
+            }
+        });
+        lc::set_state(child_uid, lc::LifecycleState::Destroy);
+        lc::remove(child_uid);
+    }
+
+    // 2. remove listeners do namespace
     super::listeners::cleanup(uid);
 
-    // 2. cancela timers pendentes
+    // 3. cancela timers pendentes
     TIMER_HANDLES.with(|t| {
         if let Some(handles) = t.borrow_mut().remove(uid) {
             for h in handles {
@@ -43,16 +59,20 @@ pub fn cleanup_uid(uid: &str) {
         }
     });
 
-    // 3. remove data-rs-initialized do elemento
+    // 4. remove data-rs-initialized do elemento
     if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
         let sel = format!("[data-rs-uid=\"{}\"]", uid);
         if let Ok(Some(el)) = doc.query_selector(&sel) {
             lifecycle::reset(&el);
         }
     }
+
+    // 5. transition lifecycle to Destroy
+    lc::set_state(uid, lc::LifecycleState::Destroy);
+    lc::remove(uid);
 }
 
-/// Cleanup de uma subtree inteira
+/// Cleanup de uma subtree/// Cleanup de uma subtree inteira
 /// Remove todos os componentes com data-rs-uid dentro do root
 pub fn cleanup_subtree(root: &Element) {
     use wasm_bindgen::JsCast;

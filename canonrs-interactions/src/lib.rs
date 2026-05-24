@@ -20,6 +20,30 @@ pub fn init_subtree(el: web_sys::Element) {
 
 /// Plugin registration — externos registram handlers sem depender do core
 /// rs-canvas-runtime chama: canonrs_interactions::register_interaction("canvas", fn)
+/// Runtime instrumentation — lifecycle state of a component by uid
+#[wasm_bindgen]
+pub fn runtime_lifecycle_state(uid: &str) -> String {
+    canonrs_interactions_core::runtime::lifecycle::state(uid)
+        .map(|s| s.as_str().to_string())
+        .unwrap_or_else(|| "unknown".to_string())
+}
+
+/// Runtime instrumentation — ownership tree summary (listeners, timers, observers)
+#[wasm_bindgen]
+pub fn runtime_ownership_summary(uid: &str) -> String {
+    match canonrs_interactions_core::runtime::ownership::summary(uid) {
+        Some((l, t, o)) => format!("listeners:{} timers:{} observers:{}", l, t, o),
+        None => "not_registered".to_string(),
+    }
+}
+
+/// Runtime instrumentation — total resources across all components
+#[wasm_bindgen]
+pub fn runtime_total_resources() -> String {
+    let (l, t, o) = canonrs_interactions_core::runtime::ownership::total_resources();
+    format!("listeners:{} timers:{} observers:{}", l, t, o)
+}
+
 /// Runtime instrumentation — total active listeners
 #[wasm_bindgen]
 pub fn runtime_active_listeners() -> usize {

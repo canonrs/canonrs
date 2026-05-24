@@ -20,6 +20,11 @@ thread_local! {
 
 pub fn dispatch(el: &Element) {
     let group = el.get_attribute("data-rs-interaction").unwrap_or_default();
+    // Register in ownership tree + set lifecycle Mount
+    if let Some(uid) = el.get_attribute("data-rs-uid") {
+        canonrs_interactions_core::runtime::ownership::register(&uid, None);
+        canonrs_interactions_core::runtime::lifecycle::set_state(&uid, canonrs_interactions_core::runtime::lifecycle::LifecycleState::Mount);
+    }
     HANDLERS.with(|h| {
         if let Some(handler) = h.borrow().get(&group) {
             handler(el.clone());
@@ -27,6 +32,10 @@ pub fn dispatch(el: &Element) {
             let _ = el.set_attribute("data-rs-initialized", "true");
         }
     });
+    // Transition to Active after dispatch
+    if let Some(uid) = el.get_attribute("data-rs-uid") {
+        canonrs_interactions_core::runtime::lifecycle::set_state(&uid, canonrs_interactions_core::runtime::lifecycle::LifecycleState::Active);
+    }
 }
 
 pub fn register(group: &str, handler: Handler) {

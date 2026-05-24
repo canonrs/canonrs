@@ -15,6 +15,8 @@ use web_sys::Element;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use crate::dom::lifecycle;
+use super::ownership;
+use super::lifecycle as lc;
 
 // Registry de init fns por grupo — registradas por cada crate
 thread_local! {
@@ -31,11 +33,20 @@ pub fn register(group: &str, init_fn: fn(Element)) {
 
 /// Despacha para a fn registrada do grupo
 fn dispatch(group: &str, el: Element) {
+    // Register in ownership tree
+    if let Some(uid) = el.get_attribute("data-rs-uid") {
+        ownership::register(&uid, None);
+        lc::set_state(&uid, lc::LifecycleState::Mount);
+    }
     DISPATCH.with(|d| {
         if let Some(f) = d.borrow().get(group) {
-            f(el);
+            f(el.clone());
         }
     });
+    // Transition to Active after dispatch
+    if let Some(uid) = el.get_attribute("data-rs-uid") {
+        lc::set_state(&uid, lc::LifecycleState::Active);
+    }
 }
 
 /// Inicializa todos os elementos [data-rs-interaction] dentro do root
@@ -71,12 +82,15 @@ pub fn init_document() {
 
 /// Reinit forçado — ignora init_guard (para hydration replay explícito)
 pub fn reinit_subtree(root: &Element) {
-    // marca todos os elementos com data-rs-reinit
+    // Transition all initialized components to Replay state
     let Ok(nodes) = root.query_selector_all("[data-rs-initialized]") else { return };
     for i in 0..nodes.length() {
         let Some(raw) = nodes.item(i) else { continue };
         let Ok(el)    = raw.dyn_into::<Element>() else { continue };
         let _ = el.set_attribute("data-rs-reinit", "");
+        if let Some(uid) = el.get_attribute("data-rs-uid") {
+            lc::set_state(&uid, lc::LifecycleState::Replay);
+        }
     }
     // reinit com guard que respeita data-rs-reinit
     init_subtree(root);
