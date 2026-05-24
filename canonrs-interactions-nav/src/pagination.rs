@@ -1,10 +1,10 @@
 //! Pagination Interaction Engine
 //! Core: dom/{state}
 
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use canonrs_interactions_core::dom::{state};
 use web_sys::Element;
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
 
 fn get_current_page(root: &Element) -> usize {
     root.get_attribute("data-rs-current-page").and_then(|s| s.parse().ok()).unwrap_or(1)
@@ -83,64 +83,50 @@ fn focus_page_link(root: &Element, page: usize) {
 }
 
 pub fn init(root: Element) {
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    // click
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::wrap(Box::new(move |e: web_sys::MouseEvent| {
+    listeners::listen(&uid, &root, "click", {
+        let root_c = root.clone();
+        move |e: web_sys::Event| {
+            let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if let Ok(Some(prev)) = target.closest("[data-rs-pagination-previous]") {
                 e.prevent_default();
-                if !is_disabled(&prev) {
-                    let cur = get_current_page(&root_cb);
-                    if cur > 1 { set_page(&root_cb, cur - 1); }
-                }
+                if !is_disabled(&prev) { let cur = get_current_page(&root_c); if cur > 1 { set_page(&root_c, cur-1); } }
                 return;
             }
             if let Ok(Some(next)) = target.closest("[data-rs-pagination-next]") {
                 e.prevent_default();
-                if !is_disabled(&next) { set_page(&root_cb, get_current_page(&root_cb) + 1); }
+                if !is_disabled(&next) { set_page(&root_c, get_current_page(&root_c)+1); }
                 return;
             }
             if let Ok(Some(link)) = target.closest("[data-rs-pagination-link]") {
                 e.prevent_default();
                 if let Some(p) = link.get_attribute("data-rs-page").and_then(|s| s.parse::<usize>().ok()) {
-                    set_page(&root_cb, p);
+                    set_page(&root_c, p);
                 }
             }
-        }));
-        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        }
+    });
 
-    // keyboard
-    {
-        let root_kb = root.clone();
-        let kb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::wrap(Box::new(move |e: web_sys::KeyboardEvent| {
+    listeners::listen(&uid, &root, "keydown", {
+        let root_c = root.clone();
+        move |e: web_sys::Event| {
+            let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let on_link = target.closest("[data-rs-pagination-link]").ok().flatten().is_some();
             let on_prev = target.closest("[data-rs-pagination-previous]").ok().flatten().is_some();
             let on_next = target.closest("[data-rs-pagination-next]").ok().flatten().is_some();
             if !on_link && !on_prev && !on_next { return; }
-            let cur   = get_current_page(&root_kb);
-            let total = get_total_pages(&root_kb);
+            let cur   = get_current_page(&root_c);
+            let total = get_total_pages(&root_c);
             match e.key().as_str() {
-                "ArrowRight" | "ArrowDown" => {
-                    e.prevent_default();
-                    if cur < total { set_page(&root_kb, cur + 1); }
-                    focus_page_link(&root_kb, cur + 1);
-                }
-                "ArrowLeft" | "ArrowUp" => {
-                    e.prevent_default();
-                    if cur > 1 { set_page(&root_kb, cur - 1); }
-                    focus_page_link(&root_kb, cur - 1);
-                }
-                "Home" => { e.prevent_default(); set_page(&root_kb, 1); focus_page_link(&root_kb, 1); }
-                "End"  => { e.prevent_default(); set_page(&root_kb, total); focus_page_link(&root_kb, total); }
+                "ArrowRight" | "ArrowDown" => { e.prevent_default(); if cur < total { set_page(&root_c, cur+1); } focus_page_link(&root_c, cur+1); }
+                "ArrowLeft"  | "ArrowUp"   => { e.prevent_default(); if cur > 1 { set_page(&root_c, cur-1); } focus_page_link(&root_c, cur-1); }
+                "Home" => { e.prevent_default(); set_page(&root_c, 1); focus_page_link(&root_c, 1); }
+                "End"  => { e.prevent_default(); set_page(&root_c, total); focus_page_link(&root_c, total); }
                 _ => {}
             }
-        }));
-        let _ = root.add_event_listener_with_callback("keydown", kb.as_ref().unchecked_ref());
-        kb.forget();
-    }
+        }
+    });
 }

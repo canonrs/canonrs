@@ -1,10 +1,10 @@
 //! Accordion Interaction Engine
 //! Core: dom/{state} + behavior/disclosure::{toggle, active_triggers, init_state}
 
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
-use canonrs_interactions_core::dom::{state};
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
 use canonrs_interactions_core::behavior::disclosure::{
     DisclosureConfig, SelectionMode, toggle, active_triggers, init_state,
 };
@@ -29,51 +29,43 @@ fn focus_trigger(el: &Element) {
 }
 
 pub fn init(root: Element) {
-
     init_state(&root, &make_config(&root));
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    // click
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+    listeners::listen(&uid, &root, "click", {
+        let root_c = root.clone();
+        move |e: web_sys::Event| {
+            let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if target.closest("[data-rs-accordion-trigger]").ok().flatten().is_none() { return; }
             let Some(item) = target.closest("[data-rs-accordion-item]").ok().flatten() else { return };
             if state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
-            toggle(&root_cb, &item, &make_config(&root_cb));
-        });
-        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+            toggle(&root_c, &item, &make_config(&root_c));
+        }
+    });
 
-    // hover
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
-            state::add(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
-        });
-        let _ = root.add_event_listener_with_callback("mouseover", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
-            let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
-            let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
-            state::remove(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
-        });
-        let _ = root.add_event_listener_with_callback("mouseout", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+    listeners::listen(&uid, &root, "mouseover", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
+        let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
+        state::add(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
+    });
 
-    // keyboard
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
+    listeners::listen(&uid, &root, "mouseout", move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
+        let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
+        let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
+        state::remove(&trigger, canonrs_interactions_core::dom::state::State::Hover.as_str());
+    });
+
+    listeners::listen(&uid, &root, "keydown", {
+        let root_c = root.clone();
+        move |e: web_sys::Event| {
+            let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(trigger) = target.closest("[data-rs-accordion-trigger]").ok().flatten() else { return };
-            let config   = make_config(&root_cb);
-            let triggers = active_triggers(&root_cb, &config);
+            let config   = make_config(&root_c);
+            let triggers = active_triggers(&root_c, &config);
             if triggers.is_empty() { return; }
             let pos = triggers.iter().position(|t| t == &trigger);
             let len = triggers.len();
@@ -81,24 +73,14 @@ pub fn init(root: Element) {
                 "Enter" | " " => {
                     e.prevent_default();
                     let Some(item) = trigger.closest("[data-rs-accordion-item]").ok().flatten() else { return };
-                    if !state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { toggle(&root_cb, &item, &config); }
+                    if !state::has(&item, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { toggle(&root_c, &item, &config); }
                 }
-                "ArrowDown" => {
-                    e.prevent_default();
-                    let next = pos.map(|p| (p + 1).min(len - 1)).unwrap_or(0);
-                    focus_trigger(&triggers[next]);
-                }
-                "ArrowUp" => {
-                    e.prevent_default();
-                    let prev = pos.map(|p| if p == 0 { 0 } else { p - 1 }).unwrap_or(0);
-                    focus_trigger(&triggers[prev]);
-                }
+                "ArrowDown" => { e.prevent_default(); let next = pos.map(|p| (p+1).min(len-1)).unwrap_or(0); focus_trigger(&triggers[next]); }
+                "ArrowUp"   => { e.prevent_default(); let prev = pos.map(|p| if p==0{0}else{p-1}).unwrap_or(0); focus_trigger(&triggers[prev]); }
                 "Home" => { e.prevent_default(); focus_trigger(&triggers[0]); }
-                "End"  => { e.prevent_default(); focus_trigger(&triggers[len - 1]); }
+                "End"  => { e.prevent_default(); focus_trigger(&triggers[len-1]); }
                 _ => {}
             }
-        });
-        let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        }
+    });
 }

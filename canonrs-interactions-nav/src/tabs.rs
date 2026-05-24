@@ -1,10 +1,10 @@
 //! Tabs Interaction Engine
 //! Core: dom/{state, query} + behavior/selection::activate_by_value
 
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use canonrs_interactions_core::dom::{state, query};
+use canonrs_interactions_core::runtime::listeners;
 use canonrs_interactions_core::behavior::selection::{SelectionConfig, activate_by_value};
 
 const TRIGGER_SEL: &str = "[data-rs-tabs-trigger]";
@@ -65,72 +65,48 @@ fn init_active_tab(root: &Element) {
 }
 
 pub fn init(root: Element) {
-
     init_active_tab(&root);
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    // click
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |e: web_sys::MouseEvent| {
+    listeners::listen(&uid, &root, "click", {
+        let root_c = root.clone();
+        move |e: web_sys::Event| {
+            let e = e.dyn_into::<web_sys::MouseEvent>().unwrap();
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             let Some(trigger) = target.closest(TRIGGER_SEL).ok().flatten() else { return };
             if state::has(&trigger, canonrs_interactions_core::dom::state::State::Disabled.as_str()) { return; }
             let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
-            activate_tab(&root_cb, &value);
-        });
-        let _ = root.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+            activate_tab(&root_c, &value);
+        }
+    });
 
-    // keyboard
-    {
-        let root_cb = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
+    listeners::listen(&uid, &root, "keydown", {
+        let root_c = root.clone();
+        move |e: web_sys::Event| {
+            let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
             let Some(target) = e.target().and_then(|t| t.dyn_into::<Element>().ok()) else { return };
             if target.closest(TRIGGER_SEL).ok().flatten().is_none() { return; }
-
-            let items: Vec<Element> = query::all(&root_cb, TRIGGER_SEL)
+            let items: Vec<Element> = query::all(&root_c, TRIGGER_SEL)
                 .into_iter()
                 .filter(|el| !state::has(el, canonrs_interactions_core::dom::state::State::Disabled.as_str()))
                 .collect();
             let len = items.len();
             let pos = items.iter().position(|el| el.contains(Some(target.as_ref())));
-
             match e.key().as_str() {
                 "Enter" | " " => {
                     e.prevent_default();
                     let Some(trigger) = target.closest(TRIGGER_SEL).ok().flatten() else { return };
                     if !state::has(&trigger, canonrs_interactions_core::dom::state::State::Disabled.as_str()) {
                         let value = trigger.get_attribute("data-rs-value").unwrap_or_default();
-                        activate_tab(&root_cb, &value);
+                        activate_tab(&root_c, &value);
                     }
                 }
-                "ArrowRight" | "ArrowDown" => {
-                    e.prevent_default();
-                    if let Some(p) = pos {
-                        let next = (p + 1) % len;
-                        if let Ok(h) = items[next].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
-                    }
-                }
-                "ArrowLeft" | "ArrowUp" => {
-                    e.prevent_default();
-                    if let Some(p) = pos {
-                        let prev = if p == 0 { len - 1 } else { p - 1 };
-                        if let Ok(h) = items[prev].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
-                    }
-                }
-                "Home" => {
-                    e.prevent_default();
-                    if let Ok(h) = items[0].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
-                }
-                "End" => {
-                    e.prevent_default();
-                    if let Ok(h) = items[len - 1].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); }
-                }
+                "ArrowRight" | "ArrowDown" => { e.prevent_default(); if let Some(p) = pos { let next = (p+1)%len; if let Ok(h) = items[next].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); } } }
+                "ArrowLeft"  | "ArrowUp"   => { e.prevent_default(); if let Some(p) = pos { let prev = if p==0{len-1}else{p-1}; if let Ok(h) = items[prev].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); } } }
+                "Home" => { e.prevent_default(); if let Ok(h) = items[0].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); } }
+                "End"  => { e.prevent_default(); if let Ok(h) = items[len-1].clone().dyn_into::<web_sys::HtmlElement>() { let _ = h.focus(); } }
                 _ => {}
             }
-        });
-        let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        }
+    });
 }
