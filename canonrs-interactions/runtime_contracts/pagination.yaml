@@ -1,9 +1,14 @@
 component: pagination
 route: /showcase/pagination
 interaction: nav
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  has_pages:
+    selector: "[data-rs-pagination]"
+    assert: exists

@@ -1,7 +1,7 @@
 component: tabs
 route: /showcase/tabs
 interaction: nav
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
@@ -12,4 +12,6 @@ behavior:
   activates_on_click:
     action: dispatch_click
     selector: "[data-rs-tabs-trigger]"
-    assert: exists
+    assert: state_includes
+    state: active
+    target: "[data-rs-tabs-trigger]"

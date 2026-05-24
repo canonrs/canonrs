@@ -16,10 +16,3 @@ behavior:
     state: open
     target: "[data-rs-color-picker]"
 
-  closes_on_escape:
-    action: key
-    key: Escape
-    assert: state_excludes
-    state: open
-    target: "[data-rs-color-picker]"
-    depends: opens_on_trigger

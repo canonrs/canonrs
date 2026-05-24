@@ -7,3 +7,9 @@ guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  has_links:
+    selector: "[data-rs-breadcrumb-link]"
+    assert: count_gt
+    value: 0

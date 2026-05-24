@@ -1,7 +1,7 @@
 component: menubar
 route: /showcase/menubar
 interaction: nav
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
@@ -9,3 +9,17 @@ guarantees:
   - no_orphans
 
 behavior:
+  opens_on_trigger:
+    action: dispatch_click
+    selector: "[data-rs-menubar-trigger]"
+    assert: state_includes
+    state: open
+    target: "[data-rs-menubar-menu]"
+
+  closes_on_escape:
+    action: key
+    key: Escape
+    assert: state_excludes
+    state: open
+    target: "[data-rs-menubar-menu]"
+    depends: opens_on_trigger

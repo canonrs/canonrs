@@ -1,9 +1,15 @@
 component: sidebar
 route: /showcase/sidebar
 interaction: nav
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
   - listeners_owned
   - no_orphans
+
+behavior:
+  renders_menu_items:
+    selector: "[data-rs-sidebar-menu-item]"
+    assert: count_gt
+    value: 0

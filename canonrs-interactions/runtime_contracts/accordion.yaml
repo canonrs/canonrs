@@ -1,7 +1,7 @@
 component: accordion
 route: /showcase/accordion
 interaction: nav
-min_listeners: 0
+min_listeners: 1
 
 guarantees:
   - no_replay
@@ -9,7 +9,9 @@ guarantees:
   - no_orphans
 
 behavior:
-  activates_on_click:
+  opens_on_trigger:
     action: dispatch_click
     selector: "[data-rs-accordion-trigger]"
-    assert: exists
+    assert: state_includes
+    state: open
+    target: "[data-rs-accordion-item]"
