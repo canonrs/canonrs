@@ -29,6 +29,59 @@ pub fn inject_hash_in_html(root: &PathBuf, hash: &str) {
     std::fs::write(&path, format!("window.__CANON_WASM_HASH__ = '{}'; ", hash)).ok();
 }
 
+/// Build a single interaction group as standalone wasm
+pub fn build_group(root: &PathBuf, group: &str) -> bool {
+    let crate_name = format!("canonrs-interactions-{}", group);
+    let crate_path = root.join("packages-rust/rs-canonrs").join(&crate_name);
+    let out_dir    = crate_path.join("dist");
+    let dest       = root.join("packages-rust/rs-canonrs/canonrs-client/assets/wasm").join(group);
+
+    if !crate_path.exists() {
+        eprintln!("[canon][wasm-group] crate not found: {}", crate_name);
+        return false;
+    }
+
+    std::fs::create_dir_all(&dest).ok();
+
+    let mut args = vec![
+        "build", crate_path.to_str().unwrap(),
+        "--target", "web",
+        "--out-dir", out_dir.to_str().unwrap(),
+    ];
+    if std::env::var("CANON_RELEASE").is_ok() { args.push("--release"); } else { args.push("--dev"); }
+
+    let t = Instant::now();
+    println!("[canon][wasm-group] building {}...", group);
+
+    let status = Command::new("wasm-pack").args(&args).status();
+    match status {
+        Ok(s) if s.success() => {
+            for entry in std::fs::read_dir(&out_dir).unwrap().filter_map(|e| e.ok()) {
+                let name = entry.file_name();
+                let name_str = name.to_str().unwrap();
+                if name_str.ends_with(".d.ts") { continue; }
+                if name_str.ends_with(".wasm") || name_str.ends_with(".js") {
+                    std::fs::copy(entry.path(), dest.join(name_str)).ok();
+                }
+            }
+            println!("[canon][wasm-group] {} done ({}ms)", group, t.elapsed().as_millis());
+            true
+        }
+        _ => {
+            eprintln!("[canon][wasm-group] {} FAILED ({}ms)", group, t.elapsed().as_millis());
+            false
+        }
+    }
+}
+
+/// Build all interaction groups as standalone wasms (capability-based)
+pub fn build_all_groups(root: &PathBuf) {
+    let groups = ["init", "nav", "data", "gesture", "overlay", "selection", "content"];
+    for group in groups {
+        build_group(root, group);
+    }
+}
+
 pub fn build_wasm(root: &PathBuf, state: &Arc<Mutex<SystemState>>, reload_tx: &broadcast::Sender<()>) {
     let crate_path = root.join("packages-rust/rs-canonrs/canonrs-interactions");
     let out_dir    = crate_path.join("dist");

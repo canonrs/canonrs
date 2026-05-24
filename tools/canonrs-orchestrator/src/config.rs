@@ -31,6 +31,11 @@ pub const CORE_WATCH_DIRS: &[&str] = &[
     "packages-rust/rs-canonrs/canonrs-core/build",
 ];
 
+/// Interaction groups — each can be built as standalone wasm
+pub const INTERACTION_GROUPS: &[&str] = &[
+    "init", "nav", "data", "gesture", "overlay", "selection", "content",
+];
+
 pub const WS_PORT: u16 = 9099;
 pub const WASM_DEBOUNCE_MS: u128 = 500;
 pub const CORE_DEBOUNCE_MS: u128 = 1000;

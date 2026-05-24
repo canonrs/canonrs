@@ -41,6 +41,45 @@ pub fn scan_all() {
 
 use canonrs_interactions_core::runtime::bootstrap;
 
+use wasm_bindgen::prelude::*;
+
+/// WASM entry point — initialize all init components in document
+#[wasm_bindgen]
+pub fn init_init_all() {
+    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+        let Ok(nodes) = doc.query_selector_all("[data-rs-interaction=\"init\"]") else { return };
+        for i in 0..nodes.length() {
+            let Some(raw) = nodes.item(i) else { continue };
+            if let Ok(el) = wasm_bindgen::JsCast::dyn_into::<web_sys::Element>(raw) {
+                if !el.has_attribute("data-rs-initialized") {
+                    init_init(el);
+                }
+            }
+        }
+    }
+}
+
+/// WASM entry point — initialize init subtree
+#[wasm_bindgen]
+pub fn init_init_subtree(root: web_sys::Element) {
+    let Ok(nodes) = root.query_selector_all("[data-rs-interaction=\"init\"]") else { return };
+    for i in 0..nodes.length() {
+        let Some(raw) = nodes.item(i) else { continue };
+        if let Ok(el) = wasm_bindgen::JsCast::dyn_into::<web_sys::Element>(raw) {
+            if !el.has_attribute("data-rs-initialized") {
+                init_init(el);
+            }
+        }
+    }
+    // also check root itself
+    if root.get_attribute("data-rs-interaction").as_deref() == Some("init") {
+        if !root.has_attribute("data-rs-initialized") {
+            init_init(root);
+        }
+    }
+}
+
+
 /// Registra o grupo init no bootstrap kernel.
 pub fn register() {
     bootstrap::register("init", init_init);

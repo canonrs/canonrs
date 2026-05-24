@@ -23,6 +23,45 @@ pub mod dropdown_menu;
 
 use canonrs_interactions_core::runtime::bootstrap;
 
+use wasm_bindgen::prelude::*;
+
+/// WASM entry point — initialize all overlay components in document
+#[wasm_bindgen]
+pub fn init_overlay_all() {
+    if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+        let Ok(nodes) = doc.query_selector_all("[data-rs-interaction=\"overlay\"]") else { return };
+        for i in 0..nodes.length() {
+            let Some(raw) = nodes.item(i) else { continue };
+            if let Ok(el) = wasm_bindgen::JsCast::dyn_into::<web_sys::Element>(raw) {
+                if !el.has_attribute("data-rs-initialized") {
+                    init_overlay(el);
+                }
+            }
+        }
+    }
+}
+
+/// WASM entry point — initialize overlay subtree
+#[wasm_bindgen]
+pub fn init_overlay_subtree(root: web_sys::Element) {
+    let Ok(nodes) = root.query_selector_all("[data-rs-interaction=\"overlay\"]") else { return };
+    for i in 0..nodes.length() {
+        let Some(raw) = nodes.item(i) else { continue };
+        if let Ok(el) = wasm_bindgen::JsCast::dyn_into::<web_sys::Element>(raw) {
+            if !el.has_attribute("data-rs-initialized") {
+                init_overlay(el);
+            }
+        }
+    }
+    // also check root itself
+    if root.get_attribute("data-rs-interaction").as_deref() == Some("overlay") {
+        if !root.has_attribute("data-rs-initialized") {
+            init_overlay(root);
+        }
+    }
+}
+
+
 /// Registra o grupo overlay no bootstrap kernel.
 /// Deve ser chamado uma vez no bootstrap da aplicação.
 pub fn register() {

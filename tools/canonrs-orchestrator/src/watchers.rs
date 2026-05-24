@@ -6,9 +6,9 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Instant;
 use notify::{Watcher, RecursiveMode, recommended_watcher, Event};
 use tokio::sync::broadcast;
-use crate::config::{WASM_CRATES, CORE_WATCH_DIRS, WASM_DEBOUNCE_MS, CORE_DEBOUNCE_MS};
+use crate::config::{WASM_CRATES, CORE_WATCH_DIRS, WASM_DEBOUNCE_MS, CORE_DEBOUNCE_MS, INTERACTION_GROUPS};
 use crate::state::SystemState;
-use crate::wasm::build_wasm;
+use crate::wasm::{build_wasm, build_group};
 
 pub fn spawn_wasm_watcher(
     root: &PathBuf,
@@ -41,7 +41,21 @@ pub fn spawn_wasm_watcher(
                                 p.file_name().unwrap_or_default().to_str().unwrap_or("?"));
                         }
                         last_build = Instant::now();
-                        build_wasm(&root, &state, &reload_tx);
+                        // Detect which group changed for targeted rebuild
+                        let changed_group = event.paths.iter().find_map(|p| {
+                            let path_str = p.to_string_lossy();
+                            INTERACTION_GROUPS.iter().find(|g| {
+                                path_str.contains(&format!("canonrs-interactions-{}", g))
+                            }).map(|g| *g)
+                        });
+                        if let Some(group) = changed_group {
+                            println!("[canon][wasm-watcher] targeted rebuild: {}", group);
+                            if build_group(&root, group) {
+                                reload_tx.send(()).ok();
+                            }
+                        } else {
+                            build_wasm(&root, &state, &reload_tx);
+                        }
                     }
                 }
                 _ => {}
