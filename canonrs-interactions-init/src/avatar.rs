@@ -1,43 +1,33 @@
 //! Avatar Init — image load/error fallback
 
 use web_sys::Element;
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
 use canonrs_interactions_core::dom::{state, query};
+use canonrs_interactions_core::runtime::listeners;
 
 pub fn init(root: Element) {
-    web_sys::console::log_1(&"[avatar] init called".into());
-
-    // se nao tem imagem — mostra fallback imediatamente
     let img = query::first(&root, "[data-rs-avatar-image]");
     if img.is_none() {
         state::add_state(&root, "fallback-open");
         state::remove_state(&root, "fallback-closed");
         return;
     }
-
     let img = img.unwrap();
-    // on error — mostra fallback
-    let root_err = root.clone();
-    let _img_err = img.clone();
-    let on_error = Closure::<dyn Fn(web_sys::Event)>::new(move |_: web_sys::Event| {
-        state::remove_state(&root_err, "loading");
-        state::add_state(&root_err, "error");
-        state::add_state(&root_err, "image-closed");
-        state::remove_state(&root_err, "image-open");
-        state::add_state(&root_err, "fallback-open");
-        state::remove_state(&root_err, "fallback-closed");
-    });
-    let _ = img.add_event_listener_with_callback("error", on_error.as_ref().unchecked_ref());
-    on_error.forget();
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    // on load — remove loading
-    let root_load = root.clone();
-    let on_load = Closure::<dyn Fn(web_sys::Event)>::new(move |_: web_sys::Event| {
-        state::remove_state(&root_load, "loading");
+    listeners::listen(&uid, &img, "error", {
+        let root_c = root.clone();
+        move |_: web_sys::Event| {
+            state::remove_state(&root_c, "loading");
+            state::add_state(&root_c, "error");
+            state::add_state(&root_c, "image-closed");
+            state::remove_state(&root_c, "image-open");
+            state::add_state(&root_c, "fallback-open");
+            state::remove_state(&root_c, "fallback-closed");
+        }
     });
-    let _ = img.add_event_listener_with_callback("load", on_load.as_ref().unchecked_ref());
-    on_load.forget();
 
+    listeners::listen(&uid, &img, "load", {
+        let root_c = root.clone();
+        move |_: web_sys::Event| { state::remove_state(&root_c, "loading"); }
+    });
 }
-

@@ -1,66 +1,48 @@
 //! Interactive — hover/focus/active states para button, icon_button
 
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
 use web_sys::Element;
 use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
 
 fn is_disabled(el: &Element) -> bool {
     el.get_attribute("data-rs-state").map(|s| s.contains("disabled")).unwrap_or(false)
 }
 
-/// Registra hover, focus, active states no elemento root
 pub fn init(root: &Element) {
-    {
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+
+    listeners::listen(&uid, root, "mouseenter", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-            if is_disabled(&r) { return; }
-            state::add_state(&r, "hover");
-        });
-        let _ = root.add_event_listener_with_callback("mouseenter", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
+        move |_: web_sys::Event| { if !is_disabled(&r) { state::add_state(&r, "hover"); } }
+    });
+
+    listeners::listen(&uid, root, "mouseleave", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-            state::remove_state(&r, "hover");
-            state::remove_state(&r, "active");
-        });
-        let _ = root.add_event_listener_with_callback("mouseleave", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
+        move |_: web_sys::Event| { state::remove_state(&r, "hover"); state::remove_state(&r, "active"); }
+    });
+
+    listeners::listen(&uid, root, "pointerdown", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::new(move |_: web_sys::PointerEvent| {
-            if is_disabled(&r) { return; }
-            state::add_state(&r, "active");
-        });
-        let _ = root.add_event_listener_with_callback("pointerdown", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    for ev in ["pointerup", "pointercancel"] {
+        move |_: web_sys::Event| { if !is_disabled(&r) { state::add_state(&r, "active"); } }
+    });
+
+    listeners::listen(&uid, root, "pointerup", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::PointerEvent)>::new(move |_: web_sys::PointerEvent| {
-            state::remove_state(&r, "active");
-        });
-        let _ = root.add_event_listener_with_callback(ev, cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
+        move |_: web_sys::Event| { state::remove_state(&r, "active"); }
+    });
+
+    listeners::listen(&uid, root, "pointercancel", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            if is_disabled(&r) { return; }
-            state::add_state(&r, "focus");
-        });
-        let _ = root.add_event_listener_with_callback("focus", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
+        move |_: web_sys::Event| { state::remove_state(&r, "active"); }
+    });
+
+    listeners::listen(&uid, root, "focus", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            state::remove_state(&r, "focus");
-        });
-        let _ = root.add_event_listener_with_callback("blur", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        move |_: web_sys::Event| { if !is_disabled(&r) { state::add_state(&r, "focus"); } }
+    });
+
+    listeners::listen(&uid, root, "blur", {
+        let r = root.clone();
+        move |_: web_sys::Event| { state::remove_state(&r, "focus"); }
+    });
 }

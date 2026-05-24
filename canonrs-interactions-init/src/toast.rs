@@ -1,45 +1,30 @@
-//! Toast Init — auto-dismiss + close button
+//! Toast Init
 
 use web_sys::Element;
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
-use crate::runtime::{dismiss};
+use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
+use crate::runtime::dismiss;
 
 pub fn init(root: Element) {
-
     let variant = root.get_attribute("data-rs-variant").unwrap_or_default();
-
-    // error nunca some automaticamente
     if variant == "error" {
         dismiss::init(&root, "[data-rs-toast-close]");
         return;
     }
-
-    // timer por tipo
     let default_duration = match variant.as_str() {
-        "success" => 3000,
-        "info"    => 3000,
-        "warning" => 6000,
-        _         => 5000,
+        "success" => 3000, "info" => 3000, "warning" => 6000, _ => 5000,
     };
-
     let duration_ms = root.get_attribute("data-rs-duration")
-        .and_then(|d| d.parse::<i32>().ok())
-        .unwrap_or(default_duration);
-
+        .and_then(|d| d.parse::<i32>().ok()).unwrap_or(default_duration);
     dismiss::init_with_timer(&root, "[data-rs-toast-close]", duration_ms);
 
-    // pause on hover/focus
-    let root_hover = root.clone();
-    let root_leave = root.clone();
-    let pause_cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-        canonrs_interactions_core::dom::state::add(&root_hover, canonrs_interactions_core::dom::state::State::Paused.as_str());
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+    listeners::listen(&uid, &root, "mouseenter", {
+        let r = root.clone();
+        move |_: web_sys::Event| { state::add(  &r, canonrs_interactions_core::dom::state::State::Paused.as_str()); }
     });
-    let resume_cb = Closure::<dyn Fn(web_sys::MouseEvent)>::new(move |_: web_sys::MouseEvent| {
-        canonrs_interactions_core::dom::state::remove(&root_leave, canonrs_interactions_core::dom::state::State::Paused.as_str());
+    listeners::listen(&uid, &root, "mouseleave", {
+        let r = root.clone();
+        move |_: web_sys::Event| { state::remove(&r, canonrs_interactions_core::dom::state::State::Paused.as_str()); }
     });
-    let _ = root.add_event_listener_with_callback("mouseenter", pause_cb.as_ref().unchecked_ref());
-    let _ = root.add_event_listener_with_callback("mouseleave", resume_cb.as_ref().unchecked_ref());
-    pause_cb.forget();
-    resume_cb.forget();
 }

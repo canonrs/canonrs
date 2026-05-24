@@ -1,13 +1,11 @@
-//! Field Init — focus-within + aria-describedby + label linking
+//! Field Init
 
 use web_sys::Element;
-use canonrs_interactions_core::dom::{query};
-use crate::runtime::{focus};
+use canonrs_interactions_core::dom::query;
+use crate::runtime::focus;
 
 pub fn init(root: Element) {
     focus::init_within(&root);
-
-    // conectar label → input via data-rs-uid
     if let (Some(input), Some(label)) = (
         query::first(&root, "input, textarea, select"),
         query::first(&root, "[data-rs-field-label]")
@@ -18,8 +16,6 @@ pub fn init(root: Element) {
             let _ = label.set_attribute("for", &uid);
         }
     }
-
-    // conectar aria-describedby: description + error → input
     let mut describedby = Vec::new();
     if let Some(desc) = query::first(&root, "[data-rs-field-description]") {
         let id = format!("fd-{}", root.get_attribute("data-rs-uid").unwrap_or_default());

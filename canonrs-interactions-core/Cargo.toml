@@ -17,6 +17,9 @@ web-sys = { version = "0.3", features = [
     "HtmlInputElement",
     "MutationObserver", "MutationObserverInit", "MutationRecord",
     "PointerEvent",
+    "History",
+    "ScrollToOptions", "ScrollBehavior",
+    "IntersectionObserver", "IntersectionObserverInit", "IntersectionObserverEntry",
 ] }
 
 [features]

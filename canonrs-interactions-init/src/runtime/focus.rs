@@ -1,46 +1,29 @@
 //! Focus — focus-within pattern para input_group, checkbox
 
-use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
 use web_sys::Element;
 use canonrs_interactions_core::dom::state;
+use canonrs_interactions_core::runtime::listeners;
 
-/// Registra focusin/focusout no root — adiciona/remove "focus-within"
 pub fn init_within(root: &Element) {
-    {
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+    listeners::listen(&uid, root, "focusin", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            state::add_state(&r, "focus-within");
-        });
-        let _ = root.add_event_listener_with_callback("focusin", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
+        move |_: web_sys::Event| { state::add_state(&r, "focus-within"); }
+    });
+    listeners::listen(&uid, root, "focusout", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            state::remove_state(&r, "focus-within");
-        });
-        let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        move |_: web_sys::Event| { state::remove_state(&r, "focus-within"); }
+    });
 }
 
-/// Registra focus/blur no root — adiciona/remove "focus"
 pub fn init_focus(root: &Element) {
-    {
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
+    listeners::listen(&uid, root, "focusin", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            state::add_state(&r, "focus");
-        });
-        let _ = root.add_event_listener_with_callback("focusin", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
-    {
+        move |_: web_sys::Event| { state::add_state(&r, "focus"); }
+    });
+    listeners::listen(&uid, root, "focusout", {
         let r = root.clone();
-        let cb = Closure::<dyn Fn(web_sys::FocusEvent)>::new(move |_: web_sys::FocusEvent| {
-            state::remove_state(&r, "focus");
-        });
-        let _ = root.add_event_listener_with_callback("focusout", cb.as_ref().unchecked_ref());
-        cb.forget();
-    }
+        move |_: web_sys::Event| { state::remove_state(&r, "focus"); }
+    });
 }

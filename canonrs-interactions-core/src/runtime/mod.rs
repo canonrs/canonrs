@@ -27,3 +27,5 @@ pub mod globals;
 pub mod subtree;
 
 pub mod scrollspy;
+
+pub mod observer;

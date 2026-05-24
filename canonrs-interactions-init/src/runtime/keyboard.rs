@@ -4,12 +4,12 @@
 //! - <a> (Link): keydown em cada item, sem .focus() — browser não move foco com seta
 //! - <button> (Button): keydown no root, com .focus() — evita disparo duplo
 
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Element;
 use std::rc::Rc;
 use std::cell::Cell;
 use canonrs_interactions_core::dom::{state, query};
+use canonrs_interactions_core::runtime::listeners;
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum Orientation {
@@ -19,9 +19,7 @@ pub enum Orientation {
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum ElementType {
-    /// <a> — keydown em cada item, sem .focus()
     Link,
-    /// <button> — keydown no root, com .focus()
     Button,
 }
 
@@ -53,13 +51,7 @@ fn move_focus(items: &[Element], idx: usize, element_type: ElementType) {
     }
 }
 
-fn navigate(
-    items: &[Element],
-    _current: Option<usize>,
-    next_idx: usize,
-    focus_state: &str,
-    element_type: ElementType,
-) {
+fn navigate(items: &[Element], next_idx: usize, focus_state: &str, element_type: ElementType) {
     for el in items { state::remove_state(el, focus_state); }
     if let Some(el) = items.get(next_idx) {
         state::add_state(el, focus_state);
@@ -67,8 +59,6 @@ fn navigate(
     }
 }
 
-/// Inicializa navegação por teclado.
-/// Retorna Rc<Cell<Option<usize>>> para sincronizar com click handler.
 pub fn init_nav(
     root: &Element,
     item_selector: &'static str,
@@ -77,15 +67,17 @@ pub fn init_nav(
     on_escape: Option<Box<dyn Fn() + 'static>>,
 ) -> Rc<Cell<Option<usize>>> {
     let current_idx: Rc<Cell<Option<usize>>> = Rc::new(Cell::new(None));
+    let uid = root.get_attribute("data-rs-uid").unwrap_or_default();
 
-    let root_kb = root.clone();
-    let idx_kb = current_idx.clone();
+    let root_kb     = root.clone();
+    let idx_kb      = current_idx.clone();
     let focus_state = config.focus_state;
-    let wrap = config.wrap;
+    let wrap        = config.wrap;
     let orientation = config.orientation;
     let element_type = config.element_type;
 
-    let cb = Closure::<dyn Fn(web_sys::KeyboardEvent)>::new(move |e: web_sys::KeyboardEvent| {
+    let handler = move |e: web_sys::Event| {
+        let e = e.dyn_into::<web_sys::KeyboardEvent>().unwrap();
         let items: Vec<Element> = query::all(&root_kb, item_selector)
             .into_iter()
             .filter(|el| el.get_attribute("data-rs-disabled").as_deref() != Some("true"))
@@ -94,8 +86,8 @@ pub fn init_nav(
 
         let prev_key = if orientation == Orientation::Horizontal { "ArrowLeft" } else { "ArrowUp" };
         let next_key = if orientation == Orientation::Horizontal { "ArrowRight" } else { "ArrowDown" };
-        let current = idx_kb.get();
-        let len = items.len();
+        let current  = idx_kb.get();
+        let len      = items.len();
 
         match e.key().as_str() {
             k if k == next_key => {
@@ -105,7 +97,7 @@ pub fn init_nav(
                     (Some(i), true)  => (i + 1) % len,
                     (None, _)        => 0,
                 };
-                navigate(&items, current, next, focus_state, element_type);
+                navigate(&items, next, focus_state, element_type);
                 idx_kb.set(Some(next));
             }
             "ArrowDown" if orientation == Orientation::Horizontal => {
@@ -122,17 +114,17 @@ pub fn init_nav(
                     (Some(i), _)     => i - 1,
                     (None, _)        => 0,
                 };
-                navigate(&items, current, prev, focus_state, element_type);
+                navigate(&items, prev, focus_state, element_type);
                 idx_kb.set(Some(prev));
             }
             "Home" => {
                 e.prevent_default();
-                navigate(&items, current, 0, focus_state, element_type);
+                navigate(&items, 0, focus_state, element_type);
                 idx_kb.set(Some(0));
             }
             "End" => {
                 e.prevent_default();
-                navigate(&items, current, len - 1, focus_state, element_type);
+                navigate(&items, len - 1, focus_state, element_type);
                 idx_kb.set(Some(len - 1));
             }
             "Enter" | " " => {
@@ -151,24 +143,26 @@ pub fn init_nav(
             }
             _ => {}
         }
-    });
+    };
 
+    let handler_rc = std::rc::Rc::new(handler);
     match element_type {
         ElementType::Button => {
-            let _ = root.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
+            let h = handler_rc.clone();
+            listeners::listen(&uid, root, "keydown", move |e| h(e));
         }
         ElementType::Link => {
-            for item in query::all(root, item_selector) {
-                let _ = item.add_event_listener_with_callback("keydown", cb.as_ref().unchecked_ref());
+            for (i, item) in query::all(root, item_selector).iter().enumerate() {
+                let uid_i = format!("{}:kb:{}", uid, i);
+                let h = handler_rc.clone();
+                listeners::listen(&uid_i, item, "keydown", move |e| h(e));
             }
         }
     }
-    cb.forget();
 
     current_idx
 }
 
-/// Helper — acha idx de um elemento na lista por uid
 pub fn find_idx_by_uid(items: &[Element], target: &Element) -> Option<usize> {
     let uid = target.get_attribute("data-rs-uid")?;
     items.iter().position(|el| el.get_attribute("data-rs-uid").as_deref() == Some(&uid))
