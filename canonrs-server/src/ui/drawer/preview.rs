@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::drawer_boundary::Drawer;
-use canonrs_core::primitives::DrawerSide;
+use super::drawer_boundary::{Drawer, DrawerSide};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

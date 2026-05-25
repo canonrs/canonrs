@@ -61,7 +61,19 @@ pub fn build_group(root: &PathBuf, group: &str) -> bool {
                 let name_str = name.to_str().unwrap();
                 if name_str.ends_with(".d.ts") { continue; }
                 if name_str.ends_with(".wasm") || name_str.ends_with(".js") {
-                    std::fs::copy(entry.path(), dest.join(name_str)).ok();
+                    let dst = dest.join(name_str);
+                    std::fs::copy(entry.path(), &dst).ok();
+                    // wasm-opt em release
+                    if name_str.ends_with(".wasm") && std::env::var("CANON_RELEASE").is_ok() {
+                        Command::new("wasm-opt")
+                            .args(["-Oz", "--enable-bulk-memory",
+                                   dst.to_str().unwrap(), "-o", dst.to_str().unwrap()])
+                            .status().ok();
+                        // gzip
+                        Command::new("gzip")
+                            .args(["-kf", dst.to_str().unwrap()])
+                            .status().ok();
+                    }
                 }
             }
             println!("[canon][wasm-group] {} done ({}ms)", group, t.elapsed().as_millis());
@@ -110,7 +122,18 @@ pub fn build_wasm(root: &PathBuf, state: &Arc<Mutex<SystemState>>, reload_tx: &b
                 let name = name.to_str().unwrap();
                 if name.ends_with(".d.ts") { continue; }
                 if name.ends_with(".wasm") || name.ends_with(".js") {
-                    std::fs::copy(entry.path(), dest.join(name)).ok();
+                    let dst = dest.join(name);
+                    std::fs::copy(entry.path(), &dst).ok();
+                    // wasm-opt + gzip em release
+                    if name.ends_with(".wasm") && std::env::var("CANON_RELEASE").is_ok() {
+                        Command::new("wasm-opt")
+                            .args(["-Oz", "--enable-bulk-memory",
+                                   dst.to_str().unwrap(), "-o", dst.to_str().unwrap()])
+                            .status().ok();
+                        Command::new("gzip")
+                            .args(["-kf", dst.to_str().unwrap()])
+                            .status().ok();
+                    }
                 }
             }
             let hash    = wasm_hash(&dest);

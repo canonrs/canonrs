@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::hover_card_boundary::{HoverCard, HoverCardTrigger, HoverCardContent};
-use canonrs_core::primitives::HoverCardSide;
+use super::hover_card_boundary::{HoverCard, HoverCardTrigger, HoverCardContent, HoverCardSide};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

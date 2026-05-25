@@ -1,6 +1,5 @@
-use canonrs_core::primitives::ResizableOrientation;
 use leptos::prelude::*;
-use super::resizable_boundary::{Resizable, ResizablePanel, ResizableHandle};
+use super::resizable_boundary::{Resizable, ResizablePanel, ResizableHandle, ResizableOrientation};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

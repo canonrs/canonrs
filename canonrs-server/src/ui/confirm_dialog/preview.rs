@@ -1,10 +1,5 @@
 use leptos::prelude::*;
-use super::confirm_dialog_boundary::{
-    ConfirmDialog, ConfirmDialogTrigger, ConfirmDialogPortal, ConfirmDialogOverlay,
-    ConfirmDialogContent, ConfirmDialogTitle, ConfirmDialogDescription,
-    ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm,
-};
-use canonrs_core::primitives::ConfirmDialogVariant;
+use super::confirm_dialog_boundary::{ConfirmDialog, ConfirmDialogTrigger, ConfirmDialogPortal, ConfirmDialogOverlay, ConfirmDialogContent, ConfirmDialogTitle, ConfirmDialogDescription, ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm, ConfirmDialogVariant};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

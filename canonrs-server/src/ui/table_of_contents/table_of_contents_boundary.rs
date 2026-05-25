@@ -3,7 +3,7 @@
 
 use leptos::prelude::*;
 use super::table_of_contents_ui::TableOfContents as TableOfContentsUi;
-use canonrs_core::TocItem;
+pub use canonrs_core::TocItem;
 use canonrs_core::primitives::table_of_contents::TocMode;
 
 #[component]

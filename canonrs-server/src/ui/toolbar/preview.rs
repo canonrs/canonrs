@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::toolbar_boundary::{Toolbar, ToolbarItem, ToolbarSeparator};
-use canonrs_core::primitives::ToolbarOrientation;
+use super::toolbar_boundary::{Toolbar, ToolbarItem, ToolbarSeparator, ToolbarOrientation};
 
 #[component]
 pub fn ToolbarShowcasePreview() -> impl IntoView {

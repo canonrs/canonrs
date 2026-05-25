@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::alert_boundary::Alert;
-use canonrs_core::primitives::AlertVariant;
+use super::alert_boundary::{Alert, AlertVariant};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

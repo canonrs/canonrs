@@ -20,8 +20,8 @@ use super::sidebar_ui::{
 };
 pub use canonrs_core::primitives::SidebarTriggerPrimitive as SidebarTrigger;
 pub use canonrs_core::primitives::SidebarVariant;
-use canonrs_core::primitives::BadgeVariant;
-use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
+pub use canonrs_core::primitives::BadgeVariant;
+pub use canonrs_core::meta::{VisibilityState, ActivityState, DisabledState};
 use crate::ui::badge::badge_boundary::Badge;
 use crate::ui::tooltip::tooltip_boundary::{Tooltip, TooltipTrigger, TooltipContent};
 use crate::ui::command::command_boundary::{Command, CommandItem};

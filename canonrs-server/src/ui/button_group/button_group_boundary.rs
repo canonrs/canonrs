@@ -1,6 +1,6 @@
 //! ButtonGroup Island — Canon Rule passthrough
 use leptos::prelude::*;
-use canonrs_core::ToggleState;
+pub use canonrs_core::ToggleState;
 
 
 #[component]

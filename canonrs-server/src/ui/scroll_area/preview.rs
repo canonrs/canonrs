@@ -1,6 +1,5 @@
-use canonrs_core::primitives::ScrollOrientation;
 use leptos::prelude::*;
-use super::scroll_area_boundary::ScrollArea;
+use super::scroll_area_boundary::{ScrollArea, ScrollOrientation};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

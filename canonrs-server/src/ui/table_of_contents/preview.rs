@@ -1,8 +1,8 @@
-use canonrs_core::primitives::table_of_contents::TocMode;
-use canonrs_core::TocItem;
-use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use leptos::prelude::*;
 use super::table_of_contents_boundary::TableOfContents;
+use super::table_of_contents_boundary::TocItem;
+use canonrs_core::primitives::table_of_contents::TocMode;
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use crate::ui::scroll_area::scroll_area_boundary::ScrollArea;
 
 fn demo_items() -> Vec<TocItem> {

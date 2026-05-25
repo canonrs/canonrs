@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::spinner_boundary::Spinner;
-use canonrs_core::primitives::SpinnerSize;
+use super::spinner_boundary::{Spinner, SpinnerSize};
 
 #[component]
 pub fn SpinnerShowcasePreview() -> impl IntoView {

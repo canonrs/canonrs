@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::popover_boundary::{Popover, PopoverTrigger, PopoverContent};
-use canonrs_core::primitives::PopoverSide;
+use super::popover_boundary::{Popover, PopoverTrigger, PopoverContent, PopoverSide};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

@@ -1,9 +1,8 @@
 use leptos::prelude::*;
-use super::button_group_boundary::ButtonGroup;
-use canonrs_core::ToggleState;
-use crate::ui::button::button_boundary::Button;
+use super::button_group_boundary::{ButtonGroup, ToggleState};
 use canonrs_core::primitives::{ButtonVariant, ButtonSize, ButtonStateHint};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
+use crate::ui::button::button_boundary::Button;
 
 #[component]
 pub fn ButtonGroupShowcasePreview() -> impl IntoView {

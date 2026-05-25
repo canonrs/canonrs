@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::icon_button_boundary::IconButton;
-use canonrs_core::primitives::{IconButtonVariant, IconButtonSize};
+use super::icon_button_boundary::{IconButton, IconButtonVariant, IconButtonSize};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols};
 

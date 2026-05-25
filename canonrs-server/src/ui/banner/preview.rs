@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::banner_boundary::Banner;
-use canonrs_core::primitives::BannerVariant;
+use super::banner_boundary::{Banner, BannerVariant};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

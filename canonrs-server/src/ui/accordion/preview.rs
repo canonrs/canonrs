@@ -1,7 +1,5 @@
 use leptos::prelude::*;
-use super::accordion_boundary::{Accordion, AccordionItem, AccordionTrigger, AccordionContent};
-use canonrs_core::primitives::AccordionSelection;
-use canonrs_core::meta::DisabledState;
+use super::accordion_boundary::{Accordion, AccordionItem, AccordionTrigger, AccordionContent, AccordionSelection, DisabledState};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

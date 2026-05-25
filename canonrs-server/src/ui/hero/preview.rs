@@ -2,9 +2,9 @@ use leptos::prelude::*;
 use canonrs_core::slot;
 use crate::blocks::hero::hero_block::{Hero, HeroVariant};
 use super::hero_boundary::{HeroTitle, HeroSubtitle, HeroDescription, HeroActions};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use crate::ui::button::button_boundary::Button;
 use canonrs_core::primitives::ButtonVariant;
-use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn HeroShowcasePreview() -> impl IntoView {

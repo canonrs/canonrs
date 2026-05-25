@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::status_dot_boundary::StatusDot;
-use canonrs_core::primitives::StatusDotVariant;
+use super::status_dot_boundary::{StatusDot, StatusDotVariant};
 
 #[component]
 pub fn StatusDotShowcasePreview() -> impl IntoView {

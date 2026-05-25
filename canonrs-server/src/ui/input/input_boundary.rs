@@ -3,11 +3,11 @@
 
 use leptos::prelude::*;
 use super::input_ui::Input as InputUi;
-use canonrs_core::primitives::{
+pub use canonrs_core::primitives::{
     InputVariant,
     InputSize
 };
-use canonrs_core::meta::DisabledState;
+pub use canonrs_core::meta::DisabledState;
 
 #[component]
 pub fn Input(

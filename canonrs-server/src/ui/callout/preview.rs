@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::callout_boundary::Callout;
-use canonrs_core::primitives::CalloutVariant;
+use super::callout_boundary::{Callout, CalloutVariant};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

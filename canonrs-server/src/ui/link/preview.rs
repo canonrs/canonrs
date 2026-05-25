@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::link_boundary::Link;
-use canonrs_core::primitives::LinkVariant;
+use super::link_boundary::{Link, LinkVariant};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

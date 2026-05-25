@@ -1,9 +1,5 @@
 use leptos::prelude::*;
-use super::empty_state_boundary::{
-    EmptyState, EmptyStateIcon, EmptyStateTitle,
-    EmptyStateDescription, EmptyStateAction,
-};
-use canonrs_core::primitives::EmptyStateVariant;
+use super::empty_state_boundary::{EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateAction, EmptyStateVariant};
 use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 

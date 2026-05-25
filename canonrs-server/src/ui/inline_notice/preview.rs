@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::inline_notice_boundary::InlineNotice;
-use canonrs_core::primitives::InlineNoticeVariant;
+use super::inline_notice_boundary::{InlineNotice, InlineNoticeVariant};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

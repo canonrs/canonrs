@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 
-[data-rs-pin-button]:hover {
+[data-rs-pin-button][data-rs-state~="hover"] {
   background: var(--pin-button-bg-hover);
 }
 

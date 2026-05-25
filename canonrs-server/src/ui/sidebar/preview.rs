@@ -1,9 +1,7 @@
 //! SidebarPreviewUnified — 10 demos via SidebarConfig
 
 use leptos::prelude::*;
-use super::sidebar_boundary::{SidebarConfig, NavGroup, NavItem, SidebarUnifiedBoundary};
-use canonrs_core::meta::VisibilityState;
-use canonrs_core::primitives::{SidebarVariant, BadgeVariant};
+use super::sidebar_boundary::{SidebarConfig, NavGroup, NavItem, SidebarUnifiedBoundary, VisibilityState, SidebarVariant, BadgeVariant};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use canonrs_core::primitives::layout::grid::{GridPrimitive as Grid, GridCols, GridGap};
 

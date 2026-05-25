@@ -1,9 +1,9 @@
 use leptos::prelude::*;
 use super::form_boundary::{Form, FormActions, FormSection, FormField, FormLabel, FormHint, FormError};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use crate::ui::button::button_boundary::Button;
 use canonrs_core::primitives::ButtonVariant;
 use crate::ui::input::input_boundary::Input;
-use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn FormShowcasePreview() -> impl IntoView {

@@ -3,7 +3,7 @@
 
 use leptos::prelude::*;
 use super::icon_button_ui::IconButton as IconButtonUi;
-use canonrs_core::primitives::{
+pub use canonrs_core::primitives::{
     IconButtonVariant,
     IconButtonSize
 };

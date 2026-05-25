@@ -3,12 +3,12 @@
 
 use leptos::prelude::*;
 pub use canonrs_core::primitives::DataTableDensity;
-use super::data_table_ui::{
-    DataTableStatic,
+pub use super::data_table_ui::{
     DataTableColumn,
     RowAction,
     BulkAction
 };
+use super::data_table_ui::DataTableStatic;
 use super::types::{ExpandRenderFn, RowIdFn, RowLabelFn};
 
 #[component]

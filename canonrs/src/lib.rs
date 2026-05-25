@@ -105,7 +105,7 @@ pub mod runtime {
 }
 
 // ── Dev ───────────────────────────────────────────────────────────────────────
-#[cfg(all(feature = "ssr", debug_assertions))]
+#[cfg(feature = "ssr")]
 pub use canonrs_server::dev::reload::with_dev_reload;
 
 // ── CSS ───────────────────────────────────────────────────────────────────────

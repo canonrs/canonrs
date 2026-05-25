@@ -52,18 +52,64 @@ pub fn build_css(root: &PathBuf) {
 }
 
 pub fn spawn_leptos(root: &PathBuf, project: &str, state: &Arc<Mutex<SystemState>>) -> Child {
-    println!("[canon][leptos] starting — project: {}", project);
-    state.lock().unwrap().leptos = "RUNNING".into();
-    let mut args = vec!["leptos", "watch", "--project", project];
-    let extra_features = std::env::var("CANON_FEATURES").unwrap_or_default();
-    if !extra_features.is_empty() {
-        args.push("--lib-features");
-        args.push(Box::leak(extra_features.into_boxed_str()));
+    let release = std::env::var("CANON_RELEASE").is_ok();
+    let wasm_opt = std::env::var("LEPTOS_WASM_OPT_VERSION")
+        .unwrap_or_else(|_| "version_118".to_string());
+
+    if release {
+        println!("[canon][leptos] building release — project: {}", project);
+        state.lock().unwrap().leptos = "BUILDING (release)".into();
+
+        // build release com wasm-opt e gzip
+        let status = Command::new("cargo")
+            .args(["leptos", "build", "--release", "--project", project])
+            .current_dir(root)
+            .env("CANON_ROOT", root)
+            .env("LEPTOS_WASM_OPT_VERSION", &wasm_opt)
+            .status()
+            .expect("cargo leptos not found");
+
+        if status.success() {
+            // gzip do wasm principal
+            let pkg_dir = root.join("target/site/pkg");
+            if pkg_dir.exists() {
+                for entry in std::fs::read_dir(&pkg_dir).unwrap().filter_map(|e| e.ok()) {
+                    let p = entry.path();
+                    if p.extension().map(|e| e == "wasm" || e == "js").unwrap_or(false) {
+                        Command::new("gzip")
+                            .args(["-kf", p.to_str().unwrap()])
+                            .status().ok();
+                    }
+                }
+                println!("[canon][leptos] gzip done");
+            }
+            state.lock().unwrap().leptos = "OK (release)".into();
+        } else {
+            eprintln!("[canon][leptos] release build FAILED");
+            state.lock().unwrap().leptos = "FAILED".into();
+        }
+
+        // serve em modo release
+        Command::new("cargo")
+            .args(["leptos", "serve", "--project", project])
+            .current_dir(root)
+            .env("CANON_ROOT", root)
+            .spawn()
+            .expect("cargo leptos not found")
+    } else {
+        println!("[canon][leptos] starting dev — project: {}", project);
+        state.lock().unwrap().leptos = "RUNNING".into();
+        let mut args = vec!["leptos", "watch", "--release", "--project", project];
+        let extra_features = std::env::var("CANON_FEATURES").unwrap_or_default();
+        if !extra_features.is_empty() {
+            args.push("--lib-features");
+            args.push(Box::leak(extra_features.into_boxed_str()));
+        }
+        Command::new("cargo")
+            .args(&args)
+            .current_dir(root)
+            .env("CANON_ROOT", root)
+            .spawn()
+            .expect("cargo leptos not found")
     }
-    Command::new("cargo")
-        .args(&args)
-        .current_dir(root)
-        .env("CANON_ROOT", root)
-        .spawn()
-        .expect("cargo leptos not found")
 }

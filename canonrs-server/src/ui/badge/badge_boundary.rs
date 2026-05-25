@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use super::badge_ui::Badge as BadgeUi;
-use canonrs_core::primitives::{
+pub use canonrs_core::primitives::{
     BadgeVariant,
     BadgeInteractivity
 };

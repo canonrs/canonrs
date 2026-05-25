@@ -1,8 +1,5 @@
 use leptos::prelude::*;
-use super::tooltip_boundary::{
-    TooltipProvider, Tooltip, TooltipTrigger, TooltipContent,
-};
-use canonrs_core::primitives::TooltipSide;
+use super::tooltip_boundary::{TooltipProvider, Tooltip, TooltipTrigger, TooltipContent, TooltipSide};
 
 #[component]
 pub fn TooltipShowcasePreview() -> impl IntoView {

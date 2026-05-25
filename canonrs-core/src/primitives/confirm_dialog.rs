@@ -149,11 +149,9 @@ pub fn ConfirmDialogTriggerPrimitive(
 #[component]
 pub fn ConfirmDialogPortalPrimitive(children: ChildrenFn) -> impl IntoView {
     view! {
-        <leptos::portal::Portal>
-            <div data-rs-confirm-dialog-portal="">
-                {children()}
-            </div>
-        </leptos::portal::Portal>
+        <div data-rs-confirm-dialog-portal="">
+            {children()}
+        </div>
     }
 }
 

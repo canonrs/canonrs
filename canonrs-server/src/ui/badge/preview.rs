@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::badge_boundary::Badge;
-use canonrs_core::primitives::{BadgeVariant, BadgeInteractivity};
+use super::badge_boundary::{Badge, BadgeVariant, BadgeInteractivity};
 use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]

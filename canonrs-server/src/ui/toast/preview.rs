@@ -1,6 +1,5 @@
 use leptos::prelude::*;
-use super::toast_boundary::Toast;
-use canonrs_core::primitives::ToastVariant;
+use super::toast_boundary::{Toast, ToastVariant};
 
 #[component]
 pub fn ToastShowcasePreview() -> impl IntoView {

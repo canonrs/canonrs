@@ -1,12 +1,8 @@
 use leptos::prelude::*;
-use super::modal_boundary::{
-    Modal, ModalTrigger, ModalPortal, ModalOverlay,
-    ModalContent, ModalTitle, ModalDescription,
-    ModalClose, ModalFooter,
-};
+use super::modal_boundary::{Modal, ModalTrigger, ModalPortal, ModalOverlay, ModalContent, ModalTitle, ModalDescription, ModalClose, ModalFooter};
+use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 use crate::ui::button::button_boundary::Button;
 use canonrs_core::primitives::ButtonVariant;
-use canonrs_core::primitives::layout::stack::{StackPrimitive as Stack, StackDirection, StackGap};
 
 #[component]
 pub fn ModalShowcasePreview() -> impl IntoView {
