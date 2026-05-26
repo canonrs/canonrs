@@ -1,0 +1,59 @@
+name: CanonRS Build
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    name: Build + Release Parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build canonrs
+        run: cargo build --manifest-path packages-rust/rs-canonrs/Cargo.toml
+        working-directory: /opt/docker/monorepo
+
+      - name: Build canonrs-core release
+        run: cargo build -p canonrs-core --release
+        working-directory: /opt/docker/monorepo/packages-rust/rs-canonrs
+
+      - name: Validate component_meta.rs generated in release
+        run: |
+          COUNT=$(find target/release/build/canonrs-core-*/out/generated/component_meta.rs 2>/dev/null | wc -l)
+          if [ "$COUNT" -eq 0 ]; then
+            echo "❌ component_meta.rs not generated in release"
+            exit 1
+          fi
+          echo "✅ component_meta.rs generated in release"
+        working-directory: /opt/docker/monorepo
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Build WASM release
+        run: CANON_RELEASE=1 cargo run -p canonrs-orchestrator canonrs-site
+        working-directory: /opt/docker/monorepo/packages-rust/rs-canonrs
+
+      - name: Check WASM size
+        run: |
+          python3 tools/testkit/canonrs/suites/14_build_artifacts/check_build_artifacts.py
+        working-directory: /opt/docker/monorepo

@@ -1,0 +1,71 @@
+name: CanonRS Browser
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  browser:
+    name: Browser + Hydration + Behavior
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-browser-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install cargo-leptos
+        run: cargo install cargo-leptos
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Build CSS
+        run: npm install && npm run build:css
+        working-directory: /opt/docker/monorepo/products/canonrs-site
+
+      - name: Start canonrs-site
+        run: |
+          cd packages-rust/rs-canonrs
+          cargo run -p canonrs-orchestrator canonrs-site &
+          sleep 30
+        working-directory: /opt/docker/monorepo
+
+      - name: Install Playwright
+        run: npm install playwright && npx playwright install chromium
+        working-directory: /opt/docker/monorepo
+
+      - name: 04 Browser / Hydration
+        run: bash tools/testkit/canonrs/suites/04_browser/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 05 Behavior
+        run: bash tools/testkit/canonrs/suites/05_behavior/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 06 Contracts
+        run: bash tools/testkit/canonrs/suites/06_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 07 Stability
+        run: bash tools/testkit/canonrs/suites/07_stability/run_all.sh
+        working-directory: /opt/docker/monorepo

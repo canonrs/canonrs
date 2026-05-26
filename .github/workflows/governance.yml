@@ -1,0 +1,88 @@
+name: CanonRS Governance
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  governance:
+    name: Architecture + Contracts + Usage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python deps
+        run: pip install pyyaml
+
+      - name: 01 Architecture
+        run: python3 tools/testkit/canonrs/suites/01_architecture/check_primitives.py
+        working-directory: /opt/docker/monorepo
+
+      - name: 02 Lifecycle
+        run: bash tools/testkit/canonrs/suites/02_lifecycle/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 03 Runtime
+        run: bash tools/testkit/canonrs/suites/03_runtime/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 08 Orchestrator
+        run: python3 tools/testkit/canonrs/suites/08_orchestrator/check_orchestrator_contracts.py
+        working-directory: /opt/docker/monorepo
+
+      - name: 09 Usage
+        run: bash tools/testkit/canonrs/suites/09_usage/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 10 Runtime Contracts
+        run: bash tools/testkit/canonrs/suites/10_runtime_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 11 Hydration Contracts
+        run: bash tools/testkit/canonrs/suites/11_hydration_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 12 Overlay Contracts
+        run: bash tools/testkit/canonrs/suites/12_overlay_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 13 DOM Driven Contracts
+        run: bash tools/testkit/canonrs/suites/13_dom_driven_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 14 Build Artifacts
+        run: bash tools/testkit/canonrs/suites/14_build_artifacts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 15 Island Contracts
+        run: bash tools/testkit/canonrs/suites/15_island_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 16 DOM Topology
+        run: bash tools/testkit/canonrs/suites/16_dom_topology/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 17 Signal Contracts
+        run: bash tools/testkit/canonrs/suites/17_signal_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 18 Canvas Graph Contracts
+        run: bash tools/testkit/canonrs/suites/18_canvas_graph_contracts/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 19 Runtime Groups
+        run: bash tools/testkit/canonrs/suites/19_runtime_groups/run_all.sh
+        working-directory: /opt/docker/monorepo
+
+      - name: 20 Build Parity
+        run: bash tools/testkit/canonrs/suites/20_build_parity/run_all.sh
+        working-directory: /opt/docker/monorepo
