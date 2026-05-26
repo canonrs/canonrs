@@ -12,7 +12,7 @@ CR-BLD-303: generated/* parity check
 import os, sys, glob
 
 CANONRS_DIR = _CANONRS_ROOT + ""
-TARGET_DIR  = "/opt/docker/monorepo/target"
+TARGET_DIR  = os.path.join(_CANONRS_ROOT, "target")
 
 REQUIRED_GENERATED = [
     "component_meta.rs",
