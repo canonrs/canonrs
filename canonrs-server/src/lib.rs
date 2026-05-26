@@ -1,3 +1,8 @@
+#![allow(unused_imports)]
+#![allow(unused_variables)]
+#![allow(unused_parens)]
+#![allow(clippy::should_implement_trait)]
+#![allow(clippy::unnecessary_lazy_evaluations)]
 #![allow(unused_variables)]
 #![recursion_limit = "512"]
 //! CanonRS Server — SSR UI components + Axum integration
