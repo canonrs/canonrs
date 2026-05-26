@@ -10,8 +10,6 @@ jobs:
   build-parity:
     name: Release Build Parity
     runs-on: ubuntu-latest
-    env:
-      CANON_SKIP_WASM: "1"
     steps:
       - uses: actions/checkout@v4
 
@@ -30,16 +28,15 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-core-${{ hashFiles('canonrs-core/Cargo.toml') }}
 
-      - name: Install wasm-pack
-        run: |
-          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
       - name: Build canonrs-core debug
-        run: cargo build -p canonrs-core --no-default-features
+        run: cargo build --manifest-path canonrs-core/Cargo.toml
+        env:
+          CARGO_TARGET_DIR: target
 
       - name: Build canonrs-core release
-        run: cargo build -p canonrs-core --release --no-default-features
+        run: cargo build --manifest-path canonrs-core/Cargo.toml --release
+        env:
+          CARGO_TARGET_DIR: target
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -53,4 +50,6 @@ jobs:
         run: bash tools/testkit/suites/20_build_parity/run_all.sh
 
       - name: Clippy canonrs-core
-        run: cargo clippy -p canonrs-core --no-default-features -- -D warnings -A clippy::should_implement_trait -A clippy::single_char_add_str -A clippy::manual_split_once
+        run: cargo clippy --manifest-path canonrs-core/Cargo.toml -- -D warnings -A clippy::should_implement_trait -A clippy::single_char_add_str -A clippy::manual_split_once
+        env:
+          CARGO_TARGET_DIR: target
