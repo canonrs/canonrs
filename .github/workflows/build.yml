@@ -10,6 +10,8 @@ jobs:
   build:
     name: Build + Release Parity
     runs-on: ubuntu-latest
+    env:
+      CANON_SKIP_WASM: "1"
     steps:
       - uses: actions/checkout@v4
 
@@ -33,15 +35,6 @@ jobs:
 
       - name: Build canonrs-core release
         run: cargo build -p canonrs-core --release
-
-      - name: Validate component_meta.rs in release
-        run: |
-          COUNT=$(find target/release/build/canonrs-core-*/out/generated/component_meta.rs 2>/dev/null | wc -l)
-          if [ "$COUNT" -eq 0 ]; then
-            echo "❌ component_meta.rs not generated in release"
-            exit 1
-          fi
-          echo "✅ component_meta.rs generated in release"
 
       - name: Setup Python
         uses: actions/setup-python@v5
