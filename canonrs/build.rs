@@ -3,7 +3,6 @@
 //! 2. Copia loader JS
 //! 3. Compila 1 WASM (canonrs-interactions)
 
-use std::process::Command;
 use std::path::PathBuf;
 use std::fs;
 
