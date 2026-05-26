@@ -19,53 +19,59 @@ jobs:
           toolchain: stable
           target: wasm32-unknown-unknown
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Cache cargo
+      - name: Cache cargo + cargo-leptos
         uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
+            ~/.cargo/bin/cargo-leptos
             target
-          key: ${{ runner.os }}-cargo-browser-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-leptos-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Install cargo-leptos
-        run: cargo install cargo-leptos
+        run: |
+          if ! command -v cargo-leptos &> /dev/null; then
+            cargo install cargo-leptos
+          fi
 
       - name: Install wasm-pack
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+        run: |
+          if ! command -v wasm-pack &> /dev/null; then
+            curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+          fi
 
-      - name: Build CSS
-        run: npm install && npm run build:css
-        working-directory: /opt/docker/monorepo/products/canonrs-site
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python deps
+        run: pip install pyyaml
 
       - name: Start canonrs-site
         run: |
-          cd packages-rust/rs-canonrs
           cargo run -p canonrs-orchestrator canonrs-site &
-          sleep 30
-        working-directory: /opt/docker/monorepo
+          sleep 60
+        env:
+          CANON_DEV: 1
 
       - name: Install Playwright
         run: npm install playwright && npx playwright install chromium
-        working-directory: /opt/docker/monorepo
 
       - name: 04 Browser / Hydration
-        run: bash tools/testkit/canonrs/suites/04_browser/run_all.sh
-        working-directory: /opt/docker/monorepo
+        run: bash tools/testkit/suites/04_browser/run_all.sh
 
       - name: 05 Behavior
-        run: bash tools/testkit/canonrs/suites/05_behavior/run_all.sh
-        working-directory: /opt/docker/monorepo
+        run: bash tools/testkit/suites/05_behavior/run_all.sh
 
       - name: 06 Contracts
-        run: bash tools/testkit/canonrs/suites/06_contracts/run_all.sh
-        working-directory: /opt/docker/monorepo
+        run: bash tools/testkit/suites/06_contracts/run_all.sh
 
       - name: 07 Stability
-        run: bash tools/testkit/canonrs/suites/07_stability/run_all.sh
-        working-directory: /opt/docker/monorepo
+        run: bash tools/testkit/suites/07_stability/run_all.sh

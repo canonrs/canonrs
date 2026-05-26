@@ -28,15 +28,13 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Build canonrs
-        run: cargo build --manifest-path packages-rust/rs-canonrs/Cargo.toml
-        working-directory: /opt/docker/monorepo
+      - name: Build canonrs debug
+        run: cargo build
 
       - name: Build canonrs-core release
         run: cargo build -p canonrs-core --release
-        working-directory: /opt/docker/monorepo/packages-rust/rs-canonrs
 
-      - name: Validate component_meta.rs generated in release
+      - name: Validate component_meta.rs in release
         run: |
           COUNT=$(find target/release/build/canonrs-core-*/out/generated/component_meta.rs 2>/dev/null | wc -l)
           if [ "$COUNT" -eq 0 ]; then
@@ -44,16 +42,17 @@ jobs:
             exit 1
           fi
           echo "✅ component_meta.rs generated in release"
-        working-directory: /opt/docker/monorepo
 
-      - name: Install wasm-pack
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
-      - name: Build WASM release
-        run: CANON_RELEASE=1 cargo run -p canonrs-orchestrator canonrs-site
-        working-directory: /opt/docker/monorepo/packages-rust/rs-canonrs
+      - name: Install Python deps
+        run: pip install pyyaml
 
-      - name: Check WASM size
-        run: |
-          python3 tools/testkit/canonrs/suites/14_build_artifacts/check_build_artifacts.py
-        working-directory: /opt/docker/monorepo
+      - name: 20 Build Parity
+        run: bash tools/testkit/suites/20_build_parity/run_all.sh
+
+      - name: Clippy
+        run: cargo clippy -- -D warnings
