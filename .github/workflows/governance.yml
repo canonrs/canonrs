@@ -144,7 +144,7 @@ jobs:
   governance-report:
     name: Governance Report
     runs-on: ubuntu-latest
-    needs: [static-governance, usage-governance, build-parity, governance-report]
+    needs: [static-governance, usage-governance, build-parity]
     if: always()
     steps:
       - uses: actions/checkout@v4
