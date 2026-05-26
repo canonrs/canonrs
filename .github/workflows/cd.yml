@@ -44,6 +44,17 @@ jobs:
         run: CANON_RELEASE=1 cargo run -p canonrs-orchestrator canonrs-site
         continue-on-error: true
 
+      - name: Setup Python for parity
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: 20 Build Parity
+        run: bash tools/testkit/suites/20_build_parity/run_all.sh
+
       - name: Generate certification report
         run: |
           python3 -c "
