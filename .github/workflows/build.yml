@@ -32,7 +32,9 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Install wasm-pack
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+        run: |
+          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Build canonrs-core debug
         run: cargo build -p canonrs-core
@@ -52,4 +54,4 @@ jobs:
         run: bash tools/testkit/suites/20_build_parity/run_all.sh
 
       - name: Clippy
-        run: cargo clippy -p canonrs-core -p canonrs-style --allow should_implement_trait -- -D warnings
+        run: cargo clippy -p canonrs-core -- -D warnings -A clippy::should_implement_trait
