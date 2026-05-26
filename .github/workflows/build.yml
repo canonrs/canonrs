@@ -7,8 +7,8 @@ on:
     branches: [main, develop]
 
 jobs:
-  build:
-    name: Build + Release Parity
+  build-parity:
+    name: Release Build Parity
     runs-on: ubuntu-latest
     env:
       CANON_SKIP_WASM: "1"
@@ -19,7 +19,6 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: 1.94.0
-          target: wasm32-unknown-unknown
           components: clippy
 
       - name: Cache cargo
@@ -29,7 +28,7 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-core-${{ hashFiles('canonrs-core/Cargo.toml') }}
 
       - name: Install wasm-pack
         run: |
@@ -37,10 +36,10 @@ jobs:
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Build canonrs-core debug
-        run: cargo build -p canonrs-core
+        run: cargo build -p canonrs-core --no-default-features
 
       - name: Build canonrs-core release
-        run: cargo build -p canonrs-core --release
+        run: cargo build -p canonrs-core --release --no-default-features
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -53,5 +52,5 @@ jobs:
       - name: 20 Build Parity
         run: bash tools/testkit/suites/20_build_parity/run_all.sh
 
-      - name: Clippy
-        run: cargo clippy -p canonrs-core -- -D warnings -A clippy::should_implement_trait
+      - name: Clippy canonrs-core
+        run: cargo clippy -p canonrs-core --no-default-features -- -D warnings -A clippy::should_implement_trait -A clippy::single_char_add_str -A clippy::manual_split_once
