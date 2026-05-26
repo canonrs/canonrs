@@ -106,6 +106,14 @@ jobs:
         with:
           toolchain: 1.94.0
 
+      - name: Install sccache
+        uses: mozilla-actions/sccache-action@v0.0.9
+
+      - name: Configure sccache
+        run: |
+          echo "SCCACHE_GHA_ENABLED=true" >> $GITHUB_ENV
+          echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV
+
       - name: Cache cargo
         uses: actions/cache@v4
         with:
