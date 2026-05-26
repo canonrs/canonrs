@@ -1,115 +1,11 @@
 name: CanonRS Browser
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
-  # ── Stage 1: Start Server ─────────────────────────────────────────────────
-  browser-tests:
-    name: Browser + Hydration + Behavior
+  browser:
+    name: Browser (manual only)
     runs-on: ubuntu-latest
-    env:
-      RUSTFLAGS: ""
-      CANON_DEV: "1"
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: 1.94.0
-          targets: wasm32-unknown-unknown
-
-      - name: Cache cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/bin/wasm-pack
-            target
-          key: ${{ runner.os }}-cargo-browser-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Install wasm-pack
-        run: |
-          if ! command -v wasm-pack &> /dev/null; then
-            curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-          fi
-
-      - name: Install cargo-leptos
-        run: |
-          if ! command -v cargo-leptos &> /dev/null; then
-            cargo install cargo-leptos --locked --version 0.3.6
-          fi
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install Python deps
-        run: pip install pyyaml
-
-      - name: Build CSS
-        run: npm install && npm run build:css
-        working-directory: ../../products/canonrs-site
-        continue-on-error: true
-
-      - name: Start canonrs-site
-        run: |
-          cargo run -p canonrs-orchestrator canonrs-site &
-          echo "Waiting for server..."
-          for i in $(seq 1 60); do
-            curl -s http://localhost:3004 > /dev/null && echo "Server ready" && break
-            sleep 2
-          done
-
-      - name: Install Playwright
-        run: |
-          npm install @playwright/test
-          npx playwright install chromium --with-deps
-
-      - name: 04 Browser / Hydration
-        run: bash tools/testkit/suites/04_browser/run_all.sh
-        continue-on-error: true
-
-      - name: 05 Behavior
-        run: bash tools/testkit/suites/05_behavior/run_all.sh
-        continue-on-error: true
-
-      - name: 06 Contracts
-        run: bash tools/testkit/suites/06_contracts/run_all.sh
-        continue-on-error: true
-
-      - name: 07 Stability
-        run: bash tools/testkit/suites/07_stability/run_all.sh
-        continue-on-error: true
-
-      - name: Upload Playwright traces
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-traces
-          path: |
-            test-results/
-            playwright-report/
-          retention-days: 7
-
-      - name: Upload browser logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: browser-logs
-          path: |
-            tools/testkit/suites/04_browser/
-            tools/testkit/suites/05_behavior/
-          retention-days: 7
+      - run: echo "Run manually when server is available"

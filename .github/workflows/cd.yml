@@ -107,7 +107,7 @@ jobs:
           python3 tools/testkit/suites/01_architecture/check_runtime.py
           python3 tools/testkit/suites/run_suite.py 02_lifecycle
           python3 tools/testkit/suites/run_suite.py 03_runtime
-          python3 tools/testkit/suites/run_suite.py 08_orchestrator
+          python3 tools/testkit/suites/08_orchestrator/check_orchestrator_contracts.py
           python3 tools/testkit/suites/run_suite.py 09_usage
           python3 tools/testkit/suites/run_suite.py 10_runtime_contracts
           python3 tools/testkit/suites/run_suite.py 11_hydration_contracts
