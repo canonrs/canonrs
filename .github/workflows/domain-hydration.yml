@@ -1,0 +1,29 @@
+name: Domain — Hydration
+
+on:
+  push:
+    paths:
+      - 'canonrs-server/src/ui/**'
+      - 'canonrs-core/src/primitives/**'
+  pull_request:
+    paths:
+      - 'canonrs-server/src/ui/**'
+
+jobs:
+  hydration:
+    name: Hydration Governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Hydration Contracts
+        run: bash tools/testkit/suites/11_hydration_contracts/run_all.sh
+      - name: DOM Topology
+        run: bash tools/testkit/suites/16_dom_topology/run_all.sh
+      - name: Island Contracts
+        run: bash tools/testkit/suites/15_island_contracts/run_all.sh
+      - name: UI Architecture
+        run: python3 tools/testkit/suites/01_architecture/check_ui.py

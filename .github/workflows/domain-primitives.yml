@@ -1,0 +1,27 @@
+name: Domain — Primitives
+
+on:
+  push:
+    paths:
+      - 'canonrs-core/src/primitives/**'
+      - 'canonrs-core/src/primitives_layout/**'
+  pull_request:
+    paths:
+      - 'canonrs-core/src/primitives/**'
+
+jobs:
+  primitives:
+    name: Primitives Governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Architecture
+        run: python3 tools/testkit/suites/01_architecture/check_primitives.py
+      - name: Signal Contracts
+        run: bash tools/testkit/suites/17_signal_contracts/run_all.sh
+      - name: Usage
+        run: bash tools/testkit/suites/09_usage/run_all.sh

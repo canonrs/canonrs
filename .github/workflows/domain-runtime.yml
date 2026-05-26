@@ -1,0 +1,30 @@
+name: Domain — Runtime
+
+on:
+  push:
+    paths:
+      - 'canonrs-interactions*/**'
+      - 'canonrs-interactions-init/**'
+      - 'canonrs-interactions-overlay/**'
+  pull_request:
+    paths:
+      - 'canonrs-interactions*/**'
+
+jobs:
+  runtime:
+    name: Runtime Governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Runtime
+        run: bash tools/testkit/suites/03_runtime/run_all.sh
+      - name: Runtime Contracts
+        run: bash tools/testkit/suites/10_runtime_contracts/run_all.sh
+      - name: Runtime Groups
+        run: bash tools/testkit/suites/19_runtime_groups/run_all.sh
+      - name: Overlay Contracts
+        run: bash tools/testkit/suites/12_overlay_contracts/run_all.sh
