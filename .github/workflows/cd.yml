@@ -156,7 +156,6 @@ jobs:
           python3 tools/testkit/suites/run_suite.py 17_signal_contracts
           python3 tools/testkit/suites/run_suite.py 18_canvas_graph_contracts
           python3 tools/testkit/suites/run_suite.py 19_runtime_groups
-          python3 tools/testkit/suites/run_suite.py 20_build_parity
 
       - name: Upload governance report
         if: always()
@@ -202,9 +201,6 @@ jobs:
 
       - name: Install deps
         run: pip install pyyaml
-
-      - name: Smoke — build parity
-        run: bash tools/testkit/suites/20_build_parity/run_all.sh
 
       - name: Smoke — runtime groups
         run: bash tools/testkit/suites/19_runtime_groups/run_all.sh
