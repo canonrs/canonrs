@@ -1,3 +1,4 @@
+#![allow(unused_variables)]
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! DataTable Primitive - HTML puro
@@ -120,7 +121,7 @@ pub fn DataTableExpandHeadCellPrimitive(
 #[component]
 pub fn DataTableExpandCellPrimitive(
     children: Children,
-    _row_id: String,
+    row_id: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -132,7 +133,7 @@ pub fn DataTableExpandCellPrimitive(
 
 #[component]
 pub fn DataTableExpandBtnPrimitive(
-    _row_id: String,
+    row_id: String,
 ) -> impl IntoView {
     view! {
         <button
@@ -149,7 +150,7 @@ pub fn DataTableExpandBtnPrimitive(
 #[component]
 pub fn DataTableExpandRowPrimitive(
     children: Children,
-    _row_id: String,
+    row_id: String,
     colspan: String,
 ) -> impl IntoView {
     view! {

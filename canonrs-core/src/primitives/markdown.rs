@@ -1,3 +1,4 @@
+#![allow(unused_variables)]
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! Markdown Primitive - HTML puro
@@ -10,7 +11,7 @@ pub fn MarkdownPrimitive(
     #[prop(into, default = String::new())] class: String,
     #[prop(into, default = String::new())] inner: String,
 ) -> impl IntoView {
-    let _uid_md = crate::infra::uid::generate("md");
+    let uid_md = crate::infra::uid::generate("md");
     // inner contém o HTML do layout completo (TOC + content)
     // É injetado via inner_html apenas em SSR — hydration via MarkdownContentPrimitive
     #[cfg(feature = "ssr")]

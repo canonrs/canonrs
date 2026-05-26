@@ -1,3 +1,4 @@
+#![allow(unused_variables)]
 //! @canon-level: strict
 //! Icon Primitive - SVG wrapper
 

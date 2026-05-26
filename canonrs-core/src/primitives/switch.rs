@@ -1,3 +1,4 @@
+#![allow(unused_variables)]
 //! @canon-level: strict
 //! @canon-owner: primitives-team
 //! Switch Primitive - HTML puro + ARIA

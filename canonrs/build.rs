@@ -67,7 +67,7 @@ fn main() {
     let crate_path = rs_canonrs.join("canonrs-interactions");
     let dist       = crate_path.join("dist");
     let wasm_file  = assets_wasm.join("canonrs_interactions_bg.wasm");
-    let src_dir    = crate_path.join("src");
+    let _src_dir    = crate_path.join("src");
 
     // skip se up-to-date — verifica todos os crates de interação
     if wasm_file.exists() {
