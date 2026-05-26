@@ -1,3 +1,4 @@
+#![allow(ambiguous_glob_reexports)]
 //! CanonRS Core — shared types, providers, primitives
 
 

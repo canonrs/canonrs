@@ -17,7 +17,7 @@ pub fn SwitchPrimitive(
 ) -> impl IntoView {
     let uid_sw = crate::infra::uid::generate("sw");
     let is_checked = checked == SelectionState::Selected;
-    let is_disabled = disabled == DisabledState::Disabled;
+    let _is_disabled = disabled == DisabledState::Disabled;
     let aria_checked = if is_checked { "true" } else { "false" };
     view! {
         <label

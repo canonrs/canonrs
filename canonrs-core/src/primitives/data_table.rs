@@ -120,7 +120,7 @@ pub fn DataTableExpandHeadCellPrimitive(
 #[component]
 pub fn DataTableExpandCellPrimitive(
     children: Children,
-    row_id: String,
+    _row_id: String,
     #[prop(into, default = String::new())] class: String,
 ) -> impl IntoView {
     view! {
@@ -132,7 +132,7 @@ pub fn DataTableExpandCellPrimitive(
 
 #[component]
 pub fn DataTableExpandBtnPrimitive(
-    row_id: String,
+    _row_id: String,
 ) -> impl IntoView {
     view! {
         <button
@@ -149,7 +149,7 @@ pub fn DataTableExpandBtnPrimitive(
 #[component]
 pub fn DataTableExpandRowPrimitive(
     children: Children,
-    row_id: String,
+    _row_id: String,
     colspan: String,
 ) -> impl IntoView {
     view! {
