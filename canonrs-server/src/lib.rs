@@ -1,3 +1,4 @@
+#![allow(unused_variables)]
 #![recursion_limit = "512"]
 //! CanonRS Server — SSR UI components + Axum integration
 

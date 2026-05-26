@@ -1,3 +1,4 @@
+#![allow(clippy::len_zero)]
 //! Generator: block_definitions.rs, layout_definitions.rs
 
 use std::fs;
