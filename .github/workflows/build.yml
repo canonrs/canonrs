@@ -10,6 +10,8 @@ jobs:
   build-core:
     name: Build canonrs-core
     runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: ""
     steps:
       - uses: actions/checkout@v4
 
