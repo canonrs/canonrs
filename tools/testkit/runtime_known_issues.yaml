@@ -1,0 +1,36 @@
+# Runtime Known Issues Registry
+# Formato: ID: severity, issue, owner, fix
+# Usado pelos testes para documentar debt conhecido
+
+RT-001:
+  severity: warn
+  issue: orphan listener growth during subtree mutation
+  detail: runtime re-initializes listeners but does not destroy previous ownership
+  owner: runtime/ownership
+  fix: ownership::destroy_subtree(root)
+  detected_by: mutation_storm_tests.cjs
+  threshold: orphan_growth > 5
+
+RT-004:
+  severity: warn
+  issue: data-rs-owner not propagated to datatable children
+  detail: rows and cells inside data-rs-datatable do not have data-rs-owner set to parent uid
+  owner: runtime/ownership
+  fix: propagate data-rs-owner to all children during init
+  detected_by: ownership_graph_tests.cjs
+
+RT-003:
+  severity: warn
+  issue: runtime events API missing — events(boot) not implemented
+  detail: window.__canonRuntime.events() function does not exist in current runtime
+  owner: runtime/events
+  fix: implement runtime.events(name) API
+  detected_by: runtime_artifacts_tests.cjs
+
+RT-002:
+  severity: warn
+  issue: snapshot API returns undefined for total_listeners
+  detail: snapshot contract inconsistent — some fields missing or returned as string
+  owner: runtime/snapshot
+  fix: normalize snapshot to structured object with total_listeners, orphan_listeners, replay_count, observers, namespaces
+  detected_by: hot_reload_tests.cjs
