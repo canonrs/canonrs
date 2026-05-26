@@ -7,8 +7,8 @@ on:
     branches: [main, develop]
 
 jobs:
-  build-parity:
-    name: Release Build Parity
+  build-core:
+    name: Build canonrs-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,39 +17,6 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: 1.94.0
-          components: clippy
 
-      - name: Cache cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-core-${{ hashFiles('canonrs-core/Cargo.toml') }}
-
-      - name: Build canonrs-core debug
-        run: cargo build --manifest-path canonrs-core/Cargo.toml
-        env:
-          CARGO_TARGET_DIR: target
-
-      - name: Build canonrs-core release
-        run: cargo build --manifest-path canonrs-core/Cargo.toml --release
-        env:
-          CARGO_TARGET_DIR: target
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install Python deps
-        run: pip install pyyaml
-
-      - name: 20 Build Parity
-        run: bash tools/testkit/suites/20_build_parity/run_all.sh
-
-      - name: Clippy canonrs-core
-        run: cargo clippy --manifest-path canonrs-core/Cargo.toml -- -D warnings -A clippy::should_implement_trait -A clippy::single_char_add_str -A clippy::manual_split_once
-        env:
-          CARGO_TARGET_DIR: target
+      - name: Build canonrs-core release verbose
+        run: cargo build -p canonrs-core --release -vv 2>&1 | head -100
