@@ -98,7 +98,13 @@ jobs:
 
       - name: Run static governance
         run: |
-          python3 tools/testkit/suites/run_suite.py 01_architecture
+          # 01_architecture sem check_bundle (precisa wasm)
+          python3 tools/testkit/suites/01_architecture/check_primitives.py
+          python3 tools/testkit/suites/01_architecture/check_ui.py
+          python3 tools/testkit/suites/01_architecture/check_boundary.py
+          python3 tools/testkit/suites/01_architecture/check_css.py
+          python3 tools/testkit/suites/01_architecture/check_preview.py
+          python3 tools/testkit/suites/01_architecture/check_runtime.py
           python3 tools/testkit/suites/run_suite.py 02_lifecycle
           python3 tools/testkit/suites/run_suite.py 03_runtime
           python3 tools/testkit/suites/run_suite.py 08_orchestrator

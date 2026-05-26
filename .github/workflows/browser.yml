@@ -43,10 +43,7 @@ jobs:
       - name: Install cargo-leptos
         run: |
           if ! command -v cargo-leptos &> /dev/null; then
-            wget -q https://github.com/leptos-rs/cargo-leptos/releases/download/v0.3.6/cargo-leptos-x86_64-unknown-linux-gnu.tar.gz
-            tar -xzf cargo-leptos-x86_64-unknown-linux-gnu.tar.gz
-            mv cargo-leptos ~/.cargo/bin/
-            chmod +x ~/.cargo/bin/cargo-leptos
+            cargo install cargo-leptos --locked --version 0.3.6
           fi
 
       - name: Setup Node
