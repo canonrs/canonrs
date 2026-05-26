@@ -36,8 +36,8 @@ jobs:
       - name: Build canonrs-core release
         run: cargo build -p canonrs-core --release
 
-      - name: Debug OUT_DIR
-        run: find target/release/build/canonrs-core-*/out/generated/ 2>/dev/null || echo "NOT FOUND" && find target -name "component_meta.rs" 2>/dev/null | head -5
+      - name: Find component_meta.rs
+        run: find target -name "component_meta.rs" 2>/dev/null | head -10 || echo "NOT FOUND"
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -49,6 +49,9 @@ jobs:
 
       - name: 20 Build Parity
         run: bash tools/testkit/suites/20_build_parity/run_all.sh
+
+      - name: Install clippy
+        run: rustup component add clippy --toolchain 1.94.0
 
       - name: Clippy canonrs-core
         run: cargo clippy -p canonrs-core
