@@ -1,6 +1,7 @@
 #![allow(unused_imports)]
 #![allow(unused_variables)]
 #![allow(unused_parens)]
+#![allow(ambiguous_glob_reexports)]
 #![allow(clippy::should_implement_trait)]
 #![allow(clippy::unnecessary_lazy_evaluations)]
 #![allow(unused_variables)]
