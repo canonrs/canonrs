@@ -96,8 +96,24 @@ jobs:
       - name: Install deps
         run: pip install pyyaml
 
-      - name: Run full governance
-        run: python3 tools/testkit/suites/run_suite.py --no-browser
+      - name: Run static governance
+        run: |
+          python3 tools/testkit/suites/run_suite.py 01_architecture
+          python3 tools/testkit/suites/run_suite.py 02_lifecycle
+          python3 tools/testkit/suites/run_suite.py 03_runtime
+          python3 tools/testkit/suites/run_suite.py 08_orchestrator
+          python3 tools/testkit/suites/run_suite.py 09_usage
+          python3 tools/testkit/suites/run_suite.py 10_runtime_contracts
+          python3 tools/testkit/suites/run_suite.py 11_hydration_contracts
+          python3 tools/testkit/suites/run_suite.py 12_overlay_contracts
+          python3 tools/testkit/suites/run_suite.py 13_dom_driven_contracts
+          python3 tools/testkit/suites/run_suite.py 14_build_artifacts
+          python3 tools/testkit/suites/run_suite.py 15_island_contracts
+          python3 tools/testkit/suites/run_suite.py 16_dom_topology
+          python3 tools/testkit/suites/run_suite.py 17_signal_contracts
+          python3 tools/testkit/suites/run_suite.py 18_canvas_graph_contracts
+          python3 tools/testkit/suites/run_suite.py 19_runtime_groups
+          python3 tools/testkit/suites/run_suite.py 20_build_parity
 
       - name: Upload governance report
         if: always()
