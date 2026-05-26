@@ -20,6 +20,7 @@ jobs:
         with:
           toolchain: 1.94.0
           target: wasm32-unknown-unknown
+          components: clippy
 
       - name: Cache cargo
         uses: actions/cache@v4
@@ -30,7 +31,7 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Build canonrs debug
+      - name: Build canonrs-core debug
         run: cargo build -p canonrs-core
 
       - name: Build canonrs-core release
@@ -47,5 +48,5 @@ jobs:
       - name: 20 Build Parity
         run: bash tools/testkit/suites/20_build_parity/run_all.sh
 
-      - name: Clippy canonrs-core
+      - name: Clippy
         run: cargo clippy -p canonrs-core -- -D warnings

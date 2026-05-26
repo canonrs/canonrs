@@ -9,6 +9,7 @@ use std::fs;
 
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
+    println!("cargo:rerun-if-env-changed=CANON_SKIP_WASM");
 
     // Watch interaction crates
     let manifest_dir_watch = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
