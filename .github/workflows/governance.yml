@@ -7,6 +7,27 @@ on:
     branches: [main, develop]
 
 jobs:
+  # ── Stage 0: Incremental (PR only) ──────────────────────────────────────
+  incremental:
+    name: Incremental Certification
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: pip install pyyaml
+
+      - name: Run incremental certification
+        run: python3 tools/testkit/lib/incremental.py
+
   # ── Stage 1: Static Governance ────────────────────────────────────────────
   static-governance:
     name: Static Governance (01-03)
