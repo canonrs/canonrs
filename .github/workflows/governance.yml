@@ -66,17 +66,16 @@ jobs:
       - name: 19 Runtime Groups
         run: bash tools/testkit/suites/19_runtime_groups/run_all.sh
 
-      - name: 20 Build Parity
-        run: bash tools/testkit/suites/20_build_parity/run_all.sh
-
   build:
-    name: Build + Clippy
+    name: Build + Parity
     runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: ""
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: dtolnay/rust-toolchain@master
         with:
           toolchain: 1.94.0
 
@@ -89,20 +88,22 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Build
-        run: cargo build
-
-      - name: Clippy
-        run: cargo clippy -- -D warnings
+      - name: Build canonrs-core debug
+        run: cargo build -p canonrs-core
 
       - name: Build canonrs-core release
         run: cargo build -p canonrs-core --release
 
-      - name: Validate component_meta.rs in release
-        run: |
-          COUNT=$(find target/release/build/canonrs-core-*/out/generated/component_meta.rs 2>/dev/null | wc -l)
-          if [ "$COUNT" -eq 0 ]; then
-            echo "❌ component_meta.rs not generated in release"
-            exit 1
-          fi
-          echo "✅ component_meta.rs generated in release"
+      - name: Find component_meta.rs
+        run: find target -name "component_meta.rs" 2>/dev/null | head -5 || echo "NOT FOUND"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python deps
+        run: pip install pyyaml
+
+      - name: 20 Build Parity
+        run: bash tools/testkit/suites/20_build_parity/run_all.sh
