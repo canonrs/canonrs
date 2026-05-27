@@ -4,7 +4,7 @@
 use serde::{Serialize, Deserialize};
 
 /// Typed capability enum — substitui &["open-close"] strings hardcoded
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 pub enum Capability {
     OpenClose,
     Selected,

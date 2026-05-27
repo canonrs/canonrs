@@ -222,3 +222,54 @@ jobs:
             exit 1
           fi
           echo "✅ All stages passed — certified"
+
+  ast-governance:
+    name: AST Governance
+    runs-on: ubuntu-latest
+    needs: static-governance
+    env:
+      RUSTFLAGS: ""
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.94.0
+
+      - uses: mozilla-actions/sccache-action@v0.0.9
+
+      - name: Configure sccache
+        run: |
+          echo "SCCACHE_GHA_ENABLED=true" >> $GITHUB_ENV
+          echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-analyzer-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build canonrs-analyzer
+        run: cargo build -p rs-canonrs-analyzer --release
+        working-directory: /opt/docker/monorepo/packages-rust
+
+      - name: AST — Primitives
+        run: |
+          ./packages-rust/target/release/canonrs-analyzer \
+            packages-rust/rs-canonrs/canonrs-core/src/primitives \
+            --strict
+
+      - name: AST — UI
+        run: |
+          ./packages-rust/target/release/canonrs-analyzer \
+            packages-rust/rs-canonrs/canonrs-server/src/ui
+
+      - name: Upload AST report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ast-report-${{ github.sha }}
+          path: /tmp/ast-report.json
+          retention-days: 14
