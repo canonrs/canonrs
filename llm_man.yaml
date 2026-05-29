@@ -1,0 +1,7 @@
+role: canonrs_package
+responsibility:
+  - rs-canonrs package
+capabilities:
+  - canonrs
+rules:
+  - Follow monorepo governance standards
