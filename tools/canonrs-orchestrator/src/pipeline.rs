@@ -105,9 +105,12 @@ pub fn spawn_leptos(root: &PathBuf, project: &str, state: &Arc<Mutex<SystemState
             args.push("--lib-features");
             args.push(Box::leak(extra_features.into_boxed_str()));
         }
+        let leptos_workspace = std::env::var("LEPTOS_WORKSPACE")
+            .map(std::path::PathBuf::from)
+            .unwrap_or_else(|_| root.clone());
         Command::new("cargo")
             .args(&args)
-            .current_dir(root)
+            .current_dir(&leptos_workspace)
             .env("CANON_ROOT", root)
             .spawn()
             .expect("cargo leptos not found")
