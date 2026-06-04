@@ -61,7 +61,7 @@ fn bind_legend(root: &Element, canvas: &HtmlCanvasElement, chart_type: &str, lab
         item.set_attribute("data-rs-state", if *active { "active" } else { "inactive" }).ok();
         let dot = doc.create_element("span").unwrap();
         dot.set_attribute("data-rs-chart-legend-dot", "").ok();
-        dot.unchecked_ref::<HtmlElement>().style().set_property("background", color).ok();
+        dot.unchecked_ref::<HtmlElement>().style().set_property("--chart-series-color", color).ok();
         let lbl = doc.create_element("span").unwrap();
         lbl.set_text_content(Some(name));
         item.append_child(&dot).ok();

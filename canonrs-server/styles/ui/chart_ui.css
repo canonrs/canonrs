@@ -103,6 +103,7 @@
   height: var(--chart-legend-dot-size);
   border-radius: var(--radius-full);
   flex-shrink: 0;
+  background: var(--chart-series-color, var(--color-primary));
 }
 
 [data-rs-datatable-row][data-rs-chart-highlight] {

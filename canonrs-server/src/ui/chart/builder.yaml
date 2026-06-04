@@ -19,7 +19,7 @@ use_cases: ["analytics dashboards", "data visualization"]
 related: ["avatar", "icon", "logo", "code_block", "markdown", "stat", "inline_meta", "kbd", "badge", "carousel"]
 file: chart_ui.css
 tokens: chart-*, size-*, space-*, radius-*, motion-*, font-*
-foundation: spacing, size, radius, motion, typography
+foundation: spacing, size, radius, motion, typography, color
 states: ["loading", "error"]
 island: chart_boundary.rs
 pillar: content_display

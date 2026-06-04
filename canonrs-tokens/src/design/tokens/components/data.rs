@@ -174,6 +174,13 @@ pub const DATA_TOKENS: &[FamilyToken] = &[
     FamilyToken::new("chart-legend-dot-size",     "10px"),
     FamilyToken::new("chart-sync-highlight-bg",   "var(--theme-primary-subtle, rgba(99,102,241,0.08))"),
     FamilyToken::new("chart-overlay-z",           "10"),
+    FamilyToken::new("chart-series-color",        "var(--color-primary)"),
+    FamilyToken::new("chart-series-color-1",      "var(--color-primary)"),
+    FamilyToken::new("chart-series-color-2",      "var(--color-warning)"),
+    FamilyToken::new("chart-series-color-3",      "var(--color-success)"),
+    FamilyToken::new("chart-series-color-4",      "var(--color-destructive)"),
+    FamilyToken::new("chart-series-color-5",      "var(--color-secondary)"),
+    FamilyToken::new("chart-series-color-6",      "var(--color-info)"),
 
     // ── Kbd ───────────────────────────────────────────────────────────────────
     FamilyToken::new("kbd-bg",           "var(--theme-surface-muted)"),

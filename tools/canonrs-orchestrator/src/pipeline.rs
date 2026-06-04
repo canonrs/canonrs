@@ -99,7 +99,7 @@ pub fn spawn_leptos(root: &PathBuf, project: &str, state: &Arc<Mutex<SystemState
     } else {
         println!("[canon][leptos] starting dev — project: {}", project);
         state.lock().unwrap().leptos = "RUNNING".into();
-        let mut args = vec!["leptos", "watch", "--release", "--project", project];
+        let mut args = vec!["leptos", "watch", "--project", project];
         let extra_features = std::env::var("CANON_FEATURES").unwrap_or_default();
         if !extra_features.is_empty() {
             args.push("--lib-features");
