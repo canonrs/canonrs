@@ -56,7 +56,11 @@ pub fn register() {
 
 /// Init subtree — replay-safe, delega para bootstrap kernel.
 pub fn init_subtree(root: &web_sys::Element) {
-    bootstrap::init_subtree(root);
+    use wasm_bindgen::JsCast;
+    let js: &wasm_bindgen::JsValue = root.as_ref();
+    if let Some(el) = js.dyn_ref() {
+        bootstrap::init_subtree(el);
+    }
 }
 pub fn init_data(el: web_sys::Element) {
     if el.has_attribute("data-rs-datatable")    { data_table::init(el.clone()); }

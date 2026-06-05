@@ -12,7 +12,7 @@ wasm-bindgen-futures = { workspace = true }
 js-sys = { workspace = true }
 web-sys = { workspace = true, features = [
     "Window", "Document", "Element", "HtmlElement",
-    "EventTarget", "MouseEvent", "PointerEvent", "KeyboardEvent",
+    "Event", "EventTarget", "MouseEvent", "PointerEvent", "KeyboardEvent",
     "FocusEvent", "WheelEvent", "TouchEvent",
     "CssStyleDeclaration", "DomRect", "NodeList",
     "console", "ResizeObserver", "ResizeObserverEntry",
@@ -26,6 +26,8 @@ web-sys = { workspace = true, features = [
     "DomTokenList",
     "History", "ScrollToOptions", "ScrollBehavior",
     "Storage", "Location", "HtmlElement", "HtmlButtonElement",
+    # listeners bridge — must match canonrs-interactions-core feature set
+    "Node",
 ] }
 
 canonrs-interactions-core = { path = "../canonrs-interactions-core" }
