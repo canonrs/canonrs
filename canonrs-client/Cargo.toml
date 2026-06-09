@@ -1,13 +1,18 @@
 [package]
 name = "canonrs-client"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "CanonRS client-side runtime"
 
 [lib]
 
 [dependencies]
 leptos                = { version = "0.8", default-features = false }
-canonrs-core          = { path = "../canonrs-core" }
+canonrs-core          = { version = "0.1.0",  path = "../canonrs-core" }
 time                  = { version = "0.3", features = ["macros", "formatting", "parsing"] }
 js-sys                = "0.3"
 uuid                  = { version = "1", features = ["v4", "js"] }

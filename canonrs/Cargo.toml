@@ -1,13 +1,18 @@
 [package]
 name = "canonrs"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "CanonRS — Leptos-based UI framework for canonical web applications"
 
 [dependencies]
-canonrs-core = { path = "../canonrs-core" }
-canonrs-server = { path = "../canonrs-server", default-features = false, optional = true }
-canonrs-client = { path = "../canonrs-client", optional = true }
-canonrs-interactions = { path = "../canonrs-interactions", optional = true }
+canonrs-core = { version = "0.1.0",  path = "../canonrs-core" }
+canonrs-server = { version = "0.1.0",  path = "../canonrs-server", default-features = false, optional = true }
+canonrs-client = { version = "0.1.0",  path = "../canonrs-client", optional = true }
+canonrs-interactions = { version = "0.1.0",  path = "../canonrs-interactions", optional = true }
 
 [features]
 default = []

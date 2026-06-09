@@ -1,7 +1,12 @@
 [package]
 name = "canonrs-server"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "CanonRS server-side rendering support"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
@@ -15,8 +20,8 @@ leptos_axum = { version = "0.8", optional = true }
 leptos = { version = "0.8", default-features = false }
 leptos_meta = { version = "0.8", default-features = false }
 leptos_router = { version = "0.8", default-features = false }
-canonrs-core = { path = "../canonrs-core" }
-canonrs-client = { path = "../canonrs-client", optional = true }
+canonrs-core = { version = "0.1.0",  path = "../canonrs-core" }
+canonrs-client = { version = "0.1.0",  path = "../canonrs-client", optional = true }
 futures-util = "0.3"
 pulldown-cmark = { version = "0.12.2", optional = true }
 syntect = { version = "5.2", default-features = false, features = ["default-syntaxes", "default-themes", "html", "regex-fancy"], optional = true }

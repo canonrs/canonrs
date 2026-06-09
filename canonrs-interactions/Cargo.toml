@@ -1,7 +1,12 @@
 [package]
 name = "canonrs-interactions"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "CanonRS interactions — aggregator crate"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -10,13 +15,13 @@ crate-type = ["cdylib", "rlib"]
 wasm-bindgen = { workspace = true }
 js-sys = { workspace = true }
 web-sys = { workspace = true, features = ["Window", "Document", "Element", "NodeList", "Node", "MutationObserver", "MutationObserverInit", "MutationRecord"] }
-canonrs-interactions-core      = { path = "../canonrs-interactions-core" }
-canonrs-interactions-init      = { path = "../canonrs-interactions-init" }
-canonrs-interactions-nav       = { path = "../canonrs-interactions-nav" }
-canonrs-interactions-data      = { path = "../canonrs-interactions-data" }
-canonrs-interactions-gesture   = { path = "../canonrs-interactions-gesture" }
-canonrs-interactions-overlay   = { path = "../canonrs-interactions-overlay" }
-canonrs-interactions-selection = { path = "../canonrs-interactions-selection" }
-canonrs-interactions-content   = { path = "../canonrs-interactions-content" }
+canonrs-interactions-core      = { version = "0.1.0",  path = "../canonrs-interactions-core" }
+canonrs-interactions-init      = { version = "0.1.0",  path = "../canonrs-interactions-init" }
+canonrs-interactions-nav       = { version = "0.1.0",  path = "../canonrs-interactions-nav" }
+canonrs-interactions-data      = { version = "0.1.0",  path = "../canonrs-interactions-data" }
+canonrs-interactions-gesture   = { version = "0.1.0",  path = "../canonrs-interactions-gesture" }
+canonrs-interactions-overlay   = { version = "0.1.0",  path = "../canonrs-interactions-overlay" }
+canonrs-interactions-selection = { version = "0.1.0",  path = "../canonrs-interactions-selection" }
+canonrs-interactions-content   = { version = "0.1.0",  path = "../canonrs-interactions-content" }
 
 

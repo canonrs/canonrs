@@ -1,7 +1,12 @@
 [package]
 name = "canonrs-interactions-gesture"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "CanonRS gesture interaction handlers"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -20,7 +25,7 @@ web-sys = { workspace = true, features = [
     "CustomEvent", "CustomEventInit",
 ] }
 
-canonrs-interactions-core = { path = "../canonrs-interactions-core" }
+canonrs-interactions-core = { version = "0.1.0",  path = "../canonrs-interactions-core" }
 
 [features]
 default = []
