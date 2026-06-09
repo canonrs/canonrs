@@ -1,5 +1,11 @@
 [package]
 name = "canonrs-tokens"
+exclude = [
+    "fonts/node_modules/**",
+    "themes/ingest/**",
+    "test_resolve.rs",
+    "FUTURO.md",
+]
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
